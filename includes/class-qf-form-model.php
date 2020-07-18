@@ -140,10 +140,7 @@ class QF_Form_Model {
 				)
 			);
 		}
-		var_dump($form_theme_data);
-		$theme_data =  QF_Form_Theme::get_instance()->prepare_theme_data_for_render( $form_theme_data );
-		var_dump($theme_data);
-		return $theme_data;
+		return  QF_Form_Theme::get_instance()->prepare_theme_data_for_render( $form_theme_data );
 	}
 
 	/**
