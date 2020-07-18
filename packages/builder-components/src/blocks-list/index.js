@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /**
  * Internal Dependencies
  */
@@ -52,7 +53,7 @@ const BlocksList = () => {
 									draggableId={ blocks[ type ].id }
 									index={ index }
 								>
-									{ () => (
+									{ ( provided, snapshot ) => (
 										<Fragment>
 											<div
 												className={ classnames(

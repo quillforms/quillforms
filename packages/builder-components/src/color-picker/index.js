@@ -1,7 +1,7 @@
 import { ColorPalette as WPColorPicker } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-const ColorPicker = ( { color, onChange } ) => {
+const ColorPicker = ( { value, onChange } ) => {
 	const colors = [
 		{
 			name: __( 'Pale pink' ),
@@ -61,11 +61,13 @@ const ColorPicker = ( { color, onChange } ) => {
 		},
 	];
 	return (
-		<WPColorPicker
-			colors={ colors }
-			value={ color }
-			onChange={ ( value ) => onChange( value ) }
-		/>
+		<div className="builder-components-color-picker">
+			<WPColorPicker
+				colors={ colors }
+				value={ value }
+				onChange={ ( val ) => onChange( val ) }
+			/>
+		</div>
 	);
 };
 export default ColorPicker;
