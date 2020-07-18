@@ -1,0 +1,27 @@
+{
+	"name": "@quillforms/base-styles",
+	"version": "1.0.0",
+	"description": "Base SCSS utilities and variables for QuillForms.",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"sass",
+		"scss",
+		"css"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/base-styles/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/base-styles"
+	},
+	"bugs": {
+		"url": "https://github.com/WordPress/gutenberg/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"publishConfig": {
+		"access": "public"
+	}
+}

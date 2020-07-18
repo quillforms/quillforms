@@ -1,0 +1,61 @@
+.builder-components-button {
+	display: inline-flex;
+	text-decoration: none;
+	font-size: 11px;
+	margin: 0;
+	border: 0;
+	outline: none;
+	cursor: pointer;
+	-webkit-appearance: none;
+	background: none;
+	transition-property: background;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
+
+	&.is-button {
+		padding: 0 10px 1px;
+		line-height: 26px;
+		height: 28px;
+		border-radius: 3px;
+		white-space: nowrap;
+		border-style: solid;
+	}
+
+	// Default button style
+	&.is-default {
+		color: #333;
+		background: #d9d9d9;
+		vertical-align: top;
+
+		&:hover {
+			background: #e6e6e6;
+		}
+	}
+
+	// Default button style
+	&.is-primary {
+		background: #333;
+		vertical-align: top;
+		color: #fff;
+
+		&:hover {
+			background: #4b4a4a;
+		}
+
+	}
+
+	&.is-large {
+		height: 30px;
+		line-height: 28px;
+		padding: 0 12px 2px;
+	}
+
+	&.is-small {
+		height: 24px;
+		line-height: 22px;
+		padding: 0 8px 1px;
+		font-size: 11px;
+	}
+
+}
+

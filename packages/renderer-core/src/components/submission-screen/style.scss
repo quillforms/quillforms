@@ -1,0 +1,56 @@
+.submission__screen {
+	& {
+		z-index: -1;
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		overflow-y: hidden;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: flex-end;
+		transition: opacity 0.8s ease-in-out;
+	}
+
+	&.active {
+		z-index: 1;
+		opacity: 1;
+	}
+
+	.sf-err-msg {
+		position: absolute;
+		bottom: 50%;
+		right: 0;
+		left: 0;
+		width: 100%;
+		border-radius: 0;
+	}
+
+	.submission__btnWrapper {
+		& {
+			display: flex;
+			position: relative;
+			height: 50%;
+			width: 100%;
+			padding: 45px;
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+		}
+
+		a.submission__btn {
+			margin-right: 10px;
+			padding: 0 25px;
+			height: 55px;
+			display: flex;
+			align-items: center;
+			border: none;
+			border-radius: 8px;
+			background: #000;
+			font-size: 20px;
+			font-weight: bold;
+			color: #fff;
+			outline: none;
+			cursor: pointer;
+		}
+	}
+}

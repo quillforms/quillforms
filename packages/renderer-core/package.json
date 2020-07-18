@@ -1,0 +1,38 @@
+{
+	"name": "@quillforms/renderer-core",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"builder",
+		"core"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/renderer-core/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/renderer-core"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@quillforms/blocks": "file:../blocks",
+		"@quillforms/renderer-answers": "file:../renderer-answers",
+		"@quillforms/renderer-components": "file:../renderer-components",
+		"@wordpress/element": "^2.14.0",
+		"framer-motion": "^1.6.17",
+		"lethargy": "^1.0.9",
+		"lodash": "^4.17.15",
+		"react-loader-spinner": "^3.1.5",
+		"styled-components": "^4.3.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

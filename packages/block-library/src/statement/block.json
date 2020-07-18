@@ -1,0 +1,13 @@
+{
+	"type":"statement",
+	"attributes": {
+		"buttonText": {
+			"type": "string",
+			"default": "Continue"
+		},
+		"quotationMarks": {
+			"type": "boolean",
+			"default": true
+		}
+	}
+}

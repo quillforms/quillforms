@@ -1,0 +1,102 @@
+.multiplechoice__options {
+	& {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		width: 100%;
+		margin-top: 15px;
+	}
+	&.valigned {
+		display: inline-flex;
+		flex-direction: column;
+		max-width: 100%;
+		align-items: stretch;
+		width: auto;
+	}
+	&:not(.valigned) {
+		justify-content: space-between;
+	}
+
+	.multipleChoice__optionWrapper {
+		& {
+			min-width: 215px;
+			border-radius: 10px;
+			cursor: pointer;
+			padding: 10px;
+			margin: 0 16px 16px 0;
+			box-shadow: none;
+			outline: none;
+			position: relative;
+			border-style: solid;
+			border-width: 1px;
+			border-color: rgba(0, 0, 0, 0.8);
+			appearance: none;
+			text-align: left;
+			user-select: none;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.1);
+			color: rgb(0, 0, 0);
+		}
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
+
+		&:hover .multipleChoice__optionKey .multipleChoice__optionKeyTip {
+			visibility: visible !important;
+			opacity: 1 !important;
+			transform: none !important;
+		}
+
+		&.selected {
+			background-color: rgba(0, 0, 0, 0.75);
+			color: #fff;
+			animation-name: sf-animation-vibrate;
+			animation-duration: 0.4s;
+			animation-timing-function: linear;
+			animation-fill-mode: forwards;
+		}
+
+		.multipleChoice__optionLabel {
+			flex-grow: 1;
+			padding-right: 5px;
+			overflow-wrap: break-word;
+			word-break: break-all;
+			max-width: calc(100% - 30px);
+		}
+
+		.multipleChoice__optionKey {
+			& {
+				position: relative;
+				width: 27px;
+				height: 27px;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				background: rgb(0, 0, 0);
+				color: #fff;
+			}
+
+			.multipleChoice__optionKeyTip {
+				position: absolute;
+				top: -19px;
+				background: #000;
+				color: #fff;
+				font-size: 10px;
+				font-weight: bold;
+				text-transform: uppercase;
+				padding: 2px 3px;
+				border-radius: 2px;
+				transition: 0.2s all ease-in-out;
+				transform: translateY(5px);
+				visibility: hidden;
+				opacity: 0;
+			}
+		}
+	}
+}

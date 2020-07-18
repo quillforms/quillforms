@@ -1,0 +1,23 @@
+.block-editor-block-icon-box {
+	& {
+		display: flex;
+		border-radius: 5px;
+		align-items: center;
+		justify-content: space-between;
+		width: 56px;
+		height: 28px;
+		padding: 0 6px;
+		font-size: 12px;
+	}
+
+	.block-editor-block-icon-box__block-order {
+		color: #fff;
+	}
+
+	svg {
+		width: 18px;
+		height: 18px;
+		color: #fff;
+		fill: #fff;
+	}
+}

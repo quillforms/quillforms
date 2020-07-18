@@ -1,0 +1,22 @@
+.builder-components-blocks-list__item-wrapper {
+	& {
+		display: flex !important;
+		outline: none;
+		user-select: none;
+		border: 1px solid transparent;
+		margin-bottom: 15px;
+	}
+
+	&.is-dragging {
+		border: 1px dashed #000 !important;
+		border-radius: 10px;
+	}
+
+	&:not(.is-dragging) {
+		transform: none !important;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}

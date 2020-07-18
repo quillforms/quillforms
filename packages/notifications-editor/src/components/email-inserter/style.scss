@@ -1,0 +1,29 @@
+.notifications-editor-email-inserter {
+	.notifications-editor-email-inserter__email-input-wrapper {
+
+		& {
+			margin-top: 10px;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			position: relative;
+		}
+
+		.notifications-editor-email-inserter__email-input {
+			width: 100%;
+		}
+
+		.notifications-editor-email-inserter__email-add-btn {
+			position: absolute;
+			right: 7px;
+			top: 17px;
+			bottom: 5px;
+		}
+
+	}
+
+	.notifications-editor-email-inserter__instructions {
+		font-size: 10px;
+		margin-top: 3px;
+	}
+}

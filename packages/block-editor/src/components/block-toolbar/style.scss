@@ -1,0 +1,41 @@
+.block-editor-block-toolbar {
+	& {
+		display: flex;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-size: 20px;
+		align-items: center;
+		color: #949191;
+		visibility: hidden;
+	}
+
+	> div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		cursor: pointer;
+	}
+
+	> div:hover {
+		background: #eee;
+		color: #545856;
+	}
+
+	svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	#more-options-menu li {
+		padding: 5px 12px !important;
+		font-size: 12px !important;
+		min-height: auto !important;
+	}
+	#more-options-menu li svg {
+		width: 20px;
+		height: 20px;
+	}
+}

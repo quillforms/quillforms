@@ -1,0 +1,160 @@
+.renderer-components-field-wrapper {
+	& {
+		z-index: 0;
+		visibility: hidden;
+		position: absolute;
+		max-width: 900px;
+		margin-right: auto;
+		margin-left: auto;
+		height: 100%;
+		right: 0;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		overflow-y: auto;
+		outline: none;
+		will-change: transform;
+	}
+
+	&.active {
+		z-index: 1;
+		visibility: visible;
+	}
+
+	&:not(.active) {
+		pointer-events: none;
+	}
+
+	&.moveUp {
+		-webkit-animation: animMoveUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		animation: animMoveUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+	}
+
+	&.moveDown {
+		-webkit-animation: animMoveDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		animation: animMoveDown 0.5s ecubic-bezier(0.7, 0, 0.3, 1) forwards;
+	}
+	&.active.moveUpFromDown {
+		-webkit-animation: animMoveUpFromDown 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		animation: animMoveUpFromDown 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+	}
+
+	&.active.moveDownFromUp {
+		-webkit-animation: animMoveDownFromUp 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		animation: animMoveDownFromUp 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+	}
+
+	section {
+		position: relative;
+		display: block;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.renderer-components-field-wrapper__content-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		overflow-y: auto;
+		flex-wrap: wrap;
+		padding: 40px 70px;
+		align-items: center;
+	}
+
+	.renderer-components-field-wrapper__content {
+		position: relative;
+	}
+}
+
+@keyframes animMoveUp {
+	0% {
+		transform: translate3d(0, 0, 0);
+		visibility: visible;
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.3;
+	}
+
+	100% {
+		transform: translate3d(0, -100vh, 0);
+		visibility: hidden;
+		opacity: 0;
+	}
+}
+
+@keyframes animMoveDown {
+	0% {
+		transform: translate3d(0, 0, 0);
+		visibility: visible;
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+	100% {
+		transform: translate3d(0, 100vh, 0);
+		visibility: hidden;
+		opacity: 0;
+	}
+}
+
+@keyframes animMoveUpFromDown {
+	0% {
+		transform: translate3d(0, 100vh, 0);
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 0.3;
+	}
+
+	100% {
+		transform: translate3d(0, 0, 0);
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+@keyframes animMoveDownFromUp {
+	0% {
+		transform: translate3d(0, -100vh, 0);
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 0.3;
+	}
+
+	100% {
+		transform: translate3d(0, 0, 0);
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+@keyframes sf-animation-vibrate {
+	0% {
+		transform: scale(1);
+	}
+
+	25% {
+		transform: scale(0.97);
+	}
+
+	50% {
+		transform: scale(0.99);
+	}
+
+	75% {
+		transform: scale(0.97);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}

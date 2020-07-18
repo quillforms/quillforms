@@ -1,0 +1,34 @@
+{
+	"name": "@quillforms/notifications-editor",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"builder",
+		"core"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/notifications-editor/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/notifications-editor"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@material-ui/core": "^4.4.3",
+		"@material-ui/icons": "^4.4.3",
+		"@quillforms/builder-components": "file:../builder-components",
+		"@wordpress/data": "^4.18.0",
+		"@wordpress/element": "^2.14.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

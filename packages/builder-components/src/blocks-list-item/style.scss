@@ -1,0 +1,50 @@
+.builder-components-blocks-list-item {
+	& {
+		display: flex;
+		padding: 10px;
+		border: 1px solid #e3e3e3;
+		border-radius: 10px;
+		align-items: center;
+		justify-content: center;
+		background: #e8e8e8;
+		width: 100%;
+		outline: none;
+	}
+
+	&.disabled {
+		opacity: 0.4;
+	}
+
+	.builder-components-blocks-list-item__icon-wrapper {
+		& {
+			border-radius: 4px;
+			margin-right: 10px;
+		}
+
+		.builder-components-blocks-list-item__icon {
+			& {
+				display: flex;
+				width: 30px;
+				justify-content: center;
+				height: 30px;
+				align-items: center;
+				color: #fff;
+				font-size: 16px;
+			}
+
+			svg {
+				width: 20px;
+				height: 20px;
+				fill: #fff;
+			}
+		}
+	}
+
+	.builder-components-blocks-list-item__block-name {
+		display: inline-flex;
+		align-items: center;
+		width: 100%;
+		height: 4px;
+		padding: 5px;
+	}
+}

@@ -1,0 +1,22 @@
+const BlockCounter = ( { counter } ) => {
+	return (
+		<div className="renderer-components-block-counter">
+			<span className="renderer-components-block-counter__value">
+				{ counter }
+			</span>
+			<span className="renderer-components-block-counter__arrow">
+				<svg
+					className="renderer-components-block-counter__arrow-icon"
+					focusable="false"
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+					role="presentation"
+				>
+					<path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+				</svg>
+			</span>
+		</div>
+	);
+};
+
+export default BlockCounter;

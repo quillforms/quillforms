@@ -1,0 +1,19 @@
+.messages-editor-control-wrapper {
+	& {
+		width: 100%;
+		padding: 13px 0;
+	}
+
+	&.horizontal {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	&.vertical {
+		display: flex;
+		flex-direction: column;
+		align-items: initial;
+		justify-content: center;
+	}
+}

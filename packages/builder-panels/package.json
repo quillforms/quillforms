@@ -1,0 +1,38 @@
+{
+	"name": "@quillforms/builder-panels",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"builder",
+		"core"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/builder-panels/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/builder-panels"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@material-ui/core": "^4.9.13",
+		"@quillforms/block-editor": "file:../block-editor",
+		"@quillforms/block-library": "file:../block-library",
+		"@quillforms/notifications-editor": "file:../notifications-editor",
+		"@quillforms/theme-editor": "file:../theme-editor",
+		"@wordpress/data": "^4.18.0",
+		"@wordpress/element": "^2.14.0",
+		"lodash": "^4.17.15",
+		"styled-components": "^5.1.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

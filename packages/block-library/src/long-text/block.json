@@ -1,0 +1,14 @@
+{
+	"type":"long-text",
+	"attributes": {
+		"setMaxCharacters": {
+			"type": "boolean",
+			"default": false
+		},
+		"maxCharacters": {
+			"type": "number",
+			"multipleOf": 1
+		}
+	}
+}
+

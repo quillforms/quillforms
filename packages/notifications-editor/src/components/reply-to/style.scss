@@ -1,0 +1,31 @@
+
+.notifications-editor-replyTo__no-emails-msg {
+	margin-top: 15px;
+	padding: 20px;
+	line-height: 2em;
+	background: #fff2cd;
+	font-weight: 500;
+	color: #c0945d;
+}
+
+.notifications-editor-replyTo__email-select {
+	background: #fff !important;
+	margin-top: 15px;
+	border: none !important;
+	padding: 0 10px;
+}
+.notifications-editor-replyTo__email-select::before,
+.notifications-editor-replyTo__email-select::after {
+	display: none !important;
+}
+.notifications-editor-replyTo__email-select .MuiSelect-selectMenu {
+	border: none !important;
+	box-shadow: none !important;
+	background: transparent !important;
+}
+
+.notifications-editor-replyTo__email-select-option {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}

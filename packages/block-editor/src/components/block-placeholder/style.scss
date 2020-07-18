@@ -1,0 +1,25 @@
+.block-editor-block-placeholder {
+	& {
+		flex: 1 1;
+		margin-left: 20px;
+		overflow: hidden;
+	}
+	.block-editor-block-placeholder__animation-tile {
+		& {
+			@include placeholder;
+			margin: 10px 0;
+			height: 12px;
+			width: 30%;
+			border-radius: 6px;
+		}
+
+		&:first-child {
+			margin: 0;
+			width: 90%;
+		}
+
+		&:nth-child(2) {
+			width: 60%;
+		}
+	}
+}

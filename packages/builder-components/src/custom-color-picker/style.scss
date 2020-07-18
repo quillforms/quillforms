@@ -1,0 +1,89 @@
+.color__pickerWrapper {
+	position: relative;
+}
+.saturation__wrapper {
+	position: relative;
+	height: 120px;
+	margin-bottom: 5px;
+}
+.hue__wrapper {
+	position: relative;
+	margin: 5px 0;
+	height: 10px;
+	cursor: pointer;
+}
+.color-previewSquare {
+	width: 30px;
+	height: 30px;
+	display: inline-flex;
+	flex-wrap: wrap;
+}
+button.color__pickerBtn {
+	color: #555;
+	display: inline-flex;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 13px;
+	height: 28px;
+	margin: 0;
+	padding: 0 0 0 35px;
+	text-align: right;
+	outline: none;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	overflow: hidden;
+	position: relative;
+	z-index: 0;
+}
+.color__pickerBtn .color__pickerResult__Text {
+	background: #f7f7f7;
+	border-left: 1px solid #ccc;
+	color: #555;
+	display: block;
+	user-select: none;
+	line-height: 2;
+	padding: 0 6px;
+	text-align: center;
+}
+.color__picker {
+	position: absolute;
+	top: 35px;
+	right: 0;
+	width: 220px;
+	padding: 10px;
+	background: #fff;
+	border-radius: 5px;
+	z-index: 1;
+}
+.hue-picker,
+.circle-picker {
+	width: 100% !important;
+}
+.circle-picker {
+	margin-top: 8px;
+	justify-content: space-between;
+}
+.circle-picker > span > div {
+	padding: 4px;
+	width: 34px !important;
+	height: 34px !important;
+	margin-right: 0 !important;
+	margin-left: 0 !important;
+}
+.editable__inputWrapper {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	background: #fff;
+	margin-top: 8px;
+	border-radius: 5px;
+	border: 1px solid #d0cccc;
+}
+.editable__inputWrapper input {
+	height: 100%;
+	border: none;
+	font-size: 14px;
+	background: transparent;
+	margin-left: 5px;
+	outline: none;
+}

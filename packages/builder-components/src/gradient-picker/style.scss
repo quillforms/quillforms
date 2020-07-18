@@ -1,0 +1,20 @@
+.components-circular-option-picker {
+	.components-circular-option-picker__option-wrapper {
+		& {
+			margin-right: 6px !important;
+			margin-left: 6px !important;
+		}
+
+		.components-circular-option-picker__option::after {
+			display: none;
+		}
+
+		svg {
+			fill: #000;
+		}
+	}
+
+	.components-angle-picker-control__input-field {
+		margin-top: 5px;
+	}
+}

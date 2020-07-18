@@ -1,0 +1,29 @@
+{
+	"name": "quillforms/quillforms",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"description": "The real revolution for WordPress forms",
+	"homepage": "https://github.com/quillforms/quillforms",
+	"keywords": [
+		"quillforms", "form", "wp", "react", "javascript"
+	],
+	"support": {
+		"issues": "https://github.com/WordPress/gutenberg/issues"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.6",
+		"squizlabs/php_codesniffer": "^3.5",
+		"phpcompatibility/php-compatibility": "^9.3",
+		"wp-coding-standards/wpcs": "^2.2",
+		"sirbrillig/phpcs-variable-analysis": "^2.8",
+		"wp-phpunit/wp-phpunit": "^5.4",
+		"automattic/jetpack-constants": "^1.1"
+	},
+	"require": {
+		"composer/installers": "~1.0"
+	},
+	"scripts": {
+		"format": "phpcbf --standard=phpcs.xml.dist --report-summary --report-source",
+		"lint": "phpcs --standard=phpcs.xml.dist"
+	}
+}

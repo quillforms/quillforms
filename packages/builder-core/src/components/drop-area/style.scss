@@ -1,0 +1,17 @@
+.builder-core-drop-area {
+	& {
+		flex-grow: 1;
+		overflow: hidden;
+		background: #fff;
+		border: 1px solid #dadada;
+		border-left: none;
+		min-height: 100%;
+	}
+
+	.builder-core-drop-area__container {
+		padding: 0;
+		overflow-y: auto;
+		height: 100%;
+	}
+
+}

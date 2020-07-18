@@ -1,0 +1,36 @@
+{
+	"name": "@quillforms/rich-text",
+	"version": "1.0.0-beta",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"renderer",
+		"components"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/rich-text/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/rich-text"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@material-ui/icons": "^4.9.1",
+		"@wordpress/element": "^2.14.0",
+		"emotion": "^10.0.27",
+		"slate": "^0.58.4",
+		"slate-history": "^0.58.4",
+		"slate-hyperscript": "^0.58.4",
+		"slate-react": "^0.58.4"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

@@ -1,0 +1,31 @@
+.renderer-components-block-counter {
+	& {
+		position: absolute;
+		right: 100%;
+		margin-right: 9px;
+		top: 0;
+		display: flex;
+		align-items: center;
+		font-size: 16px;
+		line-height: 2em;
+	}
+
+	.renderer-components-block-counter__value {
+		margin-right: 3px;
+	}
+
+	.renderer-components-block-counter__arrow {
+		& {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+		}
+
+		.renderer-components-block-counter__arrow-icon {
+			font-size: 16px;
+			width: 16px;
+			stroke: #000;
+			stroke-width: 2;
+		}
+	}
+}

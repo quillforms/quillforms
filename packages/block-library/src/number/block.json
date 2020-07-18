@@ -1,0 +1,21 @@
+{
+	"type":"number",
+	"attributes": {
+		"set_max": {
+			"type": "boolean",
+			"default": false
+		},
+		"max": {
+			"type": "number",
+			"default": 0
+		},
+		"set_min": {
+			"type": "boolean",
+			"default": false
+		},
+		"min": {
+			"type": "boolean",
+			"default": false
+		}
+	}
+}

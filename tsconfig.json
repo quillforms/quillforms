@@ -1,0 +1,6 @@
+{
+	"references": [
+		{ "path": "packages/block-editor" },
+	],
+	"files": []
+}

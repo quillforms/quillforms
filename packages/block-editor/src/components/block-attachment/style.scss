@@ -1,0 +1,39 @@
+.block-editor-block-attachment {
+	& {
+		display: inline-flex;
+		align-items: center;
+		border: 1px solid;
+		border-radius: 3px;
+	}
+
+	.block-editor-block-attachment__delete {
+		& {
+			height: 22px;
+			width: 22px;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		svg {
+			width: 14px;
+			height: 14px;
+		}
+
+		.block-editor-block-attachment__background-wrapper {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			opacity: 0.3;
+		}
+	}
+
+	.block-editor-block-attachment__image {
+		width: 22px;
+		height: 22px;
+		object-fit: cover;
+	}
+}

@@ -1,0 +1,21 @@
+.recipients__list {
+	margin: 10px 0;
+	white-space: nowrap;
+}
+.recipients__list .receipient__emailWrapper {
+	background: #b1b1b1;
+	padding: 5px 8px;
+	border-radius: 15px;
+	font-size: 11px;
+	margin-right: 6px;
+}
+.email__delete {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 8px;
+	cursor: pointer;
+}
+.email__delete svg {
+	width: 12px;
+	height: 12px;
+}

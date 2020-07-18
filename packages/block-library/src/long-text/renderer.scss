@@ -1,0 +1,24 @@
+.question__TextareaField {
+	& {
+		margin-top: 15px;
+		width: 100%;
+		border: none;
+		border-bottom: 1px solid;
+		outline: none;
+		font-size: 30px;
+		padding-bottom: 8px;
+		color: #333;
+		transition: 0.2s border ease-in-out;
+		background: transparent;
+		resize: none;
+	}
+
+	&::placeholder {
+		opacity: 0.5;
+	}
+
+	&:focus,
+	&.no-border {
+		border-bottom: 1px solid transparent;
+	}
+}
