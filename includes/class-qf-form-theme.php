@@ -64,7 +64,7 @@ class QF_Form_Theme {
 			'backgroundImage'  => array(
 				'type' => 'string',
 			),
-			'questionColor'    => array(
+			'questionsColor'    => array(
 				'type'    => 'string',
 				'default' => '#000',
 			),
@@ -80,6 +80,22 @@ class QF_Form_Theme {
 				'type'    => 'string',
 				'default' => '#000',
 			),
+			'errorsFontColor' => array(
+				'type'    => 'string',
+				'default' => '#fff',
+			),
+			'errorsBgColor' => array(
+				'type'	=> 'string',
+				'default' => '#f00'
+			),
+			'progressBarFillColor' => array(
+				'type' => 'string',
+				'default' => '#000'
+			),
+			'progressBarBgColor' => array(
+				'type' => 'string',
+				'default' => '#e3e3e3'
+			)
 		);
 	}
 
