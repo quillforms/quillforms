@@ -68,7 +68,7 @@ class QF_Form_Theme {
 				'type'    => 'string',
 				'default' => '#000',
 			),
-			'answerColor'      => array(
+			'answersColor'      => array(
 				'type'    => 'string',
 				'default' => '#000',
 			),
