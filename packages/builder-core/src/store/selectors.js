@@ -1,4 +1,11 @@
-import { select } from '@wordpress/data';
+/**
+ * WordPress Dependencies
+ */
+import { createRegistrySelector } from '@wordpress/data';
+
+/**
+ * External Dependencies
+ */
 import { forEach } from 'lodash';
 /**
  * Get the whole form structure
@@ -43,14 +50,16 @@ export function getBlockById( state, id ) {
  *
  * @return {Array} Editable fields
  */
-export function getEditableFields( state ) {
-	return [ ...state.fields ].filter( ( field ) => {
-		const registeredBlock = select( 'quillForms/blocks' ).getBlocks()[
-			field.type
-		];
-		return registeredBlock.supports.displayOnly === false;
-	} );
-}
+export const getEditableFields = createRegistrySelector(
+	( select ) => ( state ) => {
+		return [ ...state.fields ].filter( ( field ) => {
+			const registeredBlock = select( 'quillForms/blocks' ).getBlocks()[
+				field.type
+			];
+			return registeredBlock.supports.displayOnly === false;
+		} );
+	}
+);
 
 /**
  * Retruns the previous editable fields -- Editable fields are the fields who have {displayOnly} property equals false
@@ -61,36 +70,37 @@ export function getEditableFields( state ) {
  *
  * @return {Array} Previous Editable fields
  */
-export function getPreviousEditableFields( state, id, category ) {
-	const prevEditableFields = [];
-	switch ( category ) {
-		case 'welcomeScreens':
-			return [];
-		case 'thankyouScreens':
-			return getEditableFields( state );
-		case 'fields': {
-			const fieldIndex = [ ...state.fields ].findIndex(
-				( field ) => field.id === id
-			);
-			if ( fieldIndex > 0 ) {
-				const prevFormFields = [ ...state.fields ].slice(
-					0,
-					fieldIndex
+export const getPreviousEditableFields = createRegistrySelector(
+	( select ) => ( state, id, category ) => {
+		const prevEditableFields = [];
+		switch ( category ) {
+			case 'welcomeScreens':
+				return [];
+			case 'thankyouScreens':
+				return getEditableFields( state );
+			case 'fields': {
+				const fieldIndex = [ ...state.fields ].findIndex(
+					( field ) => field.id === id
 				);
-				forEach( prevFormFields, ( field ) => {
-					const registeredBlock = select(
-						'quillForms/blocks'
-					).getBlocks()[ field.type ];
-					if ( ! registeredBlock.supports.displayOnly ) {
-						prevEditableFields.push( field );
-					}
-				} );
+				if ( fieldIndex > 0 ) {
+					const prevFormFields = [ ...state.fields ].slice(
+						0,
+						fieldIndex
+					);
+					forEach( prevFormFields, ( field ) => {
+						const registeredBlock = select(
+							'quillForms/blocks'
+						).getBlocks()[ field.type ];
+						if ( ! registeredBlock.supports.displayOnly ) {
+							prevEditableFields.push( field );
+						}
+					} );
+				}
 			}
 		}
+		return prevEditableFields;
 	}
-
-	return prevEditableFields;
-}
+);
 
 /**
  * Retruns the editable fields length
