@@ -26,7 +26,7 @@ const BlockToolbar = ( { id, category, insertVariable } ) => {
 
 	return (
 		<div className="block-editor-block-toolbar">
-			<Tooltip title="Controls" placement="bottom">
+			<Tooltip title="Controls" placement="bottom" arrow={ true }>
 				<div
 					role="presentation"
 					className="block-editor-block-toolbar__controls-icon"

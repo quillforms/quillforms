@@ -41,7 +41,7 @@ const BlockActions = ( { id, category } ) => {
 
 	return (
 		<div className="block-editor-block-actions">
-			<Tooltip title="More options" placement="bottom">
+			<Tooltip title="More options" placement="bottom" arrow={ true }>
 				<div
 					role="presentation"
 					className="block-editor-block-actions__icon-wrapper"
