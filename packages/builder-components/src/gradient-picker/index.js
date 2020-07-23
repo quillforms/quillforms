@@ -1,4 +1,3 @@
-import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { __experimentalGradientPicker } from '@wordpress/components';
 const GradientPicker = ( { value, onChange } ) => {
@@ -139,13 +138,13 @@ const GradientPicker = ( { value, onChange } ) => {
 	};
 
 	return (
-		<Fragment>
+		<div className="builder-components-gradient-picker">
 			<__experimentalGradientPicker
 				value={ value }
 				onChange={ onChange }
 				{ ...{ ...props } }
 			/>
-		</Fragment>
+		</div>
 	);
 };
 export default GradientPicker;
