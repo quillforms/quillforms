@@ -9,6 +9,8 @@
 
 		& {
 			position: relative;
+			display: flex;
+			flex-wrap: wrap;
 			padding: 6px 14px;
 			border: 1px solid #c5c5c5;
 			background: #fff;
@@ -24,7 +26,7 @@
 		svg {
 			position: absolute;
 			right: 8px;
-			top: 2px;
+			top: 4px;
 		}
 	}
 
