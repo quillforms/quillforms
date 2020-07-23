@@ -14,6 +14,8 @@ export function Button( props, ref ) {
 		isPrimary,
 		isLarge,
 		isSmall,
+		isFlat,
+		isDanger,
 		isTertiary,
 		className,
 		disabled,
@@ -27,6 +29,8 @@ export function Button( props, ref ) {
 		'is-large': isLarge,
 		'is-small': isSmall,
 		'is-tertiary': isTertiary,
+		'is-flat': isFlat,
+		'is-danger': isDanger,
 	} );
 
 	const tag = 'button';

@@ -19,13 +19,13 @@
 		border-radius: 3px;
 		white-space: nowrap;
 		border-style: solid;
+		vertical-align: top;
 	}
 
 	// Default button style
 	&.is-default {
 		color: #333;
 		background: #d9d9d9;
-		vertical-align: top;
 
 		&:hover {
 			background: #e6e6e6;
@@ -35,13 +35,25 @@
 	// Default button style
 	&.is-primary {
 		background: #333;
-		vertical-align: top;
 		color: #fff;
 
 		&:hover {
 			background: #4b4a4a;
 		}
 
+	}
+
+	&.is-danger {
+		background: #d15353;
+		color: #fff;
+
+		&:hover {
+			background: #dd4343;
+		}
+	}
+
+	&.is-flat {
+		border-radius: 0;
 	}
 
 	&.is-large {
