@@ -25,6 +25,7 @@ function qf_get_initial_payload( $form_id ) {
 				'messages' => QF_Form_Model::get_form_messages( $form_id ),
 			)
 		),
+		'all_themes' 	       => QF_Form_Theme_Model::get_all_registered_themes(),
 		'registeredBlocks' => array_map(
 			function( $block ) {
 				return array(
