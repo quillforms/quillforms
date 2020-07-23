@@ -1,4 +1,4 @@
-import { PanelRender as render } from '@quillforms/theme-editor';
+import { MyThemesPanel as render } from '@quillforms/theme-editor';
 export const subpanelSettings = {
 	name: 'my-themes',
 	parent: 'theme',
