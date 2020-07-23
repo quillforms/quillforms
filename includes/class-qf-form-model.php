@@ -7,7 +7,7 @@
  */
 
 /**
- * Core class used for interacting with database.
+ * Core class used for interacting with database tables related to the form itself.
  *
  * @since 1.0.0
  */
@@ -129,16 +129,7 @@ class QF_Form_Model {
 		$form_theme_data = array();
 		$form_theme_id   = self::get_form_theme_id( $form_id );
 		if ( ! empty( $form_theme_id ) ) {
-			$form_theme_data = $wpdb->get_row(
-				$wpdb->prepare(
-					"
-						SELECT title, theme_data
-						FROM {$wpdb->prefix}qf_themes
-						WHERE ID = %s
-			    	",
-					$form_theme_id
-				)
-			);
+			$form_theme_data = QF_Form_Theme_Model::get_theme_data(($form_theme_id));
 		}
 		return  QF_Form_Theme::get_instance()->prepare_theme_data_for_render( $form_theme_data );
 	}
