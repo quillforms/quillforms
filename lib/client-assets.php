@@ -183,7 +183,7 @@ function quillforms_register_packages_styles( $styles ) {
 			'quillforms-notifications-editor',
 			'quillforms-messages-editor',
 			'wp-components',
-			'common'
+			'common',
 		),
 		filemtime( quillforms_dir_path() . 'build/builder-core/style.css' )
 	);
