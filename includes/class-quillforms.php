@@ -107,7 +107,6 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-blocks-factory.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-fonts.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-messages.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-model.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-settings.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-install.php';
@@ -117,6 +116,11 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-user.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-utils.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-variables.php';
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-schema-manager.php';
+
+		// Models
+		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-model.php';
+		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-theme-model.php';
 
 		// Functions.
 		require_once QF_PLUGIN_DIR . 'includes/functions.php';
@@ -124,9 +128,8 @@ final class QuillForms {
 		/**
 		 * REST API.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/v1/class-qf-rest-form-initial-payload-v1-controller.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/v1/class-qf-rest-form-v1-controller.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/v1/class-qf-rest-form-theme-v1-controller.php';
+		// require_once QF_PLUGIN_DIR . 'includes/rest-api/v1/class-qf-api-form.php';
+		// require_once QF_PLUGIN_DIR . 'includes/rest-api/v1/class-qf-api-form-theme.php';
 
 		/**
 		 * Load all blocks.

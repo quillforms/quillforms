@@ -88,7 +88,7 @@ class QF_Form_Model {
 					$registered_block = QF_Blocks_Factory::get_instance()->get_registered( $block_type );
 					if ( ! empty( $registered_block ) ) {
 						$block_attributes                                     = $form_block['attributes'] ? $form_block['attributes'] : array();
-						$form_structure[ $block_cat ][ $index ]['attributes'] = $registered_block->prepare_attributes_for_render( $block_attributes );
+						$form_structure[ $block_cat ][ $index ]['attributes'] = $registered_block->prepare_attributes_for_render($block_attributes);
 					}
 				}
 			}
@@ -129,9 +129,9 @@ class QF_Form_Model {
 		$form_theme_data = array();
 		$form_theme_id   = self::get_form_theme_id( $form_id );
 		if ( ! empty( $form_theme_id ) ) {
-			$form_theme_data = QF_Form_Theme_Model::get_theme_data(($form_theme_id));
+			$form_theme_data = QF_Form_Theme_Model::get_theme_data( ( $form_theme_id ) );
 		}
-		return  QF_Form_Theme::get_instance()->prepare_theme_data_for_render( $form_theme_data );
+		return QF_Form_Theme::get_instance()->prepare_theme_data_for_render($form_theme_data);
 	}
 
 	/**
@@ -149,6 +149,6 @@ class QF_Form_Model {
 
 		$messages = ! empty( $messages ) ? $messages : array();
 
-		return QF_Form_Messages::get_instance()->prepare_messages_for_render( $messages );
+		return QF_Form_Messages::get_instance()->prepare_messages_for_render($messages);
 	}
 }

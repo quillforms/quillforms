@@ -17,6 +17,7 @@
  * @return array $initial_payload The initial payload.
  */
 function qf_get_initial_payload( $form_id ) {
+
 	$initial_payload = array(
 		'form'             => array_merge(
 			QF_Form_Model::get_form_structure( $form_id ),
@@ -25,7 +26,7 @@ function qf_get_initial_payload( $form_id ) {
 				'messages' => QF_Form_Model::get_form_messages( $form_id ),
 			)
 		),
-		'all_themes' 	       => QF_Form_Theme_Model::get_all_registered_themes(),
+		'all_themes'       => QF_Form_Theme_Model::get_all_registered_themes(),
 		'registeredBlocks' => array_map(
 			function( $block ) {
 				return array(
@@ -50,7 +51,7 @@ function qf_get_initial_payload( $form_id ) {
 		'misc'             => array(
 			'maxUploadSize' => wp_max_upload_size(),
 		),
-		'fonts' => QF_Fonts::get_fonts()
+		'fonts'            => QF_Fonts::get_fonts(),
 	);
 
 	return $initial_payload;
