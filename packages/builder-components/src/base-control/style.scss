@@ -5,4 +5,8 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #e4e2e2;
+
+	&:last-child {
+		border-bottom: none;
+	}
 }

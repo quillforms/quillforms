@@ -1,4 +1,8 @@
 /**
+ * QuillForms Dependencies
+ */
+import { useGlobalEditorContext } from '@quillforms/builder-components';
+/**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
@@ -10,7 +14,8 @@ import { useState } from '@wordpress/element';
 import MessageRow from '../message-row';
 
 const PanelRender = () => {
-	const messagesSchema = window.qfInitialPayload.schemas.messages;
+	const { schemas } = useGlobalEditorContext();
+	const messagesSchema = schemas?.messages ? schemas.messages : {};
 	const { messages } = useSelect( ( select ) => {
 		return {
 			messages: select( 'quillForms/messages-editor' ).getMessages(),

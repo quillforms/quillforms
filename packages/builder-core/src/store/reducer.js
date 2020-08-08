@@ -13,6 +13,7 @@ import {
 	TOGGLE_BLOCK_DESCRIPTION,
 	SET_BLOCK_ATTACHMENT,
 	TOGGLE_REQUIRED_FLAG,
+	SETUP_STORE,
 } from './constants';
 /**
  * External dependencies
@@ -40,15 +41,9 @@ function getMutateSafeObject( original, working ) {
 const initialState = {
 	currentBlockId: '',
 	currentBlockCat: '',
-	fields: window.qfInitialPayload?.form?.fields
-		? window.qfInitialPayload.form.fields
-		: [],
-	welcomeScreens: window.qfInitialPayload?.form?.welcomeScreens
-		? window.qfInitialPayload.form.welcomeScreens
-		: [],
-	thankyouScreens: window.qfInitialPayload?.form?.thankyouScreens
-		? window.qfInitialPayload.form.thankyouScreens
-		: [],
+	fields: [],
+	welcomeScreens: [],
+	thankyouScreens: [],
 };
 
 /**
@@ -65,6 +60,17 @@ const FormReducer = ( state = initialState, action ) => {
 	const fieldsLength = state.fields.length;
 
 	switch ( action.type ) {
+		// SET UP STORE
+		case SETUP_STORE: {
+			const { initialPayload } = action.payload;
+			const { welcomeScreens, fields, thankyouScreens } = initialPayload;
+			const stateClone = { ...state };
+			stateClone.welcomeScreens = welcomeScreens;
+			stateClone.thankyouScreens = thankyouScreens;
+			stateClone.fields = fields;
+			return stateClone;
+		}
+
 		// SET FORM BLOCK TITLE
 		case SET_BLOCK_TITLE: {
 			const { blockId, title, blockCat } = action.payload;

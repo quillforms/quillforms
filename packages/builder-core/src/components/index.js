@@ -1,1 +1,1 @@
-export { default as Layout } from './layout';
+export { default as EditorProvider } from './provider';

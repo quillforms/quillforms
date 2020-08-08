@@ -118,18 +118,23 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-variables.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-schema-manager.php';
 
-		// Models
+		/**
+		 * Models.
+		 */
 		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-model.php';
 		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-theme-model.php';
 
-		// Functions.
+		/**
+		 * Functions.
+		 */
 		require_once QF_PLUGIN_DIR . 'includes/functions.php';
 
 		/**
 		 * REST API.
 		 */
-		// require_once QF_PLUGIN_DIR . 'includes/rest-api/v1/class-qf-api-form.php';
-		// require_once QF_PLUGIN_DIR . 'includes/rest-api/v1/class-qf-api-form-theme.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-initial-payload-controller.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
 
 		/**
 		 * Load all blocks.
@@ -146,5 +151,6 @@ final class QuillForms {
 	 */
 	public function initialize_objects() {
 		QF_Admin::instance();
+		QF_REST_API::get_instance();
 	}
 }

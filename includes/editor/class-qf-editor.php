@@ -1,10 +1,19 @@
 <?php
-
+/**
+ * Editor: class QF_Editor
+ *
+ * @since 1.0.0
+ * @package QuillForms
+ * @subpackage Editor
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * QF_Editor class is responsible for rendering the editor with scripts and styles.
+ */
 class QF_Editor {
 
 	/**
@@ -32,24 +41,24 @@ class QF_Editor {
 
 		add_filter( 'show_admin_bar', '__return_false' );
 
-		// Remove all WordPress actions
+		// Remove all WordPress actions.
 		remove_all_actions( 'wp_head' );
 		remove_all_actions( 'wp_print_styles' );
 		remove_all_actions( 'wp_print_head_scripts' );
 		remove_all_actions( 'wp_footer' );
 
-		// Handle `wp_head`
+		// Handle `wp_head`.
 		add_action( 'wp_head', 'wp_enqueue_scripts', 1 );
 		add_action( 'wp_head', 'wp_print_styles', 8 );
 		add_action( 'wp_head', 'wp_print_head_scripts', 9 );
 		add_action( 'wp_head', 'wp_site_icon' );
 
-		// Handle `wp_footer`
+		// Handle `wp_footer`.
 		add_action( 'wp_footer', 'wp_print_footer_scripts', 20 );
 		// add_action('wp_footer', 'wp_auth_check_html', 30);
 		// add_action('wp_footer', [$this, 'wp_footer']);
 
-		// Handle `wp_enqueue_scripts`
+		// Handle `wp_enqueue_scripts`.
 		remove_all_actions( 'wp_enqueue_scripts' );
 
 		// // Also remove all scripts hooked into after_wp_tiny_mce.
@@ -65,35 +74,77 @@ class QF_Editor {
 		$this->render_editor_template();
 	}
 
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since 1.0.0
+	 */
 	public function enqueue_scripts() {
-		// remove_action('wp_enqueue_scripts', [$this, __FUNCTION__], 999999);
-		// remove_action('wp_enqueue_scripts', [$this, __FUNCTION__], 999999);
+		// Server side blocks registration.
+		wp_add_inline_script(
+			'quillforms-blocks',
+			'qf.blocks.__unstableServerSideBlocksRegister(' . wp_json_encode(
+				array_map(
+					function ( $block ) {
+						return array(
+							'id'         => QF_Utils::generate_uuidv4(),
+							'name'       => $block->get_name(),
+							'attributes' => $block->prepare_attributes_for_render( $block->get_attributes() ),
+							'supports'   => $block->get_supports(),
+						);
+					},
+					QF_Blocks_Factory::get_instance()->get_all_registered()
+				)
+			) . ')',
+			'after'
+		);
 
-		// global $wp_styles, $wp_scripts;
+		// Setup editor store.
+		wp_add_inline_script(
+			'quillforms-builder-core',
+			'wp.data.dispatch("quillForms/builder-core").setupStore(' . wp_json_encode( QF_Form_Model::get_form_structure( $this->_form_id ) ) . ')',
+			'after'
+		);
 
-		// // Reset global variable
-		// $wp_styles = new \WP_Styles(); // WPCS: override ok.
-		// $wp_scripts = new \WP_Scripts(); // WPCS: override ok.
+		// Setup messages store.
+		wp_add_inline_script(
+			'quillforms-messages-editor',
+			'wp.data.dispatch("quillForms/messages-editor").setupStore(' . wp_json_encode( QF_Form_Model::get_form_messages( $this->_form_id ) ) . ')',
+			'after'
+		);
 
-		wp_add_inline_script( 'wp-element', 'window.qfInitialPayload = ' . wp_json_encode( qf_get_initial_payload( $this->_form_id ) ), 'before' );
+		// Setup theme store.
+		wp_add_inline_script(
+			'quillforms-theme-editor',
+			'wp.data.dispatch("quillForms/theme-editor").setupStore(' . wp_json_encode(
+				array(
+					'currentTheme'   => QF_Form_Model::get_form_theme_data( $this->_form_id ),
+					'currentThemeId' => QF_Form_Model::get_form_theme_id( $this->_form_id ),
+					'myThemes'       => QF_Form_Theme_Model::get_all_registered_themes( $this->_form_id ),
+				)
+			) . ')',
+			'after'
+		);
+
+		// Setup Notitifications store.
+		// wp_add_inline_script(
+		// 'quillforms-notificationsEditor',
+		// 'wp.data.dispatch("quillForms/notifications-core").setupStore(' . QF_Form_Model::get_form_structure( $this->_form_id ) . ')',
+		// 'after'
+		// );
+
+		// Register server side blocks.
+		wp_add_inline_script( 'wp-element', 'window.qfEditorContext = ' . wp_json_encode( qf_get_editor_context_value() ), 'before' );
 
 		wp_enqueue_media();
-		wp_enqueue_script( 'wp-auth-check' );
-
-		// Reset global variable
-
-		// wp_localize_script('quillForms-editor-main', 'quillForms', array(
-		// 'ajaxurl' => admin_url('admin-ajax.php'),
-		// 'nonce' => wp_create_nonce('quillForms'),
-		// 'max_upload_size' => wp_max_upload_size(),
-		// ));
+		// wp_enqueue_script( 'wp-auth-check' );
 	}
 
 	public function enqueue_styles() {
+
 		global $wp_version;
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_enqueue_style( 'quillforms-builder-core' );
-		// array('media-views', 'common'), '', 'all');
 		wp_enqueue_style(
 			'media',
 			admin_url( '/css/media' . $suffix . '.css' ),
@@ -126,6 +177,8 @@ class QF_Editor {
 	 * Disable Emoji Icons TinyMCE.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param mixed $plugins The plugins.
 	 */
 	public function disable_emojicons_tinymce( $plugins ) {
 		if ( is_array( $plugins ) ) {

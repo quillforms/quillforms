@@ -33,7 +33,15 @@ import Panel from '../panel';
 import PanelNavbar from '../panel-navbar';
 
 const Layout = ( props ) => {
-	const { currentPanel, areaToHide, registeredBlocks, formStructure } = props;
+	const {
+		currentPanel,
+		areaToHide,
+		registeredBlocks,
+		formStructure,
+		reorderBlocks,
+		insertNewFormBlock,
+		insertEmptyFieldAnswer,
+	} = props;
 	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
 		const list = formStructure.welcomeScreens
 			.concat( formStructure.fields )
@@ -61,12 +69,6 @@ const Layout = ( props ) => {
 		if ( ! destination ) {
 			return;
 		}
-
-		const {
-			reorderBlocks,
-			insertNewFormBlock,
-			insertEmptyFieldAnswer,
-		} = props;
 
 		switch ( source.droppableId ) {
 			case destination.droppableId:

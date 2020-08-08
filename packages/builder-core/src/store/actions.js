@@ -1,4 +1,5 @@
 import {
+	SETUP_STORE,
 	SET_BLOCK_TITLE,
 	SET_BLOCK_DESCRIPTION,
 	SET_BLOCK_ATTRIBUTES,
@@ -10,6 +11,20 @@ import {
 	REORDER_FORM_BLOCKS,
 	TOGGLE_REQUIRED_FLAG,
 } from './constants';
+
+/**
+ * Set up the store.
+ *
+ * @param {Object} initialPayload Initial payload object.
+ *
+ * @return {Object} Action object.
+ */
+export function setupStore( initialPayload ) {
+	return {
+		type: SETUP_STORE,
+		payload: { initialPayload },
+	};
+}
 
 /**
  * Set block title

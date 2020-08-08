@@ -13,6 +13,11 @@ export { default as __experimentalDraggable } from './draggable';
 export { default as __experimentalDroppable } from './droppable';
 //export { default as EmojiPicker } from './emoji-picker';
 export { default as FontPicker } from './font-picker';
+export {
+	GlobalEditorContext,
+	GlobalEditorContextProvider,
+	useGlobalEditorContext,
+} from './global-editor-context';
 export { default as GradientPicker } from './gradient-picker';
 export { default as Tooltip } from './tooltip';
 export { default as RecallInformation } from './recall-information';

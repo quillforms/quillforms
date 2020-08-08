@@ -7,8 +7,6 @@
  * @subpackage Admin
  */
 
-use QuillForms\includes\Editor\Editor;
-
 /**
  * QuillForms Admin
  *
@@ -51,7 +49,7 @@ class QF_Admin {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		require_once QF_PLUGIN_DIR . '/includes/editor/editor.php';
+		require_once QF_PLUGIN_DIR . '/includes/editor/class-qf-editor.php';
 		$this->admin_hooks();
 		$this->editor = new QF_Editor();
 	}
@@ -95,11 +93,11 @@ class QF_Admin {
 			'thumbnail',
 		);
 		$args     = array(
-			'labels'        => $labels,
-			'hierarchical'  => false,
-			'supports'      => $supports,
-			'public'        => true,
-			'menu_icon'     => 'data:image/svg+xml;base64,' . base64_encode(
+			'labels'          => $labels,
+			'hierarchical'    => false,
+			'supports'        => $supports,
+			'public'          => true,
+			'menu_icon'       => 'data:image/svg+xml;base64,' . base64_encode(
 				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5219 5951" width="5519x" height="5519px">
 				<style>
 					tspan { white-space:pre }
@@ -114,20 +112,12 @@ class QF_Admin {
 				</g>
 			</svg>'
 			),
-			'capabilities'  => array(
-				'edit_post'          => 'edit_quill_form',
-				'edit_posts'         => 'edit_quill_forms',
-				'edit_others_posts'  => 'edit_other_quill_forms',
-				'publish_posts'      => 'publish_quill_forms',
-				'read_post'          => 'read_quill_forms',
-				'read_private_posts' => 'read_private_quill_forms',
-				'delete_post'        => 'delete_quill_form',
-			),
+			'capability_type' => 'quillform',
 			// Adding map_meta_cap will map the meta correctly.
-			'map_meta_cap'  => true,
-			'rewrite'       => array( 'slug' => 'quillforms' ),
-			'has_archive'   => true,
-			'menu_position' => 30,
+			'map_meta_cap'    => true,
+			'rewrite'         => array( 'slug' => 'quillforms' ),
+			'has_archive'     => true,
+			'menu_position'   => 30,
 		);
 		register_post_type( 'quill_forms', $args );
 	}
@@ -173,13 +163,27 @@ class QF_Admin {
 	 * @since 1.0.0
 	 */
 	public function add_theme_caps() {
-		$admins = get_role( 'administrator' );
-		$admins->add_cap( 'edit_quill_form' );
-		$admins->add_cap( 'edit_quill_forms' );
-		$admins->add_cap( 'edit_other_quill_forms' );
-		$admins->add_cap( 'publish_quill_forms' );
-		$admins->add_cap( 'read_quill_form' );
-		$admins->add_cap( 'read_private_quill_forms' );
-		$admins->add_cap( 'delete_quill_form' );
+		global $wp_roles;
+
+		if ( ! class_exists( 'WP_Roles' ) ) {
+			return;
+		}
+
+		if ( ! isset( $wp_roles ) ) {
+			$wp_roles = new WP_Roles(); // @codingStandardsIgnoreLine
+		}
+
+		foreach ( array(
+			'edit_quillform',
+			'edit_quillforms',
+			'edit_other_quillforms',
+			'publish_quillforms',
+			'read_private_quillforms',
+			'read_quillform',
+			'delete_quillforms',
+		) as $cap ) {
+			$wp_roles->add_cap( 'administrator', $cap );
+		}
+
 	}
 }

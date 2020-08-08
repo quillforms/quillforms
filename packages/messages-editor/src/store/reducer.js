@@ -1,9 +1,7 @@
-import { SET_MESSAGE } from './constants';
+import { SET_MESSAGE, SETUP_STORE } from './constants';
 
 const initialState = {
-	messages: window?.qfInitialPayload?.form?.messages
-		? window.qfInitialPayload.form.messages
-		: {},
+	messages: {},
 };
 /**
  * Reducer returning an array of registered blocks.
@@ -15,6 +13,13 @@ const initialState = {
  */
 const MessagesReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
+		// SET UP STORE
+		case SETUP_STORE: {
+			const { initialPayload } = action.payload;
+			const stateClone = { messages: initialPayload };
+			return stateClone;
+		}
+		// SET MESSAGE
 		case SET_MESSAGE: {
 			const { key, value } = action.payload;
 			if ( state.messages[ key ] === value ) {

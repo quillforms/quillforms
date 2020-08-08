@@ -40,6 +40,14 @@ abstract class QF_REST_Controller extends WP_REST_Controller {
 
 
 	/**
+	 * QF_REST_API constructor.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+	}
+	/**
 	 * Returns the http error status
 	 *
 	 * @since 1.0.0

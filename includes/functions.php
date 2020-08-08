@@ -8,37 +8,15 @@
  */
 
 /**
- * Get initial payload array for specific form id
+ * Get editor context value.
  *
  * @since 1.0.0
  *
- * @param int $form_id The form id.
- *
- * @return array $initial_payload The initial payload.
+ * @return array $editor_context
  */
-function qf_get_initial_payload( $form_id ) {
-
-	$initial_payload = array(
-		'form'             => array_merge(
-			QF_Form_Model::get_form_structure( $form_id ),
-			array(
-				'theme'    => QF_Form_Model::get_form_theme_data( $form_id ),
-				'messages' => QF_Form_Model::get_form_messages( $form_id ),
-			)
-		),
-		'all_themes'       => QF_Form_Theme_Model::get_all_registered_themes(),
-		'registeredBlocks' => array_map(
-			function( $block ) {
-				return array(
-					'id'         => QF_Utils::generate_uuidv4(),
-					'name'       => $block->get_name(),
-					'attributes' => $block->prepare_attributes_for_render( $block->get_attributes() ),
-					'supports'   => $block->get_supports(),
-				);
-			},
-			QF_Blocks_Factory::get_instance()->get_all_registered()
-		),
-		'schemas'          => array(
+function qf_get_editor_context_value() {
+	$editor_context = array(
+		'schemas'       => array(
 			'theme'            => QF_Form_Theme::get_instance()->get_theme_data(),
 			'registeredBlocks' => array_map(
 				function( $block ) {
@@ -48,15 +26,48 @@ function qf_get_initial_payload( $form_id ) {
 			),
 			'messages'         => QF_Form_Messages::get_instance()->get_default_messages(),
 		),
-		'misc'             => array(
-			'maxUploadSize' => wp_max_upload_size(),
-		),
-		'fonts'            => QF_Fonts::get_fonts(),
+		'maxUploadSize' => wp_max_upload_size(),
+		'fonts'         => QF_Fonts::get_fonts(),
 	);
 
-	return $initial_payload;
+	return $editor_context;
 }
 
+/**
+ * Performs json_decode and unslash.
+ *
+ * @since 1.0.0
+ *
+ * @param string $data The form data.
+ *
+ * @return array|bool
+ */
+function qf_decode( $data ) {
+
+	if ( ! $data || empty( $data ) ) {
+		return false;
+	}
+
+	return wp_unslash( json_decode( $data, true ) );
+}
+
+/**
+ * Performs json_encode and wp_slash.
+ *
+ * @since 1.0.0
+ *
+ * @param mixed $data The form data.
+ *
+ * @return string
+ */
+function qf_encode( $data = false ) {
+
+	if ( empty( $data ) ) {
+		return false;
+	}
+
+	return wp_slash( wp_json_encode( $data ) );
+}
 /**
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
  * Non-scalar values are ignored.

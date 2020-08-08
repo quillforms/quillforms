@@ -1,4 +1,18 @@
-import { SET_MESSAGE } from './constants';
+import { SET_MESSAGE, SETUP_STORE } from './constants';
+
+/**
+ * Set up the store.
+ *
+ * @param {Object} initialPayload Initial payload object.
+ *
+ * @return {Object} Action object.
+ */
+export function setupStore( initialPayload ) {
+	return {
+		type: SETUP_STORE,
+		payload: { initialPayload },
+	};
+}
 
 /**
  * Set message for a specific key

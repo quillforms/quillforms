@@ -239,7 +239,7 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 	/**
 	 * Check if a given request has access to get a specific item
 	 *
-	 * @since 2.4-beta-1
+	 * @since 1.0.0
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
@@ -256,6 +256,19 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 		 */
 		$capability = apply_filters( 'quillforms_edit_theme', $request );
 		return $this->current_user_can_any( $capability, $request );
+	}
+
+	/**
+	 * Check if a given request has access to get a specific item
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 *
+	 * @return WP_Error|bool
+	 */
+	public function create_item_permissions_check() {
+
 	}
 
 }

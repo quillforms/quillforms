@@ -45,7 +45,7 @@ module.exports = {
 		devtoolNamespace: 'quillforms',
 		filename: './build/[basename]/index.js',
 		path: __dirname,
-		library: [ 'quillForms', '[name]' ],
+		library: [ 'qf', '[name]' ],
 		libraryTarget: 'this',
 	},
 	module: {
@@ -141,7 +141,7 @@ module.exports = {
 			requestToExternal( request ) {
 				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
 					return [
-						'quillForms',
+						'qf',
 						camelCaseDash(
 							request.substring( QUILLFORMS_NAMESPACE.length )
 						),

@@ -75,7 +75,6 @@
 		"@quillforms/blocks": "file:packages/blocks",
 		"@quillforms/builder-components": "file:packages/builder-components",
 		"@quillforms/builder-core": "file:packages/builder-core",
-		"@quillforms/builder-data-saver": "file:packages/builder-data-saver",
 		"@quillforms/builder-panels": "file:packages/builder-panels",
 		"@quillforms/messages-editor": "file:packages/messages-editor",
 		"@quillforms/notifications-editor": "file:packages/notifications-editor",
