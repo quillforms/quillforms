@@ -82,8 +82,8 @@ class QF_Install {
 				theme_data longtext NOT NULL,
 				title varchar(50) NOT NULL,
 				author bigint(20) unsigned NOT NULL default '0',
-				date_created datetime NOT NULL default '0000-00-00 00:00:00',
-				date_updated datetime default '0000-00-00 00:00:00',
+				date_created datetime NOT NULL,
+				date_updated datetime,
 				PRIMARY KEY  (ID)
 			);
 			CREATE TABLE {$wpdb->prefix}quillforms_log (
