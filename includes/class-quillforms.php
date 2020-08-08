@@ -133,7 +133,6 @@ final class QuillForms {
 		 * REST API.
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-initial-payload-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
 
 		/**
