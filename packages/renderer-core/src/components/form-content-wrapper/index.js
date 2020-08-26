@@ -20,14 +20,14 @@ const FormContentWrapper = ( {
 			blocks: select( 'quillForms/blocks' ).getBlocks(),
 		};
 	} );
-	const { insertEmptyFieldAnswer } = useDispatch(
-		'quillForms/render/answers'
+	const { insertNewFieldAnswer } = useDispatch(
+		'quillForms/renderer-submission'
 	);
 
 	useEffect( () => {
 		// con§sole.log(editableFields);
 		editableFields.map( ( field ) =>
-			insertEmptyFieldAnswer( field.id, field.type )
+			insertNewFieldAnswer( field.id, field.type )
 		);
 	}, [] );
 

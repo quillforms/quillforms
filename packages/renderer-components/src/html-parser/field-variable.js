@@ -4,7 +4,7 @@ const FieldMention = ( props ) => {
 	const { fieldId } = props;
 
 	const { fieldAnswerRowValue } = useSelect( ( select ) => {
-		const answer = select( 'quillForms/render/answers' )
+		const answer = select( 'quillForms/renderer-submission' )
 			.getAnswers()
 			.find( ( a ) => a.id === fieldId );
 		const fieldVal = answer.value;
@@ -14,8 +14,7 @@ const FieldMention = ( props ) => {
 				fieldVal && fieldVal.length !== 0
 					? select( 'quillForms/blocks' )
 							.getBlocks()
-							.find( ( block ) => block.type === fieldType )
-							.getRawValue( fieldVal )
+							[ fieldType ].getRawValue( fieldVal )
 					: '_ _ _ _ _',
 		};
 	} );

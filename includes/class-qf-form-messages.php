@@ -144,6 +144,12 @@ class QF_Form_Messages {
 					'default'  => '<p>This field is required!</p>',
 					'category' => 'alerts',
 				),
+				'label.errorAlert.date'              => array(
+					'title'    => __( 'If date is invalid', 'quillforms' ),
+					'format'   => 'html',
+					'default'  => '<p>Invalid date!</p>',
+					'category' => 'alerts',
+				),
 				'label.errorAlert.selectionRequired' => array(
 					'title'    => __( 'If answer needs at least one selection', 'quillforms' ),
 					'format'   => 'html',
@@ -180,7 +186,7 @@ class QF_Form_Messages {
 					'default'   => '<p>Please enter a number between {{attribute:min}} and {{attribute:max}} </p>',
 					'category'  => 'alerts',
 				),
-				'label.errorAlert.minValue'          => array(
+				'label.errorAlert.minNum'            => array(
 					'title'     => __( 'If number is lower than minimum value', 'quillforms' ),
 					'format'    => 'html',
 					'variables' => array(
@@ -193,7 +199,7 @@ class QF_Form_Messages {
 					'default'   => '<p>Please enter a number greater than {{attribute:min}}</p>',
 					'category'  => 'alerts',
 				),
-				'label.errorAlert.maxValue'          => array(
+				'label.errorAlert.maxNum'            => array(
 					'title'     => __( 'If number is higher than maximum value', 'quillforms' ),
 					'format'    => 'html',
 					'variables' => array(
@@ -205,6 +211,25 @@ class QF_Form_Messages {
 					),
 					'default'   => '<p>Please enter a number lower than {{attribute:max}} </p>',
 					'category'  => 'alerts',
+				),
+				'label.errorAlert.maxCharacters'     => array(
+					'title'     => __( 'If characters number is higher than maximum value', 'quillforms' ),
+					'format'    => 'html',
+					'variables' => array(
+						array(
+							'title'   => 'maxCharacters',
+							'varType' => 'attribute',
+							'ref'     => 'maxCharacters',
+						),
+					),
+					'default'   => '<p>Maximum characters reached!</p>',
+					'category'  => 'alerts',
+				),
+				'label.errorAlert.url'               => array(
+					'title'    => __( 'If the website url is invalid', 'quillforms' ),
+					'format'   => 'html',
+					'default'  => '<p>Invalid url!</p>',
+					'category' => 'alerts',
 				),
 				'label.successAlert.submission'      => array(
 					'title'    => __( 'Form submission success message', 'quillforms' ),

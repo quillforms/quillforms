@@ -10,19 +10,21 @@ import {
 const QuestionHeader = ( {
 	title,
 	counter,
-	dispalyOnly,
-	addDescription,
+	displayOnly,
 	description,
 	attachment,
 	isAttachmentSupported,
+	attributes,
 } ) => {
 	return (
 		<div className="renderer-components-question-header">
-			{ ! dispalyOnly && <BlockCounter counter={ counter } /> }
+			<BlockCounter
+				attributes={ attributes }
+				counter={ counter }
+				displayOnly={ displayOnly }
+			/>
 			<BlockTitle title={ title } />
-			{ addDescription && (
-				<BlockDescription description={ description } />
-			) }
+			{ description && <BlockDescription description={ description } /> }
 			{ isAttachmentSupported && attachment && (
 				<BlockAttachment attachment={ attachment } />
 			) }

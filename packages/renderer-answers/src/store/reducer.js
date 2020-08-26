@@ -3,10 +3,14 @@ import {
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_IS_FIELD_VALID,
 	SET_IS_FIELD_ANSWERED,
-} from './actionTypes';
+	SET_SHOW_FIELD_ERR,
+	SET_FIELD_ERR_MSG_KEY,
+} from './constants';
 
 const initialState = {
 	answersList: [],
+	isReviewing: false,
+	isSubmitting: false,
 };
 
 const AnswersReducer = ( state = initialState, action ) => {
@@ -24,6 +28,8 @@ const AnswersReducer = ( state = initialState, action ) => {
 					value: [],
 					isValid: true,
 					isAnswered: false,
+					showErr: false,
+					errMsgKey: null,
 					id,
 					type,
 				} );
@@ -62,6 +68,31 @@ const AnswersReducer = ( state = initialState, action ) => {
 			} );
 			answers[ index ].isAnswered = val;
 			$state.answersList = answers;
+
+			return $state;
+		}
+
+		// SET SHOW ERR FLAG
+		case SET_SHOW_FIELD_ERR: {
+			const { id, val } = action.payload;
+			const index = answers.findIndex( ( answer ) => {
+				return answer.id === id;
+			} );
+			answers[ index ].showErr = val;
+			$state.answersList = answers;
+
+			return $state;
+		}
+
+		// SET FIELD ERR MSG KEY
+		case SET_FIELD_ERR_MSG_KEY: {
+			const { id, val } = action.payload;
+			const index = answers.findIndex( ( answer ) => {
+				return answer.id === id;
+			} );
+			answers[ index ].errMsgKey = val;
+			$state.answersList = answers;
+
 			return $state;
 		}
 	}

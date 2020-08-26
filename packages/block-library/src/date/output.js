@@ -1,13 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import {
-	FieldAction,
-	QuestionHeader,
-	QuestionBody,
-} from '@quillforms/renderer-components';
-
-/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -30,12 +21,11 @@ const DateOutput = ( props ) => {
 		isReviewing,
 		isActive,
 		isFocused,
-		next,
 		val,
 		setVal,
+		setErrMsgKey,
+		setShowErr,
 	} = props;
-	const [ errMsg, setErrMsg ] = useState( null );
-	const [ showErr, setShowErr ] = useState( false );
 	const { format, separator } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
@@ -46,18 +36,17 @@ const DateOutput = ( props ) => {
 		const date = moment( value );
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsg( 'Please fill this in!' );
+			setErrMsgKey( 'label.errorAlert.required' );
 		} else if ( ! date.isValid() ) {
 			setIsValid( false );
-			setErrMsg( 'Invalid date!' );
+			setErrMsgKey( 'label.errorAlert.date' );
 		} else {
 			setIsValid( true );
-			setErrMsg( null );
+			setErrMsgKey( null );
 		}
 	};
 
 	useEffect( () => {
-		setShowErr( false );
 		checkfieldValidation( val );
 	}, [ isReviewing, required ] );
 
@@ -133,59 +122,28 @@ const DateOutput = ( props ) => {
 	};
 
 	return (
-		<div
-			role="button"
-			tabIndex="0"
-			style={ { outline: 'none' } }
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' && e.target.value !== '' ) {
-					e.stopPropagation();
-					checkfieldValidation( val );
-					setShowErr( true );
-					next();
-				}
-			} }
-		>
-			<QuestionHeader { ...props } />
-			<QuestionBody>
-				<div className="question__wrapper">
-					<VisibilitySensor
-						resizeCheck={ true }
-						resizeThrottle={ 100 }
-						scrollThrottle={ 100 }
-						onChange={ ( visible ) => {
-							setIsVisible( visible );
-						} }
-					>
-						<MaskedInput
-							onChange={ changeHandler }
-							ref={ elemRef }
-							className={
-								'question__InputField' +
-								( simulateFocusStyle ? ' no-border' : '' )
-							}
-							placeholder={ getPlaceholder() }
-							mask={ getMask() }
-							pipe={ autoCorrectedDatePipe }
-							value={ val && val.length > 0 ? val : '' }
-						/>
-					</VisibilitySensor>
-				</div>
-				<div style={ { height: '60px', marginTop: '20px' } }>
-					{ errMsg && ( showErr || isReviewing ) ? (
-						<div className="sf-err-msg">{ errMsg }</div>
-					) : (
-						<FieldAction
-							show={ val && val !== '' }
-							clickHandler={ () => {
-								checkfieldValidation( val );
-								setShowErr( true );
-								next();
-							} }
-						/>
-					) }
-				</div>
-			</QuestionBody>
+		<div className="question__wrapper">
+			<VisibilitySensor
+				resizeCheck={ true }
+				resizeThrottle={ 100 }
+				scrollThrottle={ 100 }
+				onChange={ ( visible ) => {
+					setIsVisible( visible );
+				} }
+			>
+				<MaskedInput
+					onChange={ changeHandler }
+					ref={ elemRef }
+					className={
+						'question__InputField' +
+						( simulateFocusStyle ? ' no-border' : '' )
+					}
+					placeholder={ getPlaceholder() }
+					mask={ getMask() }
+					pipe={ autoCorrectedDatePipe }
+					value={ val && val.length > 0 ? val : '' }
+				/>
+			</VisibilitySensor>
 		</div>
 	);
 };

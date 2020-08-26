@@ -6,17 +6,7 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { motion } from 'framer-motion';
 import VisibilitySensor from 'react-visibility-sensor';
-
-/**
- * Internal Dependencies
- */
-import {
-	FieldAction,
-	QuestionHeader,
-	QuestionBody,
-} from '@quillforms/renderer-components';
 
 const NumberOutput = ( props ) => {
 	const {
@@ -29,13 +19,12 @@ const NumberOutput = ( props ) => {
 		isReviewing,
 		isActive,
 		isFocused,
-		next,
 		val,
 		setVal,
+		setErrMsgKey,
+		setShowErr,
+		setIsShaking,
 	} = props;
-	const [ errMsg, setErrMsg ] = useState( null );
-	const [ showErr, setShowErr ] = useState( false );
-	const [ shaking, setshaking ] = useState( false );
 	const { setMax, max, setMin, min } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
@@ -43,25 +32,18 @@ const NumberOutput = ( props ) => {
 	const elemRef = useRef();
 
 	const checkfieldValidation = ( value ) => {
-		// // // console.log(setMin);
-		// // // console.log(min);
-		// // // console.log(value);
-		// // // console.log(value < min);
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsg( 'Please fill this in!' );
-		} else if ( isNaN( value ) ) {
-			setIsValid( false );
-			setErrMsg( 'The field expects numbers only!' );
+			setErrMsgKey( 'label.errorAlert.required' );
 		} else if ( setMax && max > 0 && value > max ) {
 			setIsValid( false );
-			setErrMsg( 'Please enter a number less than ' + max );
+			setErrMsgKey( 'label.errorAlert.maxNum' );
 		} else if ( setMin && min >= 0 && value < min ) {
 			setIsValid( false );
-			setErrMsg( 'Please enter a number greater than ' + min );
+			setErrMsgKey( 'label.errorAlert.minNum' );
 		} else {
 			setIsValid( true );
-			setErrMsg( null );
+			setErrMsgKey( null );
 		}
 	};
 
@@ -89,8 +71,9 @@ const NumberOutput = ( props ) => {
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
 		setShowErr( false );
+		checkfieldValidation( value );
 		if ( isNaN( value ) ) {
-			setshaking( true );
+			setIsShaking( true );
 			return;
 		}
 		setVal( parseInt( value ) );
@@ -104,72 +87,32 @@ const NumberOutput = ( props ) => {
 	};
 
 	return (
-		<motion.div
-			initial={ { transform: 'none' } }
-			animate={ {
-				x: shaking ? [ 0, 3, -3, 3, -3, 3, -3, 3, -3, 0 ] : 0,
-			} }
-			transition={ { ease: 'linear', duration: 0.4 } }
-			onAnimationComplete={ () => setshaking( false ) }
-		>
-			<div
-				tabIndex="-1"
-				role="button"
-				style={ { outline: 'none' } }
-				onKeyDown={ ( e ) => {
-					if ( e.key === 'Enter' && e.target.value !== '' ) {
-						e.stopPropagation();
-						checkfieldValidation( val );
-						setShowErr( true );
-						next();
-					}
+		<div className="question__wrapper">
+			<VisibilitySensor
+				resizeCheck={ true }
+				resizeThrottle={ 100 }
+				scrollThrottle={ 100 }
+				onChange={ ( visible ) => {
+					setIsVisible( visible );
 				} }
 			>
-				<QuestionHeader { ...props } />
-				<QuestionBody>
-					<div className="question__wrapper">
-						<VisibilitySensor
-							resizeCheck={ true }
-							resizeThrottle={ 100 }
-							scrollThrottle={ 100 }
-							onChange={ ( visible ) => {
-								setIsVisible( visible );
-							} }
-						>
-							<input
-								className={
-									'question__InputField' +
-									( simulateFocusStyle ? ' no-border' : '' )
-								}
-								ref={ elemRef }
-								id={ 'number-' + id }
-								onBlur={ () => {
-									checkfieldValidation( val );
-								} }
-								placeholder="Type your answer here..."
-								type="text"
-								onChange={ changeHandler }
-								value={ val && val.length > 0 ? val : '' }
-							/>
-						</VisibilitySensor>
-					</div>
-					<div style={ { height: '60px', marginTop: '20px' } }>
-						{ errMsg && ( showErr || isReviewing ) ? (
-							<div className="sf-err-msg">{ errMsg }</div>
-						) : (
-							<FieldAction
-								show={ val && val !== '' }
-								clickHandler={ () => {
-									checkfieldValidation( val );
-									setShowErr( true );
-									next();
-								} }
-							/>
-						) }
-					</div>
-				</QuestionBody>
-			</div>
-		</motion.div>
+				<input
+					className={
+						'question__InputField' +
+						( simulateFocusStyle ? ' no-border' : '' )
+					}
+					ref={ elemRef }
+					id={ 'number-' + id }
+					onBlur={ () => {
+						checkfieldValidation( val );
+					} }
+					placeholder="Type your answer here..."
+					type="text"
+					onChange={ changeHandler }
+					value={ val && val.length > 0 ? val : '' }
+				/>
+			</VisibilitySensor>
+		</div>
 	);
 };
 export default NumberOutput;

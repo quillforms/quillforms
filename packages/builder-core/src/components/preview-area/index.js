@@ -4,40 +4,38 @@
 import { useSelect } from '@wordpress/data';
 
 /**
- * Internal Dependencies
+ * QuillForms Dependencies
  */
 import { FormContentWrapper } from '@quillforms/renderer-core';
 
+/**
+ * External Dependencies
+ */
+import { mapKeys } from 'lodash';
+
 const FormPreview = () => {
-	const {
-		formStructure,
-		editableFields,
-		currentBlockId,
-		currentBlockCat,
-	} = useSelect( ( select ) => {
+	const { formStructure, meta, theme } = useSelect( ( select ) => {
 		return {
-			currentBlockId: select(
-				'quillForms/builder-core'
-			).getCurrentBlockId(),
-			currentBlockCat: select(
-				'quillForms/builder-core'
-			).getCurrentBlockCat(),
 			formStructure: select(
 				'quillForms/builder-core'
 			).getFormStructure(),
-			editableFields: select(
-				'quillForms/builder-core'
-			).getEditableFields(),
+			meta: mapKeys(
+				select( 'quillForms/form-meta' ).getRegisteredMeta(),
+				( metaItem, metakey ) => {
+					return { [ metakey ]: metaItem.getValue( select ) };
+				}
+			),
+			theme: select( 'quillForms/theme-editor' ).getCurrentTheme(),
 		};
 	} );
 
 	return (
 		<div className="builder-core-preview-area">
 			<FormContentWrapper
-				currentBlockId={ currentBlockId }
-				currentBlockCat={ currentBlockCat }
 				formStructure={ formStructure }
-				editableFields={ editableFields }
+				meta={ meta }
+				applyConditionalLogic={ false }
+				theme={ theme }
 			/>
 		</div>
 	);

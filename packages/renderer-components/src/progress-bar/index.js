@@ -1,4 +1,8 @@
+/**
+ * WordPress Dependencies
+ */
 import { memo } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 // Preventing re-render unless current block changes
 const areEqual = ( prevProps, nextProps ) => {
@@ -6,7 +10,14 @@ const areEqual = ( prevProps, nextProps ) => {
 	return false;
 };
 
-const ProgressBar = memo( ( { totalQuestions, answered } ) => {
+const ProgressBar = memo( ( { totalQuestions } ) => {
+	const { answered } = useSelect( ( select ) => {
+		return {
+			answered: select(
+				'quillForms/renderer-submission'
+			).getAnsweredFieldsLength(),
+		};
+	} );
 	const percent = Math.round( ( answered * 100 ) / totalQuestions );
 
 	return (

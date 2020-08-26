@@ -12,16 +12,10 @@ body {
 		position: relative;
 		overflow: hidden;
 		display: flex;
+		flex-wrap: wrap;
 		flex-basis: auto;
 		padding-left: 55px;
 		max-height: 100vh;
 		min-height: 100vh;
 	}
-
-	.quillForms-preview-wrapper {
-		flex: 1;
-		flex-wrap: wrap;
-		position: relative;
-	}
-
 }

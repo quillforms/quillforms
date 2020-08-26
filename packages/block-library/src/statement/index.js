@@ -1,4 +1,3 @@
-import output from './output';
 import controls from './controls';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 
@@ -14,6 +13,25 @@ export const settings = {
 		controls,
 	},
 	rendererConfig: {
-		output,
+		getCounterContent: ( args ) => {
+			const {
+				attributes: { quotationMarks },
+			} = args;
+			if ( quotationMarks ) {
+				return 'quote';
+			}
+			return null;
+		},
+		// eslint-disable-next-line no-unused-vars
+		hasSubmitBtn: ( args ) => {
+			return true;
+		},
+		getSubmitBtnTxt: ( args ) => {
+			const {
+				attributes: { buttonText },
+			} = args;
+
+			return buttonText;
+		},
 	},
 };

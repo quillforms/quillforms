@@ -63,7 +63,7 @@ class QF_REST_API {
 	 */
 	public function register_rest_routes() {
 		$controllers = array(
-			'QF_REST_Initial_Payload_Controller',
+			// 'QF_REST_Initial_Payload_Controller',
 		);
 
 		foreach ( $controllers as $controller ) {

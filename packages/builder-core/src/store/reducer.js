@@ -15,6 +15,7 @@ import {
 	TOGGLE_REQUIRED_FLAG,
 	SETUP_STORE,
 } from './constants';
+
 /**
  * External dependencies
  */

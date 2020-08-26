@@ -49,53 +49,53 @@ class QF_Form_Theme {
 	 */
 	public function get_theme_data() {
 		return array(
-			'name'             => array(
+			'name'                 => array(
 				'type'    => 'string',
 				'default' => 'My Theme',
 			),
-			'font'             => array(
+			'font'                 => array(
 				'type'    => 'string',
 				'default' => 'Vollkorn',
 			),
-			'backgroundColor'  => array(
+			'backgroundColor'      => array(
 				'type'    => 'string',
 				'default' => '#000',
 			),
-			'backgroundImage'  => array(
+			'backgroundImage'      => array(
 				'type' => 'string',
 			),
-			'questionsColor'    => array(
+			'questionsColor'       => array(
 				'type'    => 'string',
 				'default' => '#000',
 			),
-			'answersColor'      => array(
+			'answersColor'         => array(
 				'type'    => 'string',
 				'default' => '#000',
 			),
-			'buttonsFontColor' => array(
+			'buttonsFontColor'     => array(
 				'type'    => 'string',
 				'default' => '#fff',
 			),
-			'buttonsBgColor'   => array(
+			'buttonsBgColor'       => array(
 				'type'    => 'string',
 				'default' => '#000',
 			),
-			'errorsFontColor' => array(
+			'errorsFontColor'      => array(
 				'type'    => 'string',
 				'default' => '#fff',
 			),
-			'errorsBgColor' => array(
-				'type'	=> 'string',
-				'default' => '#f00'
+			'errorsBgColor'        => array(
+				'type'    => 'string',
+				'default' => '#f00',
 			),
 			'progressBarFillColor' => array(
-				'type' => 'string',
-				'default' => '#000'
+				'type'    => 'string',
+				'default' => '#000',
 			),
-			'progressBarBgColor' => array(
-				'type' => 'string',
-				'default' => '#e3e3e3'
-			)
+			'progressBarBgColor'   => array(
+				'type'    => 'string',
+				'default' => '#e3e3e3',
+			),
 		);
 	}
 

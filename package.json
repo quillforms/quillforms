@@ -76,13 +76,14 @@
 		"@quillforms/builder-components": "file:packages/builder-components",
 		"@quillforms/builder-core": "file:packages/builder-core",
 		"@quillforms/builder-panels": "file:packages/builder-panels",
+		"@quillforms/form-meta": "file:packages/form-meta",
 		"@quillforms/messages-editor": "file:packages/messages-editor",
 		"@quillforms/notifications-editor": "file:packages/notifications-editor",
 		"@quillforms/renderer-answers": "file:packages/renderer-answers",
 		"@quillforms/renderer-components": "file:packages/renderer-components",
 		"@quillforms/renderer-core": "file:packages/renderer-core",
 		"@quillforms/rich-text": "file:packages/rich-text",
-		"@quillforms/theme-editor": "file:packages/theme-editor"
+		"zustand": "3.0.1"
 	},
 	"devDependencies": {
 		"@actions/core": "1.0.0",

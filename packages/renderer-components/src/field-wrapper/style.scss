@@ -32,7 +32,7 @@
 
 	&.moveDown {
 		-webkit-animation: animMoveDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-		animation: animMoveDown 0.5s ecubic-bezier(0.7, 0, 0.3, 1) forwards;
+		animation: animMoveDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
 	}
 	&.active.moveUpFromDown {
 		-webkit-animation: animMoveUpFromDown 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;

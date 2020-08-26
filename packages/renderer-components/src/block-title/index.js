@@ -3,8 +3,10 @@
  */
 import HtmlParser from '../html-parser';
 const BlockTitle = ( props ) => {
-	const { title } = props;
-
+	let { title } = props;
+	if ( ! title || title === '<p></p>' ) {
+		title = '<p>...</p>';
+	}
 	return (
 		<div className="renderer-components-block-title">
 			<HtmlParser

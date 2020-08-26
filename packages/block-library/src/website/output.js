@@ -1,13 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import {
-	FieldAction,
-	QuestionHeader,
-	QuestionBody,
-} from '@quillforms/renderer-components';
-
-/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -28,12 +19,11 @@ const WebsiteOutput = ( props ) => {
 		setIsAnswered,
 		isFocused,
 		isActive,
-		next,
 		val,
 		setVal,
+		setShowErr,
+		setErrMsgKey,
 	} = props;
-	const [ errMsg, setErrMsg ] = useState( null );
-	const [ showErr, setShowErr ] = useState( false );
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const elemRef = useRef();
@@ -54,13 +44,13 @@ const WebsiteOutput = ( props ) => {
 	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsg( 'Please fill this in!' );
+			setErrMsgKey( 'label.errorAlert.required' );
 		} else if ( ! validateUrl( value ) && value !== '' ) {
 			setIsValid( false );
-			setErrMsg( "hmmm.. That doesn't look a valid url!" );
+			setErrMsgKey( "hmmm.. That doesn't look a valid url!" );
 		} else {
 			setIsValid( true );
-			setErrMsg( null );
+			setErrMsgKey( null );
 		}
 	};
 
@@ -87,7 +77,8 @@ const WebsiteOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		setErrMsg( null );
+		setErrMsgKey( null );
+		checkfieldValidation( value );
 		setVal( value );
 		if ( value !== '' ) {
 			setIsAnswered( true );
@@ -97,62 +88,31 @@ const WebsiteOutput = ( props ) => {
 	};
 
 	return (
-		<div
-			tabIndex="0"
-			role="button"
-			style={ { outline: 'none' } }
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' && e.target.value !== '' ) {
-					e.stopPropagation();
-					checkfieldValidation( val );
-					setShowErr( true );
-					next();
-				}
-			} }
-		>
-			<QuestionHeader { ...props } />
-			<QuestionBody>
-				<div className="question__wrapper">
-					<VisibilitySensor
-						resizeCheck={ true }
-						resizeThrottle={ 100 }
-						scrollThrottle={ 100 }
-						onChange={ ( visible ) => {
-							setIsVisible( visible );
-						} }
-					>
-						<input
-							type="text"
-							ref={ elemRef }
-							className={
-								'question__InputField' +
-								( simulateFocusStyle ? ' no-border' : '' )
-							}
-							id={ 'website-' + id }
-							placeholder="https://"
-							onChange={ changeHandler }
-							value={ val && val.length > 0 ? val : '' }
-							onBlur={ () => {
-								checkfieldValidation( val );
-							} }
-						/>
-					</VisibilitySensor>
-				</div>
-				<div style={ { height: '60px', marginTop: '20px' } }>
-					{ errMsg && ( showErr || isReviewing ) ? (
-						<div className="sf-err-msg">{ errMsg }</div>
-					) : (
-						<FieldAction
-							show={ val && val !== '' }
-							clickHandler={ () => {
-								checkfieldValidation( val );
-								setShowErr( true );
-								next();
-							} }
-						/>
-					) }
-				</div>
-			</QuestionBody>
+		<div className="question__wrapper">
+			<VisibilitySensor
+				resizeCheck={ true }
+				resizeThrottle={ 100 }
+				scrollThrottle={ 100 }
+				onChange={ ( visible ) => {
+					setIsVisible( visible );
+				} }
+			>
+				<input
+					type="text"
+					ref={ elemRef }
+					className={
+						'question__InputField' +
+						( simulateFocusStyle ? ' no-border' : '' )
+					}
+					id={ 'website-' + id }
+					placeholder="https://"
+					onChange={ changeHandler }
+					value={ val && val.length > 0 ? val : '' }
+					onBlur={ () => {
+						checkfieldValidation( val );
+					} }
+				/>
+			</VisibilitySensor>
 		</div>
 	);
 };

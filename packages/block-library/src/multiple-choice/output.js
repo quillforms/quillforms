@@ -1,16 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
-
-/**
- * Internal Dependencies
- */
-import {
-	QuestionHeader,
-	QuestionBody,
-	FieldAction,
-} from '@quillforms/renderer-components';
+import { useEffect } from '@wordpress/element';
 
 const DropdownOutput = ( props ) => {
 	const {
@@ -22,9 +13,9 @@ const DropdownOutput = ( props ) => {
 		next,
 		val,
 		setVal,
+		setErrMsgKey,
+		setShowErr,
 	} = props;
-	const [ errMsg, setErrMsg ] = useState( null );
-	const [ showErr, setShowErr ] = useState( false );
 	let { choices, multiple, verticalAlign } = attributes;
 	const charCode = 'a'.charCodeAt( 0 );
 
@@ -67,10 +58,10 @@ const DropdownOutput = ( props ) => {
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val.length === 0 ) ) {
 			setIsValid( false );
-			setErrMsg( 'Please fill this in!' );
+			setErrMsgKey( 'label.errorAlert.required' );
 		} else {
 			setIsValid( true );
-			setErrMsg( null );
+			setErrMsgKey( null );
 		}
 	};
 
@@ -84,109 +75,77 @@ const DropdownOutput = ( props ) => {
 	}, [ isReviewing ] );
 
 	return (
-		<div
-			role="button"
-			tabIndex="0"
-			style={ { outline: 'none' } }
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' && e.target.value !== '' ) {
-					e.stopPropagation();
-					checkfieldValidation( val );
-					setShowErr( true );
-					next();
+		<div className="question__wrapper">
+			<div
+				className={
+					'multiplechoice__options' +
+					( verticalAlign ? ' valigned' : '' )
 				}
-			} }
-		>
-			<QuestionHeader { ...props } />
-			<QuestionBody>
-				<div className="question__wrapper">
-					<div
-						className={
-							'multiplechoice__options' +
-							( verticalAlign ? ' valigned' : '' )
-						}
-					>
-						{ choices &&
-							choices.length > 0 &&
-							choices.map( ( choice, index ) => {
-								return (
-									<div
-										role="button"
-										tabIndex="-1"
-										key={ choice.ref }
-										className={
-											'multipleChoice__optionWrapper' +
-											( choice.selected === true
-												? ' selected'
-												: '' )
-										}
-										onMouseDown={ () => {
-											let $val = val;
-											if ( ! $val ) $val = [];
-											if ( choice.selected ) {
-												$val.splice(
-													$val.findIndex(
-														( item ) =>
-															item.ref ===
-															choice.ref
-													),
-													1
-												);
-												setVal( $val );
-											} else {
-												if ( multiple )
-													$val.push( {
-														id: choice.ref,
-														label: choice.label,
-													} );
-												else
-													$val = [
-														{
-															id: choice.ref,
-															label: choice.label,
-														},
-													];
-												setVal( $val );
-												if ( ! multiple )
-													setTimeout( () => {
-														next();
-													}, 700 );
-											}
+			>
+				{ choices &&
+					choices.length > 0 &&
+					choices.map( ( choice, index ) => {
+						return (
+							<div
+								role="button"
+								tabIndex="-1"
+								key={ choice.ref }
+								className={
+									'multipleChoice__optionWrapper' +
+									( choice.selected === true
+										? ' selected'
+										: '' )
+								}
+								onMouseDown={ () => {
+									let $val = val;
+									if ( ! $val ) $val = [];
+									if ( choice.selected ) {
+										$val.splice(
+											$val.findIndex(
+												( item ) =>
+													item.ref === choice.ref
+											),
+											1
+										);
+										setVal( $val );
+									} else {
+										if ( multiple )
+											$val.push( {
+												id: choice.ref,
+												label: choice.label,
+											} );
+										else
+											$val = [
+												{
+													id: choice.ref,
+													label: choice.label,
+												},
+											];
+										setVal( $val );
+										if ( ! multiple )
+											setTimeout( () => {
+												next();
+											}, 700 );
+									}
 
-											if ( $val.length > 0 )
-												setIsAnswered( true );
-											else setIsAnswered( false );
-										} }
-									>
-										<span className="multipleChoice__optionLabel">
-											{ choice.label }
-										</span>
-										<span className="multipleChoice__optionKey">
-											<span className="multipleChoice__optionKeyTip">
-												KEY
-											</span>
-											{ identName( index ).toUpperCase() }
-										</span>
-									</div>
-								);
-							} ) }
-					</div>
-				</div>
-				<div style={ { height: '60px', marginTop: '20px' } }>
-					{ errMsg && ( showErr || isReviewing ) ? (
-						<div className="sf-err-msg">{ errMsg }</div>
-					) : (
-						<FieldAction
-							show={ multiple && val && val.length > 0 }
-							clickHandler={ () => {
-								checkfieldValidation( val );
-								setShowErr( true );
-								next();
-							} }
-						/>
-					) }
-				</div>
-			</QuestionBody>
+									if ( $val.length > 0 )
+										setIsAnswered( true );
+									else setIsAnswered( false );
+								} }
+							>
+								<span className="multipleChoice__optionLabel">
+									{ choice.label }
+								</span>
+								<span className="multipleChoice__optionKey">
+									<span className="multipleChoice__optionKeyTip">
+										KEY
+									</span>
+									{ identName( index ).toUpperCase() }
+								</span>
+							</div>
+						);
+					} ) }
+			</div>
 		</div>
 	);
 };

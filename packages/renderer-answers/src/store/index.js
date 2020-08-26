@@ -3,7 +3,7 @@ import reducer from './reducer';
 import * as actions from './actions';
 import * as selectors from './selectors';
 
-const store = registerStore( 'quillForms/render/answers', {
+const store = registerStore( 'quillForms/renderer-submission', {
 	reducer,
 	actions,
 	selectors,

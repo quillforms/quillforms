@@ -7,6 +7,7 @@ import { createRegistrySelector } from '@wordpress/data';
  * External Dependencies
  */
 import { forEach } from 'lodash';
+
 /**
  * Get the whole form structure
  *
@@ -15,7 +16,7 @@ import { forEach } from 'lodash';
  * @return {Object} Form structure
  */
 export function getFormStructure( state ) {
-	return { ...state };
+	return state;
 }
 
 /**

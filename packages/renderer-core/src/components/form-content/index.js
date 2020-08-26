@@ -22,48 +22,34 @@ import findKey from 'lodash/findKey';
  */
 import { FieldWrapper, ProgressBar } from '@quillforms/renderer-components';
 import FieldsWrapper from '../fields-wrapper';
-import SubmissionScreen from '../submission-screen';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
 const FormContent = ( { formStructure, editableFields, blocks } ) => {
 	const { fields } = formStructure;
-	// console.log(fields);
-	const [ animationState, setAnimationState ] = useState( {
-		isAnimating: false,
-		currentBlockId: null,
-		currentBlockCat: null,
-		currentFieldIndex: null,
-		submissionScreenActive: false,
-		moveUp: null,
-		moveDown: null,
-		moveDownFromUp: null,
-		moveUpFromDown: null,
-	} );
-	// // console.log(animationState);
 	const {
-		currentFieldIndex,
-		submissionScreenActive,
 		currentBlockCat,
 		currentBlockId,
-	} = animationState;
-	const [ canSwipeNext, setCanSwipeNext ] = useState( true );
-	const [ canSwipePrev, setCanSwipePrev ] = useState( true );
-	const [ isReviewing, setIsReviewing ] = useState( false );
-	const [ isSubmitting, setIsSubmitting ] = useState( false );
+		isBlockChanging,
+		animationEffects,
+	} = useSelect( ( select ) => {
+		return {
+			currentBlockId: select(
+				'quillForms/renderer-core'
+			).getCurrentBlockId(),
+			currentBlockCat: select(
+				'quillForms/renderer-core'
+			).getCurrentBlockCat(),
+			isBlockChanging: select(
+				'quillForms/renderer-core'
+			).isBlockChanging(),
+		};
+	} );
+
+	const { setAnimationEffects } = useDispatch( 'quillForms/renderer-core' );
 	const [ isFocused, setIsFocused ] = useState( false );
 
 	const ref = useRef();
-
-	const { setIsFieldValid, setIsFieldAnswered, setFieldAnswer } = useDispatch(
-		'quillForms/render/answers'
-	);
-
-	const { answers } = useSelect( ( select ) => {
-		return {
-			answers: select( 'quillForms/render/answers' ).getAnswers(),
-		};
-	} );
 
 	const handleClickOutside = ( e ) => {
 		if ( ref.current && ! ref.current.contains( e.target ) ) {
@@ -82,13 +68,6 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 	} );
 
 	useEffect( () => {
-		let $animationState = { ...animationState };
-		$animationState = {
-			...$animationState,
-			currentBlockCat: formStructure.currentBlockCat,
-			currentBlockId: formStructure.currentBlockId,
-			submissionScreenActive: false,
-		};
 		if ( formStructure.currentBlockCat === 'fields' ) {
 			if ( currentBlockId !== formStructure.currentBlockId ) {
 				$animationState.currentFieldIndex = fields.findIndex(
@@ -107,7 +86,7 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 		}
 
 		setAnimationState( $animationState );
-	}, [ JSON.stringify( formStructure ) ] );
+	}, cur );
 
 	useEffect( () => {
 		const $animationState = animationState;
@@ -130,7 +109,6 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 		if ( isLastField ) {
 			$animationState.currentBlockId = '';
 			$animationState.currentFieldIndex = null;
-			$animationState.submissionScreenActive = true;
 		} else {
 			$animationState.currentFieldIndex = currentFieldIndex + 1;
 			$animationState.currentBlockId = fields[ currentFieldIndex + 1 ].id;
@@ -157,16 +135,13 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 	};
 
 	// Get Previous Field
-	const getPrevField = useCallback( () => {
+	const getPrevField = () => {
 		let $animationState = { ...animationState };
 		if ( currentFieldIndex > 0 || submissionScreenActive ) {
 			$animationState = {
 				...$animationState,
-				currentBlockId: submissionScreenActive
-					? fields[ fields.length - 1 ].id
-					: fields[ currentFieldIndex - 1 ].id,
-				submissionScreenActive: false,
-				isAnimating: true,
+				currentBlockId: fields[ currentFieldIndex - 1 ].id,
+				isBlockChanging: true,
 				currentFieldIndex: submissionScreenActive
 					? fields.length - 1
 					: currentFieldIndex - 1,
@@ -181,7 +156,7 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 			};
 			setAnimationState( $animationState );
 		}
-	} );
+	};
 
 	// Swtich To Fields Category
 	const switchToFieldsCat = useCallback( () => {
@@ -189,7 +164,6 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 			currentBlockCat: 'fields',
 			currentBlockId: fields[ 0 ].id,
 			currentFieldIndex: 0,
-			submissionScreenActive: false,
 			isAnimating: true,
 			moveUp: null,
 			moveDown: null,
@@ -219,7 +193,7 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 			canSwipeNext &&
 			lethargyCheck === -1 &&
 			e.deltaY > 50 &&
-			animationState.submissionScreenActive !== true
+			! isLastField
 		) {
 			lastScrollDate = new Date().getTime();
 			// Scroll down
@@ -249,13 +223,7 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 	] );
 
 	const fieldsToRender = getFieldsToRender();
-	// // console.log(fieldsToRender);
-	const animationEffects = {
-		moveUp: animationState.moveUp,
-		moveDownFromUp: animationState.moveDownFromUp,
-		moveDown: animationState.moveDown,
-		moveUpFromDown: animationState.moveUpFromDown,
-	};
+
 	return (
 		<div
 			ref={ ref }
@@ -267,11 +235,9 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 					{ formStructure.welcomeScreens &&
 						formStructure.welcomeScreens.length > 0 &&
 						formStructure.welcomeScreens.map( ( screen ) => {
-							const block = blocks.find(
-								( b ) => b.type === 'welcome_screen'
-							);
+							const block = blocks[ 'welcome-screen' ];
 							return (
-								<block.output
+								<block.rendererConfig.output
 									next={ switchToFieldsCat }
 									isActive={ currentBlockId === screen.id }
 									key={ screen.id }
@@ -290,33 +256,11 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 							scrollHandler={ scrollHandler }
 						>
 							{ fieldsToRender.map( ( field ) => {
-								const block = blocks.find(
-									( b ) => b.type === field.type
-								);
-								const fieldAnswer = answers.find(
-									( answer ) => answer.id === field.id
-								);
 								let blockCounter = null;
-								let editableFieldProps = {};
-								if ( field.displayOnly !== true ) {
-									blockCounter = editableFields.findIndex(
-										( editableField ) =>
-											field.id === editableField.id
-									);
-									editableFieldProps = {
-										counter: blockCounter + 1,
-										required: field.required,
-										isReviewing,
-										isValid: fieldAnswer.isValid,
-										val: fieldAnswer.value,
-										setIsValid: ( val ) =>
-											setIsFieldValid( field.id, val ),
-										setIsAnswered: ( val ) =>
-											setIsFieldAnswered( field.id, val ),
-										setVal: ( val ) =>
-											setFieldAnswer( field.id, val ),
-									};
-								}
+								blockCounter = editableFields.findIndex(
+									( editableField ) =>
+										field.id === editableField.id
+								);
 								return (
 									<FieldWrapper
 										animation={ findKey(
@@ -324,68 +268,32 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 											( effectVal ) =>
 												effectVal === field.id
 										) }
+										counter={
+											blockCounter || blockCounter === 0
+												? blockCounter + 1
+												: null
+										}
 										key={ field.id }
 										isActive={ currentBlockId === field.id }
 										id={ field.id }
-										next={ () => getNextField() }
+										isAttachmentSupported={
+											field.isAttachmentSupported
+										}
+										attachment={ field.attachment }
 										setCanSwipeNext={ setCanSwipeNext }
 										setCanSwipePrev={ setCanSwipePrev }
-									>
-										<block.output
-											isAnimating={
-												animationState.isAnimating
-											}
-											isActive={
-												currentBlockId === field.id
-											}
-											isFocused={ isFocused }
-											addDescription={
-												field.addDescription
-											}
-											isAttachmentSupported={
-												field.isAttachmentSupported
-											}
-											attachment={ field.attachment }
-											description={ field.description }
-											id={ field.id }
-											title={ field.title }
-											attributes={ field.attributes }
-											next={ () => {
-												if (
-													field.displayOnly ||
-													fieldAnswer.isValid
-												) {
-													getNextField();
-												}
-											} }
-											{ ...editableFieldProps }
-										/>
-									</FieldWrapper>
+										title={ field.title }
+										attributes={ field.attributes }
+										description={ field.description }
+										next={ () => getNextField() }
+									/>
 								);
 							} ) }
-							<SubmissionScreen
-								submitHandler={ submitHandler }
-								isSubmitting={ isSubmitting }
-								setIsSubmitting={ setIsSubmitting }
-								reviewHandler={ reviewHandler }
-								isReviewing={ isReviewing }
-								invalidFields={ answers.filter(
-									( answer ) => answer.isValid !== true
-								) }
-								setIsReviewing={ setIsReviewing }
-								active={ submissionScreenActive === true }
-							/>
 							<div className="screen__footer">
 								{ editableFields.length > 0 && (
 									<ProgressBar
 										currentBlockId={ currentBlockId }
 										totalQuestions={ editableFields.length }
-										answered={
-											answers.filter(
-												( answer ) =>
-													answer.isAnswered === true
-											).length
-										}
 									/>
 								) }
 							</div>
@@ -395,11 +303,9 @@ const FormContent = ( { formStructure, editableFields, blocks } ) => {
 					{ formStructure.thankyouScreens &&
 						formStructure.thankyouScreens.length > 0 &&
 						formStructure.thankyouScreens.map( ( screen ) => {
-							const block = blocks.find(
-								( b ) => b.type === 'thankyou_screen'
-							);
+							const block = blocks[ 'thankyou-screen' ];
 							return (
-								<block.output
+								<block.rendererConfig.output
 									reload={ switchToFieldsCat }
 									isActive={ currentBlockId === screen.id }
 									key={ screen.id }

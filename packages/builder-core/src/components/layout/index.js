@@ -28,7 +28,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
  * Internal Dependencies
  */
 import DropArea from '../drop-area';
-// import FormPreview from '../preview-area';
+import FormPreview from '../preview-area';
 import Panel from '../panel';
 import PanelNavbar from '../panel-navbar';
 
@@ -40,7 +40,7 @@ const Layout = ( props ) => {
 		formStructure,
 		reorderBlocks,
 		insertNewFormBlock,
-		insertEmptyFieldAnswer,
+		insertNewFieldAnswer,
 	} = props;
 	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
 		const list = formStructure.welcomeScreens
@@ -149,7 +149,10 @@ const Layout = ( props ) => {
 						id: uuid(),
 						title: '<p></p>',
 					} );
-					if ( draggedBlock.supports?.displayOnly === false ) {
+					const isBlockEditable = draggedBlock.supports?.displayOnly
+						? false
+						: true;
+					if ( isBlockEditable === false ) {
 						assign( draggedBlock, {
 							required: false,
 						} );
@@ -172,11 +175,8 @@ const Layout = ( props ) => {
 						assign( draggedBlock, {
 							type: blockType,
 						} );
-						if ( ! draggedBlock.displayOnly )
-							insertEmptyFieldAnswer(
-								draggedBlock.id,
-								blockType
-							);
+						if ( isBlockEditable )
+							insertNewFieldAnswer( draggedBlock.id, blockType );
 					}
 					insertNewFormBlock( draggedBlock, destination, blockCat );
 				}
@@ -184,16 +184,31 @@ const Layout = ( props ) => {
 		}
 	} );
 
+	const onBeforeCapture = ( { draggableId } ) => {
+		const el = document.querySelector(
+			`[data-rbd-drag-handle-draggable-id="${ draggableId }"]`
+		);
+		if ( el ) {
+			el.style.height = '12px';
+		}
+	};
+
 	return (
-		<DragDropContext onDragEnd={ onDragEnd }>
+		<DragDropContext
+			onBeforeCapture={ onBeforeCapture }
+			onDragEnd={ onDragEnd }
+		>
 			<PanelNavbar />
 			{ currentPanel && <Panel /> }
 			{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
-				<DropArea areaToHide={ areaToHide } />
+				<DropArea
+					currentPanel={ currentPanel }
+					areaToHide={ areaToHide }
+				/>
 			) }
-			{ /* { ( ! areaToHide || areaToHide !== 'preview-area' ) && (
+			{ ( ! areaToHide || areaToHide !== 'preview-area' ) && (
 				<FormPreview />
-			) } */ }
+			) }
 		</DragDropContext>
 	);
 };
@@ -217,16 +232,16 @@ export default compose( [
 		const { insertNewFormBlock, reorderFormBlocks } = dispatch(
 			'quillForms/builder-core'
 		);
-		const { insertEmptyFieldAnswer } = dispatch(
-			'quillForms/render/answers'
+		const { insertNewFieldAnswer } = dispatch(
+			'quillForms/renderer-submission'
 		);
 		return {
 			insertNewFormBlock: ( block, destination, category ) =>
 				insertNewFormBlock( block, destination, category ),
 			reorderBlocks: ( sourceIndex, destinationIndex ) =>
 				reorderFormBlocks( sourceIndex, destinationIndex ),
-			insertEmptyFieldAnswer: ( id, type ) =>
-				insertEmptyFieldAnswer( id, type ),
+			insertNewFieldAnswer: ( id, type ) =>
+				insertNewFieldAnswer( id, type ),
 		};
 	} ),
 ] )( Layout );

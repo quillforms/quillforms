@@ -27,13 +27,27 @@ class QF_Form_Theme_Model {
 	public static function get_all_registered_themes() {
 
 		global $wpdb;
-			$all_themes = $wpdb->get_results(
-				"
-					SELECT title, theme_data
-					FROM {$wpdb->prefix}quillforms_themes
-				"
-			);
+		$all_themes = $wpdb->get_results(
+			"
+				SELECT ID, title, theme_data
+				FROM {$wpdb->prefix}quillforms_themes
+			",
+			ARRAY_A
+		);
 
+		if ( ! empty( $all_themes ) ) {
+			return array_map(
+				function( $theme ) {
+					return array(
+						'id'         => $theme['ID'],
+						'title'      => $theme['title'],
+						'theme_data' => QF_Form_Theme::get_instance()->prepare_theme_data_for_render( qf_decode( $theme['theme_data'] ) ),
+
+					);
+				},
+				$all_themes
+			);
+		}
 		return $all_themes;
 	}
 
@@ -68,22 +82,4 @@ class QF_Form_Theme_Model {
 		return  QF_Form_Theme::get_instance()->prepare_theme_data_for_render( $theme_data );
 	}
 
-	/**
-	 * Create new theme
-	 *
-	 * @since 1.0.0
-	 * @static
-	 * @global $wpdb
-	 *
-	 * @param mixed $data
-	 *
-	 * @return WP_Error|array The response
-	 */
-	public static function create_theme( $data ) {
-		global $wpdb;
-
-		if ( ! is_array( $data ) ) {
-			return new WP_Error( 'qf_should_be_array', __( 'Theme data should be an array', 'quillforms' ), '' );
-		}
-	}
 }

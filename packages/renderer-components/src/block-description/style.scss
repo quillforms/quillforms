@@ -1,9 +1,13 @@
 .renderer-components-block-description {
-	font-size: 20px;
 	line-height: 30px;
 	color: #324157;
 	opacity: 0.7;
 	margin-bottom: 15px;
+}
+.renderer-components-block-description p {
+	margin-top: 0;
+	margin-bottom:0;
+	font-size: 20px;
 }
 .welcome-screen-block .renderer-components-block-description {
 	text-align: center;

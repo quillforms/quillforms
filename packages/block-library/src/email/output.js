@@ -8,15 +8,6 @@ import { useState, useEffect, useRef } from '@wordpress/element';
  */
 import VisibilitySensor from 'react-visibility-sensor';
 
-/**
- * Internal Dependencies
- */
-import {
-	FieldAction,
-	QuestionBody,
-	QuestionHeader,
-} from '@quillforms/renderer-components';
-
 const EmailOutput = ( props ) => {
 	const {
 		id,
@@ -28,12 +19,11 @@ const EmailOutput = ( props ) => {
 		setIsAnswered,
 		isFocused,
 		isActive,
-		next,
+		setErrMsgKey,
+		setShowErr,
 		val,
 		setVal,
 	} = props;
-	const [ errMsg, setErrMsg ] = useState( null );
-	const [ showErr, setShowErr ] = useState( false );
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 
@@ -47,13 +37,13 @@ const EmailOutput = ( props ) => {
 	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsg( 'Please fill this in!' );
+			setErrMsgKey( 'label.errorAlert.required' );
 		} else if ( ! validateEmail( val ) && value !== '' ) {
 			setIsValid( false );
-			setErrMsg( "hmmm.. That doesn't look a valid email!" );
+			setErrMsgKey( 'label.errorAlert.email' );
 		} else {
 			setIsValid( true );
-			setErrMsg( null );
+			setErrMsgKey( null );
 		}
 	};
 
@@ -80,7 +70,8 @@ const EmailOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		setErrMsg( null );
+		checkfieldValidation( value );
+		setShowErr( false );
 		setVal( value );
 		if ( value !== '' ) {
 			setIsAnswered( true );
@@ -90,61 +81,31 @@ const EmailOutput = ( props ) => {
 	};
 
 	return (
-		<div
-			role="button"
-			tabIndex="-1"
-			style={ { outline: 'none' } }
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' && e.target.value !== '' ) {
-					e.stopPropagation();
-					checkfieldValidation( val );
-					setShowErr( true );
-					next();
-				}
-			} }
-		>
-			<QuestionHeader { ...props } />
-			<QuestionBody>
-				<div className="question__wrapper">
-					<VisibilitySensor
-						resizeCheck={ true }
-						resizeThrottle={ 100 }
-						scrollThrottle={ 100 }
-						onChange={ ( visible ) => {
-							// // console.log(isVisible);
-							setIsVisible( visible );
-						} }
-					>
-						<input
-							ref={ elemRef }
-							className={
-								'question__InputField' +
-								( simulateFocusStyle ? ' no-border' : '' )
-							}
-							id={ 'email-' + id }
-							placeholder="Type your email here..."
-							onChange={ changeHandler }
-							value={ val && val.length > 0 ? val : '' }
-						/>
-					</VisibilitySensor>
-				</div>
-
-				<div style={ { height: '60px', marginTop: '20px' } }>
-					{ errMsg && ( showErr || isReviewing ) ? (
-						<div className="sf-err-msg">{ errMsg }</div>
-					) : (
-						<FieldAction
-							show={ val && val !== '' }
-							clickHandler={ () => {
-								checkfieldValidation( val );
-								setShowErr( true );
-								next();
-							} }
-						/>
-					) }
-				</div>
-			</QuestionBody>
-		</div>
+		<>
+			<div className="question__wrapper">
+				<VisibilitySensor
+					resizeCheck={ true }
+					resizeThrottle={ 100 }
+					scrollThrottle={ 100 }
+					onChange={ ( visible ) => {
+						// // console.log(isVisible);
+						setIsVisible( visible );
+					} }
+				>
+					<input
+						ref={ elemRef }
+						className={
+							'question__InputField' +
+							( simulateFocusStyle ? ' no-border' : '' )
+						}
+						id={ 'email-' + id }
+						placeholder="Type your email here..."
+						onChange={ changeHandler }
+						value={ val && val.length > 0 ? val : '' }
+					/>
+				</VisibilitySensor>
+			</div>
+		</>
 	);
 };
 export default EmailOutput;

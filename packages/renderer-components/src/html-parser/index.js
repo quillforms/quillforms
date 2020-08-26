@@ -14,17 +14,17 @@ import ReactHtmlParser from 'react-html-parser';
 import FieldVariable from './field-variable';
 
 const HtmlParser = ( { value } ) => {
-	// const counter = 0;
-	// .replace(/({{field:([^}]*)}})/g, (match, p1, p2, offset, string) => {
-	//   counter++;
-	//   return (
-	//     "<fieldmention field_counter=" +
-	//     counter +
-	//     " field_id='" +
-	//     p2 +
-	//     "'></fieldmention>"
-	//   );
-	// })
+	let counter = 0;
+	value = value.replace( /({{field:([^}]*)}})/g, ( match, p1, p2 ) => {
+		counter++;
+		return (
+			'<fieldmention field_counter=' +
+			counter +
+			" field_id='" +
+			p2 +
+			"'></fieldmention>"
+		);
+	} );
 
 	// console.log(value);
 	const transform = ( node ) => {

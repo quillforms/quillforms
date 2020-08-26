@@ -12,7 +12,6 @@ import VisibilitySensor from 'react-visibility-sensor';
 /**
  * Internal Dependencies
  */
-import { QuestionHeader, QuestionBody } from '@quillforms/renderer-components';
 import DropdownIcon from './dropdownIcon';
 import CloseIcon from './closeIcon';
 
@@ -28,11 +27,10 @@ const DropdownOutput = ( props ) => {
 		isActive,
 		isFocused,
 		next,
+		setErrMsgKey,
 		val,
 		setVal,
 	} = props;
-	const [ errMsg, setErrMsg ] = useState( null );
-	const [ showErr, setShowErr ] = useState( false );
 	let { choices } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ showDropdown, setShowDropdown ] = useState( false );
@@ -58,10 +56,10 @@ const DropdownOutput = ( props ) => {
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val === '' ) ) {
 			setIsValid( false );
-			setErrMsg( 'Please fill this in!' );
+			setErrMsgKey( 'label.errorAlert.required' );
 		} else {
 			setIsValid( true );
-			setErrMsg( null );
+			setErrMsgKey( null );
 		}
 	};
 
@@ -84,7 +82,6 @@ const DropdownOutput = ( props ) => {
 	}, [ showDropdown ] );
 
 	useEffect( () => {
-		setShowErr( false );
 		checkfieldValidation( val );
 	}, [ isReviewing, required, attributes ] );
 
@@ -108,7 +105,7 @@ const DropdownOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		setSearchKeyword( e.target.value );
-
+		checkfieldValidation( e.target.value );
 		if ( val ) {
 			setIsAnswered( false );
 			setSearchKeyword( '' );
@@ -117,115 +114,87 @@ const DropdownOutput = ( props ) => {
 	};
 
 	return (
-		<div
-			role="presentation"
-			tabIndex="0"
-			style={ { outline: 'none' } }
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' && e.target.value !== '' ) {
-					e.stopPropagation();
-					checkfieldValidation( val );
-					setShowErr( true );
-					next();
-				}
-			} }
-		>
-			<QuestionHeader { ...props } />
-			<QuestionBody>
-				<div className="question__wrapper" ref={ wrapperRef }>
-					<VisibilitySensor
-						resizeCheck={ true }
-						resizeThrottle={ 100 }
-						scrollThrottle={ 100 }
-						onChange={ ( visible ) => {
-							// // console.log(isVisible);
-							setIsVisible( visible );
-						} }
-					>
-						<input
-							autoComplete="off"
-							ref={ elemRef }
-							className={
-								'question__InputField' +
-								( simulateFocusStyle ? ' no-border' : '' )
-							}
-							id={ 'dropdown-' + id }
-							placeholder="Type or select an option"
-							onChange={ changeHandler }
-							value={
-								selectedChoiceIndex !== -1
-									? choices[ selectedChoiceIndex ].label
-									: searchKeyword
-									? searchKeyword
-									: ''
-							}
-							onClick={ () => setShowDropdown( true ) }
-						/>
-					</VisibilitySensor>
-					{ val && val.length > 0 ? (
-						<CloseIcon
-							onClick={ () => {
-								setVal( [] );
-								elemRef.current.focus();
-							} }
-						/>
-					) : (
-						<DropdownIcon
-							onClick={ () => setShowDropdown( true ) }
-						/>
-					) }
-					{ isActive && (
-						<div
-							className={
-								'dropdown__choices' +
-								( showDropdown ? ' visible' : ' hidden' )
-							}
-							onWheel={ ( e ) => {
-								if ( showDropdown ) e.stopPropagation();
-							} }
-						>
-							{ choices && choices.length > 0 ? (
-								choices.map( ( choice ) => {
-									return (
-										<div
-											role="presentation"
-											key={ choice.ref }
-											className={
-												'dropdown__choiceWrapper' +
-												( !! val &&
-												val.ref === choice.ref
-													? ' selected'
-													: '' )
-											}
-											onClick={ () => {
-												setVal( {
-													ref: choice.ref,
-													label: choice.label,
-												} );
-												setTimeout( () => {
-													next();
-												}, 700 );
-											} }
-										>
-											{ choice.label }
-										</div>
-									);
-								} )
-							) : (
-								<div className="sf-err-msg">
-									No suggestions found
+		<div className="question__wrapper" ref={ wrapperRef }>
+			<VisibilitySensor
+				resizeCheck={ true }
+				resizeThrottle={ 100 }
+				scrollThrottle={ 100 }
+				onChange={ ( visible ) => {
+					// // console.log(isVisible);
+					setIsVisible( visible );
+				} }
+			>
+				<input
+					autoComplete="off"
+					ref={ elemRef }
+					className={
+						'question__InputField' +
+						( simulateFocusStyle ? ' no-border' : '' )
+					}
+					id={ 'dropdown-' + id }
+					placeholder="Type or select an option"
+					onChange={ changeHandler }
+					value={
+						selectedChoiceIndex !== -1
+							? choices[ selectedChoiceIndex ].label
+							: searchKeyword
+							? searchKeyword
+							: ''
+					}
+					onClick={ () => setShowDropdown( true ) }
+				/>
+			</VisibilitySensor>
+			{ val && val.length > 0 ? (
+				<CloseIcon
+					onClick={ () => {
+						setVal( [] );
+						elemRef.current.focus();
+					} }
+				/>
+			) : (
+				<DropdownIcon onClick={ () => setShowDropdown( true ) } />
+			) }
+			{ isActive && (
+				<div
+					className={
+						'dropdown__choices' +
+						( showDropdown ? ' visible' : ' hidden' )
+					}
+					onWheel={ ( e ) => {
+						if ( showDropdown ) e.stopPropagation();
+					} }
+				>
+					{ choices && choices.length > 0 ? (
+						choices.map( ( choice ) => {
+							return (
+								<div
+									role="presentation"
+									key={ choice.ref }
+									className={
+										'dropdown__choiceWrapper' +
+										( !! val && val.ref === choice.ref
+											? ' selected'
+											: '' )
+									}
+									onClick={ () => {
+										setVal( {
+											ref: choice.ref,
+											label: choice.label,
+										} );
+										setTimeout( () => {
+											next();
+										}, 700 );
+									} }
+								>
+									{ choice.label }
 								</div>
-							) }
-						</div>
+							);
+						} )
+					) : (
+						<div className="sf-err-msg">No suggestions found</div>
 					) }
 				</div>
-
-				<div style={ { height: '60px', marginTop: '20px' } }>
-					{ errMsg && ( showErr || isReviewing ) && (
-						<div className="sf-err-msg">{ errMsg }</div>
-					) }
-				</div>
-			</QuestionBody>
+			) }
 		</div>
 	);
 };

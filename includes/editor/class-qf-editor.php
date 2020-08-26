@@ -120,7 +120,7 @@ class QF_Editor {
 				array(
 					'currentTheme'   => QF_Form_Model::get_form_theme_data( $this->_form_id ),
 					'currentThemeId' => QF_Form_Model::get_form_theme_id( $this->_form_id ),
-					'myThemes'       => QF_Form_Theme_Model::get_all_registered_themes( $this->_form_id ),
+					'themesList'     => QF_Form_Theme_Model::get_all_registered_themes( $this->_form_id ),
 				)
 			) . ')',
 			'after'

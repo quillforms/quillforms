@@ -4,17 +4,32 @@
 import { useRef, useEffect } from '@wordpress/element';
 
 /**
- * External Dependencis
+ * External Dependencies
  */
 import { useSwipeable } from 'react-swipeable';
 
+/**
+ * Internal Dependencies
+ */
+import QuestionHeader from '../question-header';
+import BlockFooter from '../block-footer';
+import BlockOutput from '../block-output';
+
 const FieldWrapper = ( {
-	children,
 	id,
 	isActive,
+	isReviewing,
 	animation,
+	attributes,
 	setCanSwipeNext,
 	setCanSwipePrev,
+	block,
+	title,
+	description,
+	attachment,
+	isAttachmentSupported,
+	counter,
+	next,
 } ) => {
 	const ref = useRef();
 	let timer = null;
@@ -83,7 +98,22 @@ const FieldWrapper = ( {
 					ref={ ref }
 				>
 					<div className="renderer-components-field-wrapper__content">
-						{ children }
+						<QuestionHeader
+							attributes={ attributes }
+							title={ title }
+							displayOnly={ block.supports.displayOnly }
+							counter={ counter }
+							description={ description }
+							attachment={ attachment }
+							isAttachmentSupported={ isAttachmentSupported }
+						/>
+						<BlockOutput />
+						<BlockFooter
+							displayOnly={ block.supports.displayOnly }
+							id={ id }
+							isReviewing={ isReviewing }
+							next={ next }
+						/>
 					</div>
 				</div>
 			</section>
