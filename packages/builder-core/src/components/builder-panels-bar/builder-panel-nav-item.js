@@ -11,7 +11,7 @@ import classnames from 'classnames';
 const NavItem = ( { panel, setCurrentPanel, isSelected } ) => {
 	return (
 		<div
-			className={ classnames( 'builder-core-panel-navbar-item', {
+			className={ classnames( 'builder-core-builder-panel-nav-item', {
 				active: isSelected ? true : false,
 			} ) }
 		>
@@ -21,7 +21,7 @@ const NavItem = ( { panel, setCurrentPanel, isSelected } ) => {
 					onClick={ () => {
 						setCurrentPanel( panel.name );
 					} }
-					className="builder-core-panel-navbar-item__icon"
+					className="builder-core-builder-panel-nav-item__icon"
 				>
 					<panel.icon />
 				</div>

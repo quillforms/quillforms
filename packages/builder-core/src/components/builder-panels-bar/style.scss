@@ -1,4 +1,4 @@
-.builder-core-panel-navbar {
+.builder-core-builder-panels-bar {
 	& {
 		position: absolute;
 		left: 0;
@@ -8,14 +8,9 @@
 		height: 100%;
 		background: #333;
 	}
-	.builder-core-panel-navbar__logo {
-		text-align: center;
-		margin-bottom: 13px;
-		padding-top: 10px;
-		background: #e2e2e2;
-	}
 
-	.builder-core-panel-navbar-item {
+
+	.builder-core-builder-panel-nav-item {
 
 		& {
 			text-align: center;
@@ -28,12 +23,12 @@
 			cursor: pointer;
 		}
 
-		&.active .builder-core-panel-navbar-item__icon {
+		&.active .builder-core-builder-panel-nav-item__icon {
 			background: #06a966;
 			color: #fff;
 		}
 
-		&:not(.active) .builder-core-panel-navbar-item__icon:hover {
+		&:not(.active) .builder-core-builder-panel-nav-item__icon:hover {
 			background: #606565;
 		}
 

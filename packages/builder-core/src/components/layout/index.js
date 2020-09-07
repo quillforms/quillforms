@@ -6,31 +6,26 @@ import { __experimentalDragDropContext as DragDropContext } from '@quillforms/bu
 /**
  * WordPress Dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback, useState, render } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-
+import { SlotFillProvider } from '@wordpress/components';
 /**
  * External Dependencies
  */
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import uuid from 'uuid/v4';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-//import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { confirmAlert } from 'react-confirm-alert';
 
 /**
  * Internal Dependencies
  */
 import DropArea from '../drop-area';
-import FormPreview from '../preview-area';
+// import FormPreview from '../preview-area';
 import Panel from '../panel';
-import PanelNavbar from '../panel-navbar';
+import BuilderPanelsBar from '../builder-panels-bar';
+import DragAlert from '../drag-alert';
 
 const Layout = ( props ) => {
 	const {
@@ -40,8 +35,14 @@ const Layout = ( props ) => {
 		formStructure,
 		reorderBlocks,
 		insertNewFormBlock,
-		insertNewFieldAnswer,
+		// insertNewFieldAnswer,
 	} = props;
+
+	const [ targetIndex, setTargetIndex ] = useState();
+	const [ isDraggingContent, setIsDraggingContent ] = useState( false );
+	const [ sourceContentIndex, setSourceContentIndex ] = useState();
+	const [ isDragging, setIsDragging ] = useState( false );
+
 	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
 		const list = formStructure.welcomeScreens
 			.concat( formStructure.fields )
@@ -62,7 +63,29 @@ const Layout = ( props ) => {
 		return false;
 	};
 
+	const onDragStart = ( { source } ) => {
+		setIsDragging( true );
+		if ( source?.droppableId !== 'DROP_AREA' ) return;
+		setSourceContentIndex( source.index );
+	};
+
+	const onDragUpdate = ( { destination } ) => {
+		if ( destination?.droppableId !== 'DROP_AREA' ) {
+			setTargetIndex( undefined );
+			return;
+		}
+		let next = destination?.index;
+		if ( isDraggingContent ) {
+			next = next >= sourceContentIndex ? next + 1 : next;
+		}
+		setTargetIndex( next );
+	};
+
 	const onDragEnd = useCallback( ( result ) => {
+		setIsDragging( false );
+		setTargetIndex( undefined );
+		setIsDraggingContent( false );
+
 		const { source, destination } = result;
 
 		// dropped outside the list
@@ -79,58 +102,18 @@ const Layout = ( props ) => {
 					confirmAlert( {
 						customUI: ( { onClose } ) => {
 							return (
-								<div
-									className="alert__dialogWrapper"
-									style={ {
-										maxWidth: '600px',
-										borderRadius: '6px',
-										boxShadow:
-											'0px 11px 15px -7px rgba(0,0,0,0.2), 0px 24px 38px 3px rgba(0,0,0,0.14), 0px 9px 46px 8px rgba(0,0,0,0.12)',
+								<DragAlert
+									approve={ () => {
+										reorderBlocks(
+											source.index,
+											destination.index
+										);
+										onClose();
 									} }
-								>
-									<div className="alert__dialog">
-										<DialogTitle
-											id={ `alert-dialog-title` }
-										>
-											Warning!
-										</DialogTitle>
-										<DialogContent className="dialog__content">
-											<DialogContentText>
-												This block recalls information
-												from previous fields. This info
-												will be lost if you proceed with
-												this block movement.
-												<br />
-												<br /> Are you sure you want to
-												proceed?
-											</DialogContentText>
-										</DialogContent>
-										<DialogActions>
-											<Button
-												className="dialog__cancel__button"
-												onClick={ () => {
-													onClose();
-												} }
-												color="secondary"
-											>
-												Cancel
-											</Button>
-											<Button
-												className="dialog__danger__button"
-												onClick={ () => {
-													reorderBlocks(
-														source.index,
-														destination.index
-													);
-													onClose();
-												} }
-												color="primary"
-											>
-												Ok
-											</Button>
-										</DialogActions>
-									</div>
-								</div>
+									reject={ () => {
+										onClose();
+									} }
+								/>
 							);
 						},
 					} );
@@ -175,8 +158,8 @@ const Layout = ( props ) => {
 						assign( draggedBlock, {
 							type: blockType,
 						} );
-						if ( isBlockEditable )
-							insertNewFieldAnswer( draggedBlock.id, blockType );
+						// if ( isBlockEditable )
+						// 	insertNewFieldAnswer( draggedBlock.id, blockType );
 					}
 					insertNewFormBlock( draggedBlock, destination, blockCat );
 				}
@@ -185,31 +168,51 @@ const Layout = ( props ) => {
 	} );
 
 	const onBeforeCapture = ( { draggableId } ) => {
-		const el = document.querySelector(
-			`[data-rbd-drag-handle-draggable-id="${ draggableId }"]`
+		const { welcomeScreens, fields, thankyouScreens } = formStructure;
+		const contentListData = welcomeScreens
+			.concat( fields )
+			.concat( thankyouScreens );
+		const contentListItem = contentListData.find(
+			( block ) => block.id === draggableId
 		);
+		const isDraggingContentList = !! contentListItem;
+
+		if ( isDraggingContentList ) {
+			setIsDraggingContent( true );
+		}
+
+		const el = document.querySelector(
+			`[data-rbd-draggable-id="${ draggableId }"]`
+		);
+
 		if ( el ) {
-			el.style.height = '12px';
+			el.style.height = isDraggingContentList ? '24px' : '2px';
 		}
 	};
 
 	return (
-		<DragDropContext
-			onBeforeCapture={ onBeforeCapture }
-			onDragEnd={ onDragEnd }
-		>
-			<PanelNavbar />
-			{ currentPanel && <Panel /> }
-			{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
-				<DropArea
-					currentPanel={ currentPanel }
-					areaToHide={ areaToHide }
-				/>
-			) }
-			{ ( ! areaToHide || areaToHide !== 'preview-area' ) && (
-				<FormPreview />
-			) }
-		</DragDropContext>
+		<SlotFillProvider>
+			<DragDropContext
+				onDragStart={ onDragStart }
+				onDragEnd={ onDragEnd }
+				onDragUpdate={ onDragUpdate }
+				onBeforeCapture={ onBeforeCapture }
+			>
+				<BuilderPanelsBar />
+				{ currentPanel && <Panel /> }
+				{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
+					<DropArea
+						isDragging={ isDragging }
+						currentPanel={ currentPanel }
+						targetIndex={ targetIndex }
+						areaToHide={ areaToHide }
+					/>
+				) }
+				{ /* { ( ! areaToHide || areaToHide !== 'preview-area' ) && (
+				 <FormPreview />
+			) } */ }
+			</DragDropContext>
+		</SlotFillProvider>
 	);
 };
 
@@ -232,16 +235,16 @@ export default compose( [
 		const { insertNewFormBlock, reorderFormBlocks } = dispatch(
 			'quillForms/builder-core'
 		);
-		const { insertNewFieldAnswer } = dispatch(
-			'quillForms/renderer-submission'
-		);
+		// const { insertNewFieldAnswer } = dispatch(
+		// 	'quillForms/renderer-submission'
+		// );
 		return {
 			insertNewFormBlock: ( block, destination, category ) =>
 				insertNewFormBlock( block, destination, category ),
 			reorderBlocks: ( sourceIndex, destinationIndex ) =>
 				reorderFormBlocks( sourceIndex, destinationIndex ),
-			insertNewFieldAnswer: ( id, type ) =>
-				insertNewFieldAnswer( id, type ),
+			// insertNewFieldAnswer: ( id, type ) =>
+			// 	insertNewFieldAnswer( id, type ),
 		};
 	} ),
 ] )( Layout );

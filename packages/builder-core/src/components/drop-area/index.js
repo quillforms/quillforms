@@ -19,6 +19,11 @@ import { withSelect } from '@wordpress/data';
  * External Dependencies.
  */
 import assign from 'lodash/assign';
+import classNames from 'classnames';
+
+const BlockDragIndexLine = () => {
+	return <div className="block-drag-index-line"></div>;
+};
 
 const DropArea = ( props ) => {
 	const {
@@ -28,6 +33,8 @@ const DropArea = ( props ) => {
 		welcomeScreens,
 		thankyouScreens,
 		blocks,
+		targetIndex,
+		isDragging,
 	} = props;
 	const list = welcomeScreens
 		.map( ( welcomeScreen ) =>
@@ -53,13 +60,18 @@ const DropArea = ( props ) => {
 			<Droppable
 				droppableId="DROP_AREA"
 				renderClone={ ( provided, _snapshot, rubric ) => {
-					const item = list[ rubric.source.index ];
+					const item = { ...list[ rubric.source.index ] };
 					const block = blocks[ item.type ];
 					return (
 						<div
 							{ ...provided.draggableProps }
 							{ ...provided.dragHandleProps }
 							ref={ provided.innerRef }
+							style={ {
+								...provided.draggableProps.style,
+								height: undefined,
+								padding: 12,
+							} }
 						>
 							<BlockDragging item={ item } block={ block } />
 						</div>
@@ -68,7 +80,13 @@ const DropArea = ( props ) => {
 			>
 				{ ( provided, snapshot ) => (
 					<div
-						className="builder-core-drop-area__container"
+						className={ classNames(
+							'builder-core-drop-area__container',
+							{
+								'disable-hover-highlight':
+									isDragging || snapshot.isDraggingOver,
+							}
+						) }
 						{ ...provided.droppableProps }
 						ref={ provided.innerRef }
 						isDraggingOver={ snapshot.isDraggingOver }
@@ -78,16 +96,23 @@ const DropArea = ( props ) => {
 							list.map( ( item, index ) => {
 								const block = blocks[ item.type ];
 								return (
-									<BlockEditErrorBoundary key={ item.id }>
-										<BlockEditBox
-											index={ index }
-											item={ { ...item } }
-											block={ block }
-										/>
-									</BlockEditErrorBoundary>
+									<>
+										{ index === targetIndex && (
+											<BlockDragIndexLine />
+										) }
+										<BlockEditErrorBoundary key={ item.id }>
+											<BlockEditBox
+												index={ index }
+												item={ { ...item } }
+												block={ block }
+											/>
+										</BlockEditErrorBoundary>
+									</>
 								);
 							} ) }
-
+						{ targetIndex === list.length && (
+							<BlockDragIndexLine />
+						) }
 						{ provided.placeholder }
 					</div>
 				) }

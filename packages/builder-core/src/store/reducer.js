@@ -41,7 +41,6 @@ function getMutateSafeObject( original, working ) {
 // Initial State
 const initialState = {
 	currentBlockId: '',
-	currentBlockCat: '',
 	fields: [],
 	welcomeScreens: [],
 	thankyouScreens: [],
@@ -179,13 +178,15 @@ const FormReducer = ( state = initialState, action ) => {
 					: destinationIndex -
 					  ( welcomeScreensLength + fieldsLength );
 
-			const stateClone = { ...state };
-			const catItems = [ ...stateClone[ category ] ];
+			const catItems = [ ...state[ category ] ];
 			const result = Array.from( catItems );
 			const [ removed ] = result.splice( sourceIndex, 1 );
 			result.splice( destinationIndex, 0, removed );
-			stateClone[ category ] = result;
-			return stateClone;
+			return {
+				...state,
+				[ category ]: result,
+				currentBlockId: state[ category ][ sourceIndex ].id,
+			};
 		}
 
 		// INSERT NEW FORM BLOCK
@@ -214,75 +215,50 @@ const FormReducer = ( state = initialState, action ) => {
 			const stateClone = { ...state };
 			stateClone[ category ] = catItems;
 			stateClone.currentBlockId = block.id;
-			stateClone.currentBlockCat = category;
 			return stateClone;
 		}
 
 		// DELETE FORM BLOCK
 		case DELETE_FORM_BLOCK: {
 			const { blockId, blockCat } = action.payload;
+			console.log( blockCat, blockId );
 			const allBlocks = state.welcomeScreens
 				.concat( state.fields )
 				.concat( state.thankyouScreens );
-			// Get block index within its category
-			const blockIndexWithinCat = state[ blockCat ].findIndex(
-				( block ) => {
-					return block.id === blockId;
-				}
+
+			// Get block index within all categories after concatenating them.
+			const blockIndex = allBlocks.findIndex(
+				( item ) => item.id === blockId
 			);
 
-			// If the block id isn't found
-			if ( ! blockIndexWithinCat ) return state;
-
-			const stateClone = { ...state };
+			const blockIndexWithinCat = state[ blockCat ].findIndex(
+				( item ) => item.id === blockId
+			);
 
 			const catItems = [ ...state[ blockCat ] ];
 			catItems.splice( blockIndexWithinCat, 1 );
-			state[ blockCat ] = catItems;
-
-			// Get block index within all categories after concatenating them.
-			const blockIndexWithinAll = allBlocks.findIndex(
-				( item ) => item.id === blockId
-			);
-			// If it is the only block
-			if ( blockIndexWithinAll === 0 && allBlocks.length === 1 ) {
-				stateClone.currentBlockId = null;
-				stateClone.currentBlockCat = null;
-			} else {
-				// if it is the first block and has blocks after it
-				let nextBlock = allBlocks[ blockIndexWithinAll + 1 ];
-
-				// if it isn't the first block and has blocks before it
-				if ( blockIndexWithinAll !== 0 ) {
-					nextBlock = allBlocks[ blockIndexWithinAll - 1 ];
-				}
-				stateClone.currentBlockId = nextBlock.id;
-				let nextBlockCat = 'fields';
-				if (
-					stateClone.welcomeScreens.some(
-						( id ) => stateClone.currentBlockId === id
-					)
-				)
-					nextBlockCat = 'welcomeScreens';
-				else if (
-					state.thankyouScreens.some(
-						( id ) => stateClone.currentBlockId === id
-					)
-				)
-					nextBlockCat = 'thankyouScreens';
-
-				stateClone.currentBlockCat = nextBlockCat;
+			if ( blockIndex === -1 ) {
+				return state;
 			}
-
-			return stateClone;
+			const nextBlock = allBlocks[ blockIndex + 1 ];
+			const prevBlock = allBlocks[ blockIndex - 1 ];
+			const currentBlockId = nextBlock
+				? nextBlock.id
+				: prevBlock
+				? prevBlock.id
+				: null;
+			return {
+				...state,
+				currentBlockId,
+				[ blockCat ]: catItems,
+			};
 		}
 
 		// SET CURRENT BLOCK
 		case SET_CURRENT_BLOCK: {
-			const { id, category } = action.payload;
+			const { id } = action.payload;
 			const stateClone = { ...state };
 			stateClone.currentBlockId = id;
-			stateClone.currentBlockCat = category;
 			return stateClone;
 		}
 
@@ -318,6 +294,9 @@ const FormReducer = ( state = initialState, action ) => {
 			const index = state.fields.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
+			if ( index === -1 ) {
+				return state;
+			}
 			const requiredFlag = state.fields[ index ].required;
 			const stateClone = { ...state };
 			stateClone.fields[ index ].required = ! requiredFlag;

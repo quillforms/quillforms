@@ -185,10 +185,18 @@ export function getCurrentBlockId( state ) {
  *
  * @param {Object} state       Global application state.
  *
- * @return {string} Current block category
+ * @return {?string} Current block category
  */
 export function getCurrentBlockCat( state ) {
-	return state.currentBlockCat;
+	let currentBlockCat = null;
+	forEach( [ 'welcomeScreens', 'fields', 'thankyouScreens' ], ( cat ) => {
+		if (
+			state[ cat ].some( ( item ) => item.id === state.currentBlockId )
+		) {
+			currentBlockCat = cat;
+		}
+	} );
+	return currentBlockCat;
 }
 
 /**
@@ -212,7 +220,13 @@ export function getCurrentBlockIndex( state ) {
  * @return {Object} Current block item
  */
 export function getCurrentFormItem( state ) {
-	return state[ getCurrentBlockCat( state ) ][
-		getCurrentBlockIndex( state )
-	];
+	let currentFormItem = null;
+	forEach( [ 'welcomeScreens', 'fields', 'thankyouScreens' ], ( cat ) => {
+		const currentFormItemIndex = state[ cat ].findIndex(
+			( item ) => item.id === state.currentBlockId
+		);
+		if ( currentFormItemIndex !== -1 )
+			currentFormItem = state[ cat ][ currentFormItemIndex ];
+	} );
+	return currentFormItem;
 }

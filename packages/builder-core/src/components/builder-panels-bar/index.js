@@ -7,16 +7,12 @@ import { withSelect, withDispatch } from '@wordpress/data';
 /**
  * Internal Dependencies
  */
-import NavItem from './nav-item';
-import Logo from './logo';
+import NavItem from './builder-panel-nav-item';
 
-const PanelNavbar = ( props ) => {
+const BuilderPanelsBar = ( props ) => {
 	const { panels, currentPanel, setCurrentPanel } = props;
 	return (
-		<div className="builder-core-panel-navbar">
-			<div className="builder-core-panel-navbar__logo">
-				<Logo />
-			</div>
+		<div className="builder-core-builder-panels-bar">
 			{ panels.map( ( panel ) => {
 				const isSelected = panel.name === currentPanel;
 				return (
@@ -53,4 +49,4 @@ export default compose( [
 			setAreaToHide: ( areaToHide ) => setAreaToHide( areaToHide ),
 		};
 	} ),
-] )( PanelNavbar );
+] )( BuilderPanelsBar );
