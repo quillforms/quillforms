@@ -11,6 +11,7 @@ export { default as __experimentalControlLabel } from './control-label';
 export { default as __experimentalDragDropContext } from './drag-drop-context';
 export { default as __experimentalDraggable } from './draggable';
 export { default as __experimentalDroppable } from './droppable';
+export { default as useFilters } from './higher-order/use-filters';
 //export { default as EmojiPicker } from './emoji-picker';
 // export { default as FontPicker } from './font-picker';
 export {

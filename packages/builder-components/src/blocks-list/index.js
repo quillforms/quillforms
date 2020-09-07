@@ -45,46 +45,39 @@ const BlocksList = () => {
 								isDragDisabled = true;
 							}
 							return (
-								<Draggable
+								<div
 									key={ blocks[ type ].id }
-									isDragDisabled={
-										isDragDisabled ? true : false
-									}
-									draggableId={ blocks[ type ].id }
-									index={ index }
+									style={ { marginBottom: '20px' } }
 								>
-									{ ( provided, snapshot ) => (
-										<Fragment>
-											<div
-												className={ classnames(
-													'builder-components-blocks-list__item-wrapper',
-													{
-														'is-dragging': snapshot.isDragging
-															? true
-															: false,
-													}
-												) }
-												{ ...provided.draggableProps }
-												{ ...provided.dragHandleProps }
-												ref={ provided.innerRef }
-												isDragging={
-													snapshot.isDragging
-												}
-												style={
-													provided.draggableProps
-														.style
-												}
-											>
-												<BlocksListItem
-													item={ blocks[ type ] }
-													disabled={ isDragDisabled }
-												/>
-											</div>
-											{ snapshot.isDragging && (
+									<Draggable
+										isDragDisabled={
+											isDragDisabled ? true : false
+										}
+										draggableId={ blocks[ type ].id }
+										index={ index }
+									>
+										{ ( provided, snapshot ) => (
+											<Fragment>
 												<div
 													className={ classnames(
-														'builder-components-blocks-list__item-wrapper'
+														'builder-components-blocks-list__item-wrapper',
+														{
+															'is-dragging': snapshot.isDragging
+																? true
+																: false,
+														}
 													) }
+													{ ...provided.draggableProps }
+													{ ...provided.dragHandleProps }
+													ref={ provided.innerRef }
+													isDragging={
+														snapshot.isDragging
+													}
+													style={ {
+														...provided
+															.draggableProps
+															.style,
+													} }
 												>
 													<BlocksListItem
 														item={ blocks[ type ] }
@@ -93,10 +86,26 @@ const BlocksList = () => {
 														}
 													/>
 												</div>
-											) }
-										</Fragment>
-									) }
-								</Draggable>
+												{ snapshot.isDragging && (
+													<div
+														className={ classnames(
+															'builder-components-blocks-list__item-wrapper'
+														) }
+													>
+														<BlocksListItem
+															item={
+																blocks[ type ]
+															}
+															disabled={
+																isDragDisabled
+															}
+														/>
+													</div>
+												) }
+											</Fragment>
+										) }
+									</Draggable>
+								</div>
 							);
 						} ) }
 						{ provided.placeholder }
