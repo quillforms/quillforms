@@ -103,6 +103,9 @@ final class QuillForms {
 		 * Core classes.
 		 */
 		require_once QF_PLUGIN_DIR . 'lib/client-assets.php';
+		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-page-controller.php';
+		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-loader.php';
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-capabilities.php';
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-blocks-factory.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-fonts.php';
@@ -128,12 +131,14 @@ final class QuillForms {
 		 * Functions.
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/functions.php';
+		require_once QF_PLUGIN_DIR . 'includes/admin/page-controller-functions.php';
 
 		/**
 		 * REST API.
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/fields.php';
 
 		/**
 		 * Load all blocks.

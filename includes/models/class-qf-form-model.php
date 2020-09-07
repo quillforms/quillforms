@@ -14,52 +14,6 @@
 class QF_Form_Model {
 
 	/**
-	 * Get form fields.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $form_id The form id.
-	 *
-	 * @return array $form_fields Form fields.
-	 */
-	public static function get_form_fields( $form_id ) {
-		$form_fields = get_post_meta( $form_id, 'fields', true );
-		$form_fields = ! empty( $form_fields ) ? $form_fields : array();
-		return $form_fields;
-	}
-
-	/**
-	 * Get form welcome screens.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $form_id The form id.
-	 *
-	 * @return array $welcome_screens Form welcome screens.
-	 */
-	public static function get_form_welcome_screens( $form_id ) {
-		$welcome_screens = get_post_meta( $form_id, 'welcomeScreens', true );
-		$welcome_screens = ! empty( $welcome_screens ) ? $welcome_screens : array();
-		return $welcome_screens;
-	}
-
-	/**
-	 * Get form thankyou screens.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $form_id The form id.
-	 * @static
-	 *
-	 * @return array $thankyou_screens Form thankyou screens.
-	 */
-	public static function get_form_thankyou_screens( $form_id ) {
-		$thankyou_screens = get_post_meta( $form_id, 'thankyouScreens', true );
-		$thankyou_screens = ! empty( $thankyou_screens ) ? $thankyou_screens : array();
-		return $thankyou_screens;
-	}
-
-	/**
 	 * Get form structure.
 	 *
 	 * @since 1.0.0
@@ -71,14 +25,18 @@ class QF_Form_Model {
 	 */
 	public static function get_form_structure( $form_id ) {
 
-		$fields           = self::get_form_fields( $form_id );
-		$welcome_screens  = self::get_form_welcome_screens( $form_id );
-		$thankyou_screens = self::get_form_thankyou_screens( $form_id );
-
-		$form_structure = array(
-			'fields'          => $fields,
-			'welcomeScreens'  => $welcome_screens,
-			'thankyouScreens' => $thankyou_screens,
+		$form_structure = qf_decode( get_post_meta( $form_id, 'structure', true ) );
+		$form_structure = $form_structure ? array(
+			'welcomeScreens'  => ! empty( $form_structure['welcomeScreens'] ) && is_array( $form_structure['welcomeScreens'] ) ?
+									$form_structure['welcomeScreens'] : array(),
+			'fields'          => ! empty( $form_structure['fields'] ) && is_array( $form_structure['fields'] ) ?
+									$form_structure['fields'] : array(),
+			'thankyouScreens' => ! empty( $form_structure['thankyouScreens'] ) && is_array( $form_structure['thankyouScreens'] ) ?
+									$form_structure['fields'] : array(),
+		) : array(
+			'welcomeScreens'  => array(),
+			'fields'          => array(),
+			'thankyouScreens' => array(),
 		);
 
 		foreach ( $form_structure as $block_cat => $cat_items ) {
@@ -88,7 +46,7 @@ class QF_Form_Model {
 					$registered_block = QF_Blocks_Factory::get_instance()->get_registered( $block_type );
 					if ( ! empty( $registered_block ) ) {
 						$block_attributes                                     = $form_block['attributes'] ? $form_block['attributes'] : array();
-						$form_structure[ $block_cat ][ $index ]['attributes'] = $registered_block->prepare_attributes_for_render($block_attributes);
+						$form_structure[ $block_cat ][ $index ]['attributes'] = $registered_block->prepare_attributes_for_render( $block_attributes );
 					}
 				}
 			}
@@ -131,7 +89,7 @@ class QF_Form_Model {
 		if ( ! empty( $form_theme_id ) ) {
 			$form_theme_data = QF_Form_Theme_Model::get_theme_data( ( $form_theme_id ) );
 		}
-		return QF_Form_Theme::get_instance()->prepare_theme_data_for_render($form_theme_data);
+		return QF_Form_Theme::get_instance()->prepare_theme_data_for_render( $form_theme_data );
 	}
 
 	/**
@@ -149,6 +107,6 @@ class QF_Form_Model {
 
 		$messages = ! empty( $messages ) ? $messages : array();
 
-		return QF_Form_Messages::get_instance()->prepare_messages_for_render($messages);
+		return QF_Form_Messages::get_instance()->prepare_messages_for_render( $messages );
 	}
 }

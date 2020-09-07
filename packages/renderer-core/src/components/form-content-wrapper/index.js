@@ -5,15 +5,19 @@ import { useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
+ * External Dependencies
+ */
+import create from 'zustand'
+/**
  * Internal Dependencies
  */
 import FormContent from '../form-content';
 
 const FormContentWrapper = ( {
 	formStructure,
-	editableFields,
-	currentBlockId,
-	currentBlockCat,
+	theme,
+	meta,
+
 } ) => {
 	const { blocks } = useSelect( ( select ) => {
 		return {

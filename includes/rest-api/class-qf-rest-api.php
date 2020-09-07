@@ -1,6 +1,6 @@
 <?php
 /**
- * REST API: QF_REST_API
+ * REST API: class QF_REST_API
  *
  * @since 1.0.0
  * @package QuillForms

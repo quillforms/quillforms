@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment, useCallback } from '@wordpress/element';
+import { Fragment, useCallback, useState } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -26,6 +26,7 @@ const TextEditor = ( props ) => {
 		onFocus,
 		formattingControls = [ 'bold', 'italic' ],
 	} = props;
+
 	const isFormatActive = ( format ) => {
 		const [ match ] = Editor.nodes( editor, {
 			match: ( n ) => n[ format ] === true,
@@ -83,7 +84,7 @@ const TextEditor = ( props ) => {
 						renderLeaf={ ( $props ) => <Leaf { ...$props } /> }
 						renderElement={ renderElement }
 						placeholder={ placeholder }
-						onFocus={ onFocus }
+						onFocus
 						onDOMBeforeInput={ ( event ) => {
 							// // console.log(event.inputType);
 							switch ( event.inputType ) {

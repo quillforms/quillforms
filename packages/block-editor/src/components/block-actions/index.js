@@ -30,13 +30,13 @@ const BlockActions = ( { id, category } ) => {
 	const handleDelete = ( e ) => {
 		e.stopPropagation();
 
-		// if (
-		// 	confirm(
-		// 		'Are you sure you want to delete this item? All of its data will be deleted after saving'
-		// 	)
-		// ) {
-		deleteFormBlock( id, category );
-		// }
+		if (
+			confirm(
+				'Are you sure you want to delete this item? All of its data will be deleted after saving'
+			)
+		) {
+			deleteFormBlock( id, category );
+		}
 	};
 
 	return (

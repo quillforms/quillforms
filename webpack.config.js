@@ -2,10 +2,15 @@
  * External dependencies
  */
 const { DefinePlugin } = require( 'webpack' );
+const MiniCssExtractPlugin = require( '@automattic/mini-css-extract-plugin-with-rtl' );
+const WebpackRTLPlugin = require("webpack-rtl-plugin"); 
+
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const postcss = require( 'postcss' );
 const { get, escapeRegExp, compact } = require( 'lodash' );
 const { basename, sep } = require( 'path' );
+const path = require( 'path' );
+
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 
 function camelCaseDash( string ) {
@@ -28,19 +33,24 @@ const {
 } = process.env;
 
 const QUILLFORMS_NAMESPACE = '@quillforms/';
+const entryPoints = {};
 
 const quillformsPackages = Object.keys( dependencies )
 	.filter( ( packageName ) => packageName.startsWith( QUILLFORMS_NAMESPACE ) )
 	.map( ( packageName ) => packageName.replace( QUILLFORMS_NAMESPACE, '' ) );
 
+quillformsPackages.forEach( ( packageName ) => {
+	const name = camelCaseDash( packageName );
+	entryPoints[ name ] = `./packages/${ packageName }`;
+}, {} );
+
 module.exports = {
 	...defaultConfig,
 	mode,
-	entry: quillformsPackages.reduce( ( memo, packageName ) => {
-		const name = camelCaseDash( packageName );
-		memo[ name ] = `./packages/${ packageName }`;
-		return memo;
-	}, {} ),
+	entry: {
+		client: './client',
+		...entryPoints,
+	},
 	output: {
 		devtoolNamespace: 'quillforms',
 		filename: './build/[basename]/index.js',
@@ -53,7 +63,67 @@ module.exports = {
 			mode !== 'production' && {
 				test: /\.js$/,
 				use: require.resolve( 'source-map-loader' ),
+				include: [ path.resolve( __dirname, 'packages' ) ],
 				enforce: 'pre',
+			},
+			{
+				test: /\.jsx?$/,
+				use: {
+					loader: 'babel-loader?cacheDirectory',
+					options: {
+						presets: [
+							[
+								'@babel/preset-env',
+								{
+									modules: false,
+									targets: {
+										browsers: [
+											'extends @wordpress/browserslist-config',
+										],
+									},
+								},
+							],
+						],
+						plugins: [
+							require.resolve(
+								'@babel/plugin-proposal-object-rest-spread'
+							),
+							require.resolve(
+								'@babel/plugin-transform-react-jsx'
+							),
+							require.resolve(
+								'@babel/plugin-proposal-async-generator-functions'
+							),
+							require.resolve(
+								'@babel/plugin-transform-runtime'
+							),
+							require.resolve(
+								'@babel/plugin-proposal-class-properties'
+							),
+						].filter( Boolean ),
+					},
+				},
+				include: [ path.resolve( __dirname, 'client' ) ],
+				exclude: /node_modules/,
+			},
+			{
+				test: /\.s?css$/,
+				use: [
+					MiniCssExtractPlugin.loader,
+					'css-loader',
+					{
+						// postcss loader so we can use autoprefixer and theme Gutenberg components
+						loader: 'postcss-loader',
+						options: {
+							config: {
+								path: 'postcss.config.js',
+							},
+						},
+					},
+					{
+						loader: 'sass-loader',
+					},
+				],
 			},
 		] ),
 	},
@@ -137,7 +207,7 @@ module.exports = {
 		),
 		new DependencyExtractionWebpackPlugin( {
 			useDefaults: true,
-			injectPolyfill: true,
+			injectPolyfill: false,
 			requestToExternal( request ) {
 				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
 					return [
@@ -157,9 +227,17 @@ module.exports = {
 				}
 			},
 		} ),
+		new WebpackRTLPlugin( {
+			minify: {
+				safe: true,
+			},
+		} ),
+		new MiniCssExtractPlugin( {
+			filename: './build/[name]/style.css',
+			chunkFilename: './build/client/chunks/[id].style.css',
+			rtlEnabled: true,
+		} ),
 	],
-	watchOptions: {
-		ignored: '!packages/*/!(src)/**/*',
-	},
+
 	devtool,
 };

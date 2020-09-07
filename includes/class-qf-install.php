@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class QF_Install is responsible for main set up and creating needed database tables.
+ * Class QF_Install is responsible for main set up.
+ * create needed database tables.
+ * assign capabilities to user roles.
  *
  * @since 1.0.0
  */

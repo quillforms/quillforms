@@ -30,7 +30,8 @@
 		"lethargy": "^1.0.9",
 		"lodash": "^4.17.15",
 		"react-loader-spinner": "^3.1.5",
-		"styled-components": "^4.3.1"
+		"styled-components": "^4.3.1",
+		"zustand": "^3.0.2"
 	},
 	"publishConfig": {
 		"access": "public"

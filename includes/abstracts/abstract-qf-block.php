@@ -78,55 +78,6 @@ abstract class QF_Block extends stdClass {
 		return array();
 	}
 
-	/**
-	 * Get block schema.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array The block schema
-	 */
-	final public function get_block_schema() {
-		return array(
-			'id'          => array(
-				'type'     => 'string',
-				'required' => true,
-			),
-			'ref'         => array(
-				'type'     => 'string',
-				'required' => true,
-			),
-			'type'        => array(
-				'type'     => 'string',
-				// Type is required in case the block is not the welcome screen block or thankyou screen block
-				// Welcome screen and thankyou screen blocks have reserved types: "welcome-screen" and "thankyou-screen".
-				'required' => ! in_array( $this->get_type(), array( 'welcome-screen', 'thankyou-screen' ), true ) ? true : false,
-			),
-			'title'       => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'description' => array(
-				'type' => 'string',
-			),
-			'attachment'  => array(
-				'type'       => 'object',
-				'properties' => array(
-					'type' => array(
-						'type' => 'string',
-						'enum' => array( 'image', 'video' ),
-					),
-					'url'  => array(
-						'type'   => 'string',
-						'format' => 'uri',
-					),
-				),
-			),
-			'attributes'  => array(
-				'type'       => 'object',
-				'properties' => $this->get_attributes(),
-			),
-		);
-	}
 
 	/**
 	 * Validates attributes against the current block attributes schema, populating

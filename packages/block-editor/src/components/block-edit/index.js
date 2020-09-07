@@ -81,15 +81,10 @@ const BlockEditor = memo( ( props ) => {
 		insertEmoji,
 	} = props;
 
-	const { isSelected } = useSelect( ( select ) => {
+	const { isSelected, fields } = useSelect( ( select ) => {
 		return {
 			isSelected:
 				select( 'quillForms/builder-core' ).getCurrentBlockId() === id,
-		};
-	} );
-
-	const { fields } = useSelect( ( select ) => {
-		return {
 			fields: select( 'quillForms/builder-core' ).getFields(),
 		};
 	} );

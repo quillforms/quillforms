@@ -11,11 +11,53 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class QF_Install is responsible for main set up and creating needed database tables.
+ * Class QF_Schema_Manager is responsible for having some utils with JSON scehma.
  *
  * @since 1.0.0
  */
 class QF_Schema_Manager {
+
+	/**
+	 * Get blocks shared schema.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array The shared schema
+	 */
+	public static function get_blocks_shared_properties_for_schema() {
+		$shared_block_properties_for_schema = array(
+			'id'              => array(
+				'type'     => 'string',
+				'required' => true,
+			),
+			'key'             => array(
+				'type'     => 'string',
+				'required' => true,
+			),
+			'label'           => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'description'     => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'imageAttachment' => array(
+				'type'    => 'array',
+				'items'   => array(
+					'type'       => 'object',
+					'properties' => array(
+						'url' => array(
+							'type' => 'string',
+						),
+					),
+				),
+				'default' => array(),
+			),
+		);
+
+		return $shared_block_properties_for_schema;
+	}
 
 	/**
 	 * Filter given input data according to the given schema of an object.
@@ -63,8 +105,8 @@ class QF_Schema_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data       The data to filter
-	 * @param array $obj_schema The JSON schema for the object
+	 * @param array $data       The data to filter.
+	 * @param array $obj_schema The JSON schema for the object.
 	 *
 	 * @return array The filtered data
 	 */

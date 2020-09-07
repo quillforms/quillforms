@@ -26,7 +26,7 @@ import {
 /**
  * External Dependencies
  */
-import { InView } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer';
 
 /**
  * Internal Dependencies
@@ -50,6 +50,11 @@ const BlockEditBox = memo( ( props ) => {
 	const { item, block, index } = props;
 
 	const { id, attachment, description, title, type } = item;
+
+	const [ ref, inView, entry ] = useInView( {
+		/* Optional options */
+		threshold: 0,
+	} );
 
 	const [ titleJsonVal, setTitleJsonVal ] = useState( [
 		{
@@ -150,91 +155,75 @@ const BlockEditBox = memo( ( props ) => {
 	}
 
 	return (
-		<InView>
-			{ ( { inView, ref } ) => (
-				<__experimentalDraggable
-					isDragDisabled={ isDragDisabled || ! inView }
-					key={ id }
-					draggableId={ id }
-					index={ index }
-				>
-					{ ( provided, snapshot ) => (
-						<div
-							ref={ ref }
-							className="block-editor-block-edit-box"
-						>
-							<BoxWrapper id={ id } category={ category }>
-								<div className="block-editor-block-edit-box__content-wrapper">
-									<div
-										className="block-editor-block-edit-box__content"
-										{ ...provided.draggableProps }
-										ref={ provided.innerRef }
-										isDragging={ snapshot.isDragging }
-										style={ provided.draggableProps.style }
-									>
-										{ inView ? (
-											<Fragment>
-												<BlockMover
-													dragHandleProps={ {
-														...provided.dragHandleProps,
-													} }
-													type={ type }
-													id={ id }
-													registeredBlock={ block }
-													category={ category }
-												/>
-												<BlockEditor
-													attachment={ attachment }
-													focusOn={ focusOn }
-													setFocusOn={ setFocusOn }
-													id={ id }
-													index={ index }
-													blockColor={
-														block.editorConfig.color
-													}
-													category={ category }
-													title={ titleJsonVal }
-													addDesc={
-														description !==
-														undefined
-													}
-													desc={ descJsonVal }
-													titleEditor={ titleEditor }
-													setTitleJsonVal={ (
-														value
-													) =>
-														setTitleJsonVal( value )
-													}
-													descEditor={ descEditor }
-													setDescJsonVal={ (
-														value
-													) =>
-														setDescJsonVal( value )
-													}
-													insertVariable={
-														insertVariable
-													}
-													insertEmoji={ insertEmoji }
-												/>
-											</Fragment>
-										) : (
-											<Fragment>
-												<BlockIconWrapper
-													color={
-														block.editorConfig.color
-													}
-												/>
-												<BlockPlaceholder />
-											</Fragment>
-										) }
-									</div>
-								</div>
-							</BoxWrapper>
+		<div ref={ ref }>
+			<__experimentalDraggable
+				isDragDisabled={ isDragDisabled || ! inView }
+				key={ id }
+				draggableId={ id }
+				index={ index }
+			>
+				{ ( provided, snapshot ) => (
+					<BoxWrapper id={ id } category={ category }>
+						<div className="block-editor-block-edit-box__content-wrapper">
+							<div
+								className="block-editor-block-edit-box__content"
+								{ ...provided.draggableProps }
+								ref={ provided.innerRef }
+								isDragging={ snapshot.isDragging }
+								style={ provided.draggableProps.style }
+							>
+								{ inView ? (
+									<Fragment>
+										<BlockMover
+											dragHandleProps={ {
+												...provided.dragHandleProps,
+											} }
+											type={ type }
+											id={ id }
+											registeredBlock={ block }
+											category={ category }
+										/>
+										<BlockEditor
+											attachment={ attachment }
+											focusOn={ focusOn }
+											setFocusOn={ setFocusOn }
+											id={ id }
+											index={ index }
+											blockColor={
+												block.editorConfig.color
+											}
+											category={ category }
+											title={ titleJsonVal }
+											addDesc={
+												description !== undefined
+											}
+											desc={ descJsonVal }
+											titleEditor={ titleEditor }
+											setTitleJsonVal={ ( value ) =>
+												setTitleJsonVal( value )
+											}
+											descEditor={ descEditor }
+											setDescJsonVal={ ( value ) =>
+												setDescJsonVal( value )
+											}
+											insertVariable={ insertVariable }
+											insertEmoji={ insertEmoji }
+										/>
+									</Fragment>
+								) : (
+									<Fragment>
+										<BlockIconWrapper
+											color={ block.editorConfig.color }
+										/>
+										<BlockPlaceholder />
+									</Fragment>
+								) }
+							</div>
 						</div>
-					) }
-				</__experimentalDraggable>
-			) }
-		</InView>
+					</BoxWrapper>
+				) }
+			</__experimentalDraggable>
+		</div>
 	);
 }, areEqual );
 

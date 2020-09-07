@@ -11,7 +11,11 @@ const BoxWrapper = ( {
 	return (
 		<div
 			role="presentation"
-			onClick={ () => setCurrentBlock( id, category ) }
+			onClick={ ( e ) => {
+				e.stopPropagation();
+				console.log( 'daflads' );
+				setCurrentBlock( id, category );
+			} }
 			className={
 				'block-editor-box-wrapper' +
 				( id === currentBlockId ? ' isSelected' : '' )

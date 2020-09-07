@@ -32,7 +32,7 @@
 		"emoji-mart": "^2.11.2",
 		"is-url": "^1.2.4",
 		"lodash": "^4.17.15",
-		"react-intersection-observer": "^8.25.2"
+		"react-intersection-observer": "^8.27.1"
 	},
 	"publishConfig": {
 		"access": "public"
