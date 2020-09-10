@@ -2,16 +2,28 @@ import { Suspense, lazy, useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { last } from 'lodash';
 import { parse, stringify } from 'qs';
-import Home from '../pages/home';
 
+// Modify webpack pubilcPath at runtime based on location of WordPress Plugin.
+// eslint-disable-next-line no-undef,camelcase
+__webpack_public_path__ = qfAdmin.assetsBuildUrl;
+
+const Home = lazy( () =>
+	import( /* webpackChunkName: "home" */ '../pages/home' )
+);
+
+const Builder = lazy( () =>
+	import( /* webpackChunkName: "builder" */ '../pages/builder' )
+);
 /**
  * WooCommerce dependencies
  */
+
 import { getPersistedQuery, getHistory } from '@woocommerce/navigation';
 
 export const PAGES_FILTER = 'quillforms_admin_pages_list';
 
 export const Controller = ( { page, match, location } ) => {
+	console.log( page );
 	useEffect( () => {
 		window.document.documentElement.scrollTop = 0;
 	}, [] );
@@ -32,7 +44,7 @@ export const Controller = ( { page, match, location } ) => {
 	window.qfWpNavMenuClassChange( page, url );
 
 	return (
-		<Suspense fallback={ <div> Loading </div> }>
+		<Suspense fallback={ <div /> }>
 			<page.container
 				params={ params }
 				path={ url }
@@ -48,6 +60,12 @@ export const getPages = () => {
 	pages.push( {
 		container: Home,
 		path: '/',
+		wpOpenMenu: 'toplevel_page_quillforms',
+	} );
+
+	pages.push( {
+		container: Builder,
+		path: '/forms/:id/builder/',
 		wpOpenMenu: 'toplevel_page_quillforms',
 	} );
 

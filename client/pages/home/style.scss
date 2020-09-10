@@ -1,67 +1,115 @@
-.quillforms-home-page {
-	.quillforms-home-page__heading {
+.quillforms-home {
+	.quillforms-home__heading {
 		border-bottom: 1px solid #d8d6d6;
 		padding-bottom: 10px;
 	}
 
-	.quillforms-home-page__all-forms {
+	.quillforms-home__all-forms {
 		margin-top: 30px;
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 
-		.quillforms-home-page__form-card,
-		.quillforms-home-page__add-form-card,
-		.quillforms-home-page__empty-form-card {
+		.quillforms-home__form-card,
+		.quillforms-home__add-form-card,
+		.quillforms-home__empty-form-card,
+		.quillforms-home__card-loader {
 			width: 200px;
-			border-radius: 8px;  
-			margin-right: 30px;
+			border-radius: 8px;
+			margin-right: 40px;
+			margin-bottom: 30px;
 			cursor: pointer;
 			overflow: hidden;
 		}
 
-		.quillforms-home-page__form-card:hover {
+		.quillforms-home__form-card:hover {
 			box-shadow: 0 0.25em 1em rgba(0,0,0,.15);
 		}
 
-		.quillforms-home-page__form-card-body,
-		.quillforms-home-page__add-form-card-body {
+		.quillforms-home__form-card {
+			.quillforms-home__form-title {
+				font-size: 16px;
+			}
+		}
+
+		.quillforms-home__form-card-body,
+		.quillforms-home__add-form-card-body {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 		}
-		.quillforms-home-page__form-card-body {
+
+		.quillforms-home__card-loader,
+		.quillforms-home__form-card {
+			height: 223px;
+		}
+		.quillforms-home__form-card-body,
+		.quillforms-home__card-loader-body {
 			height: 170px;
 		}
-		.quillforms-home-page__add-form-card-body {
+		.quillforms-home__add-form-card-body {
 			height: 223px;
 			font-size: 18px;
 			flex-direction: column;
 			color: #fff;
 			background: linear-gradient(45deg, #4a1dff, #ec3cce);;
 			transition: opacity 0.2s ease-in;
-			
+
 			&:hover {
-				opacity: 0.85; 
+				opacity: 0.85;
 			}
 
-			.quillforms-home-page__add-form-card-icon {
+			.quillforms-home__add-form-card-icon {
 				fill: #fff;
 				margin-bottom: 10px;
 
 			}
 		}
 
-		.quillforms-home-page__empty-form-card {
+		.quillforms-home__card-loader-body,
+		.quillforms-home__card-loader-footer-text {
+			position: relative;
+			background-color: #d4d4d4;
+			overflow: hidden;
+		}
+		.quillforms-home__card-loader {
+			box-shadow: none !important;
+		}
+		.quillforms-home__card-loader-footer-text {
+			height: 10px;
+			margin-top: 5px;
+			width: 100%;
+		}
+
+		.quillforms-home__card-loader-body::after,
+		.quillforms-home__card-loader-footer-text::after {
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			transform: translateX(-100%);
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
+			animation: loading 1.5s infinite;
+		}
+
+		@keyframes loading {
+			100% {
+				transform: translateX(100%);
+			}
+		}
+
+		.quillforms-home__empty-form-card {
 			height: 223px;
-			background: transparent;  
+			background: transparent;
 			border: 2px dashed rgba(0, 0, 0, 0.22);
 			cursor: inherit;
 		}
 
-		.quillforms-home-page__add-form-hint-arrow {
-			position: absolute;
-			top: 120%;
-		}
 	}
 
+}
+.quillforms-home__add-form-modal-footer {
+	text-align: right;
 }
