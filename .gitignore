@@ -4,6 +4,7 @@ build-module
 build-style
 build-types
 node_modules
+chunks
 
 # Directories/files that may appear in your environment
 .DS_Store
