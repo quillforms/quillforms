@@ -1,7 +1,5 @@
 import '@wordpress/data';
 import '@wordpress/compose';
-import { render } from '@wordpress/element';
-import { EditorProvider } from './components';
 import {
 	setBlocksRendererSettings,
 	setBlocksEditorSettings,
@@ -13,7 +11,3 @@ export * from './components';
 setBlocksRendererSettings();
 setBlocksEditorSettings();
 registerPanels();
-render(
-	<EditorProvider />,
-	document.getElementById( 'quillforms-layout-wrapper' )
-);
