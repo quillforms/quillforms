@@ -61,8 +61,8 @@ class QF_Admin {
 	 */
 	public function admin_hooks() {
 		add_action( 'init', array( $this, 'register_quillforms_post_type' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ), 999999 );
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
+		add_filter( 'quillforms_navigation_is_registered_page', array( $this, 'register_extra_admin_pages' ), 10, 2 );
 	}
 
 	/**
@@ -108,14 +108,7 @@ class QF_Admin {
 		register_post_type( 'quill_forms', $args );
 	}
 
-	/**
-	 * Enqueue Admin styles.
-	 *
-	 * @since 1.0.0
-	 */
-	public function enqueue_styles() {
-		wp_enqueue_style( 'quillForms-admin-css', QF_PLUGIN_URL . 'admin/assets/admin.css', false, '', 'all' );
-	}
+
 
 	/**
 	 * Create admin menu pages
@@ -146,6 +139,26 @@ class QF_Admin {
 				'position' => 30,
 			)
 		);
+	}
+
+	/**
+	 * Register extra admin pages, those admin pages don't appear in admin menu or aren't be registered with add_menu_page or add_submenu_page
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param bool   $is_registered   Is this page registered.
+	 * @param string $current_page    The current page.
+	 *
+	 * @return bool $is_registered
+	 */
+	public function register_extra_admin_pages( $is_registered, $current_page ) {
+		$screen = get_current_screen();
+		if ( 'toplevel_page_quillforms' === $screen->id ) {
+			if ( ! empty( $_GET['path'] ) && preg_match( '/forms\/([0-9]+)\/builder$/', $_GET['path'] ) ) {
+				return true;
+			}
+		}
+		return $is_registered;
 	}
 
 }

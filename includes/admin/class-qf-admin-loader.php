@@ -44,10 +44,14 @@ class QF_Admin_Loader {
 	 * Constructor.
 	 */
 	public function __construct() {
-		// add_action( 'admin_enqueue_scripts', array( __CLASS__, 'inject_qf_settings_dependencies' ), 14 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'add_inline_scripts' ), 14 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localize_scripts' ) );
 		add_action( 'admin_head', array( __CLASS__, 'remove_notices' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
+
+		// // Also remove all scripts hooked into after_wp_tiny_mce.
+		remove_all_actions( 'after_wp_tiny_mce' );
 
 		// add_action( 'admin_head', array( __CLASS__, 'remove_app_entry_page_menu_item' ), 20 );
 
@@ -59,9 +63,50 @@ class QF_Admin_Loader {
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 	}
 
+	/**
+	 * Localize scripts
+	 *
+	 * @since 1.0.0
+	 */
+	public static function localize_scripts() {
+		wp_localize_script(
+			'quillforms-client',
+			'qfAdmin',
+			array(
+				'assetsBuildUrl' => QF_PLUGIN_URL,
+			)
+		);
+	}
+
+	/**
+	 * Add inline scripts.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function add_inline_scripts() {
+		wp_add_inline_script(
+			'quillforms-blocks',
+			'qf.blocks.__unstableServerSideBlocksRegister(' . wp_json_encode(
+				array_map(
+					function ( $block ) {
+						return array(
+							'id'         => QF_Utils::generate_uuidv4(),
+							'name'       => $block->get_name(),
+							'attributes' => $block->prepare_attributes_for_render( $block->get_attributes() ),
+							'supports'   => $block->get_supports(),
+						);
+					},
+					QF_Blocks_Factory::get_instance()->get_all_registered()
+				)
+			) . ')',
+			'after'
+		);
+	}
 
 	/**
 	 * Removes notices that should not be displayed on WC Admin pages.
+	 *
+	 * @since 1.0.0
 	 */
 	public static function remove_notices() {
 		if ( ! self::is_admin_page() ) {
@@ -76,6 +121,8 @@ class QF_Admin_Loader {
 
 	/**
 	 * Runs before admin notices action and hides them.
+	 *
+	 * @since 1.0.0
 	 */
 	public static function inject_before_notices() {
 		if ( ! self::is_admin_page() ) {
@@ -96,6 +143,8 @@ class QF_Admin_Loader {
 
 	/**
 	 * Runs after admin notices and closes div.
+	 *
+	 * @since 1.0.0
 	 */
 	public static function inject_after_notices() {
 		if ( ! self::is_admin_page() ) {

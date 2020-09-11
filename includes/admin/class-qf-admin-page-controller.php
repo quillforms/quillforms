@@ -213,13 +213,13 @@ class QF_Admin_Page_Controller {
 	 * @param array $options {
 	 *   Array describing the page.
 	 *
-	 *   @type string      id           Id to reference the page.
-	 *   @type string      title        Page title. Used in menus and breadcrumbs.
-	 *   @type string|null parent       Parent ID. Null for new top level page.
-	 *   @type string      path         Path for this page, full path in app context; ex /analytics/report
-	 *   @type string      capability   Capability needed to access the page.
-	 *   @type string      icon         Icon. Dashicons helper class, base64-encoded SVG, or 'none'.
-	 *   @type int         position     Menu item position.
+	 *   @type string      id                     Id to reference the page.
+	 *   @type string      title                  Page title. Used in menus and breadcrumbs.
+	 *   @type string|null parent                 Parent ID. Null for new top level page.
+	 *   @type string      path                   Path for this page, full path in app context; ex /analytics/report
+	 *   @type string      capability             Capability needed to access the page.
+	 *   @type string      icon                   Icon. Dashicons helper class, base64-encoded SVG, or 'none'.
+	 *   @type int         position               Menu item position.
 	 * }
 	 */
 	public function register_page( $options ) {
@@ -239,7 +239,6 @@ class QF_Admin_Page_Controller {
 		if ( 0 !== strpos( $options['path'], self::PAGE_ROOT ) ) {
 			$options['path'] = self::PAGE_ROOT . '&path=' . $options['path'];
 		}
-
 		if ( is_null( $options['parent'] ) ) {
 			add_menu_page(
 				$options['title'],
@@ -272,9 +271,25 @@ class QF_Admin_Page_Controller {
 	public static function page_wrapper() {
 		wp_enqueue_script( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-client' );
+		wp_enqueue_style( 'quillforms-builder-core' );
 		?>
 		<div class="wrap">
-			<div id="qf-admin-root"></div>
+			<div id="qf-admin-root">
+				<div id="qf-admin-root__loader" style="
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 100%;
+					height: 600px;
+				">
+					<svg version="1.1" id="Laag_1"
+						xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" class="qf-spinner" viewBox="0 0 50 50">
+						<circle class="qf-path" cx="25" cy="25" r="20" fill="none" stroke-width="3">
+						</circle>
+					</svg>
+				</div>
+			</div>
 		</div>
 		<?php
 	}
