@@ -1,18 +1,21 @@
 <?php
-
 /**
  * Functions to register client assets for builder and renderer modes.
+ *
+ * @since 1.0.0
+ * @package QuillForms
+ * @subpackage Assets
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	die( 'Silence is golden.' );
-}
+
+defined( 'ABSPATH' ) || die( 'Silence is golden.' );
+
 
 /**
  * Retrieves the root plugin path.
  *
  * @return string root path to the quillforms plugin
  *
- * @since 0.1.0
+ * @since 1.0.0
  */
 function quillforms_dir_path() {
 	return plugin_dir_path( dirname( __FILE__ ) );
@@ -25,7 +28,7 @@ function quillforms_dir_path() {
  *
  * @return string fully qualified URL pointing to the desired file
  *
- * @since 0.1.0
+ * @since 1.0.0
  */
 function quillforms_url( $path ) {
 	return plugins_url( $path, dirname( __FILE__ ) );
@@ -295,10 +298,9 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-client',
 		quillforms_url( 'build/client/style.css' ),
 		array( 'quillforms-builder-components', 'wp-components' ),
-		filemtime( quillforms_dir_path() . 'build/renderer-core/style.css' )
+		filemtime( quillforms_dir_path() . 'build/client/style.css' )
 	);
 	$styles->add_data( 'quillforms-client', 'rtl', 'replace' );
-	
 }
 add_action( 'wp_default_scripts', 'quillforms_register_packages_scripts' );
 add_action( 'wp_default_styles', 'quillforms_register_packages_styles' );
