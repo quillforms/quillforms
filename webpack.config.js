@@ -3,7 +3,7 @@
  */
 const { DefinePlugin } = require( 'webpack' );
 const MiniCssExtractPlugin = require( '@automattic/mini-css-extract-plugin-with-rtl' );
-const WebpackRTLPlugin = require("webpack-rtl-plugin"); 
+const WebpackRTLPlugin = require( 'webpack-rtl-plugin' );
 
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const postcss = require( 'postcss' );
@@ -57,6 +57,7 @@ module.exports = {
 		path: __dirname,
 		library: [ 'qf', '[name]' ],
 		libraryTarget: 'this',
+		chunkFilename: `chunks/[id].[chunkhash].min.js`,
 	},
 	module: {
 		rules: compact( [
@@ -122,6 +123,13 @@ module.exports = {
 					},
 					{
 						loader: 'sass-loader',
+						options: {
+							prependData:
+								'@import "packages/base-styles/_colors"; ' +
+								'@import "packages/base-styles/_variables"; ' +
+								'@import "packages/base-styles/_breakpoints"; ' +
+								'@import "packages/base-styles/_mixins"; ',
+						},
 					},
 				],
 			},
