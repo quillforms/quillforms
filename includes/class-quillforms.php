@@ -138,7 +138,10 @@ final class QuillForms {
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/fields.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/blocks.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/messages.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/theme.php';
+		// require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/notifications.php';
 
 		/**
 		 * Load all blocks.
