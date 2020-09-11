@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -15,13 +15,17 @@ const TextControl = ( {
 	maxLength = null,
 	forceFocusOnMount = false,
 } ) => {
-	useEffect( () => {} );
+	const ref = useRef();
+	useEffect( () => {
+		if ( forceFocusOnMount ) {
+			ref.current.focus();
+		}
+	}, [] );
 	return (
 		<div className="builder-components-text-control">
 			<div className="builder-components-text-control__input">
 				<Input
-					// eslint-disable-next-line jsx-a11y/no-autofocus
-					autoFocus={ forceFocusOnMount }
+					inputRef={ ref }
 					inputProps={ {
 						maxLength,
 					} }

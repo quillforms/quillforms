@@ -14,6 +14,17 @@
 		font-weight: 100;
 	}
 
+	input {
+		border: none;
+		padding: 0;
+		box-shadow: none;
+
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+
 	.builder-components-text-control__input-characters-count {
 		position: absolute;
 		right: 15px;
