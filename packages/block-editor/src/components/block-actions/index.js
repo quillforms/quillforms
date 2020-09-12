@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-const BlockActions = ( { id, category } ) => {
+const BlockActions = ( { id } ) => {
 	const { deleteFormBlock } = useDispatch( 'quillForms/builder-core' );
 	const [ anchorEl, setAnchorEl ] = useState( null );
 	const openDropDownMenu = ( event ) => {
@@ -35,7 +35,7 @@ const BlockActions = ( { id, category } ) => {
 				'Are you sure you want to delete this item? All of its data will be deleted after saving'
 			)
 		) {
-			deleteFormBlock( id, category );
+			deleteFormBlock( id );
 		}
 	};
 

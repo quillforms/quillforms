@@ -8,26 +8,17 @@ import { useSelect } from '@wordpress/data';
  */
 import { BlockIconBox } from '@quillforms/builder-components';
 
-const BlockMover = ( {
-	id,
-	type,
-	category,
-	registeredBlock,
-	dragHandleProps,
-} ) => {
-	const { thankyouScreens, fields, editableFields } = useSelect(
-		( select ) => {
-			return {
-				thankyouScreens: select(
-					'quillForms/builder-core'
-				).getThankyouScreens(),
-				fields: select( 'quillForms/builder-core' ).getFields(),
-				editableFields: select(
-					'quillForms/builder-core'
-				).getEditableFields(),
-			};
-		}
-	);
+const BlockMover = ( { id, type, registeredBlock, dragHandleProps } ) => {
+	const { formStructure, editableFields } = useSelect( ( select ) => {
+		return {
+			formStructure: select(
+				'quillForms/builder-core'
+			).getFormStructure(),
+			editableFields: select(
+				'quillForms/builder-core'
+			).getEditableFields(),
+		};
+	} );
 
 	const charCode = 'a'.charCodeAt( 0 );
 
@@ -55,23 +46,16 @@ const BlockMover = ( {
 	};
 
 	let itemOrder = null;
-	if ( category === 'fields' ) {
-		if ( registeredBlock.supports.displayOnly !== true ) {
-			const fieldIndex = editableFields.findIndex(
-				( field ) => field.id === id
-			);
-			itemOrder = fieldIndex + 1;
-		} else {
-			const fieldIndex = fields
-				.filter( ( field ) => field.type === type )
-				.findIndex( ( field ) => field.id === id );
-			itemOrder = identName( fieldIndex );
-		}
-	} else if ( category === 'thankyouScreens' ) {
-		const blockIndex = thankyouScreens.findIndex(
-			( block ) => block.id === id
+	if ( registeredBlock.supports.displayOnly !== true ) {
+		const fieldIndex = editableFields.findIndex(
+			( field ) => field.id === id
 		);
-		itemOrder = identName( blockIndex );
+		itemOrder = fieldIndex + 1;
+	} else {
+		const fieldIndex = formStructure
+			.filter( ( block ) => block.type === type )
+			.findIndex( ( block ) => block.id === id );
+		itemOrder = identName( fieldIndex );
 	}
 
 	return (

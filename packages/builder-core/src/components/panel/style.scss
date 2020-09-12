@@ -16,8 +16,9 @@
 		& {
 			min-height: 64px;
 			padding: 18px 18px 0;
-			color: #000;
-			border-bottom: 1px solid #d3d3d3;
+			color: #fff !important;
+			background: #8640e3 !important;
+
 		}
 
 		.builder-core-panel__header {
@@ -53,6 +54,9 @@
 
 			& {
 				margin-top: 30px;
+				background: #6844c1;
+				margin-right: -20px;
+				margin-left: -20px;
 			}
 
 			.builder-core-panel__header-tabs {
@@ -76,17 +80,20 @@
 						text-transform: uppercase;
 						font-size: 11px;
 						font-weight: 700;
-						color: #524b4b;
+						color: #fff !important;
 						letter-spacing: 0.5px;
 					}
 
 					&.active {
 						font-weight: 500;
-						color: #14b57c;
-						box-shadow: inset 0 -2px 0 0;
+						padding:10px !important;
+						background: #ab2cfb
+
 					}
 				}
 			}
 		}
 	}
 }
+
+

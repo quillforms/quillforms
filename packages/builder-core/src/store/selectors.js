@@ -9,25 +9,14 @@ import { createRegistrySelector } from '@wordpress/data';
 import { forEach } from 'lodash';
 
 /**
- * Get the whole form structure
+ * Get the whole form blocks.
  *
  * @param {Object} state       Global application state.
  *
  * @return {Object} Form structure
  */
 export function getFormStructure( state ) {
-	return state;
-}
-
-/**
- * Returns form fields.
- *
- * @param {Object} state       Global application state.
- *
- * @return {Array} Fields
- */
-export function getFields( state ) {
-	return [ ...state.fields ];
+	return state.blocks;
 }
 
 /**
@@ -38,14 +27,11 @@ export function getFields( state ) {
  * @return {Object} Block object
  */
 export function getBlockById( state, id ) {
-	return state.fields
-		.concat( state.welcomeScreens )
-		.concat( state.thankyouScreens )
-		.find( ( block ) => block.id === id );
+	return state.blocks.find( ( block ) => block.id === id );
 }
 
 /**
- * Retruns the editable fields -- Editable fields are the fields who have {displayOnly} property equals false
+ * Retruns the editable blocks -- Editable blocks are the blocks who have {displayOnly} property equals false
  *
  * @param {Object} state       Global application state.
  *
@@ -53,9 +39,9 @@ export function getBlockById( state, id ) {
  */
 export const getEditableFields = createRegistrySelector(
 	( select ) => ( state ) => {
-		return [ ...state.fields ].filter( ( field ) => {
+		return state.blocks.filter( ( block ) => {
 			const registeredBlock = select( 'quillForms/blocks' ).getBlocks()[
-				field.type
+				block.type
 			];
 			return registeredBlock.supports.displayOnly === false;
 		} );
@@ -72,32 +58,22 @@ export const getEditableFields = createRegistrySelector(
  * @return {Array} Previous Editable fields
  */
 export const getPreviousEditableFields = createRegistrySelector(
-	( select ) => ( state, id, category ) => {
+	( select ) => ( state, id ) => {
 		const prevEditableFields = [];
-		switch ( category ) {
-			case 'welcomeScreens':
-				return [];
-			case 'thankyouScreens':
-				return getEditableFields( state );
-			case 'fields': {
-				const fieldIndex = [ ...state.fields ].findIndex(
-					( field ) => field.id === id
-				);
-				if ( fieldIndex > 0 ) {
-					const prevFormFields = [ ...state.fields ].slice(
-						0,
-						fieldIndex
-					);
-					forEach( prevFormFields, ( field ) => {
-						const registeredBlock = select(
-							'quillForms/blocks'
-						).getBlocks()[ field.type ];
-						if ( ! registeredBlock.supports.displayOnly ) {
-							prevEditableFields.push( field );
-						}
-					} );
+
+		const blockIndex = [ ...state.blocks ].findIndex(
+			( block ) => block.id === id
+		);
+		if ( blockIndex > 0 ) {
+			const prevFormBlocks = [ ...state.blocks ].slice( 0, blockIndex );
+			forEach( prevFormBlocks, ( block ) => {
+				const registeredBlock = select(
+					'quillForms/blocks'
+				).getBlocks()[ block.type ];
+				if ( ! registeredBlock.supports.displayOnly ) {
+					prevEditableFields.push( block );
 				}
-			}
+			} );
 		}
 		return prevEditableFields;
 	}
@@ -115,61 +91,6 @@ export function getEditableFieldsLength( state ) {
 }
 
 /**
- * Returns form fields length.
- *
- * @param {Object} state       Global application state.
- *
- * @return {number} Fields length
- */
-export function getFieldsLength( state ) {
-	return [ ...state.fields ].length;
-}
-
-/**
- * Returns form welcome screens.
- *
- * @param {Object} state       Global application state.
- *
- * @return {Array} Welcome screens
- */
-export function getWelcomeScreens( state ) {
-	return [ ...state.welcomeScreens ];
-}
-
-/**
- * Returns form welcome screens length.
- *
- * @param {Object} state       Global application state.
- *
- * @return {number} Welcome screens length
- */
-export function getWelcomeScreensLength( state ) {
-	return state.welcomeScreens.length;
-}
-
-/**
- * Returns form thank you screens.
- *
- * @param {Object} state       Global application state.
- *
- * @return {Array} Thank you screens
- */
-export function getThankyouScreens( state ) {
-	return [ ...state.thankyouScreens ];
-}
-
-/**
- * Returns form thank you screens length.
- *
- * @param {Object} state       Global application state.
- *
- * @return {number} Thank you screens length
- */
-export function getThankyouScreensLength( state ) {
-	return state.thankyouScreens.length;
-}
-
-/**
  * Returns the current block id
  *
  * @param {Object} state       Global application state.
@@ -181,25 +102,6 @@ export function getCurrentBlockId( state ) {
 }
 
 /**
- * Returns the current block category
- *
- * @param {Object} state       Global application state.
- *
- * @return {?string} Current block category
- */
-export function getCurrentBlockCat( state ) {
-	let currentBlockCat = null;
-	forEach( [ 'welcomeScreens', 'fields', 'thankyouScreens' ], ( cat ) => {
-		if (
-			state[ cat ].some( ( item ) => item.id === state.currentBlockId )
-		) {
-			currentBlockCat = cat;
-		}
-	} );
-	return currentBlockCat;
-}
-
-/**
  * Returns the current block index
  *
  * @param {Object} state       Global application state.
@@ -207,7 +109,7 @@ export function getCurrentBlockCat( state ) {
  * @return {string} Current block index
  */
 export function getCurrentBlockIndex( state ) {
-	return state[ state.currentBlockCat ].findIndex(
+	return state.blocks.findIndex(
 		( item ) => item.id === state.currentBlockId
 	);
 }
@@ -221,12 +123,10 @@ export function getCurrentBlockIndex( state ) {
  */
 export function getCurrentFormItem( state ) {
 	let currentFormItem = null;
-	forEach( [ 'welcomeScreens', 'fields', 'thankyouScreens' ], ( cat ) => {
-		const currentFormItemIndex = state[ cat ].findIndex(
-			( item ) => item.id === state.currentBlockId
-		);
-		if ( currentFormItemIndex !== -1 )
-			currentFormItem = state[ cat ][ currentFormItemIndex ];
-	} );
+	const currentFormItemIndex = state.blocks.findIndex(
+		( item ) => item.id === state.currentBlockId
+	);
+	if ( currentFormItemIndex !== -1 )
+		currentFormItem = state.blocks[ currentFormItemIndex ];
 	return currentFormItem;
 }

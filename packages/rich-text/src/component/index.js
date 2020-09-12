@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment, useCallback, useState } from '@wordpress/element';
+import { Fragment, useCallback } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -84,7 +84,7 @@ const TextEditor = ( props ) => {
 						renderLeaf={ ( $props ) => <Leaf { ...$props } /> }
 						renderElement={ renderElement }
 						placeholder={ placeholder }
-						onFocus
+						onFocus={ onFocus }
 						onDOMBeforeInput={ ( event ) => {
 							// // console.log(event.inputType);
 							switch ( event.inputType ) {

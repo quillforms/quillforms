@@ -38,12 +38,38 @@ function getMutateSafeObject( original, working ) {
 	return working;
 }
 
+/**
+ * Sort blocks. We should have welcome screens at first then fields then thankyou screens.
+ *
+ * @param {Object} blocks The blocks array.
+ *
+ * @return { Object } The sorted blocks
+ */
+function sortBlocks( blocks ) {
+	const priority = [ 'WELCOME_SCREENS', 'FIELDS', 'THANKYOU_SCREENS' ];
+	blocks.sort( ( a, b ) => {
+		const getCategory = ( block ) => {
+			switch ( block.type ) {
+				case 'welcome-screen':
+					return 'WELCOME_SCREENS';
+				case 'thankyou-screen':
+					return 'THANKYOU_SCREENS';
+				default:
+					return 'fields';
+			}
+		};
+
+		const ap = priority.indexOf( getCategory( a ) );
+		const bp = priority.indexOf( getCategory( b ) );
+		return ap - bp;
+	} );
+	return blocks;
+}
+
 // Initial State
 const initialState = {
 	currentBlockId: '',
-	fields: [],
-	welcomeScreens: [],
-	thankyouScreens: [],
+	blocks: [],
 };
 
 /**
@@ -55,69 +81,65 @@ const initialState = {
  * @return {Object} Updated state.
  */
 const FormReducer = ( state = initialState, action ) => {
-	const welcomeScreensLength = state.welcomeScreens.length;
-	const thankyouScreensLength = state.thankyouScreens.length;
-	const fieldsLength = state.fields.length;
-
 	switch ( action.type ) {
 		// SET UP STORE
 		case SETUP_STORE: {
 			const { initialPayload } = action.payload;
-			const { welcomeScreens, fields, thankyouScreens } = initialPayload;
-			const stateClone = { ...state };
-			stateClone.welcomeScreens = welcomeScreens;
-			stateClone.thankyouScreens = thankyouScreens;
-			stateClone.fields = fields;
-			return stateClone;
+			const { blocks } = initialPayload;
+			return blocks;
 		}
 
 		// SET FORM BLOCK TITLE
 		case SET_BLOCK_TITLE: {
-			const { blockId, title, blockCat } = action.payload;
+			const { blockId, title } = action.payload;
 
-			const blockIndex = state[ blockCat ].findIndex( ( block ) => {
+			const blockIndex = state.blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
 
 			// Skip update if nothing has been changed.
-			if ( title === state[ blockCat ][ blockIndex ].title ) {
+			if ( title === state.blocks[ blockIndex ].title ) {
 				return state;
 			}
-
-			const stateClone = { ...state };
-			stateClone[ blockCat ][ blockIndex ].title = title;
-			return stateClone;
+			const blocks = [ ...state.blocks ];
+			blocks[ blockIndex ].title = title;
+			return {
+				...state,
+				blocks,
+			};
 		}
 
 		// SET FORM BLOCK DESCRIPTION
 		case SET_BLOCK_DESCRIPTION: {
-			const { blockId, desc, blockCat } = action.payload;
+			const { blockId, desc } = action.payload;
 			// Get block index within category.
-			const blockIndex = state[ blockCat ].findIndex( ( block ) => {
+			const blockIndex = state.blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
 
 			// Skip update if nothing has been changed.
-			if ( desc === state[ blockCat ][ blockIndex ].description ) {
+			if ( desc === state.blocks[ blockIndex ].description ) {
 				return state;
 			}
-
-			const stateClone = { ...state };
-			stateClone[ blockCat ][ blockIndex ].description = desc;
-			return stateClone;
+			const blocks = [ ...state.blocks ];
+			blocks[ blockIndex ].description = desc;
+			return {
+				...state,
+				blocks,
+			};
 		}
 
 		// SET BLOCK ATTRIBUTES
 		case SET_BLOCK_ATTRIBUTES: {
-			const { blockId, attributes, blockCat } = action.payload;
+			const { blockId, attributes } = action.payload;
 
 			// Get block index within its category.
-			const blockIndex = state[ blockCat ].findIndex( ( block ) => {
+			const blockIndex = state.blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
 
 			// Ignore updates if block isn't known.
-			if ( ! state[ blockCat ][ blockIndex ] ) {
+			if ( ! state.blocks[ blockIndex ] ) {
 				return state;
 			}
 
@@ -127,7 +149,7 @@ const FormReducer = ( state = initialState, action ) => {
 				( result, value, key ) => {
 					if ( value !== result[ key ] ) {
 						result = getMutateSafeObject(
-							state[ blockCat ][ blockIndex ].attributes,
+							[ ...state.blocks ][ blockIndex ],
 							result
 						);
 						result[ key ] = value;
@@ -135,113 +157,73 @@ const FormReducer = ( state = initialState, action ) => {
 
 					return result;
 				},
-				state[ blockCat ][ blockIndex ].attributes
+				state.blocks[ blockIndex ]
 			);
 
 			// Skip update if nothing has been changed. The reference will
 			// match the original block if `reduce` had no changed values.
-			if (
-				nextAttributes === state[ blockCat ][ blockIndex ].attributes
-			) {
+			if ( nextAttributes === state.blocks[ blockIndex ].attributes ) {
+				console.log( 'This is true' );
 				return state;
 			}
 
 			// Otherwise replace attributes in state
-			const stateClone = { ...state };
-			stateClone[ blockCat ][ blockIndex ].attributes = nextAttributes;
-			return stateClone;
+			const blocks = [ ...state.blocks ];
+			blocks[ blockIndex ].attributes = { ...nextAttributes };
+			return {
+				...state,
+				blocks,
+			};
 		}
 
 		// REORDER FORM BLOCKS
 		case REORDER_FORM_BLOCKS: {
-			let { sourceIndex, destinationIndex } = action.payload;
-			let category = 'fields';
+			const { sourceIndex, destinationIndex } = action.payload;
 
-			// if welcome screen is dragged, skip update
-			if ( sourceIndex < welcomeScreensLength ) {
-				category = 'welcomeScreens';
-				return state;
-			}
-
-			if ( sourceIndex >= welcomeScreensLength + fieldsLength ) {
-				category = 'thankyouScreens';
-			}
-			sourceIndex =
-				category === 'fields'
-					? sourceIndex - welcomeScreensLength
-					: sourceIndex - ( welcomeScreensLength + fieldsLength );
-			destinationIndex =
-				category === 'fields'
-					? destinationIndex === 0
-						? 0
-						: destinationIndex - welcomeScreensLength
-					: destinationIndex -
-					  ( welcomeScreensLength + fieldsLength );
-
-			const catItems = [ ...state[ category ] ];
-			const result = Array.from( catItems );
+			const blocks = [ ...state.blocks ];
+			const result = Array.from( blocks );
 			const [ removed ] = result.splice( sourceIndex, 1 );
 			result.splice( destinationIndex, 0, removed );
 			return {
 				...state,
-				[ category ]: result,
-				currentBlockId: state[ category ][ sourceIndex ].id,
+				blocks: sortBlocks( result ),
+				currentBlockId: state.blocks[ sourceIndex ].id,
 			};
 		}
 
 		// INSERT NEW FORM BLOCK
 		case INSERT_NEW_FORM_BLOCK: {
-			const { block, destination, category } = action.payload;
-			const catItems = [ ...state[ category ] ];
-			let { index } = destination;
+			const { block, destination } = action.payload;
+			const blocks = [ ...state.blocks ];
+			const { index } = destination;
 
-			// if new field inserted after welcome screen
-			if ( category === 'fields' && index > welcomeScreensLength - 1 ) {
-				if (
-					index <
-					welcomeScreensLength + fieldsLength + thankyouScreensLength
-				) {
-					index = index - welcomeScreensLength;
-				} else {
-					index =
-						index -
-						( welcomeScreensLength + thankyouScreensLength );
-				}
-			}
-			catItems.splice( index, 0, {
+			blocks.splice( index, 0, {
 				...block,
 			} );
-
-			const stateClone = { ...state };
-			stateClone[ category ] = catItems;
-			stateClone.currentBlockId = block.id;
-			return stateClone;
+			return {
+				...state,
+				blocks: sortBlocks( blocks ),
+				currentBlockId: block.id,
+			};
 		}
 
 		// DELETE FORM BLOCK
 		case DELETE_FORM_BLOCK: {
-			const { blockId, blockCat } = action.payload;
-			console.log( blockCat, blockId );
-			const allBlocks = state.welcomeScreens
-				.concat( state.fields )
-				.concat( state.thankyouScreens );
+			const { blockId } = action.payload;
 
-			// Get block index within all categories after concatenating them.
-			const blockIndex = allBlocks.findIndex(
+			// Get block index.
+			const blockIndex = state.blocks.findIndex(
 				( item ) => item.id === blockId
 			);
-
-			const blockIndexWithinCat = state[ blockCat ].findIndex(
-				( item ) => item.id === blockId
-			);
-
-			const catItems = [ ...state[ blockCat ] ];
-			catItems.splice( blockIndexWithinCat, 1 );
+			// If block isn't found.
 			if ( blockIndex === -1 ) {
 				return state;
 			}
-			const nextBlock = allBlocks[ blockIndex + 1 ];
-			const prevBlock = allBlocks[ blockIndex - 1 ];
+			const blocks = [ ...state.blocks ];
+
+			const nextBlock = blocks[ blockIndex + 1 ];
+			const prevBlock = blocks[ blockIndex - 1 ];
+			blocks.splice( blockIndex, 1 );
 			const currentBlockId = nextBlock
 				? nextBlock.id
 				: prevBlock
@@ -250,57 +232,80 @@ const FormReducer = ( state = initialState, action ) => {
 			return {
 				...state,
 				currentBlockId,
-				[ blockCat ]: catItems,
+				blocks,
 			};
 		}
 
 		// SET CURRENT BLOCK
 		case SET_CURRENT_BLOCK: {
 			const { id } = action.payload;
-			const stateClone = { ...state };
-			stateClone.currentBlockId = id;
-			return stateClone;
+			const blockIndex = state.blocks.findIndex(
+				( item ) => item.id === id
+			);
+			// If block isn't found.
+			if ( blockIndex === -1 ) {
+				return state;
+			}
+			return {
+				...state,
+				currentBlockId: id,
+			};
 		}
 
 		// TOGGLE BLOCK DESCRIPTION
 		case TOGGLE_BLOCK_DESCRIPTION: {
-			const { blockId, blockCat } = action.payload;
-			const index = state[ blockCat ].findIndex( ( block ) => {
+			const { blockId } = action.payload;
+			const blockIndex = state.blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
-			const stateClone = { ...state };
-			if ( state[ blockCat ][ index ].description ) {
-				delete stateClone[ blockCat ][ index ].description;
-			} else {
-				stateClone[ blockCat ][ index ].description = '<p></p>';
+			// If block isn't found.
+			if ( blockIndex === -1 ) {
+				return state;
 			}
-			return stateClone;
+			const blocks = [ ...state.blocks ];
+			if ( blocks[ blockIndex ].description ) {
+				delete blocks[ blockIndex ].description;
+			} else {
+				blocks[ blockIndex ].description = '<p></p>';
+			}
+			return {
+				...state,
+				blocks,
+			};
 		}
 
 		// SET BLOCK ATTACHMENT
 		case SET_BLOCK_ATTACHMENT: {
-			const { blockId, val, blockCat } = action.payload;
-			const index = state[ blockCat ].findIndex( ( block ) => {
+			const { blockId, val } = action.payload;
+			const blockIndex = state.blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
-			const stateClone = { ...state };
-			stateClone[ blockCat ][ index ].attachment = val;
-			return stateClone;
+			// If block isn't found.
+			if ( blockIndex === -1 ) {
+				return state;
+			}
+			const blocks = [ ...state.blocks ];
+			blocks[ blockIndex ].attachment = val;
+			return { ...state, blocks };
 		}
 
 		// TOGGLE REQUIRED FLAG
 		case TOGGLE_REQUIRED_FLAG: {
 			const { blockId } = action.payload;
-			const index = state.fields.findIndex( ( block ) => {
+			const blockIndex = state.blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
-			if ( index === -1 ) {
+			// If block isn't found.
+			if ( blockIndex === -1 ) {
 				return state;
 			}
-			const requiredFlag = state.fields[ index ].required;
-			const stateClone = { ...state };
-			stateClone.fields[ index ].required = ! requiredFlag;
-			return stateClone;
+			const requiredFlag = state.blocks[ blockIndex ].required;
+			const blocks = [ ...state.blocks ];
+			blocks[ blockIndex ].required = ! requiredFlag;
+			return {
+				...state,
+				blocks,
+			};
 		}
 	}
 	return state;

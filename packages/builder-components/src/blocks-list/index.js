@@ -21,9 +21,7 @@ const BlocksList = () => {
 	const blocks = useSelect( ( select ) =>
 		select( 'quillForms/blocks' ).getBlocks()
 	);
-	const welcomeScreensLength = useSelect( ( select ) =>
-		select( 'quillForms/builder-core' ).getWelcomeScreensLength()
-	);
+
 	return (
 		<div className="builder-components-blocks-list">
 			<Droppable
@@ -38,10 +36,7 @@ const BlocksList = () => {
 					>
 						{ Object.keys( blocks ).map( ( type, index ) => {
 							let isDragDisabled = false;
-							if (
-								type === 'welcome-screen' &&
-								welcomeScreensLength > 0
-							) {
+							if ( type === 'welcome-screen' ) {
 								isDragDisabled = true;
 							}
 							return (

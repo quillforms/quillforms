@@ -9,13 +9,13 @@ import { Tooltip, RecallInformation } from '@quillforms/builder-components';
 import { useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
-const PrevFieldsInserter = ( { onInsert, id, category } ) => {
+const PrevFieldsInserter = ( { onInsert, id } ) => {
 	const [ anchorEl, setAnchorEl ] = useState( null );
 
 	const { prevFields } = useSelect( ( select ) => {
 		return {
 			prevFields: select( 'quillForms/builder-core' )
-				.getPreviousEditableFields( id, category )
+				.getPreviousEditableFields( id )
 				.map( ( field ) => {
 					return {
 						varType: 'field',

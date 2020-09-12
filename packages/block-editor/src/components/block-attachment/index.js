@@ -8,7 +8,7 @@ import { useDispatch } from '@wordpress/data';
  */
 import CloseIcon from '@material-ui/icons/Close';
 
-const BlockAttachment = ( { blockColor, attachment, id, category } ) => {
+const BlockAttachment = ( { blockColor, attachment, id } ) => {
 	const { setBlockAttachment } = useDispatch( 'quillForms/builder-core' );
 
 	return (
@@ -24,7 +24,7 @@ const BlockAttachment = ( { blockColor, attachment, id, category } ) => {
 			<div
 				role="presentation"
 				className="block-editor-block-attachment__delete"
-				onClick={ () => setBlockAttachment( id, {}, category ) }
+				onClick={ () => setBlockAttachment( id, {} ) }
 			>
 				<div
 					className="block-editor-block-attachment__background-wrapper"

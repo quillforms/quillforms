@@ -67,7 +67,6 @@ const BlockEditor = memo( ( props ) => {
 		id,
 		index,
 		blockColor,
-		category,
 		title,
 		desc,
 		addDesc,
@@ -81,11 +80,13 @@ const BlockEditor = memo( ( props ) => {
 		insertEmoji,
 	} = props;
 
-	const { isSelected, fields } = useSelect( ( select ) => {
+	const { isSelected, formStructure } = useSelect( ( select ) => {
 		return {
 			isSelected:
 				select( 'quillForms/builder-core' ).getCurrentBlockId() === id,
-			fields: select( 'quillForms/builder-core' ).getFields(),
+			formStructure: select(
+				'quillForms/builder-core'
+			).getFormStructure(),
 		};
 	} );
 
@@ -99,7 +100,7 @@ const BlockEditor = memo( ( props ) => {
 	// Serialize title is a debounced function that updates the store with serialized html value
 	const serializeTitle = useCallback(
 		debounce( ( value ) => {
-			setBlockTitle( id, serialize( value ), category );
+			setBlockTitle( id, serialize( value ) );
 		}, 400 ),
 		[]
 	);
@@ -107,7 +108,7 @@ const BlockEditor = memo( ( props ) => {
 	// Serialize description is a debounced function that updates the store with serialized html value
 	const serializeDesc = useCallback(
 		debounce( ( value ) => {
-			setBlockDesc( id, serialize( value ), category );
+			setBlockDesc( id, serialize( value ) );
 		}, 400 ),
 		[]
 	);
@@ -127,7 +128,7 @@ const BlockEditor = memo( ( props ) => {
 
 	// Check for incorrrect field vars and fix them on index change
 	useEffect( () => {
-		const currentFieldIndex = index;
+		const currentBlockIndex = index;
 		[ titleEditor, descEditor ].forEach( ( editor ) => {
 			const fieldIds = [];
 			{
@@ -139,10 +140,10 @@ const BlockEditor = memo( ( props ) => {
 				if ( match.length > 0 ) {
 					match.forEach( ( m ) => {
 						const fieldId = m[ 0 ].data.ref;
-						const fieldIndex = fields.findIndex(
-							( field ) => field.id === fieldId
+						const blockIndex = formStructure.findIndex(
+							( block ) => block.id === fieldId
 						);
-						if ( fieldIndex >= currentFieldIndex ) {
+						if ( blockIndex >= currentBlockIndex ) {
 							fieldIds.push( fieldId );
 						}
 					} );
@@ -271,7 +272,6 @@ const BlockEditor = memo( ( props ) => {
 			</div>
 			{ attachment && attachment.type === 'image' && (
 				<BlockAttachment
-					category={ category }
 					id={ id }
 					blockColor={ blockColor }
 					attachment={ attachment }
@@ -280,7 +280,6 @@ const BlockEditor = memo( ( props ) => {
 
 			<BlockToolbar
 				id={ id }
-				category={ category }
 				insertEmoji={ ( emoji ) => insertEmoji( emoji, currentPath ) }
 				insertVariable={ ( variable ) =>
 					insertVariable( variable, currentPath )

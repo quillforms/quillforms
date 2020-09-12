@@ -144,15 +144,7 @@ const BlockEditBox = memo( ( props ) => {
 		[]
 	);
 
-	let category = 'fields';
-	let isDragDisabled = false;
-
-	if ( type === 'welcome-screen' ) {
-		category = 'welcomeScreens';
-		isDragDisabled = true;
-	} else if ( type === 'thankyou-screen' ) {
-		category = 'thankyouScreens';
-	}
+	const isDragDisabled = false;
 
 	return (
 		<div ref={ ref }>
@@ -163,7 +155,7 @@ const BlockEditBox = memo( ( props ) => {
 				index={ index }
 			>
 				{ ( provided, snapshot ) => (
-					<BoxWrapper id={ id } category={ category }>
+					<BoxWrapper id={ id }>
 						<div className="block-editor-block-edit-box__content-wrapper">
 							<div
 								className="block-editor-block-edit-box__content"
@@ -181,7 +173,6 @@ const BlockEditBox = memo( ( props ) => {
 											type={ type }
 											id={ id }
 											registeredBlock={ block }
-											category={ category }
 										/>
 										<BlockEditor
 											attachment={ attachment }
@@ -192,7 +183,6 @@ const BlockEditBox = memo( ( props ) => {
 											blockColor={
 												block.editorConfig.color
 											}
-											category={ category }
 											title={ titleJsonVal }
 											addDesc={
 												description !== undefined

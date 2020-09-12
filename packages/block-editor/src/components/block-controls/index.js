@@ -16,28 +16,17 @@ const BlockControls = () => {
 		toggleRequired,
 	} = useDispatch( 'quillForms/builder-core' );
 
-	const { currentBlockId, currentBlockCat, currentFormItem } = useSelect(
-		( select ) => {
-			const {
-				getCurrentBlockId,
-				getCurrentBlockCat,
-				getCurrentFormItem,
-			} = select( 'quillForms/builder-core' );
-			return {
-				currentBlockId: getCurrentBlockId(),
-				currentBlockCat: getCurrentBlockCat(),
-				currentFormItem: getCurrentFormItem(),
-			};
-		}
-	);
+	const { currentBlockId, currentFormItem } = useSelect( ( select ) => {
+		const { getCurrentBlockId, getCurrentFormItem } = select(
+			'quillForms/builder-core'
+		);
+		return {
+			currentBlockId: getCurrentBlockId(),
+			currentFormItem: getCurrentFormItem(),
+		};
+	} );
 
-	const type =
-		// eslint-disable-next-line no-nested-ternary
-		currentBlockCat === 'fields'
-			? currentFormItem.type
-			: currentBlockCat === 'welcomeScreens'
-			? 'welcome-screen'
-			: 'thankyou-screen';
+	const { type } = currentFormItem;
 
 	const block = useSelect(
 		( select ) => select( 'quillForms/blocks' ).getBlocks()[ type ]
@@ -49,10 +38,10 @@ const BlockControls = () => {
 				supports={ block.supports }
 				currentFormItem={ currentFormItem }
 				toggleDescription={ () => {
-					toggleDescription( currentBlockId, currentBlockCat );
+					toggleDescription( currentBlockId );
 				} }
 				setAttachment={ ( val ) => {
-					setBlockAttachment( currentBlockId, val, currentBlockCat );
+					setBlockAttachment( currentBlockId, val );
 				} }
 				toggleRequired={ ( val ) => {
 					toggleRequired( currentBlockId, val );
@@ -63,11 +52,7 @@ const BlockControls = () => {
 					id={ currentBlockId }
 					attributes={ currentFormItem.attributes }
 					setAttributes={ ( val ) => {
-						setBlockAttributes(
-							currentBlockId,
-							val,
-							currentBlockCat
-						);
+						setBlockAttributes( currentBlockId, val );
 					} }
 				/>
 			) }

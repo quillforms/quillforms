@@ -29,48 +29,45 @@ export function setupStore( initialPayload ) {
 /**
  * Set block title
  *
- * @param {string}                                            blockId  Block uuid
- * @param {string}                                            title    Block title
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")} blockCat Block category
+ * @param {string}  blockId  Block uuid
+ * @param {string}  title    Block title
  *
  * @return {Object} Action object.
  */
-export const setBlockTitle = ( blockId, title, blockCat ) => {
+export const setBlockTitle = ( blockId, title ) => {
 	return {
 		type: SET_BLOCK_TITLE,
-		payload: { blockId, title, blockCat },
+		payload: { blockId, title },
 	};
 };
 
 /**
  * Set block description
  *
- * @param {string}                                            blockId  Block uuid
- * @param {string}                                            desc     Block description
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")} blockCat Block category
+ * @param {string} blockId  Block uuid
+ * @param {string} desc     Block description
  *
  * @return {Object} Action object.
  */
-export const setBlockDesc = ( blockId, desc, blockCat ) => {
+export const setBlockDesc = ( blockId, desc ) => {
 	return {
 		type: SET_BLOCK_DESCRIPTION,
-		payload: { blockId, desc, blockCat },
+		payload: { blockId, desc },
 	};
 };
 
 /**
  * Set block attributes
  *
- * @param {string}                                            blockId  	 Block uuid
- * @param {string}                                            attributes Block attributes
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")} blockCat   Block category
+ * @param {string} blockId  	 Block uuid
+ * @param {string} attributes    Block attributes
  *
  * @return {Object} Action object.
  */
-export const setBlockAttributes = ( blockId, attributes, blockCat ) => {
+export const setBlockAttributes = ( blockId, attributes ) => {
 	return {
 		type: SET_BLOCK_ATTRIBUTES,
-		payload: { blockId, attributes, blockCat },
+		payload: { blockId, attributes },
 	};
 };
 
@@ -92,77 +89,72 @@ export const reorderFormBlocks = ( sourceIndex, destinationIndex ) => {
 /**
  * Insert new form block
  *
- * @param {Object}                                              block         Block object which holds the block definition
- * @param {Object}                                              destination   Destination object
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")}   category      Block category
+ * @param {Object} block         Block object which holds the block definition
+ * @param {Object} destination   Destination object
  *
  * @return {Object} Action object.
  */
-export const insertNewFormBlock = ( block, destination, category ) => {
+export const insertNewFormBlock = ( block, destination ) => {
 	return {
 		type: INSERT_NEW_FORM_BLOCK,
-		payload: { block, destination, category },
+		payload: { block, destination },
 	};
 };
 
 /**
  * Set current block
  *
- * @param {string}                                              id        Block uuid
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")} category  Block category
+ * @param {string} id        Block uuid
  *
  * @return {Object} Action object.
  */
-export const setCurrentBlock = ( id, category ) => {
+export const setCurrentBlock = ( id ) => {
 	return {
 		type: SET_CURRENT_BLOCK,
-		payload: { id, category },
+		payload: { id },
 	};
 };
 
 /**
  * Delete current block
  *
- * @param {string}                                            blockId   Block uuid
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")} blockCat  Block category
+ * @param {string} blockId   Block uuid
  *
  * @return {Object} Action object.
  */
-export const deleteFormBlock = ( blockId, blockCat ) => {
+export const deleteFormBlock = ( blockId ) => {
 	return {
 		type: DELETE_FORM_BLOCK,
-		payload: { blockId, blockCat },
+		payload: { blockId },
 	};
 };
 
 /**
  * Toggle block description
  *
- * @param {string}                                            blockId   Block id
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")} blockCat  Block category
+ * @param {string} blockId   Block id
  *
  * @return {Object} Action object.
  */
-export const toggleDescription = ( blockId, blockCat ) => {
+export const toggleDescription = ( blockId ) => {
 	return {
 		type: TOGGLE_BLOCK_DESCRIPTION,
-		payload: { blockId, blockCat },
+		payload: { blockId },
 	};
 };
 
 /**
  * Set Block Attachment
  *
- * @param {string}                                              blockId   Block id
- * @param {Object}                                              val       Attachment object
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")}   blockCat  Block category
+ * @param {string}  blockId   Block id
+ * @param {Object}  val       Attachment object
  *
  * @return {Object} Action object.
  */
-export const setBlockAttachment = ( blockId, val, blockCat ) => {
+export const setBlockAttachment = ( blockId, val ) => {
 	return {
 		type: SET_BLOCK_ATTACHMENT,
-		payload: { blockId, val, blockCat },
+		payload: { blockId, val },
 	};
 };
 

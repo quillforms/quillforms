@@ -18,7 +18,6 @@ import { withSelect } from '@wordpress/data';
 /**
  * External Dependencies.
  */
-import assign from 'lodash/assign';
 import classNames from 'classnames';
 
 const BlockDragIndexLine = () => {
@@ -27,25 +26,14 @@ const BlockDragIndexLine = () => {
 
 const DropArea = ( props ) => {
 	const {
-		fields,
+		formStructure,
 		areaToHide,
 		currentPanel,
-		welcomeScreens,
-		thankyouScreens,
 		blocks,
 		targetIndex,
 		isDragging,
 	} = props;
-	const list = welcomeScreens
-		.map( ( welcomeScreen ) =>
-			assign( { type: 'welcome-screen', ...welcomeScreen } )
-		)
-		.concat( fields )
-		.concat(
-			thankyouScreens.map( ( thankyouScreen ) =>
-				assign( { type: 'thankyou-screen', ...thankyouScreen } )
-			)
-		);
+
 	return (
 		<div
 			className="builder-core-drop-area"
@@ -60,7 +48,7 @@ const DropArea = ( props ) => {
 			<Droppable
 				droppableId="DROP_AREA"
 				renderClone={ ( provided, _snapshot, rubric ) => {
-					const item = { ...list[ rubric.source.index ] };
+					const item = { ...formStructure[ rubric.source.index ] };
 					const block = blocks[ item.type ];
 					return (
 						<div
@@ -91,9 +79,9 @@ const DropArea = ( props ) => {
 						ref={ provided.innerRef }
 						isDraggingOver={ snapshot.isDraggingOver }
 					>
-						{ list &&
-							list.length > 0 &&
-							list.map( ( item, index ) => {
+						{ formStructure &&
+							formStructure.length > 0 &&
+							formStructure.map( ( item, index ) => {
 								const block = blocks[ item.type ];
 								return (
 									<>
@@ -110,7 +98,7 @@ const DropArea = ( props ) => {
 									</>
 								);
 							} ) }
-						{ targetIndex === list.length && (
+						{ targetIndex === formStructure.length && (
 							<BlockDragIndexLine />
 						) }
 						{ provided.placeholder }
@@ -124,15 +112,11 @@ const DropArea = ( props ) => {
 export default compose( [
 	withSelect( ( select ) => {
 		const { getBlocks } = select( 'quillForms/blocks' );
-		const { getFields, getWelcomeScreens, getThankyouScreens } = select(
-			'quillForms/builder-core'
-		);
+		const { getFormStructure } = select( 'quillForms/builder-core' );
 
 		return {
 			blocks: getBlocks(),
-			fields: getFields(),
-			welcomeScreens: getWelcomeScreens(),
-			thankyouScreens: getThankyouScreens(),
+			formStructure: getFormStructure(),
 		};
 	} ),
 ] )( DropArea );

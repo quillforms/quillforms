@@ -44,16 +44,14 @@ const Layout = ( props ) => {
 	const [ isDragging, setIsDragging ] = useState( false );
 
 	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
-		const list = formStructure.welcomeScreens
-			.concat( formStructure.fields )
-			.concat( formStructure.thankyouScreens );
+		const list = { ...formStructure };
 		const { title, description } = list[ sourceIndex ];
 		const regex = /{{field:([a-zA-Z0-9-_]+)}}/g;
 		let match;
 
 		while ( ( match = regex.exec( title + ' ' + description ) ) ) {
 			const fieldId = match[ 1 ];
-			const fieldIndex = formStructure.fields.findIndex(
+			const fieldIndex = formStructure.findIndex(
 				( field ) => field.id === fieldId
 			);
 			if ( fieldIndex >= destinationIndex ) {
@@ -131,6 +129,7 @@ const Layout = ( props ) => {
 					assign( draggedBlock, {
 						id: uuid(),
 						title: '<p></p>',
+						type: blockType,
 					} );
 					const isBlockEditable = draggedBlock.supports?.displayOnly
 						? false
@@ -146,33 +145,17 @@ const Layout = ( props ) => {
 						'supports',
 					] );
 
-					const blockCat =
-						// eslint-disable-next-line no-nested-ternary
-						blockType === 'welcome-screen'
-							? 'welcomeScreens'
-							: blockType === 'thankyou-screen'
-							? 'thankyouScreens'
-							: 'fields';
+					// if ( isBlockEditable )
+					// 	insertNewFieldAnswer( draggedBlock.id, blockType );
 
-					if ( blockCat === 'fields' ) {
-						assign( draggedBlock, {
-							type: blockType,
-						} );
-						// if ( isBlockEditable )
-						// 	insertNewFieldAnswer( draggedBlock.id, blockType );
-					}
-					insertNewFormBlock( draggedBlock, destination, blockCat );
+					insertNewFormBlock( draggedBlock, destination );
 				}
 			}
 		}
 	} );
 
 	const onBeforeCapture = ( { draggableId } ) => {
-		const { welcomeScreens, fields, thankyouScreens } = formStructure;
-		const contentListData = welcomeScreens
-			.concat( fields )
-			.concat( thankyouScreens );
-		const contentListItem = contentListData.find(
+		const contentListItem = formStructure.find(
 			( block ) => block.id === draggableId
 		);
 		const isDraggingContentList = !! contentListItem;
@@ -239,8 +222,8 @@ export default compose( [
 		// 	'quillForms/renderer-submission'
 		// );
 		return {
-			insertNewFormBlock: ( block, destination, category ) =>
-				insertNewFormBlock( block, destination, category ),
+			insertNewFormBlock: ( block, destination ) =>
+				insertNewFormBlock( block, destination ),
 			reorderBlocks: ( sourceIndex, destinationIndex ) =>
 				reorderFormBlocks( sourceIndex, destinationIndex ),
 			// insertNewFieldAnswer: ( id, type ) =>

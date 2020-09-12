@@ -1,20 +1,13 @@
 import { compose } from '@wordpress/compose';
 import { withSelect, withDispatch } from '@wordpress/data';
 
-const BoxWrapper = ( {
-	id,
-	category,
-	currentBlockId,
-	setCurrentBlock,
-	children,
-} ) => {
+const BoxWrapper = ( { id, currentBlockId, setCurrentBlock, children } ) => {
 	return (
 		<div
 			role="presentation"
 			onClick={ ( e ) => {
 				e.stopPropagation();
-				console.log( 'daflads' );
-				setCurrentBlock( id, category );
+				setCurrentBlock( id );
 			} }
 			className={
 				'block-editor-box-wrapper' +
@@ -36,7 +29,7 @@ export default compose( [
 	withDispatch( ( dispatch ) => {
 		const { setCurrentBlock } = dispatch( 'quillForms/builder-core' );
 		return {
-			setCurrentBlock: ( id, cat ) => setCurrentBlock( id, cat ),
+			setCurrentBlock: ( id ) => setCurrentBlock( id ),
 		};
 	} ),
 ] )( BoxWrapper );
