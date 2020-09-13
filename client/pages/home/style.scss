@@ -18,7 +18,6 @@
 			border-radius: 8px;
 			margin-right: 40px;
 			margin-bottom: 30px;
-			cursor: pointer;
 			overflow: hidden;
 		}
 
@@ -29,6 +28,9 @@
 		.quillforms-home__form-card {
 			.quillforms-home__form-title {
 				font-size: 16px;
+			}
+			.quillforms-home__form-card-footer-post-status {
+				color: #fff;
 			}
 		}
 
