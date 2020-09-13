@@ -35,12 +35,14 @@ import BoxWrapper from './box-wrapper';
 import BlockEditor from '../block-edit';
 import BlockPlaceholder from '../block-placeholder';
 import BlockMover from '../block-mover';
+import { useSelect } from '@wordpress/data';
 
 const areEqual = ( prevProps, nextProps ) => {
 	if (
 		prevProps.index === nextProps.index &&
 		prevProps.item.attachment === nextProps.item.attachment &&
-		prevProps.item.description === nextProps.item.description
+		prevProps.item.description === nextProps.item.description &&
+		prevProps.isSelected === nextProps.isSelected
 	)
 		return true;
 	return false;
@@ -54,6 +56,12 @@ const BlockEditBox = memo( ( props ) => {
 	const [ ref, inView, entry ] = useInView( {
 		/* Optional options */
 		threshold: 0,
+	} );
+	const { isSelected } = useSelect( ( select ) => {
+		return {
+			isSelected:
+				select( 'quillForms/builder-core' ).getCurrentBlockId() === id,
+		};
 	} );
 
 	const [ titleJsonVal, setTitleJsonVal ] = useState( [
@@ -175,6 +183,7 @@ const BlockEditBox = memo( ( props ) => {
 											registeredBlock={ block }
 										/>
 										<BlockEditor
+											isSelected={ isSelected }
 											attachment={ attachment }
 											focusOn={ focusOn }
 											setFocusOn={ setFocusOn }

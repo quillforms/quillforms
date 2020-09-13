@@ -38,21 +38,7 @@ import debounce from 'lodash/debounce';
 import BlockToolbar from '../block-toolbar';
 import BlockAttachment from '../block-attachment';
 
-// Checking some prevProps and nextProps for React memo
-const areEqual = ( prevProps, nextProps ) => {
-	if (
-		prevProps.title === nextProps.title &&
-		prevProps.desc === nextProps.desc &&
-		prevProps.attachment === nextProps.attachment &&
-		prevProps.focusOn === nextProps.focusOn &&
-		prevProps.addDesc === nextProps.addDesc &&
-		prevProps.index === nextProps.index
-	)
-		return true;
-	return false;
-};
-
-const BlockEditor = memo( ( props ) => {
+const BlockEditor = ( props ) => {
 	const { setBlockDesc, setBlockTitle } = useDispatch(
 		'quillForms/builder-core'
 	);
@@ -78,17 +64,17 @@ const BlockEditor = memo( ( props ) => {
 		setFocusOn,
 		insertVariable,
 		insertEmoji,
+		isSelected,
 	} = props;
 
-	const { isSelected, formStructure } = useSelect( ( select ) => {
+	const { formStructure } = useSelect( ( select ) => {
 		return {
-			isSelected:
-				select( 'quillForms/builder-core' ).getCurrentBlockId() === id,
 			formStructure: select(
 				'quillForms/builder-core'
 			).getFormStructure(),
 		};
 	} );
+	console.log( isSelected );
 
 	// State for popup showed after Accessing variables {{xx:yyy}} explicitly from editor!
 	const [ varAlertPopup, setVarAlertPopup ] = useState( false );
@@ -118,7 +104,7 @@ const BlockEditor = memo( ( props ) => {
 	// we keep the focusOn as an internal state so when the component mounts again, the focus can still work.
 	useEffect( () => {
 		if ( isSelected ) {
-			if ( focusOn === 'title' ) {
+			if ( focusOn === 'title' || ! focusOn ) {
 				__unstableFocus( titleEditor );
 			} else if ( focusOn === 'desc' ) {
 				__unstableFocus( descEditor );
@@ -319,6 +305,6 @@ const BlockEditor = memo( ( props ) => {
 			</Dialog>
 		</div>
 	);
-}, areEqual );
+};
 
 export default BlockEditor;
