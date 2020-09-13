@@ -59,7 +59,7 @@ class QF_Form_Theme {
 			),
 			'backgroundColor'      => array(
 				'type'    => 'string',
-				'default' => '#000',
+				'default' => '#fff',
 			),
 			'backgroundImage'      => array(
 				'type' => 'string',
