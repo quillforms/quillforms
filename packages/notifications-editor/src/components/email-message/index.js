@@ -16,7 +16,7 @@ import { useSelect } from '@wordpress/data';
 const EmailMessage = ( { value, setValue } ) => {
 	const { fields } = useSelect( ( select ) => {
 		return {
-			fields: select( 'quillForms/builder-core' )
+			fields: select( 'quillForms/block-editor' )
 				.getEditableFields()
 				.map( ( field ) => {
 					return {

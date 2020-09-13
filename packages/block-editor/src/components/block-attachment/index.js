@@ -9,7 +9,7 @@ import { useDispatch } from '@wordpress/data';
 import CloseIcon from '@material-ui/icons/Close';
 
 const BlockAttachment = ( { blockColor, attachment, id } ) => {
-	const { setBlockAttachment } = useDispatch( 'quillForms/builder-core' );
+	const { setBlockAttachment } = useDispatch( 'quillForms/block-editor' );
 
 	return (
 		<div

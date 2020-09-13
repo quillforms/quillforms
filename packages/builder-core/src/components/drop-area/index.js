@@ -112,7 +112,7 @@ const DropArea = ( props ) => {
 export default compose( [
 	withSelect( ( select ) => {
 		const { getBlocks } = select( 'quillForms/blocks' );
-		const { getFormStructure } = select( 'quillForms/builder-core' );
+		const { getFormStructure } = select( 'quillForms/block-editor' );
 
 		return {
 			blocks: getBlocks(),

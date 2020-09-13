@@ -60,7 +60,7 @@ const BlockEditBox = memo( ( props ) => {
 	const { isSelected } = useSelect( ( select ) => {
 		return {
 			isSelected:
-				select( 'quillForms/builder-core' ).getCurrentBlockId() === id,
+				select( 'quillForms/block-editor' ).getCurrentBlockId() === id,
 		};
 	} );
 

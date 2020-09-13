@@ -21,7 +21,7 @@ const FieldVariable = ( props ) => {
 
 	const { field, fieldTitle, block } = useSelect( ( select ) => {
 		const blocks = select( 'quillForms/blocks' ).getBlocks();
-		const fieldObj = select( 'quillForms/builder-core' ).getBlockById(
+		const fieldObj = select( 'quillForms/block-editor' ).getBlockById(
 			fieldRef
 		);
 

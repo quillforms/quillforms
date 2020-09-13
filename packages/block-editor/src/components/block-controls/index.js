@@ -14,11 +14,11 @@ const BlockControls = () => {
 		toggleDescription,
 		setBlockAttachment,
 		toggleRequired,
-	} = useDispatch( 'quillForms/builder-core' );
+	} = useDispatch( 'quillForms/block-editor' );
 
 	const { currentBlockId, currentFormItem } = useSelect( ( select ) => {
 		const { getCurrentBlockId, getCurrentFormItem } = select(
-			'quillForms/builder-core'
+			'quillForms/block-editor'
 		);
 		return {
 			currentBlockId: getCurrentBlockId(),

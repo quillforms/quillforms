@@ -3,7 +3,7 @@ import reducer from './reducer';
 import * as actions from './actions';
 import * as selectors from './selectors';
 
-registerStore( 'quillForms/builder-core', {
+registerStore( 'quillForms/block-editor', {
 	reducer,
 	actions,
 	selectors,

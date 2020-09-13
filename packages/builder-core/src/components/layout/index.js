@@ -205,7 +205,7 @@ export default compose( [
 		const { getCurrentPanel, getPanels, getAreaToHide } = select(
 			'quillForms/builder-panels'
 		);
-		const { getFormStructure } = select( 'quillForms/builder-core' );
+		const { getFormStructure } = select( 'quillForms/block-editor' );
 		return {
 			registeredBlocks: getBlocks(),
 			currentPanel: getCurrentPanel(),
@@ -216,7 +216,7 @@ export default compose( [
 	} ),
 	withDispatch( ( dispatch ) => {
 		const { insertNewFormBlock, reorderFormBlocks } = dispatch(
-			'quillForms/builder-core'
+			'quillForms/block-editor'
 		);
 		// const { insertNewFieldAnswer } = dispatch(
 		// 	'quillForms/renderer-submission'

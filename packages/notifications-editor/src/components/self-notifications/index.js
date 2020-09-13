@@ -42,7 +42,7 @@ const SelfNotifications = () => {
 
 	const { emailFields } = useSelect( ( select ) => {
 		return {
-			emailFields: select( 'quillForms/builder-core' )
+			emailFields: select( 'quillForms/block-editor' )
 				.getFormStructure()
 				.filter( ( field ) => field.type === 'email' ),
 		};

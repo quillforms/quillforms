@@ -40,7 +40,7 @@ import BlockAttachment from '../block-attachment';
 
 const BlockEditor = ( props ) => {
 	const { setBlockDesc, setBlockTitle } = useDispatch(
-		'quillForms/builder-core'
+		'quillForms/block-editor'
 	);
 
 	const [ currentPath, setCurrentPath ] = useState( {
@@ -70,7 +70,7 @@ const BlockEditor = ( props ) => {
 	const { formStructure } = useSelect( ( select ) => {
 		return {
 			formStructure: select(
-				'quillForms/builder-core'
+				'quillForms/block-editor'
 			).getFormStructure(),
 		};
 	} );

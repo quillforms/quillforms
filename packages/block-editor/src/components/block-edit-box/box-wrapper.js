@@ -20,14 +20,14 @@ const BoxWrapper = ( { id, currentBlockId, setCurrentBlock, children } ) => {
 };
 export default compose( [
 	withSelect( ( select ) => {
-		const { getCurrentBlockId } = select( 'quillForms/builder-core' );
+		const { getCurrentBlockId } = select( 'quillForms/block-editor' );
 
 		return {
 			currentBlockId: getCurrentBlockId(),
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
-		const { setCurrentBlock } = dispatch( 'quillForms/builder-core' );
+		const { setCurrentBlock } = dispatch( 'quillForms/block-editor' );
 		return {
 			setCurrentBlock: ( id ) => setCurrentBlock( id ),
 		};

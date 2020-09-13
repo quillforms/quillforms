@@ -163,7 +163,6 @@ const FormReducer = ( state = initialState, action ) => {
 			// Skip update if nothing has been changed. The reference will
 			// match the original block if `reduce` had no changed values.
 			if ( nextAttributes === state.blocks[ blockIndex ].attributes ) {
-				console.log( 'This is true' );
 				return state;
 			}
 

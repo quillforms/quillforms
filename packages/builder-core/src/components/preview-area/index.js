@@ -17,7 +17,7 @@ const FormPreview = () => {
 	const { formStructure, meta, theme } = useSelect( ( select ) => {
 		return {
 			formStructure: select(
-				'quillForms/builder-core'
+				'quillForms/block-editor'
 			).getFormStructure(),
 			meta: mapKeys(
 				select( 'quillForms/form-meta' ).getRegisteredMeta(),

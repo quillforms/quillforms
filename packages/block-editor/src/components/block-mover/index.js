@@ -12,10 +12,10 @@ const BlockMover = ( { id, type, registeredBlock, dragHandleProps } ) => {
 	const { formStructure, editableFields } = useSelect( ( select ) => {
 		return {
 			formStructure: select(
-				'quillForms/builder-core'
+				'quillForms/block-editor'
 			).getFormStructure(),
 			editableFields: select(
-				'quillForms/builder-core'
+				'quillForms/block-editor'
 			).getEditableFields(),
 		};
 	} );

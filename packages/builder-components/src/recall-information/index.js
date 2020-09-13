@@ -29,7 +29,7 @@ const RecallInformation = ( {
 		return {
 			blocks: select( 'quillForms/blocks' ).getBlocks(),
 			editableFields: select(
-				'quillForms/builder-core'
+				'quillForms/block-editor'
 			).getEditableFields(),
 		};
 	} );

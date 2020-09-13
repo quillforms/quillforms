@@ -14,7 +14,7 @@ const PrevFieldsInserter = ( { onInsert, id } ) => {
 
 	const { prevFields } = useSelect( ( select ) => {
 		return {
-			prevFields: select( 'quillForms/builder-core' )
+			prevFields: select( 'quillForms/block-editor' )
 				.getPreviousEditableFields( id )
 				.map( ( field ) => {
 					return {
