@@ -30,11 +30,14 @@ const PanelHeader = () => {
 	);
 
 	let panelTitle = null;
-	const formStructure = useSelect( ( select ) =>
-		select( 'quillForms/block-editor' ).getFormStructure()
-	);
 	// // console.log(formStructure);
-	const currentBlockId = formStructure.currentBlockId;
+	const { currentBlockId } = useSelect( ( select ) => {
+		return {
+			currentBlockId: select(
+				'quillForms/block-editor'
+			).getCurrentBlockId(),
+		};
+	} );
 	const { setCurrentPanel, setCurrentSubPanel } = useDispatch(
 		'quillForms/builder-panels'
 	);

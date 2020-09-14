@@ -85,8 +85,16 @@ const FormReducer = ( state = initialState, action ) => {
 		// SET UP STORE
 		case SETUP_STORE: {
 			const { initialPayload } = action.payload;
-			const { blocks } = initialPayload;
-			return blocks;
+			if ( initialPayload.length > 0 && ! state.currentBlockId ) {
+				return {
+					blocks: initialPayload,
+					currentBlockId: initialPayload[ 0 ].id,
+				};
+			}
+			return {
+				...state,
+				blocks: initialPayload,
+			};
 		}
 
 		// SET FORM BLOCK TITLE
