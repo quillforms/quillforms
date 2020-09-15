@@ -154,7 +154,7 @@ class QF_Admin {
 	public function register_extra_admin_pages( $is_registered, $current_page ) {
 		$screen = get_current_screen();
 		if ( 'toplevel_page_quillforms' === $screen->id ) {
-			if ( ! empty( $_GET['path'] ) && preg_match( '/forms\/([0-9]+)\/builder$/', $_GET['path'] ) ) {
+			if ( ! empty( $_GET['path'] ) && preg_match( '/forms\/([0-9]+)\/(.*?)$/', $_GET['path'] ) ) {
 				return true;
 			}
 		}
