@@ -74,7 +74,6 @@ const BlockEditor = ( props ) => {
 			).getFormStructure(),
 		};
 	} );
-	console.log( isSelected );
 
 	// State for popup showed after Accessing variables {{xx:yyy}} explicitly from editor!
 	const [ varAlertPopup, setVarAlertPopup ] = useState( false );
@@ -104,6 +103,8 @@ const BlockEditor = ( props ) => {
 	// we keep the focusOn as an internal state so when the component mounts again, the focus can still work.
 	useEffect( () => {
 		if ( isSelected ) {
+			console.log( isSelected );
+			console.log( id );
 			if ( focusOn === 'title' || ! focusOn ) {
 				__unstableFocus( titleEditor );
 			} else if ( focusOn === 'desc' ) {
