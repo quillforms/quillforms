@@ -25,35 +25,24 @@ class QF_Form_Model {
 	 */
 	public static function get_form_structure( $form_id ) {
 
-		$form_structure = qf_decode( get_post_meta( $form_id, 'structure', true ) );
-		$form_structure = $form_structure ? array(
-			'welcomeScreens'  => ! empty( $form_structure['welcomeScreens'] ) && is_array( $form_structure['welcomeScreens'] ) ?
-									$form_structure['welcomeScreens'] : array(),
-			'fields'          => ! empty( $form_structure['fields'] ) && is_array( $form_structure['fields'] ) ?
-									$form_structure['fields'] : array(),
-			'thankyouScreens' => ! empty( $form_structure['thankyouScreens'] ) && is_array( $form_structure['thankyouScreens'] ) ?
-									$form_structure['fields'] : array(),
-		) : array(
-			'welcomeScreens'  => array(),
-			'fields'          => array(),
-			'thankyouScreens' => array(),
-		);
+		$form_structure = qf_decode( get_post_meta( $form_id, 'blocks', true ) );
+		$form_structure = $form_structure ? $form_structure : array();
 
-		foreach ( $form_structure as $block_cat => $cat_items ) {
-			if ( ! empty( $cat_items ) ) {
-				foreach ( $cat_items as $index => $form_block ) {
-					$block_type       = 'fields' === $block_cat ? $form_block['type'] : ( 'welcomeScreens' === $block_cat ? 'welcome-screen' : 'thankyou-screen' );
-					$registered_block = QF_Blocks_Factory::get_instance()->get_registered( $block_type );
-					if ( ! empty( $registered_block ) ) {
-						$block_attributes                                     = $form_block['attributes'] ? $form_block['attributes'] : array();
-						$form_structure[ $block_cat ][ $index ]['attributes'] = $registered_block->prepare_attributes_for_render( $block_attributes );
-					}
+		if ( ! empty( $form_structure ) ) {
+			foreach ( $form_structure as $index => $form_block ) {
+				$block_type       = $form_block['type'];
+				$registered_block = QF_Blocks_Factory::get_instance()->get_registered( $block_type );
+				if ( ! empty( $registered_block ) ) {
+					$block_attributes                       = $form_block['attributes'] ? $form_block['attributes'] : array();
+					$form_structure[ $index ]['attributes'] = $registered_block->prepare_attributes_for_render( $block_attributes );
 				}
 			}
 		}
-
 		return $form_structure;
+
 	}
+
+
 
 	/**
 	 * Get form theme id.
