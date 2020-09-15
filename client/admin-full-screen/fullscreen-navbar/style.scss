@@ -1,0 +1,35 @@
+.qf-admin-fullscreen-navbar {
+	position: relative;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+
+	a{
+		text-decoration: none;
+		margin: 10px;
+		padding: 10px;
+		color: #363434;
+		font-size: 15px;
+		text-transform: uppercase;
+		outline: none !important;
+		box-shadow: none !important;
+
+		&.selected {
+			border-bottom: 1px solid;
+			color: #a443ff
+		}
+	}
+
+
+	.qf-admin-fullscreen-navbar__logo {
+		position: absolute;
+		left: 0;
+		width: 55px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-right: 1px solid #d8d8d8;
+	}
+}

@@ -14,6 +14,15 @@ const Home = lazy( () =>
 const Builder = lazy( () =>
 	import( /* webpackChunkName: "builder" */ '../pages/builder' )
 );
+
+const Integrations = lazy( () =>
+	import( /* webpackChunkName: "integrations" */ '../pages/integrations' )
+);
+
+const Entries = lazy( () =>
+	import( /* webpackChunkName: "entries" */ '../pages/entries' )
+);
+
 /**
  * WooCommerce dependencies
  */
@@ -23,7 +32,6 @@ import { getPersistedQuery, getHistory } from '@woocommerce/navigation';
 export const PAGES_FILTER = 'quillforms_admin_pages_list';
 
 export const Controller = ( { page, match, location } ) => {
-	console.log( page );
 	useEffect( () => {
 		window.document.documentElement.scrollTop = 0;
 	}, [] );
@@ -57,18 +65,35 @@ export const Controller = ( { page, match, location } ) => {
 export const getPages = () => {
 	const pages = [];
 
+	// Home page
 	pages.push( {
 		container: Home,
 		path: '/',
 		wpOpenMenu: 'toplevel_page_quillforms',
 	} );
 
+	// Form Builder
 	pages.push( {
 		container: Builder,
 		path: '/forms/:id/builder/',
 		wpOpenMenu: 'toplevel_page_quillforms',
+		includeInFullScreenToolbar: true,
 	} );
 
+	// Form Integrations
+	pages.push( {
+		container: Integrations,
+		path: '/forms/:id/integrations',
+		wpOpenMenu: 'toplevel_page_quillforms',
+		includeInFullScreenToolbar: true,
+	} );
+
+	pages.push( {
+		container: Entries,
+		path: '/forms/:id/entries',
+		wpOpenMenu: 'toplevel_page_quillforms',
+		includeInFullScreenToolbar: true,
+	} );
 	return applyFilters( PAGES_FILTER, pages );
 };
 

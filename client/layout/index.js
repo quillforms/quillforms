@@ -5,7 +5,7 @@ import { useFilters } from '@quillforms/builder-components';
 /**
  * External dependencies
  */
-import { Component, lazy, Suspense } from '@wordpress/element';
+import { Component, Fragment, lazy, Suspense } from '@wordpress/element';
 import { Router, Route, Switch } from 'react-router-dom';
 import { compose } from '@wordpress/compose';
 
@@ -18,6 +18,7 @@ import { getHistory } from '@woocommerce/navigation';
  * Internal dependencies
  */
 import { Controller, getPages, PAGES_FILTER } from './controller';
+import AdminFullScreen from '../admin-full-screen';
 
 export const Layout = ( props ) => {
 	return (
@@ -29,28 +30,39 @@ export const Layout = ( props ) => {
 	);
 };
 
-class _PageLayout extends Component {
-	render() {
-		return (
-			<Router history={ getHistory() }>
-				<Switch>
-					{ getPages().map( ( page ) => {
-						return (
-							<Route
-								key={ page.path }
-								path={ page.path }
-								exact
-								render={ ( props ) => (
-									<Layout page={ page } { ...props } />
-								) }
-							/>
-						);
-					} ) }
-				</Switch>
-			</Router>
-		);
-	}
-}
+const _PageLayout = () => {
+	return (
+		<Router history={ getHistory() }>
+			<Switch>
+				{ getPages().map( ( page ) => {
+					const { includeInFullScreenToolbar } = page;
+
+					return (
+						<Route
+							key={ page.path }
+							path={ page.path }
+							exact
+							render={ ( props ) => (
+								<>
+									{ includeInFullScreenToolbar ? (
+										<AdminFullScreen { ...props }>
+											<Layout
+												page={ page }
+												{ ...props }
+											/>
+										</AdminFullScreen>
+									) : (
+										<Layout page={ page } { ...props } />
+									) }
+								</>
+							) }
+						/>
+					);
+				} ) }
+			</Switch>
+		</Router>
+	);
+};
 
 export const PageLayout = compose(
 	// Use the useFilters HoC so PageLayout is re-rendered when filters are used to add new pages or reports

@@ -25,9 +25,6 @@ const Builder = ( { params } ) => {
 	const [ isFetching, setIsFetching ] = useState( true );
 
 	useEffect( () => {
-		document
-			.getElementsByTagName( 'body' )[ 0 ]
-			.classList.add( 'js', 'is-fullscreen-mode' );
 		apiFetch( {
 			path: `/wp/v2/quill_forms/${ id }`,
 			method: 'GET',
@@ -35,11 +32,6 @@ const Builder = ( { params } ) => {
 			window.qfInitialPayload = res;
 			setIsFetching( false );
 		} );
-		return () => {
-			document
-				.getElementsByTagName( 'body' )[ 0 ]
-				.classList.remove( 'js', 'is-fullscreen-mode' );
-		};
 	}, [] );
 	return (
 		<div id="quillforms-layout-wrapper">
