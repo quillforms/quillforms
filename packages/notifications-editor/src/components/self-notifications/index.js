@@ -14,20 +14,6 @@ import {
 import { Fragment } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 
-/**
- * External Dependencies
- */
-import uniq from 'lodash/uniq';
-import CloseIcon from '@material-ui/icons/Close';
-
-/**
- * Internal Dependencies
- */
-import EmailInserter from '../../components/email-inserter';
-import ReplyTo from '../../components/reply-to';
-import EmailSubject from '../../components/email-subject';
-import EmailMessage from '../../components/email-message';
-
 const SelfNotifications = () => {
 	const { setNotificationsProperties } = useDispatch(
 		'quillForms/notifications'
@@ -37,14 +23,6 @@ const SelfNotifications = () => {
 			selfNotifications: select(
 				'quillForms/notifications'
 			).getSelfNotificationsState(),
-		};
-	} );
-
-	const { emailFields } = useSelect( ( select ) => {
-		return {
-			emailFields: select( 'quillForms/block-editor' )
-				.getFormStructure()
-				.filter( ( field ) => field.type === 'email' ),
 		};
 	} );
 
@@ -70,90 +48,7 @@ const SelfNotifications = () => {
 					/>
 				</__experimentalControlWrapper>
 			</__experimentalBaseControl>
-			{ enabled && (
-				<Fragment>
-					<__experimentalBaseControl>
-						<__experimentalControlWrapper orientation="vertical">
-							<__experimentalControlLabel label="Send a notification to" />
-							<div className="email__inserterWrapper">
-								{ recipients.length > 0 && (
-									<div className="recipients__list">
-										{ recipients.map( ( recipient ) => {
-											return (
-												<span
-													className="receipient__emailWrapper"
-													key={ recipient }
-												>
-													<span className="receipient__email">
-														{ recipient }
-													</span>
-													<span className="email__delete">
-														<CloseIcon
-															onClick={ () => {
-																const newRecipients = [
-																	...recipients,
-																];
-
-																const index = newRecipients.indexOf(
-																	recipient
-																);
-																if (
-																	index > -1
-																) {
-																	newRecipients.splice(
-																		index,
-																		1
-																	);
-																}
-
-																setNotificationsProperties(
-																	{
-																		recipients: uniq(
-																			newRecipients
-																		),
-																	}
-																);
-															} }
-														/>
-													</span>
-												</span>
-											);
-										} ) }
-									</div>
-								) }
-								<EmailInserter
-									addEmail={ ( email ) => {
-										const newRecipients = [ ...recipients ];
-										newRecipients.push( email );
-										setNotificationsProperties( {
-											recipients: uniq( newRecipients ),
-										} );
-									} }
-								/>
-							</div>
-						</__experimentalControlWrapper>
-					</__experimentalBaseControl>
-					<ReplyTo
-						emailFields={ emailFields }
-						value={ replyTo }
-						setValue={ ( val ) =>
-							setNotificationsProperties( { replyTo: val } )
-						}
-					/>
-					<EmailSubject
-						value={ subject }
-						setValue={ ( val ) =>
-							setNotificationsProperties( { subject: val } )
-						}
-					/>
-					<EmailMessage
-						value={ message }
-						setValue={ ( val ) =>
-							setNotificationsProperties( { message: val } )
-						}
-					/>
-				</Fragment>
-			) }
+			{ enabled && <Fragment></Fragment> }
 		</Fragment>
 	);
 };

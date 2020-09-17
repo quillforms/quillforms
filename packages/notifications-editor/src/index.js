@@ -1,2 +1,2 @@
 import './store';
-export { default as SelfNotifications } from './components/self-notifications';
+export { default as PanelRender } from './components/panel-render';

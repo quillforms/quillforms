@@ -1,0 +1,30 @@
+.notifications-editor-notification-box {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+	background: #e5e5e5;
+
+	.notifications-editor-notification-box__actions,
+	.notifications-editor-notification-box__title,
+	.notifications-editor-notification-edit__back {
+		display: flex;
+		align-items: center;
+	}
+
+	.notifications-editor-notification-box__status {
+		margin-right: 10px
+	}
+
+	.notifications-editor-notification-box__actions-edit {
+		margin-right: 10px;
+		color: #208787;
+		cursor: pointer;
+	}
+	.notifications-editor-notification-box__actions-delete {
+		color: #b26767;
+		cursor: pointer;
+	}
+}
