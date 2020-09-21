@@ -157,7 +157,7 @@ const FormReducer = ( state = initialState, action ) => {
 				( result, value, key ) => {
 					if ( value !== result[ key ] ) {
 						result = getMutateSafeObject(
-							[ ...state.blocks ][ blockIndex ],
+							[ ...state.blocks ][ blockIndex ].attributes,
 							result
 						);
 						result[ key ] = value;
@@ -165,7 +165,7 @@ const FormReducer = ( state = initialState, action ) => {
 
 					return result;
 				},
-				state.blocks[ blockIndex ]
+				state.blocks[ blockIndex ].attributes
 			);
 
 			// Skip update if nothing has been changed. The reference will
