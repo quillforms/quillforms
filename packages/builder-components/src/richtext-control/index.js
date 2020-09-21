@@ -95,13 +95,14 @@ const RichTextControl = ( {
 		);
 	};
 
-	// serializeVal is a debounced function that updates the store with serialized html value
-	const serializeVal = useCallback(
-		debounce( ( newVal ) => {
-			setValue( serialize( newVal ) );
-		}, 200 ),
-		[]
-	);
+	/**
+	 * Serialize value to html.
+	 *
+	 * @todo I believe we should debounce this function for better performance. However, I see problems with states
+	 * when I used this component in email body at notifications editor.
+	 * @param {Object} newVal The receieved value.
+	 */
+	const serializeVal = ( newVal ) => setValue( serialize( newVal ) );
 
 	const onChange = ( newVal ) => {
 		if ( editor.selection ) {
