@@ -1,0 +1,24 @@
+.qf-notification-delete-dialog {
+
+	.notifications-delete-dialog__body {
+		font-size: 15px;
+	}
+	.components-modal__content {
+		padding-bottom: 0;
+	}
+	.notifications-delete-dialog__actions {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 30px -24px 0;
+
+		.builder-components-button {
+			width: 50%;
+			border-radius: 0;
+			height: 40px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+}

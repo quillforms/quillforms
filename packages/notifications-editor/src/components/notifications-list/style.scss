@@ -1,0 +1,16 @@
+.notifications-editor-notifciations-list__header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px 0 !important;
+	text-align: right;
+
+}
+.notifications-editor-no-notifications-msg {
+    background: #eaefd0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

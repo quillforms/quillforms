@@ -1,19 +1,49 @@
-import { omit } from 'lodash';
-import { SET_NOTIFICATION_PROPERTIES, ADD_NEW_NOTIFICATION } from './constants';
+/**
+ * External Dependencies
+ */
+import { reduce } from 'lodash';
+
+/**
+ * Internal Dependencies
+ */
+import {
+	SET_NOTIFICATION_PROPERTIES,
+	ADD_NEW_NOTIFICATION,
+	DELETE_NOTIFICATION,
+} from './constants';
 
 const initialState = {
 	notifications: [
 		{
 			id: '1',
-			title: 'Admin Notification',
-			active: true,
-			recipients: [],
-			reply_to: '',
-			subject: '',
-			message: '<p>{{form:all_answers}}</p>',
+			properties: {
+				title: 'Admin Notification',
+				active: true,
+				recipients: [],
+				reply_to: '',
+				subject: '',
+				message: '<p>{{form:all_answers}}</p>',
+			},
 		},
 	],
 };
+
+/**
+ * Returns an object against which it is safe to perform mutating operations,
+ * given the original object and its current working copy.
+ *
+ * @param {Object} original Original object.
+ * @param {Object} working  Working object.
+ *
+ * @return {Object} Mutation-safe object.
+ */
+function getMutateSafeObject( original, working ) {
+	if ( original === working ) {
+		return { ...original };
+	}
+
+	return working;
+}
 
 /**
  * Generate random id
@@ -41,20 +71,42 @@ const NotificationsReducer = ( state = initialState, action ) => {
 			const notificationIndex = state.notifications.findIndex(
 				( notification ) => notification.id === id
 			);
-			console.log( notificationIndex );
 			if ( notificationIndex === -1 ) {
 				return state;
 			}
 
-			console.log( state.notifications );
+			// Consider as updates only changed values
+			const nextProperties = reduce(
+				properties,
+				( result, value, key ) => {
+					if ( value !== result[ key ] ) {
+						result = getMutateSafeObject(
+							[ ...state.notifications ][ notificationIndex ]
+								.properties,
+							result
+						);
+						result[ key ] = value;
+					}
+
+					return result;
+				},
+				state.notifications[ notificationIndex ].properties
+			);
+
+			// Skip update if nothing has been changed. The reference will
+			// match the original notification if `reduce` had no changed values.
+			if (
+				nextProperties ===
+				state.notifications[ notificationIndex ].properties
+			) {
+				return state;
+			}
+
+			// Otherwise replace properties in state
 			const notifications = [ ...state.notifications ];
-
-			notifications[ notificationIndex ] = {
-				...notifications[ notificationIndex ],
-				...properties,
-				id: notifications[ notificationIndex ].id,
+			notifications[ notificationIndex ].properties = {
+				...nextProperties,
 			};
-
 			return {
 				...state,
 				notifications,
@@ -63,14 +115,30 @@ const NotificationsReducer = ( state = initialState, action ) => {
 
 		case ADD_NEW_NOTIFICATION: {
 			const { properties } = action.payload;
-			const id = generateId;
+			const id = generateId();
 			const notifications = [ ...state.notifications ];
 			notifications.push( {
-				...properties,
+				properties,
 				id,
 			} );
 			return {
 				...state,
+				notifications,
+			};
+		}
+
+		case DELETE_NOTIFICATION: {
+			const { id } = action.payload;
+			const notificationIndex = state.notifications.findIndex(
+				( notification ) => notification.id === id
+			);
+			console.log( notificationIndex );
+			if ( notificationIndex === -1 ) {
+				return state;
+			}
+			const notifications = [ ...state.notifications ];
+			notifications.splice( notificationIndex, 1 );
+			return {
 				notifications,
 			};
 		}

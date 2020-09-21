@@ -8,9 +8,18 @@ import { ToggleControl } from '@quillforms/builder-components';
  */
 import { useDispatch } from '@wordpress/data';
 
+/**
+ * External Dependencies
+ */
+import { confirmAlert } from 'react-confirm-alert';
+import NotificationDeleteDialog from '../notification-delete-dialog';
+
 const NotificationBox = ( { notification, onEdit } ) => {
-	const { title, active, id } = notification;
-	const { setNotificationProperties } = useDispatch(
+	const {
+		properties: { title, active },
+		id,
+	} = notification;
+	const { setNotificationProperties, deleteNotification } = useDispatch(
 		'quillForms/notifications-editor'
 	);
 
@@ -21,10 +30,9 @@ const NotificationBox = ( { notification, onEdit } ) => {
 					<ToggleControl
 						checked={ active }
 						onChange={ () => {
-							setNotificationProperties(
-								{ active: ! active },
-								id
-							);
+							setNotificationProperties( id, {
+								active: ! active,
+							} );
 						} }
 					/>
 				</div>
@@ -43,6 +51,23 @@ const NotificationBox = ( { notification, onEdit } ) => {
 				<div
 					role="presentation"
 					className="notifications-editor-notification-box__actions-delete"
+					onClick={ () => {
+						confirmAlert( {
+							customUI: ( { onClose } ) => {
+								return (
+									<NotificationDeleteDialog
+										closeModal={ () => {
+											onClose();
+										} }
+										proceed={ () => {
+											deleteNotification( id );
+											onClose();
+										} }
+									/>
+								);
+							},
+						} );
+					} }
 				>
 					Delete
 				</div>

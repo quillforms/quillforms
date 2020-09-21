@@ -1,7 +1,9 @@
 @import "./components/notification-box/style.scss";
-@import "./components/notification-edit/style.scss";
+@import "./components/notification-delete-dialog/style.scss";
+@import "./components/notification-editor-footer/style.scss";
+@import "./components/notification-editor-wrapper/style.scss";
 @import "./components/panel-render/style.scss";
 @import "./components/email-inserter/style.scss";
 @import "./components/email-subject/style.scss";
 @import "./components/reply-to/style.scss";
-@import "./components/self-notifications/style.scss";
+@import "./components/notifications-list/style.scss";
