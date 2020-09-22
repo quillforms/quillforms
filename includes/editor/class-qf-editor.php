@@ -80,24 +80,6 @@ class QF_Editor {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-		// Server side blocks registration.
-		wp_add_inline_script(
-			'quillforms-blocks',
-			'qf.blocks.__unstableServerSideBlocksRegister(' . wp_json_encode(
-				array_map(
-					function ( $block ) {
-						return array(
-							'id'         => QF_Utils::generate_uuidv4(),
-							'name'       => $block->get_name(),
-							'attributes' => $block->prepare_attributes_for_render( $block->get_attributes() ),
-							'supports'   => $block->get_supports(),
-						);
-					},
-					QF_Blocks_Factory::get_instance()->get_all_registered()
-				)
-			) . ')',
-			'after'
-		);
 
 		// Setup editor store.
 		wp_add_inline_script(
