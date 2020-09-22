@@ -8,7 +8,6 @@ import { panelSettings as Notifications } from './notifications';
 import { panelSettings as Settings } from './settings';
 
 // Sub Panels
-import { subpanelSettings as SelfNotifications } from './notifications/subpanels/self';
 import { subpanelSettings as Messages } from './settings/subpanels/messages';
 
 export const registerPanels = () => {
@@ -20,7 +19,7 @@ export const registerPanels = () => {
 	} );
 
 	// Register Subpanels
-	[ SelfNotifications, Messages ].forEach( ( subpanel ) => {
+	[ Messages ].forEach( ( subpanel ) => {
 		registerBuilderSubPanel( subpanel.name, {
 			...omit( subpanel, [ 'name' ] ),
 		} );
