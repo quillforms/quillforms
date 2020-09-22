@@ -18,6 +18,7 @@ const initialState = {
 			id: '1',
 			properties: {
 				title: 'Admin Notification',
+				toType: 'email',
 				active: true,
 				recipients: [],
 				reply_to: '',

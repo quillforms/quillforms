@@ -21,19 +21,22 @@ import { useEffect, useState } from '@wordpress/element';
 import uniq from 'lodash/uniq';
 import CloseIcon from '@material-ui/icons/Close';
 import { css } from 'emotion';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 /**
  * Internal Dependencies
  */
 import EmailInserter from '../email-inserter';
-import ReplyTo from '../reply-to';
+import EmailSelect from '../email-select';
 import EmailMessage from '../email-message';
 import EmailSubject from '../email-subject';
 import NotificationEditor from '../notification-editor';
 import NotificationEditorFooter from '../notification-editor-footer';
+import { cloneDeep } from 'lodash';
 
 const NotificationEditorWrapper = ( {
-	sliderRef,
+	goBack,
 	currentNotificationProperties,
 	notificationId,
 	activeSlide,
@@ -44,11 +47,19 @@ const NotificationEditorWrapper = ( {
 
 	useEffect( () => {
 		if ( currentNotificationProperties ) {
-			setProperties( currentNotificationProperties );
+			setProperties( { ...currentNotificationProperties } );
 		}
 	}, [ currentNotificationProperties ] );
 
-	const { active, title, recipients, replyTo, subject, message } = properties;
+	const {
+		active,
+		title,
+		toType,
+		recipients,
+		replyTo,
+		subject,
+		message,
+	} = cloneDeep( properties );
 
 	const { emailFields } = useSelect( ( select ) => {
 		return {
@@ -70,7 +81,7 @@ const NotificationEditorWrapper = ( {
 			>
 				{ notificationId
 					? 'Edit Notification'
-					: 'Create a new notification' }{ ' ' }
+					: 'Create a new notification' }
 			</h4>
 			<__experimentalBaseControl>
 				<__experimentalControlWrapper>
@@ -103,62 +114,93 @@ const NotificationEditorWrapper = ( {
 			<__experimentalBaseControl>
 				<__experimentalControlWrapper orientation="vertical">
 					<__experimentalControlLabel label="Send a notification to" />
-					<div className="email__inserterWrapper">
-						{ recipients && recipients.length > 0 && (
-							<div className="recipients__list">
-								{ recipients.map( ( recipient ) => {
-									return (
-										<span
-											className="receipient__emailWrapper"
-											key={ recipient }
-										>
-											<span className="receipient__email">
-												{ recipient }
-											</span>
-											<span className="email__delete">
-												<CloseIcon
-													onClick={ () => {
-														const newRecipients = [
-															...recipients,
-														];
-
-														const index = newRecipients.indexOf(
-															recipient
-														);
-														if ( index > -1 ) {
-															newRecipients.splice(
-																index,
-																1
-															);
-														}
-														setProperties( {
-															...properties,
-															recipients: uniq(
-																newRecipients
-															),
-														} );
-													} }
-												/>
-											</span>
-										</span>
-									);
-								} ) }
-							</div>
-						) }
-						<EmailInserter
-							addEmail={ ( email ) => {
-								const newRecipients = [ ...recipients ];
-								newRecipients.push( email );
+					<div className="notification-editor-toType-select select-control-wrapper">
+						<Select
+							value={ toType }
+							onChange={ ( e ) =>
 								setProperties( {
 									...properties,
-									recipients: uniq( newRecipients ),
+									toType: e.target.value,
+								} )
+							}
+						>
+							<MenuItem value={ 'email' }>Enter email</MenuItem>
+							<MenuItem value={ 'field' }>Select field</MenuItem>
+						</Select>
+					</div>
+					{ toType === 'email' && (
+						<div className="email__inserterWrapper">
+							{ recipients && recipients.length > 0 && (
+								<div className="recipients__list">
+									{ recipients.map( ( recipient ) => {
+										return (
+											<span
+												className="receipient__emailWrapper"
+												key={ recipient }
+											>
+												<span className="receipient__email">
+													{ recipient }
+												</span>
+												<span className="email__delete">
+													<CloseIcon
+														onClick={ () => {
+															const newRecipients = [
+																...recipients,
+															];
+
+															const index = newRecipients.indexOf(
+																recipient
+															);
+															if ( index > -1 ) {
+																newRecipients.splice(
+																	index,
+																	1
+																);
+															}
+															setProperties( {
+																...properties,
+																recipients: uniq(
+																	newRecipients
+																),
+															} );
+														} }
+													/>
+												</span>
+											</span>
+										);
+									} ) }
+								</div>
+							) }
+							<EmailInserter
+								activeSlide={ activeSlide }
+								addEmail={ ( email ) => {
+									const newRecipients = [ ...recipients ];
+									newRecipients.push( email );
+									setProperties( {
+										...properties,
+										recipients: uniq( newRecipients ),
+									} );
+								} }
+							/>
+						</div>
+					) }
+					{ toType === 'field' && (
+						<EmailSelect
+							isRequired={ true }
+							emailFields={ emailFields }
+							value={ replyTo }
+							setValue={ ( val ) => {
+								setProperties( {
+									...properties,
+									replyTo: val,
 								} );
 							} }
 						/>
-					</div>
+					) }
 				</__experimentalControlWrapper>
 			</__experimentalBaseControl>
-			<ReplyTo
+			<EmailSelect
+				label="Reply to"
 				emailFields={ emailFields }
 				value={ replyTo }
 				setValue={ ( val ) =>
@@ -170,15 +212,15 @@ const NotificationEditorWrapper = ( {
 			/>
 			<EmailSubject
 				value={ subject }
-				setValue={ ( val ) =>
-					setProperties( { ...properties, subject: val } )
-				}
+				setValue={ ( val ) => {
+					setProperties( { ...properties, subject: val } );
+				} }
 			/>
 			<EmailMessage
 				value={ message }
-				setValue={ ( val ) =>
-					setProperties( { ...properties, message: val } )
-				}
+				setValue={ ( val ) => {
+					setProperties( { ...properties, message: val } );
+				} }
 			/>
 			<NotificationEditor.Slot
 				notificationProperties={ { ...properties } }
@@ -191,9 +233,9 @@ const NotificationEditorWrapper = ( {
 			/>
 			{ activeSlide && (
 				<NotificationEditorFooter
-					sliderRef={ sliderRef }
+					goBack={ goBack }
 					notificationId={ notificationId }
-					properties={ properties }
+					properties={ { ...properties } }
 				/>
 			) }
 		</div>

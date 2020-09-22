@@ -19,8 +19,9 @@ import { useEffect } from '@wordpress/element';
  */
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import classnames from 'classnames';
 
-const ReplyTo = ( { value, setValue, emailFields } ) => {
+const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 	useEffect( () => {
 		if ( ! emailFields || emailFields.length === 0 ) {
 			setValue( '' );
@@ -35,15 +36,22 @@ const ReplyTo = ( { value, setValue, emailFields } ) => {
 	return (
 		<__experimentalBaseControl>
 			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel label="Reply to" />
+				{ !! label && <__experimentalControlLabel label={ label } /> }
 				{ emailFields.length === 0 ? (
-					<span className="notifications-editor-replyTo__no-emails-msg">
-						To send someone an email after completing the form, you
-						should have at least one email question
+					<span
+						className={ classnames(
+							'notifications-editor-email-select__no-emails',
+							{
+								'is-required': isRequired,
+							}
+						) }
+					>
+						To select an email, you should have at least one email
+						question
 					</span>
 				) : (
 					<Select
-						className="notifications-editor-replyTo__email-select"
+						className="notifications-editor-email-select"
 						placeholder="Choose Email"
 						value={ value }
 						onChange={ ( e ) => setValue( e.target.value ) }
@@ -53,9 +61,9 @@ const ReplyTo = ( { value, setValue, emailFields } ) => {
 								key={ emailField.id }
 								value={ emailField.id }
 							>
-								<div className="notifications-editor-replyTo__email-select-option">
+								<div className="notifications-editor-email-select__option">
 									<BlockIconBox blockType="email" />
-									<span className="notifications-editor-replyTo__email-select-option-title">
+									<span className="notifications-editor-email-select__option-title">
 										{ getPlainExcerpt( emailField.title ) }
 									</span>
 								</div>
@@ -67,4 +75,4 @@ const ReplyTo = ( { value, setValue, emailFields } ) => {
 		</__experimentalBaseControl>
 	);
 };
-export default ReplyTo;
+export default EmailSelect;

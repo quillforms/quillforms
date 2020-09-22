@@ -34,6 +34,7 @@ const PanelRender = () => {
 		return {
 			currentNotificationProperties: {
 				title: '',
+				toType: 'email',
 				active: true,
 				recipients: [],
 				reply_to: '',
@@ -67,7 +68,9 @@ const PanelRender = () => {
 			>
 				<NotificationsList
 					setCurrentNotificationId={ setCurrentNotificationId }
-					sliderRef={ sliderRef }
+					goNext={ () => {
+						sliderRef.current.slickNext();
+					} }
 				/>
 				<NotificationEditorWrapper
 					activeSlide={ activeSlide }
@@ -75,7 +78,9 @@ const PanelRender = () => {
 					currentNotificationProperties={ {
 						...currentNotificationProperties,
 					} }
-					sliderRef={ sliderRef }
+					goBack={ () => {
+						sliderRef.current.slickPrev();
+					} }
 				/>
 			</Slider>
 		</div>

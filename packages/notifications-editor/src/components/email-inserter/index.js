@@ -5,12 +5,15 @@ import { Button, TextControl } from '@quillforms/builder-components';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
-const EmailInserter = ( { addEmail } ) => {
+const EmailInserter = ( { activeSlide, addEmail } ) => {
 	const [ value, setValue ] = useState( '' );
 	const [ err, setErr ] = useState( false );
 
+	useEffect( () => {
+		setValue( '' );
+	}, [ activeSlide ] );
 	const validateEmail = ( email ) => {
 		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test( String( email ).toLowerCase() );

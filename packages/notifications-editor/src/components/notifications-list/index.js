@@ -18,7 +18,7 @@ import { css } from 'emotion';
  */
 import NotificationBox from '../notification-box';
 
-const NotificationsList = ( { sliderRef, setCurrentNotificationId } ) => {
+const NotificationsList = ( { goNext, setCurrentNotificationId } ) => {
 	const { notifications } = useSelect( ( select ) => {
 		return {
 			notifications: select(
@@ -35,7 +35,6 @@ const NotificationsList = ( { sliderRef, setCurrentNotificationId } ) => {
 							font-size: 15px;
 						` }
 					>
-						{ ' ' }
 						Notifications List
 					</h4>
 
@@ -48,7 +47,7 @@ const NotificationsList = ( { sliderRef, setCurrentNotificationId } ) => {
 						isPrimary
 						onClick={ () => {
 							setCurrentNotificationId( null );
-							sliderRef.current.slickNext();
+							goNext();
 						} }
 						isLarge
 					>
@@ -69,7 +68,7 @@ const NotificationsList = ( { sliderRef, setCurrentNotificationId } ) => {
 							<NotificationBox
 								onEdit={ () => {
 									setCurrentNotificationId( notification.id );
-									sliderRef.current.slickNext();
+									goNext();
 								} }
 								key={ notification.id }
 								notification={ notification }

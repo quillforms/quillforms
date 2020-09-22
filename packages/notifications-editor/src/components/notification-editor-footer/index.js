@@ -15,11 +15,7 @@ import { Icon, arrowLeft } from '@wordpress/icons';
  */
 import { css } from 'emotion';
 
-const NotificationEditorFooter = ( {
-	sliderRef,
-	notificationId,
-	properties,
-} ) => {
+const NotificationEditorFooter = ( { goBack, notificationId, properties } ) => {
 	const { setNotificationProperties, addNewNotification } = useDispatch(
 		'quillForms/notifications-editor'
 	);
@@ -35,7 +31,7 @@ const NotificationEditorFooter = ( {
 					border-radius: 0 !important;
 				` }
 				onClick={ () => {
-					sliderRef.current.slickPrev();
+					goBack();
 				} }
 			>
 				<Icon
@@ -61,7 +57,7 @@ const NotificationEditorFooter = ( {
 					} else {
 						addNewNotification( properties );
 					}
-					sliderRef.current.slickPrev();
+					goBack();
 				} }
 			>
 				{ notificationId ? 'Save changes' : 'Add new notification' }

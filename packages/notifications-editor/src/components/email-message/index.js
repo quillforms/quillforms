@@ -40,7 +40,9 @@ const EmailMessage = ( { value, setValue } ) => {
 						},
 					].concat( fields ) }
 					value={ value }
-					setValue={ ( newVal ) => setValue( newVal ) }
+					setValue={ ( newVal ) => {
+						setValue( newVal );
+					} }
 				/>
 			</__experimentalControlWrapper>
 		</__experimentalBaseControl>
