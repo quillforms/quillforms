@@ -6,10 +6,11 @@ import { __experimentalDragDropContext as DragDropContext } from '@quillforms/bu
 /**
  * WordPress Dependencies
  */
-import { useCallback, useState, render } from '@wordpress/element';
+import { useCallback, useState } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { SlotFillProvider } from '@wordpress/components';
+import { PluginArea } from '@wordpress/plugins';
+
 /**
  * External Dependencies
  */
@@ -174,28 +175,27 @@ const Layout = ( props ) => {
 	};
 
 	return (
-		<SlotFillProvider>
-			<DragDropContext
-				onDragStart={ onDragStart }
-				onDragEnd={ onDragEnd }
-				onDragUpdate={ onDragUpdate }
-				onBeforeCapture={ onBeforeCapture }
-			>
-				<BuilderPanelsBar />
-				{ currentPanel && <Panel /> }
-				{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
-					<DropArea
-						isDragging={ isDragging }
-						currentPanel={ currentPanel }
-						targetIndex={ targetIndex }
-						areaToHide={ areaToHide }
-					/>
-				) }
-				{ /* { ( ! areaToHide || areaToHide !== 'preview-area' ) && (
+		<DragDropContext
+			onDragStart={ onDragStart }
+			onDragEnd={ onDragEnd }
+			onDragUpdate={ onDragUpdate }
+			onBeforeCapture={ onBeforeCapture }
+		>
+			<PluginArea />
+			<BuilderPanelsBar />
+			{ currentPanel && <Panel /> }
+			{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
+				<DropArea
+					isDragging={ isDragging }
+					currentPanel={ currentPanel }
+					targetIndex={ targetIndex }
+					areaToHide={ areaToHide }
+				/>
+			) }
+			{ /* { ( ! areaToHide || areaToHide !== 'preview-area' ) && (
 				 <FormPreview />
 			) } */ }
-			</DragDropContext>
-		</SlotFillProvider>
+		</DragDropContext>
 	);
 };
 
