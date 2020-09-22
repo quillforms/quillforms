@@ -2,6 +2,12 @@
  * QuillForms Dependencies
  */
 import { useFilters } from '@quillforms/builder-components';
+
+/**
+ * WordPress Dependencies
+ */
+import { SlotFillProvider } from '@wordpress/components';
+
 /**
  * External dependencies
  */
@@ -22,11 +28,13 @@ import AdminFullScreen from '../admin-full-screen';
 
 export const Layout = ( props ) => {
 	return (
-		<div className="quillforms-layout">
-			<div className="quillforms-layout__main">
-				<Controller { ...props } />
+		<SlotFillProvider>
+			<div className="quillforms-layout">
+				<div className="quillforms-layout__main">
+					<Controller { ...props } />
+				</div>
 			</div>
-		</div>
+		</SlotFillProvider>
 	);
 };
 

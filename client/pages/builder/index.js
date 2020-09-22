@@ -18,12 +18,14 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
+import useEnqueueJS from './use-enqueue-js';
 import './style.scss';
 
 const Builder = ( { params } ) => {
 	const { id } = params;
 	const [ isFetching, setIsFetching ] = useState( true );
 
+	const [ assetsLoading ] = useEnqueueJS( 'quillforms-blocks' );
 	useEffect( () => {
 		apiFetch( {
 			path: `/wp/v2/quill_forms/${ id }`,

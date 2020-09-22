@@ -7,9 +7,8 @@ import { Button, TextControl } from '@quillforms/builder-components';
  * WordPress Dependencies.
  */
 import { Modal } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
 
 /**
  * External Dependencies.
