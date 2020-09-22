@@ -15,6 +15,7 @@ const TextControl = ( {
 	maxLength = null,
 	forceFocusOnMount = false,
 } ) => {
+	console.log( value );
 	const ref = useRef();
 	useEffect( () => {
 		if ( forceFocusOnMount ) {
