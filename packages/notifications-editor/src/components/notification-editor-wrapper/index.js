@@ -6,7 +6,6 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	ToggleControl,
-	TextControl,
 } from '@quillforms/builder-components';
 
 /**
@@ -18,22 +17,18 @@ import { useEffect, useState } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import uniq from 'lodash/uniq';
-import CloseIcon from '@material-ui/icons/Close';
-import { css } from 'emotion';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import { keys, zipObject } from 'lodash';
 
 /**
  * Internal Dependencies
  */
-import EmailInserter from '../email-inserter';
 import EmailSelect from '../email-select';
-import EmailMessage from '../email-message';
-import EmailSubject from '../email-subject';
+import NotificationMessage from '../notification-message';
+import NotificationSubject from '../notification-subject';
 import NotificationEditor from '../notification-editor';
 import NotificationEditorFooter from '../notification-editor-footer';
-import { cloneDeep } from 'lodash';
+import NotificationTitle from '../notification-title';
+import NotificationTo from '../notification-to';
 
 const NotificationEditorWrapper = ( {
 	goBack,
@@ -45,11 +40,20 @@ const NotificationEditorWrapper = ( {
 		...currentNotificationProperties,
 	} );
 
+	const [ isReviewing, setIsReviewing ] = useState( false );
+
+	const [ validationFlags, setValidationFlags ] = useState(
+		zipObject(
+			keys( properties ),
+			keys( properties ).map( () => true )
+		)
+	);
+
 	useEffect( () => {
 		if ( currentNotificationProperties ) {
 			setProperties( { ...currentNotificationProperties } );
 		}
-	}, [ currentNotificationProperties ] );
+	}, [ currentNotificationProperties, activeSlide ] );
 
 	const {
 		active,
@@ -59,7 +63,7 @@ const NotificationEditorWrapper = ( {
 		replyTo,
 		subject,
 		message,
-	} = cloneDeep( properties );
+	} = properties;
 
 	const { emailFields } = useSelect( ( select ) => {
 		return {
@@ -71,172 +75,114 @@ const NotificationEditorWrapper = ( {
 
 	return (
 		<div className="notifications-editor-notification-editor-wrapper">
-			<h4
-				className={ css`
-					font-size: 14px;
-					display: inline-block;
-					padding-bottom: 10px;
-					border-bottom: 1px solid;
-				` }
-			>
-				{ notificationId
-					? 'Edit Notification'
-					: 'Create a new notification' }
-			</h4>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper>
-					<__experimentalControlLabel label="Title" />
-					<TextControl
+			{ activeSlide && (
+				<>
+					<h4 className="notifications-editor-notification-editor-wrapper__heading">
+						{ notificationId
+							? 'Edit Notification'
+							: 'Create a new notification' }
+					</h4>
+					<NotificationTitle
 						value={ title }
-						setValue={ ( val ) => {
+						setValue={ ( value ) => {
 							setProperties( {
 								...properties,
-								title: val,
+								...value,
 							} );
 						} }
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper>
-					<__experimentalControlLabel label="Active" />
-					<ToggleControl
-						checked={ active }
-						onChange={ () => {
-							setProperties( {
-								...properties,
-								active: ! active,
-							} );
-						} }
-					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="vertical">
-					<__experimentalControlLabel label="Send a notification to" />
-					<div className="notification-editor-toType-select select-control-wrapper">
-						<Select
-							value={ toType }
-							onChange={ ( e ) =>
-								setProperties( {
-									...properties,
-									toType: e.target.value,
-								} )
-							}
-						>
-							<MenuItem value={ 'email' }>Enter email</MenuItem>
-							<MenuItem value={ 'field' }>Select field</MenuItem>
-						</Select>
-					</div>
-					{ toType === 'email' && (
-						<div className="email__inserterWrapper">
-							{ recipients && recipients.length > 0 && (
-								<div className="recipients__list">
-									{ recipients.map( ( recipient ) => {
-										return (
-											<span
-												className="receipient__emailWrapper"
-												key={ recipient }
-											>
-												<span className="receipient__email">
-													{ recipient }
-												</span>
-												<span className="email__delete">
-													<CloseIcon
-														onClick={ () => {
-															const newRecipients = [
-																...recipients,
-															];
-
-															const index = newRecipients.indexOf(
-																recipient
-															);
-															if ( index > -1 ) {
-																newRecipients.splice(
-																	index,
-																	1
-																);
-															}
-															setProperties( {
-																...properties,
-																recipients: uniq(
-																	newRecipients
-																),
-															} );
-														} }
-													/>
-												</span>
-											</span>
-										);
-									} ) }
-								</div>
-							) }
-							<EmailInserter
-								activeSlide={ activeSlide }
-								addEmail={ ( email ) => {
-									const newRecipients = [ ...recipients ];
-									newRecipients.push( email );
+					<__experimentalBaseControl>
+						<__experimentalControlWrapper>
+							<__experimentalControlLabel label="Active" />
+							<ToggleControl
+								checked={ active }
+								onChange={ () => {
 									setProperties( {
 										...properties,
-										recipients: uniq( newRecipients ),
+										active: ! active,
 									} );
 								} }
 							/>
-						</div>
-					) }
-					{ toType === 'field' && (
+						</__experimentalControlWrapper>
+					</__experimentalBaseControl>
+					<NotificationTo
+						emailFields={ emailFields }
+						recipients={ recipients }
+						toType={ toType }
+						isValid={ validationFlags.recipients }
+						setIsValid={ ( value ) => {
+							setValidationFlags( {
+								...validationFlags,
+								recipients: value,
+							} );
+						} }
+						setValue={ ( value ) => {
+							setProperties( {
+								...properties,
+								...value,
+							} );
+						} }
+						isReviewing={ isReviewing }
+					/>
+					<__experimentalBaseControl>
 						<EmailSelect
-							isRequired={ true }
+							label="Reply to"
 							emailFields={ emailFields }
 							value={ replyTo }
-							setValue={ ( val ) => {
+							setValue={ ( val ) =>
 								setProperties( {
 									...properties,
 									replyTo: val,
-								} );
-							} }
+								} )
+							}
 						/>
-					) }
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
-			<EmailSelect
-				label="Reply to"
-				emailFields={ emailFields }
-				value={ replyTo }
-				setValue={ ( val ) =>
-					setProperties( {
-						...properties,
-						replyTo: val,
-					} )
-				}
-			/>
-			<EmailSubject
-				value={ subject }
-				setValue={ ( val ) => {
-					setProperties( { ...properties, subject: val } );
-				} }
-			/>
-			<EmailMessage
-				value={ message }
-				setValue={ ( val ) => {
-					setProperties( { ...properties, message: val } );
-				} }
-			/>
-			<NotificationEditor.Slot
-				notificationProperties={ { ...properties } }
-				setNotificationProperties={ ( value ) => {
-					setProperties( {
-						...properties,
-						...value,
-					} );
-				} }
-			/>
-			{ activeSlide && (
-				<NotificationEditorFooter
-					goBack={ goBack }
-					notificationId={ notificationId }
-					properties={ { ...properties } }
-				/>
+					</__experimentalBaseControl>
+					<NotificationSubject
+						value={ subject }
+						setValue={ ( val ) => {
+							setProperties( { ...properties, subject: val } );
+						} }
+						isValid={ validationFlags.subject }
+						setIsValid={ ( val ) => {
+							setValidationFlags( ( prevValidationFlags ) => ( {
+								...prevValidationFlags,
+								subject: val,
+							} ) );
+						} }
+						isReviewing={ isReviewing }
+					/>
+					<NotificationMessage
+						value={ message }
+						setValue={ ( val ) => {
+							setProperties( { ...properties, message: val } );
+						} }
+						isValid={ validationFlags.message }
+						setIsValid={ ( val ) => {
+							setValidationFlags( ( prevValidationFlags ) => ( {
+								...prevValidationFlags,
+								message: val,
+							} ) );
+						} }
+						isReviewing={ isReviewing }
+					/>
+					<NotificationEditor.Slot
+						notificationProperties={ { ...properties } }
+						setNotificationProperties={ ( value ) => {
+							setProperties( {
+								...properties,
+								...value,
+							} );
+						} }
+					/>
+					<NotificationEditorFooter
+						isReviewing={ isReviewing }
+						setIsReviewing={ setIsReviewing }
+						goBack={ goBack }
+						notificationId={ notificationId }
+						properties={ { ...properties } }
+						validationFlags={ validationFlags }
+					/>
+				</>
 			) }
 		</div>
 	);

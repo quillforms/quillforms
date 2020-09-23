@@ -12,8 +12,23 @@ import {
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
+import AlertMessageWrapper from '../alert-message-wrapper';
 
-const EmailMessage = ( { value, setValue } ) => {
+const EmailMessage = ( {
+	isReviewing,
+	isValid,
+	setIsValid,
+	value,
+	setValue,
+} ) => {
+	useEffect( () => {
+		if ( value && value.length > 0 ) {
+			setIsValid( true );
+		} else {
+			setIsValid( false );
+		}
+	}, [ value ] );
 	const { fields } = useSelect( ( select ) => {
 		return {
 			fields: select( 'quillForms/block-editor' )
@@ -30,7 +45,10 @@ const EmailMessage = ( { value, setValue } ) => {
 	return (
 		<__experimentalBaseControl>
 			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel label="Message" />
+				<__experimentalControlLabel
+					label="Message"
+					showAsterisk={ true }
+				/>
 				<RichTextControl
 					variables={ [
 						{
@@ -45,6 +63,11 @@ const EmailMessage = ( { value, setValue } ) => {
 					} }
 				/>
 			</__experimentalControlWrapper>
+			{ ! isValid && isReviewing && (
+				<AlertMessageWrapper type="error">
+					This field is required!
+				</AlertMessageWrapper>
+			) }
 		</__experimentalBaseControl>
 	);
 };

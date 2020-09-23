@@ -1,9 +1,10 @@
+@import "./components/alert-message-wrapper/style.scss";
 @import "./components/notification-box/style.scss";
 @import "./components/notification-delete-dialog/style.scss";
 @import "./components/notification-editor-footer/style.scss";
 @import "./components/notification-editor-wrapper/style.scss";
 @import "./components/panel-render/style.scss";
-@import "./components/email-inserter/style.scss";
-@import "./components/email-subject/style.scss";
+@import "./components/notification-subject/style.scss";
 @import "./components/email-select/style.scss";
+@import "./components/notification-to/react-multi-email.scss";
 @import "./components/notifications-list/style.scss";

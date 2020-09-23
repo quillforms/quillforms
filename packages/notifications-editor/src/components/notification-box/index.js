@@ -36,7 +36,7 @@ const NotificationBox = ( { notification, onEdit } ) => {
 						} }
 					/>
 				</div>
-				{ title }
+				{ title ? title : 'Untitled' }
 			</div>
 			<div className="notifications-editor-notification-box__actions">
 				<div

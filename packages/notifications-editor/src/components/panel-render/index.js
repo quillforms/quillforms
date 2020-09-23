@@ -39,7 +39,7 @@ const PanelRender = () => {
 				recipients: [],
 				reply_to: '',
 				subject: '',
-				message: '<p>{{form:all_answers}}</p>',
+				message: '',
 			},
 		};
 	} );
@@ -58,7 +58,9 @@ const PanelRender = () => {
 	};
 
 	return (
-		<div className="notifications-editor-panel-render">
+		<div
+			className={ `notifications-editor-panel-render active-slide-${ activeSlide }` }
+		>
 			<Slider
 				{ ...sliderSettings }
 				ref={ sliderRef }

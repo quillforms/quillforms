@@ -3,7 +3,6 @@
  */
 import { getPlainExcerpt } from '@quillforms/rich-text';
 import {
-	__experimentalBaseControl,
 	__experimentalControlLabel,
 	__experimentalControlWrapper,
 	BlockIconBox,
@@ -19,7 +18,7 @@ import { useEffect } from '@wordpress/element';
  */
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import classnames from 'classnames';
+import AlertMessageWrapper from '../alert-message-wrapper';
 
 const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 	useEffect( () => {
@@ -34,45 +33,33 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 	}, [ JSON.stringify( emailFields ) ] );
 
 	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="vertical">
-				{ !! label && <__experimentalControlLabel label={ label } /> }
-				{ emailFields.length === 0 ? (
-					<span
-						className={ classnames(
-							'notifications-editor-email-select__no-emails',
-							{
-								'is-required': isRequired,
-							}
-						) }
-					>
-						To select an email, you should have at least one email
-						question
-					</span>
-				) : (
-					<Select
-						className="notifications-editor-email-select"
-						placeholder="Choose Email"
-						value={ value }
-						onChange={ ( e ) => setValue( e.target.value ) }
-					>
-						{ emailFields.map( ( emailField ) => (
-							<MenuItem
-								key={ emailField.id }
-								value={ emailField.id }
-							>
-								<div className="notifications-editor-email-select__option">
-									<BlockIconBox blockType="email" />
-									<span className="notifications-editor-email-select__option-title">
-										{ getPlainExcerpt( emailField.title ) }
-									</span>
-								</div>
-							</MenuItem>
-						) ) }
-					</Select>
-				) }
-			</__experimentalControlWrapper>
-		</__experimentalBaseControl>
+		<__experimentalControlWrapper orientation="vertical">
+			{ !! label && <__experimentalControlLabel label={ label } /> }
+			{ emailFields.length === 0 ? (
+				<AlertMessageWrapper type={ isRequired ? 'error' : '' }>
+					To select an email, you should have at least one email
+					question
+				</AlertMessageWrapper>
+			) : (
+				<Select
+					className="notifications-editor-email-select"
+					placeholder="Choose Email"
+					value={ value }
+					onChange={ ( e ) => setValue( e.target.value ) }
+				>
+					{ emailFields.map( ( emailField ) => (
+						<MenuItem key={ emailField.id } value={ emailField.id }>
+							<div className="notifications-editor-email-select__option">
+								<BlockIconBox blockType="email" />
+								<span className="notifications-editor-email-select__option-title">
+									{ getPlainExcerpt( emailField.title ) }
+								</span>
+							</div>
+						</MenuItem>
+					) ) }
+				</Select>
+			) }
+		</__experimentalControlWrapper>
 	);
 };
 export default EmailSelect;

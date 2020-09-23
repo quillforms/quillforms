@@ -133,7 +133,6 @@ const NotificationsReducer = ( state = initialState, action ) => {
 			const notificationIndex = state.notifications.findIndex(
 				( notification ) => notification.id === id
 			);
-			console.log( notificationIndex );
 			if ( notificationIndex === -1 ) {
 				return state;
 			}

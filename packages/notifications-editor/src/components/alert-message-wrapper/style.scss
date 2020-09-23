@@ -1,0 +1,13 @@
+.notifications-editor-alert-message-wrapper {
+    margin-top: 7px;
+	padding: 9px;
+	line-height: 2em;
+	background: #fff2cd;
+	font-weight: 500;
+	color: #c0945d;
+
+	&.has-error {
+		background: #ffd6cd;
+		color: #c0665d;
+	}
+}

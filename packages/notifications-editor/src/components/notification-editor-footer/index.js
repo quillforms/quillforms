@@ -15,21 +15,28 @@ import { Icon, arrowLeft } from '@wordpress/icons';
  */
 import { css } from 'emotion';
 
-const NotificationEditorFooter = ( { goBack, notificationId, properties } ) => {
+const NotificationEditorFooter = ( {
+	goBack,
+	notificationId,
+	properties,
+	validationFlags,
+	isReviewing,
+	setIsReviewing,
+} ) => {
 	const { setNotificationProperties, addNewNotification } = useDispatch(
 		'quillForms/notifications-editor'
 	);
+	const isFormInValid =
+		Object.keys( validationFlags ).filter(
+			( key ) => validationFlags[ key ] === false
+		).length > 0;
+
+	console.log( isFormInValid );
+	console.log( isReviewing );
 	return createPortal(
 		<div className="notifications-editor-notification-edit__footer">
 			<Button
 				isDefault
-				className={ css`
-					width: 50%;
-					padding: 20px !important;
-					justify-content: center;
-					align-items: center;
-					border-radius: 0 !important;
-				` }
 				onClick={ () => {
 					goBack();
 				} }
@@ -42,26 +49,30 @@ const NotificationEditorFooter = ( { goBack, notificationId, properties } ) => {
 				/>
 				Cancel and go back
 			</Button>
-			<Button
-				isPrimary
-				className={ css`
-					width: 50%;
-					padding: 20px !important;
-					justify-content: center;
-					align-items: center;
-					border-radius: 0 !important;
-				` }
-				onClick={ () => {
-					if ( notificationId ) {
-						setNotificationProperties( notificationId, properties );
-					} else {
-						addNewNotification( properties );
-					}
-					goBack();
-				} }
-			>
-				{ notificationId ? 'Save changes' : 'Add new notification' }
-			</Button>
+			{ isReviewing && isFormInValid ? (
+				<Button isDanger>{ `Some fields aren't valid` } </Button>
+			) : (
+				<Button
+					isPrimary
+					onClick={ () => {
+						if ( isFormInValid ) {
+							setIsReviewing( true );
+						} else {
+							if ( notificationId ) {
+								setNotificationProperties(
+									notificationId,
+									properties
+								);
+							} else {
+								addNewNotification( properties );
+							}
+							goBack();
+						}
+					} }
+				>
+					{ notificationId ? 'Save changes' : 'Add new notification' }
+				</Button>
+			) }
 		</div>,
 		document.querySelector( '.builder-core-panel' )
 	);
