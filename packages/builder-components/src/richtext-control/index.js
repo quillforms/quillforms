@@ -27,6 +27,7 @@ import { autop } from '@wordpress/autop';
  */
 import { debounce } from 'lodash';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
@@ -37,6 +38,7 @@ const RichTextControl = ( {
 	value,
 	setValue,
 	variables,
+	className,
 	forceFocusOnMount = false,
 } ) => {
 	const [ jsonVal, setJsonVal ] = useState( [
@@ -95,14 +97,13 @@ const RichTextControl = ( {
 		);
 	};
 
-	/**
-	 * Serialize value to html.
-	 *
-	 * @todo I believe we should debounce this function for better performance. However, I see problems with states
-	 * when I used this component in email body at notifications editor.
-	 * @param {Object} newVal The receieved value.
-	 */
-	const serializeVal = ( newVal ) => setValue( serialize( newVal ) );
+	// serializeVal is a debounced function that updates the store with serialized html value
+	const serializeVal = useCallback(
+		debounce( ( newVal ) => {
+			setValue( serialize( newVal ) );
+		}, 200 ),
+		[]
+	);
 
 	const onChange = ( newVal ) => {
 		if ( editor.selection ) {
@@ -146,7 +147,12 @@ const RichTextControl = ( {
 	);
 
 	return (
-		<div className="builder-components-rich-text-control">
+		<div
+			className={ classnames(
+				'builder-components-rich-text-control',
+				className
+			) }
+		>
 			<Fragment>
 				{ TextEditor }
 				{ variables?.length > 0 && (
