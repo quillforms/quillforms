@@ -2,13 +2,13 @@
 	& {
 		display: flex;
 		padding: 10px;
-		box-shadow: 0 0 0 1pt #dcdbdb;
-		border-radius: 10px;
+		box-shadow: 0 0 0 1px #dcdbdb;
+		border-radius: 7px;
 		align-items: center;
 		justify-content: center;
-		background: #e8e8e8;
+		background: #e5e5e5;
 		width: 100%;
-		outline: none;
+		outline: none
 	}
 
 	&.disabled {
