@@ -46,12 +46,22 @@ class QF_Admin_Loader {
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'add_inline_scripts' ), 14 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localize_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'remove_all_scripts' ), 999 );
+
 		add_action( 'admin_head', array( __CLASS__, 'remove_notices' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
 
-		// // Also remove all scripts hooked into after_wp_tiny_mce.
+		// Also remove all scripts hooked into after_wp_tiny_mce.
 		remove_all_actions( 'after_wp_tiny_mce' );
+
+		// Handle `wp_enqueue_scripts`.
+		remove_all_actions( 'wp_enqueue_scripts' );
+		// Remove all WordPress actions.
+		remove_all_actions( 'wp_head' );
+		remove_all_actions( 'wp_print_styles' );
+		remove_all_actions( 'wp_print_head_scripts' );
+		remove_all_actions( 'wp_footer' );
 
 		// add_action( 'admin_head', array( __CLASS__, 'remove_app_entry_page_menu_item' ), 20 );
 
@@ -77,6 +87,18 @@ class QF_Admin_Loader {
 			)
 		);
 	}
+
+	/**
+	 * Remove all scripts
+	 *
+	 * @since 1.0.0
+	 */
+	public function remove_all_scripts() {
+		global $wp_scripts;
+		$wp_scripts->queue = array( 'jquery' );
+	}
+
+
 
 	/**
 	 * Add inline scripts.
