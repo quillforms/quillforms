@@ -10,7 +10,7 @@
 	}
 
 	&.isSelected .block-editor-block-edit-box__content-wrapper > div {
-		background: #f7f6f6 !important;
+		background: #efeeeee6 !important;
 	}
 
 	&:hover .block-editor-block-edit .block-editor-block-toolbar,
@@ -49,5 +49,5 @@
 }
 .builder-core-drop-area__container:not(.disable-hover-highlight) .block-editor-box-wrapper:hover
 .block-editor-block-edit-box__content-wrapper > div {
-	background: #f7f6f6 !important;
+	background: #efeeeee6 !important;
 }
