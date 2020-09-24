@@ -13,6 +13,14 @@ import {
  */
 import { useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
+
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
+/**
+ * Internal Dependencies
+ */
 import AlertMessageWrapper from '../alert-message-wrapper';
 
 const EmailMessage = ( {
@@ -50,6 +58,9 @@ const EmailMessage = ( {
 					showAsterisk={ true }
 				/>
 				<RichTextControl
+					className={ css`
+						min-height: 120px !important;
+					` }
 					variables={ [
 						{
 							varType: 'form',

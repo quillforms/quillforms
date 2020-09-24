@@ -39,7 +39,7 @@ const PanelRender = () => {
 				recipients: [],
 				reply_to: '',
 				subject: '',
-				message: '',
+				message: '<p>{{form:all_answers}}</p>',
 			},
 		};
 	} );

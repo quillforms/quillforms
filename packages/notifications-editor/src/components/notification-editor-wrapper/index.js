@@ -17,7 +17,7 @@ import { useEffect, useState } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { keys, zipObject } from 'lodash';
+import { keys, set, zipObject } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -52,8 +52,10 @@ const NotificationEditorWrapper = ( {
 	useEffect( () => {
 		if ( currentNotificationProperties ) {
 			setProperties( { ...currentNotificationProperties } );
+			setValidationFlags( zipObject( keys( properties ) ) );
 		}
-	}, [ currentNotificationProperties, activeSlide ] );
+		setIsReviewing( false );
+	}, [ activeSlide ] );
 
 	const {
 		active,
@@ -85,10 +87,10 @@ const NotificationEditorWrapper = ( {
 					<NotificationTitle
 						value={ title }
 						setValue={ ( value ) => {
-							setProperties( {
-								...properties,
+							setProperties( ( prevProperties ) => ( {
+								...prevProperties,
 								...value,
-							} );
+							} ) );
 						} }
 					/>
 					<__experimentalBaseControl>
@@ -97,10 +99,10 @@ const NotificationEditorWrapper = ( {
 							<ToggleControl
 								checked={ active }
 								onChange={ () => {
-									setProperties( {
-										...properties,
+									setProperties( ( prevProperties ) => ( {
+										...prevProperties,
 										active: ! active,
-									} );
+									} ) );
 								} }
 							/>
 						</__experimentalControlWrapper>
@@ -117,10 +119,10 @@ const NotificationEditorWrapper = ( {
 							} );
 						} }
 						setValue={ ( value ) => {
-							setProperties( {
-								...properties,
+							setProperties( ( prevProperties ) => ( {
+								...prevProperties,
 								...value,
-							} );
+							} ) );
 						} }
 						isReviewing={ isReviewing }
 					/>
@@ -130,17 +132,20 @@ const NotificationEditorWrapper = ( {
 							emailFields={ emailFields }
 							value={ replyTo }
 							setValue={ ( val ) =>
-								setProperties( {
-									...properties,
+								setProperties( ( prevProperties ) => ( {
+									...prevProperties,
 									replyTo: val,
-								} )
+								} ) )
 							}
 						/>
 					</__experimentalBaseControl>
 					<NotificationSubject
 						value={ subject }
 						setValue={ ( val ) => {
-							setProperties( { ...properties, subject: val } );
+							setProperties( ( prevProperties ) => ( {
+								...prevProperties,
+								subject: val,
+							} ) );
 						} }
 						isValid={ validationFlags.subject }
 						setIsValid={ ( val ) => {
@@ -154,7 +159,10 @@ const NotificationEditorWrapper = ( {
 					<NotificationMessage
 						value={ message }
 						setValue={ ( val ) => {
-							setProperties( { ...properties, message: val } );
+							setProperties( ( prevProperties ) => ( {
+								...prevProperties,
+								message: val,
+							} ) );
 						} }
 						isValid={ validationFlags.message }
 						setIsValid={ ( val ) => {
@@ -168,10 +176,10 @@ const NotificationEditorWrapper = ( {
 					<NotificationEditor.Slot
 						notificationProperties={ { ...properties } }
 						setNotificationProperties={ ( value ) => {
-							setProperties( {
-								...properties,
+							setProperties( ( prevProperties ) => ( {
+								...prevProperties,
 								...value,
-							} );
+							} ) );
 						} }
 					/>
 					<NotificationEditorFooter
