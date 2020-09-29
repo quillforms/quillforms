@@ -53,7 +53,7 @@
 
 			& {
 				margin-top: 30px;
-				background: #6844c1;
+				background: #5a3da3;
 				margin-right: -20px;
 				margin-left: -20px;
 			}
@@ -72,22 +72,21 @@
 					& {
 						display: inline-flex;
 						justify-content: center;
-						padding: 10px 0;
-						margin-right: 15px;
+						padding:10px !important;
 						text-align: center;
 						cursor: pointer;
 						text-transform: uppercase;
 						font-size: 11px;
-						font-weight: 700;
+						font-weight: 500;
 						color: #fff !important;
 						letter-spacing: 0.5px;
+
 					}
 
 					&.active {
-						font-weight: 500;
-						padding:10px !important;
-						background: #ab2cfb
-
+						background: #f5f5f5;
+						color: #000 !important;
+						border-right: none;
 					}
 				}
 			}
