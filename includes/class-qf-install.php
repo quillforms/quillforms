@@ -34,10 +34,10 @@ class QF_Install {
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
-		if ( version_compare( get_option( 'quillforms_version' ), QuillForms::instance()->version, '<' ) ) {
+		// if ( version_compare( get_option( 'quillforms_version' ), QuillForms::instance()->version, '<' ) ) {
 			self::install();
-			do_action( 'quillforms_updated' );
-		}
+		// do_action( 'quillforms_updated' );
+		// }
 	}
 
 	/**
@@ -78,7 +78,15 @@ class QF_Install {
 			$collate = $wpdb->get_charset_collate();
 		}
 
-		$sql = "
+		$sql = "CREATE TABLE {$wpdb->prefix}quillforms_entry_values (
+				ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+				entry_id bigint(20) NOT NULL,
+				field_id varchar(50) NOT NULL,
+				value longtext NOT NULL,
+				PRIMARY KEY (ID),
+				KEY entry_id (entry_id),
+				KEY field_id (field_id)
+			);
 			CREATE TABLE {$wpdb->prefix}quillforms_themes (
 			    ID mediumint(8) unsigned NOT NULL auto_increment,
 				theme_data longtext NOT NULL,
@@ -97,7 +105,8 @@ class QF_Install {
 				context longtext NULL,
 				PRIMARY KEY (log_id),
 				KEY level (level)
-			) $collate;";
+			)
+			$collate;";
 
 		dbDelta( $sql );
 
