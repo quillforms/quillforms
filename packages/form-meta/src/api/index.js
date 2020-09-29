@@ -1,1 +1,0 @@
-export { registerFormMeta } from './registration';
