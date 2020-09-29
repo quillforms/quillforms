@@ -1,9 +1,17 @@
 /**
+ * WordPress Dependencies
+ */
+import { removep } from '@wordpress/autop';
+
+/**
  * External Dependencies
  */
 import escapeHtml from 'escape-html';
 import { Text } from 'slate';
 
+const htmlSerialize = ( value ) => {
+	return removep( serialize( value ) );
+};
 const serialize = ( node ) => {
 	let nodeText = escapeHtml( node.text );
 	if ( Text.isText( node ) ) {
@@ -41,4 +49,4 @@ const serializeLeafNode = ( node ) => {
 	}
 };
 
-export default serialize;
+export default htmlSerialize;

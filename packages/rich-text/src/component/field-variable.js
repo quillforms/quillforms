@@ -20,7 +20,7 @@ const FieldVariable = ( props ) => {
 	const [ node ] = Editor.node( editor, path );
 
 	const { field, fieldTitle, block } = useSelect( ( select ) => {
-		const blocks = select( 'quillForms/blocks' ).getBlocks();
+		const blocks = select( 'quillForms/blocks' ).getBlockTypes();
 		const fieldObj = select( 'quillForms/block-editor' ).getBlockById(
 			fieldRef
 		);

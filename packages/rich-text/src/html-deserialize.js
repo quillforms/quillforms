@@ -3,7 +3,7 @@
  */
 import { jsx } from 'slate-hyperscript';
 import { Editor } from 'slate';
-
+import { autop, removep } from '@wordpress/autop';
 /**
  * Internal Dependencies
  */
@@ -13,7 +13,7 @@ const deserializeHTML = ( htmlString ) => {
 	return normalize(
 		deserialize(
 			new DOMParser().parseFromString(
-				formatBeforeDeserializing( htmlString ),
+				formatBeforeDeserializing( autop( removep( htmlString ) ) ),
 				'text/html'
 			).body
 		)
@@ -35,6 +35,9 @@ const normalize = ( val ) => {
 };
 
 const formatBeforeDeserializing = ( value ) => {
+	if ( ! value ) {
+		return '<p></p>';
+	}
 	const $value = value.replace(
 		/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g,
 		"<variable data-type='$1' data-ref='$2'>_____</variable>"
