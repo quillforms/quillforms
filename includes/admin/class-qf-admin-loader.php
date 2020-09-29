@@ -52,17 +52,6 @@ class QF_Admin_Loader {
 		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
 
-		// Also remove all scripts hooked into after_wp_tiny_mce.
-		remove_all_actions( 'after_wp_tiny_mce' );
-
-		// Handle `wp_enqueue_scripts`.
-		remove_all_actions( 'wp_enqueue_scripts' );
-		// Remove all WordPress actions.
-		remove_all_actions( 'wp_head' );
-		remove_all_actions( 'wp_print_styles' );
-		remove_all_actions( 'wp_print_head_scripts' );
-		remove_all_actions( 'wp_footer' );
-
 		// add_action( 'admin_head', array( __CLASS__, 'remove_app_entry_page_menu_item' ), 20 );
 
 		/*
@@ -95,7 +84,9 @@ class QF_Admin_Loader {
 	 */
 	public function remove_all_scripts() {
 		global $wp_scripts;
-		$wp_scripts->queue = array( 'jquery' );
+		if ( self::is_admin_page() ) {
+			$wp_scripts->queue = array( 'jquery' );
+		}
 	}
 
 
@@ -106,6 +97,7 @@ class QF_Admin_Loader {
 	 * @since 1.0.0
 	 */
 	public static function add_inline_scripts() {
+		wp_add_inline_script( 'wp-element', 'window.qfEditorContext = ' . wp_json_encode( qf_get_editor_context_value() ), 'before' );
 		wp_add_inline_script(
 			'quillforms-blocks',
 			'qf.blocks.__unstableServerSideBlocksRegister(' . wp_json_encode(
