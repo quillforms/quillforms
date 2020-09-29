@@ -70,7 +70,7 @@ const NotificationEditorWrapper = ( {
 	const { emailFields } = useSelect( ( select ) => {
 		return {
 			emailFields: select( 'quillForms/block-editor' )
-				.getFormStructure()
+				.getBlocks()
 				.filter( ( field ) => field.type === 'email' ),
 		};
 	} );
