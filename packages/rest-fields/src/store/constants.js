@@ -1,0 +1,1 @@
+export const REGISTER_FORM_META = 'REGISTER_FORM_META';
