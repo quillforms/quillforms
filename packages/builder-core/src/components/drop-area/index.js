@@ -29,11 +29,12 @@ const DropArea = ( props ) => {
 		formStructure,
 		areaToHide,
 		currentPanel,
-		blocks,
+		blockTypes,
 		targetIndex,
 		isDragging,
 	} = props;
 
+	console.log( formStructure );
 	return (
 		<div
 			className="builder-core-drop-area"
@@ -49,7 +50,7 @@ const DropArea = ( props ) => {
 				droppableId="DROP_AREA"
 				renderClone={ ( provided, _snapshot, rubric ) => {
 					const item = { ...formStructure[ rubric.source.index ] };
-					const block = blocks[ item.type ];
+					const block = blockTypes[ item.type ];
 					return (
 						<div
 							{ ...provided.draggableProps }
@@ -79,10 +80,17 @@ const DropArea = ( props ) => {
 						ref={ provided.innerRef }
 						isDraggingOver={ snapshot.isDraggingOver }
 					>
-						{ formStructure &&
-							formStructure.length > 0 &&
+						{ formStructure?.length > 0 &&
 							formStructure.map( ( item, index ) => {
-								const block = blocks[ item.type ];
+								console.log(
+									targetIndex === formStructure.length
+								);
+								console.log( index === targetIndex );
+								if ( index === targetIndex ) {
+									console.log( 'This is the fucking index' );
+									console.log( index );
+								}
+								const block = blockTypes[ item.type ];
 								return (
 									<>
 										{ index === targetIndex && (
@@ -111,12 +119,12 @@ const DropArea = ( props ) => {
 
 export default compose( [
 	withSelect( ( select ) => {
-		const { getBlocks } = select( 'quillForms/blocks' );
-		const { getFormStructure } = select( 'quillForms/block-editor' );
+		const { getBlockTypes } = select( 'quillForms/blocks' );
+		const { getBlocks } = select( 'quillForms/block-editor' );
 
 		return {
-			blocks: getBlocks(),
-			formStructure: getFormStructure(),
+			blockTypes: getBlockTypes(),
+			formStructure: getBlocks(),
 		};
 	} ),
 ] )( DropArea );
