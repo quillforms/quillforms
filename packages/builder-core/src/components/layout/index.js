@@ -16,7 +16,6 @@ import { PluginArea } from '@wordpress/plugins';
  */
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
-import uuid from 'uuid/v4';
 import { confirmAlert } from 'react-confirm-alert';
 
 /**
@@ -32,10 +31,10 @@ const Layout = ( props ) => {
 	const {
 		currentPanel,
 		areaToHide,
-		registeredBlocks,
-		formStructure,
+		blockTypes,
+		formBlocks,
 		reorderBlocks,
-		insertNewFormBlock,
+		insertBlock,
 		// insertNewFieldAnswer,
 	} = props;
 
@@ -44,15 +43,25 @@ const Layout = ( props ) => {
 	const [ sourceContentIndex, setSourceContentIndex ] = useState();
 	const [ isDragging, setIsDragging ] = useState( false );
 
+	const generateBlockId = () => {
+		if ( formBlocks?.length > 0 ) {
+			const maxId = Math.max.apply(
+				Math,
+				formBlocks.map( ( o ) => o.id )
+			);
+			return maxId + 1;
+		}
+		return 1;
+	};
 	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
-		const list = { ...formStructure };
+		const list = { ...formBlocks };
 		const { title, description } = list[ sourceIndex ];
 		const regex = /{{field:([a-zA-Z0-9-_]+)}}/g;
 		let match;
 
 		while ( ( match = regex.exec( title + ' ' + description ) ) ) {
 			const fieldId = match[ 1 ];
-			const fieldIndex = formStructure.findIndex(
+			const fieldIndex = formBlocks.findIndex(
 				( field ) => field.id === fieldId
 			);
 			if ( fieldIndex >= destinationIndex ) {
@@ -68,7 +77,7 @@ const Layout = ( props ) => {
 		setSourceContentIndex( source.index );
 	};
 
-	const onDragUpdate = ( { destination } ) => {
+	const onDragUpdate = ( { destination, source } ) => {
 		if ( destination?.droppableId !== 'DROP_AREA' ) {
 			setTargetIndex( undefined );
 			return;
@@ -77,6 +86,15 @@ const Layout = ( props ) => {
 		if ( isDraggingContent ) {
 			next = next >= sourceContentIndex ? next + 1 : next;
 		}
+		if ( source.droppableId === destination.droppableId ) {
+			if (
+				sourceContentIndex < next &&
+				sourceContentIndex !== formBlocks.length - 1
+			) {
+				next = next + 1;
+			}
+		}
+
 		setTargetIndex( next );
 	};
 
@@ -123,12 +141,10 @@ const Layout = ( props ) => {
 			case 'BLOCKS_LIST': {
 				if ( destination.droppableId === 'DROP_AREA' ) {
 					// Get block type
-					const blockType = Object.keys( registeredBlocks )[
-						source.index
-					];
-					let draggedBlock = { ...registeredBlocks[ blockType ] };
+					const blockType = Object.keys( blockTypes )[ source.index ];
+					let draggedBlock = { ...blockTypes[ blockType ] };
 					assign( draggedBlock, {
-						id: uuid(),
+						id: generateBlockId(),
 						title: '<p></p>',
 						type: blockType,
 					} );
@@ -149,14 +165,14 @@ const Layout = ( props ) => {
 					// if ( isBlockEditable )
 					// 	insertNewFieldAnswer( draggedBlock.id, blockType );
 
-					insertNewFormBlock( draggedBlock, destination );
+					insertBlock( draggedBlock, destination );
 				}
 			}
 		}
 	} );
 
 	const onBeforeCapture = ( { draggableId } ) => {
-		const contentListItem = formStructure.find(
+		const contentListItem = formBlocks.find(
 			( block ) => block.id === draggableId
 		);
 		const isDraggingContentList = !! contentListItem;
@@ -201,31 +217,31 @@ const Layout = ( props ) => {
 
 export default compose( [
 	withSelect( ( select ) => {
-		const { getBlocks } = select( 'quillForms/blocks' );
+		const { getBlockTypes } = select( 'quillForms/blocks' );
 		const { getCurrentPanel, getPanels, getAreaToHide } = select(
 			'quillForms/builder-panels'
 		);
-		const { getFormStructure } = select( 'quillForms/block-editor' );
+		const { getBlocks } = select( 'quillForms/block-editor' );
 		return {
-			registeredBlocks: getBlocks(),
+			blockTypes: getBlockTypes(),
 			currentPanel: getCurrentPanel(),
 			areaToHide: getAreaToHide(),
 			panels: getPanels(),
-			formStructure: getFormStructure(),
+			formBlocks: getBlocks(),
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
-		const { insertNewFormBlock, reorderFormBlocks } = dispatch(
+		const { insertBlock, reorderBlocks } = dispatch(
 			'quillForms/block-editor'
 		);
 		// const { insertNewFieldAnswer } = dispatch(
 		// 	'quillForms/renderer-submission'
 		// );
 		return {
-			insertNewFormBlock: ( block, destination ) =>
-				insertNewFormBlock( block, destination ),
+			insertBlock: ( block, destination ) =>
+				insertBlock( block, destination ),
 			reorderBlocks: ( sourceIndex, destinationIndex ) =>
-				reorderFormBlocks( sourceIndex, destinationIndex ),
+				reorderBlocks( sourceIndex, destinationIndex ),
 			// insertNewFieldAnswer: ( id, type ) =>
 			// 	insertNewFieldAnswer( id, type ),
 		};
