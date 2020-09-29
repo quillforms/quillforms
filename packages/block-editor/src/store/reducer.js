@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+
 /**
  * Internal Dependencies
  */
@@ -6,9 +7,9 @@ import {
 	SET_BLOCK_TITLE,
 	SET_BLOCK_DESCRIPTION,
 	SET_BLOCK_ATTRIBUTES,
-	INSERT_NEW_FORM_BLOCK,
-	REORDER_FORM_BLOCKS,
-	DELETE_FORM_BLOCK,
+	INSERT_BLOCK,
+	REORDER_BLOCKS,
+	DELETE_BLOCK,
 	SET_CURRENT_BLOCK,
 	TOGGLE_BLOCK_DESCRIPTION,
 	SET_BLOCK_ATTACHMENT,
@@ -39,14 +40,14 @@ function getMutateSafeObject( original, working ) {
 }
 
 /**
- * Sort blocks. We should have welcome screens at first then fields then thankyou screens.
+ * Sort blocks. We should have welcome screens at first then others then thankyou screens.
  *
  * @param {Object} blocks The blocks array.
  *
  * @return { Object } The sorted blocks
  */
 function sortBlocks( blocks ) {
-	const priority = [ 'WELCOME_SCREENS', 'FIELDS', 'THANKYOU_SCREENS' ];
+	const priority = [ 'WELCOME_SCREENS', 'OTHERS', 'THANKYOU_SCREENS' ];
 	blocks.sort( ( a, b ) => {
 		const getCategory = ( block ) => {
 			switch ( block.type ) {
@@ -55,7 +56,7 @@ function sortBlocks( blocks ) {
 				case 'thankyou-screen':
 					return 'THANKYOU_SCREENS';
 				default:
-					return 'fields';
+					return 'OTHERS';
 			}
 		};
 
@@ -80,7 +81,7 @@ const initialState = {
  *
  * @return {Object} Updated state.
  */
-const FormReducer = ( state = initialState, action ) => {
+const BlockEditorReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
 		// SET UP STORE
 		case SETUP_STORE: {
@@ -184,7 +185,7 @@ const FormReducer = ( state = initialState, action ) => {
 		}
 
 		// REORDER FORM BLOCKS
-		case REORDER_FORM_BLOCKS: {
+		case REORDER_BLOCKS: {
 			const { sourceIndex, destinationIndex } = action.payload;
 
 			const blocks = [ ...state.blocks ];
@@ -199,7 +200,7 @@ const FormReducer = ( state = initialState, action ) => {
 		}
 
 		// INSERT NEW FORM BLOCK
-		case INSERT_NEW_FORM_BLOCK: {
+		case INSERT_BLOCK: {
 			const { block, destination } = action.payload;
 			const blocks = [ ...state.blocks ];
 			const { index } = destination;
@@ -208,14 +209,13 @@ const FormReducer = ( state = initialState, action ) => {
 				...block,
 			} );
 			return {
-				...state,
 				blocks: sortBlocks( blocks ),
 				currentBlockId: block.id,
 			};
 		}
 
 		// DELETE FORM BLOCK
-		case DELETE_FORM_BLOCK: {
+		case DELETE_BLOCK: {
 			const { blockId } = action.payload;
 
 			// Get block index.
@@ -318,4 +318,4 @@ const FormReducer = ( state = initialState, action ) => {
 	return state;
 };
 
-export default FormReducer;
+export default BlockEditorReducer;

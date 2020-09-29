@@ -16,7 +16,7 @@ import BlockIconWrapper from './wrapper';
 const BlockIconBox = ( { blockType = 'variable', blockOrder } ) => {
 	const { blocks } = useSelect( ( select ) => {
 		return {
-			blocks: select( 'quillForms/blocks' ).getBlocks(),
+			blocks: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
 	const isBlock = !! blocks[ blockType ];

@@ -27,7 +27,7 @@ const RecallInformation = ( {
 } ) => {
 	const { blocks, editableFields } = useSelect( ( select ) => {
 		return {
-			blocks: select( 'quillForms/blocks' ).getBlocks(),
+			blocks: select( 'quillForms/blocks' ).getBlockTypes(),
 			editableFields: select(
 				'quillForms/block-editor'
 			).getEditableFields(),

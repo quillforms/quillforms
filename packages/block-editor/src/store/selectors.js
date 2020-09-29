@@ -13,12 +13,23 @@ import { forEach } from 'lodash';
  *
  * @param {Object} state       Global application state.
  *
- * @return {Object} Form structure
+ * @return {Object} Form blocks
  */
-export function getFormStructure( state ) {
+export function getBlocks( state ) {
 	return state.blocks;
 }
 
+/**
+ * Get welcome screens length.
+ *
+ * @param {Object}   state       Global application state.
+ *
+ * @return {number} Welcome screens length
+ */
+export function getWelcomeScreensLength( state ) {
+	return state.blocks.filter( ( block ) => block.type === 'welcome-screen' )
+		.length;
+}
 /**
  * Get block by id
  *
@@ -39,10 +50,10 @@ export function getBlockById( state, id ) {
  */
 export const getEditableFields = createRegistrySelector(
 	( select ) => ( state ) => {
-		return state.blocks.filter( ( block ) => {
-			const registeredBlock = select( 'quillForms/blocks' ).getBlocks()[
-				block.type
-			];
+		return getBlocks( state ).filter( ( block ) => {
+			const registeredBlock = select(
+				'quillForms/blocks'
+			).getBlockTypes()[ block.type ];
 			return registeredBlock.supports.displayOnly === false;
 		} );
 	}
@@ -61,7 +72,7 @@ export const getPreviousEditableFields = createRegistrySelector(
 	( select ) => ( state, id ) => {
 		const prevEditableFields = [];
 
-		const blockIndex = [ ...state.blocks ].findIndex(
+		const blockIndex = state.blocks.findIndex(
 			( block ) => block.id === id
 		);
 		if ( blockIndex > 0 ) {
@@ -69,7 +80,7 @@ export const getPreviousEditableFields = createRegistrySelector(
 			forEach( prevFormBlocks, ( block ) => {
 				const registeredBlock = select(
 					'quillForms/blocks'
-				).getBlocks()[ block.type ];
+				).getBlockTypes()[ block.type ];
 				if ( ! registeredBlock.supports.displayOnly ) {
 					prevEditableFields.push( block );
 				}

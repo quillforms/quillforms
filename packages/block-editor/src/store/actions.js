@@ -3,12 +3,12 @@ import {
 	SET_BLOCK_TITLE,
 	SET_BLOCK_DESCRIPTION,
 	SET_BLOCK_ATTRIBUTES,
-	INSERT_NEW_FORM_BLOCK,
-	DELETE_FORM_BLOCK,
+	INSERT_BLOCK,
+	DELETE_BLOCK,
 	SET_CURRENT_BLOCK,
 	TOGGLE_BLOCK_DESCRIPTION,
 	SET_BLOCK_ATTACHMENT,
-	REORDER_FORM_BLOCKS,
+	REORDER_BLOCKS,
 	TOGGLE_REQUIRED_FLAG,
 } from './constants';
 
@@ -44,22 +44,22 @@ export const setBlockTitle = ( blockId, title ) => {
 /**
  * Set block description
  *
- * @param {string} blockId  Block uuid
- * @param {string} desc     Block description
+ * @param {string} blockId         Block Id
+ * @param {string} description     Block description
  *
  * @return {Object} Action object.
  */
-export const setBlockDesc = ( blockId, desc ) => {
+export const setBlockDescription = ( blockId, description ) => {
 	return {
 		type: SET_BLOCK_DESCRIPTION,
-		payload: { blockId, desc },
+		payload: { blockId, description },
 	};
 };
 
 /**
  * Set block attributes
  *
- * @param {string} blockId  	 Block uuid
+ * @param {string} blockId  	 Block Id
  * @param {string} attributes    Block attributes
  *
  * @return {Object} Action object.
@@ -79,9 +79,9 @@ export const setBlockAttributes = ( blockId, attributes ) => {
  *
  * @return {Object} Action object.
  */
-export const reorderFormBlocks = ( sourceIndex, destinationIndex ) => {
+export const reorderBlocks = ( sourceIndex, destinationIndex ) => {
 	return {
-		type: REORDER_FORM_BLOCKS,
+		type: REORDER_BLOCKS,
 		payload: { sourceIndex, destinationIndex },
 	};
 };
@@ -94,9 +94,9 @@ export const reorderFormBlocks = ( sourceIndex, destinationIndex ) => {
  *
  * @return {Object} Action object.
  */
-export const insertNewFormBlock = ( block, destination ) => {
+export const insertBlock = ( block, destination ) => {
 	return {
-		type: INSERT_NEW_FORM_BLOCK,
+		type: INSERT_BLOCK,
 		payload: { block, destination },
 	};
 };
@@ -122,9 +122,9 @@ export const setCurrentBlock = ( id ) => {
  *
  * @return {Object} Action object.
  */
-export const deleteFormBlock = ( blockId ) => {
+export const deleteBlock = ( blockId ) => {
 	return {
-		type: DELETE_FORM_BLOCK,
+		type: DELETE_BLOCK,
 		payload: { blockId },
 	};
 };

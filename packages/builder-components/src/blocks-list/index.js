@@ -19,7 +19,11 @@ import classnames from 'classnames';
 
 const BlocksList = () => {
 	const blocks = useSelect( ( select ) =>
-		select( 'quillForms/blocks' ).getBlocks()
+		select( 'quillForms/blocks' ).getBlockTypes()
+	);
+
+	const welcomeScreensLength = useSelect( ( select ) =>
+		select( 'quillForms/block-editor' ).getWelcomeScreensLength()
 	);
 
 	return (
@@ -36,7 +40,10 @@ const BlocksList = () => {
 					>
 						{ Object.keys( blocks ).map( ( type, index ) => {
 							let isDragDisabled = false;
-							if ( type === 'welcome-screen' ) {
+							if (
+								type === 'welcome-screen' &&
+								welcomeScreensLength >= 1
+							) {
 								isDragDisabled = true;
 							}
 							return (

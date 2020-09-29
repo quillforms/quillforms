@@ -3,7 +3,7 @@
  */
 import { setupStore } from './actions';
 
-export const getFormStructure = () => {
+export const getBlocks = () => {
 	console.log( 'working' );
 	return setupStore( window.qfInitialPayload.blocks );
 };

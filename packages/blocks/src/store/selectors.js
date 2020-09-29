@@ -5,6 +5,6 @@
  *
  * @return {Array} Registered blocks
  */
-export function getBlocks( state ) {
+export function getBlockTypes( state ) {
 	return state;
 }
