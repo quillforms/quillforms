@@ -11,9 +11,7 @@ import { BlockIconBox } from '@quillforms/builder-components';
 const BlockMover = ( { id, type, registeredBlock, dragHandleProps } ) => {
 	const { formStructure, editableFields } = useSelect( ( select ) => {
 		return {
-			formStructure: select(
-				'quillForms/block-editor'
-			).getFormStructure(),
+			formStructure: select( 'quillForms/block-editor' ).getBlocks(),
 			editableFields: select(
 				'quillForms/block-editor'
 			).getEditableFields(),

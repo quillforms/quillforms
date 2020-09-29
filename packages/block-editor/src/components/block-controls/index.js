@@ -29,7 +29,7 @@ const BlockControls = () => {
 	const { type } = currentFormItem;
 
 	const block = useSelect(
-		( select ) => select( 'quillForms/blocks' ).getBlocks()[ type ]
+		( select ) => select( 'quillForms/blocks' ).getBlockTypes()[ type ]
 	);
 
 	return (

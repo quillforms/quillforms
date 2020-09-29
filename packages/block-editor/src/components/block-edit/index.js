@@ -69,9 +69,7 @@ const BlockEditor = ( props ) => {
 
 	const { formStructure } = useSelect( ( select ) => {
 		return {
-			formStructure: select(
-				'quillForms/block-editor'
-			).getFormStructure(),
+			formStructure: select( 'quillForms/block-editor' ).getBlocks(),
 		};
 	} );
 

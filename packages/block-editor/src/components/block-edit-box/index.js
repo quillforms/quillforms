@@ -157,9 +157,11 @@ const BlockEditBox = memo( ( props ) => {
 	return (
 		<div ref={ ref }>
 			<__experimentalDraggable
-				isDragDisabled={ isDragDisabled || ! inView }
+				isDragDisabled={
+					isDragDisabled || ! inView || type === 'welcome-screen'
+				}
 				key={ id }
-				draggableId={ id }
+				draggableId={ id.toString() }
 				index={ index }
 			>
 				{ ( provided, snapshot ) => (
