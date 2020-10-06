@@ -109,9 +109,6 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-blocks-factory.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-fonts.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-messages.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-settings.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-install.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-logger.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-scripts.php';
@@ -122,9 +119,18 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-schema-manager.php';
 
 		/**
+		 * Meta Fields
+		 */
+		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-meta-field.php';
+		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-meta-fields.php';
+		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-blocks-meta-field.php';
+		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-messages-meta-field.php';
+		// require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-notifications-meta-field.php';
+		 require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-theme-meta-field.php';
+
+		/**
 		 * Models.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-model.php';
 		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-theme-model.php';
 
 		/**
@@ -136,12 +142,9 @@ final class QuillForms {
 		/**
 		 * REST API.
 		 */
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-fields.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/blocks.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/messages.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/theme.php';
-		// require_once QF_PLUGIN_DIR . 'includes/rest-api/fields/notifications.php';
 
 		/**
 		 * Load all blocks.
