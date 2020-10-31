@@ -1,3 +1,2 @@
-import './store';
-import './built-in-meta';
+import './built-in-rest-fields';
 export * from './api';

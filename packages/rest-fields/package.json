@@ -1,5 +1,5 @@
 {
-	"name": "@quillforms/meta-keys",
+	"name": "@quillforms/rest-fields",
 	"version": "1.0.0",
 	"description": "Meta keys manager for editor",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
