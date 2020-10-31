@@ -16,5 +16,3 @@ playground/dist
 .cache
 *.tsbuildinfo
 
-
-packages/theme-editor/
