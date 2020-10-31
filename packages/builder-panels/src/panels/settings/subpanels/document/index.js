@@ -1,7 +1,7 @@
 import { PanelRender as render } from '@quillforms/messages-editor';
 export const subpanelSettings = {
-	name: 'settings/messages',
+	name: 'settings/document',
 	parent: 'settings',
-	title: 'Messages',
+	title: 'Document',
 	render,
 };

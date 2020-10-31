@@ -9,6 +9,7 @@ import { panelSettings as Settings } from './settings';
 
 // Sub Panels
 import { subpanelSettings as Messages } from './settings/subpanels/messages';
+import { subpanelSettings as Document } from './settings/subpanels/document';
 
 export const registerPanels = () => {
 	// Register Panels
@@ -19,7 +20,7 @@ export const registerPanels = () => {
 	} );
 
 	// Register Subpanels
-	[ Messages ].forEach( ( subpanel ) => {
+	[ Document, Messages ].forEach( ( subpanel ) => {
 		registerBuilderSubPanel( subpanel.name, {
 			...omit( subpanel, [ 'name' ] ),
 		} );
