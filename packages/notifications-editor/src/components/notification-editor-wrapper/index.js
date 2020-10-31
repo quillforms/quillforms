@@ -17,7 +17,7 @@ import { useEffect, useState } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { keys, set, zipObject } from 'lodash';
+import { keys, zipObject } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -44,15 +44,14 @@ const NotificationEditorWrapper = ( {
 
 	const [ validationFlags, setValidationFlags ] = useState(
 		zipObject(
-			keys( properties ),
-			keys( properties ).map( () => true )
+			keys( { ...properties } ),
+			keys( { ...properties } ).map( () => true )
 		)
 	);
 
 	useEffect( () => {
 		if ( currentNotificationProperties ) {
 			setProperties( { ...currentNotificationProperties } );
-			setValidationFlags( zipObject( keys( properties ) ) );
 		}
 		setIsReviewing( false );
 	}, [ activeSlide ] );
@@ -75,6 +74,7 @@ const NotificationEditorWrapper = ( {
 		};
 	} );
 
+	console.log( validationFlags );
 	return (
 		<div className="notifications-editor-notification-editor-wrapper">
 			{ activeSlide && (
@@ -111,12 +111,12 @@ const NotificationEditorWrapper = ( {
 						emailFields={ emailFields }
 						recipients={ recipients }
 						toType={ toType }
-						isValid={ validationFlags.recipients }
+						isValid={ { ...validationFlags }.recipients }
 						setIsValid={ ( value ) => {
-							setValidationFlags( {
-								...validationFlags,
+							setValidationFlags( ( prevFlags ) => ( {
+								...prevFlags,
 								recipients: value,
-							} );
+							} ) );
 						} }
 						setValue={ ( value ) => {
 							setProperties( ( prevProperties ) => ( {
@@ -147,7 +147,7 @@ const NotificationEditorWrapper = ( {
 								subject: val,
 							} ) );
 						} }
-						isValid={ validationFlags.subject }
+						isValid={ { ...validationFlags }.subject }
 						setIsValid={ ( val ) => {
 							setValidationFlags( ( prevValidationFlags ) => ( {
 								...prevValidationFlags,
@@ -164,12 +164,15 @@ const NotificationEditorWrapper = ( {
 								message: val,
 							} ) );
 						} }
-						isValid={ validationFlags.message }
-						setIsValid={ ( val ) => {
-							setValidationFlags( ( prevValidationFlags ) => ( {
-								...prevValidationFlags,
-								message: val,
-							} ) );
+						isValid={ { ...validationFlags }.message }
+						setIsValid={ ( value ) => {
+							console.log( value );
+							setValidationFlags( ( prevFlags ) => {
+								console.log( prevFlags );
+								const $flags = { ...prevFlags, message: value };
+								console.log( $flags );
+								return $flags;
+							} );
 						} }
 						isReviewing={ isReviewing }
 					/>
@@ -188,7 +191,7 @@ const NotificationEditorWrapper = ( {
 						goBack={ goBack }
 						notificationId={ notificationId }
 						properties={ { ...properties } }
-						validationFlags={ validationFlags }
+						validationFlags={ { ...validationFlags } }
 					/>
 				</>
 			) }

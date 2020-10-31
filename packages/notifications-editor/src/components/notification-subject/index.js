@@ -35,12 +35,12 @@ const EmailSubject = ( {
 					value={ value }
 					setValue={ ( newVal ) => setValue( newVal ) }
 				/>
+				{ ! isValid && isReviewing && (
+					<AlertMessageWrapper type="error">
+						This field is required!
+					</AlertMessageWrapper>
+				) }
 			</__experimentalControlWrapper>
-			{ ! isValid && isReviewing && (
-				<AlertMessageWrapper type="error">
-					This field is required!
-				</AlertMessageWrapper>
-			) }
 		</__experimentalBaseControl>
 	);
 };

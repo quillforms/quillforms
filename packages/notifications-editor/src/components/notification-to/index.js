@@ -37,12 +37,8 @@ const NotificationTo = ( {
 	isReviewing,
 } ) => {
 	useEffect( () => {
-		console.log( recipients );
-		console.log( isValid );
-		console.log( recipients.length );
 		if ( ! recipients || recipients.length === 0 ) {
 			setIsValid( false );
-			console.log( 'firing' );
 		} else {
 			setIsValid( true );
 		}
@@ -143,7 +139,7 @@ const NotificationTo = ( {
 				( toType === 'email' ||
 					( toType === 'field' && emailFields.length > 0 ) ) && (
 					<AlertMessageWrapper type="error">
-						This field is required!
+						Please insert at least one correct email!
 					</AlertMessageWrapper>
 				) }
 		</__experimentalBaseControl>

@@ -32,8 +32,11 @@ const EmailMessage = ( {
 } ) => {
 	useEffect( () => {
 		if ( value && value.length > 0 ) {
+			console.log( 'this is firing just now' );
 			setIsValid( true );
 		} else {
+			console.log( 'jqfnq this is firing just now' );
+
 			setIsValid( false );
 		}
 	}, [ value ] );

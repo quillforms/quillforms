@@ -7,26 +7,14 @@ import { reduce } from 'lodash';
  * Internal Dependencies
  */
 import {
+	SETUP_STORE,
 	SET_NOTIFICATION_PROPERTIES,
 	ADD_NEW_NOTIFICATION,
 	DELETE_NOTIFICATION,
 } from './constants';
 
 const initialState = {
-	notifications: [
-		{
-			id: '1',
-			properties: {
-				title: 'Admin Notification',
-				toType: 'email',
-				active: true,
-				recipients: [],
-				reply_to: '',
-				subject: '',
-				message: '<p>{{form:all_answers}}</p>',
-			},
-		},
-	],
+	notifications: [],
 };
 
 /**
@@ -67,6 +55,12 @@ const generateId = () => {
  */
 const NotificationsReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
+		// SET UP STORE
+		case SETUP_STORE: {
+			const { initialPayload } = action.payload;
+			const stateClone = { notifications: initialPayload };
+			return stateClone;
+		}
 		case SET_NOTIFICATION_PROPERTIES: {
 			const { properties, id } = action.payload;
 			const notificationIndex = state.notifications.findIndex(

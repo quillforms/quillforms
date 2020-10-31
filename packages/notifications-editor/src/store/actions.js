@@ -1,8 +1,23 @@
 import {
+	SETUP_STORE,
 	SET_NOTIFICATION_PROPERTIES,
 	ADD_NEW_NOTIFICATION,
 	DELETE_NOTIFICATION,
 } from './constants';
+
+/**
+ * Set up the store.
+ *
+ * @param {Object} initialPayload Initial payload object.
+ *
+ * @return {Object} Action object.
+ */
+export function setupStore( initialPayload ) {
+	return {
+		type: SETUP_STORE,
+		payload: { initialPayload },
+	};
+}
 
 /**
  * Returns an action object used in setting notification properties.
