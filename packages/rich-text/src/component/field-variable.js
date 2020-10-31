@@ -34,7 +34,7 @@ const FieldVariable = ( props ) => {
 
 	// Remove field variable if the field isn't exisiting
 	useEffect( () => {
-		if ( ! field || block?.supports?.displayOnly ) {
+		if ( ! field || ! block?.supports?.editable ) {
 			editor.apply( { type: 'remove_node', path, node } );
 		}
 	}, [ field ] );
