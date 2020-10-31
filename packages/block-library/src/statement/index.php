@@ -19,13 +19,14 @@ defined( 'ABSPATH' ) || exit;
 class QF_Statement extends QF_Block {
 
 	/**
-	 * Metadata
+	 * Metadata json file.
 	 *
-	 * @since 1.0.0
+	 * @var string
 	 *
-	 * @var array
+	 * @access private
 	 */
-	public static $metadata;
+	private $metadata;
+
 
 	/**
 	 * Get Block Type
@@ -36,7 +37,26 @@ class QF_Statement extends QF_Block {
 	 * @return string The block type
 	 */
 	public function get_type() {
-		return self::$metadata['type'];
+		return  $this->get_metadata()['type'];
+	}
+
+	/**
+	 * Get meta data
+	 * This file is just for having some shared properties between front end and back end.
+	 * Just as the block type.
+	 *
+	 * @access private
+	 *
+	 * @return string metadata from block.json file
+	 */
+	private function get_metadata() {
+		if ( ! $this->metadata ) {
+			$this->metadata = json_decode(
+				file_get_contents( trailingslashit( dirname( __FILE__ ) ) . 'statement/block.json' ),
+				true
+			);
+		}
+		return $this->metadata;
 	}
 
 	/**
@@ -51,15 +71,20 @@ class QF_Statement extends QF_Block {
 	}
 
 	/**
-	 * Get Supports
+	 * Get block supported features.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array The supports array.
+	 * @return array The block supported features
 	 */
-	public function get_supports() {
+	public function get_block_supported_features() {
 		return array(
-			'displayOnly' => true,
+			'editable'    => false,
+			'required'    => true,
+			'attachment'  => true,
+			'description' => true,
+			'jumpLogic'   => true,
+			'calculator'  => false,
 		);
 	}
 
@@ -71,11 +96,17 @@ class QF_Statement extends QF_Block {
 	 * @return array The initial attributes
 	 */
 	public function get_attributes() {
-		return self::$metadata['attributes'];
+		return array(
+			'buttonText'     => array(
+				'type'    => 'string',
+				'default' => 'Continue',
+			),
+			'quotationMarks' => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+		);
 	}
 }
 
-$file                   = trailingslashit( dirname( __FILE__ ) ) . 'statement/block.json';
-$metadata               = json_decode( file_get_contents( $file ), true );
-QF_Statement::$metadata = $metadata;
 QF_Blocks_Factory::get_instance()->register( new QF_Statement() );

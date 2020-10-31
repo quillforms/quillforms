@@ -1,15 +1,3 @@
 {
-	"type": "date",
-	"attributes": {
-		"format": {
-			"type":  "string",
-			"enum": ["MMDDYYYY", "DDMMYYYY", "YYYYMMDD"],
-			"default": "MMDDYYYY"
-		},
-		"separator": {
-			"type":  "string",
-			"enum": ["/", "-", "."],
-			"default": "/"
-		}
-	}
+	"type": "date"
 }

@@ -1,33 +1,3 @@
 {
-	"type":"multiple-choice",
-	"attributes": {
-		"choices": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"ref": {
-						"type": "string"
-					},
-					"label": {
-						"type": "string"
-					},
-					"score": {
-						"type": "boolean"
-					}
-				}
-			},
-			"default": [ {
-				"ref": "123e4567-e89b-12d3-a456-426614174000",
-				"label": "Choice 1",
-				"score": "0"
-			}]
-		},
-		"multiple": {
-			"type": "boolean"
-		},
-		"setScore": {
-			"type": "boolean"
-		}
-	}
+	"type": "multiple-choice"
 }

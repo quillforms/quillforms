@@ -13,9 +13,5 @@ export const settings = {
 	},
 	rendererConfig: {
 		output,
-		// eslint-disable-next-line no-unused-vars
-		hasSubmitBtn: ( args ) => {
-			return true;
-		},
 	},
 };
