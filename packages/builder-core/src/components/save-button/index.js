@@ -17,12 +17,13 @@ import { zipObject } from 'lodash';
 
 const SaveButton = () => {
 	console.log( getRestFields() );
-	const { isSaving, hasUnsavedChanges } = useSelect( ( select ) => {
+	const { isSaving, hasUnsavedChanges, postId } = useSelect( ( select ) => {
 		return {
 			isSaving: select( 'quillForms/builder-core' ).isSaving(),
 			hasUnsavedChanges: select(
 				'quillForms/builder-core'
 			).hasUnsavedChanges(),
+			postId: select( 'quillForms/builder-core' ).getPostId(),
 		};
 	} );
 
@@ -37,12 +38,12 @@ const SaveButton = () => {
 		};
 	} );
 
-	console.log( restFields );
 	const { setIsSaving } = useDispatch( 'quillForms/builder-core' );
 	return (
 		<Button
 			isButton
-			isPrimary
+			isPrimary={ isSaving ? false : true }
+			isSecondary={ isSaving ? true : false }
 			isLarge
 			className="builder-core-save-button"
 			onClick={ () => {
@@ -52,16 +53,16 @@ const SaveButton = () => {
 					// Timestamp arg allows caller to bypass browser caching, which is
 					// expected for this specific function.
 					path:
-						`/wp/v2/quill_forms/1339` +
+						`/wp/v2/quill_forms/${ postId }` +
 						`?context=edit&_timestamp=${ Date.now() }`,
 					method: 'POST',
 					data: {
 						...restFields,
 					},
-				} );
-				setTimeout( () => {
+				} ).then( ( res ) => {
+					console.log( res );
 					setIsSaving( false );
-				}, 500 );
+				} );
 			} }
 		>
 			{ isSaving ? 'Saving' : 'Publish' }
