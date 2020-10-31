@@ -11,6 +11,7 @@ import {
 /**
  * WordPress Dependencies
  */
+import { useSelect } from '@wordpress/data';
 import { Fragment } from '@wordpress/element';
 import { MediaUpload } from '@wordpress/media-utils';
 
@@ -21,26 +22,53 @@ import isEmpty from 'lodash/isEmpty';
 
 const DefaultControls = ( props ) => {
 	const {
-		supports,
+		type,
 		currentFormItem,
 		toggleDescription,
 		toggleRequired,
 		setAttachment,
 	} = props;
 
+	const {
+		editableSupport,
+		requiredSupport,
+		descriptionSupport,
+		attachmentSupport,
+	} = useSelect( ( select ) => {
+		return {
+			editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				type,
+				'editable'
+			),
+			requiredSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				type,
+				'required'
+			),
+			descriptionSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				type,
+				'description'
+			),
+			attachmentSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				type,
+				'attachment'
+			),
+		};
+	} );
 	const { description, attachment } = currentFormItem;
 	return (
 		<Fragment>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper>
-					<__experimentalControlLabel label={ 'Description' } />
-					<ToggleControl
-						onChange={ toggleDescription }
-						checked={ !! description }
-					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
-			{ supports.attachment && (
+			{ descriptionSupport && (
+				<__experimentalBaseControl>
+					<__experimentalControlWrapper>
+						<__experimentalControlLabel label={ 'Description' } />
+						<ToggleControl
+							onChange={ toggleDescription }
+							checked={ !! description }
+						/>
+					</__experimentalControlWrapper>
+				</__experimentalBaseControl>
+			) }
+			{ attachmentSupport && (
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper>
 						<__experimentalControlLabel label={ 'Image' } />
@@ -74,7 +102,7 @@ const DefaultControls = ( props ) => {
 					</__experimentalControlWrapper>
 				</__experimentalBaseControl>
 			) }
-			{ ! supports.displayOnly && (
+			{ editableSupport && requiredSupport && (
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper>
 						<__experimentalControlLabel label={ 'Required' } />
