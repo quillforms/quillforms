@@ -72,8 +72,8 @@ class QF_Admin {
 	 */
 	public function register_quillforms_post_type() {
 		$labels   = array(
-			'name'                  => __( 'Quill Forms', 'quillforms' ),
-			'singular_name'         => __( 'Quill Form', 'quillforms' ),
+			'name'                  => __( 'Forms', 'quillforms' ),
+			'singular_name'         => __( 'Form', 'quillforms' ),
 			'add_new'               => __( 'Add Form', 'quillforms' ),
 			'add_new_item'          => __( 'Add Form', 'quillforms' ),
 			'edit_item'             => __( 'Edit Form', 'quillforms' ),
@@ -119,7 +119,7 @@ class QF_Admin {
 		qf_admin_register_page(
 			array(
 				'id'       => 'quillforms',
-				'title'    => __( 'Quill Forms', 'quillforms' ),
+				'title'    => __( 'Forms', 'quillforms' ),
 				'path'     => 'quillforms',
 				'icon'     => 'data:image/svg+xml;base64,' . base64_encode(
 					'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5219 5951" width="5519x" height="5519px">
