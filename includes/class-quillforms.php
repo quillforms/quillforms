@@ -125,8 +125,8 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-meta-fields.php';
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-blocks-meta-field.php';
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-messages-meta-field.php';
-		// require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-notifications-meta-field.php';
-		 require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-theme-meta-field.php';
+		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-notifications-meta-field.php';
+		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-theme-meta-field.php';
 
 		/**
 		 * Models.
