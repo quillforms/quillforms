@@ -15,6 +15,33 @@
 abstract class QF_Block extends stdClass {
 
 	/**
+	 * Block type
+	 *
+	 * @var string
+	 *
+	 * @since 1.0.0
+	 */
+	public $type;
+
+	/**
+	 * Block attributes
+	 *
+	 * @var array
+	 *
+	 * @since 1.0.0
+	 */
+	public $attributes;
+
+	/**
+	 * Block name
+	 *
+	 * @var string
+	 *
+	 * @since 1.0.0
+	 */
+	public $block_name;
+
+	/**
 	 * Get Block Type
 	 * It must be unique name.
 	 *
@@ -43,9 +70,11 @@ abstract class QF_Block extends stdClass {
 	 *                                 Default empty array.
 	 */
 	public function __construct( $args = array() ) {
-		$this->attributes = $this->get_attributes();
-		$this->type       = $this->get_type();
-		$this->supports   = $this->get_supports();
+		$this->type               = $this->get_type();
+		$this->block_name         = $this->get_name();
+		$this->attributes         = apply_filters( "qf_{$this->type}_block_attributes", $this->get_attributes() );
+		$this->logic_operators    = $this->get_logical_operators();
+		$this->supported_features = $this->get_block_supported_features();
 		$this->set_props( $args );
 	}
 
@@ -53,10 +82,11 @@ abstract class QF_Block extends stdClass {
 	 * Sets block type properties.
 	 *
 	 * @since 1.0.0
+	 * @final
 	 *
 	 * @param array $args Array or string of arguments for registering a block type.
 	 */
-	public function set_props( $args ) {
+	final public function set_props( $args ) {
 		// Make sure it is array.
 		if ( ! is_array( $args ) ) {
 			return;
@@ -75,7 +105,9 @@ abstract class QF_Block extends stdClass {
 	 * @return array The block attributes
 	 */
 	public function get_attributes() {
-		return array();
+		return is_array( $this->attributes ) ?
+			$this->attributes :
+			array();
 	}
 
 
@@ -84,6 +116,7 @@ abstract class QF_Block extends stdClass {
 	 * defaulted and missing values.
 	 *
 	 * @since 1.0.0
+	 * @final
 	 *
 	 * @param array $attributes original block attributes.
 	 *
@@ -128,19 +161,49 @@ abstract class QF_Block extends stdClass {
 	}
 
 	/**
-	 * Block Supports Array.
+	 * Block settings.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array The block supports array
+	 * @return array The block supported features
 	 */
-	public function get_supports() {
+	public function get_block_supported_features() {
 		return array(
-			'attachment'  => true,
-			'displayOnly' => false,
-			'jumpLogic'   => false,
-			'calculator'  => false,
+			'editable'   => true,
+			'required'   => true,
+			'attachment' => true,
+			'jumpLogic'  => true,
+			'calculator' => false,
 		);
+	}
+
+	/**
+	 * Get logic value type
+	 * Possible values: text, number, choices and date.
+	 * In jump logic, we need a way to present this field input.
+	 * We can present the field input according to its type i.e:
+	 * Text input is rendered if value type is text
+	 * Number input is rendered if value type is number
+	 * Select with options is rendered if value type is choices
+	 * Date picker is rendered if value type is date
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string The value type
+	 */
+	public function get_logic_value_type() {
+		return 'text';
+	}
+
+	/**
+	 * Get field logical operators.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	public function get_logical_operators() {
+		return array( 'is', 'is_not', 'greater_than', 'lower_than' );
 	}
 
 	/**
