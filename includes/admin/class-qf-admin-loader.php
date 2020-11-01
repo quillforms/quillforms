@@ -103,11 +103,16 @@ class QF_Admin_Loader {
 			'qf.blocks.__unstableServerSideBlocksRegister(' . wp_json_encode(
 				array_map(
 					function ( $block ) {
-						return array(
-							'id'         => QF_Utils::generate_uuidv4(),
-							'name'       => $block->get_name(),
-							'attributes' => $block->prepare_attributes_for_render( $block->get_attributes() ),
-							'supports'   => $block->get_supports(),
+						return array_merge(
+							array(
+								'id'         => QF_Utils::generate_uuidv4(),
+								'name'       => $block->block_name,
+								'attributes' => $block->prepare_attributes_for_render( $block->attributes ),
+							),
+							array(
+								'supports'         => $block->supported_features,
+								'logicalOperators' => $block->get_logical_operators(),
+							)
 						);
 					},
 					QF_Blocks_Factory::get_instance()->get_all_registered()
@@ -118,7 +123,7 @@ class QF_Admin_Loader {
 	}
 
 	/**
-	 * Removes notices that should not be displayed on WC Admin pages.
+	 * Removes notices that should not be displayed on QF Admin pages.
 	 *
 	 * @since 1.0.0
 	 */
