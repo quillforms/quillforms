@@ -22,10 +22,11 @@ import { confirmAlert } from 'react-confirm-alert';
  * Internal Dependencies
  */
 import DropArea from '../drop-area';
-// import FormPreview from '../preview-area';
+import FormPreview from '../preview-area';
 import Panel from '../panel';
 import BuilderPanelsBar from '../builder-panels-bar';
 import DragAlert from '../drag-alert';
+import SaveButton from '../save-button';
 
 const Layout = ( props ) => {
 	const {
@@ -35,7 +36,7 @@ const Layout = ( props ) => {
 		formBlocks,
 		reorderBlocks,
 		insertBlock,
-		// insertNewFieldAnswer,
+		insertNewFieldAnswer,
 	} = props;
 
 	const [ targetIndex, setTargetIndex ] = useState();
@@ -49,9 +50,9 @@ const Layout = ( props ) => {
 				Math,
 				formBlocks.map( ( o ) => o.id )
 			);
-			return maxId + 1;
+			return ( maxId + 1 ).toString();
 		}
-		return 1;
+		return '1';
 	};
 	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
 		const list = { ...formBlocks };
@@ -85,14 +86,6 @@ const Layout = ( props ) => {
 		let next = destination?.index;
 		if ( isDraggingContent ) {
 			next = next >= sourceContentIndex ? next + 1 : next;
-		}
-		if ( source.droppableId === destination.droppableId ) {
-			if (
-				sourceContentIndex < next &&
-				sourceContentIndex !== formBlocks.length - 1
-			) {
-				next = next + 1;
-			}
 		}
 
 		setTargetIndex( next );
@@ -148,10 +141,8 @@ const Layout = ( props ) => {
 						title: '<p></p>',
 						type: blockType,
 					} );
-					const isBlockEditable = draggedBlock.supports?.displayOnly
-						? false
-						: true;
-					if ( isBlockEditable === false ) {
+					const isBlockEditable = draggedBlock.supports?.editable;
+					if ( ! isBlockEditable ) {
 						assign( draggedBlock, {
 							required: false,
 						} );
@@ -162,8 +153,8 @@ const Layout = ( props ) => {
 						'supports',
 					] );
 
-					// if ( isBlockEditable )
-					// 	insertNewFieldAnswer( draggedBlock.id, blockType );
+					if ( isBlockEditable )
+						insertNewFieldAnswer( draggedBlock.id, blockType );
 
 					insertBlock( draggedBlock, destination );
 				}
@@ -197,6 +188,7 @@ const Layout = ( props ) => {
 			onDragUpdate={ onDragUpdate }
 			onBeforeCapture={ onBeforeCapture }
 		>
+			<SaveButton />
 			<PluginArea />
 			<BuilderPanelsBar />
 			{ currentPanel && <Panel /> }
@@ -208,9 +200,9 @@ const Layout = ( props ) => {
 					areaToHide={ areaToHide }
 				/>
 			) }
-			{ /* { ( ! areaToHide || areaToHide !== 'preview-area' ) && (
-				 <FormPreview />
-			) } */ }
+			{ ( ! areaToHide || areaToHide !== 'preview-area' ) && (
+				<FormPreview />
+			) }
 		</DragDropContext>
 	);
 };
@@ -234,16 +226,16 @@ export default compose( [
 		const { insertBlock, reorderBlocks } = dispatch(
 			'quillForms/block-editor'
 		);
-		// const { insertNewFieldAnswer } = dispatch(
-		// 	'quillForms/renderer-submission'
-		// );
+		const { insertEmptyFieldAnswer } = dispatch(
+			'quillForms/renderer-submission'
+		);
 		return {
 			insertBlock: ( block, destination ) =>
 				insertBlock( block, destination ),
 			reorderBlocks: ( sourceIndex, destinationIndex ) =>
 				reorderBlocks( sourceIndex, destinationIndex ),
-			// insertNewFieldAnswer: ( id, type ) =>
-			// 	insertNewFieldAnswer( id, type ),
+			insertNewFieldAnswer: ( id, type ) =>
+				insertEmptyFieldAnswer( id, type ),
 		};
 	} ),
 ] )( Layout );

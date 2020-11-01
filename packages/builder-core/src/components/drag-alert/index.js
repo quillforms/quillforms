@@ -74,3 +74,10 @@ const DragAlertModal = ( { approve, reject } ) => {
 };
 
 export default DragAlertModal;
+
+const state = {
+	currentBlockId: '',
+	nextBlockId: '',
+	prevBlockId: '',
+	lastActiveBlock: '',
+};

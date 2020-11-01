@@ -82,14 +82,6 @@ const DropArea = ( props ) => {
 					>
 						{ formStructure?.length > 0 &&
 							formStructure.map( ( item, index ) => {
-								console.log(
-									targetIndex === formStructure.length
-								);
-								console.log( index === targetIndex );
-								if ( index === targetIndex ) {
-									console.log( 'This is the fucking index' );
-									console.log( index );
-								}
 								const block = blockTypes[ item.type ];
 								return (
 									<>
