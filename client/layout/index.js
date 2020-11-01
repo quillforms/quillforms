@@ -11,7 +11,6 @@ import { SlotFillProvider } from '@wordpress/components';
 /**
  * External dependencies
  */
-import { Component, Fragment, lazy, Suspense } from '@wordpress/element';
 import { Router, Route, Switch } from 'react-router-dom';
 import { compose } from '@wordpress/compose';
 

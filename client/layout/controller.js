@@ -69,7 +69,7 @@ export const getPages = () => {
 	pages.push( {
 		container: Home,
 		path: '/',
-		wpOpenMenu: 'toplevel_page_quillforms',
+		slug: 'home',
 	} );
 
 	// Form Builder

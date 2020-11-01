@@ -6,6 +6,7 @@ import { EditorProvider } from '@quillforms/builder-core';
 /**
  * WordPress Dependencies
  */
+import { useDispatch } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -18,15 +19,17 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import useEnqueueJS from './use-enqueue-js';
 import './style.scss';
 
 const Builder = ( { params } ) => {
 	const { id } = params;
+	const { __experimentalSetPostId } = useDispatch(
+		'quillForms/builder-core'
+	);
 	const [ isFetching, setIsFetching ] = useState( true );
 
-	const [ assetsLoading ] = useEnqueueJS( 'quillforms-blocks' );
 	useEffect( () => {
+		__experimentalSetPostId( id );
 		apiFetch( {
 			path: `/wp/v2/quill_forms/${ id }`,
 			method: 'GET',
