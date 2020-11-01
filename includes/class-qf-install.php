@@ -6,9 +6,7 @@
  * @package QuillForms
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class QF_Install is responsible for main set up.
