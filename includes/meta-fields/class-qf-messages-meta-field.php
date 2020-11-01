@@ -299,7 +299,6 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 				'sanitize_callback' => function( $messages ) use ( $messages_data ) {
 					if ( ! empty( $messages ) ) {
 						foreach ( $messages_data as $key => $message ) {
-							var_dump( $message );
 							if ( ! empty( $message ) &&
 							! empty( $message['format'] ) &&
 							'html' === $message['format'] ) {
