@@ -28,14 +28,16 @@ const BlockControls = () => {
 
 	const { type } = currentFormItem;
 
-	const block = useSelect(
-		( select ) => select( 'quillForms/blocks' ).getBlockTypes()[ type ]
-	);
+	const { blockType } = useSelect( ( select ) => {
+		return {
+			blockType: select( 'quillForms/blocks' ).getBlockTypes()[ type ],
+		};
+	} );
 
 	return (
 		<div className="block-editor-block-controls">
 			<DefaultControls
-				supports={ block.supports }
+				type={ type }
 				currentFormItem={ currentFormItem }
 				toggleDescription={ () => {
 					toggleDescription( currentBlockId );
@@ -47,8 +49,8 @@ const BlockControls = () => {
 					toggleRequired( currentBlockId, val );
 				} }
 			/>
-			{ block.editorConfig?.controls && (
-				<block.editorConfig.controls
+			{ blockType.editorConfig?.controls && (
+				<blockType.editorConfig.controls
 					id={ currentBlockId }
 					attributes={ currentFormItem.attributes }
 					setAttributes={ ( val ) => {
