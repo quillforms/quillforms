@@ -79,7 +79,7 @@ class QF_Form_Theme_Model {
 			);
 		}
 
-		return  QF_Form_Theme::get_instance()->prepare_theme_data_for_render( $theme_data );
+		return  ( new QF_Theme_Meta_Field() )->prepare_theme_data_for_render( $theme_data );
 	}
 
 }
