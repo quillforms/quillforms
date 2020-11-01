@@ -66,10 +66,6 @@ final class QF_Blocks_Factory {
 			return false;
 		}
 
-		if ( ! $block_type ) {
-			$block_type = new QF_Block( $type );
-		}
-
 		$this->registered_block_types[ $type ] = $block_type;
 
 		return $block_type;
