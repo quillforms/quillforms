@@ -14,14 +14,14 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-class QF_Meta_Fields {
+class QF_Meta_Fields_Factory {
 
 	/**
 	 * Registered meta fields, as `$name => $instance` pairs.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var QF_Meta_Field[]
+	 * @var QF_Meta_Fields_Factory[]
 	 */
 	private $registered_meta_fields = array();
 
@@ -30,7 +30,7 @@ class QF_Meta_Fields {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var QF_Meta_Fields|null
+	 * @var QF_Meta_Fields_Factory|null
 	 */
 	private static $instance = null;
 
@@ -131,7 +131,7 @@ class QF_Meta_Fields {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return QF_Meta_Fields the main instance
+	 * @return QF_Meta_Fields_Factory the main instance
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
