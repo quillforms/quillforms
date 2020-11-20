@@ -72,19 +72,19 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 				'label.button.ok'                    => array(
 					'title'    => __( 'Button to confirm answer', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>OK</p>',
+					'default'  => 'OK',
 					'category' => 'buttons-hints-placeholders',
 				),
 				'label.hintText.enter'               => array(
 					'title'    => __( 'Keyboard hint text for navigating to next question', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>press <strong>Enter ↵</strong></p>',
+					'default'  => 'press <strong>Enter ↵</strong>',
 					'category' => 'buttons-hints-placeholders',
 				),
 				'label.hintText.multipleSelection'   => array(
 					'title'    => __( 'Hint for multiple selection', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Choose as many as you like</p>',
+					'default'  => 'Choose as many as you like',
 					'category' => 'buttons-hints-placeholders',
 				),
 				'block.dropdown.placeholder'         => array(
@@ -115,7 +115,7 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 				'block.longText.hint'                => array(
 					'title'    => __( 'Hint for line break in Long Text fields', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p><strong>Shift ⇧ + Enter ↵</strong> to make a line break</p>',
+					'default'  => '<strong>Shift ⇧ + Enter ↵</strong> to make a line break',
 					'category' => 'buttons-hints-placeholders',
 				),
 				'block.number.placeholder'           => array(
@@ -126,19 +126,19 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 				'label.hintText.key'                 => array(
 					'title'    => __( 'Keyboard hint after hovering over options', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Key</p>',
+					'default'  => 'Key',
 					'category' => 'buttons-hints-placeholders',
 				),
 				'label.yes.default'                  => array(
 					'title'    => __( 'Button to say "Yes"', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Yes</p>',
+					'default'  => 'Yes',
 					'category' => 'buttons-hints-placeholders',
 				),
 				'label.no.default'                   => array(
 					'title'    => __( 'Button to say "No"', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>No</p>',
+					'default'  => 'No',
 					'category' => 'buttons-hints-placeholders',
 				),
 				'label.progress.percent'             => array(
@@ -151,13 +151,13 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 							'ref'     => 'percent',
 						),
 					),
-					'default'   => '<p>{{progress:percent}}% completed</p>',
+					'default'   => '{{progress:percent}}% completed',
 					'category'  => 'buttons-hints-placeholders',
 				),
 				'label.button.yes'                   => array(
 					'title'    => __( 'Button to say "Yes"', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Yes</p>',
+					'default'  => 'Yes',
 					'category' => 'buttons-hints-placeholders',
 				),
 
@@ -165,31 +165,31 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 				'label.errorAlert.required'          => array(
 					'title'    => __( 'If field is required', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>This field is required!</p>',
+					'default'  => 'This field is required!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.date'              => array(
 					'title'    => __( 'If date is invalid', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Invalid date!</p>',
+					'default'  => 'Invalid date!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.selectionRequired' => array(
 					'title'    => __( 'If answer needs at least one selection', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Please make at least one selection!</p>',
+					'default'  => 'Please make at least one selection!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.email'             => array(
 					'title'    => __( 'If email address is wrong', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Invalid email!</p>',
+					'default'  => 'Invalid email!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.url'               => array(
 					'title'    => __( 'If url is wrong', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Invalid url!</p>',
+					'default'  => 'Invalid url!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.range'             => array(
@@ -207,7 +207,7 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 							'ref'     => 'max',
 						),
 					),
-					'default'   => '<p>Please enter a number between {{attribute:min}} and {{attribute:max}} </p>',
+					'default'   => 'Please enter a number between {{attribute:min}} and {{attribute:max}}',
 					'category'  => 'alerts',
 				),
 				'label.errorAlert.minNum'            => array(
@@ -220,7 +220,7 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 							'ref'     => 'min',
 						),
 					),
-					'default'   => '<p>Please enter a number greater than {{attribute:min}}</p>',
+					'default'   => 'Please enter a number greater than {{attribute:min}}',
 					'category'  => 'alerts',
 				),
 				'label.errorAlert.maxNum'            => array(
@@ -233,7 +233,7 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 							'ref'     => 'max',
 						),
 					),
-					'default'   => '<p>Please enter a number lower than {{attribute:max}} </p>',
+					'default'   => 'Please enter a number lower than {{attribute:max}}',
 					'category'  => 'alerts',
 				),
 				'label.errorAlert.maxCharacters'     => array(
@@ -246,31 +246,31 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 							'ref'     => 'maxCharacters',
 						),
 					),
-					'default'   => '<p>Maximum characters reached!</p>',
+					'default'   => 'Maximum characters reached!',
 					'category'  => 'alerts',
 				),
 				'label.errorAlert.url'               => array(
 					'title'    => __( 'If the website url is invalid', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Invalid url!</p>',
+					'default'  => 'Invalid url!',
 					'category' => 'alerts',
 				),
 				'label.successAlert.submission'      => array(
 					'title'    => __( 'Form submission success message', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Form has been submitted successfully!</p>',
+					'default'  => 'Form has been submitted successfully!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.noConnection'      => array(
 					'title'    => __( 'Error for no connection with server', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Can\'t connect to the server right now!</p>',
+					'default'  => 'Can\'t connect to the server right now!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.serverError'       => array(
 					'title'    => __( 'Error for a problem with server', 'quillforms' ),
 					'format'   => 'html',
-					'default'  => '<p>Server error!</p>',
+					'default'  => 'Server error!',
 					'category' => 'alerts',
 				),
 			)
@@ -378,4 +378,4 @@ class QF_Messages_Meta_Field extends QF_Meta_Field {
 	}
 }
 
-QF_Meta_Fields::get_instance()->register( new QF_Messages_Meta_Field() );
+QF_Meta_Fields_Factory::get_instance()->register( new QF_Messages_Meta_Field() );

@@ -124,4 +124,4 @@ class QF_Notifications_Meta_Field extends QF_Meta_Field {
 	}
 }
 
-QF_Meta_Fields::get_instance()->register( new QF_Notifications_Meta_Field() );
+QF_Meta_Fields_Factory::get_instance()->register( new QF_Notifications_Meta_Field() );

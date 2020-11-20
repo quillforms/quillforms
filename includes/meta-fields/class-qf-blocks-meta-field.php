@@ -167,4 +167,4 @@ class QF_Blocks_Meta_Field extends QF_Meta_Field {
 	}
 }
 
-QF_Meta_Fields::get_instance()->register( new QF_Blocks_Meta_Field() );
+QF_Meta_Fields_Factory::get_instance()->register( new QF_Blocks_Meta_Field() );
