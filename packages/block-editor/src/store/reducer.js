@@ -20,7 +20,7 @@ import {
 /**
  * External dependencies
  */
-import { reduce } from 'lodash';
+import { reduce, cloneDeep } from 'lodash';
 
 /**
  * Returns an object against which it is safe to perform mutating operations,
@@ -153,27 +153,32 @@ const BlockEditorReducer = ( state = initialState, action ) => {
 			}
 
 			// Consider as updates only changed values
-			const nextAttributes = reduce(
-				attributes,
-				( result, value, key ) => {
-					if ( value !== result[ key ] ) {
-						result = getMutateSafeObject(
-							[ ...state.blocks ][ blockIndex ].attributes,
-							result
-						);
-						result[ key ] = value;
-					}
+			// const nextAttributes = reduce(
+			// 	{ ...attributes },
+			// 	( result, value, key ) => {
+			// 		if ( value !== result[ key ] ) {
+			// 			result = getMutateSafeObject(
+			// 				state.blocks[ blockIndex ],
+			// 				result
+			// 			);
+			// 			result[ key ] = value;
+			// 		}
 
-					return result;
-				},
-				state.blocks[ blockIndex ].attributes
-			);
+			// 		return result;
+			// 	},
+			// 	state.blocks[ blockIndex ].attributes
+			// );
 
-			// Skip update if nothing has been changed. The reference will
-			// match the original block if `reduce` had no changed values.
-			if ( nextAttributes === state.blocks[ blockIndex ].attributes ) {
-				return state;
-			}
+			const nextAttributes = {
+				...cloneDeep( state.blocks[ blockIndex ].attributes ),
+				...attributes,
+			};
+
+			// // Skip update if nothing has been changed. The reference will
+			// // match the original block if `reduce` had no changed values.
+			// if ( nextAttributes === state.blocks[ blockIndex ].attributes ) {
+			// 	return state;
+			// }
 
 			// Otherwise replace attributes in state
 			const blocks = [ ...state.blocks ];
@@ -195,7 +200,6 @@ const BlockEditorReducer = ( state = initialState, action ) => {
 			return {
 				...state,
 				blocks: sortBlocks( result ),
-				currentBlockId: state.blocks[ sourceIndex ].id,
 			};
 		}
 
