@@ -89,15 +89,29 @@ final class QuillForms {
 		/**
 		 * Interfaces.
 		 */
+		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-block-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-logger-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-log-handler-interface.php';
+		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-merge-tag-interface.php';
+		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-meta-field-interface.php';
 
 		/**
 		 * Abstract Classes.
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-block.php';
+		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-feed.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-handler.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-levels.php';
+		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-merge-tag.php';
+		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-meta-field.php';
+
+		/**
+		 * Factories
+		 */
+		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-blocks-factory.php';
+		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-feeds-factory.php';
+		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-merge-tags-factory.php';
+		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-meta-fields-factory.php';
 
 		/**
 		 * Core classes.
@@ -107,7 +121,6 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-loader.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-capabilities.php';
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-blocks-factory.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-fonts.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-install.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-logger.php';
@@ -121,8 +134,6 @@ final class QuillForms {
 		/**
 		 * Meta Fields
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-meta-field.php';
-		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-meta-fields.php';
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-blocks-meta-field.php';
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-messages-meta-field.php';
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-notifications-meta-field.php';
