@@ -55,7 +55,7 @@ class QF_REST_Fields {
 	 * @access public
 	 */
 	public function register_meta_fields_as_rest_fields() {
-		$registered_meta_fields = QF_Meta_Fields::get_instance()->get_all_registered();
+		$registered_meta_fields = QF_Meta_Fields_Factory::get_instance()->get_all_registered();
 
 		foreach ( $registered_meta_fields as $slug => $meta_field ) {
 			$args = array();
