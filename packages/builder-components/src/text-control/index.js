@@ -7,15 +7,16 @@ import { useEffect, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import Input from '@material-ui/core/Input';
+import classnames from 'classnames';
 
 const TextControl = ( {
+	className,
 	type,
 	value,
 	setValue,
 	maxLength = null,
 	forceFocusOnMount = false,
 } ) => {
-	console.log( value );
 	const ref = useRef();
 	useEffect( () => {
 		if ( forceFocusOnMount ) {
@@ -23,7 +24,12 @@ const TextControl = ( {
 		}
 	}, [] );
 	return (
-		<div className="builder-components-text-control">
+		<div
+			className={ classnames(
+				'builder-components-text-control',
+				className
+			) }
+		>
 			<div className="builder-components-text-control__input">
 				<Input
 					inputRef={ ref }
