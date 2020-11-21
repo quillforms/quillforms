@@ -6,7 +6,7 @@
  * @return {Array} Registered blocks
  */
 export function getAnswers( state ) {
-	return [ ...state.answersList ];
+	return state.answers;
 }
 
 /**
@@ -17,7 +17,7 @@ export function getAnswers( state ) {
  * @return {number} Answered fields count
  */
 export function getAnsweredFieldsLength( state ) {
-	return state.answersList.filter( ( answer ) => answer.isAnswered === true )
+	return state.answers.filter( ( answer ) => answer.isAnswered === true )
 		.length;
 }
 
@@ -30,8 +30,8 @@ export function getAnsweredFieldsLength( state ) {
  * @return {any} Field answer value
  */
 export function getFieldAnswerVal( state, id ) {
-	const index = state.answersList.findIndex( ( answer ) => answer.id === id );
-	return state.answersList[ index ].value;
+	const index = state.answers.findIndex( ( answer ) => answer.id === id );
+	return state.answers[ index ].value;
 }
 
 /**
@@ -43,31 +43,19 @@ export function getFieldAnswerVal( state, id ) {
  * @return {boolean} showErr flag
  */
 export function isValidField( state, id ) {
-	const index = state.answersList.findIndex( ( answer ) => answer.id === id );
-	return state.answersList[ index ].isValid;
-}
-/**
- * Get field show error flag.
- *
- * @param {Object} state   Global application state.
- * @param {string} id      Field id.
- *
- * @return {boolean} showErr flag
- */
-export function getShowErrFlag( state, id ) {
-	const index = state.answersList.findIndex( ( answer ) => answer.id === id );
-	return state.answersList[ index ].showErr;
+	const index = state.answers.findIndex( ( answer ) => answer.id === id );
+	return state.answers[ index ].isValid;
 }
 
 /**
- * Get error message key flag.
+ * Get field validation error message.
  *
  * @param {Object} state   Global application state.
  * @param {string} id      Field id.
  *
- * @return {string} Error message key
+ * @return {string} Field validation error message
  */
-export function getErrMsgKeyFlag( state, id ) {
-	const index = state.answersList.findIndex( ( answer ) => answer.id === id );
-	return state.answersList[ index ].errorMsgKey;
+export function getFieldValidationErr( state, id ) {
+	const index = state.answers.findIndex( ( answer ) => answer.id === id );
+	return state.answers[ index ].validationErr;
 }

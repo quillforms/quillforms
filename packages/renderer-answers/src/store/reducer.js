@@ -3,19 +3,17 @@ import {
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_IS_FIELD_VALID,
 	SET_IS_FIELD_ANSWERED,
-	SET_SHOW_FIELD_ERR,
-	SET_FIELD_ERR_MSG_KEY,
+	SET_FIELD_VALIDATION_ERR,
 } from './constants';
 
 const initialState = {
-	answersList: [],
+	answers: [],
 	isReviewing: false,
 	isSubmitting: false,
 };
 
 const AnswersReducer = ( state = initialState, action ) => {
-	const $state = { ...state };
-	const answers = $state.answersList;
+	const { answers } = state;
 	switch ( action.type ) {
 		// Insert Empty Field Answer
 		case INSERT_EMPTY_FIELD_ANSWER: {
@@ -23,18 +21,20 @@ const AnswersReducer = ( state = initialState, action ) => {
 			const index = answers.findIndex( ( answer ) => {
 				return answer.id === id;
 			} );
+			const $state = { ...state };
+			const $answers = [ ...$state.answers ];
+
 			if ( index === -1 ) {
-				answers.push( {
+				$answers.push( {
 					value: [],
 					isValid: true,
 					isAnswered: false,
-					showErr: false,
-					errMsgKey: null,
+					validationErr: null,
 					id,
 					type,
 				} );
 			}
-			$state.answersList = answers;
+			$state.answers = $answers;
 			return $state;
 		}
 
@@ -44,8 +44,14 @@ const AnswersReducer = ( state = initialState, action ) => {
 			const index = answers.findIndex( ( answer ) => {
 				return answer.id === id;
 			} );
-			answers[ index ].value = val;
-			$state.answersList = answers;
+			if ( index === -1 ) {
+				return state;
+			}
+			const $state = { ...state };
+			const $answers = [ ...$state.answers ];
+
+			$answers[ index ].value = val;
+			$state.answers = $answers;
 			return $state;
 		}
 
@@ -55,8 +61,14 @@ const AnswersReducer = ( state = initialState, action ) => {
 			const index = answers.findIndex( ( answer ) => {
 				return answer.id === id;
 			} );
-			answers[ index ].isValid = val;
-			$state.answersList = answers;
+			if ( index === -1 ) {
+				return state;
+			}
+			const $state = { ...state };
+			const $answers = [ ...$state.answers ];
+
+			$answers[ index ].isValid = val;
+			$state.answers = $answers;
 			return $state;
 		}
 
@@ -66,37 +78,34 @@ const AnswersReducer = ( state = initialState, action ) => {
 			const index = answers.findIndex( ( answer ) => {
 				return answer.id === id;
 			} );
-			answers[ index ].isAnswered = val;
-			$state.answersList = answers;
+			if ( index === -1 ) {
+				return state;
+			}
+			const $state = { ...state };
+			const $answers = [ ...$state.answers ];
+			$answers[ index ].isAnswered = val;
+			$state.answers = $answers;
 
 			return $state;
 		}
 
-		// SET SHOW ERR FLAG
-		case SET_SHOW_FIELD_ERR: {
+		// SET FIELD VALIDATION ERR
+		case SET_FIELD_VALIDATION_ERR: {
 			const { id, val } = action.payload;
 			const index = answers.findIndex( ( answer ) => {
 				return answer.id === id;
 			} );
-			answers[ index ].showErr = val;
-			$state.answersList = answers;
-
-			return $state;
-		}
-
-		// SET FIELD ERR MSG KEY
-		case SET_FIELD_ERR_MSG_KEY: {
-			const { id, val } = action.payload;
-			const index = answers.findIndex( ( answer ) => {
-				return answer.id === id;
-			} );
-			answers[ index ].errMsgKey = val;
-			$state.answersList = answers;
-
+			if ( index === -1 ) {
+				return state;
+			}
+			const $state = { ...state };
+			const $answers = [ ...$state.answers ];
+			$answers[ index ].validationErr = val;
+			$state.answers = $answers;
 			return $state;
 		}
 	}
-	return $state;
+	return state;
 };
 
 export default AnswersReducer;

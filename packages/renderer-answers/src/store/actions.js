@@ -3,8 +3,7 @@ import {
 	SET_IS_FIELD_ANSWERED,
 	SET_IS_FIELD_VALID,
 	INSERT_EMPTY_FIELD_ANSWER,
-	SET_SHOW_FIELD_ERR,
-	SET_FIELD_ERR_MSG_KEY,
+	SET_FIELD_VALIDATION_ERR,
 } from './constants';
 
 /**
@@ -68,21 +67,6 @@ export const setIsFieldAnswered = ( id, val ) => {
 };
 
 /**
- * Returns an object used in setting show field error flag
- *
- * @param {string}  id   Field uuid.
- * @param {boolean} val  Field showErr flag.
- *
- * @return {Object} Action object.
- */
-export const setShowFieldErr = ( id, val ) => {
-	return {
-		type: SET_SHOW_FIELD_ERR,
-		payload: { id, val },
-	};
-};
-
-/**
  * Returns and object used in setting error message key
  *
  * @param {string}  id   Field uuid.
@@ -90,9 +74,9 @@ export const setShowFieldErr = ( id, val ) => {
  *
  * @return {Object} Action object.
  */
-export const setFieldErrMsgKey = ( id, val ) => {
+export const setFieldValidationErrr = ( id, val ) => {
 	return {
-		type: SET_FIELD_ERR_MSG_KEY,
+		type: SET_FIELD_VALIDATION_ERR,
 		payload: { id, val },
 	};
 };
