@@ -1,4 +1,9 @@
 /**
+ * QuillForms Dependencies
+ */
+import { useMetaField } from '@quillforms/renderer-components';
+
+/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -13,20 +18,19 @@ const EmailOutput = ( props ) => {
 		id,
 		isAnimating,
 		required,
-		attributes,
 		setIsValid,
 		isReviewing,
 		setIsAnswered,
 		isFocused,
 		isActive,
-		setErrMsgKey,
-		setShowErr,
+		setValidationErr,
+		showSubmitBtn,
 		val,
 		setVal,
 	} = props;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-
+	const messages = useMetaField( 'messages' );
 	const elemRef = useRef();
 
 	const validateEmail = ( email ) => {
@@ -34,16 +38,19 @@ const EmailOutput = ( props ) => {
 		return re.test( String( email ).toLowerCase() );
 	};
 
-	const checkfieldValidation = ( value ) => {
-		if ( required === true && ( ! value || value === '' ) ) {
+	const checkFieldValidation = ( value ) => {
+		if (
+			required === true &&
+			( ! value || value === '' || value.length === 0 )
+		) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.required' );
-		} else if ( ! validateEmail( val ) && value !== '' ) {
+			setValidationErr( messages[ 'label.errorAlert.required' ] );
+		} else if ( ! validateEmail( val ) && value && value.length > 0 ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.email' );
+			setValidationErr( messages[ 'label.errorAlert.email' ] );
 		} else {
 			setIsValid( true );
-			setErrMsgKey( null );
+			setValidationErr( null );
 		}
 	};
 
@@ -64,19 +71,27 @@ const EmailOutput = ( props ) => {
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	useEffect( () => {
-		setShowErr( false );
-		checkfieldValidation( val, false );
-	}, [ isReviewing, attributes ] );
+		checkFieldValidation( val );
+	}, [ isReviewing, required ] );
+
+	useEffect( () => {
+		if ( val && val.length > 0 ) {
+			showSubmitBtn( true );
+		} else {
+			showSubmitBtn( false );
+		}
+	}, [] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		checkfieldValidation( value );
-		setShowErr( false );
+		checkFieldValidation( value );
 		setVal( value );
 		if ( value !== '' ) {
 			setIsAnswered( true );
+			showSubmitBtn( true );
 		} else {
 			setIsAnswered( false );
+			showSubmitBtn( false );
 		}
 	};
 
@@ -88,7 +103,6 @@ const EmailOutput = ( props ) => {
 					resizeThrottle={ 100 }
 					scrollThrottle={ 100 }
 					onChange={ ( visible ) => {
-						// // console.log(isVisible);
 						setIsVisible( visible );
 					} }
 				>
