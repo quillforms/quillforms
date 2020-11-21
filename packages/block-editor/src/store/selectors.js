@@ -6,7 +6,8 @@ import { createRegistrySelector } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { forEach, pick } from 'lodash';
+import { forEach, pick, map, cloneDeep } from 'lodash';
+import createSelector from 'rememo';
 
 /**
  * Get the whole form blocks.
@@ -16,7 +17,7 @@ import { forEach, pick } from 'lodash';
  * @return {Object} Form blocks
  */
 export function getBlocks( state ) {
-	return state.blocks;
+	return map( state.blocks, ( block ) => getBlockById( state, block.id ) );
 }
 
 /**
@@ -39,9 +40,24 @@ export function getWelcomeScreensLength( state ) {
  *
  * @return {Object} Block object
  */
-export function getBlockById( state, id ) {
-	return state.blocks.find( ( block ) => block.id === id );
-}
+export const getBlockById = createSelector(
+	( state, blockId ) => {
+		const block = state.blocks.find( ( $block ) => $block.id === blockId );
+		if ( ! block ) return null;
+		return {
+			...block,
+			attributes: cloneDeep( block.attributes ),
+		};
+	},
+	( state, blockId ) => [
+		// Normally, we'd have both `getBlockAttributes` dependencies and
+		// `getBlocks` (children) dependancies here but for performance reasons
+		// we use a denormalized cache key computed in the reducer that takes both
+		// the attributes and inner blocks into account. The value of the cache key
+		// is being changed whenever one of these dependencies is out of date.
+		state.cache[ blockId ],
+	]
+);
 
 /**
  * Get block order by id

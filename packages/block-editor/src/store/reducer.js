@@ -1,4 +1,23 @@
 /* eslint-disable no-nested-ternary */
+/**
+ * External dependencies
+ */
+import {
+	flow,
+	reduce,
+	first,
+	last,
+	omit,
+	cloneDeep,
+	mapValues,
+	keys,
+	isEqual,
+	isEmpty,
+	identity,
+	difference,
+	omitBy,
+	pickBy,
+} from 'lodash';
 
 /**
  * Internal Dependencies
@@ -16,11 +35,6 @@ import {
 	TOGGLE_REQUIRED_FLAG,
 	SETUP_STORE,
 } from './constants';
-
-/**
- * External dependencies
- */
-import { reduce, cloneDeep } from 'lodash';
 
 /**
  * Returns an object against which it is safe to perform mutating operations,
@@ -74,6 +88,137 @@ const initialState = {
 };
 
 /**
+ * Helper method to iterate through all blocks, recursing into inner blocks,
+ * applying a transformation function to each one.
+ * Returns a flattened object with the transformed blocks.
+ *
+ * @param {Array} blocks Blocks to flatten.
+ * @param {Function} transform Transforming function to be applied to each block.
+ *
+ * @return {Object} Flattened object.
+ */
+function flattenBlocks( blocks, transform = identity ) {
+	const result = {};
+
+	const stack = [ ...blocks ];
+	while ( stack.length ) {
+		const { ...block } = stack.shift();
+		result[ block.clientId ] = transform( block );
+	}
+
+	return result;
+}
+
+/**
+ * Utility returning an object with an empty object value for each key.
+ *
+ * @param {Array} objectKeys Keys to fill.
+ * @return {Object} Object filled with empty object as values for each clientId.
+ */
+const fillKeysWithEmptyObject = ( objectKeys ) => {
+	return objectKeys.reduce( ( result, key ) => {
+		result[ key ] = {};
+		return result;
+	}, {} );
+};
+
+/**
+ *
+/**
+ * Higher-order reducer intended to compute a cache key for each block in the post.
+ * A new instance of the cache key (empty object) is created each time the block object
+ * needs to be refreshed (for any change in the block or its children).
+ *
+ * @param {Function} reducer Original reducer function.
+ *
+ * @return {Function} Enhanced reducer function.
+ */
+const withBlockCache = ( reducer ) => ( state = {}, action ) => {
+	const newState = reducer( state, action );
+
+	if ( newState === state ) {
+		return state;
+	}
+	newState.cache = state.cache ? state.cache : {};
+
+	/**
+	 * For each clientId provided, traverses up parents, adding the provided clientIds
+	 * and each parent's clientId to the returned array.
+	 *
+	 * When calling this function consider that it uses the old state, so any state
+	 * modifications made by the `reducer` will not be present.
+	 *
+	 * @param {Array} clientIds an Array of block clientIds.
+	 *
+	 * @return {Array} The provided clientIds and all of their parent clientIds.
+	 */
+	const getBlocksWithParentsClientIds = ( clientIds ) => {
+		return clientIds.reduce( ( result, clientId ) => {
+			let current = clientId;
+			do {
+				result.push( current );
+				current = state.blocks[ current ];
+			} while ( current );
+			return result;
+		}, [] );
+	};
+
+	switch ( action.type ) {
+		case INSERT_BLOCK: {
+			const updatedBlockUids = [];
+			if ( action?.payload?.block?.id ) {
+				updatedBlockUids.push( action.payload.block.id );
+			}
+			newState.cache = {
+				...newState.cache,
+				...fillKeysWithEmptyObject(
+					getBlocksWithParentsClientIds( updatedBlockUids )
+				),
+			};
+			break;
+		}
+
+		case DELETE_BLOCK: {
+			return omit( state, action.payload.blockId );
+		}
+		case SET_BLOCK_TITLE:
+		case SET_BLOCK_DESCRIPTION:
+		case SET_BLOCK_ATTACHMENT:
+		case TOGGLE_BLOCK_DESCRIPTION:
+		case TOGGLE_REQUIRED_FLAG:
+		case SET_BLOCK_ATTRIBUTES:
+			newState.cache = {
+				...newState.cache,
+				...fillKeysWithEmptyObject(
+					getBlocksWithParentsClientIds( [ action.payload.blockId ] )
+				),
+			};
+			break;
+
+		case REORDER_BLOCKS: {
+			const updatedBlockUids = [];
+			if ( action.payload.sourceIndex ) {
+				updatedBlockUids.push(
+					state.blocks[ action.payload.sourceIndex ].id
+				);
+			}
+			if ( action.payload.destinationIndex ) {
+				updatedBlockUids.push(
+					state.blocks[ action.payload.destinationIndex ].id
+				);
+			}
+			newState.cache = {
+				...newState.cache,
+				...fillKeysWithEmptyObject(
+					getBlocksWithParentsClientIds( updatedBlockUids )
+				),
+			};
+			break;
+		}
+	}
+	return newState;
+};
+/**
  * Reducer returning the form object.
  *
  * @param {Object} state  Current state.
@@ -81,7 +226,8 @@ const initialState = {
  *
  * @return {Object} Updated state.
  */
-const BlockEditorReducer = ( state = initialState, action ) => {
+const BlockEditorReducer = withBlockCache( ( state = initialState, action ) => {
+	console.log( action );
 	switch ( action.type ) {
 		// SET UP STORE
 		case SETUP_STORE: {
@@ -171,7 +317,7 @@ const BlockEditorReducer = ( state = initialState, action ) => {
 
 			const nextAttributes = {
 				...cloneDeep( state.blocks[ blockIndex ].attributes ),
-				...attributes,
+				...cloneDeep( attributes ),
 			};
 
 			// // Skip update if nothing has been changed. The reference will
@@ -182,7 +328,10 @@ const BlockEditorReducer = ( state = initialState, action ) => {
 
 			// Otherwise replace attributes in state
 			const blocks = [ ...state.blocks ];
-			blocks[ blockIndex ].attributes = { ...nextAttributes };
+			blocks[ blockIndex ] = {
+				...blocks[ blockIndex ],
+				attributes: { ...nextAttributes },
+			};
 			return {
 				...state,
 				blocks,
@@ -254,7 +403,7 @@ const BlockEditorReducer = ( state = initialState, action ) => {
 				( item ) => item.id === id
 			);
 			// If block isn't found.
-			if ( blockIndex === -1 ) {
+			if ( blockIndex === -1 || id === state.currentBlockId ) {
 				return state;
 			}
 			return {
@@ -320,6 +469,6 @@ const BlockEditorReducer = ( state = initialState, action ) => {
 		}
 	}
 	return state;
-};
+} );
 
 export default BlockEditorReducer;
