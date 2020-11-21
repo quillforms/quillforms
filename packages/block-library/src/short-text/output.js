@@ -1,4 +1,9 @@
 /**
+ * QuillForms Depndencies
+ */
+import { useMetaField } from '@quillforms/renderer-components';
+
+/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -11,39 +16,39 @@ import VisibilitySensor from 'react-visibility-sensor';
 const ShortTextOutput = ( props ) => {
 	const {
 		id,
-		isAnimating,
 		attributes,
+		isAnimating,
 		required,
 		setIsValid,
-		isActive,
-		isFocused,
-		isReviewing,
 		setIsAnswered,
+		isFocused,
+		isActive,
+		setValidationErr,
+		showSubmitBtn,
+		shakeWithError,
 		val,
-		setErrMsgKey,
-		setIsShaking,
-		setShowErr,
 		setVal,
 	} = props;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
+	const messages = useMetaField( 'messages' );
 	const { maxCharacters, setMaxCharacters } = attributes;
 	const elemRef = useRef( null );
-	const checkfieldValidation = ( value, enableShaking = true ) => {
+
+	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.required' );
+			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
 			value.length > maxCharacters
 		) {
 			setIsValid( false );
-			if ( enableShaking ) setIsShaking( true );
-			setErrMsgKey( 'label.errorAlert.maxCharacters' );
+			setValidationErr( messages[ 'label.errorAlert.maxCharacters' ] );
 		} else {
 			setIsValid( true );
-			setErrMsgKey( null );
+			setValidationErr( null );
 		}
 	};
 
@@ -64,30 +69,27 @@ const ShortTextOutput = ( props ) => {
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	useEffect( () => {
-		setShowErr( false );
-		checkfieldValidation( val, false );
-	}, [ isReviewing, attributes ] );
+		checkfieldValidation( val );
+	}, [ attributes ] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		setShowErr( false );
-		checkfieldValidation( value );
-
 		if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
 			value.length > maxCharacters
 		) {
-			setIsShaking( true );
+			shakeWithError( messages[ 'label.errorAlert.maxCharacters' ] );
 		} else {
 			setVal( value );
+			checkfieldValidation( value );
 		}
-		checkfieldValidation( value );
-
 		if ( value !== '' ) {
 			setIsAnswered( true );
+			showSubmitBtn( true );
 		} else {
 			setIsAnswered( false );
+			showSubmitBtn( false );
 		}
 	};
 
@@ -102,17 +104,12 @@ const ShortTextOutput = ( props ) => {
 				} }
 			>
 				<input
-					type="text"
 					ref={ elemRef }
-					tabIndex="-1"
 					className={
 						'question__InputField' +
 						( simulateFocusStyle ? ' no-border' : '' )
 					}
-					id={ 'shortText-' + id }
-					onBlur={ () => {
-						checkfieldValidation( val );
-					} }
+					id={ 'short-text-' + id }
 					placeholder="Type your answer here..."
 					onChange={ changeHandler }
 					value={ val && val.length > 0 ? val : '' }
