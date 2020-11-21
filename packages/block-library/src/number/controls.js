@@ -24,25 +24,22 @@ const NumberControls = ( props ) => {
 		setAttributes,
 	} = props;
 	const MAX_NUMBER = 999999999;
-	const setMinHandler = ( e ) => {
-		let assignedValue = e.target.value;
 
+	const setMinHandler = ( val ) => {
+		let assignedValue = val;
 		if ( assignedValue < 0 ) assignedValue = 0;
 		else if ( assignedValue > MAX_NUMBER ) assignedValue = MAX_NUMBER;
-		if ( setMax && max ) {
-			if ( assignedValue > max ) assignedValue = max;
-		}
+		if ( setMax && max && assignedValue > max ) assignedValue = max;
 		setAttributes( {
 			min: assignedValue,
 		} );
 	};
-	const setMaxHandler = ( e ) => {
-		let assignedValue = e.target.value;
+
+	const setMaxHandler = ( val ) => {
+		let assignedValue = val;
 		if ( assignedValue < 1 ) assignedValue = 1;
 		else if ( assignedValue > MAX_NUMBER ) assignedValue = MAX_NUMBER;
-		if ( setMin && min ) {
-			if ( assignedValue < min ) assignedValue = min;
-		}
+		if ( setMin && min && assignedValue < min ) assignedValue = min;
 		setAttributes( {
 			max: assignedValue,
 		} );
@@ -53,12 +50,12 @@ const NumberControls = ( props ) => {
 				<__experimentalControlWrapper orientation="horizontal">
 					<__experimentalControlLabel label="Set min number" />
 					<div
-						role="button"
-						tabIndex="-1"
+						role="presentation"
 						className="switch-control-wrapper"
-						onMouseDown={ () =>
-							setAttributes( { setMin: ! setMin } )
-						}
+						onClick={ () => {
+							setAttributes( { setMin: ! setMin } );
+							setMinHandler( 0 );
+						} }
 					>
 						<ToggleControl checked={ setMin } />
 					</div>
@@ -78,7 +75,7 @@ const NumberControls = ( props ) => {
 							onChange={ ( e ) =>
 								setAttributes( { min: e.target.value } )
 							}
-							onBlur={ setMinHandler }
+							onBlur={ () => setMinHandler( min ) }
 						/>
 					</div>
 				) }
@@ -87,12 +84,12 @@ const NumberControls = ( props ) => {
 				<__experimentalControlWrapper orientation="horizontal">
 					<__experimentalControlLabel label="Set max number" />
 					<div
-						role="button"
-						tabIndex="-1"
+						role="presentation"
 						className="switch-control-wrapper"
-						onMouseDown={ () =>
-							setAttributes( { setMax: ! setMax } )
-						}
+						onClick={ () => {
+							setAttributes( { setMax: ! setMax } );
+							setMaxHandler( 1 );
+						} }
 					>
 						<ToggleControl checked={ setMax } />
 					</div>
@@ -115,7 +112,7 @@ const NumberControls = ( props ) => {
 							onChange={ ( e ) =>
 								setAttributes( { max: e.target.value } )
 							}
-							onBlur={ setMaxHandler }
+							onBlur={ () => setMaxHandler( max ) }
 						/>
 					</div>
 				) }
