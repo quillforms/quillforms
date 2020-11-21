@@ -1,8 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal Dependencies
@@ -10,41 +9,44 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import FieldAction from '../field-action';
 import ErrMsg from '../error-message';
 
-const EditableBlockFooter = ( { id, isReviewing, next } ) => {
-	const { showErr, errMsgKey, value } = useSelect( ( select ) => {
+const EditableBlockFooter = ( {
+	id,
+	isReviewing,
+	isSubmitBtnVisible,
+	isErrMsgVisible,
+	showErrorMessage,
+	next,
+	shakingErr,
+} ) => {
+	const { isValid, validationErr } = useSelect( ( select ) => {
 		return {
-			showErr: select( 'quillForms/renderer-submission' ).getShowErrFlag(
+			isValid: select( 'quillForms/renderer-submission' ).isValidField(
 				id
 			),
-			errMsgKey: select(
+			validationErr: select(
 				'quillForms/renderer-submission'
-			).getErrMsgKeyFlag( id ),
-			value: select( 'quillForms/renderer-submission' ).getFieldAnswerVal(
-				id
-			),
+			).getFieldValidationErr( id ),
 		};
 	} );
 
-	const { setShowFieldErr } = useDispatch( 'quillForms/renderer-submission' );
 	return (
 		<div className="renderer-components-block-footer">
-			{ errMsgKey && ( showErr || isReviewing ) ? (
-				<ErrMsg key={ errMsgKey } />
+			{ shakingErr ||
+			( ! isValid &&
+				validationErr?.length > 0 &&
+				( isErrMsgVisible || isReviewing ) ) ? (
+				<ErrMsg message={ shakingErr ? shakingErr : validationErr } />
 			) : (
-				<>
-					{ value ? (
-						<FieldAction
-							clickHandler={ () => {
-								setShowFieldErr( id, true );
-								if ( ! errMsgKey ) {
-									next();
-								}
-							} }
-						/>
-					) : (
-						<Fragment />
-					) }
-				</>
+				<FieldAction
+					show={ isSubmitBtnVisible }
+					clickHandler={ () => {
+						if ( validationErr && ! isValid ) {
+							showErrorMessage( true );
+						} else {
+							next();
+						}
+					} }
+				/>
 			) }
 		</div>
 	);

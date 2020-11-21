@@ -2,15 +2,26 @@
  * Internal Dependencies
  */
 import ArrowIcon from './arrow-icon';
+import { useFieldRenderContext } from '../field-render/context';
+import useBlockTypes from '../hooks/use-block-types';
 
-const BlockCounter = ( { counter } ) => {
+const BlockCounter = () => {
+	const { field, counter } = useFieldRenderContext();
+	const blockTypes = useBlockTypes();
+	const blockType = blockTypes[ field.type ];
 	return (
 		<div className="renderer-components-block-counter">
-			<span className="renderer-components-block-counter__value">
-				{ counter }
-			</span>
-			<span className="renderer-components-block-counter__arrow">
-				<ArrowIcon />
+			{ counter !== -1 && (
+				<span className="renderer-components-block-counter__value">
+					{ counter + 1 }
+				</span>
+			) }
+			<span className="renderer-components-block-counter__content">
+				{ blockType?.rendererConfig?.counterContent ? (
+					<blockType.rendererConfig.counterContent />
+				) : (
+					<ArrowIcon />
+				) }
 			</span>
 		</div>
 	);

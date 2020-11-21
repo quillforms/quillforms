@@ -10,6 +10,7 @@ const NonEditableBlockFooter = ( { next } ) => {
 				clickHandler={ () => {
 					next();
 				} }
+				show={ true }
 			/>
 		</div>
 	);

@@ -2,8 +2,8 @@
 	& {
 		position: absolute;
 		right: 100%;
-		margin-right: 9px;
-		top: 10px;
+		margin-right: 16px;
+		top: 3px;
 		display: flex;
 		align-items: center;
 		font-size: 16px;
@@ -14,7 +14,7 @@
 		margin-right: 3px;
 	}
 
-	.renderer-components-block-counter__arrow {
+	.renderer-components-block-counter__content {
 		& {
 			display: flex;
 			flex-wrap: wrap;

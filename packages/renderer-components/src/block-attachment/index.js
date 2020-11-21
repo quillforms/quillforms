@@ -1,6 +1,8 @@
 import { Fragment } from '@wordpress/element';
-const BlockAttachment = ( props ) => {
-	const { attachment } = props;
+import { useFieldRenderContext } from '../field-render';
+const BlockAttachment = () => {
+	const { field } = useFieldRenderContext();
+	const { attachment } = field;
 	return (
 		<Fragment>
 			{ attachment && Object.keys( attachment ).length > 0 ? (

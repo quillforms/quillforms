@@ -1,16 +1,45 @@
 /**
+ * WordPress Dependencies
+ */
+import { useSelect } from '@wordpress/data';
+
+/**
  * Internal Dependencies
  */
 import EditableBlockFooter from './editable';
 import NonEditableBlockFooter from './non-editable';
-const BlockFooter = ( { displayOnly, id, isReviewing, next } ) => {
+import { useFieldRenderContext } from '../field-render';
+const BlockFooter = ( {
+	isReviewing,
+	isSubmitBtnVisible,
+	isErrMsgVisible,
+	showErrorMessage,
+	next,
+	shakingErr,
+} ) => {
+	const { field } = useFieldRenderContext();
+	const { isEditable } = useSelect( ( select ) => {
+		return {
+			isEditable: select( 'quillForms/blocks' ).hasBlockSupport(
+				field.type,
+				'editable'
+			),
+		};
+	} );
 	return (
 		<>
-			{ displayOnly ? (
-				<NonEditableBlockFooter next={ next } />
+			{ ! isEditable ? (
+				<NonEditableBlockFooter
+					isSubmitBtnVisible={ isSubmitBtnVisible }
+					next={ next }
+				/>
 			) : (
 				<EditableBlockFooter
-					id={ id }
+					id={ field.id }
+					isSubmitBtnVisible={ isSubmitBtnVisible }
+					isErrMsgVisible={ isErrMsgVisible }
+					showErrorMessage={ showErrorMessage }
+					shakingErr={ shakingErr }
 					isReviewing={ isReviewing }
 					next={ next }
 				/>

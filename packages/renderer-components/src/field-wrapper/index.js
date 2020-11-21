@@ -7,31 +7,23 @@ import { useRef, useEffect } from '@wordpress/element';
  * External Dependencies
  */
 import { useSwipeable } from 'react-swipeable';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
  */
-import QuestionHeader from '../question-header';
-import BlockFooter from '../block-footer';
-import BlockOutput from '../block-output';
+import { useFieldRenderContext } from '../field-render/context';
+import FieldContent from '../field-content';
 
 const FieldWrapper = ( {
-	id,
-	isActive,
-	isReviewing,
+	isFocused,
 	animation,
-	attributes,
-	setCanSwipeNext,
-	setCanSwipePrev,
-	block,
-	title,
-	description,
-	attachment,
-	isAttachmentSupported,
-	counter,
+	setCanGoNext,
+	setCanGoPrev,
 	next,
 } ) => {
 	const ref = useRef();
+	const { field, isActive } = useFieldRenderContext();
 	let timer = null;
 
 	const handlers = useSwipeable( {
@@ -58,63 +50,48 @@ const FieldWrapper = ( {
 		} else {
 			clearTimeout( timer );
 		}
-		setCanSwipeNext( true );
-		setCanSwipePrev( true );
+		setCanGoNext( true );
+		setCanGoPrev( true );
 	}, [ isActive ] );
 
 	return (
 		<div
 			{ ...handlers }
 			tabIndex={ 0 }
-			className={
-				'renderer-components-field-wrapper' +
-				( isActive ? ' active ' : ' ' ) +
-				( animation ? animation : '' )
-			}
+			className={ classnames(
+				'renderer-components-field-wrapper',
+				{
+					active: isActive,
+				},
+				animation ? animation : ''
+			) }
 			onScroll={ ( e ) => {
 				e.preventDefault();
 				if ( ref.current.scrollTop === 0 ) {
 					timer = setTimeout( () => {
-						setCanSwipePrev( true );
+						setCanGoPrev( true );
 					}, 500 );
 				} else {
-					setCanSwipePrev( false );
+					setCanGoPrev( false );
 				}
 				if (
 					ref.current.scrollHeight - ref.current.clientHeight ===
 					ref.current.scrollTop
 				) {
 					timer = setTimeout( () => {
-						setCanSwipeNext( true );
+						setCanGoNext( true );
 					}, 500 );
 				} else {
-					setCanSwipeNext( false );
+					setCanGoNext( false );
 				}
 			} }
 		>
-			<section id={ 'block-' + id }>
+			<section id={ 'block-' + field.id }>
 				<div
 					className="renderer-components-field-wrapper__content-wrapper"
 					ref={ ref }
 				>
-					<div className="renderer-components-field-wrapper__content">
-						<QuestionHeader
-							attributes={ attributes }
-							title={ title }
-							displayOnly={ block.supports.displayOnly }
-							counter={ counter }
-							description={ description }
-							attachment={ attachment }
-							isAttachmentSupported={ isAttachmentSupported }
-						/>
-						<BlockOutput />
-						<BlockFooter
-							displayOnly={ block.supports.displayOnly }
-							id={ id }
-							isReviewing={ isReviewing }
-							next={ next }
-						/>
-					</div>
+					<FieldContent isFocused={ isFocused } next={ next } />
 				</div>
 			</section>
 		</div>

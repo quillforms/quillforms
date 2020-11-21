@@ -1,6 +1,21 @@
 import { motion } from 'framer-motion';
 
-const FieldAction = ( { show, clickHandler, text, next } ) => {
+/**
+ * Internal Dependencies
+ */
+import useMetaField from '../hooks/use-meta-field';
+import Button from '../button';
+import HTMLParser from '../html-parser';
+import { useFieldRenderContext } from '../field-render';
+import useBlockTypes from '../hooks/use-block-types';
+
+const FieldAction = ( { show, clickHandler, next } ) => {
+	const messages = useMetaField( 'messages' );
+	const { field } = useFieldRenderContext();
+	const { type } = field;
+	const blockType = useBlockTypes()[ type ];
+	console.log( show );
+	console.log( blockType.rendererConfig );
 	return (
 		<motion.div
 			initial={ { opacity: 0 } }
@@ -17,15 +32,24 @@ const FieldAction = ( { show, clickHandler, text, next } ) => {
 			} }
 		>
 			<div className="renderer-components-field-action">
-				<button
-					className="renderer-components-field-action__button"
-					onClick={ clickHandler }
-				>
-					{ text ? text : 'OK' }
-				</button>
-				<div className="renderer-components-field-action__helper-text">
-					press <strong>Enter</strong>
-				</div>
+				{ blockType?.rendererConfig?.nextBtn ? (
+					<blockType.rendererConfig.nextBtn
+						onClick={ clickHandler }
+					/>
+				) : (
+					<>
+						<Button onClick={ clickHandler }>
+							<HTMLParser
+								value={ messages[ 'label.button.ok' ] }
+							/>
+						</Button>
+						<div className="renderer-components-field-action__helper-text">
+							<HTMLParser
+								value={ messages[ 'label.hintText.enter' ] }
+							/>
+						</div>
+					</>
+				) }
 			</div>
 		</motion.div>
 	);
