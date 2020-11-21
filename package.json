@@ -120,6 +120,7 @@
 		"@types/qs": "6.9.1",
 		"@types/react-dom": "16.9.5",
 		"@types/requestidlecallback": "0.3.1",
+		"@types/sortablejs": "1.10.6",
 		"@types/sprintf-js": "1.1.2",
 		"@types/uuid": "7.0.2",
 		"@wordpress/babel-plugin-makepot": "^3.5.0",
