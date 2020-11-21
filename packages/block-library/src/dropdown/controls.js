@@ -5,6 +5,8 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
+	Button,
+	TextControl,
 } from '@quillforms/builder-components';
 
 /**
@@ -16,14 +18,13 @@ import { Fragment, useState, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import AddIcon from '@material-ui/icons/Add';
-import Input from '@material-ui/core/Input';
 import uuid from 'uuid/v4';
-import Button from '@material-ui/core/Button';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { css } from 'emotion';
 
 const DropdownControls = ( props ) => {
 	const {
@@ -31,14 +32,9 @@ const DropdownControls = ( props ) => {
 		attributes: { choices },
 		setAttributes,
 	} = props;
-	const [ deleteDialogOpen, setDeleteDialogOpen ] = useState( false );
 	const [ bulkDialogOpen, setBulkDialogOpen ] = useState( false );
-	const [ toBeDeletedChoice, setToBeDeletedChoice ] = useState( null );
 	const [ bulkChoicesTxt, setBulkChoicesTxt ] = useState( '' );
 	const bulkTextAreaRef = useRef();
-	const handleClose = () => {
-		setDeleteDialogOpen( false );
-	};
 
 	const insertBulkChoices = () => {
 		bulkChoicesTxt
@@ -51,13 +47,13 @@ const DropdownControls = ( props ) => {
 		setBulkDialogOpen( false );
 	};
 
-	const choiceChangeHandler = ( e, index ) => {
-		choices[ index ].label = e.target.value;
+	const choiceChangeHandler = ( val, index ) => {
+		choices[ index ].label = val;
 		setAttributes( { choices } );
 	};
 
 	const addNewChoice = () => {
-		choices.push( { ref: uuid(), label: '' } );
+		choices.push( { value: '', label: '' } );
 		setAttributes( { choices } );
 	};
 
@@ -65,30 +61,35 @@ const DropdownControls = ( props ) => {
 		const index = choices.findIndex( ( choice ) => choice.ref === ref );
 		choices.splice( index, 1 );
 		setAttributes( { choices } );
-		handleClose();
 	};
 
 	const choicesMap = choices.map( ( choice, index ) => {
 		return (
-			<div key={ choice.ref } className="d-flex">
-				<div className="block-text-input-wrapper">
-					<Input
-						type="text"
-						placeholder="choice"
-						value={ choice.label }
-						onChange={ ( e ) => choiceChangeHandler( e, index ) }
-					/>
-				</div>
-				{ choices.length > 1 && (
-					<div className="choice-remove-wrapper">
-						<RemoveIcon
-							onClick={ () => {
-								setToBeDeletedChoice( choice.ref );
-								setDeleteDialogOpen( true );
-							} }
-						/>
+			<div
+				key={ choice.ref }
+				className="qf-block-dropdown__choice-wrapper"
+			>
+				<TextControl
+					className={ css`
+						width: 100%;
+					` }
+					value={ choice.label }
+					setValue={ ( val ) => choiceChangeHandler( val, index ) }
+				/>
+				<div className="qf-block-dropdown__choice-actions">
+					<div className="qf-block-dropdown__choice-add">
+						<AddIcon onClick={ addNewChoice } />
 					</div>
-				) }
+					{ choices.length > 1 && (
+						<div className="qf-block-dropdown__choice-remove">
+							<RemoveIcon
+								onClick={ () => {
+									choiceRemoveHandler( choice.ref );
+								} }
+							/>
+						</div>
+					) }
+				</div>
 			</div>
 		);
 	} );
@@ -97,59 +98,28 @@ const DropdownControls = ( props ) => {
 			<__experimentalBaseControl>
 				<__experimentalControlWrapper orientation="horizontal">
 					<__experimentalControlLabel label="Choices" />
-					<div>
-						<button
-							className="bulkAnswers__btn"
-							onClick={ () => setBulkDialogOpen( true ) }
-						>
-							<div className="buttonText">Bulk Answers</div>
-						</button>
-					</div>
 				</__experimentalControlWrapper>
-				{ choicesMap }
-				<div className="add-new-choice-btn">
+				<__experimentalControlWrapper orientation="vertical">
+					<div className="qf-block-dropdown__choices-wrapper">
+						{ choicesMap }
+					</div>
 					<Button
-						variant="contained"
-						color="primary"
-						onClick={ addNewChoice }
+						isSecondary
+						isDefault
+						className={ css`
+							display: inline-block;
+							background: #000;
+							color: #fff;
+							padding: 5px;
+							margin-top: 12px;
+						` }
+						onClick={ () => setBulkDialogOpen( true ) }
 					>
-						<AddIcon />
-						<div className="buttonText">Add New</div>
+						<div className="buttonText">Bulk Answers</div>
 					</Button>
-				</div>
+				</__experimentalControlWrapper>
 			</__experimentalBaseControl>
-			<Dialog
-				open={ deleteDialogOpen }
-				onClose={ handleClose }
-				aria-labelledby={ 'delete-choice-dialog-' + id }
-				aria-describedby={ 'delete-choice-dialog-description-' + id }
-			>
-				<DialogContent className="dialog__content">
-					<DialogContentText
-						id={ 'delete-choice-dialog-description-' + id }
-					>
-						Are you sure you would like to delete this choice?
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-					<Button
-						className="dialog__ok__button"
-						onClick={ () =>
-							choiceRemoveHandler( toBeDeletedChoice )
-						}
-						color="primary"
-					>
-						Ok
-					</Button>
-					<Button
-						className="dialog__cancel__button"
-						onClick={ handleClose }
-						color="primary"
-					>
-						Cancel
-					</Button>
-				</DialogActions>
-			</Dialog>
+
 			<Dialog
 				onRendered={ () => {
 					setBulkChoicesTxt( '' );
