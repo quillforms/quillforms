@@ -1,4 +1,9 @@
 /**
+ * QuillForms Depndencies
+ */
+import { useMetaField } from '@quillforms/renderer-components';
+
+/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -11,46 +16,46 @@ import VisibilitySensor from 'react-visibility-sensor';
 const NumberOutput = ( props ) => {
 	const {
 		id,
-		required,
-		isAnimating,
 		attributes,
+		isAnimating,
+		required,
 		setIsValid,
 		setIsAnswered,
-		isReviewing,
-		isActive,
 		isFocused,
+		isActive,
+		setValidationErr,
+		showSubmitBtn,
+		shakeWithError,
 		val,
 		setVal,
-		setErrMsgKey,
-		setShowErr,
-		setIsShaking,
 	} = props;
 	const { setMax, max, setMin, min } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
+
+	const messages = useMetaField( 'messages' );
 
 	const elemRef = useRef();
 
 	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.required' );
+			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else if ( setMax && max > 0 && value > max ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.maxNum' );
+			setValidationErr( messages[ 'label.errorAlert.maxNum' ] );
 		} else if ( setMin && min >= 0 && value < min ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.minNum' );
+			setValidationErr( messages[ 'label.errorAlert.minNum' ] );
 		} else {
 			setIsValid( true );
-			setErrMsgKey( null );
+			setValidationErr( null );
 		}
 	};
 
 	useEffect( () => {
-		setShowErr( false );
 		checkfieldValidation( val, false );
-	}, [ isReviewing, attributes ] );
+	}, [ attributes ] );
 
 	useEffect( () => {
 		if ( isActive ) {
@@ -70,20 +75,20 @@ const NumberOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		setShowErr( false );
-		checkfieldValidation( value );
 		if ( isNaN( value ) ) {
-			setIsShaking( true );
+			shakeWithError( 'Numbers only!' );
 			return;
 		}
 		setVal( parseInt( value ) );
+		checkfieldValidation( parseInt( value ) );
 
-		if ( value !== '' ) {
+		if ( value ) {
 			setIsAnswered( true );
+			showSubmitBtn( true );
 		} else {
 			setIsAnswered( false );
+			showSubmitBtn( false );
 		}
-		checkfieldValidation( parseInt( value ) );
 	};
 
 	return (
@@ -107,9 +112,8 @@ const NumberOutput = ( props ) => {
 						checkfieldValidation( val );
 					} }
 					placeholder="Type your answer here..."
-					type="text"
 					onChange={ changeHandler }
-					value={ val && val.length > 0 ? val : '' }
+					value={ val ? val : '' }
 				/>
 			</VisibilitySensor>
 		</div>
