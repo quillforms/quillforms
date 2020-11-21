@@ -37,8 +37,10 @@
 		padding: 8px;
 		border-radius: 5px;
 		font-size: 12px;
-		border: 1px solid #e3e3e3;
+		border: 1px solid #e3e3e3 !important;
 		background: #fff;
+		min-height: auto !important;
+		line-height: normal;
 	}
 }
 
@@ -113,19 +115,6 @@
 		width: 12px;
 		height: 12px;
 	}
-}
-
-// Global styles
-.bulkAnswers__btn {
-	padding: 5px 8px;
-	font-size: 12px;
-	background: #fb6060;
-	color: #fff;
-	border: none;
-	box-shadow: none;
-	outline: none;
-	cursor: pointer;
-	border-radius: 3px;
 }
 
 .dialog__heading {
