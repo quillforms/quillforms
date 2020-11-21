@@ -1,4 +1,9 @@
 /**
+ * QuillForms Depndencies
+ */
+import { useMetaField } from '@quillforms/renderer-components';
+
+/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -10,23 +15,23 @@ import VisibilitySensor from 'react-visibility-sensor';
 
 const WebsiteOutput = ( props ) => {
 	const {
-		attributes,
 		id,
+		attributes,
 		isAnimating,
 		required,
 		setIsValid,
-		isReviewing,
 		setIsAnswered,
 		isFocused,
 		isActive,
+		setValidationErr,
+		showSubmitBtn,
 		val,
 		setVal,
-		setShowErr,
-		setErrMsgKey,
 	} = props;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const elemRef = useRef();
+	const messages = useMetaField( 'messages' );
 
 	const validateUrl = ( url ) => {
 		const pattern = new RegExp(
@@ -44,13 +49,13 @@ const WebsiteOutput = ( props ) => {
 	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.required' );
+			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else if ( ! validateUrl( value ) && value !== '' ) {
 			setIsValid( false );
-			setErrMsgKey( "hmmm.. That doesn't look a valid url!" );
+			setValidationErr( messages[ 'label.errorAlert.url' ] );
 		} else {
 			setIsValid( true );
-			setErrMsgKey( null );
+			setValidationErr( null );
 		}
 	};
 
@@ -71,18 +76,18 @@ const WebsiteOutput = ( props ) => {
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	useEffect( () => {
-		setShowErr( false );
 		checkfieldValidation( val, false );
-	}, [ isReviewing, attributes ] );
+	}, [ attributes ] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		setErrMsgKey( null );
 		checkfieldValidation( value );
 		setVal( value );
 		if ( value !== '' ) {
+			showSubmitBtn( true );
 			setIsAnswered( true );
 		} else {
+			showSubmitBtn( false );
 			setIsAnswered( false );
 		}
 	};
@@ -98,7 +103,6 @@ const WebsiteOutput = ( props ) => {
 				} }
 			>
 				<input
-					type="text"
 					ref={ elemRef }
 					className={
 						'question__InputField' +
