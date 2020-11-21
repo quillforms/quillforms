@@ -33,8 +33,10 @@
 		"libphonenumber-js": "^1.7.30",
 		"react-autosize-textarea": "^7.0.0",
 		"react-dropzone": "^10.2.1",
+		"react-sortablejs": "^6.0.0",
 		"react-text-mask": "^5.4.3",
 		"react-visibility-sensor": "^5.1.1",
+		"sortablejs": "^1.12.0",
 		"text-mask-addons": "^3.8.0",
 		"uuid": "^8.1.0"
 	},
