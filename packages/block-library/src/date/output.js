@@ -1,4 +1,9 @@
 /**
+ * QuillForms Dependencies
+ */
+import { useMetaField } from '@quillforms/renderer-components';
+
+/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -13,42 +18,42 @@ import VisibilitySensor from 'react-visibility-sensor';
 
 const DateOutput = ( props ) => {
 	const {
-		required,
+		id,
 		isAnimating,
+		required,
 		attributes,
 		setIsValid,
 		setIsAnswered,
-		isReviewing,
-		isActive,
 		isFocused,
+		isActive,
+		setValidationErr,
+		showSubmitBtn,
 		val,
 		setVal,
-		setErrMsgKey,
-		setShowErr,
 	} = props;
 	const { format, separator } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-
+	const messages = useMetaField( 'messages' );
 	const elemRef = useRef();
 
 	const checkfieldValidation = ( value ) => {
 		const date = moment( value );
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.required' );
+			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else if ( ! date.isValid() ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.date' );
+			setValidationErr( messages[ 'label.errorAlert.date' ] );
 		} else {
 			setIsValid( true );
-			setErrMsgKey( null );
+			setValidationErr( null );
 		}
 	};
 
 	useEffect( () => {
 		checkfieldValidation( val );
-	}, [ isReviewing, required ] );
+	}, [ required, attributes ] );
 
 	useEffect( () => {
 		if ( isActive ) {
@@ -68,13 +73,14 @@ const DateOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		setShowErr( false );
 		checkfieldValidation( value );
 		setVal( value );
 		if ( value !== '' ) {
 			setIsAnswered( true );
+			showSubmitBtn( true );
 		} else {
 			setIsAnswered( false );
+			showSubmitBtn( false );
 		}
 	};
 
@@ -132,6 +138,7 @@ const DateOutput = ( props ) => {
 				} }
 			>
 				<MaskedInput
+					id={ `date-input-${ id }` }
 					onChange={ changeHandler }
 					ref={ elemRef }
 					className={
