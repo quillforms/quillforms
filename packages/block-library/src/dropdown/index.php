@@ -88,19 +88,19 @@ class QF_Dropdown extends QF_Block {
 	 */
 	public function get_attributes() {
 		return array(
-			'choices'   => array(
+			'choices'  => array(
 				'type'    => 'array',
 				'items'   => array(
 					'type'       => 'object',
 					'properties' => array(
-						'ref'   => array(
-							'type' => 'string',
-						),
 						'label' => array(
 							'type' => 'string',
 						),
+						'ref'   => array(
+							'type' => 'string',
+						),
 						'score' => array(
-							'type' => 'boolean',
+							'type' => 'number',
 						),
 					),
 				),
@@ -112,8 +112,9 @@ class QF_Dropdown extends QF_Block {
 					),
 				),
 			),
-			'set_score' => array(
-				'type' => 'boolean',
+			'setScore' => array(
+				'type'    => 'boolean',
+				'default' => false,
 			),
 		);
 	}

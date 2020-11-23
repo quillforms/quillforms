@@ -6,30 +6,38 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	Button,
-	TextControl,
+	__experimentalDragDropContext,
+	__experimentalDroppable,
 } from '@quillforms/builder-components';
 
 /**
  * WordPress Dependecies
  */
-import { Fragment, useState, useRef } from '@wordpress/element';
+import { Fragment, useState, useRef, useMemo } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
-import AddIcon from '@material-ui/icons/Add';
+import { FixedSizeList as List } from 'react-window';
+import Checkbox from '@material-ui/core/Checkbox';
 import uuid from 'uuid/v4';
-import RemoveIcon from '@material-ui/icons/Remove';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import { css } from 'emotion';
 
+/**
+ * Internal Dependencies
+ */
+import { ChoiceContextProvider } from './choices-context';
+import ChoiceWrapper from './choice-wrapper';
+import ChoiceRow from './choice-row';
+
 const DropdownControls = ( props ) => {
 	const {
 		id,
-		attributes: { choices },
+		attributes: { choices, setScore },
 		setAttributes,
 	} = props;
 	const [ bulkDialogOpen, setBulkDialogOpen ] = useState( false );
@@ -37,72 +45,161 @@ const DropdownControls = ( props ) => {
 	const bulkTextAreaRef = useRef();
 
 	const insertBulkChoices = () => {
+		const $choices = [ ...choices ];
+
 		bulkChoicesTxt
 			.trim()
 			.split( '\n' )
 			.forEach( ( item ) => {
-				choices.push( { ref: uuid(), label: item } );
+				$choices.push( { ref: uuid(), label: item, score: 0 } );
 			} );
-		setAttributes( { choices } );
+		setAttributes( { choices: $choices } );
 		setBulkDialogOpen( false );
 	};
 
-	const choiceChangeHandler = ( val, index ) => {
-		choices[ index ].label = val;
-		setAttributes( { choices } );
+	const labelChangeHandler = ( val, index ) => {
+		const $choices = [ ...choices ];
+		$choices[ index ] = { ...$choices[ index ], label: val };
+		setAttributes( { choices: $choices } );
 	};
 
-	const addNewChoice = () => {
-		choices.push( { value: '', label: '' } );
-		setAttributes( { choices } );
+	const scoreChangeHandler = ( val, index ) => {
+		const $choices = [ ...choices ];
+		$choices[ index ] = { ...$choices[ index ], score: parseInt( val ) };
+		setAttributes( { choices: $choices } );
 	};
 
-	const choiceRemoveHandler = ( ref ) => {
+	const addChoice = ( at ) => {
+		const $choices = [ ...choices ];
+		$choices.splice( at, 0, {
+			ref: uuid(),
+			label: '',
+			score: 0,
+		} );
+		setAttributes( { choices: $choices } );
+	};
+
+	const deleteChoice = ( ref ) => {
 		const index = choices.findIndex( ( choice ) => choice.ref === ref );
-		choices.splice( index, 1 );
-		setAttributes( { choices } );
+		const $choices = [ ...choices ];
+		$choices.splice( index, 1 );
+		setAttributes( { choices: $choices } );
 	};
 
-	const choicesMap = choices.map( ( choice, index ) => {
-		return (
-			<div
-				key={ choice.ref }
-				className="qf-block-dropdown__choice-wrapper"
-			>
-				<TextControl
-					className={ css`
-						width: 100%;
-					` }
-					value={ choice.label }
-					setValue={ ( val ) => choiceChangeHandler( val, index ) }
-				/>
-				<div className="qf-block-dropdown__choice-actions">
-					<div className="qf-block-dropdown__choice-add">
-						<AddIcon onClick={ addNewChoice } />
-					</div>
-					{ choices.length > 1 && (
-						<div className="qf-block-dropdown__choice-remove">
-							<RemoveIcon
-								onClick={ () => {
-									choiceRemoveHandler( choice.ref );
-								} }
-							/>
-						</div>
-					) }
-				</div>
-			</div>
-		);
-	} );
+	const context = {
+		addChoice,
+		labelChangeHandler,
+		scoreChangeHandler,
+		deleteChoice,
+		setScore,
+	};
 	return (
 		<Fragment>
 			<__experimentalBaseControl>
 				<__experimentalControlWrapper orientation="horizontal">
 					<__experimentalControlLabel label="Choices" />
+					<div>
+						<Checkbox
+							checked={ setScore }
+							onClick={ () => {
+								setAttributes( { setScore: ! setScore } );
+							} }
+							size="small"
+						/>
+						Set Score
+					</div>
 				</__experimentalControlWrapper>
 				<__experimentalControlWrapper orientation="vertical">
-					<div className="qf-block-dropdown__choices-wrapper">
-						{ choicesMap }
-					</div>
+					<__experimentalDragDropContext
+						onDragEnd={ ( result ) => {
+							const { source, destination } = result;
+							if (
+								! result.destination ||
+								result.source.index === result.destination.index
+							) {
+								return;
+							}
+
+							const sourceIndex = source.index;
+							const destinationIndex = destination.index;
+							const $choices = [ ...choices ];
+							const output = Array.from( $choices );
+							const [ removed ] = output.splice( sourceIndex, 1 );
+							output.splice( destinationIndex, 0, removed );
+							setAttributes( {
+								choices: output,
+							} );
+						} }
+					>
+						<ChoiceContextProvider
+							// It is important to return the same object if props haven't
+							// changed to avoid  unnecessary rerenders.
+							// See https://reactjs.org/docs/context.html#caveats.
+							value={ useMemo(
+								() => context,
+								Object.values( context )
+							) }
+						>
+							{ setScore && (
+								<div className="qf-block-dropdown__choices-header">
+									<div> Label </div>
+									<div> Score</div>
+								</div>
+							) }
+							<__experimentalDroppable
+								droppableId="CHOICES_DROP_AREA"
+								mode="virtual"
+								renderClone={ (
+									provided,
+									snapshot,
+									rubric
+								) => {
+									return (
+										<div
+											{ ...provided.draggableProps }
+											{ ...provided.dragHandleProps }
+											ref={ provided.innerRef }
+											style={ {
+												...provided.draggableProps
+													.style,
+											} }
+										>
+											<ChoiceRow
+												choices={ choices }
+												index={ rubric.source.index }
+												provided={ provided }
+											/>
+										</div>
+									);
+								} }
+							>
+								{ ( provided, snapshot ) => {
+									const itemCount = snapshot.isUsingPlaceholder
+										? choices.length + 1
+										: choices.length;
+
+									return (
+										<div
+											ref={ provided.innerRef }
+											{ ...provided.droppableProps }
+										>
+											<List
+												className="qf-block-dropdown__choices-wrapper"
+												outerRef={ provided.innerRef }
+												height={ 250 }
+												width={ '100%' }
+												itemCount={ itemCount }
+												itemSize={ 54 }
+												itemData={ choices }
+											>
+												{ ChoiceWrapper }
+											</List>
+										</div>
+									);
+								} }
+							</__experimentalDroppable>
+						</ChoiceContextProvider>
+					</__experimentalDragDropContext>
 					<Button
 						isSecondary
 						isDefault

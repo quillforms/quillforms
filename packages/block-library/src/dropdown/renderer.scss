@@ -48,6 +48,8 @@
 		}
 	}
 
+
+
 	.dropdown__icon,
 	.close__icon {
 		& {
@@ -57,9 +59,19 @@
 			cursor: pointer;
 		}
 
-		svg {
-			width: 26px;
-			height: 26px;
-		}
+
+	}
+}
+
+.dropdown__icon,
+.close__icon  {
+	position: absolute;
+	right: 0;
+	bottom: 4px;
+	cursor: pointer;
+
+	svg {
+		width: 26px;
+		height: 26px;
 	}
 }

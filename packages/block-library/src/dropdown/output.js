@@ -1,5 +1,10 @@
 /* eslint-disable no-nested-ternary */
 /**
+ * QuillForms Dependencies
+ */
+import { useMetaField } from '@quillforms/renderer-components';
+
+/**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -15,21 +20,21 @@ import VisibilitySensor from 'react-visibility-sensor';
 import DropdownIcon from './dropdownIcon';
 import CloseIcon from './closeIcon';
 
+let timer;
 const DropdownOutput = ( props ) => {
 	const {
 		id,
-		isAnimating,
 		attributes,
+		isAnimating,
 		required,
 		setIsValid,
 		setIsAnswered,
-		isReviewing,
-		isActive,
 		isFocused,
-		next,
-		setErrMsgKey,
+		isActive,
+		setValidationErr,
 		val,
 		setVal,
+		next,
 	} = props;
 	let { choices } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
@@ -38,6 +43,7 @@ const DropdownOutput = ( props ) => {
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
 	const elemRef = useRef();
 	const wrapperRef = useRef();
+	const messages = useMetaField( 'messages' );
 
 	choices = choices
 		.map( ( choice, index ) => {
@@ -56,10 +62,10 @@ const DropdownOutput = ( props ) => {
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val === '' ) ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.required' );
+			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else {
 			setIsValid( true );
-			setErrMsgKey( null );
+			setValidationErr( null );
 		}
 	};
 
@@ -83,7 +89,7 @@ const DropdownOutput = ( props ) => {
 
 	useEffect( () => {
 		checkfieldValidation( val );
-	}, [ isReviewing, required, attributes ] );
+	}, [ required, attributes ] );
 
 	useEffect( () => {
 		if ( isActive ) {
@@ -104,8 +110,12 @@ const DropdownOutput = ( props ) => {
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	const changeHandler = ( e ) => {
+		clearTimeout( timer );
 		setSearchKeyword( e.target.value );
 		checkfieldValidation( e.target.value );
+		timer = setTimeout( () => {
+			next();
+		}, 400 );
 		if ( val ) {
 			setIsAnswered( false );
 			setSearchKeyword( '' );
@@ -114,7 +124,11 @@ const DropdownOutput = ( props ) => {
 	};
 
 	return (
-		<div className="question__wrapper" ref={ wrapperRef }>
+		<div
+			className="question__wrapper"
+			ref={ wrapperRef }
+			style={ { position: 'relative' } }
+		>
 			<VisibilitySensor
 				resizeCheck={ true }
 				resizeThrottle={ 100 }
