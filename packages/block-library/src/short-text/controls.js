@@ -20,6 +20,7 @@ import Input from '@material-ui/core/Input';
 
 const shortTextControl = ( { attributes, setAttributes } ) => {
 	const { setMaxCharacters, maxCharacters } = attributes;
+	console.log( setMaxCharacters, maxCharacters );
 
 	return (
 		<Fragment>
