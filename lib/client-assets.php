@@ -182,7 +182,7 @@ function quillforms_register_packages_styles( $styles ) {
 			'quillforms-block-editor',
 			'quillforms-block-library-editor',
 			'quillforms-renderer-core',
-			// 'quillforms-theme-editor',
+			'quillforms-theme-editor',
 			'quillforms-notifications-editor',
 			'quillforms-messages-editor',
 			'wp-components',
@@ -272,15 +272,15 @@ function quillforms_register_packages_styles( $styles ) {
 	);
 	$styles->add_data( 'quillforms-rich-text', 'rtl', 'replace' );
 
-	// // Theme Editor.
-	// quillforms_override_style(
-	// $styles,
-	// 'quillforms-theme-editor',
-	// quillforms_url( 'build/theme-editor/style.css' ),
-	// array( 'quillforms-rich-text' ),
-	// filemtime( quillforms_dir_path() . 'build/theme-editor/style.css' )
-	// );
-	// $styles->add_data( 'quillforms-theme-editor', 'rtl', 'replace' );
+	// Theme Editor.
+	quillforms_override_style(
+		$styles,
+		'quillforms-theme-editor',
+		quillforms_url( 'build/theme-editor/style.css' ),
+		array( 'quillforms-rich-text' ),
+		filemtime( quillforms_dir_path() . 'build/theme-editor/style.css' )
+	);
+	$styles->add_data( 'quillforms-theme-editor', 'rtl', 'replace' );
 
 	// Messages Editor.
 	quillforms_override_style(
