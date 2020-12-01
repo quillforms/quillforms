@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
+import { useMetaField, useTheme } from '@quillforms/renderer-components';
 
 /**
  * WordPress Dependencies
@@ -14,6 +14,8 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 import MaskedInput from 'react-text-mask';
 import moment from 'moment';
 import { createAutoCorrectedDatePipe } from 'text-mask-addons';
+import { css } from 'emotion';
+import classnames from 'classnames';
 import VisibilitySensor from 'react-visibility-sensor';
 
 const DateOutput = ( props ) => {
@@ -35,6 +37,7 @@ const DateOutput = ( props ) => {
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const messages = useMetaField( 'messages' );
+	const theme = useTheme();
 	const elemRef = useRef();
 
 	const checkfieldValidation = ( value ) => {
@@ -52,7 +55,8 @@ const DateOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		checkfieldValidation( val );
+		console.log( '4tm' );
+		//checkfieldValidation( val );
 	}, [ required, attributes ] );
 
 	useEffect( () => {
@@ -141,10 +145,30 @@ const DateOutput = ( props ) => {
 					id={ `date-input-${ id }` }
 					onChange={ changeHandler }
 					ref={ elemRef }
-					className={
-						'question__InputField' +
-						( simulateFocusStyle ? ' no-border' : '' )
-					}
+					className={ classnames(
+						'question__InputField',
+						css`
+							color: ${theme.answersColor};
+
+							&::placeholder {
+								/* Chrome, Firefox, Opera, Safari 10.1+ */
+								color: ${theme.answersColor};
+							}
+
+							&:-ms-input-placeholder {
+								/* Internet Explorer 10-11 */
+								color: ${theme.answersColor};
+							}
+
+							&::-ms-input-placeholder {
+								/* Microsoft Edge */
+								color: ${theme.answersColor};
+							}
+						`,
+						{
+							'no-border': simulateFocusStyle,
+						}
+					) }
 					placeholder={ getPlaceholder() }
 					mask={ getMask() }
 					pipe={ autoCorrectedDatePipe }
