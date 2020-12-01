@@ -33,6 +33,23 @@ export function getWelcomeScreensLength( state ) {
 }
 
 /**
+ * Returns a block's attributes given its id, or null if no block exists with
+ * the block id.
+ *
+ * @param {Object} state      Editor state.
+ * @param {string} blockId    Block id.
+ *
+ * @return {Object?} Block attributes.
+ */
+export function getBlockAttributes( state, blockId ) {
+	const blockIndex = state.blocks.findIndex(
+		( $block ) => $block.id === blockId
+	);
+	if ( blockIndex === -1 ) return null;
+	return state.blocks[ blockIndex ].attributes;
+}
+
+/**
  * Get block by id
  *
  * @param {Object} 	state      Global application state.
@@ -46,7 +63,7 @@ export const getBlockById = createSelector(
 		if ( ! block ) return null;
 		return {
 			...block,
-			attributes: cloneDeep( block.attributes ),
+			attributes: getBlockAttributes( state, blockId ),
 		};
 	},
 	( state, blockId ) => [
