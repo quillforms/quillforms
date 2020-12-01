@@ -83,6 +83,7 @@
 		"@quillforms/renderer-core": "file:packages/renderer-core",
 		"@quillforms/rest-fields": "file:packages/rest-fields",
 		"@quillforms/rich-text": "file:packages/rich-text",
+		"@quillforms/theme-editor": "file:packages/theme-editor",
 		"@woocommerce/navigation": "5.0.0",
 		"@wordpress/url": "2.18.0",
 		"classnames": "2.2.6",
