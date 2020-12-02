@@ -13,7 +13,7 @@
 		bottom: 0;
 		overflow-y: auto;
 		outline: none;
-		will-change: transform;
+		will-change: transform, z-index, visibility, opacity;
 	}
 
 	&.active {
@@ -26,22 +26,22 @@
 	}
 
 	&.moveUp {
-		-webkit-animation: animMoveUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-		animation: animMoveUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		-webkit-animation: animMoveUp 0.5s ease forwards;
+		animation: animMoveUp 0.5s ease forwards;
 	}
 
 	&.moveDown {
-		-webkit-animation: animMoveDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-		animation: animMoveDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		-webkit-animation: animMoveDown 0.5s ease forwards;
+		animation: animMoveDown 0.5s ease forwards;
 	}
 	&.active.moveUpFromDown {
-		-webkit-animation: animMoveUpFromDown 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-		animation: animMoveUpFromDown 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		-webkit-animation: animMoveUpFromDown 0.6s ease forwards;
+		animation: animMoveUpFromDown 0.6s ease forwards;
 	}
 
 	&.active.moveDownFromUp {
-		-webkit-animation: animMoveDownFromUp 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-		animation: animMoveDownFromUp 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		-webkit-animation: animMoveDownFromUp 0.6s ease forwards;
+		animation: animMoveDownFromUp 0.6s ease forwards;
 	}
 
 	&.active {
@@ -85,10 +85,6 @@
 		opacity: 1;
 	}
 
-	50% {
-		opacity: 0.3;
-	}
-
 	100% {
 		transform: translate3d(0, -100vh, 0);
 		-webkit-transform: translate3d(0, -100vh, 0);
@@ -104,9 +100,7 @@
 		visibility: visible;
 		opacity: 1;
 	}
-	50% {
-		opacity: 0.3;
-	}
+
 	100% {
 		transform: translate3d(0, 100vh, 0);
 		-webkit-transform: translate3d(0, 100vh, 0);
@@ -123,10 +117,6 @@
 		opacity: 0;
 	}
 
-	50% {
-		opacity: 0.3;
-	}
-
 	100% {
 		transform: translate3d(0, 0, 0);
 		-webkit-transform: translate3d(0, 0, 0);
@@ -141,10 +131,6 @@
 		-webkit-transform: translate3d(0, -100vh, 0);
 		visibility: hidden;
 		opacity: 0;
-	}
-
-	50% {
-		opacity: 0.3;
 	}
 
 	100% {
@@ -170,24 +156,4 @@
 	}
 }
 
-@keyframes sf-animation-vibrate {
-	0% {
-		transform: scale(1);
-	}
 
-	25% {
-		transform: scale(0.97);
-	}
-
-	50% {
-		transform: scale(0.99);
-	}
-
-	75% {
-		transform: scale(0.97);
-	}
-
-	100% {
-		transform: scale(1);
-	}
-}
