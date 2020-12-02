@@ -1,7 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
+import { useMetaField, useTheme } from '@quillforms/renderer-components';
 
 /**
  * WordPress Dependencies
@@ -12,6 +12,8 @@ import { useState, useEffect, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import VisibilitySensor from 'react-visibility-sensor';
+import { css } from 'emotion';
+import classnames from 'classnames';
 
 const WebsiteOutput = ( props ) => {
 	const {
@@ -32,6 +34,7 @@ const WebsiteOutput = ( props ) => {
 	const [ isVisible, setIsVisible ] = useState( false );
 	const elemRef = useRef();
 	const messages = useMetaField( 'messages' );
+	const theme = useTheme();
 
 	const validateUrl = ( url ) => {
 		const pattern = new RegExp(
@@ -104,10 +107,30 @@ const WebsiteOutput = ( props ) => {
 			>
 				<input
 					ref={ elemRef }
-					className={
-						'question__InputField' +
-						( simulateFocusStyle ? ' no-border' : '' )
-					}
+					className={ classnames(
+						'question__InputField',
+						css`
+							color: ${theme.answersColor};
+
+							&::placeholder {
+								/* Chrome, Firefox, Opera, Safari 10.1+ */
+								color: ${theme.answersColor};
+							}
+
+							&:-ms-input-placeholder {
+								/* Internet Explorer 10-11 */
+								color: ${theme.answersColor};
+							}
+
+							&::-ms-input-placeholder {
+								/* Microsoft Edge */
+								color: ${theme.answersColor};
+							}
+						`,
+						{
+							'no-border': simulateFocusStyle,
+						}
+					) }
 					id={ 'website-' + id }
 					placeholder="https://"
 					onChange={ changeHandler }
