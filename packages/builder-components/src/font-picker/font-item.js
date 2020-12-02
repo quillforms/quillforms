@@ -31,11 +31,11 @@ const FontItem = ( { font, fontType } ) => {
 		link.rel = 'stylesheet';
 		link.href = fontUrl;
 
-		head.appendChild( link );
-
-		return () => {
-			head.removeChild( link );
-		};
+		if (
+			fontUrl &&
+			! document.querySelector( `link[href='${ link.href }']` )?.length
+		)
+			head.appendChild( link );
 	}, [] );
 
 	return (
