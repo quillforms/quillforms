@@ -1,23 +1,34 @@
 /**
  * WordPress Dependencies
  */
+import { useMetaField, useTheme } from '@quillforms/renderer-components';
 import { useEffect } from '@wordpress/element';
 
-const DropdownOutput = ( props ) => {
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
+import classnames from 'classnames';
+import tinyColor from 'tinycolor2';
+
+const MultipleChoiceOutput = ( props ) => {
 	const {
+		id,
 		attributes,
 		required,
 		setIsValid,
 		setIsAnswered,
-		isReviewing,
-		next,
+		showSubmitBtn,
+		setValidationErr,
 		val,
 		setVal,
-		setErrMsgKey,
-		setShowErr,
+		next,
 	} = props;
 	let { choices, multiple, verticalAlign } = attributes;
+	const messages = useMetaField( 'messages' );
 	const charCode = 'a'.charCodeAt( 0 );
+	const theme = useTheme();
+	const answersColor = tinyColor( theme.answersColor );
 
 	// Simple algorithm to generate alphabatical idented order
 	const identName = ( a ) => {
@@ -58,22 +69,26 @@ const DropdownOutput = ( props ) => {
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val.length === 0 ) ) {
 			setIsValid( false );
-			setErrMsgKey( 'label.errorAlert.required' );
+			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else {
 			setIsValid( true );
-			setErrMsgKey( null );
+			setValidationErr( null );
 		}
 	};
 
 	useEffect( () => {
-		setShowErr( false );
 		checkfieldValidation( val );
-	}, [ isReviewing, attributes ] );
+	}, [ attributes ] );
 
 	useEffect( () => {
-		if ( isReviewing ) setShowErr( true );
-	}, [ isReviewing ] );
-
+		if ( multiple ) {
+			if ( val?.length > 0 ) {
+				showSubmitBtn( true );
+			} else {
+				showSubmitBtn( false );
+			}
+		}
+	}, [ val ] );
 	return (
 		<div className="question__wrapper">
 			<div
@@ -87,17 +102,76 @@ const DropdownOutput = ( props ) => {
 					choices.map( ( choice, index ) => {
 						return (
 							<div
-								role="button"
-								tabIndex="-1"
-								key={ choice.ref }
-								className={
-									'multipleChoice__optionWrapper' +
-									( choice.selected === true
-										? ' selected'
-										: '' )
-								}
-								onMouseDown={ () => {
-									let $val = val;
+								role="presentation"
+								key={ `block-multiple-choice-${ id }-choice-${ choice.ref }` }
+								className={ classnames(
+									'multipleChoice__optionWrapper',
+									{
+										selected: choice.selected,
+									},
+									css`
+										background: ${tinyColor(
+											theme.answersColor
+										)
+											.setAlpha( 0.1 )
+											.toString()};
+
+										border-color: ${theme.answersColor};
+										color: ${theme.answersColor};
+
+										&:hover {
+											background: ${tinyColor(
+												theme.answersColor
+											)
+												.setAlpha( 0.2 )
+												.toString()};
+										}
+
+										&.selected {
+											background: ${tinyColor(
+												theme.answersColor
+											)
+												.setAlpha( 0.75 )
+												.toString()};
+											color: ${tinyColor(
+												theme.answersColor
+											).isDark()
+												? '#fff'
+												: tinyColor(
+														theme.answersColor
+												  )
+														.darken( 20 )
+
+														.toString()};
+
+											.multipleChoice__optionKey {
+												color: ${tinyColor(
+													theme.answersColor
+												).isDark()
+													? '#fff'
+													: tinyColor(
+															theme.answersColor
+													  )
+															.darken( 20 )
+
+															.toString()};
+
+												border-color: ${tinyColor(
+													theme.answersColor
+												).isDark()
+													? '#fff'
+													: tinyColor(
+															theme.answersColor
+													  )
+															.darken( 20 )
+
+															.toString()};
+											}
+										}
+									`
+								) }
+								onClick={ () => {
+									let $val = [ ...val ];
 									if ( ! $val ) $val = [];
 									if ( choice.selected ) {
 										$val.splice(
@@ -111,21 +185,24 @@ const DropdownOutput = ( props ) => {
 									} else {
 										if ( multiple )
 											$val.push( {
-												id: choice.ref,
+												ref: choice.ref,
 												label: choice.label,
 											} );
 										else
 											$val = [
 												{
-													id: choice.ref,
+													ref: choice.ref,
 													label: choice.label,
 												},
 											];
 										setVal( $val );
-										if ( ! multiple )
+										if ( multiple ) {
+											showSubmitBtn( true );
+										} else {
 											setTimeout( () => {
 												next();
 											}, 700 );
+										}
 									}
 
 									if ( $val.length > 0 )
@@ -136,8 +213,41 @@ const DropdownOutput = ( props ) => {
 								<span className="multipleChoice__optionLabel">
 									{ choice.label }
 								</span>
-								<span className="multipleChoice__optionKey">
-									<span className="multipleChoice__optionKeyTip">
+								<span
+									className={ classnames(
+										'multipleChoice__optionKey',
+										css`
+											background: ${tinyColor(
+												theme.answersColor
+											)
+												.setAlpha( 0.1 )
+												.toString()};
+											color: ${theme.answersColor};
+											border-color: ${tinyColor(
+												theme.answersColor
+											)
+												.setAlpha( 0.4 )
+												.toString()};
+										`
+									) }
+								>
+									<span
+										className={ classnames(
+											'multipleChoice__optionKeyTip',
+											css`
+												background: ${theme.answersColor};
+												color: ${tinyColor(
+													theme.answersColor
+												).isDark()
+													? '#fff'
+													: tinyColor(
+															theme.answersColor
+													  )
+															.darken( 20 )
+															.toString()};
+											`
+										) }
+									>
 										KEY
 									</span>
 									{ identName( index ).toUpperCase() }
@@ -149,4 +259,4 @@ const DropdownOutput = ( props ) => {
 		</div>
 	);
 };
-export default DropdownOutput;
+export default MultipleChoiceOutput;

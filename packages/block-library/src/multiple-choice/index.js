@@ -22,14 +22,7 @@ export const settings = {
 	},
 	rendererConfig: {
 		output,
-		getRawValue: ( val ) =>
+		getMergeTagVal: ( val ) =>
 			val.map( ( choice ) => choice.label ).join( ', ' ),
-		hasSubmitBtn: ( args ) => {
-			const {
-				attributes: { multiple },
-			} = args;
-			if ( multiple ) return true;
-			return false;
-		},
 	},
 };

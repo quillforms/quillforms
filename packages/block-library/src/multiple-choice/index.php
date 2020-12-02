@@ -115,7 +115,7 @@ class QF_Multiple_Choice extends QF_Block {
 				),
 				'default' => array(
 					array(
-						'ref'   => '123e4567-e89b-12d3-a456-426614174000',
+						'ref'   => '124e4567-e89b-12d3-a456-426614174000',
 						'label' => 'Choice 1',
 						'score' => '0',
 					),
@@ -125,7 +125,8 @@ class QF_Multiple_Choice extends QF_Block {
 				'type' => 'boolean',
 			),
 			'setScore' => array(
-				'type' => 'boolean',
+				'type'    => 'boolean',
+				'default' => false,
 			),
 		);
 	}
