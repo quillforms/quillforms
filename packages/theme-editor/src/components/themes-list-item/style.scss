@@ -1,0 +1,41 @@
+.theme-editor-themes-list-item {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+
+	.theme-editor-themes-list-item__header {
+		height: 135px;
+		width: 100%;
+		padding: 30px;
+
+		.theme-editor-themes-list-item__header-question {
+			margin-bottom: 5px;
+			font-size: 16px;
+		}
+
+		.theme-editor-themes-list-item__header-answer {
+			margin-bottom: 15px;
+		}
+
+		.theme-editor-themes-list-item__header-buttons {
+			width: 60px;
+			height: 20px;
+			border-radius: 3px
+		}
+	}
+
+	.theme-editor-themes-list-item__footer {
+		display: flex;
+		height: calc(100% - 135px);
+		flex-wrap: wrap;
+		padding: 10px;
+		justify-content: space-between;
+		align-items: center;
+		border-top: 1px solid #e3e3e3;
+		background: #fff;
+	}
+}
+
+
