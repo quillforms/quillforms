@@ -1,7 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
+import { useMetaField, useTheme } from '@quillforms/renderer-components';
 
 /**
  * WordPress Dependencies
@@ -12,6 +12,8 @@ import { useState, useEffect, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import VisibilitySensor from 'react-visibility-sensor';
+import { css } from 'emotion';
+import classnames from 'classnames';
 
 const NumberOutput = ( props ) => {
 	const {
@@ -34,6 +36,7 @@ const NumberOutput = ( props ) => {
 	const [ isVisible, setIsVisible ] = useState( false );
 
 	const messages = useMetaField( 'messages' );
+	const theme = useTheme();
 
 	const elemRef = useRef();
 
@@ -102,10 +105,30 @@ const NumberOutput = ( props ) => {
 				} }
 			>
 				<input
-					className={
-						'question__InputField' +
-						( simulateFocusStyle ? ' no-border' : '' )
-					}
+					className={ classnames(
+						'question__InputField',
+						css`
+							color: ${theme.answersColor};
+
+							&::placeholder {
+								/* Chrome, Firefox, Opera, Safari 10.1+ */
+								color: ${theme.answersColor};
+							}
+
+							&:-ms-input-placeholder {
+								/* Internet Explorer 10-11 */
+								color: ${theme.answersColor};
+							}
+
+							&::-ms-input-placeholder {
+								/* Microsoft Edge */
+								color: ${theme.answersColor};
+							}
+						`,
+						{
+							'no-border': simulateFocusStyle,
+						}
+					) }
 					ref={ elemRef }
 					id={ 'number-' + id }
 					onBlur={ () => {
