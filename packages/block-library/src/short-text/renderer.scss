@@ -7,7 +7,6 @@
 		outline: none;
 		font-size: 30px;
 		padding-bottom: 8px;
-		color: #333;
 		transition: 0.2s border ease-in-out;
 		background: transparent;
 	}
@@ -21,10 +20,4 @@
 		border-bottom: 1px solid transparent;
 	}
 }
-.sf-err-msg {
-	background: #bf4b4b;
-	color: #fff;
-	padding: 6px 12px;
-	display: inline-block;
-	border-radius: 5px;
-}
+
