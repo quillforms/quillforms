@@ -28,20 +28,14 @@
 		& {
 			padding: 10px;
 			margin-bottom: 8px;
-			border: 1px solid;
+			border-width: 1px;
+			border-style: solid;
 			border-radius: 5px;
 			cursor: pointer;
-			background: rgba(0, 0, 0, 0.1);
-		}
-
-		&:hover {
-			background: rgba(0, 0, 0, 0.2);
 		}
 
 		&.selected {
-			background-color: #000;
-			color: #fff;
-			animation-name: sf-animation-vibrate;
+			animation-name: qf-dropdown-vibrate;
 			animation-duration: 0.4s;
 			animation-timing-function: linear;
 			animation-fill-mode: forwards;
@@ -73,5 +67,28 @@
 	svg {
 		width: 26px;
 		height: 26px;
+	}
+}
+
+
+@keyframes qf-dropdown-vibrate {
+	0% {
+		transform: scale(1);
+	}
+
+	25% {
+		transform: scale(0.97);
+	}
+
+	50% {
+		transform: scale(0.99);
+	}
+
+	75% {
+		transform: scale(0.97);
+	}
+
+	100% {
+		transform: scale(1);
 	}
 }

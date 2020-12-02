@@ -2,7 +2,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
+import { useMetaField, useTheme } from '@quillforms/renderer-components';
 
 /**
  * WordPress Dependencies
@@ -13,7 +13,9 @@ import { useState, useEffect, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import VisibilitySensor from 'react-visibility-sensor';
-
+import { css } from 'emotion';
+import classnames from 'classnames';
+import tinyColor from 'tinycolor2';
 /**
  * Internal Dependencies
  */
@@ -44,7 +46,8 @@ const DropdownOutput = ( props ) => {
 	const elemRef = useRef();
 	const wrapperRef = useRef();
 	const messages = useMetaField( 'messages' );
-
+	const theme = useTheme();
+	const answersColor = tinyColor( theme.answersColor );
 	choices = choices
 		.map( ( choice, index ) => {
 			if ( ! choice.label ) choice.label = 'Choice ' + ( index + 1 );
@@ -54,11 +57,6 @@ const DropdownOutput = ( props ) => {
 			choice.label.toLowerCase().includes( searchKeyword.toLowerCase() )
 		);
 
-	let selectedChoiceIndex = -1;
-	if ( val && val.length > 0 )
-		selectedChoiceIndex = choices.findIndex(
-			( choice ) => choice.ref === val.ref
-		);
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val === '' ) ) {
 			setIsValid( false );
@@ -93,7 +91,6 @@ const DropdownOutput = ( props ) => {
 
 	useEffect( () => {
 		if ( isActive ) {
-			setSearchKeyword( '' );
 			if ( isFocused && isAnimating ) {
 				setSimulateFocusStyle( true );
 				return;
@@ -110,18 +107,17 @@ const DropdownOutput = ( props ) => {
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	const changeHandler = ( e ) => {
-		clearTimeout( timer );
-		setSearchKeyword( e.target.value );
-		checkfieldValidation( e.target.value );
-		timer = setTimeout( () => {
-			next();
-		}, 400 );
-		if ( val ) {
-			setIsAnswered( false );
-			setSearchKeyword( '' );
+		if ( val?.ref ) {
 			setVal( null );
+			setSearchKeyword( '' );
+			return;
 		}
+		setSearchKeyword( e.target.value );
 	};
+
+	useEffect( () => {
+		if ( val?.ref ) setSearchKeyword( val.label );
+	}, [] );
 
 	return (
 		<div
@@ -141,20 +137,35 @@ const DropdownOutput = ( props ) => {
 				<input
 					autoComplete="off"
 					ref={ elemRef }
-					className={
-						'question__InputField' +
-						( simulateFocusStyle ? ' no-border' : '' )
-					}
+					className={ classnames(
+						'question__InputField',
+						css`
+							color: ${theme.answersColor};
+
+							&::placeholder {
+								/* Chrome, Firefox, Opera, Safari 10.1+ */
+								color: ${theme.answersColor};
+							}
+
+							&:-ms-input-placeholder {
+								/* Internet Explorer 10-11 */
+								color: ${theme.answersColor};
+							}
+
+							&::-ms-input-placeholder {
+								/* Microsoft Edge */
+								color: ${theme.answersColor};
+							}
+						`,
+						{
+							'no-border': simulateFocusStyle,
+						}
+					) }
 					id={ 'dropdown-' + id }
 					placeholder="Type or select an option"
+					onFocus={ () => setShowDropdown( true ) }
 					onChange={ changeHandler }
-					value={
-						selectedChoiceIndex !== -1
-							? choices[ selectedChoiceIndex ].label
-							: searchKeyword
-							? searchKeyword
-							: ''
-					}
+					value={ searchKeyword }
 					onClick={ () => setShowDropdown( true ) }
 				/>
 			</VisibilitySensor>
@@ -183,19 +194,64 @@ const DropdownOutput = ( props ) => {
 							return (
 								<div
 									role="presentation"
-									key={ choice.ref }
-									className={
-										'dropdown__choiceWrapper' +
-										( !! val && val.ref === choice.ref
-											? ' selected'
-											: '' )
-									}
+									key={ `block-dropdown-${ id }-choice-${ choice.ref }` }
+									className={ classnames(
+										'dropdown__choiceWrapper',
+										{
+											selected:
+												!! val &&
+												val.ref === choice.ref,
+										},
+										css`
+											background: ${answersColor
+												.setAlpha( 0.1 )
+												.toString()};
+
+											border-color: ${theme.answersColor};
+											color: ${theme.answersColor};
+
+											&:hover {
+												background: ${answersColor
+													.setAlpha( 0.2 )
+													.toString()};
+											}
+
+											&.selected {
+												background: ${tinyColor(
+													theme.answersColor
+												)
+													.setAlpha( 0.75 )
+													.toString()};
+												color: ${tinyColor(
+													theme.answersColor
+												).isDark()
+													? '#fff'
+													: tinyColor(
+															theme.answersColor
+													  )
+															.darken( 20 )
+															.toString()};
+											}
+										`
+									) }
 									onClick={ () => {
+										clearTimeout( timer );
+										if (
+											val?.ref &&
+											val.ref === choice.ref
+										) {
+											setVal( null );
+											setIsAnswered( false );
+											setSearchKeyword( '' );
+											return;
+										}
+										setIsAnswered( true );
 										setVal( {
 											ref: choice.ref,
 											label: choice.label,
 										} );
-										setTimeout( () => {
+										timer = setTimeout( () => {
+											setSearchKeyword( choice.label );
 											next();
 										}, 700 );
 									} }
