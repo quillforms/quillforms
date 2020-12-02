@@ -1,0 +1,12 @@
+.theme-editor-theme-card {
+	width: 170px;
+    height: 185px;
+    display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    border-radius: 10px;
+	box-shadow: 0 0 2px rgba(0,0,0,0.1);
+	overflow: hidden;
+}
