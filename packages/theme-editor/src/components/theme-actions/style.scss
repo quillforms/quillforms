@@ -1,0 +1,51 @@
+.theme-editor-theme-actions {
+	.theme-editor-theme-actions__dropdown {
+		button {
+			height: 28px;
+			padding: 2px;
+			transition: background 0.3s linear;
+
+			> svg {
+				color: #858789 !important;
+			}
+		}
+
+		button:hover {
+			border: none !important;
+			box-shadow: none !important;
+			background: #e3e3e3 !important;
+		}
+
+		.components-dropdown-menu__popover {
+			.components-popover__content  {
+				min-width: auto;
+				width: 120px;
+				border-radius: 7px;
+				padding: 10px 0;
+			}
+
+			&:after, &:before {
+				display: none;
+			}
+		}
+
+		.components-menu-item__button {
+			padding-left: 1rem;
+			outline: none !important;
+		}
+
+		.theme-editor-theme-actions__menu-group {
+			padding: 0;
+
+			.theme-editor-theme-actions__menu-item {
+				font-size: 14px;
+				margin-bottom: 5px;
+			}
+
+			.theme-editor-theme-actions__delete-theme {
+				color: #f46262 !important;
+			}
+		}
+	}
+
+}
