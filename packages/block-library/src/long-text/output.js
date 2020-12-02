@@ -1,7 +1,11 @@
 /**
  * QuillForms Depndencies
  */
-import { useMetaField, HtmlParser } from '@quillforms/renderer-components';
+import {
+	useMetaField,
+	useTheme,
+	HtmlParser,
+} from '@quillforms/renderer-components';
 
 /**
  * WordPress Dependencies
@@ -13,6 +17,8 @@ import { useState, useEffect, useRef } from '@wordpress/element';
  */
 import VisibilitySensor from 'react-visibility-sensor';
 import TextareaAutosize from 'react-autosize-textarea';
+import { css } from 'emotion';
+import classnames from 'classnames';
 
 const LongTextOutput = ( props ) => {
 	const {
@@ -34,6 +40,7 @@ const LongTextOutput = ( props ) => {
 	const [ isVisible, setIsVisible ] = useState( false );
 	const { setMaxCharacters, maxCharacters } = attributes;
 	const messages = useMetaField( 'messages' );
+	const theme = useTheme();
 	const elemRef = useRef( null );
 
 	const checkfieldValidation = ( value ) => {
@@ -119,10 +126,30 @@ const LongTextOutput = ( props ) => {
 				<TextareaAutosize
 					ref={ elemRef }
 					onKeyDown={ keyDownHandler }
-					className={
-						'question__TextareaField' +
-						( simulateFocusStyle ? ' no-border' : '' )
-					}
+					className={ classnames(
+						'question__InputField',
+						css`
+							color: ${theme.answersColor};
+
+							&::placeholder {
+								/* Chrome, Firefox, Opera, Safari 10.1+ */
+								color: ${theme.answersColor};
+							}
+
+							&:-ms-input-placeholder {
+								/* Internet Explorer 10-11 */
+								color: ${theme.answersColor};
+							}
+
+							&::-ms-input-placeholder {
+								/* Microsoft Edge */
+								color: ${theme.answersColor};
+							}
+						`,
+						{
+							'no-border': simulateFocusStyle,
+						}
+					) }
 					id={ 'longText-' + id }
 					placeholder="Type your answer here..."
 					onChange={ changeHandler }

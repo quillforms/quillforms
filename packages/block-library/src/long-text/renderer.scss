@@ -4,6 +4,10 @@
 		width: 100%;
 		border: none;
 		border-bottom: 1px solid;
+		border-radius: 0;
+		box-shadow: none;
+		padding-left: 0;
+		padding-right:0;
 		outline: none;
 		font-size: 30px;
 		padding-bottom: 8px;
@@ -19,6 +23,13 @@
 
 	&:focus,
 	&.no-border {
+		border: none;
+		outline: none;
+		box-shadow: none;
 		border-bottom: 1px solid transparent;
 	}
+}
+
+.question__instruction {
+	margin-top: 8px;
 }
