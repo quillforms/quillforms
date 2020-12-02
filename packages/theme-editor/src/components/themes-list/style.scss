@@ -1,0 +1,11 @@
+.theme-editor-themes-list{
+	display: flex;
+    flex-wrap: wrap;
+    padding-left: 13px;
+    padding-top: 10px;
+
+	> div {
+		margin-right: 21px;
+		margin-bottom: 21px;
+	}
+}
