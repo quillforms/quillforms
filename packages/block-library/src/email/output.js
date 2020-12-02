@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
+import { useMetaField, useTheme } from '@quillforms/renderer-components';
 
 /**
  * WordPress Dependencies
@@ -12,6 +12,8 @@ import { useState, useEffect, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import VisibilitySensor from 'react-visibility-sensor';
+import { css } from 'emotion';
+import classnames from 'classnames';
 
 const EmailOutput = ( props ) => {
 	const {
@@ -19,7 +21,6 @@ const EmailOutput = ( props ) => {
 		isAnimating,
 		required,
 		setIsValid,
-		isReviewing,
 		setIsAnswered,
 		isFocused,
 		isActive,
@@ -31,6 +32,7 @@ const EmailOutput = ( props ) => {
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const messages = useMetaField( 'messages' );
+	const theme = useTheme();
 	const elemRef = useRef();
 
 	const validateEmail = ( email ) => {
@@ -72,7 +74,7 @@ const EmailOutput = ( props ) => {
 
 	useEffect( () => {
 		checkFieldValidation( val );
-	}, [ isReviewing, required ] );
+	}, [ required ] );
 
 	useEffect( () => {
 		if ( val && val.length > 0 ) {
@@ -108,10 +110,30 @@ const EmailOutput = ( props ) => {
 				>
 					<input
 						ref={ elemRef }
-						className={
-							'question__InputField' +
-							( simulateFocusStyle ? ' no-border' : '' )
-						}
+						className={ classnames(
+							'question__InputField',
+							css`
+								color: ${theme.answersColor};
+
+								&::placeholder {
+									/* Chrome, Firefox, Opera, Safari 10.1+ */
+									color: ${theme.answersColor};
+								}
+
+								&:-ms-input-placeholder {
+									/* Internet Explorer 10-11 */
+									color: ${theme.answersColor};
+								}
+
+								&::-ms-input-placeholder {
+									/* Microsoft Edge */
+									color: ${theme.answersColor};
+								}
+							`,
+							{
+								'no-border': simulateFocusStyle,
+							}
+						) }
 						id={ 'email-' + id }
 						placeholder="Type your email here..."
 						onChange={ changeHandler }
