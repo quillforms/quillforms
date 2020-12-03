@@ -2,14 +2,14 @@
  * WordPress Dependencies
  */
 import { useMetaField } from '@quillforms/renderer-components';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * Internal Dependencies
  */
-import ChoiceItem from './choice-item';
 import ChoicesWrapper from './choices-wrapper';
 
+let multipleChoiceTimer;
 const MultipleChoiceOutput = ( props ) => {
 	const {
 		id,
@@ -22,10 +22,12 @@ const MultipleChoiceOutput = ( props ) => {
 		val,
 		setVal,
 		next,
+		isActive,
+		isAnimating,
 	} = props;
 	const { multiple } = attributes;
 	const messages = useMetaField( 'messages' );
-
+	const [ choiceClicked, setChoiceClicked ] = useState( null );
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val.length === 0 ) ) {
 			setIsValid( false );
@@ -35,6 +37,21 @@ const MultipleChoiceOutput = ( props ) => {
 			setValidationErr( null );
 		}
 	};
+
+	useEffect( () => {
+		if ( ! isActive && ! isAnimating ) {
+			setChoiceClicked( null );
+		}
+	}, [ isActive, isAnimating ] );
+
+	useEffect( () => {
+		clearTimeout( multipleChoiceTimer );
+		if ( choiceClicked && val?.length > 0 && ! multiple ) {
+			multipleChoiceTimer = setTimeout( () => {
+				next();
+			}, 500 );
+		}
+	}, [ choiceClicked ] );
 
 	useEffect( () => {
 		checkfieldValidation( val );
@@ -60,10 +77,10 @@ const MultipleChoiceOutput = ( props ) => {
 		<div className="question__wrapper">
 			<ChoicesWrapper
 				attributes={ attributes }
-				next={ next }
 				id={ id }
 				val={ val }
 				setVal={ setVal }
+				setChoiceClicked={ setChoiceClicked }
 			/>
 		</div>
 	);

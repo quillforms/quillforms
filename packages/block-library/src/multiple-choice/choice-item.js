@@ -8,51 +8,23 @@ import { useTheme } from '@quillforms/renderer-components';
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
+import { useState, memo } from '@wordpress/element';
 import tinyColor from 'tinycolor2';
 
-const ChoiceItem = ( {
-	order,
-	selected,
-	val,
-	setVal,
-	choiceLabel,
-	choiceRef,
-	multiple,
-	next,
-} ) => {
+const areEqual = ( prevProps, nextProps ) => {
+	if (
+		prevProps.choiceLabel === nextProps.choiceLabel &&
+		prevProps.order === nextProps.order &&
+		prevProps.selected === nextProps.selected &&
+		prevProps.multiple === nextProps.multiple
+	)
+		return true;
+
+	return false;
+};
+const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 	const { answersColor } = useTheme();
-
-	const clickHandler = () => {
-		let $val = val;
-		if ( ! $val ) $val = [];
-		if ( selected ) {
-			$val.splice(
-				$val.findIndex( ( item ) => item.ref === choiceRef ),
-				1
-			);
-			setVal( $val );
-		} else {
-			if ( multiple )
-				$val.push( {
-					ref: choiceRef,
-					label: choiceLabel,
-				} );
-			else
-				$val = [
-					{
-						ref: choiceRef,
-						label: choiceLabel,
-					},
-				];
-			setVal( $val );
-			if ( ! multiple ) {
-				setTimeout( () => {
-					next();
-				}, 700 );
-			}
-		}
-	};
-
+	const [ isClicked, setIsClicked ] = useState( false );
 	return (
 		<div
 			role="presentation"
@@ -60,6 +32,7 @@ const ChoiceItem = ( {
 				'multipleChoice__optionWrapper',
 				{
 					selected,
+					clicked: isClicked,
 				},
 				css`
 					background: ${tinyColor( answersColor )
@@ -104,7 +77,15 @@ const ChoiceItem = ( {
 					}
 				`
 			) }
-			onClick={ clickHandler }
+			onClick={ () => {
+				clickHandler();
+				if ( ! selected ) {
+					setIsClicked( false );
+					setTimeout( () => {
+						setIsClicked( true );
+					}, 0 );
+				}
+			} }
 		>
 			<span className="multipleChoice__optionLabel">{ choiceLabel }</span>
 			<span

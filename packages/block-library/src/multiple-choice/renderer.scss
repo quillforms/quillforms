@@ -45,7 +45,7 @@
 			transform: none !important;
 		}
 
-		&.selected {
+		&.clicked {
 			animation-name: qf-multiple-choice-vibrate;
 			animation-duration: 0.4s;
 			animation-timing-function: linear;
