@@ -1,5 +1,6 @@
 body.js.is-fullscreen-mode {
 
+	overflow: hidden;
 	// @include break-medium {
 	// Reset the html.wp-topbar padding.
 	// Because this uses negative margins, we have to compensate for the height.
@@ -19,5 +20,12 @@ body.js.is-fullscreen-mode {
 	#wpfooter {
 		margin-left: 0;
 		padding-left: 0;
+	}
+
+	div#wpbody-content {
+		padding-bottom: 0;
+	}
+	#wpfooter {
+		display: none;
 	}
 }
