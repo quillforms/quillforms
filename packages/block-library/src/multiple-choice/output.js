@@ -70,8 +70,10 @@ const MultipleChoiceOutput = ( props ) => {
 			} else {
 				showSubmitBtn( false );
 			}
+		} else {
+			showSubmitBtn( false );
 		}
-	}, [ val ] );
+	}, [ val, attributes ] );
 
 	return (
 		<div className="question__wrapper">
