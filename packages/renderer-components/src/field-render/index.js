@@ -22,8 +22,14 @@ export default function FieldRender( {
 	setCanGoPrev,
 	next,
 } ) {
+	const { id, type, attributes, title, description, attachment } = field;
 	const context = {
-		field,
+		id,
+		type,
+		attributes,
+		title,
+		description,
+		attachment,
 		isAnimating,
 		counter,
 		isActive,

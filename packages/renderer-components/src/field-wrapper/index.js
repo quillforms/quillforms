@@ -23,7 +23,7 @@ const FieldWrapper = ( {
 	next,
 } ) => {
 	const ref = useRef();
-	const { field, isActive } = useFieldRenderContext();
+	const { id, isActive } = useFieldRenderContext();
 	let timer = null;
 
 	const handlers = useSwipeable( {
@@ -50,8 +50,8 @@ const FieldWrapper = ( {
 		} else {
 			clearTimeout( timer );
 		}
-		setCanGoNext( true );
-		setCanGoPrev( true );
+		// setCanGoNext( true );
+		// setCanGoPrev( true );
 	}, [ isActive ] );
 
 	return (
@@ -86,7 +86,7 @@ const FieldWrapper = ( {
 				}
 			} }
 		>
-			<section id={ 'block-' + field.id }>
+			<section id={ 'block-' + id }>
 				<div
 					className="renderer-components-field-wrapper__content-wrapper"
 					ref={ ref }

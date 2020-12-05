@@ -19,12 +19,9 @@ const FieldContent = ( { next, isFocused } ) => {
 
 	return (
 		<div
-			className={ classnames(
-				'renderer-components-field-wrapper__content',
-				{
-					'is-shaking': isShaking,
-				}
-			) }
+			className={ classnames( 'renderer-components-field-content', {
+				'is-shaking': isShaking,
+			} ) }
 		>
 			<QuestionHeader />
 			<BlockOutput

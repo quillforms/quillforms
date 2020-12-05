@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * Internal Dependencies
@@ -13,18 +13,23 @@ import BlockFooter from '../block-footer';
 
 let timer1, timer2;
 const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
-	const { field, isActive } = useFieldRenderContext();
+	const {
+		id,
+		type,
+		isActive,
+		attributes,
+		required,
+	} = useFieldRenderContext();
 	const blockTypes = useBlockTypes();
-	const blockType = blockTypes[ field.type ];
+	const blockType = blockTypes[ type ];
 	const [ footerSectionToShow, setFooterSectionToShow ] = useState( null );
 	const [ shakingErr, setShakingErr ] = useState( null );
 
-	const { id } = field;
 	const { isCurrentBlockEditable } = useSelect( ( select ) => {
 		return {
 			isCurrentBlockEditable: select(
 				'quillForms/blocks'
-			).hasBlockSupport( field.type, 'editable' ),
+			).hasBlockSupport( type, 'editable' ),
 		};
 	} );
 	const { answerValue, isValid } = useSelect( ( select ) => {
@@ -39,6 +44,13 @@ const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 				: null,
 		};
 	} );
+
+	useEffect( () => {
+		clearTimeout( timer1 );
+		clearTimeout( timer2 );
+		setIsShaking( false );
+		setShakingErr( null );
+	}, [ answerValue ] );
 
 	const shakeWithError = ( err ) => {
 		clearTimeout( timer1 );
@@ -80,17 +92,18 @@ const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 	};
 
 	const props = {
+		id,
 		next: goNext,
-		attributes: field.attributes,
-		required: field.required,
+		attributes,
+		required,
 		isFocused,
 		isActive,
 		isValid,
 		val: answerValue,
-		setIsValid: ( val ) => setIsFieldValid( field.id, val ),
-		setIsAnswered: ( val ) => setIsFieldAnswered( field.id, val ),
-		setValidationErr: ( val ) => setFieldValidationErrr( field.id, val ),
-		setVal: ( val ) => setFieldAnswer( field.id, val ),
+		setIsValid: ( val ) => setIsFieldValid( id, val ),
+		setIsAnswered: ( val ) => setIsFieldAnswered( id, val ),
+		setValidationErr: ( val ) => setFieldValidationErrr( id, val ),
+		setVal: ( val ) => setFieldAnswer( id, val ),
 		showErrorMessage: ( val ) => showErrorMessage( val ),
 		showSubmitBtn: ( val ) => showSubmitBtn( val ),
 		shakeWithError: ( err ) => shakeWithError( err ),

@@ -11,11 +11,8 @@ import useBlockTypes from '../hooks/use-block-types';
 
 const FieldAction = ( { show, clickHandler, next } ) => {
 	const messages = useMetaField( 'messages' );
-	const { field } = useFieldRenderContext();
-	const { type } = field;
+	const { type } = useFieldRenderContext();
 	const blockType = useBlockTypes()[ type ];
-	console.log( show );
-	console.log( blockType.rendererConfig );
 	return (
 		<motion.div
 			initial={ { opacity: 0 } }

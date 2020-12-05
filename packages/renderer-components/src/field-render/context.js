@@ -4,7 +4,13 @@
 import { createContext, useContext } from '@wordpress/element';
 
 const Context = createContext( {
-	field: {},
+	id: undefined,
+	type: undefined,
+	attributes: undefined,
+	title: undefined,
+	required: undefined,
+	description: undefined,
+	attachment: undefined,
 	counter: 1,
 	isAnimating: false,
 	isActive: false,

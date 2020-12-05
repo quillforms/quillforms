@@ -1,7 +1,25 @@
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
+import classnames from 'classnames';
+
+/**
+ * Internal Dependencies
+ */
+import useTheme from '../hooks/use-theme';
+
 const ArrowIcon = () => {
+	const theme = useTheme();
 	return (
 		<svg
-			className="renderer-components-block-counter__arrow-icon"
+			className={ classnames(
+				'renderer-components-block-counter__arrow-icon',
+				css`
+					fill: ${theme.questionsColor};
+					stroke: ${theme.questionsColor};
+				`
+			) }
 			focusable="false"
 			viewBox="0 0 24 24"
 			aria-hidden="true"

@@ -11,14 +11,14 @@ import HtmlParser from '../html-parser';
 import { useFieldRenderContext } from '../field-render/context';
 
 const BlockDesc = () => {
-	const { field } = useFieldRenderContext();
+	const { description } = useFieldRenderContext();
 	return (
 		<Fragment>
-			{ field.description && field.description !== '' && (
+			{ description && description !== '' && (
 				<div className="renderer-components-block-description">
 					<HtmlParser
 						className="renderer-components-block-description__content"
-						value={ autop( field.description ) }
+						value={ autop( description ) }
 					/>
 				</div>
 			) }

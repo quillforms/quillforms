@@ -8,7 +8,6 @@ const FieldsWrapper = ( {
 	children,
 	isActive,
 	scrollHandler,
-	setSwiper,
 } ) => {
 	const jumpLogic = useMetaField( 'jumpLogic' );
 	const blocks = useMetaField( 'blocks' );
@@ -17,11 +16,15 @@ const FieldsWrapper = ( {
 	const currentBlock = blocks.find(
 		( block ) => block.id === currentBlockId
 	);
+
 	const { isCurrentBlockEditable } = useSelect( ( select ) => {
 		return {
-			isCurrentBlockEditable: select(
-				'quillForms/blocks'
-			).hasBlockSupport( currentBlock.type, 'editable' ),
+			isCurrentBlockEditable: currentBlock
+				? select( 'quillForms/blocks' ).hasBlockSupport(
+						currentBlock.type,
+						'editable'
+				  )
+				: null,
 		};
 	} );
 	const { answers, currentBlockAnswer } = useSelect( ( select ) => {
@@ -165,18 +168,18 @@ const FieldsWrapper = ( {
 	};
 
 	useEffect( () => {
-		if ( isCurrentBlockEditable ) {
-			const { path, nextBlockId } = generatePath();
-			setSwiper( ( prevSwiperState ) => {
-				return {
-					...prevSwiperState,
-					currentPath: path,
-					nextBlockId: nextBlockId
-						? nextBlockId
-						: prevSwiperState.nextBlockId,
-				};
-			} );
-		}
+		// if ( isCurrentBlockEditable ) {
+		// 	const { path, nextBlockId } = generatePath();
+		// 	setSwiper( ( prevSwiperState ) => {
+		// 		return {
+		// 			...prevSwiperState,
+		// 			currentPath: path,
+		// 			nextBlockId: nextBlockId
+		// 				? nextBlockId
+		// 				: prevSwiperState.nextBlockId,
+		// 		};
+		// 	} );
+		// }
 	}, [ currentBlockAnswer ] );
 
 	return (
