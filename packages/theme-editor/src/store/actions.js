@@ -1,38 +1,32 @@
+/**
+ * WordPress Dependencies
+ */
+import { apiFetch } from '@wordpress/data-controls';
+
+/**
+ * Internal Dependencies
+ */
 import {
-	SET_THEME_PROPERTIES,
+	SET_CURRENT_THEME_PROPERTIES,
 	SET_SHOULD_BE_SAVED,
 	SET_CURRENT_THEME_ID,
-	SETUP_STORE,
 	ADD_NEW_THEME,
+	ADD_NEW_THEMES,
 	UPDATE_THEME,
+	DELETE_THEME_SUCCESS,
 } from './constants';
 
 /**
- * Set up store.
- * Returns an action object used in signalling that store has been set up.
- *
- * @param {Object} initialPayload The initial payload
- *
- * @return {Object} Action object.
- */
-export const setupStore = ( initialPayload ) => {
-	return {
-		type: SETUP_STORE,
-		payload: { initialPayload },
-	};
-};
-
-/**
- * Set theme properties.
+ * Set current theme properties.
  * Returns an action object used in setting theme properties.
  *
  * @param {Object} properties Theme properties.
  *
  * @return {Object} Action object.
  */
-export const setThemeProperties = ( properties ) => {
+export const setCurrentThemeProperties = ( properties ) => {
 	return {
-		type: SET_THEME_PROPERTIES,
+		type: SET_CURRENT_THEME_PROPERTIES,
 		payload: { properties },
 	};
 };
@@ -67,19 +61,68 @@ export const setCurrentThemeId = ( currentThemeId ) => {
 };
 
 /**
- * Add new theme
  *
- * @param {string} themeId   Theme id
- * @param {Object} themeData Theme data
+ * @param {Array} themes Themes to add.
  *
  * @return {Object} Action object.
  */
-export const addNewTheme = ( themeId, themeData ) => {
+export const addNewThemes = ( themes ) => {
 	return {
-		type: ADD_NEW_THEME,
-		payload: { themeData },
+		type: ADD_NEW_THEMES,
+		payload: { themes },
 	};
 };
+
+/**
+ * Add new theme
+ *
+ * @param {number}  themeId      Theme id
+ * @param {string } themeTitle   Theme title
+ * @param {Object}  themeData    Theme data
+ *
+ * @return {Object} Action object.
+ */
+export const addNewTheme = ( themeId, themeTitle, themeData ) => {
+	return {
+		type: ADD_NEW_THEME,
+		payload: { themeId, themeTitle, themeData },
+	};
+};
+
+/**
+ *
+ * @param {number} themeId  Theme id
+ *
+ */
+export function* deleteTheme( themeId ) {
+	const path = `/	qf/v1/themes/${ themeId }`;
+
+	try {
+		const result = yield apiFetch( {
+			path,
+			method: 'DELETE',
+		} );
+		if ( result?.deleted ) {
+			yield __unstableDeleteThemeSuccess( themeId );
+		}
+	} catch ( err ) {
+		console.log( err );
+	}
+}
+
+/**
+ * After deleting theme successfully at backend, this action would be dispatched to delete the theme visually on front end.
+ *
+ * @param {number} themeId  Theme id
+ *
+ * @return {Object} Action object
+ */
+export function __unstableDeleteThemeSuccess( themeId ) {
+	return {
+		type: DELETE_THEME_SUCCESS,
+		payload: { themeId },
+	};
+}
 
 /**
  * Update theme

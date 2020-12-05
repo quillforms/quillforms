@@ -1,15 +1,16 @@
 import {
-	SET_THEME_PROPERTIES,
 	SET_SHOULD_BE_SAVED,
 	SET_CURRENT_THEME_ID,
-	SETUP_STORE,
 	ADD_NEW_THEME,
+	ADD_NEW_THEMES,
+	SET_CURRENT_THEME_PROPERTIES,
+	DELETE_THEME_SUCCESS,
 } from './constants';
 
 /**
  * External dependencies
  */
-import { reduce, uniqueId } from 'lodash';
+import { reduce } from 'lodash';
 
 /**
  * Returns an object against which it is safe to perform mutating operations,
@@ -35,7 +36,7 @@ const initialState = {
 	themesList: [],
 };
 /**
- * Reducer returning an array of registered blocks.
+ * Themes Reducer
  *
  * @param {Object} state  Current state.
  * @param {Object} action Dispatched action.
@@ -44,21 +45,8 @@ const initialState = {
  */
 const ThemeReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		// SET UP STORE
-		case SETUP_STORE: {
-			const { initialPayload } = action.payload;
-			const { currentTheme, currentThemeId, themesList } = initialPayload;
-			const stateClone = {
-				currentThemeId,
-				currentTheme,
-				themesList,
-				shouldBeSaved: false,
-			};
-			return stateClone;
-		}
-
 		// SET THEME PROPERTIES
-		case SET_THEME_PROPERTIES: {
+		case SET_CURRENT_THEME_PROPERTIES: {
 			const { properties } = action.payload;
 			// Consider as updates only changed values
 			const nextProperties = reduce(
@@ -77,8 +65,7 @@ const ThemeReducer = ( state = initialState, action ) => {
 				state.currentTheme
 			);
 
-			// Skip update if nothing has been changed. The reference will
-			// match the original block if `reduce` had no changed values.
+			// Skip update if nothing has been changed.
 			if ( nextProperties === state.currentTheme ) {
 				return state;
 			}
@@ -104,11 +91,36 @@ const ThemeReducer = ( state = initialState, action ) => {
 		}
 
 		case ADD_NEW_THEME: {
-			const { id, themeData } = action.payload;
+			const { themeId, themeTitle, themeData } = action.payload;
 			const $themesList = [ ...state.themesList ];
-			$themesList.push( { id, theme_data: themeData } );
+			$themesList.push( {
+				id: themeId,
+				title: themeTitle,
+				theme_data: themeData,
+			} );
 			const stateClone = { ...state, themesList: $themesList };
 			return stateClone;
+		}
+
+		case ADD_NEW_THEMES: {
+			const { themes } = action.payload;
+			if ( themes?.length > 0 )
+				return {
+					...state,
+					themesList: [ ...state.themesList, ...themes ],
+				};
+			return state;
+		}
+
+		case DELETE_THEME_SUCCESS: {
+			const { themeId } = action.payload;
+			return {
+				...state,
+
+				themesList: [ ...state.themesList ].filter(
+					( theme ) => theme.id !== themeId
+				),
+			};
 		}
 	}
 
