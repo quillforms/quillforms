@@ -22,32 +22,33 @@ class QF_Form_Theme {
 	 */
 	private static $instance = null;
 
-	/**
-	 * Theme Data.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var array
-	 */
-	public $data;
 
 	/**
-	 * Constructor.
+	 * Get schema
+	 * The schema term is pretty much like the schema in WordPress REST api.
 	 *
+	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/schema
 	 * @since 1.0.0
+	 *
+	 * @return array The schema
 	 */
-	public function __construct() {
-		$this->data = $this->get_theme_data();
+	public function get_schema() {
+		return array(
+			'type'       => 'object',
+			'properties' => array(
+				'properties' => $this->get_theme_properties(),
+			),
+		);
 	}
 
 	/**
-	 * Get Theme Data.
+	 * Get theme properties
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array The theme data array
+	 * @return array Theme proeprties.
 	 */
-	public function get_theme_data() {
+	public function get_theme_properties() {
 		return array(
 			'name'                 => array(
 				'type'    => 'string',
@@ -55,11 +56,11 @@ class QF_Form_Theme {
 			),
 			'font'                 => array(
 				'type'    => 'string',
-				'default' => 'Vollkorn',
+				'default' => 'Viga',
 			),
 			'backgroundColor'      => array(
 				'type'    => 'string',
-				'default' => '#fff',
+				'default' => 'linear-gradient(135deg, rgb(6, 147, 227) 0%, rgb(155, 81, 224) 100%)',
 			),
 			'backgroundImage'      => array(
 				'type' => 'string',
@@ -100,30 +101,31 @@ class QF_Form_Theme {
 	}
 
 	/**
-	 * Validates theme data against the current theme schema, populating
-	 * defaulted and missing values.
+	 * Prepare theme for render
 	 *
 	 * @since 1.0.0
+	 * @access public
 	 *
 	 * @param array $data Optional. original theme data.
 	 *
-	 * @return array prepared block attributes
+	 * @return array The notifications to render.
 	 */
 	public function prepare_theme_data_for_render( $data = array() ) {
-		// If there are no attribute definitions for themn, skip
+		// If there are no properties definitions for theme, skip
 		// processing and return vebatim.
-		if ( empty( $this->data ) ) {
+		$theme_properties_schema = $this->get_theme_properties();
+		if ( empty( $theme_properties_schema ) ) {
 			return $data;
 		}
 
 		foreach ( $data as $key => $value ) {
 			// If the attribute is not defined by theme, it cannot be
 			// validated.
-			if ( ! isset( $this->data[ $key ] ) ) {
+			if ( ! isset( $theme_properties_schema[ $key ] ) ) {
 				continue;
 			}
 
-			$schema = $this->data[ $key ];
+			$schema = $theme_properties_schema[ $key ];
 
 			// Validate value by JSON schema. An invalid value should revert to
 			// its default, if one exists. This occurs by virtue of the missing
@@ -137,7 +139,7 @@ class QF_Form_Theme {
 
 		// Populate values of any missing attributes for which the block type
 		// defines a default.
-		$missing_schema_data = array_diff_key( $this->data, $data );
+		$missing_schema_data = array_diff_key( $theme_properties_schema, $data );
 		foreach ( $missing_schema_data as $key => $schema ) {
 			if ( isset( $schema['default'] ) ) {
 				$data[ $key ] = $schema['default'];
