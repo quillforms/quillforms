@@ -1,89 +1,70 @@
 import {
-	SET_IS_BLOCK_CHANGING,
-	SET_CURRENT_BLOCK,
-	SET_CAN_NEXT,
-	SET_CAN_PREV,
-	SET_ANIMATION_EFFECTS,
+	SET_CURRENT_BLOCK_ID,
+	SET_CURRENT_PATH,
+	SET_NEXT_BLOCK_ID,
+	SET_LAST_ACTIVE_BLOCK_ID,
+	SET_PREV_BLOCK_ID,
 } from './constants';
 
 /**
- * Returns an action object used in setting block is changing flag.
+ * Returns an action object used in setting current block id
  *
- * @param {boolean} val Is block changing flag value.
+ * @param {string}   id  Block id
  *
  * @return {Object} Action object.
  */
-export const setIsBlockChanging = ( val ) => {
+export const setCurrentBlockId = ( id ) => {
 	return {
-		type: SET_IS_BLOCK_CHANGING,
-		payload: { val },
+		type: SET_CURRENT_BLOCK_ID,
+		payload: { id },
 	};
 };
 
 /**
- * Returns an action object used in setting current block
+ * Returns an action object used in setting next block id
  *
- * @param {string}                                            id  Block id
- * @param {("fields" | "welcomeScreens" | "thankyouScreens")} cat Block cat.
+ * @param {string}   id  Block id
  *
  * @return {Object} Action object.
  */
-export const setCurrentBlock = ( id, cat ) => {
+export const setNextBlockId = ( id ) => {
 	return {
-		type: SET_CURRENT_BLOCK,
-		payload: { id, cat },
+		type: SET_NEXT_BLOCK_ID,
+		payload: { id },
 	};
 };
 
 /**
- * Returns an action object used in setting can go next flag.
+ * Returns an action object used in setting previous block id
  *
- * @param {boolean} val Can go next flag value.
+ * @param {string}   id  Block id
  *
  * @return {Object} Action object.
  */
-export const setCanNext = ( val ) => {
+export const setPrevBlockId = ( id ) => {
 	return {
-		type: SET_CAN_NEXT,
-		payload: { val },
+		type: SET_PREV_BLOCK_ID,
+		payload: { id },
 	};
 };
 
 /**
- * Returns an action object used in setting can go previous flag.
+ * Returns an action object used in setting current path
  *
- * @param {boolean} val Can go previous flag value.
+ * @param {Object}   path  path
  *
  * @return {Object} Action object.
  */
-export const setCanPrev = ( val ) => {
+export const setCurrentPath = ( path ) => {
 	return {
-		type: SET_CAN_PREV,
-		payload: { val },
+		type: SET_CURRENT_PATH,
+		payload: { path },
 	};
 };
 
-/**
- * An object describing animation effects.
- *
- * @typedef {Object} QFAnimationEffects
- *
- * @property {string} moveUp          Move up.
- * @property {string} moveDown        Move down.
- * @property {string} moveUpFromDown  Move up from down.
- * @property {string} moveDownFromUp  Move down from up.
- */
-
-/**
- * Returns an action object used in setting animation effects.
- *
- * @param {QFAnimationEffects} animationEffects  Animation effects object
- *
- * @return {Object} Action object
- */
-export const setAnimationEffects = ( animationEffects ) => {
+export const setLastActiveBlockId = ( id ) => {
 	return {
-		type: SET_ANIMATION_EFFECTS,
-		payload: { animationEffects },
+		type: SET_LAST_ACTIVE_BLOCK_ID,
+		payload: { id },
 	};
 };

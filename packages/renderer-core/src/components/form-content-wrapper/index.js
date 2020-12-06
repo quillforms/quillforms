@@ -4,11 +4,14 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 /**
+ * QuillForms Dependencies
+ */
+import { useEditableFields } from '@quillforms/renderer-components';
+
+/**
  * Internal Dependencies
  */
 import FormContent from '../form-content';
-import { useEditableFields } from '@quillforms/renderer-components';
-import { cloneDeep } from 'lodash';
 
 const FormContentWrapper = ( { applyJumpLogic } ) => {
 	const editableFields = useEditableFields();

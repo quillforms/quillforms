@@ -1,21 +1,26 @@
 .submission__screen {
 	& {
-		z-index: -1;
-		opacity: 0;
 		position: absolute;
+		z-index: 0;
+		visibility: hidden;
 		width: 100%;
 		height: 100%;
-		overflow-y: hidden;
+		overflow: hidden;
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: column;
 		justify-content: flex-end;
-		transition: opacity 0.8s ease-in-out;
 	}
 
+	&.inactive {
+		-webkit-animation: animMoveDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		animation: animMoveDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+	}
 	&.active {
 		z-index: 1;
-		opacity: 1;
+		visibility: visible;
+		-webkit-animation: animMoveUpFromDown 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+		animation: animMoveUpFromDown 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
 	}
 
 	.sf-err-msg {
@@ -29,7 +34,6 @@
 
 	.submission__btnWrapper {
 		& {
-			display: flex;
 			position: relative;
 			height: 50%;
 			width: 100%;
@@ -37,11 +41,10 @@
 			border-top: 1px solid rgba(0, 0, 0, 0.1);
 		}
 
-		a.submission__btn {
+		.submission__btn {
 			margin-right: 10px;
-			padding: 0 25px;
-			height: 55px;
-			display: flex;
+			padding: 14px 25px;
+			display: inline-flex;
 			align-items: center;
 			border: none;
 			border-radius: 8px;

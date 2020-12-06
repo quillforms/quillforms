@@ -7,6 +7,18 @@ import { Fragment, useState, useEffect, useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
+ * QuillForms Dependencies
+ */
+import {
+	FieldsWrapper,
+	FieldRender,
+	FormFooter,
+	useMetaField,
+	useBlockTypes,
+	useTheme,
+} from '@quillforms/renderer-components';
+
+/**
  * External Dependencies
  */
 import { Lethargy } from 'lethargy';
@@ -17,14 +29,6 @@ import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
-import {
-	FieldsWrapper,
-	FieldRender,
-	ProgressBar,
-	useMetaField,
-	useBlockTypes,
-	useTheme,
-} from '@quillforms/renderer-components';
 import SubmissionScreen from '../submission-screen';
 
 let lastScrollDate = 0;
@@ -58,7 +62,6 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 		isSubmissionScreenActive: undefined,
 	} );
 
-	console.log( swiper );
 	const {
 		currentBlockId,
 		nextBlockId,
@@ -83,7 +86,6 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 	const currentBlockIndex = walkPath.findIndex(
 		( block ) => block.id === currentBlockId
 	);
-	console.log( currentBlockIndex );
 
 	const currentBlockCat =
 		currentBlockIndex !== -1
@@ -201,14 +203,13 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 	// Mouse Wheel Handler
 	const scrollHandler = useCallback( ( e ) => {
 		e.stopPropagation();
-		console.log( isAnimating );
-		if ( isAnimating ) return;
+		if ( swiper.isAnimating ) return;
 		const lethargyCheck = lethargy.check( e );
 		const now = new Date().getTime();
 		if (
 			lethargyCheck === false ||
 			isAnimating ||
-			( lastScrollDate && now - lastScrollDate < 700 )
+			( lastScrollDate && now - lastScrollDate < 750 )
 		)
 			return;
 		if (
@@ -257,7 +258,6 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 	const { welcomeScreens, thankyouScreens, fields } = getBlocksToRender();
 	return (
 		<div
-			// onFocus={ () => setIsFocused( true ) }
 			className={ classnames(
 				'renderer-core-form-content',
 				css`
@@ -351,25 +351,13 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 														}
 													);
 												} }
-												next={ () => goNext() }
+												next={ goNext }
 											/>
 										);
 									} ) }
 									<SubmissionScreen
 										active={ isSubmissionScreenActive }
 									/>
-									<div className="screen__footer">
-										{ pathEditableFields.length > 0 && (
-											<ProgressBar
-												currentBlockId={
-													currentBlockId
-												}
-												totalQuestions={
-													pathEditableFields.length
-												}
-											/>
-										) }
-									</div>
 								</>
 							) }
 						</FieldsWrapper>
@@ -392,6 +380,11 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 						} ) }
 				</Fragment>
 			) }
+			<FormFooter
+				currentBlockCat={ currentBlockCat }
+				currentBlockId={ currentBlockId }
+				pathEditableFields={ pathEditableFields }
+			/>
 		</div>
 	);
 };

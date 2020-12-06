@@ -10,35 +10,45 @@ export function getCurrentBlockId( state ) {
 }
 
 /**
- * Get current block category.
+ * Get next block id.
  *
  * @param {Object} state       Global application state.
  *
- * @return {string} Current block category.
+ * @return {string} Next Block id.
  */
-export function getCurrentBlockCat( state ) {
-	return state.currentBlockCat;
+export function getNextBlockId( state ) {
+	return state.nextBlockId;
 }
 
 /**
- * Is block changing.
+ * Get last active block id.
  *
- * @param {Object} state      Global application state.
+ * @param {Object} state       Global application state.
  *
- * @return {boolean} Is block changing.
+ * @return {string} Last active block id.
  */
-export function isBlockChanging( state ) {
-	return state.isBlockChanging;
+export function getLastActiveBlockId( state ) {
+	return state.lastActiveBlockId;
 }
 
 /**
- * Get animatiom effects
+ * Get previous block id.
  *
- * @param {Object } state      Global application state.
+ * @param {Object} state       Global application state.
  *
- * @return {Object} Animation effects.
- *
+ * @return {string} Previous Block id.
  */
-export function getAnimationEffects( state ) {
-	return state.animationEffects;
+export function getPreviousBlockId( state ) {
+	return state.prevBlockId;
+}
+
+/**
+ * Get current block id.
+ *
+ * @param {Object} state       Global application state.
+ *
+ * @return {Object} Current path.
+ */
+export function getCurrentPath( state ) {
+	return state.currentPath;
 }

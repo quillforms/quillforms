@@ -1,6 +1,5 @@
 .renderer-core-form-contenet-wrapper {
 	& {
-		background: rgb(252, 252, 252);
 		overflow: hidden;
 		position: relative;
 		height: 100%;
@@ -8,6 +7,7 @@
 
 	.renderer-core-form-content {
 		position: relative;
+		overflow: hidden;
 		height: 100%;
 		width: 100%;
 	}
@@ -17,14 +17,5 @@
 		overflow-x: hidden;
 		overflow-y: scroll;
 		word-break: break-word;
-	}
-
-	.screen__footer {
-		position: absolute;
-		z-index: 10;
-		bottom: 0;
-		right: 0;
-		left: 0;
-		padding: 10px 20px;
 	}
 }

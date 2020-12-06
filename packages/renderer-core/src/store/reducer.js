@@ -2,123 +2,60 @@
  * Internal Dependencies
  */
 import {
-	SET_IS_BLOCK_CHANGING,
-	SET_CURRENT_BLOCK,
-	SET_CAN_NEXT,
-	SET_CAN_PREV,
-	SET_ANIMATION_EFFECTS,
+	SET_CURRENT_BLOCK_ID,
+	SET_CURRENT_PATH,
+	SET_LAST_ACTIVE_BLOCK_ID,
+	SET_NEXT_BLOCK_ID,
+	SET_PREV_BLOCK_ID,
 } from './constants';
 
-/**
- * External dependencies
- */
-import { reduce } from 'lodash';
-
 const initialState = {
-	isBlockChanging: false,
-	currentBlockId: null,
-	currentBlockCat: null,
-	canNext: false,
-	canPrev: false,
-	animationEffects: {
-		moveUp: null,
-		moveDown: null,
-		moveDownFromUp: null,
-		moveUpFromDown: null,
-	},
+	currentPath: {},
+	currentBlockId: '',
+	nextBlockId: '',
+	prevBlockId: '',
+	lastActiveBlockId: '',
 };
-
-/**
- * Returns an object against which it is safe to perform mutating operations,
- * given the original object and its current working copy.
- *
- * @param {Object} original Original object.
- * @param {Object} working  Working object.
- *
- * @return {Object} Mutation-safe object.
- */
-function getMutateSafeObject( original, working ) {
-	if ( original === working ) {
-		return { ...original };
-	}
-
-	return working;
-}
 
 const RendererCoreReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case SET_IS_BLOCK_CHANGING: {
-			const { val } = action.payload;
-			if ( val === state.isBlockChanging ) {
+		case SET_CURRENT_BLOCK_ID: {
+			const { id } = action.payload;
+			if ( id === state.currentBlockId ) {
 				return state;
 			}
-			const stateClone = { ...state };
-			stateClone.isBlockChanging = val;
-			return stateClone;
+			return { ...state, currentBlockId: id };
 		}
-		case SET_CURRENT_BLOCK: {
-			const { id, cat } = action.payload;
-			if (
-				id === state.currentBlockId &&
-				cat === state.currentBlockCat
-			) {
-				return state;
-			}
-			const stateClone = { ...state };
-			stateClone.currentBlockId = id;
-			stateClone.currentBlockCat = cat;
-			return stateClone;
-		}
-		// SET_CAN_NEXT
-		case SET_CAN_NEXT: {
-			const { val } = action.payload;
-			if ( val === state.canNext ) {
-				return state;
-			}
-			const stateClone = { ...state };
-			stateClone.canNext = val;
-			return stateClone;
-		}
-		// SET_CAN_PREV
-		case SET_CAN_PREV: {
-			const { val } = action.payload;
-			if ( val === state.canPrev ) {
-				return state;
-			}
-			const stateClone = { ...state };
-			stateClone.canPrev = val;
-			return stateClone;
-		}
-		// SET ANIMATION EFFECTS
-		case SET_ANIMATION_EFFECTS: {
-			const { animationEffects } = action.payload;
-			// Consider as updates only changed values
-			const nextAnimationEffects = reduce(
-				animationEffects,
-				( result, value, key ) => {
-					if ( value !== result[ key ] ) {
-						result = getMutateSafeObject(
-							state.animationEffects,
-							result
-						);
-						result[ key ] = value;
-					}
 
-					return result;
-				},
-				state.animationEffects
-			);
-
-			// Skip update if nothing has been changed. The reference will
-			// match the original block if `reduce` had no changed values.
-			if ( nextAnimationEffects === state.animationEffects ) {
+		case SET_NEXT_BLOCK_ID: {
+			const { id } = action.payload;
+			if ( id === state.nextBlockId ) {
 				return state;
 			}
+			return { ...state, nextBlockId: id };
+		}
 
-			// Otherwise replace attributes in state
+		case SET_PREV_BLOCK_ID: {
+			const { id } = action.payload;
+			if ( id === state.prevBlockId ) {
+				return state;
+			}
+			return { ...state, prevBlockId: id };
+		}
+
+		case SET_LAST_ACTIVE_BLOCK_ID: {
+			const { id } = action.payload;
+			if ( id === state.lastActiveBlockId ) {
+				return state;
+			}
+			return { ...state, lastActiveBlockId: id };
+		}
+
+		case SET_CURRENT_PATH: {
+			const { path } = action.payload;
 			return {
 				...state,
-				...nextAnimationEffects,
+				currentPath: path,
 			};
 		}
 	}
