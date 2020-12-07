@@ -3,7 +3,6 @@ import {
 	setBlockRendererConfig,
 } from '@quillforms/blocks';
 import '@wordpress/element';
-
 import * as website from './website';
 import * as statement from './statement';
 import * as shortText from './short-text';

@@ -1,11 +1,8 @@
 /**
  * QuillForms Depndencies
  */
-import {
-	useMetaField,
-	useTheme,
-	HtmlParser,
-} from '@quillforms/renderer-components';
+import { useMetaField, HtmlParser } from '@quillforms/renderer-components';
+import { useTheme } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies

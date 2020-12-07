@@ -22,7 +22,7 @@ const ChoiceRow = ( { choices, index, provided } ) => {
 		scoreChangeHandler,
 		setScore,
 		addChoice,
-		removeChoice,
+		deleteChoice,
 	} = useChoiceContext();
 	const item = choices[ index ];
 	return (
@@ -57,7 +57,7 @@ const ChoiceRow = ( { choices, index, provided } ) => {
 					<div className="qf-block-dropdown__choice-remove">
 						<RemoveIcon
 							onClick={ () => {
-								removeChoice( item.ref );
+								deleteChoice( item.ref );
 							} }
 						/>
 					</div>

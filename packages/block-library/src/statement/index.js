@@ -9,8 +9,7 @@ const { type } = metadata;
 export { type, metadata };
 
 const CounterContentComponent = () => {
-	const { field } = useFieldRenderContext();
-	const { attributes } = field;
+	const { attributes } = useFieldRenderContext();
 	const { quotationMarks } = attributes;
 	return (
 		<>
@@ -41,8 +40,7 @@ const CounterContentComponent = () => {
 };
 
 const NextBtnComponent = ( { onClick } ) => {
-	const { field } = useFieldRenderContext();
-	const { attributes } = field;
+	const { attributes } = useFieldRenderContext();
 
 	return <Button onClick={ onClick }>{ attributes.buttonText } </Button>;
 };

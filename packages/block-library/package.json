@@ -27,6 +27,7 @@
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/builder-components": "file:../builder-components",
 		"@quillforms/renderer-components": "file:../renderer-components",
+		"@quillforms/utils": "file:../utils",
 		"@wordpress/element": "^2.14.0",
 		"@wordpress/media-utils": "^1.12.0",
 		"framer-motion": "^1.6.17",
@@ -39,6 +40,7 @@
 		"react-window": "^1.8.6",
 		"sortablejs": "^1.12.0",
 		"text-mask-addons": "^3.8.0",
+		"tinycolor2": "^1.4.2",
 		"uuid": "^8.1.0"
 	},
 	"publishConfig": {

@@ -1,27 +1,16 @@
 /**
  * QuillForms Dependencies
  */
-import { useTheme } from '@quillforms/renderer-components';
+import { useTheme } from '@quillforms/utils';
 
 /**
  * External Dependencies
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
-import { useState, memo } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import tinyColor from 'tinycolor2';
 
-const areEqual = ( prevProps, nextProps ) => {
-	if (
-		prevProps.choiceLabel === nextProps.choiceLabel &&
-		prevProps.order === nextProps.order &&
-		prevProps.selected === nextProps.selected &&
-		prevProps.multiple === nextProps.multiple
-	)
-		return true;
-
-	return false;
-};
 const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 	const { answersColor } = useTheme();
 	const [ isClicked, setIsClicked ] = useState( false );
