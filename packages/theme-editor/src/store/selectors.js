@@ -41,3 +41,14 @@ export function getThemesList( state ) {
 export function shouldThemeBeSaved( state ) {
 	return state.shouldBeSaved;
 }
+
+/**
+ * Is theme being saved
+ *
+ * @param {Object} state     Global application state.
+ *
+ * @return {boolean} Should theme be saved
+ */
+export function isSaving( state ) {
+	return state.isSaving;
+}

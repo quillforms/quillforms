@@ -7,9 +7,16 @@ import { moreHorizontal } from '@wordpress/icons';
 
 const ThemeActions = ( { id } ) => {
 	const { setCurrentSubPanel } = useDispatch( 'quillForms/builder-panels' );
+	const { deleteTheme, setCurrentThemeId } = useDispatch(
+		'quillForms/theme-editor'
+	);
 
 	return (
-		<div className="theme-editor-theme-actions">
+		<div
+			role="presentation"
+			className="theme-editor-theme-actions"
+			onClick={ ( e ) => e.stopPropagation() }
+		>
 			<DropdownMenu
 				icon={ moreHorizontal }
 				position="bottom left"
@@ -20,6 +27,7 @@ const ThemeActions = ( { id } ) => {
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item"
 							onClick={ () => {
+								setCurrentThemeId( id );
 								setCurrentSubPanel( 'customize' );
 							} }
 						>
@@ -28,7 +36,8 @@ const ThemeActions = ( { id } ) => {
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item theme-editor-theme-actions__delete-theme"
 							onClick={ () => {
-								setCurrentSubPanel( 'customize' );
+								onClose();
+								deleteTheme( id );
 							} }
 						>
 							Delete

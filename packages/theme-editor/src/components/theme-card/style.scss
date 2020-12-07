@@ -1,7 +1,7 @@
 .theme-editor-theme-card {
 	width: 170px;
     height: 185px;
-    display: flex;
+	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
     align-items:center;
@@ -9,4 +9,9 @@
     border-radius: 10px;
 	box-shadow: 0 0 2px rgba(0,0,0,0.1);
 	overflow: hidden;
+	cursor: pointer;
+
+	&.isSelected {
+		box-shadow: 0 0 0 2pt#58b9b0;
+	}
 }

@@ -12,11 +12,13 @@ import {
 	ColorPreview,
 	useGlobalEditorContext,
 } from '@quillforms/builder-components';
+import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 import { PanelBody } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 
@@ -29,19 +31,40 @@ import CustomizeFooter from '../customize-footer';
 const CustomizeThemePanel = () => {
 	const editorContext = useGlobalEditorContext();
 
-	const { setThemeProperties } = useDispatch( 'quillForms/theme-editor' );
+	const { setCurrentThemeProperties } = useDispatch(
+		'quillForms/theme-editor'
+	);
 	const { theme, shouldBeSaved, currentThemeId } = useSelect( ( select ) => {
 		return {
-			theme: select( 'quillForms/theme-editor' ).getCurrentTheme(),
 			shouldBeSaved: select(
 				'quillForms/theme-editor'
 			).shouldThemeBeSaved(),
 			currentThemeId: select(
 				'quillForms/theme-editor'
 			).getCurrentThemeId(),
+			theme: select( 'quillForms/theme-editor' ).getCurrentTheme(),
 		};
 	} );
 
+	const { title, properties } = theme;
+
+	const $properties = {
+		...getDefaultThemeProperties(),
+		...properties,
+	};
+	const {
+		backgroundColor,
+		backgroundImage,
+		font,
+		questionsColor,
+		answersColor,
+		buttonsFontColor,
+		buttonsBgColor,
+		errorsFontColor,
+		errorsBgColor,
+		progressBarBgColor,
+		progressBarFillColor,
+	} = $properties;
 	return (
 		<div className="theme-editor-customize">
 			<PanelBody title="General Settings" initialOpen={ false }>
@@ -50,10 +73,10 @@ const CustomizeThemePanel = () => {
 						<__experimentalControlLabel label="Font" />
 						<FontPicker
 							fonts={ editorContext.fonts }
-							selectedFont={ theme.font }
-							setFont={ ( font ) => {
-								setThemeProperties( {
-									font,
+							selectedFont={ font }
+							setFont={ ( value ) => {
+								setCurrentThemeProperties( {
+									font: value,
 								} );
 							} }
 						/>
@@ -62,12 +85,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Background" />
-						<ColorPreview color={ theme.backgroundColor } />
+						<ColorPreview color={ backgroundColor } />
 					</__experimentalControlWrapper>
 					<ComboColorPicker
-						color={ theme.backgroundColor }
+						color={ backgroundColor }
 						setColor={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								backgroundColor: value,
 							} );
 						} }
@@ -76,10 +99,10 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Background Image" />
-						{ isEmpty( theme.backgroundImage ) ? (
+						{ isEmpty( backgroundImage ) ? (
 							<MediaUpload
 								onSelect={ ( media ) =>
-									setThemeProperties( {
+									setCurrentThemeProperties( {
 										backgroundImage: {
 											type: 'image',
 											url: media.url,
@@ -102,7 +125,7 @@ const CustomizeThemePanel = () => {
 								isDanger
 								isSmall
 								onClick={ () =>
-									setThemeProperties( {
+									setCurrentThemeProperties( {
 										backgroundImage: {},
 									} )
 								}
@@ -117,12 +140,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Color" />
-						<ColorPreview color={ theme.questionsColor } />
+						<ColorPreview color={ questionsColor } />
 					</__experimentalControlWrapper>
 					<ColorPicker
-						value={ theme.questionsColor }
+						value={ questionsColor }
 						onChange={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								questionsColor: value,
 							} );
 						} }
@@ -133,12 +156,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Color" />
-						<ColorPreview color={ theme.answersColor } />
+						<ColorPreview color={ answersColor } />
 					</__experimentalControlWrapper>
 					<ColorPicker
-						value={ theme.answersColor }
+						value={ answersColor }
 						onChange={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								answersColor: value,
 							} );
 						} }
@@ -149,12 +172,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Text Color" />
-						<ColorPreview color={ theme.buttonsFontColor } />
+						<ColorPreview color={ buttonsFontColor } />
 					</__experimentalControlWrapper>
 					<ColorPicker
-						value={ theme.buttonsFontColor }
+						value={ buttonsFontColor }
 						onChange={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								buttonsFontColor: value,
 							} );
 						} }
@@ -163,12 +186,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Background Color" />
-						<ColorPreview color={ theme.buttonsBgColor } />
+						<ColorPreview color={ buttonsBgColor } />
 					</__experimentalControlWrapper>
 					<ComboColorPicker
-						color={ theme.buttonsBgColor }
+						color={ buttonsBgColor }
 						setColor={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								buttonsBgColor: value,
 							} );
 						} }
@@ -179,12 +202,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Text Color" />
-						<ColorPreview color={ theme.errorsFontColor } />
+						<ColorPreview color={ errorsFontColor } />
 					</__experimentalControlWrapper>
 					<ColorPicker
-						value={ theme.errorsFontColor }
+						value={ errorsFontColor }
 						onChange={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								errorsFontColor: value,
 							} );
 						} }
@@ -193,12 +216,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Background Color" />
-						<ColorPreview color={ theme.errorsBgColor } />
+						<ColorPreview color={ errorsBgColor } />
 					</__experimentalControlWrapper>
 					<ComboColorPicker
-						color={ theme.errorsBgColor }
+						color={ errorsBgColor }
 						setColor={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								errorsBgColor: value,
 							} );
 						} }
@@ -209,12 +232,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Progress Bar Fill Color" />
-						<ColorPreview color={ theme.progressBarFillColor } />
+						<ColorPreview color={ progressBarFillColor } />
 					</__experimentalControlWrapper>
 					<ColorPicker
-						value={ theme.progressBarFillColor }
+						value={ progressBarFillColor }
 						onChange={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								progressBarFillColor: value,
 							} );
 						} }
@@ -223,12 +246,12 @@ const CustomizeThemePanel = () => {
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Progress Bar Background Color" />
-						<ColorPreview color={ theme.progressBarBgColor } />
+						<ColorPreview color={ progressBarBgColor } />
 					</__experimentalControlWrapper>
 					<ColorPicker
-						value={ theme.progressBarBgColor }
+						value={ progressBarBgColor }
 						onChange={ ( value ) => {
-							setThemeProperties( {
+							setCurrentThemeProperties( {
 								progressBarBgColor: value,
 							} );
 						} }
@@ -237,7 +260,7 @@ const CustomizeThemePanel = () => {
 			</PanelBody>
 			{ shouldBeSaved && (
 				<CustomizeFooter
-					themeData={ theme }
+					themeProperties={ theme.properties }
 					themeId={ currentThemeId }
 				/>
 			) }

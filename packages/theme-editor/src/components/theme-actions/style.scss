@@ -32,6 +32,12 @@
 		.components-menu-item__button {
 			padding-left: 1rem;
 			outline: none !important;
+			box-shadow: none !important;
+
+			&:focus {
+				outline: none !important;
+				box-shadow: none !important;
+			}
 		}
 
 		.theme-editor-theme-actions__menu-group {

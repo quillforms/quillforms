@@ -2,10 +2,12 @@
  * QuillForms Dependencies
  */
 import { useGlobalEditorContext } from '@quillforms/builder-components';
+import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
  */
+import { useDispatch } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 
 /**
@@ -43,9 +45,15 @@ import ThemeActions from '../theme-actions';
  * @param {QFTheme} theme
  */
 const ThemesListItem = ( { theme } ) => {
-	const themeData = theme.theme_data;
+	const themeId = theme.id;
+	const themeData = {
+		...getDefaultThemeProperties(),
+		...theme.properties,
+	};
 	const { font } = themeData;
 	const { fonts } = useGlobalEditorContext();
+	const { setCurrentThemeId } = useDispatch( 'quillForms/theme-editor' );
+
 	const fontType = fonts[ font ];
 	let fontUrl;
 	switch ( fontType ) {
@@ -80,7 +88,13 @@ const ThemesListItem = ( { theme } ) => {
 			head.appendChild( link );
 	}, [] );
 	return (
-		<div className="theme-editor-themes-list-item">
+		<div
+			role="presentation"
+			className="theme-editor-themes-list-item"
+			onClick={ () => {
+				setCurrentThemeId( themeId );
+			} }
+		>
 			<div
 				className={ classnames(
 					'theme-editor-themes-list-item__header',

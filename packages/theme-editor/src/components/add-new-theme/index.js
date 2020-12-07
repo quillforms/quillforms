@@ -14,9 +14,7 @@ import ThemeCard from '../theme-card';
 
 const AddNewTheme = () => {
 	const { setCurrentSubPanel } = useDispatch( 'quillForms/builder-panels' );
-	const { setShouldBeSaved, setCurrentThemeId } = useDispatch(
-		'quillForms/theme-editor'
-	);
+	const { setCurrentThemeId } = useDispatch( 'quillForms/theme-editor' );
 	return (
 		<div
 			className="theme-editor-component-add-new-theme"
@@ -24,7 +22,6 @@ const AddNewTheme = () => {
 			onClick={ () => {
 				setCurrentSubPanel( 'customize' );
 				setCurrentThemeId( null );
-				setShouldBeSaved( true );
 			} }
 		>
 			<ThemeCard>

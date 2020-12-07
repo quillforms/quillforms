@@ -10,10 +10,11 @@ import {
 	SET_CURRENT_THEME_PROPERTIES,
 	SET_SHOULD_BE_SAVED,
 	SET_CURRENT_THEME_ID,
-	ADD_NEW_THEME,
+	ADD_NEW_THEME_SUCCESS,
 	ADD_NEW_THEMES,
-	UPDATE_THEME,
+	UPDATE_THEME_SUCCESS,
 	DELETE_THEME_SUCCESS,
+	SET_IS_SAVING,
 } from './constants';
 
 /**
@@ -73,19 +74,45 @@ export const addNewThemes = ( themes ) => {
 	};
 };
 
-/**
- * Add new theme
+/*
+ * Action generator for Adding new theme
  *
- * @param {number}  themeId      Theme id
- * @param {string } themeTitle   Theme title
- * @param {Object}  themeData    Theme data
+ * @param {string} title       Theme title.
+ * @param {Object} properties  Theme properties.
+ *
+ */
+export function* addNewTheme( title, properties ) {
+	const path = '/qf/v1/themes';
+	yield __unstableSetIsSaving( true );
+	try {
+		const newThemeId = yield apiFetch( {
+			path,
+			method: 'POST',
+			data: { title, properties },
+		} );
+
+		yield __unstableAddNewThemeSuccess( newThemeId, title, properties );
+	} catch ( error ) {}
+	yield __unstableSetIsSaving( false );
+}
+
+/**
+ * Add new theme on front end after saving successfully on back end
+ *
+ * @param {number} themeId            Theme id
+ * @param {string } themeTitle   	  Theme title
+ * @param {Object} themeProperties    Theme data
  *
  * @return {Object} Action object.
  */
-export const addNewTheme = ( themeId, themeTitle, themeData ) => {
+export const __unstableAddNewThemeSuccess = (
+	themeId,
+	themeTitle,
+	themeProperties
+) => {
 	return {
-		type: ADD_NEW_THEME,
-		payload: { themeId, themeTitle, themeData },
+		type: ADD_NEW_THEME_SUCCESS,
+		payload: { themeId, themeTitle, themeProperties },
 	};
 };
 
@@ -95,19 +122,16 @@ export const addNewTheme = ( themeId, themeTitle, themeData ) => {
  *
  */
 export function* deleteTheme( themeId ) {
-	const path = `/	qf/v1/themes/${ themeId }`;
+	const path = `/qf/v1/themes/${ themeId }`;
 
 	try {
-		const result = yield apiFetch( {
+		yield apiFetch( {
 			path,
 			method: 'DELETE',
 		} );
-		if ( result?.deleted ) {
-			yield __unstableDeleteThemeSuccess( themeId );
-		}
-	} catch ( err ) {
-		console.log( err );
-	}
+
+		yield __unstableDeleteThemeSuccess( themeId );
+	} catch ( err ) {}
 }
 
 /**
@@ -125,16 +149,60 @@ export function __unstableDeleteThemeSuccess( themeId ) {
 }
 
 /**
- * Update theme
+ * Update theme.
  *
- * @param {Object} themeData Theme data
- * @param {string} themeId   Theme id
+ * @param {number} themeId          Theme id.
+ * @param {string} themeTitle       Theme title.
+ * @param {Object} themeProperties  Theme properties.
  *
- * @return {Object} Action object.
  */
-export const updateTheme = ( themeData, themeId ) => {
+export function* updateTheme( themeId, themeTitle, themeProperties ) {
+	yield __unstableSetIsSaving( true );
+
+	const path = `/qf/v1/themes/${ themeId }`;
+
+	try {
+		yield apiFetch( {
+			path,
+			method: 'PUT',
+			data: {
+				title: themeTitle,
+				properties: themeProperties,
+			},
+		} );
+
+		yield __unstableUpdateThemeSuccess(
+			themeId,
+			themeTitle,
+			themeProperties
+		);
+	} catch ( err ) {}
+	yield __unstableSetIsSaving( false );
+}
+
+/**
+ * After updating theme successfully at backend, this action would be dispatched to update the theme visually on front end.
+ *
+ * @param {number} themeId          Theme id
+ * @param {string} themeTite        Theme title
+ * @param {Object} themeProperties  Theme properties
+ *
+ * @return {Object} Action object
+ */
+export const __unstableUpdateThemeSuccess = (
+	themeId,
+	themeTite,
+	themeProperties
+) => {
 	return {
-		type: UPDATE_THEME,
-		payload: { themeData, themeId },
+		type: UPDATE_THEME_SUCCESS,
+		payload: { themeId, themeTite, themeProperties },
+	};
+};
+
+export const __unstableSetIsSaving = ( flag ) => {
+	return {
+		type: SET_IS_SAVING,
+		payload: { flag },
 	};
 };

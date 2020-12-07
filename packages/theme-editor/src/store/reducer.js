@@ -1,16 +1,13 @@
 import {
 	SET_SHOULD_BE_SAVED,
 	SET_CURRENT_THEME_ID,
-	ADD_NEW_THEME,
+	ADD_NEW_THEME_SUCCESS,
 	ADD_NEW_THEMES,
 	SET_CURRENT_THEME_PROPERTIES,
 	DELETE_THEME_SUCCESS,
+	UPDATE_THEME_SUCCESS,
+	SET_IS_SAVING,
 } from './constants';
-
-/**
- * External dependencies
- */
-import { reduce } from 'lodash';
 
 /**
  * Returns an object against which it is safe to perform mutating operations,
@@ -34,7 +31,9 @@ const initialState = {
 	currentTheme: {},
 	shouldBeSaved: false,
 	themesList: [],
+	isSaving: false,
 };
+
 /**
  * Themes Reducer
  *
@@ -49,37 +48,50 @@ const ThemeReducer = ( state = initialState, action ) => {
 		case SET_CURRENT_THEME_PROPERTIES: {
 			const { properties } = action.payload;
 			// Consider as updates only changed values
-			const nextProperties = reduce(
-				properties,
-				( result, value, key ) => {
-					if ( value !== result[ key ] ) {
-						result = getMutateSafeObject(
-							state.currentTheme,
-							result
-						);
-						result[ key ] = value;
-					}
-
-					return result;
-				},
-				state.currentTheme
-			);
+			const nextProperties = {
+				...state.currentTheme.properties,
+				...properties,
+			};
 
 			// Skip update if nothing has been changed.
-			if ( nextProperties === state.currentTheme ) {
+			if (
+				JSON.stringify( nextProperties ) ===
+				JSON.stringify( state.currentTheme.properties )
+			) {
 				return state;
 			}
 
 			// Otherwise replace attributes in state
 			const stateClone = { ...state };
-			stateClone.currentTheme = nextProperties;
+			stateClone.currentTheme.properties = nextProperties;
+			stateClone.shouldBeSaved = true;
 			return stateClone;
 		}
 
 		// SET CURRENT THEME ID
 		case SET_CURRENT_THEME_ID: {
 			const { currentThemeId } = action.payload;
-			const stateClone = { ...state, currentThemeId };
+			const $themesList = [ ...state.themesList ];
+			const themeIndex = $themesList.findIndex(
+				( theme ) => theme.id === currentThemeId
+			);
+			if ( themeIndex === -1 ) {
+				return {
+					...state,
+					currentThemeId: null,
+					currentTheme: {},
+				};
+			}
+
+			const stateClone = {
+				...state,
+				currentThemeId,
+				currentTheme: {
+					title: $themesList[ themeIndex ].title,
+					properties: $themesList[ themeIndex ].properties,
+				},
+			};
+
 			return stateClone;
 		}
 
@@ -90,15 +102,19 @@ const ThemeReducer = ( state = initialState, action ) => {
 			return stateClone;
 		}
 
-		case ADD_NEW_THEME: {
-			const { themeId, themeTitle, themeData } = action.payload;
+		case ADD_NEW_THEME_SUCCESS: {
+			const { themeId, themeTitle, themeProperties } = action.payload;
 			const $themesList = [ ...state.themesList ];
 			$themesList.push( {
 				id: themeId,
 				title: themeTitle,
-				theme_data: themeData,
+				properties: themeProperties,
 			} );
-			const stateClone = { ...state, themesList: $themesList };
+			const stateClone = {
+				...state,
+				themesList: $themesList,
+				currentThemeId: themeId,
+			};
 			return stateClone;
 		}
 
@@ -114,12 +130,34 @@ const ThemeReducer = ( state = initialState, action ) => {
 
 		case DELETE_THEME_SUCCESS: {
 			const { themeId } = action.payload;
+			const isCurrentTheme = themeId === state.currentThemeId;
 			return {
 				...state,
-
 				themesList: [ ...state.themesList ].filter(
 					( theme ) => theme.id !== themeId
 				),
+				currentTheme: isCurrentTheme ? {} : state.currentTheme,
+				currentThemeId: isCurrentTheme ? null : state.currentThemeId,
+			};
+		}
+
+		case UPDATE_THEME_SUCCESS: {
+			const { themeId, themeTitle, themeProperties } = action.payload;
+			const $themesList = [ ...state.themesList ];
+			const themeIndex = $themesList.findIndex(
+				( theme ) => theme.id === themeId
+			);
+			$themesList[ themeIndex ].title = themeTitle;
+			$themesList[ themeIndex ].properties = themeProperties;
+			const stateClone = { ...state, themesList: $themesList };
+			return stateClone;
+		}
+
+		case SET_IS_SAVING: {
+			const { flag } = action.payload;
+			return {
+				...state,
+				isSaving: flag,
 			};
 		}
 	}
