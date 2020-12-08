@@ -7,7 +7,7 @@ import { moreHorizontal } from '@wordpress/icons';
 
 const ThemeActions = ( { id } ) => {
 	const { setCurrentSubPanel } = useDispatch( 'quillForms/builder-panels' );
-	const { deleteTheme, setCurrentThemeId } = useDispatch(
+	const { deleteTheme, setCurrentThemeId, setShouldBeSaved } = useDispatch(
 		'quillForms/theme-editor'
 	);
 
@@ -29,6 +29,7 @@ const ThemeActions = ( { id } ) => {
 							onClick={ () => {
 								setCurrentThemeId( id );
 								setCurrentSubPanel( 'customize' );
+								setShouldBeSaved( false );
 							} }
 						>
 							Customize

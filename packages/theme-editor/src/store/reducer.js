@@ -47,11 +47,15 @@ const ThemeReducer = ( state = initialState, action ) => {
 		// SET THEME PROPERTIES
 		case SET_CURRENT_THEME_PROPERTIES: {
 			const { properties } = action.payload;
+			console.log( properties );
 			// Consider as updates only changed values
 			const nextProperties = {
 				...state.currentTheme.properties,
 				...properties,
 			};
+
+			console.log( state );
+			console.log( nextProperties );
 
 			// Skip update if nothing has been changed.
 			if (

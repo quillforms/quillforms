@@ -1,8 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal Dependencies
@@ -20,11 +19,6 @@ const ThemesList = () => {
 			).getCurrentThemeId(),
 		};
 	} );
-	const { setShouldBeSaved } = useDispatch( 'quillForms/theme-editor' );
-
-	useEffect( () => {
-		setShouldBeSaved( false );
-	}, [] );
 
 	return (
 		<div className="theme-editor-themes-list">

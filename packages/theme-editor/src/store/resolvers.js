@@ -2,15 +2,11 @@
  * QuillForms Dependencies
  */
 import { getDefaultThemeProperties } from '@quillforms/utils';
-/**
- * WordPress Dependencies
- */
-import { apiFetch } from '@wordpress/data-controls';
 
 /**
  * Internal dependencies
  */
-import { getThemeId, getSavedThemes } from './controls';
+import { apiFetch, getThemeId, getSavedThemes } from './controls';
 import {
 	setCurrentThemeId,
 	setCurrentThemeProperties,

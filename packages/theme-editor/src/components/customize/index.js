@@ -46,7 +46,7 @@ const CustomizeThemePanel = () => {
 		};
 	} );
 
-	const { title, properties } = theme;
+	const { title, properties } = { ...theme };
 
 	const $properties = {
 		...getDefaultThemeProperties(),

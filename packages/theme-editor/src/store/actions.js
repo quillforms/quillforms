@@ -1,11 +1,8 @@
 /**
- * WordPress Dependencies
- */
-import { apiFetch } from '@wordpress/data-controls';
-
-/**
  * Internal Dependencies
  */
+import { apiFetch, dispatch } from './controls';
+
 import {
 	SET_CURRENT_THEME_PROPERTIES,
 	SET_SHOULD_BE_SAVED,
@@ -91,8 +88,27 @@ export function* addNewTheme( title, properties ) {
 			data: { title, properties },
 		} );
 
+		yield dispatch(
+			'core/notices',
+			'createSuccessNotice',
+			'Theme created.',
+			{
+				type: 'snackbar',
+				isDismissible: true,
+			}
+		);
 		yield __unstableAddNewThemeSuccess( newThemeId, title, properties );
-	} catch ( error ) {}
+	} catch ( error ) {
+		yield dispatch(
+			'core/notices',
+			'createErrorNotice',
+			'Error while creating.',
+			{
+				type: 'snackbar',
+				isDismissible: true,
+			}
+		);
+	}
 	yield __unstableSetIsSaving( false );
 }
 
@@ -129,7 +145,6 @@ export function* deleteTheme( themeId ) {
 			path,
 			method: 'DELETE',
 		} );
-
 		yield __unstableDeleteThemeSuccess( themeId );
 	} catch ( err ) {}
 }
@@ -170,13 +185,31 @@ export function* updateTheme( themeId, themeTitle, themeProperties ) {
 				properties: themeProperties,
 			},
 		} );
-
+		yield dispatch(
+			'core/notices',
+			'createSuccessNotice',
+			'Theme updated.',
+			{
+				type: 'snackbar',
+				isDismissible: true,
+			}
+		);
 		yield __unstableUpdateThemeSuccess(
 			themeId,
 			themeTitle,
 			themeProperties
 		);
-	} catch ( err ) {}
+	} catch ( err ) {
+		yield dispatch(
+			'core/notices',
+			'createErrorNotice',
+			'Error while theme updating.',
+			{
+				type: 'snackbar',
+				isDismissible: true,
+			}
+		);
+	}
 	yield __unstableSetIsSaving( false );
 }
 

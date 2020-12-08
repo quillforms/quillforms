@@ -1,16 +1,24 @@
-import { registerStore } from '@wordpress/data';
-import { controls as dataControls } from '@wordpress/data-controls';
+import { createReduxStore, registerStore } from '@wordpress/data';
 
 import reducer from './reducer';
 import * as actions from './actions';
 import * as selectors from './selectors';
 import * as resolvers from './resolvers';
-import * as controls from './controls';
-const store = registerStore( 'quillForms/theme-editor', {
+import controls from './controls';
+
+const storeConfig = {
 	reducer,
 	actions,
 	selectors,
 	resolvers,
-	controls: { ...dataControls, ...controls },
+	controls,
+};
+const store = createReduxStore( 'quillForms/theme-editor', {
+	...storeConfig,
 } );
+
+registerStore( 'quillForms/theme-editor', {
+	...storeConfig,
+} );
+
 export default store;

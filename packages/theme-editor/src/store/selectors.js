@@ -6,7 +6,12 @@
  * @return {Object} Default theme
  */
 export function getCurrentTheme( state ) {
-	return state.currentTheme;
+	return {
+		title: state?.currentTheme?.title ? state.currentTheme.title : '',
+		properties: state?.currentTheme?.properties
+			? state.currentTheme.properties
+			: {},
+	};
 }
 
 /**

@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { Button } from '@quillforms/builder-components';
+import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -16,11 +17,8 @@ const CustomizeFooter = ( { themeId, themeProperties } ) => {
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
 		};
 	} );
-	const { addNewTheme, updateTheme, setShouldBeSaved } = useDispatch(
+	const { addNewTheme, updateTheme, setCurrentThemeProperties } = useDispatch(
 		'quillForms/theme-editor'
-	);
-	const { setCurrentSubPanel, setCurrentThemeProperties } = useDispatch(
-		'quillForms/builder-panels'
 	);
 
 	const { isSaving } = useSelect( ( select ) => {
@@ -46,9 +44,10 @@ const CustomizeFooter = ( { themeId, themeProperties } ) => {
 								return;
 							}
 						}
-						setCurrentThemeProperties( {} );
+						setCurrentThemeProperties(
+							getDefaultThemeProperties()
+						);
 					}
-					setCurrentSubPanel( 'my-themes' );
 				} }
 			>
 				Revert changes
