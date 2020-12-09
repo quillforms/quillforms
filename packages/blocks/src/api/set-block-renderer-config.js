@@ -22,8 +22,5 @@ export const setBlockRendererConfig = ( type, config ) => {
 	// If getRawValue isn't defined, define it with default behavior.
 	if ( ! config.getRawValue ) config.getRawValue = ( val ) => String( val );
 
-	// If counterContent isn't defined, define it with default value "arrow".
-	if ( ! config.counterContent ) config.counterContent = 'arrow';
-
 	dispatch( 'quillForms/blocks' ).addBlockRendererConfig( config );
 };
