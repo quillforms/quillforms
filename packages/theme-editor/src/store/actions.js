@@ -91,7 +91,7 @@ export function* addNewTheme( title, properties ) {
 		yield dispatch(
 			'core/notices',
 			'createSuccessNotice',
-			'Theme created.',
+			'🚀 Theme created successfully',
 			{
 				type: 'snackbar',
 				isDismissible: true,
@@ -102,7 +102,7 @@ export function* addNewTheme( title, properties ) {
 		yield dispatch(
 			'core/notices',
 			'createErrorNotice',
-			'Error while creating.',
+			'🙁 Error while theme creating',
 			{
 				type: 'snackbar',
 				isDismissible: true,
@@ -145,8 +145,27 @@ export function* deleteTheme( themeId ) {
 			path,
 			method: 'DELETE',
 		} );
+		yield dispatch(
+			'core/notices',
+			'createSuccessNotice',
+			'✅ Theme deleted successfully',
+			{
+				type: 'snackbar',
+				isDismissible: true,
+			}
+		);
 		yield __unstableDeleteThemeSuccess( themeId );
-	} catch ( err ) {}
+	} catch ( err ) {
+		yield dispatch(
+			'core/notices',
+			'createErrorNotice',
+			'🙁 Error while theme deletion',
+			{
+				type: 'snackbar',
+				isDismissible: true,
+			}
+		);
+	}
 }
 
 /**
@@ -188,7 +207,7 @@ export function* updateTheme( themeId, themeTitle, themeProperties ) {
 		yield dispatch(
 			'core/notices',
 			'createSuccessNotice',
-			'Theme updated.',
+			'🚀 Theme updated successfully',
 			{
 				type: 'snackbar',
 				isDismissible: true,
@@ -203,7 +222,7 @@ export function* updateTheme( themeId, themeTitle, themeProperties ) {
 		yield dispatch(
 			'core/notices',
 			'createErrorNotice',
-			'Error while theme updating.',
+			'🙁 Error while theme updating',
 			{
 				type: 'snackbar',
 				isDismissible: true,
