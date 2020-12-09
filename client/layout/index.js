@@ -7,16 +7,12 @@ import { useFilters } from '@quillforms/builder-components';
  * WordPress Dependencies
  */
 import { SlotFillProvider } from '@wordpress/components';
+import { compose } from '@wordpress/compose';
 
 /**
  * External dependencies
  */
 import { Router, Route, Switch } from 'react-router-dom';
-import { compose } from '@wordpress/compose';
-
-/**
- * WooCommerce dependencies
- */
 import { getHistory } from '@woocommerce/navigation';
 
 /**
