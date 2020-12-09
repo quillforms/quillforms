@@ -14,7 +14,7 @@ import classnames from 'classnames';
  */
 import HtmlParser from '../html-parser';
 import { useFieldRenderContext } from '../field-render/context';
-import useTheme from '../hooks/use-theme';
+import { useTheme } from '@quillforms/utils';
 
 const BlockTitle = () => {
 	let { title } = useFieldRenderContext();

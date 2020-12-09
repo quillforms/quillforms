@@ -19,4 +19,3 @@ export { default as ScreenWrapper } from './screen-wrapper';
 export { default as useEditableFields } from './hooks/use-editable-fields';
 export { default as useBlockTypes } from './hooks/use-block-types';
 export { default as useMetaField } from './hooks/use-meta-field';
-export { default as useTheme } from './hooks/use-theme';

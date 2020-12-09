@@ -9,7 +9,7 @@ import { useSelect } from '@wordpress/data';
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-import useTheme from '../hooks/use-theme';
+import { useTheme } from '@quillforms/utils';
 
 // Preventing re-render unless current block changes
 const areEqual = ( prevProps, nextProps ) => {

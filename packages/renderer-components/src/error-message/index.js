@@ -7,7 +7,7 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import useTheme from '../hooks/use-theme';
+import { useTheme } from '@quillforms/utils';
 
 const ErrorMsgWrapper = ( { message } ) => {
 	const theme = useTheme();

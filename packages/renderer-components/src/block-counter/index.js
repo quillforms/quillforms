@@ -10,7 +10,7 @@ import classnames from 'classnames';
 import ArrowIcon from './arrow-icon';
 import { useFieldRenderContext } from '../field-render/context';
 import useBlockTypes from '../hooks/use-block-types';
-import useTheme from '../hooks/use-theme';
+import { useTheme } from '@quillforms/utils';
 
 const BlockCounter = () => {
 	const { type, counter } = useFieldRenderContext();
