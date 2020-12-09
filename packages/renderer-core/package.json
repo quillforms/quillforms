@@ -25,6 +25,7 @@
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/renderer-answers": "file:../renderer-answers",
 		"@quillforms/renderer-components": "file:../renderer-components",
+		"@quillforms/utils": "file:../utils",
 		"@wordpress/element": "^2.14.0",
 		"framer-motion": "^1.6.17",
 		"lethargy": "^1.0.9",
