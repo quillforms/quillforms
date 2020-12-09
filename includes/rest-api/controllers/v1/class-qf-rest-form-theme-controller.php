@@ -208,6 +208,21 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 	}
 
 	/**
+	 * Update item permission check
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 *
+	 * @return WP_Error|bool
+	 */
+	public function update_item_permissions_check( $request ) {
+		$capability = 'edit_quillform';
+		return current_user_can( $capability, $request );
+
+	}
+
+	/**
 	 * Update one item from the collection
 	 *
 	 * @since 1.0.0
@@ -217,7 +232,7 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 	 * @return WP_Error|WP_REST_Request
 	 */
 	public function update_item( $request ) {
-		$theme = $this->get_item( $request['id'] );
+		$theme = $this->get_item( $request );
 		if ( is_wp_error( $theme ) ) {
 			return $theme;
 		}
