@@ -2,22 +2,7 @@
 /**
  * External dependencies
  */
-import {
-	flow,
-	reduce,
-	first,
-	last,
-	omit,
-	cloneDeep,
-	mapValues,
-	keys,
-	isEqual,
-	isEmpty,
-	identity,
-	difference,
-	omitBy,
-	pickBy,
-} from 'lodash';
+import { omit, cloneDeep, identity } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -133,7 +118,13 @@ const fillKeysWithEmptyObject = ( objectKeys ) => {
  *
  * @return {Function} Enhanced reducer function.
  */
-const withBlockCache = ( reducer ) => ( state = {}, action ) => {
+const withBlockCache = ( reducer ) => (
+	state = {
+		blocks: [],
+		currentBlockId: '',
+	},
+	action
+) => {
 	const newState = reducer( state, action );
 
 	if ( newState === state ) {
