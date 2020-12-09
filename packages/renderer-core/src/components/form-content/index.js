@@ -15,9 +15,8 @@ import {
 	FormFooter,
 	useMetaField,
 	useBlockTypes,
-	useTheme,
 } from '@quillforms/renderer-components';
-
+import { useTheme } from '@quillforms/utils';
 /**
  * External Dependencies
  */
