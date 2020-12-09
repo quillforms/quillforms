@@ -17,11 +17,17 @@
 function qf_get_editor_context_value() {
 	$editor_context = array(
 		'schemas'       => array(
-			'theme'    => ( new QF_Theme_Meta_Field() )->get_theme_properties(),
+			'theme'    => QF_Form_Theme::get_instance()->get_theme_properties(),
 			'messages' => ( new QF_Messages_Meta_Field() )->get_messages_data(),
 		),
 		'maxUploadSize' => wp_max_upload_size(),
 		'fonts'         => QF_Fonts::get_fonts(),
+		'defaults'      => array(
+			'theme' => array(
+				'title'      => 'Default Theme',
+				'properties' => QF_Form_Theme::get_instance()->prepare_theme_properties_for_render(),
+			),
+		),
 	);
 
 	return $editor_context;
