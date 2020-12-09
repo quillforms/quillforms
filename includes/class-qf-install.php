@@ -87,9 +87,9 @@ class QF_Install {
 			);
 			CREATE TABLE {$wpdb->prefix}quillforms_themes (
 			    ID mediumint(8) unsigned NOT NULL auto_increment,
-				theme_data longtext NOT NULL,
-				title varchar(50) NOT NULL,
-				author bigint(20) unsigned NOT NULL default '0',
+				theme_properties longtext NOT NULL,
+				theme_title varchar(50) NOT NULL,
+				theme_author bigint(20) unsigned NOT NULL default '0',
 				date_created datetime NOT NULL,
 				date_updated datetime,
 				PRIMARY KEY  (ID)
