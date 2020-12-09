@@ -46,8 +46,13 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 			<div className="builder-components-combo-color-picker__switcher-wrapper">
 				<Button
 					onClick={ () => {
-						setActiveSwitcher( 'solid' );
-						setColor( '#000' );
+						if (
+							! activeSwitcher ||
+							activeSwitcher === 'gradient'
+						) {
+							setActiveSwitcher( 'solid' );
+							setColor( '#000' );
+						}
 					} }
 					isPrimary={ activeSwitcher === 'solid' }
 					isSecondary={ activeSwitcher !== 'solid' }
@@ -58,8 +63,10 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 				</Button>
 				<Button
 					onClick={ () => {
-						setActiveSwitcher( 'gradient' );
-						setColor( DEFAULT_GRADIENT );
+						if ( ! activeSwitcher || activeSwitcher === 'solid' ) {
+							setActiveSwitcher( 'gradient' );
+							setColor( DEFAULT_GRADIENT );
+						}
 					} }
 					isPrimary={ activeSwitcher === 'gradient' }
 					isSecondary={ activeSwitcher !== 'gradient' }
