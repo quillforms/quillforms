@@ -16,6 +16,7 @@ const TextControl = ( {
 	setValue,
 	maxLength = null,
 	forceFocusOnMount = false,
+	...props
 } ) => {
 	const ref = useRef();
 	useEffect( () => {
@@ -39,6 +40,7 @@ const TextControl = ( {
 					type={ type ? type : 'text' }
 					value={ value }
 					onChange={ ( e ) => setValue( e.target.value ) }
+					{ ...props }
 				/>
 				{ maxLength && (
 					<div className="builder-components-text-control__input-characters-count">
