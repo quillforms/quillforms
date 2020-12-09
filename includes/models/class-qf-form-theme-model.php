@@ -39,7 +39,7 @@ class QF_Form_Theme_Model {
 					return array(
 						'id'         => $theme['ID'],
 						'title'      => $theme['theme_title'],
-						'properties' => QF_Form_Theme::get_instance()->prepare_theme_data_for_render( maybe_unserialize( $theme['theme_properties'] ) ),
+						'properties' => QF_Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $theme['theme_properties'] ) ),
 
 					);
 				},
@@ -76,6 +76,7 @@ class QF_Form_Theme_Model {
 				),
 				ARRAY_A
 			);
+
 			if ( ! $res || empty( $res ) ) {
 				return null;
 			}
@@ -87,7 +88,7 @@ class QF_Form_Theme_Model {
 		}
 		return  array(
 			'title'      => $data['theme_title'],
-			'properties' => QF_Form_Theme::get_instance()->prepare_theme_data_for_render( maybe_unserialize( $data['theme_properties'] ) ),
+			'properties' => QF_Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $data['theme_properties'] ) ),
 		);
 	}
 
