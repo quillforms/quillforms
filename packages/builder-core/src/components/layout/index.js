@@ -27,6 +27,7 @@ import Panel from '../panel';
 import BuilderPanelsBar from '../builder-panels-bar';
 import DragAlert from '../drag-alert';
 import SaveButton from '../save-button';
+import { BuilderNotices } from '../builder-notices';
 
 const Layout = ( props ) => {
 	const {
@@ -138,7 +139,7 @@ const Layout = ( props ) => {
 					let draggedBlock = { ...blockTypes[ blockType ] };
 					assign( draggedBlock, {
 						id: generateBlockId(),
-						title: '<p></p>',
+						title: '',
 						type: blockType,
 					} );
 					const isBlockEditable = draggedBlock.supports?.editable;
@@ -189,6 +190,7 @@ const Layout = ( props ) => {
 			onBeforeCapture={ onBeforeCapture }
 		>
 			<SaveButton />
+			<BuilderNotices />
 			<PluginArea />
 			<BuilderPanelsBar />
 			{ currentPanel && <Panel /> }
