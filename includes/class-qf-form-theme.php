@@ -50,10 +50,6 @@ class QF_Form_Theme {
 	 */
 	public function get_theme_properties() {
 		return array(
-			'name'                 => array(
-				'type'    => 'string',
-				'default' => 'My Theme',
-			),
 			'font'                 => array(
 				'type'    => 'string',
 				'default' => 'Viga',
@@ -110,7 +106,10 @@ class QF_Form_Theme {
 	 *
 	 * @return array The notifications to render.
 	 */
-	public function prepare_theme_data_for_render( $data = array() ) {
+	public function prepare_theme_properties_for_render( $data = array() ) {
+		if ( ! $data ) {
+			$data = array();
+		}
 		// If there are no properties definitions for theme, skip
 		// processing and return vebatim.
 		$theme_properties_schema = $this->get_theme_properties();
