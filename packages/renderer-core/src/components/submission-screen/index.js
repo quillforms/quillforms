@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import Loader from 'react-loader-spinner';
 
 import classnames from 'classnames';
-const SubmissionScreen = ( { active } ) => {
+const SubmissionScreen = ( { active, submitHandler } ) => {
 	return (
 		<div
 			className={ classnames( 'submission__screen', {
@@ -30,7 +30,9 @@ const SubmissionScreen = ( { active } ) => {
 				// </motion.div>
 			 }
 			<div className="submission__btnWrapper">
-				<Button className="submission__btn">Submit</Button>
+				<Button className="submission__btn" onClick={ submitHandler }>
+					Submit
+				</Button>
 				{ /* <Loader
 					type="TailSpin"
 					color="#fff"

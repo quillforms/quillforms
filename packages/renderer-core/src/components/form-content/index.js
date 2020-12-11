@@ -29,6 +29,7 @@ import classnames from 'classnames';
  * Internal Dependencies
  */
 import SubmissionScreen from '../submission-screen';
+import DefaultThankYouScreen from '../default-thankyou-screen';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -59,6 +60,7 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 		isAnimating: true,
 		disableTransition: false,
 		isSubmissionScreenActive: undefined,
+		isThankyouScreenActive: false,
 	} );
 
 	const {
@@ -71,7 +73,10 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 		isAnimating,
 		disableTransition,
 		isSubmissionScreenActive,
+		isThankyouScreenActive,
 	} = swiper;
+
+	console.log( swiper );
 	const formFields = walkPath.filter(
 		( block ) =>
 			block.type !== 'thankyou-screen' && block.type !== 'welcome-screen'
@@ -116,6 +121,9 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 	useEffect( () => {
 		const $currentPath = cloneDeep( blocks );
 		setWalkPath( $currentPath );
+		const $isThankyouScreenActive =
+			$currentPath[ currentBlockBeingEditedIndex ]?.type ===
+			'thankyou-screen';
 		setSwiper( ( prevSwiperState ) => {
 			const $nextBlockId =
 				$currentPath?.length > 0 &&
@@ -134,9 +142,11 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 				currentBlockId: currentBlockBeingEdited,
 				nextBlockId: $nextBlockId,
 				prevBlockId: $prevBlockId,
-				canGoNext: true,
-				canGoPrev: $prevBlockId ? true : false,
+				canGoNext: $isThankyouScreenActive ? false : true,
+				canGoPrev:
+					$prevBlockId && ! $isThankyouScreenActive ? true : false,
 				isSubmissionScreenActive: undefined,
+				isThankyouScreenActive: $isThankyouScreenActive,
 			};
 			if ( currentBlockBeingEdited !== prevSwiperState.currentBlockId ) {
 				newState.lastActiveBlockId = prevSwiperState.currentBlockId;
@@ -146,15 +156,31 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 		} );
 	}, [ JSON.stringify( blocks ), currentBlockBeingEdited ] );
 
-	// Get Next Field
+	const submitHandler = () => {
+		setSwiper( {
+			canGoNext: false,
+			canGoPrev: false,
+			isSubmissionScreenActive: false,
+			isThankyouScreenActive: true,
+			currentBlockId: 'default-thankyou-screen',
+			prevBlockId: undefined,
+			nextBlockId: undefined,
+			lastActiveBlockId: undefined,
+			disableTransition: false,
+		} );
+	};
+
+	// go to the next field
 	const goNext = () => {
 		if ( isAnimating ) return;
 		setSwiper( ( prevSwiperState ) => {
 			return {
 				...prevSwiperState,
-				canGoNext: true,
+				canGoNext: isLastField ? false : true,
 				canGoPrev: true,
-				currentBlockId: prevSwiperState.nextBlockId,
+				currentBlockId: isLastField
+					? null
+					: prevSwiperState.nextBlockId,
 				prevBlockId: prevSwiperState.currentBlockId,
 				lastActiveBlockId: prevSwiperState.currentBlockId,
 				nextBlockId: walkPath[ currentBlockIndex + 2 ]
@@ -163,6 +189,7 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 				isAnimating: true,
 				disableTransition: false,
 				isSubmissionScreenActive: isLastField ? true : undefined,
+				isThankyouScreenActive: false,
 			};
 		} );
 	};
@@ -171,6 +198,7 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 	const goPrev = () => {
 		if ( isAnimating ) return;
 		setSwiper( ( prevSwiperState ) => {
+			console.log( prevSwiperState );
 			return {
 				...prevSwiperState,
 				canGoPrev:
@@ -184,8 +212,8 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 				nextBlockId: prevSwiperState.currentBlockId,
 				prevBlockId:
 					prevSwiperState.isSubmissionScreenActive === true
-						? walkPath[ walkPath.length - 2 ]?.id
-							? walkPath[ walkPath.length - 2 ].id
+						? formFields[ formFields.length - 2 ]?.id
+							? formFields[ formFields.length - 2 ].id
 							: undefined
 						: walkPath[ currentBlockIndex - 2 ]?.id
 						? walkPath[ currentBlockIndex - 2 ].id
@@ -195,6 +223,7 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 					? false
 					: undefined,
 				disableTransition: false,
+				isThankyouScreenActive: false,
 			};
 		} );
 	};
@@ -283,12 +312,13 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 								/>
 							);
 						} ) }
-					{ fields?.length > 0 && (
+					{ ! isThankyouScreenActive && fields?.length > 0 && (
 						<FieldsWrapper
 							currentBlockId={ currentBlockId }
 							setSwiper={ setSwiper }
 							isActive={ currentBlockCat === 'fields' }
 							scrollHandler={ scrollHandler }
+							setWalkPath={ setWalkPath }
 						>
 							{ ( isFocused ) => (
 								<>
@@ -331,20 +361,30 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 												}
 												id={ field.id }
 												setCanGoNext={ ( val ) => {
+													if (
+														lastActiveBlockId ===
+														field.id
+													)
+														return;
 													setSwiper(
-														( prevSwiperData ) => {
+														( prevSwiperState ) => {
 															return {
-																...prevSwiperData,
+																...prevSwiperState,
 																canGoNext: val,
 															};
 														}
 													);
 												} }
 												setCanGoPrev={ ( val ) => {
+													if (
+														formFields[ 0 ].id ===
+														field.id
+													)
+														return;
 													setSwiper(
-														( prevSwiperData ) => {
+														( prevSwiperState ) => {
 															return {
-																...prevSwiperData,
+																...prevSwiperState,
 																canGoPrev: val,
 															};
 														}
@@ -355,6 +395,7 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 										);
 									} ) }
 									<SubmissionScreen
+										submitHandler={ submitHandler }
 										active={ isSubmissionScreenActive }
 									/>
 								</>
@@ -362,21 +403,33 @@ const FormContent = ( { walkPath, setWalkPath } ) => {
 						</FieldsWrapper>
 					) }
 
-					{ thankyouScreens?.length > 0 &&
-						thankyouScreens.map( ( screen ) => {
-							const blockType = blockTypes[ 'thankyou-screen' ];
-							return (
-								<blockType.rendererConfig.output
-									isActive={ currentBlockId === screen.id }
-									key={ screen.id }
-									id={ screen.id }
-									title={ screen.title }
-									description={ screen.description }
-									attributes={ screen.attributes }
-									attachment={ screen.attachment }
-								/>
-							);
-						} ) }
+					{ currentBlockId === 'default-thankyou-screen' ||
+					nextBlockId === 'default-thankyou-screen' ? (
+						<DefaultThankYouScreen
+							isActive={ isThankyouScreenActive }
+						/>
+					) : (
+						<>
+							{ thankyouScreens?.length > 0 &&
+								thankyouScreens.map( ( screen ) => {
+									const blockType =
+										blockTypes[ 'thankyou-screen' ];
+									return (
+										<blockType.rendererConfig.output
+											isActive={
+												currentBlockId === screen.id
+											}
+											key={ screen.id }
+											id={ screen.id }
+											title={ screen.title }
+											description={ screen.description }
+											attributes={ screen.attributes }
+											attachment={ screen.attachment }
+										/>
+									);
+								} ) }
+						</>
+					) }
 				</Fragment>
 			) }
 			<FormFooter

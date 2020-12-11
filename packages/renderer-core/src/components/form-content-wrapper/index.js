@@ -9,6 +9,10 @@ import { useDispatch } from '@wordpress/data';
 import { useEditableFields } from '@quillforms/renderer-components';
 
 /**
+ * External Dependencies
+ */
+import { concat } from 'lodash';
+/**
  * Internal Dependencies
  */
 import FormContent from '../form-content';
@@ -28,7 +32,13 @@ const FormContentWrapper = ( { applyJumpLogic } ) => {
 
 	return (
 		<div className="renderer-core-form-contenet-wrapper">
-			<FormContent walkPath={ walkPath } setWalkPath={ setWalkPath } />
+			<FormContent
+				walkPath={ concat( walkPath, {
+					id: 'default-thankyou-screen',
+					type: 'thankyou-screen',
+				} ) }
+				setWalkPath={ setWalkPath }
+			/>
 		</div>
 	);
 };
