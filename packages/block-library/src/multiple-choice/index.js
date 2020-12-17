@@ -4,6 +4,7 @@
 import output from './output';
 import controls from './controls';
 import metadata from './block.json';
+import logicControl from '../dropdown/logic-control';
 
 /**
  * External Dependencies
@@ -19,6 +20,7 @@ export const settings = {
 		color: '#9e5210',
 		icon: CheckIcon,
 		controls,
+		logicControl,
 	},
 	rendererConfig: {
 		output,
