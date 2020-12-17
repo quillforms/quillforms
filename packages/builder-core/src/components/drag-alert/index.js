@@ -47,7 +47,7 @@ const DragAlertModal = ( { approve, reject } ) => {
 				<DialogActions>
 					<Button
 						isLarge
-						isPrimary
+						isSecondary
 						onClick={ () => {
 							reject();
 							closeDialog();
