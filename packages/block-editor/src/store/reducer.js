@@ -170,7 +170,10 @@ const withBlockCache = ( reducer ) => (
 		}
 
 		case DELETE_BLOCK: {
-			return omit( state, action.payload.blockId );
+			newState.cache = {
+				...omit( state.cache, action.payload.blockId ),
+			};
+			break;
 		}
 		case SET_BLOCK_TITLE:
 		case SET_BLOCK_DESCRIPTION:
@@ -360,12 +363,14 @@ const BlockEditorReducer = withBlockCache( ( state = initialState, action ) => {
 
 		// DELETE FORM BLOCK
 		case DELETE_BLOCK: {
+			console.log( 'Action started' );
 			const { blockId } = action.payload;
 
 			// Get block index.
 			const blockIndex = state.blocks.findIndex(
 				( item ) => item.id === blockId
 			);
+			console.log( blockIndex );
 			// If block isn't found.
 			if ( blockIndex === -1 ) {
 				return state;
