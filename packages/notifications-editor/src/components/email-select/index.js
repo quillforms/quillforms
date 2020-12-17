@@ -6,6 +6,8 @@ import {
 	__experimentalControlLabel,
 	__experimentalControlWrapper,
 	BlockIconBox,
+	SelectControl,
+	MenuItem,
 } from '@quillforms/builder-components';
 
 /**
@@ -14,10 +16,8 @@ import {
 import { useEffect } from '@wordpress/element';
 
 /**
- * External Dependencies
+ * Internal Dependencies
  */
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import AlertMessageWrapper from '../alert-message-wrapper';
 
 const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
@@ -41,7 +41,7 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 					question
 				</AlertMessageWrapper>
 			) : (
-				<Select
+				<SelectControl
 					className="notifications-editor-email-select"
 					placeholder="Choose Email"
 					value={ value }
@@ -57,7 +57,7 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 							</div>
 						</MenuItem>
 					) ) }
-				</Select>
+				</SelectControl>
 			) }
 		</__experimentalControlWrapper>
 	);
