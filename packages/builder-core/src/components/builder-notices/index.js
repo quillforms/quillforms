@@ -6,7 +6,7 @@ import { filter } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { NoticeList, SnackbarList } from '@wordpress/components';
+import { SnackbarList } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 export function BuilderNotices() {
