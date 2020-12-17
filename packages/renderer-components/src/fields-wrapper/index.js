@@ -1,6 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import useMetaField from '../hooks/use-meta-field';
 import { useSelect } from '@wordpress/data';
-import { forEach } from 'lodash';
+import { concat, forEach } from 'lodash';
 import { useEffect, useState, useRef } from '@wordpress/element';
 
 const FieldsWrapper = ( {
@@ -8,12 +9,18 @@ const FieldsWrapper = ( {
 	children,
 	isActive,
 	scrollHandler,
+	setSwiper,
+	applyJumpLogic,
 } ) => {
 	const jumpLogic = useMetaField( 'jumpLogic' );
 	const blocks = useMetaField( 'blocks' );
+	const $blocks = concat( blocks, {
+		id: 'default_thankyou_screen',
+		type: 'thankyou-screen',
+	} );
 	const [ isFocused, setIsFocused ] = useState( false );
 	const ref = useRef();
-	const currentBlock = blocks.find(
+	const currentBlock = $blocks.find(
 		( block ) => block.id === currentBlockId
 	);
 
@@ -27,6 +34,7 @@ const FieldsWrapper = ( {
 				: null,
 		};
 	} );
+
 	const { answers, currentBlockAnswer } = useSelect( ( select ) => {
 		return {
 			answers: isCurrentBlockEditable
@@ -39,6 +47,8 @@ const FieldsWrapper = ( {
 				: null,
 		};
 	} );
+
+	console.log( answers );
 
 	const handleClickOutside = ( e ) => {
 		if ( ref.current && ! ref.current.contains( e.target ) ) {
@@ -101,7 +111,9 @@ const FieldsWrapper = ( {
 			const fieldAnswer = answers.find(
 				( answer ) => answer.id === fieldId
 			).value;
+			console.log( fieldAnswer );
 			const value = vars[ 1 ].value;
+			console.log( value );
 			if ( ! operators[ op ]( fieldAnswer, value ) ) res = false;
 		} );
 		return res;
@@ -123,65 +135,104 @@ const FieldsWrapper = ( {
 		}
 		return null;
 	};
+
 	const getBlockIndex = ( blockId ) => {
-		return blocks.findIndex( ( block ) => block.id === blockId );
+		return $blocks.findIndex( ( block ) => block.id === blockId );
 	};
 
 	const generatePath = () => {
 		const path = [];
 		let nextBlockId;
 		let index = 0;
-		let shouldBreak = false;
+
+		let shouldBreakTheWholeLoop = false;
 		do {
-			const question = blocks[ index ];
+			const question = $blocks[ index ];
+			if ( question.type === 'welcome-screen' ) {
+				index++;
+				continue;
+			}
+			if ( question.type === 'thankyou-screen' ) {
+				break;
+			}
 			path.push( question );
+			let newIndex = index;
+			// debugger;
 			const blockJumpLogic = getBlockLogic( question.id );
 			if ( blockJumpLogic?.actions?.length > 0 ) {
+				let $break = false;
 				forEach( blockJumpLogic.actions, ( action ) => {
-					if ( action?.conditions?.length > 0 ) {
-						const nextId = getNextTarget(
-							action.target,
-							action.conditions
-						);
-						if ( nextId ) {
+					if ( ! $break ) {
+						if ( action?.conditions?.length > 0 ) {
+							const nextId = getNextTarget(
+								action.target,
+								action.conditions
+							);
 							const nextBlockIndex = getBlockIndex( nextId );
-							if ( nextBlockIndex < index ) {
-								shouldBreak = true;
-							} else {
-								index = nextBlockIndex;
+							if ( nextId && nextBlockIndex !== -1 ) {
+								if ( nextBlockIndex < index ) {
+									shouldBreakTheWholeLoop = true;
+								} else {
+									newIndex = nextBlockIndex;
+								}
+								if ( currentBlockId === question.id ) {
+									nextBlockId = nextId;
+								}
+								$break = true;
 							}
-							if ( currentBlockId === question.id ) {
-								nextBlockId = nextId;
-							}
-						} else {
-							index++;
 						}
 					}
 				} );
+				if ( newIndex === index && ! shouldBreakTheWholeLoop ) {
+					index++;
+				} else {
+					index = newIndex;
+				}
 			} else {
 				index++;
 			}
-			if ( shouldBreak ) break;
+			if ( currentBlockId === question.id ) {
+				nextBlockId = nextBlockId
+					? nextBlockId
+					: blocks[ index ]?.id
+					? blocks[ index ].id
+					: undefined;
+			}
+			if ( shouldBreakTheWholeLoop ) break;
 		} while ( index < blocks.length );
 
 		return { path, nextBlockId };
 	};
 
 	useEffect( () => {
-		// if ( isCurrentBlockEditable ) {
-		// 	const { path, nextBlockId } = generatePath();
-		// 	setSwiper( ( prevSwiperState ) => {
-		// 		return {
-		// 			...prevSwiperState,
-		// 			currentPath: path,
-		// 			nextBlockId: nextBlockId
-		// 				? nextBlockId
-		// 				: prevSwiperState.nextBlockId,
-		// 		};
-		// 	} );
-		// }
-	}, [ currentBlockAnswer ] );
+		if ( applyJumpLogic && isActive ) {
+			const { path, nextBlockId } = generatePath();
+			setSwiper( ( prevSwiperState ) => {
+				return {
+					...prevSwiperState,
+					walkPath: path,
+					nextBlockId,
+				};
+			} );
+		}
+	}, [ currentBlockAnswer, isActive, currentBlockId ] );
 
+	useEffect( () => {
+		if ( applyJumpLogic ) {
+			const { path, nextBlockId } = generatePath();
+			setSwiper( ( prevSwiperState ) => {
+				return {
+					...prevSwiperState,
+					walkPath: path,
+					currentBlockId: blocks[ 0 ].id,
+					prevBlockId: null,
+					canGoPrev: false,
+					lastActiveBlockId: undefined,
+					nextBlockId,
+				};
+			} );
+		}
+	}, [ applyJumpLogic ] );
 	return (
 		<div
 			onWheel={ scrollHandler }
