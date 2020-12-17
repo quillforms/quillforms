@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect, useState } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -47,11 +47,13 @@ const FieldWrapper = ( {
 					ref.current.scrollTo( 0, 0 );
 				}, 0 );
 			}
-		} else {
-			clearTimeout( timer );
 		}
-		// setCanGoNext( true );
-		// setCanGoPrev( true );
+
+		return () => {
+			clearTimeout( timer );
+			// setCanGoNext( true );
+			// setCanGoPrev( true );
+		};
 	}, [ isActive ] );
 
 	return (
@@ -67,6 +69,7 @@ const FieldWrapper = ( {
 			) }
 			onScroll={ ( e ) => {
 				e.preventDefault();
+				console.log( 'qfej' );
 				if ( ref.current.scrollTop === 0 ) {
 					timer = setTimeout( () => {
 						setCanGoPrev( true );
