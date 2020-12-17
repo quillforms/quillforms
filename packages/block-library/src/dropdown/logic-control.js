@@ -1,32 +1,61 @@
 /**
+ * QuillForms Dependencies
+ */
+import {
+	SelectControl as Select,
+	MenuItem,
+} from '@quillforms/builder-components';
+
+/**
+ * WordPress Dependencies
+ */
+import { useEffect } from '@wordpress/element';
+
+/**
  * External Dependencies
  */
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import { css } from 'emotion';
 
-const DropdownLogicControl = ( { attributes, value, setValue } ) => {
+const DropdownLogicControl = ( {
+	attributes,
+	value,
+	setValue,
+	removeCondition,
+} ) => {
 	const { choices } = attributes;
+
+	useEffect( () => {
+		if ( ! value ) {
+			setValue( choices[ 0 ].ref );
+		} else if ( ! choices.some( ( choice ) => choice.ref === value ) ) {
+			removeCondition();
+		}
+	}, [] );
 	return (
-		<div className="select-control-wrapper">
-			<Select
-				value={ value }
-				onChange={ ( e ) => {
-					console.log( e.target.value );
-					setValue( e.target.value );
-				} }
-			>
-				{ choices.map( ( choice ) => {
-					return (
-						<MenuItem
-							key={ `choice-${ choice.ref }` }
-							value={ choice.ref }
-						>
-							{ choice.label }
-						</MenuItem>
-					);
-				} ) }
-			</Select>
-		</div>
+		<Select
+			className={ css`
+				margin-top: 10px;
+				margin-bottom: 10px;
+				width: 200px;
+			` }
+			value={ value }
+			onChange={ ( e ) => {
+				setValue( e.target.value );
+			} }
+		>
+			{ choices.map( ( choice, index ) => {
+				return (
+					<MenuItem
+						key={ `choice-${ choice.ref }` }
+						value={ choice.ref }
+					>
+						{ choice.label
+							? choice.label
+							: `Choice ${ index + 1 }` }
+					</MenuItem>
+				);
+			} ) }
+		</Select>
 	);
 };
 
