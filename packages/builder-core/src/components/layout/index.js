@@ -6,7 +6,7 @@ import { __experimentalDragDropContext as DragDropContext } from '@quillforms/bu
 /**
  * WordPress Dependencies
  */
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState, useMemo } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { PluginArea } from '@wordpress/plugins';
@@ -22,7 +22,7 @@ import { confirmAlert } from 'react-confirm-alert';
  * Internal Dependencies
  */
 import DropArea from '../drop-area';
-import FormPreview from '../preview-area';
+import FormPreview from '../preview-area-wrapper';
 import Panel from '../panel';
 import BuilderPanelsBar from '../builder-panels-bar';
 import DragAlert from '../drag-alert';
@@ -182,30 +182,49 @@ const Layout = ( props ) => {
 		}
 	};
 
+	const formPreview = useMemo( () => {
+		return <FormPreview />;
+	}, [] );
+
+	const pluginsArea = useMemo( () => {
+		return <PluginArea />;
+	}, [] );
+	const builderNotices = useMemo( () => {
+		return <BuilderNotices />;
+	}, [] );
+
+	const builderPanelsBar = useMemo( () => {
+		return <BuilderPanelsBar />;
+	}, [] );
+
+	const savButton = useMemo( () => {
+		return <SaveButton />;
+	}, [] );
+
 	return (
-		<DragDropContext
-			onDragStart={ onDragStart }
-			onDragEnd={ onDragEnd }
-			onDragUpdate={ onDragUpdate }
-			onBeforeCapture={ onBeforeCapture }
-		>
-			<SaveButton />
-			<BuilderNotices />
-			<PluginArea />
-			<BuilderPanelsBar />
-			{ currentPanel && <Panel /> }
-			{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
-				<DropArea
-					isDragging={ isDragging }
-					currentPanel={ currentPanel }
-					targetIndex={ targetIndex }
-					areaToHide={ areaToHide }
-				/>
-			) }
-			{ ( ! areaToHide || areaToHide !== 'preview-area' ) && (
-				<FormPreview />
-			) }
-		</DragDropContext>
+		<>
+			{ savButton }
+			{ builderNotices }
+			{ pluginsArea }
+			{ builderPanelsBar }
+			<DragDropContext
+				onDragStart={ onDragStart }
+				onDragEnd={ onDragEnd }
+				onDragUpdate={ onDragUpdate }
+				onBeforeCapture={ onBeforeCapture }
+			>
+				{ currentPanel && <Panel /> }
+				{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
+					<DropArea
+						isDragging={ isDragging }
+						currentPanel={ currentPanel }
+						targetIndex={ targetIndex }
+						areaToHide={ areaToHide }
+					/>
+				) }
+			</DragDropContext>
+			{ ( ! areaToHide || areaToHide !== 'preview-area' ) && formPreview }
+		</>
 	);
 };
 
