@@ -5,13 +5,14 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
+	SelectControl,
+	MenuItem,
 } from '@quillforms/builder-components';
 
 /**
  * External Dependencies
  */
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import { css } from 'emotion';
 
 const DateControls = ( props ) => {
 	const {
@@ -23,30 +24,32 @@ const DateControls = ( props ) => {
 			<__experimentalControlWrapper orientation="vertical">
 				<__experimentalControlLabel label="Date Format" />
 
-				<div className="select-control-wrapper">
-					<Select
-						value={ format }
-						onChange={ ( e ) =>
-							setAttributes( { format: e.target.value } )
-						}
-					>
-						<MenuItem value={ 'MMDDYYYY' }>MMDDYYYY</MenuItem>
-						<MenuItem value={ 'DDMMYYYY' }>DDMMYYYY</MenuItem>
-						<MenuItem value={ 'YYYYMMDD' }>YYYYMMDD</MenuItem>
-					</Select>
-				</div>
-				<div className="select-control-wrapper">
-					<Select
-						value={ separator }
-						onChange={ ( e ) =>
-							setAttributes( { separator: e.target.value } )
-						}
-					>
-						<MenuItem value={ '/' }>/</MenuItem>
-						<MenuItem value={ '-' }>-</MenuItem>
-						<MenuItem value={ '.' }>.</MenuItem>
-					</Select>
-				</div>
+				<SelectControl
+					className={ css`
+						margin-top: 5px;
+					` }
+					value={ format }
+					onChange={ ( e ) =>
+						setAttributes( { format: e.target.value } )
+					}
+				>
+					<MenuItem value={ 'MMDDYYYY' }>MMDDYYYY</MenuItem>
+					<MenuItem value={ 'DDMMYYYY' }>DDMMYYYY</MenuItem>
+					<MenuItem value={ 'YYYYMMDD' }>YYYYMMDD</MenuItem>
+				</SelectControl>
+				<SelectControl
+					className={ css`
+						margin-top: 10px;
+					` }
+					value={ separator }
+					onChange={ ( e ) =>
+						setAttributes( { separator: e.target.value } )
+					}
+				>
+					<MenuItem value={ '/' }>/</MenuItem>
+					<MenuItem value={ '-' }>-</MenuItem>
+					<MenuItem value={ '.' }>.</MenuItem>
+				</SelectControl>
 			</__experimentalControlWrapper>
 		</__experimentalBaseControl>
 	);
