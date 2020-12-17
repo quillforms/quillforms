@@ -127,7 +127,7 @@ const FormContent = ( { applyJumpLogic } ) => {
 						shouldLastActiveBlockBeRendered: false,
 					};
 				} );
-			}, 500 );
+			}, 600 );
 			return () => clearTimeout( timer );
 		}
 	}, [ swiper ] );
@@ -402,20 +402,22 @@ const FormContent = ( { applyJumpLogic } ) => {
 											( block ) =>
 												block.id === lastActiveBlockId
 										);
-										const animation = disableTransition
-											? null
-											: lastActiveBlockId === field.id
-											? currentFieldIndex > blockIndex ||
-											  isSubmissionScreenActive
-												? 'moveUp'
-												: 'moveDown'
-											: currentBlockId === field.id
-											? lastActiveBlockIndex !== -1 &&
-											  lastActiveBlockIndex <=
-													currentFieldIndex
-												? 'moveUpFromDown'
-												: 'moveDownFromUp'
-											: null;
+										const animation =
+											disableTransition || ! isAnimating
+												? null
+												: lastActiveBlockId === field.id
+												? currentFieldIndex >
+														blockIndex ||
+												  isSubmissionScreenActive
+													? 'moveUp'
+													: 'moveDown'
+												: currentBlockId === field.id
+												? lastActiveBlockIndex !== -1 &&
+												  lastActiveBlockIndex <=
+														currentFieldIndex
+													? 'moveUpFromDown'
+													: 'moveDownFromUp'
+												: null;
 										const counter = pathEditableFields.findIndex(
 											( editableField ) =>
 												editableField.id === field.id
