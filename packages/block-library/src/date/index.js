@@ -9,6 +9,7 @@ import DateIcon from '@material-ui/icons/Event';
 import output from './output';
 import controls from './controls';
 import metadata from './block.json';
+import logicControl from './logic-control';
 
 const { type } = metadata;
 
@@ -19,12 +20,9 @@ export const settings = {
 		color: '#93AE89',
 		icon: DateIcon,
 		controls,
+		logicControl,
 	},
 	rendererConfig: {
 		output,
-		// eslint-disable-next-line no-unused-vars
-		hasSubmitBtn: ( args ) => {
-			return true;
-		},
 	},
 };
