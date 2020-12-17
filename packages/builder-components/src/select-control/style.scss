@@ -1,0 +1,57 @@
+.builder-components-select-control {
+	.MuiSelect-selectMenu {
+		padding: 8px 20px;
+		background: #fff;
+		border-radius: 5px;
+		border: 1px solid #e3e3e3;
+		font-size: 14px;
+	}
+
+	.MuiInputBase-root {
+		width: 100%;
+		font-size: 14px;
+	}
+
+	.MuiInputBase-root::before,
+	.MuiInputBase-root::after {
+		display: none;
+	}
+
+	.add-new-choice-btn {
+		& {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		.MuiButton-root {
+			padding: 5px 18px;
+			border-radius: 20px;
+			box-shadow: none !important;
+		}
+
+		.MuiButton-label {
+			& {
+				font-size: 11px;
+				display: flex;
+				align-items: center;
+			}
+
+			.btnText {
+				margin-top: 2px;
+			}
+
+			svg {
+				width: 15px;
+				margin-right: 5px;
+				margin-top: -1.5px;
+			}
+		}
+	}
+}
+
+span.MuiTouchRipple-root {
+    display: none !important;
+}
+
+
