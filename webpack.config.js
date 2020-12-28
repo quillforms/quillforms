@@ -5,6 +5,8 @@ const { DefinePlugin } = require( 'webpack' );
 const MiniCssExtractPlugin = require( '@automattic/mini-css-extract-plugin-with-rtl' );
 const WebpackRTLPlugin = require( 'webpack-rtl-plugin' );
 
+const TerserPlugin = require( 'terser-webpack-plugin' );
+
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const postcss = require( 'postcss' );
 const { get, escapeRegExp, compact } = require( 'lodash' );
@@ -35,15 +37,48 @@ const {
 const QUILLFORMS_NAMESPACE = '@quillforms/';
 const entryPoints = {};
 
+const quillFormsBlocklibPackages = [
+	'@quillforms/blocklib-date-block',
+	'@quillforms/blocklib-dropdown-block',
+	'@quillforms/blocklib-email-block',
+	'@quillforms/blocklib-long-text-block',
+	'@quillforms/blocklib-multiple-choice-block',
+	'@quillforms/blocklib-number-block',
+	'@quillforms/blocklib-short-text-block',
+	'@quillforms/blocklib-statement-block',
+	'@quillforms/blocklib-website-block',
+];
 const quillformsPackages = Object.keys( dependencies )
 	.filter( ( packageName ) => packageName.startsWith( QUILLFORMS_NAMESPACE ) )
 	.map( ( packageName ) => packageName.replace( QUILLFORMS_NAMESPACE, '' ) );
 
-quillformsPackages.forEach( ( packageName ) => {
+const quillformsPackagesWithoutBlocklib = Object.keys( dependencies )
+	.filter(
+		( packageName ) =>
+			packageName.startsWith( QUILLFORMS_NAMESPACE ) &&
+			! quillFormsBlocklibPackages.includes( packageName )
+	)
+	.map( ( packageName ) => packageName.replace( QUILLFORMS_NAMESPACE, '' ) );
+
+quillformsPackagesWithoutBlocklib.forEach( ( packageName ) => {
 	const name = camelCaseDash( packageName );
 	entryPoints[ name ] = `./packages/${ packageName }`;
 }, {} );
 
+quillFormsBlocklibPackages.forEach( ( packageName ) => {
+	const name = camelCaseDash(
+		packageName.replace( QUILLFORMS_NAMESPACE, '' )
+	);
+	entryPoints[ `${ name }Admin` ] = `./packages/${ packageName.replace(
+		QUILLFORMS_NAMESPACE,
+		''
+	) }/src/admin`;
+
+	entryPoints[ `${ name }Renderer` ] = `./packages/${ packageName.replace(
+		QUILLFORMS_NAMESPACE,
+		''
+	) }/src/renderer`;
+}, {} );
 module.exports = {
 	...defaultConfig,
 	mode,
@@ -65,6 +100,35 @@ module.exports = {
 				test: /\.js$/,
 				use: require.resolve( 'source-map-loader' ),
 				include: [ path.resolve( __dirname, 'packages' ) ],
+				exclude: [
+					path.resolve( __dirname, 'packages/blocklib-date-block' ),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-dropdown-block'
+					),
+					path.resolve( __dirname, 'packages/blocklib-email-block' ),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-long-text-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-multiple-choice-block'
+					),
+					path.resolve( __dirname, 'packages/blocklib-number-block' ),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-short-text-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-statement-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-website-block'
+					),
+				],
 				enforce: 'pre',
 			},
 			{
@@ -104,7 +168,36 @@ module.exports = {
 						].filter( Boolean ),
 					},
 				},
-				include: [ path.resolve( __dirname, 'client' ) ],
+				include: [
+					path.resolve( __dirname, 'client' ),
+					path.resolve( __dirname, 'packages/blocklib-date-block' ),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-dropdown-block'
+					),
+					path.resolve( __dirname, 'packages/blocklib-email-block' ),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-long-text-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-multiple-choice-block'
+					),
+					path.resolve( __dirname, 'packages/blocklib-number-block' ),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-short-text-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-statement-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-website-block'
+					),
+				],
 				exclude: /node_modules/,
 			},
 			{
@@ -157,6 +250,25 @@ module.exports = {
 				}
 
 				if ( rawRequest ) {
+					if (
+						new RegExp( '(\\w+)-block/src/admin$' ).test(
+							rawRequest
+						)
+					) {
+						const matches = rawRequest.match(
+							'blocklib-([a-zA-Z-]+)-block/src/admin$'
+						);
+						return `blocklib-${ matches[ 1 ] }-block/admin`;
+					} else if (
+						new RegExp(
+							'blocklib-([a-zA-Z-]+)-block/src/renderer$'
+						).test( rawRequest )
+					) {
+						const matches = rawRequest.match(
+							'blocklib-([a-zA-Z-]+)-block/src/renderer$'
+						);
+						return `blocklib-${ matches[ 1 ] }-block/renderer`;
+					}
 					return basename( rawRequest );
 				}
 
@@ -166,7 +278,7 @@ module.exports = {
 		new CopyWebpackPlugin(
 			quillformsPackages.map( ( packageName ) => ( {
 				from: `./packages/${ packageName }/build-style/*.css`,
-				to: `./build/${ packageName }/`,
+				to: `./build/${ packageName }`,
 				flatten: true,
 				transform: ( content ) => {
 					if ( mode === 'production' ) {
@@ -194,18 +306,14 @@ module.exports = {
 		),
 		new CopyWebpackPlugin( [
 			{
-				from: './packages/block-library/src/**/index.php',
-				test: new RegExp(
-					`([\\w-]+)${ escapeRegExp( sep ) }index\\.php$`
-				),
-				to: 'build/block-library/blocks/class-qf-[1].php',
+				from: './packages/blocklib-**-block/src/index.php',
+				test: RegExp( 'blocklib-([a-zA-Z-]+)-block/src/index.php$' ),
+				to: 'includes/blocks/[1]/class-qf-[1]-block.php',
 			},
 			{
-				from: './packages/block-library/src/*/block.json',
-				test: new RegExp(
-					`([\\w-]+)${ escapeRegExp( sep ) }block\\.json$`
-				),
-				to: 'build/block-library/blocks/[1]/block.json',
+				from: './packages/blocklib-**-block/src/block.json',
+				test: RegExp( 'blocklib-([a-zA-Z-]+)-block/src/block.json$' ),
+				to: 'includes/blocks/[1]/block.json',
 			},
 		] ),
 
@@ -246,6 +354,24 @@ module.exports = {
 			rtlEnabled: true,
 		} ),
 	],
+	optimization: {
+		concatenateModules: mode === 'production',
+
+		minimize: mode !== 'development',
+		minimizer: [
+			new TerserPlugin( {
+				cache: true,
+				parallel: true,
+				sourceMap: mode !== 'production',
+				terserOptions: {
+					compress: {
+						passes: 2,
+					},
+				},
+				extractComments: false,
+			} ),
+		],
+	},
 
 	devtool,
 };
