@@ -27,3 +27,5 @@ export { default as RichTextControl } from './richtext-control';
 export { default as SliderControl } from './slider-control';
 export { default as ToggleControl } from './toggle-control';
 export { default as TextControl } from './text-control';
+export { default as SelectControl } from './select-control/select';
+export { MenuItem } from './select-control';
