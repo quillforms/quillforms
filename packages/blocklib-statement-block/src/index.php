@@ -96,16 +96,6 @@ class QF_Statement_Block extends QF_Block {
 	}
 
 	/**
-	 * Get logical operators
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array The logical operators
-	 */
-	public function get_logical_operators() {
-		return $this->get_metadata()['logicalOperators'];
-	}
-	/**
 	 * Get meta data
 	 * This file is just for having some shared properties between front end and back end.
 	 * Just as the block type.
