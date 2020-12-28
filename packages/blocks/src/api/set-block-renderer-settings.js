@@ -9,7 +9,7 @@ import { dispatch } from '@wordpress/data';
  * @param {Object} config Block Configuration.
  *
  */
-export const setBlockRendererConfig = ( type, config ) => {
+export const setBlockRendererSettings = ( type, config ) => {
 	config = {
 		type,
 		...config,
@@ -22,5 +22,5 @@ export const setBlockRendererConfig = ( type, config ) => {
 	// If getRawValue isn't defined, define it with default behavior.
 	if ( ! config.getRawValue ) config.getRawValue = ( val ) => String( val );
 
-	dispatch( 'quillForms/blocks' ).addBlockRendererConfig( config );
+	dispatch( 'quillForms/blocks' ).setBlockRendererSettings( config );
 };
