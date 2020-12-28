@@ -1,7 +1,7 @@
 import {
-	SET_BLOCK_RENDERER_CONFIG,
-	SET_BLOCK_EDITOR_CONFIG,
+	SET_BLOCK_ADMIN_SETTINGS,
 	REGISTER_SERVER_SIDE_BLOCKS,
+	SET_BLOCK_RENDERER_SETTINGS,
 } from './constants';
 
 /**
@@ -11,9 +11,9 @@ import {
  *
  * @return {Object} Action object.
  */
-export const addBlockRendererConfig = ( blockRendererConfig ) => {
+export const setBlockRendererSettings = ( blockRendererConfig ) => {
 	return {
-		type: SET_BLOCK_RENDERER_CONFIG,
+		type: SET_BLOCK_RENDERER_SETTINGS,
 		payload: blockRendererConfig,
 	};
 };
@@ -25,9 +25,9 @@ export const addBlockRendererConfig = ( blockRendererConfig ) => {
  *
  * @return {Object} Action object.
  */
-export const addBlockEditorConfig = ( blockEditorConfig ) => {
+export const setBlockAdminSettings = ( blockEditorConfig ) => {
 	return {
-		type: SET_BLOCK_EDITOR_CONFIG,
+		type: SET_BLOCK_ADMIN_SETTINGS,
 		payload: blockEditorConfig,
 	};
 };

@@ -1,3 +1,3 @@
-export { setBlockEditorConfig } from './set-block-editor-config';
-export { setBlockRendererConfig } from './set-block-renderer-config';
-export { __unstableServerSideBlocksRegister } from './registration';
+export { setBlockAdminSettings } from './set-block-admin-settings';
+export { setBlockRendererSettings } from './set-block-renderer-settings';
+export { registerBlockType } from './registration';

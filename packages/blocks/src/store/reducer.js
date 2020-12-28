@@ -1,6 +1,6 @@
 import {
-	SET_BLOCK_EDITOR_CONFIG,
-	SET_BLOCK_RENDERER_CONFIG,
+	SET_BLOCK_ADMIN_SETTINGS,
+	SET_BLOCK_RENDERER_SETTINGS,
 	REGISTER_SERVER_SIDE_BLOCKS,
 } from './constants';
 import omit from 'lodash/omit';
@@ -17,7 +17,7 @@ const initialState = {};
  */
 const BlocksReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case SET_BLOCK_EDITOR_CONFIG: {
+		case SET_BLOCK_ADMIN_SETTINGS: {
 			const { type } = action.payload;
 			const stateClone = { ...state };
 			stateClone[ type ].editorConfig = {
@@ -25,7 +25,7 @@ const BlocksReducer = ( state = initialState, action ) => {
 			};
 			return stateClone;
 		}
-		case SET_BLOCK_RENDERER_CONFIG: {
+		case SET_BLOCK_RENDERER_SETTINGS: {
 			const { type } = action.payload;
 			const stateClone = { ...state };
 			stateClone[ type ].rendererConfig = {
@@ -35,6 +35,7 @@ const BlocksReducer = ( state = initialState, action ) => {
 		}
 		case REGISTER_SERVER_SIDE_BLOCKS: {
 			const { blocks } = action.payload;
+			console.log(blocks);
 			return blocks;
 		}
 	}
