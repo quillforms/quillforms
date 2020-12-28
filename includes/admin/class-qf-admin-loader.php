@@ -84,12 +84,12 @@ class QF_Admin_Loader {
 	 */
 	public function remove_all_scripts() {
 		global $wp_scripts;
+		wp_enqueue_media();
+
 		if ( self::is_admin_page() ) {
 			$wp_scripts->queue = array( 'jquery' );
 		}
 	}
-
-
 
 	/**
 	 * Add inline scripts.
@@ -100,7 +100,7 @@ class QF_Admin_Loader {
 		wp_add_inline_script( 'wp-element', 'window.qfEditorContext = ' . wp_json_encode( qf_get_editor_context_value() ), 'before' );
 		wp_add_inline_script(
 			'quillforms-blocks',
-			'qf.blocks.__unstableServerSideBlocksRegister(' . wp_json_encode(
+			'qf.blocks.registerBlockType(' . wp_json_encode(
 				array_map(
 					function ( $block ) {
 						return array_merge(
