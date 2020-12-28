@@ -5,7 +5,7 @@ import { dispatch } from '@wordpress/data';
  *
  * @param {Object} blocks The registered blocks.
  */
-export const __unstableServerSideBlocksRegister = ( blocks ) => {
+export const registerBlockType = ( blocks ) => {
 	dispatch( 'quillForms/blocks' ).__unstableRegisterServerSideBlocks(
 		blocks
 	);
