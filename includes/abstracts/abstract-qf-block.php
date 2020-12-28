@@ -72,6 +72,8 @@ abstract class QF_Block extends stdClass {
 	public function __construct( $args = array() ) {
 		$this->type               = $this->get_type();
 		$this->block_name         = $this->get_name();
+		$this->block_styles       = $this->get_block_styles();
+		$this->block_scripts      = $this->get_block_scripts();
 		$this->attributes         = apply_filters( "qf_{$this->type}_block_attributes", $this->get_attributes() );
 		$this->logic_operators    = $this->get_logical_operators();
 		$this->supported_features = $this->get_block_supported_features();
@@ -94,6 +96,30 @@ abstract class QF_Block extends stdClass {
 		foreach ( $args as $property_name => $property_value ) {
 			$this->$property_name = $property_value;
 		}
+	}
+
+	/**
+	 * Get block styles
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_block_styles() {
+		return array(
+			'admin'    => '',
+			'renderer' => '',
+		);
+	}
+
+	/**
+	 * Get block scripts
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_block_scripts() {
+		return array(
+			'admin'    => '',
+			'renderer' => '',
+		);
 	}
 
 	/**
@@ -175,24 +201,6 @@ abstract class QF_Block extends stdClass {
 			'jumpLogic'  => true,
 			'calculator' => false,
 		);
-	}
-
-	/**
-	 * Get logic value type
-	 * Possible values: text, number, choices and date.
-	 * In jump logic, we need a way to present this field input.
-	 * We can present the field input according to its type i.e:
-	 * Text input is rendered if value type is text
-	 * Number input is rendered if value type is number
-	 * Select with options is rendered if value type is choices
-	 * Date picker is rendered if value type is date
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string The value type
-	 */
-	public function get_logic_value_type() {
-		return 'text';
 	}
 
 	/**
