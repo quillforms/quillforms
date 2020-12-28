@@ -1,0 +1,21 @@
+{
+	"type": "short-text",
+	"supports": {
+		"editable": true,
+		"required": true,
+		"attachment": true,
+		"description": true,
+		"logic": true
+	},
+	"attributes": {
+		"setMaxCharacters":  {
+			"type": "boolean",
+			"default": false
+		},
+		"maxCharacters": {
+			"type": "number",
+			"multipleOf": 1
+		}
+	},
+	"logicalOperators": ["is", "is_not", "starts_with", "ends_with", "contains", "not_contains"]
+}
