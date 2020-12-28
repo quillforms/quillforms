@@ -32,7 +32,7 @@ class QF_Admin_Page_Controller {
 
 	/**
 	 * Registered pages
-	 * Contains information (breadcrumbs, menu info) about JS powered pages and classic WooCommerce pages.
+	 * Contains information  about JS powered pages and classic QuillForms pages.
 	 *
 	 * @var array
 	 */
@@ -112,7 +112,7 @@ class QF_Admin_Page_Controller {
 		/**
 		 * Whether or not the current page was registered with this controller.
 		 *
-		 * Used to determine if this is a JS-powered WooCommerce Admin page.
+		 * Used to determine if this is a JS-powered QuillForms Admin page.
 		 *
 		 * @param boolean       $is_registered_page True if the current page was registered with this controller.
 		 * @param array|boolean $current_page The registered page data or false if not identified.
@@ -129,7 +129,7 @@ class QF_Admin_Page_Controller {
 		// If 'current_screen' hasn't fired yet, the current page calculation
 		// will fail which causes `false` to be returned for all subsquent calls.
 		if ( ! did_action( 'current_screen' ) ) {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Current page retrieval should be called on or after the `current_screen` hook.', 'woocommerce-admin' ), '0.16.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Current page retrieval should be called on or after the `current_screen` hook.', 'quillforms' ), '0.16.0' );
 		}
 
 		if ( is_null( $this->current_page ) ) {
@@ -272,6 +272,12 @@ class QF_Admin_Page_Controller {
 		wp_enqueue_script( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-builder-core' );
+		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
+			wp_enqueue_script( $block->get_block_scripts()['admin'] );
+			wp_enqueue_script( $block->get_block_scripts()['renderer'] );
+			wp_enqueue_style( $block->get_block_styles()['admin'] );
+			wp_enqueue_style( $block->get_block_styles()['renderer'] );
+		}
 		?>
 		<div class="wrap">
 			<div id="qf-admin-root">
@@ -292,5 +298,6 @@ class QF_Admin_Page_Controller {
 			</div>
 		</div>
 		<?php
+
 	}
 }
