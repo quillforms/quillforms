@@ -1,0 +1,31 @@
+{
+	"name": "@quillforms/blocklib-multiple-choice-block",
+	"version": "1.0.0",
+	"description": "Multiple choice block for quillforms",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"date",
+		"block"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/blocklib-multiple-choice-block/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/quillforms-multiple-choice-block"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@material-ui/core": "^4.9.13",
+		"@quillforms/builder-components": "file:../builder-components"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
