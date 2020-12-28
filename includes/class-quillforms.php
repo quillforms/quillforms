@@ -129,7 +129,7 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-user.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-utils.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-variables.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-schema-manager.php';
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
 
 		/**
 		 * Meta Fields
@@ -137,7 +137,7 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-blocks-meta-field.php';
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-messages-meta-field.php';
 		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-notifications-meta-field.php';
-		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-theme-meta-field.php';
+		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-theme-id-meta-field.php';
 
 		/**
 		 * Models.
@@ -155,12 +155,13 @@ final class QuillForms {
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-fields.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-form-theme-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
 
 		/**
 		 * Load all blocks.
 		 */
-		foreach ( glob( QF_PLUGIN_DIR . '/build/block-library/blocks/*.php' ) as $block ) {
+		foreach ( glob( QF_PLUGIN_DIR . 'includes/blocks/**/*.php' ) as $block ) {
 			require_once $block;
 		}
 	}
