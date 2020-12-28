@@ -10,22 +10,15 @@ import BlocksListItem from '../blocks-list-item';
  * WordPress Dependencies
  */
 import { Fragment } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
+import { compose } from '@wordpress/compose';
 
 /**
  * External Dependencies
  */
 import classnames from 'classnames';
 
-const BlocksList = () => {
-	const blocks = useSelect( ( select ) =>
-		select( 'quillForms/blocks' ).getBlockTypes()
-	);
-
-	const welcomeScreensLength = useSelect( ( select ) =>
-		select( 'quillForms/block-editor' ).getWelcomeScreensLength()
-	);
-
+const BlocksList = ( { blockTypes, welcomeScreensLength } ) => {
 	return (
 		<div className="builder-components-blocks-list">
 			<Droppable
@@ -38,7 +31,7 @@ const BlocksList = () => {
 						ref={ provided.innerRef }
 						isDraggingOver={ snapshot.isDraggingOver }
 					>
-						{ Object.keys( blocks ).map( ( type, index ) => {
+						{ Object.keys( blockTypes ).map( ( type, index ) => {
 							let isDragDisabled = false;
 							if (
 								type === 'welcome-screen' &&
@@ -48,14 +41,14 @@ const BlocksList = () => {
 							}
 							return (
 								<div
-									key={ blocks[ type ].id }
+									key={ blockTypes[ type ].id }
 									style={ { marginBottom: '20px' } }
 								>
 									<Draggable
 										isDragDisabled={
 											isDragDisabled ? true : false
 										}
-										draggableId={ blocks[ type ].id }
+										draggableId={ blockTypes[ type ].id }
 										index={ index }
 									>
 										{ ( provided, snapshot ) => (
@@ -82,7 +75,9 @@ const BlocksList = () => {
 													} }
 												>
 													<BlocksListItem
-														item={ blocks[ type ] }
+														item={
+															blockTypes[ type ]
+														}
 														disabled={
 															isDragDisabled
 														}
@@ -96,7 +91,9 @@ const BlocksList = () => {
 													>
 														<BlocksListItem
 															item={
-																blocks[ type ]
+																blockTypes[
+																	type
+																]
 															}
 															disabled={
 																isDragDisabled
@@ -118,4 +115,14 @@ const BlocksList = () => {
 	);
 };
 
-export default BlocksList;
+export default compose(
+	withSelect( ( select ) => {
+		const { getBlockTypes } = select( 'quillForms/blocks' );
+		const { getWelcomeScreensLength } = select( 'quillForms/block-editor' );
+
+		return {
+			blockTypes: getBlockTypes(),
+			welcomeScreensLength: getWelcomeScreensLength(),
+		};
+	} )
+)( BlocksList );
