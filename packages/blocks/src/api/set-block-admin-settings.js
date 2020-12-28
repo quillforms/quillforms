@@ -8,10 +8,10 @@ import { dispatch } from '@wordpress/data';
  * @param {Object} settings   Block configuration.
  *
  */
-export const setBlockEditorConfig = ( type, settings ) => {
+export const setBlockAdminSettings = ( type, settings ) => {
 	settings = {
 		type,
 		...settings,
 	};
-	dispatch( 'quillForms/blocks' ).addBlockEditorConfig( settings );
+	dispatch( 'quillForms/blocks' ).setBlockAdminSettings( settings );
 };
