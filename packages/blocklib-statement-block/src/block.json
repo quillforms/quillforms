@@ -1,0 +1,21 @@
+{
+	"type": "statement",
+	"supports": {
+		"editable": false,
+		"required": true,
+		"attachment": true,
+		"description": true,
+		"logic": true
+	},
+	"attributes": {
+		"buttonText": {
+			"type": "string",
+			"default": "Continue"
+		},
+		"quotationMarks": {
+			"type": "boolean",
+			"default": true
+		}
+	}
+
+}
