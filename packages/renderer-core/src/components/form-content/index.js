@@ -88,7 +88,7 @@ const FormContent = ( { applyJumpLogic } ) => {
 	const welcomeScreens = blocks.filter(
 		( block ) => block.type === 'welcome-screen'
 	);
-	const thankyouScreens = blocks.filter(
+	const thankyouScreens = $blocks.filter(
 		( block ) => block.type === 'thankyou-screen'
 	);
 
