@@ -18,26 +18,6 @@ export function apiFetch( request ) {
 }
 
 /**
- * Gets theme list
- */
-export function getSavedThemes() {
-	return {
-		type: 'GET_SAVED_THEMES',
-	};
-}
-
-/**
- * Selects theme id
- *
- * @return {Object} Action.
- */
-export function getThemeId() {
-	return {
-		type: 'GET_THEME_ID',
-	};
-}
-
-/**
  * Dispatches an action using chosen registry.
  *
  * @param {string} registryName Registry name.
@@ -59,13 +39,6 @@ const controls = {
 	API_FETCH( { request } ) {
 		return triggerApiFetch( request );
 	},
-	GET_THEME_ID: createRegistryControl( ( registry ) => () => {
-		return registry.select( 'quillForms/theme-editor' ).getCurrentThemeId();
-	} ),
-
-	GET_SAVED_THEMES: createRegistryControl( ( registry ) => () => {
-		return registry.select( 'quillForms/theme-editor' ).getThemesList();
-	} ),
 
 	DISPATCH: createRegistryControl(
 		( registry ) => ( { registryName, actionName, args } ) => {
