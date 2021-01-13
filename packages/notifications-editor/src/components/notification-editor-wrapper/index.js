@@ -25,7 +25,6 @@ import { keys, zipObject } from 'lodash';
 import EmailSelect from '../email-select';
 import NotificationMessage from '../notification-message';
 import NotificationSubject from '../notification-subject';
-import NotificationEditor from '../notification-editor';
 import NotificationEditorFooter from '../notification-editor-footer';
 import NotificationTitle from '../notification-title';
 import NotificationTo from '../notification-to';
@@ -175,15 +174,6 @@ const NotificationEditorWrapper = ( {
 							} );
 						} }
 						isReviewing={ isReviewing }
-					/>
-					<NotificationEditor.Slot
-						notificationProperties={ { ...properties } }
-						setNotificationProperties={ ( value ) => {
-							setProperties( ( prevProperties ) => ( {
-								...prevProperties,
-								...value,
-							} ) );
-						} }
 					/>
 					<NotificationEditorFooter
 						isReviewing={ isReviewing }
