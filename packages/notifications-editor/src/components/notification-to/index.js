@@ -5,6 +5,8 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
+	SelectControl,
+	MenuItem,
 } from '@quillforms/builder-components';
 
 /**
@@ -15,8 +17,6 @@ import { useEffect } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import { ReactMultiEmail, isEmail } from 'react-multi-email';
 import { css } from 'emotion';
 import { uniq } from 'lodash';
@@ -60,7 +60,7 @@ const NotificationTo = ( {
 						`
 					) }
 				>
-					<Select
+					<SelectControl
 						className={ css`
 							margin-top: 0 !important;
 						` }
@@ -74,7 +74,7 @@ const NotificationTo = ( {
 					>
 						<MenuItem value={ 'email' }>Enter email</MenuItem>
 						<MenuItem value={ 'field' }>Select field</MenuItem>
-					</Select>
+					</SelectControl>
 				</div>
 			</__experimentalControlWrapper>
 			{ toType === 'email' && (
