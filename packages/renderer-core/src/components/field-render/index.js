@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -15,13 +15,14 @@ export default function FieldRender( {
 	field,
 	isAnimating,
 	isFocused,
-	counter,
 	isActive,
 	animation,
 	setCanGoNext,
 	setCanGoPrev,
 	next,
+	shouldBeRendered,
 } ) {
+	const [ blockFooterArea, setBlockFooterArea ] = useState( '' );
 	const { id, type, attributes, title, description, attachment } = field;
 	const context = {
 		id,
@@ -31,8 +32,10 @@ export default function FieldRender( {
 		description,
 		attachment,
 		isAnimating,
-		counter,
 		isActive,
+		shouldBeRendered,
+		blockFooterArea,
+		setBlockFooterArea,
 	};
 	return (
 		<FieldRenderContextProvider
