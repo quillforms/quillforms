@@ -1,7 +1,9 @@
+/* eslint-disable no-nested-ternary */
 /**
  * WordPress Dependencies
  */
-import { useRef, useEffect, useState } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -15,15 +17,30 @@ import classnames from 'classnames';
 import { useFieldRenderContext } from '../field-render/context';
 import FieldContent from '../field-content';
 
-const FieldWrapper = ( {
-	isFocused,
-	animation,
-	setCanGoNext,
-	setCanGoPrev,
-	next,
-} ) => {
+const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
+	const { id, isActive, shouldBeRendered } = useFieldRenderContext();
+
+	const { swiper } = useSelect( ( select ) => {
+		return {
+			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
+		};
+	} );
+
+	const { walkPath, currentBlockId, isSubmissionScreenActive } = swiper;
+
+	const fieldIndex = walkPath.findIndex( ( field ) => field.id === id );
+
+	const currentFieldIndex = walkPath.findIndex(
+		( $field ) => $field.id === currentBlockId
+	);
+
+	const position = isActive
+		? null
+		: currentFieldIndex > fieldIndex || isSubmissionScreenActive
+		? 'is-up'
+		: 'is-down';
+
 	const ref = useRef();
-	const { id, isActive } = useFieldRenderContext();
 	let timer = null;
 
 	const handlers = useSwipeable( {
@@ -42,9 +59,11 @@ const FieldWrapper = ( {
 
 	useEffect( () => {
 		if ( isActive ) {
-			if ( ref && ref.current ) {
+			if ( ref?.current ) {
 				setTimeout( () => {
-					ref.current.scrollTo( 0, 0 );
+					if ( ref?.current ) {
+						ref.current.scrollTo( 0, 0 );
+					}
 				}, 0 );
 			}
 		}
@@ -65,11 +84,10 @@ const FieldWrapper = ( {
 				{
 					active: isActive,
 				},
-				animation ? animation : ''
+				position ? position : ''
 			) }
 			onScroll={ ( e ) => {
 				e.preventDefault();
-				console.log( 'qfej' );
 				if ( ref.current.scrollTop === 0 ) {
 					timer = setTimeout( () => {
 						setCanGoPrev( true );
@@ -89,14 +107,16 @@ const FieldWrapper = ( {
 				}
 			} }
 		>
-			<section id={ 'block-' + id }>
-				<div
-					className="renderer-components-field-wrapper__content-wrapper"
-					ref={ ref }
-				>
-					<FieldContent isFocused={ isFocused } next={ next } />
-				</div>
-			</section>
+			{ shouldBeRendered && (
+				<section id={ 'block-' + id }>
+					<div
+						className="renderer-components-field-wrapper__content-wrapper"
+						ref={ ref }
+					>
+						<FieldContent isFocused={ isFocused } next={ next } />
+					</div>
+				</section>
+			) }
 		</div>
 	);
 };
