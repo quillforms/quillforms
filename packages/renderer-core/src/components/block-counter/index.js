@@ -9,14 +9,25 @@ import classnames from 'classnames';
  */
 import ArrowIcon from './arrow-icon';
 import { useFieldRenderContext } from '../field-render/context';
-import useBlockTypes from '../hooks/use-block-types';
-import { useTheme } from '@quillforms/utils';
+import useBlockTypes from '../../hooks/use-block-types';
+import useTheme from '../../hooks/use-theme';
+import { useSelect } from '@wordpress/data';
 
 const BlockCounter = () => {
-	const { type, counter } = useFieldRenderContext();
+	const { type, id } = useFieldRenderContext();
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ type ];
 	const theme = useTheme();
+	const { pathEditableFields } = useSelect( ( select ) => {
+		return {
+			pathEditableFields: select(
+				'quillForms/renderer-core'
+			).getEditableFieldsInCurrentPath(),
+		};
+	} );
+	const counter = pathEditableFields.findIndex(
+		( editableField ) => editableField.id === id
+	);
 	return (
 		<div
 			className={ classnames(

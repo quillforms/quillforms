@@ -5,9 +5,9 @@ import { css } from 'emotion';
 import classnames from 'classnames';
 
 /**
- * QuillForms Dependencies
+ * Internal Dependencies
  */
-import { useTheme } from '@quillforms/utils';
+import useTheme from '../../hooks/use-theme';
 
 const ArrowIcon = () => {
 	const theme = useTheme();
