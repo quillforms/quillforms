@@ -3,10 +3,11 @@
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
+
 /**
  * Internal Dependencies
  */
-import { useTheme } from '@quillforms/utils';
+import useTheme from '../../hooks/use-theme';
 
 const Button = ( { className, onClick, children } ) => {
 	const theme = useTheme();
