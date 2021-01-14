@@ -8,7 +8,7 @@ import { useEffect, useState } from '@wordpress/element';
  * Internal Dependencies
  */
 import { useFieldRenderContext } from '../field-render';
-import useBlockTypes from '../hooks/use-block-types';
+import useBlockTypes from '../../hooks/use-block-types';
 import BlockFooter from '../block-footer';
 
 let timer1, timer2;
@@ -19,10 +19,11 @@ const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 		isActive,
 		attributes,
 		required,
+		blockFooterArea,
+		setBlockFooterArea,
 	} = useFieldRenderContext();
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ type ];
-	const [ footerSectionToShow, setFooterSectionToShow ] = useState( null );
 	const [ shakingErr, setShakingErr ] = useState( null );
 
 	const { isCurrentBlockEditable } = useSelect( ( select ) => {
@@ -66,15 +67,15 @@ const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 	};
 
 	const showSubmitBtn = ( val ) => {
-		setFooterSectionToShow( val ? 'submit-btn' : null );
+		setBlockFooterArea( val ? 'submit-btn' : null );
 	};
 
 	const showErrorMessage = ( val ) => {
-		setFooterSectionToShow( val ? 'error-message' : null );
+		setBlockFooterArea( val ? 'error-message' : null );
 	};
 
-	const isSubmitBtnVisible = footerSectionToShow === 'submit-btn';
-	const isErrMsgVisible = footerSectionToShow === 'error-message';
+	const isSubmitBtnVisible = blockFooterArea === 'submit-btn';
+	const isErrMsgVisible = blockFooterArea === 'error-message';
 
 	const {
 		setIsFieldValid,
