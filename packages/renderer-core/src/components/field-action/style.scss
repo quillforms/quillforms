@@ -1,0 +1,27 @@
+.renderer-components-field-action {
+	& {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+
+		transform: translateY(10);
+		-webkit-transform: translateY(10);
+		transition: all linear 0.15s;
+	}
+	&, * {
+		opacity: 0;
+		visibility: hidden;
+		z-index: -1
+	}
+
+	&.is-visible {
+		transform: translateY(0);
+		&, * {
+			opacity: 1;
+			visibility: visible;
+			z-index: 1;
+		}
+
+	}
+
+}
