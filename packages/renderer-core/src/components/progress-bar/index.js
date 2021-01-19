@@ -1,7 +1,6 @@
 /**
  * WordPress Dependencies
  */
-import { memo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -9,15 +8,13 @@ import { useSelect } from '@wordpress/data';
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-import { useTheme } from '@quillforms/utils';
 
-// Preventing re-render unless current block changes
-const areEqual = ( prevProps, nextProps ) => {
-	if ( prevProps.currentBlockId === nextProps.currentBlockId ) return true;
-	return false;
-};
+/**
+ * Internal Dependencies
+ */
+import useTheme from '../../hooks/use-theme';
 
-const ProgressBar = memo( ( { totalQuestions } ) => {
+const ProgressBar = ( { totalQuestions } ) => {
 	const theme = useTheme();
 	const { answered } = useSelect( ( select ) => {
 		return {
@@ -53,6 +50,6 @@ const ProgressBar = memo( ( { totalQuestions } ) => {
 			</div>
 		</div>
 	);
-}, areEqual );
+};
 
 export default ProgressBar;
