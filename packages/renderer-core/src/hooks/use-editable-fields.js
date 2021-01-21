@@ -6,7 +6,7 @@ import { useSelect } from '@wordpress/data';
 /**
  * Internal Dependencies
  */
-import useMetaField from './use-meta-field';
+import useBlocks from './use-blocks';
 
 const useEditableFields = () => {
 	const { blockTypes } = useSelect( ( select ) => {
@@ -14,11 +14,11 @@ const useEditableFields = () => {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
-	const formBlocks = useMetaField( 'blocks' );
+	const formBlocks = useBlocks();
 
 	const editableFields = formBlocks.filter( ( block ) => {
 		const registeredBlock = blockTypes[ block.type ];
-		return registeredBlock.supports.editable === true;
+		return registeredBlock?.supports?.editable === true;
 	} );
 
 	return editableFields;
