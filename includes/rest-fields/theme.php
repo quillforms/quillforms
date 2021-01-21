@@ -16,17 +16,17 @@ register_rest_field(
 		'get_callback'    => function( $object ) {
 			$form_id = $object['id'];
 
-			return  get_post_meta( $form_id, 'theme', true );
+			return  (int) get_post_meta( $form_id, 'theme', true );
 
 		},
 		'update_callback' => function( $meta, $object ) {
 			$form_id = $object->ID;
 			// Calculation the previous value because update_post_meta returns false if the same value passed.
-			$prev_value = get_post_meta( $form_id, 'theme', true );
-			if ( $prev_value === $meta ) {
+			$prev_value = intval( get_post_meta( $form_id, 'theme', true ) );
+			if ( $prev_value == intval( $meta ) ) {
 				return true;
 			}
-			$ret = update_post_meta( $form_id, 'theme', $meta );
+			$ret = update_post_meta( $form_id, 'theme', intval( $meta ) );
 			if ( false === $ret ) {
 				return new WP_Error(
 					'qf_theme_update_failed',
@@ -37,7 +37,7 @@ register_rest_field(
 			return true;
 		},
 		'schema'          => array(
-			'type' => 'string',
+			'type' => 'number',
 		),
 	)
 );
