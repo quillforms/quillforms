@@ -42,6 +42,24 @@ abstract class QF_Block extends stdClass {
 	public $block_name;
 
 	/**
+	 * Is valid
+	 *
+	 * @var boolean
+	 *
+	 * @since 1.0.0
+	 */
+	public $is_valid = true;
+
+	/**
+	 * Validation Error message
+	 *
+	 * @var string
+	 *
+	 * @since 1.0.0
+	 */
+	public $validation_err = null;
+
+	/**
 	 * Get Block Type
 	 * It must be unique name.
 	 *
@@ -70,13 +88,21 @@ abstract class QF_Block extends stdClass {
 	 *                                 Default empty array.
 	 */
 	public function __construct( $args = array() ) {
-		$this->type               = $this->get_type();
-		$this->block_name         = $this->get_name();
-		$this->block_styles       = $this->get_block_styles();
-		$this->block_scripts      = $this->get_block_scripts();
-		$this->attributes         = apply_filters( "qf_{$this->type}_block_attributes", $this->get_attributes() );
-		$this->logic_operators    = $this->get_logical_operators();
-		$this->supported_features = $this->get_block_supported_features();
+		$default_supported_features = array(
+			'editable'   => true,
+			'required'   => true,
+			'attachment' => true,
+			'logic'      => true,
+			'calculator' => false,
+		);
+		$this->type                 = $this->get_type();
+		$this->block_name           = $this->get_name();
+		$this->block_styles         = $this->get_block_styles();
+		$this->block_scripts        = $this->get_block_scripts();
+		$this->attributes_schema    = $this->get_attributes();
+		$this->attributes           = $this->prepare_attributes_for_render();
+		$this->logic_operators      = $this->get_logical_operators();
+		$this->supported_features   = wp_parse_args( $this->get_block_supported_features(), $default_supported_features );
 		$this->set_props( $args );
 	}
 
@@ -94,7 +120,13 @@ abstract class QF_Block extends stdClass {
 			return;
 		}
 		foreach ( $args as $property_name => $property_value ) {
-			$this->$property_name = $property_value;
+			if ( ! in_array( $property_name, array( 'attributes', 'attributes_schema', 'supported_features' ), true ) ) {
+				$this->$property_name = $property_value;
+			}
+
+			if ( 'attributes' === $property_name ) {
+				$this->$property_name = $this->prepare_attributes_for_render( $property_value );
+			}
 		}
 	}
 
@@ -131,9 +163,7 @@ abstract class QF_Block extends stdClass {
 	 * @return array The block attributes
 	 */
 	public function get_attributes() {
-		return is_array( $this->attributes ) ?
-			$this->attributes :
-			array();
+		return array();
 	}
 
 
@@ -148,21 +178,21 @@ abstract class QF_Block extends stdClass {
 	 *
 	 * @return array prepared block attributes
 	 */
-	final public function prepare_attributes_for_render( $attributes ) {
+	final public function prepare_attributes_for_render( $attributes = array() ) {
 		// If there are no attribute definitions for the block type, skip
 		// processing and return vebatim.
-		if ( ! isset( $this->attributes ) ) {
+		if ( ! isset( $this->attributes_schema ) ) {
 			return $attributes;
 		}
 
 		foreach ( $attributes as $attribute_name => $value ) {
 			// If the attribute is not defined by the block type, it cannot be
 			// validated.
-			if ( ! isset( $this->attributes[ $attribute_name ] ) ) {
+			if ( ! isset( $this->attributes_schema[ $attribute_name ] ) ) {
 				continue;
 			}
 
-			$schema = $this->attributes[ $attribute_name ];
+			$schema = $this->attributes_schema[ $attribute_name ];
 
 			// Validate value by JSON schema. An invalid value should revert to
 			// its default, if one exists. This occurs by virtue of the missing
@@ -176,7 +206,7 @@ abstract class QF_Block extends stdClass {
 
 		// Populate values of any missing attributes for which the block type
 		// defines a default.
-		$missing_schema_attributes = array_diff_key( $this->attributes, $attributes );
+		$missing_schema_attributes = array_diff_key( $this->attributes_schema, $attributes );
 		foreach ( $missing_schema_attributes as $attribute_name => $schema ) {
 			if ( isset( $schema['default'] ) ) {
 				$attributes[ $attribute_name ] = $schema['default'];
@@ -187,7 +217,7 @@ abstract class QF_Block extends stdClass {
 	}
 
 	/**
-	 * Block settings.
+	 * Block supported features.
 	 *
 	 * @since 1.0.0
 	 *
@@ -198,8 +228,7 @@ abstract class QF_Block extends stdClass {
 			'editable'   => true,
 			'required'   => true,
 			'attachment' => true,
-			'jumpLogic'  => true,
-			'calculator' => false,
+			'logic'      => true,
 		);
 	}
 
@@ -215,27 +244,70 @@ abstract class QF_Block extends stdClass {
 	}
 
 	/**
-	 * Validate field value
-	 * This should be overriden for each block that has [dispalyOnly = false] in supports.
+	 * Format entry value.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value the value to validate.
+	 * @param mixed   $value    The entry value that needs to be formatted and may be sanitized.
+	 * @param integer $form_id  The form id.
 	 *
-	 * @return true|WP_Error
+	 * @return mixed $value The formatted entry value.
 	 */
-	public function validate( $value ) {
-		return true;
+	public function format_entry_value( $value, $form_id ) {
+		return $value;
 	}
 
 	/**
-	 * Retrieve the field value on submission.
+	 * Retrieve entry value from database and do escaping.
 	 *
-	 * @param array|string $value The received field value.
+	 * @since 1.0.0
 	 *
-	 * @return array|string
+	 * @param mixed   $value    The entry value that should be sanitized.
+	 * @param integer $form_id  The form id.
+	 *
+	 * @return mixed  $value    The escaped entry value.
 	 */
-	public function get_value_submission( $value ) {
+	public function retrieve_entry_value( $value, $form_id ) {
 		return $value;
 	}
+
+	/**
+	 * Get merge tag value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value The entry value.
+	 *
+	 * @return mixed $value The merged entry value.
+	 */
+	public function get_merge_tag_value( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Get entry value that should be saved in database.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value The entry value.
+	 *
+	 * @return mixed $value The formatted entry value that should be saved into dababase.
+	 */
+	public function get_vaue_entry_save( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Validate field value
+	 * The validation should be done by setting $this->is_valid true or false and setting the validation message  $this->validation_err
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value      The value to validate.
+	 * @param array $messages   The form messages.
+	 */
+	public function validate_field( $value, $messages ) {
+		// Here we do the validation.
+	}
+
 }
