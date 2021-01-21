@@ -1,8 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
-import { useTheme } from '@quillforms/utils';
+import { useTheme, useMessages } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -37,7 +36,7 @@ const DateOutput = ( props ) => {
 	const { format, separator } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-	const messages = useMetaField( 'messages' );
+	const messages = useMessages();
 	const theme = useTheme();
 	const elemRef = useRef();
 
