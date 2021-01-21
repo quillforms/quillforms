@@ -194,7 +194,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 
 	foreach ( glob( quillforms_dir_path() . 'build/blocklib-**-block/admin/index.js' ) as $path ) {
 		// Prefix `quillforms-` to package directory to get script handle.
-		preg_match( '/(\w+)(-\w+)\/admin\/index.js$/', $path, $matches );
+		preg_match( '/blocklib-([a-zA-Z-]+)-block\/admin\/index.js$/', $path, $matches );
 		$handle = 'quillforms-blocklib-' . $matches[1] . '-block-admin-script';
 
 		// Replace `.js` extension with `.asset.php` to find the generated dependencies file.
@@ -220,7 +220,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 
 	foreach ( glob( quillforms_dir_path() . 'build/blocklib-**-block/renderer/index.js' ) as $path ) {
 		// Prefix `quillforms-` to package directory to get script handle.
-		preg_match( '/(\w+)(-\w+)\/renderer\/index.js$/', $path, $matches );
+		preg_match( '/blocklib-([a-zA-Z-]+)-block\/renderer\/index.js$/', $path, $matches );
 		$handle = 'quillforms-blocklib-' . $matches[1] . '-block-renderer-script';
 		// Replace `.js` extension with `.asset.php` to find the generated dependencies file.
 		$asset_file   = substr( $path, 0, -3 ) . '.asset.php';
@@ -243,6 +243,32 @@ function quillforms_register_packages_scripts( $scripts ) {
 		);
 	}
 
+	// Register Vendor scripts
+	quillforms_override_script(
+		$scripts,
+		'react-window',
+		QF_PLUGIN_URL . '/lib/vendor/react-window.min.js',
+		array( 'react' ),
+		'1.8.6',
+		true
+	);
+
+	quillforms_override_script(
+		$scripts,
+		'emotion',
+		QF_PLUGIN_URL . '/lib/vendor/emotion.min.js',
+		array( 'react', 'wp-element' ),
+		'1.8.6',
+		true
+	);
+	quillforms_override_script(
+		$scripts,
+		'react-visibility-sensor',
+		QF_PLUGIN_URL . '/lib/vendor/react-visibility-sensor.min.js',
+		array( 'react' ),
+		'1.8.6',
+		true
+	);
 }
 
 /**
@@ -303,22 +329,12 @@ function quillforms_register_packages_styles( $styles ) {
 	);
 	$styles->add_data( 'quillforms-notifications-editor', 'rtl', 'replace' );
 
-	// Renderer Components.
-	quillforms_override_style(
-		$styles,
-		'quillforms-renderer-components',
-		quillforms_url( 'build/renderer-components/style.css' ),
-		array(),
-		filemtime( quillforms_dir_path() . 'build/renderer-components/style.css' )
-	);
-	$styles->add_data( 'quillforms-renderer-components', 'rtl', 'replace' );
-
 	// Renderer Core.
 	quillforms_override_style(
 		$styles,
 		'quillforms-renderer-core',
 		quillforms_url( 'build/renderer-core/style.css' ),
-		array( 'quillforms-renderer-components' ),
+		array(),
 		filemtime( quillforms_dir_path() . 'build/renderer-core/style.css' )
 	);
 	$styles->add_data( 'quillforms-renderer-core', 'rtl', 'replace' );
