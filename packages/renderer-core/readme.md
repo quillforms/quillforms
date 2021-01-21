@@ -1,2 +1,0 @@
-We have dealed with Output as it is a separate react app with its own components and containers.
-It is actually not a separate react app but we structured it like that because this output folder will be the same at admin and public views and to make it easy for us to differentiate between the admin-only components and the common comonents
