@@ -6,7 +6,7 @@ import { __experimentalDragDropContext as DragDropContext } from '@quillforms/bu
 /**
  * WordPress Dependencies
  */
-import { useCallback, useState, useMemo } from '@wordpress/element';
+import { useCallback, useState, useMemo, useEffect } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { PluginArea } from '@wordpress/plugins';
@@ -38,6 +38,8 @@ const Layout = ( props ) => {
 		reorderBlocks,
 		insertBlock,
 		insertNewFieldAnswer,
+		hasBlocksFinishedResolution,
+		setCurrentBlockId,
 	} = props;
 
 	const [ targetIndex, setTargetIndex ] = useState();
@@ -55,6 +57,7 @@ const Layout = ( props ) => {
 		}
 		return '1';
 	};
+
 	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
 		const list = { ...formBlocks };
 		const { title, description } = list[ sourceIndex ];
@@ -201,6 +204,18 @@ const Layout = ( props ) => {
 		return <SaveButton />;
 	}, [] );
 
+	// Setting current block id once blocks are resolved.
+	useEffect( () => {
+		if ( hasBlocksFinishedResolution && formBlocks?.length > 0 ) {
+			setCurrentBlockId( formBlocks[ 0 ].id );
+			formBlocks.forEach( ( block ) => {
+				const blockType = blockTypes[ block.type ];
+				if ( blockType.supports.editable )
+					insertNewFieldAnswer( block.id, block.type );
+			} );
+		}
+	}, [ hasBlocksFinishedResolution ] );
+
 	return (
 		<>
 			{ savButton }
@@ -234,23 +249,27 @@ export default compose( [
 		const { getCurrentPanel, getPanels, getAreaToHide } = select(
 			'quillForms/builder-panels'
 		);
-		const { getBlocks } = select( 'quillForms/block-editor' );
+		const { getBlocks, hasFinishedResolution } = select(
+			'quillForms/block-editor'
+		);
 		return {
 			blockTypes: getBlockTypes(),
 			currentPanel: getCurrentPanel(),
 			areaToHide: getAreaToHide(),
 			panels: getPanels(),
 			formBlocks: getBlocks(),
+			hasBlocksFinishedResolution: hasFinishedResolution( 'getBlocks' ),
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
-		const { insertBlock, reorderBlocks } = dispatch(
+		const { insertBlock, reorderBlocks, setCurrentBlock } = dispatch(
 			'quillForms/block-editor'
 		);
 		const { insertEmptyFieldAnswer } = dispatch(
 			'quillForms/renderer-submission'
 		);
 		return {
+			setCurrentBlockId: ( id ) => setCurrentBlock( id ),
 			insertBlock: ( block, destination ) =>
 				insertBlock( block, destination ),
 			reorderBlocks: ( sourceIndex, destinationIndex ) =>
