@@ -7,9 +7,7 @@ import {
 } from './constants';
 
 const initialState = {
-	answers: [],
-	isReviewing: false,
-	isSubmitting: false,
+	answers: {},
 };
 
 const AnswersReducer = ( state = initialState, action ) => {
@@ -18,39 +16,34 @@ const AnswersReducer = ( state = initialState, action ) => {
 		// Insert Empty Field Answer
 		case INSERT_EMPTY_FIELD_ANSWER: {
 			const { id, type } = action.payload;
-			const index = answers.findIndex( ( answer ) => {
-				return answer.id === id;
-			} );
 			const $state = { ...state };
-			const $answers = [ ...$state.answers ];
+			const $answers = { ...$state.answers };
 
-			if ( index === -1 ) {
-				$answers.push( {
+			if ( ! $answers[ id ] ) {
+				$answers[ id ] = {
 					value: [],
 					isValid: true,
 					isAnswered: false,
 					validationErr: null,
-					id,
 					type,
-				} );
+				};
 			}
 			$state.answers = $answers;
+			console.log( $state );
 			return $state;
 		}
 
 		// SET FIELD ANSWER
 		case SET_FIELD_ANSWER: {
 			const { id, val } = action.payload;
-			const index = answers.findIndex( ( answer ) => {
-				return answer.id === id;
-			} );
-			if ( index === -1 ) {
+			// If the field id is incorrect or the value passed is the same value, return same state.
+			if ( ! answers[ id ] || val === answers[ id ].value ) {
 				return state;
 			}
 			const $state = { ...state };
-			const $answers = [ ...$state.answers ];
+			const $answers = { ...$state.answers };
 
-			$answers[ index ].value = val;
+			$answers[ id ].value = val;
 			$state.answers = $answers;
 			return $state;
 		}
@@ -58,16 +51,14 @@ const AnswersReducer = ( state = initialState, action ) => {
 		// SET IS FIELD VALID
 		case SET_IS_FIELD_VALID: {
 			const { id, val } = action.payload;
-			const index = answers.findIndex( ( answer ) => {
-				return answer.id === id;
-			} );
-			if ( index === -1 ) {
+			// If the field id is incorrect or the value passed is the same value, return same state.
+			if ( ! answers[ id ] || val === answers[ id ].isValid ) {
 				return state;
 			}
 			const $state = { ...state };
-			const $answers = [ ...$state.answers ];
+			const $answers = { ...$state.answers };
 
-			$answers[ index ].isValid = val;
+			$answers[ id ].isValid = val;
 			$state.answers = $answers;
 			return $state;
 		}
@@ -75,32 +66,29 @@ const AnswersReducer = ( state = initialState, action ) => {
 		// SET IS FIELD ANSWERED
 		case SET_IS_FIELD_ANSWERED: {
 			const { id, val } = action.payload;
-			const index = answers.findIndex( ( answer ) => {
-				return answer.id === id;
-			} );
-			if ( index === -1 ) {
+			// If the field id is incorrect or the value passed is the same value, return same state.
+			if ( ! answers[ id ] || val === answers[ id ].isAnswered ) {
 				return state;
 			}
 			const $state = { ...state };
-			const $answers = [ ...$state.answers ];
-			$answers[ index ].isAnswered = val;
-			$state.answers = $answers;
+			const $answers = { ...$state.answers };
 
+			$answers[ id ].isAnswered = val;
+			$state.answers = $answers;
 			return $state;
 		}
 
 		// SET FIELD VALIDATION ERR
 		case SET_FIELD_VALIDATION_ERR: {
 			const { id, val } = action.payload;
-			const index = answers.findIndex( ( answer ) => {
-				return answer.id === id;
-			} );
-			if ( index === -1 ) {
+			// If the field id is incorrect or the value passed is the same value, return same state.
+			if ( ! answers[ id ] || val === answers[ id ].validationErr ) {
 				return state;
 			}
 			const $state = { ...state };
-			const $answers = [ ...$state.answers ];
-			$answers[ index ].validationErr = val;
+			const $answers = { ...$state.answers };
+
+			$answers[ id ].validationErr = val;
 			$state.answers = $answers;
 			return $state;
 		}

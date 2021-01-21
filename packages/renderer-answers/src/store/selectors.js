@@ -1,4 +1,14 @@
 /**
+ * WordPress Dependencies
+ */
+import { createRegistrySelector } from '@wordpress/data';
+
+/**
+ * External Dependencies
+ */
+import { mapValues, findIndex, pickBy, size } from 'lodash';
+
+/**
  * Get all answers.
  *
  * @param {Object} state       Global application state.
@@ -10,6 +20,20 @@ export function getAnswers( state ) {
 }
 
 /**
+ * Get answers values.
+ *
+ * @param {Object} state      Global application state.
+ *
+ * @return {Array} Registered
+ *
+ */
+export function getAnswersValues( state ) {
+	return mapValues( state.answers, ( o ) => {
+		return o.value;
+	} );
+}
+
+/**
  * Get count of answered fields.
  *
  * @param {Object} state
@@ -17,8 +41,11 @@ export function getAnswers( state ) {
  * @return {number} Answered fields count
  */
 export function getAnsweredFieldsLength( state ) {
-	return state.answers.filter( ( answer ) => answer.isAnswered === true )
-		.length;
+	const answeredFields = pickBy(
+		state.answers,
+		( value ) => value?.isAnswered === true
+	);
+	return answeredFields ? size( answeredFields ) : 0;
 }
 
 /**
@@ -30,9 +57,54 @@ export function getAnsweredFieldsLength( state ) {
  * @return {any} Field answer value
  */
 export function getFieldAnswerVal( state, id ) {
-	const index = state.answers.findIndex( ( answer ) => answer.id === id );
-	return state.answers[ index ].value;
+	const answer = state.answers[ id ]?.value;
+	return answer ? answer : [];
 }
+
+/**
+ * Get invalid fields
+ *
+ * @param {Object} state
+ *
+ * @return {Object} Invalid fields keyed by id
+ */
+export function getInvalidFields( state ) {
+	const invalidFields = pickBy( state.answers, ( o ) => o.isValid === false );
+	return invalidFields;
+}
+
+/**
+ * Get invalid fields length
+ *
+ * @param {Object} state
+ *
+ * @return {number} Invalid fields length
+ */
+export function getInvalidFieldsLength( state ) {
+	return getInvalidFields( state ).length;
+}
+
+/**
+ * Get first invalid field id
+ *
+ * @param {Object} state
+ *
+ * @return {string} First invalid field id
+ */
+export const getFirstInvalidFieldId = createRegistrySelector(
+	( select ) => ( state ) => {
+		const invalidFields = getInvalidFields( state );
+		if ( size( invalidFields ) > 0 ) {
+			const invalidFieldsIds = Object.keys( invalidFields );
+			const walkPath = select( 'quillForms/renderer-core' ).getWalkPath();
+			const firstFieldIndex = findIndex( walkPath, ( o ) =>
+				invalidFieldsIds.includes( o.id )
+			);
+			if ( firstFieldIndex !== -1 ) return walkPath[ firstFieldIndex ].id;
+		}
+		return null;
+	}
+);
 
 /**
  * Is valid field.
@@ -43,8 +115,8 @@ export function getFieldAnswerVal( state, id ) {
  * @return {boolean} showErr flag
  */
 export function isValidField( state, id ) {
-	const index = state.answers.findIndex( ( answer ) => answer.id === id );
-	return state.answers[ index ].isValid;
+	const isValid = state.answers[ id ]?.isValid;
+	return isValid;
 }
 
 /**
@@ -56,6 +128,6 @@ export function isValidField( state, id ) {
  * @return {string} Field validation error message
  */
 export function getFieldValidationErr( state, id ) {
-	const index = state.answers.findIndex( ( answer ) => answer.id === id );
-	return state.answers[ index ].validationErr;
+	const validationErr = state.answers[ id ]?.validationErr;
+	return validationErr ? validationErr : [];
 }
