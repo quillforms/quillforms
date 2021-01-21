@@ -1,70 +1,88 @@
 import {
-	SET_CURRENT_BLOCK_ID,
-	SET_CURRENT_PATH,
-	SET_NEXT_BLOCK_ID,
-	SET_LAST_ACTIVE_BLOCK_ID,
-	SET_PREV_BLOCK_ID,
+	SET_SWIPER_STATE,
+	GO_NEXT,
+	GO_PREV,
+	COMPLETE_FORM,
+	GO_TO_FIELD,
+	SET_SUBMISSION_ERR,
 } from './constants';
 
 /**
- * Returns an action object used in setting current block id
+ * Returns an action object used in setting swiper state
  *
- * @param {string}   id  Block id
+ * @param {Object} swiperState New swiper state.
  *
  * @return {Object} Action object.
  */
-export const setCurrentBlockId = ( id ) => {
+export const setSwiper = ( swiperState ) => {
 	return {
-		type: SET_CURRENT_BLOCK_ID,
+		type: SET_SWIPER_STATE,
+		payload: { swiperState },
+	};
+};
+
+/**
+ * Go to next block
+ *
+ * @param {boolean} isSwiping  Is swiping
+ *
+ * @return {Object} Action object.
+ */
+export const goNext = ( isSwiping = false ) => {
+	return {
+		type: GO_NEXT,
+		payload: { isSwiping },
+	};
+};
+
+/**
+ * Go to previous block
+ *
+ *
+ * @return {Object} Action object.
+ */
+export const goPrev = () => {
+	return {
+		type: GO_PREV,
+	};
+};
+
+/**
+ * Go to a specific field
+ *
+ * @param {string} id       The field id.
+ *
+ * @return {Object} Action object.
+ */
+export const goToField = ( id ) => {
+	return {
+		type: GO_TO_FIELD,
 		payload: { id },
 	};
 };
 
 /**
- * Returns an action object used in setting next block id
+ * Set submission error
  *
- * @param {string}   id  Block id
+ * @param {string} err     Submission error
  *
- * @return {Object} Action object.
+ * @return {Object} Action object
  */
-export const setNextBlockId = ( id ) => {
+export const setSubmissionErr = ( err ) => {
 	return {
-		type: SET_NEXT_BLOCK_ID,
-		payload: { id },
+		type: SET_SUBMISSION_ERR,
+		payload: { err },
 	};
 };
 
 /**
- * Returns an action object used in setting previous block id
+ * Complete form and show thank you screen
  *
- * @param {string}   id  Block id
  *
- * @return {Object} Action object.
+ * @return {Object} Action object
  */
-export const setPrevBlockId = ( id ) => {
+export const completeForm = () => {
 	return {
-		type: SET_PREV_BLOCK_ID,
-		payload: { id },
-	};
-};
-
-/**
- * Returns an action object used in setting current path
- *
- * @param {Object}   path  path
- *
- * @return {Object} Action object.
- */
-export const setCurrentPath = ( path ) => {
-	return {
-		type: SET_CURRENT_PATH,
-		payload: { path },
-	};
-};
-
-export const setLastActiveBlockId = ( id ) => {
-	return {
-		type: SET_LAST_ACTIVE_BLOCK_ID,
-		payload: { id },
+		type: COMPLETE_FORM,
 	};
 };

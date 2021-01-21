@@ -1,54 +1,98 @@
 /**
- * Get current block id.
+ * WordPress Dependencies
+ */
+import { createRegistrySelector } from '@wordpress/data';
+
+/**
+ * External Dependencies
+ */
+import createSelector from 'rememo';
+
+/**
+ * Get swiper state.
  *
  * @param {Object} state       Global application state.
  *
- * @return {string} Current Block id.
+ * @return {Object} The swiper state
+ */
+export function getSwiperState( state ) {
+	return state;
+}
+
+/**
+ * Get walk path.
+ *
+ * @param {Object} state      Global application state.
+ *
+ * @return {Array} Walk path
+ */
+export function getWalkPath( state ) {
+	return state.walkPath;
+}
+
+/**
+ * Get current block id.
+ *
+ * @param {Object} state      Global application state.
+ *
+ * @return {string}  Current block id
  */
 export function getCurrentBlockId( state ) {
 	return state.currentBlockId;
 }
 
 /**
- * Get next block id.
+ * Is thankyou screen active.
  *
  * @param {Object} state       Global application state.
  *
- * @return {string} Next Block id.
+ * @return {boolean} Is thankyou screen active
  */
-export function getNextBlockId( state ) {
-	return state.nextBlockId;
+export function isThankyouScreenActive( state ) {
+	return state.isThankyouScreenActive;
 }
 
 /**
- * Get last active block id.
+ * Is welcome screen active.
  *
  * @param {Object} state       Global application state.
  *
- * @return {string} Last active block id.
+ * @return {boolean} Is welcome screen active
  */
-export function getLastActiveBlockId( state ) {
-	return state.lastActiveBlockId;
+export function isWelcomeScreenActive( state ) {
+	return state.isWelcomeScreenActive;
 }
 
 /**
- * Get previous block id.
+ * Is reviewing
  *
- * @param {Object} state       Global application state.
+ * @param {Object} state     Global application state.
  *
- * @return {string} Previous Block id.
+ * @return {boolean} Is reviewing
  */
-export function getPreviousBlockId( state ) {
-	return state.prevBlockId;
+export function isReviewing( state ) {
+	return state.isReviewing;
 }
 
 /**
- * Get current block id.
+ * Get current path editable fields
  *
- * @param {Object} state       Global application state.
+ * @param {Object} state	  Global application state.
  *
- * @return {Object} Current path.
+ * @return {Array} The editable fields in current path
  */
-export function getCurrentPath( state ) {
-	return state.currentPath;
-}
+export const getEditableFieldsInCurrentPath = createRegistrySelector(
+	( select ) => {
+		return createSelector(
+			( state ) => {
+				return state.walkPath.filter( ( block ) => {
+					return select( 'quillForms/blocks' ).hasBlockSupport(
+						block.type,
+						'editable'
+					);
+				} );
+			},
+			( state ) => [ state.walkPath ]
+		);
+	}
+);

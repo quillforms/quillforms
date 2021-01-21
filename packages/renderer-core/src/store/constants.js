@@ -1,5 +1,6 @@
-export const SET_CURRENT_BLOCK_ID = 'SET_CURRENT_BLOCK_ID';
-export const SET_NEXT_BLOCK_ID = 'SET_NEXT_BLOCK_ID';
-export const SET_PREV_BLOCK_ID = 'SET_PREV_BLOCK_ID';
-export const SET_LAST_ACTIVE_BLOCK_ID = 'SET_LAST_ACTIVE_BLOCK_ID';
-export const SET_CURRENT_PATH = 'SET_CURRENT_PATH';
+export const SET_SWIPER_STATE = 'SET_SWIPER_STATE';
+export const GO_NEXT = 'GO_NEXT';
+export const GO_PREV = 'GO_PREV';
+export const GO_TO_FIELD = 'GO_TO_FIELD';
+export const COMPLETE_FORM = 'COMPLETE_FORM';
+export const SET_SUBMISSION_ERR = 'SET_SUBMISSION_ERR';
