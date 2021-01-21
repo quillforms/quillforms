@@ -3,7 +3,8 @@ class QF_Form_Renderer {
 
 
 	public static function init() {
-		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
+
+		add_action( 'init', array( __CLASS__, 'template_include' ) );
 
 		add_filter( 'show_admin_bar', '__return_false' );
 
@@ -21,8 +22,6 @@ class QF_Form_Renderer {
 
 		// Handle `wp_footer`.
 		add_action( 'wp_footer', 'wp_print_footer_scripts', 20 );
-		// add_action('wp_footer', 'wp_auth_check_html', 30);
-		// add_action('wp_footer', [$this, 'wp_footer']);
 
 		// Handle `wp_enqueue_scripts`.
 		remove_all_actions( 'wp_enqueue_scripts' );
@@ -31,9 +30,15 @@ class QF_Form_Renderer {
 
 	}
 
-	public static function template_loader( $template ) {
+	public static function template_include() {
+		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
+	}
 
-		return QF_PLUGIN_DIR . '/includes/renderer-template.php';
+	public static function template_loader( $template ) {
+		global $wp_query;
+		if ( is_singular( 'quill_forms' ) ) {
+			return QF_PLUGIN_DIR . '/includes/render/renderer-template.php';
+		}
 
 		return $template;
 
@@ -43,9 +48,9 @@ class QF_Form_Renderer {
 		return  apply_filters(
 			'quillforms_renderer_form_object',
 			array(
-				'blocks'   => self::get_blocks( $form_id ),
-				'messages' => self::get_messages( $form_id ),
-				'theme'    => self::get_theme( $form_id ),
+				'blocks'   => QF_Core::get_blocks( $form_id ),
+				'messages' => QF_Core::get_messages( $form_id ),
+				'theme'    => QF_Core::get_theme( $form_id ),
 			),
 			$form_id
 		);
@@ -61,17 +66,13 @@ class QF_Form_Renderer {
 				'qf.blocks.registerBlockType(' . wp_json_encode(
 					array_map(
 						function ( $block ) {
-							return array_merge(
+							return
 								array(
-									'id'         => QF_Utils::generate_uuidv4(),
-									'name'       => $block->block_name,
-									'attributes' => $block->prepare_attributes_for_render( $block->attributes ),
-								),
-								array(
+									'name'             => $block->block_name,
+									'attributes'       => $block->attributes_schema,
 									'supports'         => $block->supported_features,
 									'logicalOperators' => $block->get_logical_operators(),
-								)
-							);
+								);
 						},
 						QF_Blocks_Factory::get_instance()->get_all_registered()
 					)
@@ -80,10 +81,10 @@ class QF_Form_Renderer {
 			);
 
 			$form_id           = $post->ID;
-			$wp_scripts->queue = array( 'quillforms-renderer' );
-			$wp_styles->queue  = array( 'quillforms-renderer' );
+			$wp_scripts->queue = array( 'quillforms-renderer-core' );
+			$wp_styles->queue  = array( 'quillforms-renderer-core' );
 
-			$blocks = self::get_blocks( $form_id );
+			$blocks = QF_Core::get_blocks( $form_id );
 			// Render styles for used blocks only.
 			foreach ( $blocks as $block ) {
 				$block_type         = QF_Blocks_Factory::get_instance()->get_registered( $block['type'] );
@@ -98,26 +99,6 @@ class QF_Form_Renderer {
 		endif;
 	}
 
-	public static function get_blocks( $form_id ) {
-		$blocks = get_post_meta( $form_id, 'blocks', true );
-		$blocks = $blocks ? $blocks : array();
-		return $blocks;
-	}
-
-	public static function get_messages( $form_id ) {
-		return get_post_meta( $form_id, 'messages', true );
-	}
-
-	public static function get_theme( $form_id ) {
-		$theme_id  = get_post_meta( $form_id, 'theme_id', true );
-		$theme_obj = QF_Form_Theme_Model::get_theme( $theme_id );
-		if ( ! $theme_obj ) {
-			$theme = QF_Form_Theme::get_instance()->prepare_theme_properties_for_render();
-		} else {
-			$theme = $theme_obj['properties'];
-		}
-		return $theme;
-	}
-
 }
+
 QF_Form_Renderer::init();
