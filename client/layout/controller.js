@@ -15,8 +15,8 @@ const Builder = lazy( () =>
 	import( /* webpackChunkName: "builder" */ '../pages/builder' )
 );
 
-const Integrations = lazy( () =>
-	import( /* webpackChunkName: "integrations" */ '../pages/integrations' )
+const Share = lazy( () =>
+	import( /* webpackChunkName: "integrations" */ '../pages/share' )
 );
 
 const Entries = lazy( () =>
@@ -82,8 +82,8 @@ export const getPages = () => {
 
 	// Form Integrations
 	pages.push( {
-		container: Integrations,
-		path: '/forms/:id/integrations',
+		container: Share,
+		path: '/forms/:id/share',
 		wpOpenMenu: 'toplevel_page_quillforms',
 		includeInFullScreenToolbar: true,
 	} );
