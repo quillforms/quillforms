@@ -87,13 +87,17 @@ final class QuillForms {
 	public function load_dependencies() {
 
 		/**
+		 * Models.
+		 */
+		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-theme-model.php';
+
+		/**
 		 * Interfaces.
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-block-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-logger-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-log-handler-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-merge-tag-interface.php';
-		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-meta-field-interface.php';
 
 		/**
 		 * Abstract Classes.
@@ -103,7 +107,6 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-handler.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-levels.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-merge-tag.php';
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-meta-field.php';
 
 		/**
 		 * Factories
@@ -111,11 +114,24 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-blocks-factory.php';
 		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-feeds-factory.php';
 		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-merge-tags-factory.php';
-		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-meta-fields-factory.php';
+
+		/**
+		 * Functions.
+		 */
+		require_once QF_PLUGIN_DIR . 'includes/functions.php';
+		require_once QF_PLUGIN_DIR . 'includes/admin/page-controller-functions.php';
+
+		/**
+		 * Load all blocks.
+		 */
+		foreach ( glob( QF_PLUGIN_DIR . 'includes/blocks/**/*.php' ) as $block ) {
+			require_once $block;
+		}
 
 		/**
 		 * Core classes.
 		 */
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-core.php';
 		require_once QF_PLUGIN_DIR . 'lib/client-assets.php';
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-page-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-loader.php';
@@ -130,40 +146,26 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-utils.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-variables.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
-
-		/**
-		 * Meta Fields
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-blocks-meta-field.php';
-		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-messages-meta-field.php';
-		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-notifications-meta-field.php';
-		require_once QF_PLUGIN_DIR . 'includes/meta-fields/class-qf-theme-id-meta-field.php';
-
-		/**
-		 * Models.
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-theme-model.php';
-
-		/**
-		 * Functions.
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/functions.php';
-		require_once QF_PLUGIN_DIR . 'includes/admin/page-controller-functions.php';
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-messages.php';
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-notifications.php';
+		require_once QF_PLUGIN_DIR . 'includes/render/class-qf-form-renderer.php';
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-submission.php';
 
 		/**
 		 * REST API.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-fields.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-form-theme-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
 
 		/**
-		 * Load all blocks.
+		 * REST Fields
 		 */
-		foreach ( glob( QF_PLUGIN_DIR . 'includes/blocks/**/*.php' ) as $block ) {
-			require_once $block;
-		}
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/messages.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/theme.php';
+
 	}
 
 	/**
