@@ -12,13 +12,11 @@ import {
 	ColorPreview,
 	useGlobalEditorContext,
 } from '@quillforms/builder-components';
-import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
 import { PanelBody } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 
@@ -27,6 +25,11 @@ import { MediaUpload } from '@wordpress/media-utils';
  */
 import isEmpty from 'lodash/isEmpty';
 import CustomizeFooter from '../customize-footer';
+
+/**
+ * Internal Dependencies
+ */
+import getDefaultThemeProperties from '../../get-default-theme-properties';
 
 const CustomizeThemePanel = () => {
 	const editorContext = useGlobalEditorContext();

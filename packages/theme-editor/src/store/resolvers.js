@@ -1,9 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import getDefaultThemeProperties from '../get-default-theme-properties';
-
-/**
  * Internal dependencies
  */
 import { apiFetch } from './controls';
@@ -12,6 +7,7 @@ import {
 	setCurrentThemeProperties,
 	addNewThemes,
 } from './actions';
+import getDefaultThemeProperties from '../get-default-theme-properties';
 
 export function* getCurrentTheme( state ) {
 	const path = `/qf/v1/themes`;

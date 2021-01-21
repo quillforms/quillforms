@@ -2,7 +2,6 @@
  * QuillForms Dependencies
  */
 import { useGlobalEditorContext } from '@quillforms/builder-components';
-import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -20,6 +19,7 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import ThemeActions from '../theme-actions';
+import getDefaultThemeProperties from '../../get-default-theme-properties';
 
 /**
  * An object describing a theme object.

@@ -2,13 +2,17 @@
  * QuillForms Dependencies
  */
 import { Button } from '@quillforms/builder-components';
-import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
  */
 import { createPortal } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
+
+/**
+ * Internal Dependencies
+ */
+import getDefaultThemeProperties from '../../get-default-theme-properties';
 import IsSavingBtn from './is-saving-btn';
 
 const CustomizeFooter = ( { themeId, themeProperties } ) => {
