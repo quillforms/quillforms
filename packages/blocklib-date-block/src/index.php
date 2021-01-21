@@ -97,6 +97,41 @@ class QF_Date_Block extends QF_Block {
 	}
 
 	/**
+	 * Validate field value
+	 * The validation should be done by setting $this->is_valid true or false and setting the validation message  $this->validation_err
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value the value to validate.
+	 */
+	public function validate_field( $value, $messages ) {
+		if ( ! empty( $value ) ) {
+			$format    = $this->attributes['format'];
+			$separator = $this->attributes['separator'];
+			if ( 'MMDDYYYY' === $format ) {
+				$date_format = 'MM' + $separator + 'DD' + $separator + 'YYYY';
+			} elseif ( 'DDMMYYYY' === $format ) {
+				$date_format = 'DD' + $separator + 'MM' + $separator + 'YYYY';
+			} else {
+				$date_format = 'YYYY' + $separator + 'MM' + $separator + 'DD';
+			}
+			$d = DateTime::createFromFormat( $date_format, $value );
+			// The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+			$is_valid_date = $d && $d->format( $date_format ) === $value;
+
+			if ( ! $is_valid_date ) {
+				$this->is_valid       = false;
+				$this->validation_err = $messages['label.errorAlert.date'];
+			}
+		} else {
+			if ( $this->required ) {
+				$this->is_valid       = false;
+				$this->validation_err = $messages['label.errorAlert.required'];
+			}
+		}
+
+	}
+	/**
 	 * Get meta data
 	 * This file is just for having some shared properties between front end and back end.
 	 * Just as the block type.
@@ -130,18 +165,6 @@ class QF_Date_Block extends QF_Block {
 		return trailingslashit( dirname( __FILE__ ) );
 	}
 
-	/**
-	 * Validate Field.
-	 *
-	 * @param mixed $value The field value.
-	 *
-	 * @since 1.0.0
-	 */
-	public function validate_field( $value ) {
-		if ( $this->required && ! empty( $value ) ) {
-			return true;
-		}
-	}
 }
 
 QF_Blocks_Factory::get_instance()->register( new QF_Date_Block() );
