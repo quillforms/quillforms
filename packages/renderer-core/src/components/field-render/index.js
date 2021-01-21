@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
-
+import { useMemo, useState, useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 /**
  * Internal dependencies
  */
@@ -24,6 +24,20 @@ export default function FieldRender( {
 } ) {
 	const [ blockFooterArea, setBlockFooterArea ] = useState( '' );
 	const { id, type, attributes, title, description, attachment } = field;
+	const { isReviewing, isValid } = useSelect( ( select ) => {
+		return {
+			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
+			isValid: select( 'quillForms/renderer-submission' ).isValidField(
+				id
+			),
+		};
+	} );
+
+	useEffect( () => {
+		if ( isReviewing && ! isValid ) {
+			setBlockFooterArea( 'error-message' );
+		}
+	}, [ isReviewing ] );
 	const context = {
 		id,
 		type,
