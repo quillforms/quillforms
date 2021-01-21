@@ -42,6 +42,5 @@ register_rest_field(
 			}
 			return true;
 		},
-		'schema'          => array(),
 	)
 );
