@@ -1,26 +1,62 @@
 /* eslint no-console: [ 'error', { allow: [ 'error' ] } ] */
-import { dispatch } from '@wordpress/data';
+import { select, dispatch } from '@wordpress/data';
 
 /**
- * Set block renderer config
- * Set block renderer config is for defining UI behavior for the block
+ * External Dependencies
+ */
+import { isFunction } from 'lodash';
+
+/**
+ * Set block renderer settings
+ * Set block renderer settings is for defining UI behavior for the block
  *
- * @param {string} type     Block unique name.
- * @param {Object} config Block Configuration.
+ * @param {string} type     Block unique type.
+ * @param {Object} settings Block renderer settings.
  *
  */
-export const setBlockRendererSettings = ( type, config ) => {
-	config = {
+export const setBlockRendererSettings = ( type, settings ) => {
+	settings = {
 		type,
-		...config,
+		output: () => null,
+		mergeTag: () => null,
+		counterContent: () => null,
+		nextBtn: () => null,
+		...settings,
 	};
 	if ( typeof type !== 'string' ) {
 		console.error( 'Block types must be strings.' );
 		return;
 	}
 
-	// If getRawValue isn't defined, define it with default behavior.
-	if ( ! config.getRawValue ) config.getRawValue = ( val ) => String( val );
+	const blockType = select( 'quillForms/blocks' ).getBlockType( type );
+	if ( ! blockType ) {
+		console.error(
+			`The ${ type } block isn't registered. Please register it first!`
+		);
+		return;
+	}
 
-	dispatch( 'quillForms/blocks' ).setBlockRendererSettings( config );
+	if ( ! isFunction( settings.output ) ) {
+		console.error( 'The "output" property must be a valid function!' );
+		return;
+	}
+
+	if ( ! isFunction( settings.mergeTag ) ) {
+		console.error( 'The "mergeTag" property must be a valid function!' );
+		return;
+	}
+
+	if ( ! isFunction( settings.counterContent ) ) {
+		console.error(
+			'The "counterContent" property must be a valid function!'
+		);
+		return;
+	}
+
+	if ( ! isFunction( settings.nextBtn ) ) {
+		console.error( 'The "nextBtn" property must be a valid function!' );
+		return;
+	}
+
+	dispatch( 'quillForms/blocks' ).setBlockRendererSettings( settings );
 };
