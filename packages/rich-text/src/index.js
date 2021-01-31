@@ -1,4 +1,4 @@
-export { default as __unstableRichText } from './component';
+export * from './components';
 export { default as __unstableHtmlSerialize } from './html-serialize';
 export { default as __unstableHtmlDeserialize } from './html-deserialize';
 export { default as __unstableCreateEditor } from './create-editor';
@@ -7,6 +7,5 @@ export { default as __unstableInsertText } from './insert-text';
 export { default as __unstableInsertNodes } from './insert-nodes';
 export { default as __unstableFocus } from './focus';
 export { default as __unstableMoveFocusToEnd } from './move-focus-to-end';
-export { Editor as __unstableEditor } from 'slate';
 export { default as getPlainExcerpt } from './get-plain-excerpt';
 export { default as getPlainText } from './get-plain-text';

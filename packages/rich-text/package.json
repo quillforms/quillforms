@@ -25,10 +25,10 @@
 		"@material-ui/icons": "^4.9.1",
 		"@wordpress/element": "^2.14.0",
 		"emotion": "^10.0.27",
-		"slate": "^0.58.4",
-		"slate-history": "^0.58.4",
-		"slate-hyperscript": "^0.58.4",
-		"slate-react": "^0.58.4"
+		"slate": "^0.59.0",
+		"slate-history": "^0.59.0",
+		"slate-hyperscript": "^0.59.0",
+		"slate-react": "^0.59.0"
 	},
 	"publishConfig": {
 		"access": "public"

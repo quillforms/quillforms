@@ -27,7 +27,7 @@ const normalize = ( val ) => {
 	const editor = createEditor( {
 		withReact: true,
 		withLinks: true,
-		withVariables: true,
+		withMergeTags: true,
 	} );
 	editor.children = val;
 	Editor.normalize( editor, { force: true } );
@@ -40,7 +40,7 @@ const formatBeforeDeserializing = ( value ) => {
 	}
 	const $value = value.replace(
 		/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g,
-		"<variable data-type='$1' data-ref='$2'>_____</variable>"
+		"<mergetag data-type='$1' data-modifier='$2'>_____</mergetag>"
 	);
 	return $value;
 };
@@ -56,11 +56,11 @@ const deserialize = ( el ) => {
 	};
 	const ELEMENT_TAGS = {
 		P: () => ( { type: 'paragraph' } ),
-		VARIABLE: () => ( {
-			type: 'variable',
+		MERGETAG: () => ( {
+			type: 'mergeTag',
 			data: {
-				ref: el.dataset.ref,
-				varType: el.dataset.type,
+				type: el.dataset.type,
+				modifier: el.dataset.modifier,
 			},
 		} ),
 		A: () => ( { type: 'link', url: el.getAttribute( 'href' ) } ),

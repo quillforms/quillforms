@@ -6,7 +6,7 @@ import { useSlate } from 'slate-react';
 /**
  * Internal Dependencies
  */
-import Button from './button';
+import Button from '../button';
 
 const FormatButton = ( { format, toggleFormat, isFormatActive, children } ) => {
 	const editor = useSlate();

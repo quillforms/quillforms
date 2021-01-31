@@ -40,8 +40,8 @@ const serializeLeafNode = ( node ) => {
 	switch ( node.type ) {
 		case 'link':
 			return `<a href="${ escapeHtml( node.url ) }">${ children }</a>`;
-		case 'variable':
-			return `{{${ node.data.varType }:${ node.data.ref }}}`;
+		case 'mergeTag':
+			return `{{${ node.data.type }:${ node.data.modifier }}}`;
 		case 'paragraph':
 			return `<p>${ children }</p>`;
 		default:

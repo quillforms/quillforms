@@ -20,8 +20,8 @@ import { Editor, Range } from 'slate';
 /**
  * Internal Dependencies
  */
-import Link from './link';
-import FormatButton from './format-button';
+import Link from '../link';
+import FormatButton from '../format-button';
 
 const Menu = forwardRef( ( { className, ...props }, ref ) => (
 	<div

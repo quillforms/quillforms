@@ -7,7 +7,7 @@ import LinkIcon from '@material-ui/icons/Link';
 /**
  * Inernal Dependencies
  */
-import Button from './button';
+import Button from '../button';
 
 const Link = ( { editor } ) => {
 	const insertLink = ( url ) => {

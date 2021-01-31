@@ -1,0 +1,35 @@
+.rich-text-merge-tag-list-item {
+	& {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		padding: 10px 5px;
+		position: relative;
+		cursor: pointer;
+		z-index: 2;
+		overflow: hidden;
+	}
+
+	.rich-text-merge-tag-list-item__hidden-bg {
+		position: absolute;
+		content: "";
+		left: -20px;
+		bottom: 0;
+		top: 0;
+		right: -20px;
+		opacity: 0.1;
+		display: none;
+	}
+
+ 	&.isSelected .rich-text-merge-tag-list-item__hidden-bg {
+		display: block;
+	}
+
+	.rich-text-merge-tag-list-item__title {
+		display: inline-flex;
+		align-items: center;
+		flex: 1;
+		margin-left: 8px;
+		line-height: 1em;
+	}
+}
