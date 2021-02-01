@@ -42,7 +42,7 @@ const EditorMergeTag = ( props ) => {
 		if ( ! mergeTag ) {
 			editor.apply( { type: 'remove_node', path, node } );
 		}
-	}, [] );
+	}, [ mergeTags, mergeTag ] );
 	return (
 		<>
 			{ mergeTag && (
