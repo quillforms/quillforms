@@ -9,13 +9,15 @@ import {
 	Fragment,
 } from '@wordpress/element';
 import { autop } from '@wordpress/autop';
+import { plusCircle } from '@wordpress/icons';
+import { Icon } from '@wordpress/components';
 
 /**
  * External Dependencies
  */
 import { debounce } from 'lodash';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import classnames from 'classnames';
+import { Transforms } from 'slate';
 
 /**
  * Internal Dependencies
@@ -25,6 +27,7 @@ import deserialize from '../../html-deserialize';
 import serialize from '../../html-serialize';
 import moveFocusToEnd from '../../focus';
 import RichTextEditor from '../editor';
+import insertText from '../../insert-text';
 
 const RichTextControl = ( {
 	value,
@@ -44,6 +47,11 @@ const RichTextControl = ( {
 		},
 	] );
 
+	const [ currentSelection, setCurrentSelection ] = useState( {
+		path: [ 0, 0 ],
+		offset: 0,
+	} );
+
 	const editor = useMemo(
 		() =>
 			createEditor( {
@@ -52,7 +60,6 @@ const RichTextControl = ( {
 				withHistory: true,
 				withLinks: true,
 			} ),
-
 		[]
 	);
 
@@ -65,13 +72,18 @@ const RichTextControl = ( {
 	);
 
 	const onChange = ( newVal ) => {
+		if ( editor.selection ) {
+			setCurrentSelection( {
+				path: editor.selection.focus.path,
+				offset: editor.selection.focus.offset,
+			} );
+		}
 		setJsonVal( newVal );
 		serializeVal( newVal );
 	};
 
 	// Deserialize value on mount.
 	useEffect( () => {
-		//moveEditor( editor );
 		if ( forceFocusOnMount ) {
 			setTimeout( () => {
 				moveFocusToEnd( editor );
@@ -87,27 +99,46 @@ const RichTextControl = ( {
 				editor={ editor }
 				onChange={ onChange }
 				mergeTags={ mergeTags }
+				onFocus={ () => {
+					if ( editor.selection ) {
+						setCurrentSelection( {
+							path: editor.selection.focus.path,
+							offset: editor.selection.focus.offset,
+						} );
+					}
+				} }
 			/>
 		),
 		[ JSON.stringify( jsonVal ), JSON.stringify( mergeTags ) ]
 	);
 
 	return (
-		<div
-			className={ classnames(
-				'builder-components-rich-text-control',
-				className
-			) }
-		>
+		<div className={ classnames( 'rich-text-control', className ) }>
 			<Fragment>
 				{ TextEditor }
 				{ mergeTags?.length > 0 && (
 					<Fragment>
-						<div
-							className="builder-components-rich-text-control__add-variables"
-							role="presentation"
-						>
-							<AddCircleIcon />
+						<div className="rich-text-control__add-merge-tags">
+							<Icon
+								icon={ plusCircle }
+								onClick={ ( e ) => {
+									e.stopPropagation();
+
+									insertText( editor, '@', {
+										at: currentSelection,
+									} );
+									setTimeout( () => {
+										Transforms.select(
+											editor,
+											currentSelection
+										);
+										moveFocusToEnd( editor );
+										Transforms.move( editor, {
+											unit: 'character',
+										} );
+									}, 0 );
+								} }
+							/>
 						</div>
 					</Fragment>
 				) }

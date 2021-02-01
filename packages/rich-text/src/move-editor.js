@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 
-const moveEditor = ( editor ) => {
-	Transforms.move( editor );
+const moveEditor = ( editor, options = {} ) => {
+	Transforms.move( editor, {} );
 };
 export default moveEditor;

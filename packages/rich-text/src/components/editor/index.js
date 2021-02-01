@@ -15,7 +15,6 @@ import {
  */
 import { Transforms, Text, Editor, Range } from 'slate';
 import { Slate, Editable, ReactEditor } from 'slate-react';
-import { cloneDeep } from 'lodash';
 /**
  * Internal Dependencies
  */
