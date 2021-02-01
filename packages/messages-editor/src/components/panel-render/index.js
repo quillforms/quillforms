@@ -24,6 +24,8 @@ const PanelRender = () => {
 
 	const [ messageToEdit, setMessageToEdit ] = useState( null );
 
+	console.log( messages );
+	console.log( messagesSchema );
 	return (
 		<div className="messages-editor-panel-render">
 			{ Object.keys( messagesSchema ).map( ( messageKey ) => {
@@ -34,7 +36,7 @@ const PanelRender = () => {
 						key={ messageKey }
 						messageKey={ messageKey }
 						label={ messagesSchema[ messageKey ].title }
-						variables={ messagesSchema[ messageKey ].variables }
+						mergeTags={ messagesSchema[ messageKey ].mergeTags }
 						format={ messagesSchema[ messageKey ].format }
 						value={ messages[ messageKey ] }
 						defaultValue={ messagesSchema[ messageKey ].default }

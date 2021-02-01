@@ -1,12 +1,8 @@
 /**
  * QuillForms Dependencies
  */
-import {
-	TextControl,
-	Button,
-	RichTextControl,
-} from '@quillforms/builder-components';
-
+import { Button } from '@quillforms/builder-components';
+import { RichTextControl } from '@quillforms/rich-text';
 /**
  * WordPress Dependencies
  */
@@ -14,38 +10,25 @@ import { useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 
 const MessageEdit = ( {
-	format,
 	messageKey,
 	editingComplete,
 	value,
 	defaultValue,
-	variables,
-	maxLength,
+	mergeTags,
 } ) => {
 	const { setMessage } = useDispatch( 'quillForms/messages-editor' );
 	const [ val, setVal ] = useState( value );
+
 	return (
 		<div className="messages-editor-message-edit">
-			{ format && format === 'html' ? (
-				<RichTextControl
-					maxLength={ maxLength ? maxLength : null }
-					variables={ variables }
-					value={ val }
-					setValue={ ( newVal ) => {
-						setVal( newVal );
-					} }
-					forceFocusOnMount={ true }
-				/>
-			) : (
-				<TextControl
-					maxLength={ maxLength ? maxLength : null }
-					value={ val }
-					setValue={ ( newVal ) => {
-						setVal( newVal );
-					} }
-					forceFocusOnMount={ true }
-				/>
-			) }
+			<RichTextControl
+				mergeTags={ mergeTags }
+				value={ val }
+				setValue={ ( newVal ) => {
+					setVal( newVal );
+				} }
+				forceFocusOnMount={ true }
+			/>
 
 			<div className="messages-editor-message-edit__actions">
 				<Button

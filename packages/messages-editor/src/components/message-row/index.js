@@ -15,7 +15,7 @@ const MessageRow = ( {
 	value,
 	format,
 	label,
-	variables,
+	mergeTags,
 } ) => {
 	const isSelected = messageToEdit === messageKey;
 	return (
@@ -39,7 +39,7 @@ const MessageRow = ( {
 							editingComplete={ () => {
 								setMessageToEdit( null );
 							} }
-							variables={ variables }
+							mergeTags={ mergeTags }
 							defaultValue={ defaultValue }
 						/>
 					) }
