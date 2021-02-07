@@ -14,8 +14,7 @@ import { PluginArea } from '@wordpress/plugins';
 /**
  * External Dependencies
  */
-import omit from 'lodash/omit';
-import assign from 'lodash/assign';
+import { omit, assign } from 'lodash';
 import { confirmAlert } from 'react-confirm-alert';
 
 /**
@@ -58,9 +57,9 @@ const Layout = ( props ) => {
 		return '1';
 	};
 
-	const hasNextFieldVars = ( sourceIndex, destinationIndex ) => {
+	const hasIncorrectFieldMergeTags = ( a, b ) => {
 		const list = { ...formBlocks };
-		const { title, description } = list[ sourceIndex ];
+		const { title, description } = list[ a ];
 		const regex = /{{field:([a-zA-Z0-9-_]+)}}/g;
 		let match;
 
@@ -69,7 +68,7 @@ const Layout = ( props ) => {
 			const fieldIndex = formBlocks.findIndex(
 				( field ) => field.id === fieldId
 			);
-			if ( fieldIndex >= destinationIndex ) {
+			if ( fieldIndex >= b ) {
 				return true;
 			}
 		}
@@ -112,7 +111,16 @@ const Layout = ( props ) => {
 				if ( destination.droppableId === 'BLOCKS_LIST' ) {
 					return;
 				}
-				if ( hasNextFieldVars( source.index, destination.index ) ) {
+				if (
+					hasIncorrectFieldMergeTags(
+						source.index,
+						destination.index
+					) ||
+					hasIncorrectFieldMergeTags(
+						destination.index,
+						source.index
+					)
+				) {
 					confirmAlert( {
 						customUI: ( { onClose } ) => {
 							return (
@@ -127,6 +135,7 @@ const Layout = ( props ) => {
 									reject={ () => {
 										onClose();
 									} }
+									closeModal={ onClose }
 								/>
 							);
 						},
