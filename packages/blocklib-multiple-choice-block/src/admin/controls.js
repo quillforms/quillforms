@@ -6,6 +6,8 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	ToggleControl,
+	ChoicesBulkBtn,
+	ChoicesInserter,
 } from '@quillforms/builder-components';
 
 /**
@@ -15,7 +17,7 @@ import { Fragment } from '@wordpress/element';
 
 const multipleChoiceControls = ( props ) => {
 	const {
-		attributes: { multiple, verticalAlign },
+		attributes: { multiple, verticalAlign, choices },
 		setAttributes,
 	} = props;
 	return (
@@ -39,6 +41,25 @@ const multipleChoiceControls = ( props ) => {
 						onChange={ () =>
 							setAttributes( { verticalAlign: ! verticalAlign } )
 						}
+					/>
+				</__experimentalControlWrapper>
+			</__experimentalBaseControl>
+			<__experimentalBaseControl>
+				<__experimentalControlWrapper orientation="horizontal">
+					<__experimentalControlLabel label="Choices" />
+					<ChoicesBulkBtn
+						choices={ choices }
+						setChoices={ ( val ) => {
+							setAttributes( { choices: val } );
+						} }
+					/>
+				</__experimentalControlWrapper>
+				<__experimentalControlWrapper orientation="vertical">
+					<ChoicesInserter
+						choices={ choices }
+						setChoices={ ( val ) => {
+							setAttributes( { choices: val } );
+						} }
 					/>
 				</__experimentalControlWrapper>
 			</__experimentalBaseControl>

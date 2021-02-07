@@ -1,10 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import {
-	SelectControl as Select,
-	MenuItem,
-} from '@quillforms/builder-components';
+import { CustomSelectControl } from '@wordpress/components';
 
 /**
  * WordPress Dependencies
@@ -16,12 +13,7 @@ import { useEffect } from '@wordpress/element';
  */
 import { css } from 'emotion';
 
-const DropdownLogicControl = ( {
-	attributes,
-	value,
-	setValue,
-	removeCondition,
-} ) => {
+const MultipleChoice = ( { attributes, value, setValue, removeCondition } ) => {
 	const { choices } = attributes;
 
 	useEffect( () => {
@@ -31,32 +23,26 @@ const DropdownLogicControl = ( {
 			removeCondition();
 		}
 	}, [] );
+	const options = choices.map( ( choice, index ) => {
+		return {
+			key: choice.value,
+			name: choice.label ? choice.label : `Choice ${ index + 1 }`,
+		};
+	} );
 	return (
-		<Select
+		<CustomSelectControl
 			className={ css`
 				margin-top: 10px;
 				margin-bottom: 10px;
 				width: 200px;
 			` }
 			value={ value }
-			onChange={ ( e ) => {
-				setValue( e.target.value );
+			onChange={ ( selectedChoice ) => {
+				setValue( selectedChoice );
 			} }
-		>
-			{ choices.map( ( choice, index ) => {
-				return (
-					<MenuItem
-						key={ `choice-${ choice.ref }` }
-						value={ choice.ref }
-					>
-						{ choice.label
-							? choice.label
-							: `Choice ${ index + 1 }` }
-					</MenuItem>
-				);
-			} ) }
-		</Select>
+			options={ options }
+		/>
 	);
 };
 
-export default DropdownLogicControl;
+export default MultipleChoice;
