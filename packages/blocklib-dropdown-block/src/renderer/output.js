@@ -2,8 +2,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
-import { useTheme } from '@quillforms/utils';
+import { useTheme, useMessages } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -16,12 +15,13 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 import VisibilitySensor from 'react-visibility-sensor';
 import { css } from 'emotion';
 import classnames from 'classnames';
-import tinyColor from 'tinycolor2';
+import { cloneDeep } from 'lodash';
 /**
  * Internal Dependencies
  */
 import DropdownIcon from './dropdownIcon';
 import CloseIcon from './closeIcon';
+import ChoiceItem from './choice-item';
 
 let timer;
 const DropdownOutput = ( props ) => {
@@ -39,17 +39,17 @@ const DropdownOutput = ( props ) => {
 		setVal,
 		next,
 	} = props;
-	let { choices } = attributes;
+	const { choices } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ showDropdown, setShowDropdown ] = useState( false );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
 	const elemRef = useRef();
 	const wrapperRef = useRef();
-	const messages = useMetaField( 'messages' );
+	const choicesWrappeerRef = useRef();
+	const messages = useMessages();
 	const theme = useTheme();
-	const answersColor = tinyColor( theme.answersColor );
-	choices = choices
+	const $choices = cloneDeep( choices )
 		.map( ( choice, index ) => {
 			if ( ! choice.label ) choice.label = 'Choice ' + ( index + 1 );
 			return choice;
@@ -108,7 +108,7 @@ const DropdownOutput = ( props ) => {
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	const changeHandler = ( e ) => {
-		if ( val?.ref ) {
+		if ( val ) {
 			setVal( null );
 			setSearchKeyword( '' );
 			return;
@@ -117,7 +117,12 @@ const DropdownOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		if ( val?.ref ) setSearchKeyword( val.label );
+		if ( val ) {
+			const selectedChoice = $choices.find(
+				( choice ) => choice.value === val
+			);
+			setSearchKeyword( selectedChoice ? selectedChoice.label : '' );
+		}
 	}, [] );
 
 	return (
@@ -164,7 +169,6 @@ const DropdownOutput = ( props ) => {
 					) }
 					id={ 'dropdown-' + id }
 					placeholder="Type or select an option"
-					onFocus={ () => setShowDropdown( true ) }
 					onChange={ changeHandler }
 					value={ searchKeyword }
 					onClick={ () => setShowDropdown( true ) }
@@ -186,79 +190,37 @@ const DropdownOutput = ( props ) => {
 						'dropdown__choices' +
 						( showDropdown ? ' visible' : ' hidden' )
 					}
+					ref={ choicesWrappeerRef }
 					onWheel={ ( e ) => {
-						if ( showDropdown ) e.stopPropagation();
+						if ( showDropdown ) {
+							e.stopPropagation();
+						}
 					} }
 				>
-					{ choices && choices.length > 0 ? (
-						choices.map( ( choice ) => {
+					{ $choices?.length > 0 ? (
+						$choices.map( ( choice ) => {
 							return (
-								<div
+								<ChoiceItem
 									role="presentation"
-									key={ `block-dropdown-${ id }-choice-${ choice.ref }` }
-									className={ classnames(
-										'dropdown__choiceWrapper',
-										{
-											selected:
-												!! val &&
-												val.ref === choice.ref,
-										},
-										css`
-											background: ${answersColor
-												.setAlpha( 0.1 )
-												.toString()};
-
-											border-color: ${theme.answersColor};
-											color: ${theme.answersColor};
-
-											&:hover {
-												background: ${answersColor
-													.setAlpha( 0.2 )
-													.toString()};
-											}
-
-											&.selected {
-												background: ${tinyColor(
-													theme.answersColor
-												)
-													.setAlpha( 0.75 )
-													.toString()};
-												color: ${tinyColor(
-													theme.answersColor
-												).isDark()
-													? '#fff'
-													: tinyColor(
-															theme.answersColor
-													  )
-															.darken( 20 )
-															.toString()};
-											}
-										`
-									) }
-									onClick={ () => {
+									key={ `block-dropdown-${ id }-choice-${ choice.value }` }
+									clickHandler={ () => {
 										clearTimeout( timer );
-										if (
-											val?.ref &&
-											val.ref === choice.ref
-										) {
+										if ( val && val === choice.value ) {
 											setVal( null );
 											setIsAnswered( false );
 											setSearchKeyword( '' );
 											return;
 										}
 										setIsAnswered( true );
-										setVal( {
-											ref: choice.ref,
-											label: choice.label,
-										} );
+										setVal( choice.value );
 										timer = setTimeout( () => {
 											setSearchKeyword( choice.label );
 											next();
 										}, 700 );
 									} }
-								>
-									{ choice.label }
-								</div>
+									choice={ choice }
+									val={ val }
+								/>
 							);
 						} )
 					) : (

@@ -6,7 +6,7 @@
 			"items": {
 				"type": "object",
 				"properties": {
-					"ref": {
+					"value": {
 						"type": "string"
 					},
 					"label": {
@@ -15,7 +15,7 @@
 				}
 			},
 			"default": [ {
-				"ref": "123e4567-e89b-12d3-a456-426614174000",
+				"value": "123e4567-e89b-12d3-a456-426614174000",
 				"label": "Choice 1"
 			}]
 		}

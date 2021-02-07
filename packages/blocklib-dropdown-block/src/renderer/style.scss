@@ -1,1 +1,94 @@
-//
+.dropdown__choices {
+	& {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		left: 0;
+		padding-top: 15px;
+		width: 100%;
+		height: 0;
+		overflow-y: auto;
+		transition: transform, opacity 0.3s linear;
+	}
+
+	&.visible {
+		height: 300px;
+		visibility: visible;
+		opacity: 1;
+		transform: none;
+	}
+
+	&.hidden {
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-10px);
+	}
+
+	.dropdown__choiceWrapper {
+		& {
+			padding: 10px;
+			margin-bottom: 8px;
+			border-width: 1px;
+			border-style: solid;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		&.isBeingSelected {
+			animation-name: qf-dropdown-vibrate;
+			animation-duration: 0.4s;
+			animation-timing-function: linear;
+			animation-fill-mode: forwards;
+		}
+	}
+
+
+
+	.dropdown__icon,
+	.close__icon {
+		& {
+			position: absolute;
+			right: 0;
+			top: 40%;
+			cursor: pointer;
+		}
+
+
+	}
+}
+
+.dropdown__icon,
+.close__icon  {
+	position: absolute;
+	right: 0;
+	bottom: 4px;
+	cursor: pointer;
+
+	svg {
+		width: 26px;
+		height: 26px;
+	}
+}
+
+
+@keyframes qf-dropdown-vibrate {
+	0% {
+		transform: scale(1);
+	}
+
+	25% {
+		transform: scale(0.97);
+	}
+
+	50% {
+		transform: scale(0.99);
+	}
+
+	75% {
+		transform: scale(0.97);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}

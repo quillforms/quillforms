@@ -145,13 +145,13 @@ class QF_Dropdown_Block extends QF_Block {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value The field value.
-	 *
-	 * @return WP_Error|bool True or false.
+	 * @param mixed $value    The field value.
+	 * @param array $messages The form messagees.
 	 */
-	public function validate_field( $value ) {
-		if ( $this->required && ! empty( $value ) ) {
-			return true;
+	public function validate_field( $value, $messages ) {
+		if ( empty( $value ) && $this->required ) {
+			$this->is_valid       = false;
+			$this->validation_err = $messages['label.errorAlert.required'];
 		}
 	}
 }
