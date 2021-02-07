@@ -103,14 +103,14 @@ class QF_Form_Messages {
 				'label.progress.percent'             => array(
 					'title'     => __( 'Percentage of form completed', 'quillforms' ),
 					'format'    => 'html',
-					'variables' => array(
+					'mergeTags' => array(
 						array(
-							'title'   => 'percent',
-							'varType' => 'progress',
-							'ref'     => 'percent',
+							'label'    => 'percent',
+							'type'     => 'progress',
+							'modifier' => 'percent',
 						),
 					),
-					'default'   => '{{progress:percent}}% completed',
+					'default'   => '{{progress:percent}}',
 					'category'  => 'buttons-hints-placeholders',
 				),
 				'label.button.yes'                   => array(
@@ -131,6 +131,12 @@ class QF_Form_Messages {
 					'title'    => __( 'If date is invalid', 'quillforms' ),
 					'format'   => 'html',
 					'default'  => 'Invalid date!',
+					'category' => 'alerts',
+				),
+				'label.errorAlert.number'            => array(
+					'title'    => __( 'If non numeric value is passed', 'quillforms' ),
+					'format'   => 'html',
+					'default'  => 'Numbers only!',
 					'category' => 'alerts',
 				),
 				'label.errorAlert.selectionRequired' => array(
@@ -154,16 +160,16 @@ class QF_Form_Messages {
 				'label.errorAlert.range'             => array(
 					'title'     => __( 'If number is out of range', 'quillforms' ),
 					'format'    => 'html',
-					'variables' => array(
+					'mergeTags' => array(
 						array(
-							'title'   => 'min',
-							'varType' => 'attribute',
-							'ref'     => 'min',
+							'label'    => 'min',
+							'type'     => 'attribute',
+							'modifier' => 'min',
 						),
 						array(
-							'title'   => 'max',
-							'varType' => 'attribute',
-							'ref'     => 'max',
+							'label'    => 'max',
+							'type'     => 'attribute',
+							'modifier' => 'max',
 						),
 					),
 					'default'   => 'Please enter a number between {{attribute:min}} and {{attribute:max}}',
@@ -172,11 +178,11 @@ class QF_Form_Messages {
 				'label.errorAlert.minNum'            => array(
 					'title'     => __( 'If number is lower than minimum value', 'quillforms' ),
 					'format'    => 'html',
-					'variables' => array(
+					'mergeTags' => array(
 						array(
-							'title'   => 'min',
-							'varType' => 'attribute',
-							'ref'     => 'min',
+							'label'    => 'min',
+							'type'     => 'attribute',
+							'modifier' => 'min',
 						),
 					),
 					'default'   => 'Please enter a number greater than {{attribute:min}}',
@@ -185,11 +191,11 @@ class QF_Form_Messages {
 				'label.errorAlert.maxNum'            => array(
 					'title'     => __( 'If number is higher than maximum value', 'quillforms' ),
 					'format'    => 'html',
-					'variables' => array(
+					'mergeTags' => array(
 						array(
-							'title'   => 'max',
-							'varType' => 'attribute',
-							'ref'     => 'max',
+							'label'    => 'max',
+							'type'     => 'attribute',
+							'modifier' => 'max',
 						),
 					),
 					'default'   => 'Please enter a number lower than {{attribute:max}}',
@@ -198,11 +204,11 @@ class QF_Form_Messages {
 				'label.errorAlert.maxCharacters'     => array(
 					'title'     => __( 'If characters number is higher than maximum value', 'quillforms' ),
 					'format'    => 'html',
-					'variables' => array(
+					'mergeTags' => array(
 						array(
-							'title'   => 'maxCharacters',
-							'varType' => 'attribute',
-							'ref'     => 'maxCharacters',
+							'label'    => 'maxCharacters',
+							'type'     => 'attribute',
+							'modifier' => 'maxCharacters',
 						),
 					),
 					'default'   => 'Maximum characters reached!',
