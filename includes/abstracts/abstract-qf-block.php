@@ -101,7 +101,7 @@ abstract class QF_Block extends stdClass {
 		$this->block_scripts        = $this->get_block_scripts();
 		$this->attributes_schema    = $this->get_attributes();
 		$this->attributes           = $this->prepare_attributes_for_render();
-		$this->logic_operators      = $this->get_logical_operators();
+		$this->logical_operators    = $this->get_logical_operators();
 		$this->supported_features   = wp_parse_args( $this->get_block_supported_features(), $default_supported_features );
 		$this->set_props( $args );
 	}
@@ -293,7 +293,7 @@ abstract class QF_Block extends stdClass {
 	 *
 	 * @return mixed $value The formatted entry value that should be saved into dababase.
 	 */
-	public function get_vaue_entry_save( $value ) {
+	public function get_value_entry_save( $value ) {
 		return $value;
 	}
 
@@ -308,6 +308,67 @@ abstract class QF_Block extends stdClass {
 	 */
 	public function validate_field( $value, $messages ) {
 		// Here we do the validation.
+	}
+
+	/**
+	 * Check if Form Field value fullfilled the condition
+	 *
+	 * @since 1.0
+	 *
+	 * @param  mixed $field_value    The field value.
+	 * @param  array $condition      The condition array
+	 *
+	 * @return bool
+	 */
+	public static function is_condition_fulfilled( $field_value, $condition ) {
+
+		$condition_value = $condition['value'];
+		switch ( $condition['operator'] ) {
+			case 'is':
+				if ( is_array( $field_value ) ) {
+					// possible input is "1" to be compared with 1
+					return in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+				}
+				if ( is_numeric( $condition_value ) ) {
+					return ( (int) $field_value === (int) $condition_value );
+				}
+
+				return ( $field_value === $condition_value );
+			case 'is_not':
+				if ( is_array( $field_value ) ) {
+					// possible input is "1" to be compared with 1
+					return ! in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+				}
+
+				return ( $field_value !== $condition_value );
+			case 'greater_than':
+				if ( ! is_numeric( $condition_value ) ) {
+					return false;
+				}
+				if ( ! is_numeric( $field_value ) ) {
+					return false;
+				}
+
+				return $field_value > $condition_value;
+			case 'lower_than':
+				if ( ! is_numeric( $condition_value ) ) {
+					return false;
+				}
+				if ( ! is_numeric( $field_value ) ) {
+					return false;
+				}
+
+				return $field_value < $condition_value;
+			case 'contains':
+				return ( stripos( $field_value, $condition_value ) === false ? false : true );
+			case 'starts_with':
+				return substr_compare( $field_value, $condition_value, 0, strlen( $condition_value ) ) === 0;
+
+			case 'ends_with':
+				return substr_compare( $field_value, $condition_value, -strlen( $condition_value ) ) === 0;
+			default:
+				return false;
+		}
 	}
 
 }
