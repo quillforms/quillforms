@@ -1,2 +1,14 @@
-export { default as MenuItem } from '@material-ui/core/MenuItem';
-import './select.js';
+/**
+ * WordPress Dependencies
+ */
+import { CustomSelectControl } from '@wordpress/components';
+
+const SelectControl = ( props ) => {
+	return (
+		<div className="builder-components-select-control">
+			<CustomSelectControl { ...props } />
+		</div>
+	);
+};
+
+export default SelectControl;
