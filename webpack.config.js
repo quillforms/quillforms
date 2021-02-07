@@ -8,6 +8,7 @@ const WebpackRTLPlugin = require( 'webpack-rtl-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+
 const postcss = require( 'postcss' );
 const { get, escapeRegExp, compact } = require( 'lodash' );
 const { basename, sep } = require( 'path' );
@@ -325,6 +326,17 @@ module.exports = {
 			useDefaults: true,
 			injectPolyfill: false,
 			requestToExternal( request ) {
+				switch ( request ) {
+					case 'react-visibility-sensor': {
+						return 'react-visibility-sensor';
+					}
+					case 'emotion': {
+						return 'emotion';
+					}
+					case 'react-window': {
+						return 'react-window';
+					}
+				}
 				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
 					return [
 						'qf',
