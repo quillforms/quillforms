@@ -1,8 +1,8 @@
-import PaletteIcon from '@material-ui/icons/Palette';
+import Icon from './icon';
 export const panelSettings = {
 	name: 'theme',
 	title: 'Theme',
-	icon: PaletteIcon,
+	icon: Icon,
 	mode: 'parent',
 	areaToHide: 'drop-area',
 };

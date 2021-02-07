@@ -1,5 +1,5 @@
 import { registerBuilderPanel, registerBuilderSubPanel } from '../api';
-import omit from 'lodash/omit';
+import { omit } from 'lodash';
 
 // Panels
 import { panelSettings as Blocks } from './blocks';
@@ -18,7 +18,6 @@ export const registerPanels = () => {
 	// Register Panels
 	[ Blocks, Notifications, BlockControls, Theme, Settings ].forEach(
 		( panel ) => {
-			console.log( panel );
 			registerBuilderPanel( panel.name, {
 				...omit( panel, [ 'name' ] ),
 			} );

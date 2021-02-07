@@ -22,14 +22,11 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@material-ui/core": "^4.9.13",
 		"@quillforms/block-editor": "file:../block-editor",
-		"@quillforms/block-library": "file:../block-library",
 		"@quillforms/notifications-editor": "file:../notifications-editor",
-		"@wordpress/data": "^4.18.0",
-		"@wordpress/element": "^2.14.0",
-		"lodash": "^4.17.15",
-		"styled-components": "^5.1.0"
+		"@wordpress/data": "^4.26.5",
+		"@wordpress/element": "^2.19.1",
+		"lodash": "^4.17.15"
 	},
 	"publishConfig": {
 		"access": "public"

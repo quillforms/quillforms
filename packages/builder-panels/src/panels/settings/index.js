@@ -1,9 +1,9 @@
-import SettingsIcon from '@material-ui/icons/Settings';
+import Icon from './icon';
 
 export const panelSettings = {
 	name: 'settings',
 	title: 'Settings',
-	icon: SettingsIcon,
+	icon: Icon,
 	mode: 'parent',
 	areaToHide: 'drop-area',
 };

@@ -1,10 +1,11 @@
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { PanelRender as render } from '@quillforms/notifications-editor';
+
+import Icon from './icon';
 
 export const panelSettings = {
 	name: 'notifications',
 	title: 'Notifications',
-	icon: NotificationsIcon,
+	icon: Icon,
 	mode: 'single',
 	areaToHide: 'preview-area',
 	render,
