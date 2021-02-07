@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import React, { createContext, useMemo } from '@wordpress/element';
-import { noop } from '@quillforms/utils';
+import { noop } from 'lodash';
 
 const FormContext = createContext( {} );
 
