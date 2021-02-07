@@ -22,8 +22,7 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@material-ui/icons": "^4.9.1",
-		"@wordpress/element": "^2.14.0",
+		"@wordpress/element": "^2.19.1",
 		"emotion": "^10.0.27",
 		"slate": "^0.59.0",
 		"slate-history": "^0.59.0",
