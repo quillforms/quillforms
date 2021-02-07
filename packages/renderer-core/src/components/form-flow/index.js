@@ -2,7 +2,7 @@
 /**
  * QuillForms Dependencies
  */
-import { cloneDeep } from '@quillforms/utils';
+import { cloneDeep } from 'lodash';
 
 /**
  * WordPress Dependencies
@@ -37,9 +37,6 @@ const FormFlow = ( { applyLogic } ) => {
 	const theme = useTheme();
 	const { swiper } = useSelect( ( select ) => {
 		return {
-			// currentBlockBeingEdited: select(
-			// 	'quillForms/block-editor'
-			// )?.getCurrentBlockId(),
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 		};
 	} );
@@ -48,7 +45,6 @@ const FormFlow = ( { applyLogic } ) => {
 		'quillForms/renderer-core'
 	);
 
-	console.log( swiper );
 	const {
 		walkPath,
 		welcomeScreens,
