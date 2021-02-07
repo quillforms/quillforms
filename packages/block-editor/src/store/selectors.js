@@ -6,7 +6,7 @@ import { createRegistrySelector } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { forEach, pick, map, cloneDeep } from 'lodash';
+import { forEach, pick, map } from 'lodash';
 import createSelector from 'rememo';
 
 /**
