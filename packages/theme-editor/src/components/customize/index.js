@@ -23,7 +23,7 @@ import { MediaUpload } from '@wordpress/media-utils';
 /**
  * External Dependencies
  */
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash';
 import CustomizeFooter from '../customize-footer';
 
 /**

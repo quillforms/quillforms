@@ -23,9 +23,9 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/builder-components": "file:../builder-components",
-		"@wordpress/data": "^4.25.0",
-		"@wordpress/element": "^2.14.0",
-		"@wordpress/i18n": "3.10.0"
+		"@wordpress/data": "^4.26.5",
+		"@wordpress/element": "^2.19.1",
+		"@wordpress/i18n": "^3.18.0"
 	},
 	"publishConfig": {
 		"access": "public"

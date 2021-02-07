@@ -2,10 +2,8 @@
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
-/**
- * External Dependencies
- */
-import AddIcon from '@material-ui/icons/Add';
+import { Icon } from '@wordpress/components';
+import { plus } from '@wordpress/icons';
 
 /**
  * Internal Dependencies
@@ -25,7 +23,7 @@ const AddNewTheme = () => {
 			} }
 		>
 			<ThemeCard>
-				<AddIcon />
+				<Icon icon={ plus } />
 				New Theme
 			</ThemeCard>
 		</div>

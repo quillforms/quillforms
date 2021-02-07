@@ -12,11 +12,10 @@ import getDefaultThemeProperties from '../get-default-theme-properties';
 export function* getCurrentTheme( state ) {
 	const path = `/qf/v1/themes`;
 	try {
+		const themeId = window.qfInitialPayload.theme.id;
 		const themes = yield apiFetch( { path } );
 		yield addNewThemes( themes );
-		yield setCurrentThemeId( window.qfInitialPayload.theme );
-		const themeId = window.qfInitialPayload.theme;
-
+		yield setCurrentThemeId( themeId );
 		if ( ! themeId ) {
 			yield setCurrentThemeProperties( getDefaultThemeProperties() );
 		} else {
