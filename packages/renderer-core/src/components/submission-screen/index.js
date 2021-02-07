@@ -1,13 +1,26 @@
 /* eslint-disable no-nested-ternary */
 /**
- * External Dependencies
+ * WordPress Dependencies
  */
-import { Button } from '@quillforms/renderer-components';
-import { motion } from 'framer-motion';
-import Loader from 'react-loader-spinner';
+import { useSelect, useDispatch } from '@wordpress/data';
+/**
+ * Internal Dependencies
+ */
+import Button from '../button';
 
 import classnames from 'classnames';
-const SubmissionScreen = ( { active, submitHandler } ) => {
+import useFormContext from '../../hooks/use-form-context';
+const SubmissionScreen = ( { active } ) => {
+	const { goToField } = useDispatch( 'quillForms/renderer-core' );
+	const { firstInvalidFieldId } = useSelect( ( select ) => {
+		return {
+			firstInvalidFieldId: select(
+				'quillForms/renderer-submission'
+			).getFirstInvalidFieldId(),
+		};
+	} );
+
+	const { onSubmit } = useFormContext();
 	return (
 		<div
 			className={ classnames( 'submission__screen', {
@@ -15,22 +28,17 @@ const SubmissionScreen = ( { active, submitHandler } ) => {
 				inactive: active === false,
 			} ) }
 		>
-			{
-				// <motion.div
-				// 	className={ 'sf-err-msg' }
-				// 	initial={ { opacity: 0 } }
-				// 	animate={ {
-				// 		opacity: active ? 1 : 0,
-				// 	} }
-				// 	transition={ {
-				// 		duration: 0.01,
-				// 	} }
-				// >
-				// 	{ invalidFields.length } errors need completing
-				// </motion.div>
-			 }
 			<div className="submission__btnWrapper">
-				<Button className="submission__btn" onClick={ submitHandler }>
+				<Button
+					className="submission__btn"
+					onClick={ () => {
+						if ( firstInvalidFieldId ) {
+							goToField( firstInvalidFieldId );
+						} else {
+							onSubmit();
+						}
+					} }
+				>
 					Submit
 				</Button>
 				{ /* <Loader
