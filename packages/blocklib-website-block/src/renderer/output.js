@@ -1,8 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
-import { useTheme } from '@quillforms/utils';
+import { useTheme, useMessages } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -34,7 +33,7 @@ const WebsiteOutput = ( props ) => {
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const elemRef = useRef();
-	const messages = useMetaField( 'messages' );
+	const messages = useMessages();
 	const theme = useTheme();
 
 	const validateUrl = ( url ) => {
