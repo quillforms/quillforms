@@ -6,7 +6,7 @@
  * @package QuillForms
  * @subpackage Admin
  */
-
+defined( 'ABSPATH' ) || exit;
 /**
  * QuillForms Admin
  *
@@ -49,9 +49,7 @@ class QF_Admin {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		require_once QF_PLUGIN_DIR . '/includes/editor/class-qf-editor.php';
 		$this->admin_hooks();
-		$this->editor = new QF_Editor();
 	}
 
 	/**
@@ -60,7 +58,6 @@ class QF_Admin {
 	 * @since 1.0.0
 	 */
 	public function admin_hooks() {
-		add_action( 'init', array( $this, 'register_quillforms_post_type' ) );
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_filter( 'quillforms_navigation_is_registered_page', array( $this, 'register_extra_admin_pages' ), 10, 2 );
 	}
@@ -91,19 +88,26 @@ class QF_Admin {
 			'title',
 			'thumbnail',
 		);
-		$args     = array(
-			'labels'          => $labels,
-			'hierarchical'    => false,
-			'supports'        => $supports,
-			'public'          => true,
-			'show_in_menu'    => false,
-			'capability_type' => 'quillform',
-			// Adding map_meta_cap will map the meta correctly.
-			'map_meta_cap'    => true,
-			'rewrite'         => array( 'slug' => 'quillforms' ),
-			'has_archive'     => true,
-			'menu_position'   => 30,
-			'show_in_rest'    => true,
+
+		$args = array(
+			'labels'             => $labels,
+			'hierarchical'       => false,
+			'supports'           => $supports,
+			'public'             => true,
+			'show_in_menu'       => false,
+			'show_ui'            => true,
+			'map_meta_cap'       => true,
+			'publicly_queryable' => true,
+			'query_var'          => true,
+			'capability_type'    => 'quillform',
+			'rewrite'            => array(
+				'slug'       => 'quillforms',
+				'feeds'      => true,
+				'with_front' => false,
+			),
+			'has_archive'        => true,
+			'menu_position'      => 30,
+			'show_in_rest'       => true,
 		);
 		register_post_type( 'quill_forms', $args );
 	}
