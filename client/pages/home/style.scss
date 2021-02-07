@@ -29,9 +29,6 @@
 			.quillforms-home__form-title {
 				font-size: 16px;
 			}
-			.quillforms-home__form-card-footer-post-status {
-				color: #fff;
-			}
 		}
 
 		.quillforms-home__form-card-body,
@@ -54,6 +51,7 @@
 			font-size: 18px;
 			flex-direction: column;
 			color: #fff;
+			cursor: pointer;
 			background: linear-gradient(45deg, #4a1dff, #ec3cce);;
 			transition: opacity 0.2s ease-in;
 
