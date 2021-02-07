@@ -22,7 +22,7 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/data": "^4.18.0"
+		"@wordpress/data": "^4.26.5"
 	},
 	"publishConfig": {
 		"access": "public"
