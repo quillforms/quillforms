@@ -12,8 +12,7 @@ import { __experimentalDroppable as Droppable } from '@quillforms/builder-compon
 /**
  * Wordpress Dependencies
  */
-import { compose } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies.
@@ -25,16 +24,14 @@ const BlockDragIndexLine = () => {
 };
 
 const DropArea = ( props ) => {
-	const {
-		formStructure,
-		areaToHide,
-		currentPanel,
-		blockTypes,
-		targetIndex,
-		isDragging,
-	} = props;
+	const { areaToHide, currentPanel, targetIndex, isDragging } = props;
+	const { blockTypes, formBlocks } = useSelect( ( select ) => {
+		return {
+			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
+		};
+	} );
 
-	console.log( formStructure );
 	return (
 		<div
 			className="builder-core-drop-area"
@@ -49,7 +46,7 @@ const DropArea = ( props ) => {
 			<Droppable
 				droppableId="DROP_AREA"
 				renderClone={ ( provided, _snapshot, rubric ) => {
-					const item = { ...formStructure[ rubric.source.index ] };
+					const item = { ...formBlocks[ rubric.source.index ] };
 					const block = blockTypes[ item.type ];
 					return (
 						<div
@@ -80,8 +77,8 @@ const DropArea = ( props ) => {
 						ref={ provided.innerRef }
 						isDraggingOver={ snapshot.isDraggingOver }
 					>
-						{ formStructure?.length > 0 &&
-							formStructure.map( ( item, index ) => {
+						{ formBlocks?.length > 0 &&
+							formBlocks.map( ( item, index ) => {
 								const block = blockTypes[ item.type ];
 								return (
 									<>
@@ -98,7 +95,7 @@ const DropArea = ( props ) => {
 									</>
 								);
 							} ) }
-						{ targetIndex === formStructure.length && (
+						{ targetIndex === formBlocks.length && (
 							<BlockDragIndexLine />
 						) }
 						{ provided.placeholder }
@@ -108,15 +105,4 @@ const DropArea = ( props ) => {
 		</div>
 	);
 };
-
-export default compose( [
-	withSelect( ( select ) => {
-		const { getBlockTypes } = select( 'quillForms/blocks' );
-		const { getBlocks } = select( 'quillForms/block-editor' );
-
-		return {
-			blockTypes: getBlockTypes(),
-			formStructure: getBlocks(),
-		};
-	} ),
-] )( DropArea );
+export default DropArea;
