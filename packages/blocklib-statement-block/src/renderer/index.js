@@ -2,7 +2,7 @@
  * QuillForms Dependencies
  */
 import { setBlockRendererSettings } from '@quillforms/blocks';
-import { useFieldRenderContext, Button } from '@quillforms/renderer-components';
+import { useFieldRenderContext, Button } from '@quillforms/renderer-core';
 
 /**
  * Internal Dependencies
