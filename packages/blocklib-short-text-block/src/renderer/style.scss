@@ -1,1 +1,23 @@
-//
+.question__InputField {
+	& {
+		margin-top: 15px;
+		width: 100%;
+		border: none;
+		border-bottom: 1px solid;
+		outline: none;
+		font-size: 30px;
+		padding-bottom: 8px;
+		transition: 0.2s border ease-in-out;
+		background: transparent;
+	}
+
+	&::placeholder {
+		opacity: 0.3;
+	}
+
+	&:focus,
+	&.no-border {
+		border-bottom: 1px solid transparent;
+	}
+}
+

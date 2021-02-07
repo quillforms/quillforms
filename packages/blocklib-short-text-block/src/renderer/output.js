@@ -1,8 +1,7 @@
 /**
- * QuillForms Depndencies
+ * QuillForms Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
-import { useTheme } from '@quillforms/utils';
+import { useTheme, useMessages } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -32,9 +31,10 @@ const ShortTextOutput = ( props ) => {
 		val,
 		setVal,
 	} = props;
+	console.log( val );
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-	const messages = useMetaField( 'messages' );
+	const messages = useMessages();
 	const theme = useTheme();
 
 	const { maxCharacters, setMaxCharacters } = attributes;
@@ -47,7 +47,7 @@ const ShortTextOutput = ( props ) => {
 		} else if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
-			value.length > maxCharacters
+			value?.length > maxCharacters
 		) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.maxCharacters' ] );
@@ -79,6 +79,7 @@ const ShortTextOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
+		console.log( value );
 		if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
@@ -89,7 +90,7 @@ const ShortTextOutput = ( props ) => {
 			setVal( value );
 			checkfieldValidation( value );
 		}
-		if ( value !== '' ) {
+		if ( value && value !== '' ) {
 			setIsAnswered( true );
 			showSubmitBtn( true );
 		} else {
@@ -137,7 +138,7 @@ const ShortTextOutput = ( props ) => {
 					id={ 'short-text-' + id }
 					placeholder="Type your answer here..."
 					onChange={ changeHandler }
-					value={ val && val.length > 0 ? val : '' }
+					value={ val ? val.toString() : '' }
 				/>
 			</VisibilitySensor>
 		</div>

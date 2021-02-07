@@ -141,19 +141,50 @@ class QF_Short_Text_Block extends QF_Block {
 		return trailingslashit( dirname( __FILE__ ) );
 	}
 
-
-
 	/**
 	 * Validate Field.
 	 *
-	 * @param mixed $value The field value.
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value    The field value.
+	 * @param array $messages The form messagees.
+	 */
+	public function validate_field( $value, $messages ) {
+		if ( empty( $value ) ) {
+			if ( $this->required ) {
+				$this->is_valid       = false;
+				$this->validation_err = $messages['label.errorAlert.required'];
+			}
+		} else {
+			if ( ! is_string( $value ) ) {
+				$this->is_valid       = false;
+				$this->validation_err = 'Invalid value passed!';
+			} else {
+				$set_max_characters = $this->attributes['setMaxCharacters'];
+				$max_characters     = $this->attributes['maxCharacters'];
+				if ( $set_max_characters && $max_characters && strlen( $value ) > $max_characters ) {
+					$this->is_valid       = false;
+					$this->validation_err = $messages['label.errorAlert.maxCharacters'];
+				}
+			}
+		}
+	}
+
+	/**
+	 * Format entry value.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param mixed   $value    The entry value that needs to be formatted and may be sanitized.
+	 * @param integer $form_id  The form id.
+	 *
+	 * @return mixed $value The formatted entry value.
 	 */
-	public function validate_field( $value ) {
-		if ( $this->required && ! empty( $value ) ) {
-			return true;
+	public function format_entry_value( $value, $form_id ) {
+		if ( empty( $value ) ) {
+			return '';
 		}
+		return sanitize_text_field( $value );
 	}
 }
 
