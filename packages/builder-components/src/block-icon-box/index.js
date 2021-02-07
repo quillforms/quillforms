@@ -1,41 +1,29 @@
 /**
  * WordPress Dependencies
  */
-import { useSelect } from '@wordpress/data';
-
-/**
- * External Dependencies
- */
-import AddIcon from '@material-ui/icons/Add';
+import { Icon } from '@wordpress/components';
+import { plus } from '@wordpress/icons';
 
 /**
  * Internal Dependencies
  */
 import BlockIconWrapper from './wrapper';
 
-const BlockIconBox = ( { blockType = 'variable', blockOrder } ) => {
-	const { blocks } = useSelect( ( select ) => {
-		return {
-			blocks: select( 'quillForms/blocks' ).getBlockTypes(),
-		};
-	} );
-	const isBlock = !! blocks[ blockType ];
-	let config = {};
-	if ( isBlock ) {
-		config = blocks[ blockType ].editorConfig;
-	} else {
-		config.color = '#3a7685';
-		config.icon = AddIcon;
-	}
+const BlockIconBox = ( { icon, order, color } ) => {
+	icon = icon ? icon : plus;
+	color = color ? color : '#bb426f';
+	const renderedIcon = <Icon icon={ icon && icon.src ? icon.src : icon } />;
+
 	return (
-		<BlockIconWrapper color={ config.color }>
-			<config.icon />
-			{ blockOrder && (
-				<span className="block-editor-block-icon-box__block-order">
-					{ blockOrder }
+		<BlockIconWrapper color={ color }>
+			{ renderedIcon }
+			{ order && (
+				<span className="block-editor-block-icon-box__order">
+					{ order }
 				</span>
 			) }
 		</BlockIconWrapper>
 	);
 };
+
 export default BlockIconBox;

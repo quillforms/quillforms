@@ -3,7 +3,7 @@ const BlockIconWrapper = ( { color, children } ) => {
 		<div
 			className="block-editor-block-icon-box"
 			style={ {
-				background: color,
+				background: color ? color : '#333',
 			} }
 		>
 			{ children }
