@@ -2,14 +2,13 @@
  * WordPress Dependencies
  */
 import { useState, useRef, useEffect } from '@wordpress/element';
-
+import { search, chevronDown } from '@wordpress/icons';
+import { Icon } from '@wordpress/components';
 /**
  * External Dependencies
  */
 import { FixedSizeList as List } from 'react-window';
-import pick from 'lodash/pick';
-import SearchIcon from '@material-ui/icons/Search';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { pick } from 'lodash';
 import classNames from 'classnames';
 
 /**
@@ -73,7 +72,7 @@ const FontPicker = ( { fonts, selectedFont, setFont } ) => {
 				<div className="builder-components-font-picker__selected-font">
 					{ selectedFont }
 				</div>
-				<ExpandMoreIcon />
+				<Icon icon={ chevronDown } />
 			</div>
 			{ showList && (
 				<div
@@ -81,7 +80,7 @@ const FontPicker = ( { fonts, selectedFont, setFont } ) => {
 					ref={ wrapperRef }
 				>
 					<div className="builder-components-font-picker__search">
-						<SearchIcon />
+						<Icon icon={ search } />
 						<input
 							ref={ searchRef }
 							className="builder-components-font-picker__input"
