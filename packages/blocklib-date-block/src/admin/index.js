@@ -1,19 +1,18 @@
-import { setBlockAdminSettings } from '@quillforms/blocks';
-
 /**
- * External Dependencies
+ * QuillForms Dependencies
  */
-import { Event as DateIcon } from '@material-ui/icons';
+import { setBlockAdminSettings } from '@quillforms/blocks';
 
 /**
  * Internal Dependencies
  */
 import controls from './controls';
 import { type } from '../block.json';
+import Icon from './icon';
 
 export const blockAdminSettings = {
 	color: '#93AE89',
-	icon: DateIcon,
+	icon: Icon,
 	controls,
 };
 

@@ -22,12 +22,12 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@material-ui/icons": "^4.9.1",
 		"@quillforms/builder-components": "file:../builder-components",
-		"@wordpress/element": "2.18.0",
+		"@wordpress/element": "^2.19.1",
 		"antd": "^4.9.4",
 		"dayjs": "^1.9.7",
-		"react-datepicker": "^3.3.0"
+		"react-text-mask": "^5.4.3",
+		"text-mask-addons": "^3.8.0"
 	},
 	"publishConfig": {
 		"access": "public"

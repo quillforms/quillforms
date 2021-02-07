@@ -5,10 +5,12 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
-	SelectControl,
-	MenuItem,
 } from '@quillforms/builder-components';
 
+/**
+ * WordPress Dependencies
+ */
+ import { CustomSelectControl } from "@wordpress/components";
 /**
  * External Dependencies
  */
@@ -19,37 +21,57 @@ const DateControls = ( props ) => {
 		attributes: { format, separator },
 		setAttributes,
 	} = props;
+	const formatOptions = [{
+		key: "MMDDYYYY",
+		name: "MMDDYYYY"
+	}, 
+	{
+		key: "DDMMYYYY",
+		name: "DDMMYYYY"
+	}, {
+
+		key: "YYYYMMDD",
+		name: "YYYYMMDD"
+	}];
+	const separatorOptions = [{
+		key: "/",
+		value: "/"
+	},
+	{
+		key: "-",
+		value: "-"
+	},
+	{
+		key: ".",
+		value: "."
+	},
+	]
 	return (
 		<__experimentalBaseControl>
 			<__experimentalControlWrapper orientation="vertical">
 				<__experimentalControlLabel label="Date Format" />
 
-				<SelectControl
+				<CustomSelectControl
 					className={ css`
 						margin-top: 5px;
 					` }
-					value={ format }
-					onChange={ ( e ) =>
-						setAttributes( { format: e.target.value } )
+					onChange={ ( selectedChoice ) =>
+						setAttributes( { format: selectedChoice } )
 					}
-				>
-					<MenuItem value={ 'MMDDYYYY' }>MMDDYYYY</MenuItem>
-					<MenuItem value={ 'DDMMYYYY' }>DDMMYYYY</MenuItem>
-					<MenuItem value={ 'YYYYMMDD' }>YYYYMMDD</MenuItem>
-				</SelectControl>
-				<SelectControl
+					options={formatOptions}
+					value={ formatOptions.find( ( option ) => option.key === format ) }
+
+				/>
+				<CustomSelectControl
 					className={ css`
 						margin-top: 10px;
 					` }
-					value={ separator }
-					onChange={ ( e ) =>
-						setAttributes( { separator: e.target.value } )
+					value={ separatorOptions.find( ( option ) => option.key === separator) }
+					onChange={ ( selectedChoice ) =>
+						setAttributes( { separator: selectedChoice } )
 					}
-				>
-					<MenuItem value={ '/' }>/</MenuItem>
-					<MenuItem value={ '-' }>-</MenuItem>
-					<MenuItem value={ '.' }>.</MenuItem>
-				</SelectControl>
+					options={separatorOptions}
+				/>
 			</__experimentalControlWrapper>
 		</__experimentalBaseControl>
 	);

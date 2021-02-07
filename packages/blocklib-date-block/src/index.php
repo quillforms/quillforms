@@ -102,7 +102,8 @@ class QF_Date_Block extends QF_Block {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value the value to validate.
+	 * @param mixed $value    The value to validate.
+	 * @param array $messages The form messages
 	 */
 	public function validate_field( $value, $messages ) {
 		if ( ! empty( $value ) ) {
