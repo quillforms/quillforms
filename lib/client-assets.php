@@ -131,32 +131,6 @@ function quillforms_override_script( $scripts, $handle, $src, $deps = array(), $
  */
 function quillforms_register_packages_scripts( $scripts ) {
 
-	foreach ( glob( quillforms_dir_path() . 'lib/wp-lib/*/index.js' ) as $path ) {
-		// Prefix `wp-` to package directory to get script handle.
-		// For example, `…/build/a11y/index.js` becomes `wp-a11y`.
-		$handle = 'wp-' . basename( dirname( $path ) );
-
-		// Replace `.js` extension with `.asset.php` to find the generated dependencies file.
-		$asset_file   = substr( $path, 0, -3 ) . '.asset.php';
-		$asset        = file_exists( $asset_file )
-			? require( $asset_file )
-			: null;
-		$dependencies = isset( $asset['dependencies'] ) ? $asset['dependencies'] : array();
-		$version      = isset( $asset['version'] ) ? $asset['version'] : filemtime( $path );
-
-		// Get the path from Gutenberg directory as expected by `quillforms_url`.
-		$quillforms_path = substr( $path, strlen( QF_PLUGIN_DIR ) );
-
-		quillforms_override_script(
-			$scripts,
-			$handle,
-			plugins_url( $quillforms_path, dirname( __FILE__ ) ),
-			$dependencies,
-			$version,
-			true
-		);
-	}
-
 	foreach ( glob( quillforms_dir_path() . 'build/*/index.js' ) as $path ) {
 		// Prefix `quillforms-` to package directory to get script handle.
 		$handle = 'quillforms-' . basename( dirname( $path ) );
@@ -556,19 +530,6 @@ function quillforms_register_packages_styles( $styles ) {
 	);
 
 	$styles->add_data( 'quillforms-blocklib-website-block-renderer-style', 'rtl', 'replace' );
-
-	/*********************************
-	 * WordPress style dependencies
-	 */
-	quillforms_override_style(
-		$styles,
-		'wp-components',
-		quillforms_url( 'lib/wp-lib/components/style.css' ),
-		array( 'dashicons' ),
-		filemtime( quillforms_dir_path() . 'lib/wp-lib/components/style.css' )
-	);
-
-	$styles->add_data( 'wp-components', 'rtl', 'replace' );
 
 }
 add_action( 'wp_default_scripts', 'quillforms_register_packages_scripts' );
