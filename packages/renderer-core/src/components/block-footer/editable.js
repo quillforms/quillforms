@@ -11,7 +11,6 @@ import ErrMsg from '../error-message';
 
 const EditableBlockFooter = ( {
 	id,
-	isReviewing,
 	isSubmitBtnVisible,
 	isErrMsgVisible,
 	showErrorMessage,
@@ -32,9 +31,7 @@ const EditableBlockFooter = ( {
 	return (
 		<div className="renderer-components-block-footer">
 			{ shakingErr ||
-			( ! isValid &&
-				validationErr?.length > 0 &&
-				( isErrMsgVisible || isReviewing ) ) ? (
+			( ! isValid && validationErr?.length > 0 && isErrMsgVisible ) ? (
 				<ErrMsg message={ shakingErr ? shakingErr : validationErr } />
 			) : (
 				<FieldAction

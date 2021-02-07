@@ -24,6 +24,7 @@ const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 	} = useFieldRenderContext();
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ type ];
+	console.log( blockType );
 	const [ shakingErr, setShakingErr ] = useState( null );
 
 	const { isCurrentBlockEditable } = useSelect( ( select ) => {

@@ -10,7 +10,6 @@ import EditableBlockFooter from './editable';
 import NonEditableBlockFooter from './non-editable';
 import { useFieldRenderContext } from '../field-render';
 const BlockFooter = ( {
-	isReviewing,
 	isSubmitBtnVisible,
 	isErrMsgVisible,
 	showErrorMessage,
@@ -40,7 +39,6 @@ const BlockFooter = ( {
 					isErrMsgVisible={ isErrMsgVisible }
 					showErrorMessage={ showErrorMessage }
 					shakingErr={ shakingErr }
-					isReviewing={ isReviewing }
 					next={ next }
 				/>
 			) }
