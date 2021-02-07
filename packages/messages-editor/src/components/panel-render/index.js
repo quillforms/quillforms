@@ -24,8 +24,6 @@ const PanelRender = () => {
 
 	const [ messageToEdit, setMessageToEdit ] = useState( null );
 
-	console.log( messages );
-	console.log( messagesSchema );
 	return (
 		<div className="messages-editor-panel-render">
 			{ Object.keys( messagesSchema ).map( ( messageKey ) => {
