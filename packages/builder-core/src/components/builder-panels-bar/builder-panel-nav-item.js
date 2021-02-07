@@ -1,7 +1,7 @@
 /**
- * QuillForms Dependencies
+ * WordPress Dependencies
  */
-import { Tooltip } from '@quillforms/builder-components';
+import { Tooltip } from '@wordpress/components';
 
 /**
 External Dependencies
@@ -15,7 +15,7 @@ const NavItem = ( { panel, setCurrentPanel, isSelected } ) => {
 				active: isSelected ? true : false,
 			} ) }
 		>
-			<Tooltip title={ panel.title } placement="right" arrow>
+			<Tooltip text={ panel.title } position="middle right">
 				<div
 					role="presentation"
 					onClick={ () => {
