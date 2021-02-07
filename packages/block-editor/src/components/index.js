@@ -6,4 +6,3 @@ export { default as __experimentalBlockDragging } from './block-dragging';
 export { default as BlockEdit } from './block-edit';
 export { default as BlockEditErrorBoundary } from './block-error-boundaries/editor';
 export { default as BlockToolbar } from './block-toolbar';
-export { default as PrevFieldsInserter } from './prevfields-inserter';

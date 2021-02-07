@@ -18,7 +18,7 @@ import { MediaUpload } from '@wordpress/media-utils';
 /**
  * External Dependencies
  */
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash';
 
 const DefaultControls = ( props ) => {
 	const {

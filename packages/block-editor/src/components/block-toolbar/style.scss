@@ -10,21 +10,26 @@
 		visibility: hidden;
 	}
 
-	> div {
+	> div, .block-editor-block-toolbar__merge-tag-icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 28px;
-		height: 28px;
+		width: 30px;
+		height: 30px;
 		cursor: pointer;
 	}
 
 	> div:hover {
-		background: #eee;
+		background: #e3e3e3;
 		color: #545856;
+
+		svg {
+			fill : #545856;
+		}
 	}
 
 	svg {
+		fill: #949191;
 		width: 20px;
 		height: 20px;
 	}

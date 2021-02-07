@@ -7,8 +7,6 @@ import {
 } from '@quillforms/builder-components';
 import {
 	__unstableCreateEditor as createEditor,
-	__unstableInsertNodes as insertNodes,
-	__unstableInsertText as insertText,
 	__unstableHtmlDeserialize as deserialize,
 } from '@quillforms/rich-text';
 
@@ -22,6 +20,7 @@ import {
 	useState,
 	useMemo,
 } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -35,7 +34,6 @@ import BoxWrapper from './box-wrapper';
 import BlockEditor from '../block-edit';
 import BlockPlaceholder from '../block-placeholder';
 import BlockMover from '../block-mover';
-import { useSelect } from '@wordpress/data';
 
 const areEqual = ( prevProps, nextProps ) => {
 	if (
@@ -88,37 +86,6 @@ const BlockEditBox = memo( ( props ) => {
 
 	const [ focusOn, setFocusOn ] = useState( false );
 
-	// Insert Variable
-	const insertVariable = ( variable, path ) => {
-		let editor = titleEditor;
-		if ( focusOn === 'desc' ) {
-			editor = descEditor;
-		}
-		insertNodes(
-			editor,
-			{
-				type: 'variable',
-				data: {
-					ref: variable.ref,
-					varType: variable.varType,
-				},
-				children: [ { text: '' } ],
-			},
-			{
-				at: path,
-			}
-		);
-	};
-
-	// Insert Emoji
-	const insertEmoji = ( emoji, path ) => {
-		let editor = titleEditor;
-		if ( focusOn === 'desc' ) {
-			editor = descEditor;
-		}
-		insertText( editor, emoji.native, { at: path } );
-	};
-
 	const getDeserializedValue = ( val ) => {
 		return deserialize( val );
 	};
@@ -134,7 +101,7 @@ const BlockEditBox = memo( ( props ) => {
 		() =>
 			createEditor( {
 				withReact: true,
-				withVariables: true,
+				withMergeTags: true,
 				withHistory: true,
 				withLinks: true,
 			} ),
@@ -145,7 +112,7 @@ const BlockEditBox = memo( ( props ) => {
 		() =>
 			createEditor( {
 				withReact: true,
-				withVariables: true,
+				withMergeTags: true,
 				withHistory: true,
 				withLinks: true,
 			} ),
@@ -192,7 +159,7 @@ const BlockEditBox = memo( ( props ) => {
 											id={ id }
 											index={ index }
 											blockColor={
-												block.editorConfig.color
+												block?.editorConfig?.color
 											}
 											title={ titleJsonVal }
 											addDesc={
@@ -207,14 +174,12 @@ const BlockEditBox = memo( ( props ) => {
 											setDescJsonVal={ ( value ) =>
 												setDescJsonVal( value )
 											}
-											insertVariable={ insertVariable }
-											insertEmoji={ insertEmoji }
 										/>
 									</Fragment>
 								) : (
 									<Fragment>
 										<BlockIconWrapper
-											color={ block.editorConfig.color }
+											color={ block?.editorConfig?.color }
 										/>
 										<BlockPlaceholder />
 									</Fragment>

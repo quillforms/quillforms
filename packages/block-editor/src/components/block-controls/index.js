@@ -26,13 +26,17 @@ const BlockControls = () => {
 		};
 	} );
 
-	const { type } = currentFormItem;
-
 	const { blockType } = useSelect( ( select ) => {
 		return {
-			blockType: select( 'quillForms/blocks' ).getBlockTypes()[ type ],
+			blockType: currentFormItem
+				? select( 'quillForms/blocks' ).getBlockTypes()[
+						currentFormItem.type
+				  ]
+				: null,
 		};
 	} );
+	if ( ! currentBlockId || ! currentFormItem ) return null;
+	const { type } = currentFormItem;
 
 	return (
 		<div className="block-editor-block-controls">

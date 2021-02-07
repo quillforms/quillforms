@@ -1,49 +1,66 @@
 /**
  * QuillForms Dependencies
  */
-import { Tooltip } from '@quillforms/builder-components';
+import {
+	__unstableInsertText as insertText,
+	__unstableFocus as focus,
+} from '@quillforms/rich-text';
 
 /**
  * WordPress Dependencies
  */
+ import { Tooltip } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-
-/**
- * External Dependencies
- */
-import BuildIcon from '@material-ui/icons/Build';
+import { Icon } from '@wordpress/components';
 
 /**
  * Internal Dependencies
  */
 import BlockActions from '../block-actions';
-import PrevFieldInserter from '../prevfields-inserter';
+import ControlsIcon from './controls-icon';
 
 // import { EmojiPicker } from '@quillforms/builder-components';
 
-const BlockToolbar = ( { id, category, insertVariable } ) => {
+const BlockToolbar = ( { id, category, editor } ) => {
 	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
-
+	// // Insert Emoji
+	// const insertEmoji = ( emoji ) => {
+	// 	insertText( editor, emoji.native );
+	// };
 	return (
 		<div className="block-editor-block-toolbar">
-			<Tooltip title="Controls" placement="bottom" arrow={ true }>
+			<Tooltip text="Controls" position="bottom">
 				<div
 					role="presentation"
-					className="block-editor-block-toolbar__controls-icon"
+					className="block-editor-block-toolbar__controls-icon-wrapper"
 					onClick={ () => {
 						setCurrentPanel( 'blockControls' );
 					} }
 				>
-					<BuildIcon />
+					<Icon
+						className="block-editor-block-toolbar__controls-icon"
+						icon={ ControlsIcon }
+					/>
 				</div>
 			</Tooltip>
-			{
-				<PrevFieldInserter
-					category={ category }
-					id={ id }
-					onInsert={ ( variable ) => insertVariable( variable ) }
-				/>
-			}
+			<Tooltip
+				title="Recall Information"
+				placement="bottom"
+				arrow={ true }
+			>
+				<div className="block-editor-block-toolbar__merge-tag-icon-wrapper">
+					<div
+						role="presentation"
+						className="block-editor-block-toolbar__merge-tag-icon"
+						onClick={ ( event ) => {
+							insertText( editor, '@' );
+							focus( editor );
+						} }
+					>
+						@
+					</div>
+				</div>
+			</Tooltip>
 
 			{ /* <EmojiPicker emojiSelect={ ( emoji ) => insertEmoji( emoji ) } /> */ }
 

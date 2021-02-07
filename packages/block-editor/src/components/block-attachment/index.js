@@ -6,7 +6,8 @@ import { useDispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import CloseIcon from '@material-ui/icons/Close';
+import { Icon } from '@wordpress/components';
+import { close } from '@wordpress/icons';
 
 const BlockAttachment = ( { blockColor, attachment, id } ) => {
 	const { setBlockAttachment } = useDispatch( 'quillForms/block-editor' );
@@ -30,7 +31,7 @@ const BlockAttachment = ( { blockColor, attachment, id } ) => {
 					className="block-editor-block-attachment__background-wrapper"
 					style={ { backgroundColor: blockColor } }
 				/>
-				<CloseIcon style={ { color: blockColor } } />
+				<Icon icon={ close } style={ { color: blockColor } } />
 			</div>
 		</div>
 	);

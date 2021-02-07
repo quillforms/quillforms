@@ -1,6 +1,52 @@
-.var__delete svg {
-	width: 13px;
-	height: 13px;
-	margin-left: 5px;
-	display: inherit;
+.block-editor-block-actions__dropdown {
+	button {
+		height: 28px;
+		padding: 2px;
+		transition: background 0.3s linear;
+
+		> svg {
+			color: #858789 !important;
+		}
+	}
+
+	button:hover {
+		border: none !important;
+		box-shadow: none !important;
+		background: #e3e3e3 !important;
+	}
+
+	.components-dropdown-menu__popover {
+		.components-popover__content  {
+			min-width: auto;
+			width: 120px;
+			border-radius: 7px;
+			padding: 10px 0;
+		}
+
+		&:after, &:before {
+			display: none;
+		}
+	}
+
+	.components-menu-item__button {
+		padding-left: 1rem;
+		outline: none !important;
+		box-shadow: none !important;
+
+		&:focus {
+			outline: none !important;
+			box-shadow: none !important;
+		}
+	}
+
+	.block-editor-block-actions__menu-group {
+		padding: 0;
+
+		.block-editor-block-actions__menu-item {
+			font-size: 14px;
+			margin-bottom: 5px;
+		}
+	}
 }
+
+

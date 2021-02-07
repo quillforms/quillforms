@@ -1,10 +1,10 @@
 /**
  * QuillForms Dependencies
  */
+import { Button } from '@quillforms/builder-components';
 import {
-	__unstableRichText as TextEditor,
+	__experimentalEditor as TextEditor,
 	__unstableHtmlSerialize as serialize,
-	__unstableEditor as Editor,
 	__unstableFocus,
 	getPlainText,
 } from '@quillforms/rich-text';
@@ -12,25 +12,16 @@ import {
 /**
  * WordPress Dependencies
  */
-import {
-	memo,
-	useState,
-	useCallback,
-	useMemo,
-	useEffect,
-} from '@wordpress/element';
+import { Modal } from '@wordpress/components';
+import { useState, useCallback, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
  */
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash';
+import { css } from 'emotion';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
@@ -43,15 +34,9 @@ const BlockEditor = ( props ) => {
 		'quillForms/block-editor'
 	);
 
-	const [ currentPath, setCurrentPath ] = useState( {
-		path: [ 0, 0 ],
-		offset: 0,
-	} );
-
 	const {
 		attachment,
 		id,
-		index,
 		blockColor,
 		title,
 		desc,
@@ -62,14 +47,31 @@ const BlockEditor = ( props ) => {
 		descEditor,
 		focusOn,
 		setFocusOn,
-		insertVariable,
-		insertEmoji,
 		isSelected,
 	} = props;
 
-	const { formStructure } = useSelect( ( select ) => {
+	const { blockTypes } = useSelect( ( select ) => {
 		return {
-			formStructure: select( 'quillForms/block-editor' ).getBlocks(),
+			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+		};
+	} );
+
+	const { prevFields } = useSelect( ( select ) => {
+		return {
+			prevFields: select( 'quillForms/block-editor' )
+				.getPreviousEditableFields( id )
+				.map( ( field ) => {
+					return {
+						type: 'field',
+						label: field.title,
+						modifier: field.id,
+						icon: blockTypes[ field.type ]?.editorConfig?.icon,
+						color: blockTypes[ field.type ]?.editorConfig?.color,
+						order: select(
+							'quillForms/block-editor'
+						).getBlockOrderById( field.id ),
+					};
+				} ),
 		};
 	} );
 
@@ -101,8 +103,6 @@ const BlockEditor = ( props ) => {
 	// we keep the focusOn as an internal state so when the component mounts again, the focus can still work.
 	useEffect( () => {
 		if ( isSelected ) {
-			console.log( isSelected );
-			console.log( id );
 			if ( focusOn === 'title' || ! focusOn ) {
 				__unstableFocus( titleEditor );
 			} else if ( focusOn === 'desc' ) {
@@ -111,63 +111,12 @@ const BlockEditor = ( props ) => {
 		}
 	}, [ isSelected ] );
 
-	// Check for incorrrect field vars and fix them on index change
-	useEffect( () => {
-		const currentBlockIndex = index;
-		[ titleEditor, descEditor ].forEach( ( editor ) => {
-			const fieldIds = [];
-			{
-				const [ ...match ] = Editor.nodes( editor, {
-					match: ( n ) =>
-						n.type === 'variable' && n.data.varType === 'field',
-					at: [],
-				} );
-				if ( match.length > 0 ) {
-					match.forEach( ( m ) => {
-						const fieldId = m[ 0 ].data.ref;
-						const blockIndex = formStructure.findIndex(
-							( block ) => block.id === fieldId
-						);
-						if ( blockIndex >= currentBlockIndex ) {
-							fieldIds.push( fieldId );
-						}
-					} );
-				}
-			}
-
-			if ( fieldIds.length > 0 ) {
-				fieldIds.forEach( ( fieldId ) => {
-					const [ ...match ] = Editor.nodes( editor, {
-						match: ( n ) => {
-							return (
-								n.type === 'variable' &&
-								n.data &&
-								n.data.varType === 'field' &&
-								n.data.ref === fieldId
-							);
-						},
-						at: [],
-					} );
-					const path = match[ 0 ][ 1 ];
-					const [ node ] = Editor.node( editor, path );
-					editor.apply( { type: 'remove_node', path, node } );
-				} );
-			}
-		} );
-	}, [ index ] );
-
 	// Regex for variables
 	const varRegexMatch = ( val ) =>
 		new RegExp( /{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/ ).test( val );
 
 	// Title Change Handler
 	const titleChangeHandler = ( value ) => {
-		if ( titleEditor.selection ) {
-			setCurrentPath( {
-				path: titleEditor.selection.focus.path,
-				offset: titleEditor.selection.focus.offset,
-			} );
-		}
 		if ( JSON.stringify( value ) !== JSON.stringify( title ) ) {
 			setTitleJsonVal( value );
 			if ( varRegexMatch( getPlainText( value ) ) ) {
@@ -180,12 +129,6 @@ const BlockEditor = ( props ) => {
 
 	// Description Change Handler
 	const descChangeHandler = ( value ) => {
-		if ( descEditor.selection ) {
-			setCurrentPath( {
-				path: descEditor.selection.focus.path,
-				offset: descEditor.selection.focus.offset,
-			} );
-		}
 		if ( JSON.stringify( value ) !== JSON.stringify( desc ) ) {
 			setDescJsonVal( value );
 			if ( varRegexMatch( getPlainText( value ) ) ) {
@@ -203,24 +146,17 @@ const BlockEditor = ( props ) => {
 				<TextEditor
 					editor={ titleEditor }
 					placeholder="Type question here..."
-					onFocus={ () => {
-						const { selection } = titleEditor;
-						setFocusOn( 'title' );
-						if ( selection ) {
-							setCurrentPath( {
-								path: selection.focus.path,
-								offset: selection.focus.offset,
-							} );
-						}
-					} }
 					color="#262627"
-					emojiSelect={ insertEmoji }
+					mergeTags={ prevFields }
 					value={ title }
 					onChange={ ( value ) => titleChangeHandler( value ) }
+					onFocus={ () => {
+						setFocusOn( 'title' );
+					} }
 				/>
 			</div>
 		),
-		[ JSON.stringify( title ) ]
+		[ JSON.stringify( title ), JSON.stringify( prevFields ) ]
 	);
 
 	// Description Rich Text Editor
@@ -231,22 +167,16 @@ const BlockEditor = ( props ) => {
 					editor={ descEditor }
 					placeholder="Write your description here"
 					color="#898989"
-					onFocus={ () => {
-						const { selection } = descEditor;
-						setFocusOn( 'desc' );
-						if ( selection ) {
-							setCurrentPath( {
-								path: selection.focus.path,
-								offset: selection.focus.offset,
-							} );
-						}
-					} }
 					value={ desc }
+					mergeTags={ prevFields }
 					onChange={ ( value ) => descChangeHandler( value ) }
+					onFocus={ () => {
+						setFocusOn( 'desc' );
+					} }
 				/>
 			</div>
 		),
-		[ JSON.stringify( desc ) ]
+		[ JSON.stringify( desc ), JSON.stringify( prevFields ) ]
 	);
 
 	return (
@@ -263,45 +193,38 @@ const BlockEditor = ( props ) => {
 				/>
 			) }
 
-			<BlockToolbar
-				id={ id }
-				insertEmoji={ ( emoji ) => insertEmoji( emoji, currentPath ) }
-				insertVariable={ ( variable ) =>
-					insertVariable( variable, currentPath )
-				}
-			/>
-
-			<Dialog
-				className="block-editor-block-edit__alert"
-				open={ varAlertPopup }
-				onClose={ () => {
-					setVarAlertPopup( false );
-					currentEditor.undo();
-				} }
-				aria-labelledby={ 'Warning' }
-				aria-describedby={ 'Warning' }
-			>
-				<DialogTitle id={ `alert-dialog-title` }>
-					{ 'Warning!' }
-				</DialogTitle>
-				<DialogContent className="dialog__content">
-					<DialogContentText id={ 'varibleAlet_dialog__description' }>
+			<BlockToolbar id={ id } editor={ currentEditor } />
+			{ varAlertPopup && (
+				<Modal
+					className={ classnames(
+						'block-editor-block-edit__var-alert',
+						css`
+							border: none !important;
+						`
+					) }
+					title="Warning!"
+					onRequestClose={ () => {
+						setVarAlertPopup( false );
+						currentEditor.undo();
+					} }
+				>
+					<div className="block-editor-block-edit__var-alert-body">
 						You should not call variables directly from the editor.
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-					<Button
-						className="dialog__danger__button"
-						onClick={ () => {
-							setVarAlertPopup( false );
-							currentEditor.undo();
-						} }
-						color="primary"
-					>
-						Ok
-					</Button>
-				</DialogActions>
-			</Dialog>
+					</div>
+					<div className="block-editor-block-edit__var-alert-actions">
+						<Button
+							isDanger
+							isLarge
+							onClick={ () => {
+								setVarAlertPopup( false );
+								currentEditor.undo();
+							} }
+						>
+							Ok
+						</Button>
+					</div>
+				</Modal>
+			) }
 		</div>
 	);
 };

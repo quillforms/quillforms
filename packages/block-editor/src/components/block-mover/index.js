@@ -9,17 +9,22 @@ import { BlockIconBox } from '@quillforms/builder-components';
 import { useSelect } from '@wordpress/data';
 
 const BlockMover = ( { id, type, dragHandleProps } ) => {
-	const { blockOrder } = useSelect( ( select ) => {
+	const { blockOrder, blockTypes } = useSelect( ( select ) => {
 		return {
 			blockOrder: select( 'quillForms/block-editor' ).getBlockOrderById(
 				id
 			),
+			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
 
 	return (
 		<div className="block-editor-block-mover" { ...dragHandleProps }>
-			<BlockIconBox blockType={ type } blockOrder={ blockOrder } />
+			<BlockIconBox
+				icon={ blockTypes[ type ]?.editorConfig?.icon }
+				order={ blockOrder }
+				color={ blockTypes[ type ]?.editorConfig?.color }
+			/>
 		</div>
 	);
 };
