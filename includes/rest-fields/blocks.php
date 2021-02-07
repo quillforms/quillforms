@@ -42,6 +42,9 @@ $blocks_schema = array(
 				'enum'     => array_keys( QF_Blocks_Factory::get_instance()->get_all_registered() ),
 				'required' => true,
 			),
+			'required'    => array(
+				'type' => 'boolean',
+			),
 		),
 
 	),
