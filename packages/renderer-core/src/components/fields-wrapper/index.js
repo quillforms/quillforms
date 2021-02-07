@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { forEach } from '@quillforms/utils';
+import { forEach } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -113,9 +113,7 @@ const FieldsWrapper = ( {
 		forEach( ruleGroupConditions, ( condition ) => {
 			const { op, vars } = condition;
 			const fieldId = vars[ 0 ].value;
-			const fieldAnswer = answers.find(
-				( answer ) => answer.id === fieldId
-			).value;
+			const fieldAnswer = answers[ fieldId ];
 			const value = vars[ 1 ].value;
 			if ( ! operators[ op ]( fieldAnswer, value ) ) res = false;
 		} );
