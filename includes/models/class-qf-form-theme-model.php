@@ -37,7 +37,7 @@ class QF_Form_Theme_Model {
 			return array_map(
 				function( $theme ) {
 					return array(
-						'id'         => $theme['ID'],
+						'id'         => intVal( $theme['ID'] ),
 						'title'      => $theme['theme_title'],
 						'properties' => QF_Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $theme['theme_properties'] ) ),
 
