@@ -2,12 +2,12 @@
  * External Dependencies
  */
 import { Transforms, Editor, Range } from 'slate';
-import LinkIcon from '@material-ui/icons/Link';
 
 /**
  * Inernal Dependencies
  */
 import Button from '../button';
+import LinkIcon from './link-icon';
 
 const Link = ( { editor } ) => {
 	const insertLink = ( url ) => {

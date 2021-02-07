@@ -12,8 +12,6 @@ import {
  * External Dependencies
  */
 import { cx, css } from 'emotion';
-import FormatBoldIcon from '@material-ui/icons/FormatBold';
-import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import { ReactEditor, useSlate } from 'slate-react';
 import { Editor, Range } from 'slate';
 
@@ -22,6 +20,8 @@ import { Editor, Range } from 'slate';
  */
 import Link from '../link';
 import FormatButton from '../format-button';
+import FormatBoldIcon from './bold-icon';
+import FormatItalicIcon from './italic-icon';
 
 const Menu = forwardRef( ( { className, ...props }, ref ) => (
 	<div
