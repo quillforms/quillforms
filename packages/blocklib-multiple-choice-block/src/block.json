@@ -13,7 +13,7 @@
 		  "items": {
 			"type": "object",
 			"properties": {
-			  "ref": {
+			  "value": {
 				"type": "string"
 			  },
 			  "label": {
@@ -23,17 +23,14 @@
 		  },
 		  "default": [
 			{
-			  "ref": "124e4567-e89b-12d3-a456-426614174000",
+			  "value": "124e4567-e89b-12d3-a456-426614174000",
 			  "label": "Choice 1"
 			}
 		  ]
 		},
 		"multiple": {
 		  "type": "boolean"
-		},
-		"setScore": {
-		  "type": "boolean",
-		  "default": false
 		}
-	  }
+	},
+	"logicalOperators" : ["is", "is_not"]
 }
