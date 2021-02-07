@@ -6,7 +6,6 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	SelectControl,
-	MenuItem,
 } from '@quillforms/builder-components';
 
 /**
@@ -44,6 +43,11 @@ const NotificationTo = ( {
 		}
 	}, [ recipients ] );
 
+	const options = [
+		{ key: 'email', name: 'Email' },
+		{ key: 'field', name: 'Field' },
+	];
+
 	return (
 		<__experimentalBaseControl>
 			<__experimentalControlWrapper orientation="horizontal">
@@ -64,17 +68,17 @@ const NotificationTo = ( {
 						className={ css`
 							margin-top: 0 !important;
 						` }
-						value={ toType }
-						onChange={ ( e ) => {
+						value={ options.find(
+							( option ) => option.key === toType
+						) }
+						onChange={ ( { selectedItem } ) => {
 							setValue( {
-								toType: e.target.value,
+								toType: selectedItem.key,
 								recipients: [],
 							} );
 						} }
-					>
-						<MenuItem value={ 'email' }>Enter email</MenuItem>
-						<MenuItem value={ 'field' }>Select field</MenuItem>
-					</SelectControl>
+						options={ options }
+					/>
 				</div>
 			</__experimentalControlWrapper>
 			{ toType === 'email' && (

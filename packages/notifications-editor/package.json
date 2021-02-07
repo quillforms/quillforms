@@ -22,12 +22,11 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@material-ui/core": "^4.4.3",
-		"@material-ui/icons": "^4.4.3",
 		"@quillforms/builder-components": "file:../builder-components",
-		"@wordpress/data": "^4.18.0",
-		"@wordpress/element": "^2.14.0",
-		"@wordpress/icons": "^2.5.0",
+		"@wordpress/data": "^4.26.5",
+		"@wordpress/element": "^2.19.1",
+		"@wordpress/icons": "^2.9.1",
+		"react-confirm-alert": "^2.7.0",
 		"react-multi-email": "^0.5.3",
 		"react-slick": "^0.27.11",
 		"slick-carousel": "^1.8.1"

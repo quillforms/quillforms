@@ -7,7 +7,6 @@ import {
 	__experimentalControlWrapper,
 	BlockIconBox,
 	SelectControl,
-	MenuItem,
 } from '@quillforms/builder-components';
 
 /**
@@ -32,6 +31,12 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 		}
 	}, [ JSON.stringify( emailFields ) ] );
 
+	const emailFieldsOptions = emailFields?.map( ( field ) => {
+		return {
+			key: field.id,
+			name: getPlainExcerpt( field.title ),
+		};
+	} );
 	return (
 		<__experimentalControlWrapper orientation="vertical">
 			{ !! label && <__experimentalControlLabel label={ label } /> }
@@ -44,20 +49,14 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 				<SelectControl
 					className="notifications-editor-email-select"
 					placeholder="Choose Email"
-					value={ value }
-					onChange={ ( e ) => setValue( e.target.value ) }
-				>
-					{ emailFields.map( ( emailField ) => (
-						<MenuItem key={ emailField.id } value={ emailField.id }>
-							<div className="notifications-editor-email-select__option">
-								<BlockIconBox blockType="email" />
-								<span className="notifications-editor-email-select__option-title">
-									{ getPlainExcerpt( emailField.title ) }
-								</span>
-							</div>
-						</MenuItem>
-					) ) }
-				</SelectControl>
+					value={ emailFieldsOptions.find(
+						( option ) => option.key === value
+					) }
+					onChange={ ( { selectedItem } ) =>
+						setValue( selectedItem.key )
+					}
+					options={ emailFieldsOptions }
+				/>
 			) }
 		</__experimentalControlWrapper>
 	);

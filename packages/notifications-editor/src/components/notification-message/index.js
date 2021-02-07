@@ -5,8 +5,8 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlLabel,
 	__experimentalControlWrapper,
-	RichTextControl,
 } from '@quillforms/builder-components';
+import { RichTextControl } from '@quillforms/rich-text';
 
 /**
  * WordPress Dependencies
@@ -32,23 +32,26 @@ const EmailMessage = ( {
 } ) => {
 	useEffect( () => {
 		if ( value && value.length > 0 ) {
-			console.log( 'this is firing just now' );
 			setIsValid( true );
 		} else {
-			console.log( 'jqfnq this is firing just now' );
-
 			setIsValid( false );
 		}
 	}, [ value ] );
 	const { fields } = useSelect( ( select ) => {
+		const blockTypes = select( 'quillForms/blocks' ).getBlockTypes();
 		return {
 			fields: select( 'quillForms/block-editor' )
 				.getEditableFields()
 				.map( ( field ) => {
 					return {
-						varType: 'field',
-						ref: field.id,
-						title: field.title,
+						type: 'field',
+						modifier: field.id,
+						label: field.title,
+						icon: blockTypes[ field.type ]?.editorConfig?.icon,
+						color: blockTypes[ field.type ]?.editorConfig?.color,
+						order: select(
+							'quillForms/block-editor'
+						).getBlockOrderById( field.id ),
 					};
 				} ),
 		};
@@ -64,11 +67,11 @@ const EmailMessage = ( {
 					className={ css`
 						min-height: 120px !important;
 					` }
-					variables={ [
+					mergeTags={ [
 						{
-							varType: 'form',
-							ref: 'all_answers',
-							title: 'all_answers',
+							type: 'form',
+							modifier: 'all_answers',
+							label: 'all_answers',
 						},
 					].concat( fields ) }
 					value={ value }

@@ -73,7 +73,6 @@ const NotificationEditorWrapper = ( {
 		};
 	} );
 
-	console.log( validationFlags );
 	return (
 		<div className="notifications-editor-notification-editor-wrapper">
 			{ activeSlide && (
@@ -165,11 +164,8 @@ const NotificationEditorWrapper = ( {
 						} }
 						isValid={ { ...validationFlags }.message }
 						setIsValid={ ( value ) => {
-							console.log( value );
 							setValidationFlags( ( prevFlags ) => {
-								console.log( prevFlags );
 								const $flags = { ...prevFlags, message: value };
-								console.log( $flags );
 								return $flags;
 							} );
 						} }

@@ -8,7 +8,8 @@ import { Button } from '@quillforms/builder-components';
  */
 import { useDispatch } from '@wordpress/data';
 import { createPortal } from '@wordpress/element';
-import { Icon, arrowLeft } from '@wordpress/icons';
+import { Icon } from '@wordpress/components';
+import { arrowLeft } from '@wordpress/icons';
 
 /**
  * External Dependencies
@@ -31,8 +32,6 @@ const NotificationEditorFooter = ( {
 			( key ) => validationFlags[ key ] === false
 		).length > 0;
 
-	console.log( isFormInValid );
-	console.log( isReviewing );
 	return createPortal(
 		<div className="notifications-editor-notification-edit__footer">
 			<Button
