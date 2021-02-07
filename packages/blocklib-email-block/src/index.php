@@ -144,13 +144,22 @@ class QF_Email_Block extends QF_Block {
 	/**
 	 * Validate Field.
 	 *
-	 * @param mixed $value The field value.
-	 *
 	 * @since 1.0.0
+	 *
+	 * @param mixed $value    The field value.
+	 * @param array $messages The form messagees.
 	 */
-	public function validate_field( $value ) {
-		if ( $this->required && ! empty( $value ) ) {
-			return true;
+	public function validate_field( $value, $messages ) {
+		if ( ! empty( $value ) ) {
+			if ( ! filter_var( $value, FILTER_VALIDATE_EMAIL ) ) {
+				$this->is_valid       = false;
+				$this->validation_err = $messages['label.errorAlert.email'];
+			}
+		} else {
+			if ( $this->required ) {
+				$this->is_valid       = false;
+				$this->validation_err = $messages['label.errorAlert.required'];
+			}
 		}
 	}
 }

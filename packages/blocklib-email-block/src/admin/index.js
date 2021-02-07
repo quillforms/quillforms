@@ -1,18 +1,14 @@
 import { setBlockAdminSettings } from '@quillforms/blocks';
 
 /**
- * External Dependencies
- */
-import EmailIcon from '@material-ui/icons/Email';
-
-/**
  * Internal Dependencies
  */
 import { type } from '../block.json';
+import Icon from './icon';
 
 export const blockAdminSettings = {
 	color: '#27aec3',
-	icon: EmailIcon,
+	icon: Icon,
 };
 
 setBlockAdminSettings( type, blockAdminSettings );

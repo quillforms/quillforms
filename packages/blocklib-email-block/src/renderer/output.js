@@ -1,8 +1,8 @@
 /**
  * QuillForms Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
-import { useTheme } from '@quillforms/utils';
+import { useTheme, useMessages } from '@quillforms/renderer-core';
+
 /**
  * WordPress Dependencies
  */
@@ -31,7 +31,7 @@ const EmailOutput = ( props ) => {
 	} = props;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-	const messages = useMetaField( 'messages' );
+	const messages = useMessages();
 	const theme = useTheme();
 	const elemRef = useRef();
 
@@ -75,14 +75,6 @@ const EmailOutput = ( props ) => {
 	useEffect( () => {
 		checkFieldValidation( val );
 	}, [ required ] );
-
-	useEffect( () => {
-		if ( val && val.length > 0 ) {
-			showSubmitBtn( true );
-		} else {
-			showSubmitBtn( false );
-		}
-	}, [] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
