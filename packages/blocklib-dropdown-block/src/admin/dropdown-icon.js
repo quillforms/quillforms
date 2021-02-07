@@ -1,11 +1,21 @@
-const dropdownIcon = ( props ) => {
+const DropdownIcon = ( props ) => {
 	return (
-		<div { ...props } className="dropdown__icon">
-			<svg height="32" width="32" viewBox="0 0 512 512">
-				<polygon points="396.6,160 416,180.7 256,352 96,180.7 115.3,160 256,310.5 " />
-			</svg>
-		</div>
+		<svg
+			stroke="currentColor"
+			fill="currentColor"
+			strokeWidth="0"
+			viewBox="0 0 20 20"
+			height="1em"
+			width="1em"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<path
+				fillRule="evenodd"
+				d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+				clipRule="evenodd"
+			></path>
+		</svg>
 	);
 };
 
-export default dropdownIcon;
+export default DropdownIcon;

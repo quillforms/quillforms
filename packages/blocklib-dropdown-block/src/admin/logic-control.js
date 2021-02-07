@@ -2,9 +2,8 @@
  * QuillForms Dependencies
  */
 import {
-	SelectControl as Select,
-	MenuItem,
-} from '@quillforms/builder-components';
+	CustomSelectControl
+} from '@wordpress/components';
 
 /**
  * WordPress Dependencies
@@ -31,31 +30,25 @@ const DropdownLogicControl = ( {
 			removeCondition();
 		}
 	}, [] );
+	const options = choices.map( ( choice, index ) => {
+		return {
+			key: choice.value,
+			name: choice.label ? choice.label : `Choice ${ index + 1 }`
+		}
+	})
 	return (
-		<Select
+		<CustomSelectControl
 			className={ css`
 				margin-top: 10px;
 				margin-bottom: 10px;
 				width: 200px;
 			` }
 			value={ value }
-			onChange={ ( e ) => {
-				setValue( e.target.value );
+			onChange={ ( selectedChoice ) => {
+				setValue( selectedChoice );
 			} }
-		>
-			{ choices.map( ( choice, index ) => {
-				return (
-					<MenuItem
-						key={ `choice-${ choice.ref }` }
-						value={ choice.ref }
-					>
-						{ choice.label
-							? choice.label
-							: `Choice ${ index + 1 }` }
-					</MenuItem>
-				);
-			} ) }
-		</Select>
+			options={ options }
+		/>
 	);
 };
 
