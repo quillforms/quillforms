@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { concat } from '@quillforms/utils';
+import { concat } from 'lodash';
 
 /**
  * Internal Dependencies
