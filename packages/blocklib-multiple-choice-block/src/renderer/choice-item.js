@@ -1,7 +1,7 @@
 /**
- * QuillForms Dependencies
+ * QuillForms Depndencies
  */
-import { useTheme } from '@quillforms/utils';
+import { useTheme } from '@quillforms/renderer';
 
 /**
  * External Dependencies

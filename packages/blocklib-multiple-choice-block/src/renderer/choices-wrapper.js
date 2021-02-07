@@ -27,7 +27,6 @@ const areEqual = ( prevProps, nextProps ) => {
 const ChoicesWrapper = memo(
 	( { id, attributes, val, setVal, setChoiceClicked } ) => {
 		const { verticalAlign, multiple, choices } = attributes;
-		console.log( 'This is fired!' );
 
 		const charCode = 'a'.charCodeAt( 0 );
 		// Simple algorithm to generate alphabatical idented order
@@ -93,7 +92,6 @@ const ChoicesWrapper = memo(
 						},
 					];
 				}
-				console.log( $val );
 				setVal( $val );
 				setChoiceClicked( false );
 				setTimeout( () => {

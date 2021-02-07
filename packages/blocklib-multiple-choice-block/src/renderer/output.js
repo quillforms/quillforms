@@ -1,7 +1,11 @@
 /**
+ * QuillForms Depndencies
+ */
+import { useMessages } from '@quillforms/renderer-core';
+
+/**
  * WordPress Dependencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
 import { useEffect, useState } from '@wordpress/element';
 
 /**
@@ -26,7 +30,7 @@ const MultipleChoiceOutput = ( props ) => {
 		isAnimating,
 	} = props;
 	const { multiple } = attributes;
-	const messages = useMetaField( 'messages' );
+	const messages = useMessages();
 	const [ choiceClicked, setChoiceClicked ] = useState( null );
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val.length === 0 ) ) {
