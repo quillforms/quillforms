@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@material-ui/core": "^4.9.13",
-		"@quillforms/builder-components": "file:../builder-components"
+		"@quillforms/builder-components": "file:../builder-components",
+		"react-autosize-textarea": "^7.1.0"
 	},
 	"publishConfig": {
 		"access": "public"

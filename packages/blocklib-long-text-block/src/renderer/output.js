@@ -1,8 +1,7 @@
 /**
- * QuillForms Dependencies
+ * QuillForms Depndencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
-import { useTheme } from '@quillforms/utils';
+import { useTheme, useMessages, HtmlParser } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -12,52 +11,50 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import MaskedInput from 'react-text-mask';
-import moment from 'moment';
-import { createAutoCorrectedDatePipe } from 'text-mask-addons';
+import VisibilitySensor from 'react-visibility-sensor';
+import TextareaAutosize from 'react-autosize-textarea';
 import { css } from 'emotion';
 import classnames from 'classnames';
-import VisibilitySensor from 'react-visibility-sensor';
 
-const DateOutput = ( props ) => {
+const LongTextOutput = ( props ) => {
 	const {
 		id,
+		attributes,
 		isAnimating,
 		required,
-		attributes,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
 		isActive,
 		setValidationErr,
 		showSubmitBtn,
+		shakeWithError,
 		val,
 		setVal,
 	} = props;
-	const { format, separator } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-	const messages = useMetaField( 'messages' );
+	const { setMaxCharacters, maxCharacters } = attributes;
+	const messages = useMessages();
 	const theme = useTheme();
-	const elemRef = useRef();
+	const elemRef = useRef( null );
 
 	const checkfieldValidation = ( value ) => {
-		const date = moment( value );
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
-		} else if ( ! date.isValid() ) {
+		} else if (
+			setMaxCharacters &&
+			maxCharacters > 0 &&
+			value.length > maxCharacters
+		) {
 			setIsValid( false );
-			setValidationErr( messages[ 'label.errorAlert.date' ] );
+			setValidationErr( messages[ 'label.errorAlert.maxCharacters' ] );
 		} else {
 			setIsValid( true );
 			setValidationErr( null );
 		}
 	};
-
-	useEffect( () => {
-		//checkfieldValidation( val );
-	}, [ required, attributes ] );
 
 	useEffect( () => {
 		if ( isActive ) {
@@ -66,19 +63,43 @@ const DateOutput = ( props ) => {
 				return;
 			}
 			if ( ! isAnimating && isFocused && isVisible ) {
-				elemRef.current.inputElement.focus();
+				elemRef.current.focus();
 				setSimulateFocusStyle( false );
 			}
 		} else {
-			elemRef.current.inputElement.blur();
+			elemRef.current.blur();
 			setSimulateFocusStyle( true );
 		}
-	}, [ isAnimating, isActive, isFocused, isVisible ] );
+	}, [ isActive, isFocused, isAnimating, isVisible ] );
+
+	useEffect( () => {
+		checkfieldValidation( val, false );
+	}, [ attributes ] );
+
+	const keyDownHandler = ( e ) => {
+		// Enter was pressed with shift key or not
+		if ( e.keyCode === 13 ) {
+			if ( e.shiftKey ) {
+				// prevent default behavior
+				e.stopPropagation();
+			} else {
+				e.preventDefault();
+			}
+		}
+	};
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		checkfieldValidation( value );
-		setVal( value );
+		if (
+			setMaxCharacters &&
+			maxCharacters > 0 &&
+			value.length > maxCharacters
+		) {
+			shakeWithError( messages[ 'label.errorAlert.maxCharacters' ] );
+		} else {
+			setVal( value );
+			checkfieldValidation( value );
+		}
 		if ( value !== '' ) {
 			setIsAnswered( true );
 			showSubmitBtn( true );
@@ -86,49 +107,6 @@ const DateOutput = ( props ) => {
 			setIsAnswered( false );
 			showSubmitBtn( false );
 		}
-	};
-
-	const getPlaceholder = () => {
-		if ( format === 'MMDDYYYY' ) {
-			return 'MM' + separator + 'DD' + separator + 'YYYY';
-		} else if ( format === 'DDMMYYYY' ) {
-			return 'DD' + separator + 'MM' + separator + 'YYYY';
-		} else if ( format === 'YYYYMMDD' ) {
-			return 'YYYY' + separator + 'MM' + separator + 'DD';
-		}
-	};
-
-	const autoCorrectedDatePipe = createAutoCorrectedDatePipe(
-		getPlaceholder().toLowerCase()
-	);
-
-	const getMask = () => {
-		if ( format === 'YYYYMMDD' ) {
-			return [
-				/\d/,
-				/\d/,
-				/\d/,
-				/\d/,
-				separator,
-				/\d/,
-				/\d/,
-				separator,
-				/\d/,
-				/\d/,
-			];
-		}
-		return [
-			/\d/,
-			/\d/,
-			separator,
-			/\d/,
-			/\d/,
-			separator,
-			/\d/,
-			/\d/,
-			/\d/,
-			/\d/,
-		];
 	};
 
 	return (
@@ -141,12 +119,11 @@ const DateOutput = ( props ) => {
 					setIsVisible( visible );
 				} }
 			>
-				<MaskedInput
-					id={ `date-input-${ id }` }
-					onChange={ changeHandler }
+				<TextareaAutosize
 					ref={ elemRef }
+					onKeyDown={ keyDownHandler }
 					className={ classnames(
-						'question__InputField',
+						'question__TextareaField',
 						css`
 							color: ${theme.answersColor};
 
@@ -169,13 +146,16 @@ const DateOutput = ( props ) => {
 							'no-border': simulateFocusStyle,
 						}
 					) }
-					placeholder={ getPlaceholder() }
-					mask={ getMask() }
-					pipe={ autoCorrectedDatePipe }
+					id={ 'longText-' + id }
+					placeholder="Type your answer here..."
+					onChange={ changeHandler }
 					value={ val && val.length > 0 ? val : '' }
 				/>
 			</VisibilitySensor>
+			<div className="question__instruction">
+				<HtmlParser value={ messages[ 'block.longText.hint' ] } />
+			</div>
 		</div>
 	);
 };
-export default DateOutput;
+export default LongTextOutput;
