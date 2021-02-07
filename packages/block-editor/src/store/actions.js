@@ -49,7 +49,7 @@ export const setBlockTitle = ( blockId, title ) => {
  *
  * @return {Object} Action object.
  */
-export const setBlockDescription = ( blockId, description ) => {
+export const setBlockDesc = ( blockId, description ) => {
 	return {
 		type: SET_BLOCK_DESCRIPTION,
 		payload: { blockId, description },
