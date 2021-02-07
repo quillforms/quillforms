@@ -4,7 +4,6 @@
  * WordPress dependencies
  */
 import { applyFilters, doAction } from '@wordpress/hooks';
-import { select } from '@wordpress/data';
 
 /**
  * External dependencies
@@ -21,7 +20,7 @@ import { isFunction } from 'lodash';
  *                                              unique across all registered plugins.
  * @property {Function}              getValue  A function returning the value for this rest field.
  *                                             This function is expected to select the value from
- *                                             custom wp/data store related to this field. T
+ *                                             custom wp/data store related to this field.
  */
 
 /**

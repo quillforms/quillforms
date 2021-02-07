@@ -21,8 +21,7 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
-		"@wordpress/data": "^4.26.5"
+		"@babel/runtime": "^7.9.2"
 	},
 	"publishConfig": {
 		"access": "public"
