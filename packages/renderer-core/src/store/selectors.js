@@ -31,6 +31,16 @@ export function getWalkPath( state ) {
 }
 
 /**
+ * Is animating
+ *
+ * @param {Object} state      Global application state.
+ *
+ * @return {boolean} Is animating
+ */
+export function isAnimating( state ) {
+	return state.isAnimating;
+}
+/**
  * Get current block id.
  *
  * @param {Object} state      Global application state.
