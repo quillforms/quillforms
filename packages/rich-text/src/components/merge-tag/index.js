@@ -3,12 +3,11 @@
  */
 import { useEffect } from '@wordpress/element';
 import { Icon } from '@wordpress/components';
-import { plus } from '@wordpress/icons';
+import { plus, close } from '@wordpress/icons';
 
 /**
  * External Dependencies
  */
-import CloseIcon from '@material-ui/icons/Close';
 import { Editor } from 'slate';
 import classnames from 'classnames';
 import { css } from 'emotion';
@@ -92,7 +91,7 @@ const EditorMergeTag = ( props ) => {
 							}, 0 );
 						} }
 					>
-						<CloseIcon />
+						<Icon icon={ close } />
 					</button>
 					{ children }
 				</span>
