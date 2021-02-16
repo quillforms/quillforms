@@ -7,12 +7,12 @@ import { dispatch, select } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { isFunction } from 'lodash';
+import { isFunction, pick } from 'lodash';
 
 /**
  * Internal Dependencies
  */
-import { isValidIcon } from './utils';
+import { isValidIcon, normalizeIconObject } from './utils';
 import defaultBlockIcon from './default-icon';
 
 /**
@@ -20,13 +20,14 @@ import defaultBlockIcon from './default-icon';
  * Block admin settings is the configuration for the block that should be loaded at the admin only.
  * We should define here the block icon, controls, color and logic control.
  *
- * @param {string} type       Block type.
+ * @param {string} name       Block name.
  * @param {Object} settings   Block configuration.
  *
  */
-export const setBlockAdminSettings = ( type, settings ) => {
+export const setBlockAdminSettings = ( name, settings ) => {
 	settings = {
-		type,
+		name,
+		title: 'Untitled',
 		color: '#333s',
 		icon: defaultBlockIcon,
 		controls: () => null,
@@ -34,15 +35,15 @@ export const setBlockAdminSettings = ( type, settings ) => {
 		...settings,
 	};
 
-	if ( typeof type !== 'string' ) {
+	if ( typeof name !== 'string' ) {
 		console.error( 'Block types must be strings.' );
 		return;
 	}
 
-	const blockType = select( 'quillForms/blocks' ).getBlockType( type );
+	const blockType = select( 'quillForms/blocks' ).getBlockType( name );
 	if ( ! blockType ) {
 		console.error(
-			`The ${ type } block isn't registered. Please register it first!`
+			`The ${ name } block isn't registered. Please register it first!`
 		);
 		return;
 	}
@@ -50,7 +51,10 @@ export const setBlockAdminSettings = ( type, settings ) => {
 	if ( typeof settings.color !== 'string' ) {
 		console.error( 'The "color" property must be a valid string!' );
 	}
-	if ( ! isValidIcon( settings.icon ) ) {
+
+	settings.icon = normalizeIconObject( settings.icon );
+
+	if ( ! isValidIcon( settings.icon.src ) ) {
 		console.error( 'The "icon" property must be a valid function!' );
 		return;
 	}
@@ -67,5 +71,14 @@ export const setBlockAdminSettings = ( type, settings ) => {
 		return;
 	}
 
-	dispatch( 'quillForms/blocks' ).setBlockAdminSettings( settings );
+	dispatch( 'quillForms/blocks' ).setBlockAdminSettings(
+		pick( settings, [
+			'controls',
+			'logicControl',
+			'color',
+			'icon',
+			'name',
+			'title',
+		] )
+	);
 };
