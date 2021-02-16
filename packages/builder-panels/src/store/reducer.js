@@ -21,13 +21,12 @@ const initialState = {
  * @return {Object} Updated state.
  */
 const PanelReducer = ( state = initialState, action ) => {
-	const $state = { ...state };
-
 	switch ( action.type ) {
 		// Register Builder Panel
 		case REGISTER_BUILDER_PANEL: {
 			const panel = action.payload;
 			panel.subPanels = [];
+			const $state = { ...state };
 			const { panels } = $state;
 			panels.push( panel );
 			$state.panels = panels;
@@ -36,6 +35,7 @@ const PanelReducer = ( state = initialState, action ) => {
 
 		// Register Builder Sub Panel
 		case REGISTER_BUILDER_SUBPANEL: {
+			const $state = { ...state };
 			const { panels } = $state;
 			const { parent } = action.payload;
 			// console.log(parent);
@@ -48,6 +48,8 @@ const PanelReducer = ( state = initialState, action ) => {
 
 		// Set Current Panel
 		case SET_CURRENT_PANEL: {
+			const $state = { ...state };
+
 			const { panels } = $state;
 			$state.currentPanel = action.payload;
 			if ( action.payload ) {
@@ -63,11 +65,13 @@ const PanelReducer = ( state = initialState, action ) => {
 
 		// Set Current SubPanel
 		case SET_CURRENT_SUBPANEL: {
+			const $state = { ...state };
+
 			$state.currentSubPanel = action.payload;
 			return $state;
 		}
 	}
-	return $state;
+	return state;
 };
 
 export default PanelReducer;
