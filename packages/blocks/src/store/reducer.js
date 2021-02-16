@@ -1,11 +1,30 @@
 import {
 	SET_BLOCK_ADMIN_SETTINGS,
 	SET_BLOCK_RENDERER_SETTINGS,
-	REGISTER_SERVER_SIDE_BLOCKS,
+	ADD_BLOCK_TYPES,
 } from './constants';
-import omit from 'lodash/omit';
+import { omit, keyBy } from 'lodash';
 
-const initialState = {};
+const initialState = {
+	unknown: {
+		title: 'Unknown',
+		supports: {
+			editable: true,
+			description: true,
+			attachment: true,
+			required: false,
+			logic: true,
+			logicalOperators: [
+				'is',
+				'is_not',
+				'starts_with',
+				'ends_with',
+				'contains',
+				'not_contains',
+			],
+		},
+	},
+};
 
 /**
  * Reducer returning an array of registered blocks.
@@ -17,26 +36,24 @@ const initialState = {};
  */
 const BlocksReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case SET_BLOCK_ADMIN_SETTINGS: {
-			const { type } = action.payload;
+		case SET_BLOCK_ADMIN_SETTINGS:
+		case SET_BLOCK_RENDERER_SETTINGS:
+			const { name } = action.settings;
+			if ( ! state[ name ] ) {
+				return state;
+			}
 			const stateClone = { ...state };
-			stateClone[ type ].editorConfig = {
-				...omit( action.payload, [ 'type' ] ),
+			stateClone[ name ] = {
+				...stateClone[ name ],
+				...omit( action.settings, [ 'name' ] ),
 			};
 			return stateClone;
-		}
-		case SET_BLOCK_RENDERER_SETTINGS: {
-			const { type } = action.payload;
-			const stateClone = { ...state };
-			stateClone[ type ].rendererConfig = {
-				...omit( action.payload, [ 'type' ] ),
+
+		case ADD_BLOCK_TYPES: {
+			return {
+				...state,
+				...keyBy( action.blockTypes, 'name' ),
 			};
-			return stateClone;
-		}
-		case REGISTER_SERVER_SIDE_BLOCKS: {
-			const { blocks } = action.payload;
-			console.log(blocks);
-			return blocks;
 		}
 	}
 	return state;
