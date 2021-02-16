@@ -4,34 +4,32 @@ import { select, dispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { isFunction } from 'lodash';
+import { isFunction, pick } from 'lodash';
 
 /**
  * Set block renderer settings
  * Set block renderer settings is for defining UI behavior for the block
  *
- * @param {string} type     Block unique type.
+ * @param {string} name     Block name.
  * @param {Object} settings Block renderer settings.
  *
  */
-export const setBlockRendererSettings = ( type, settings ) => {
+export const setBlockRendererSettings = ( name, settings ) => {
 	settings = {
-		type,
+		name,
 		output: () => null,
-		mergeTag: () => null,
-		counterContent: () => null,
-		nextBtn: () => null,
 		...settings,
 	};
-	if ( typeof type !== 'string' ) {
+	if ( typeof name !== 'string' ) {
 		console.error( 'Block types must be strings.' );
 		return;
 	}
 
-	const blockType = select( 'quillForms/blocks' ).getBlockType( type );
+	const blockType = select( 'quillForms/blocks' ).getBlockType( name );
+
 	if ( ! blockType ) {
 		console.error(
-			`The ${ type } block isn't registered. Please register it first!`
+			`The ${ name } block isn't registered. Please register it first!`
 		);
 		return;
 	}
@@ -41,22 +39,30 @@ export const setBlockRendererSettings = ( type, settings ) => {
 		return;
 	}
 
-	if ( ! isFunction( settings.mergeTag ) ) {
+	if ( settings.mergeTag && ! isFunction( settings.mergeTag ) ) {
 		console.error( 'The "mergeTag" property must be a valid function!' );
 		return;
 	}
 
-	if ( ! isFunction( settings.counterContent ) ) {
+	if ( settings.counterContent && ! isFunction( settings.counterContent ) ) {
 		console.error(
 			'The "counterContent" property must be a valid function!'
 		);
 		return;
 	}
 
-	if ( ! isFunction( settings.nextBtn ) ) {
+	if ( settings.nextBtn && ! isFunction( settings.nextBtn ) ) {
 		console.error( 'The "nextBtn" property must be a valid function!' );
 		return;
 	}
 
-	dispatch( 'quillForms/blocks' ).setBlockRendererSettings( settings );
+	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
+		pick( settings, [
+			'name',
+			'output',
+			'mergeTag',
+			'nextBtn',
+			'counterContent',
+		] )
+	);
 };
