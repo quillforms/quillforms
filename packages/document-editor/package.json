@@ -23,8 +23,8 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/builder-components": "file:../builder-components",
-		"@wordpress/data": "^4.18.0",
-		"@wordpress/element": "^2.14.0"
+		"@wordpress/data": "^4.26.5",
+		"@wordpress/element": "^2.19.1"
 	},
 	"publishConfig": {
 		"access": "public"
