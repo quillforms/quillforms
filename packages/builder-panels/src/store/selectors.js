@@ -1,13 +1,21 @@
+import createSelector from 'rememo';
+
 /**
- * Get all panels.
+ * Returns all block objects.
  *
- * @param {Object} state       Global application state.
+ * Note: It's important to memoize this selector to avoid return a new instance
+ * on each call.
  *
- * @return {Array} Registered panels
+ * @param {Object}  state        Editor state.
+ *
+ * @return {Object[]} Post blocks.
  */
-export function getPanels( state ) {
-	return state.panels;
-}
+export const getPanels = createSelector(
+	( state ) => {
+		return state.panels;
+	},
+	( state ) => [ state.panels.length ]
+);
 
 /**
  * Get visible panels.
@@ -16,9 +24,12 @@ export function getPanels( state ) {
  *
  * @return {Array} Registered panels
  */
-export function getVisiblePanels( state ) {
-	return state.panels.filter( ( panel ) => panel.isHidden !== true );
-}
+export const getVisiblePanels = createSelector(
+	( state ) => {
+		return state.panels.filter( ( panel ) => panel.isHidden !== true );
+	},
+	( state ) => [ state.panels.length ]
+);
 
 /**
  * Get current panel.
@@ -38,11 +49,14 @@ export function getCurrentPanel( state ) {
  *
  * @return {Object} Current panel object
  */
-export function getCurrentPanelObj( state ) {
-	return state.panels.find(
-		( panel ) => panel.name === getCurrentPanel( state )
-	);
-}
+export const getCurrentPanelObj = createSelector(
+	( state ) => {
+		return state.panels.find(
+			( panel ) => panel.name === getCurrentPanel( state )
+		);
+	},
+	( state ) => [ state.panels.length, state.currentPanel ]
+);
 
 /**
  * Get current sub panel object
@@ -51,12 +65,19 @@ export function getCurrentPanelObj( state ) {
  *
  * @return {Object} Current sub panel object
  */
-export function getCurrentSubPanelObj( state ) {
-	if ( state.currentSubPanel )
-		return getCurrentPanelObj( state ).subPanels.find(
-			( subPanel ) => subPanel.name === state.currentSubPanel
-		);
-}
+export const getCurrentSubPanelObj = createSelector(
+	( state ) => {
+		if ( state.currentSubPanel )
+			return getCurrentPanelObj( state ).subPanels.find(
+				( subPanel ) => subPanel.name === state.currentSubPanel
+			);
+	},
+	( state ) => [
+		state.panels.length,
+		state.currentSubPanel,
+		state.currentPanel,
+	]
+);
 
 /**
  * Get current sub panel.
