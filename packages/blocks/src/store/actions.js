@@ -1,47 +1,49 @@
 import {
 	SET_BLOCK_ADMIN_SETTINGS,
-	REGISTER_SERVER_SIDE_BLOCKS,
+	ADD_BLOCK_TYPES,
 	SET_BLOCK_RENDERER_SETTINGS,
 } from './constants';
+
+import { castArray } from 'lodash';
 
 /**
  * Returns an action object used in registering block renderer settings.
  *
- * @param {Object} blockRendererConfig Block renderer settings which should define its output behavior
+ * @param {Object} blockRendererSettings Block renderer settings which define block renderer behavior.
  *
  * @return {Object} Action object.
  */
-export const setBlockRendererSettings = ( blockRendererConfig ) => {
+export const setBlockRendererSettings = ( blockRendererSettings ) => {
 	return {
 		type: SET_BLOCK_RENDERER_SETTINGS,
-		payload: blockRendererConfig,
+		settings: blockRendererSettings,
 	};
 };
 
 /**
  * Returns an action object used in registering block editor configuration.
  *
- * @param {Object} blockEditorConfig Block editor config which should have icon, color and controls
+ * @param {Object} blockAdminSettings Block admin settings which defines block behavior at admin.
  *
  * @return {Object} Action object.
  */
-export const setBlockAdminSettings = ( blockEditorConfig ) => {
+export const setBlockAdminSettings = ( blockAdminSettings ) => {
 	return {
 		type: SET_BLOCK_ADMIN_SETTINGS,
-		payload: blockEditorConfig,
+		settings: blockAdminSettings,
 	};
 };
 
 /**
- * Returns an action object used in registring blocks from server side.
+ * Returns an action object used in signalling that block types have been added.
  *
- * @param {Object} blocks The registered blocks.
+ * @param {Array|Object} blockTypes Block types received.
  *
  * @return {Object} Action object.
  */
-export const __unstableRegisterServerSideBlocks = ( blocks ) => {
+export function addBlockTypes( blockTypes ) {
 	return {
-		type: REGISTER_SERVER_SIDE_BLOCKS,
-		payload: { blocks },
+		type: ADD_BLOCK_TYPES,
+		blockTypes: castArray( blockTypes ),
 	};
-};
+}
