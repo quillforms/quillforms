@@ -4,6 +4,7 @@
 import { jsx } from 'slate-hyperscript';
 import { Editor } from 'slate';
 import { autop, removep } from '@wordpress/autop';
+
 /**
  * Internal Dependencies
  */
@@ -62,6 +63,14 @@ const deserialize = ( el ) => {
 				type: el.dataset.type,
 				modifier: el.dataset.modifier,
 			},
+			children: [
+				{
+					text: '',
+					bold: false,
+					italic: false,
+					underline: false,
+				},
+			],
 		} ),
 		A: () => ( { type: 'link', url: el.getAttribute( 'href' ) } ),
 
@@ -116,7 +125,12 @@ const deserialize = ( el ) => {
 
 	if ( TEXT_TAGS[ nodeName ] ) {
 		const attrs = TEXT_TAGS[ nodeName ]( el );
-		return children.map( ( child ) => jsx( 'text', { ...attrs }, child ) );
+		return children.map( ( child ) => {
+			// This condition is to prevent throwing error when we have a string like this: <strong> {{type:modifier}} </strong>
+			if ( child.type !== 'mergeTag' ) {
+				return jsx( 'text', { ...attrs }, child );
+			}
+		} );
 	}
 
 	return children;
