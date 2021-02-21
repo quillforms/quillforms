@@ -1,8 +1,7 @@
 /**
- * QuillForms Dependencies
+ * QuillForms Depndencies
  */
-import { useMetaField } from '@quillforms/renderer-components';
-import { useTheme } from '@quillforms/utils';
+import { useTheme, useMessages } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -12,43 +11,45 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import MaskedInput from 'react-text-mask';
-import moment from 'moment';
-import { createAutoCorrectedDatePipe } from 'text-mask-addons';
+import VisibilitySensor from 'react-visibility-sensor';
 import { css } from 'emotion';
 import classnames from 'classnames';
-import VisibilitySensor from 'react-visibility-sensor';
 
-const DateOutput = ( props ) => {
+const NumberOutput = ( props ) => {
 	const {
 		id,
+		attributes,
 		isAnimating,
 		required,
-		attributes,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
 		isActive,
 		setValidationErr,
 		showSubmitBtn,
+		shakeWithError,
 		val,
 		setVal,
 	} = props;
-	const { format, separator } = attributes;
+	const { setMax, max, setMin, min } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-	const messages = useMetaField( 'messages' );
+
+	const messages = useMessages();
 	const theme = useTheme();
+
 	const elemRef = useRef();
 
 	const checkfieldValidation = ( value ) => {
-		const date = moment( value );
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
-		} else if ( ! date.isValid() ) {
+		} else if ( setMax && max > 0 && value > max ) {
 			setIsValid( false );
-			setValidationErr( messages[ 'label.errorAlert.date' ] );
+			setValidationErr( messages[ 'label.errorAlert.maxNum' ] );
+		} else if ( setMin && min >= 0 && value < min ) {
+			setIsValid( false );
+			setValidationErr( messages[ 'label.errorAlert.minNum' ] );
 		} else {
 			setIsValid( true );
 			setValidationErr( null );
@@ -56,8 +57,8 @@ const DateOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		//checkfieldValidation( val );
-	}, [ required, attributes ] );
+		checkfieldValidation( val, false );
+	}, [ attributes ] );
 
 	useEffect( () => {
 		if ( isActive ) {
@@ -66,69 +67,31 @@ const DateOutput = ( props ) => {
 				return;
 			}
 			if ( ! isAnimating && isFocused && isVisible ) {
-				elemRef.current.inputElement.focus();
+				elemRef.current.focus();
 				setSimulateFocusStyle( false );
 			}
 		} else {
-			elemRef.current.inputElement.blur();
+			elemRef.current.blur();
 			setSimulateFocusStyle( true );
 		}
-	}, [ isAnimating, isActive, isFocused, isVisible ] );
+	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		checkfieldValidation( value );
-		setVal( value );
-		if ( value !== '' ) {
+		if ( isNaN( value ) ) {
+			shakeWithError( 'Numbers only!' );
+			return;
+		}
+		setVal( parseInt( value ) );
+		checkfieldValidation( parseInt( value ) );
+
+		if ( value ) {
 			setIsAnswered( true );
 			showSubmitBtn( true );
 		} else {
 			setIsAnswered( false );
 			showSubmitBtn( false );
 		}
-	};
-
-	const getPlaceholder = () => {
-		if ( format === 'MMDDYYYY' ) {
-			return 'MM' + separator + 'DD' + separator + 'YYYY';
-		} else if ( format === 'DDMMYYYY' ) {
-			return 'DD' + separator + 'MM' + separator + 'YYYY';
-		} else if ( format === 'YYYYMMDD' ) {
-			return 'YYYY' + separator + 'MM' + separator + 'DD';
-		}
-	};
-
-	const autoCorrectedDatePipe = createAutoCorrectedDatePipe(
-		getPlaceholder().toLowerCase()
-	);
-
-	const getMask = () => {
-		if ( format === 'YYYYMMDD' ) {
-			return [
-				/\d/,
-				/\d/,
-				/\d/,
-				/\d/,
-				separator,
-				/\d/,
-				/\d/,
-				separator,
-				/\d/,
-				/\d/,
-			];
-		}
-		return [
-			/\d/,
-			/\d/,
-			separator,
-			/\d/,
-			/\d/,
-			separator,
-			/\d/,
-			/\d/,
-			/\d/,
-			/\d/,
-		];
 	};
 
 	return (
@@ -141,10 +104,7 @@ const DateOutput = ( props ) => {
 					setIsVisible( visible );
 				} }
 			>
-				<MaskedInput
-					id={ `date-input-${ id }` }
-					onChange={ changeHandler }
-					ref={ elemRef }
+				<input
 					className={ classnames(
 						'question__InputField',
 						css`
@@ -169,13 +129,17 @@ const DateOutput = ( props ) => {
 							'no-border': simulateFocusStyle,
 						}
 					) }
-					placeholder={ getPlaceholder() }
-					mask={ getMask() }
-					pipe={ autoCorrectedDatePipe }
-					value={ val && val.length > 0 ? val : '' }
+					ref={ elemRef }
+					id={ 'number-' + id }
+					onBlur={ () => {
+						checkfieldValidation( val );
+					} }
+					placeholder="Type your answer here..."
+					onChange={ changeHandler }
+					value={ val ? val : '' }
 				/>
 			</VisibilitySensor>
 		</div>
 	);
 };
-export default DateOutput;
+export default NumberOutput;
