@@ -5,7 +5,7 @@ const BoxWrapper = ( { id, currentBlockId, setCurrentBlock, children } ) => {
 	return (
 		<div
 			role="presentation"
-			onClick={ ( e ) => {
+			onFocus={ ( e ) => {
 				e.stopPropagation();
 				setCurrentBlock( id );
 			} }

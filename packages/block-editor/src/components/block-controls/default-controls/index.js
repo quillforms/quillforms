@@ -6,7 +6,7 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -21,49 +21,39 @@ import { MediaUpload } from '@wordpress/media-utils';
 import { isEmpty } from 'lodash';
 
 const DefaultControls = ( props ) => {
-	const {
-		type,
-		currentFormItem,
-		toggleDescription,
-		toggleRequired,
-		setAttachment,
-	} = props;
+	const { blockName, attributes, setAttributes } = props;
 
-	const {
-		editableSupport,
-		requiredSupport,
-		descriptionSupport,
-		attachmentSupport,
-	} = useSelect( ( select ) => {
-		return {
-			editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-				type,
-				'editable'
-			),
-			requiredSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-				type,
-				'required'
-			),
-			descriptionSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-				type,
-				'description'
-			),
-			attachmentSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-				type,
-				'attachment'
-			),
-		};
-	} );
-	const { description, attachment } = currentFormItem;
+	const { editableSupport, requiredSupport, attachmentSupport } = useSelect(
+		( select ) => {
+			return {
+				editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+					blockName,
+					'editable'
+				),
+				requiredSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+					blockName,
+					'required'
+				),
+				attachmentSupport: select(
+					'quillForms/blocks'
+				).hasBlockSupport( blockName, 'attachment' ),
+			};
+		}
+	);
+	const { required, attachment } = attributes;
 	return (
 		<Fragment>
-			{ descriptionSupport && (
+			{ editableSupport && requiredSupport && (
 				<__experimentalBaseControl>
 					<__experimentalControlWrapper>
-						<__experimentalControlLabel label={ 'Description' } />
+						<__experimentalControlLabel label={ 'Required' } />
 						<ToggleControl
-							onChange={ toggleDescription }
-							checked={ !! description }
+							checked={ required }
+							onChange={ () =>
+								setAttributes( {
+									required: ! required,
+								} )
+							}
 						/>
 					</__experimentalControlWrapper>
 				</__experimentalBaseControl>
@@ -75,9 +65,11 @@ const DefaultControls = ( props ) => {
 						{ isEmpty( attachment ) ? (
 							<MediaUpload
 								onSelect={ ( media ) =>
-									setAttachment( {
-										type: 'image',
-										url: media.url,
+									setAttributes( {
+										attachment: {
+											type: 'image',
+											url: media.url,
+										},
 									} )
 								}
 								allowedTypes={ [ 'image' ] }
@@ -93,23 +85,16 @@ const DefaultControls = ( props ) => {
 						) : (
 							<button
 								className="remove-media-btn"
-								onClick={ () => setAttachment( {} ) }
+								onClick={ () =>
+									setAttributes( {
+										attachment: {},
+									} )
+								}
 								color="secondary"
 							>
 								Remove
 							</button>
 						) }
-					</__experimentalControlWrapper>
-				</__experimentalBaseControl>
-			) }
-			{ editableSupport && requiredSupport && (
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper>
-						<__experimentalControlLabel label={ 'Required' } />
-						<ToggleControl
-							checked={ currentFormItem.required }
-							onChange={ toggleRequired }
-						/>
 					</__experimentalControlWrapper>
 				</__experimentalBaseControl>
 			) }

@@ -8,9 +8,16 @@ import { getPlainExcerpt } from '@quillforms/rich-text';
  */
 import { Icon } from '@wordpress/components';
 import { blockDefault, plus } from '@wordpress/icons';
+import { useSelect } from '@wordpress/data';
 
-const DraggedBlock = ( { block, item } ) => {
-	let icon = block?.editorConfig?.icon;
+const DraggedBlock = ( { name, id } ) => {
+	const { blockType, block } = useSelect( ( select ) => {
+		return {
+			blockType: select( 'quillForms/blocks' ).getBlockType( name ),
+			block: select( 'quillForms/block-editor' ).getBlockById( id ),
+		};
+	} );
+	let icon = blockType?.icon;
 	if ( icon?.src === 'block-default' ) {
 		icon = {
 			src: blockDefault,
@@ -21,15 +28,15 @@ const DraggedBlock = ( { block, item } ) => {
 	}
 	const renderedIcon = <Icon icon={ icon?.src ? icon.src : icon } />;
 
-	const itemTitle = getPlainExcerpt( item.title );
+	const blockLabel = getPlainExcerpt( block.attributes.label );
 	return (
 		<div className="block-editor-block-dragging__wrapper">
 			<div className="block-editor-block-dragging">
 				<div
 					className="block-editor-block-dragging__icon-box"
 					style={ {
-						background: block?.editorConfig?.color
-							? block.editorConfig.color
+						background: blockType?.color
+							? blockType.color
 							: '#bb426f',
 					} }
 				>
@@ -37,7 +44,7 @@ const DraggedBlock = ( { block, item } ) => {
 				</div>
 				<div
 					className="block-editor-block-dragging__title-excerpt"
-					dangerouslySetInnerHTML={ { __html: itemTitle } }
+					dangerouslySetInnerHTML={ { __html: blockLabel } }
 				/>
 			</div>
 		</div>

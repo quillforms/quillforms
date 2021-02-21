@@ -1,13 +1,14 @@
 /**
  * QuillForms Dependencies
  */
-import { Button } from '@quillforms/builder-components';
+import { Button } from '@quillforms/admin-components';
 import {
 	__experimentalEditor as TextEditor,
 	__unstableHtmlSerialize as serialize,
 	__unstableFocus,
 	getPlainText,
 } from '@quillforms/rich-text';
+import { useTrace } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -30,25 +31,23 @@ import BlockToolbar from '../block-toolbar';
 import BlockAttachment from '../block-attachment';
 
 const BlockEditor = ( props ) => {
-	const { setBlockDesc, setBlockTitle } = useDispatch(
-		'quillForms/block-editor'
-	);
+	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
 
 	const {
-		attachment,
+		attributes,
 		id,
 		blockColor,
-		title,
+		label,
 		desc,
-		addDesc,
-		setTitleJsonVal,
+		setLabelJsonVal,
 		setDescJsonVal,
-		titleEditor,
+		labelEditor,
 		descEditor,
 		focusOn,
 		setFocusOn,
 		isSelected,
 	} = props;
+	const { attachment } = attributes;
 
 	const { blockTypes } = useSelect( ( select ) => {
 		return {
@@ -58,43 +57,44 @@ const BlockEditor = ( props ) => {
 
 	const { prevFields } = useSelect( ( select ) => {
 		return {
-			prevFields: select( 'quillForms/block-editor' )
-				.getPreviousEditableFields( id )
-				.map( ( field ) => {
-					return {
-						type: 'field',
-						label: field.title,
-						modifier: field.id,
-						icon: blockTypes[ field.type ]?.editorConfig?.icon,
-						color: blockTypes[ field.type ]?.editorConfig?.color,
-						order: select(
-							'quillForms/block-editor'
-						).getBlockOrderById( field.id ),
-					};
-				} ),
+			prevFields: select(
+				'quillForms/block-editor'
+			).getPreviousEditableFields( id ),
 		};
 	} );
+
+	const mergeTags = prevFields.map( ( field ) => {
+		return {
+			type: 'field',
+			label: field.attributes.label,
+			modifier: field.id,
+			icon: blockTypes[ field.name ]?.icon,
+			color: blockTypes[ field.name ]?.color,
+			order: field.order,
+		};
+	} );
+	useTrace( { ...props, prevFields } );
 
 	// State for popup showed after Accessing variables {{xx:yyy}} explicitly from editor!
 	const [ varAlertPopup, setVarAlertPopup ] = useState( false );
 
-	let currentEditor = titleEditor;
+	let currentEditor = labelEditor;
 	if ( focusOn === 'desc' ) {
 		currentEditor = descEditor;
 	}
-	// Serialize title is a debounced function that updates the store with serialized html value
-	const serializeTitle = useCallback(
+	// Serialize label is a debounced function that updates the store with serialized html value
+	const serializeLabel = useCallback(
 		debounce( ( value ) => {
-			setBlockTitle( id, serialize( value ) );
-		}, 400 ),
+			setBlockAttributes( id, { label: serialize( value ) } );
+		}, 200 ),
 		[]
 	);
 
 	// Serialize description is a debounced function that updates the store with serialized html value
 	const serializeDesc = useCallback(
 		debounce( ( value ) => {
-			setBlockDesc( id, serialize( value ) );
-		}, 400 ),
+			setBlockAttributes( id, { description: serialize( value ) } );
+		}, 200 ),
 		[]
 	);
 
@@ -103,8 +103,8 @@ const BlockEditor = ( props ) => {
 	// we keep the focusOn as an internal state so when the component mounts again, the focus can still work.
 	useEffect( () => {
 		if ( isSelected ) {
-			if ( focusOn === 'title' || ! focusOn ) {
-				__unstableFocus( titleEditor );
+			if ( focusOn === 'label' || ! focusOn ) {
+				__unstableFocus( labelEditor );
 			} else if ( focusOn === 'desc' ) {
 				__unstableFocus( descEditor );
 			}
@@ -116,13 +116,13 @@ const BlockEditor = ( props ) => {
 		new RegExp( /{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/ ).test( val );
 
 	// Title Change Handler
-	const titleChangeHandler = ( value ) => {
-		if ( JSON.stringify( value ) !== JSON.stringify( title ) ) {
-			setTitleJsonVal( value );
+	const labelChangeHandler = ( value ) => {
+		if ( JSON.stringify( value ) !== JSON.stringify( label ) ) {
+			setLabelJsonVal( value );
 			if ( varRegexMatch( getPlainText( value ) ) ) {
 				setVarAlertPopup( true );
 			} else {
-				serializeTitle( value );
+				serializeLabel( value );
 			}
 		}
 	};
@@ -140,23 +140,23 @@ const BlockEditor = ( props ) => {
 	};
 
 	// Title Rich Text Editor
-	const TitleEditor = useMemo(
+	const LabelEditor = useMemo(
 		() => (
 			<div className="block-editor-block-edit__title-editor">
 				<TextEditor
-					editor={ titleEditor }
+					editor={ labelEditor }
 					placeholder="Type question here..."
 					color="#262627"
-					mergeTags={ prevFields }
-					value={ title }
-					onChange={ ( value ) => titleChangeHandler( value ) }
+					mergeTags={ mergeTags }
+					value={ label }
+					onChange={ ( value ) => labelChangeHandler( value ) }
 					onFocus={ () => {
 						setFocusOn( 'title' );
 					} }
 				/>
 			</div>
 		),
-		[ JSON.stringify( title ), JSON.stringify( prevFields ) ]
+		[ JSON.stringify( label ), JSON.stringify( prevFields ) ]
 	);
 
 	// Description Rich Text Editor
@@ -168,7 +168,7 @@ const BlockEditor = ( props ) => {
 					placeholder="Write your description here"
 					color="#898989"
 					value={ desc }
-					mergeTags={ prevFields }
+					mergeTags={ mergeTags }
 					onChange={ ( value ) => descChangeHandler( value ) }
 					onFocus={ () => {
 						setFocusOn( 'desc' );
@@ -182,8 +182,8 @@ const BlockEditor = ( props ) => {
 	return (
 		<div className="block-editor-block-edit">
 			<div className="block-editor-block-edit__text-editor">
-				{ TitleEditor }
-				{ addDesc && DescEditor }
+				{ LabelEditor }
+				{ DescEditor }
 			</div>
 			{ attachment && attachment.type === 'image' && (
 				<BlockAttachment

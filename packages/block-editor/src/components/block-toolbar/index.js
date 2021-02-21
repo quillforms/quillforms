@@ -9,7 +9,7 @@ import {
 /**
  * WordPress Dependencies
  */
- import { Tooltip } from '@wordpress/components';
+import { Tooltip } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
 import { Icon } from '@wordpress/components';
 
@@ -19,7 +19,7 @@ import { Icon } from '@wordpress/components';
 import BlockActions from '../block-actions';
 import ControlsIcon from './controls-icon';
 
-// import { EmojiPicker } from '@quillforms/builder-components';
+// import { EmojiPicker } from '@quillforms/admin-components';
 
 const BlockToolbar = ( { id, category, editor } ) => {
 	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );

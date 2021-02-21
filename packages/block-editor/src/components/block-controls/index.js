@@ -9,12 +9,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import DefaultControls from './default-controls';
 
 const BlockControls = () => {
-	const {
-		setBlockAttributes,
-		toggleDescription,
-		setBlockAttachment,
-		toggleRequired,
-	} = useDispatch( 'quillForms/block-editor' );
+	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
 
 	const { currentBlockId, currentFormItem } = useSelect( ( select ) => {
 		const { getCurrentBlockId, getCurrentFormItem } = select(
@@ -30,31 +25,25 @@ const BlockControls = () => {
 		return {
 			blockType: currentFormItem
 				? select( 'quillForms/blocks' ).getBlockTypes()[
-						currentFormItem.type
+						currentFormItem.name
 				  ]
 				: null,
 		};
 	} );
 	if ( ! currentBlockId || ! currentFormItem ) return null;
-	const { type } = currentFormItem;
+	const { name } = currentFormItem;
 
 	return (
 		<div className="block-editor-block-controls">
 			<DefaultControls
-				type={ type }
-				currentFormItem={ currentFormItem }
-				toggleDescription={ () => {
-					toggleDescription( currentBlockId );
-				} }
-				setAttachment={ ( val ) => {
-					setBlockAttachment( currentBlockId, val );
-				} }
-				toggleRequired={ ( val ) => {
-					toggleRequired( currentBlockId, val );
+				blockName={ name }
+				attributes={ currentFormItem.attributes }
+				setAttributes={ ( val ) => {
+					setBlockAttributes( currentBlockId, val );
 				} }
 			/>
-			{ blockType.editorConfig?.controls && (
-				<blockType.editorConfig.controls
+			{ blockType?.controls && (
+				<blockType.controls
 					id={ currentBlockId }
 					attributes={ currentFormItem.attributes }
 					setAttributes={ ( val ) => {

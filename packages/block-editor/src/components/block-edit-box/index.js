@@ -4,7 +4,7 @@
 import {
 	__experimentalDraggable,
 	BlockIconWrapper,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 import {
 	__unstableCreateEditor as createEditor,
 	__unstableHtmlDeserialize as deserialize,
@@ -36,33 +36,29 @@ import BlockPlaceholder from '../block-placeholder';
 import BlockMover from '../block-mover';
 
 const areEqual = ( prevProps, nextProps ) => {
-	if (
-		prevProps.index === nextProps.index &&
-		prevProps.item.attachment === nextProps.item.attachment &&
-		prevProps.item.description === nextProps.item.description &&
-		prevProps.isSelected === nextProps.isSelected
-	)
-		return true;
+	if ( prevProps.index === nextProps.index ) return true;
 	return false;
 };
 
 const BlockEditBox = memo( ( props ) => {
-	const { item, block, index } = props;
-
-	const { id, attachment, description, title, type } = item;
+	const { id, index, name } = props;
 
 	const [ ref, inView, entry ] = useInView( {
 		/* Optional options */
 		threshold: 0,
 	} );
-	const { isSelected } = useSelect( ( select ) => {
+	const { isSelected, block, blockType } = useSelect( ( select ) => {
 		return {
+			block: select( 'quillForms/block-editor' ).getBlockById( id ),
+			blockType: select( 'quillForms/blocks' ).getBlockType( name ),
 			isSelected:
 				select( 'quillForms/block-editor' ).getCurrentBlockId() === id,
 		};
 	} );
+	const { attributes } = block;
+	const { label, description } = attributes;
 
-	const [ titleJsonVal, setTitleJsonVal ] = useState( [
+	const [ labelJsonVal, setLabelJsonVal ] = useState( [
 		{
 			type: 'paragraph',
 			children: [
@@ -92,12 +88,12 @@ const BlockEditBox = memo( ( props ) => {
 
 	// Deserialize value on mount
 	useEffect( () => {
-		setTitleJsonVal( getDeserializedValue( title ) );
+		setLabelJsonVal( getDeserializedValue( label ) );
 		if ( !! description )
 			setDescJsonVal( getDeserializedValue( description ) );
 	}, [] );
 
-	const titleEditor = useMemo(
+	const labelEditor = useMemo(
 		() =>
 			createEditor( {
 				withReact: true,
@@ -125,7 +121,7 @@ const BlockEditBox = memo( ( props ) => {
 		<div ref={ ref }>
 			<__experimentalDraggable
 				isDragDisabled={
-					isDragDisabled || ! inView || type === 'welcome-screen'
+					isDragDisabled || ! inView || name === 'welcome-screen'
 				}
 				key={ id }
 				draggableId={ id.toString() }
@@ -147,28 +143,22 @@ const BlockEditBox = memo( ( props ) => {
 											dragHandleProps={ {
 												...provided.dragHandleProps,
 											} }
-											type={ type }
 											id={ id }
-											registeredBlock={ block }
+											blockType={ blockType }
 										/>
 										<BlockEditor
 											isSelected={ isSelected }
-											attachment={ attachment }
+											attributes={ attributes }
 											focusOn={ focusOn }
 											setFocusOn={ setFocusOn }
 											id={ id }
 											index={ index }
-											blockColor={
-												block?.editorConfig?.color
-											}
-											title={ titleJsonVal }
-											addDesc={
-												description !== undefined
-											}
+											blockColor={ blockType?.color }
+											label={ labelJsonVal }
 											desc={ descJsonVal }
-											titleEditor={ titleEditor }
-											setTitleJsonVal={ ( value ) =>
-												setTitleJsonVal( value )
+											labelEditor={ labelEditor }
+											setLabelJsonVal={ ( value ) =>
+												setLabelJsonVal( value )
 											}
 											descEditor={ descEditor }
 											setDescJsonVal={ ( value ) =>
@@ -179,7 +169,7 @@ const BlockEditBox = memo( ( props ) => {
 								) : (
 									<Fragment>
 										<BlockIconWrapper
-											color={ block?.editorConfig?.color }
+											color={ blockType?.color }
 										/>
 										<BlockPlaceholder />
 									</Fragment>

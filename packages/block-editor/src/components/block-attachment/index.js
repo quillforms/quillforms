@@ -10,7 +10,7 @@ import { Icon } from '@wordpress/components';
 import { close } from '@wordpress/icons';
 
 const BlockAttachment = ( { blockColor, attachment, id } ) => {
-	const { setBlockAttachment } = useDispatch( 'quillForms/block-editor' );
+	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
 
 	return (
 		<div
@@ -25,7 +25,7 @@ const BlockAttachment = ( { blockColor, attachment, id } ) => {
 			<div
 				role="presentation"
 				className="block-editor-block-attachment__delete"
-				onClick={ () => setBlockAttachment( id, {} ) }
+				onClick={ () => setBlockAttributes( id, { attachment: {} } ) }
 			>
 				<div
 					className="block-editor-block-attachment__background-wrapper"
