@@ -1,18 +1,11 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-
-/**
- * External Dependencies
- */
-import CloseIcon from '@material-ui/icons/Close';
-import { motion } from 'framer-motion';
+import { Icon } from '@wordpress/components';
+import { close } from '@wordpress/icons';
 
 const PanelHeader = () => {
-	const [ animating, setAnimating ] = useState( false );
-
 	const { panels, currentPanel, currentSubPanel } = useSelect( ( select ) => {
 		return {
 			panels: select( 'quillForms/builder-panels' ).getPanels(),
@@ -30,20 +23,10 @@ const PanelHeader = () => {
 	);
 
 	let panelTitle = null;
-	// // console.log(formStructure);
-	const { currentBlockId } = useSelect( ( select ) => {
-		return {
-			currentBlockId: select(
-				'quillForms/block-editor'
-			).getCurrentBlockId(),
-		};
-	} );
+
 	const { setCurrentPanel, setCurrentSubPanel } = useDispatch(
 		'quillForms/builder-panels'
 	);
-	useEffect( () => {
-		if ( currentPanel === 'blockControls' ) setAnimating( true );
-	}, [ currentBlockId ] );
 	switch ( currentPanel ) {
 		case 'blockControls':
 			{
@@ -69,26 +52,14 @@ const PanelHeader = () => {
 	}
 
 	return (
-		<motion.div
-			className={ 'builder-core-panel__header-wrapper' }
-			initial={ { backgroundColor: '#f5f5f5' } }
-			animate={ {
-				backgroundColor: animating
-					? [ '#dadada', '#f5f5f5' ]
-					: '#f5f5f5',
-			} }
-			transition={ {
-				ease: 'easeInOut',
-				duration: 0.5,
-			} }
-			onAnimationComplete={ () => setAnimating( false ) }
-		>
+		<div className={ 'builder-core-panel__header-wrapper' }>
 			<div className="builder-core-panel__header">
 				<div className="builder-core-panel__header-title">
 					{ panelTitle }
 				</div>
 				<div className="builder-core-panel__header-close-icon">
-					<CloseIcon
+					<Icon
+						icon={ close }
 						onClick={ () => {
 							setCurrentPanel( '' );
 							setCurrentSubPanel( '' );
@@ -127,7 +98,7 @@ const PanelHeader = () => {
 						</div>
 					</div>
 				) }
-		</motion.div>
+		</div>
 	);
 };
 export default PanelHeader;

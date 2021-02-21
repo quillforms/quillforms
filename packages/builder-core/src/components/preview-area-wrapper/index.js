@@ -6,7 +6,7 @@ import { useEffect, useState } from '@wordpress/element';
 /**
  * QuillForms Dependencies
  */
-import { useGlobalEditorContext } from '@quillforms/builder-components';
+import { useGlobalEditorContext } from '@quillforms/admin-components';
 import { Form } from '@quillforms/renderer-core';
 import { useTheme } from '@quillforms/theme-editor';
 
@@ -108,19 +108,19 @@ const FormPreview = ( {} ) => {
 		if ( ! applyJumpLogic ) {
 			const formFields = blocks.filter(
 				( block ) =>
-					block.type !== 'thankyou-screen' &&
-					block.type !== 'welcome-screen'
+					block.name !== 'thankyou-screen' &&
+					block.name !== 'welcome-screen'
 			);
 
 			const $thankyouScreens = blocks
-				.filter( ( block ) => block.type === 'thankyou-screen' )
+				.filter( ( block ) => block.name === 'thankyou-screen' )
 				.concat( {
 					id: 'default_thankyou_screen',
 					type: 'thankyou-screen',
 				} );
 
 			const $welcomeScreens = blocks.filter(
-				( block ) => block.type === 'welcome-screen'
+				( block ) => block.name === 'welcome-screen'
 			);
 
 			const $isThankyouScreenActive =
@@ -186,7 +186,7 @@ const FormPreview = ( {} ) => {
 						<>
 							<Form
 								formObj={ {
-									blocks,
+									blocks: cloneDeep( blocks ),
 									theme,
 									messages,
 									logic: null,

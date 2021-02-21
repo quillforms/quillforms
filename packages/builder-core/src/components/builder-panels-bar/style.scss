@@ -25,7 +25,9 @@
 
 		&.active .builder-core-builder-panel-nav-item__icon {
 			background: #8640e3;
-			color: #fff;
+			svg {
+				fill: #fff;
+			}
 		}
 
 		&:not(.active) .builder-core-builder-panel-nav-item__icon:hover {
@@ -42,10 +44,12 @@
 				border: none;
 				width: 40px;
 				height: 40px;
-				color: #b7b6b5;
 			}
 
 			svg {
+				width: 24px;
+				height: 25px;
+				fill: #b7b6b5;
 				font-size: 24px;
 			}
 		}

@@ -1,20 +1,18 @@
 /**
  * QuillForms Dependencies
  */
-import { __experimentalDragDropContext as DragDropContext } from '@quillforms/builder-components';
-
+import { __experimentalDragDropContext as DragDropContext } from '@quillforms/admin-components';
+import { createBlock } from '@quillforms/blocks';
 /**
  * WordPress Dependencies
  */
 import { useCallback, useState, useMemo, useEffect } from '@wordpress/element';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { PluginArea } from '@wordpress/plugins';
 
 /**
  * External Dependencies
  */
-import { omit, assign } from 'lodash';
 import { confirmAlert } from 'react-confirm-alert';
 
 /**
@@ -27,25 +25,41 @@ import BuilderPanelsBar from '../builder-panels-bar';
 import DragAlert from '../drag-alert';
 import SaveButton from '../save-button';
 import { BuilderNotices } from '../builder-notices';
-
 const Layout = ( props ) => {
-	const {
-		currentPanel,
-		areaToHide,
-		blockTypes,
-		formBlocks,
-		reorderBlocks,
-		insertBlock,
-		insertNewFieldAnswer,
-		hasBlocksFinishedResolution,
-		setCurrentBlockId,
-	} = props;
-
 	const [ targetIndex, setTargetIndex ] = useState();
 	const [ isDraggingContent, setIsDraggingContent ] = useState( false );
 	const [ sourceContentIndex, setSourceContentIndex ] = useState();
 	const [ isDragging, setIsDragging ] = useState( false );
 
+	const {
+		blockTypes,
+		currentPanel,
+		areaToHide,
+		formBlocks,
+		hasBlocksFinishedResolution,
+	} = useSelect( ( select ) => {
+		const { getBlockTypes } = select( 'quillForms/blocks' );
+		const { getCurrentPanel, getAreaToHide } = select(
+			'quillForms/builder-panels'
+		);
+		const { getBlocks, hasFinishedResolution } = select(
+			'quillForms/block-editor'
+		);
+		return {
+			blockTypes: getBlockTypes(),
+			currentPanel: getCurrentPanel(),
+			areaToHide: getAreaToHide(),
+			formBlocks: getBlocks(),
+			hasBlocksFinishedResolution: hasFinishedResolution( 'getBlocks' ),
+		};
+	} );
+
+	const { insertBlock, reorderBlocks, setCurrentBlock } = useDispatch(
+		'quillForms/block-editor'
+	);
+	const { insertEmptyFieldAnswer } = useDispatch(
+		'quillForms/renderer-submission'
+	);
 	const generateBlockId = () => {
 		if ( formBlocks?.length > 0 ) {
 			const maxId = Math.max.apply(
@@ -58,12 +72,14 @@ const Layout = ( props ) => {
 	};
 
 	const hasIncorrectFieldMergeTags = ( a, b ) => {
-		const list = { ...formBlocks };
-		const { title, description } = list[ a ];
+		const list = [ ...formBlocks ];
+		const {
+			attributes: { label, description },
+		} = list[ a ];
 		const regex = /{{field:([a-zA-Z0-9-_]+)}}/g;
 		let match;
 
-		while ( ( match = regex.exec( title + ' ' + description ) ) ) {
+		while ( ( match = regex.exec( label + ' ' + description ) ) ) {
 			const fieldId = match[ 1 ];
 			const fieldIndex = formBlocks.findIndex(
 				( field ) => field.id === fieldId
@@ -147,29 +163,14 @@ const Layout = ( props ) => {
 			case 'BLOCKS_LIST': {
 				if ( destination.droppableId === 'DROP_AREA' ) {
 					// Get block type
-					const blockType = Object.keys( blockTypes )[ source.index ];
-					let draggedBlock = { ...blockTypes[ blockType ] };
-					assign( draggedBlock, {
-						id: generateBlockId(),
-						title: '',
-						type: blockType,
-					} );
-					const isBlockEditable = draggedBlock.supports?.editable;
-					if ( ! isBlockEditable ) {
-						assign( draggedBlock, {
-							required: false,
-						} );
-					}
-					draggedBlock = omit( draggedBlock, [
-						'editorConfig',
-						'rendererConfig',
-						'supports',
-					] );
+					const blockName = Object.keys( blockTypes )[ source.index ];
+					const blockType = blockTypes[ blockName ];
+					const blockToInsert = createBlock( blockName );
+					blockToInsert.id = generateBlockId();
+					if ( blockType.supports.editable )
+						insertEmptyFieldAnswer( blockToInsert.id, blockType );
 
-					if ( isBlockEditable )
-						insertNewFieldAnswer( draggedBlock.id, blockType );
-
-					insertBlock( draggedBlock, destination );
+					insertBlock( blockToInsert, destination );
 				}
 			}
 		}
@@ -213,14 +214,18 @@ const Layout = ( props ) => {
 		return <SaveButton />;
 	}, [] );
 
+	const panel = useMemo( () => {
+		return <Panel />;
+	}, [] );
+
 	// Setting current block id once blocks are resolved.
 	useEffect( () => {
 		if ( hasBlocksFinishedResolution && formBlocks?.length > 0 ) {
-			setCurrentBlockId( formBlocks[ 0 ].id );
+			setCurrentBlock( formBlocks[ 0 ].id );
 			formBlocks.forEach( ( block ) => {
-				const blockType = blockTypes[ block.type ];
+				const blockType = blockTypes[ block.name ];
 				if ( blockType.supports.editable )
-					insertNewFieldAnswer( block.id, block.type );
+					insertEmptyFieldAnswer( block.id, block.name );
 			} );
 		}
 	}, [ hasBlocksFinishedResolution ] );
@@ -237,7 +242,7 @@ const Layout = ( props ) => {
 				onDragUpdate={ onDragUpdate }
 				onBeforeCapture={ onBeforeCapture }
 			>
-				{ currentPanel && <Panel /> }
+				{ currentPanel && panel }
 				{ ( ! areaToHide || areaToHide !== 'drop-area' ) && (
 					<DropArea
 						isDragging={ isDragging }
@@ -252,39 +257,4 @@ const Layout = ( props ) => {
 	);
 };
 
-export default compose( [
-	withSelect( ( select ) => {
-		const { getBlockTypes } = select( 'quillForms/blocks' );
-		const { getCurrentPanel, getPanels, getAreaToHide } = select(
-			'quillForms/builder-panels'
-		);
-		const { getBlocks, hasFinishedResolution } = select(
-			'quillForms/block-editor'
-		);
-		return {
-			blockTypes: getBlockTypes(),
-			currentPanel: getCurrentPanel(),
-			areaToHide: getAreaToHide(),
-			panels: getPanels(),
-			formBlocks: getBlocks(),
-			hasBlocksFinishedResolution: hasFinishedResolution( 'getBlocks' ),
-		};
-	} ),
-	withDispatch( ( dispatch ) => {
-		const { insertBlock, reorderBlocks, setCurrentBlock } = dispatch(
-			'quillForms/block-editor'
-		);
-		const { insertEmptyFieldAnswer } = dispatch(
-			'quillForms/renderer-submission'
-		);
-		return {
-			setCurrentBlockId: ( id ) => setCurrentBlock( id ),
-			insertBlock: ( block, destination ) =>
-				insertBlock( block, destination ),
-			reorderBlocks: ( sourceIndex, destinationIndex ) =>
-				reorderBlocks( sourceIndex, destinationIndex ),
-			insertNewFieldAnswer: ( id, type ) =>
-				insertEmptyFieldAnswer( id, type ),
-		};
-	} ),
-] )( Layout );
+export default Layout;

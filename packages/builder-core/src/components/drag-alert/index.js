@@ -1,83 +1,80 @@
 /**
  * QuillForms Dependencies
  */
-import { Button } from '@quillforms/builder-components';
+import { Button } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { Modal } from '@wordpress/components';
+
 /**
  * External Dependencies
  */
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import classnames from 'classnames';
+import { css } from 'emotion';
 
-const DragAlertModal = ( { approve, reject } ) => {
-	const [ isOpen, setIsOpen ] = useState( true );
-
-	const closeDialog = () => {
-		setIsOpen( false );
-	};
+const DragAlertModal = ( { approve, reject, closeModal } ) => {
 	return (
-		<Dialog
-			className="block-editor-block-edit__alert"
-			open={ isOpen }
-			onClose={ () => {
-				closeDialog();
-				reject();
-			} }
-			aria-labelledby={ 'Warning' }
-			aria-describedby={ 'Warning' }
+		<Modal
+			className={ classnames(
+				'builder-core-drag-alert-modal',
+				css`
+					border: none !important;
+					min-width: 420px !important;
+					max-width: 470px !important;
+					border-radius: 10px;
+					z-index: 1111111;
+				`
+			) }
+			// Because focus on editor is causing the click handler to be triggered
+			shouldCloseOnClickOutside={ false }
+			title="Warning!"
+			onRequestClose={ closeModal }
 		>
-			<div className="alert__dialog">
-				<DialogTitle id={ `alert-dialog-title` }>Warning!</DialogTitle>
-				<DialogContent className="dialog__content">
-					<DialogContentText>
-						This block recalls information from previous fields.
-						This info will be lost if you proceed with this block
-						movement.
-						<br />
-						<br /> Are you sure you want to proceed?
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-					<Button
-						isLarge
-						isSecondary
-						onClick={ () => {
-							reject();
-							closeDialog();
-						} }
-					>
-						Cancel
-					</Button>
-					<Button
-						isLarge
-						isDanger
-						className="dialog__danger__button"
-						onClick={ () => {
-							approve();
-							closeDialog();
-						} }
-						color="primary"
-					>
-						Ok
-					</Button>
-				</DialogActions>
+			<p>
+				This block recalls information from previous fields. This info
+				will be lost if you proceed with this block movement.
+				<br />
+				<br /> Are you sure you want to proceed?
+			</p>
+			<div
+				className={ css`
+					display: flex;
+					margin-top: 10px;
+					justify-content: flex-end;
+				` }
+			>
+				<Button
+					isDefault
+					isLarge
+					className={ css`
+						margin-right: 10px !important;
+					` }
+					onClick={ () => {
+						reject();
+					} }
+				>
+					Cancel
+				</Button>
+				<Button
+					isLarge
+					className={ css`
+						width: 70px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					` }
+					onClick={ () => {
+						approve();
+					} }
+					isPrimary
+				>
+					Proceed
+				</Button>
 			</div>
-		</Dialog>
+		</Modal>
 	);
 };
 
 export default DragAlertModal;
-
-const state = {
-	currentBlockId: '',
-	nextBlockId: '',
-	prevBlockId: '',
-	lastActiveBlock: '',
-};

@@ -7,17 +7,18 @@ import {
 	BlockEditErrorBoundary,
 	__experimentalBlockDragging as BlockDragging,
 } from '@quillforms/block-editor';
-import { __experimentalDroppable as Droppable } from '@quillforms/builder-components';
+import { __experimentalDroppable as Droppable } from '@quillforms/admin-components';
 
 /**
  * Wordpress Dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect, AsyncModeProvider } from '@wordpress/data';
 
 /**
  * External Dependencies.
  */
 import classNames from 'classnames';
+import { cloneDeep } from 'lodash';
 
 const BlockDragIndexLine = () => {
 	return <div className="block-drag-index-line"></div>;
@@ -25,10 +26,12 @@ const BlockDragIndexLine = () => {
 
 const DropArea = ( props ) => {
 	const { areaToHide, currentPanel, targetIndex, isDragging } = props;
-	const { blockTypes, formBlocks } = useSelect( ( select ) => {
+	const { formBlocks, currentBlockId } = useSelect( ( select ) => {
 		return {
-			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
+			currentBlockId: select(
+				'quillForms/block-editor'
+			).getCurrentBlockId(),
 		};
 	} );
 
@@ -46,8 +49,7 @@ const DropArea = ( props ) => {
 			<Droppable
 				droppableId="DROP_AREA"
 				renderClone={ ( provided, _snapshot, rubric ) => {
-					const item = { ...formBlocks[ rubric.source.index ] };
-					const block = blockTypes[ item.type ];
+					const item = formBlocks[ rubric.source.index ];
 					return (
 						<div
 							{ ...provided.draggableProps }
@@ -59,7 +61,7 @@ const DropArea = ( props ) => {
 								padding: 12,
 							} }
 						>
-							<BlockDragging item={ item } block={ block } />
+							<BlockDragging id={ item.id } name={ item.name } />
 						</div>
 					);
 				} }
@@ -79,7 +81,6 @@ const DropArea = ( props ) => {
 					>
 						{ formBlocks?.length > 0 &&
 							formBlocks.map( ( item, index ) => {
-								const block = blockTypes[ item.type ];
 								return (
 									<>
 										{ index === targetIndex && (
@@ -88,8 +89,8 @@ const DropArea = ( props ) => {
 										<BlockEditErrorBoundary key={ item.id }>
 											<BlockEditBox
 												index={ index }
-												item={ { ...item } }
-												block={ block }
+												id={ item.id }
+												name={ item.name }
 											/>
 										</BlockEditErrorBoundary>
 									</>

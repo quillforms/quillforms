@@ -1,7 +1,8 @@
 /**
  * WordPress Dependencies
  */
-import { Tooltip } from '@wordpress/components';
+import { Tooltip, Icon } from '@wordpress/components';
+import { plus } from '@wordpress/icons';
 
 /**
 External Dependencies
@@ -9,6 +10,9 @@ External Dependencies
 import classnames from 'classnames';
 
 const NavItem = ( { panel, setCurrentPanel, isSelected } ) => {
+	const icon = panel?.icon ? panel.icon : plus;
+	const renderedIcon = <Icon icon={ icon && icon.src ? icon.src : icon } />;
+
 	return (
 		<div
 			className={ classnames( 'builder-core-builder-panel-nav-item', {
@@ -23,7 +27,7 @@ const NavItem = ( { panel, setCurrentPanel, isSelected } ) => {
 					} }
 					className="builder-core-builder-panel-nav-item__icon"
 				>
-					<panel.icon />
+					{ renderedIcon }
 				</div>
 			</Tooltip>
 		</div>
