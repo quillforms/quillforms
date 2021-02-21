@@ -12,6 +12,7 @@ import Icon from './icon';
 
 export const blockAdminSettings = {
 	color: '#93AE89',
+	title: 'Date',
 	icon: Icon,
 	controls,
 };
