@@ -1,4 +1,5 @@
 const getPlainExcerpt = ( value ) => {
+	if ( ! value ) return '';
 	let $value = value
 		.replace( /(<([^>]+)>)/gi, '' )
 		.replace( /{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g, '______' );
