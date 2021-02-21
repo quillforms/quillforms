@@ -86,13 +86,13 @@ class QF_Number_Block extends QF_Block {
 	}
 
 	/**
-	 * Get block attributes.
+	 * Get block custom attributes.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array The initial attributes
+	 * @return array The block custom attributes
 	 */
-	public function get_attributes() {
+	public function get_custom_attributes() {
 		return $this->get_metadata()['attributes'];
 	}
 
@@ -145,13 +145,37 @@ class QF_Number_Block extends QF_Block {
 	/**
 	 * Validate Field.
 	 *
-	 * @param mixed $value The field value.
-	 *
 	 * @since 1.0.0
+	 *
+	 * @param mixed $value    The field value.
+	 * @param array $messages The form messagees.
 	 */
-	public function validate_field( $value ) {
-		if ( $this->required && ! empty( $value ) ) {
-			return true;
+	public function validate_field( $value, $messages ) {
+		if ( empty( $value ) ) {
+			if ( $this->attributes['required'] ) {
+				$this->is_valid       = false;
+				$this->validation_err = $messages['label.errorAlert.required'];
+			}
+		} else {
+			if ( ! is_numeric( $value ) ) {
+				$this->is_valid       = false;
+				$this->validation_err = $messages['label.errorAlert.number'];
+			} else {
+				$set_min = $this->attributes['setMin'];
+				$min     = $this->attributes['min'];
+				$set_max = $this->attributes['setMax'];
+				$max     = $this->attributes['max'];
+				if ( $set_min && $min && $value < $min ) {
+					$this->is_valid       = false;
+					$this->validation_err = $messages['label.errorAlert.minNum'];
+					return;
+				}
+				if ( $set_max && $max && $value < $max ) {
+					$this->is_valid       = false;
+					$this->validation_err = $messages['label.errorAlert.maxNum'];
+					return;
+				}
+			}
 		}
 	}
 }

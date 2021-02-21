@@ -86,13 +86,13 @@ class QF_Website_Block extends QF_Block {
 	}
 
 	/**
-	 * Get block attributes.
+	 * Get block custom attributes.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array The initial attributes
+	 * @return array The block custom attributes
 	 */
-	public function get_attributes() {
+	public function get_custom_attributes() {
 		return $this->get_metadata()['attributes'];
 	}
 

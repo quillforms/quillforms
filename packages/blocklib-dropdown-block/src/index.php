@@ -85,13 +85,13 @@ class QF_Dropdown_Block extends QF_Block {
 	}
 
 	/**
-	 * Get block attributes.
+	 * Get block custom attributes.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array The initial attributes
+	 * @return array The block custom attributes
 	 */
-	public function get_attributes() {
+	public function get_custom_attributes() {
 		return $this->get_metadata()['attributes'];
 	}
 
@@ -149,7 +149,7 @@ class QF_Dropdown_Block extends QF_Block {
 	 * @param array $messages The form messagees.
 	 */
 	public function validate_field( $value, $messages ) {
-		if ( empty( $value ) && $this->required ) {
+		if ( empty( $value ) && $this->attributes['required'] ) {
 			$this->is_valid       = false;
 			$this->validation_err = $messages['label.errorAlert.required'];
 		}
