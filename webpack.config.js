@@ -95,6 +95,9 @@ module.exports = {
 		libraryTarget: 'this',
 		chunkFilename: `chunks/[id].[chunkhash].min.js`,
 	},
+	resolve: {
+		mainFields: [ 'browser', 'module', 'main', 'quillforms:src' ],
+	},
 	module: {
 		rules: compact( [
 			mode !== 'production' && {
@@ -223,6 +226,17 @@ module.exports = {
 								'@import "packages/base-styles/_variables"; ' +
 								'@import "packages/base-styles/_breakpoints"; ' +
 								'@import "packages/base-styles/_mixins"; ',
+						},
+					},
+				],
+			},
+			{
+				test: /\.tsx?$/,
+				use: [
+					{
+						loader: 'ts-loader',
+						options: {
+							transpileOnly: true,
 						},
 					},
 				],
