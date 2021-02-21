@@ -29,6 +29,7 @@ class QF_Core {
 		);
 		$supports = array(
 			'title',
+			'editor',
 			'thumbnail',
 		);
 
@@ -53,7 +54,6 @@ class QF_Core {
 			'show_in_rest'       => true,
 		);
 		register_post_type( 'quill_forms', $args );
-		flush_rewrite_rules();
 	}
 
 	/**
