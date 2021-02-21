@@ -7,12 +7,13 @@ import {
 	__experimentalControlWrapper,
 	BlockIconBox,
 	SelectControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
 import { useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal Dependencies
@@ -20,6 +21,13 @@ import { useEffect } from '@wordpress/element';
 import AlertMessageWrapper from '../alert-message-wrapper';
 
 const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
+	const { emailBlockType } = useSelect( ( select ) => {
+		return {
+			emailBlockType: select( 'quillForms/blocks' ).getBlockType(
+				'email'
+			),
+		};
+	} );
 	useEffect( () => {
 		if ( ! emailFields || emailFields.length === 0 ) {
 			setValue( '' );
@@ -34,9 +42,20 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 	const emailFieldsOptions = emailFields?.map( ( field ) => {
 		return {
 			key: field.id,
-			name: getPlainExcerpt( field.title ),
+			name: (
+				<div className="notifications-editor-email-select__option">
+					<BlockIconBox
+						icon={ emailBlockType?.icon }
+						color={ emailBlockType?.color }
+					/>
+					<span className="notifications-editor-email-select__option-title">
+						{ getPlainExcerpt( field.attributes.label ) }
+					</span>
+				</div>
+			),
 		};
 	} );
+
 	return (
 		<__experimentalControlWrapper orientation="vertical">
 			{ !! label && <__experimentalControlLabel label={ label } /> }

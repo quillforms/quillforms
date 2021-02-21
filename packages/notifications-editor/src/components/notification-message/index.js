@@ -5,8 +5,8 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlLabel,
 	__experimentalControlWrapper,
-} from '@quillforms/builder-components';
-import { RichTextControl } from '@quillforms/rich-text';
+} from '@quillforms/admin-components';
+import { getPlainExcerpt, RichTextControl } from '@quillforms/rich-text';
 
 /**
  * WordPress Dependencies
@@ -46,9 +46,9 @@ const EmailMessage = ( {
 					return {
 						type: 'field',
 						modifier: field.id,
-						label: field.title,
-						icon: blockTypes[ field.type ]?.editorConfig?.icon,
-						color: blockTypes[ field.type ]?.editorConfig?.color,
+						label: getPlainExcerpt( field.attributes.label ),
+						icon: blockTypes[ field.name ]?.icon,
+						color: blockTypes[ field.name ]?.color,
 						order: select(
 							'quillForms/block-editor'
 						).getBlockOrderById( field.id ),

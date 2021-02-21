@@ -6,7 +6,7 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	SelectControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies

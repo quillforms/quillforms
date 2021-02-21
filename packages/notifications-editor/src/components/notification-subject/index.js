@@ -6,7 +6,7 @@ import {
 	__experimentalControlLabel,
 	__experimentalControlWrapper,
 	TextControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 import { useEffect } from '@wordpress/element';
 import AlertMessageWrapper from '../alert-message-wrapper';
 
@@ -33,7 +33,7 @@ const EmailSubject = ( {
 				/>
 				<TextControl
 					value={ value }
-					setValue={ ( newVal ) => setValue( newVal ) }
+					onChange={ ( newVal ) => setValue( newVal ) }
 				/>
 				{ ! isValid && isReviewing && (
 					<AlertMessageWrapper type="error">

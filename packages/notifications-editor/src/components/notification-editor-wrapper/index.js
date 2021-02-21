@@ -6,7 +6,7 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	ToggleControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -69,7 +69,7 @@ const NotificationEditorWrapper = ( {
 		return {
 			emailFields: select( 'quillForms/block-editor' )
 				.getBlocks()
-				.filter( ( field ) => field.type === 'email' ),
+				.filter( ( field ) => field.name === 'email' ),
 		};
 	} );
 

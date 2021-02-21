@@ -6,7 +6,7 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	TextControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 const NotificationTitle = ( { value, setValue } ) => {
 	return (
@@ -16,7 +16,7 @@ const NotificationTitle = ( { value, setValue } ) => {
 					<__experimentalControlLabel label="Title" />
 					<TextControl
 						value={ value }
-						setValue={ ( val ) => {
+						onChange={ ( val ) => {
 							setValue( {
 								title: val,
 							} );

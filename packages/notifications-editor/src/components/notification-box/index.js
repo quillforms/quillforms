@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependecies
  */
-import { ToggleControl } from '@quillforms/builder-components';
+import { ToggleControl } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies

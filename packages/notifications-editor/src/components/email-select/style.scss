@@ -1,20 +1,3 @@
-
-.notifications-editor-email-select {
-	background: #fff !important;
-	margin-top: 15px;
-	border: none !important;
-	padding: 0 10px;
-}
-.notifications-editor-email-select::before,
-.notifications-editor-email-select::after {
-	display: none !important;
-}
-.notifications-editor-email-select .MuiSelect-selectMenu {
-	border: none !important;
-	box-shadow: none !important;
-	background: transparent !important;
-}
-
 .notifications-editor-email-select__option {
 	display: flex;
 	align-items: center;
