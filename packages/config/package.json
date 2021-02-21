@@ -1,0 +1,36 @@
+{
+	"name": "@quillforms/config",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"config"
+	],
+	"sideEffects": true,
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/config/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/config"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"quillforms:src": "src/index.ts",
+	"types": "build-types",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"clean": "tsc --build ./tsconfig.json ./tsconfig-cjs.json --clean && npx rimraf build build-module",
+		"build": "tsc --build ./tsconfig.json ./tsconfig-cjs.json",
+		"watch": "tsc --build ./tsconfig.json --watch"
+	}
+}

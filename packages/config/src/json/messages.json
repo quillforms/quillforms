@@ -1,0 +1,184 @@
+{
+	"label.button.ok": {
+		"title": "Button to confirm answer",
+		"default": "OK",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.hintText.enter": {
+		"title": "Keyboard hint text for navigating to next question",
+		"default": "press <strong>Enter ↵</strong>",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.hintText.multipleSelection": {
+		"title": "Hint for multiple selection",
+		"default": "Choose as many as you like",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.dropdown.placeholder": {
+		"title": "Placeholder for dropdown",
+		"default": "Please format or select an option",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.dropdown.placeholderTouch": {
+		"title": "Placeholder for dropdown on touch screens",
+		"default": "Please select an option",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.dropdown.noSuggestions": {
+		"title": "No suggestions hint for dropdown",
+		"default": "No Suggestions",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.shortText.placeholder": {
+		"title": "Placeholder for short text input",
+		"default": "Please format your answer here",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.longText.placeholder": {
+		"title": "Placeholder for long text input",
+		"default": "Please format your answer here",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.longText.hint": {
+		"title": "Hint for line break in Long Text fields",
+		"default": "<strong>Shift ⇧ + Enter ↵</strong> to make a line break",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.number.placeholder": {
+		"title": "Placeholder for number input",
+		"default": "Please format your answer here",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.hintText.key": {
+		"title": "Keyboard hint after hovering over options",
+		"default": "Key",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.yes.default": {
+		"title": "Button to say 'Yes'",
+		"default": "Yes",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.no.default": {
+		"title": "Button to say 'No'",
+		"default": "No",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.progress.percent": {
+		"title": "Percentage of form completed",
+		"mergeTags": [
+			{
+				"label": "percent",
+				"type": "progress",
+				"modifier": "percent"
+			}
+		],
+		"default": "{{progress:percent}}",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.button.yes": {
+		"title": "Button to say 'Yes'",
+		"format": "html",
+		"default": "Yes",
+		"category": "buttons-hints-placeholders"
+	},
+
+	"label.errorAlert.required": {
+		"title": "If field is required",
+		"default": "This field is required!",
+		"category": "alerts"
+	},
+	"label.errorAlert.date": {
+		"title": "If date is invalid",
+		"default": "Invalid date!",
+		"category": "alerts"
+	},
+	"label.errorAlert.number": {
+		"title": "If non numeric value is passed",
+		"default": "Numbers only!",
+		"category": "alerts"
+	},
+	"label.errorAlert.selectionRequired": {
+		"title": "If answer needs at least one selection",
+		"default": "Please make at least one selection!",
+		"category": "alerts"
+	},
+	"label.errorAlert.email": {
+		"title": "If email address is wrong",
+		"default": "Invalid email!",
+		"category": "alerts"
+	},
+	"label.errorAlert.url": {
+		"title": "If url is wrong",
+		"default": "Invalid url!",
+		"category": "alerts"
+	},
+	"label.errorAlert.range": {
+		"title": "If number is out of range",
+		"mergeTags": [
+			{
+				"label": "min",
+				"type": "attribute",
+				"modifier": "min"
+			},
+			{
+				"label": "max",
+				"type": "attribute",
+				"modifier": "max"
+			}
+		],
+		"default": "Please enter a number between {{attribute:min}} and {{attribute:max}}",
+		"category": "alerts"
+	},
+	"label.errorAlert.minNum": {
+		"title": "If number is lower than minimum value",
+		"mergeTags": [
+			{
+				"label": "min",
+				"type": "attribute",
+				"modifier": "min"
+			}
+		],
+		"default": "Please enter a number greater than {{attribute:min}}",
+		"category": "alerts"
+	},
+	"label.errorAlert.maxNum": {
+		"title": "If number is higher than maximum value",
+		"mergeTags": [
+			{
+				"label": "max",
+				"type": "attribute",
+				"modifier": "max"
+			}
+		],
+		"default": "Please enter a number lower than {{attribute:max}}",
+		"category": "alerts"
+	},
+	"label.errorAlert.maxCharacters": {
+		"title": "If characters number is higher than maximum value",
+		"mergeTags": [
+			{
+				"label": "maxCharacters",
+				"type": "attribute",
+				"modifier": "maxCharacters"
+			}
+		],
+		"default": "Maximum characters reached!",
+		"category": "alerts"
+	},
+	"label.successAlert.submission": {
+		"title": "Form submission success message",
+		"default": "Form has been submitted successfully!",
+		"category": "alerts"
+	},
+	"label.errorAlert.noConnection": {
+		"title": "Error for no connection with server",
+		"default": "Can\"t connect to the server right now!",
+		"category": "alerts"
+	},
+	"label.errorAlert.serverError": {
+		"title": "Error for a problem with server",
+		"default": "Server error!",
+		"category": "alerts"
+	}
+}

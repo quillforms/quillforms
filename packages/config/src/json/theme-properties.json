@@ -1,0 +1,45 @@
+{
+	"font": {
+		"type": "string",
+		"default": "Viga"
+	},
+	"backgroundColor": {
+		"type": "string",
+		"default": "linear-gradient(135deg, rgb(6, 147, 227} 0%, rgb(155, 81, 224} 100%}"
+	},
+	"backgroundImage": {
+		"type": "string"
+	},
+	"questionsColor": {
+		"type": "string",
+		"default": "#000"
+	},
+	"answersColor": {
+		"type": "string",
+		"default": "#000"
+	},
+	"buttonsFontColor": {
+		"type": "string",
+		"default": "#fff"
+	},
+	"buttonsBgColor": {
+		"type": "string",
+		"default": "#000"
+	},
+	"errorsFontColor": {
+		"type": "string",
+		"default": "#fff"
+	},
+	"errorsBgColor": {
+		"type": "string",
+		"default": "#f00"
+	},
+	"progressBarFillColor": {
+		"type": "string",
+		"default": "#000"
+	},
+	"progressBarBgColor": {
+		"type": "string",
+		"default": "#e3e3e3"
+	}
+}
