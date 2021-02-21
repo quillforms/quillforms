@@ -89,20 +89,21 @@ abstract class QF_Block extends stdClass {
 	 */
 	public function __construct( $args = array() ) {
 		$default_supported_features = array(
-			'editable'   => true,
-			'required'   => true,
-			'attachment' => true,
-			'logic'      => true,
-			'calculator' => false,
+			'editable'    => true,
+			'required'    => true,
+			'attachment'  => true,
+			'description' => true,
+			'logic'       => true,
 		);
 		$this->type                 = $this->get_type();
 		$this->block_name           = $this->get_name();
 		$this->block_styles         = $this->get_block_styles();
 		$this->block_scripts        = $this->get_block_scripts();
-		$this->attributes_schema    = $this->get_attributes();
+		$this->supported_features   = wp_parse_args( $this->get_block_supported_features(), $default_supported_features );
+		$this->custom_attributes    = $this->get_custom_attributes();
+		$this->attributes_schema    = $this->get_attributes_schema();
 		$this->attributes           = $this->prepare_attributes_for_render();
 		$this->logical_operators    = $this->get_logical_operators();
-		$this->supported_features   = wp_parse_args( $this->get_block_supported_features(), $default_supported_features );
 		$this->set_props( $args );
 	}
 
@@ -162,10 +163,55 @@ abstract class QF_Block extends stdClass {
 	 *
 	 * @return array The block attributes
 	 */
-	public function get_attributes() {
+	public function get_custom_attributes() {
 		return array();
 	}
 
+
+	/**
+	 * Get attributes schema
+	 *
+	 * @since 1.0.0
+	 * @final
+	 *
+	 * @return array $attributes_schema Attributes schema
+	 */
+	final public function get_attributes_schema() {
+		$attributes_schema = $this->custom_attributes;
+
+		if ( $this->supported_features['required'] ) {
+			$attributes_schema['required'] = array(
+				'type'    => 'boolean',
+				'default' => false,
+			);
+		}
+
+		if ( $this->supported_features['attachment'] ) {
+			$attributes_schema['attachment'] = array(
+				'type'       => 'object',
+				'properties' => array(
+					'url' => array(
+						'type' => 'string',
+					),
+				),
+			);
+		}
+
+		if ( $this->supported_features['description'] ) {
+			$attributes_schema['description'] = array(
+				'type'    => 'string',
+				'default' => '',
+			);
+		}
+
+		$attributes_schema['label'] = array(
+			'type'    => 'string',
+			'default' => '',
+		);
+
+		return $attributes_schema;
+
+	}
 
 	/**
 	 * Validates attributes against the current block attributes schema, populating
