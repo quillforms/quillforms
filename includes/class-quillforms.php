@@ -97,23 +97,18 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-block-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-logger-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-log-handler-interface.php';
-		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-merge-tag-interface.php';
 
 		/**
 		 * Abstract Classes.
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-block.php';
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-feed.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-handler.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-levels.php';
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-merge-tag.php';
 
 		/**
 		 * Factories
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-blocks-factory.php';
-		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-feeds-factory.php';
-		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-merge-tags-factory.php';
 
 		/**
 		 * Functions.
