@@ -16,7 +16,7 @@ const ChoicesBulkBtn = ( { choices, setChoices } ) => {
 		setChoices( $choices );
 	};
 	return (
-		<div className="builder-components-choices-bulk-btn">
+		<div className="admin-components-choices-bulk-btn">
 			<Button
 				isSecondary
 				isDefault

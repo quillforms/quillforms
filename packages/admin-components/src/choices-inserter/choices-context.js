@@ -9,7 +9,6 @@ const Context = createContext( {
 	labelChangeHandler: noop,
 	scoreChangeHandler: noop,
 	deleteChoice: noop,
-	setScore: false,
 } );
 const { Provider } = Context;
 

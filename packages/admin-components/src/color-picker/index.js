@@ -61,7 +61,7 @@ const ColorPicker = ( { value, onChange } ) => {
 		},
 	];
 	return (
-		<div className="builder-components-color-picker">
+		<div className="admin-components-color-picker">
 			<WPColorPicker
 				colors={ colors }
 				value={ value }

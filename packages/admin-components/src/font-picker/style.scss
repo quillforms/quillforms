@@ -1,11 +1,11 @@
-.builder-components-font-picker {
+.admin-components-font-picker {
 	& {
 		position: relative;
 		width: 190px;
 		z-index: 1111;
 	}
 
-	.builder-components-font-picker__select {
+	.admin-components-font-picker__select {
 
 		& {
 			position: relative;
@@ -30,7 +30,7 @@
 		}
 	}
 
-	.builder-components-font-picker__fonts-search-wrapper {
+	.admin-components-font-picker__fonts-search-wrapper {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -40,7 +40,7 @@
 		box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
 	}
 
-	.builder-components-font-picker__search {
+	.admin-components-font-picker__search {
 
 		& {
 			position: relative;
@@ -52,7 +52,7 @@
 			top: 5px;
 		}
 
-		.builder-components-font-picker__input {
+		.admin-components-font-picker__input {
 			width: 100%;
 			padding: 10px 10px 10px 35px;
 			border: none;
@@ -60,13 +60,13 @@
 			border-bottom: 1px solid #eadada;
 		}
 	}
-	.builder-components-font-picker__fonts-list {
+	.admin-components-font-picker__fonts-list {
 
 		& {
 			background: #fff;
 		}
 
-		.builder-components-font-picker__fonts-list-item {
+		.admin-components-font-picker__fonts-list-item {
 			& {
 				padding: 0 8px;
 				line-height: 1em;
@@ -81,7 +81,7 @@
 				background: #e3e3e3;
 			}
 
-			.builder-components-font-item__name {
+			.admin-components-font-item__name {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;

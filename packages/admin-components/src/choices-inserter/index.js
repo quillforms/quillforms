@@ -107,7 +107,7 @@ const ChoicesInserter = ( { choices, setChoices } ) => {
 								{ ...provided.droppableProps }
 							>
 								<List
-									className="builder-components-choices-inserter__choices-wrapper"
+									className="admin-components-choices-inserter__choices-wrapper"
 									outerRef={ provided.innerRef }
 									height={ 250 }
 									width={ '100%' }

@@ -42,8 +42,8 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 	}, [] );
 
 	return (
-		<div className="builder-components-combo-color-picker">
-			<div className="builder-components-combo-color-picker__switcher-wrapper">
+		<div className="admin-components-combo-color-picker">
+			<div className="admin-components-combo-color-picker__switcher-wrapper">
 				<Button
 					onClick={ () => {
 						if (

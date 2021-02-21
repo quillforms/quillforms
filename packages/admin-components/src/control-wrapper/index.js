@@ -3,7 +3,7 @@ const ControlWrapper = ( { children, orientation = 'horizontal' } ) => {
 	return (
 		<div
 			className={ classnames(
-				'builder-components-control-wrapper',
+				'admin-components-control-wrapper',
 				orientation
 			) }
 		>

@@ -41,7 +41,7 @@ const FontItem = ( { font, fontType } ) => {
 	return (
 		<Fragment>
 			<div
-				className="builder-components-font-item__name"
+				className="admin-components-font-item__name"
 				style={ { fontFamily: font } }
 			>
 				{ font }

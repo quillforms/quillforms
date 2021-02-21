@@ -1,19 +1,19 @@
 {
-	"name": "@quillforms/builder-components",
+	"name": "@quillforms/admin-components",
 	"version": "1.0.0",
-	"description": "Quill forms builder components",
+	"description": "Quill forms admin components",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
-		"builder",
+		"admin",
 		"components"
 	],
-	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/builder-components/README.md",
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/admin-components/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/QuillForms/quillforms.git",
-		"directory": "packages/builder-components"
+		"directory": "packages/admin-components"
 	},
 	"bugs": {
 		"url": "https://github.com/QuillForms/quillforms/issues"
@@ -22,16 +22,16 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@material-ui/core": "^4.9.14",
-		"@wordpress/autop": "^2.9.0",
-		"@wordpress/components": "^9.5.0",
-		"@wordpress/element": "^2.14.0",
-		"@wordpress/media-utils": "^1.11.0",
+		"@wordpress/autop": "^2.11.1",
+		"@wordpress/components": "^12.0.5",
+		"@wordpress/element": "^2.19.1",
+		"@wordpress/icons": "^2.9.1",
+		"@wordpress/media-utils": "^1.19.5",
 		"classnames": "^2.2.6",
 		"emotion": "^10.0.27",
 		"gradient-parser": "^0.1.5",
 		"react-beautiful-dnd": "^13.0.0",
-		"react-window": "^1.8.5",
+		"react-window": "^1.8.6",
 		"tinycolor2": "^1.4.1"
 	},
 	"publishConfig": {

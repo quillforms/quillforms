@@ -60,30 +60,30 @@ const FontPicker = ( { fonts, selectedFont, setFont } ) => {
 	}, [ showList ] );
 
 	return (
-		<div className="builder-components-font-picker">
+		<div className="admin-components-font-picker">
 			<div
 				role="presentation"
 				className={ classNames(
-					'builder-components-font-picker__select',
+					'admin-components-font-picker__select',
 					{ hidden: showList }
 				) }
 				onClick={ () => setShowList( true ) }
 			>
-				<div className="builder-components-font-picker__selected-font">
+				<div className="admin-components-font-picker__selected-font">
 					{ selectedFont }
 				</div>
 				<Icon icon={ chevronDown } />
 			</div>
 			{ showList && (
 				<div
-					className="builder-components-font-picker__fonts-search-wrapper"
+					className="admin-components-font-picker__fonts-search-wrapper"
 					ref={ wrapperRef }
 				>
-					<div className="builder-components-font-picker__search">
+					<div className="admin-components-font-picker__search">
 						<Icon icon={ search } />
 						<input
 							ref={ searchRef }
-							className="builder-components-font-picker__input"
+							className="admin-components-font-picker__input"
 							type="text"
 							value={ searchKeyword }
 							onChange={ ( e ) =>
@@ -94,7 +94,7 @@ const FontPicker = ( { fonts, selectedFont, setFont } ) => {
 					<List
 						ref={ listRef }
 						overscanCount={ 12 }
-						className="builder-components-font-picker__fonts-list"
+						className="admin-components-font-picker__fonts-list"
 						height={ filteredFontsKeys.length > 0 ? 250 : 20 }
 						itemCount={ filteredFontsKeys.length }
 						itemSize={ 35 }
@@ -104,7 +104,7 @@ const FontPicker = ( { fonts, selectedFont, setFont } ) => {
 								<div
 									role="presentation"
 									className={
-										'builder-components-font-picker__fonts-list-item' +
+										'admin-components-font-picker__fonts-list-item' +
 										( filteredFontsKeys[ index ] ===
 										selectedFont
 											? ' selected'

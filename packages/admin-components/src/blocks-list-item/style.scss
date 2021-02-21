@@ -1,4 +1,4 @@
-.builder-components-blocks-list-item {
+.admin-components-blocks-list-item {
 	& {
 		display: flex;
 		padding: 10px;
@@ -15,13 +15,13 @@
 		opacity: 0.4;
 	}
 
-	.builder-components-blocks-list-item__icon-wrapper {
+	.admin-components-blocks-list-item__icon-wrapper {
 		& {
 			border-radius: 4px;
 			margin-right: 10px;
 		}
 
-		.builder-components-blocks-list-item__icon {
+		.admin-components-blocks-list-item__icon {
 			& {
 				display: flex;
 				width: 30px;
@@ -40,7 +40,7 @@
 		}
 	}
 
-	.builder-components-blocks-list-item__block-name {
+	.admin-components-blocks-list-item__block-name {
 		display: inline-flex;
 		align-items: center;
 		width: 100%;

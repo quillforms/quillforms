@@ -138,7 +138,7 @@ const GradientPicker = ( { value, onChange } ) => {
 	};
 
 	return (
-		<div className="builder-components-gradient-picker">
+		<div className="admin-components-gradient-picker">
 			<__experimentalGradientPicker
 				value={ value }
 				onChange={ onChange }

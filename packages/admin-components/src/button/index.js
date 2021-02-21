@@ -22,7 +22,7 @@ export function Button( props, ref ) {
 		...additionalProps
 	} = props;
 
-	const classes = classnames( 'builder-components-button', className, {
+	const classes = classnames( 'admin-components-button', className, {
 		'is-button': isDefault || isPrimary || isLarge || isSmall || isDanger,
 		'is-default': isDefault || isLarge || isSmall,
 		'is-primary': isPrimary,

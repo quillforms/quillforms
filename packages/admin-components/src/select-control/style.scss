@@ -1,4 +1,4 @@
-.builder-components-select-control {
+.admin-components-select-control {
 	.components-custom-select-control__button.components-custom-select-control__button {
 		padding: 16px;
 	}
@@ -11,13 +11,13 @@
 		width: 100%;
 	}
 
-	.components-custom-select-control__menu {
+	.components-custom-select-control__menu[aria-hidden="false"] {
 		width: 100%;
 		padding: 5px;
 		border-radius: 4px;
 		border: none;
 		font-size: 14px;
-		box-shadow: 1px 9px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 3px rgba(255, 255, 255, 0.5);
+		box-shadow: 1px 1px 7px 0 rgba(0, 0, 0, 0.1);
 	}
 
 	.components-custom-select-control__item {

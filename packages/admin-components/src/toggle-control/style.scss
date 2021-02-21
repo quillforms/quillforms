@@ -1,4 +1,4 @@
-.builder-components-toggle-control {
+.admin-components-toggle-control {
 	& {
 		width: 32px;
 		height: 16px;
@@ -13,19 +13,19 @@
 	}
 
 	&.is-checked {
-		.builder-components-toggle-control__base {
+		.admin-components-toggle-control__base {
 			color: #fff;
 			transform: translateX(15px);
 		}
 
-		.builder-components-toggle-control__track {
+		.admin-components-toggle-control__track {
 			opacity: 1;
 			border-color: #58b9b0;
 			background-color: #58b9b0;
 		}
 	}
 
-	.builder-components-toggle-control__base {
+	.admin-components-toggle-control__base {
 		& {
 			color: #9e9e9e;
 			padding: 2px;
@@ -54,7 +54,7 @@
 			-webkit-tap-highlight-color: transparent;
 		}
 
-		.builder-components-toggle-control__input-wrapper {
+		.admin-components-toggle-control__input-wrapper {
 
 			& {
 				width: 100%;
@@ -63,7 +63,7 @@
 				justify-content: inherit;
 			}
 
-			.builder-components-toggle-control__input {
+			.admin-components-toggle-control__input {
 				top: 0;
 				cursor: inherit;
 				height: 100%;
@@ -76,7 +76,7 @@
 				width: 300%;
 			}
 
-			.builder-components-toggle-control__thumb {
+			.admin-components-toggle-control__thumb {
 				width: 12px;
 				height: 12px;
 				box-shadow: none;
@@ -86,7 +86,7 @@
 		}
 
 	}
-	.builder-components-toggle-control__track {
+	.admin-components-toggle-control__track {
 		border: 1px solid #9e9e9e;
 		opacity: 1;
 		border-radius: 8px;

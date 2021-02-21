@@ -1,46 +1,23 @@
-.builder-components-text-control__input {
-	& {
+.admin-components-text-control {
+	width: 100%;
+	input {
 		position: relative;
 		margin-top: 10px;
 		margin-bottom: 10px;
 		width: 100%;
 		display: flex;
 		align-items: center;
-		height: 34px;
-		padding: 0 8px 0 12px;
-		border: 1px solid #e3e3e3;
-		border-radius: 5px;
+		height: 34px !important;
+		padding: 0 8px 0 12px !important;
+		border: 1px solid #e3e3e3 !important;
+		border-radius: 5px !important;
 		background: #fff;
-		font-weight: 100;
-	}
-
-	input {
-		border: none;
 		padding: 0;
-		box-shadow: none;
+		box-shadow: none !important;
 		font-size: 13px !important;
 
 		&:focus {
-			outline: none;
 			box-shadow: none;
 		}
 	}
-
-	.builder-components-text-control__input-characters-count {
-		position: absolute;
-		right: 15px;
-		top: 15px;
-		display: inline-block;
-		color: #c7c3c3;
-	}
-
-	> div:nth-child(1) {
-		width: 100%;
-	}
-
-	div::before,
-	div::after {
-		border: none !important;
-	}
-
 }

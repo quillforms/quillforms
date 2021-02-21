@@ -1,4 +1,4 @@
 const BaseControl = ( { children } ) => {
-	return <div className="builder-components-base-control">{ children }</div>;
+	return <div className="admin-components-base-control">{ children }</div>;
 };
 export default BaseControl;

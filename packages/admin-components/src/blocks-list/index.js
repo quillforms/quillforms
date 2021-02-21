@@ -17,10 +17,11 @@ import { compose } from '@wordpress/compose';
  * External Dependencies
  */
 import classnames from 'classnames';
+import { keys, map, filter } from 'lodash';
 
 const BlocksList = ( { blockTypes, welcomeScreensLength } ) => {
 	return (
-		<div className="builder-components-blocks-list">
+		<div className="admin-components-blocks-list">
 			<Droppable
 				droppableId="BLOCKS_LIST"
 				isDropDisabled={ true }
@@ -31,68 +32,61 @@ const BlocksList = ( { blockTypes, welcomeScreensLength } ) => {
 						ref={ provided.innerRef }
 						isDraggingOver={ snapshot.isDraggingOver }
 					>
-						{ Object.keys( blockTypes ).map( ( type, index ) => {
-							let isDragDisabled = false;
-							if (
-								type === 'welcome-screen' &&
-								welcomeScreensLength >= 1
-							) {
-								isDragDisabled = true;
-							}
-							return (
-								<div
-									key={ blockTypes[ type ].id }
-									style={ { marginBottom: '20px' } }
-								>
-									<Draggable
-										isDragDisabled={
-											isDragDisabled ? true : false
-										}
-										draggableId={ blockTypes[ type ].id }
-										index={ index }
+						{ map(
+							filter(
+								keys( blockTypes ),
+								( blockName ) => blockName !== 'unknown'
+							),
+							( blockName, index ) => {
+								let isDragDisabled = false;
+								if (
+									blockName === 'welcome-screen' &&
+									welcomeScreensLength >= 1
+								) {
+									isDragDisabled = true;
+								}
+
+								return (
+									<div
+										key={ blockName }
+										style={ { marginBottom: '20px' } }
 									>
-										{ ( provided, snapshot ) => (
-											<Fragment>
-												<div
-													className={ classnames(
-														'builder-components-blocks-list__item-wrapper',
-														{
-															'is-dragging': snapshot.isDragging
-																? true
-																: false,
-														}
-													) }
-													{ ...provided.draggableProps }
-													{ ...provided.dragHandleProps }
-													ref={ provided.innerRef }
-													isDragging={
-														snapshot.isDragging
-													}
-													style={ {
-														...provided
-															.draggableProps
-															.style,
-													} }
-												>
-													<BlocksListItem
-														item={
-															blockTypes[ type ]
-														}
-														disabled={
-															isDragDisabled
-														}
-													/>
-												</div>
-												{ snapshot.isDragging && (
+										<Draggable
+											isDragDisabled={
+												isDragDisabled ? true : false
+											}
+											draggableId={ blockName }
+											index={ index + 1 }
+										>
+											{ ( provided, snapshot ) => (
+												<Fragment>
 													<div
 														className={ classnames(
-															'builder-components-blocks-list__item-wrapper'
+															'admin-components-blocks-list__item-wrapper',
+															{
+																'is-dragging': snapshot.isDragging
+																	? true
+																	: false,
+															}
 														) }
+														{ ...provided.draggableProps }
+														{ ...provided.dragHandleProps }
+														ref={
+															provided.innerRef
+														}
+														isDragging={
+															snapshot.isDragging
+														}
+														style={ {
+															...provided
+																.draggableProps
+																.style,
+														} }
 													>
 														<BlocksListItem
 															item={
 																blockTypes[
-																	type
+																	blockName
 																]
 															}
 															disabled={
@@ -100,13 +94,31 @@ const BlocksList = ( { blockTypes, welcomeScreensLength } ) => {
 															}
 														/>
 													</div>
-												) }
-											</Fragment>
-										) }
-									</Draggable>
-								</div>
-							);
-						} ) }
+													{ snapshot.isDragging && (
+														<div
+															className={ classnames(
+																'admin-components-blocks-list__item-wrapper'
+															) }
+														>
+															<BlocksListItem
+																item={
+																	blockTypes[
+																		blockName
+																	]
+																}
+																disabled={
+																	isDragDisabled
+																}
+															/>
+														</div>
+													) }
+												</Fragment>
+											) }
+										</Draggable>
+									</div>
+								);
+							}
+						) }
 						{ provided.placeholder }
 					</div>
 				) }

@@ -1,4 +1,4 @@
-.builder-components-choices-inserter__choices-wrapper {
+.admin-components-choices-inserter__choices-wrapper {
 	padding: 12px 0;
     border: 1px solid #d6d6d6;
     border-radius: 5px;
@@ -6,12 +6,12 @@
 
 }
 
-.builder-components-choices-inserter__choice-row {
+.admin-components-choices-inserter__choice-row {
 	display: flex;
 	align-items: center;
 	padding: 0 12px;
 
-	.builder-components-choices-inserter__choice-actions {
+	.admin-components-choices-inserter__choice-actions {
 		display: flex;
 		flex-direction: column;
 		margin-left: 5px;
@@ -31,11 +31,11 @@
 				height: 15px;
 			}
 		}
-		.builder-components-choices-inserter__choice-add {
+		.admin-components-choices-inserter__choice-add {
 			background: #5fd995;
 			margin-bottom: 3px;
 		}
-		.builder-components-choices-inserter__choice-remove {
+		.admin-components-choices-inserter__choice-remove {
 			background: #b65454
 		}
 	}

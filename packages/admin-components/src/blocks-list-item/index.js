@@ -8,7 +8,7 @@ const areEqual = ( prevProps, nextProps ) => {
 	return false;
 };
 const BlocksListItem = memo( ( { item, disabled } ) => {
-	let icon = item?.editorConfig?.icon;
+	let icon = item?.icon;
 	if ( icon?.src === 'block-default' ) {
 		icon = {
 			src: blockDefault,
@@ -19,24 +19,22 @@ const BlocksListItem = memo( ( { item, disabled } ) => {
 
 	return (
 		<div
-			className={ classNames( 'builder-components-blocks-list-item', {
+			className={ classNames( 'admin-components-blocks-list-item', {
 				disabled: disabled ? true : false,
 			} ) }
 		>
 			<span
-				className="builder-components-blocks-list-item__icon-wrapper"
+				className="admin-components-blocks-list-item__icon-wrapper"
 				style={ {
-					backgroundColor: item?.editorConfig?.color
-						? item.editorConfig.color
-						: '#bb426f',
+					backgroundColor: item?.color ? item.color : '#bb426f',
 				} }
 			>
-				<span className="builder-components-blocks-list-item__icon">
+				<span className="admin-components-blocks-list-item__icon">
 					{ renderedIcon }
 				</span>
 			</span>
-			<span className="builder-components-blocks-list-item__block-name">
-				{ item.name }
+			<span className="admin-components-blocks-list-item__block-name">
+				{ item?.title }
 			</span>
 		</div>
 	);

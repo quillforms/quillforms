@@ -5,7 +5,7 @@ import { css } from 'emotion';
 
 const ControlLabel = ( { label, showAsterisk } ) => {
 	return (
-		<div className="builder-components-control-label">
+		<div className="admin-components-control-label">
 			{ label }
 			{ showAsterisk && (
 				<span

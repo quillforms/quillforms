@@ -5,7 +5,7 @@ import { CustomSelectControl } from '@wordpress/components';
 
 const SelectControl = ( props ) => {
 	return (
-		<div className="builder-components-select-control">
+		<div className="admin-components-select-control">
 			<CustomSelectControl { ...props } />
 		</div>
 	);

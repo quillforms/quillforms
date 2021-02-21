@@ -1,4 +1,4 @@
-.builder-components-blocks-list__item-wrapper {
+.admin-components-blocks-list__item-wrapper {
 	& {
 		outline: none;
 		user-select: none;
@@ -6,7 +6,7 @@
 	}
 
 	&.is-dragging {
-		.builder-components-blocks-list-item {
+		.admin-components-blocks-list-item {
 			box-shadow: 0 0 0 1pt #58b9b0;
 		}
 	}

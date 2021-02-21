@@ -28,7 +28,7 @@ const ChoicesBulkModal = ( { closeModal, onInsert } ) => {
 	return (
 		<Modal
 			className={ classnames(
-				'builder-components-choices-bulk-modal',
+				'admin-components-choices-bulk-modal',
 				css`
 					border: none !important;
 					min-width: 420px !important;
