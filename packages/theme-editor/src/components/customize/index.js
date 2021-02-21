@@ -11,7 +11,7 @@ import {
 	ComboColorPicker,
 	ColorPreview,
 	useGlobalEditorContext,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
