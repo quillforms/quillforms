@@ -58,12 +58,7 @@ export const getBlockSupport = (
 	defaultSupports
 ) => {
 	const blockType = getNormalizedBlockType( state, nameOrType );
-
-	return get(
-		blockType,
-		[ 'supports', ...feature.split( '.' ) ],
-		defaultSupports
-	);
+	return get( blockType, [ 'supports', feature ], defaultSupports );
 };
 
 /**
