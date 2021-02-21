@@ -260,7 +260,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-builder-core',
 		quillforms_url( 'build/builder-core/style.css' ),
 		array(
-			'quillforms-builder-components',
+			'quillforms-admin-components',
 			'quillforms-block-editor',
 			'quillforms-renderer-core',
 			'quillforms-theme-editor',
@@ -276,12 +276,12 @@ function quillforms_register_packages_styles( $styles ) {
 	// Builder Components.
 	quillforms_override_style(
 		$styles,
-		'quillforms-builder-components',
-		quillforms_url( 'build/builder-components/style.css' ),
+		'quillforms-admin-components',
+		quillforms_url( 'build/admin-components/style.css' ),
 		array( 'quillforms-rich-text' ),
 		filemtime( quillforms_dir_path() . 'build/builder-core/style.css' )
 	);
-	$styles->add_data( 'quillforms-builder-components', 'rtl', 'replace' );
+	$styles->add_data( 'quillforms-admin-components', 'rtl', 'replace' );
 
 	// Block Editor.
 	quillforms_override_style(
@@ -348,7 +348,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-client',
 		quillforms_url( 'build/client/style.css' ),
-		array( 'quillforms-builder-components', 'wp-components' ),
+		array( 'quillforms-admin-components', 'wp-components' ),
 		filemtime( quillforms_dir_path() . 'build/client/style.css' )
 	);
 	$styles->add_data( 'quillforms-client', 'rtl', 'replace' );
@@ -375,7 +375,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-dropdown-block-admin-style',
 		quillforms_url( 'build/blocklib-dropdown-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-dropdown-block/admin.css' )
 	);
 
@@ -395,7 +395,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-email-block-admin-style',
 		quillforms_url( 'build/blocklib-email-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-email-block/admin.css' )
 	);
 
@@ -415,7 +415,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-long-text-block-admin-style',
 		quillforms_url( 'build/blocklib-long-text-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-long-text-block/admin.css' )
 	);
 
@@ -435,7 +435,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-multiple-choice-block-admin-style',
 		quillforms_url( 'build/blocklib-multiple-choice-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-multiple-choice-block/admin.css' )
 	);
 
@@ -455,7 +455,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-number-block-admin-style',
 		quillforms_url( 'build/blocklib-number-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-number-block/admin.css' )
 	);
 
@@ -475,7 +475,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-short-text-block-admin-style',
 		quillforms_url( 'build/blocklib-short-text-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-short-text-block/admin.css' )
 	);
 
@@ -495,7 +495,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-statement-block-admin-style',
 		quillforms_url( 'build/blocklib-statement-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-statement-block/admin.css' )
 	);
 
@@ -515,7 +515,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-blocklib-website-block-admin-style',
 		quillforms_url( 'build/blocklib-website-block/admin.css' ),
-		array( 'quillforms-builder-components' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( quillforms_dir_path() . 'build/blocklib-website-block/admin.css' )
 	);
 
