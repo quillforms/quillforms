@@ -8,16 +8,11 @@ import { omit, cloneDeep, identity } from 'lodash';
  * Internal Dependencies
  */
 import {
-	SET_BLOCK_TITLE,
-	SET_BLOCK_DESCRIPTION,
 	SET_BLOCK_ATTRIBUTES,
 	INSERT_BLOCK,
 	REORDER_BLOCKS,
 	DELETE_BLOCK,
 	SET_CURRENT_BLOCK,
-	TOGGLE_BLOCK_DESCRIPTION,
-	SET_BLOCK_ATTACHMENT,
-	TOGGLE_REQUIRED_FLAG,
 	SETUP_STORE,
 } from './constants';
 
@@ -49,7 +44,7 @@ function sortBlocks( blocks ) {
 	const priority = [ 'WELCOME_SCREENS', 'OTHERS', 'THANKYOU_SCREENS' ];
 	blocks.sort( ( a, b ) => {
 		const getCategory = ( block ) => {
-			switch ( block.type ) {
+			switch ( block.name ) {
 				case 'welcome-screen':
 					return 'WELCOME_SCREENS';
 				case 'thankyou-screen':
@@ -175,11 +170,6 @@ const withBlockCache = ( reducer ) => (
 			};
 			break;
 		}
-		case SET_BLOCK_TITLE:
-		case SET_BLOCK_DESCRIPTION:
-		case SET_BLOCK_ATTACHMENT:
-		case TOGGLE_BLOCK_DESCRIPTION:
-		case TOGGLE_REQUIRED_FLAG:
 		case SET_BLOCK_ATTRIBUTES:
 			newState.cache = {
 				...newState.cache,
@@ -212,6 +202,7 @@ const withBlockCache = ( reducer ) => (
 	}
 	return newState;
 };
+
 /**
  * Reducer returning the form object.
  *
@@ -221,7 +212,6 @@ const withBlockCache = ( reducer ) => (
  * @return {Object} Updated state.
  */
 const BlockEditorReducer = withBlockCache( ( state = initialState, action ) => {
-	console.log( action );
 	switch ( action.type ) {
 		// SET UP STORE
 		case SETUP_STORE: {
@@ -235,46 +225,6 @@ const BlockEditorReducer = withBlockCache( ( state = initialState, action ) => {
 			return {
 				...state,
 				blocks: initialPayload,
-			};
-		}
-
-		// SET FORM BLOCK TITLE
-		case SET_BLOCK_TITLE: {
-			const { blockId, title } = action.payload;
-
-			const blockIndex = state.blocks.findIndex( ( block ) => {
-				return block.id === blockId;
-			} );
-
-			// Skip update if nothing has been changed.
-			if ( title === state.blocks[ blockIndex ].title ) {
-				return state;
-			}
-			const blocks = [ ...state.blocks ];
-			blocks[ blockIndex ].title = title;
-			return {
-				...state,
-				blocks,
-			};
-		}
-
-		// SET FORM BLOCK DESCRIPTION
-		case SET_BLOCK_DESCRIPTION: {
-			const { blockId, desc } = action.payload;
-			// Get block index within category.
-			const blockIndex = state.blocks.findIndex( ( block ) => {
-				return block.id === blockId;
-			} );
-
-			// Skip update if nothing has been changed.
-			if ( desc === state.blocks[ blockIndex ].description ) {
-				return state;
-			}
-			const blocks = [ ...state.blocks ];
-			blocks[ blockIndex ].description = desc;
-			return {
-				...state,
-				blocks,
 			};
 		}
 
@@ -349,6 +299,7 @@ const BlockEditorReducer = withBlockCache( ( state = initialState, action ) => {
 		// INSERT NEW FORM BLOCK
 		case INSERT_BLOCK: {
 			const { block, destination } = action.payload;
+			console.log( block );
 			const blocks = [ ...state.blocks ];
 			const { index } = destination;
 
@@ -405,62 +356,6 @@ const BlockEditorReducer = withBlockCache( ( state = initialState, action ) => {
 			return {
 				...state,
 				currentBlockId: id,
-			};
-		}
-
-		// TOGGLE BLOCK DESCRIPTION
-		case TOGGLE_BLOCK_DESCRIPTION: {
-			const { blockId } = action.payload;
-			const blockIndex = state.blocks.findIndex( ( block ) => {
-				return block.id === blockId;
-			} );
-			// If block isn't found.
-			if ( blockIndex === -1 ) {
-				return state;
-			}
-			const blocks = [ ...state.blocks ];
-			if ( blocks[ blockIndex ].description ) {
-				delete blocks[ blockIndex ].description;
-			} else {
-				blocks[ blockIndex ].description = '<p></p>';
-			}
-			return {
-				...state,
-				blocks,
-			};
-		}
-
-		// SET BLOCK ATTACHMENT
-		case SET_BLOCK_ATTACHMENT: {
-			const { blockId, val } = action.payload;
-			const blockIndex = state.blocks.findIndex( ( block ) => {
-				return block.id === blockId;
-			} );
-			// If block isn't found.
-			if ( blockIndex === -1 ) {
-				return state;
-			}
-			const blocks = [ ...state.blocks ];
-			blocks[ blockIndex ].attachment = val;
-			return { ...state, blocks };
-		}
-
-		// TOGGLE REQUIRED FLAG
-		case TOGGLE_REQUIRED_FLAG: {
-			const { blockId } = action.payload;
-			const blockIndex = state.blocks.findIndex( ( block ) => {
-				return block.id === blockId;
-			} );
-			// If block isn't found.
-			if ( blockIndex === -1 ) {
-				return state;
-			}
-			const requiredFlag = state.blocks[ blockIndex ].required;
-			const blocks = [ ...state.blocks ];
-			blocks[ blockIndex ].required = ! requiredFlag;
-			return {
-				...state,
-				blocks,
 			};
 		}
 	}

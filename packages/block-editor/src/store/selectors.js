@@ -1,4 +1,8 @@
 /**
+ * QuillForms Dependencies
+ */
+import { getBlockType } from '@quillforms/blocks';
+/**
  * WordPress Dependencies
  */
 import { createRegistrySelector } from '@wordpress/data';
@@ -6,19 +10,28 @@ import { createRegistrySelector } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { forEach, pick, map } from 'lodash';
+import { forEach, pick, map, findIndex, slice } from 'lodash';
 import createSelector from 'rememo';
 
 /**
- * Get the whole form blocks.
+ * Returns all block objects.
  *
- * @param {Object} state       Global application state.
+ * Note: it's important to memoize this selector to avoid return a new instance on each call. We use the block cache state
+ * for each top-level block of the given block id. This way, the selector only refreshes
+ * on changes to blocks associated with the given entity
  *
- * @return {Object} Form blocks
+ * @param {Object}  state        Editor state.
+ *
+ * @return {Object[]} Form blocks.
  */
-export function getBlocks( state ) {
-	return map( state.blocks, ( block ) => getBlockById( state, block.id ) );
-}
+export const getBlocks = createSelector(
+	( state ) => {
+		return map( state.blocks, ( block ) =>
+			getBlockById( state, block.id )
+		);
+	},
+	( state ) => map( state.blocks, ( block ) => state.cache[ block.id ] )
+);
 
 /**
  * Get welcome screens length.
@@ -28,25 +41,8 @@ export function getBlocks( state ) {
  * @return {number} Welcome screens length
  */
 export function getWelcomeScreensLength( state ) {
-	return state.blocks.filter( ( block ) => block.type === 'welcome-screen' )
+	return state.blocks.filter( ( block ) => block.name === 'welcome-screen' )
 		.length;
-}
-
-/**
- * Returns a block's attributes given its id, or null if no block exists with
- * the block id.
- *
- * @param {Object} state      Editor state.
- * @param {string} blockId    Block id.
- *
- * @return {Object?} Block attributes.
- */
-export function getBlockAttributes( state, blockId ) {
-	const blockIndex = state.blocks.findIndex(
-		( $block ) => $block.id === blockId
-	);
-	if ( blockIndex === -1 ) return null;
-	return state.blocks[ blockIndex ].attributes;
 }
 
 /**
@@ -61,10 +57,7 @@ export const getBlockById = createSelector(
 	( state, blockId ) => {
 		const block = state.blocks.find( ( $block ) => $block.id === blockId );
 		if ( ! block ) return null;
-		return {
-			...block,
-			attributes: getBlockAttributes( state, blockId ),
-		};
+		return block;
 	},
 	( state, blockId ) => [
 		// Normally, we'd have both `getBlockAttributes` dependencies and
@@ -88,7 +81,7 @@ export const getBlockOrderById = createRegistrySelector(
 	( select ) => ( state, id ) => {
 		const formBlock = state.blocks.find( ( block ) => block.id === id );
 		const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-			formBlock.type
+			formBlock.name
 		];
 		const editableFields = select(
 			'quillForms/block-editor'
@@ -126,7 +119,7 @@ export const getBlockOrderById = createRegistrySelector(
 			itemOrder = fieldIndex + 1;
 		} else {
 			const fieldIndex = state.blocks
-				.filter( ( block ) => block.type === formBlock.type )
+				.filter( ( block ) => block.name === formBlock.name )
 				.findIndex( ( block ) => block.id === id );
 			itemOrder = identName( fieldIndex );
 		}
@@ -145,7 +138,7 @@ export const getEditableFields = createRegistrySelector( ( select ) => () => {
 	const blocks = select( 'quillForms/block-editor' ).getBlocks();
 	return blocks.filter( ( block ) => {
 		const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-			block.type
+			block.name
 		];
 		return blockType.supports.editable === true;
 	} );
@@ -155,8 +148,10 @@ export const getEditableFields = createRegistrySelector( ( select ) => () => {
  * @typedef {Object} QFBlocksSupportsCriteria
  *
  * @property {boolean} editable        Is block editable.
- * @property {boolean} jumpLogic 	   Does block support jump logic.
- * @property {boolean} calculator      Does block support calculator.
+ * @property {boolean} logic 	       Does block support jump logic.
+ * @property {boolean} required        Does block support required flag.
+ * @property {boolean} attachment      Does block support attachment.
+ * @property {boolean} description     Does block support description.
  */
 /**
  * Get block with multiple criteria.
@@ -170,14 +165,16 @@ export const getBlocksByCriteria = createRegistrySelector(
 	( select ) => ( state, criteria ) => {
 		const blocks = select( 'quillForms/block-editor' ).getBlocks();
 		const filteredCriteria = pick( criteria, [
-			'jumpLogic',
-			'calculator',
+			'logic',
+			'required',
+			'attachment',
+			'description',
 			'editable',
 		] );
 
 		return blocks.filter( ( block ) => {
 			const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-				block.type
+				block.name
 			];
 			return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
 				typeof val === 'boolean'
@@ -197,26 +194,28 @@ export const getBlocksByCriteria = createRegistrySelector(
  *
  * @return {Array} Previous editable fields
  */
-export const getPreviousEditableFields = createRegistrySelector(
-	( select ) => ( state, id ) => {
+export const getPreviousEditableFields = createSelector(
+	( state, id ) => {
 		const prevEditableFields = [];
 
-		const blocks = select( 'quillForms/block-editor' ).getBlocks();
+		const blocks = getBlocks( state );
 
-		const blockIndex = blocks.findIndex( ( block ) => block.id === id );
+		const blockIndex = findIndex( blocks, ( block ) => block.id === id );
 		if ( blockIndex > 0 ) {
-			const prevFormBlocks = [ ...blocks ].slice( 0, blockIndex );
+			const prevFormBlocks = slice( blocks, 0, blockIndex );
 			forEach( prevFormBlocks, ( block ) => {
-				const registeredBlock = select(
-					'quillForms/blocks'
-				).getBlockTypes()[ block.type ];
-				if ( registeredBlock.supports.editable ) {
-					prevEditableFields.push( block );
+				const blockType = getBlockType( block.name );
+				if ( blockType.supports.editable ) {
+					prevEditableFields.push( {
+						...block,
+						order: getBlockOrderById( state, block.id ),
+					} );
 				}
 			} );
 		}
 		return prevEditableFields;
-	}
+	},
+	( state, id ) => map( state.blocks, ( block ) => state.cache[ block.id ] )
 );
 
 /**
@@ -239,7 +238,7 @@ export const getPreviousJumpLogicSupportedFields = createRegistrySelector(
 			forEach( prevFormBlocks, ( block ) => {
 				const registeredBlock = select(
 					'quillForms/blocks'
-				).getBlockTypes()[ block.type ];
+				).getBlockTypes()[ block.name ];
 				if (
 					registeredBlock?.editable &&
 					registeredBlock?.supports?.jumpLogic
@@ -268,7 +267,7 @@ export const getCalculatorSupportedFields = createRegistrySelector(
 		forEach( blocks, ( block ) => {
 			const registeredBlock = select(
 				'quillForms/blocks'
-			).getBlockTypes()[ block.type ];
+			).getBlockTypes()[ block.name ];
 			if (
 				registeredBlock?.editable &&
 				registeredBlock?.supports?.calculator

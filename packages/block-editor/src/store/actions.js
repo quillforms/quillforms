@@ -6,10 +6,7 @@ import {
 	INSERT_BLOCK,
 	DELETE_BLOCK,
 	SET_CURRENT_BLOCK,
-	TOGGLE_BLOCK_DESCRIPTION,
-	SET_BLOCK_ATTACHMENT,
 	REORDER_BLOCKS,
-	TOGGLE_REQUIRED_FLAG,
 } from './constants';
 
 /**
@@ -25,36 +22,6 @@ export function setupStore( initialPayload ) {
 		payload: { initialPayload },
 	};
 }
-
-/**
- * Set block title
- *
- * @param {string}  blockId  Block uuid
- * @param {string}  title    Block title
- *
- * @return {Object} Action object.
- */
-export const setBlockTitle = ( blockId, title ) => {
-	return {
-		type: SET_BLOCK_TITLE,
-		payload: { blockId, title },
-	};
-};
-
-/**
- * Set block description
- *
- * @param {string} blockId         Block Id
- * @param {string} description     Block description
- *
- * @return {Object} Action object.
- */
-export const setBlockDesc = ( blockId, description ) => {
-	return {
-		type: SET_BLOCK_DESCRIPTION,
-		payload: { blockId, description },
-	};
-};
 
 /**
  * Set block attributes
@@ -125,49 +92,6 @@ export const setCurrentBlock = ( id ) => {
 export const deleteBlock = ( blockId ) => {
 	return {
 		type: DELETE_BLOCK,
-		payload: { blockId },
-	};
-};
-
-/**
- * Toggle block description
- *
- * @param {string} blockId   Block id
- *
- * @return {Object} Action object.
- */
-export const toggleDescription = ( blockId ) => {
-	return {
-		type: TOGGLE_BLOCK_DESCRIPTION,
-		payload: { blockId },
-	};
-};
-
-/**
- * Set Block Attachment
- *
- * @param {string}  blockId   Block id
- * @param {Object}  val       Attachment object
- *
- * @return {Object} Action object.
- */
-export const setBlockAttachment = ( blockId, val ) => {
-	return {
-		type: SET_BLOCK_ATTACHMENT,
-		payload: { blockId, val },
-	};
-};
-
-/**
- * Toogle Required Flag
- *
- * @param {string} blockId    Block id
- *
- * @return {Object} Action object
- */
-export const toggleRequired = ( blockId ) => {
-	return {
-		type: TOGGLE_REQUIRED_FLAG,
 		payload: { blockId },
 	};
 };
