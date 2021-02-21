@@ -6,6 +6,5 @@ export { default as __unstableMoveEditor } from './move-editor';
 export { default as __unstableInsertText } from './insert-text';
 export { default as __unstableInsertNodes } from './insert-nodes';
 export { default as __unstableFocus } from './focus';
-export { default as __unstableMoveFocusToEnd } from './move-focus-to-end';
 export { default as getPlainExcerpt } from './get-plain-excerpt';
 export { default as getPlainText } from './get-plain-text';

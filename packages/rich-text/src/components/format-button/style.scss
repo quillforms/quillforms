@@ -1,0 +1,9 @@
+.rich-text-mark-wrapper {
+	& {
+		z-index: 999999;
+	}
+	svg {
+		color: #463d3d;
+		width: 20px;
+	}
+}

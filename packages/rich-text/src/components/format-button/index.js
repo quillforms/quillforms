@@ -2,6 +2,7 @@
  * External Dependencies
  */
 import { useSlate } from 'slate-react';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
@@ -19,10 +20,9 @@ const FormatButton = ( { format, toggleFormat, isFormatActive, children } ) => {
 			} }
 		>
 			<div
-				className={
-					'mark-wrapper' +
-					( isFormatActive( editor, format ) ? ' active' : '' )
-				}
+				className={ classnames( 'rich-text-mark-wrapper', {
+					active: isFormatActive( editor, format ),
+				} ) }
 			>
 				{ children }
 			</div>

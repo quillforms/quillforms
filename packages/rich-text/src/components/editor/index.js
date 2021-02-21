@@ -41,9 +41,14 @@ const TextEditor = ( props ) => {
 	const [ index, setIndex ] = useState( 0 );
 	const [ search, setSearch ] = useState( '' );
 
-	const $mergeTags = mergeTags.filter( ( c ) =>
-		c?.label?.toLowerCase().startsWith( search ? search.toLowerCase() : '' )
-	);
+	const $mergeTags = mergeTags.filter( ( c ) => {
+		if ( search ) {
+			return c.label
+				?.toLowerCase()
+				.startsWith( search ? search.toLowerCase() : '' );
+		}
+		return true;
+	} );
 
 	const isFormatActive = ( format ) => {
 		const [ match ] = Editor.nodes( editor, {
@@ -213,13 +218,17 @@ const TextEditor = ( props ) => {
 						}
 					} }
 				>
-					<HoveringToolbar
-						formattingControls={ formattingControls }
-						toggleFormat={ ( format ) => toggleFormat( format ) }
-						isFormatActive={ ( format ) =>
-							isFormatActive( format )
-						}
-					/>
+					{ formattingControls?.length > 0 && (
+						<HoveringToolbar
+							formattingControls={ formattingControls }
+							toggleFormat={ ( format ) =>
+								toggleFormat( format )
+							}
+							isFormatActive={ ( format ) =>
+								isFormatActive( format )
+							}
+						/>
+					) }
 					<Editable
 						style={ { color } }
 						color={ color }

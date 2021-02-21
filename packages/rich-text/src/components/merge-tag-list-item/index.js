@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { BlockIconBox } from '@quillforms/builder-components';
+import { BlockIconBox } from '@quillforms/admin-components';
 
 /**
  * External Dependencies
