@@ -11,6 +11,7 @@ export const blockAdminSettings = {
 	color: '#ad468d',
 	icon: Icon,
 	controls,
+	title: 'Statement',
 };
 
 setBlockAdminSettings( type, blockAdminSettings );

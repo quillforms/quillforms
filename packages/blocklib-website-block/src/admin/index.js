@@ -9,6 +9,7 @@ import Icon from './icon';
 export const blockAdminSettings = {
 	color: '#6b4646',
 	icon: Icon,
+	title: 'Website',
 };
 
 setBlockAdminSettings( type, blockAdminSettings );

@@ -7,7 +7,7 @@ import {
 	__experimentalControlLabel,
 	ToggleControl,
 	TextControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -15,7 +15,6 @@ import {
 import { Fragment } from '@wordpress/element';
 
 const statementControls = ( props ) => {
-	const CHARACTER_LIMIT = 22;
 	const { attributes, setAttributes } = props;
 	const { buttonText, quotationMarks } = attributes;
 	return (
@@ -38,9 +37,8 @@ const statementControls = ( props ) => {
 					<__experimentalControlLabel label="Button text" />
 					<TextControl
 						placeholder="Button Text"
-						maxLength={ CHARACTER_LIMIT }
 						value={ buttonText }
-						setValue={ ( val ) =>
+						onChange={ ( val ) =>
 							setAttributes( { buttonText: val } )
 						}
 					/>

@@ -5,10 +5,9 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
-	Button,
 	ChoicesBulkBtn,
 	ChoicesInserter,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependecies

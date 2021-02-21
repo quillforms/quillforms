@@ -10,6 +10,7 @@ import Icon from './dropdown-icon';
 
 export const blockAdminSettings = {
 	color: '#2eaf8b',
+	title: 'Dropdown',
 	icon: Icon,
 	controls,
 	logicControl,

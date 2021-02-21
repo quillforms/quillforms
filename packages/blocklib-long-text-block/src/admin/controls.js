@@ -7,7 +7,7 @@ import {
 	__experimentalControlLabel,
 	ToggleControl,
 	TextControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
