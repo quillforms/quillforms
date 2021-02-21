@@ -1,4 +1,7 @@
 {
-	"references": [ { "path": "packages/block-editor" } ],
+	"references": [
+		{"path" : "packages/config"}
+	],
 	"files": []
+
 }
