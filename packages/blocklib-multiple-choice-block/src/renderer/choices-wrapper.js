@@ -52,22 +52,22 @@ const ChoicesWrapper = memo(
 			return out;
 		};
 
-		let $verticalAlign = verticalAlign;
+		const $verticalAlign = verticalAlign;
 		const $choices = cloneDeep( choices ).map( ( $choice, index ) => {
 			if ( ! $choice.label ) $choice.label = 'Choice ' + ( index + 1 );
-			if ( ! verticalAlign && $choice.label.length > 26 )
-				$verticalAlign = true;
+			// if ( ! verticalAlign && $choice.label.length > 26 )
+			// 	$verticalAlign = true;
 			$choice.selected =
-				val &&
-				val.length > 0 &&
-				val.some( ( item ) => item.ref === $choice.ref )
+				val && val.length > 0 && val.includes( $choice.value )
 					? true
 					: false;
 
 			return $choice;
 		} );
 
-		const clickHandler = ( ref, selected ) => {
+		console.log( $choices );
+
+		const clickHandler = ( newValue, selected ) => {
 			let $val;
 			if ( val?.length > 0 ) {
 				$val = cloneDeep( val );
@@ -76,21 +76,15 @@ const ChoicesWrapper = memo(
 			}
 			if ( selected ) {
 				$val.splice(
-					$val.findIndex( ( item ) => item.ref === ref ),
+					$val.findIndex( ( item ) => item === newValue ),
 					1
 				);
 				setVal( $val );
 			} else {
 				if ( multiple ) {
-					$val.push( {
-						ref,
-					} );
+					$val.push( newValue );
 				} else {
-					$val = [
-						{
-							ref,
-						},
-					];
+					$val = [ newValue ];
 				}
 				setVal( $val );
 				setChoiceClicked( false );
@@ -111,15 +105,15 @@ const ChoicesWrapper = memo(
 						$choices.map( ( choice, index ) => {
 							return (
 								<ChoiceItem
-									key={ `block-multiple-choice-${ id }-choice-${ choice.ref }` }
+									key={ `block-multiple-choice-${ id }-choice-${ choice.value }` }
 									choiceLabel={ choice.label }
-									choiceRef={ choice.ref }
+									choiceValue={ choice.value }
 									order={ identName( index ).toUpperCase() }
 									selected={ choice.selected }
 									multiple={ multiple }
 									clickHandler={ () =>
 										clickHandler(
-											choice.ref,
+											choice.value,
 											choice.selected
 										)
 									}
