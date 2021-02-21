@@ -84,10 +84,10 @@ class QF_Admin_Loader {
 	 */
 	public function remove_all_scripts() {
 		global $wp_scripts;
-		wp_enqueue_media();
 
 		if ( self::is_admin_page() ) {
 			$wp_scripts->queue = array( 'jquery' );
+			wp_enqueue_media();
 		}
 	}
 
@@ -98,28 +98,18 @@ class QF_Admin_Loader {
 	 */
 	public static function add_inline_scripts() {
 		wp_add_inline_script( 'wp-element', 'window.qfEditorContext = ' . wp_json_encode( qf_get_editor_context_value() ), 'before' );
-		wp_add_inline_script(
-			'quillforms-blocks',
-			'qf.blocks.registerBlockType(' . wp_json_encode(
-				array_map(
-					function ( $block ) {
-						return array_merge(
-							array(
-								'id'         => QF_Utils::generate_uuidv4(),
-								'name'       => $block->block_name,
-								'attributes' => $block->prepare_attributes_for_render( $block->attributes ),
-							),
-							array(
-								'supports'         => $block->supported_features,
-								'logicalOperators' => $block->get_logical_operators(),
-							)
-						);
-					},
-					QF_Blocks_Factory::get_instance()->get_all_registered()
-				)
-			) . ')',
-			'after'
-		);
+		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
+			wp_add_inline_script(
+				'quillforms-blocks',
+				'qf.blocks.registerBlockType("' . $block->type . '",' . wp_json_encode(
+					array(
+						'attributes'       => $block->custom_attributes,
+						'supports'         => $block->supported_features,
+						'logicalOperators' => $block->logical_operators,
+					)
+				) . ');'
+			);
+		}
 	}
 
 	/**
@@ -173,7 +163,6 @@ class QF_Admin_Loader {
 		// they are inserted elsewhere in the page.
 		echo '</div>';
 	}
-
 
 }
 
