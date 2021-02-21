@@ -22,7 +22,7 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@quillforms/builder-components": "file:../builder-components",
+		"@quillforms/admin-components": "file:../admin-components",
 		"@wordpress/data": "^4.26.5",
 		"@wordpress/element": "^2.19.1"
 	},

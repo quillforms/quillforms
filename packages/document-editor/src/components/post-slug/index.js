@@ -3,7 +3,7 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 import { useSelect, useDispatch } from '@wordpress/data';
 const PostSlug = () => {
