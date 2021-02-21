@@ -7,7 +7,7 @@ import {
 	__experimentalControlLabel,
 	ToggleControl,
 	TextControl,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -34,7 +34,6 @@ const shortTextControl = ( { attributes, setAttributes } ) => {
 				{ setMaxCharacters && (
 					<TextControl
 						type="number"
-						inputProps={ { min: '1', max: '1000000' } }
 						placeholder="1-1000000"
 						value={ maxCharacters }
 						setValue={ ( val ) =>

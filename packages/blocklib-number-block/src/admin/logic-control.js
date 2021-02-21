@@ -1,4 +1,4 @@
-import { TextControl } from '@quillforms/builder-components';
+import { TextControl } from '@quillforms/admin-components';
 import { useEffect, useState } from '@wordpress/element';
 
 const NumberLogicControl = ( { value, setValue } ) => {

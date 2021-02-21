@@ -8,7 +8,7 @@ import {
 	ToggleControl,
 	ChoicesBulkBtn,
 	ChoicesInserter,
-} from '@quillforms/builder-components';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies

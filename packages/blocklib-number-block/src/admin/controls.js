@@ -5,53 +5,100 @@ import {
 	__experimentalBaseControl,
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
-	SelectControl,
-	MenuItem,
-} from '@quillforms/builder-components';
+	ToggleControl,
+	TextControl,
+} from '@quillforms/admin-components';
 
 /**
- * External Dependencies
+ * WordPress Dependencies
  */
-import { css } from 'emotion';
+import { Fragment } from '@wordpress/element';
 
-const DateControls = ( props ) => {
+const NumberControls = ( props ) => {
 	const {
-		attributes: { format, separator },
+		attributes: { setMin, min, setMax, max },
 		setAttributes,
 	} = props;
-	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel label="Date Format" />
+	const MAX_NUMBER = 999999999;
 
-				<SelectControl
-					className={ css`
-						margin-top: 5px;
-					` }
-					value={ format }
-					onChange={ ( e ) =>
-						setAttributes( { format: e.target.value } )
-					}
-				>
-					<MenuItem value={ 'MMDDYYYY' }>MMDDYYYY</MenuItem>
-					<MenuItem value={ 'DDMMYYYY' }>DDMMYYYY</MenuItem>
-					<MenuItem value={ 'YYYYMMDD' }>YYYYMMDD</MenuItem>
-				</SelectControl>
-				<SelectControl
-					className={ css`
-						margin-top: 10px;
-					` }
-					value={ separator }
-					onChange={ ( e ) =>
-						setAttributes( { separator: e.target.value } )
-					}
-				>
-					<MenuItem value={ '/' }>/</MenuItem>
-					<MenuItem value={ '-' }>-</MenuItem>
-					<MenuItem value={ '.' }>.</MenuItem>
-				</SelectControl>
-			</__experimentalControlWrapper>
-		</__experimentalBaseControl>
+	const setMinHandler = ( val ) => {
+		let assignedValue = val;
+		if ( assignedValue < 0 ) assignedValue = 0;
+		else if ( assignedValue > MAX_NUMBER ) assignedValue = MAX_NUMBER;
+		if ( setMax && max && assignedValue > max ) assignedValue = max;
+		setAttributes( {
+			min: assignedValue,
+		} );
+	};
+
+	const setMaxHandler = ( val ) => {
+		let assignedValue = val;
+		if ( assignedValue < 1 ) assignedValue = 1;
+		else if ( assignedValue > MAX_NUMBER ) assignedValue = MAX_NUMBER;
+		if ( setMin && min && assignedValue < min ) assignedValue = min;
+		setAttributes( {
+			max: assignedValue,
+		} );
+	};
+	return (
+		<Fragment>
+			<__experimentalBaseControl>
+				<__experimentalControlWrapper orientation="horizontal">
+					<__experimentalControlLabel label="Set min number" />
+					<div
+						role="presentation"
+						className="switch-control-wrapper"
+						onClick={ () => {
+							setAttributes( { setMin: ! setMin } );
+							setMinHandler( 0 );
+						} }
+					>
+						<ToggleControl checked={ setMin } />
+					</div>
+				</__experimentalControlWrapper>
+				{ setMin && (
+					<TextControl
+						type="number"
+						placeholder={
+							'0-' + ( setMax && max ? max : MAX_NUMBER )
+						}
+						value={ min }
+						onChange={ ( e ) =>
+							setAttributes( { min: e.target.value } )
+						}
+						onBlur={ () => setMinHandler( min ) }
+					/>
+				) }
+			</__experimentalBaseControl>
+			<__experimentalBaseControl>
+				<__experimentalControlWrapper orientation="horizontal">
+					<__experimentalControlLabel label="Set max number" />
+					<div
+						role="presentation"
+						className="switch-control-wrapper"
+						onClick={ () => {
+							setAttributes( { setMax: ! setMax } );
+							setMaxHandler( 1 );
+						} }
+					>
+						<ToggleControl checked={ setMax } />
+					</div>
+				</__experimentalControlWrapper>
+				{ setMax && (
+					<TextControl
+						type="number"
+						placeholder={
+							'' + ( setMin && min ? min : 1 ) + '-' + MAX_NUMBER
+						}
+						value={ max }
+						onChange={ ( e ) =>
+							setAttributes( { max: e.target.value } )
+						}
+						onBlur={ () => setMaxHandler( max ) }
+					/>
+				) }
+			</__experimentalBaseControl>
+		</Fragment>
 	);
 };
-export default DateControls;
+export default NumberControls;

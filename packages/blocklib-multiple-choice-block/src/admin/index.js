@@ -13,6 +13,7 @@ export const blockAdminSettings = {
 	icon: Icon,
 	controls,
 	logicControl,
+	title: 'Multiple Choice',
 };
 
 setBlockAdminSettings( type, blockAdminSettings );
