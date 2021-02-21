@@ -1,14 +1,9 @@
 /* eslint-disable no-nested-ternary */
 /**
- * QuillForms Dependencies
- */
-import { cloneDeep } from 'lodash';
-
-/**
  * WordPress Dependencies
  */
 import { Fragment, useEffect, useCallback } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { AsyncModeProvider, useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -119,8 +114,8 @@ const FormFlow = ( { applyLogic } ) => {
 		);
 		filteredBlocks.forEach( ( block ) => {
 			if (
-				block.type !== 'welcome-screen' ||
-				block.type !== 'thankyou-screen'
+				block.name !== 'welcome-screen' ||
+				block.name !== 'thankyou-screen'
 			) {
 				fields.push( block.id );
 			}
@@ -131,7 +126,7 @@ const FormFlow = ( { applyLogic } ) => {
 	const fieldsToRender = getFieldsToRender();
 	const fields = blocks.filter(
 		( block ) =>
-			block.type !== 'welcome-screen' && block.type !== 'thankyou-screen'
+			block.name !== 'welcome-screen' && block.name !== 'thankyou-screen'
 	);
 	return (
 		<div
@@ -159,7 +154,7 @@ const FormFlow = ( { applyLogic } ) => {
 						welcomeScreens.map( ( screen ) => {
 							const blockType = blockTypes[ 'welcome-screen' ];
 							return (
-								<blockType.rendererConfig.output
+								<blockType.output
 									next={ goNext }
 									isActive={ currentBlockId === screen.id }
 									key={ screen.id }
@@ -184,19 +179,18 @@ const FormFlow = ( { applyLogic } ) => {
 								{ ( isFocused ) => (
 									<>
 										{ fields.map( ( field ) => {
+											const isActive =
+												currentBlockId === field.id;
 											return (
 												<FieldRender
+													key={ `field-render-${ field.id }` }
 													field={ field }
 													isAnimating={ isAnimating }
 													isFocused={ isFocused }
 													shouldBeRendered={ fieldsToRender.includes(
 														field.id
 													) }
-													key={ `field-render-${ field.id }` }
-													isActive={
-														currentBlockId ===
-														field.id
-													}
+													isActive={ isActive }
 													id={ field.id }
 													setCanGoNext={ ( val ) => {
 														if (
@@ -233,7 +227,8 @@ const FormFlow = ( { applyLogic } ) => {
 						{ isThankyouScreenActive && (
 							<>
 								{ currentBlockId ===
-								'default_thankyou_screen' ? (
+									'default_thankyou_screen' ||
+								! blockTypes[ 'thankyou-screen' ]?.output ? (
 									<DefaultThankYouScreen
 										isActive={ isThankyouScreenActive }
 									/>
@@ -246,7 +241,7 @@ const FormFlow = ( { applyLogic } ) => {
 														'thankyou-screen'
 													];
 												return (
-													<blockType.rendererConfig.output
+													<blockType.output
 														isActive={
 															currentBlockId ===
 															screen.id

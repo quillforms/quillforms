@@ -32,18 +32,18 @@ const FormWrapper = ( { applyLogic, isPreview } ) => {
 					walkPath: cloneDeep(
 						blocks.filter(
 							( block ) =>
-								block.type !== 'thankyou-screen' &&
-								block.type !== 'welcome-screen'
+								block.name !== 'thankyou-screen' &&
+								block.name !== 'welcome-screen'
 						)
 					),
 					welcomeScreens: cloneDeep(
 						blocks.filter(
-							( block ) => block.type === 'welcome-screen'
+							( block ) => block.name === 'welcome-screen'
 						)
 					),
 					thankyouScreens: cloneDeep(
 						blocks.filter(
-							( block ) => block.type === 'thankyou-screen'
+							( block ) => block.name === 'thankyou-screen'
 						)
 					),
 					isWelcomeScreenActive:

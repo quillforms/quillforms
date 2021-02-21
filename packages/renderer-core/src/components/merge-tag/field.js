@@ -16,8 +16,8 @@ const FieldMergeTag = ( { modifier } ) => {
 		const blockType = blockTypes[ block?.type ];
 		return {
 			fieldMergeTagValue: blockType ? (
-				blockType?.rendererConfig?.mergeTag && fieldVal ? (
-					<blockType.rendererConfig.mergeTag
+				blockType?.mergeTag && fieldVal ? (
+					<blockType.mergeTag
 						val={ fieldVal }
 						attributes={ block.attributes }
 					/>

@@ -1,0 +1,28 @@
+.renderer-component-screen-wrapper {
+	& {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+	&.with-sticky-footer {
+		display: block;
+	}
+	.screen__contentWrapper {
+		max-width: 900px;
+		padding: 30px 30px 20px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		word-wrap: break-word;
+	}
+	.screen__contentWrapper.with-sticky-footer {
+		height: calc(100% - 70px);
+	}
+}

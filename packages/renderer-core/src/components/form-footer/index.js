@@ -19,33 +19,30 @@ const FormFooter = () => {
 		isWelcomeScreenActive,
 		isThankyouScreenActive,
 		pathEditableFields,
-		currentBlockId,
 	} = useSelect( ( select ) => {
 		return {
-			pathEditableFields: select(
-				'quillForms/renderer-core'
-			).getEditableFieldsInCurrentPath(),
 			isThankyouScreenActive: select(
 				'quillForms/renderer-core'
 			).isThankyouScreenActive(),
 			isWelcomeScreenActive: select(
 				'quillForms/renderer-core'
 			).isWelcomeScreenActive(),
-			currentBlockId: select(
+			pathEditableFields: select(
 				'quillForms/renderer-core'
-			).getCurrentBlockId(),
+			).getEditableFieldsInCurrentPath(),
 		};
 	} );
-	const progressBar = useMemo( () => {
-		return <ProgressBar totalQuestions={ pathEditableFields.length } />;
-	}, [ currentBlockId ] );
+
 	return (
 		<div
 			className={ classnames( 'renderer-components-form-footer', {
-				hidden: isWelcomeScreenActive || isThankyouScreenActive,
+				hidden:
+					isWelcomeScreenActive ||
+					isThankyouScreenActive ||
+					! pathEditableFields?.length,
 			} ) }
 		>
-			{ pathEditableFields.length > 0 && progressBar }
+			<ProgressBar />
 		</div>
 	);
 };

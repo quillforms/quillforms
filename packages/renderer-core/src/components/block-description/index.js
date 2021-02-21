@@ -11,7 +11,8 @@ import HtmlParser from '../html-parser';
 import { useFieldRenderContext } from '../field-render/context';
 
 const BlockDesc = () => {
-	const { description } = useFieldRenderContext();
+	const { attributes } = useFieldRenderContext();
+	const { description } = attributes;
 	return (
 		<Fragment>
 			{ description && description !== '' && (

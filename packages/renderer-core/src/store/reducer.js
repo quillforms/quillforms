@@ -67,7 +67,7 @@ const RendererCoreReducer = ( state = initialState, action ) => {
 				( newCurrentFieldIndex === -1 ||
 					newCurrentFieldIndex === currentFieldIndex ||
 					// In case of swiping by mouse wheel or nav buttons, don't go back to the next block if next block should be before the current block, continue
-					// to submission screen
+					// to submission screen; this previous case can be produced by implementing jump logic to previous block.
 					isSwiping )
 			) {
 				$newCurrentBlockId = null;

@@ -8,6 +8,7 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import useTheme from '../../hooks/use-theme';
+import HTMLParser from '../html-parser';
 
 const ErrorMsgWrapper = ( { message } ) => {
 	const theme = useTheme();
@@ -21,7 +22,7 @@ const ErrorMsgWrapper = ( { message } ) => {
 				`
 			) }
 		>
-			{ message }
+			<HTMLParser value={ message } />
 		</div>
 	);
 };

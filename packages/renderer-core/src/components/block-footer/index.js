@@ -16,11 +16,11 @@ const BlockFooter = ( {
 	next,
 	shakingErr,
 } ) => {
-	const { id, type } = useFieldRenderContext();
+	const { id, blockName } = useFieldRenderContext();
 	const { isEditable } = useSelect( ( select ) => {
 		return {
 			isEditable: select( 'quillForms/blocks' ).hasBlockSupport(
-				type,
+				blockName,
 				'editable'
 			),
 		};

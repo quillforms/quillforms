@@ -15,7 +15,7 @@ let timer1, timer2;
 const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 	const {
 		id,
-		type,
+		blockName,
 		isActive,
 		attributes,
 		required,
@@ -23,15 +23,14 @@ const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 		setBlockFooterArea,
 	} = useFieldRenderContext();
 	const blockTypes = useBlockTypes();
-	const blockType = blockTypes[ type ];
-	console.log( blockType );
+	const blockType = blockTypes[ blockName ];
 	const [ shakingErr, setShakingErr ] = useState( null );
 
 	const { isCurrentBlockEditable } = useSelect( ( select ) => {
 		return {
 			isCurrentBlockEditable: select(
 				'quillForms/blocks'
-			).hasBlockSupport( type, 'editable' ),
+			).hasBlockSupport( blockName, 'editable' ),
 		};
 	} );
 	const { answerValue, isValid } = useSelect( ( select ) => {
@@ -122,9 +121,7 @@ const BlockOutput = ( { next, isFocused, setIsShaking } ) => {
 				}
 			} }
 		>
-			{ blockType?.rendererConfig?.output && (
-				<blockType.rendererConfig.output { ...props } />
-			) }
+			{ blockType?.output && <blockType.output { ...props } /> }
 			<BlockFooter
 				next={ next }
 				isSubmitBtnVisible={ isSubmitBtnVisible }

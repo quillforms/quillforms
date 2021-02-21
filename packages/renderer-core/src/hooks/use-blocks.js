@@ -13,7 +13,7 @@ const useBlocks = () => {
 		formObj: { blocks },
 	} = useFormContext();
 	let $blocks = blocks ? blocks : [];
-	$blocks = concat( $blocks, {
+	$blocks = concat( [ ...$blocks ], {
 		id: 'default_thankyou_screen',
 		type: 'thankyou-screen',
 	} );

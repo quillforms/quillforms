@@ -23,7 +23,8 @@ export default function FieldRender( {
 	shouldBeRendered,
 } ) {
 	const [ blockFooterArea, setBlockFooterArea ] = useState( '' );
-	const { id, type, attributes, title, description, attachment } = field;
+	const { id, name, attributes } = field;
+	console.log( id, name, attributes );
 	const { isReviewing, isValid } = useSelect( ( select ) => {
 		return {
 			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
@@ -40,11 +41,8 @@ export default function FieldRender( {
 	}, [ isReviewing ] );
 	const context = {
 		id,
-		type,
+		blockName: name,
 		attributes,
-		title,
-		description,
-		attachment,
 		isAnimating,
 		isActive,
 		shouldBeRendered,

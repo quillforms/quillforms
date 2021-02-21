@@ -4,4 +4,10 @@
 	max-width: 900px;
 	margin-right: auto;
 	margin-left: auto;
+
+	&.is-shaking {
+		-webkit-animation: isShaking 0.1s linear infinite;
+		animation: isShaking 0.1s linear infinite;
+	}
 }
+

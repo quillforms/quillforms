@@ -13,8 +13,8 @@ import useMessages from '../../hooks/use-messages';
 
 const FieldAction = ( { show, clickHandler, next } ) => {
 	const messages = useMessages();
-	const { type } = useFieldRenderContext();
-	const blockType = useBlockTypes()[ type ];
+	const { blockName } = useFieldRenderContext();
+	const blockType = useBlockTypes()[ blockName ];
 	return (
 		<div
 			role="presentation"
@@ -27,8 +27,8 @@ const FieldAction = ( { show, clickHandler, next } ) => {
 				}
 			} }
 		>
-			{ blockType?.rendererConfig?.nextBtn ? (
-				<blockType.rendererConfig.nextBtn onClick={ clickHandler } />
+			{ blockType?.nextBtn ? (
+				<blockType.nextBtn onClick={ clickHandler } />
 			) : (
 				<>
 					<Button onClick={ clickHandler }>

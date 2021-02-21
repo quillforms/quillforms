@@ -36,7 +36,7 @@ const FieldsWrapper = ( {
 		return {
 			isCurrentBlockEditable: currentBlock
 				? select( 'quillForms/blocks' ).hasBlockSupport(
-						currentBlock.type,
+						currentBlock.name,
 						'editable'
 				  )
 				: null,

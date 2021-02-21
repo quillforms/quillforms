@@ -9,7 +9,7 @@
 		"builder",
 		"core"
 	],
-	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/renderer-core/README.md",
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/renderer/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/QuillForms/quillforms.git",
@@ -24,15 +24,15 @@
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/renderer-answers": "file:../renderer-answers",
-		"@quillforms/renderer-components": "file:../renderer-components",
-		"@quillforms/utils": "file:../utils",
-		"@wordpress/element": "^2.14.0",
-		"framer-motion": "^1.6.17",
+		"@wordpress/element": "^2.19.1",
+		"html-react-parser": "^1.1.1",
+		"html-to-react": "^1.4.5",
 		"lethargy": "^1.0.9",
 		"lodash": "^4.17.15",
+		"react-html-parser": "^2.0.2",
 		"react-loader-spinner": "^3.1.5",
-		"styled-components": "^4.3.1",
-		"zustand": "^3.0.2"
+		"react-swipeable": "^6.0.1",
+		"rememo": "^3.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

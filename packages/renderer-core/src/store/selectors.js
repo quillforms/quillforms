@@ -97,7 +97,7 @@ export const getEditableFieldsInCurrentPath = createRegistrySelector(
 			( state ) => {
 				return state.walkPath.filter( ( block ) => {
 					return select( 'quillForms/blocks' ).hasBlockSupport(
-						block.type,
+						block.name,
 						'editable'
 					);
 				} );

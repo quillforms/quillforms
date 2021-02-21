@@ -22,6 +22,11 @@
 	&.active {
 		opacity: 1;
 		z-index: 1;
+
+		.renderer-components-field-wrapper__content.is-shaking {
+			-webkit-animation: isShaking 0.1s linear infinite;
+			animation: isShaking 0.1s linear infinite;
+		}
 	}
 
 	&:not(.active) {
@@ -60,6 +65,21 @@
 	}
 
 }
+@keyframes isShaking {
+	0% {
+		transform: translateX(3px);
+		-webkit-transform: translateX(3px);
+	}
+	50% {
+		transform: translateX(-3px);
+		-webkit-transform: translateX(-3px);
+	}
+	100% {
+		transform: translateX(3px);
+		-webkit-transform: translateX(3px);
+	}
+}
+
 
 
 

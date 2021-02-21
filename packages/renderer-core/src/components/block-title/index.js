@@ -17,10 +17,11 @@ import { useFieldRenderContext } from '../field-render/context';
 import useTheme from '../../hooks/use-theme';
 
 const BlockTitle = () => {
-	let { title } = useFieldRenderContext();
+	const { attributes } = useFieldRenderContext();
+	let { label } = attributes;
 	const theme = useTheme();
-	if ( ! title ) {
-		title = '...';
+	if ( ! label ) {
+		label = '...';
 	}
 	return (
 		<div
@@ -33,7 +34,7 @@ const BlockTitle = () => {
 		>
 			<HtmlParser
 				className="renderer-components-block-title__content"
-				value={ autop( title ) }
+				value={ autop( label ) }
 			/>
 		</div>
 	);

@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
+import { useCallback } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -13,17 +14,11 @@ import classnames from 'classnames';
  * Internal Dependencies
  */
 import useTheme from '../../hooks/use-theme';
+import useProgressPerecent from '../../hooks/use-progress-percent';
 
-const ProgressBar = ( { totalQuestions } ) => {
+const ProgressBar = () => {
 	const theme = useTheme();
-	const { answered } = useSelect( ( select ) => {
-		return {
-			answered: select(
-				'quillForms/renderer-submission'
-			).getAnsweredFieldsLength(),
-		};
-	} );
-	const percent = Math.round( ( answered * 100 ) / totalQuestions );
+	const percent = useProgressPerecent();
 
 	return (
 		<div className="renderer-core-progress-bar">

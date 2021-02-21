@@ -14,9 +14,9 @@ import useTheme from '../../hooks/use-theme';
 import { useSelect } from '@wordpress/data';
 
 const BlockCounter = () => {
-	const { type, id } = useFieldRenderContext();
+	const { blockName, id } = useFieldRenderContext();
 	const blockTypes = useBlockTypes();
-	const blockType = blockTypes[ type ];
+	const blockType = blockTypes[ blockName ];
 	const theme = useTheme();
 	const { pathEditableFields } = useSelect( ( select ) => {
 		return {
@@ -43,8 +43,8 @@ const BlockCounter = () => {
 				</span>
 			) }
 			<span className="renderer-components-block-counter__content">
-				{ blockType?.rendererConfig?.counterContent ? (
-					<blockType.rendererConfig.counterContent />
+				{ blockType?.counterContent ? (
+					<blockType.counterContent />
 				) : (
 					<ArrowIcon />
 				) }
