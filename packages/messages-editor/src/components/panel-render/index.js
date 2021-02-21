@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useGlobalEditorContext } from '@quillforms/builder-components';
+import { useGlobalEditorContext } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
