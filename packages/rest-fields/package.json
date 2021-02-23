@@ -15,6 +15,7 @@
 		"url": "https://github.com/QuillForms/quillforms.git",
 		"directory": "packages/shared-data"
 	},
+	"types": "build-types",
 	"bugs": {
 		"url": "https://github.com/QuillForms/quillforms/issues"
 	},
