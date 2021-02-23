@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies.
  */
-import { Button, TextControl } from '@quillforms/builder-components';
+import { Button, TextControl } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies.
