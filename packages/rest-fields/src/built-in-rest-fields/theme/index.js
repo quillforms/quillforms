@@ -1,12 +1,18 @@
 /**
+ * WordPress Dependencies
+ */
+import { select } from '@wordpress/data';
+
+/**
  * Internal Dependencies
  */
 import { registerRestField } from '../../api';
 
 registerRestField( 'theme', {
-	getValue: ( select ) => {
+	selectValue: () => {
 		return parseInt(
 			select( 'quillForms/theme-editor' ).getCurrentThemeId()
 		);
 	},
+	connectedStores: [ 'quillForms/theme-editor' ],
 } );

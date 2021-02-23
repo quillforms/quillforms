@@ -8,7 +8,6 @@ import {
 	__unstableFocus,
 	getPlainText,
 } from '@quillforms/rich-text';
-import { useTrace } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -73,7 +72,6 @@ const BlockEditor = ( props ) => {
 			order: field.order,
 		};
 	} );
-	useTrace( { ...props, prevFields } );
 
 	// State for popup showed after Accessing variables {{xx:yyy}} explicitly from editor!
 	const [ varAlertPopup, setVarAlertPopup ] = useState( false );

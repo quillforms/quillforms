@@ -1,6 +1,7 @@
 {
 	"references": [
-		{"path" : "packages/config"}
+		{"path" : "packages/config"},
+		{"path" : "packages/rest-fields"}
 	],
 	"files": []
 

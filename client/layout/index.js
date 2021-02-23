@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useFilters } from '@quillforms/builder-components';
+import { useFilters } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies

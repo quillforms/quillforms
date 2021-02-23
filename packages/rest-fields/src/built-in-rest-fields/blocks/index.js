@@ -1,10 +1,16 @@
 /**
+ * WordPress Dependencies
+ */
+import { select } from '@wordpress/data';
+
+/**
  * Internal Dependencies
  */
 import { registerRestField } from '../../api';
 
 registerRestField( 'blocks', {
-	getValue: ( select ) => {
+	selectValue: () => {
 		return select( 'quillForms/block-editor' ).getBlocks();
 	},
+	connectedStores: [ 'quillForms/block-editor' ],
 } );
