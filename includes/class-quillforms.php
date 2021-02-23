@@ -94,7 +94,6 @@ final class QuillForms {
 		/**
 		 * Interfaces.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-block-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-logger-interface.php';
 		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-log-handler-interface.php';
 
