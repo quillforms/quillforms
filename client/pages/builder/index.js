@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { EditorProvider } from '@quillforms/builder-core';
+import { getRestFields } from '@quillforms/rest-fields';
 
 /**
  * WordPress Dependencies
@@ -13,6 +14,7 @@ import apiFetch from '@wordpress/api-fetch';
 /**
  * External Dependencies
  */
+import { flatten, map, forEach } from 'lodash';
 import Loader from 'react-loader-spinner';
 import { css } from 'emotion';
 
@@ -26,6 +28,10 @@ const Builder = ( { params } ) => {
 	const { __experimentalSetPostId } = useDispatch(
 		'quillForms/builder-core'
 	);
+	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
+	const connectedStores = flatten(
+		map( getRestFields(), ( restField ) => restField.connectedStores )
+	);
 	const [ isFetching, setIsFetching ] = useState( true );
 
 	useEffect( () => {
@@ -36,6 +42,9 @@ const Builder = ( { params } ) => {
 		} ).then( ( res ) => {
 			window.qfInitialPayload = res;
 			setIsFetching( false );
+		} );
+		forEach( connectedStores, ( store ) => {
+			invalidateResolutionForStore( store );
 		} );
 	}, [] );
 	return (
