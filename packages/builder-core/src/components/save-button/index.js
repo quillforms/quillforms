@@ -13,10 +13,9 @@ import apiFetch from '@wordpress/api-fetch';
 /**
  * External Dependencies
  */
-import { zipObject } from 'lodash';
+import { pickBy } from 'lodash';
 
 const SaveButton = () => {
-	console.log( getRestFields() );
 	const { isSaving, hasUnsavedChanges, postId } = useSelect( ( select ) => {
 		return {
 			isSaving: select( 'quillForms/builder-core' ).isSaving(),
@@ -27,17 +26,9 @@ const SaveButton = () => {
 		};
 	} );
 
-	const { restFields } = useSelect( ( select ) => {
-		return {
-			restFields: zipObject(
-				getRestFields().map( ( restField ) => restField.name ),
-				getRestFields().map( ( restField ) =>
-					restField.getValue( select )
-				)
-			),
-		};
+	const restFields = pickBy( getRestFields(), ( restField ) => {
+		return restField.selectValue();
 	} );
-
 	const { setIsSaving } = useDispatch( 'quillForms/builder-core' );
 	return (
 		<Button
@@ -60,7 +51,6 @@ const SaveButton = () => {
 						...restFields,
 					},
 				} ).then( ( res ) => {
-					console.log( res );
 					setIsSaving( false );
 				} );
 			} }
