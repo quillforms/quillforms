@@ -59,7 +59,7 @@ export const getBlockSupport = (
 	state: BlocksState,
 	nameOrType: string | BlockTypeInterface,
 	feature: keyof BlockSupportedFeatures
-): boolean => {
+): boolean | undefined => {
 	const blockType = getNormalizedBlockType(state, nameOrType);
 	return get(blockType, ['supports', feature]);
 };

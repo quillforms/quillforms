@@ -47,7 +47,7 @@ export interface BlockTypeSettings
 			[ x: string ]: unknown;
 		}
 	>;
-	supports?: BlockSupportedFeatures;
+	supports: BlockSupportedFeatures;
 	logicalOperators?: (
 		| 'is'
 		| 'is_not'

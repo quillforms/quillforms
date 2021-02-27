@@ -19,7 +19,7 @@
 		"url": "https://github.com/QuillForms/quillforms/issues"
 	},
 	"quillforms:src": "src/index.ts",
-	"types": "block-types",
+	"types": "build-types",
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
