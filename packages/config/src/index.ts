@@ -8,6 +8,8 @@ import { MessagesStructure } from './types/messages-structure';
 import { NotificationStructure } from './types/notification-structure';
 import { ThemeStructure } from './types/theme-structure';
 
+export type { FormBlocks } from "./types/form-blocks";
+
 const configData: ConfigData = {
 	builderInitialPayload: {
 		blocks: [],
