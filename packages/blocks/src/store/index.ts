@@ -13,7 +13,7 @@ import type { DispatchFromMap, SelectFromMap } from "../mapped-types";
 const store = registerStore<State>(STORE_KEY, {
 	actions,
 	selectors,
-	reducer,
+	reducer
 });
 export default store;
 

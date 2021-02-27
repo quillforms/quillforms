@@ -33,7 +33,7 @@ const isSourceFile = ( filename ) => {
 			/\/(benchmark|__mocks__|__tests__|test|storybook|stories)\/.+.js$/,
 			/.\.(spec|test)\.js$/,
 		].some( ( regex ) => regex.test( filename ) ) &&
-		/.\.(js|json|scss)$/.test( filename )
+		/.\.(ts|tsx|js|json|scss)$/.test( filename )
 	);
 };
 
