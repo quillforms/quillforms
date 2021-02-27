@@ -1,3 +1,4 @@
 export const SET_BLOCK_RENDERER_SETTINGS = 'SET_BLOCK_RENDERER_SETTINGS';
 export const SET_BLOCK_ADMIN_SETTINGS = 'SET_BLOCK_ADMIN_SETTINGS';
 export const ADD_BLOCK_TYPES = 'ADD_BLOCK_TYPES';
+export const STORE_KEY = 'quillForms/blocks';

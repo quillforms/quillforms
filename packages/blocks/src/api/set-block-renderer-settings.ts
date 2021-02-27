@@ -6,20 +6,21 @@ import { select, dispatch } from '@wordpress/data';
  */
 import { isFunction, pick } from 'lodash';
 
+import type { BlockRendererSettings } from "../types";
 /**
  * Set block renderer settings
- * Set block renderer settings is for defining UI behavior for the block
+ * Set block renderer settings is for defining renderer behavior for the block
  *
  * @param {string} name     Block name.
  * @param {Object} settings Block renderer settings.
  *
  */
-export const setBlockRendererSettings = ( name, settings ) => {
+export const setBlockRendererSettings = ( name:string, settings:BlockRendererSettings ) : BlockRendererSettings | undefined => {
 	settings = {
-		name,
 		output: () => null,
 		...settings,
 	};
+
 	if ( typeof name !== 'string' ) {
 		console.error( 'Block types must be strings.' );
 		return;
@@ -57,12 +58,9 @@ export const setBlockRendererSettings = ( name, settings ) => {
 	}
 
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
-		pick( settings, [
-			'name',
-			'output',
-			'mergeTag',
-			'nextBtn',
-			'counterContent',
-		] )
+		pick( settings, [ 'output', 'mergeTag', 'nextBtn', 'counterContent' ] ),
+		name
 	);
+
+	return settings;
 };

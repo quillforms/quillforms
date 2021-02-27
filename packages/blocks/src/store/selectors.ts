@@ -4,6 +4,10 @@
 import { get } from 'lodash';
 
 /**
+ * Internal Dependencies
+ */
+import type { BlockTypeSettings, BlocksState, BlockSupportedFeatures, BlockTypeInterface } from "../types";
+/**
  * Given a block name or block type object, returns the corresponding
  * normalized block type object.
  *
@@ -12,9 +16,9 @@ import { get } from 'lodash';
  *
  * @return {Object} Block type object.
  */
-const getNormalizedBlockType = ( state, nameOrType ) =>
+const getNormalizedBlockType = (state: BlocksState, nameOrType: string | BlockTypeInterface) =>
 	'string' === typeof nameOrType
-		? getBlockType( state, nameOrType )
+		? getBlockType(state, nameOrType)
 		: nameOrType;
 
 /**
@@ -24,7 +28,7 @@ const getNormalizedBlockType = ( state, nameOrType ) =>
  *
  * @return {Array} Registered blocks
  */
-export function getBlockTypes( state ) {
+export const getBlockTypes = (state: BlocksState): BlocksState => {
 	return state;
 }
 
@@ -36,8 +40,8 @@ export function getBlockTypes( state ) {
  *
  * @return {Object?} Block Type.
  */
-export function getBlockType( state, name ) {
-	return state[ name ];
+export function getBlockType(state: BlocksState, name: string): BlockTypeSettings | undefined{
+	return state[name];
 }
 
 /**
@@ -52,13 +56,12 @@ export function getBlockType( state, name ) {
  * @return {?*} Block support value
  */
 export const getBlockSupport = (
-	state,
-	nameOrType,
-	feature,
-	defaultSupports
-) => {
-	const blockType = getNormalizedBlockType( state, nameOrType );
-	return get( blockType, [ 'supports', feature ], defaultSupports );
+	state: BlocksState,
+	nameOrType: string | BlockTypeInterface,
+	feature: keyof BlockSupportedFeatures
+): boolean => {
+	const blockType = getNormalizedBlockType(state, nameOrType);
+	return get(blockType, ['supports', feature]);
 };
 
 /**
@@ -72,6 +75,6 @@ export const getBlockSupport = (
  *
  * @return {boolean} Whether block supports feature.
  */
-export function hasBlockSupport( state, nameOrType, feature, defaultSupports ) {
-	return !! getBlockSupport( state, nameOrType, feature, defaultSupports );
+export function hasBlockSupport(state: BlocksState, nameOrType: string, feature: keyof BlockSupportedFeatures): boolean {
+	return !!getBlockSupport(state, nameOrType, feature);
 }

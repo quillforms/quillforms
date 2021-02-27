@@ -18,11 +18,13 @@
 	"bugs": {
 		"url": "https://github.com/QuillForms/quillforms/issues"
 	},
+	"quillforms:src": "src/index.ts",
+	"types": "block-types",
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/data": "^4.26.5"
+		"@wordpress/data": "^4.26.7"
 	},
 	"publishConfig": {
 		"access": "public"
