@@ -13,7 +13,7 @@ import { isFunction, pick } from 'lodash';
  * Internal Dependencies
  */
 import { isValidIcon, normalizeIconObject } from './utils';
-import defaultBlockIcon from './default-icon';
+import { BlockAdminSettings } from '../types';
 
 /**
  * Set block admin settings.
@@ -24,12 +24,14 @@ import defaultBlockIcon from './default-icon';
  * @param {Object} settings   Block configuration.
  *
  */
-export const setBlockAdminSettings = ( name, settings ) => {
+export const setBlockAdminSettings = (
+	name: string,
+	settings: BlockAdminSettings
+): BlockAdminSettings | void => {
 	settings = {
-		name,
 		title: 'Untitled',
 		color: '#333s',
-		icon: defaultBlockIcon,
+		icon: 'plus',
 		controls: () => null,
 		logicControl: () => null,
 		...settings,
@@ -77,8 +79,8 @@ export const setBlockAdminSettings = ( name, settings ) => {
 			'logicControl',
 			'color',
 			'icon',
-			'name',
 			'title',
-		] )
+		] ),
+		name
 	);
 };

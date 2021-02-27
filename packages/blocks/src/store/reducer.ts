@@ -1,12 +1,18 @@
+/**
+ * External dependencies
+ */
+import type { Reducer } from 'redux';
+
 import {
 	SET_BLOCK_ADMIN_SETTINGS,
 	SET_BLOCK_RENDERER_SETTINGS,
 	ADD_BLOCK_TYPES,
 } from './constants';
-import { omit, keyBy } from 'lodash';
+import type { BlockActionTypes, BlocksState } from "../types";
+import { keyBy } from 'lodash';
 
-const initialState = {
-	unknown: {
+const initialState : BlocksState = {
+	"unknown": {
 		title: 'Unknown',
 		supports: {
 			editable: true,
@@ -14,15 +20,17 @@ const initialState = {
 			attachment: true,
 			required: false,
 			logic: true,
-			logicalOperators: [
-				'is',
-				'is_not',
-				'starts_with',
-				'ends_with',
-				'contains',
-				'not_contains',
-			],
 		},
+		logicalOperators: [
+			'is',
+			'is_not',
+			'starts_with',
+			'greater_than',
+			'lower_than',
+			'ends_with',
+			'contains',
+			'not_contains'
+		],
 	},
 };
 
@@ -34,21 +42,21 @@ const initialState = {
  *
  * @return {Object} Updated state.
  */
-const BlocksReducer = ( state = initialState, action ) => {
+const BlocksReducer : Reducer<BlocksState, BlockActionTypes> = (state  = initialState, action ) => {
 	switch ( action.type ) {
-		case SET_BLOCK_ADMIN_SETTINGS:
+		case SET_BLOCK_ADMIN_SETTINGS  :
 		case SET_BLOCK_RENDERER_SETTINGS:
-			const { name } = action.settings;
+			const { name } = action;
 			if ( ! state[ name ] ) {
 				return state;
 			}
-			const stateClone = { ...state };
-			stateClone[ name ] = {
-				...stateClone[ name ],
-				...omit( action.settings, [ 'name' ] ),
-			};
-			return stateClone;
-
+			return {
+				...state,
+				[name]: {
+					...state[name],
+					...action.settings
+				}
+			}
 		case ADD_BLOCK_TYPES: {
 			return {
 				...state,
@@ -59,4 +67,5 @@ const BlocksReducer = ( state = initialState, action ) => {
 	return state;
 };
 
+export type State = ReturnType< typeof BlocksReducer >;
 export default BlocksReducer;

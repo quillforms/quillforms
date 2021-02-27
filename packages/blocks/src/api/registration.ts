@@ -8,13 +8,15 @@ import { select, dispatch } from '@wordpress/data';
  * External Dependencies
  */
 import { pick } from 'lodash';
+
 /**
  * Internal Dependencies
  */
 import { setBlockAdminSettings } from './set-block-admin-settings';
 import { setBlockRendererSettings } from './set-block-renderer-settings';
+import type { BlockTypeSettings, BlockSupportedFeatures } from '../types';
 
-export const getDefaultBlockSupports = () => {
+export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 	return {
 		editable: true,
 		required: true,
@@ -29,21 +31,16 @@ export const getDefaultBlockSupports = () => {
  * behavior. Once registered, the block is made available as an option to any
  * editor interface where blocks are implemented.
  *
- * @param {string} name     Block name.
- * @param {Object} settings Block settings.
+ * @param  name     Block name.
+ * @param  settings Block settings.
  *
- * @return {Object} The block, if it has been successfully registered;
+ * @return The block settings, if it has been successfully registered;
  * otherwise `undefined`.
  */
-export const registerBlockType = ( name, settings ) => {
-	settings = {
-		name,
-		attributes: {},
-		supports: {},
-		logicalOperators: [ 'is', 'is_not' ],
-		...settings,
-	};
-
+export const registerBlockType = (
+	name: string,
+	settings: BlockTypeSettings
+): BlockTypeSettings | undefined => {
 	if ( typeof name !== 'string' ) {
 		console.error( 'Block names must be strings.' );
 		return;
@@ -59,8 +56,12 @@ export const registerBlockType = ( name, settings ) => {
 		...settings.supports,
 	};
 
-	const { attributes, supports } = settings;
+	let { attributes } = settings;
+	const { supports } = settings;
 
+	if (! attributes) {
+		attributes = {}
+	}
 	if ( supports.required ) {
 		attributes.required = {
 			type: 'boolean',
@@ -93,14 +94,10 @@ export const registerBlockType = ( name, settings ) => {
 
 	settings.attributes = attributes;
 
-	dispatch( 'quillForms/blocks' ).addBlockTypes(
-		pick( settings, [
-			'name',
-			'attributes',
-			'supports',
-			'logicalOperators',
-		] )
-	);
+	dispatch( 'quillForms/blocks' ).addBlockTypes( {
+		name,
+		...pick( settings, [ 'attributes', 'supports', 'logicalOperators' ] ),
+	} );
 	setBlockRendererSettings( name, settings );
 	setBlockAdminSettings( name, settings );
 	return settings;
@@ -113,6 +110,6 @@ export const registerBlockType = ( name, settings ) => {
  *
  * @return {?Object} Block type.
  */
-export function getBlockType( name ) {
-	return select( 'quillForms/blocks' ).getBlockType( name );
+export function getBlockType( name: string ) : BlockTypeSettings | undefined {
+	return select( 'quillForms/blocks' ).getBlockType( name )
 }
