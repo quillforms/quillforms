@@ -2,7 +2,8 @@
 	"references": [
 		{"path" : "packages/config"},
 		{"path" : "packages/rest-fields"},
-		{"path" : "packages/blocks"}
+		{"path" : "packages/blocks"},
+		{"path" : "packages/builder-panels"},
 	],
 	"files": []
 

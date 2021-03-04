@@ -1,4 +1,5 @@
 import { Component } from '@wordpress/element';
+import type { IconRenderer } from '@quillforms/utils';
 import { FC } from 'react';
 import {
 	SET_BLOCK_ADMIN_SETTINGS,
@@ -6,18 +7,10 @@ import {
 	ADD_BLOCK_TYPES,
 } from './store/constants';
 
-export type BlockIcon = FC | Component | JSX.Element | string;
-export type BlockIconDescriptor = {
-	src: BlockIcon;
-	background?: string;
-	foreground?: string;
-	shadowColor?: string;
-};
-export type BlockTypeIcon = BlockIconDescriptor | BlockIcon | undefined;
 export interface BlockAdminSettings {
 	title?: string;
 	color?: string;
-	icon?: BlockTypeIcon;
+	icon?: IconRenderer;
 	controls?: FC | Component | JSX.Element;
 	logicControl?: FC | Component | JSX.Element;
 }
@@ -90,9 +83,10 @@ interface setBlockAdminSettingsAction extends anyAction {
 
 interface addBlockTypesAction extends anyAction {
 	type: typeof ADD_BLOCK_TYPES;
-	blockTypes?: BlockTypeInterface[];
+	blockTypes: BlockTypeInterface[];
 }
 export type BlockActionTypes =
 	| setBlockRendererSettingsAction
 	| setBlockAdminSettingsAction
-	| addBlockTypesAction;
+	| addBlockTypesAction
+	| ReturnType< () => { type: 'NOOP' } >;

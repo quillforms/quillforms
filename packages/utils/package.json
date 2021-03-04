@@ -1,32 +1,32 @@
 {
-	"name": "@quillforms/blocks",
+	"name": "@quillforms/utils",
 	"version": "1.0.0",
-	"description": "Block api for Quill forms",
+	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
-		"block",
-		"editor"
+		"utils"
 	],
-	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/blocks/README.md",
+	"sideEffects": true,
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/utils/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/QuillForms/quillforms.git",
-		"directory": "packages/blocks"
+		"directory": "packages/config"
 	},
 	"bugs": {
 		"url": "https://github.com/QuillForms/quillforms/issues"
 	},
-	"quillforms:src": "src/index.ts",
-	"types": "build-types",
 	"main": "build/index.js",
 	"module": "build-module/index.js",
+	"quillforms:src": "src/index.ts",
+	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/data": "^4.26.7",
-		"@quillforms/utils": "file:../utils",
-		"lodash": "^4.17.21"
+		"@wordpress/element": "^2.19.1",
+		"lodash": "4.17.21",
+		"tinycolor2": "^1.4.2"
 	},
 	"publishConfig": {
 		"access": "public"

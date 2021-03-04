@@ -12,7 +12,7 @@ import { isFunction, pick } from 'lodash';
 /**
  * Internal Dependencies
  */
-import { isValidIcon, normalizeIconObject } from './utils';
+import { isValidIcon, normalizeIconObject } from '@quillforms/utils';
 import { BlockAdminSettings } from '../types';
 
 /**
@@ -20,8 +20,8 @@ import { BlockAdminSettings } from '../types';
  * Block admin settings is the configuration for the block that should be loaded at the admin only.
  * We should define here the block icon, controls, color and logic control.
  *
- * @param {string} name       Block name.
- * @param {Object} settings   Block configuration.
+ * @param {string}             name       Block name.
+ * @param {BlockAdminSettings} settings   Block configuration.
  *
  */
 export const setBlockAdminSettings = (

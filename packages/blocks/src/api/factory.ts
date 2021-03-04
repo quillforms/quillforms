@@ -5,7 +5,7 @@ import { reduce, isEmpty, map } from 'lodash';
 import type { FormBlocks } from '@quillforms/config';
 
 /**
- * Internal dependencies
+ * Internal Dependencies
  */
 import { getBlockType } from './registration';
 
@@ -20,35 +20,32 @@ import { getBlockType } from './registration';
  */
 export function createBlock(
 	name: string,
-	attributes: Record<string, unknown> = {}
-): Record<string, unknown> | void{
+	attributes: Record< string, unknown > = {}
+): Record< string, unknown > | void {
 	// Get the type definition associated with a registered block.
-	const blockType = getBlockType(name);
+	const blockType = getBlockType( name );
 
-	if (undefined === blockType) {
-		throw new Error(`Block type '${name}' is not registered.`);
+	if ( undefined === blockType ) {
+		throw new Error( `Block type '${ name }' is not registered.` );
 	}
-
 
 	// Ensure attributes contains only values defined by block type, and merge
 	// default values for missing attributes.
 	const sanitizedAttributes = reduce(
 		blockType.attributes,
-		(accumulator, schema, key) => {
-			const value = attributes[key];
+		( accumulator, schema, key ) => {
+			const value = attributes[ key ];
 
-			if (undefined !== value) {
-				accumulator[key] = value;
-			} else if (schema.hasOwnProperty('default')) {
-				accumulator[key] = schema.default;
+			if ( undefined !== value ) {
+				accumulator[ key ] = value;
+			} else if ( schema.hasOwnProperty( 'default' ) ) {
+				accumulator[ key ] = schema.default;
 			}
 
 			return accumulator;
 		},
-		{} as Record<string, unknown>
+		{} as Record< string, unknown >
 	);
-
-
 
 	// Blocks are stored with a unique ID, the assigned type name, the block
 	// attributes, and their inner blocks.
@@ -65,18 +62,20 @@ export function createBlock(
  *
  * @return {Array} The transformed blocks
  */
-export function __experimentalTransformUnkownBlocks(blocks: FormBlocks): FormBlocks {
-	if (isEmpty(blocks)) {
+export function __experimentalTransformUnkownBlocks(
+	blocks: FormBlocks
+): FormBlocks {
+	if ( isEmpty( blocks ) ) {
 		return [];
 	}
 
-	const transformedBlocks = map(blocks, (block) => {
-		if (getBlockType(block.name)) return block;
+	const transformedBlocks = map( blocks, ( block ) => {
+		if ( getBlockType( block.name ) ) return block;
 		return {
 			...block,
 			name: 'unknown',
 		};
-	});
+	} );
 
 	return transformedBlocks;
 }

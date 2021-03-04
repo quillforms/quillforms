@@ -12,10 +12,11 @@ import { Component, isValidElement } from '@wordpress/element';
  * External dependencies
  */
 import { default as tinycolor, mostReadable } from 'tinycolor2';
-import { BlockIconDescriptor, BlockTypeIcon, BlockIcon } from '../types';
+import type { IconDescriptor, IconRenderer, Icon } from './types';
+export type { SelectFromMap, DispatchFromMap } from './mapped-types';
+export type { IconDescriptor, IconRenderer, Icon };
 
 const ICON_COLORS = [ '#191e23', '#f8f9f9' ];
-
 /**
  * Function that checks if the parameter is a valid icon.
  *
@@ -35,25 +36,23 @@ export function isValidIcon( icon: unknown ): boolean {
 }
 
 /**
- * Function that receives an icon as set by the blocks during the registration
+ * Function that receives an icon during the registration
  * and returns a new icon object that is normalized so we can rely on just on possible icon structure
  * in the codebase.
  *
- * @param {BlockTypeIcon} icon Render behavior of a block type icon;
+ * @param {IconRenderer} icon Render behavior of icon;
  *                                     one of a Dashicon slug, an element, or a
  *                                     component.
  *
- * @return {BlockIconDescriptor} Object describing the icon.
+ * @return {IconDescriptor} Object describing the icon.
  */
-export function normalizeIconObject(
-	icon: BlockTypeIcon
-): BlockIconDescriptor {
+export function normalizeIconObject( icon: IconRenderer ): IconDescriptor {
 	if ( ! icon ) icon = 'plus';
-	if ( isValidIcon( icon as BlockIcon ) ) {
-		return { src: icon } as BlockIconDescriptor;
+	if ( isValidIcon( icon as Icon ) ) {
+		return { src: icon } as IconDescriptor;
 	}
 	if ( has( icon, [ 'background' ] ) ) {
-		icon = icon as BlockIconDescriptor;
+		icon = icon as IconDescriptor;
 		const tinyBgColor = tinycolor( icon.background );
 
 		return {
@@ -69,5 +68,5 @@ export function normalizeIconObject(
 		};
 	}
 
-	return icon as BlockIconDescriptor;
+	return icon as IconDescriptor;
 }
