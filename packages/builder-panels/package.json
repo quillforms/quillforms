@@ -20,10 +20,12 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
+	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/block-editor": "file:../block-editor",
 		"@quillforms/notifications-editor": "file:../notifications-editor",
+		"@quillforms/utils": "file:../utils",
 		"@wordpress/data": "^4.26.5",
 		"@wordpress/element": "^2.19.1",
 		"lodash": "^4.17.15"
