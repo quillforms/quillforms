@@ -59,8 +59,8 @@ export const registerBlockType = (
 	let { attributes } = settings;
 	const { supports } = settings;
 
-	if (! attributes) {
-		attributes = {}
+	if ( ! attributes ) {
+		attributes = {};
 	}
 	if ( supports.required ) {
 		attributes.required = {
@@ -108,8 +108,8 @@ export const registerBlockType = (
  *
  * @param {string} name Block name.
  *
- * @return {?Object} Block type.
+ * @return {?BlockTypeSettingss} Block type.
  */
-export function getBlockType( name: string ) : BlockTypeSettings | undefined {
-	return select( 'quillForms/blocks' ).getBlockType( name )
+export function getBlockType( name: string ): BlockTypeSettings | undefined {
+	return select( 'quillForms/blocks' ).getBlockType( name );
 }

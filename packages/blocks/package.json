@@ -24,7 +24,9 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/data": "^4.26.7"
+		"@wordpress/data": "^4.26.7",
+		"@quillforms/utils": "file:../utils",
+		"lodash": "^4.17.21"
 	},
 	"publishConfig": {
 		"access": "public"
