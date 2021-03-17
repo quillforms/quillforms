@@ -11,12 +11,14 @@ import { __experimentalDroppable as Droppable } from '@quillforms/admin-componen
 /**
  * Wordpress Dependencies
  */
+import { Fragment } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies.
  */
 import classNames from 'classnames';
+import React from 'react';
 
 const BlockDragIndexLine = () => {
 	return <div className="block-drag-index-line"></div>;
@@ -29,6 +31,8 @@ const DropArea = ( props ) => {
 			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
 		};
 	} );
+
+	// console.log( formBlocks );
 
 	return (
 		<div
@@ -77,7 +81,7 @@ const DropArea = ( props ) => {
 						{ formBlocks?.length > 0 &&
 							formBlocks.map( ( item, index ) => {
 								return (
-									<>
+									<Fragment key={ item.id }>
 										{ index === targetIndex && (
 											<BlockDragIndexLine />
 										) }
@@ -86,7 +90,7 @@ const DropArea = ( props ) => {
 											id={ item.id }
 											name={ item.name }
 										/>
-									</>
+									</Fragment>
 								);
 							} ) }
 						{ targetIndex === formBlocks.length && (
