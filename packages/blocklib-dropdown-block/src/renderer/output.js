@@ -136,7 +136,7 @@ const DropdownOutput = ( props ) => {
 				resizeThrottle={ 100 }
 				scrollThrottle={ 100 }
 				onChange={ ( visible ) => {
-					// // console.log(isVisible);
+					// // // console.log(isVisible);
 					setIsVisible( visible );
 				} }
 			>
@@ -146,21 +146,21 @@ const DropdownOutput = ( props ) => {
 					className={ classnames(
 						'question__InputField',
 						css`
-							color: ${theme.answersColor};
+							color: ${ theme.answersColor };
 
 							&::placeholder {
 								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&:-ms-input-placeholder {
 								/* Internet Explorer 10-11 */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&::-ms-input-placeholder {
 								/* Microsoft Edge */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 						`,
 						{

@@ -45,13 +45,13 @@ const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
 
 	const handlers = useSwipeable( {
 		onSwiped: () => {
-			// // console.log("onSwiped");
+			// // // console.log("onSwiped");
 		},
 		onSwipedUp: () => {
-			// // console.log("onSwipeUp");
+			// // // console.log("onSwipeUp");
 		},
 		onSwiping: () => {
-			// // console.log("onSwiping");
+			// // // console.log("onSwiping");
 		},
 		preventDefaultTouchmoveEvent: true,
 		trackMouse: true,

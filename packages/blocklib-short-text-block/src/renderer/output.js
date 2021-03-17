@@ -31,7 +31,7 @@ const ShortTextOutput = ( props ) => {
 		val,
 		setVal,
 	} = props;
-	console.log( val );
+	// console.log( val );
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const messages = useMessages();
@@ -79,7 +79,7 @@ const ShortTextOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		console.log( value );
+		// console.log( value );
 		if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
@@ -114,21 +114,21 @@ const ShortTextOutput = ( props ) => {
 					className={ classnames(
 						'question__InputField',
 						css`
-							color: ${theme.answersColor};
+							color: ${ theme.answersColor };
 
 							&::placeholder {
 								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&:-ms-input-placeholder {
 								/* Internet Explorer 10-11 */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&::-ms-input-placeholder {
 								/* Microsoft Edge */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 						`,
 						{

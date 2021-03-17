@@ -24,7 +24,7 @@ export default function FieldRender( {
 } ) {
 	const [ blockFooterArea, setBlockFooterArea ] = useState( '' );
 	const { id, name, attributes } = field;
-	console.log( id, name, attributes );
+	// console.log( id, name, attributes );
 	const { isReviewing, isValid } = useSelect( ( select ) => {
 		return {
 			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),

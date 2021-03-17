@@ -15,7 +15,7 @@ const Panel = () => {
 	const { setCurrentSubPanel } = useDispatch( 'quillForms/builder-panels' );
 
 	useEffect( () => {
-		// console.log(currentPanelObj);
+		// // console.log(currentPanelObj);
 		if (
 			currentPanel?.mode === 'parent' &&
 			currentPanel?.subPanels &&

@@ -56,7 +56,7 @@ const PanelReducer: Reducer< PanelsState, PanelActionTypes > = (
 		// Register Builder Sub Panel
 		case REGISTER_BUILDER_SUBPANEL: {
 			const { parent } = action;
-			// console.log(parent);
+			// // console.log(parent);
 			const parentIndex = findIndex(
 				state.panels,
 				( panel ) => panel.name === parent

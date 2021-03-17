@@ -65,7 +65,7 @@ const ChoicesWrapper = memo(
 			return $choice;
 		} );
 
-		console.log( $choices );
+		// console.log( $choices );
 
 		const clickHandler = ( newValue, selected ) => {
 			let $val;

@@ -65,6 +65,10 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		isSelected,
 	} = props;
 	let attachment;
+	// console.log( '****' );
+	// console.log( label, desc );
+	// console.log( '****' );
+
 	if ( attributes?.attachment ) {
 		attachment = attributes.attachment;
 	}
@@ -105,6 +109,8 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 	// Serialize label is a debounced function that updates the store with serialized html value
 	const serializeLabel = useCallback(
 		debounce( ( value ) => {
+			// console.log( value );
+			// console.log( serialize( value ) );
 			setBlockAttributes( id, { label: serialize( value ) } );
 		}, 200 ),
 		[]
@@ -176,7 +182,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 				/>
 			</div>
 		),
-		[ JSON.stringify( label ), JSON.stringify( prevFields ) ]
+		[ JSON.stringify( label ), JSON.stringify( mergeTags ) ]
 	);
 
 	// Description Rich Text Editor
@@ -196,7 +202,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 				/>
 			</div>
 		),
-		[ JSON.stringify( desc ), JSON.stringify( prevFields ) ]
+		[ JSON.stringify( desc ), JSON.stringify( mergeTags ) ]
 	);
 
 	return (

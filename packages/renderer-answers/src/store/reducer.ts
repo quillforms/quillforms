@@ -29,7 +29,7 @@ const AnswersReducer = ( state = initialState, action ) => {
 				};
 			}
 			$state.answers = $answers;
-			console.log( $state );
+			// console.log( $state );
 			return $state;
 		}
 
