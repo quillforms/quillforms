@@ -23,7 +23,7 @@ import Element from '../element';
 import HoveringToolbar from '../hovering-toolbar';
 import MergeTagListItem from '../merge-tag-list-item';
 import Portal from '../portal';
-import type { MergeTags, FormatControls } from '../../types';
+import type { MergeTags, MergeTag, FormatControls } from '../../types';
 interface Props {
 	editor: ReactEditor & HistoryEditor;
 	placeholder?: string;
@@ -96,7 +96,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 	};
 
 	// Insert Variable
-	const insertMergeTag = ( mergeTag ) => {
+	const insertMergeTag = ( mergeTag: MergeTag ) => {
 		Transforms.insertNodes( editor, {
 			type: 'mergeTag',
 			data: {

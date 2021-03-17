@@ -23,6 +23,9 @@ const BoxWrapper: React.FC< Props > = ( { id, children } ) => {
 				e.stopPropagation();
 				setCurrentBlock( id );
 			} }
+			onClick={ () => {
+				setCurrentBlock( id );
+			} }
 			className={
 				'block-editor-box-wrapper' +
 				( id === currentBlockId ? ' isSelected' : '' )

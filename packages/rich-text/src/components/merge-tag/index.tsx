@@ -27,6 +27,7 @@ interface Props extends RenderElementProps {
 	path: Path;
 	mergeTags: MergeTags;
 	editor: ReactEditor;
+	children: React.ReactNode;
 }
 const EditorMergeTag: React.FC< Props > = ( {
 	attributes,
