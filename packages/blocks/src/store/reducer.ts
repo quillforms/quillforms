@@ -8,11 +8,11 @@ import {
 	SET_BLOCK_RENDERER_SETTINGS,
 	ADD_BLOCK_TYPES,
 } from './constants';
-import type { BlockActionTypes, BlocksState } from "../types";
+import type { BlockActionTypes, BlocksState } from '../types';
 import { keyBy } from 'lodash';
 
-const initialState : BlocksState = {
-	"unknown": {
+const initialState: BlocksState = {
+	unknown: {
 		title: 'Unknown',
 		supports: {
 			editable: true,
@@ -29,7 +29,7 @@ const initialState : BlocksState = {
 			'lower_than',
 			'ends_with',
 			'contains',
-			'not_contains'
+			'not_contains',
 		],
 	},
 };
@@ -42,9 +42,12 @@ const initialState : BlocksState = {
  *
  * @return {Object} Updated state.
  */
-const BlocksReducer : Reducer<BlocksState, BlockActionTypes> = (state  = initialState, action ) => {
+const BlocksReducer: Reducer< BlocksState, BlockActionTypes > = (
+	state = initialState,
+	action
+): BlocksState => {
 	switch ( action.type ) {
-		case SET_BLOCK_ADMIN_SETTINGS  :
+		case SET_BLOCK_ADMIN_SETTINGS:
 		case SET_BLOCK_RENDERER_SETTINGS:
 			const { name } = action;
 			if ( ! state[ name ] ) {
@@ -52,11 +55,11 @@ const BlocksReducer : Reducer<BlocksState, BlockActionTypes> = (state  = initial
 			}
 			return {
 				...state,
-				[name]: {
-					...state[name],
-					...action.settings
-				}
-			}
+				[ name ]: {
+					...state[ name ],
+					...action.settings,
+				},
+			};
 		case ADD_BLOCK_TYPES: {
 			return {
 				...state,

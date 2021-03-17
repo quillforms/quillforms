@@ -11,6 +11,7 @@
 	// expand this array with files which can be type-checked. At some point in
 	// the future, this can be simplified to an `includes` of `src/**/*`.
 	"include": [
-		"src/**/*"
+		"src/**/*",
+		"src/*"
 	]
 }

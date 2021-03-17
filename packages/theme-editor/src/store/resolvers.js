@@ -1,4 +1,9 @@
 /**
+ * QuillForms Dependencies
+ */
+import ConfigAPI from '@quillforms/config';
+
+/**
  * Internal dependencies
  */
 import { apiFetch } from './controls';
@@ -12,7 +17,7 @@ import getDefaultThemeProperties from '../get-default-theme-properties';
 export function* getCurrentTheme( state ) {
 	const path = `/qf/v1/themes`;
 	try {
-		const themeId = window.qfInitialPayload.theme.id;
+		const themeId = ConfigAPI.getInitialBuilderPayload().theme;
 		const themes = yield apiFetch( { path } );
 		yield addNewThemes( themes );
 		yield setCurrentThemeId( themeId );

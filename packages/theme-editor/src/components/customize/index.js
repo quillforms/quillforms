@@ -6,12 +6,9 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 	Button,
-	ColorPicker,
 	FontPicker,
-	ComboColorPicker,
-	ColorPreview,
-	useGlobalEditorContext,
 } from '@quillforms/admin-components';
+import configApi from '@quillforms/config';
 
 /**
  * WordPress Dependencies
@@ -30,10 +27,11 @@ import CustomizeFooter from '../customize-footer';
  * Internal Dependencies
  */
 import getDefaultThemeProperties from '../../get-default-theme-properties';
+import ColorPicker from '../color-picker';
+import ComboColorPicker from '../combo-color-picker';
+import ColorPreview from '../color-preview';
 
 const CustomizeThemePanel = () => {
-	const editorContext = useGlobalEditorContext();
-
 	const { setCurrentThemeProperties } = useDispatch(
 		'quillForms/theme-editor'
 	);
@@ -75,7 +73,7 @@ const CustomizeThemePanel = () => {
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Font" />
 						<FontPicker
-							fonts={ editorContext.fonts }
+							fonts={ configApi.getFonts() }
 							selectedFont={ font }
 							setFont={ ( value ) => {
 								setCurrentThemeProperties( {

@@ -4,6 +4,7 @@ import type { FormLogic } from './form-logic';
 import type { FormNotications } from './form-notifications';
 
 export type BuilderInitialPayload = {
+	id: string;
 	title?: {
 		rendered: string;
 	};
@@ -14,7 +15,7 @@ export type BuilderInitialPayload = {
 	status?: string;
 	blocks?: FormBlocks;
 	messages?: FormMessages;
-	theme?: number;
+	theme?: { id: number };
 	notifications?: FormNotications;
 	logic?: FormLogic;
 };

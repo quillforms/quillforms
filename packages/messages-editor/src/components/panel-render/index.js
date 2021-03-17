@@ -1,7 +1,8 @@
 /**
  * QuillForms Dependencies
  */
-import { useGlobalEditorContext } from '@quillforms/admin-components';
+import configApi from '@quillforms/config';
+
 /**
  * WordPress Dependencies
  */
@@ -14,8 +15,7 @@ import { useState } from '@wordpress/element';
 import MessageRow from '../message-row';
 
 const PanelRender = () => {
-	const { schemas } = useGlobalEditorContext();
-	const messagesSchema = schemas?.messages ? schemas.messages : {};
+	const messagesStructure = configApi.getMessagesStructure();
 	const { messages } = useSelect( ( select ) => {
 		return {
 			messages: select( 'quillForms/messages-editor' ).getMessages(),
@@ -26,18 +26,18 @@ const PanelRender = () => {
 
 	return (
 		<div className="messages-editor-panel-render">
-			{ Object.keys( messagesSchema ).map( ( messageKey ) => {
+			{ Object.keys( messagesStructure ).map( ( messageKey ) => {
 				return (
 					<MessageRow
 						messageToEdit={ messageToEdit }
 						setMessageToEdit={ setMessageToEdit }
 						key={ messageKey }
 						messageKey={ messageKey }
-						label={ messagesSchema[ messageKey ].title }
-						mergeTags={ messagesSchema[ messageKey ].mergeTags }
-						format={ messagesSchema[ messageKey ].format }
+						label={ messagesStructure[ messageKey ].title }
+						mergeTags={ messagesStructure[ messageKey ].mergeTags }
+						format={ messagesStructure[ messageKey ].format }
 						value={ messages[ messageKey ] }
-						defaultValue={ messagesSchema[ messageKey ].default }
+						defaultValue={ messagesStructure[ messageKey ].default }
 					/>
 				);
 			} ) }

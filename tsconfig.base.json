@@ -28,7 +28,7 @@
 		/* This needs to be false so our types are possible to consume without setting this */
 		"esModuleInterop": false,
 		"resolveJsonModule": true,
-
+		"noImplicitAny": false,
 		"typeRoots": [ "./typings", "./node_modules/@types" ],
 		"types": []
 	},

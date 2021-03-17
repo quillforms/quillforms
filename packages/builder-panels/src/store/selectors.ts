@@ -41,7 +41,7 @@ export const getParentPanels = createSelector(
  * @return {Panel[]} Registered panels
  */
 export const getVisiblePanels = createSelector(
-	( state: PanelsState ) => {
+	( state: PanelsState ): Panel[] => {
 		return state.panels.filter( ( panel ) => panel.isHidden !== true );
 	},
 	( state: PanelsState ) => [ state.panels.length ]

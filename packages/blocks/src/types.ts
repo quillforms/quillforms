@@ -1,17 +1,23 @@
 import { Component } from '@wordpress/element';
 import type { IconRenderer } from '@quillforms/utils';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import {
 	SET_BLOCK_ADMIN_SETTINGS,
 	SET_BLOCK_RENDERER_SETTINGS,
 	ADD_BLOCK_TYPES,
 } from './store/constants';
+import type { BlockAttributes } from '@quillforms/config';
 
+interface ControlsProps {
+	id: string;
+	attributes: BlockAttributes | undefined;
+	setAttributes( T: Record< string, unknown > ): void;
+}
 export interface BlockAdminSettings {
 	title?: string;
 	color?: string;
 	icon?: IconRenderer;
-	controls?: FC | Component | JSX.Element;
+	controls?: React.ComponentType< ControlsProps >;
 	logicControl?: FC | Component | JSX.Element;
 }
 
