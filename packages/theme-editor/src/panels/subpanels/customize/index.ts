@@ -1,5 +1,5 @@
 import { registerBuilderSubPanel } from '@quillforms/builder-panels';
-import { CustomizePanel as render } from '@quillforms/theme-editor';
+import render from '../../../components/customize';
 
 registerBuilderSubPanel( 'theme/customize', {
 	title: 'Customize',

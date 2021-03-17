@@ -30,7 +30,7 @@ const Element: React.FC< Props > = ( {
 				editor={ editor }
 				path={ path }
 				attributes={ attributes }
-				children={ null }
+				children={ children }
 			/>
 		);
 	} else if ( element.type === 'link' ) {
