@@ -2,7 +2,7 @@
  * External Dependencies
  */
 import { jsx } from 'slate-hyperscript';
-import { Editor, Node as SlateNode, Descendant } from 'slate';
+import { Editor, Node as SlateNode, Descendant, Text } from 'slate';
 import { autop, removep } from '@wordpress/autop';
 
 /**
@@ -124,12 +124,12 @@ const deserialize = ( el: HTMLElement | ChildNode ) => {
 
 	if ( TEXT_TAGS[ nodeName ] ) {
 		const attrs = TEXT_TAGS[ nodeName ]( el );
-		return children.reduce( ( result, child: Descendant ) => {
+		return children.map( ( child: Descendant ): void | Text => {
 			// This condition is to prevent throwing error when we have a string like this: <strong> {{type:modifier}} </strong>
-			if ( child && child.type !== 'mergeTag' ) {
-				result.push( jsx( 'text', { ...attrs }, child ) );
+			if ( child.type !== 'mergeTag' ) {
+				return jsx( 'text', { ...attrs }, child );
 			}
-		}, [] );
+		} );
 	}
 
 	return children;

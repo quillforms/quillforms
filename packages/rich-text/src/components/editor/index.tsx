@@ -193,7 +193,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 				<Slate
 					editor={ editor }
 					value={ value }
-					onChange={ ( val ): void => {
+					onChange={ ( val ) => {
 						onChange( val );
 						const { selection } = editor;
 
@@ -252,7 +252,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 						onFocus={ onFocus }
 						onKeyDown={ onKeyDown }
 						onDOMBeforeInput={ ( event: Event ) => {
-							// // console.log(event.inputType);
+							// // // console.log(event.inputType);
 							switch ( ( event as InputEvent ).inputType ) {
 								case 'formatBold':
 									return toggleFormat( editor, 'bold' );
