@@ -1,9 +1,9 @@
 /**
  * QuillForms Dependencies
  */
-import { EditorProvider } from '@quillforms/builder-core';
+import { BuilderLayout } from '@quillforms/builder-core';
 import { getRestFields } from '@quillforms/rest-fields';
-
+import configApi from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
@@ -25,9 +25,7 @@ import './style.scss';
 
 const Builder = ( { params } ) => {
 	const { id } = params;
-	const { __experimentalSetPostId } = useDispatch(
-		'quillForms/builder-core'
-	);
+
 	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
 	const connectedStores = flatten(
 		map( getRestFields(), ( restField ) => restField.connectedStores )
@@ -35,16 +33,20 @@ const Builder = ( { params } ) => {
 	const [ isFetching, setIsFetching ] = useState( true );
 
 	useEffect( () => {
-		__experimentalSetPostId( id );
 		apiFetch( {
 			path: `/wp/v2/quill_forms/${ id }`,
 			method: 'GET',
 		} ).then( ( res ) => {
-			window.qfInitialPayload = res;
+			configApi.setInitialBuilderPayload( res );
 			setIsFetching( false );
 		} );
 		forEach( connectedStores, ( store ) => {
-			invalidateResolutionForStore( store );
+			console.log( wp.data.RegistryConsumer._currentValue.stores );
+			if (
+				store &&
+				wp.data.RegistryConsumer._currentValue.stores[ store ]
+			)
+				invalidateResolutionForStore( store );
 		} );
 	}, [] );
 	return (
@@ -68,7 +70,7 @@ const Builder = ( { params } ) => {
 					/>
 				</div>
 			) : (
-				<EditorProvider />
+				<BuilderLayout />
 			) }
 		</div>
 	);

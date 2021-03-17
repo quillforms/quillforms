@@ -2,7 +2,7 @@
  * External Dependencies
  */
 import { reduce, isEmpty, map } from 'lodash';
-import type { FormBlocks } from '@quillforms/config';
+import type { FormBlocks, FormBlock } from '@quillforms/config';
 
 /**
  * Internal Dependencies
@@ -21,7 +21,7 @@ import { getBlockType } from './registration';
 export function createBlock(
 	name: string,
 	attributes: Record< string, unknown > = {}
-): Record< string, unknown > | void {
+): FormBlock | void {
 	// Get the type definition associated with a registered block.
 	const blockType = getBlockType( name );
 
@@ -50,10 +50,15 @@ export function createBlock(
 	// Blocks are stored with a unique ID, the assigned type name, the block
 	// attributes, and their inner blocks.
 	return {
+		id: generateBlockId(),
 		name,
 		attributes: sanitizedAttributes,
 	};
 }
+
+const generateBlockId = (): string => {
+	return Math.random().toString( 36 ).substring( 10 );
+};
 
 /**
  * Transform unknown blocks to have "unknown" block name

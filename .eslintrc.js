@@ -27,6 +27,7 @@ module.exports = {
 	root: true,
 	extends: [
 		'plugin:@wordpress/eslint-plugin/recommended',
+		'plugin:prettier/recommended',
 		'plugin:jest/recommended',
 	],
 	rules: {
@@ -199,4 +200,9 @@ module.exports = {
 			}
 		),
 	],
+	settings: {
+		jsdoc: {
+			mode: 'typescript',
+		},
+	},
 };

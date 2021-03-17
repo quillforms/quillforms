@@ -30,7 +30,7 @@ const initialState: PanelsState = {
 const PanelReducer: Reducer< PanelsState, PanelActionTypes > = (
 	state = initialState,
 	action
-) => {
+): PanelsState => {
 	switch ( action.type ) {
 		// Register Builder Panel
 		case REGISTER_BUILDER_PANEL: {

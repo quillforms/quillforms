@@ -1,9 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import { useFilters } from '@quillforms/admin-components';
-
-/**
  * WordPress Dependencies
  */
 import { SlotFillProvider } from '@wordpress/components';
@@ -67,7 +62,4 @@ const _PageLayout = () => {
 	);
 };
 
-export const PageLayout = compose(
-	// Use the useFilters HoC so PageLayout is re-rendered when filters are used to add new pages or reports
-	useFilters( [ PAGES_FILTER ] )
-)( _PageLayout );
+export default _PageLayout;

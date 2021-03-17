@@ -1,3 +1,0 @@
-export const SET_POST_ID = 'SET_POST_ID';
-export const SET_IS_SAVING = 'SET_IS_SAVING';
-export const SET_HAS_UNSAVED_CHANGES = 'SET_HAS_UNSAVED_CHANGES';

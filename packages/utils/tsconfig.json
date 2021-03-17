@@ -5,6 +5,6 @@
 		"declarationDir": "build-types",
 	},
 	"include": [
-		"src/*.ts"
-  	],
+		"src/*.ts",
+	]
 }

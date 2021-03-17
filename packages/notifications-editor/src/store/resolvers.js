@@ -1,6 +1,14 @@
+/**
+ * QuillForms Dependencies
+ */
+import ConfigAPI from '@quillforms/config';
+
+/**
+ * Internal Dependencies
+ */
 import { setupStore } from './actions';
 
 export const getNotifications = () => {
-	console.log( window.qfInitialPayload );
-	return setupStore( window.qfInitialPayload.notifications );
+	const builderInitialPayload = ConfigAPI.getInitialBuilderPayload();
+	return setupStore( builderInitialPayload.notifications );
 };

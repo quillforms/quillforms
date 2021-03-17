@@ -6,10 +6,9 @@ import {
 } from './store/constants';
 import type { IconRenderer } from '@quillforms/utils';
 import { FC, Component } from 'react';
-å;
 
 export type PanelSettings = {
-	icon: IconRenderer;
+	icon?: IconRenderer;
 	title: string;
 	render?: FC | JSX.Element | Component;
 	mode: 'single' | 'parent';
