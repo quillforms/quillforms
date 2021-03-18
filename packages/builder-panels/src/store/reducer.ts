@@ -107,19 +107,19 @@ const PanelReducer: Reducer< PanelsState, PanelActionTypes > = (
 
 		// Set Current SubPanel
 		case SET_CURRENT_SUBPANEL: {
-			const currentPanel = find(
-				state.panels,
-				( panel ) => state.currentPanel === panel.name
-			);
 			// Do nothing if current parent panel isn't set.
-			if ( ! currentPanel ) {
+			if ( ! state.currentPanel ) {
 				return state;
 			}
 
+			const currentPanel = state.panels.find(
+				( panel ) => panel.name === state.currentPanel
+			);
 			if (
+				! currentPanel ||
 				! some(
 					currentPanel[ 'subPanels' ],
-					( subPanel ) => subPanel.name === action.panelName
+					( subPanel ) => subPanel.name === action.subPanelName
 				)
 			) {
 				return state;
