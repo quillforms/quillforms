@@ -114,7 +114,8 @@ const Layout: React.FC = () => {
 			return;
 		}
 		let next = destination?.index;
-		if ( isDraggingContent && next && sourceContentIndex ) {
+
+		if ( isDraggingContent && next && sourceContentIndex !== undefined ) {
 			next = next >= sourceContentIndex ? next + 1 : next;
 		}
 
