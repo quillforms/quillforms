@@ -57,7 +57,7 @@ export function createBlock(
 }
 
 const generateBlockId = (): string => {
-	return Math.random().toString( 36 ).substring( 10 );
+	return Math.random().toString( 36 ).substr( 2, 9 );
 };
 
 /**
