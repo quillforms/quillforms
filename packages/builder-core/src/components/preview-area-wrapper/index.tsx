@@ -75,16 +75,14 @@ const FormPreview = ( {} ) => {
 
 		link.type = 'text/css';
 		link.rel = 'stylesheet';
+		console.log( fontUrl );
 		if ( fontUrl ) {
 			link.href = fontUrl;
 			const existingLinkEl = document.querySelector(
 				`link[href='${ link.href }']`
 			);
-			if (
-				typeof existingLinkEl !== 'undefined' &&
-				existingLinkEl != null
-			)
-				head.appendChild( link );
+			console.log( existingLinkEl );
+			if ( ! existingLinkEl ) head.appendChild( link );
 		}
 	}, [] );
 
