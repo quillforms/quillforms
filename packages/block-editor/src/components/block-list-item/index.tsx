@@ -68,9 +68,6 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 		};
 	} );
 
-	// console.log( '###############' );
-	// console.log( block );
-	// console.log( '###############' );
 	if ( ! block || ! blockType ) return null;
 	const { attributes } = block;
 
