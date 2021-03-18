@@ -57,10 +57,13 @@ const ChoicesInserter: React.FC< Props > = ( { choices, setChoices } ) => {
 		<__experimentalDragDropContext
 			onDragEnd={ ( result ) => {
 				const { source, destination } = result;
+				console.log( source );
+				console.log( destination );
 				if (
 					! result.destination ||
 					result.source.index === result.destination.index
 				) {
+					console.log( 'This is being fired' );
 					return;
 				}
 
@@ -69,7 +72,7 @@ const ChoicesInserter: React.FC< Props > = ( { choices, setChoices } ) => {
 				const $choices = [ ...choices ];
 				const output = Array.from( $choices );
 				const [ removed ] = output.splice( sourceIndex, 1 );
-				if ( destinationIndex ) {
+				if ( destinationIndex !== undefined ) {
 					output.splice( destinationIndex, 0, removed );
 					setChoices( output );
 				}
