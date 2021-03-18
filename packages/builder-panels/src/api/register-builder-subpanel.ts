@@ -31,7 +31,7 @@ export const registerBuilderSubPanel = (
 		return;
 	}
 
-	const regexMatch = name.match( /^([a-z][a-z0-9-])*\/[a-z][a-z0-9-]*$/ );
+	const regexMatch = name.match( /^([a-z][a-z0-9-]*)\/[a-z][a-z0-9-]*$/ );
 	if ( ! regexMatch || ! regexMatch[ 1 ] ) {
 		console.error(
 			'Builder subpanel name must contain the parentt namespace prefix. Example: parent-panel/subpanel-panel'
