@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useGlobalEditorContext } from '@quillforms/admin-components';
+import ConfigAPI from '@quillforms/config';
 
 /**
  * WordPress Dependencies
@@ -51,7 +51,7 @@ const ThemesListItem = ( { theme } ) => {
 		...theme.properties,
 	};
 	const { font } = themeData;
-	const { fonts } = useGlobalEditorContext();
+	const fonts = ConfigAPI.getFonts();
 	const { setCurrentThemeId } = useDispatch( 'quillForms/theme-editor' );
 
 	const fontType = fonts[ font ];
@@ -99,8 +99,8 @@ const ThemesListItem = ( { theme } ) => {
 				className={ classnames(
 					'theme-editor-themes-list-item__header',
 					css`
-						background: ${themeData.backgroundColor};
-						font-family: ${themeData.font};
+						background: ${ themeData.backgroundColor };
+						font-family: ${ themeData.font };
 					`
 				) }
 			>
@@ -108,7 +108,7 @@ const ThemesListItem = ( { theme } ) => {
 					className={ classnames(
 						'theme-editor-themes-list-item__header-question',
 						css`
-							color: ${themeData.questionsColor};
+							color: ${ themeData.questionsColor };
 						`
 					) }
 				>
@@ -118,7 +118,7 @@ const ThemesListItem = ( { theme } ) => {
 					className={ classnames(
 						'theme-editor-themes-list-item__header-answer',
 						css`
-							color: ${themeData.answersColor};
+							color: ${ themeData.answersColor };
 						`
 					) }
 				>
