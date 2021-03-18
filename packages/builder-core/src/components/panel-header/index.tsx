@@ -78,31 +78,27 @@ const PanelHeader = () => {
 				currentPanel.subPanels?.length > 0 && (
 					<div className="builder-core-panel__header-tabs-wrapper">
 						<div className="builder-core-panel__header-tabs">
-							{ currentPanel.subPanels &&
-								currentPanel.subPanels.length > 0 &&
-								currentPanel.subPanels.map( ( subPanel ) => {
-									return (
-										<div
-											role="presentation"
-											key={ subPanel.name }
-											className={ classnames(
-												'builder-core-panel__header-tab',
-												{
-													active:
-														currentSubPanelName ===
-														subPanel.name,
-												}
-											) }
-											onClick={ () =>
-												setCurrentSubPanel(
-													subPanel.name
-												)
+							{ currentPanel.subPanels.map( ( subPanel ) => {
+								return (
+									<div
+										role="presentation"
+										key={ subPanel.name }
+										className={ classnames(
+											'builder-core-panel__header-tab',
+											{
+												active:
+													currentSubPanelName ===
+													subPanel.name,
 											}
-										>
-											{ subPanel.title }
-										</div>
-									);
-								} ) }
+										) }
+										onClick={ () =>
+											setCurrentSubPanel( subPanel.name )
+										}
+									>
+										{ subPanel.title }
+									</div>
+								);
+							} ) }
 						</div>
 					</div>
 				) }
