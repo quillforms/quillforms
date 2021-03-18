@@ -18,7 +18,7 @@ const AddNewTheme = () => {
 			className="theme-editor-component-add-new-theme"
 			role="presentation"
 			onClick={ () => {
-				setCurrentSubPanel( 'customize' );
+				setCurrentSubPanel( 'theme/customize' );
 				setCurrentThemeId( null );
 			} }
 		>
