@@ -7,12 +7,12 @@ import { NavLink, withRouter } from 'react-router-dom';
  * Internal Dependencies
  */
 import './style.scss';
-import Logo from '../../logo';
+import Logo from '../logo';
 
 const FullScreenNavBar = ( { formId } ) => {
 	return (
-		<div className="qf-admin-fullscreen-navbar">
-			<div className="qf-admin-fullscreen-navbar__logo">
+		<div className="qf-admin-form-toolbar">
+			<div className="qf-admin-fform-toolbar__logo">
 				<Logo />
 			</div>
 			<NavLink

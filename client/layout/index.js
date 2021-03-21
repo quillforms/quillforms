@@ -2,7 +2,6 @@
  * WordPress Dependencies
  */
 import { SlotFillProvider } from '@wordpress/components';
-import { compose } from '@wordpress/compose';
 
 /**
  * External dependencies
@@ -13,14 +12,18 @@ import { getHistory } from '@woocommerce/navigation';
 /**
  * Internal dependencies
  */
-import { Controller, getPages, PAGES_FILTER } from './controller';
-import AdminFullScreen from '../admin-full-screen';
+import { Controller, getPages } from './controller';
+import Sidebar from './sidebar';
+import Header from './header';
+import NotFoundPage from '../pages/not-found';
 
 export const Layout = ( props ) => {
 	return (
 		<SlotFillProvider>
 			<div className="quillforms-layout">
+				<Header />
 				<div className="quillforms-layout__main">
+					<Sidebar />
 					<Controller { ...props } />
 				</div>
 			</div>
@@ -33,26 +36,13 @@ const _PageLayout = () => {
 		<Router history={ getHistory() }>
 			<Switch>
 				{ getPages().map( ( page ) => {
-					const { includeInFullScreenToolbar } = page;
-
 					return (
 						<Route
 							key={ page.path }
 							path={ page.path }
-							exact
+							exact={ true }
 							render={ ( props ) => (
-								<>
-									{ includeInFullScreenToolbar ? (
-										<AdminFullScreen { ...props }>
-											<Layout
-												page={ page }
-												{ ...props }
-											/>
-										</AdminFullScreen>
-									) : (
-										<Layout page={ page } { ...props } />
-									) }
-								</>
+								<Layout page={ page } { ...props } />
 							) }
 						/>
 					);

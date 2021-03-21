@@ -308,7 +308,7 @@ abstract class QF_Block extends stdClass {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed   $value    The entry value that should be sanitized.
+	 * @param mixed   $value    The entry value that should be escaped.
 	 * @param integer $form_id  The form id.
 	 *
 	 * @return mixed  $value    The escaped entry value.
@@ -366,7 +366,7 @@ abstract class QF_Block extends stdClass {
 	 *
 	 * @return bool
 	 */
-	public static function is_condition_fulfilled( $field_value, $condition ) {
+	public function is_condition_fulfilled( $field_value, $condition ) {
 
 		$condition_value = $condition['value'];
 		switch ( $condition['operator'] ) {

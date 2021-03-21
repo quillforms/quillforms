@@ -1,0 +1,9 @@
+@import "./sidebar/style.scss";
+@import "./header/style.scss";
+@import "./user-name-placeholder/style.scss";
+@import "./user-image-placeholder/style.scss";
+
+.quillforms-layout__main {
+    display: flex;
+	margin-top: 55px;
+}

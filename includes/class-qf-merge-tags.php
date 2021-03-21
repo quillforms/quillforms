@@ -14,6 +14,6 @@
  *
  * @since 1.0.0
  */
-class QF_Variables {
+class QF_Merge_Tags {
 
 }

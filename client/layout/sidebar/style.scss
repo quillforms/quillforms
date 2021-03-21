@@ -1,0 +1,32 @@
+.qf-admin-sidebar {
+	min-width: 250px;
+    position: fixed;
+    bottom: 0;
+    top: 56px;
+    background: #322D44;
+    padding: 5px 11px;
+
+	.qf-admin-sidebar-nav-items {
+		margin-top: 30px;
+		.qf-admin-sidebar-nav-item {
+			padding:  13px;
+			margin: 10px 0;
+			font-size: 15px;
+			color: #8e8e8e;
+
+			&.selected {
+				background: linear-gradient(42deg, #9236eb, #ee1698);
+				color: #fff;
+				border-radius: 5px
+			}
+		}
+	}
+
+}
+
+.quillforms-home {
+    padding: 50px;
+	margin-left: 250px;
+	background: #eee;
+}
+

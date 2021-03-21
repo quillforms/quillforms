@@ -113,7 +113,6 @@ final class QuillForms {
 		 * Functions.
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/functions.php';
-		require_once QF_PLUGIN_DIR . 'includes/admin/page-controller-functions.php';
 
 		/**
 		 * Load all blocks.
@@ -127,18 +126,13 @@ final class QuillForms {
 		 */
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-core.php';
 		require_once QF_PLUGIN_DIR . 'lib/client-assets.php';
-		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-page-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-loader.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-capabilities.php';
 		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-fonts.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-install.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-logger.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-scripts.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-styles.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-user.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-utils.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-variables.php';
+		require_once QF_PLUGIN_DIR . 'includes/class-qf-merge-tags.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-messages.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-notifications.php';

@@ -1,0 +1,28 @@
+.qf-admin-header {
+	display: flex;
+	position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+	justify-content: space-between;
+	align-items:center;
+	height: 55px;
+	padding: 0 10px;
+	background: #f5f5f5;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+
+	.qf-admin-header__user {
+		display: flex;
+		align-items: center;
+	}
+
+	.qf-admin-header__user-image {
+		margin-left: 8px;
+		img {
+			width: 26px;
+			height: 26px;
+			border-radius: 50%;
+		}
+	}
+}

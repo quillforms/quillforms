@@ -14,7 +14,7 @@
 		.quillforms-home__add-form-card,
 		.quillforms-home__empty-form-card,
 		.quillforms-home__card-loader {
-			width: 200px;
+			width: 175px;
 			border-radius: 8px;
 			margin-right: 40px;
 			margin-bottom: 30px;
@@ -40,14 +40,14 @@
 
 		.quillforms-home__card-loader,
 		.quillforms-home__form-card {
-			height: 223px;
+			height: 205px;
 		}
 		.quillforms-home__form-card-body,
 		.quillforms-home__card-loader-body {
-			height: 170px;
+			height: 157px;
 		}
 		.quillforms-home__add-form-card-body {
-			height: 223px;
+			height: 205px;
 			font-size: 18px;
 			flex-direction: column;
 			color: #fff;
@@ -101,7 +101,7 @@
 		}
 
 		.quillforms-home__empty-form-card {
-			height: 223px;
+			height: 205px;
 			background: transparent;
 			border: 2px dashed rgba(0, 0, 0, 0.22);
 			cursor: inherit;

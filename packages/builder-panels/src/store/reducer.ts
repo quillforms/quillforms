@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { some, findIndex, find } from 'lodash';
+import { some, findIndex } from 'lodash';
 
 import type { PanelsState, PanelActionTypes } from '../types';
 import type { Reducer } from 'redux';
