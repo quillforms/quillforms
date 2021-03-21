@@ -15,7 +15,6 @@ import { getHistory } from '@woocommerce/navigation';
 import { Controller, getPages } from './controller';
 import Sidebar from './sidebar';
 import Header from './header';
-import NotFoundPage from '../pages/not-found';
 
 export const Layout = ( props ) => {
 	return (
