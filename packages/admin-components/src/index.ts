@@ -10,6 +10,8 @@ export { default as __experimentalDragDropContext } from './drag-drop-context';
 export { default as __experimentalDraggable } from './draggable';
 export { default as __experimentalDroppable } from './droppable';
 export { default as FontPicker } from './font-picker';
+export { default as FormAdminBar } from './form-admin-bar';
+export { default as Logo } from './logo';
 export { default as ToggleControl } from './toggle-control';
 export { default as SelectControl } from './select-control';
 export { default as TextControl } from './text-control';
