@@ -234,7 +234,7 @@ class QF_Admin_Loader {
 							<linearGradient
 								id="_lgradient_13"
 								x1="141.08428"
-								y1="142.3715"
+					 			y1="142.3715"
 								x2="167.544"
 								y2="105.50069"
 								gradientTransform="matrix(1,0,0,-1,-95.226,176.556)"
