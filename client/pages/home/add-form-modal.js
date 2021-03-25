@@ -14,7 +14,7 @@ import apiFetch from '@wordpress/api-fetch';
  * External Dependencies.
  */
 import { css } from 'emotion';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { getHistory, getNewPath } from '@quillforms/navigation';
 import Loader from 'react-loader-spinner';
 import classnames from 'classnames';
 
@@ -65,9 +65,8 @@ const AddFormModal = ( { closeModal } ) => {
 			>
 				Form Title
 				<TextControl
-					forceFocusOnMount={ true }
 					value={ title }
-					setValue={ ( val ) => setTitle( val ) }
+					onChange={ ( val ) => setTitle( val ) }
 				/>
 			</div>
 			<div className="quillforms-home__add-form-modal-footer">
