@@ -6,8 +6,7 @@ import { Card, CardBody, CardDivider, CardHeader } from '@wordpress/components';
 /**
  * External Dependencies
  */
-import { getNewPath } from '@woocommerce/navigation';
-import { Link } from 'react-router-dom';
+import { getNewPath, NavLink } from '@quillforms/navigation';
 import { css } from 'emotion';
 import classnames from 'classnames';
 
@@ -17,7 +16,7 @@ const FormCard = ( { form } ) => {
 		: {};
 	return (
 		<Card className="quillforms-home__form-card">
-			<Link
+			<NavLink
 				to={ getNewPath( {}, `/forms/${ form.id }/builder` ) }
 				className={ css`
 					text-decoration: none;
@@ -31,7 +30,7 @@ const FormCard = ( { form } ) => {
 					className={ classnames(
 						'quillforms-home__form-card-body',
 						css`
-							background: ${theme.backgroundColor};
+							background: ${ theme.backgroundColor };
 						`
 					) }
 				>
@@ -39,7 +38,7 @@ const FormCard = ( { form } ) => {
 						className={ classnames(
 							'quillforms-home__form-title',
 							css`
-								color: ${theme.questionsColor};
+								color: ${ theme.questionsColor };
 								text-decoration: none;
 							`
 						) }
@@ -54,9 +53,9 @@ const FormCard = ( { form } ) => {
 					className={ classnames(
 						'quillforms-home__form-card-footer',
 						css`
-							color: ${form.status === 'publish'
+							color: ${ form.status === 'publish'
 								? '#18c485'
-								: '#8f8e8e'};
+								: '#8f8e8e' };
 							flex: 1 1;
 							border-radius: 0;
 						`
@@ -66,7 +65,7 @@ const FormCard = ( { form } ) => {
 						{ form.status === 'publish' ? 'Publish' : 'Draft' }
 					</div>
 				</CardHeader>
-			</Link>
+			</NavLink>
 		</Card>
 	);
 };

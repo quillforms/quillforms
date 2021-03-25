@@ -5,5 +5,12 @@
 
 .quillforms-layout__main {
     display: flex;
-	margin-top: 55px;
+}
+.qf-page-component-wrapper {
+	width: 100%;
+}
+.qf-page-component-wrapper.has-sidebar {
+	padding: 50px;
+	margin-left: 250px;
+	background: #eee;
 }

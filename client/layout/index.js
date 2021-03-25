@@ -1,18 +1,23 @@
 /**
+ * QuillForms Dependencies
+ */
+import {
+	getAdminPages,
+	Router,
+	Route,
+	Switch,
+	getHistory,
+} from '@quillforms/navigation';
+
+/**
  * WordPress Dependencies
  */
 import { SlotFillProvider } from '@wordpress/components';
 
 /**
- * External dependencies
- */
-import { Router, Route, Switch } from 'react-router-dom';
-import { getHistory } from '@woocommerce/navigation';
-
-/**
  * Internal dependencies
  */
-import { Controller, getPages } from './controller';
+import { Controller } from './controller';
 import Sidebar from './sidebar';
 import Header from './header';
 
@@ -20,9 +25,15 @@ export const Layout = ( props ) => {
 	return (
 		<SlotFillProvider>
 			<div className="quillforms-layout">
-				<Header />
+				{ ! props.page.header ? (
+					<Header />
+				) : (
+					<props.page.header { ...props } />
+				) }
+
 				<div className="quillforms-layout__main">
-					<Sidebar />
+					{ ( ! props.page.template ||
+						props.page.template === 'default' ) && <Sidebar /> }
 					<Controller { ...props } />
 				</div>
 			</div>
@@ -34,7 +45,7 @@ const _PageLayout = () => {
 	return (
 		<Router history={ getHistory() }>
 			<Switch>
-				{ getPages().map( ( page ) => {
+				{ Object.values( getAdminPages() ).map( ( page ) => {
 					return (
 						<Route
 							key={ page.path }

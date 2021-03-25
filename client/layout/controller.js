@@ -1,26 +1,27 @@
+/**
+ * QuillForms Dependencies
+ */
+import { registerAdminPage } from '@quillforms/navigation';
+import { FormAdminBar } from '@quillforms/admin-components';
+
+/**
+ * WordPress Dependencies
+ */
 import { Suspense, lazy, useEffect } from '@wordpress/element';
+
+/**
+ * External Dependencies
+ */
 import { parse } from 'qs';
+import classnames from 'classnames';
+
+/**
+ * Internal Dependencies
+ */
 import NotFoundPage from '../pages/not-found';
-
-// Modify webpack pubilcPath at runtime based on location of WordPress Plugin.
-// eslint-disable-next-line no-undef,camelcase
-__webpack_public_path__ = qfAdmin.assetsBuildUrl;
-
-const Home = lazy( () =>
-	import( /* webpackChunkName: "home" */ '../pages/home' )
-);
-
-const Builder = lazy( () =>
-	import( /* webpackChunkName: "builder" */ '../pages/builder' )
-);
-
-const Share = lazy( () =>
-	import( /* webpackChunkName: "integrations" */ '../pages/share' )
-);
-
-const Entries = lazy( () =>
-	import( /* webpackChunkName: "entries" */ '../pages/entries' )
-);
+import Home from '../pages/home';
+import Builder from '../pages/builder';
+import Share from '../pages/share';
 
 export const Controller = ( { page, match, location } ) => {
 	useEffect( () => {
@@ -41,45 +42,46 @@ export const Controller = ( { page, match, location } ) => {
 
 	return (
 		<Suspense fallback={ <div /> }>
-			<page.container
-				params={ params }
-				path={ url }
-				pathMatch={ page.path }
-				query={ query }
-			/>
+			<div
+				className={ classnames( 'qf-page-component-wrapper', {
+					'has-sidebar':
+						! page.template || page.template === 'default',
+				} ) }
+			>
+				<page.component
+					params={ params }
+					path={ url }
+					pathMatch={ page.path }
+					query={ query }
+				/>
+			</div>
 		</Suspense>
 	);
 };
-export const getPages = () => {
-	const pages = [];
 
-	// Home page
-	pages.push( {
-		container: Home,
-		path: '/',
-		slug: 'home',
-	} );
-
-	// Form Builder
-	pages.push( {
-		container: Builder,
-		path: '/forms/:id/builder/',
-	} );
-
-	// Form Integrations
-	pages.push( {
-		container: Share,
-		path: '/forms/:id/share',
-	} );
-
-	pages.push( {
-		container: Entries,
-		path: '/forms/:id/entries',
-	} );
-	pages.push( {
-		container: NotFoundPage,
-		path: '*',
-	} );
-
-	return pages;
-};
+registerAdminPage( 'home', {
+	component: Home,
+	path: '/',
+} );
+registerAdminPage( 'builder', {
+	component: Builder,
+	path: '/forms/:id/builder/',
+	template: 'full-screen',
+	header: ( { match } ) => {
+		const { params } = match;
+		return <FormAdminBar formId={ params.id } />;
+	},
+} );
+registerAdminPage( 'share', {
+	component: Share,
+	path: '/forms/:id/share',
+	template: 'full-screen',
+	header: ( { match } ) => {
+		const { params } = match;
+		return <FormAdminBar formId={ params.id } />;
+	},
+} );
+registerAdminPage( 'not_found', {
+	component: NotFoundPage,
+	path: '*',
+} );

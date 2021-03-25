@@ -1,14 +1,18 @@
 /**
  * External Dependencies
  */
-import { NavLink, withRouter, matchPath } from 'react-router-dom';
+import {
+	getAdminPages,
+	NavLink,
+	withRouter,
+	matchPath,
+} from '@quillforms/navigation';
 
 /**
  * Internal Dependencies
  */
 import './style.scss';
 import { forEach, map } from 'lodash';
-import { getPages } from '../controller';
 
 const clean = ( str ) => {
 	return str.replace( 'quillforms', '' ).replace( '&path=', '' );
@@ -16,7 +20,7 @@ const clean = ( str ) => {
 
 const matchesRegesiteredRoutes = ( path ) => {
 	let ret = false;
-	forEach( getPages(), ( page ) => {
+	forEach( getAdminPages(), ( page ) => {
 		console.log( page.path );
 		console.log( path );
 		const match = matchPath( path, {

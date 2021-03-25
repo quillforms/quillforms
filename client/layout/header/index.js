@@ -11,7 +11,7 @@ import { keys, size } from 'lodash';
 /**
  * Internal Dependencies
  */
-import Logo from '../logo';
+import { Logo } from '@quillforms/admin-components';
 import UserImagePlaceholder from '../user-image-placeholder';
 import UserNamePlaceholder from '../user-name-placeholder';
 
