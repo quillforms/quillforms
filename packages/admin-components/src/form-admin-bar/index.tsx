@@ -1,22 +1,21 @@
 /**
  * External Dependencies
  */
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from '@quillforms/navigation';
 
 /**
  * Internal Dependencies
  */
-import './style.scss';
 import Logo from '../logo';
 
-const FullScreenNavBar = ( { formId } ) => {
+const FormAdminBar = ( { formId } ) => {
 	return (
-		<div className="qf-admin-form-toolbar">
-			<div className="qf-admin-fform-toolbar__logo">
+		<div className="admin-components-form-admin-bar">
+			<div className="admin-components-form-admin-bar__logo">
 				<Logo />
 			</div>
 			<NavLink
-				isActive={ ( match, location ) => {
+				isActive={ ( _match, location ): boolean | void => {
 					if ( location.pathname === `/forms/${ formId }/builder` ) {
 						return true;
 					}
@@ -27,7 +26,7 @@ const FullScreenNavBar = ( { formId } ) => {
 				Design
 			</NavLink>
 			<NavLink
-				isActive={ ( match, location ) => {
+				isActive={ ( _match, location ): boolean | void => {
 					if (
 						location.pathname === `/forms/${ formId }/integrations`
 					) {
@@ -40,7 +39,7 @@ const FullScreenNavBar = ( { formId } ) => {
 				Integrations
 			</NavLink>
 			<NavLink
-				isActive={ ( match, location ) => {
+				isActive={ ( _match, location ): boolean | void => {
 					if ( location.pathname === `/forms/${ formId }/entries` ) {
 						return true;
 					}
@@ -51,7 +50,7 @@ const FullScreenNavBar = ( { formId } ) => {
 				Entries
 			</NavLink>
 			<NavLink
-				isActive={ ( match, location ) => {
+				isActive={ ( _match, location ): boolean | void => {
 					if ( location.pathname === `/forms/${ formId }/reports` ) {
 						return true;
 					}
@@ -64,4 +63,4 @@ const FullScreenNavBar = ( { formId } ) => {
 		</div>
 	);
 };
-export default withRouter( FullScreenNavBar );
+export default withRouter( FormAdminBar );
