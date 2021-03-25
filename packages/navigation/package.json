@@ -1,0 +1,31 @@
+{
+	"name": "@quillforms/navigation",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"navigation"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/navigation/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/rich-text"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"types": "build-types",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"react-router-dom": "^5.2.0",
+		"@woocommerce/navigation": "^5.2.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
