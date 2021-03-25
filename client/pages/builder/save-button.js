@@ -36,7 +36,7 @@ const SaveButton = () => {
 			isPrimary={ true }
 			isSecondary={ false }
 			isLarge
-			className="builder-core-save-button"
+			className="qf-builder-save-button"
 			onClick={ () => {
 				// setIsSaving( true );
 

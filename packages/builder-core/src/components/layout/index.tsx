@@ -24,7 +24,6 @@ import FormPreview from '../preview-area-wrapper';
 import Panel from '../panel';
 import BuilderPanelsBar from '../panels-bar';
 import DragAlert from '../drag-alert';
-import SaveButton from '../save-button';
 import { BuilderNotices } from '../builder-notices';
 import type {
 	OnDragUpdateResponder,
@@ -228,10 +227,6 @@ const Layout: React.FC = () => {
 		return <BuilderPanelsBar />;
 	}, [] );
 
-	const savButton = useMemo( () => {
-		return <SaveButton />;
-	}, [] );
-
 	const panel = useMemo( () => {
 		return <Panel />;
 	}, [] );
@@ -250,7 +245,6 @@ const Layout: React.FC = () => {
 
 	return (
 		<>
-			{ savButton }
 			{ builderNotices }
 			{ pluginsArea }
 			{ builderPanelsBar }
