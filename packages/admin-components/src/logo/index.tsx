@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-elements */
-const Logo = () => {
+const Logo: React.FC = () => {
 	return (
 		<svg viewBox="0 0 95 95" width="40px" height="40px">
 			<defs>
