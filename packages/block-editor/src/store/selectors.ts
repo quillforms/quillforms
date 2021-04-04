@@ -18,7 +18,8 @@ import createSelector from 'rememo';
 /**
  * Internal Dependencies
  */
-import type { BlockEditorState, FormBlockWithOrder, BlockOrder } from './types';
+import type { FormBlockWithOrder, BlockOrder } from './types';
+import type { State } from './reducer';
 /**
  * Returns all block objects.
  *
@@ -26,26 +27,26 @@ import type { BlockEditorState, FormBlockWithOrder, BlockOrder } from './types';
  * for each top-level block of the given block id. This way, the selector only refreshes
  * on changes to blocks associated with the given entity
  *
- * @param {BlockEditorState}  state        Editor state.
+ * @param {State}  state        Editor state.
  *
  * @return {FormBlocks} Form blocks.
  */
 export const getBlocks = createSelector(
-	( state: BlockEditorState ): FormBlocks => {
+	( state: State ): FormBlocks => {
 		return state.blocks;
 	},
-	( state: BlockEditorState ) =>
+	( state: State ) =>
 		map( state.blocks, ( block ) => state?.cache?.[ block.id ] )
 );
 
 /**
  * Get welcome screens length.
  *
- * @param {BlockEditorState}   state       Global application state.
+ * @param {State}   state       Global application state.
  *
  * @return {number} Welcome screens length
  */
-export function getWelcomeScreensLength( state: BlockEditorState ): number {
+export function getWelcomeScreensLength( state: State ): number {
 	return state.blocks.filter( ( block ) => block.name === 'welcome-screen' )
 		.length;
 }
@@ -53,18 +54,18 @@ export function getWelcomeScreensLength( state: BlockEditorState ): number {
 /**
  * Get block by id
  *
- * @param {BlockEditorState} 	state      Global application state.
+ * @param {State} 	state      Global application state.
  * @param {string}  id		   Block id
  *
  * @return {FormBlock} Block object
  */
 export const getBlockById = createSelector(
-	( state: BlockEditorState, blockId: string ): FormBlock | undefined => {
+	( state: State, blockId: string ): FormBlock | undefined => {
 		const block = state.blocks.find( ( $block ) => $block.id === blockId );
 		if ( ! block ) return undefined;
 		return block;
 	},
-	( state: BlockEditorState, blockId: string ) => [
+	( state: State, blockId: string ) => [
 		// Normally, we'd have both `getBlockAttributes` dependencies and
 		// `getBlocks` (children) dependancies here but for performance reasons
 		// we use a denormalized cache key computed in the reducer that takes both
@@ -77,15 +78,12 @@ export const getBlockById = createSelector(
 /**
  * Get block order by id
  *
- * @param {BlockEditorState} 	state      Global application state.
+ * @param {State} 	state      Global application state.
  * @param {string}  id		   Block id
  *
  * @return {BlockOrder} Block order
  */
-export const getBlockOrderById = (
-	state: BlockEditorState,
-	id: string
-): BlockOrder => {
+export const getBlockOrderById = ( state: State, id: string ): BlockOrder => {
 	const formBlock = getBlockById( state, id );
 	if ( ! formBlock ) return undefined;
 	const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
@@ -137,11 +135,11 @@ export const getBlockOrderById = (
 /**
  * Retruns the editable blocks -- Editable blocks are the blocks who have {editable} setting equals true
  *
- * @param {BlockEditorState} state       Global application state.
+ * @param {State} state       Global application state.
  *
  * @return {FormBlock[]} Editable fields
  */
-export function getEditableFields( state: BlockEditorState ): FormBlock[] {
+export function getEditableFields( state: State ): FormBlock[] {
 	const blocks = getBlocks( state );
 	return blocks.filter( ( block ) => {
 		const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
@@ -192,13 +190,13 @@ export function getEditableFields( state: BlockEditorState ): FormBlock[] {
  * Retruns the previous editable fields
  * Editable fields are the fields which have {editable} property equals true
  *
- * @param {BlockEditorState} state    Global application state.
+ * @param {State} state    Global application state.
  * @param {string} 			 id       The block id.
  *
  * @return {FormBlockWithOrder[]} Previous editable fields
  */
 export const getPreviousEditableFieldsWithOrder = createSelector(
-	( state: BlockEditorState, id: string ): FormBlockWithOrder[] => {
+	( state: State, id: string ): FormBlockWithOrder[] => {
 		const prevEditableFields: FormBlockWithOrder[] = [];
 
 		const blocks = getBlocks( state );
@@ -218,42 +216,40 @@ export const getPreviousEditableFieldsWithOrder = createSelector(
 		}
 		return prevEditableFields;
 	},
-	( state: BlockEditorState ) =>
+	( state: State ) =>
 		map( state.blocks, ( block ) => state?.cache?.[ block.id ] )
 );
 
 /**
  * Retruns the editable fields length
  *
- * @param {BlockEditorState} state       Global application state.
+ * @param {State} state       Global application state.
  *
  * @return {number} Editable fields length
  */
-export function getEditableFieldsLength( state: BlockEditorState ): number {
+export function getEditableFieldsLength( state: State ): number {
 	return getEditableFields( state ).length;
 }
 
 /**
  * Returns the current block id
  *
- * @param {BlockEditorState} state       Global application state.
+ * @param {State} state       Global application state.
  *
  * @return {?string} Current block id
  */
-export function getCurrentBlockId(
-	state: BlockEditorState
-): string | undefined {
+export function getCurrentBlockId( state: State ): string | undefined {
 	return state.currentBlockId;
 }
 
 /**
  * Returns the current block index
  *
- * @param {BlockEditorState} state       Global application state.
+ * @param {State} state       Global application state.
  *
  * @return {number} Current block index
  */
-export function getCurrentBlockIndex( state: BlockEditorState ): number {
+export function getCurrentBlockIndex( state: State ): number {
 	return state.blocks.findIndex(
 		( item ) => item.id === state.currentBlockId
 	);
@@ -262,13 +258,11 @@ export function getCurrentBlockIndex( state: BlockEditorState ): number {
 /**
  * Returns the current form item
  *
- * @param {BlockEditorState} state     Global application state.
+ * @param {State} state     Global application state.
  *
  * @return {FormBlock} Current block item
  */
-export function getCurrentBlock(
-	state: BlockEditorState
-): FormBlock | undefined {
+export function getCurrentBlock( state: State ): FormBlock | undefined {
 	let currentBlock;
 	const currentBlockIndex = state.blocks.findIndex(
 		( item ) => item.id === state.currentBlockId
