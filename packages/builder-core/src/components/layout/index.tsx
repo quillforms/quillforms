@@ -69,7 +69,7 @@ const Layout: React.FC = () => {
 		'quillForms/block-editor'
 	);
 	const { insertEmptyFieldAnswer } = useDispatch(
-		'quillForms/renderer-submission'
+		'quillForms/renderer-core'
 	);
 
 	const hasIncorrectFieldMergeTags = ( a: number, b: number ): boolean => {
@@ -183,7 +183,7 @@ const Layout: React.FC = () => {
 						if ( blockType.supports.editable )
 							insertEmptyFieldAnswer(
 								blockToInsert.id,
-								blockType
+								blockName
 							);
 
 						insertBlock( blockToInsert, destination );
