@@ -2,13 +2,12 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment, useEffect, useCallback } from '@wordpress/element';
+import { Fragment } from '@wordpress/element';
 import { AsyncModeProvider, useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
  */
-import { Lethargy } from 'lethargy';
 import { css } from 'emotion';
 import classnames from 'classnames';
 
@@ -24,9 +23,10 @@ import useBlockTypes from '../../hooks/use-block-types';
 import useTheme from '../../hooks/use-theme';
 import useBlocks from '../../hooks/use-blocks';
 
-let lastScrollDate = 0;
-const lethargy = new Lethargy();
-const FormFlow = ( { applyLogic } ) => {
+interface Props {
+	applyLogic: boolean;
+}
+const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blockTypes = useBlockTypes();
 	const blocks = useBlocks();
 	const theme = useTheme();
@@ -36,10 +36,9 @@ const FormFlow = ( { applyLogic } ) => {
 		};
 	} );
 
-	const { setSwiper, goNext, goPrev } = useDispatch(
-		'quillForms/renderer-core'
-	);
+	const { goNext } = useDispatch( 'quillForms/renderer-core' );
 
+	console.log( swiper );
 	const {
 		walkPath,
 		welcomeScreens,
@@ -48,63 +47,13 @@ const FormFlow = ( { applyLogic } ) => {
 		nextBlockId,
 		prevBlockId,
 		lastActiveBlockId,
-		canGoNext,
-		canGoPrev,
-		isAnimating,
 		isSubmissionScreenActive,
 		isWelcomeScreenActive,
 		isThankyouScreenActive,
 	} = swiper;
 
-	const isFirstField =
-		walkPath?.length > 0 && walkPath[ 0 ].id === currentBlockId;
-
-	useEffect( () => {
-		if ( isAnimating ) {
-			const timer = setTimeout( () => {
-				setSwiper( {
-					isAnimating: false,
-				} );
-			}, 600 );
-			return () => clearTimeout( timer );
-		}
-	}, [ swiper ] );
-
-	// Mouse Wheel Handler
-	const scrollHandler = useCallback( ( e ) => {
-		e.stopPropagation();
-		if ( swiper.isAnimating ) return;
-		const lethargyCheck = lethargy.check( e );
-		const now = new Date().getTime();
-		if (
-			lethargyCheck === false ||
-			isAnimating ||
-			( lastScrollDate && now - lastScrollDate < 750 )
-		)
-			return;
-		if (
-			canGoPrev &&
-			lethargyCheck === 1 &&
-			e.deltaY < -50 &&
-			! isFirstField
-		) {
-			// Scroll up
-			lastScrollDate = new Date().getTime();
-			goPrev();
-		} else if (
-			canGoNext &&
-			lethargyCheck === -1 &&
-			e.deltaY > 50 &&
-			! isSubmissionScreenActive
-		) {
-			lastScrollDate = new Date().getTime();
-			// Scroll down
-			goNext();
-		}
-	} );
-
-	const getFieldsToRender = () => {
-		const fields = [];
+	const getFieldsToRender = (): string[] => {
+		const fieldIds: string[] = [];
 		const filteredBlocks = walkPath.filter(
 			( block ) =>
 				block.id === currentBlockId ||
@@ -114,13 +63,13 @@ const FormFlow = ( { applyLogic } ) => {
 		);
 		filteredBlocks.forEach( ( block ) => {
 			if (
-				block.name !== 'welcome-screen' ||
+				block.name !== 'welcome-screen' &&
 				block.name !== 'thankyou-screen'
 			) {
-				fields.push( block.id );
+				fieldIds.push( block.id );
 			}
 		} );
-		return fields;
+		return fieldIds;
 	};
 
 	const fieldsToRender = getFieldsToRender();
@@ -129,147 +78,128 @@ const FormFlow = ( { applyLogic } ) => {
 			block.name !== 'welcome-screen' && block.name !== 'thankyou-screen'
 	);
 	return (
-		<div
-			className={ classnames(
-				'renderer-core-form-flow',
-				css`
-					background: ${theme.backgroundColor};
-					font-family: ${theme.font};
-					position: relative;
-					width: 100%;
-					height: 100%;
-					overflow: hidden;
+		<AsyncModeProvider value={ false }>
+			<div
+				className={ classnames(
+					'renderer-core-form-flow',
+					css`
+						background: ${ theme?.backgroundColor };
+						font-family: ${ theme?.font };
+						position: relative;
+						width: 100%;
+						height: 100%;
+						overflow: hidden;
 
-					textarea,
-					input {
-						font-family: ${theme.font};
-					}
-				`
-			) }
-		>
-			{ blocks?.length > 0 && (
-				<Fragment>
-					{ isWelcomeScreenActive &&
-						welcomeScreens?.length > 0 &&
-						welcomeScreens.map( ( screen ) => {
-							const blockType = blockTypes[ 'welcome-screen' ];
-							return (
-								<blockType.output
-									next={ goNext }
-									isActive={ currentBlockId === screen.id }
-									key={ screen.id }
-									id={ screen.id }
-									title={ screen.title }
-									description={ screen.description }
-									attributes={ screen.attributes }
-									attachment={ screen.attachment }
-								/>
-							);
-						} ) }
-					{ ! isThankyouScreenActive &&
-						! isWelcomeScreenActive &&
-						fields?.length > 0 && (
-							<FieldsWrapper
-								currentBlockId={ currentBlockId }
-								setSwiper={ setSwiper }
-								isActive={ true }
-								scrollHandler={ scrollHandler }
-								applyLogic={ applyLogic }
-							>
-								{ ( isFocused ) => (
-									<>
-										{ fields.map( ( field ) => {
-											const isActive =
-												currentBlockId === field.id;
-											return (
-												<FieldRender
-													key={ `field-render-${ field.id }` }
-													field={ field }
-													isAnimating={ isAnimating }
-													isFocused={ isFocused }
-													shouldBeRendered={ fieldsToRender.includes(
-														field.id
-													) }
-													isActive={ isActive }
-													id={ field.id }
-													setCanGoNext={ ( val ) => {
-														if (
-															lastActiveBlockId ===
-															field.id
-														)
-															return;
-														setSwiper( {
-															canGoNext: val,
-														} );
-													} }
-													setCanGoPrev={ ( val ) => {
-														if (
-															walkPath[ 0 ].id ===
-															field.id
-														)
-															return;
-														setSwiper( {
-															canGoPrev: val,
-														} );
-													} }
-													next={ goNext }
-												/>
-											);
-										} ) }
-										<SubmissionScreen
-											active={ isSubmissionScreenActive }
-										/>
-									</>
-								) }
-							</FieldsWrapper>
-						) }
-					<>
-						{ isThankyouScreenActive && (
-							<>
-								{ currentBlockId ===
-									'default_thankyou_screen' ||
-								! blockTypes[ 'thankyou-screen' ]?.output ? (
-									<DefaultThankYouScreen
-										isActive={ isThankyouScreenActive }
+						textarea,
+						input {
+							font-family: ${ theme?.font };
+						}
+					`
+				) }
+			>
+				{ blocks.length > 0 && (
+					<Fragment>
+						{ isWelcomeScreenActive &&
+							welcomeScreens?.length > 0 &&
+							welcomeScreens.map( ( screen ) => {
+								const blockType =
+									blockTypes[ 'welcome-screen' ];
+								return (
+									<blockType.output
+										next={ goNext }
+										isActive={
+											currentBlockId === screen.id
+										}
+										key={ screen.id }
+										id={ screen.id }
+										attributes={ screen.attributes }
 									/>
-								) : (
-									<>
-										{ thankyouScreens?.length > 0 &&
-											thankyouScreens.map( ( screen ) => {
-												const blockType =
-													blockTypes[
-														'thankyou-screen'
-													];
+								);
+							} ) }
+						{ ! isThankyouScreenActive &&
+							! isWelcomeScreenActive &&
+							fields.length > 0 && (
+								<FieldsWrapper applyLogic={ applyLogic }>
+									{ ( isFocused: boolean ) => (
+										<>
+											{ fields.map( ( field ) => {
+												const isActive =
+													currentBlockId === field.id;
 												return (
-													<blockType.output
-														isActive={
-															currentBlockId ===
-															screen.id
-														}
-														key={ screen.id }
-														id={ screen.id }
-														title={ screen.title }
-														description={
-															screen.description
-														}
-														attributes={
-															screen.attributes
-														}
-														attachment={
-															screen.attachment
-														}
-													/>
+													<AsyncModeProvider
+														key={ `${ field.id }` }
+														value={ ! isActive }
+													>
+														<FieldRender
+															id={ field.id }
+															isFocused={
+																isFocused
+															}
+															shouldBeRendered={ fieldsToRender.includes(
+																field.id
+															) }
+															isActive={
+																isActive
+															}
+														/>
+													</AsyncModeProvider>
 												);
 											} ) }
-									</>
-								) }
-							</>
-						) }
-					</>
-				</Fragment>
-			) }
-			<FormFooter />
-		</div>
+											<SubmissionScreen
+												active={
+													isSubmissionScreenActive
+												}
+											/>
+										</>
+									) }
+								</FieldsWrapper>
+							) }
+						<>
+							{ isThankyouScreenActive && (
+								<>
+									{ currentBlockId ===
+										'default_thankyou_screen' ||
+									! blockTypes[ 'thankyou-screen' ]
+										?.output ? (
+										<DefaultThankYouScreen
+											isActive={ isThankyouScreenActive }
+										/>
+									) : (
+										<>
+											{ thankyouScreens?.length > 0 &&
+												thankyouScreens.map(
+													( screen ) => {
+														const blockType =
+															blockTypes[
+																'thankyou-screen'
+															];
+														return (
+															<blockType.output
+																isActive={
+																	currentBlockId ===
+																	screen.id
+																}
+																key={
+																	screen.id
+																}
+																id={ screen.id }
+																attributes={
+																	screen.attributes
+																}
+															/>
+														);
+													}
+												) }
+										</>
+									) }
+								</>
+							) }
+						</>
+					</Fragment>
+				) }
+				<FormFooter />
+			</div>
+		</AsyncModeProvider>
 	);
 };
 export default FormFlow;

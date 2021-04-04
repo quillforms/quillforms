@@ -15,7 +15,7 @@ const useBlocks = () => {
 	let $blocks = blocks ? blocks : [];
 	$blocks = concat( [ ...$blocks ], {
 		id: 'default_thankyou_screen',
-		type: 'thankyou-screen',
+		name: 'thankyou-screen',
 	} );
 	return $blocks;
 };

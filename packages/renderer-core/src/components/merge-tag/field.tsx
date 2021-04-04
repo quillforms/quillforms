@@ -5,15 +5,22 @@ import { useSelect } from '@wordpress/data';
  * Internal Dependencies
  */
 import DefaultMergeTag from './default-merge-tag';
-const FieldMergeTag = ( { modifier } ) => {
+interface Props {
+	modifier: string;
+}
+const FieldMergeTag: React.FC< Props > = ( { modifier } ) => {
 	const { fieldMergeTagValue } = useSelect( ( select ) => {
-		const fieldVal = select(
-			'quillForms/renderer-submission'
-		).getFieldAnswerVal( modifier );
+		const fieldVal = select( 'quillForms/renderer-core' ).getFieldAnswerVal(
+			modifier
+		);
 		const blockTypes = select( 'quillForms/blocks' ).getBlockTypes();
 		const walkPath = select( 'quillForms/renderer-core' ).getWalkPath();
 		const block = walkPath.find( ( a ) => a.id === modifier );
-		const blockType = blockTypes[ block?.type ];
+		if ( ! block )
+			return {
+				fieldMergeTagValue: null,
+			};
+		const blockType = blockTypes[ block.name ];
 		return {
 			fieldMergeTagValue: blockType ? (
 				blockType?.mergeTag && fieldVal ? (

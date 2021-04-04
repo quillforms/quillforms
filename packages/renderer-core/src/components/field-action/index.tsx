@@ -11,9 +11,10 @@ import { useFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import useMessages from '../../hooks/use-messages';
 
-const FieldAction = ( { show, clickHandler, next } ) => {
+const FieldAction = ( { show, clickHandler } ) => {
 	const messages = useMessages();
-	const { blockName } = useFieldRenderContext();
+	const { blockName, next } = useFieldRenderContext();
+	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
 	return (
 		<div

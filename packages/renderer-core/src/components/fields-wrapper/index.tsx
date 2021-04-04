@@ -2,61 +2,127 @@
 /**
  * Wordpress Dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
-import { forEach } from 'lodash';
+import { forEach, size } from 'lodash';
+import { Lethargy } from 'lethargy';
 
 /**
  * Internal Dependencies
  */
 import useLogic from '../../hooks/use-logic';
 import useBlocks from '../../hooks/use-blocks';
+import { FormBlocks } from '@quillforms/config';
 
-const FieldsWrapper = ( {
-	currentBlockId,
-	children,
-	isActive,
-	scrollHandler,
-	setSwiper,
-	applyLogic,
-} ) => {
+let lastScrollDate = 0;
+const lethargy = new Lethargy();
+
+interface Props {
+	applyLogic: boolean;
+	children: ( isFocused: boolean ) => React.ReactNode;
+}
+
+const FieldsWrapper: React.FC< Props > = ( { children, applyLogic } ) => {
 	const jumpLogic = useLogic();
 	const blocks = useBlocks();
-	const [ isFocused, setIsFocused ] = useState( false );
-	const ref = useRef();
-	const currentBlock = blocks.find(
-		( block ) => block.id === currentBlockId
-	);
-
-	const { isCurrentBlockEditable } = useSelect( ( select ) => {
+	const [ isFocused, setIsFocused ] = useState< boolean >( false );
+	const ref = useRef< HTMLDivElement | null >( null );
+	const { swiper } = useSelect( ( select ) => {
 		return {
-			isCurrentBlockEditable: currentBlock
-				? select( 'quillForms/blocks' ).hasBlockSupport(
-						currentBlock.name,
-						'editable'
-				  )
-				: null,
+			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 		};
 	} );
+
+	const { setSwiper, goNext, goPrev } = useDispatch(
+		'quillForms/renderer-core'
+	);
+	const {
+		walkPath,
+		currentBlockId,
+		canGoNext,
+		canGoPrev,
+		isAnimating,
+		isSubmissionScreenActive,
+	} = swiper;
+	const isFirstField =
+		walkPath?.length > 0 && walkPath[ 0 ].id === currentBlockId;
+
+	// Mouse Wheel Handler
+	const swipingHandler = ( e: React.WheelEvent ) => {
+		console.log( '->>>>>>>>>>' );
+		console.log( swiper );
+		if ( swiper.isAnimating ) return;
+		const lethargyCheck = lethargy.check( e );
+		const now = new Date().getTime();
+		if (
+			lethargyCheck === false ||
+			isAnimating ||
+			( lastScrollDate && now - lastScrollDate < 750 )
+		)
+			return;
+		if (
+			canGoPrev &&
+			lethargyCheck === 1 &&
+			e.deltaY < -50 &&
+			! isFirstField
+		) {
+			// Scroll up
+			lastScrollDate = new Date().getTime();
+			goPrev();
+		} else if (
+			canGoNext &&
+			lethargyCheck === -1 &&
+			e.deltaY > 50 &&
+			! isSubmissionScreenActive
+		) {
+			lastScrollDate = new Date().getTime();
+			// Scroll down
+			goNext();
+		}
+	};
+
+	useEffect( (): void | ( () => void ) => {
+		if ( isAnimating ) {
+			const timer = setTimeout( () => {
+				setSwiper( {
+					isAnimating: false,
+				} );
+			}, 600 );
+			return () => clearTimeout( timer );
+		}
+	}, [ swiper ] );
+
+	// const currentBlock = blocks.find(
+	// 	( block ) => block.id === currentBlockId
+	// );
+	// const { isCurrentBlockEditable } = useSelect( ( select ) => {
+	// 	return {
+	// 		isCurrentBlockEditable: currentBlock
+	// 			? select( 'quillForms/blocks' ).hasBlockSupport(
+	// 					currentBlock.name,
+	// 					'editable'
+	// 			  )
+	// 			: null,
+	// 	};
+	// } );
+
 	const { answers, currentBlockAnswer } = useSelect( ( select ) => {
 		return {
-			answers: isCurrentBlockEditable
-				? select( 'quillForms/renderer-submission' ).getAnswers()
-				: null,
-			currentBlockAnswer: isCurrentBlockEditable
-				? select( 'quillForms/renderer-submission' ).getFieldAnswerVal(
+			answers: select( 'quillForms/renderer-core' ).getAnswers(),
+			currentBlockAnswer: currentBlockId
+				? select( 'quillForms/renderer-core' ).getFieldAnswerVal(
 						currentBlockId
 				  )
 				: null,
 		};
 	} );
 
-	const handleClickOutside = ( e ) => {
-		if ( ref.current && ! ref.current.contains( e.target ) ) {
+	const handleClickOutside = ( e: MouseEvent ): void => {
+		if ( ref.current && ! ref.current.contains( e.target as Node ) ) {
 			setIsFocused( false );
 		}
 	};
@@ -71,56 +137,107 @@ const FieldsWrapper = ( {
 		};
 	} );
 
-	const operators = {
-		is: ( a, b ) => a === b,
-		is_not: ( a, b ) => a !== b,
-		lower_than: ( a, b ) => a < b,
-		greater_than: ( a, b ) => a > b,
-		contains: ( a, b ) => {
-			if ( ! a ) {
-				return false;
+	const isConditionFulfilled = (
+		conditionOperator: string,
+		conditionVal: unknown,
+		fieldValue: unknown
+	): boolean => {
+		switch ( conditionOperator ) {
+			case 'is': {
+				if ( Array.isArray( fieldValue ) )
+					return fieldValue.includes( conditionVal );
+
+				if (
+					typeof conditionVal === 'number' &&
+					typeof fieldValue === 'string'
+				)
+					return parseInt( fieldValue ) === conditionVal;
+
+				return fieldValue === conditionVal;
 			}
-			return a.indexOf( b ) >= 0;
-		},
-		not_contains: ( a, b ) => {
-			if ( ! a ) {
-				return true;
+
+			case 'is_not': {
+				if ( Array.isArray( fieldValue ) )
+					return ! fieldValue.includes( conditionVal );
+
+				return fieldValue !== conditionVal;
 			}
-			return a.indexOf( b ) === -1;
-		},
-		starts_with: ( a, b ) => {
-			if ( ! a ) {
-				return true;
+
+			case 'greater_than': {
+				if (
+					typeof fieldValue !== 'number' ||
+					typeof conditionVal !== 'number'
+				) {
+					return false;
+				}
+
+				return fieldValue > conditionVal;
 			}
-			return a.indexOf( b ) === 0;
-		},
-		ends_with: ( a, b ) => {
-			if ( ! a ) {
-				return true;
+
+			case 'lower_than': {
+				if (
+					typeof fieldValue !== 'number' ||
+					typeof conditionVal !== 'number'
+				) {
+					return false;
+				}
+
+				return fieldValue < conditionVal;
 			}
-			return a.indexOf( b ) === b.length - 1;
-		},
+
+			case 'contains': {
+				if (
+					typeof fieldValue !== 'string' ||
+					typeof conditionVal !== 'string'
+				) {
+					return false;
+				}
+				return fieldValue.indexOf( conditionVal ) !== -1;
+			}
+
+			case 'starts_with': {
+				if (
+					typeof fieldValue !== 'string' ||
+					typeof conditionVal !== 'string'
+				) {
+					return false;
+				}
+				return fieldValue.startsWith( conditionVal );
+			}
+
+			case 'ends_with': {
+				if (
+					typeof fieldValue !== 'string' ||
+					typeof conditionVal !== 'string'
+				) {
+					return false;
+				}
+				return fieldValue.endsWith( conditionVal );
+			}
+		}
+		return false;
 	};
 
-	const getBlockLogic = ( blockId ) => {
-		return jumpLogic?.length > 0
+	const getBlockLogic = ( blockId: string ) => {
+		if ( ! jumpLogic ) return null;
+		return size( jumpLogic ) > 0
 			? jumpLogic.find( ( blockLogic ) => blockLogic.blockId === blockId )
 			: null;
 	};
 
-	const ruleGroupConditionsMet = ( ruleGroupConditions ) => {
+	const ruleGroupConditionsMet = ( ruleGroupConditions ): boolean => {
 		let res = true;
 		forEach( ruleGroupConditions, ( condition ) => {
 			const { op, vars } = condition;
 			const fieldId = vars[ 0 ].value;
 			const fieldAnswer = answers[ fieldId ];
 			const value = vars[ 1 ].value;
-			if ( ! operators[ op ]( fieldAnswer, value ) ) res = false;
+			if ( ! isConditionFulfilled( op, value, fieldAnswer ) ) res = false;
 		} );
 		return res;
 	};
 
-	const conditionsMet = ( conditions ) => {
+	const conditionsMet = ( conditions ): boolean => {
 		let res = false;
 		forEach( conditions, ( ruleGroupConditions ) => {
 			if ( ruleGroupConditionsMet( ruleGroupConditions ) ) {
@@ -130,41 +247,49 @@ const FieldsWrapper = ( {
 		return res;
 	};
 
-	const getNextTarget = ( target, conditions ) => {
+	const getNextTarget = ( target: string, conditions ) => {
 		if ( conditionsMet( conditions ) ) {
 			return target;
 		}
-		return null;
+		return undefined;
 	};
 
-	const getBlockIndex = ( blockId ) => {
+	const getBlockIndex = ( blockId: string | undefined ) => {
+		if ( ! blockId ) {
+			return -1;
+		}
 		return blocks.findIndex( ( block ) => block.id === blockId );
 	};
 
 	const generatePath = () => {
-		const path = [];
-		let nextBlockId;
+		const path: FormBlocks = [];
+		let nextBlockId: string | undefined;
 		let index = 0;
 
 		let shouldBreakTheWholeLoop = false;
 		do {
 			const question = blocks[ index ];
-			if ( question.type === 'welcome-screen' ) {
+			if ( question.name === 'welcome-screen' ) {
 				index++;
 				continue;
 			}
-			if ( question.type === 'thankyou-screen' ) {
+			if ( question.name === 'thankyou-screen' ) {
 				break;
 			}
 			path.push( question );
 			let newIndex = index;
 			// debugger;
 			const blockJumpLogic = getBlockLogic( question.id );
-			if ( blockJumpLogic?.actions?.length > 0 ) {
+			if ( blockJumpLogic && blockJumpLogic?.actions?.length > 0 ) {
 				let $break = false;
 				forEach( blockJumpLogic.actions, ( action ) => {
 					if ( ! $break ) {
-						if ( action?.conditions?.length > 0 ) {
+						if (
+							action &&
+							action.conditions &&
+							size( action.conditions ) > 0 &&
+							action.target
+						) {
 							const nextId = getNextTarget(
 								action.target,
 								action.conditions
@@ -206,43 +331,35 @@ const FieldsWrapper = ( {
 	};
 
 	useEffect( () => {
-		if ( applyLogic && isActive ) {
+		if ( applyLogic ) {
 			const { path, nextBlockId } = generatePath();
-			setSwiper( ( prevSwiperState ) => {
-				return {
-					...prevSwiperState,
-					walkPath: path,
-					nextBlockId,
-				};
+			setSwiper( {
+				walkPath: path,
+				nextBlockId,
 			} );
 		}
-	}, [ currentBlockAnswer, isActive, currentBlockId ] );
+	}, [ currentBlockAnswer, currentBlockId ] );
 
 	useEffect( () => {
 		if ( applyLogic ) {
 			const { path, nextBlockId } = generatePath();
-			setSwiper( ( prevSwiperState ) => {
-				return {
-					...prevSwiperState,
-					walkPath: path,
-					currentBlockId: blocks[ 0 ].id,
-					prevBlockId: null,
-					canGoPrev: false,
-					lastActiveBlockId: undefined,
-					nextBlockId,
-				};
+			setSwiper( {
+				walkPath: path,
+				currentBlockId: blocks[ 0 ].id,
+				prevBlockId: undefined,
+				canGoPrev: false,
+				lastActiveBlockId: undefined,
+				nextBlockId,
 			} );
 		}
 	}, [ applyLogic ] );
 	return (
 		<div
-			onWheel={ scrollHandler }
+			onWheel={ swipingHandler }
 			onFocus={ () => {
 				setIsFocused( true );
 			} }
-			className={
-				'renderer-core-fields-wrapper' + ( isActive ? ' active' : '' )
-			}
+			className={ 'renderer-core-fields-wrapper' }
 			ref={ ref }
 		>
 			{ children( isFocused ) }

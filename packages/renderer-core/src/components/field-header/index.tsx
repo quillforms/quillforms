@@ -6,7 +6,7 @@ import BlockTitle from '../block-title';
 import BlockDescription from '../block-description';
 import BlockAttachment from '../block-attachment';
 
-const QuestionHeader = () => {
+const QuestionHeader: React.FC = () => {
 	return (
 		<div className="renderer-components-question-header">
 			<BlockCounter />

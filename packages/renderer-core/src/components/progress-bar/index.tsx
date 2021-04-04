@@ -1,10 +1,4 @@
 /**
- * WordPress Dependencies
- */
-import { useSelect } from '@wordpress/data';
-import { useCallback } from '@wordpress/element';
-
-/**
  * External Dependencies
  */
 import { css } from 'emotion';
@@ -29,7 +23,7 @@ const ProgressBar = () => {
 				className={ classnames(
 					'renderer-core-progress-bar__track',
 					css`
-						background: ${theme.progressBarBgColor};
+						background: ${ theme.progressBarBgColor };
 					`
 				) }
 			>
@@ -37,8 +31,8 @@ const ProgressBar = () => {
 					className={ classnames(
 						'renderer-core-progress-bar__fill',
 						css`
-							width: ${percent}%;
-							background: ${theme.progressBarFillColor};
+							width: ${ percent }%;
+							background: ${ theme.progressBarFillColor };
 						`
 					) }
 				/>

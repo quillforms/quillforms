@@ -10,17 +10,16 @@ import { autop } from '@wordpress/autop';
 import HtmlParser from '../html-parser';
 import { useFieldRenderContext } from '../field-render/context';
 
-const BlockDesc = () => {
+const BlockDesc: React.FC = () => {
 	const { attributes } = useFieldRenderContext();
+	if ( ! attributes || ! attributes.description ) return null;
+
 	const { description } = attributes;
 	return (
 		<Fragment>
 			{ description && description !== '' && (
 				<div className="renderer-components-block-description">
-					<HtmlParser
-						className="renderer-components-block-description__content"
-						value={ autop( description ) }
-					/>
+					<HtmlParser value={ autop( description ) } />
 				</div>
 			) }
 		</Fragment>

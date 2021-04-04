@@ -3,7 +3,10 @@
  */
 import useProgressPerecent from '../../hooks/use-progress-percent';
 
-const ProgressMergeTag = ( { modifier } ) => {
+interface Props {
+	modifier: string;
+}
+const ProgressMergeTag: React.FC< Props > = ( { modifier } ) => {
 	const percent = useProgressPerecent();
 	if ( modifier === 'percent' ) {
 		return (

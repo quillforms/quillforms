@@ -1,8 +1,9 @@
+import { useTrace } from '@quillforms/utils';
 /**
  * WordPress dependencies
  */
-import { useMemo, useState, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useState, useEffect, memo } from '@wordpress/element';
+import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
  */
@@ -11,26 +12,25 @@ import FieldWrapper from '../field-wrapper';
 
 export { useFieldRenderContext };
 
-export default function FieldRender( {
-	field,
-	isAnimating,
-	isFocused,
-	isActive,
-	animation,
-	setCanGoNext,
-	setCanGoPrev,
-	next,
-	shouldBeRendered,
-} ) {
-	const [ blockFooterArea, setBlockFooterArea ] = useState( '' );
-	const { id, name, attributes } = field;
+interface Props {
+	id: string;
+	isFocused: boolean;
+	isActive: boolean;
+	shouldBeRendered: boolean;
+}
+
+const FieldRender: React.FC< Props > = memo( ( props ) => {
+	const { id, isFocused, isActive, shouldBeRendered } = props;
+	useTrace( props );
+	const [ blockFooterArea, setBlockFooterArea ] = useState<
+		undefined | 'error-message' | 'submit-btn'
+	>( undefined );
 	// console.log( id, name, attributes );
-	const { isReviewing, isValid } = useSelect( ( select ) => {
+	const { isReviewing, isValid, block } = useSelect( ( select ) => {
 		return {
 			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
-			isValid: select( 'quillForms/renderer-submission' ).isValidField(
-				id
-			),
+			isValid: select( 'quillForms/renderer-core' ).isValidField( id ),
+			block: select( 'quillForms/renderer-core' ).getBlockById( id ),
 		};
 	} );
 
@@ -39,30 +39,28 @@ export default function FieldRender( {
 			setBlockFooterArea( 'error-message' );
 		}
 	}, [ isReviewing ] );
+
+	const { goNext } = useDispatch( 'quillForms/renderer-core' );
+	console.log( block );
+	if ( ! block ) return null;
+	const { name, attributes } = block;
+
 	const context = {
 		id,
 		blockName: name,
 		attributes,
-		isAnimating,
 		isActive,
 		shouldBeRendered,
 		blockFooterArea,
 		setBlockFooterArea,
+		next: goNext,
+		isFocused,
 	};
 	return (
-		<FieldRenderContextProvider
-			// It is important to return the same object if props haven't
-			// changed to avoid  unnecessary rerenders.
-			// See https://reactjs.org/docs/context.html#caveats.
-			value={ useMemo( () => context, Object.values( context ) ) }
-		>
-			<FieldWrapper
-				isFocused={ isFocused }
-				animation={ animation }
-				setCanGoNext={ setCanGoNext }
-				setCanGoPrev={ setCanGoPrev }
-				next={ next }
-			/>
+		<FieldRenderContextProvider value={ context }>
+			<FieldWrapper />
 		</FieldRenderContextProvider>
 	);
-}
+} );
+
+export default FieldRender;

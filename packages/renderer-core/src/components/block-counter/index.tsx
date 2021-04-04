@@ -13,31 +13,31 @@ import useBlockTypes from '../../hooks/use-block-types';
 import useTheme from '../../hooks/use-theme';
 import { useSelect } from '@wordpress/data';
 
-const BlockCounter = () => {
+const BlockCounter: React.FC = () => {
 	const { blockName, id } = useFieldRenderContext();
+	console.log( blockName );
+	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ blockName ];
 	const theme = useTheme();
-	const { pathEditableFields } = useSelect( ( select ) => {
+
+	const { counter } = useSelect( ( select ) => {
 		return {
-			pathEditableFields: select(
-				'quillForms/renderer-core'
-			).getEditableFieldsInCurrentPath(),
+			counter: select( 'quillForms/renderer-core' ).getBlockCounterValue(
+				id
+			),
 		};
 	} );
-	const counter = pathEditableFields.findIndex(
-		( editableField ) => editableField.id === id
-	);
 	return (
 		<div
 			className={ classnames(
 				'renderer-components-block-counter',
 				css`
-					color: ${theme.questionsColor};
+					color: ${ theme.questionsColor };
 				`
 			) }
 		>
-			{ counter !== -1 && (
+			{ counter !== undefined && (
 				<span className="renderer-components-block-counter__value">
 					{ counter + 1 }
 				</span>

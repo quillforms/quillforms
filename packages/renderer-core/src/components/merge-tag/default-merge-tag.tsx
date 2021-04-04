@@ -1,6 +1,9 @@
 import { join, size } from 'lodash';
 
-const DefaultMergeTag = ( { val } ) => {
+interface Props {
+	val: unknown;
+}
+const DefaultMergeTag: React.FC< Props > = ( { val } ) => {
 	const getDefaultMergeTagVal = () => {
 		const defaultValueIfNull = '_ _ _ _ _';
 		if ( val ) {

@@ -7,6 +7,8 @@ import { Fragment } from '@wordpress/element';
  * External Dependencies
  */
 import parse from 'html-react-parser';
+import { Element } from 'domhandler/lib/node';
+
 import { uniqueId } from 'lodash';
 
 /**
@@ -14,10 +16,14 @@ import { uniqueId } from 'lodash';
  */
 import MergeTag from '../merge-tag';
 
-const HtmlParser = ( { value } ) => {
+interface Props {
+	value: string | undefined;
+}
+const HtmlParser: React.FC< Props > = ( { value } ) => {
+	if ( ! value ) return null;
 	value = value.replace(
 		/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g,
-		( match, p1, p2 ) => {
+		( _match, p1, p2 ) => {
 			return `<mergetag type='${ p1 }' modifier='${ p2 }'></mergetag>`;
 		}
 	);
@@ -25,8 +31,11 @@ const HtmlParser = ( { value } ) => {
 	return (
 		<Fragment>
 			{ parse( value, {
-				replace: ( domNode ) => {
-					if ( domNode.name === 'mergetag' ) {
+				replace: ( domNode ): void | JSX.Element => {
+					if (
+						domNode instanceof Element &&
+						domNode?.name === 'mergetag'
+					) {
 						const { modifier, type } = domNode.attribs;
 						return (
 							<MergeTag

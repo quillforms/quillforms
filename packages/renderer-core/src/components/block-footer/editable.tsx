@@ -8,26 +8,29 @@ import { useSelect } from '@wordpress/data';
  */
 import FieldAction from '../field-action';
 import ErrMsg from '../error-message';
+import { useFieldRenderContext } from '../field-render';
+import { BlockFooterProps } from './index';
 
-const EditableBlockFooter = ( {
+interface Props extends BlockFooterProps {
+	id: string | undefined;
+}
+const EditableBlockFooter: React.FC< Props > = ( {
 	id,
 	isSubmitBtnVisible,
 	isErrMsgVisible,
 	showErrorMessage,
-	next,
 	shakingErr,
 } ) => {
+	if ( ! id ) return null;
 	const { isValid, validationErr } = useSelect( ( select ) => {
 		return {
-			isValid: select( 'quillForms/renderer-submission' ).isValidField(
-				id
-			),
+			isValid: select( 'quillForms/renderer-core' ).isValidField( id ),
 			validationErr: select(
-				'quillForms/renderer-submission'
+				'quillForms/renderer-core'
 			).getFieldValidationErr( id ),
 		};
 	} );
-
+	const { next } = useFieldRenderContext();
 	return (
 		<div className="renderer-components-block-footer">
 			{ shakingErr ||

@@ -1,1 +1,0 @@
-This wrapper should be applied for all blocks except Welcome and thankyou screens.

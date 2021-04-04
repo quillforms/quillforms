@@ -14,8 +14,8 @@ import classnames from 'classnames';
 import QuestionHeader from '../field-header';
 import BlockOutput from '../block-output';
 
-const FieldContent = ( { next, isFocused } ) => {
-	const [ isShaking, setIsShaking ] = useState( false );
+const FieldContent: React.FC = () => {
+	const [ isShaking, setIsShaking ] = useState< boolean >( false );
 
 	return (
 		<div
@@ -25,8 +25,7 @@ const FieldContent = ( { next, isFocused } ) => {
 		>
 			<QuestionHeader />
 			<BlockOutput
-				next={ next }
-				isFocused={ isFocused }
+				isShaking={ isShaking }
 				setIsShaking={ setIsShaking }
 			/>
 		</div>

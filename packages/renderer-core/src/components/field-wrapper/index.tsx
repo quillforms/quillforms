@@ -3,7 +3,7 @@
  * WordPress Dependencies
  */
 import { useRef, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -17,17 +17,28 @@ import classnames from 'classnames';
 import { useFieldRenderContext } from '../field-render/context';
 import FieldContent from '../field-content';
 
-const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
+const FieldWrapper: React.FC = () => {
 	const { id, isActive, shouldBeRendered } = useFieldRenderContext();
-
 	const { swiper } = useSelect( ( select ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 		};
 	} );
 
-	const { walkPath, currentBlockId, isSubmissionScreenActive } = swiper;
+	const { setSwiper } = useDispatch( 'quillForms/renderer-core' );
 
+	const { walkPath, currentBlockId, isSubmissionScreenActive } = swiper;
+	const setCanGoNext = ( val: boolean ) => {
+		// if ( walkPath[ walkPath.length - 1 ].id === id ) val = false;
+		setSwiper( {
+			canGoNext: val,
+		} );
+	};
+	const setCanGoPrev = ( val: boolean ) => {
+		setSwiper( {
+			canGoPrev: val,
+		} );
+	};
 	const fieldIndex = walkPath.findIndex( ( field ) => field.id === id );
 
 	const currentFieldIndex = walkPath.findIndex(
@@ -40,8 +51,8 @@ const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
 		? 'is-up'
 		: 'is-down';
 
-	const ref = useRef();
-	let timer = null;
+	const ref = useRef< HTMLDivElement | null >( null );
+	let timer: ReturnType< typeof setTimeout >;
 
 	const handlers = useSwipeable( {
 		onSwiped: () => {
@@ -70,8 +81,8 @@ const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
 
 		return () => {
 			clearTimeout( timer );
-			// setCanGoNext( true );
-			// setCanGoPrev( true );
+			setCanGoNext( true );
+			setCanGoPrev( true );
 		};
 	}, [ isActive ] );
 
@@ -88,6 +99,7 @@ const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
 			) }
 			onScroll={ ( e ) => {
 				e.preventDefault();
+				if ( ! ref.current ) return;
 				if ( ref.current.scrollTop === 0 ) {
 					timer = setTimeout( () => {
 						setCanGoPrev( true );
@@ -103,6 +115,7 @@ const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
 						setCanGoNext( true );
 					}, 500 );
 				} else {
+					console.log( 'pre setting can go next false' );
 					setCanGoNext( false );
 				}
 			} }
@@ -113,7 +126,7 @@ const FieldWrapper = ( { isFocused, setCanGoNext, setCanGoPrev, next } ) => {
 						className="renderer-components-field-wrapper__content-wrapper"
 						ref={ ref }
 					>
-						<FieldContent isFocused={ isFocused } next={ next } />
+						<FieldContent />
 					</div>
 				</section>
 			) }

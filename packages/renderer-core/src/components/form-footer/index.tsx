@@ -2,7 +2,6 @@
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
 /**
  *
  * External Dependencies
@@ -14,7 +13,7 @@ import classnames from 'classnames';
  */
 import ProgressBar from '../progress-bar';
 
-const FormFooter = () => {
+const FormFooter: React.FC = () => {
 	const {
 		isWelcomeScreenActive,
 		isThankyouScreenActive,

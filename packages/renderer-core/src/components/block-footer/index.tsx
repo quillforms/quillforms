@@ -9,14 +9,21 @@ import { useSelect } from '@wordpress/data';
 import EditableBlockFooter from './editable';
 import NonEditableBlockFooter from './non-editable';
 import { useFieldRenderContext } from '../field-render';
-const BlockFooter = ( {
+
+export interface BlockFooterProps {
+	isSubmitBtnVisible: boolean;
+	isErrMsgVisible: boolean;
+	showErrorMessage: ( x: boolean ) => void;
+	shakingErr: string | null;
+}
+const BlockFooter: React.FC< BlockFooterProps > = ( {
 	isSubmitBtnVisible,
 	isErrMsgVisible,
 	showErrorMessage,
-	next,
 	shakingErr,
 } ) => {
 	const { id, blockName } = useFieldRenderContext();
+	if ( ! blockName ) return null;
 	const { isEditable } = useSelect( ( select ) => {
 		return {
 			isEditable: select( 'quillForms/blocks' ).hasBlockSupport(
@@ -28,10 +35,7 @@ const BlockFooter = ( {
 	return (
 		<>
 			{ ! isEditable ? (
-				<NonEditableBlockFooter
-					isSubmitBtnVisible={ isSubmitBtnVisible }
-					next={ next }
-				/>
+				<NonEditableBlockFooter />
 			) : (
 				<EditableBlockFooter
 					id={ id }
@@ -39,7 +43,6 @@ const BlockFooter = ( {
 					isErrMsgVisible={ isErrMsgVisible }
 					showErrorMessage={ showErrorMessage }
 					shakingErr={ shakingErr }
-					next={ next }
 				/>
 			) }
 		</>

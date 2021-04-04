@@ -3,8 +3,21 @@
  */
 import React, { createContext, useMemo } from '@wordpress/element';
 import { noop } from 'lodash';
+import { FormObj } from '../../types';
 
-const FormContext = createContext( {} );
+interface FormContext {
+	formObj: FormObj;
+	onSubmit: () => void;
+}
+const FormContext = createContext< FormContext >( {
+	formObj: {
+		blocks: [],
+		messages: {},
+		theme: {},
+		logic: undefined,
+	},
+	onSubmit: noop,
+} );
 
 const FormContextProvider = ( { children, value } ) => {
 	const memoizedValue = useMemo( () => value, Object.values( value ) );
@@ -14,17 +27,6 @@ const FormContextProvider = ( { children, value } ) => {
 			{ children }
 		</FormContext.Provider>
 	);
-};
-FormContextProvider.defaultProps = {
-	value: {
-		formObj: {
-			blocks: [],
-			messages: {},
-			theme: {},
-			logic: null,
-		},
-		onSubmit: noop,
-	},
 };
 
 export { FormContext, FormContextProvider };

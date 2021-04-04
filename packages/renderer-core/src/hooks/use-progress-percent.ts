@@ -8,7 +8,7 @@ const useProgressPerecent = () => {
 	const { answered, isAnimating, totalQuestions } = useSelect( ( select ) => {
 		return {
 			answered: select(
-				'quillForms/renderer-submission'
+				'quillForms/renderer-core'
 			).getAnsweredFieldsLength(),
 			isAnimating: select( 'quillForms/renderer-core' ).isAnimating(),
 			totalQuestions: select(

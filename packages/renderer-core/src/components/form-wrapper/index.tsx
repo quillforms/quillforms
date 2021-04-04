@@ -3,7 +3,7 @@
  */
 import { useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, omit } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -11,23 +11,27 @@ import { cloneDeep } from 'lodash';
 import useEditableFields from '../../hooks/use-editable-fields';
 import FormFlow from '../form-flow';
 import useBlocks from '../../hooks/use-blocks';
-
-const FormWrapper = ( { applyLogic, isPreview } ) => {
+import type { Screen } from '../../store/types';
+interface Props {
+	applyLogic: boolean;
+	isPreview: boolean;
+}
+const FormWrapper: React.FC< Props > = ( { applyLogic, isPreview } ) => {
 	const editableFields = useEditableFields();
 	const blocks = useBlocks();
 	const { insertEmptyFieldAnswer } = useDispatch(
-		'quillForms/renderer-submission'
+		'quillForms/renderer-core'
 	);
 	const { setSwiper } = useDispatch( 'quillForms/renderer-core' );
 	useEffect( () => {
 		if ( ! isPreview ) {
 			editableFields.forEach( ( field ) =>
-				insertEmptyFieldAnswer( field.id, field.type )
+				insertEmptyFieldAnswer( field.id, field.name )
 			);
-			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ].id : null;
+			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ] : undefined;
 			setTimeout( () => {
 				setSwiper( {
-					currentBlockId: firstBlock,
+					currentBlockId: firstBlock?.id,
 					isAnimating: true,
 					walkPath: cloneDeep(
 						blocks.filter(
@@ -36,24 +40,31 @@ const FormWrapper = ( { applyLogic, isPreview } ) => {
 								block.name !== 'welcome-screen'
 						)
 					),
-					welcomeScreens: cloneDeep(
-						blocks.filter(
-							( block ) => block.name === 'welcome-screen'
-						)
-					),
-					thankyouScreens: cloneDeep(
-						blocks.filter(
-							( block ) => block.name === 'thankyou-screen'
-						)
-					),
+					welcomeScreens: omit(
+						cloneDeep(
+							blocks.filter(
+								( block ) => block.name === 'welcome-screen'
+							)
+						),
+						[ 'name' ]
+					) as Screen[],
+					thankyouScreens: omit(
+						cloneDeep(
+							blocks.filter(
+								( block ) => block.name === 'thankyou-screen'
+							)
+						),
+						[ 'name' ]
+					) as Screen[],
 					isWelcomeScreenActive:
-						firstBlock?.type === 'welcome-screen' ? true : false,
+						firstBlock?.name === 'welcome-screen' ? true : false,
 					isThankyouScreenActive:
-						firstBlock?.type === 'welcome-screen' ? true : false,
+						firstBlock?.name === 'thankyou-screen' ? true : false,
 					canGoPrev: false,
 					canGoNext: true,
-					prevBlockId: null,
-					nextBlockId: blocks && blocks[ 1 ] ? blocks[ 1 ].id : null,
+					prevBlockId: undefined,
+					nextBlockId:
+						blocks && blocks[ 1 ] ? blocks[ 1 ].id : undefined,
 				} );
 			}, 0 );
 		}

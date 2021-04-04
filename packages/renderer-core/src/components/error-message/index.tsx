@@ -10,15 +10,18 @@ import { css } from 'emotion';
 import useTheme from '../../hooks/use-theme';
 import HTMLParser from '../html-parser';
 
-const ErrorMsgWrapper = ( { message } ) => {
+interface Props {
+	message: string;
+}
+const ErrorMsgWrapper: React.FC< Props > = ( { message } ) => {
 	const theme = useTheme();
 	return (
 		<div
 			className={ classnames(
 				'renderer-components-error-message-wrapper',
 				css`
-					background: ${theme.errorsBgColor};
-					color: ${theme.errorsFontColor};
+					background: ${ theme.errorsBgColor };
+					color: ${ theme.errorsFontColor };
 				`
 			) }
 		>

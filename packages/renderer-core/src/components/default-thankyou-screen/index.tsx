@@ -3,7 +3,10 @@
  */
 import classnames from 'classnames';
 
-const DefaultThankYouScreen = ( { isActive } ) => {
+interface Props {
+	isActive: boolean;
+}
+const DefaultThankYouScreen: React.FC< Props > = ( { isActive } ) => {
 	return (
 		<div
 			className={ classnames(

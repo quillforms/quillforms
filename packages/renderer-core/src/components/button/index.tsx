@@ -9,7 +9,11 @@ import { css } from 'emotion';
  */
 import useTheme from '../../hooks/use-theme';
 
-const Button = ( { className, onClick, children } ) => {
+interface Props {
+	className: string;
+	onClick: ( e: MouseEvent ) => void;
+}
+const Button: React.FC< Props > = ( { className, onClick, children } ) => {
 	const theme = useTheme();
 	return (
 		<div
@@ -17,8 +21,8 @@ const Button = ( { className, onClick, children } ) => {
 				'renderer-components-button',
 				className,
 				css`
-					background: ${theme.buttonsBgColor};
-					color: ${theme.buttonsFontColor};
+					background: ${ theme.buttonsBgColor };
+					color: ${ theme.buttonsFontColor };
 				`
 			) }
 			role="presentation"

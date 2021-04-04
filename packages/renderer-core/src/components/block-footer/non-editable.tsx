@@ -2,8 +2,10 @@
  * Internal Dependencies
  */
 import FieldAction from '../field-action';
+import { useFieldRenderContext } from '../field-render';
 
-const NonEditableBlockFooter = ( { next } ) => {
+const NonEditableBlockFooter = () => {
+	const { next } = useFieldRenderContext();
 	return (
 		<div className="renderer-components-block-footer">
 			<FieldAction

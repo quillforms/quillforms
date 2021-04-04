@@ -10,12 +10,16 @@ import Button from '../button';
 
 import classnames from 'classnames';
 import useFormContext from '../../hooks/use-form-context';
-const SubmissionScreen = ( { active } ) => {
+
+interface Props {
+	active: boolean | undefined;
+}
+const SubmissionScreen: React.FC< Props > = ( { active } ) => {
 	const { goToField } = useDispatch( 'quillForms/renderer-core' );
 	const { firstInvalidFieldId } = useSelect( ( select ) => {
 		return {
 			firstInvalidFieldId: select(
-				'quillForms/renderer-submission'
+				'quillForms/renderer-core'
 			).getFirstInvalidFieldId(),
 		};
 	} );

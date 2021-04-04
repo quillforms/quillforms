@@ -1,3 +1,4 @@
+import { useTrace } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
@@ -16,26 +17,24 @@ import HtmlParser from '../html-parser';
 import { useFieldRenderContext } from '../field-render/context';
 import useTheme from '../../hooks/use-theme';
 
-const BlockTitle = () => {
+const BlockTitle: React.FC = () => {
 	const { attributes } = useFieldRenderContext();
-	let { label } = attributes;
+	useTrace( useFieldRenderContext() );
+	console.log( useFieldRenderContext() );
+	let label = '...';
+	if ( attributes?.label ) label = attributes.label;
 	const theme = useTheme();
-	if ( ! label ) {
-		label = '...';
-	}
+
 	return (
 		<div
 			className={ classnames(
-				'renderer-components-block-title',
+				'renderer-components-block-label',
 				css`
-					color: ${theme.questionsColor};
+					color: ${ theme.questionsColor };
 				`
 			) }
 		>
-			<HtmlParser
-				className="renderer-components-block-title__content"
-				value={ autop( label ) }
-			/>
+			<HtmlParser value={ autop( label ) } />
 		</div>
 	);
 };
