@@ -12,6 +12,7 @@
 	// the future, this can be simplified to an `includes` of `src/**/*`.
 	"include": [
 		"src/**/*",
-		"src/*"
+		"src/*",
+		"../../typings/rememo/index.d.ts"
 	]
 }
