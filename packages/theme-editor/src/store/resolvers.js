@@ -17,7 +17,8 @@ import getDefaultThemeProperties from '../get-default-theme-properties';
 export function* getCurrentTheme( state ) {
 	const path = `/qf/v1/themes`;
 	try {
-		const themeId = ConfigAPI.getInitialBuilderPayload().theme;
+		const themeId = ConfigAPI.getInitialBuilderPayload().theme.id;
+		console.log( themeId );
 		const themes = yield apiFetch( { path } );
 		yield addNewThemes( themes );
 		yield setCurrentThemeId( themeId );

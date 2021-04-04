@@ -25,7 +25,8 @@
 		"@quillforms/admin-components": "file:../admin-components",
 		"@wordpress/data": "^4.26.5",
 		"@wordpress/element": "^2.19.1",
-		"@wordpress/i18n": "^3.18.0"
+		"@wordpress/i18n": "^3.18.0",
+		"lodash": "~4.17.21"
 	},
 	"publishConfig": {
 		"access": "public"

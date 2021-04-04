@@ -47,6 +47,8 @@ const CustomizeThemePanel = () => {
 		};
 	} );
 
+	console.log( theme );
+
 	const { title, properties } = { ...theme };
 
 	const $properties = {
