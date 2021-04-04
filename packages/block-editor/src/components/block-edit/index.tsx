@@ -48,7 +48,9 @@ interface Props {
 	setDescJsonVal: ( value: Node[] ) => void;
 }
 const BlockEdit: React.FC< Props > = ( props ) => {
-	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
+	const { setBlockAttributes, setCurrentBlock } = useDispatch(
+		'quillForms/block-editor'
+	);
 
 	const {
 		attributes,
@@ -177,6 +179,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 					value={ label }
 					onChange={ ( value ) => labelChangeHandler( value ) }
 					onFocus={ () => {
+						setCurrentBlock( id );
 						setFocusedEl( 'label' );
 					} }
 				/>
@@ -197,6 +200,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 					mergeTags={ mergeTags }
 					onChange={ ( value ) => descChangeHandler( value ) }
 					onFocus={ () => {
+						setCurrentBlock( id );
 						setFocusedEl( 'desc' );
 					} }
 				/>
