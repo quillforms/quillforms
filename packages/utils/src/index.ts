@@ -13,8 +13,10 @@ import { Component, isValidElement } from '@wordpress/element';
  */
 import { default as tinycolor, mostReadable } from 'tinycolor2';
 import type { IconDescriptor, IconRenderer, Icon } from './types';
+
 export type { SelectFromMap, DispatchFromMap } from './mapped-types';
 export type { IconDescriptor, IconRenderer, Icon };
+export { default as useTrace } from './use-trace-updates';
 
 const ICON_COLORS = [ '#191e23', '#f8f9f9' ];
 /**
