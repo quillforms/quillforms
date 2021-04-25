@@ -15,7 +15,6 @@ import { useSelect } from '@wordpress/data';
 
 const BlockCounter: React.FC = () => {
 	const { blockName, id } = useFieldRenderContext();
-	console.log( blockName );
 	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ blockName ];

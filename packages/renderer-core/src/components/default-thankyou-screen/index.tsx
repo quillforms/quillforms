@@ -2,11 +2,13 @@
  * External Depdnencies
  */
 import classnames from 'classnames';
+import { useEffect, useState } from '@wordpress/element';
 
-interface Props {
-	isActive: boolean;
-}
-const DefaultThankYouScreen: React.FC< Props > = ( { isActive } ) => {
+const DefaultThankYouScreen: React.FC = () => {
+	const [ isActive, setIsActive ] = useState( false );
+	useEffect( () => {
+		setIsActive( true );
+	}, [] );
 	return (
 		<div
 			className={ classnames(

@@ -11,6 +11,7 @@ import {
 	SET_IS_FIELD_VALID,
 	SET_FIELD_VALIDATION_ERR,
 	SET_IS_FIELD_ANSWERED,
+	RESET_ANSWERS,
 } from './constants';
 export type Screen = {
 	id: string;
@@ -28,7 +29,6 @@ export type SwiperState = {
 	canGoNext: boolean;
 	canGoPrev: boolean;
 	isAnimating: boolean;
-	isSubmissionScreenActive: boolean | undefined;
 	isThankyouScreenActive: boolean;
 	isWelcomeScreenActive: boolean;
 	isReviewing: boolean;
@@ -109,12 +109,17 @@ type setIsFieldValidationErr = {
 	val: string;
 };
 
+type resetAnswers = {
+	type: typeof RESET_ANSWERS;
+};
+
 export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
 	| setFieldAnswerAction
 	| setIsFieldValidAction
 	| setIsFieldValidationErr
 	| setIsFieldAnsweredAction
+	| resetAnswers
 	| ReturnType< () => { type: 'NOOP' } >;
 
 export type SwiperActionTypes =

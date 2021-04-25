@@ -1,4 +1,3 @@
-import { useTrace } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
@@ -19,8 +18,6 @@ import useTheme from '../../hooks/use-theme';
 
 const BlockTitle: React.FC = () => {
 	const { attributes } = useFieldRenderContext();
-	useTrace( useFieldRenderContext() );
-	console.log( useFieldRenderContext() );
 	let label = '...';
 	if ( attributes?.label ) label = attributes.label;
 	const theme = useTheme();

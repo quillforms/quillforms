@@ -11,17 +11,9 @@ import NonEditableBlockFooter from './non-editable';
 import { useFieldRenderContext } from '../field-render';
 
 export interface BlockFooterProps {
-	isSubmitBtnVisible: boolean;
-	isErrMsgVisible: boolean;
-	showErrorMessage: ( x: boolean ) => void;
 	shakingErr: string | null;
 }
-const BlockFooter: React.FC< BlockFooterProps > = ( {
-	isSubmitBtnVisible,
-	isErrMsgVisible,
-	showErrorMessage,
-	shakingErr,
-} ) => {
+const BlockFooter: React.FC< BlockFooterProps > = ( { shakingErr } ) => {
 	const { id, blockName } = useFieldRenderContext();
 	if ( ! blockName ) return null;
 	const { isEditable } = useSelect( ( select ) => {
@@ -33,19 +25,13 @@ const BlockFooter: React.FC< BlockFooterProps > = ( {
 		};
 	} );
 	return (
-		<>
+		<div className="renderer-core-field-footer">
 			{ ! isEditable ? (
 				<NonEditableBlockFooter />
 			) : (
-				<EditableBlockFooter
-					id={ id }
-					isSubmitBtnVisible={ isSubmitBtnVisible }
-					isErrMsgVisible={ isErrMsgVisible }
-					showErrorMessage={ showErrorMessage }
-					shakingErr={ shakingErr }
-				/>
+				<EditableBlockFooter id={ id } shakingErr={ shakingErr } />
 			) }
-		</>
+		</div>
 	);
 };
 export default BlockFooter;

@@ -10,23 +10,67 @@ import { css } from 'emotion';
 import useTheme from '../../hooks/use-theme';
 
 interface Props {
-	className: string;
-	onClick: ( e: MouseEvent ) => void;
+	className?: string;
+	onClick: React.MouseEventHandler< HTMLDivElement >;
+	onKeyDown?: React.KeyboardEventHandler< HTMLDivElement >;
 }
-const Button: React.FC< Props > = ( { className, onClick, children } ) => {
+const Button: React.FC< Props > = ( {
+	className,
+	onClick,
+	children,
+	onKeyDown,
+	...props
+} ) => {
 	const theme = useTheme();
 	return (
 		<div
+			tabIndex={ 0 }
 			className={ classnames(
-				'renderer-components-button',
+				'renderer-core-button',
 				className,
 				css`
+					position: relative;
 					background: ${ theme.buttonsBgColor };
 					color: ${ theme.buttonsFontColor };
+					z-index: 1;
+					&:before {
+						position: absolute;
+						top: -2.5px;
+						bottom: -2.5px;
+						right: -2.5px;
+						left: -2.5px;
+						border: 2px solid #fff;
+						z-index: -1;
+						border-radius: 5px;
+					}
+					&:after {
+						position: absolute;
+						top: -4.5px;
+						bottom: -4.5px;
+						right: -4.5px;
+						left: -4.5px;
+						background: ${ theme.buttonsBgColor };
+						z-index: -2;
+						border-radius: 6px;
+					}
+
+					&:focus-visible:after,
+					&:focus-visible:before {
+						content: '';
+					}
+
+					&:focus:not( :focus-visible ):after,
+					&:focus:not( :focus-visible ):before {
+						outline: none;
+						box-shadow: none;
+						display: none;
+					}
 				`
 			) }
 			role="presentation"
 			onClick={ onClick }
+			onKeyDown={ onKeyDown }
+			{ ...props }
 		>
 			{ children }
 		</div>

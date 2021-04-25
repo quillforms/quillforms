@@ -8,6 +8,7 @@ import { FormObj } from '../../types';
 interface FormContext {
 	formObj: FormObj;
 	onSubmit: () => void;
+	isPreview: boolean;
 }
 const FormContext = createContext< FormContext >( {
 	formObj: {
@@ -17,6 +18,7 @@ const FormContext = createContext< FormContext >( {
 		logic: undefined,
 	},
 	onSubmit: noop,
+	isPreview: false,
 } );
 
 const FormContextProvider = ( { children, value } ) => {

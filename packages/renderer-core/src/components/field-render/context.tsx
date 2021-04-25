@@ -1,21 +1,32 @@
 /**
- * WordPress dependencies
+ * QuillForms dependencies
  */
 import { BlockAttributes } from '@quillforms/config';
+
+/**
+ * WordPress Dependencies
+ */
 import { createContext, useContext, useMemo } from '@wordpress/element';
+
+/**
+ * External Dependencies
+ */
 import { noop } from 'lodash';
+
 interface FieldRenderContext {
 	id: string | undefined;
 	blockName: string | undefined;
 	attributes: BlockAttributes | undefined;
 	shouldBeRendered: boolean;
 	isActive: boolean;
-	blockFooterArea: undefined | 'error-message' | 'submit-btn';
-	setBlockFooterArea: (
-		x: undefined | 'error-message' | 'submit-btn'
-	) => void;
+	isSubmitBtnVisible: boolean;
+	isErrMsgVisible: boolean;
+	showSubmitBtn: ( x: boolean ) => void;
+	showErrMsg: ( x: boolean ) => void;
 	next: () => void;
 	isFocused: boolean;
+	isLastField: boolean;
+	setIsFocused: ( x: boolean ) => void;
 }
 const Context = createContext< FieldRenderContext >( {
 	id: undefined,
@@ -23,10 +34,14 @@ const Context = createContext< FieldRenderContext >( {
 	attributes: undefined,
 	isActive: false,
 	shouldBeRendered: false,
-	blockFooterArea: undefined,
-	setBlockFooterArea: noop,
+	isSubmitBtnVisible: false,
+	isErrMsgVisible: false,
+	showErrMsg: noop,
+	showSubmitBtn: noop,
 	next: noop,
 	isFocused: false,
+	isLastField: false,
+	setIsFocused: noop,
 } );
 const { Provider } = Context;
 

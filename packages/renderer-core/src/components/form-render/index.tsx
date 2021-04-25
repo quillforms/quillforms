@@ -1,4 +1,12 @@
 /**
+ * QuillForms Dependencies
+ */
+import { sanitizeBlocks } from '@quillforms/blocks';
+import {
+	getDefaultMessages,
+	getDefaultThemeProperties,
+} from '@quillforms/utils';
+/**
  * Internal Dependencies
  */
 import { FormContextProvider } from '../form-context';
@@ -17,9 +25,29 @@ const Form: React.FC< Props > = ( {
 	applyLogic,
 	isPreview = false,
 } ) => {
+	// This
+	const formatFormObj = ( formObj: FormObj ): FormObj => {
+		// If not in preview mode, sanitize blocks.
+		// In preview mode, sanitizing is already done in block editor resolvers.
+		if ( ! isPreview ) {
+			formObj.blocks = sanitizeBlocks( formObj.blocks );
+		}
+		formObj.theme = {
+			...getDefaultThemeProperties(),
+			...formObj.theme,
+		};
+
+		formObj.messages = {
+			...getDefaultMessages(),
+			...formObj.messages,
+		};
+		return formObj;
+	};
 	return (
-		<FormContextProvider value={ { formObj, onSubmit } }>
-			<FormWrapper applyLogic={ applyLogic } isPreview={ isPreview } />
+		<FormContextProvider
+			value={ { formObj: formatFormObj( formObj ), onSubmit, isPreview } }
+		>
+			<FormWrapper applyLogic={ applyLogic } />
 		</FormContextProvider>
 	);
 };

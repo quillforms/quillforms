@@ -2,16 +2,26 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState, useCallback } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * Internal Dependencies
  */
 import { useFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
-import BlockFooter from '../block-footer';
+import BlockFooter from '../field-footer';
 
-const BlockOutput = ( { isShaking, setIsShaking } ) => {
+interface Props {
+	setIsShaking: ( value: boolean ) => void;
+	isShaking: boolean;
+}
+let timer1: ReturnType< typeof setTimeout >,
+	timer2: ReturnType< typeof setTimeout >;
+
+const FieldDisplayWrapper: React.FC< Props > = ( {
+	isShaking,
+	setIsShaking,
+} ) => {
 	const {
 		id,
 		isFocused,
@@ -19,11 +29,9 @@ const BlockOutput = ( { isShaking, setIsShaking } ) => {
 		blockName,
 		isActive,
 		attributes,
-		blockFooterArea,
-		setBlockFooterArea,
+		showSubmitBtn,
+		showErrMsg,
 	} = useFieldRenderContext();
-	let timer1: ReturnType< typeof setTimeout >,
-		timer2: ReturnType< typeof setTimeout >;
 
 	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
@@ -51,22 +59,15 @@ const BlockOutput = ( { isShaking, setIsShaking } ) => {
 	useEffect( () => {
 		clearTimeout( timer1 );
 		clearTimeout( timer2 );
-		if ( isShaking ) setIsShaking( false );
+		setIsShaking( false );
 		if ( shakingErr ) setShakingErr( null );
 	}, [ answerValue ] );
 
-	const shakeWithError = useCallback(
-		( err ) => {
-			clearTimeout( timer1 );
-			clearTimeout( timer2 );
-			if ( ! isShaking ) setIsShaking( true );
-			if ( ! shakingErr ) setShakingErr( err );
-			stopShaking();
-		},
-		[ isActive ]
-	);
-
-	const stopShaking = () => {
+	const shakeWithError = ( err ) => {
+		clearTimeout( timer1 );
+		clearTimeout( timer2 );
+		if ( ! isShaking ) setIsShaking( true );
+		if ( ! shakingErr ) setShakingErr( err );
 		timer1 = setTimeout( () => {
 			setIsShaking( false );
 		}, 600 );
@@ -75,17 +76,6 @@ const BlockOutput = ( { isShaking, setIsShaking } ) => {
 		}, 1200 );
 	};
 
-	const showSubmitBtn = ( val ) => {
-		setBlockFooterArea( val ? 'submit-btn' : undefined );
-	};
-
-	const showErrorMessage = ( val ) => {
-		setBlockFooterArea( val ? 'error-message' : undefined );
-	};
-
-	const isSubmitBtnVisible = blockFooterArea === 'submit-btn';
-	const isErrMsgVisible = blockFooterArea === 'error-message';
-
 	const {
 		setIsFieldValid,
 		setFieldValidationErrr,
@@ -93,17 +83,9 @@ const BlockOutput = ( { isShaking, setIsShaking } ) => {
 		setFieldAnswer,
 	} = useDispatch( 'quillForms/renderer-core' );
 
-	const goNext = () => {
-		if ( ! isValid ) {
-			showErrorMessage( true );
-		} else {
-			next();
-		}
-	};
-
 	const props = {
 		id,
-		next: goNext,
+		next,
 		attributes,
 		isFocused,
 		isActive,
@@ -113,30 +95,16 @@ const BlockOutput = ( { isShaking, setIsShaking } ) => {
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),
 		setValidationErr: ( val: string ) => setFieldValidationErrr( id, val ),
 		setVal: ( val: string ) => setFieldAnswer( id, val ),
-		showErrorMessage: ( val: boolean ) => showErrorMessage( val ),
-		showSubmitBtn: ( val: boolean ) => showSubmitBtn( val ),
-		shakeWithError: ( err: string ) => shakeWithError( err ),
+		showSubmitBtn,
+		blockWithError: ( err: string ) => shakeWithError( err ),
+		showErrMsg,
 	};
 
 	return (
-		<div
-			role="presentation"
-			className="renderer-components-block-output"
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' ) {
-					e.stopPropagation();
-					goNext();
-				}
-			} }
-		>
+		<div role="presentation" className="renderer-components-block-output">
 			{ blockType?.output && <blockType.output { ...props } /> }
-			<BlockFooter
-				isSubmitBtnVisible={ isSubmitBtnVisible }
-				isErrMsgVisible={ isErrMsgVisible }
-				showErrorMessage={ showErrorMessage }
-				shakingErr={ shakingErr }
-			/>
+			<BlockFooter shakingErr={ shakingErr } />
 		</div>
 	);
 };
-export default BlockOutput;
+export default FieldDisplayWrapper;

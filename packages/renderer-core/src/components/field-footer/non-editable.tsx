@@ -3,17 +3,22 @@
  */
 import FieldAction from '../field-action';
 import { useFieldRenderContext } from '../field-render';
+import SubmitBtn from '../submission-screen';
 
 const NonEditableBlockFooter = () => {
-	const { next } = useFieldRenderContext();
+	const { next, isLastField } = useFieldRenderContext();
 	return (
 		<div className="renderer-components-block-footer">
-			<FieldAction
-				clickHandler={ () => {
-					next();
-				} }
-				show={ true }
-			/>
+			{ isLastField ? (
+				<SubmitBtn />
+			) : (
+				<FieldAction
+					show={ true }
+					clickHandler={ () => {
+						next();
+					} }
+				/>
+			) }
 		</div>
 	);
 };

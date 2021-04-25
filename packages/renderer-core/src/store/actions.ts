@@ -10,6 +10,7 @@ import {
 	SET_IS_FIELD_VALID,
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_FIELD_VALIDATION_ERR,
+	RESET_ANSWERS,
 } from './constants';
 
 import type {
@@ -91,7 +92,6 @@ export const setSubmissionErr = ( err: string ): SwiperActionTypes => {
 /**
  * Complete form and show thank you screen
  *
- *
  * @return {SwiperActionTypes} Action object
  */
 export const completeForm = (): SwiperActionTypes => {
@@ -100,6 +100,16 @@ export const completeForm = (): SwiperActionTypes => {
 	};
 };
 
+/**
+ * Reset answers
+ *
+ * @return {RendererAnswersActionTypes} Action object.
+ */
+export const resetAnswers = (): RendererAnswersActionTypes => {
+	return {
+		type: RESET_ANSWERS,
+	};
+};
 /**
  * Returns an action object used in inserting empty field answer.
  *

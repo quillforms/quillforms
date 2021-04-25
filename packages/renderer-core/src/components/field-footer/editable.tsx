@@ -10,17 +10,12 @@ import FieldAction from '../field-action';
 import ErrMsg from '../error-message';
 import { useFieldRenderContext } from '../field-render';
 import { BlockFooterProps } from './index';
+import SubmitBtn from '../submission-screen';
 
 interface Props extends BlockFooterProps {
 	id: string | undefined;
 }
-const EditableBlockFooter: React.FC< Props > = ( {
-	id,
-	isSubmitBtnVisible,
-	isErrMsgVisible,
-	showErrorMessage,
-	shakingErr,
-} ) => {
+const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
 	if ( ! id ) return null;
 	const { isValid, validationErr } = useSelect( ( select ) => {
 		return {
@@ -30,25 +25,31 @@ const EditableBlockFooter: React.FC< Props > = ( {
 			).getFieldValidationErr( id ),
 		};
 	} );
-	const { next } = useFieldRenderContext();
+	const {
+		next,
+		isErrMsgVisible,
+		showErrMsg,
+		isLastField,
+	} = useFieldRenderContext();
 	return (
-		<div className="renderer-components-block-footer">
+		<>
 			{ shakingErr ||
 			( ! isValid && validationErr?.length > 0 && isErrMsgVisible ) ? (
 				<ErrMsg message={ shakingErr ? shakingErr : validationErr } />
+			) : isLastField ? (
+				<SubmitBtn />
 			) : (
 				<FieldAction
-					show={ isSubmitBtnVisible }
 					clickHandler={ () => {
 						if ( validationErr && ! isValid ) {
-							showErrorMessage( true );
+							showErrMsg( true );
 						} else {
 							next();
 						}
 					} }
 				/>
 			) }
-		</div>
+		</>
 	);
 };
 export default EditableBlockFooter;

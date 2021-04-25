@@ -3,19 +3,18 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
+
 /**
  * Internal Dependencies
  */
 import Button from '../button';
-
-import classnames from 'classnames';
 import useFormContext from '../../hooks/use-form-context';
+import { useFieldRenderContext } from '../field-render';
+const SubmitBtn: React.FC = () => {
+	const { isLastField } = useFieldRenderContext();
+	const { goToField, setSwiper } = useDispatch( 'quillForms/renderer-core' );
 
-interface Props {
-	active: boolean | undefined;
-}
-const SubmissionScreen: React.FC< Props > = ( { active } ) => {
-	const { goToField } = useDispatch( 'quillForms/renderer-core' );
 	const { firstInvalidFieldId } = useSelect( ( select ) => {
 		return {
 			firstInvalidFieldId: select(
@@ -24,35 +23,62 @@ const SubmissionScreen: React.FC< Props > = ( { active } ) => {
 		};
 	} );
 
+	const handleKeyDown = ( e ) => {
+		if ( e.key === 'Enter' ) {
+			if ( e.metaKey ) {
+				submitHandler();
+			}
+		}
+	};
+	useEffect( () => {
+		if ( isLastField ) {
+			window.addEventListener( 'keydown', handleKeyDown );
+		}
+
+		return () => removeEventListener( 'keydown', handleKeyDown );
+	}, [ isLastField ] );
+
+	const submitHandler = () => {
+		setSwiper( {
+			isReviewing: false,
+		} );
+		if ( firstInvalidFieldId ) {
+			setTimeout( () => {
+				setSwiper( {
+					isReviewing: true,
+				} );
+			}, 50 );
+
+			setTimeout( () => {
+				goToField( firstInvalidFieldId );
+			}, 100 );
+		} else {
+			onSubmit();
+		}
+	};
+
 	const { onSubmit } = useFormContext();
 	return (
-		<div
-			className={ classnames( 'submission__screen', {
-				active: active === true,
-				inactive: active === false,
-			} ) }
+		<Button
+			className="renderer-core-submit-btn"
+			onClick={ () => {
+				submitHandler();
+			} }
+			onKeyDown={ ( e ) => {
+				if ( e.key === 'Enter' ) {
+					e.stopPropagation();
+					submitHandler();
+				}
+			} }
 		>
-			<div className="submission__btnWrapper">
-				<Button
-					className="submission__btn"
-					onClick={ () => {
-						if ( firstInvalidFieldId ) {
-							goToField( firstInvalidFieldId );
-						} else {
-							onSubmit();
-						}
-					} }
-				>
-					Submit
-				</Button>
-				{ /* <Loader
-					type="TailSpin"
-					color="#fff"
-					height={ 30 }
-					width={ 30 }
-				/> */ }
-			</div>
-		</div>
+			Submit
+		</Button>
+		// { /* <Loader
+		// 		type="TailSpin"
+		// 		color="#fff"
+		// 		height={ 30 }
+		// 		width={ 30 }
+		// 	/> */ }
 	);
 };
-export default SubmissionScreen;
+export default SubmitBtn;

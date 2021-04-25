@@ -1,0 +1,10 @@
+.renderer-core-field-footer {
+	height: 60px;
+	margin-top: 10px;
+
+	&.is-hidden {
+		opacity: 0;
+		visibility: hidden;
+		z-index: -555
+	}
+}

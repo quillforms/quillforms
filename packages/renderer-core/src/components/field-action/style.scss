@@ -1,11 +1,11 @@
-.renderer-components-field-action {
+.renderer-core-field-action {
 	& {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 
-		transform: translateY(10);
-		-webkit-transform: translateY(10);
+		transform: translateY(10px);
+		-webkit-transform: translateY(10px);
 		transition: all linear 0.15s;
 	}
 	&, * {
@@ -15,7 +15,7 @@
 	}
 
 	&.is-visible {
-		transform: translateY(0);
+		transform: translateY(0px);
 		&, * {
 			opacity: 1;
 			visibility: visible;
