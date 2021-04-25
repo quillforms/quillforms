@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { Button } from '@quillforms/admin-components';
+import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -12,18 +13,20 @@ import { useDispatch, useSelect } from '@wordpress/data';
 /**
  * Internal Dependencies
  */
-import getDefaultThemeProperties from '../../get-default-theme-properties';
 import IsSavingBtn from './is-saving-btn';
 
-const CustomizeFooter = ( { themeId, themeProperties } ) => {
+const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 	const { themesList } = useSelect( ( select ) => {
 		return {
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
 		};
 	} );
-	const { addNewTheme, updateTheme, setCurrentThemeProperties } = useDispatch(
-		'quillForms/theme-editor'
-	);
+	const {
+		addNewTheme,
+		updateTheme,
+		setCurrentThemeProperties,
+		setCurrentThemeTitle,
+	} = useDispatch( 'quillForms/theme-editor' );
 
 	const { isSaving } = useSelect( ( select ) => {
 		return {
@@ -45,12 +48,16 @@ const CustomizeFooter = ( { themeId, themeProperties } ) => {
 								setCurrentThemeProperties(
 									themesList[ themeIndex ].properties
 								);
+								setCurrentThemeTitle(
+									themesList[ themeIndex ].title
+								);
 								return;
 							}
 						}
 						setCurrentThemeProperties(
 							getDefaultThemeProperties()
 						);
+						setCurrentThemeTitle( '' );
 					}
 				} }
 			>
@@ -61,9 +68,9 @@ const CustomizeFooter = ( { themeId, themeProperties } ) => {
 					isPrimary
 					onClick={ () => {
 						if ( themeId ) {
-							updateTheme( themeId, '', themeProperties );
+							updateTheme( themeId, themeTitle, themeProperties );
 						} else {
-							addNewTheme( '', themeProperties );
+							addNewTheme( themeTitle, themeProperties );
 						}
 					} }
 				>

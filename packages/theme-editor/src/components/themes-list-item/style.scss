@@ -35,6 +35,11 @@
 		align-items: center;
 		border-top: 1px solid #e3e3e3;
 		background: #fff;
+
+		.theme-editor-themes-list-item__footer-title {
+			word-break: break-word;
+    		max-width: 70%
+		}
 	}
 }
 

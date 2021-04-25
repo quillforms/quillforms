@@ -41,7 +41,7 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 			setColor( defaultVal );
 		} else {
 			setActiveSwitcher( 'solid' );
-			setColor( '#000' );
+			setColor( '#fff' );
 		}
 	}, [] );
 
@@ -55,7 +55,7 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 							activeSwitcher === 'gradient'
 						) {
 							setActiveSwitcher( 'solid' );
-							setColor( '#000' );
+							setColor( '#fff' );
 						}
 					} }
 					isPrimary={ activeSwitcher === 'solid' }

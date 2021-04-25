@@ -23,7 +23,7 @@ const AddNewTheme = () => {
 			} }
 		>
 			<ThemeCard>
-				<Icon icon={ plus } />
+				<Icon icon={ plus } color="#fff" />
 				New Theme
 			</ThemeCard>
 		</div>

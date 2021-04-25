@@ -7,8 +7,10 @@ import {
 	__experimentalControlLabel,
 	Button,
 	FontPicker,
+	TextControl,
 } from '@quillforms/admin-components';
 import configApi from '@quillforms/config';
+import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -26,13 +28,12 @@ import CustomizeFooter from '../customize-footer';
 /**
  * Internal Dependencies
  */
-import getDefaultThemeProperties from '../../get-default-theme-properties';
 import ColorPicker from '../color-picker';
 import ComboColorPicker from '../combo-color-picker';
 import ColorPreview from '../color-preview';
 
 const CustomizeThemePanel = () => {
-	const { setCurrentThemeProperties } = useDispatch(
+	const { setCurrentThemeProperties, setCurrentThemeTitle } = useDispatch(
 		'quillForms/theme-editor'
 	);
 	const { theme, shouldBeSaved, currentThemeId } = useSelect( ( select ) => {
@@ -72,6 +73,15 @@ const CustomizeThemePanel = () => {
 		<div className="theme-editor-customize">
 			<PanelBody title="General Settings" initialOpen={ false }>
 				<__experimentalBaseControl>
+					<__experimentalControlWrapper orientation="horizontal">
+						<__experimentalControlLabel label="Title" />
+						<TextControl
+							value={ title }
+							onChange={ ( val ) => {
+								setCurrentThemeTitle( val );
+							} }
+						/>
+					</__experimentalControlWrapper>
 					<__experimentalControlWrapper orientation="horizontal">
 						<__experimentalControlLabel label="Font" />
 						<FontPicker
@@ -263,6 +273,7 @@ const CustomizeThemePanel = () => {
 			</PanelBody>
 			{ shouldBeSaved && (
 				<CustomizeFooter
+					themeTitle={ title }
 					themeProperties={ theme.properties }
 					themeId={ currentThemeId }
 				/>

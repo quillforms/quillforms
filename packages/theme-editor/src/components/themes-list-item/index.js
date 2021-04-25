@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import ConfigAPI from '@quillforms/config';
+import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -19,7 +20,6 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import ThemeActions from '../theme-actions';
-import getDefaultThemeProperties from '../../get-default-theme-properties';
 
 /**
  * An object describing a theme object.
@@ -136,7 +136,7 @@ const ThemesListItem = ( { theme } ) => {
 			</div>
 			<div className="theme-editor-themes-list-item__footer">
 				<div className="theme-editor-themes-list-item__footer-title">
-					{ theme.title }
+					{ theme.title ? theme.title : 'Untitled' }
 				</div>
 				<ThemeActions id={ theme.id } />
 			</div>

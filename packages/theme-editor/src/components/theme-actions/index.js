@@ -28,7 +28,7 @@ const ThemeActions = ( { id } ) => {
 							className="theme-editor-theme-actions__menu-item"
 							onClick={ () => {
 								setCurrentThemeId( id );
-								setCurrentSubPanel( 'customize' );
+								setCurrentSubPanel( 'theme/customize' );
 								setShouldBeSaved( false );
 							} }
 						>
