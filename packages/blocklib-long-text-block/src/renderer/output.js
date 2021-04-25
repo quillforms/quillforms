@@ -1,7 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useTheme, useMessages, HtmlParser } from '@quillforms/renderer-core';
+import { useTheme, useMessages, HTMLParser } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -21,20 +21,22 @@ const LongTextOutput = ( props ) => {
 		id,
 		attributes,
 		isAnimating,
-		required,
+		isValid,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
 		isActive,
 		setValidationErr,
 		showSubmitBtn,
-		shakeWithError,
+		blockWithError,
 		val,
 		setVal,
+		showErrMsg,
+		next,
 	} = props;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
-	const { setMaxCharacters, maxCharacters } = attributes;
+	const { setMaxCharacters, maxCharacters, required } = attributes;
 	const messages = useMessages();
 	const theme = useTheme();
 	const elemRef = useRef( null );
@@ -46,7 +48,7 @@ const LongTextOutput = ( props ) => {
 		} else if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
-			value.length > maxCharacters
+			value?.length > maxCharacters
 		) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.maxCharacters' ] );
@@ -58,22 +60,15 @@ const LongTextOutput = ( props ) => {
 
 	useEffect( () => {
 		if ( isActive ) {
-			if ( isFocused && isAnimating ) {
-				setSimulateFocusStyle( true );
-				return;
-			}
+
 			if ( ! isAnimating && isFocused && isVisible ) {
 				elemRef.current.focus();
-				setSimulateFocusStyle( false );
 			}
-		} else {
-			elemRef.current.blur();
-			setSimulateFocusStyle( true );
-		}
+		} 
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	useEffect( () => {
-		checkfieldValidation( val, false );
+		checkfieldValidation( val );
 	}, [ attributes ] );
 
 	const keyDownHandler = ( e ) => {
@@ -95,9 +90,10 @@ const LongTextOutput = ( props ) => {
 			maxCharacters > 0 &&
 			value.length > maxCharacters
 		) {
-			shakeWithError( messages[ 'label.errorAlert.maxCharacters' ] );
+			blockWithError( messages[ 'label.errorAlert.maxCharacters' ] );
 		} else {
 			setVal( value );
+			showErrMsg( false );
 			checkfieldValidation( value );
 		}
 		if ( value !== '' ) {
@@ -125,21 +121,21 @@ const LongTextOutput = ( props ) => {
 					className={ classnames(
 						'question__TextareaField',
 						css`
-							color: ${theme.answersColor};
+							color: ${ theme.answersColor } !important;
 
 							&::placeholder {
 								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&:-ms-input-placeholder {
 								/* Internet Explorer 10-11 */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&::-ms-input-placeholder {
 								/* Microsoft Edge */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 						`,
 						{
@@ -153,7 +149,7 @@ const LongTextOutput = ( props ) => {
 				/>
 			</VisibilitySensor>
 			<div className="question__instruction">
-				<HtmlParser value={ messages[ 'block.longText.hint' ] } />
+				<HTMLParser value={ messages[ 'block.longText.hint' ] } />
 			</div>
 		</div>
 	);

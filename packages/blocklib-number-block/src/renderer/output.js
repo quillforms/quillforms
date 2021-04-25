@@ -20,18 +20,20 @@ const NumberOutput = ( props ) => {
 		id,
 		attributes,
 		isAnimating,
-		required,
+		isValid,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
 		isActive,
 		setValidationErr,
 		showSubmitBtn,
-		shakeWithError,
+		blockWithError,
 		val,
 		setVal,
+		showErrMsg,
+		next,
 	} = props;
-	const { setMax, max, setMin, min } = attributes;
+	const { setMax, max, setMin, min, required } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 
@@ -57,7 +59,7 @@ const NumberOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		checkfieldValidation( val, false );
+		checkfieldValidation( val );
 	}, [ attributes ] );
 
 	useEffect( () => {
@@ -79,10 +81,11 @@ const NumberOutput = ( props ) => {
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
 		if ( isNaN( value ) ) {
-			shakeWithError( 'Numbers only!' );
+			blockWithError( 'Numbers only!' );
 			return;
 		}
 		setVal( parseInt( value ) );
+		showErrMsg( false );
 		checkfieldValidation( parseInt( value ) );
 
 		if ( value ) {
@@ -108,21 +111,21 @@ const NumberOutput = ( props ) => {
 					className={ classnames(
 						'question__InputField',
 						css`
-							color: ${theme.answersColor};
+							color: ${ theme.answersColor };
 
 							&::placeholder {
 								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&:-ms-input-placeholder {
 								/* Internet Explorer 10-11 */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&::-ms-input-placeholder {
 								/* Microsoft Edge */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 						`,
 						{
@@ -131,9 +134,6 @@ const NumberOutput = ( props ) => {
 					) }
 					ref={ elemRef }
 					id={ 'number-' + id }
-					onBlur={ () => {
-						checkfieldValidation( val );
-					} }
 					placeholder="Type your answer here..."
 					onChange={ changeHandler }
 					value={ val ? val : '' }

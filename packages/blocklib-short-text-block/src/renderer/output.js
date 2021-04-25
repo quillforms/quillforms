@@ -20,16 +20,18 @@ const ShortTextOutput = ( props ) => {
 		id,
 		attributes,
 		isAnimating,
-		required,
+		isValid,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
 		isActive,
 		setValidationErr,
 		showSubmitBtn,
-		shakeWithError,
+		blockWithError,
 		val,
 		setVal,
+		showErrMsg,
+		next,
 	} = props;
 	// console.log( val );
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
@@ -37,7 +39,7 @@ const ShortTextOutput = ( props ) => {
 	const messages = useMessages();
 	const theme = useTheme();
 
-	const { maxCharacters, setMaxCharacters } = attributes;
+	const { maxCharacters, setMaxCharacters, required } = attributes;
 	const elemRef = useRef( null );
 
 	const checkfieldValidation = ( value ) => {
@@ -85,9 +87,10 @@ const ShortTextOutput = ( props ) => {
 			maxCharacters > 0 &&
 			value.length > maxCharacters
 		) {
-			shakeWithError( messages[ 'label.errorAlert.maxCharacters' ] );
+			blockWithError( messages[ 'label.errorAlert.maxCharacters' ] );
 		} else {
 			setVal( value );
+			showErrMsg( false );
 			checkfieldValidation( value );
 		}
 		if ( value && value !== '' ) {

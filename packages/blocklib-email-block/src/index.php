@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-class QF_Email_Block extends QF_Block {
+class QF_Email_Block extends QF_Block_Type {
 
 	/**
 	 * Metadata json file.

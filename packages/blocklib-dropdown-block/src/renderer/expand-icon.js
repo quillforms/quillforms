@@ -1,6 +1,17 @@
+/**
+ * QuillForms Dependencies
+ */
+import { useTheme } from '@quillforms/renderer-core';
+
+/**
+ * External Dependencies
+ */
+import { css } from "emotion"
+
 const DownIcon = ( props ) => {
+	const theme = useTheme();
 	return (
-		<div { ...props } className="dropdown__icon">
+		<div { ...props } className="block-dropdown-renderer-expand-icon">
 			<svg
 				stroke="currentColor"
 				fill="currentColor"
@@ -9,6 +20,9 @@ const DownIcon = ( props ) => {
 				height="1em"
 				width="1em"
 				xmlns="http://www.w3.org/2000/svg"
+				className={css `
+					fill: ${theme.answersColor};
+				`}
 			>
 				<path
 					fillRule="evenodd"

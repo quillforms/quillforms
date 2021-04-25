@@ -20,7 +20,7 @@ const WebsiteOutput = ( props ) => {
 		id,
 		attributes,
 		isAnimating,
-		required,
+		isValid,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
@@ -29,12 +29,15 @@ const WebsiteOutput = ( props ) => {
 		showSubmitBtn,
 		val,
 		setVal,
+		showErrMsg,
+		next,
 	} = props;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const elemRef = useRef();
 	const messages = useMessages();
 	const theme = useTheme();
+	const { required } = attributes;
 
 	const validateUrl = ( url ) => {
 		const pattern = new RegExp(
@@ -53,7 +56,8 @@ const WebsiteOutput = ( props ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
-		} else if ( ! validateUrl( value ) && value !== '' ) {
+		} else if ( ! validateUrl( value ) && value ) {
+			console.log( value );
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.url' ] );
 		} else {
@@ -79,13 +83,14 @@ const WebsiteOutput = ( props ) => {
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	useEffect( () => {
-		checkfieldValidation( val, false );
+		checkfieldValidation( val );
 	}, [ attributes ] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
 		checkfieldValidation( value );
 		setVal( value );
+		showErrMsg( false );
 		if ( value !== '' ) {
 			showSubmitBtn( true );
 			setIsAnswered( true );
@@ -110,21 +115,21 @@ const WebsiteOutput = ( props ) => {
 					className={ classnames(
 						'question__InputField',
 						css`
-							color: ${theme.answersColor};
+							color: ${ theme.answersColor };
 
 							&::placeholder {
 								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&:-ms-input-placeholder {
 								/* Internet Explorer 10-11 */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&::-ms-input-placeholder {
 								/* Microsoft Edge */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 						`,
 						{

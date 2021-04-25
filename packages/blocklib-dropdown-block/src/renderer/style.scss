@@ -1,4 +1,4 @@
-.dropdown__choices {
+.qf-block-dropdown-display__choices {
 	& {
 		position: absolute;
 		top: 100%;
@@ -9,6 +9,7 @@
 		height: 0;
 		overflow-y: auto;
 		transition: transform, opacity 0.3s linear;
+		z-index: 11111;
 	}
 
 	&.visible {
@@ -44,8 +45,8 @@
 
 
 
-	.dropdown__icon,
-	.close__icon {
+	.block-dropdown-renderer-expand-icon,
+	.block-dropdown-renderer-close-icon {
 		& {
 			position: absolute;
 			right: 0;
@@ -57,8 +58,8 @@
 	}
 }
 
-.dropdown__icon,
-.close__icon  {
+.block-dropdown-renderer-expand-icon,
+.block-dropdown-renderer-close-icon  {
 	position: absolute;
 	right: 0;
 	bottom: 4px;

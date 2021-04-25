@@ -36,7 +36,7 @@ const shortTextControl = ( { attributes, setAttributes } ) => {
 						type="number"
 						placeholder="1-1000000"
 						value={ maxCharacters }
-						setValue={ ( val ) =>
+						onChange={ ( val ) =>
 							setAttributes( {
 								maxCharacters: val,
 							} )

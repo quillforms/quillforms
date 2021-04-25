@@ -1,6 +1,20 @@
-const CloseIcon = ( props ) => (
-	<div { ...props } className="close__icon">
-		<svg height="32" width="32" viewBox="0 0 512 512">
+/**
+ * QuillForms Dependencies
+ */
+import { useTheme } from '@quillforms/renderer-core';
+
+/**
+ * External Dependencies
+ */
+import { css } from "emotion"
+
+const CloseIcon = ( props ) => {
+	const theme = useTheme();
+	return (
+	<div { ...props } className="block-dropdown-renderer-close-icon">
+		<svg height="32" width="32" viewBox="0 0 512 512" className={ css `
+			fill: ${theme.answersColor};
+		`}>
 			<g>
 				<g>
 					<g>
@@ -18,6 +32,6 @@ const CloseIcon = ( props ) => (
 			</g>
 		</svg>
 	</div>
-);
+)};
 
 export default CloseIcon;

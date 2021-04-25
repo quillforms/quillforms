@@ -26,8 +26,7 @@
 		"@wordpress/element": "^2.19.1",
 		"antd": "^4.9.4",
 		"dayjs": "^1.9.7",
-		"react-text-mask": "^5.4.3",
-		"text-mask-addons": "^3.8.0"
+		"react-text-mask": "^5.4.3"
 	},
 	"publishConfig": {
 		"access": "public"

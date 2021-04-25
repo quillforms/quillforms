@@ -12,7 +12,19 @@ import { type } from '../block.json';
 const NextBtnComponent = ( { onClick } ) => {
 	const { attributes } = useFieldRenderContext();
 
-	return <Button onClick={ onClick }>{ attributes.buttonText } </Button>;
+	return (
+		<Button
+			tabIndex={ 0 }
+			onKeyDown={ ( e ) => {
+				if ( e.key === 'Enter' ) {
+					onClick();
+				}
+			} }
+			onClick={ onClick }
+		>
+			{ attributes.buttonText }
+		</Button>
+	);
 };
 
 const CounterContentComponent = () => {

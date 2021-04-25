@@ -42,9 +42,6 @@ const statementControls = ( props ) => {
 							setAttributes( { buttonText: val } )
 						}
 					/>
-					<div className="helper-text">
-						{ `${ buttonText.length }/${ CHARACTER_LIMIT }` }{ ' ' }
-					</div>
 				</__experimentalControlWrapper>
 			</__experimentalBaseControl>
 		</Fragment>

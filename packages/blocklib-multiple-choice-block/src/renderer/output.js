@@ -18,7 +18,6 @@ const MultipleChoiceOutput = ( props ) => {
 	const {
 		id,
 		attributes,
-		required,
 		setIsValid,
 		setIsAnswered,
 		showSubmitBtn,
@@ -28,8 +27,9 @@ const MultipleChoiceOutput = ( props ) => {
 		next,
 		isActive,
 		isAnimating,
+		showErrMsg,
 	} = props;
-	const { multiple } = attributes;
+	const { multiple, required } = attributes;
 	const messages = useMessages();
 	const [ choiceClicked, setChoiceClicked ] = useState( null );
 	const checkfieldValidation = () => {
@@ -80,13 +80,16 @@ const MultipleChoiceOutput = ( props ) => {
 	}, [ val, attributes ] );
 
 	return (
-		<div className="question__wrapper">
+		<div className="qf-multiple-choice-block-renderer">
 			<ChoicesWrapper
 				attributes={ attributes }
 				id={ id }
 				val={ val }
 				setVal={ setVal }
-				setChoiceClicked={ setChoiceClicked }
+				setChoiceClicked={ ( val ) => {
+					showErrMsg( false );
+					setChoiceClicked( val );
+				} }
 			/>
 		</div>
 	);

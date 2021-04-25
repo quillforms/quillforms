@@ -18,8 +18,9 @@ import classnames from 'classnames';
 const EmailOutput = ( props ) => {
 	const {
 		id,
+		attributes,
 		isAnimating,
-		required,
+		isValid,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
@@ -28,12 +29,15 @@ const EmailOutput = ( props ) => {
 		showSubmitBtn,
 		val,
 		setVal,
+		showErrMsg,
+		next,
 	} = props;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const messages = useMessages();
 	const theme = useTheme();
 	const elemRef = useRef();
+	const { required } = attributes;
 
 	const validateEmail = ( email ) => {
 		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -67,7 +71,7 @@ const EmailOutput = ( props ) => {
 				setSimulateFocusStyle( false );
 			}
 		} else {
-			elemRef.current.blur();
+			// elemRef.current.blur();
 			setSimulateFocusStyle( true );
 		}
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
@@ -80,6 +84,7 @@ const EmailOutput = ( props ) => {
 		const value = e.target.value;
 		checkFieldValidation( value );
 		setVal( value );
+		showErrMsg( false );
 		if ( value !== '' ) {
 			setIsAnswered( true );
 			showSubmitBtn( true );
@@ -90,50 +95,48 @@ const EmailOutput = ( props ) => {
 	};
 
 	return (
-		<>
-			<div className="question__wrapper">
-				<VisibilitySensor
-					resizeCheck={ true }
-					resizeThrottle={ 100 }
-					scrollThrottle={ 100 }
-					onChange={ ( visible ) => {
-						setIsVisible( visible );
-					} }
-				>
-					<input
-						ref={ elemRef }
-						className={ classnames(
-							'question__InputField',
-							css`
-								color: ${theme.answersColor};
+		<div className="question__wrapper">
+			<VisibilitySensor
+				resizeCheck={ true }
+				resizeThrottle={ 100 }
+				scrollThrottle={ 100 }
+				onChange={ ( visible ) => {
+					setIsVisible( visible );
+				} }
+			>
+				<input
+					ref={ elemRef }
+					className={ classnames(
+						'question__InputField',
+						css`
+							color: ${ theme.answersColor };
 
-								&::placeholder {
-									/* Chrome, Firefox, Opera, Safari 10.1+ */
-									color: ${theme.answersColor};
-								}
-
-								&:-ms-input-placeholder {
-									/* Internet Explorer 10-11 */
-									color: ${theme.answersColor};
-								}
-
-								&::-ms-input-placeholder {
-									/* Microsoft Edge */
-									color: ${theme.answersColor};
-								}
-							`,
-							{
-								'no-border': simulateFocusStyle,
+							&::placeholder {
+								/* Chrome, Firefox, Opera, Safari 10.1+ */
+								color: ${ theme.answersColor };
 							}
-						) }
-						id={ 'email-' + id }
-						placeholder="Type your email here..."
-						onChange={ changeHandler }
-						value={ val && val.length > 0 ? val : '' }
-					/>
-				</VisibilitySensor>
-			</div>
-		</>
+
+							&:-ms-input-placeholder {
+								/* Internet Explorer 10-11 */
+								color: ${ theme.answersColor };
+							}
+
+							&::-ms-input-placeholder {
+								/* Microsoft Edge */
+								color: ${ theme.answersColor };
+							}
+						`,
+						{
+							'no-border': simulateFocusStyle,
+						}
+					) }
+					id={ 'email-' + id }
+					placeholder="Type your email here..."
+					onChange={ changeHandler }
+					value={ val && val.length > 0 ? val : '' }
+				/>
+			</VisibilitySensor>
+		</div>
 	);
 };
 export default EmailOutput;

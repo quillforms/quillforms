@@ -15,12 +15,13 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 import VisibilitySensor from 'react-visibility-sensor';
 import { css } from 'emotion';
 import classnames from 'classnames';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, some } from 'lodash';
+
 /**
  * Internal Dependencies
  */
-import DropdownIcon from './dropdownIcon';
-import CloseIcon from './closeIcon';
+import DropdownIcon from './expand-icon';
+import CloseIcon from './close-icon';
 import ChoiceItem from './choice-item';
 
 let timer;
@@ -29,7 +30,6 @@ const DropdownOutput = ( props ) => {
 		id,
 		attributes,
 		isAnimating,
-		required,
 		setIsValid,
 		setIsAnswered,
 		isFocused,
@@ -38,12 +38,14 @@ const DropdownOutput = ( props ) => {
 		val,
 		setVal,
 		next,
+		showErrMsg,
 	} = props;
-	const { choices } = attributes;
+	const { choices, required } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ showDropdown, setShowDropdown ] = useState( false );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
+
 	const elemRef = useRef();
 	const wrapperRef = useRef();
 	const choicesWrappeerRef = useRef();
@@ -77,9 +79,34 @@ const DropdownOutput = ( props ) => {
 
 	// Attaching the previous event with UseEffect hook
 	useEffect( () => {
-		if ( showDropdown )
+		if ( showDropdown ) {
 			// Bind the event listener
 			document.addEventListener( 'mousedown', handleClickOutside );
+			console.log( 'lkfijewf' );
+			if (
+				document.querySelector(
+					`#block-${ id } .renderer-core-field-footer`
+				)
+			) {
+				document
+					.querySelector(
+						`#block-${ id } .renderer-core-field-footer`
+					)
+					.classList.add( 'is-hidden' );
+			}
+		} else {
+			if (
+				document.querySelector(
+					`#block-${ id } .renderer-core-field-footer`
+				)
+			) {
+				document
+					.querySelector(
+						`#block-${ id } .renderer-core-field-footer`
+					)
+					.classList.remove( 'is-hidden' );
+			}
+		}
 		return () => {
 			// Unbind the event listener on clean up
 			document.removeEventListener( 'mousedown', handleClickOutside );
@@ -88,7 +115,7 @@ const DropdownOutput = ( props ) => {
 
 	useEffect( () => {
 		checkfieldValidation( val );
-	}, [ required, attributes ] );
+	}, [ val, attributes ] );
 
 	useEffect( () => {
 		if ( isActive ) {
@@ -101,13 +128,18 @@ const DropdownOutput = ( props ) => {
 				setSimulateFocusStyle( false );
 			}
 		} else {
-			elemRef.current.blur();
 			setShowDropdown( false );
 			setSimulateFocusStyle( true );
+			if ( ! val ) setSearchKeyword( '' );
+			else if ( ! some( choices, ( choice ) => choice.value === val ) ) {
+				setVal( undefined );
+				setSearchKeyword( '' );
+			}
 		}
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	const changeHandler = ( e ) => {
+		setShowDropdown( true );
 		if ( val ) {
 			setVal( null );
 			setSearchKeyword( '' );
@@ -126,11 +158,7 @@ const DropdownOutput = ( props ) => {
 	}, [] );
 
 	return (
-		<div
-			className="question__wrapper"
-			ref={ wrapperRef }
-			style={ { position: 'relative' } }
-		>
+		<div ref={ wrapperRef } style={ { position: 'relative' } }>
 			<VisibilitySensor
 				resizeCheck={ true }
 				resizeThrottle={ 100 }
@@ -177,7 +205,9 @@ const DropdownOutput = ( props ) => {
 			{ val && val.length > 0 ? (
 				<CloseIcon
 					onClick={ () => {
-						setVal( [] );
+						setSearchKeyword( '' );
+						setIsAnswered( false );
+						setVal( undefined );
 						elemRef.current.focus();
 					} }
 				/>
@@ -187,7 +217,7 @@ const DropdownOutput = ( props ) => {
 			{ isActive && (
 				<div
 					className={
-						'dropdown__choices' +
+						'qf-block-dropdown-display__choices' +
 						( showDropdown ? ' visible' : ' hidden' )
 					}
 					ref={ choicesWrappeerRef }
@@ -204,6 +234,7 @@ const DropdownOutput = ( props ) => {
 									role="presentation"
 									key={ `block-dropdown-${ id }-choice-${ choice.value }` }
 									clickHandler={ () => {
+										showErrMsg( false );
 										clearTimeout( timer );
 										if ( val && val === choice.value ) {
 											setVal( null );
@@ -215,6 +246,7 @@ const DropdownOutput = ( props ) => {
 										setVal( choice.value );
 										timer = setTimeout( () => {
 											setSearchKeyword( choice.label );
+											setShowDropdown( false );
 											next();
 										}, 700 );
 									} }
@@ -224,7 +256,17 @@ const DropdownOutput = ( props ) => {
 							);
 						} )
 					) : (
-						<div className="sf-err-msg">No suggestions found</div>
+						<div
+							className={ css`
+								background: ${ theme.errorsBgColor };
+								color: ${ theme.errorsFontColor };
+								display: inline-block;
+								padding: 5px 10px;
+								border-radius: 5px;
+							` }
+						>
+							No suggestions found
+						</div>
 					) }
 				</div>
 			) }

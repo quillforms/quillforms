@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @class QF_Dropdown
  * @since 1.0.0
  */
-class QF_Dropdown_Block extends QF_Block {
+class QF_Dropdown_Block extends QF_Block_Type {
 
 	/**
 	 * Metadata json file.

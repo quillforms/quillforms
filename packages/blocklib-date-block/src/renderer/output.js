@@ -6,23 +6,26 @@ import { useTheme, useMessages } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
 import MaskedInput from 'react-text-mask';
-import moment from 'moment';
-import { createAutoCorrectedDatePipe } from 'text-mask-addons';
+import dayJs from 'dayjs';
 import { css } from 'emotion';
 import classnames from 'classnames';
 import VisibilitySensor from 'react-visibility-sensor';
+
+/**
+ * Internal Dependencies
+ */
+import createAutoCorrectedDatePipe from './create-autocorrected-date-pipe';
 
 const DateOutput = ( props ) => {
 	const {
 		id,
 		isAnimating,
-		required,
 		attributes,
 		setIsValid,
 		setIsAnswered,
@@ -30,22 +33,23 @@ const DateOutput = ( props ) => {
 		isActive,
 		setValidationErr,
 		showSubmitBtn,
+		showErrMsg,
 		val,
 		setVal,
 	} = props;
-	const { format, separator } = attributes;
+	const { format, separator, required } = attributes;
 	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ isVisible, setIsVisible ] = useState( false );
 	const messages = useMessages();
 	const theme = useTheme();
 	const elemRef = useRef();
 
-	const checkfieldValidation = ( value ) => {
-		const date = moment( value );
+	const checkFieldValidation = ( value ) => {
+		const date = dayJs( value );
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
-		} else if ( ! date.isValid() ) {
+		} else if ( ! date.isValid() && value ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.date' ] );
 		} else {
@@ -55,29 +59,33 @@ const DateOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		//checkfieldValidation( val );
-	}, [ required, attributes ] );
+		checkFieldValidation( val );
+	}, [ required ] );
 
 	useEffect( () => {
 		if ( isActive ) {
-			if ( isFocused && isAnimating ) {
-				setSimulateFocusStyle( true );
-				return;
-			}
+			// if ( isFocused && isAnimating ) {
+			// 	debugger;
+			// 	setSimulateFocusStyle( true );
+			// 	return;
+			// }
 			if ( ! isAnimating && isFocused && isVisible ) {
 				elemRef.current.inputElement.focus();
 				setSimulateFocusStyle( false );
 			}
 		} else {
-			elemRef.current.inputElement.blur();
 			setSimulateFocusStyle( true );
 		}
 	}, [ isAnimating, isActive, isFocused, isVisible ] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		checkfieldValidation( value );
+		console.log( value );
+
 		setVal( value );
+		showErrMsg( false );
+		checkFieldValidation( value );
+
 		if ( value !== '' ) {
 			setIsAnswered( true );
 			showSubmitBtn( true );
@@ -87,7 +95,7 @@ const DateOutput = ( props ) => {
 		}
 	};
 
-	const getPlaceholder = () => {
+	const getPlaceholder =  () => {
 		if ( format === 'MMDDYYYY' ) {
 			return 'MM' + separator + 'DD' + separator + 'YYYY';
 		} else if ( format === 'DDMMYYYY' ) {
@@ -131,7 +139,7 @@ const DateOutput = ( props ) => {
 	};
 
 	return (
-		<div className="question__wrapper">
+		<div>
 			<VisibilitySensor
 				resizeCheck={ true }
 				resizeThrottle={ 100 }
@@ -147,21 +155,21 @@ const DateOutput = ( props ) => {
 					className={ classnames(
 						'question__InputField',
 						css`
-							color: ${theme.answersColor};
+							color: ${ theme.answersColor };
 
 							&::placeholder {
 								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&:-ms-input-placeholder {
 								/* Internet Explorer 10-11 */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 
 							&::-ms-input-placeholder {
 								/* Microsoft Edge */
-								color: ${theme.answersColor};
+								color: ${ theme.answersColor };
 							}
 						`,
 						{

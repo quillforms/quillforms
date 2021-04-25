@@ -36,9 +36,9 @@ const LongTextControl = ( { attributes, setAttributes } ) => {
 						type="number"
 						placeholder="1-1000000"
 						value={ maxCharacters }
-						onChange={ ( e ) =>
+						onChange={ ( val ) =>
 							setAttributes( {
-								maxCharacters: e.target.value,
+								maxCharacters: val,
 							} )
 						}
 					/>
