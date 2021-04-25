@@ -29,11 +29,12 @@ import PreviewArea from '../preview-area';
 import { PreviewContextProvider } from '../preview-context';
 
 let $timer;
-const FormPreview = ( {} ) => {
+const FormPreview = () => {
 	const [ applyJumpLogic, setApplyJumpLogic ] = useState( false );
 	const [ selfDispatch, setSelfDispatch ] = useState( false );
 	const fonts = configApi.getFonts();
 	const theme = useTheme();
+	console.log( theme );
 	const { font } = useTheme();
 	const { currentBlockBeingEdited, blocks, messages } = useSelect(
 		( select ) => {
@@ -75,8 +76,7 @@ const FormPreview = ( {} ) => {
 
 		link.type = 'text/css';
 		link.rel = 'stylesheet';
-		console.log( fontUrl );
-		if ( fontUrl ) {
+		if ( font ) {
 			link.href = fontUrl;
 			const existingLinkEl = document.querySelector(
 				`link[href='${ link.href }']`
@@ -84,7 +84,7 @@ const FormPreview = ( {} ) => {
 			console.log( existingLinkEl );
 			if ( ! existingLinkEl ) head.appendChild( link );
 		}
-	}, [] );
+	}, [ font ] );
 
 	useEffect( () => {
 		if ( applyJumpLogic ) {
@@ -135,16 +135,11 @@ const FormPreview = ( {} ) => {
 				blocks[ currentBlockBeingEditedIndex ]?.name ===
 				'thankyou-screen';
 
-			const $isWelcomeScreenActive =
-				blocks[ currentBlockBeingEditedIndex ]?.name ===
-				'welcome-screen';
 			const $currentPath = cloneDeep( formFields );
 			setSwiper( {
 				walkPath: $currentPath,
 				welcomeScreens: $welcomeScreens,
 				thankyouScreens: $thankyouScreens,
-				isThankyouScreenActive: $isThankyouScreenActive,
-				isWelcomeScreenActive: $isWelcomeScreenActive,
 			} );
 
 			const currentFieldBeingEditedIndex = formFields.findIndex(
@@ -174,7 +169,6 @@ const FormPreview = ( {} ) => {
 						$prevBlockId && ! $isThankyouScreenActive
 							? true
 							: false,
-					isSubmissionScreenActive: undefined,
 				} );
 			}, 300 );
 		}
