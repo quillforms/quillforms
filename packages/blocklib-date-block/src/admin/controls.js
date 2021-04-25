@@ -9,12 +9,18 @@ import {
 } from '@quillforms/admin-components';
 
 /**
+ * WordPress Dependencies
+ */
+import { useDispatch } from '@wordpress/data';
+
+/**
  * External Dependencies
  */
 import { css } from 'emotion';
 
 const DateControls = ( props ) => {
 	const {
+		id,
 		attributes: { format, separator },
 		setAttributes,
 	} = props;
@@ -46,6 +52,12 @@ const DateControls = ( props ) => {
 			name: '.',
 		},
 	];
+	const {
+		setFieldAnswer,
+		setIsFieldAnswered,
+		setIsFieldValid,
+		setFieldValidationErrr,
+	} = useDispatch( 'quillForms/renderer-core' );
 	return (
 		<__experimentalBaseControl>
 			<__experimentalControlWrapper orientation="vertical">
@@ -55,9 +67,16 @@ const DateControls = ( props ) => {
 					className={ css`
 						margin-top: 5px;
 					` }
-					onChange={ ( { selectedItem } ) =>
-						setAttributes( { format: selectedItem.key } )
-					}
+					onChange={ ( { selectedItem } ) => {
+						// Formatting changes can cause errors if the field has value already.
+						// The problem comes when trying to assign invalid values to month or year or day.
+						// That's why we are going to reset the field value.
+						setFieldAnswer( id, '' );
+						setIsFieldValid( id, true );
+						setIsFieldAnswered( id, false );
+						setFieldValidationErrr( id, null );
+						setAttributes( { format: selectedItem.key } );
+					} }
 					options={ formatOptions }
 					value={ formatOptions.find(
 						( option ) => option.key === format
