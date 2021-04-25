@@ -8,7 +8,6 @@ import { useMemo } from '@wordpress/element';
  */
 import { FixedSizeList as List } from 'react-window';
 import { cloneDeep } from 'lodash';
-import { v4 as uuid } from 'uuid';
 
 /**
  * Internal Dependencies
@@ -18,6 +17,7 @@ import ChoiceWrapper from './choice-wrapper';
 import ChoiceRow from './choice-row';
 import __experimentalDragDropContext from '../drag-drop-context';
 import __experimentalDroppable from '../droppable';
+import generateChoiceId from './generate-choice-id';
 import type { Choices } from '../choices-bulk-btn/types';
 
 interface Props {
@@ -34,7 +34,7 @@ const ChoicesInserter: React.FC< Props > = ( { choices, setChoices } ) => {
 	const addChoice = ( at: number ) => {
 		const $choices = cloneDeep( choices );
 		$choices.splice( at, 0, {
-			value: uuid(),
+			value: generateChoiceId(),
 			label: '',
 		} );
 		setChoices( $choices );
