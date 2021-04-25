@@ -11,22 +11,16 @@ import { useFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import useMessages from '../../hooks/use-messages';
 
-const FieldAction = ( { show, clickHandler } ) => {
+const FieldAction = ( { clickHandler, show } ) => {
 	const messages = useMessages();
-	const { blockName, next } = useFieldRenderContext();
+	const { blockName, isSubmitBtnVisible } = useFieldRenderContext();
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
 	return (
 		<div
-			role="presentation"
-			className={ classnames( 'renderer-components-field-action', {
-				'is-visible': show,
+			className={ classnames( 'renderer-core-field-action', {
+				'is-visible': isSubmitBtnVisible || show,
 			} ) }
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' ) {
-					next();
-				}
-			} }
 		>
 			{ blockType?.nextBtn ? (
 				<blockType.nextBtn onClick={ clickHandler } />
@@ -35,7 +29,7 @@ const FieldAction = ( { show, clickHandler } ) => {
 					<Button onClick={ clickHandler }>
 						<HTMLParser value={ messages[ 'label.button.ok' ] } />
 					</Button>
-					<div className="renderer-components-field-action__helper-text">
+					<div className="renderer-core-field-action__helper-text">
 						<HTMLParser
 							value={ messages[ 'label.hintText.enter' ] }
 						/>

@@ -1,8 +1,12 @@
 /* eslint-disable no-nested-ternary */
 /**
+ * QuillForms Dependencies
+ */
+import { FormBlock } from '@quillforms/config';
+
+/**
  * WordPress Dependencies
  */
-import { FormBlock } from '@quillforms/config/build-types';
 import { combineReducers } from '@wordpress/data';
 import { forEach, some } from 'lodash';
 
@@ -26,6 +30,7 @@ import {
 	SET_IS_FIELD_VALID,
 	SET_IS_FIELD_ANSWERED,
 	SET_FIELD_VALIDATION_ERR,
+	RESET_ANSWERS,
 } from './constants';
 import type {
 	SwiperState,
@@ -46,7 +51,6 @@ const initialState: SwiperState = {
 	canGoNext: false,
 	canGoPrev: false,
 	isAnimating: true,
-	isSubmissionScreenActive: undefined,
 	isThankyouScreenActive: false,
 	isWelcomeScreenActive: false,
 	isReviewing: false,
@@ -63,13 +67,13 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		currentBlockId,
 		nextBlockId,
 		prevBlockId,
-		isSubmissionScreenActive,
 		thankyouScreens,
 	} = state;
 
 	switch ( action.type ) {
 		case SET_SWIPER_STATE: {
 			const newSwiperState = action.swiperState;
+			console.log( newSwiperState );
 			let validBlocksStructure = true;
 			forEach(
 				[ 'walkPath', 'welcomeScreens', 'thankyouScreens' ],
@@ -119,8 +123,9 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				}
 			);
 
-			console.log( validBlocksStructure );
-			if ( ! validBlocksStructure ) return state;
+			if ( ! validBlocksStructure ) {
+				return state;
+			}
 
 			const newWalkPath = newSwiperState.walkPath
 				? newSwiperState.walkPath
@@ -165,11 +170,27 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 
 			if ( ! checkCorrectIds ) return state;
 
-			// if typeof isAnimating isn't boolean.
-			if (
-				newSwiperState.isAnimating &&
-				typeof newSwiperState.isAnimating !== 'boolean'
-			) {
+			let correctBooleans = true;
+
+			// if typeof  new boolean props isn't boolean.
+			[
+				'isAnimating',
+				'isReviewing',
+				'canGoNext',
+				'canGoPrev',
+				'isThankyouScreenActive',
+				'isWelcomeScreenActive',
+			].forEach( ( prop ) => {
+				if (
+					newSwiperState[ prop ] &&
+					typeof newSwiperState[ prop ] !== 'boolean'
+				) {
+					correctBooleans = false;
+					return;
+				}
+			} );
+
+			if ( ! correctBooleans ) {
 				return state;
 			}
 
@@ -180,14 +201,17 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				newWalkPath?.length > 0 &&
 				newWalkPath[ 0 ].id == newCurrentBlockId;
 
+			const isLastField =
+				newWalkPath?.length > 0 &&
+				newWalkPath[ newWalkPath.length - 1 ].id == newCurrentBlockId;
+
 			return {
 				...state,
 				...newSwiperState,
 				canGoNext:
 					newSwiperState.canGoNext === undefined
 						? state.canGoNext
-						: newSwiperState.canGoNext === true &&
-						  isSubmissionScreenActive
+						: newSwiperState.canGoNext === true && isLastField
 						? false
 						: newSwiperState.canGoNext,
 				canGoPrev:
@@ -200,15 +224,15 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					newWelcomeScreens.length &&
 					some(
 						newWelcomeScreens,
-						( screen ) => screen.id === currentBlockId
+						( screen ) => screen.id === newCurrentBlockId
 					)
 						? true
 						: false,
 				isThankyouScreenActive: some(
 					newThanksScreens,
 					( screen ) =>
-						screen.id === currentBlockId ||
-						'default_thankyou_screen' === currentBlockId
+						screen.id === newCurrentBlockId ||
+						'default_thankyou_screen' === newCurrentBlockId
 				)
 					? true
 					: false,
@@ -217,10 +241,11 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 
 		case GO_NEXT: {
 			const { isSwiping } = action;
-			if ( isAnimating || isSubmissionScreenActive ) return state;
+			if ( isAnimating ) return state;
 			const isLastField =
 				walkPath?.length > 0 &&
 				walkPath[ walkPath.length - 1 ].id === currentBlockId;
+			if ( isLastField ) return state;
 			const currentFieldIndex = walkPath.findIndex(
 				( field ) => field.id === currentBlockId
 			);
@@ -259,11 +284,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 							: undefined
 						: nextBlockId,
 				isAnimating: true,
-				isSubmissionScreenActive: ! $newCurrentBlockId
-					? true
-					: undefined,
 				isThankyouScreenActive: false,
-				isReviewing: ! $newCurrentBlockId ? false : true,
 			};
 		}
 
@@ -277,27 +298,15 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			);
 			return {
 				...state,
-				canGoPrev:
-					walkPath[ currentFieldIndex - 2 ] ||
-					isSubmissionScreenActive
-						? true
-						: false,
+				canGoPrev: walkPath[ currentFieldIndex - 2 ] ? true : false,
 				canGoNext: true,
 				currentBlockId: prevBlockId,
 				lastActiveBlockId: currentBlockId,
 				nextBlockId: currentBlockId,
-				prevBlockId:
-					isSubmissionScreenActive === true
-						? walkPath[ walkPath.length - 2 ]?.id
-							? walkPath[ walkPath.length - 2 ].id
-							: undefined
-						: walkPath[ currentFieldIndex - 2 ]?.id
-						? walkPath[ currentFieldIndex - 2 ].id
-						: undefined,
-				isAnimating: true,
-				isSubmissionScreenActive: isSubmissionScreenActive
-					? false
+				prevBlockId: walkPath[ currentFieldIndex - 2 ]?.id
+					? walkPath[ currentFieldIndex - 2 ].id
 					: undefined,
+				isAnimating: true,
 				isThankyouScreenActive: false,
 			};
 		}
@@ -321,10 +330,9 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				prevBlockId: walkPath[ fieldIndex - 1 ]
 					? walkPath[ fieldIndex - 1 ].id
 					: undefined,
-				isSubmissionScreenActive: undefined,
+				lastActiveBlockId: currentBlockId,
 				isWelcomeScreenActive: false,
 				isThankyouScreenActive: false,
-				isReviewing: true,
 			};
 		}
 		case COMPLETE_FORM: {
@@ -332,7 +340,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				...state,
 				canGoNext: false,
 				canGoPrev: false,
-				isSubmissionScreenActive: false,
 				isThankyouScreenActive: true,
 				currentBlockId: nextBlockId
 					? nextBlockId
@@ -367,7 +374,7 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 
 			if ( ! answers[ id ] ) {
 				answers[ id ] = {
-					value: [],
+					value: undefined,
 					isValid: true,
 					isAnswered: false,
 					validationErr: undefined,
@@ -392,6 +399,10 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 					value: val,
 				},
 			};
+		}
+
+		case RESET_ANSWERS: {
+			return {};
 		}
 
 		// SET IS FIELD VALID

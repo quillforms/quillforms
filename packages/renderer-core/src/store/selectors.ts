@@ -17,7 +17,7 @@ import { mapValues, pickBy, size, findIndex } from 'lodash';
  * Internal Dependencies
  */
 import type { State } from './reducer';
-import type { RendererAnswersState, SwiperState } from './types';
+import type { RendererAnswersState, Screen, SwiperState } from './types';
 
 /**
  * Get swiper state.
@@ -60,6 +60,28 @@ export function isAnimating( state: State ): boolean {
  */
 export function getCurrentBlockId( state: State ): string | undefined {
 	return state.swiper.currentBlockId;
+}
+
+/**
+ * Get welcome screens.
+ *
+ * @param {State} state     Global application state.
+ *
+ * @return {Screen[]} Welcome screens
+ */
+export function getWelcomeScreens( state: State ): Screen[] {
+	return state.swiper.welcomeScreens;
+}
+
+/**
+ * Get thank you screens.
+ *
+ * @param {State} state     Global application state.
+ *
+ * @return {Screen[]} Thank you screens
+ */
+export function getThankYouScreens( state: State ): Screen[] {
+	return state.swiper.thankyouScreens;
 }
 
 /**
@@ -195,7 +217,7 @@ export function getAnsweredFieldsLength( state: State ): number {
  */
 export function getFieldAnswerVal( state: State, id: string ): unknown {
 	const answer = state.answers[ id ]?.value;
-	return answer ? answer : [];
+	return answer;
 }
 
 /**

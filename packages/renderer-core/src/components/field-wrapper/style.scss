@@ -9,7 +9,7 @@
 		top: 0;
 		bottom: 0;
 		overflow-y: auto;
-		outline: none;
+		outline: none !important;
 		transition: transform 600ms ease 0s, opacity 280ms ease 0s;
 		-webkit-transition: transform 600ms ease 0s, opacity 280ms ease 0s;
 		-moz-transition: transform 600ms ease 0s, opacity 280ms ease 0s;
@@ -62,6 +62,10 @@
 		flex-wrap: wrap;
 		padding: 40px 70px;
 		align-items: center;
+		&:focus {
+			box-shadow: none !important;
+			outline: none !important;
+		}
 	}
 
 }
@@ -81,5 +85,26 @@
 }
 
 
+.question__InputField {
+	& {
+		margin-top: 15px;
+		width: 100%;
+		border: none;
+		border-bottom: 1px solid;
+		outline: none;
+		font-size: 30px;
+		padding-bottom: 8px;
+		transition: 0.2s border ease-in-out;
+		background: transparent;
+	}
 
+	&::placeholder {
+		opacity: 0.3;
+	}
+
+	&:focus,
+	&.no-border {
+		border-bottom: 1px solid transparent;
+	}
+}
 

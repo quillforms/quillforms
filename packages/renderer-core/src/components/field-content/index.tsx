@@ -11,8 +11,8 @@ import classnames from 'classnames';
 /**
  * Internal Depndencies
  */
-import QuestionHeader from '../field-header';
-import BlockOutput from '../block-output';
+import FieldHeader from '../field-header';
+import BlockOutput from '../field-display-wrapper';
 
 const FieldContent: React.FC = () => {
 	const [ isShaking, setIsShaking ] = useState< boolean >( false );
@@ -23,10 +23,14 @@ const FieldContent: React.FC = () => {
 				'is-shaking': isShaking,
 			} ) }
 		>
-			<QuestionHeader />
+			<FieldHeader />
 			<BlockOutput
 				isShaking={ isShaking }
-				setIsShaking={ setIsShaking }
+				setIsShaking={ ( val ) => {
+					console.log( val );
+					console.log( 'tlkmnwhrgjhwerngjie' );
+					setIsShaking( val );
+				} }
 			/>
 		</div>
 	);

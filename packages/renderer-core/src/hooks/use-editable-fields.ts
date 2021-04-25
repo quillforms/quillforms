@@ -17,8 +17,8 @@ const useEditableFields = () => {
 	const formBlocks = useBlocks();
 
 	const editableFields = formBlocks.filter( ( block ) => {
-		const registeredBlock = blockTypes[ block.name ];
-		return registeredBlock?.supports?.editable === true;
+		const blockType = blockTypes[ block.name ];
+		return blockType?.supports?.editable === true;
 	} );
 
 	return editableFields;

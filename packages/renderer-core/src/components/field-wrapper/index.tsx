@@ -16,18 +16,34 @@ import classnames from 'classnames';
  */
 import { useFieldRenderContext } from '../field-render/context';
 import FieldContent from '../field-content';
+import { filter, findIndex } from 'lodash';
+
+let scrollTimer: ReturnType< typeof setTimeout >;
+let tabTimer: ReturnType< typeof setTimeout >;
 
 const FieldWrapper: React.FC = () => {
-	const { id, isActive, shouldBeRendered } = useFieldRenderContext();
-	const { swiper } = useSelect( ( select ) => {
+	const {
+		id,
+		isActive,
+		shouldBeRendered,
+		showErrMsg,
+		next,
+		isFocused,
+		setIsFocused,
+	} = useFieldRenderContext();
+	if ( ! id ) return null;
+	const { swiper, isValid } = useSelect( ( select ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
+			isValid: select( 'quillForms/renderer-core' ).isValidField( id ),
 		};
 	} );
 
-	const { setSwiper } = useDispatch( 'quillForms/renderer-core' );
+	const { setSwiper, goToField, goNext, goPrev } = useDispatch(
+		'quillForms/renderer-core'
+	);
 
-	const { walkPath, currentBlockId, isSubmissionScreenActive } = swiper;
+	const { walkPath, currentBlockId, isAnimating } = swiper;
 	const setCanGoNext = ( val: boolean ) => {
 		// if ( walkPath[ walkPath.length - 1 ].id === id ) val = false;
 		setSwiper( {
@@ -47,12 +63,11 @@ const FieldWrapper: React.FC = () => {
 
 	const position = isActive
 		? null
-		: currentFieldIndex > fieldIndex || isSubmissionScreenActive
+		: currentFieldIndex > fieldIndex
 		? 'is-up'
 		: 'is-down';
 
 	const ref = useRef< HTMLDivElement | null >( null );
-	let timer: ReturnType< typeof setTimeout >;
 
 	const handlers = useSwipeable( {
 		onSwiped: () => {
@@ -77,19 +92,154 @@ const FieldWrapper: React.FC = () => {
 					}
 				}, 0 );
 			}
-		}
-
-		return () => {
-			clearTimeout( timer );
+		} else {
+			clearTimeout( tabTimer );
+			clearTimeout( scrollTimer );
 			setCanGoNext( true );
 			setCanGoPrev( true );
-		};
+		}
 	}, [ isActive ] );
+
+	useEffect( () => {
+		if ( isAnimating ) clearTimeout( tabTimer );
+	}, [ isAnimating ] );
+
+	const focusableElementsString =
+		'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+
+	/**
+	 * Gets all the focusable elements inside the passed element.
+	 */
+	function getFocusables( el ) {
+		return filter(
+			Array.prototype.slice.call(
+				document
+					.querySelector( el )
+					.querySelectorAll( focusableElementsString )
+			),
+			( item ) => {
+				return (
+					item.getAttribute( 'tabindex' ) !== '-1' &&
+					//are also not hidden elements (or with hidden parents)
+					item.offsetParent !== null &&
+					window.getComputedStyle( item ).visibility !== 'hidden'
+				);
+			}
+		);
+	}
+
+	function closest( el, selector ) {
+		var matchesFn;
+
+		// find vendor prefix
+		[
+			'matches',
+			'webkitMatchesSelector',
+			'mozMatchesSelector',
+			'msMatchesSelector',
+			'oMatchesSelector',
+		].some( function ( fn ) {
+			if ( typeof document.body[ fn ] == 'function' ) {
+				matchesFn = fn;
+				return true;
+			}
+			return false;
+		} );
+
+		var parent;
+
+		// traverse parents
+		while ( el ) {
+			parent = el.parentElement;
+			if ( parent && parent[ matchesFn ]( selector ) ) {
+				return parent;
+			}
+			el = parent;
+		}
+
+		return null;
+	}
+
+	function processTab( e ) {
+		e.preventDefault();
+		if ( isAnimating ) {
+			return;
+		}
+		var isShiftPressed = e.shiftKey;
+		var activeElement = document.activeElement;
+		var focusableElements = getFocusables( `#block-${ id }` );
+
+		function focusFirst( e ) {
+			e.preventDefault();
+			return focusableElements[ 0 ]
+				? focusableElements[ 0 ].focus()
+				: null;
+		}
+
+		//outside the block? Let's not hijack the tab!
+		if ( ! isFocused ) {
+			return;
+		}
+
+		const activeElementIndex = findIndex(
+			focusableElements,
+			( el ) => el === activeElement
+		);
+
+		//is there an element with focus?
+		if ( activeElement ) {
+			if ( closest( activeElement, `#block-${ id }` ) == null ) {
+				activeElement = focusFirst( e );
+			}
+		}
+
+		//no element if focused? Let's focus the first one of the block focusable elements
+		else {
+			focusFirst( e );
+		}
+		if ( ! isShiftPressed ) {
+			if (
+				activeElement ==
+				focusableElements[ focusableElements.length - 1 ]
+			) {
+				goNext();
+			} else {
+				if (
+					focusableElements[ activeElementIndex + 1 ].offsetParent !==
+					null
+				) {
+					focusableElements[ activeElementIndex + 1 ].focus();
+				} else {
+					//when reached the last focusable element of the block, go next
+					goNext();
+				}
+			}
+		} else {
+			//when reached the first  focusable element of the block, go prev if shift is pressed
+			if ( activeElement == focusableElements[ 0 ] ) {
+				goPrev();
+			} else {
+				focusableElements[ activeElementIndex - 1 ].focus();
+			}
+		}
+
+		return;
+	}
+	/**
+	 * Makes sure the tab key will only focus elements within the current block  preventing this way from breaking the page.
+	 * Otherwise, go next or prev.
+	 */
+	function onTab( e ) {
+		clearTimeout( tabTimer );
+		if ( isAnimating ) return;
+		tabTimer = setTimeout( () => {
+			processTab( e );
+		}, 150 );
+	}
 
 	return (
 		<div
 			{ ...handlers }
-			tabIndex={ 0 }
 			className={ classnames(
 				'renderer-components-field-wrapper',
 				{
@@ -101,7 +251,7 @@ const FieldWrapper: React.FC = () => {
 				e.preventDefault();
 				if ( ! ref.current ) return;
 				if ( ref.current.scrollTop === 0 ) {
-					timer = setTimeout( () => {
+					scrollTimer = setTimeout( () => {
 						setCanGoPrev( true );
 					}, 500 );
 				} else {
@@ -111,12 +261,21 @@ const FieldWrapper: React.FC = () => {
 					ref.current.scrollHeight - ref.current.clientHeight ===
 					ref.current.scrollTop
 				) {
-					timer = setTimeout( () => {
+					scrollTimer = setTimeout( () => {
 						setCanGoNext( true );
 					}, 500 );
 				} else {
-					console.log( 'pre setting can go next false' );
 					setCanGoNext( false );
+				}
+			} }
+			onFocus={ ( e ) => {
+				e.preventDefault();
+				if ( isAnimating ) return;
+				if ( ! isActive ) {
+					goToField( id );
+				}
+				if ( ! isFocused ) {
+					setIsFocused( true );
 				}
 			} }
 		>
@@ -125,6 +284,27 @@ const FieldWrapper: React.FC = () => {
 					<div
 						className="renderer-components-field-wrapper__content-wrapper"
 						ref={ ref }
+						tabIndex={ 0 }
+						onKeyDown={ ( e: KeyboardEvent ): void => {
+							if ( isAnimating ) {
+								e.preventDefault();
+								return;
+							}
+							if ( e.key === 'Enter' ) {
+								if ( isValid ) {
+									next();
+								} else {
+									showErrMsg( true );
+								}
+							} else {
+								//tab?
+								if ( e.key === 'Tab' ) {
+									e.stopPropagation();
+									e.preventDefault();
+									onTab( e );
+								}
+							}
+						} }
 					>
 						<FieldContent />
 					</div>

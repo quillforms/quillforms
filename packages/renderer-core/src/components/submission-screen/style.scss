@@ -1,4 +1,4 @@
-.submission__screen {
+.renderer-core-submission-screen {
 	& {
 		position: absolute;
 		z-index: 0;
@@ -14,6 +14,8 @@
 		-webkit-transition: opacity 300ms, transform 600ms;
 		transform: translate3d(0, 100vh, 0);
 		-webkit-transform: translate3d(0, 100vh, 0);
+		outline: none  !important;
+		box-shadow: none !important;
 	}
 
 	&.inactive {
@@ -26,7 +28,7 @@
 		transform: none;
 	}
 
-	.submission__btnWrapper {
+	.renderer-core-submission-screen__btn-wrapper {
 		& {
 			position: relative;
 			height: 50%;
@@ -35,7 +37,7 @@
 			border-top: 1px solid rgba(0, 0, 0, 0.1);
 		}
 
-		.submission__btn {
+		.renderer-core-submission-screen__btn {
 			margin-right: 10px;
 			padding: 14px 25px;
 			display: inline-flex;
