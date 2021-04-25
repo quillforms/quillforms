@@ -21,8 +21,6 @@ const clean = ( str ) => {
 const matchesRegesiteredRoutes = ( path ) => {
 	let ret = false;
 	forEach( getAdminPages(), ( page ) => {
-		console.log( page.path );
-		console.log( path );
 		const match = matchPath( path, {
 			path: page.path,
 			exact: true,
@@ -36,6 +34,7 @@ const matchesRegesiteredRoutes = ( path ) => {
 const Sidebar = () => {
 	return (
 		<div className="qf-admin-sidebar">
+			<h1 className="qf-admin-sidebar-heading">Quill Forms</h1>
 			<div className="qf-admin-sidebar-nav-items">
 				{ map( qfAdmin.submenuPages, ( page ) => {
 					if (

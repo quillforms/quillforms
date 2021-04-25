@@ -5,9 +5,38 @@
     top: 56px;
     background: #322D44;
     padding: 5px 11px;
+	text-align: center;
+
+	h1.qf-admin-sidebar-heading {
+		position: relative;
+		display: inline-block;
+		background: linear-gradient(42deg ,#fa2a9d,#0092cf);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		text-align: center;
+		margin-top: 10px;
+		text-transform: uppercase;
+		font-size: 20px;
+		font-weight: 500;
+	}
+
+	h1.qf-admin-sidebar-heading:after{
+		position: absolute;
+		width: 130px;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+		bottom: -5px;
+		height: 2px;
+		content: "";
+		display: block;
+		background: linear-gradient(42deg,#fa2a9d,#0092cf);
+	}
 
 	.qf-admin-sidebar-nav-items {
 		margin-top: 30px;
+		text-align: left;
 		.qf-admin-sidebar-nav-item {
 			display: block;
 			text-decoration: none;
