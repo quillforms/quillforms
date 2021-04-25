@@ -8,55 +8,77 @@ import { getRestFields } from '@quillforms/rest-fields';
  * WordPress Dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { useState } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
-import { pickBy } from 'lodash';
+import { mapKeys } from 'lodash';
 
-const SaveButton = () => {
-	const isSaving = true;
-	// const { isSaving, hasUnsavedChanges, postId } = useSelect( ( select ) => {
-	// 	return {
-	// 		isSaving: select( 'quillForms/builder-core' ).isSaving(),
-	// 		hasUnsavedChanges: select(
-	// 			'quillForms/builder-core'
-	// 		).hasUnsavedChanges(),
-	// 		postId: select( 'quillForms/builder-core' ).getPostId(),
-	// 	};
-	// } );
-
-	const restFields = pickBy( getRestFields(), ( restField ) => {
-		return restField.selectValue();
+const SaveButton = ( { formId, isFetching } ) => {
+	const [ isSaving, setIsSaving ] = useState( false );
+	const { createErrorNotice, createSuccessNotice } = useDispatch(
+		'core/notices'
+	);
+	const { restFields } = useSelect( ( _select ) => {
+		let restFields = {};
+		Object.keys( getRestFields() ).forEach( ( restFieldKey ) => {
+			restFields[ restFieldKey ] = getRestFields()[
+				restFieldKey
+			].selectValue();
+		} );
+		return { restFields };
 	} );
-	const postId = '';
-	return (
-		<Button
-			isButton
-			isPrimary={ true }
-			isSecondary={ false }
-			isLarge
-			className="qf-builder-save-button"
-			onClick={ () => {
-				// setIsSaving( true );
 
-				apiFetch( {
-					// Timestamp arg allows caller to bypass browser caching, which is
-					// expected for this specific function.
-					path:
-						`/wp/v2/quill_forms/${ postId }` +
-						`?context=edit&_timestamp=${ Date.now() }`,
-					method: 'POST',
-					data: {
-						...restFields,
-					},
-				} ).then( () => {
-					// setIsSaving( false );
-				} );
-			} }
-		>
-			{ isSaving ? 'Saving' : 'Publish' }
-		</Button>
+	console.log( restFields );
+	return (
+		<>
+			{ ! isFetching && (
+				<Button
+					isButton
+					isPrimary={ true }
+					isSecondary={ false }
+					isLarge
+					className="qf-builder-save-button"
+					onClick={ () => {
+						if ( isSaving ) return;
+						console.log( restFields );
+						setIsSaving( true );
+
+						apiFetch( {
+							// Timestamp arg allows caller to bypass browser caching, which is
+							// expected for this specific function.
+							path:
+								`/wp/v2/quill_forms/${ formId }` +
+								`?context=edit&_timestamp=${ Date.now() }`,
+							method: 'POST',
+							data: {
+								...restFields,
+								status: 'publish',
+							},
+						} )
+							.then( () => {
+								createSuccessNotice( '🚀 Saved successfully!', {
+									type: 'snackbar',
+									isDismissible: true,
+								} );
+
+								setIsSaving( false );
+							} )
+							.catch( () => {
+								createErrorNotice( '🙁 Error while saving!', {
+									type: 'snackbar',
+									isDismissible: true,
+								} );
+								setIsSaving( false );
+							} );
+					} }
+				>
+					{ isSaving ? 'Saving' : 'Publish' }
+				</Button>
+			) }
+		</>
 	);
 };
 
