@@ -5,7 +5,7 @@
 	},
 	"backgroundColor": {
 		"type": "string",
-		"default": "linear-gradient(135deg, rgb(6, 147, 227} 0%, rgb(155, 81, 224} 100%}"
+		"default": "linear-gradient(135deg, rgb(6,147,227) 0%,rgb(155,81,224) 100% )"
 	},
 	"backgroundImage": {
 		"type": "string"
