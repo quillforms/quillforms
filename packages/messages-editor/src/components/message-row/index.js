@@ -17,6 +17,7 @@ const MessageRow = ( {
 	label,
 	mergeTags,
 } ) => {
+	console.log( value );
 	const isSelected = messageToEdit === messageKey;
 	return (
 		<div

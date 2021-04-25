@@ -23,11 +23,11 @@ const MessageEdit = ( {
 		<div className="messages-editor-message-edit">
 			<RichTextControl
 				mergeTags={ mergeTags }
-				value={ val }
+				value={ val ? val : '' }
 				setValue={ ( newVal ) => {
 					setVal( newVal );
 				} }
-				forceFocusOnMount={ true }
+				focusOnMount={ true }
 			/>
 
 			<div className="messages-editor-message-edit__actions">
