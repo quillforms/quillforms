@@ -22,7 +22,6 @@ import NotFoundPage from '../pages/not-found';
 import Home from '../pages/home';
 import Builder from '../pages/builder';
 import Share from '../pages/share';
-import SaveButton from '../pages/builder/save-button';
 
 export const Controller = ( { page, match, location } ) => {
 	useEffect( () => {
@@ -70,12 +69,7 @@ registerAdminPage( 'builder', {
 	template: 'full-screen',
 	header: ( { match } ) => {
 		const { params } = match;
-		return (
-			<>
-				<FormAdminBar formId={ params.id } />
-				<SaveButton />
-			</>
-		);
+		return <FormAdminBar formId={ params.id } />;
 	},
 } );
 registerAdminPage( 'share', {
