@@ -36,6 +36,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			cursor: pointer;
 		}
 
 		.quillforms-home__card-loader,
@@ -46,12 +47,19 @@
 		.quillforms-home__card-loader-body {
 			height: 157px;
 		}
+
+		.quillforms-home__form-card-footer {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			padding: 4px 15px;
+		}
 		.quillforms-home__add-form-card-body {
 			height: 205px;
 			font-size: 18px;
 			flex-direction: column;
 			color: #fff;
-			cursor: pointer;
 			background: linear-gradient(45deg, #4a1dff, #ec3cce);;
 			transition: opacity 0.2s ease-in;
 

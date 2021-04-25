@@ -4,10 +4,9 @@
  * WordPress Dependencies
  */
 import { Card, CardBody, CardDivider, CardHeader } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 import { Icon, plusCircle } from '@wordpress/icons';
-import { useEffect, useState } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal Dependencies
@@ -17,30 +16,33 @@ import AddFormModal from './add-form-modal';
 import FormCard from './form-card';
 
 const Home = () => {
-	const [ isFetching, setIsFetching ] = useState( true );
-	const [ publishedForms, setPublishedForms ] = useState( null );
-	const [ isOpen, setOpen ] = useState( false );
-	const openModal = () => setOpen( true );
-	const closeModal = () => setOpen( false );
+	const [ isModalOpen, setIsModalOpen ] = useState( false );
+	const [ isFetchingOnMount, setIsFetchingOnMount ] = useState( true );
 
-	const apiPath = addQueryArgs( '/wp/v2/quill_forms', {
-		status: 'publish,draft',
-		per_page: 60,
+	const { forms, hasFormsFinishedResolution } = useSelect( ( select ) => {
+		const recordArgs = [
+			'postType',
+			'quill_forms',
+			{
+				status: 'publish,draft',
+				per_page: -1,
+			},
+		];
+		return {
+			forms: select( 'core' ).getEntityRecords( ...recordArgs ),
+			hasFormsFinishedResolution: select( 'core' ).hasFinishedResolution(
+				'getEntityRecords',
+				recordArgs
+			),
+		};
 	} );
+
 	useEffect( () => {
-		// GET
-		apiFetch( {
-			path: apiPath,
-			method: 'GET',
-		} )
-			.then( ( res ) => {
-				setPublishedForms( res );
-				setIsFetching( false );
-			} )
-			.catch( ( err ) => {
-				console.log( err );
-			} );
-	}, [] );
+		if ( hasFormsFinishedResolution ) setIsFetchingOnMount( false );
+	}, [ hasFormsFinishedResolution ] );
+
+	const openModal = () => setIsModalOpen( true );
+	const closeModal = () => setIsModalOpen( false );
 
 	return (
 		<div className="quillforms-home">
@@ -59,8 +61,8 @@ const Home = () => {
 						Add New
 					</CardBody>
 				</Card>
-				{ isOpen && <AddFormModal closeModal={ closeModal } /> }
-				{ isFetching ? (
+				{ isModalOpen && <AddFormModal closeModal={ closeModal } /> }
+				{ ! hasFormsFinishedResolution && isFetchingOnMount ? (
 					new Array( 4 ).fill().map( ( _, index ) => {
 						return (
 							<Card
@@ -75,10 +77,10 @@ const Home = () => {
 							</Card>
 						);
 					} )
-				) : publishedForms.length === 0 ? (
+				) : forms.length === 0 ? (
 					<Card className="quillforms-home__empty-form-card"></Card>
 				) : (
-					publishedForms.map( ( form ) => {
+					forms.map( ( form ) => {
 						return <FormCard key={ form.id } form={ form } />;
 					} )
 				) }
