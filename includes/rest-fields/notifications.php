@@ -16,7 +16,7 @@ register_rest_field(
 		'get_callback'    => function( $object ) {
 			$form_id = $object['id'];
 
-			$value = maybe_unserialize( get_post_meta( $form_id, 'notifications', true ) );
+			$value =  get_post_meta( $form_id, 'notifications', true ) ;
 			$value = $value ? $value : array();
 
 			return  QF_Form_Notifications::prepare_notifications_for_render( $value );
@@ -24,14 +24,14 @@ register_rest_field(
 		'update_callback' => function( $meta, $object ) {
 			$form_id = $object->ID;
 			// Calculation the previous value because update_post_meta returns false if the same value passed.
-			$prev_value = maybe_unserialize( get_post_meta( $form_id, 'notifications', true ) );
+			$prev_value =  get_post_meta( $form_id, 'notifications', true ) ;
 			if ( $prev_value === $meta ) {
 				return true;
 			}
 			$ret = update_post_meta(
 				$form_id,
 				'notifications',
-				maybe_serialize( $meta )
+				 $meta
 			);
 			if ( false === $ret ) {
 				return new WP_Error(
