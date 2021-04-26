@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import BlockControlsHeader from '../block-controls-header';
 
 /**
  * Internal Dependencies
@@ -35,6 +36,10 @@ const BlockControls = () => {
 
 	return (
 		<div className="block-editor-block-controls">
+			<BlockControlsHeader
+				id={ currentBlockId }
+				blockName={ currentFormBlock.name }
+			/>
 			<DefaultControls
 				blockName={ name }
 				attributes={ currentFormBlock.attributes }

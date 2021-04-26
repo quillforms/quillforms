@@ -1,0 +1,30 @@
+.block-editor-block-controls-header {
+	display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e3e3e3;
+    padding: 18px 0;
+
+	.admin-components-block-icon-box {
+ 	}
+
+	.block-editor-block-controls-header__block-title {
+		flex-basis: 40px;
+		flex-shrink: 0;
+		flex-grow: 0;
+	}
+	.block-editor-block-controls-header__block-id {
+		padding: 5px 8px;
+		flex-basis: 112px;
+		flex-grow: 0;
+		flex-shrink: 0;
+		background: #332c46;
+		color: #fff;
+		border-radius: 6px;
+		height: 26px;
+		display: flex;
+		align-items: center;
+	}
+
+}
