@@ -10,8 +10,8 @@ import { DropdownMenu, MenuItem, MenuGroup } from '@wordpress/components';
 import { moreHorizontal } from '@wordpress/icons';
 import { useDispatch } from '@wordpress/data';
 
-const FormActions = ( { formId } ) => {
-	const { saveEntityRecord } = useDispatch( 'core' );
+const FormActions = ( { formId, setIsDeleting } ) => {
+	const { deleteEntityRecord } = useDispatch( 'core' );
 	return (
 		<div
 			role="presentation"
@@ -41,15 +41,14 @@ const FormActions = ( { formId } ) => {
 						</MenuItem>
 						<MenuItem
 							className="quillforms-home-form-actions__menu-item quillforms-home-form-actions__delete-form"
-							onClick={ () => {
-								saveEntityRecord(
+							onClick={ async () => {
+								setIsDeleting( true );
+								const res = await deleteEntityRecord(
 									'postType',
 									'quill_forms',
-									formId,
-									{
-										status: 'trash',
-									}
+									formId
 								);
+								console.log( res );
 								onClose();
 							} }
 						>
