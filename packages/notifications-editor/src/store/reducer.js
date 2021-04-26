@@ -40,9 +40,7 @@ function getMutateSafeObject( original, working ) {
  * @return {string} The random id
  */
 const generateId = () => {
-	return Math.random()
-		.toString( 36 )
-		.substr( 2, 9 );
+	return Math.random().toString( 36 ).substr( 2, 9 );
 };
 
 /**
@@ -58,8 +56,7 @@ const NotificationsReducer = ( state = initialState, action ) => {
 		// SET UP STORE
 		case SETUP_STORE: {
 			const { initialPayload } = action.payload;
-			const stateClone = { notifications: initialPayload };
-			return stateClone;
+			return { ...state, notifications: initialPayload };
 		}
 		case SET_NOTIFICATION_PROPERTIES: {
 			const { properties, id } = action.payload;
