@@ -19,10 +19,6 @@ const BoxWrapper: React.FC< Props > = ( { id, children } ) => {
 	return (
 		<div
 			role="presentation"
-			onFocus={ ( e ) => {
-				e.stopPropagation();
-				setCurrentBlock( id );
-			} }
 			onClick={ () => {
 				setCurrentBlock( id );
 			} }
