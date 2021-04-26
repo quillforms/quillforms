@@ -5,6 +5,7 @@ import { apiFetch, dispatch } from './controls';
 
 import {
 	SET_CURRENT_THEME_PROPERTIES,
+	SET_CURRENT_THEME_TITLE,
 	SET_SHOULD_BE_SAVED,
 	SET_CURRENT_THEME_ID,
 	ADD_NEW_THEME_SUCCESS,
@@ -12,6 +13,7 @@ import {
 	UPDATE_THEME_SUCCESS,
 	DELETE_THEME_SUCCESS,
 	SET_IS_SAVING,
+	SETUP_THEMES
 } from './constants';
 
 /**
@@ -26,6 +28,21 @@ export const setCurrentThemeProperties = ( properties ) => {
 	return {
 		type: SET_CURRENT_THEME_PROPERTIES,
 		payload: { properties },
+	};
+};
+
+/**
+ * Set current theme title
+ *
+ *
+ * @param {string} title  Theme title.
+ *
+ * @returns {Object} Action object.
+ */
+export const setCurrentThemeTitle = ( title ) => {
+	return {
+		type: SET_CURRENT_THEME_TITLE,
+		title,
 	};
 };
 
@@ -59,6 +76,21 @@ export const setCurrentThemeId = ( currentThemeId ) => {
 };
 
 /**
+ * Set up fetched themes.
+
+ * @param {Array} themes Themes to add.
+ *
+ * @return {Object} Action object.
+ */
+export const setUpThemes = ( themes ) => {
+	return {
+		type: SETUP_THEMES,
+		payload: { themes },
+	};
+};
+
+/**
+ * Append new themes
  *
  * @param {Array} themes Themes to add.
  *
@@ -71,7 +103,7 @@ export const addNewThemes = ( themes ) => {
 	};
 };
 
-/*
+/**
  * Action generator for Adding new theme
  *
  * @param {string} title       Theme title.
@@ -243,12 +275,12 @@ export function* updateTheme( themeId, themeTitle, themeProperties ) {
  */
 export const __unstableUpdateThemeSuccess = (
 	themeId,
-	themeTite,
+	themeTitle,
 	themeProperties
 ) => {
 	return {
 		type: UPDATE_THEME_SUCCESS,
-		payload: { themeId, themeTite, themeProperties },
+		payload: { themeId, themeTitle, themeProperties },
 	};
 };
 

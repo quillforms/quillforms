@@ -7,24 +7,9 @@ import {
 	DELETE_THEME_SUCCESS,
 	UPDATE_THEME_SUCCESS,
 	SET_IS_SAVING,
+	SET_CURRENT_THEME_TITLE,
+	SETUP_THEMES
 } from './constants';
-
-/**
- * Returns an object against which it is safe to perform mutating operations,
- * given the original object and its current working copy.
- *
- * @param {Object} original Original object.
- * @param {Object} working  Working object.
- *
- * @return {Object} Mutation-safe object.
- */
-function getMutateSafeObject( original, working ) {
-	if ( original === working ) {
-		return { ...original };
-	}
-
-	return working;
-}
 
 const initialState = {
 	currentThemeId: null,
@@ -61,11 +46,30 @@ const ThemeReducer = ( state = initialState, action ) => {
 				return state;
 			}
 
-			// Otherwise replace attributes in state
-			const stateClone = { ...state };
-			stateClone.currentTheme.properties = nextProperties;
-			stateClone.shouldBeSaved = true;
-			return stateClone;
+			// Otherwise replace properties in state
+			return {
+				...state,
+				currentTheme: {
+					...state.currentTheme,
+					properties: nextProperties,
+				},
+				shouldBeSaved: true,
+			};
+		}
+
+		case SET_CURRENT_THEME_TITLE: {
+			if ( action.title === state.currentTheme.title ) {
+				return state;
+			}
+			// Otherwise replace properties in state
+			return {
+				...state,
+				currentTheme: {
+					...state.currentTheme,
+					title: action.title,
+				},
+				shouldBeSaved: true,
+			};
 		}
 
 		// SET CURRENT THEME ID
@@ -118,6 +122,17 @@ const ThemeReducer = ( state = initialState, action ) => {
 			return stateClone;
 		}
 
+		case SETUP_THEMES: {
+			const { themes } = action.payload;
+			if ( themes?.length > 0 )
+				return {
+					...state,
+					themesList: [ ...themes ],
+				};
+			return state;
+		
+		}
+
 		case ADD_NEW_THEMES: {
 			const { themes } = action.payload;
 			if ( themes?.length > 0 )
@@ -147,6 +162,7 @@ const ThemeReducer = ( state = initialState, action ) => {
 			const themeIndex = $themesList.findIndex(
 				( theme ) => theme.id === themeId
 			);
+			if(themeIndex === -1) return state;
 			$themesList[ themeIndex ].title = themeTitle;
 			$themesList[ themeIndex ].properties = themeProperties;
 			const stateClone = { ...state, themesList: $themesList };
