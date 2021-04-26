@@ -1,12 +1,12 @@
 /**
+ * QuillForms Dependencies
+ */
+import { getDefaultThemeProperties } from '@quillforms/utils';
+
+/**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-
-/**
- * Internal Dependencies
- */
-import getDefaultThemeProperties from '../get-default-theme-properties';
 
 const useTheme = () => {
 	const { currentTheme } = useSelect( ( select ) => {
