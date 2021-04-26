@@ -2,7 +2,8 @@
  * QuillForms Dependencies
  */
 import { __experimentalDragDropContext as DragDropContext } from '@quillforms/admin-components';
-import { createBlock } from '@quillforms/blocks';
+import { sanitizeBlockAttributes } from '@quillforms/blocks';
+import { FormBlock } from '@quillforms/config';
 
 /**
  * WordPress Dependencies
@@ -94,6 +95,31 @@ const Layout: React.FC = () => {
 		return false;
 	};
 
+	const generateBlockId = (): string => {
+		return Math.random().toString( 36 ).substr( 2, 9 );
+	};
+
+	/**
+	 * Returns a block object given its type and attributes.
+	 *
+	 * @param {string} name        Block name.
+	 * @param {Object} attributes  Block attributes.
+	 *
+	 * @throws {Error} If the block type isn't registered.
+	 * @return {Object?} Block object.
+	 */
+	const createBlock = (
+		name: string,
+		attributes: Record< string, unknown > = {}
+	): FormBlock | void => {
+		// Blocks are stored with a unique ID, the assigned type name, the block
+		// attributes.
+		return {
+			id: generateBlockId(),
+			name,
+			attributes: sanitizeBlockAttributes( name, attributes ),
+		};
+	};
 	const onDragStart: OnDragStartResponder = ( {
 		source,
 	}: {
