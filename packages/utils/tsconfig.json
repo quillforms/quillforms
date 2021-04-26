@@ -4,6 +4,10 @@
 		"rootDir": "src",
 		"declarationDir": "build-types",
 	},
+	"references": [
+		{ "path": "../config"},
+	],
+
 	"include": [
 		"src/*.ts",
 	]
