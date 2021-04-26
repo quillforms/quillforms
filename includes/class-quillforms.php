@@ -100,7 +100,8 @@ final class QuillForms {
 		/**
 		 * Abstract Classes.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-block.php';
+		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-block-type.php';
+		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-rest-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-handler.php';
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-levels.php';
 
@@ -142,17 +143,16 @@ final class QuillForms {
 		/**
 		 * REST API.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-form-theme-controller.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
 
 		/**
 		 * REST Fields
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/messages.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/theme.php';
+		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
+		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/messages.php';
+		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
+		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 
 	}
 
