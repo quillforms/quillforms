@@ -28,6 +28,7 @@ switch ( $font_type ) {
 	<head>
 		<style>
 			html, body {
+				position: relative !important;
 				margin-top: 0 !important;
 				margin-bottom: 0 !important;
 				margin-right: 0 !important;
@@ -45,6 +46,15 @@ switch ( $font_type ) {
 				min-height: 100%;
 				overflow: hidden !important;
 
+			}
+			#quillforms-renderer {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
 			}
 			* {
 				box-sizing: border-box;
@@ -72,7 +82,7 @@ switch ( $font_type ) {
 				data.append( 'action', 'quillforms_form_submit' );
 				data.append( '_nonce', '<?php echo wp_create_nonce( 'quillforms_forms_display_nonce' ); ?>' )
 				data.append( 'formData', JSON.stringify({
-					answers: wp.data.select('quillForms/renderer-submission').getAnswersValues(),
+					answers: wp.data.select('quillForms/renderer-core').getAnswersValues(),
 					formId: '<?php echo $form_id; ?>'
 				} ));
 				fetch(ajaxurl, {
@@ -89,8 +99,8 @@ switch ( $font_type ) {
 						if( res && res.data ) {
 							if(res.data.fields) {
 								Object.keys(res.data.fields).forEach(function(fieldId, index) {
-									wp.data.dispatch('quillForms/renderer-submission').setIsFieldValid(fieldId, false)
-									wp.data.dispatch('quillForms/renderer-submission').setFieldValidationErrr(fieldId, res.data.fields[fieldId]);
+									wp.data.dispatch('quillForms/renderer-core').setIsFieldValid(fieldId, false)
+									wp.data.dispatch('quillForms/renderer-core').setFieldValidationErrr(fieldId, res.data.fields[fieldId]);
 
 								});
 								var walkPath = wp.data.select('quillForms/renderer-core').getWalkPath();
