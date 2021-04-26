@@ -18,32 +18,12 @@ $blocks_schema = array(
 				'type'     => 'string',
 				'required' => true,
 			),
-			'label'       => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'description' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'attachment'  => array(
-				'type'       => 'object',
-				'properties' => array(
-					'url' => array(
-						'type' => 'string',
-					),
-				),
-			),
 			'attributes'  => array(
 				'type' => 'object',
 			),
-			'type'        => array(
+			'name'        => array(
 				'type'     => 'string',
-				'enum'     => array_keys( QF_Blocks_Factory::get_instance()->get_all_registered() ),
 				'required' => true,
-			),
-			'required'    => array(
-				'type' => 'boolean',
 			),
 		),
 
@@ -58,13 +38,13 @@ register_rest_field(
 		'get_callback'    => function( $object ) {
 			$form_id = $object['id'];
 
-			$value = maybe_unserialize( get_post_meta( $form_id, 'blocks', true ) );
+			$value =  get_post_meta( $form_id, 'blocks', true );
 			$value = $value ? $value : array();
 
 			// Just to add missing attributes.
 			if ( ! empty( $value ) ) {
 				foreach ( $value as $index => $block ) {
-					$block_type       = $block['type'];
+					$block_type       = $block['name'];
 					$registered_block = QF_Blocks_Factory::get_instance()->get_registered( $block_type );
 					if ( ! empty( $registered_block ) ) {
 						$block_attributes              = $block['attributes'] ? $block['attributes'] : array();
@@ -77,11 +57,11 @@ register_rest_field(
 		'update_callback' => function( $meta, $object ) {
 			$form_id = $object->ID;
 			// Calculation the previous value because update_post_meta returns false if the same value passed.
-			$prev_value = maybe_unserialize( get_post_meta( $form_id, 'blocks', true ) );
+			$prev_value =  get_post_meta( $form_id, 'blocks', true );
 			if ( $prev_value === $meta ) {
 				return true;
 			}
-			$ret = update_post_meta( $form_id, 'blocks', maybe_serialize( $meta ) );
+			$ret = update_post_meta( $form_id, 'blocks', $meta );
 
 			if ( false === $ret ) {
 				return new WP_Error(
@@ -100,19 +80,18 @@ register_rest_field(
 						$value,
 						$blocks_schema
 					);
-					// Sanitize attributes.
-					if ( ! empty( $value ) ) {
-						foreach ( $value as $index => $item ) {
-							$block           = QF_Blocks_Factory::get_instance()->get_registered( $item['type'] );
-							$value[ $index ]['attributes'] = rest_sanitize_value_from_schema(
-								$item['attributes'],
-								array(
-									'type'       => 'object',
-									'properties' => $block->get_attributes(),
-								)
-							);
-						}
-					}
+					// if ( ! empty( $value ) ) {
+					// 	foreach ( $value as $index => $item ) {
+					// 		$block_type           = QF_Blocks_Factory::get_instance()->get_registered( $item['name'] );
+					// 		$value[ $index ]['attributes'] = rest_sanitize_value_from_schema(
+					// 			$item['attributes'] ? $item['attributes'] : array(),
+					// 			array(
+					// 				'type'       => 'object',
+					// 				'properties' => $block_type->get_attributes(),
+					// 			)
+					// 		);
+					// 	}
+					// }
 					return $value;
 				},
 				'validate_callback' => function ( $value ) use ( $blocks_schema ) {
@@ -121,28 +100,29 @@ register_rest_field(
 						$value,
 						$blocks_schema
 					);
-					// Let's validate the attributes.
-					if ( ! $validation instanceof WP_Error ) {
-						if ( ! empty( $value ) ) {
-							foreach ( $value as $index => $item ) {
-								$block      = QF_Blocks_Factory::get_instance()->get_registered( $item['type'] );
-								$validation = rest_validate_value_from_schema(
-									$item['attributes'],
-									array(
-										'type'       => 'object',
-										'properties' => $block->get_attributes(),
-									)
-								);
+					// if ( ! $validation instanceof WP_Error ) {
+					// 	if ( ! empty( $value ) ) {
+					// 		foreach ( $value as $index => $item ) {
+					// 			$block      = QF_Blocks_Factory::get_instance()->get_registered( $item['name'] );
+					// 			if($item['attributes']) {
+					// 				$validation = rest_validate_value_from_schema(
+					// 					$item['attributes'],
+					// 					array(
+					// 						'type'       => 'object',
+					// 						'properties' => $block->get_attributes(),
+					// 					)
+					// 				);
 
-								// If there is an error, get the error message and code then return new WP_Error with the index.
-								if ( $validation instanceof WP_Error ) {
-									$code    = $validation->get_error_code();
-									$message = $validation->get_error_message();
-									return new WP_Error( $code, '[' . $index . '] ' . $message );
-								}
-							}
-						}
-					}
+					// 				// If there is an error, get the error message and code then return new WP_Error with the index.
+					// 				if ( $validation instanceof WP_Error ) {
+					// 					$code    = $validation->get_error_code();
+					// 					$message = $validation->get_error_message();
+					// 					return new WP_Error( $code, '[' . $index . '] ' . $message );
+					// 				}
+					// 			}
+					// 		}
+					// 	}
+					// }
 					return $validation;
 				},
 			),
