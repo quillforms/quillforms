@@ -1,12 +1,19 @@
-import { PanelRender as render } from '@quillforms/notifications-editor';
+/**
+ * QuillForms Dependencies
+ */
+import { registerBuilderPanel } from '@quillforms/builder-panels';
+
+/**
+ * Internal Dependencies
+ */
+import render from '../components/panel-render';
 
 import Icon from './icon';
 
-export const panelSettings = {
-	name: 'notifications',
+registerBuilderPanel( 'notifications', {
 	title: 'Notifications',
 	icon: Icon,
 	mode: 'single',
-	areaToHide: 'preview-area',
+	areaToShow: 'preview-area',
 	render,
-};
+} );
