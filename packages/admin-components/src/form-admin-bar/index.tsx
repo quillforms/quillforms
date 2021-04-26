@@ -25,41 +25,7 @@ const FormAdminBar = ( { formId } ) => {
 			>
 				Design
 			</NavLink>
-			<NavLink
-				isActive={ ( _match, location ): boolean | void => {
-					if (
-						location.pathname === `/forms/${ formId }/integrations`
-					) {
-						return true;
-					}
-				} }
-				activeClassName="selected"
-				to={ `/admin.php?page=quillforms&path=/forms/${ formId }/integrations` }
-			>
-				Integrations
-			</NavLink>
-			<NavLink
-				isActive={ ( _match, location ): boolean | void => {
-					if ( location.pathname === `/forms/${ formId }/entries` ) {
-						return true;
-					}
-				} }
-				activeClassName="selected"
-				to={ `/admin.php?page=quillforms&path=/forms/${ formId }/entries` }
-			>
-				Entries
-			</NavLink>
-			<NavLink
-				isActive={ ( _match, location ): boolean | void => {
-					if ( location.pathname === `/forms/${ formId }/reports` ) {
-						return true;
-					}
-				} }
-				activeClassName="selected"
-				to={ `/admin.php?page=quillforms&path=/forms/${ formId }/reports` }
-			>
-				Reports
-			</NavLink>
+			<a> Share </a>
 		</div>
 	);
 };
