@@ -22,6 +22,7 @@ body.js.is-fullscreen-mode {
 	// Because this uses negative margins, we have to compensate for the height.
 	margin-top: -$admin-bar-height;
 	height: calc(100% + #{ $admin-bar-height });
+	overflow: hidden;
 
 	#adminmenumain,
 	#wpadminbar {
