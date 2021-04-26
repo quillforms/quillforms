@@ -6,7 +6,6 @@ import { useState } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { v4 as uuid } from 'uuid';
 import { css } from 'emotion';
 
 /**
@@ -15,6 +14,7 @@ import { css } from 'emotion';
 import Button from '../button';
 import BulkChoicesModal from './modal';
 import type { Choices } from './types';
+import generateChoiceId from '../choices-inserter/generate-choice-id';
 
 interface Props {
 	choices: Choices;
@@ -28,7 +28,7 @@ const ChoicesBulkBtn: React.FC< Props > = ( { choices, setChoices } ) => {
 		txt.trim()
 			.split( '\n' )
 			.forEach( ( item ) => {
-				$choices.push( { value: uuid(), label: item } );
+				$choices.push( { value: generateChoiceId(), label: item } );
 			} );
 		setChoices( $choices );
 	};
