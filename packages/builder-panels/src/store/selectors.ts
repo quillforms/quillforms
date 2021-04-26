@@ -34,6 +34,22 @@ export const getParentPanels = createSelector(
 );
 
 /**
+ * Get panel by name
+ *
+ * @param {PanelsState } state          Global application state.
+ * @param {string}       panelName      Panel name.
+ *
+ * @return {?Panel}  Panel object
+ */
+export const getPanelByName = (
+	state: PanelsState,
+	panelName: string
+): Panel | undefined => {
+	const panels = getPanels( state );
+	return panels.find( ( panel ) => panel.name === panelName );
+};
+
+/**
  * Get visible panels.
  *
  * @param {PanelsState} state       Global application state.
