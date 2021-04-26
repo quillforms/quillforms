@@ -15,8 +15,11 @@ register_rest_field(
 	array(
 		'get_callback'    => function( $object ) {
 			$form_id = $object['id'];
-
-			return  (int) get_post_meta( $form_id, 'theme', true );
+			$theme_id =  (int) get_post_meta( $form_id, 'theme', true );
+			return  array(
+				'id' => $theme_id,
+				'theme_data' => QF_Form_Theme_Model::get_theme($theme_id)
+			);
 
 		},
 		'update_callback' => function( $meta, $object ) {
