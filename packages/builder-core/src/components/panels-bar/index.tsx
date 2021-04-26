@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal Dependencies
@@ -17,7 +17,6 @@ const BuilderPanelsBar = () => {
 			panels: select( 'quillForms/builder-panels' ).getVisiblePanels(),
 		};
 	} );
-	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
 	return (
 		<div className="builder-core-builder-panels-bar">
 			{ panels.map( ( panel ) => {
@@ -25,9 +24,8 @@ const BuilderPanelsBar = () => {
 				return (
 					<NavItem
 						key={ panel.name }
-						panel={ panel }
+						panelName={ panel.name }
 						isSelected={ isSelected }
-						setCurrentPanel={ setCurrentPanel }
 					/>
 				);
 			} ) }

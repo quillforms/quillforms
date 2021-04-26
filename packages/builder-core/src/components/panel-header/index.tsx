@@ -11,57 +11,30 @@ import { close } from '@wordpress/icons';
 import classnames from 'classnames';
 
 const PanelHeader = () => {
-	const { currentPanelName, currentPanel, currentSubPanelName } = useSelect(
-		( select ) => {
-			return {
-				panels: select( 'quillForms/builder-panels' ).getPanels(),
-				currentPanel: select(
-					'quillForms/builder-panels'
-				).getCurrentPanel(),
-				currentPanelName: select(
-					'quillForms/builder-panels'
-				).getCurrentPanelName(),
-				currentSubPanelName: select(
-					'quillForms/builder-panels'
-				).getCurrentSubPanelName(),
-			};
-		}
-	);
-
-	let panelTitle: JSX.Element | null = null;
+	const { currentPanel, currentSubPanelName } = useSelect( ( select ) => {
+		return {
+			panels: select( 'quillForms/builder-panels' ).getPanels(),
+			currentPanel: select(
+				'quillForms/builder-panels'
+			).getCurrentPanel(),
+			currentPanelName: select(
+				'quillForms/builder-panels'
+			).getCurrentPanelName(),
+			currentSubPanelName: select(
+				'quillForms/builder-panels'
+			).getCurrentSubPanelName(),
+		};
+	} );
 
 	const { setCurrentPanel, setCurrentSubPanel } = useDispatch(
 		'quillForms/builder-panels'
 	);
-	switch ( currentPanelName ) {
-		case 'blockControls':
-			{
-				panelTitle = (
-					<h4>
-						Block <br /> Controls
-					</h4>
-				);
-			}
-			break;
-		case 'blocks':
-			{
-				panelTitle = (
-					<h4>
-						Form <br /> Blocks
-					</h4>
-				);
-			}
-			break;
-		default: {
-			panelTitle = <h4>{ currentPanel?.title }</h4>;
-		}
-	}
 
 	return (
 		<div className={ 'builder-core-panel__header-wrapper' }>
 			<div className="builder-core-panel__header">
 				<div className="builder-core-panel__header-title">
-					{ panelTitle }
+					<h4>{ currentPanel?.title }</h4>
 				</div>
 				<div className="builder-core-panel__header-close-icon">
 					<Icon

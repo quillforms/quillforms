@@ -1,17 +1,46 @@
 /**
+ * QuillForms Dependencies
+ */
+import type { IconDescriptor, Icon as IconType } from '@quillforms/utils';
+
+/**
  * WordPress Dependencies
  */
-import { Tooltip, Icon } from '@wordpress/components';
+import { memo } from '@wordpress/element';
+import { Tooltip, Icon, Dashicon } from '@wordpress/components';
 import { plus } from '@wordpress/icons';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  External Dependencies
   */
 import classnames from 'classnames';
 
-const NavItem = ( { panel, setCurrentPanel, isSelected } ) => {
+interface Props {
+	panelName: string;
+	isSelected: boolean;
+}
+const PanelNavItem: React.FC< Props > = memo( ( { panelName, isSelected } ) => {
+	const { panel } = useSelect( ( select ) => {
+		return {
+			panel: select( 'quillForms/builder-panels' ).getPanelByName(
+				panelName
+			),
+		};
+	} );
+	if ( ! panel ) return null;
 	const icon = panel?.icon ? panel.icon : plus;
-	const renderedIcon = <Icon icon={ icon && icon.src ? icon.src : icon } />;
+
+	const renderedIcon = (
+		<Icon
+			icon={
+				( ( icon as IconDescriptor )?.src as IconType )
+					? ( ( icon as IconDescriptor ).src as IconType )
+					: ( icon as Dashicon.Icon )
+			}
+		/>
+	);
+	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
 
 	return (
 		<div
@@ -32,6 +61,6 @@ const NavItem = ( { panel, setCurrentPanel, isSelected } ) => {
 			</Tooltip>
 		</div>
 	);
-};
+} );
 
-export default NavItem;
+export default PanelNavItem;

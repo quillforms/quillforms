@@ -14,7 +14,7 @@
 	.builder-core-panel__header-wrapper {
 		& {
 			min-height: 64px;
-			padding: 18px 18px 0;
+			padding: 12px 18px 0;
 			color: #fff !important;
 			background: #8640e3 !important;
 		}
@@ -33,12 +33,16 @@
 				font-size: 15px;
 				text-transform: uppercase;
 				letter-spacing: 1.5px;
+				word-spacing: 800px;
+				line-height: 20px;
 			}
 
 			.builder-core-panel__header-close-icon {
 
 				& {
 					cursor: pointer;
+					position: absolute;
+					right: 20px;
 				}
 
 				svg {
