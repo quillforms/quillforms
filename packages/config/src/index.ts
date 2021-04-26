@@ -14,6 +14,9 @@ export type {
 	BlockAttributes,
 } from './types/form-blocks';
 
+export type { FormMessages } from './types/form-messages';
+export type { FormTheme } from './types/form-theme';
+export type { FormLogic } from './types/form-logic';
 const configData: ConfigData = {
 	builderInitialPayload: {
 		id: '',
@@ -22,6 +25,7 @@ const configData: ConfigData = {
 		theme: undefined,
 		notifications: [],
 		slug: '',
+		title: { rendered: '' },
 		logic: undefined,
 	},
 	fonts,
@@ -39,18 +43,8 @@ const configData: ConfigData = {
  * If the requested key isn't defined in the configuration
  * data then this will report the failure with either an
  * error or a console warning.
- *
- * When in the 'development' NODE_ENV it will raise an error
- * to crash execution early. However, because many modules
- * call this function in the module-global scope a failure
- * here can not only crash that module but also entire
- * application flows as well as trigger unexpected and
- * unwanted behaviors. Therefore if the NODE_ENV is not
- * 'development' we will return `undefined` and log a message
- * to the console instead of halting the execution thread.
- *
+
  * @param data Configurat data.
- * @throws {ReferenceError} when key not defined in the config (NODE_ENV=development only)
  * @returns A function that gets the value of property named by the key
  */
 const config = ( data: ConfigData ) => < T >( key: string ): T | undefined => {
