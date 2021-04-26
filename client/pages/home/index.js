@@ -4,7 +4,7 @@
  * WordPress Dependencies
  */
 import { Card, CardBody, CardDivider, CardHeader } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { Icon, plusCircle } from '@wordpress/icons';
 import { useState, useEffect } from '@wordpress/element';
 
@@ -19,15 +19,16 @@ const Home = () => {
 	const [ isModalOpen, setIsModalOpen ] = useState( false );
 	const [ isFetchingOnMount, setIsFetchingOnMount ] = useState( true );
 
+	const { invalidateResolution } = useDispatch( 'core/data' );
+	const recordArgs = [
+		'postType',
+		'quill_forms',
+		{
+			status: 'publish,draft',
+			per_page: -1,
+		},
+	];
 	const { forms, hasFormsFinishedResolution } = useSelect( ( select ) => {
-		const recordArgs = [
-			'postType',
-			'quill_forms',
-			{
-				status: 'publish,draft',
-				per_page: -1,
-			},
-		];
 		return {
 			forms: select( 'core' ).getEntityRecords( ...recordArgs ),
 			hasFormsFinishedResolution: select( 'core' ).hasFinishedResolution(
@@ -37,6 +38,11 @@ const Home = () => {
 		};
 	} );
 
+	// Invalidate resolution for entity record on unmount
+	useEffect( () => {
+		return () =>
+			invalidateResolution( 'core', 'getEntityRecords', recordArgs );
+	}, [] );
 	useEffect( () => {
 		if ( hasFormsFinishedResolution ) setIsFetchingOnMount( false );
 	}, [ hasFormsFinishedResolution ] );
