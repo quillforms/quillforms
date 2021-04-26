@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { omit, cloneDeep } from 'lodash';
+import { omit, cloneDeep, map } from 'lodash';
 import type { Reducer } from 'redux';
 
 /**
@@ -98,14 +98,26 @@ const withBlockCache = < T extends Reducer >(
 	newState.cache = state.cache ? state.cache : {};
 
 	switch ( action.type ) {
+		case SETUP_STORE: {
+			if ( action?.initialPayload?.length ) {
+				const blockIds = map(
+					action.initialPayload,
+					( block ) => block.id
+				);
+				newState.cache = {
+					...fillKeysWithEmptyObject( blockIds ),
+				};
+			}
+			break;
+		}
 		case INSERT_BLOCK: {
-			const updatedBlockUids: string[] = [];
+			const updatedBlockIds: string[] = [];
 			if ( action?.block?.id ) {
-				updatedBlockUids.push( action.block.id );
+				updatedBlockIds.push( action.block.id );
 			}
 			newState.cache = {
 				...newState.cache,
-				...fillKeysWithEmptyObject( updatedBlockUids ),
+				...fillKeysWithEmptyObject( updatedBlockIds ),
 			};
 			break;
 		}
