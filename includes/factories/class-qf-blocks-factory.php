@@ -17,7 +17,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var QF_Block[]
+	 * @var QF_Block_Type[]
 	 */
 	private $registered_block_types = array();
 
@@ -35,14 +35,14 @@ final class QF_Blocks_Factory {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param QF_Block $block QF_Block_Type instance.
+	 * @param QF_Block_Type $block QF_Block_Type instance.
 	 *
-	 * @return QF_Block the registered block type on success, or false on failure
+	 * @return QF_Block_Type the registered block type on success, or false on failure
 	 */
 	public function register( $block ) {
 		$block_type = null;
-		if ( ! $block instanceof QF_Block ) {
-			$message = __( 'Registered Block must be instance of QF_BLOCK.', 'quillforms' );
+		if ( ! $block instanceof QF_Block_Type ) {
+			$message = __( 'Registered Block must be instance of QF_Block_Type.', 'quillforms' );
 			_doing_it_wrong( __METHOD__, $message, '1.0.0' );
 
 			return false;
@@ -76,13 +76,13 @@ final class QF_Blocks_Factory {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string|QF_Block $type block type name including namespace, or alternatively a
-	 *                              complete QF_Block instance.
+	 * @param string|QF_Block_Type $type block type name including namespace, or alternatively a
+	 *                              complete QF_Block_Type instance.
 	 *
-	 * @return QF_Block|false the unregistered block type on success, or false on failure
+	 * @return QF_Block_Type|false the unregistered block type on success, or false on failure
 	 */
 	public function unregister( $type ) {
-		if ( $type instanceof QF_Block ) {
+		if ( $type instanceof QF_Block_Type ) {
 			$type = $type->type;
 		}
 
@@ -106,7 +106,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @param array $properties The block properties.
 	 *
-	 * @return QF_Block|bool
+	 * @return QF_Block_Type|bool
 	 */
 	public function create( $properties ) {
 
@@ -133,7 +133,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @param string $name block type name including namespace.
 	 *
-	 * @return QF_Block|null the registered block type, or null if it is not registered
+	 * @return QF_Block_Type|null the registered block type, or null if it is not registered
 	 */
 	public function get_registered( $name ) {
 		if ( ! $this->is_registered( $name ) ) {
@@ -148,7 +148,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return QF_Block[] associative array of `$block_type_name => $block_type` pairs
+	 * @return QF_Block_Type[] associative array of `$block_type_name => $block_type` pairs
 	 */
 	public function get_all_registered() {
 		return $this->registered_block_types;
