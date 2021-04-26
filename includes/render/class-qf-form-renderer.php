@@ -61,24 +61,7 @@ class QF_Form_Renderer {
 			global $wp_scripts;
 			global $wp_styles;
 			global $post;
-			wp_add_inline_script(
-				'quillforms-blocks',
-				'qf.blocks.registerBlockType(' . wp_json_encode(
-					array_map(
-						function ( $block ) {
-							return
-								array(
-									'name'             => $block->block_name,
-									'attributes'       => $block->attributes_schema,
-									'supports'         => $block->supported_features,
-									'logicalOperators' => $block->get_logical_operators(),
-								);
-						},
-						QF_Blocks_Factory::get_instance()->get_all_registered()
-					)
-				) . ')',
-				'after'
-			);
+			QF_Core::register_block_types_by_js();
 
 			$form_id           = $post->ID;
 			$wp_scripts->queue = array( 'quillforms-renderer-core' );
@@ -87,13 +70,13 @@ class QF_Form_Renderer {
 			$blocks = QF_Core::get_blocks( $form_id );
 			// Render styles for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type         = QF_Blocks_Factory::get_instance()->get_registered( $block['type'] );
+				$block_type         = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
 				$wp_styles->queue[] = $block_type->block_styles['renderer'];
 			}
 
 			// Render scripts for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type          = QF_Blocks_Factory::get_instance()->get_registered( $block['type'] );
+				$block_type          = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
 				$wp_scripts->queue[] = $block_type->block_scripts['renderer'];
 			}
 		endif;

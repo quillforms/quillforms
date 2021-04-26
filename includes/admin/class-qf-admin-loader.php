@@ -99,7 +99,7 @@ class QF_Admin_Loader {
 		global $wp_scripts;
 
 		if ( self::is_admin_page() ) {
-			$wp_scripts->queue = array( 'jquery' );
+			$wp_scripts->queue = array( 'jquery', 'media-audiovideo' );
 			wp_enqueue_media();
 		}
 	}
@@ -110,19 +110,7 @@ class QF_Admin_Loader {
 	 * @since 1.0.0
 	 */
 	public static function add_inline_scripts() {
-		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
-			wp_add_inline_script(
-				'quillforms-blocks',
-				'qf.blocks.registerBlockType("' . $block->type . '",' . wp_json_encode(
-					array(
-						'attributes'       => $block->custom_attributes,
-						'supports'         => $block->supported_features,
-						'logicalOperators' => $block->logical_operators,
-					)
-				) . ');'
-			);
-
-		}
+		QF_Core::register_block_types_by_js();
 	}
 
 	/**
@@ -184,6 +172,7 @@ class QF_Admin_Loader {
 		wp_enqueue_script( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-builder-core' );
+		wp_auth_check_load();
 		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
 			wp_enqueue_script( $block->get_block_scripts()['admin'] );
 			wp_enqueue_script( $block->get_block_scripts()['renderer'] );
