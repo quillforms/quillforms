@@ -10,5 +10,6 @@ import { setupStore } from './actions';
 
 export const getNotifications = () => {
 	const builderInitialPayload = ConfigAPI.getInitialBuilderPayload();
+
 	return setupStore( builderInitialPayload.notifications );
 };
