@@ -21,7 +21,8 @@ import {
 	useState,
 	useMemo,
 } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+// @ts-expect-error
+import { useSelect, AsyncModeProvider } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -127,75 +128,85 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 	const isDragDisabled = false;
 
 	return (
-		<div ref={ ref }>
-			<BlockEditCrashBoundary onError={ () => setErrorState( true ) }>
-				<__experimentalDraggable
-					isDragDisabled={
-						isDragDisabled || ! inView || name === 'welcome-screen'
-					}
-					key={ id }
-					draggableId={ id.toString() }
-					index={ index }
-				>
-					{ ( provided, snapshot ) => (
-						<BoxWrapper id={ id }>
-							<div className="block-editor-block-edit-box__content-wrapper">
-								<div
-									className="block-editor-block-edit-box__content"
-									{ ...provided.draggableProps }
-									ref={ provided.innerRef }
-									data-isDragging={ snapshot.isDragging }
-									style={ provided.draggableProps.style }
-								>
-									{ inView ? (
-										<Fragment>
-											<BlockMover
-												handleProps={
-													provided?.dragHandleProps
-														? {
-																...provided.dragHandleProps,
-														  }
-														: undefined
-												}
-												id={ id }
-												blockType={ blockType }
-											/>
-											<BlockEditor
-												isSelected={ isSelected }
-												attributes={ attributes }
-												focusedEl={ focusedEl }
-												setFocusedEl={ ( val ) =>
-													setFocusedEl( val )
-												}
-												id={ id }
-												blockColor={ blockType?.color }
-												label={ labelJsonVal }
-												desc={ descJsonVal }
-												labelEditor={ labelEditor }
-												setLabelJsonVal={ ( value ) =>
-													setLabelJsonVal( value )
-												}
-												descEditor={ descEditor }
-												setDescJsonVal={ ( value ) =>
-													setDescJsonVal( value )
-												}
-											/>
-										</Fragment>
-									) : (
-										<Fragment>
-											<BlockIconWrapper
-												color={ blockType?.color }
-											/>
-											<BlockPlaceholder />
-										</Fragment>
-									) }
+		<AsyncModeProvider value={ ! isSelected }>
+			<div ref={ ref }>
+				<BlockEditCrashBoundary onError={ () => setErrorState( true ) }>
+					<__experimentalDraggable
+						isDragDisabled={
+							isDragDisabled ||
+							! inView ||
+							name === 'welcome-screen'
+						}
+						key={ id }
+						draggableId={ id.toString() }
+						index={ index }
+					>
+						{ ( provided, snapshot ) => (
+							<BoxWrapper id={ id }>
+								<div className="block-editor-block-edit-box__content-wrapper">
+									<div
+										className="block-editor-block-edit-box__content"
+										{ ...provided.draggableProps }
+										ref={ provided.innerRef }
+										data-isDragging={ snapshot.isDragging }
+										style={ provided.draggableProps.style }
+									>
+										{ inView ? (
+											<Fragment>
+												<BlockMover
+													handleProps={
+														provided?.dragHandleProps
+															? {
+																	...provided.dragHandleProps,
+															  }
+															: undefined
+													}
+													id={ id }
+													blockType={ blockType }
+												/>
+												<BlockEditor
+													isSelected={ isSelected }
+													attributes={ attributes }
+													focusedEl={ focusedEl }
+													setFocusedEl={ ( val ) =>
+														setFocusedEl( val )
+													}
+													id={ id }
+													blockColor={
+														blockType?.color
+													}
+													label={ labelJsonVal }
+													desc={ descJsonVal }
+													labelEditor={ labelEditor }
+													setLabelJsonVal={ (
+														value
+													) =>
+														setLabelJsonVal( value )
+													}
+													descEditor={ descEditor }
+													setDescJsonVal={ (
+														value
+													) =>
+														setDescJsonVal( value )
+													}
+												/>
+											</Fragment>
+										) : (
+											<Fragment>
+												<BlockIconWrapper
+													color={ blockType?.color }
+												/>
+												<BlockPlaceholder />
+											</Fragment>
+										) }
+									</div>
 								</div>
-							</div>
-						</BoxWrapper>
-					) }
-				</__experimentalDraggable>
-			</BlockEditCrashBoundary>
-		</div>
+							</BoxWrapper>
+						) }
+					</__experimentalDraggable>
+				</BlockEditCrashBoundary>
+			</div>
+		</AsyncModeProvider>
 	);
 } );
 
