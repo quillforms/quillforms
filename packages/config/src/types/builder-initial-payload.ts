@@ -18,4 +18,5 @@ export type BuilderInitialPayload = {
 	theme?: { id: number };
 	notifications?: FormNotications;
 	logic?: FormLogic;
+	[ x: string ]: unknown;
 };
