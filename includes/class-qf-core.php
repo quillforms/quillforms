@@ -6,6 +6,28 @@ class QF_Core {
 	}
 
 	/**
+	 * Register Block types via inline scripts.
+	 *
+	 *
+	 * @since 1.0.0
+	 */
+	public static function register_block_types_by_js() {
+		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
+			wp_add_inline_script(
+				'quillforms-blocks',
+				'qf.blocks.registerBlockType("' . $block->type . '",' . wp_json_encode(
+					array(
+						'attributes'       => $block->custom_attributes,
+						'supports'         => $block->supported_features,
+						'logicalOperators' => $block->logical_operators,
+					)
+				) . ');'
+			);
+
+		}
+	}
+
+	/**
 	 * Register Quill Forms Post Type.
 	 *
 	 * @since 1.0.0

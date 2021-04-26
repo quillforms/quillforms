@@ -1,6 +1,6 @@
 <?php
 /**
- * Blocks API: QF_Block class.
+ * Blocks API: QF_Block_Type class.
  *
  * @since 1.0.0
  * @package QuillForms/Abstracts
@@ -12,7 +12,7 @@
  *
  * @since 1.0.0
  */
-abstract class QF_Block extends stdClass {
+abstract class QF_Block_Type extends stdClass {
 
 	/**
 	 * Block type
@@ -194,6 +194,7 @@ abstract class QF_Block extends stdClass {
 						'type' => 'string',
 					),
 				),
+				'default' => array()
 			);
 		}
 
@@ -388,19 +389,13 @@ abstract class QF_Block extends stdClass {
 
 				return ( $field_value !== $condition_value );
 			case 'greater_than':
-				if ( ! is_numeric( $condition_value ) ) {
-					return false;
-				}
-				if ( ! is_numeric( $field_value ) ) {
+				if ( ! is_numeric( $condition_value )  || !is_numeric( $field_value)) {
 					return false;
 				}
 
 				return $field_value > $condition_value;
 			case 'lower_than':
-				if ( ! is_numeric( $condition_value ) ) {
-					return false;
-				}
-				if ( ! is_numeric( $field_value ) ) {
+				if ( ! is_numeric( $condition_value ) || !is_numeric( $field_value)) {
 					return false;
 				}
 
