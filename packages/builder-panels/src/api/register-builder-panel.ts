@@ -31,7 +31,7 @@ export const registerBuilderPanel = (
 
 	const panels = select( 'quillForms/builder-panels' ).getPanels();
 	if ( some( panels, ( panel ) => panel.name === name ) ) {
-		console.error( 'This panel "name" is already registered!' );
+		console.error( `The panel ${ name } is already registered` );
 		return;
 	}
 

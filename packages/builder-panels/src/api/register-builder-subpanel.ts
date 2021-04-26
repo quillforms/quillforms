@@ -34,7 +34,7 @@ export const registerBuilderSubPanel = (
 	const regexMatch = name.match( /^([a-z][a-z0-9-]*)\/[a-z][a-z0-9-]*$/ );
 	if ( ! regexMatch || ! regexMatch[ 1 ] ) {
 		console.error(
-			'Builder subpanel name must contain the parentt namespace prefix. Example: parent-panel/subpanel-panel'
+			'Builder subpanel name must contain the parent namespace prefix. Example: parent-panel/subpanel-panel'
 		);
 		return;
 	}
@@ -46,7 +46,7 @@ export const registerBuilderSubPanel = (
 
 	if ( ! some( parentPanels, ( panel ) => panel.name === parent ) ) {
 		console.error(
-			"Builder sub panel parent isn't registered. Please register it first!"
+			`Builder sub panel parent ${ parent } isn't registered. Please register it first!`
 		);
 		return;
 	}
