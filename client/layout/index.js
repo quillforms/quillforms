@@ -18,8 +18,8 @@ import { SlotFillProvider } from '@wordpress/components';
  * Internal dependencies
  */
 import { Controller } from './controller';
-import Sidebar from './sidebar';
-import Header from './header';
+import Sidebar from '../components/sidebar';
+import Header from '../components/header';
 
 export const Layout = ( props ) => {
 	return (
