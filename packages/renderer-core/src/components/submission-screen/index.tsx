@@ -12,7 +12,7 @@ import Button from '../button';
 import useFormContext from '../../hooks/use-form-context';
 import { useFieldRenderContext } from '../field-render';
 const SubmitBtn: React.FC = () => {
-	const { isLastField } = useFieldRenderContext();
+	const { isLastField, isActive } = useFieldRenderContext();
 	const { goToField, setSwiper } = useDispatch( 'quillForms/renderer-core' );
 
 	const { firstInvalidFieldId } = useSelect( ( select ) => {
@@ -30,13 +30,19 @@ const SubmitBtn: React.FC = () => {
 			}
 		}
 	};
+
+	const goToFirstInvalidField = () => {
+		if ( firstInvalidFieldId ) goToField( firstInvalidFieldId );
+	};
 	useEffect( () => {
-		if ( isLastField ) {
+		if ( isLastField && isActive ) {
 			window.addEventListener( 'keydown', handleKeyDown );
+		} else {
+			removeEventListener( 'keydown', handleKeyDown );
 		}
 
 		return () => removeEventListener( 'keydown', handleKeyDown );
-	}, [ isLastField ] );
+	}, [ isLastField, isActive ] );
 
 	const submitHandler = () => {
 		setSwiper( {
@@ -50,7 +56,7 @@ const SubmitBtn: React.FC = () => {
 			}, 50 );
 
 			setTimeout( () => {
-				goToField( firstInvalidFieldId );
+				goToFirstInvalidField();
 			}, 100 );
 		} else {
 			onSubmit();
