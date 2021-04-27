@@ -12,6 +12,9 @@ import { useDispatch } from '@wordpress/data';
 
 const FormActions = ( { formId, setIsDeleting } ) => {
 	const { deleteEntityRecord } = useDispatch( 'core' );
+	const { createErrorNotice, createSuccessNotice } = useDispatch(
+		'core/notices'
+	);
 	return (
 		<div
 			role="presentation"
@@ -48,7 +51,21 @@ const FormActions = ( { formId, setIsDeleting } ) => {
 									'quill_forms',
 									formId
 								);
-								console.log( res );
+								if ( ! res ) {
+									createErrorNotice(
+										'⛔ Errror in form deletion!',
+										{
+											type: 'snackbar',
+										}
+									);
+								} else {
+									createSuccessNotice(
+										'✅ Form moved to trash successfully!',
+										{
+											type: 'snackbar',
+										}
+									);
+								}
 								onClose();
 							} }
 						>
