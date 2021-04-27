@@ -25,7 +25,6 @@ import FormPreview from '../preview-area-wrapper';
 import Panel from '../panel';
 import BuilderPanelsBar from '../panels-bar';
 import DragAlert from '../drag-alert';
-import { BuilderNotices } from '../builder-notices';
 import type {
 	OnDragUpdateResponder,
 	OnDragEndResponder,
@@ -245,9 +244,6 @@ const Layout: React.FC = () => {
 	const pluginsArea = useMemo( () => {
 		return <PluginArea />;
 	}, [] );
-	const builderNotices = useMemo( () => {
-		return <BuilderNotices />;
-	}, [] );
 
 	const builderPanelsBar = useMemo( () => {
 		return <BuilderPanelsBar />;
@@ -271,7 +267,6 @@ const Layout: React.FC = () => {
 
 	return (
 		<>
-			{ builderNotices }
 			{ pluginsArea }
 			{ builderPanelsBar }
 			<DragDropContext
