@@ -1,3 +1,4 @@
+export { default as AdminNotices } from './admin-notices';
 export { default as __experimentalBaseControl } from './base-control';
 export { default as BlockIconBox } from './block-icon-box';
 export { default as BlockIconWrapper } from './block-icon-box/wrapper';
