@@ -1,0 +1,30 @@
+.builder-core-builder-notices__snackbar {
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	@include break-medium() {
+		width: fit-content;
+	}
+
+	.components-snackbar {
+		font-family: $default-font;
+		font-size: $default-font-size;
+		background: #322d44;
+		border-radius: 5px;
+		box-shadow: none;
+		color: $white;
+		padding: 12px 15px;
+		width: 100%;
+		max-width: 600px;
+
+		@include break-small() {
+			width: fit-content;
+		}
+
+		&:focus {
+			box-shadow: none
+		}
+
+	}
+}
