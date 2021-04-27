@@ -11,11 +11,6 @@ import apiFetch from '@wordpress/api-fetch';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 
-/**
- * External Dependencies
- */
-import { mapKeys } from 'lodash';
-
 const SaveButton = ( { formId, isFetching } ) => {
 	const [ isSaving, setIsSaving ] = useState( false );
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
@@ -31,7 +26,6 @@ const SaveButton = ( { formId, isFetching } ) => {
 		return { restFields };
 	} );
 
-	console.log( restFields );
 	return (
 		<>
 			{ ! isFetching && (
@@ -67,7 +61,7 @@ const SaveButton = ( { formId, isFetching } ) => {
 								setIsSaving( false );
 							} )
 							.catch( () => {
-								createErrorNotice( '🙁 Error while saving!', {
+								createErrorNotice( '⛔ Error while saving!', {
 									type: 'snackbar',
 									isDismissible: true,
 								} );

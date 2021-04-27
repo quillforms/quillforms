@@ -13,7 +13,7 @@ import {
 	UPDATE_THEME_SUCCESS,
 	DELETE_THEME_SUCCESS,
 	SET_IS_SAVING,
-	SETUP_THEMES
+	SETUP_THEMES,
 } from './constants';
 
 /**
@@ -191,7 +191,7 @@ export function* deleteTheme( themeId ) {
 		yield dispatch(
 			'core/notices',
 			'createErrorNotice',
-			'🙁 Error while theme deletion',
+			'⛔ Error while theme deletion',
 			{
 				type: 'snackbar',
 				isDismissible: true,
