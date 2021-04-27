@@ -58,6 +58,7 @@ const FormActions = ( { formId, setIsDeleting } ) => {
 											type: 'snackbar',
 										}
 									);
+									setIsDeleting( false );
 								} else {
 									createSuccessNotice(
 										'✅ Form moved to trash successfully!',
