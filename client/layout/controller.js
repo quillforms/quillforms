@@ -2,7 +2,7 @@
  * QuillForms Dependencies
  */
 import { registerAdminPage } from '@quillforms/navigation';
-import { FormAdminBar } from '@quillforms/admin-components';
+import { FormAdminBar, AdminNotices } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -54,6 +54,7 @@ export const Controller = ( { page, match, location } ) => {
 					pathMatch={ page.path }
 					query={ query }
 				/>
+				<AdminNotices />
 			</div>
 		</Suspense>
 	);
