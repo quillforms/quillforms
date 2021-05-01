@@ -252,6 +252,7 @@ const DropdownOutput = ( props ) => {
 									} }
 									choice={ choice }
 									val={ val }
+									showDropdown={ showDropdown }
 								/>
 							);
 						} )

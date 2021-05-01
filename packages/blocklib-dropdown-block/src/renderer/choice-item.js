@@ -6,7 +6,7 @@ import { useTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState } from 'react';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -17,8 +17,12 @@ import { css } from 'emotion';
 
 let selectionTimer;
 
-const ChoiceItem = ( { choice, val, clickHandler } ) => {
+const ChoiceItem = ( { choice, val, clickHandler, showDropdown } ) => {
 	const [ isBeingSelected, setIsBeingSelected ] = useState( false );
+
+	useEffect( () => {
+		if ( ! showDropdown ) setIsBeingSelected( false );
+	}, [ showDropdown ] );
 	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
 	const isSelected = !! val && val === choice.value;
