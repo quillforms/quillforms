@@ -71,6 +71,7 @@ const DateControls = ( props ) => {
 						// Formatting changes can cause errors if the field has value already.
 						// The problem comes when trying to assign invalid values to month or year or day.
 						// That's why we are going to reset the field value.
+						// The ideal solution should be reformatting the existing value to the new format not just resetting.
 						setFieldAnswer( id, '' );
 						setIsFieldValid( id, true );
 						setIsFieldAnswered( id, false );
