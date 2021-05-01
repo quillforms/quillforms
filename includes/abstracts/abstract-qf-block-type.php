@@ -305,20 +305,6 @@ abstract class QF_Block_Type extends stdClass {
 	}
 
 	/**
-	 * Retrieve entry value from database and do escaping.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed   $value    The entry value that should be escaped.
-	 * @param integer $form_id  The form id.
-	 *
-	 * @return mixed  $value    The escaped entry value.
-	 */
-	public function retrieve_entry_value( $value, $form_id ) {
-		return $value;
-	}
-
-	/**
 	 * Get merge tag value.
 	 *
 	 * @since 1.0.0
