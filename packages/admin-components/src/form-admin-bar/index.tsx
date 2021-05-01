@@ -1,14 +1,21 @@
 /**
- * External Dependencies
+ * QuillForms Dependencies
  */
 import { NavLink, withRouter } from '@quillforms/navigation';
+
+/**
+ * WordPress Dependencies
+ */
+import { useState } from '@wordpress/element';
 
 /**
  * Internal Dependencies
  */
 import Logo from '../logo';
+import ShareFormModal from '../share-form-modal';
 
 const FormAdminBar = ( { formId } ) => {
+	const [ isShareModalOpen, setIsShareModalOpen ] = useState( false );
 	return (
 		<div className="admin-components-form-admin-bar">
 			<div className="admin-components-form-admin-bar__logo">
@@ -25,7 +32,14 @@ const FormAdminBar = ( { formId } ) => {
 			>
 				Design
 			</NavLink>
-			<a> Share </a>
+			<a onClick={ () => setIsShareModalOpen( true ) }> Share </a>
+
+			{ isShareModalOpen && (
+				<ShareFormModal
+					formId={ formId }
+					closeModal={ () => setIsShareModalOpen( false ) }
+				/>
+			) }
 		</div>
 	);
 };
