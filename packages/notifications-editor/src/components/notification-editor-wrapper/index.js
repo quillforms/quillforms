@@ -39,6 +39,11 @@ const NotificationEditorWrapper = ( {
 		...currentNotificationProperties,
 	} );
 
+	// This state is just a workaround to force remounting of rich text component
+	// @todo This needs to be refactored btw.
+	const [ currentNotificationId, setCurrentNotificationId ] = useState(
+		null
+	);
 	const [ isReviewing, setIsReviewing ] = useState( false );
 
 	const [ validationFlags, setValidationFlags ] = useState(
@@ -53,6 +58,12 @@ const NotificationEditorWrapper = ( {
 			setProperties( { ...currentNotificationProperties } );
 		}
 		setIsReviewing( false );
+
+		if ( activeSlide === 0 ) {
+			setCurrentNotificationId( null );
+		} else {
+			setCurrentNotificationId( notificationId );
+		}
 	}, [ activeSlide ] );
 
 	const {
@@ -75,7 +86,7 @@ const NotificationEditorWrapper = ( {
 
 	return (
 		<div className="notifications-editor-notification-editor-wrapper">
-			{ activeSlide && (
+			{ activeSlide && currentNotificationId === notificationId && (
 				<>
 					<h4 className="notifications-editor-notification-editor-wrapper__heading">
 						{ notificationId
@@ -132,7 +143,7 @@ const NotificationEditorWrapper = ( {
 							setValue={ ( val ) =>
 								setProperties( ( prevProperties ) => ( {
 									...prevProperties,
-									replyTo: val,
+									replyTo: `{{field:${ val }}}`,
 								} ) )
 							}
 						/>

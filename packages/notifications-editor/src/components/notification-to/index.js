@@ -35,6 +35,7 @@ const NotificationTo = ( {
 	emailFields,
 	isReviewing,
 } ) => {
+	console.log( recipients );
 	useEffect( () => {
 		if ( ! recipients || recipients.length === 0 ) {
 			setIsValid( false );
@@ -124,14 +125,17 @@ const NotificationTo = ( {
 						recipients[ 0 ] &&
 						recipients[ 0 ].length > 0
 							? recipients[ 0 ]
-							: []
+							: ''
 					}
 					setValue={ ( val ) => {
+						console.log( val );
 						if (
 							val &&
 							emailFields.some( ( field ) => field.id === val )
 						) {
-							setValue( { recipients: [ val ] } );
+							setValue( {
+								recipients: [ `{{field:${ val }}}` ],
+							} );
 						} else {
 							setValue( { recipients: [] } );
 						}
