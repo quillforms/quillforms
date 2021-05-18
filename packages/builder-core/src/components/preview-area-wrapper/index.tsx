@@ -1,9 +1,4 @@
 /**
- * WordPress Dependencies
- */
-import { useEffect, useState } from '@wordpress/element';
-
-/**
  * QuillForms Dependencies
  */
 // @ts-expect-error
@@ -15,13 +10,16 @@ import configApi from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
+import { useEffect, useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
  */
 import { cloneDeep } from 'lodash';
-
+import Loader from 'react-loader-spinner';
+import classnames from 'classnames';
+import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
@@ -29,13 +27,25 @@ import PreviewArea from '../preview-area';
 import { PreviewContextProvider } from '../preview-context';
 
 let $timer;
-const FormPreview = () => {
+
+const FormPreview: React.FC = () => {
+	const theme = useTheme();
+
+	const { hasThemesFinishedResolution } = useSelect( ( select ) => {
+		// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
+		const { hasFinishedResolution } = select( 'quillForms/theme-editor' );
+
+		return {
+			hasThemesFinishedResolution: hasFinishedResolution(
+				'getCurrentTheme'
+			),
+		};
+	} );
+
 	const [ applyJumpLogic, setApplyJumpLogic ] = useState( false );
 	const [ selfDispatch, setSelfDispatch ] = useState( false );
 	const fonts = configApi.getFonts();
-	const theme = useTheme();
-	console.log( theme );
-	const { font } = useTheme();
+	const { font } = theme;
 	const { currentBlockBeingEdited, blocks, messages } = useSelect(
 		( select ) => {
 			return {
@@ -81,7 +91,6 @@ const FormPreview = () => {
 			const existingLinkEl = document.querySelector(
 				`link[href='${ link.href }']`
 			);
-			console.log( existingLinkEl );
 			if ( ! existingLinkEl ) head.appendChild( link );
 		}
 	}, [ font ] );
@@ -108,6 +117,7 @@ const FormPreview = () => {
 	}, [ selfDispatch ] );
 
 	useEffect( () => {
+		if ( ! hasThemesFinishedResolution ) return;
 		clearTimeout( $timer );
 		if ( ! applyJumpLogic ) {
 			const formFields = blocks.filter(
@@ -172,33 +182,60 @@ const FormPreview = () => {
 				} );
 			}, 300 );
 		}
-	}, [ JSON.stringify( blocks ), currentBlockBeingEdited ] );
+	}, [
+		JSON.stringify( blocks ),
+		currentBlockBeingEdited,
+		hasThemesFinishedResolution,
+	] );
 
 	return (
 		<div className="builder-core-preview-area-wrapper">
-			<PreviewContextProvider
-				value={ { applyJumpLogic, setApplyJumpLogic } }
-			>
-				{ /** @ts-expect-error */ }
-				<PreviewArea.Slot>
-					{ ( fills ) => (
-						<>
-							<Form
-								formObj={ {
-									blocks: cloneDeep( blocks ),
-									theme,
-									messages,
-									logic: null,
-								} }
-								applyLogic={ applyJumpLogic }
-								onSubmit={ completeForm }
-								isPreview={ true }
-							/>
-							{ fills }
-						</>
+			{ ! hasThemesFinishedResolution ? (
+				<div
+					className={ classnames(
+						'builder-core-preview-area-wrapper__loader',
+						css`
+							display: flex;
+							width: 100%;
+							height: 100%;
+							background: #fff;
+							align-items: center;
+							justify-content: center;
+						`
 					) }
-				</PreviewArea.Slot>
-			</PreviewContextProvider>
+				>
+					<Loader
+						type="TailSpin"
+						color="#333"
+						height={ 30 }
+						width={ 30 }
+					/>
+				</div>
+			) : (
+				<PreviewContextProvider
+					value={ { applyJumpLogic, setApplyJumpLogic } }
+				>
+					{ /** @ts-expect-error */ }
+					<PreviewArea.Slot>
+						{ ( fills ) => (
+							<>
+								<Form
+									formObj={ {
+										blocks: cloneDeep( blocks ),
+										theme,
+										messages,
+										logic: null,
+									} }
+									applyLogic={ applyJumpLogic }
+									onSubmit={ completeForm }
+									isPreview={ true }
+								/>
+								{ fills }
+							</>
+						) }
+					</PreviewArea.Slot>
+				</PreviewContextProvider>
+			) }
 		</div>
 	);
 };
