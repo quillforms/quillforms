@@ -17,6 +17,6 @@
 	"include": [
 		"src/**/*",
 		"src/*",
-		"../../typings/rememo/index.d.ts",
+		"../../typings/rememo/index.d.ts", "../admin-components/src/builder-notices",
 	]
 }

@@ -40,30 +40,22 @@ const Layout: React.FC = () => {
 	const [ sourceContentIndex, setSourceContentIndex ] = useState< number >();
 	const [ isDragging, setIsDragging ] = useState< boolean >( false );
 
-	const {
-		blockTypes,
-		currentPanel,
-		areaToShow,
-		formBlocks,
-		hasBlocksFinishedResolution,
-	} = useSelect( ( select ) => {
-		const { getBlockTypes } = select( 'quillForms/blocks' );
-		const { getCurrentPanel, getAreaToShow } = select(
-			'quillForms/builder-panels'
-		);
-		// @ts-expect-error
-		// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
-		const { getBlocks, hasFinishedResolution } = select(
-			'quillForms/block-editor'
-		);
-		return {
-			blockTypes: getBlockTypes(),
-			currentPanel: getCurrentPanel(),
-			areaToShow: getAreaToShow(),
-			formBlocks: getBlocks(),
-			hasBlocksFinishedResolution: hasFinishedResolution( 'getBlocks' ),
-		};
-	} );
+	const { blockTypes, currentPanel, areaToShow, formBlocks } = useSelect(
+		( select ) => {
+			const { getBlockTypes } = select( 'quillForms/blocks' );
+			const { getCurrentPanel, getAreaToShow } = select(
+				'quillForms/builder-panels'
+			);
+
+			const { getBlocks } = select( 'quillForms/block-editor' );
+			return {
+				blockTypes: getBlockTypes(),
+				currentPanel: getCurrentPanel(),
+				areaToShow: getAreaToShow(),
+				formBlocks: getBlocks(),
+			};
+		}
+	);
 
 	const { insertBlock, reorderBlocks, setCurrentBlock } = useDispatch(
 		'quillForms/block-editor'
@@ -255,7 +247,7 @@ const Layout: React.FC = () => {
 
 	// Setting current block id once blocks are resolved.
 	useEffect( () => {
-		if ( hasBlocksFinishedResolution && formBlocks?.length > 0 ) {
+		if ( formBlocks?.length > 0 ) {
 			setCurrentBlock( formBlocks[ 0 ].id );
 			formBlocks.forEach( ( block ) => {
 				const blockType = blockTypes[ block.name ];
@@ -263,7 +255,7 @@ const Layout: React.FC = () => {
 					insertEmptyFieldAnswer( block.id, block.name );
 			} );
 		}
-	}, [ hasBlocksFinishedResolution ] );
+	}, [] );
 
 	return (
 		<>

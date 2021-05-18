@@ -194,7 +194,7 @@ abstract class QF_Block_Type extends stdClass {
 						'type' => 'string',
 					),
 				),
-				'default' => array()
+				'default'    => array(),
 			);
 		}
 
@@ -295,12 +295,12 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed   $value    The entry value that needs to be formatted and may be sanitized.
-	 * @param integer $form_id  The form id.
+	 * @param mixed $value     The entry value that needs to be formatted and may be sanitized.
+	 * @param array $form_data The form data and settings.
 	 *
 	 * @return mixed $value The formatted entry value.
 	 */
-	public function format_entry_value( $value, $form_id ) {
+	public function format_entry_value( $value, $form_data ) {
 		return $value;
 	}
 
@@ -309,11 +309,12 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value The entry value.
+	 * @param mixed $value     The entry value.
+	 * @param array $form_data The form data.
 	 *
 	 * @return mixed $value The merged entry value.
 	 */
-	public function get_merge_tag_value( $value ) {
+	public function get_merge_tag_value( $value, $form_data ) {
 		return $value;
 	}
 
@@ -324,7 +325,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @param mixed $value The entry value.
 	 *
-	 * @return mixed $value The formatted entry value that should be saved into dababase.
+	 * @return mixed $value The entry value that should be saved into dababase.
 	 */
 	public function get_value_entry_save( $value ) {
 		return $value;
@@ -336,10 +337,10 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value      The value to validate.
-	 * @param array $messages   The form messages.
+	 * @param mixed $value       The value to validate.
+	 * @param array $form_data   The form data.
 	 */
-	public function validate_field( $value, $messages ) {
+	public function validate_field( $value, $form_data ) {
 		// Here we do the validation.
 	}
 
@@ -349,7 +350,7 @@ abstract class QF_Block_Type extends stdClass {
 	 * @since 1.0
 	 *
 	 * @param  mixed $field_value    The field value.
-	 * @param  array $condition      The condition array
+	 * @param  array $condition      The condition array.
 	 *
 	 * @return bool
 	 */
@@ -359,7 +360,7 @@ abstract class QF_Block_Type extends stdClass {
 		switch ( $condition['operator'] ) {
 			case 'is':
 				if ( is_array( $field_value ) ) {
-					// possible input is "1" to be compared with 1
+					// possible input is "1" to be compared with 1.
 					return in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				}
 				if ( is_numeric( $condition_value ) ) {
@@ -369,19 +370,19 @@ abstract class QF_Block_Type extends stdClass {
 				return ( $field_value === $condition_value );
 			case 'is_not':
 				if ( is_array( $field_value ) ) {
-					// possible input is "1" to be compared with 1
+					// possible input is "1" to be compared with 1.
 					return ! in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				}
 
 				return ( $field_value !== $condition_value );
 			case 'greater_than':
-				if ( ! is_numeric( $condition_value )  || !is_numeric( $field_value)) {
+				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
 					return false;
 				}
 
 				return $field_value > $condition_value;
 			case 'lower_than':
-				if ( ! is_numeric( $condition_value ) || !is_numeric( $field_value)) {
+				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
 					return false;
 				}
 

@@ -39,8 +39,9 @@ const Panel = () => {
 		>
 			<PanelHeader />
 			{ currentPanel && (
-				<div className="builder-core-panel__content">
+				<div className="builder-core-panel__content-wrapper">
 					{ currentPanel.mode === 'single' ? (
+						// @ts-expect-error
 						<currentPanel.render />
 					) : (
 						<SubPanel />

@@ -82,7 +82,7 @@ switch ( $font_type ) {
 				data.append( 'action', 'quillforms_form_submit' );
 				data.append( '_nonce', '<?php echo wp_create_nonce( 'quillforms_forms_display_nonce' ); ?>' )
 				data.append( 'formData', JSON.stringify({
-					answers: wp.data.select('quillForms/renderer-core').getAnswersValues(),
+					answers: wp.data.select('quillForms/renderer-core').getAnswers(),
 					formId: '<?php echo $form_id; ?>'
 				} ));
 				fetch(ajaxurl, {
@@ -90,7 +90,7 @@ switch ( $font_type ) {
 					credentials:'same-origin',
 					body: data
 				})
-				.then((resp) => resp.json())
+				.then( function(resp) { resp.json() })
 				.then(function(res) {
 					if(res && res.success) {
 						wp.data.dispatch('quillForms/renderer-core').completeForm();
@@ -100,7 +100,7 @@ switch ( $font_type ) {
 							if(res.data.fields) {
 								Object.keys(res.data.fields).forEach(function(fieldId, index) {
 									wp.data.dispatch('quillForms/renderer-core').setIsFieldValid(fieldId, false)
-									wp.data.dispatch('quillForms/renderer-core').setFieldValidationErrr(fieldId, res.data.fields[fieldId]);
+									wp.data.dispatch('quillForms/renderer-core').setFieldValidationErr(fieldId, res.data.fields[fieldId]);
 
 								});
 								var walkPath = wp.data.select('quillForms/renderer-core').getWalkPath();
@@ -108,6 +108,8 @@ switch ( $font_type ) {
 									return Object.keys(res.data.fields).includes( o.id )
 								});
 								if ( firstFieldIndex !== -1 ) {
+									wp.data.dispatch('quillForms/renderer-core').setIsReviewing(true);
+									wp.data.dispatch('quillForms/renderer-core').setIsSubmitting(false);
 									wp.data.dispatch('quillForms/renderer-core').goToField( walkPath[ firstFieldIndex ].id );
 								}
 							}

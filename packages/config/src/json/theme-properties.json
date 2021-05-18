@@ -5,7 +5,7 @@
 	},
 	"backgroundColor": {
 		"type": "string",
-		"default": "linear-gradient(135deg, rgb(6,147,227) 0%,rgb(155,81,224) 100% )"
+		"default": "#fff"
 	},
 	"backgroundImage": {
 		"type": "string"
@@ -16,7 +16,7 @@
 	},
 	"answersColor": {
 		"type": "string",
-		"default": "#000"
+		"default": "#0aa7c2"
 	},
 	"buttonsFontColor": {
 		"type": "string",
@@ -24,7 +24,7 @@
 	},
 	"buttonsBgColor": {
 		"type": "string",
-		"default": "#000"
+		"default": "#22bcaa"
 	},
 	"errorsFontColor": {
 		"type": "string",

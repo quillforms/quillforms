@@ -53,6 +53,8 @@ class QF_Install {
 		// If we made it till here nothing is running yet, lets set the transient now.
 		set_transient( 'qf_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
+		QF_Capabilities::assign_capabilities_for_user_roles();
+		QF_Core::register_quillforms_post_type();
 		self::create_tables();
 		self::update_qf_version();
 
@@ -68,7 +70,7 @@ class QF_Install {
 	public static function create_tables() {
 		global $wpdb;
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$collate = '';
 

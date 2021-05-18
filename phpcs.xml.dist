@@ -30,12 +30,6 @@
 	</rule>
 	<rule ref="WordPress.CodeAnalysis.EmptyStatement"/>
 
-	<rule ref="PEAR.Functions.FunctionCallSignature">
-		<properties>
-			<property name="allowMultipleArguments" value="false"/>
-		</properties>
-	</rule>
-
 	<rule ref="WordPress.WP.I18n.MissingArgDomainDefault">
 		<exclude-pattern>packages/block-library/src/*</exclude-pattern>
 	</rule>

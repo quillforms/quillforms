@@ -1,13 +1,8 @@
 <?php
 class QF_Core {
 
-	public static function init() {
-		add_action( 'init', array( __CLASS__, 'register_quillforms_post_type' ) );
-	}
-
 	/**
 	 * Register Block types via inline scripts.
-	 *
 	 *
 	 * @since 1.0.0
 	 */
@@ -62,7 +57,6 @@ class QF_Core {
 			'public'             => true,
 			'show_in_menu'       => false,
 			'show_ui'            => true,
-			'map_meta_cap'       => true,
 			'publicly_queryable' => true,
 			'query_var'          => true,
 			'capability_type'    => 'quillform',
@@ -76,6 +70,7 @@ class QF_Core {
 			'show_in_rest'       => true,
 		);
 		register_post_type( 'quill_forms', $args );
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -144,4 +139,3 @@ class QF_Core {
 	}
 }
 
-QF_Core::init();

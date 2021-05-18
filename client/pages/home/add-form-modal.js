@@ -32,7 +32,7 @@ const AddFormModal = ( { closeModal } ) => {
 			) }
 			title="Create new form"
 			onRequestClose={ closeModal }
-			focusOnMount={ false }
+			focusOnMount={ true }
 		>
 			<AddFormModalContent closeModal={ closeModal } />
 		</Modal>

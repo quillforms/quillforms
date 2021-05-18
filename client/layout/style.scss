@@ -1,20 +1,21 @@
-@import "./sidebar/style.scss";
-@import "./header/style.scss";
-@import "./user-name-placeholder/style.scss";
-@import "./user-image-placeholder/style.scss";
+@import "../components/sidebar/style.scss";
+@import "../components/header/style.scss";
+@import "../components/user-name-placeholder/style.scss";
+@import "../components/user-image-placeholder/style.scss";
 
 .quillforms-layout__main {
     display: flex;
-	height: 100vh;
+	height: calc(100vh - 55px);
 }
 .qf-page-component-wrapper {
 	width: 100%;
+	background: #eae9e9;
+	height: 100%;
+	overflow-y: auto;
 }
 .qf-page-component-wrapper.has-sidebar {
 	margin-top: 55px;
 	padding: 50px;
 	margin-left: 250px;
-	background: #eee;
-	height: calc(100% - 55px);
-	overflow-y: auto;
+
 }

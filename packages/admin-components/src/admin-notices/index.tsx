@@ -9,7 +9,7 @@ import { filter } from 'lodash';
 import { SnackbarList, NoticeList } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 
-export function BuilderNotices() {
+const AdminNotices = () => {
 	const { notices } = useSelect( ( select ) => {
 		return {
 			notices: select( 'core/notices' ).getNotices(),
@@ -31,6 +31,6 @@ export function BuilderNotices() {
 			/>
 		</>
 	);
-}
+};
 
-export default BuilderNotices;
+export default AdminNotices;

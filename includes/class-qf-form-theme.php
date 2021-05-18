@@ -50,50 +50,12 @@ class QF_Form_Theme {
 	 */
 	public function get_theme_properties() {
 		return array(
-			'font'                 => array(
+			'font' => array(
 				'type'    => 'string',
 				'default' => 'Viga',
 			),
-			'backgroundColor'      => array(
-				'type'    => 'string',
-				'default' => 'linear-gradient(135deg, rgb(6, 147, 227) 0%, rgb(155, 81, 224) 100%)',
-			),
-			'backgroundImage'      => array(
-				'type' => 'string',
-			),
-			'questionsColor'       => array(
-				'type'    => 'string',
-				'default' => '#000',
-			),
-			'answersColor'         => array(
-				'type'    => 'string',
-				'default' => '#000',
-			),
-			'buttonsFontColor'     => array(
-				'type'    => 'string',
-				'default' => '#fff',
-			),
-			'buttonsBgColor'       => array(
-				'type'    => 'string',
-				'default' => '#000',
-			),
-			'errorsFontColor'      => array(
-				'type'    => 'string',
-				'default' => '#fff',
-			),
-			'errorsBgColor'        => array(
-				'type'    => 'string',
-				'default' => '#f00',
-			),
-			'progressBarFillColor' => array(
-				'type'    => 'string',
-				'default' => '#000',
-			),
-			'progressBarBgColor'   => array(
-				'type'    => 'string',
-				'default' => '#e3e3e3',
-			),
 		);
+
 	}
 
 	/**

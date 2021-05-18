@@ -11,36 +11,33 @@ class QF_Form_Notifications {
 	 * @return array notification proeprties.
 	 */
 	public static function get_single_notification_properties() {
-		return apply_filters(
-			'quillforms_single_notification_properties',
-			array(
-				'title'      => array(
+		return array(
+			'title'      => array(
+				'type' => 'string',
+			),
+			'active'     => array(
+				'type' => 'boolean',
+			),
+			'toType'     => array(
+				'type' => 'string',
+				'enum' => array( 'email', 'field' ),
+			),
+			'recipients' => array(
+				'type'  => 'array',
+				'items' => array(
 					'type' => 'string',
 				),
-				'active'     => array(
-					'type' => 'boolean',
-				),
-				'toType'     => array(
-					'type' => 'string',
-					'enum' => array( 'email', 'field' ),
-				),
-				'recipients' => array(
-					'type'  => 'array',
-					'items' => array(
-						'type' => 'string',
-					),
-				),
-				'replyTo'    => array(
-					'type' => 'string',
-				),
-				'subject'    => array(
-					'type' => 'string',
-				),
-				'message'    => array(
-					'type'    => 'string',
-					'default' => '{{form:all_answers}}',
-				),
-			)
+			),
+			'replyTo'    => array(
+				'type' => 'string',
+			),
+			'subject'    => array(
+				'type' => 'string',
+			),
+			'message'    => array(
+				'type'    => 'string',
+				'default' => '{{form:all_answers}}',
+			),
 		);
 	}
 
@@ -58,5 +55,15 @@ class QF_Form_Notifications {
 	 */
 	public static function prepare_notifications_for_render( $data = array() ) {
 		return $data;
+	}
+
+	/**
+	 * Process notification
+	 *
+	 * @param array $notification
+	 * @since 1.0.0
+	 */
+	public static function process_notification( $notification ) {
+
 	}
 }

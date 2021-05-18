@@ -110,16 +110,16 @@ final class QF_Blocks_Factory {
 	 */
 	public function create( $properties ) {
 
-		$type = isset( $properties['type'] ) ? $properties['type'] : '';
+		$block_name = isset( $properties['name'] ) ? $properties['name'] : '';
 
-		if ( empty( $type ) || ! isset( $this->registered_block_types[ $type ] ) ) {
+		if ( empty( $block_name ) || ! isset( $this->registered_block_types[ $block_name ] ) ) {
 			$message = __( 'Block type is not defined.', 'quillforms' );
 			_doing_it_wrong( __METHOD__, $message, '1.0.0' );
 
 			return false;
 		}
 
-		$class      = $this->registered_block_types[ $type ];
+		$class      = $this->registered_block_types[ $block_name ];
 		$class_name = get_class( $class );
 		$block      = new $class_name( $properties );
 

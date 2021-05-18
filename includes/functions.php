@@ -1,4 +1,177 @@
 <?php
+/**
+ * Helper function to sanitize a string from user input or from the db
+ * Forked from WordPress core
+ *
+ * @see https://developer.wordpress.org/reference/functions/_sanitize_text_fields/
+ * It is marked as a private function in WordPress.
+ * so we copied its implementation here in case it has been removed in any future WordPress version
+ *
+ * @since 1.0.0
+ *
+ * @param string $string        String to deeply sanitize.
+ * @param bool   $keep_newlines Whether to keep newlines. Default: false.
+ *
+ * @return string Sanitized string, or empty string if not a string provided.
+ */
+function qf_sanitize_text_fields( $str, $keep_newlines = false ) {
+	if ( is_object( $str ) || is_array( $str ) ) {
+		return '';
+	}
+
+	$str = (string) $str;
+
+	$filtered = wp_check_invalid_utf8( $str );
+
+	if ( strpos( $filtered, '<' ) !== false ) {
+		$filtered = wp_pre_kses_less_than( $filtered );
+		// This will strip extra whitespace for us.
+		$filtered = wp_strip_all_tags( $filtered, false );
+
+		// Use HTML entities in a special case to make sure no later
+		// newline stripping stage could lead to a functional tag.
+		$filtered = str_replace( "<\n", "&lt;\n", $filtered );
+	}
+
+	if ( ! $keep_newlines ) {
+		$filtered = preg_replace( '/[\r\n\t ]+/', ' ', $filtered );
+	}
+	$filtered = trim( $filtered );
+
+	$found = false;
+	while ( preg_match( '/%[a-f0-9]{2}/i', $filtered, $match ) ) {
+		$filtered = str_replace( $match[0], '', $filtered );
+		$found    = true;
+	}
+
+	if ( $found ) {
+		// Strip out the whitespace that may now exist after removing the octets.
+		$filtered = trim( preg_replace( '/ +/', ' ', $filtered ) );
+	}
+
+	return $filtered;
+}
+
+/**
+ * Deeply sanitize the string, preserve newlines if needed.
+ * Prevent maliciously prepared strings from containing HTML tags.
+ * Heavily inspired by wpforms
+ *
+ * @since 1.0.0
+ *
+ * @param string $string        String to deeply sanitize.
+ * @param bool   $keep_newlines Whether to keep newlines. Default: false.
+ *
+ * @return string Sanitized string, or empty string if not a string provided.
+ */
+function qf_sanitize_text_deeply( $string, $keep_newlines = false ) {
+
+	if ( is_object( $string ) || is_array( $string ) ) {
+		return '';
+	}
+
+	$string        = (string) $string;
+	$keep_newlines = (bool) $keep_newlines;
+
+	$new_value = qf_sanitize_text_fields( $string, $keep_newlines );
+
+	if ( strlen( $new_value ) !== strlen( $string ) ) {
+		$new_value = qf_sanitize_text_deeply( $new_value, $keep_newlines );
+	}
+
+	return $new_value;
+}
+
+/**
+ * Sanitize key, primarily used for looking up options.
+ *
+ * @since 1.0.0
+ *
+ * @param string $key
+ *
+ * @return string
+ */
+function qf_sanitize_key( $key = '' ) {
+	return preg_replace( '/[^a-zA-Z0-9_\-\.\:\/]/', '', $key );
+}
+
+/**
+ * Get the value of a specific QuillForms setting.
+ * Forked from WPForms.
+ *
+ * @since 1.0.0
+ *
+ * @param string $key
+ * @param mixed  $default
+ * @param string $option
+ *
+ * @return mixed
+ */
+function qf_setting( $key, $default = false, $option = 'qf_settings' ) {
+
+	$key     = qf_sanitize_key( $key );
+	$options = get_option( $option, false );
+	$value   = is_array( $options ) && ! empty( $options[ $key ] ) ? wp_unslash( $options[ $key ] ) : $default;
+
+	return $value;
+}
+
+/**
+ * Implode array without including blank values.
+ *
+ * @since 1.0.0
+ *
+ * @param string $separator The separator.
+ * @param array  $array     The array to be imploded.
+ *
+ * @return string The imploded array
+ */
+function qf_implode_non_blank( $separator, $array ) {
+
+	if ( ! is_array( $array ) ) {
+		return '';
+	}
+
+	$ary = array();
+	foreach ( $array as $item ) {
+		if ( ! empty( $item ) || '0' !== strval( $item ) ) {
+			$ary[] = $item;
+		}
+	}
+
+	return implode( $separator, $ary );
+}
+
+/**
+ * Decode special characters, both alpha- (<) and numeric-based (').
+ * Sanitize recursively, preserve new lines.
+ * Handle all the possible mixed variations of < and `&lt;` that can be processed into tags.
+ * Heavily inspired by wpforms
+ *
+ * @since 1.0.0
+ *
+ * @param string $string Raw string to decode.
+ *
+ * @return string
+ */
+function qf_decode_string( $string ) {
+
+	if ( ! is_string( $string ) ) {
+		return $string;
+	}
+
+	/*
+	 * Sanitization should be done first, so tags are stripped and < is converted to &lt; etc.
+	 * This iteration may do nothing when the string already comes with &lt; and &gt; only.
+	 */
+	$string = qf_sanitize_text_deeply( $string, true );
+
+	// Now we need to convert the string without tags: &lt; back to < (same for quotes).
+	$string = wp_kses_decode_entities( html_entity_decode( $string, ENT_QUOTES ) );
+
+	// And now we need to sanitize AGAIN, to avoid unwanted tags that appeared after decoding.
+	return qf_sanitize_text_deeply( $string, true );
+}
 
 /**
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.

@@ -13,15 +13,6 @@
 class QF_Capabilities {
 
 	/**
-	 * Init
-	 *
-	 * @since 1.0.0
-	 */
-	public static function init() {
-		add_action( 'admin_init', array( __CLASS__, 'assign_capabilities_for_user_roles' ) );
-	}
-
-	/**
 	 * Get capabilities for WooCommerce - these are assigned to admin/shop manager during installation or reset.
 	 *
 	 * @since 1.0.0
@@ -87,4 +78,3 @@ class QF_Capabilities {
 		}
 	}
 }
-QF_Capabilities::init();

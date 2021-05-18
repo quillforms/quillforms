@@ -134,11 +134,13 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-install.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-logger.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-merge-tags.php';
+		require_once QF_PLUGIN_DIR . 'includes/emails/class-qf-emails.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-messages.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-notifications.php';
 		require_once QF_PLUGIN_DIR . 'includes/render/class-qf-form-renderer.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-submission.php';
+
 
 		/**
 		 * REST API.

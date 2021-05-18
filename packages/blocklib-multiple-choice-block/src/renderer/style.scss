@@ -15,10 +15,9 @@
 		width: auto;
 	}
 	&:not(.valigned) {
-		justify-content: space-between;
 
 		.multipleChoice__optionWrapper {
-			max-width: 226px;
+			max-width: 215px;
 		}
 	}
 
