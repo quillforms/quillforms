@@ -56,6 +56,7 @@ const FormActions = ( { formId, setIsDeleting } ) => {
 										'⛔ Errror in form deletion!',
 										{
 											type: 'snackbar',
+											isDismissible: true,
 										}
 									);
 									setIsDeleting( false );
@@ -64,6 +65,7 @@ const FormActions = ( { formId, setIsDeleting } ) => {
 										'✅ Form moved to trash successfully!',
 										{
 											type: 'snackbar',
+											isDismissible: true,
 										}
 									);
 								}
