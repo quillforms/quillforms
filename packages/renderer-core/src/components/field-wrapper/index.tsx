@@ -166,6 +166,8 @@ const FieldWrapper: React.FC = () => {
 			return;
 		}
 		var isShiftPressed = e.shiftKey;
+		console.log( '$$$$$$$$$$$$$' );
+		console.log( isShiftPressed );
 		var activeElement = document.activeElement;
 		var focusableElements = getFocusables( `#block-${ id }` );
 
@@ -225,6 +227,7 @@ const FieldWrapper: React.FC = () => {
 
 		return;
 	}
+
 	/**
 	 * Makes sure the tab key will only focus elements within the current block  preventing this way from breaking the page.
 	 * Otherwise, go next or prev.

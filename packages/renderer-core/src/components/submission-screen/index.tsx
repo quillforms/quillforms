@@ -6,17 +6,27 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 
 /**
+ * External Dependencies
+ */
+import Loader from 'react-loader-spinner';
+
+/**
  * Internal Dependencies
  */
 import Button from '../button';
 import useFormContext from '../../hooks/use-form-context';
 import { useFieldRenderContext } from '../field-render';
+
 const SubmitBtn: React.FC = () => {
 	const { isLastField, isActive } = useFieldRenderContext();
-	const { goToField, setSwiper } = useDispatch( 'quillForms/renderer-core' );
+	const { goToField, setIsReviewing, setIsSubmitting } = useDispatch(
+		'quillForms/renderer-core'
+	);
+	const { onSubmit } = useFormContext();
 
-	const { firstInvalidFieldId } = useSelect( ( select ) => {
+	const { firstInvalidFieldId, isSubmitting } = useSelect( ( select ) => {
 		return {
+			isSubmitting: select( 'quillForms/renderer-core' ).isSubmitting(),
 			firstInvalidFieldId: select(
 				'quillForms/renderer-core'
 			).getFirstInvalidFieldId(),
@@ -45,46 +55,45 @@ const SubmitBtn: React.FC = () => {
 	}, [ isLastField, isActive ] );
 
 	const submitHandler = () => {
-		setSwiper( {
-			isReviewing: false,
-		} );
+		setIsReviewing( false );
 		if ( firstInvalidFieldId ) {
 			setTimeout( () => {
-				setSwiper( {
-					isReviewing: true,
-				} );
+				setIsReviewing( true );
 			}, 50 );
 
 			setTimeout( () => {
 				goToFirstInvalidField();
 			}, 100 );
 		} else {
+			setIsSubmitting( true );
 			onSubmit();
 		}
 	};
 
-	const { onSubmit } = useFormContext();
 	return (
 		<Button
 			className="renderer-core-submit-btn"
 			onClick={ () => {
-				submitHandler();
+				if ( ! isSubmitting ) submitHandler();
 			} }
 			onKeyDown={ ( e ) => {
 				if ( e.key === 'Enter' ) {
 					e.stopPropagation();
-					submitHandler();
+					if ( ! isSubmitting ) submitHandler();
 				}
 			} }
 		>
 			Submit
+			{ isSubmitting && (
+				<Loader
+					className="renderer-core-submit-btn__loader"
+					type="TailSpin"
+					color="#fff"
+					height={ 20 }
+					width={ 20 }
+				/>
+			) }
 		</Button>
-		// { /* <Loader
-		// 		type="TailSpin"
-		// 		color="#fff"
-		// 		height={ 30 }
-		// 		width={ 30 }
-		// 	/> */ }
 	);
 };
 export default SubmitBtn;

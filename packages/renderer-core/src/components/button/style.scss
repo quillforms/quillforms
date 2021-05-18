@@ -1,7 +1,9 @@
 .renderer-core-button {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
 	margin-right: 10px;
-	padding: 6px 22px;
+	padding: 8px 22px;
+	line-height: 1.5;
 	border: none;
 	border-radius: 5px;
 	font-size: 20px;

@@ -129,9 +129,19 @@ export function isWelcomeScreenActive( state: State ): boolean {
  * @return {boolean} Is reviewing
  */
 export function isReviewing( state: State ): boolean {
-	return state.swiper.isReviewing;
+	return state.submit.isReviewing;
 }
 
+/**
+ * Is submitting
+ *
+ * @param {State} state       Global application state.
+ *
+ * @return {boolean} Is submitting
+ */
+export function isSubmitting( state: State ): boolean {
+	return state.submit.isSubmitting;
+}
 /**
  * Get block counter value
  *

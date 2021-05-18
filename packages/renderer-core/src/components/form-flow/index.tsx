@@ -27,22 +27,25 @@ interface Props {
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
 	const theme = useTheme();
-	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
-		( select ) => {
-			return {
-				isThankyouScreenActive: select(
-					'quillForms/renderer-core'
-				).isThankyouScreenActive(),
-				isWelcomeScreenActive: select(
-					'quillForms/renderer-core'
-				).isWelcomeScreenActive(),
-			};
-		}
-	);
+	const {
+		isWelcomeScreenActive,
+		isThankyouScreenActive,
+		isAnimating,
+	} = useSelect( ( select ) => {
+		return {
+			isThankyouScreenActive: select(
+				'quillForms/renderer-core'
+			).isThankyouScreenActive(),
+			isWelcomeScreenActive: select(
+				'quillForms/renderer-core'
+			).isWelcomeScreenActive(),
+			isAnimating: select( 'quillForms/renderer-core' ).isAnimating(),
+		};
+	} );
 
 	let backgroundImageCSS = '';
-	if ( theme.backgroundImage && theme.backgroundImage.url ) {
-		backgroundImageCSS = `background: url('${ theme.backgroundImage.url }') no-repeat;
+	if ( theme.backgroundImage && theme.backgroundImage ) {
+		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
 			background-size: cover;
 			background-position: center;
 		`;
@@ -55,6 +58,19 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				height: 100%;
 				width: 100%;
 			` }
+			onKeyDown={ ( e: KeyboardEvent ): void => {
+				// Prevent any keyboard event by default
+				// The reason for this is to prevent tab keyboard event especially on first render as it causes the animation to be corrupted.
+				if ( isAnimating ) {
+					e.preventDefault();
+					return;
+				}
+				//tab?
+				if ( e.key === 'Tab' ) {
+					e.preventDefault();
+				}
+			} }
+			tabIndex={ 0 }
 		>
 			<div
 				className={ classnames(
@@ -81,6 +97,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 							! isThankyouScreenActive && (
 								<FieldsWrapper applyLogic={ applyLogic } />
 							) }
+
 						{ isThankyouScreenActive && <ThankyouScreensFlow /> }
 					</Fragment>
 				) }

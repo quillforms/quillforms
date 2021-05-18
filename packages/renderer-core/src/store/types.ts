@@ -1,6 +1,6 @@
 import { BlockAttributes, FormBlocks } from '@quillforms/config';
 import {
-	SET_SUBMISSION_ERR,
+	SET_SUBMISSION_ERRORS,
 	SET_SWIPER_STATE,
 	COMPLETE_FORM,
 	GO_NEXT,
@@ -12,6 +12,8 @@ import {
 	SET_FIELD_VALIDATION_ERR,
 	SET_IS_FIELD_ANSWERED,
 	RESET_ANSWERS,
+	SET_IS_REVIEWING,
+	SET_IS_SUBMITTING,
 } from './constants';
 export type Screen = {
 	id: string;
@@ -31,7 +33,11 @@ export type SwiperState = {
 	isAnimating: boolean;
 	isThankyouScreenActive: boolean;
 	isWelcomeScreenActive: boolean;
+};
+
+export type SubmissionState = {
 	isReviewing: boolean;
+	isSubmitting: boolean;
 	submissionErrors: string[];
 };
 
@@ -57,11 +63,6 @@ type goToFieldAction = {
 	id: string;
 };
 
-type setSubmissionErrAction = {
-	type: typeof SET_SUBMISSION_ERR;
-	err: string;
-};
-
 type completeFormAction = {
 	type: typeof COMPLETE_FORM;
 };
@@ -69,7 +70,7 @@ type completeFormAction = {
 export type Answer = {
 	isValid: boolean;
 	isAnswered: boolean;
-	name: string;
+	blockName: string;
 	value: unknown;
 	validationErr: string | undefined;
 };
@@ -113,6 +114,20 @@ type resetAnswers = {
 	type: typeof RESET_ANSWERS;
 };
 
+type setIsReviewing = {
+	type: typeof SET_IS_REVIEWING;
+	val: boolean;
+};
+
+type setIsSubmitting = {
+	type: typeof SET_IS_SUBMITTING;
+	val: boolean;
+};
+
+type setSumbissionErrors = {
+	type: typeof SET_SUBMISSION_ERRORS;
+	val: string[];
+};
 export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
 	| setFieldAnswerAction
@@ -127,6 +142,11 @@ export type SwiperActionTypes =
 	| goNextAction
 	| goPrevAction
 	| goToFieldAction
-	| setSubmissionErrAction
 	| completeFormAction
+	| ReturnType< () => { type: 'NOOP' } >;
+
+export type SubmitActionTypes =
+	| setIsReviewing
+	| setIsSubmitting
+	| setSumbissionErrors
 	| ReturnType< () => { type: 'NOOP' } >;

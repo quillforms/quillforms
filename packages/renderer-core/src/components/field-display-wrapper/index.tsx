@@ -10,6 +10,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { useFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import BlockFooter from '../field-footer';
+import useFormContext from '../../hooks/use-form-context';
 
 interface Props {
 	setIsShaking: ( value: boolean ) => void;
@@ -33,16 +34,19 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showErrMsg,
 	} = useFieldRenderContext();
 
+	const { isPreview } = useFormContext();
+
 	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ blockName ];
 	const [ shakingErr, setShakingErr ] = useState( null );
 
-	const { isCurrentBlockEditable } = useSelect( ( select ) => {
+	const { isCurrentBlockEditable, isReviewing } = useSelect( ( select ) => {
 		return {
 			isCurrentBlockEditable: select(
 				'quillForms/blocks'
 			).hasBlockSupport( blockName, 'editable' ),
+			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
 		};
 	} );
 	const { answerValue, isValid } = useSelect( ( select ) => {
@@ -56,16 +60,27 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		};
 	} );
 
-	useEffect( () => {
+	const clearTimers = () => {
 		clearTimeout( timer1 );
 		clearTimeout( timer2 );
+	};
+
+	useEffect( () => {
+		clearTimers();
 		setIsShaking( false );
 		if ( shakingErr ) setShakingErr( null );
 	}, [ answerValue ] );
 
+	useEffect( () => {
+		if ( ! isActive ) {
+			clearTimers();
+			setIsShaking( false );
+			if ( shakingErr ) setShakingErr( null );
+		}
+	}, [ isActive ] );
+
 	const shakeWithError = ( err ) => {
-		clearTimeout( timer1 );
-		clearTimeout( timer2 );
+		clearTimers();
 		if ( ! isShaking ) setIsShaking( true );
 		if ( ! shakingErr ) setShakingErr( err );
 		timer1 = setTimeout( () => {
@@ -78,7 +93,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 
 	const {
 		setIsFieldValid,
-		setFieldValidationErrr,
+		setFieldValidationErr,
 		setIsFieldAnswered,
 		setFieldAnswer,
 	} = useDispatch( 'quillForms/renderer-core' );
@@ -93,11 +108,13 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		val: answerValue,
 		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),
-		setValidationErr: ( val: string ) => setFieldValidationErrr( id, val ),
+		setValidationErr: ( val: string ) => setFieldValidationErr( id, val ),
 		setVal: ( val: string ) => setFieldAnswer( id, val ),
 		showSubmitBtn,
 		blockWithError: ( err: string ) => shakeWithError( err ),
 		showErrMsg,
+		isPreview,
+		isReviewing,
 	};
 
 	return (

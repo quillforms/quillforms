@@ -19,6 +19,7 @@ interface Props {
 const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const editableFields = useEditableFields();
 	const blocks = useBlocks();
+	console.log( blocks );
 	const { insertEmptyFieldAnswer } = useDispatch(
 		'quillForms/renderer-core'
 	);
@@ -26,11 +27,11 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const { setSwiper } = useDispatch( 'quillForms/renderer-core' );
 	useEffect( () => {
 		if ( ! isPreview ) {
-			console.log( editableFields );
 			editableFields.forEach( ( field ) =>
 				insertEmptyFieldAnswer( field.id, field.name )
 			);
 			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ] : undefined;
+			console.log( firstBlock );
 			const welcomeScreens = omit(
 				cloneDeep( blocks ).filter(
 					( block ) => block.name === 'welcome-screen'
@@ -43,37 +44,38 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					( block ) => block.name === 'thankyou-screen'
 				)[ 'name' ]
 			) as {} | Screen[];
+			setSwiper( {
+				isAnimating: true,
+				walkPath: cloneDeep(
+					blocks.filter(
+						( block ) =>
+							block.name !== 'thankyou-screen' &&
+							block.name !== 'welcome-screen'
+					)
+				),
+				welcomeScreens:
+					size( welcomeScreens ) === 0
+						? []
+						: ( welcomeScreens as Screen[] ),
+				thankyouScreens:
+					size( thankyouScreens ) === 0
+						? []
+						: ( thankyouScreens as Screen[] ),
+				canGoPrev: false,
+				canGoNext: true,
+				prevBlockId: undefined,
+				nextBlockId: blocks && blocks[ 1 ] ? blocks[ 1 ].id : undefined,
+			} );
+
 			setTimeout( () => {
 				setSwiper( {
 					currentBlockId: firstBlock?.id,
-					isAnimating: true,
-					walkPath: cloneDeep(
-						blocks.filter(
-							( block ) =>
-								block.name !== 'thankyou-screen' &&
-								block.name !== 'welcome-screen'
-						)
-					),
-					welcomeScreens:
-						size( welcomeScreens ) === 0
-							? []
-							: ( welcomeScreens as Screen[] ),
-					thankyouScreens:
-						size( thankyouScreens ) === 0
-							? []
-							: ( thankyouScreens as Screen[] ),
-					canGoPrev: false,
-					canGoNext: true,
-					prevBlockId: undefined,
-					nextBlockId: blocks && blocks[ 1 ] ? blocks[ 1 ].id : undefined,
 				} );
-
-			},100);
-
+			}, 100 );
 		}
 	}, [] );
 
-	return  <FormFlow applyLogic={ applyLogic } />;
+	return <FormFlow applyLogic={ applyLogic } />;
 };
 
 export default FormWrapper;

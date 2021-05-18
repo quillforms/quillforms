@@ -4,7 +4,9 @@ import {
 	GO_PREV,
 	COMPLETE_FORM,
 	GO_TO_FIELD,
-	SET_SUBMISSION_ERR,
+	SET_SUBMISSION_ERRORS,
+	SET_IS_REVIEWING,
+	SET_IS_SUBMITTING,
 	SET_FIELD_ANSWER,
 	SET_IS_FIELD_ANSWERED,
 	SET_IS_FIELD_VALID,
@@ -17,6 +19,7 @@ import type {
 	SwiperState,
 	SwiperActionTypes,
 	RendererAnswersActionTypes,
+	SubmitActionTypes,
 } from './types';
 
 /**
@@ -72,20 +75,6 @@ export const goToField = ( id: string ): SwiperActionTypes => {
 	return {
 		type: GO_TO_FIELD,
 		id,
-	};
-};
-
-/**
- * Set submission error
- *
- * @param {string} err     Submission error
- *
- * @return {SwiperActionTypes} Action object
- */
-export const setSubmissionErr = ( err: string ): SwiperActionTypes => {
-	return {
-		type: SET_SUBMISSION_ERR,
-		err,
 	};
 };
 
@@ -194,13 +183,55 @@ export const setIsFieldAnswered = (
  *
  * @return {Object} Action object.
  */
-export const setFieldValidationErrr = (
+export const setFieldValidationErr = (
 	id: string,
 	val: string
 ): RendererAnswersActionTypes => {
 	return {
 		type: SET_FIELD_VALIDATION_ERR,
 		id,
+		val,
+	};
+};
+
+/**
+ * Set is reviewing flag
+ *
+ * @param {boolean} val  The new flag value.
+ *
+ * @return {Object} Action object
+ */
+export const setIsReviewing = ( val: boolean ): SubmitActionTypes => {
+	return {
+		type: SET_IS_REVIEWING,
+		val,
+	};
+};
+
+/**
+ * Set is submitting flag.
+ *
+ * @param {boolean} val  The new flag value.
+ *
+ * @return {Object} Action object
+ */
+export const setIsSubmitting = ( val: boolean ): SubmitActionTypes => {
+	return {
+		type: SET_IS_SUBMITTING,
+		val,
+	};
+};
+
+/**
+ * Set submission errors.
+ *
+ * @param {String[]} val  The new submission errors.
+ *
+ * @return {Object} Action object
+ */
+export const setSubmissionErrs = ( val: string[] ): SubmitActionTypes => {
+	return {
+		type: SET_SUBMISSION_ERRORS,
 		val,
 	};
 };

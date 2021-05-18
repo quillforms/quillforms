@@ -24,13 +24,15 @@ import {
 	COMPLETE_FORM,
 	SET_SWIPER_STATE,
 	GO_TO_FIELD,
-	SET_SUBMISSION_ERR,
+	SET_SUBMISSION_ERRORS,
 	SET_FIELD_ANSWER,
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_IS_FIELD_VALID,
 	SET_IS_FIELD_ANSWERED,
 	SET_FIELD_VALIDATION_ERR,
 	RESET_ANSWERS,
+	SET_IS_REVIEWING,
+	SET_IS_SUBMITTING,
 } from './constants';
 import type {
 	SwiperState,
@@ -38,6 +40,8 @@ import type {
 	RendererAnswersActionTypes,
 	RendererAnswersState,
 	Screen,
+	SubmissionState,
+	SubmitActionTypes,
 } from './types';
 
 const initialState: SwiperState = {
@@ -53,8 +57,6 @@ const initialState: SwiperState = {
 	isAnimating: true,
 	isThankyouScreenActive: false,
 	isWelcomeScreenActive: false,
-	isReviewing: false,
-	submissionErrors: [],
 };
 
 const swiper: Reducer< SwiperState, SwiperActionTypes > = (
@@ -73,7 +75,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 	switch ( action.type ) {
 		case SET_SWIPER_STATE: {
 			const newSwiperState = action.swiperState;
-			console.log( newSwiperState );
 			let validBlocksStructure = true;
 			forEach(
 				[ 'walkPath', 'welcomeScreens', 'thankyouScreens' ],
@@ -123,6 +124,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				}
 			);
 
+			console.log( validBlocksStructure );
+
 			if ( ! validBlocksStructure ) {
 				return state;
 			}
@@ -152,6 +155,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					...newWalkPath,
 					...newWelcomeScreens,
 				];
+				console.log( allBlocks );
 				if (
 					newSwiperState[ prop ] &&
 					! some(
@@ -161,6 +165,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 							block.id === 'default_thankyou_screen'
 					)
 				) {
+					console.log( prop );
 					checkCorrectIds = false;
 					return;
 				}
@@ -175,7 +180,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			// if typeof  new boolean props isn't boolean.
 			[
 				'isAnimating',
-				'isReviewing',
 				'canGoNext',
 				'canGoPrev',
 				'isThankyouScreenActive',
@@ -228,14 +232,13 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					)
 						? true
 						: false,
-				isThankyouScreenActive: some(
-					newThanksScreens,
-					( screen ) =>
-						screen.id === newCurrentBlockId ||
-						'default_thankyou_screen' === newCurrentBlockId
-				)
-					? true
-					: false,
+				isThankyouScreenActive:
+					some(
+						newThanksScreens,
+						( screen ) => screen.id === newCurrentBlockId
+					) || 'default_thankyou_screen' === newCurrentBlockId
+						? true
+						: false,
 			};
 		}
 
@@ -343,22 +346,63 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				isThankyouScreenActive: true,
 				currentBlockId: nextBlockId
 					? nextBlockId
-					: thankyouScreens[ 0 ].id,
+					: thankyouScreens[ 0 ]?.id
+					? thankyouScreens[ 0 ].id
+					: 'default_thankyou_screen',
 				prevBlockId: undefined,
 				nextBlockId: undefined,
 				lastActiveBlockId: undefined,
 				isReviewing: false,
 			};
 		}
+	}
+	return state;
+};
 
-		case SET_SUBMISSION_ERR: {
-			const { err } = action;
+const submit: Reducer< SubmissionState, SubmitActionTypes > = (
+	state = {
+		isSubmitting: false,
+		isReviewing: false,
+		submissionErrors: [],
+	},
+	action
+) => {
+	switch ( action.type ) {
+		case COMPLETE_FORM: {
+			return {
+				isSubmitting: false,
+				isReviewing: false,
+				submissionErrors: [],
+			};
+		}
+		case SET_IS_REVIEWING: {
+			const { val } = action;
 			return {
 				...state,
-				submissionErr: err,
+				isReviewing: val,
+			};
+		}
+
+		case SET_IS_SUBMITTING: {
+			const { val } = action;
+			return {
+				...state,
+				isSubmitting: val,
+			};
+		}
+
+		case SET_SUBMISSION_ERRORS: {
+			// Make sure this action is called while the form is submitting already, otherwhise, do nothing.
+			if ( ! state.isSubmitting ) return state;
+			const { val } = action;
+			return {
+				...state,
+				isSubmitting: false,
+				submissionErrors: val,
 			};
 		}
 	}
+
 	return state;
 };
 
@@ -378,7 +422,7 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 					isValid: true,
 					isAnswered: false,
 					validationErr: undefined,
-					name: blockName,
+					blockName,
 				};
 			}
 			return answers;
@@ -460,6 +504,7 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 const RendererCoreReducer = combineReducers( {
 	swiper,
 	answers,
+	submit,
 } );
 export type State = ReturnType< typeof RendererCoreReducer >;
 
