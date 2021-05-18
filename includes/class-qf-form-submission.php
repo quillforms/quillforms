@@ -1,16 +1,29 @@
 <?php
+
 class QF_Form_Submission {
 
-	public $_form_data = array();
+	/**
+	 * Form data and settings
+	 *
+	 * @since 1.0.0
+	 */
+	public $form_data = array();
 
-	public $_form_id = '';
+	/**
+	 * Form errors
+	 *
+	 * @since 1.0.0
+	 */
+	public $errors = array();
 
-	public $_errors = array();
-
-	public $entry_id = '';
+	/**
+	 * Entry id after successful save in db
+	 *
+	 * @since 1.0.0
+	 */
+	public $entry_id = 0;
 
 	public function __construct() {
-
 		add_action( 'wp_ajax_quillforms_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_quillforms_form_submit', array( $this, 'submit' ) );
 	}
@@ -26,111 +39,204 @@ class QF_Form_Submission {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $fields    List of form fields.
 	 * @param array $entry     User submitted data.
-	 * @param int   $form_id   Form ID.
 	 * @param array $form_data Prepared form settings.
 	 *
 	 * @return int
 	 */
-	public function entry_save( $fields, $entry, $form_id, $form_data = array() ) {
+	public function entry_save( $entry, $form_data ) {
 
-		do_action( 'quillforms_process_entry_save', $fields, $entry, $form_id, $form_data );
+		do_action( 'quillforms_process_entry_save', $entry, $form_data );
 
 		return $this->entry_id;
 	}
 
 	public function process_submission() {
-		$this->_form_data = json_decode( stripslashes( $_POST['formData'] ), true );
-		$nonce_name       = 'quillforms_forms_display_nonce';
+		$entry = json_decode( stripslashes( $_POST['formData'] ), true );
+
+		// Check for valid nonce field.
+		$nonce_name = 'quillforms_forms_display_nonce';
 		if ( ! check_ajax_referer( $nonce_name, '_nonce', $die = false ) ) {
-			$this->_errors['form'] = 'Invalid nonce field!';
+			$this->errors['form'] = 'Invalid nonce field!';
 			return;
 		}
 
-		if ( ! isset( $this->_form_data ) || ! isset( $this->_form_data['formId'] ) ) {
-			$this->_errors['form'] = 'Form Id missing!';
+		// Check if form id is valid.
+		if ( ! isset( $entry ) || ! isset( $entry['formId'] ) ) {
+			$this->errors['form'] = 'Form Id missing!';
 			return;
 		}
 
-		$this->_form_id = $this->_form_data['formId'];
+		$entry['formId'] = sanitize_text_field( $entry['formId'] );
 
-		if ( 'quill_forms' !== get_post_type( $this->_form_id )
-			|| 'publish' !== get_post_status( $this->_form_id ) ) {
-			$this->_errors['form'] = 'Invalid form id!';
+		$form_id = $entry['formId'];
+
+		// Check if post type is quill_forms and its status is publish.
+		if (
+			'quill_forms' !== get_post_type( $form_id )
+			|| 'publish' !== get_post_status( $form_id )
+		) {
+			$this->errors['form'] = 'Invalid form id!';
 			return;
 		}
 
-		$blocks   = QF_Core::get_blocks( $this->_form_id );
-		$messages = QF_Core::get_messages( $this->_form_id );
-		$fields   = array_filter(
-			$blocks,
-			function( $block ) {
-				return 'welcome-screen' !== $block['type'] && 'thankyou-screen' !== $block['type'];
+		$this->form_data = array(
+			'title'         => get_the_title( $form_id ),
+			'blocks'        => QF_Core::get_blocks( $form_id ),
+			'messages'      => QF_Core::get_messages( $form_id ),
+			'notifications' => QF_Core::get_notifications( $form_id ),
+		);
+
+		$fields = array_filter(
+			$this->form_data['blocks'],
+			function ( $block ) {
+				return 'welcome-screen' !== $block['name'] && 'thankyou-screen' !== $block['name'];
 			}
 		);
-		$answers  = $this->_form_data['answers'];
 
-		$walk_path = apply_filters( 'quillforms_submission_walk_path', $fields, $this->_form_id, $answers );
+		$walk_path = apply_filters( 'quillforms_submission_walk_path', $fields, $form_id, $entry );
 
+		// Validate fields.
 		if ( ! empty( $walk_path ) ) {
 			foreach ( $walk_path as $field ) {
 				$block_type = QF_Blocks_Factory::get_instance()->create( $field );
+
 				if ( ! $block_type ) {
-					if ( ! $this->_errors['fields'] ) {
-						$this->_errors['fields'] = array();
-					}
-					$this->_errors['fields'][ $field['id'] ] = 'This block type isn\'t known!';
+					continue;
 				}
 
 				if ( $block_type->supported_features['editable'] ) {
 
 					$field_answer = null;
-					if ( ! empty( $this->_form_data['answers'] ) && isset( $this->_form_data['answers'][ $field['id'] ] ) ) {
-						$field_answer = $this->_form_data['answers'][ $field['id'] ];
+					if ( ! empty( $entry['answers'] ) && isset( $entry['answers'][ $field['id'] ] ) && isset( $entry['answers'][ $field['id'] ]['value'] ) ) {
+						$field_answer = $entry['answers'][ $field['id'] ]['value'];
 					}
-					$block_type->validate_field( $field_answer, $messages );
+					$block_type->validate_field( $field_answer, $this->form_data );
 
 					if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
-						if ( ! $this->_errors['fields'] ) {
-							$this->_errors['fields'] = array();
+						if ( ! $this->errors['fields'] ) {
+							$this->errors['fields'] = array();
 						}
-						$this->_errors['fields'][ $field['id'] ] = $block_type->validation_err;
-
+						$this->errors['fields'][ $field['id'] ] = $block_type->validation_err;
 					}
 				}
 			}
 		}
 
-		if ( empty( $this->_errors ) || empty( $this->_errors['fields'] ) ) {
+		if ( empty( $this->errors ) ) {
+			// Sanitze entry fields.
+			if ( ! empty( $walk_path ) ) {
+				foreach ( $walk_path as $field ) {
+					$block_type = QF_Blocks_Factory::get_instance()->create( $field );
 
+					if ( ! $block_type ) {
+						unset( $entry['answers'][ $field['id'] ] );
+					}
+
+					if ( $block_type->supported_features['editable'] ) {
+
+						$field_answer = null;
+						if ( ! empty( $entry['answers'] ) && isset( $entry['answers'][ $field['id'] ] ) && isset( $entry['answers'][ $field['id'] ]['value'] ) ) {
+							$field_answer                              = $entry['answers'][ $field['id'] ]['value'];
+							$entry['answers'][ $field['id'] ]['value'] = $block_type->format_entry_value( $field_answer, $this->form_data );
+						}
+					}
+				}
+			}
+
+			$this->entry_email( $entry, $this->form_data );
 		}
 	}
 
-	public function process() {
+	public function entry_email( $entry, $form_data ) {
 
+		// Make sure we have and entry id.
+		if ( empty( $this->entry_id ) ) {
+			$this->entry_id = (int) $this->entry_id;
+		}
+
+		$notifications = $form_data['notifications'];
+
+		foreach ( $notifications as $notification ) :
+
+			$notification_id         = $notification['id'];
+			$notification_properties = $notification['properties'];
+
+			$process_email = apply_filters( 'quillforms_entry_email_process', true, $entry, $form_data, $notification_id );
+
+			if ( ! $process_email ) {
+				continue;
+			}
+
+			$email = array();
+
+			// Setup email properties.
+			/* translators: %s - form name. */
+			$email['subject'] = ! empty( $notification_properties['subject'] ) ? $notification_properties['subject'] : sprintf( esc_html__( 'New %s Entry', 'quillforms' ), $form_data['title'] );
+			$email['address'] = $notification_properties['recipients'];
+			if ( 'field' === $notification_properties['toType'] ) {
+				$email['address'] = array_map(
+					function( $address ) use ( $entry, $form_data ) {
+						return QF_Merge_Tags::process_tag( $address, $form_data, $entry['answers'], $this->entry_id );
+					},
+					$email['address']
+				);
+			}
+
+			$email['address'] = array_map( 'sanitize_email', $email['address'] );
+			$email['address'] = array_filter(
+				$email['address'],
+				function( $email ) {
+					return ! ! $email;
+				}
+			);
+
+			if ( empty( $email['address'] ) ) {
+				continue;
+			}
+			$email['sender_address'] = get_option( 'admin_email' );
+			$email['sender_name']    = get_bloginfo( 'name' );
+			$email['replyto']        = ! empty( $notification['properties']['replyTo'] ) ? $notification['properties']['replyTo'] : false;
+			$email['message']        = ! empty( $notification_properties['message'] ) ? $notification_properties['message'] : '{{form:all_answers}}';
+			$email                   = apply_filters( 'quillforms_entry_email_atts', $email, $entry, $form_data, $notification_id );
+
+			// Create new email.
+			$emails = new QF_Emails();
+			$emails->__set( 'form_data', $form_data );
+			$emails->__set( 'fields', $entry['answers'] );
+			$emails->__set( 'notification_id', $notification_id );
+			$emails->__set( 'entry_id', $this->entry_id );
+			$emails->__set( 'from_name', $email['sender_name'] );
+			$emails->__set( 'from_address', $email['sender_address'] );
+			$emails->__set( 'reply_to', $email['replyto'] );
+
+			// Maybe include CC.
+			if ( ! empty( $notification['carboncopy'] ) && qf_setting( 'email-carbon-copy', false ) ) {
+				$emails->__set( 'cc', $notification['carboncopy'] );
+			}
+
+			$emails = apply_filters( 'quillforms_entry_email_before_send', $emails );
+
+			// Go.
+			foreach ( $email['address'] as $address ) {
+				$emails->send( trim( $address ), $email['subject'], $email['message'] );
+			}
+		endforeach;
 	}
 
-	public function validate_field() {
 
-	}
-
-	protected function sanitize_field() {
-
-	}
 
 	/*
 	* Overwrite method for parent class.
 	*/
 	protected function respond( $data = array() ) {
 		// Restore form instance ID.
-		if ( ! empty( $this->_errors ) ) {
-			wp_send_json_error( $this->_errors, 400 );
+		if ( ! empty( $this->errors ) ) {
+			wp_send_json_error( $this->errors, 400 );
 		} else {
 			wp_send_json_success( 'Updated successfully!', 200 );
 		}
 	}
-
 }
 
 new QF_Form_Submission();
