@@ -7,7 +7,7 @@ import { FormAdminBar, AdminNotices } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { Suspense, lazy, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -41,22 +41,19 @@ export const Controller = ( { page, match, location } ) => {
 	const query = getQuery( location.search );
 
 	return (
-		<Suspense fallback={ <div /> }>
-			<div
-				className={ classnames( 'qf-page-component-wrapper', {
-					'has-sidebar':
-						! page.template || page.template === 'default',
-				} ) }
-			>
-				<page.component
-					params={ params }
-					path={ url }
-					pathMatch={ page.path }
-					query={ query }
-				/>
-				<AdminNotices />
-			</div>
-		</Suspense>
+		<div
+			className={ classnames( 'qf-page-component-wrapper', {
+				'has-sidebar': ! page.template || page.template === 'default',
+			} ) }
+		>
+			<page.component
+				params={ params }
+				path={ url }
+				pathMatch={ page.path }
+				query={ query }
+			/>
+			<AdminNotices />
+		</div>
 	);
 };
 
