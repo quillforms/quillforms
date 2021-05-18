@@ -26,8 +26,10 @@ const DateOutput = ( props ) => {
 	const {
 		id,
 		isAnimating,
+		isReviewing,
 		attributes,
 		setIsValid,
+		isPreview,
 		setIsAnswered,
 		isFocused,
 		isActive,
@@ -59,7 +61,7 @@ const DateOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		checkFieldValidation( val );
+		if ( isPreview || ! isReviewing ) checkFieldValidation( val );
 	}, [ required ] );
 
 	useEffect( () => {
@@ -95,7 +97,7 @@ const DateOutput = ( props ) => {
 		}
 	};
 
-	const getPlaceholder =  () => {
+	const getPlaceholder = () => {
 		if ( format === 'MMDDYYYY' ) {
 			return 'MM' + separator + 'DD' + separator + 'YYYY';
 		} else if ( format === 'DDMMYYYY' ) {

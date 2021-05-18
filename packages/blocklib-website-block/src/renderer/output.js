@@ -77,7 +77,6 @@ const WebsiteOutput = ( props ) => {
 				setSimulateFocusStyle( false );
 			}
 		} else {
-			elemRef.current.blur();
 			setSimulateFocusStyle( true );
 		}
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
@@ -140,9 +139,6 @@ const WebsiteOutput = ( props ) => {
 					placeholder="https://"
 					onChange={ changeHandler }
 					value={ val && val.length > 0 ? val : '' }
-					onBlur={ () => {
-						checkfieldValidation( val );
-					} }
 				/>
 			</VisibilitySensor>
 		</div>

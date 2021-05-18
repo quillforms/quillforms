@@ -70,7 +70,6 @@ const ShortTextOutput = ( props ) => {
 				setSimulateFocusStyle( false );
 			}
 		} else {
-			elemRef.current.blur();
 			setSimulateFocusStyle( true );
 		}
 	}, [ isActive, isFocused, isAnimating, isVisible ] );
