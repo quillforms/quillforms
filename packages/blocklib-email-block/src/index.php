@@ -106,6 +106,15 @@ class QF_Email_Block extends QF_Block_Type {
 	public function get_logical_operators() {
 		return $this->get_metadata()['logicalOperators'];
 	}
+
+	/**
+	 * Format and sanitize entry value.
+	 *
+	 * @since 1.0.0
+	 */
+	public function format_entry_value( $value, $form_data ) {
+		return sanitize_email( $value );
+	}
 	/**
 	 * Get meta data
 	 * This file is just for having some shared properties between front end and back end.
@@ -146,10 +155,11 @@ class QF_Email_Block extends QF_Block_Type {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value    The field value.
-	 * @param array $messages The form messagees.
+	 * @param mixed $value     The field value.
+	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $messages ) {
+	public function validate_field( $value, $form_data ) {
+		$messages = $form_data['messages'];
 		if ( ! empty( $value ) ) {
 			if ( ! filter_var( $value, FILTER_VALIDATE_EMAIL ) ) {
 				$this->is_valid       = false;

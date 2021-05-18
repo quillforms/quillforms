@@ -147,14 +147,43 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value    The field value.
-	 * @param array $messages The form messagees.
+	 * @param mixed $value     The field value.
+	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $messages ) {
+	public function validate_field( $value, $form_data ) {
+		$messages = $form_data['messages'];
 		if ( empty( $value ) && $this->attributes['required'] ) {
 			$this->is_valid       = false;
 			$this->validation_err = $messages['label.errorAlert.required'];
 		}
+	}
+
+	/**
+	 * Get merge tag value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value     The entry value.
+	 * @param array $form_data The form data.
+	 *
+	 * @return mixed $value The merged entry value.
+	 */
+	public function get_merge_tag_value( $value, $form_data ) {
+		$choices       = $this->attributes['choices'];
+		$choice_labels = array();
+		if ( ! empty( $choices ) ) {
+			foreach ( $choices as $index => $choice ) {
+				if ( in_array( $choice['value'], $value, true ) ) {
+					if ( ! $choice['label'] || '' === trim( $choice['label'] ) ) {
+						$choice_number   = $index + 1;
+						$choice['label'] = "Choice  $choice_number";
+					}
+					$choice_labels[] = $choice['label'];
+				}
+			}
+		}
+
+		return qf_implode_non_blank( ',', $choice_labels );
 	}
 }
 

@@ -145,14 +145,39 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value    The field value.
-	 * @param array $messages The form messagees.
+	 * @param mixed $value     The field value.
+	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $messages ) {
+	public function validate_field( $value, $form_data ) {
+		$messages = $form_data['messages'];
 		if ( empty( $value ) && $this->attributes['required'] ) {
 			$this->is_valid       = false;
 			$this->validation_err = $messages['label.errorAlert.required'];
 		}
+	}
+
+	/**
+	 * Get merge tag value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value     The entry value.
+	 * @param array $form_data The form data.
+	 *
+	 * @return mixed $value The merged entry value.
+	 */
+	public function get_merge_tag_value( $value, $form_data ) {
+		$choices      = $this->attributes['choices'];
+		$choice_label = '';
+		foreach ( $choices as $choice ) {
+			if ( $choice['value'] === $value ) {
+				$choice_label = $choice['label'];
+				break;
+			}
+		}
+		var_dump( $choice_label );
+		die;
+		return $choice_label;
 	}
 }
 

@@ -102,21 +102,24 @@ class QF_Date_Block extends QF_Block_Type {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value    The value to validate.
-	 * @param array $messages The form messages
+	 * @param mixed $value     The value to validate.
+	 * @param array $form_data The form data
 	 */
-	public function validate_field( $value, $messages ) {
+	public function validate_field( $value, $form_data ) {
+		$messages = $form_data['messages'];
 		if ( ! empty( $value ) ) {
 			$format    = $this->attributes['format'];
 			$separator = $this->attributes['separator'];
 			if ( 'MMDDYYYY' === $format ) {
-				$date_format = 'MM' + $separator + 'DD' + $separator + 'YYYY';
+				$date_format = 'm' . $separator . 'd' . $separator . 'Y';
 			} elseif ( 'DDMMYYYY' === $format ) {
-				$date_format = 'DD' + $separator + 'MM' + $separator + 'YYYY';
+				$date_format = 'd' . $separator . 'm' . $separator . 'Y';
 			} else {
-				$date_format = 'YYYY' + $separator + 'MM' + $separator + 'DD';
+				$date_format = 'Y' . $separator . 'm' . $separator . 'd';
 			}
+
 			$d = DateTime::createFromFormat( $date_format, $value );
+
 			// The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
 			$is_valid_date = $d && $d->format( $date_format ) === $value;
 

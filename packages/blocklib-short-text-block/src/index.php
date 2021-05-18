@@ -146,10 +146,11 @@ class QF_Short_Text_Block extends QF_Block_Type {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value    The field value.
-	 * @param array $messages The form messagees.
+	 * @param mixed $value     The field value.
+	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $messages ) {
+	public function validate_field( $value, $form_data ) {
+		$messages = $form_data['messages'];
 		if ( empty( $value ) ) {
 			if ( $this->attributes['required'] ) {
 				$this->is_valid       = false;
@@ -175,12 +176,12 @@ class QF_Short_Text_Block extends QF_Block_Type {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed   $value    The entry value that needs to be formatted and may be sanitized.
-	 * @param integer $form_id  The form id.
+	 * @param mixed   $value      The entry value that needs to be formatted and may be sanitized.
+	 * @param integer $form_data  The form data.
 	 *
 	 * @return mixed $value The formatted entry value.
 	 */
-	public function format_entry_value( $value, $form_id ) {
+	public function format_entry_value( $value, $form_data ) {
 		if ( empty( $value ) ) {
 			return '';
 		}

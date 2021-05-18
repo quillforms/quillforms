@@ -147,10 +147,11 @@ class QF_Number_Block extends QF_Block_Type {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value    The field value.
-	 * @param array $messages The form messagees.
+	 * @param mixed $value     The field value.
+	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $messages ) {
+	public function validate_field( $value, $form_data ) {
+		$messages = $form_data['messages'];
 		if ( empty( $value ) ) {
 			if ( $this->attributes['required'] ) {
 				$this->is_valid       = false;
@@ -177,6 +178,20 @@ class QF_Number_Block extends QF_Block_Type {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Format entry value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed   $value      The entry value that needs to be formatted and may be sanitized.
+	 * @param integer $form_data  The form data.
+	 *
+	 * @return mixed $value The formatted entry value.
+	 */
+	public function format_entry_value( $value, $form_data ) {
+		return absint( $value );
 	}
 }
 
