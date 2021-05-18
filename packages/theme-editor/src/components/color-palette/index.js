@@ -27,8 +27,6 @@ export default function ColorPalette( {
 	const clearColor = useCallback( () => onChange( undefined ), [ onChange ] );
 	const colorOptions = useMemo( () => {
 		return map( colors, ( { color, name } ) => {
-			console.log( color );
-			console.log( value );
 			return (
 				<CircularOptionPicker.Option
 					key={ color }

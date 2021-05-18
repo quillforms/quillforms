@@ -116,10 +116,7 @@ const CustomizeThemePanel = () => {
 							<MediaUpload
 								onSelect={ ( media ) =>
 									setCurrentThemeProperties( {
-										backgroundImage: {
-											type: 'image',
-											url: media.url,
-										},
+										backgroundImage: media.url,
 									} )
 								}
 								allowedTypes={ [ 'image' ] }

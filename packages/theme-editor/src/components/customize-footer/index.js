@@ -7,7 +7,7 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { createPortal } from '@wordpress/element';
+import { createPortal, useEffect } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 
 /**
@@ -33,6 +33,16 @@ const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 			isSaving: select( 'quillForms/theme-editor' ).isSaving(),
 		};
 	} );
+
+	useEffect( () => {
+		document
+			.querySelector( '.builder-core-panel__content-wrapper' )
+			.classList.add( 'has-sticky-footer' );
+		return () =>
+			document
+				.querySelector( '.builder-core-panel__content-wrapper' )
+				.classList.remove( 'has-sticky-footer' );
+	}, [] );
 
 	return createPortal(
 		<div className="theme-editor-customize-footer">
