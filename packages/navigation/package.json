@@ -23,7 +23,8 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"react-router-dom": "^5.2.0",
-		"@woocommerce/navigation": "^5.2.0"
+		"@woocommerce/navigation": "^6.0.1",
+		"react-router-navigation-prompt": "1.8.13"
 	},
 	"publishConfig": {
 		"access": "public"

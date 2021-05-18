@@ -34,24 +34,27 @@ const Builder = ( { params } ) => {
 	const connectedStores = flatten(
 		map( getRestFields(), ( restField ) => restField.connectedStores )
 	);
-	const [ isFetching, setIsFetching ] = useState( true );
+	const [ isResolving, setIsResolving ] = useState( true );
 	const [ isLoading, setIsLoading ] = useState( true );
 
+	const invalidateResolutionForAllConnectedStores = () => {
+		// Invalidate resolution for all connected stores.
+		forEach( uniq( connectedStores ), ( store ) => {
+			if (
+				store &&
+				wp.data.RegistryConsumer._currentValue.stores[ store ]
+			) {
+				invalidateResolutionForStore( store );
+			}
+		} );
+	};
 	useEffect( () => {
 		apiFetch( {
 			path: `/wp/v2/quill_forms/${ id }`,
 			method: 'GET',
 		} ).then( ( res ) => {
 			configApi.setInitialBuilderPayload( res );
-			// Invalidate resolution for all connected stores.
-			forEach( uniq( connectedStores ), ( store ) => {
-				if (
-					store &&
-					wp.data.RegistryConsumer._currentValue.stores[ store ]
-				) {
-					invalidateResolutionForStore( store );
-				}
-			} );
+			invalidateResolutionForAllConnectedStores();
 			setTimeout( () => {
 				setIsLoading( false );
 			}, 100 );
@@ -59,6 +62,7 @@ const Builder = ( { params } ) => {
 
 		return () => {
 			setCurrentPanel( 'blocks' );
+			invalidateResolutionForAllConnectedStores();
 			resetAnswers();
 		};
 	}, [] );
@@ -77,12 +81,12 @@ const Builder = ( { params } ) => {
 
 	useEffect( () => {
 		if ( ! isLoading && hasBlockEditorFinishedResolution ) {
-			setIsFetching( false );
+			setIsResolving( false );
 		}
 	}, [ isLoading, hasBlockEditorFinishedResolution ] );
 	return (
-		<div id="quillforms-layout-wrapper">
-			{ isFetching ? (
+		<div id="quillforms-builder-page">
+			{ isResolving ? (
 				<div
 					className={ css`
 						display: flex;
@@ -104,7 +108,7 @@ const Builder = ( { params } ) => {
 				<BuilderLayout />
 			) }
 
-			<SaveButton formId={ id } isFetching={ isFetching } />
+			<SaveButton formId={ id } isResolving={ isResolving } />
 		</div>
 	);
 };

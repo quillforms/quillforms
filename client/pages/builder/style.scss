@@ -1,18 +1,27 @@
-.qf-builder-save-button {
+.qf-builder-save-button, .qf-builder-placeholder-button {
     position: absolute;
-    top: -43px;
+    top: 15px;
     right: 150px;
 }
 
-#quillforms-layout-wrapper {
-	& {
-		position: relative;
-		display: flex;
-		flex-basis: auto;
-		padding-left: 55px;
-		max-height: calc(100vh - 55px);
-		min-height: calc(100vh - 55px);
-	}
+.qf-builder-save-button.disabled {
+	background: #d9d9d9 !important;
+	cursor: no-drop;
+}
+
+.qf-builder-placeholder-button{
+	background: #e8e6e6;
+	width: 62.5px;
+	height: 30px;
+	border-radius: 5px;
+}
+
+#quillforms-builder-page {
+	position: relative;
+	display: flex;
+	flex-basis: auto;
+	padding-left: 55px;
+	height: 100%;
 }
 
 
