@@ -56,7 +56,7 @@ const DateControls = ( props ) => {
 		setFieldAnswer,
 		setIsFieldAnswered,
 		setIsFieldValid,
-		setFieldValidationErrr,
+		setFieldValidationErr,
 	} = useDispatch( 'quillForms/renderer-core' );
 	return (
 		<__experimentalBaseControl>
@@ -75,7 +75,7 @@ const DateControls = ( props ) => {
 						setFieldAnswer( id, '' );
 						setIsFieldValid( id, true );
 						setIsFieldAnswered( id, false );
-						setFieldValidationErrr( id, null );
+						setFieldValidationErr( id, null );
 						setAttributes( { format: selectedItem.key } );
 					} }
 					options={ formatOptions }
