@@ -7,7 +7,7 @@ import { select, dispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { pick } from 'lodash';
+import { pick, isPlainObject } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -59,7 +59,7 @@ export const registerBlockType = (
 	let { attributes } = settings;
 	const { supports } = settings;
 
-	if ( ! attributes ) {
+	if ( ! attributes || ! isPlainObject( attributes ) ) {
 		attributes = {};
 	}
 	if ( supports.required ) {
@@ -91,6 +91,8 @@ export const registerBlockType = (
 		type: 'string',
 		default: '',
 	};
+
+	console.log( attributes );
 
 	settings.attributes = attributes;
 
