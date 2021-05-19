@@ -162,10 +162,9 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 						allBlocks,
 						( block ) =>
 							block.id === newSwiperState[ prop ] ||
-							block.id === 'default_thankyou_screen'
+							newSwiperState[ prop ] === 'default_thankyou_screen'
 					)
 				) {
-					console.log( prop );
 					checkCorrectIds = false;
 					return;
 				}
