@@ -90,9 +90,11 @@ switch ( $font_type ) {
 					credentials:'same-origin',
 					body: data
 				})
-				.then( function(resp) { resp.json() })
+				.then( function(resp) { return resp.json() })
 				.then(function(res) {
+					console.log(res);
 					if(res && res.success) {
+						console.log("ldmfkndfi");
 						wp.data.dispatch('quillForms/renderer-core').completeForm();
 					}
 					else {
