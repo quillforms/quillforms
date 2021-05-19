@@ -93,9 +93,13 @@ const EditorMergeTag: React.FC< Props > = ( {
 					<span className="rich-text-merge-tag__icon-box">
 						{ renderedIcon }
 					</span>
-					<span className="rich-text-merge-tag__title">
-						{ getPlainExcerpt( mergeTag.label ) }
-					</span>
+					<span
+						className="rich-text-merge-tag__title"
+						dangerouslySetInnerHTML={ {
+							__html: getPlainExcerpt( mergeTag.label ),
+						} }
+					/>
+
 					<button
 						className="rich-text-merge-tag__delete"
 						onClick={ () => {
