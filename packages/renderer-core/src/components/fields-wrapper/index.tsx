@@ -13,6 +13,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
+import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { forEach, size } from 'lodash';
 import { Lethargy } from 'lethargy';
 
@@ -89,21 +90,34 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic } ) => {
 		walkPath?.length &&
 		currentBlockId === walkPath[ walkPath.length - 1 ].id;
 
+	const handlers = useSwipeable( {
+		onSwiping: ( e ) => {
+			swipingHandler( e, true );
+		},
+		preventDefaultTouchmoveEvent: false,
+		trackMouse: false,
+		trackTouch: true,
+	} );
+
 	// Mouse Wheel Handler
-	const swipingHandler = ( e: React.WheelEvent ) => {
+	const swipingHandler = (
+		e: React.WheelEvent | SwipeEventData,
+		touch = false
+	) => {
 		if ( swiper.isAnimating ) return;
 		const lethargyCheck = lethargy.check( e );
 		const now = new Date().getTime();
+		let timeDelay = 750;
+		if ( touch ) timeDelay = 1000;
 		if (
 			lethargyCheck === false ||
 			isAnimating ||
-			( lastScrollDate && now - lastScrollDate < 750 )
+			( lastScrollDate && now - lastScrollDate < timeDelay )
 		)
 			return;
 		if (
 			canGoPrev &&
-			lethargyCheck === 1 &&
-			e.deltaY < -50 &&
+			( ( e.deltaY < -50 && ! touch ) || ( touch && e.deltaY > 50 ) ) &&
 			! isFirstField
 		) {
 			// Scroll up
@@ -111,8 +125,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic } ) => {
 			goPrev();
 		} else if (
 			canGoNext &&
-			lethargyCheck === -1 &&
-			e.deltaY > 50 &&
+			( ( e.deltaY < -50 && touch ) || ( ! touch && e.deltaY > 50 ) ) &&
 			! isLastField
 		) {
 			lastScrollDate = new Date().getTime();
@@ -394,20 +407,24 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic } ) => {
 			className={ 'renderer-core-fields-wrapper' }
 			ref={ ref }
 		>
-			{ fields.map( ( field, index ) => {
-				const isActive = currentBlockId === field.id;
-				return (
-					<FieldRender
-						key={ `${ field.id }` }
-						id={ field.id }
-						isFocused={ isFocused }
-						setIsFocused={ setIsFocused }
-						shouldBeRendered={ fieldsToRender.includes( field.id ) }
-						isActive={ isActive }
-						isLastField={ index === fields.length - 1 }
-					/>
-				);
-			} ) }
+			<div { ...handlers }>
+				{ fields.map( ( field, index ) => {
+					const isActive = currentBlockId === field.id;
+					return (
+						<FieldRender
+							key={ `${ field.id }` }
+							id={ field.id }
+							isFocused={ isFocused }
+							setIsFocused={ setIsFocused }
+							shouldBeRendered={ fieldsToRender.includes(
+								field.id
+							) }
+							isActive={ isActive }
+							isLastField={ index === fields.length - 1 }
+						/>
+					);
+				} ) }
+			</div>
 		</div>
 	);
 };

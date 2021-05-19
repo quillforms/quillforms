@@ -8,7 +8,6 @@ import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { useSwipeable } from 'react-swipeable';
 import classnames from 'classnames';
 
 /**
@@ -68,20 +67,6 @@ const FieldWrapper: React.FC = () => {
 		: 'is-down';
 
 	const ref = useRef< HTMLDivElement | null >( null );
-
-	const handlers = useSwipeable( {
-		onSwiped: () => {
-			// // // console.log("onSwiped");
-		},
-		onSwipedUp: () => {
-			// // // console.log("onSwipeUp");
-		},
-		onSwiping: () => {
-			// // // console.log("onSwiping");
-		},
-		preventDefaultTouchmoveEvent: true,
-		trackMouse: true,
-	} );
 
 	useEffect( () => {
 		if ( isActive ) {
@@ -242,7 +227,6 @@ const FieldWrapper: React.FC = () => {
 
 	return (
 		<div
-			{ ...handlers }
 			className={ classnames(
 				'renderer-components-field-wrapper',
 				{
