@@ -2,7 +2,7 @@
 	.theme-editor-theme-actions__dropdown {
 		button {
 			height: 28px;
-			padding: 2px;
+			// padding: 2px;
 			transition: background 0.3s linear;
 
 			> svg {
@@ -11,37 +11,36 @@
 		}
 
 		button:hover {
-			border: none !important;
-			box-shadow: none !important;
+			// border: none !important;
+			// box-shadow: none !important;
 			background: #e3e3e3 !important;
 		}
 
 		.components-dropdown-menu__popover {
 			.components-popover__content  {
-				min-width: auto;
-				width: 120px;
+				// min-width: auto;
+				// width: 140px;
 				border-radius: 7px;
-				padding: 10px 0;
 			}
 
-			&:after, &:before {
-				display: none;
-			}
+			// &:after, &:before {
+			// 	display: none;
+			// }
 		}
 
 		.components-menu-item__button {
 			padding-left: 1rem;
-			outline: none !important;
-			box-shadow: none !important;
+			// outline: none !important;
+			// box-shadow: none !important;
 
-			&:focus {
-				outline: none !important;
-				box-shadow: none !important;
-			}
+			// &:focus {
+			// 	outline: none !important;
+			// 	box-shadow: none !important;
+			// }
 		}
 
 		.theme-editor-theme-actions__menu-group {
-			padding: 0;
+			// padding: 0;
 
 			.theme-editor-theme-actions__menu-item {
 				font-size: 14px;
