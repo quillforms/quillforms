@@ -31,7 +31,7 @@
 		"@wordpress/compose": "^3.24.3",
 		"@wordpress/data": "^4.26.5",
 		"@wordpress/element": "^2.19.1",
-		"framer-motion": "^1.10.3",
+		"framer-motion": "^4.1.17",
 		"lodash": "^4.17.15",
 		"react-confirm-alert": "^2.6.1",
 		"styled-components": "^4.3.1",

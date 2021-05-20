@@ -19,6 +19,7 @@ import { useSelect } from '@wordpress/data';
  */
 import classNames from 'classnames';
 import React from 'react';
+import DropAreaPlaceholder from '../drop-area-placeholder';
 
 const BlockDragIndexLine = () => {
 	return <div className="block-drag-index-line"></div>;
@@ -78,23 +79,30 @@ const DropArea = ( props ) => {
 						ref={ provided.innerRef }
 						data-isDraggingOver={ snapshot.isDraggingOver }
 					>
-						{ formBlocks?.length > 0 &&
-							formBlocks.map( ( item, index ) => {
-								return (
-									<Fragment key={ item.id }>
-										{ index === targetIndex && (
-											<BlockDragIndexLine />
-										) }
-										<BlockListItem
-											index={ index }
-											id={ item.id }
-											name={ item.name }
-										/>
-									</Fragment>
-								);
-							} ) }
-						{ targetIndex === formBlocks.length && (
-							<BlockDragIndexLine />
+						{ ! formBlocks || formBlocks.length === 0 ? (
+							<DropAreaPlaceholder
+								isDraggingOver={ snapshot.isDraggingOver }
+							/>
+						) : (
+							<>
+								{ formBlocks.map( ( item, index ) => {
+									return (
+										<Fragment key={ item.id }>
+											{ index === targetIndex && (
+												<BlockDragIndexLine />
+											) }
+											<BlockListItem
+												index={ index }
+												id={ item.id }
+												name={ item.name }
+											/>
+										</Fragment>
+									);
+								} ) }
+								{ targetIndex === formBlocks.length && (
+									<BlockDragIndexLine />
+								) }
+							</>
 						) }
 						{ provided.placeholder }
 					</div>
