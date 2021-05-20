@@ -92,6 +92,7 @@ const PanelReducer: Reducer< PanelsState, PanelActionTypes > = (
 		case SET_CURRENT_PANEL: {
 			// Do nothing if there is no panel with this name.
 			if (
+				action.panelName &&
 				! some(
 					state.panels,
 					( panel ) => panel.name === action.panelName
