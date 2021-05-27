@@ -258,7 +258,10 @@ const Layout: React.FC = () => {
 	}, [] );
 
 	return (
-		<>
+		<div
+			className="builder-core-layout"
+			onKeyDown={ ( e ) => e.stopPropagation() }
+		>
 			{ pluginsArea }
 			{ builderPanelsBar }
 			<DragDropContext
@@ -278,7 +281,7 @@ const Layout: React.FC = () => {
 				) }
 			</DragDropContext>
 			{ ( ! areaToShow || areaToShow === 'preview-area' ) && formPreview }
-		</>
+		</div>
 	);
 };
 
