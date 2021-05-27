@@ -51,6 +51,20 @@ export const registerBuilderPanel = (
 	}
 
 	if (
+		settings.position &&
+		typeof settings.position !== 'number' &&
+		! settings.isHidden
+	) {
+		console.error( 'The "position" property must be a number' );
+		return;
+	}
+
+	if ( settings.position !== 0 && ! settings.position ) {
+		// Default position
+		settings.position = 10;
+	}
+
+	if (
 		settings.areaToShow &&
 		settings.areaToShow !== 'drop-area' &&
 		settings.areaToShow !== 'preview-area'
@@ -90,6 +104,7 @@ export const registerBuilderPanel = (
 		'isHidden',
 		'mode',
 		'areaToShow',
+		'position',
 	] );
 
 	dispatch( 'quillForms/builder-panels' ).registerBuilderPanel(

@@ -4,6 +4,10 @@
 import { useSelect } from '@wordpress/data';
 
 /**
+ * External Dependencies
+ */
+import { sortBy } from 'lodash';
+/**
  * Internal Dependencies
  */
 import NavItem from '../panel-item';
@@ -19,7 +23,7 @@ const BuilderPanelsBar = () => {
 	} );
 	return (
 		<div className="builder-core-builder-panels-bar">
-			{ panels.map( ( panel ) => {
+			{ sortBy( panels, [ 'position' ] ).map( ( panel ) => {
 				const isSelected = panel.name === currentPanelName;
 				return (
 					<NavItem

@@ -71,7 +71,17 @@ export const registerBuilderSubPanel = (
 		return;
 	}
 
-	settings = pick( settings, [ 'title', 'render' ] );
+	if ( settings.position && typeof settings.position !== 'number' ) {
+		console.error( 'The "position" property must be a number' );
+		return;
+	}
+
+	if ( settings.position !== 0 && ! settings.position ) {
+		// Default position
+		settings.position = 10;
+	}
+
+	settings = pick( settings, [ 'title', 'render', 'position' ] );
 
 	dispatch( 'quillForms/builder-panels' ).registerBuilderSubPanel(
 		name,

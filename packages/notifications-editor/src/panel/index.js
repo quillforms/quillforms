@@ -16,4 +16,5 @@ registerBuilderPanel( 'notifications', {
 	mode: 'single',
 	areaToShow: 'preview-area',
 	render,
+	position: 3,
 } );

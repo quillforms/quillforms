@@ -4,4 +4,5 @@ import render from '../../../components/themes-list';
 registerBuilderSubPanel( 'theme/my-themes', {
 	title: 'My Themes',
 	render,
+	position: 0,
 } );

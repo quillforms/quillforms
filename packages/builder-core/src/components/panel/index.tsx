@@ -1,5 +1,17 @@
+/**
+ * WordPress Dependencies
+ */
 import { useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
+
+/**
+ * External Dependencies
+ */
+import { sortBy } from 'lodash';
+
+/**
+ * Internal Dependencies
+ */
 import PanelHeader from '../panel-header';
 import SubPanel from '../subpanel';
 const Panel = () => {
@@ -21,7 +33,9 @@ const Panel = () => {
 			currentPanel?.subPanels &&
 			currentPanel?.subPanels?.length > 0
 		) {
-			setCurrentSubPanel( currentPanel.subPanels[ 0 ].name );
+			setCurrentSubPanel(
+				sortBy( currentPanel.subPanels, [ 'position' ] )[ 0 ].name
+			);
 		} else {
 			setCurrentSubPanel( '' );
 		}

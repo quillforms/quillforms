@@ -6,4 +6,5 @@ registerBuilderPanel( 'theme', {
 	icon: Icon,
 	mode: 'parent',
 	areaToShow: 'preview-area',
+	position: 1,
 } );

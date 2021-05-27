@@ -15,4 +15,5 @@ registerBuilderPanel( 'blocks', {
 	mode: 'single',
 	areaToShow: undefined,
 	render,
+	position: 0,
 } );

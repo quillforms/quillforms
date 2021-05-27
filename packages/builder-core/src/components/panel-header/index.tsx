@@ -8,6 +8,7 @@ import { close } from '@wordpress/icons';
 /**
  * External Dependencies
  */
+import { sortBy } from 'lodash';
 import classnames from 'classnames';
 
 const PanelHeader = () => {
@@ -51,7 +52,9 @@ const PanelHeader = () => {
 				currentPanel.subPanels?.length > 0 && (
 					<div className="builder-core-panel__header-tabs-wrapper">
 						<div className="builder-core-panel__header-tabs">
-							{ currentPanel.subPanels.map( ( subPanel ) => {
+							{ sortBy( currentPanel.subPanels, [
+								'position',
+							] ).map( ( subPanel ) => {
 								return (
 									<div
 										role="presentation"

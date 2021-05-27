@@ -14,10 +14,12 @@ export type PanelSettings = {
 	mode: 'single' | 'parent';
 	areaToShow?: 'preview-area' | 'drop-area' | undefined;
 	isHidden?: boolean;
+	position?: number;
 };
 
 export type SubPanelSettings = {
 	title: string;
+	position?: number;
 	render: FC | JSX.Element | Component;
 };
 
