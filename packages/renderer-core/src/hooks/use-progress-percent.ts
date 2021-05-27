@@ -2,10 +2,9 @@
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useCallback } from '@wordpress/element';
 
 const useProgressPerecent = () => {
-	const { answered, isAnimating, totalQuestions } = useSelect( ( select ) => {
+	const { answered, totalQuestions } = useSelect( ( select ) => {
 		return {
 			answered: select(
 				'quillForms/renderer-core'
@@ -16,11 +15,11 @@ const useProgressPerecent = () => {
 			).getEditableFieldsInCurrentPath()?.length,
 		};
 	} );
-	const getPercent = useCallback( () => {
+	const getPercent = () => {
 		const percent = Math.round( ( answered * 100 ) / totalQuestions );
 		if ( isNaN( percent ) ) return 0;
 		return percent;
-	}, [ isAnimating ] );
+	};
 
 	return getPercent();
 };
