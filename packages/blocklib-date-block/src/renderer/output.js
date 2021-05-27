@@ -7,15 +7,16 @@ import { useTheme, useMessages } from '@quillforms/renderer-core';
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies
  */
+import tinyColor from 'tinycolor2';
 import MaskedInput from 'react-text-mask';
 import dayJs from 'dayjs';
 import { css } from 'emotion';
 import classnames from 'classnames';
-import VisibilitySensor from 'react-visibility-sensor';
 
 /**
  * Internal Dependencies
@@ -25,26 +26,26 @@ import createAutoCorrectedDatePipe from './create-autocorrected-date-pipe';
 const DateOutput = ( props ) => {
 	const {
 		id,
-		isAnimating,
-		isReviewing,
 		attributes,
 		setIsValid,
 		isPreview,
 		setIsAnswered,
-		isFocused,
-		isActive,
 		setValidationErr,
 		showSubmitBtn,
 		showErrMsg,
 		val,
 		setVal,
+		inputRef,
 	} = props;
 	const { format, separator, required } = attributes;
-	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
-	const [ isVisible, setIsVisible ] = useState( false );
+	const { isReviewing } = useSelect( ( select ) => {
+		return {
+			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
+		};
+	} );
 	const messages = useMessages();
 	const theme = useTheme();
-	const elemRef = useRef();
+	const answersColor = tinyColor( theme.answersColor );
 
 	const checkFieldValidation = ( value ) => {
 		const date = dayJs( value );
@@ -64,26 +65,8 @@ const DateOutput = ( props ) => {
 		if ( isPreview || ! isReviewing ) checkFieldValidation( val );
 	}, [ required ] );
 
-	useEffect( () => {
-		if ( isActive ) {
-			// if ( isFocused && isAnimating ) {
-			// 	debugger;
-			// 	setSimulateFocusStyle( true );
-			// 	return;
-			// }
-			if ( ! isAnimating && isFocused && isVisible ) {
-				elemRef.current.inputElement.focus();
-				setSimulateFocusStyle( false );
-			}
-		} else {
-			setSimulateFocusStyle( true );
-		}
-	}, [ isAnimating, isActive, isFocused, isVisible ] );
-
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		console.log( value );
-
 		setVal( value );
 		showErrMsg( false );
 		checkFieldValidation( value );
@@ -141,50 +124,59 @@ const DateOutput = ( props ) => {
 	};
 
 	return (
-		<div>
-			<VisibilitySensor
-				resizeCheck={ true }
-				resizeThrottle={ 100 }
-				scrollThrottle={ 100 }
-				onChange={ ( visible ) => {
-					setIsVisible( visible );
-				} }
-			>
-				<MaskedInput
-					id={ `date-input-${ id }` }
-					onChange={ changeHandler }
-					ref={ elemRef }
-					className={ classnames(
-						'question__InputField',
-						css`
-							color: ${ theme.answersColor };
-
-							&::placeholder {
-								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${ theme.answersColor };
-							}
-
-							&:-ms-input-placeholder {
-								/* Internet Explorer 10-11 */
-								color: ${ theme.answersColor };
-							}
-
-							&::-ms-input-placeholder {
-								/* Microsoft Edge */
-								color: ${ theme.answersColor };
-							}
-						`,
-						{
-							'no-border': simulateFocusStyle,
+		<MaskedInput
+			id={ `date-input-${ id }` }
+			onChange={ changeHandler }
+			ref={ inputRef }
+			className={ classnames(
+				css`
+					& {
+						margin-top: 15px;
+						width: 100%;
+						border: none;
+						outline: none;
+						font-size: 30px;
+						padding-bottom: 8px;
+						background: transparent;
+						transition: box-shadow 0.1s ease-out 0s;
+						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
+							0px 1px;
+						@media ( max-width: 600px ) {
+							font-size: 24px;
 						}
-					) }
-					placeholder={ getPlaceholder() }
-					mask={ getMask() }
-					pipe={ autoCorrectedDatePipe }
-					value={ val && val.length > 0 ? val : '' }
-				/>
-			</VisibilitySensor>
-		</div>
+					}
+
+					&::placeholder {
+						opacity: 0.3;
+						/* Chrome, Firefox, Opera, Safari 10.1+ */
+						color: ${ theme.answersColor };
+					}
+
+					&:-ms-input-placeholder {
+						opacity: 0.3;
+						/* Internet Explorer 10-11 */
+						color: ${ theme.answersColor };
+					}
+
+					&::-ms-input-placeholder {
+						opacity: 0.3;
+						/* Microsoft Edge */
+						color: ${ theme.answersColor };
+					}
+
+					&:focus {
+						box-shadow: ${ answersColor.setAlpha( 1 ).toString() }
+							0px 2px;
+					}
+
+					color: ${ theme.answersColor };
+				`
+			) }
+			placeholder={ getPlaceholder() }
+			mask={ getMask() }
+			pipe={ autoCorrectedDatePipe }
+			value={ val && val.length > 0 ? val : '' }
+		/>
 	);
 };
 export default DateOutput;

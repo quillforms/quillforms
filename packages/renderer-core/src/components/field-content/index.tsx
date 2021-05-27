@@ -27,8 +27,6 @@ const FieldContent: React.FC = () => {
 			<BlockOutput
 				isShaking={ isShaking }
 				setIsShaking={ ( val ) => {
-					console.log( val );
-					console.log( 'tlkmnwhrgjhwerngjie' );
 					setIsShaking( val );
 				} }
 			/>

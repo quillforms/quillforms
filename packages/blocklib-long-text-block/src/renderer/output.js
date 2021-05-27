@@ -6,12 +6,12 @@ import { useTheme, useMessages, HTMLParser } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
-import VisibilitySensor from 'react-visibility-sensor';
+import tinyColor from 'tinycolor2';
 import TextareaAutosize from 'react-autosize-textarea';
 import { css } from 'emotion';
 import classnames from 'classnames';
@@ -20,12 +20,8 @@ const LongTextOutput = ( props ) => {
 	const {
 		id,
 		attributes,
-		isAnimating,
-		isValid,
 		setIsValid,
 		setIsAnswered,
-		isFocused,
-		isActive,
 		setValidationErr,
 		showSubmitBtn,
 		blockWithError,
@@ -33,13 +29,12 @@ const LongTextOutput = ( props ) => {
 		setVal,
 		showErrMsg,
 		next,
+		inputRef,
 	} = props;
-	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
-	const [ isVisible, setIsVisible ] = useState( false );
 	const { setMaxCharacters, maxCharacters, required } = attributes;
 	const messages = useMessages();
 	const theme = useTheme();
-	const elemRef = useRef( null );
+	const answersColor = tinyColor( theme.answersColor );
 
 	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
@@ -57,15 +52,6 @@ const LongTextOutput = ( props ) => {
 			setValidationErr( null );
 		}
 	};
-
-	useEffect( () => {
-		if ( isActive ) {
-
-			if ( ! isAnimating && isFocused && isVisible ) {
-				elemRef.current.focus();
-			}
-		} 
-	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	useEffect( () => {
 		checkfieldValidation( val );
@@ -106,52 +92,67 @@ const LongTextOutput = ( props ) => {
 	};
 
 	return (
-		<div className="question__wrapper">
-			<VisibilitySensor
-				resizeCheck={ true }
-				resizeThrottle={ 100 }
-				scrollThrottle={ 100 }
-				onChange={ ( visible ) => {
-					setIsVisible( visible );
-				} }
-			>
-				<TextareaAutosize
-					ref={ elemRef }
-					onKeyDown={ keyDownHandler }
-					className={ classnames(
-						'question__TextareaField',
-						css`
-							color: ${ theme.answersColor } !important;
-
-							&::placeholder {
-								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${ theme.answersColor };
+		<>
+			<TextareaAutosize
+				ref={ inputRef }
+				onKeyDown={ keyDownHandler }
+				className={ classnames(
+					css`
+						& {
+							margin-top: 15px;
+							width: 100%;
+							border: none;
+							outline: none;
+							font-size: 30px;
+							padding-bottom: 8px;
+							background: transparent;
+							transition: box-shadow 0.1s ease-out 0s;
+							box-shadow: ${ answersColor
+									.setAlpha( 0.3 )
+									.toString() }
+								0px 1px;
+							@media ( max-width: 600px ) {
+								font-size: 24px;
 							}
-
-							&:-ms-input-placeholder {
-								/* Internet Explorer 10-11 */
-								color: ${ theme.answersColor };
-							}
-
-							&::-ms-input-placeholder {
-								/* Microsoft Edge */
-								color: ${ theme.answersColor };
-							}
-						`,
-						{
-							'no-border': simulateFocusStyle,
 						}
-					) }
-					id={ 'longText-' + id }
-					placeholder="Type your answer here..."
-					onChange={ changeHandler }
-					value={ val && val.length > 0 ? val : '' }
-				/>
-			</VisibilitySensor>
+
+						&::placeholder {
+							opacity: 0.3;
+							/* Chrome, Firefox, Opera, Safari 10.1+ */
+							color: ${ theme.answersColor };
+						}
+
+						&:-ms-input-placeholder {
+							opacity: 0.3;
+							/* Internet Explorer 10-11 */
+							color: ${ theme.answersColor };
+						}
+
+						&::-ms-input-placeholder {
+							opacity: 0.3;
+							/* Microsoft Edge */
+							color: ${ theme.answersColor };
+						}
+
+						&:focus {
+							box-shadow: ${ answersColor
+									.setAlpha( 1 )
+									.toString() }
+								0px 2px;
+						}
+
+						color: ${ theme.answersColor };
+					`
+				) }
+				id={ 'longText-' + id }
+				placeholder="Type your answer here..."
+				onChange={ changeHandler }
+				value={ val && val.length > 0 ? val : '' }
+			/>
 			<div className="question__instruction">
 				<HTMLParser value={ messages[ 'block.longText.hint' ] } />
 			</div>
-		</div>
+		</>
 	);
 };
 export default LongTextOutput;

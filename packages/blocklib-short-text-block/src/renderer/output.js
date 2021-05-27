@@ -6,12 +6,12 @@ import { useTheme, useMessages } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
-import VisibilitySensor from 'react-visibility-sensor';
+import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
 import classnames from 'classnames';
 
@@ -19,28 +19,22 @@ const ShortTextOutput = ( props ) => {
 	const {
 		id,
 		attributes,
-		isAnimating,
-		isValid,
 		setIsValid,
 		setIsAnswered,
-		isFocused,
-		isActive,
 		setValidationErr,
 		showSubmitBtn,
 		blockWithError,
 		val,
 		setVal,
 		showErrMsg,
-		next,
+		inputRef,
 	} = props;
 	// console.log( val );
-	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
-	const [ isVisible, setIsVisible ] = useState( false );
 	const messages = useMessages();
 	const theme = useTheme();
+	const answersColor = tinyColor( theme.answersColor );
 
 	const { maxCharacters, setMaxCharacters, required } = attributes;
-	const elemRef = useRef( null );
 
 	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
@@ -58,21 +52,6 @@ const ShortTextOutput = ( props ) => {
 			setValidationErr( null );
 		}
 	};
-
-	useEffect( () => {
-		if ( isActive ) {
-			if ( isFocused && isAnimating ) {
-				setSimulateFocusStyle( true );
-				return;
-			}
-			if ( ! isAnimating && isFocused && isVisible ) {
-				elemRef.current.focus();
-				setSimulateFocusStyle( false );
-			}
-		} else {
-			setSimulateFocusStyle( true );
-		}
-	}, [ isActive, isFocused, isAnimating, isVisible ] );
 
 	useEffect( () => {
 		checkfieldValidation( val );
@@ -102,48 +81,57 @@ const ShortTextOutput = ( props ) => {
 	};
 
 	return (
-		<div className="question__wrapper">
-			<VisibilitySensor
-				resizeCheck={ true }
-				resizeThrottle={ 100 }
-				scrollThrottle={ 100 }
-				onChange={ ( visible ) => {
-					setIsVisible( visible );
-				} }
-			>
-				<input
-					ref={ elemRef }
-					className={ classnames(
-						'question__InputField',
-						css`
-							color: ${ theme.answersColor };
-
-							&::placeholder {
-								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${ theme.answersColor };
-							}
-
-							&:-ms-input-placeholder {
-								/* Internet Explorer 10-11 */
-								color: ${ theme.answersColor };
-							}
-
-							&::-ms-input-placeholder {
-								/* Microsoft Edge */
-								color: ${ theme.answersColor };
-							}
-						`,
-						{
-							'no-border': simulateFocusStyle,
+		<input
+			ref={ inputRef }
+			className={ classnames(
+				css`
+					& {
+						margin-top: 15px;
+						width: 100%;
+						border: none;
+						outline: none;
+						font-size: 30px;
+						padding-bottom: 8px;
+						background: transparent;
+						transition: box-shadow 0.1s ease-out 0s;
+						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
+							0px 1px;
+						@media ( max-width: 600px ) {
+							font-size: 24px;
 						}
-					) }
-					id={ 'short-text-' + id }
-					placeholder="Type your answer here..."
-					onChange={ changeHandler }
-					value={ val ? val.toString() : '' }
-				/>
-			</VisibilitySensor>
-		</div>
+					}
+
+					&::placeholder {
+						opacity: 0.3;
+						/* Chrome, Firefox, Opera, Safari 10.1+ */
+						color: ${ theme.answersColor };
+					}
+
+					&:-ms-input-placeholder {
+						opacity: 0.3;
+						/* Internet Explorer 10-11 */
+						color: ${ theme.answersColor };
+					}
+
+					&::-ms-input-placeholder {
+						opacity: 0.3;
+						/* Microsoft Edge */
+						color: ${ theme.answersColor };
+					}
+
+					&:focus {
+						box-shadow: ${ answersColor.setAlpha( 1 ).toString() }
+							0px 2px;
+					}
+
+					color: ${ theme.answersColor };
+				`
+			) }
+			id={ 'short-text-' + id }
+			placeholder="Type your answer here..."
+			onChange={ changeHandler }
+			value={ val ? val.toString() : '' }
+		/>
 	);
 };
 export default ShortTextOutput;

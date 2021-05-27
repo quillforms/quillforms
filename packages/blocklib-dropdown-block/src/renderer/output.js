@@ -12,7 +12,7 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import VisibilitySensor from 'react-visibility-sensor';
+import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
 import classnames from 'classnames';
 import { cloneDeep, some } from 'lodash';
@@ -29,28 +29,24 @@ const DropdownOutput = ( props ) => {
 	const {
 		id,
 		attributes,
-		isAnimating,
 		setIsValid,
 		setIsAnswered,
-		isFocused,
-		isActive,
 		setValidationErr,
 		val,
 		setVal,
 		next,
 		showErrMsg,
+		isTouchDevice,
+		inputRef,
 	} = props;
 	const { choices, required } = attributes;
-	const [ simulateFocusStyle, setSimulateFocusStyle ] = useState( true );
 	const [ showDropdown, setShowDropdown ] = useState( false );
-	const [ isVisible, setIsVisible ] = useState( false );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
-
-	const elemRef = useRef();
 	const wrapperRef = useRef();
 	const choicesWrappeerRef = useRef();
 	const messages = useMessages();
 	const theme = useTheme();
+	const answersColor = tinyColor( theme.answersColor );
 	const $choices = cloneDeep( choices )
 		.map( ( choice, index ) => {
 			if ( ! choice.label ) choice.label = 'Choice ' + ( index + 1 );
@@ -117,27 +113,6 @@ const DropdownOutput = ( props ) => {
 		checkfieldValidation( val );
 	}, [ val, attributes ] );
 
-	useEffect( () => {
-		if ( isActive ) {
-			if ( isFocused && isAnimating ) {
-				setSimulateFocusStyle( true );
-				return;
-			}
-			if ( ! isAnimating && isFocused && isVisible ) {
-				elemRef.current.focus();
-				setSimulateFocusStyle( false );
-			}
-		} else {
-			setShowDropdown( false );
-			setSimulateFocusStyle( true );
-			if ( ! val ) setSearchKeyword( '' );
-			else if ( ! some( choices, ( choice ) => choice.value === val ) ) {
-				setVal( undefined );
-				setSearchKeyword( '' );
-			}
-		}
-	}, [ isActive, isFocused, isAnimating, isVisible ] );
-
 	const changeHandler = ( e ) => {
 		setShowDropdown( true );
 		if ( val ) {
@@ -159,49 +134,63 @@ const DropdownOutput = ( props ) => {
 
 	return (
 		<div ref={ wrapperRef } style={ { position: 'relative' } }>
-			<VisibilitySensor
-				resizeCheck={ true }
-				resizeThrottle={ 100 }
-				scrollThrottle={ 100 }
-				onChange={ ( visible ) => {
-					// // // console.log(isVisible);
-					setIsVisible( visible );
-				} }
-			>
-				<input
-					autoComplete="off"
-					ref={ elemRef }
-					className={ classnames(
-						'question__InputField',
-						css`
-							color: ${ theme.answersColor };
-
-							&::placeholder {
-								/* Chrome, Firefox, Opera, Safari 10.1+ */
-								color: ${ theme.answersColor };
+			<input
+				autoComplete="off"
+				ref={ inputRef }
+				className={ classnames(
+					css`
+						& {
+							margin-top: 15px;
+							width: 100%;
+							border: none;
+							outline: none;
+							font-size: 30px;
+							padding-bottom: 8px;
+							background: transparent;
+							transition: box-shadow 0.1s ease-out 0s;
+							box-shadow: ${ answersColor
+									.setAlpha( 0.3 )
+									.toString() }
+								0px 1px;
+							@media ( max-width: 600px ) {
+								font-size: 24px;
 							}
-
-							&:-ms-input-placeholder {
-								/* Internet Explorer 10-11 */
-								color: ${ theme.answersColor };
-							}
-
-							&::-ms-input-placeholder {
-								/* Microsoft Edge */
-								color: ${ theme.answersColor };
-							}
-						`,
-						{
-							'no-border': simulateFocusStyle,
 						}
-					) }
-					id={ 'dropdown-' + id }
-					placeholder="Type or select an option"
-					onChange={ changeHandler }
-					value={ searchKeyword }
-					onClick={ () => setShowDropdown( true ) }
-				/>
-			</VisibilitySensor>
+
+						&::placeholder {
+							opacity: 0.3;
+							/* Chrome, Firefox, Opera, Safari 10.1+ */
+							color: ${ theme.answersColor };
+						}
+
+						&:-ms-input-placeholder {
+							opacity: 0.3;
+							/* Internet Explorer 10-11 */
+							color: ${ theme.answersColor };
+						}
+
+						&::-ms-input-placeholder {
+							opacity: 0.3;
+							/* Microsoft Edge */
+							color: ${ theme.answersColor };
+						}
+
+						&:focus {
+							box-shadow: ${ answersColor
+									.setAlpha( 1 )
+									.toString() }
+								0px 2px;
+						}
+
+						color: ${ theme.answersColor };
+					`
+				) }
+				id={ 'dropdown-' + id }
+				placeholder="Type or select an option"
+				onChange={ changeHandler }
+				value={ searchKeyword }
+				onClick={ () => setShowDropdown( true ) }
+			/>
 			{ val && val.length > 0 ? (
 				<CloseIcon
 					onClick={ () => {
@@ -214,7 +203,7 @@ const DropdownOutput = ( props ) => {
 			) : (
 				<DropdownIcon onClick={ () => setShowDropdown( true ) } />
 			) }
-			{ isActive && (
+			{ showDropdown && (
 				<div
 					className={
 						'qf-block-dropdown-display__choices' +

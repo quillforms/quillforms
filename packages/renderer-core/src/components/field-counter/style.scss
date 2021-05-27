@@ -8,6 +8,10 @@
 		align-items: center;
 		font-size: 16px;
 		line-height: 2em;
+		@media (max-width: $break-small) {
+			font-size: 14px;
+			line-height: 1.8em;
+		}
 	}
 
 	.renderer-components-block-counter__value {
@@ -25,6 +29,11 @@
 			font-size: 16px;
 			width: 16px;
 			stroke-width: 2;
+
+			@media (max-width: $break-small) {
+				font-size: 14px;
+				width: 14px;
+			}
 		}
 	}
 }

@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 
 /**
  * Internal Dependencies
@@ -11,7 +11,7 @@ import { useFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import BlockFooter from '../field-footer';
 import useFormContext from '../../hooks/use-form-context';
-
+import useHandleFocus from '../../hooks/use-handle-focus';
 interface Props {
 	setIsShaking: ( value: boolean ) => void;
 	isShaking: boolean;
@@ -23,6 +23,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	isShaking,
 	setIsShaking,
 } ) => {
+	const inputRef = useRef( null );
 	const {
 		id,
 		isFocused,
@@ -34,6 +35,11 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showErrMsg,
 	} = useFieldRenderContext();
 
+	const isTouchDevice =
+		'ontouchstart' in window ||
+		navigator.maxTouchPoints > 0 ||
+		navigator.msMaxTouchPoints > 0;
+	useHandleFocus( inputRef, isFocused, isActive, isTouchDevice );
 	const { isPreview } = useFormContext();
 
 	if ( ! blockName || ! id ) return null;
@@ -102,8 +108,6 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		id,
 		next,
 		attributes,
-		isFocused,
-		isActive,
 		isValid,
 		val: answerValue,
 		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
@@ -114,7 +118,8 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		blockWithError: ( err: string ) => shakeWithError( err ),
 		showErrMsg,
 		isPreview,
-		isReviewing,
+		isTouchDevice,
+		inputRef,
 	};
 
 	return (

@@ -113,55 +113,14 @@ const FieldWrapper: React.FC = () => {
 		);
 	}
 
-	function closest( el, selector ) {
-		var matchesFn;
-
-		// find vendor prefix
-		[
-			'matches',
-			'webkitMatchesSelector',
-			'mozMatchesSelector',
-			'msMatchesSelector',
-			'oMatchesSelector',
-		].some( function ( fn ) {
-			if ( typeof document.body[ fn ] == 'function' ) {
-				matchesFn = fn;
-				return true;
-			}
-			return false;
-		} );
-
-		var parent;
-
-		// traverse parents
-		while ( el ) {
-			parent = el.parentElement;
-			if ( parent && parent[ matchesFn ]( selector ) ) {
-				return parent;
-			}
-			el = parent;
-		}
-
-		return null;
-	}
-
-	function processTab( e ) {
+	function processTab( e, isShiftPressed ) {
 		e.preventDefault();
 		if ( isAnimating ) {
 			return;
 		}
-		var isShiftPressed = e.shiftKey;
-		console.log( '$$$$$$$$$$$$$' );
-		console.log( isShiftPressed );
-		var activeElement = document.activeElement;
-		var focusableElements = getFocusables( `#block-${ id }` );
-
-		function focusFirst( e ) {
-			e.preventDefault();
-			return focusableElements[ 0 ]
-				? focusableElements[ 0 ].focus()
-				: null;
-		}
+		let activeElement = document.activeElement;
+		console.log( activeElement );
+		const focusableElements = getFocusables( `#block-${ id }` );
 
 		//outside the block? Let's not hijack the tab!
 		if ( ! isFocused ) {
@@ -173,16 +132,10 @@ const FieldWrapper: React.FC = () => {
 			( el ) => el === activeElement
 		);
 
-		//is there an element with focus?
-		if ( activeElement ) {
-			if ( closest( activeElement, `#block-${ id }` ) == null ) {
-				activeElement = focusFirst( e );
-			}
-		}
-
-		//no element if focused? Let's focus the first one of the block focusable elements
-		else {
-			focusFirst( e );
+		// Happens when the active element is in the next block or previous block
+		// This case occurs when pressing tab multiple times at the same time.
+		if ( activeElementIndex === -1 ) {
+			return;
 		}
 		if ( ! isShiftPressed ) {
 			if (
@@ -193,7 +146,13 @@ const FieldWrapper: React.FC = () => {
 			} else {
 				if (
 					focusableElements[ activeElementIndex + 1 ].offsetParent !==
-					null
+						null &&
+					// If document element is still in dom
+					// One example for this case is  the next button in each block if the block isn't valid and the error message
+					// appear instead of the button. The button is focusable but it is no longer in dom.
+					document.contains(
+						focusableElements[ activeElementIndex + 1 ]
+					)
 				) {
 					focusableElements[ activeElementIndex + 1 ].focus();
 				} else {
@@ -203,10 +162,14 @@ const FieldWrapper: React.FC = () => {
 			}
 		} else {
 			//when reached the first  focusable element of the block, go prev if shift is pressed
-			if ( activeElement == focusableElements[ 0 ] ) {
+			if ( activeElementIndex === 0 ) {
 				goPrev();
 			} else {
-				focusableElements[ activeElementIndex - 1 ].focus();
+				if ( activeElementIndex === -1 ) {
+					document.body.focus();
+				} else {
+					focusableElements[ activeElementIndex - 1 ].focus();
+				}
 			}
 		}
 
@@ -217,11 +180,11 @@ const FieldWrapper: React.FC = () => {
 	 * Makes sure the tab key will only focus elements within the current block  preventing this way from breaking the page.
 	 * Otherwise, go next or prev.
 	 */
-	function onTab( e ) {
+	function onTab( e, isShiftPressed ) {
 		clearTimeout( tabTimer );
 		if ( isAnimating ) return;
 		tabTimer = setTimeout( () => {
-			processTab( e );
+			processTab( e, isShiftPressed );
 		}, 150 );
 	}
 
@@ -273,6 +236,7 @@ const FieldWrapper: React.FC = () => {
 						ref={ ref }
 						tabIndex={ 0 }
 						onKeyDown={ ( e: KeyboardEvent ): void => {
+							const isShiftPressed = e.shiftKey;
 							if ( isAnimating ) {
 								e.preventDefault();
 								return;
@@ -288,7 +252,7 @@ const FieldWrapper: React.FC = () => {
 								if ( e.key === 'Tab' ) {
 									e.stopPropagation();
 									e.preventDefault();
-									onTab( e );
+									onTab( e, isShiftPressed );
 								}
 							}
 						} }

@@ -2,7 +2,7 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -20,6 +20,7 @@ import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
 import useTheme from '../../hooks/use-theme';
 import useBlocks from '../../hooks/use-blocks';
+import useFormContext from '../../hooks/use-form-context';
 
 interface Props {
 	applyLogic: boolean;
@@ -27,21 +28,34 @@ interface Props {
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
 	const theme = useTheme();
-	const {
-		isWelcomeScreenActive,
-		isThankyouScreenActive,
-		isAnimating,
-	} = useSelect( ( select ) => {
-		return {
-			isThankyouScreenActive: select(
-				'quillForms/renderer-core'
-			).isThankyouScreenActive(),
-			isWelcomeScreenActive: select(
-				'quillForms/renderer-core'
-			).isWelcomeScreenActive(),
-			isAnimating: select( 'quillForms/renderer-core' ).isAnimating(),
+	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
+		( select ) => {
+			return {
+				isThankyouScreenActive: select(
+					'quillForms/renderer-core'
+				).isThankyouScreenActive(),
+				isWelcomeScreenActive: select(
+					'quillForms/renderer-core'
+				).isWelcomeScreenActive(),
+			};
+		}
+	);
+
+	const keydownHandler = ( e ) => {
+		// Prevent any keyboard event by default in case of any tab event in general.
+		if ( e.key === 'Tab' ) {
+			e.preventDefault();
+			return;
+		}
+	};
+
+	useEffect( () => {
+		window.addEventListener( 'keydown', keydownHandler );
+
+		return () => {
+			window.removeEventListener( 'keydown', keydownHandler );
 		};
-	} );
+	}, [] );
 
 	let backgroundImageCSS = '';
 	if ( theme.backgroundImage && theme.backgroundImage ) {
@@ -53,23 +67,14 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 
 	return (
 		<div
-			className={ css`
-				${ backgroundImageCSS };
-				height: 100%;
-				width: 100%;
-			` }
-			onKeyDown={ ( e: KeyboardEvent ): void => {
-				// Prevent any keyboard event by default
-				// The reason for this is to prevent tab keyboard event especially on first render as it causes the animation to be corrupted.
-				if ( isAnimating ) {
-					e.preventDefault();
-					return;
-				}
-				//tab?
-				if ( e.key === 'Tab' ) {
-					e.preventDefault();
-				}
-			} }
+			className={ classnames(
+				css`
+					${ backgroundImageCSS };
+					height: 100%;
+					width: 100%;
+				`,
+				'renderer-core-form-flow__wrapper'
+			) }
 			tabIndex={ 0 }
 		>
 			<div
