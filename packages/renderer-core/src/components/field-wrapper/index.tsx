@@ -38,7 +38,7 @@ const FieldWrapper: React.FC = () => {
 		};
 	} );
 
-	const { setSwiper, goToField, goNext, goPrev } = useDispatch(
+	const { setSwiper, goToBlock, goNext, goPrev } = useDispatch(
 		'quillForms/renderer-core'
 	);
 
@@ -222,7 +222,7 @@ const FieldWrapper: React.FC = () => {
 				e.preventDefault();
 				if ( isAnimating ) return;
 				if ( ! isActive ) {
-					goToField( id );
+					goToBlock( id );
 				}
 				if ( ! isFocused ) {
 					setIsFocused( true );

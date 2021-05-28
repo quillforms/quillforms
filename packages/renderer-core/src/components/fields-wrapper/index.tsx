@@ -13,6 +13,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
+import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { forEach, size } from 'lodash';
 import { Lethargy } from 'lethargy';
@@ -31,7 +32,7 @@ interface Props {
 	applyLogic: boolean;
 }
 
-const FieldsWrapper: React.FC< Props > = ( { applyLogic } ) => {
+const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const jumpLogic = useLogic();
 	const blocks = useBlocks();
 	const [ isFocused, setIsFocused ] = useState< boolean >( false );
@@ -379,7 +380,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	};
 
 	useEffect( () => {
-		if ( applyLogic ) {
+		if ( applyLogic && isActive ) {
 			const { path, nextBlockId } = generatePath();
 			setSwiper( {
 				walkPath: path,
@@ -389,7 +390,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	}, [ currentBlockAnswer, currentBlockId ] );
 
 	useEffect( () => {
-		if ( applyLogic ) {
+		if ( applyLogic && isActive ) {
 			const { path, nextBlockId } = generatePath();
 			setSwiper( {
 				walkPath: path,
@@ -404,8 +405,11 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	return (
 		<div
 			onWheel={ swipingHandler }
-			className={ 'renderer-core-fields-wrapper' }
+			className={ classNames( 'renderer-core-fields-wrapper', {
+				active: isActive,
+			} ) }
 			ref={ ref }
+			aria-hidden={ isActive ? false : true }
 		>
 			<div { ...handlers }>
 				{ fields.map( ( field, index ) => {

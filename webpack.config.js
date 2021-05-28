@@ -48,6 +48,7 @@ const quillFormsBlocklibPackages = [
 	'@quillforms/blocklib-short-text-block',
 	'@quillforms/blocklib-statement-block',
 	'@quillforms/blocklib-website-block',
+	'@quillforms/blocklib-welcome-screen-block',
 ];
 const quillformsPackages = Object.keys( dependencies )
 	.filter( ( packageName ) => packageName.startsWith( QUILLFORMS_NAMESPACE ) )
@@ -132,6 +133,10 @@ module.exports = {
 						__dirname,
 						'packages/blocklib-website-block'
 					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-welcome-screen-block'
+					),
 				],
 				enforce: 'pre',
 			},
@@ -200,6 +205,10 @@ module.exports = {
 					path.resolve(
 						__dirname,
 						'packages/blocklib-website-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-welcome-screen-block'
 					),
 				],
 				exclude: /node_modules/,
@@ -341,9 +350,6 @@ module.exports = {
 			injectPolyfill: false,
 			requestToExternal( request ) {
 				switch ( request ) {
-					case 'react-visibility-sensor': {
-						return 'react-visibility-sensor';
-					}
 					case 'emotion': {
 						return 'emotion';
 					}

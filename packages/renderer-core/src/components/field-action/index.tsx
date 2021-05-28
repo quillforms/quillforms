@@ -2,6 +2,8 @@
  * External Dependencies
  */
 import classnames from 'classnames';
+import { css } from 'emotion';
+
 /**
  * Internal Dependencies
  */
@@ -10,9 +12,11 @@ import HTMLParser from '../html-parser';
 import { useFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import useMessages from '../../hooks/use-messages';
+import useTheme from '../../hooks/use-theme';
 
 const FieldAction = ( { clickHandler, show } ) => {
 	const messages = useMessages();
+	const theme = useTheme();
 	const { blockName, isSubmitBtnVisible } = useFieldRenderContext();
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
@@ -29,7 +33,14 @@ const FieldAction = ( { clickHandler, show } ) => {
 					<Button onClick={ clickHandler }>
 						<HTMLParser value={ messages[ 'label.button.ok' ] } />
 					</Button>
-					<div className="renderer-core-field-action__helper-text">
+					<div
+						className={ classnames(
+							'renderer-core-field-action__helper-text',
+							css`
+								color: ${ theme.questionsColor };
+							`
+						) }
+					>
 						<HTMLParser
 							value={ messages[ 'label.hintText.enter' ] }
 						/>

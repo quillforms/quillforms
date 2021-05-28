@@ -5,7 +5,7 @@ import {
 	COMPLETE_FORM,
 	GO_NEXT,
 	GO_PREV,
-	GO_TO_FIELD,
+	GO_TO_BLOCK,
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_FIELD_ANSWER,
 	SET_IS_FIELD_VALID,
@@ -58,8 +58,8 @@ type goPrevAction = {
 	type: typeof GO_PREV;
 };
 
-type goToFieldAction = {
-	type: typeof GO_TO_FIELD;
+type goToBlockAction = {
+	type: typeof GO_TO_BLOCK;
 	id: string;
 };
 
@@ -141,7 +141,7 @@ export type SwiperActionTypes =
 	| setSwiperAction
 	| goNextAction
 	| goPrevAction
-	| goToFieldAction
+	| goToBlockAction
 	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;
 

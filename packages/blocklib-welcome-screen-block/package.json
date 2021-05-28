@@ -1,0 +1,31 @@
+{
+	"name": "@quillforms/blocklib-welcome-screen-block",
+	"version": "1.0.0",
+	"description": "Welcome screen block for quillforms",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"welcome",
+		"screen",
+		"block"
+	],
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/blocklib-welcome-screen-block/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QuillForms/quillforms.git",
+		"directory": "packages/blocklib-welcome-screen-block"
+	},
+	"bugs": {
+		"url": "https://github.com/QuillForms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@quillforms/admin-components": "file:../admin-components"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

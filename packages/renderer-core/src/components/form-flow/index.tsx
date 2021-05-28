@@ -20,7 +20,6 @@ import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
 import useTheme from '../../hooks/use-theme';
 import useBlocks from '../../hooks/use-blocks';
-import useFormContext from '../../hooks/use-form-context';
 
 interface Props {
 	applyLogic: boolean;
@@ -98,10 +97,13 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				{ blocks.length > 0 && (
 					<Fragment>
 						{ isWelcomeScreenActive && <WelcomeScreensFlow /> }
-						{ ! isWelcomeScreenActive &&
-							! isThankyouScreenActive && (
-								<FieldsWrapper applyLogic={ applyLogic } />
-							) }
+						<FieldsWrapper
+							isActive={
+								! isWelcomeScreenActive &&
+								! isThankyouScreenActive
+							}
+							applyLogic={ applyLogic }
+						/>
 
 						{ isThankyouScreenActive && <ThankyouScreensFlow /> }
 					</Fragment>

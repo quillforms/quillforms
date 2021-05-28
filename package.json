@@ -81,6 +81,7 @@
 		"@quillforms/blocklib-short-text-block": "file:packages/blocklib-short-text-block",
 		"@quillforms/blocklib-statement-block": "file:packages/blocklib-statement-block",
 		"@quillforms/blocklib-website-block": "file:packages/blocklib-website-block",
+		"@quillforms/blocklib-welcome-screen-block": "file:packages/blocklib-welcome-screen-block",
 		"@quillforms/blocks": "file:packages/blocks",
 		"@quillforms/builder-core": "file:packages/builder-core",
 		"@quillforms/builder-panels": "file:packages/builder-panels",

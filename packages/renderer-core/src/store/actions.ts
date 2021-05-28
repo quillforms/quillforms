@@ -3,7 +3,7 @@ import {
 	GO_NEXT,
 	GO_PREV,
 	COMPLETE_FORM,
-	GO_TO_FIELD,
+	GO_TO_BLOCK,
 	SET_SUBMISSION_ERRORS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
@@ -71,9 +71,9 @@ export const goPrev = (): SwiperActionTypes => {
  *
  * @return {SwiperActionTypes} Action object.
  */
-export const goToField = ( id: string ): SwiperActionTypes => {
+export const goToBlock = ( id: string ): SwiperActionTypes => {
 	return {
-		type: GO_TO_FIELD,
+		type: GO_TO_BLOCK,
 		id,
 	};
 };

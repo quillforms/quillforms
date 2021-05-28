@@ -23,7 +23,7 @@ import {
 	GO_PREV,
 	COMPLETE_FORM,
 	SET_SWIPER_STATE,
-	GO_TO_FIELD,
+	GO_TO_BLOCK,
 	SET_SUBMISSION_ERRORS,
 	SET_FIELD_ANSWER,
 	INSERT_EMPTY_FIELD_ANSWER,
@@ -313,13 +313,53 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			};
 		}
 
-		case GO_TO_FIELD: {
+		case GO_TO_BLOCK: {
+			console.log( state );
 			const { id } = action;
+			console.log( id );
 			if ( currentBlockId === id ) return state;
+			const isTheBlockWelcomeScreenBlock = state.welcomeScreens.some(
+				( screen ) => screen.id === id
+			);
+			console.log( isTheBlockWelcomeScreenBlock );
+			const isTheBlockThankyouScreenBlock = state.thankyouScreens.some(
+				( screen ) => screen.id === id
+			);
+
+			if (
+				isTheBlockThankyouScreenBlock ||
+				isTheBlockWelcomeScreenBlock
+			) {
+				return {
+					...state,
+					currentBlockId: id,
+					isAnimating: true,
+					canGoNext: false,
+					canGoPrev: false,
+					nextBlockId: undefined,
+					prevBlockId: undefined,
+					lastActiveBlockId: currentBlockId,
+					isWelcomeScreenActive: isTheBlockWelcomeScreenBlock,
+					isThankyouScreenActive: isTheBlockThankyouScreenBlock,
+				};
+			}
+			const isTheBlockFieldBlock = state.walkPath.some(
+				( field ) => field.id === id
+			);
+
+			console.log( isTheBlockFieldBlock );
+			// If invalid block
+			if (
+				! isTheBlockFieldBlock &&
+				! isTheBlockWelcomeScreenBlock &&
+				! isTheBlockThankyouScreenBlock
+			) {
+				return state;
+			}
+
 			const fieldIndex = walkPath.findIndex(
 				( field ) => field.id === id
 			);
-			if ( fieldIndex === -1 ) return state;
 			return {
 				...state,
 				currentBlockId: id,

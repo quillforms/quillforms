@@ -19,7 +19,7 @@ import { useFieldRenderContext } from '../field-render';
 
 const SubmitBtn: React.FC = () => {
 	const { isLastField, isActive } = useFieldRenderContext();
-	const { goToField, setIsReviewing, setIsSubmitting } = useDispatch(
+	const { goToBlock, setIsReviewing, setIsSubmitting } = useDispatch(
 		'quillForms/renderer-core'
 	);
 	const { onSubmit } = useFormContext();
@@ -42,7 +42,7 @@ const SubmitBtn: React.FC = () => {
 	};
 
 	const goToFirstInvalidField = () => {
-		if ( firstInvalidFieldId ) goToField( firstInvalidFieldId );
+		if ( firstInvalidFieldId ) goToBlock( firstInvalidFieldId );
 	};
 	useEffect( () => {
 		if ( isLastField && isActive ) {
