@@ -57,7 +57,7 @@ const FormPreview: React.FC = () => {
 			};
 		}
 	);
-	const { setSwiper } = useDispatch( 'quillForms/renderer-core' );
+	const { setSwiper, goToBlock } = useDispatch( 'quillForms/renderer-core' );
 
 	const { setCurrentBlock } = useDispatch( 'quillForms/block-editor' );
 	const { completeForm } = useDispatch( 'quillForms/renderer-core' );
@@ -119,6 +119,7 @@ const FormPreview: React.FC = () => {
 	useEffect( () => {
 		if ( ! hasThemesFinishedResolution ) return;
 		clearTimeout( $timer );
+		console.log( '#########################################' );
 		if ( ! applyJumpLogic ) {
 			const formFields = blocks.filter(
 				( block ) =>
@@ -137,14 +138,6 @@ const FormPreview: React.FC = () => {
 				( block ) => block.name === 'welcome-screen'
 			);
 
-			const currentBlockBeingEditedIndex = blocks.findIndex(
-				( $block ) => $block.id === currentBlockBeingEdited
-			);
-
-			const $isThankyouScreenActive =
-				blocks[ currentBlockBeingEditedIndex ]?.name ===
-				'thankyou-screen';
-
 			const $currentPath = cloneDeep( formFields );
 			setSwiper( {
 				walkPath: $currentPath,
@@ -152,34 +145,8 @@ const FormPreview: React.FC = () => {
 				thankyouScreens: $thankyouScreens,
 			} );
 
-			const currentFieldBeingEditedIndex = formFields.findIndex(
-				( $block ) => $block.id === currentBlockBeingEdited
-			);
-
-			const $nextBlockId =
-				! $isThankyouScreenActive &&
-				$currentPath?.length > 0 &&
-				$currentPath[ currentFieldBeingEditedIndex + 1 ]
-					? $currentPath[ currentFieldBeingEditedIndex + 1 ].id
-					: undefined;
-			const $prevBlockId =
-				! $isThankyouScreenActive &&
-				$currentPath?.length > 0 &&
-				$currentPath[ currentBlockBeingEditedIndex - 1 ]
-					? $currentPath[ currentBlockBeingEditedIndex - 1 ].id
-					: undefined;
 			$timer = setTimeout( () => {
-				setSwiper( {
-					isAnimating: true,
-					currentBlockId: currentBlockBeingEdited,
-					nextBlockId: $nextBlockId,
-					prevBlockId: $prevBlockId,
-					canGoNext: $isThankyouScreenActive ? false : true,
-					canGoPrev:
-						$prevBlockId && ! $isThankyouScreenActive
-							? true
-							: false,
-				} );
+				goToBlock( currentBlockBeingEdited );
 			}, 300 );
 		}
 	}, [
