@@ -9,6 +9,7 @@ import { memo } from '@wordpress/element';
  * External Dependencies
  */
 import classnames from 'classnames';
+import FieldNavigation from '../field-navigation';
 
 /**
  * Internal Dependencies
@@ -16,19 +17,25 @@ import classnames from 'classnames';
 import ProgressBar from '../progress-bar';
 
 const FormFooter: React.FC = memo( () => {
-	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
-		( select ) => {
-			return {
-				isThankyouScreenActive: select(
-					'quillForms/renderer-core'
-				).isThankyouScreenActive(),
-				isWelcomeScreenActive: select(
-					'quillForms/renderer-core'
-				).isWelcomeScreenActive(),
-			};
-		}
-	);
+	const {
+		currentBlockId,
+		isWelcomeScreenActive,
+		isThankyouScreenActive,
+	} = useSelect( ( select ) => {
+		return {
+			currentBlockId: select(
+				'quillForms/renderer-core'
+			).getCurrentBlockId(),
+			isThankyouScreenActive: select(
+				'quillForms/renderer-core'
+			).isThankyouScreenActive(),
+			isWelcomeScreenActive: select(
+				'quillForms/renderer-core'
+			).isWelcomeScreenActive(),
+		};
+	} );
 
+	if ( ! currentBlockId ) return null;
 	return (
 		<div
 			className={ classnames( 'renderer-components-form-footer', {
@@ -37,6 +44,7 @@ const FormFooter: React.FC = memo( () => {
 			tabIndex={ -1 }
 		>
 			<ProgressBar />
+			<FieldNavigation />
 		</div>
 	);
 } );

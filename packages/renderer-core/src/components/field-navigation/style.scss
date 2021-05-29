@@ -1,0 +1,19 @@
+.renderer-core-field-navigation {
+    display: inline-flex;
+	margin-left: 8px;
+	> div {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0;
+		margin: 2px;
+		width: 30px;
+		border-radius: 5px;
+		cursor: pointer;
+		height: 30px;
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+}
