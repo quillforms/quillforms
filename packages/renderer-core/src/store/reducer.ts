@@ -8,7 +8,7 @@ import { FormBlock } from '@quillforms/config';
  * WordPress Dependencies
  */
 import { combineReducers } from '@wordpress/data';
-import { forEach, some } from 'lodash';
+import { forEach, some, size } from 'lodash';
 
 /**
  * External dependencies
@@ -92,24 +92,33 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 								if (
 									typeof item === 'object' &&
 									item != null &&
-									item.hasOwnProperty( 'id' ) &&
+									item.id &&
 									typeof item.id === 'string'
 								) {
 									if (
-										item.attributes &&
+										size( item.attributes ) > 0 &&
 										typeof item.attributes !== 'object'
 									) {
 										validBlocksStructure = false;
 										return;
 									}
 
-									if ( ( blockCat = 'walkPath' ) ) {
-										if ( ! item.hasOwnProperty( 'name' ) ) {
-											validBlocksStructure = false;
-											return;
-										}
-
-										if ( typeof item.name !== 'string' ) {
+									if ( blockCat === 'walkPath' ) {
+										// Check if the block has a name or it is a thank you screen or default thank you screen
+										if (
+											( ! item.hasOwnProperty( 'name' ) ||
+												typeof item.name !==
+													'string' ) &&
+											! some(
+												newSwiperState[
+													'thankyouScreens'
+												],
+												( block ) =>
+													block.id === item.id
+											) &&
+											item.id !==
+												'default_thankyou_screen'
+										) {
 											validBlocksStructure = false;
 											return;
 										}
