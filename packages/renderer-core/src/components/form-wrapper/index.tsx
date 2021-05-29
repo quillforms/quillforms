@@ -3,7 +3,11 @@
  */
 import { useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { cloneDeep, omit, size } from 'lodash';
+
+/**
+ * External Dependencies
+ */
+import { cloneDeep, map, omit, size } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -20,7 +24,7 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const editableFields = useEditableFields();
 	const blocks = useBlocks();
 	console.log( blocks );
-	const { insertEmptyFieldAnswer } = useDispatch(
+	const { insertEmptyFieldAnswer, goToBlock } = useDispatch(
 		'quillForms/renderer-core'
 	);
 	const { isPreview } = useFormContext();
@@ -31,21 +35,20 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 				insertEmptyFieldAnswer( field.id, field.name )
 			);
 			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ] : undefined;
-			console.log( firstBlock );
-			const welcomeScreens = omit(
+			const welcomeScreens = map(
 				cloneDeep( blocks ).filter(
 					( block ) => block.name === 'welcome-screen'
 				),
-				[ 'name' ]
-			) as {} | Screen[];
+				( block ) => omit( block, [ 'name' ] )
+			) as [  ] | Screen[];
 
-			const thankyouScreens = omit(
+			const thankyouScreens = map(
 				cloneDeep( blocks ).filter(
 					( block ) => block.name === 'thankyou-screen'
-				)[ 'name' ]
-			) as {} | Screen[];
+				),
+				( block ) => omit( block, [ 'name' ] )
+			) as [  ] | Screen[];
 			setSwiper( {
-				isAnimating: true,
 				walkPath: cloneDeep(
 					blocks.filter(
 						( block ) =>
@@ -61,16 +64,13 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					size( thankyouScreens ) === 0
 						? []
 						: ( thankyouScreens as Screen[] ),
-				canGoPrev: false,
-				canGoNext: true,
-				prevBlockId: undefined,
-				nextBlockId: blocks && blocks[ 1 ] ? blocks[ 1 ].id : undefined,
 			} );
 
 			setTimeout( () => {
-				setSwiper( {
-					currentBlockId: firstBlock?.id,
-				} );
+				console.log( firstBlock );
+				if ( firstBlock?.id ) {
+					goToBlock( firstBlock.id );
+				}
 			}, 100 );
 		}
 	}, [] );
