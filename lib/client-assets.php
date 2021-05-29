@@ -138,7 +138,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		// Replace `.js` extension with `.asset.php` to find the generated dependencies file.
 		$asset_file   = substr( $path, 0, -3 ) . '.asset.php';
 		$asset        = file_exists( $asset_file )
-			? require( $asset_file )
+			? require $asset_file
 			: null;
 		$dependencies = isset( $asset['dependencies'] ) ? $asset['dependencies'] : array();
 		$version      = isset( $asset['version'] ) ? $asset['version'] : filemtime( $path );
@@ -174,7 +174,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		// Replace `.js` extension with `.asset.php` to find the generated dependencies file.
 		$asset_file   = substr( $path, 0, -3 ) . '.asset.php';
 		$asset        = file_exists( $asset_file )
-			? require( $asset_file )
+			? require $asset_file
 			: null;
 		$dependencies = isset( $asset['dependencies'] ) ? $asset['dependencies'] : array();
 		$version      = isset( $asset['version'] ) ? $asset['version'] : filemtime( $path );
@@ -199,7 +199,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		// Replace `.js` extension with `.asset.php` to find the generated dependencies file.
 		$asset_file   = substr( $path, 0, -3 ) . '.asset.php';
 		$asset        = file_exists( $asset_file )
-			? require( $asset_file )
+			? require $asset_file
 			: null;
 		$dependencies = isset( $asset['dependencies'] ) ? $asset['dependencies'] : array();
 		$version      = isset( $asset['version'] ) ? $asset['version'] : filemtime( $path );
@@ -235,14 +235,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		'1.8.6',
 		true
 	);
-	quillforms_override_script(
-		$scripts,
-		'react-visibility-sensor',
-		QF_PLUGIN_URL . '/lib/vendor/react-visibility-sensor.min.js',
-		array( 'react' ),
-		'1.8.6',
-		true
-	);
+
 }
 
 /**
@@ -530,6 +523,26 @@ function quillforms_register_packages_styles( $styles ) {
 	);
 
 	$styles->add_data( 'quillforms-blocklib-website-block-renderer-style', 'rtl', 'replace' );
+
+	quillforms_override_style(
+		$styles,
+		'quillforms-blocklib-welcome-screen-block-admin-style',
+		quillforms_url( 'build/blocklib-welcome-screen-block/admin.css' ),
+		array( 'quillforms-admin-components' ),
+		filemtime( quillforms_dir_path() . 'build/blocklib-welcome-screen-block/admin.css' )
+	);
+
+	$styles->add_data( 'quillforms-blocklib-welcome-screen-block-admin-style', 'rtl', 'replace' );
+
+	quillforms_override_style(
+		$styles,
+		'quillforms-blocklib-welcome-screen-block-renderer-style',
+		quillforms_url( 'build/blocklib-welcome-screen-block/renderer.css' ),
+		array(),
+		filemtime( quillforms_dir_path() . 'build/blocklib-welcome-screen-block/renderer.css' )
+	);
+
+	$styles->add_data( 'quillforms-blocklib-welcome-screen-block-renderer-style', 'rtl', 'replace' );
 
 }
 add_action( 'wp_default_scripts', 'quillforms_register_packages_scripts' );
