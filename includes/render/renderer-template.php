@@ -112,7 +112,7 @@ switch ( $font_type ) {
 								if ( firstFieldIndex !== -1 ) {
 									wp.data.dispatch('quillForms/renderer-core').setIsReviewing(true);
 									wp.data.dispatch('quillForms/renderer-core').setIsSubmitting(false);
-									wp.data.dispatch('quillForms/renderer-core').goToField( walkPath[ firstFieldIndex ].id );
+									wp.data.dispatch('quillForms/renderer-core').goToBlock( walkPath[ firstFieldIndex ].id );
 								}
 							}
 						}
