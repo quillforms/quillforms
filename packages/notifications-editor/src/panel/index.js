@@ -14,7 +14,7 @@ registerBuilderPanel( 'notifications', {
 	title: 'Notifications',
 	icon: Icon,
 	mode: 'single',
-	areaToShow: 'preview-area',
+	areaToShow: 'drop-area',
 	render,
 	position: 3,
 } );
