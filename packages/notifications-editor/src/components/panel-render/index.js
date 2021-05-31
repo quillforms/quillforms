@@ -37,7 +37,7 @@ const PanelRender = () => {
 				toType: 'email',
 				active: true,
 				recipients: [],
-				reply_to: '',
+				replyTo: '',
 				subject: '',
 				message: '{{form:all_answers}}',
 			},
