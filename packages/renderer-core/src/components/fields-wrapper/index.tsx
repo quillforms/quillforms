@@ -30,12 +30,12 @@ const lethargy = new Lethargy();
 
 interface Props {
 	applyLogic: boolean;
+	isActive: boolean;
 }
 
 const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const jumpLogic = useLogic();
 	const blocks = useBlocks();
-	const [ isFocused, setIsFocused ] = useState< boolean >( false );
 	const ref = useRef< HTMLDivElement | null >( null );
 	const { swiper } = useSelect( ( select ) => {
 		return {
@@ -168,22 +168,6 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 						currentBlockId
 				  )
 				: null,
-		};
-	} );
-
-	const handleClickOutside = ( e: MouseEvent ): void => {
-		if ( ref.current && ! ref.current.contains( e.target as Node ) ) {
-			setIsFocused( false );
-		}
-	};
-
-	// Attaching the previous event with UseEffect hook
-	useEffect( () => {
-		// Bind the event listener
-		document.addEventListener( 'mousedown', handleClickOutside );
-		return () => {
-			// Unbind the event listener on clean up
-			document.removeEventListener( 'mousedown', handleClickOutside );
 		};
 	} );
 
@@ -418,8 +402,6 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 						<FieldRender
 							key={ `${ field.id }` }
 							id={ field.id }
-							isFocused={ isFocused }
-							setIsFocused={ setIsFocused }
 							shouldBeRendered={ fieldsToRender.includes(
 								field.id
 							) }

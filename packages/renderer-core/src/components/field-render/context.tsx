@@ -24,9 +24,7 @@ interface FieldRenderContext {
 	showSubmitBtn: ( x: boolean ) => void;
 	showErrMsg: ( x: boolean ) => void;
 	next: () => void;
-	isFocused: boolean;
 	isLastField: boolean;
-	setIsFocused: ( x: boolean ) => void;
 }
 const Context = createContext< FieldRenderContext >( {
 	id: undefined,
@@ -39,9 +37,7 @@ const Context = createContext< FieldRenderContext >( {
 	showErrMsg: noop,
 	showSubmitBtn: noop,
 	next: noop,
-	isFocused: false,
 	isLastField: false,
-	setIsFocused: noop,
 } );
 const { Provider } = Context;
 

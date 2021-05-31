@@ -15,20 +15,11 @@ interface Props {
 	id: string;
 	isActive: boolean;
 	shouldBeRendered: boolean;
-	isFocused: boolean;
-	setIsFocused: ( x: boolean ) => void;
 	isLastField: boolean;
 }
 
 const FieldRender: React.FC< Props > = memo(
-	( {
-		id,
-		isActive,
-		isLastField,
-		shouldBeRendered,
-		isFocused,
-		setIsFocused,
-	} ) => {
+	( { id, isActive, isLastField, shouldBeRendered } ) => {
 		const [ isSubmitBtnVisible, showSubmitBtn ] = useState< boolean >(
 			false
 		);
@@ -66,9 +57,7 @@ const FieldRender: React.FC< Props > = memo(
 			isSubmitBtnVisible,
 			showSubmitBtn,
 			next: goNext,
-			isFocused,
 			isLastField,
-			setIsFocused,
 		};
 		return (
 			<FieldRenderContextProvider value={ context }>

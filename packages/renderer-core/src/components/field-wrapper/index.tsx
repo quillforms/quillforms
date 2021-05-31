@@ -27,14 +27,13 @@ const FieldWrapper: React.FC = () => {
 		shouldBeRendered,
 		showErrMsg,
 		next,
-		isFocused,
-		setIsFocused,
 	} = useFieldRenderContext();
 	if ( ! id ) return null;
-	const { swiper, isValid } = useSelect( ( select ) => {
+	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 			isValid: select( 'quillForms/renderer-core' ).isValidField( id ),
+			isFocused: select( 'quillForms/renderer-core' ).isFocused(),
 		};
 	} );
 
@@ -114,6 +113,7 @@ const FieldWrapper: React.FC = () => {
 	}
 
 	function processTab( e, isShiftPressed ) {
+		console.log( 'lafkoas' );
 		e.preventDefault();
 		if ( isAnimating ) {
 			return;
@@ -121,7 +121,8 @@ const FieldWrapper: React.FC = () => {
 		let activeElement = document.activeElement;
 		console.log( activeElement );
 		const focusableElements = getFocusables( `#block-${ id }` );
-
+		console.log( isFocused );
+		console.log( focusableElements );
 		//outside the block? Let's not hijack the tab!
 		if ( ! isFocused ) {
 			return;
@@ -188,6 +189,27 @@ const FieldWrapper: React.FC = () => {
 		}, 150 );
 	}
 
+	const scrollHandler = () => {
+		// e.preventDefault();
+		if ( ! ref.current ) return;
+		if ( ref.current.scrollTop === 0 ) {
+			scrollTimer = setTimeout( () => {
+				setCanGoPrev( true );
+			}, 500 );
+		} else {
+			setCanGoPrev( false );
+		}
+		if (
+			ref.current.scrollHeight - ref.current.clientHeight ===
+			ref.current.scrollTop
+		) {
+			scrollTimer = setTimeout( () => {
+				setCanGoNext( true );
+			}, 500 );
+		} else {
+			setCanGoNext( false );
+		}
+	};
 	return (
 		<div
 			className={ classnames(
@@ -197,37 +219,7 @@ const FieldWrapper: React.FC = () => {
 				},
 				position ? position : ''
 			) }
-			onScroll={ ( e ) => {
-				e.preventDefault();
-				if ( ! ref.current ) return;
-				if ( ref.current.scrollTop === 0 ) {
-					scrollTimer = setTimeout( () => {
-						setCanGoPrev( true );
-					}, 500 );
-				} else {
-					setCanGoPrev( false );
-				}
-				if (
-					ref.current.scrollHeight - ref.current.clientHeight ===
-					ref.current.scrollTop
-				) {
-					scrollTimer = setTimeout( () => {
-						setCanGoNext( true );
-					}, 500 );
-				} else {
-					setCanGoNext( false );
-				}
-			} }
-			onFocus={ ( e ) => {
-				e.preventDefault();
-				if ( isAnimating ) return;
-				if ( ! isActive ) {
-					goToBlock( id );
-				}
-				if ( ! isFocused ) {
-					setIsFocused( true );
-				}
-			} }
+			onScroll={ ( e ) => scrollHandler() }
 		>
 			{ shouldBeRendered && (
 				<section id={ 'block-' + id }>

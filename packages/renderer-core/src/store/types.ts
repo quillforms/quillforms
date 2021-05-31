@@ -149,4 +149,5 @@ export type SubmitActionTypes =
 	| setIsReviewing
 	| setIsSubmitting
 	| setSumbissionErrors
+	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;

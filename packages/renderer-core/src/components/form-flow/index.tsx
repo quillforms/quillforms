@@ -2,8 +2,8 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { Fragment, useEffect, useRef } from '@wordpress/element';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -27,6 +27,8 @@ interface Props {
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
 	const theme = useTheme();
+	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
+	const ref = useRef( null );
 	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
 		( select ) => {
 			return {
@@ -39,6 +41,24 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 			};
 		}
 	);
+
+	useEffect( () => {
+		/**
+		 * Alert if clicked on outside of element
+		 */
+		function handleClickOutside( event ) {
+			if ( ref.current && ! ref.current.contains( event.target ) ) {
+				setIsFocused( false );
+			}
+		}
+
+		// Bind the event listener
+		document.addEventListener( 'mousedown', handleClickOutside );
+		return () => {
+			// Unbind the event listener on clean up
+			document.removeEventListener( 'mousedown', handleClickOutside );
+		};
+	}, [ ref ] );
 
 	const keydownHandler = ( e ) => {
 		// Prevent any keyboard event by default in case of any tab event in general.
@@ -66,6 +86,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 
 	return (
 		<div
+			ref={ ref }
 			className={ classnames(
 				css`
 					${ backgroundImageCSS };
@@ -75,6 +96,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				'renderer-core-form-flow__wrapper'
 			) }
 			tabIndex={ 0 }
+			onMouseDown={ () => setIsFocused( true ) }
 		>
 			<div
 				className={ classnames(
@@ -93,6 +115,9 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 						}
 					`
 				) }
+				onClick={ () => {
+					setIsFocused( true );
+				} }
 			>
 				{ blocks.length > 0 && (
 					<Fragment>

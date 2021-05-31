@@ -303,3 +303,14 @@ export function getFieldValidationErr(
 	const validationErr = state.answers[ id ]?.validationErr;
 	return validationErr ? validationErr : [];
 }
+
+/**
+ * Get is focused flag
+ *
+ * @param {State}  state    Global application state.
+ *
+ * @return {boolean} isFocused flag
+ */
+export function isFocused( state: State ): boolean {
+	return state.isFocused;
+}

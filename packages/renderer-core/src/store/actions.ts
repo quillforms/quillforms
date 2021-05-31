@@ -13,6 +13,7 @@ import {
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_FIELD_VALIDATION_ERR,
 	RESET_ANSWERS,
+	SET_IS_FOCUSED,
 } from './constants';
 
 import type {
@@ -232,6 +233,20 @@ export const setIsSubmitting = ( val: boolean ): SubmitActionTypes => {
 export const setSubmissionErrs = ( val: string[] ): SubmitActionTypes => {
 	return {
 		type: SET_SUBMISSION_ERRORS,
+		val,
+	};
+};
+
+/**
+ * Set isFocused flag
+ *
+ * @param {Boolean} val   The new flag value.
+ *
+ * @return {Object} Action object
+ */
+export const setIsFocused = ( val: boolean ) => {
+	return {
+		type: SET_IS_FOCUSED,
 		val,
 	};
 };

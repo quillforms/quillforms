@@ -33,6 +33,7 @@ import {
 	RESET_ANSWERS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
+	SET_IS_FOCUSED,
 } from './constants';
 import type {
 	SwiperState,
@@ -407,6 +408,21 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 	return state;
 };
 
+const isFocused: Reducer = ( state = false, action ) => {
+	switch ( action.type ) {
+		case SET_IS_FOCUSED: {
+			if ( typeof action.val !== 'boolean' ) {
+				return state;
+			}
+
+			console.log( action );
+			return action.val;
+		}
+	}
+
+	return state;
+};
+
 const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 	state = {
 		isSubmitting: false,
@@ -550,9 +566,10 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 };
 
 const RendererCoreReducer = combineReducers( {
-	swiper,
 	answers,
+	isFocused,
 	submit,
+	swiper,
 } );
 export type State = ReturnType< typeof RendererCoreReducer >;
 

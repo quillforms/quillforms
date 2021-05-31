@@ -26,7 +26,6 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	const inputRef = useRef( null );
 	const {
 		id,
-		isFocused,
 		next,
 		blockName,
 		isActive,
@@ -39,7 +38,8 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
 		navigator.msMaxTouchPoints > 0;
-	useHandleFocus( inputRef, isFocused, isActive, isTouchDevice );
+
+	useHandleFocus( inputRef, isActive, isTouchDevice );
 	const { isPreview } = useFormContext();
 
 	if ( ! blockName || ! id ) return null;
