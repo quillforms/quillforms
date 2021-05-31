@@ -7,17 +7,17 @@ const BlockAttachment: React.FC = () => {
 	return (
 		<Fragment>
 			{ attachment && Object.keys( attachment ).length > 0 ? (
-				<div className="renderer-components-block-attachment">
+				<div className="renderer-core-block-attachment">
 					{ attachment && attachment.url ? (
 						<img
 							alt={ '' }
 							src={ attachment.url }
-							className="renderer-components-block-attachment__image"
+							className="renderer-core-block-attachment__image"
 						/>
 					) : (
-						<div className="renderer-components-block-attachment__placeholder">
+						<div className="renderer-core-block-attachment__placeholder">
 							<svg
-								className="renderer-components-block-attachment__placeholder-icon"
+								className="renderer-core-block-attachment__placeholder-icon"
 								focusable="false"
 								viewBox="0 0 24 24"
 								role="presentation"

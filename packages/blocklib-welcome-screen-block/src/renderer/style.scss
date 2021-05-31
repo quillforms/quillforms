@@ -14,9 +14,9 @@
 		overflow-y: auto;
 		opacity: 0;
 		visibility: hidden;
-		transition: all 0.4s ease-in;
-		-webkit-transition: all 0.4s ease-in;
-		-moz-transition: all 0.4s ease-in;
+		transition: all 0.4s ease-in-out;
+		-webkit-transition: all 0.4s ease-in-out;
+		-moz-transition: all 0.4s ease-in-out;
 	}
 
 	&.active {
@@ -36,6 +36,7 @@
 		padding: 30px 30px 20px;
 		word-wrap: break-word;
 		text-align: center;
+		margin: auto;
 	}
 }
 

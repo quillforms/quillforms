@@ -1,4 +1,4 @@
-.renderer-components-block-attachment {
+.renderer-core-block-attachment {
 	& {
 		display: flex;
 		flex-wrap: wrap;
@@ -6,11 +6,11 @@
 		margin-top: 10px;
 	}
 
-	.renderer-components-block-attachment__image {
+	.renderer-core-block-attachment__image {
 		max-width: 100%;
 	}
 
-	.renderer-components-block-attachment__placeholder {
+	.renderer-core-block-attachment__placeholder {
 		& {
 			width: 270px;
 			height: 200px;
@@ -21,13 +21,10 @@
 			background-color: rgba(79, 176, 174, 0.2);
 		}
 
-		.renderer-components-block-attachment__placeholder-icon {
+		.renderer-core-block-attachment__placeholder-icon {
 			width: 40px;
 			height: 40px;
 			fill: #7599a5;
 		}
 	}
-}
-#welcome_screen__block .block__attachment {
-	justify-content: center;
 }
