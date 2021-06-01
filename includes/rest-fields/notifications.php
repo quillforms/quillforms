@@ -16,22 +16,22 @@ register_rest_field(
 		'get_callback'    => function( $object ) {
 			$form_id = $object['id'];
 
-			$value =  get_post_meta( $form_id, 'notifications', true ) ;
+			$value = get_post_meta( $form_id, 'notifications', true );
 			$value = $value ? $value : array();
 
-			return  QF_Form_Notifications::prepare_notifications_for_render( $value );
+			return QF_Form_Notifications::prepare_notifications_for_render( $value );
 		},
 		'update_callback' => function( $meta, $object ) {
 			$form_id = $object->ID;
 			// Calculation the previous value because update_post_meta returns false if the same value passed.
-			$prev_value =  get_post_meta( $form_id, 'notifications', true ) ;
+			$prev_value = get_post_meta( $form_id, 'notifications', true );
 			if ( $prev_value === $meta ) {
 				return true;
 			}
 			$ret = update_post_meta(
 				$form_id,
 				'notifications',
-				 $meta
+				$meta
 			);
 			if ( false === $ret ) {
 				return new WP_Error(
@@ -42,5 +42,92 @@ register_rest_field(
 			}
 			return true;
 		},
+		'schema'          => array(
+			'arg_options' => array(
+				'sanitize_callback' => function( $value ) {
+					if ( ! empty( $value ) ) {
+						foreach ( $value as $notification_index => $notification ) {
+							$notification_properties  = $notification ['properties'];
+
+							if ( ! empty( $notification_properties ) ) {
+								foreach ( $notification_properties as $prop => $val ) {
+									if ( 'message' === $prop ) {
+										$value[ $notification_index ]['properties'][ $prop ] = wp_kses(
+											$val,
+											array(
+												'a'      => array(
+													'href' => array(),
+													'title' => array(),
+												),
+												'br'     => array(),
+												'strong' => array(),
+												'em'     => array(),
+											)
+										);
+									} elseif ( 'subject' === $prop || 'title' === $prop || 'replyTo' === $prop ) {
+										$value[ $notification_index ]['properties'][ $prop ] = sanitize_text_field( $val );
+									} elseif ( 'recipients' === $prop ) {
+										$value[ $notification_index ]['properties'][ $prop ] = array_map(
+											function( $item ) {
+												return sanitize_text_field( $item );
+											},
+											$val
+										);
+									}
+								}
+							}
+						}
+					}
+
+					return $value;
+				},
+
+				'schema'            => array(
+					'type'        => 'array',
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'id'         => array(
+								'type'     => 'string',
+								'required' => true,
+							),
+							'properties' => array(
+								'type'       => 'object',
+								'properties' => array(
+									'title'      => array(
+										'type' => 'string',
+									),
+									'active'     => array(
+										'type' => 'boolean',
+									),
+									'toType'     => array(
+										'type' => 'string',
+										'enum' => array( 'email', 'field' ),
+									),
+									'recipients' => array(
+										'type'  => 'array',
+										'items' => array(
+											'type' => 'string',
+										),
+									),
+									'replyTo'    => array(
+										'type' => 'string',
+									),
+									'subject'    => array(
+										'type' => 'string',
+									),
+									'message'    => array(
+										'type' => 'string',
+									),
+								),
+							),
+
+						),
+
+					),
+					'uniqueItems' => array( 'id' ),
+				),
+			),
+		),
 	)
 );
