@@ -24,7 +24,8 @@ const Header = () => {
 					'core'
 				).hasFinishedResolution( 'getCurrentUser' ),
 			};
-		}
+		},
+		[]
 	);
 	return (
 		<div className="qf-admin-header">
