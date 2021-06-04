@@ -339,6 +339,10 @@ module.exports = {
 				test: RegExp( 'blocklib-([a-zA-Z-]+)-block/src/block.json$' ),
 				to: 'includes/blocks/[1]/block.json',
 			},
+			{
+				from: './packages/config/src/json',
+				to: 'includes/json',
+			},
 		] ),
 
 		...defaultConfig.plugins.filter(
