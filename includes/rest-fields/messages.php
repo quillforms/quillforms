@@ -9,7 +9,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$messages_data = QF_Form_Messages::get_messages_data();
+$messages_data = json_decode(
+	file_get_contents(
+		QF_PLUGIN_DIR . 'includes/json/messages.json'
+	),
+	true
+);
 
 register_rest_field(
 	'quill_forms',
@@ -18,22 +23,22 @@ register_rest_field(
 		'get_callback'    => function( $object ) {
 			$form_id = $object['id'];
 
-			$value = maybe_unserialize( get_post_meta( $form_id, 'messages', true ) );
+			$value = get_post_meta( $form_id, 'messages', true );
 			$value = $value ? $value : array();
 
-			return  QF_Form_Messages::prepare_messages_for_render( $value );
+			return $value;
 		},
 		'update_callback' => function( $meta, $object ) {
 			$form_id = $object->ID;
 			// Calculation the previous value because update_post_meta returns false if the same value passed.
-			$prev_value = maybe_unserialize( get_post_meta( $form_id, 'messages', true ) );
+			$prev_value = get_post_meta( $form_id, 'messages', true );
 			if ( $prev_value === $meta ) {
 				return true;
 			}
 			$ret = update_post_meta(
 				$form_id,
 				'messages',
-				maybe_serialize( $meta )
+				$meta
 			);
 			if ( false === $ret ) {
 				return new WP_Error(
@@ -56,18 +61,31 @@ register_rest_field(
 				'sanitize_callback' => function( $messages ) use ( $messages_data ) {
 					if ( ! empty( $messages ) ) {
 						foreach ( $messages_data as $key => $message ) {
-							if ( ! empty( $message ) &&
-							! empty( $message['format'] ) &&
-							'html' === $message['format'] ) {
-								$messages[ $key ] = wp_kses(
-									$messages[ $key ],
-									array(
-										'em'     => array(),
-										'strong' => array(),
-									)
-								);
+							if ( ! empty( $messages[ $key ] ) ) {
+								if ( ! empty( $message['allowedFormats'] ) ) {
+									$allowed_formats = array();
+									if ( in_array( 'bold', $message['allowedFormats'], true ) ) {
+										$allowed_formats['strong'] = array();
+									}
+									if ( in_array( 'italic', $message['allowedFormats'], true ) ) {
+										$allowed_formats['em'] = array();
+									}
+									if ( in_array( 'link', $message['allowedFormats'], true ) ) {
+										$allowed_formats['a'] = array(
+											'href'  => array(),
+											'title' => array(),
+										);
+									}
+
+									$messages[ $key ] = wp_kses(
+										$messages[ $key ],
+										$allowed_formats
+									);
+								} else {
+									$messages[ $key ] = sanitize_text_field( $messages[ $key ] );
+								}
 							} else {
-								$messages[ $key ] = sanitize_textarea_field( $messages[ $key ] );
+								$messages[ $key ] = $message['default'] ? $message['default'] : '';
 							}
 						}
 					}
