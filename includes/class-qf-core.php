@@ -83,7 +83,7 @@ class QF_Core {
 	 * @since 1.0.0
 	 */
 	public static function get_blocks( $form_id ) {
-		$blocks = maybe_unserialize( get_post_meta( $form_id, 'blocks', true ) );
+		$blocks = get_post_meta( $form_id, 'blocks', true );
 		$blocks = $blocks ? $blocks : array();
 		return $blocks;
 	}
@@ -98,7 +98,7 @@ class QF_Core {
 	 * @since 1.0.0
 	 */
 	public static function get_messages( $form_id ) {
-		$messages = maybe_unserialize( get_post_meta( $form_id, 'messages', true ) );
+		$messages = get_post_meta( $form_id, 'messages', true );
 		return $messages;
 	}
 
