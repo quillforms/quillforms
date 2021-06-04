@@ -36,12 +36,13 @@ const Home = () => {
 				recordArgs
 			),
 		};
-	} );
+	}, [] );
 
 	// Invalidate resolution for entity record on unmount
 	useEffect( () => {
-		return () =>
+		return () => {
 			invalidateResolution( 'core', 'getEntityRecords', recordArgs );
+		};
 	}, [] );
 	useEffect( () => {
 		if ( hasFormsFinishedResolution ) setIsFetchingOnMount( false );

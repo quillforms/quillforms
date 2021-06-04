@@ -7,7 +7,7 @@ import { FormAdminBar, AdminNotices } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -24,8 +24,13 @@ import Builder from '../pages/builder';
 import Share from '../pages/share';
 
 export const Controller = ( { page, match, location } ) => {
+	const [ shouldBeRendered, setShouldBeRendered ] = useState( false );
+
 	useEffect( () => {
 		window.document.documentElement.scrollTop = 0;
+		setTimeout( () => {
+			setShouldBeRendered( true );
+		}, 350 );
 	}, [] );
 
 	const getQuery = ( searchString ) => {
@@ -46,12 +51,14 @@ export const Controller = ( { page, match, location } ) => {
 				'has-sidebar': ! page.template || page.template === 'default',
 			} ) }
 		>
-			<page.component
-				params={ params }
-				path={ url }
-				pathMatch={ page.path }
-				query={ query }
-			/>
+			{ shouldBeRendered && (
+				<page.component
+					params={ params }
+					path={ url }
+					pathMatch={ page.path }
+					query={ query }
+				/>
+			) }
 			<AdminNotices />
 		</div>
 	);
