@@ -23,7 +23,7 @@ import Element from '../element';
 import HoveringToolbar from '../hovering-toolbar';
 import MergeTagListItem from '../merge-tag-list-item';
 import Portal from '../portal';
-import type { MergeTags, MergeTag, FormatControls } from '../../types';
+import type { MergeTags, MergeTag, allowedFormats } from '../../types';
 interface Props {
 	editor: ReactEditor & HistoryEditor;
 	placeholder?: string;
@@ -32,7 +32,7 @@ interface Props {
 	onChange: ( value: SlateNode[] ) => void;
 	onFocus: React.FocusEventHandler;
 	mergeTags?: MergeTags;
-	formattingControls?: FormatControls;
+	allowedFormats?: allowedFormats;
 }
 const TextEditor: React.FC< Props > = ( props ) => {
 	const {
@@ -43,7 +43,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 		value,
 		onFocus,
 		mergeTags = [],
-		formattingControls = [ 'bold', 'italic' ],
+		allowedFormats = [],
 	} = props;
 
 	const wrapperRef = useRef< HTMLDivElement >( null );
@@ -112,6 +112,9 @@ const TextEditor: React.FC< Props > = ( props ) => {
 
 	const onKeyDown = useCallback(
 		( event ) => {
+			if ( event.key === 'Enter' && allowedFormats?.length === 0 ) {
+				event.preventDefault();
+			}
 			if ( target ) {
 				switch ( event.key ) {
 					case 'ArrowDown':
@@ -232,9 +235,9 @@ const TextEditor: React.FC< Props > = ( props ) => {
 						}
 					} }
 				>
-					{ formattingControls?.length > 0 && (
+					{ allowedFormats?.length > 0 && (
 						<HoveringToolbar
-							formattingControls={ formattingControls }
+							formattingControls={ allowedFormats }
 							toggleFormat={ ( format ) =>
 								toggleFormat( editor, format )
 							}

@@ -14,5 +14,6 @@ export interface Link extends Element {
 
 export type MergeTags = MergeTag[];
 
-type FormatControl = 'bold' | 'strong' | 'link';
-export type FormatControls = FormatControl[];
+type allowedFormat = 'bold' | 'italic' | 'link';
+
+export type allowedFormats = allowedFormat[];

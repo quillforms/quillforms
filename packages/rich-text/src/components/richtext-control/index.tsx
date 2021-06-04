@@ -28,13 +28,14 @@ import createEditor from '../../create-editor';
 import deserialize from '../../html-deserialize';
 import serialize from '../../html-serialize';
 import RichTextEditor from '../editor';
-import { MergeTags } from '../../types';
+import { allowedFormats, MergeTags } from '../../types';
 
 interface Props {
 	value: string;
 	setValue: ( value: string ) => void;
 	mergeTags?: MergeTags;
 	className?: string;
+	allowedFormats?: allowedFormats;
 	focusOnMount?: boolean;
 }
 const RichTextControl: React.FC< Props > = ( {
@@ -42,6 +43,7 @@ const RichTextControl: React.FC< Props > = ( {
 	setValue,
 	mergeTags,
 	className,
+	allowedFormats,
 	focusOnMount = false,
 } ) => {
 	const [ jsonVal, setJsonVal ] = useState< Node[] >( [
@@ -109,6 +111,7 @@ const RichTextControl: React.FC< Props > = ( {
 						} );
 					}
 				} }
+				allowedFormats={ allowedFormats }
 			/>
 		),
 		[ JSON.stringify( jsonVal ), JSON.stringify( mergeTags ) ]
