@@ -5,12 +5,13 @@
 	@media (max-width: $break-small) {
 		line-height: 28px;
 	}
-}
-.renderer-components-block-description p {
-	margin-top: 0;
-	margin-bottom:0;
 	font-size: 20px;
 	@media (max-width: $break-small) {
 		 font-size: 18px;
 	}
+}
+.renderer-components-block-description p {
+	margin-top: 0;
+	margin-bottom:0;
+
 }

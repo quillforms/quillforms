@@ -2,14 +2,11 @@
 	margin-bottom: 15px;
 	line-height: 31px;
 	min-height: 40px;
-	p{
-		font-size: 24px;
-		margin-top: 0;
-		margin-bottom: 0;
-
-		@media (max-width: $break-small) {
-			font-size: 20px;
-			line-height: 27px;
-		}
+	font-size: 24px;
+	margin-top: 0;
+	margin-bottom: 0;
+	@media (max-width: $break-small) {
+		font-size: 20px;
+		line-height: 27px;
 	}
 }
