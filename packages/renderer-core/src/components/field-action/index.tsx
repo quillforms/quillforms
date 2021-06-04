@@ -20,6 +20,11 @@ const FieldAction = ( { clickHandler, show } ) => {
 	const { blockName, isSubmitBtnVisible } = useFieldRenderContext();
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
+	const isTouchDevice =
+		'ontouchstart' in window ||
+		navigator.maxTouchPoints > 0 ||
+		navigator.msMaxTouchPoints > 0;
+
 	return (
 		<div
 			className={ classnames( 'renderer-core-field-action', {
@@ -33,18 +38,21 @@ const FieldAction = ( { clickHandler, show } ) => {
 					<Button onClick={ clickHandler }>
 						<HTMLParser value={ messages[ 'label.button.ok' ] } />
 					</Button>
-					<div
-						className={ classnames(
-							'renderer-core-field-action__helper-text',
-							css`
-								color: ${ theme.questionsColor };
-							`
-						) }
-					>
-						<HTMLParser
-							value={ messages[ 'label.hintText.enter' ] }
-						/>
-					</div>
+					{ ! isTouchDevice && (
+						<div
+							className={ classnames(
+								'renderer-core-field-action__helper-text',
+								css`
+									color: ${ theme.questionsColor };
+									font-size: 15px;
+								`
+							) }
+						>
+							<HTMLParser
+								value={ messages[ 'label.hintText.enter' ] }
+							/>
+						</div>
+					) }
 				</>
 			) }
 		</div>
