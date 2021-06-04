@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { Fragment } from '@wordpress/element';
+import { autop } from '@wordpress/autop';
 
 /**
  * External Dependencies
@@ -28,8 +29,10 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 		}
 	);
 
+	value = autop( value );
+
 	return (
-		<Fragment>
+		<div className="renderer-core-html-parser">
 			{ parse( value, {
 				replace: ( domNode ): void | JSX.Element => {
 					if (
@@ -47,7 +50,7 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 					}
 				},
 			} ) }
-		</Fragment>
+		</div>
 	);
 };
 export default HtmlParser;

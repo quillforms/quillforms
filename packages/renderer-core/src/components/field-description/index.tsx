@@ -2,7 +2,6 @@
  * WordPress Dependencies
  */
 import { Fragment } from '@wordpress/element';
-import { autop } from '@wordpress/autop';
 
 /**
  * External Dependencies
@@ -32,7 +31,7 @@ const BlockDesc: React.FC = () => {
 						`
 					) }
 				>
-					<HTMLParser value={ autop( description ) } />
+					<HTMLParser value={ description } />
 				</div>
 			) }
 		</Fragment>

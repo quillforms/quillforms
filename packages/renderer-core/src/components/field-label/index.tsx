@@ -1,9 +1,4 @@
 /**
- * WordPress Dependencies
- */
-import { autop } from '@wordpress/autop';
-
-/**
  * External Dependencies
  */
 import { css } from 'emotion';
@@ -16,7 +11,7 @@ import HtmlParser from '../html-parser';
 import { useFieldRenderContext } from '../field-render/context';
 import useTheme from '../../hooks/use-theme';
 
-const BlockTitle: React.FC = () => {
+const BlockLabel: React.FC = () => {
 	const { attributes } = useFieldRenderContext();
 	let label = '...';
 	if ( attributes?.label ) label = attributes.label;
@@ -31,8 +26,8 @@ const BlockTitle: React.FC = () => {
 				`
 			) }
 		>
-			<HtmlParser value={ autop( label ) } />
+			<HtmlParser value={ label } />
 		</div>
 	);
 };
-export default BlockTitle;
+export default BlockLabel;
