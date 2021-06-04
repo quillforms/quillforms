@@ -63,7 +63,7 @@ switch ( $font_type ) {
 		<?php if ( $font_url ) { ?>
 			<link href="<?php echo $font_url; ?>" rel="stylesheet" />
 		<?php } ?>
-
+		<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
 		<title><?php echo get_the_title(); ?></title>
 
 		<?php wp_head(); ?>
