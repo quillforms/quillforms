@@ -1,32 +1,31 @@
 {
 	"label.button.ok": {
 		"title": "Button to confirm answer",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "OK",
 		"category": "buttons-hints-placeholders"
 	},
 	"label.hintText.enter": {
 		"title": "Keyboard hint text for navigating to next question",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "press <strong>Enter ↵</strong>",
 		"category": "buttons-hints-placeholders"
 	},
 	"label.hintText.multipleSelection": {
 		"title": "Hint for multiple selection",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Choose as many as you like",
 		"category": "buttons-hints-placeholders"
 	},
 	"block.dropdown.placeholder": {
 		"title": "Placeholder for dropdown",
-		"default": "Please format or select an option",
-		"category": "buttons-hints-placeholders"
-	},
-	"block.dropdown.placeholderTouch": {
-		"title": "Placeholder for dropdown on touch screens",
-		"default": "Please select an option",
+		"default": "Please type or select an option",
 		"category": "buttons-hints-placeholders"
 	},
 	"block.dropdown.noSuggestions": {
 		"title": "No suggestions hint for dropdown",
-		"default": "No Suggestions",
+		"allowedFormats": [ "bold", "link", "italic" ],
+		"default": "No Suggestions!",
 		"category": "buttons-hints-placeholders"
 	},
 	"block.shortText.placeholder": {
@@ -41,31 +40,47 @@
 	},
 	"block.longText.hint": {
 		"title": "Hint for line break in Long Text fields",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "<strong>Shift ⇧ + Enter ↵</strong> to make a line break",
 		"category": "buttons-hints-placeholders"
 	},
 	"block.number.placeholder": {
 		"title": "Placeholder for number input",
-		"default": "Please format your answer here",
+		"default": "Type your answer here",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.email.placeholder": {
+		"title": "Placeholder for email input",
+		"default": "Type your email here",
+		"category": "buttons-hints-placeholders"
+	},
+	"block.defaultThankYouScreen.label": {
+		"title": "Default Thank you screen label",
+		"default": "Thanks for filling this in\n\n We will contact you soon",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"category": "buttons-hints-placeholders"
 	},
 	"label.hintText.key": {
 		"title": "Keyboard hint after hovering over options",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Key",
 		"category": "buttons-hints-placeholders"
 	},
 	"label.yes.default": {
 		"title": "Button to say 'Yes'",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Yes",
 		"category": "buttons-hints-placeholders"
 	},
 	"label.no.default": {
 		"title": "Button to say 'No'",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "No",
 		"category": "buttons-hints-placeholders"
 	},
 	"label.progress.percent": {
 		"title": "Percentage of form completed",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"mergeTags": [
 			{
 				"label": "percent",
@@ -73,48 +88,48 @@
 				"modifier": "percent"
 			}
 		],
-		"default": "{{progress:percent}}",
+		"default": "{{progress:percent}}% completed",
 		"category": "buttons-hints-placeholders"
 	},
-	"label.button.yes": {
-		"title": "Button to say 'Yes'",
-		"format": "html",
-		"default": "Yes",
-		"category": "buttons-hints-placeholders"
-	},
-
 	"label.errorAlert.required": {
 		"title": "If field is required",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "This field is required!",
 		"category": "alerts"
 	},
 	"label.errorAlert.date": {
 		"title": "If date is invalid",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Invalid date!",
 		"category": "alerts"
 	},
 	"label.errorAlert.number": {
 		"title": "If non numeric value is passed",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Numbers only!",
 		"category": "alerts"
 	},
 	"label.errorAlert.selectionRequired": {
 		"title": "If answer needs at least one selection",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Please make at least one selection!",
 		"category": "alerts"
 	},
 	"label.errorAlert.email": {
 		"title": "If email address is wrong",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Invalid email!",
 		"category": "alerts"
 	},
 	"label.errorAlert.url": {
 		"title": "If url is wrong",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Invalid url!",
 		"category": "alerts"
 	},
 	"label.errorAlert.range": {
 		"title": "If number is out of range",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"mergeTags": [
 			{
 				"label": "min",
@@ -132,6 +147,7 @@
 	},
 	"label.errorAlert.minNum": {
 		"title": "If number is lower than minimum value",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"mergeTags": [
 			{
 				"label": "min",
@@ -144,6 +160,7 @@
 	},
 	"label.errorAlert.maxNum": {
 		"title": "If number is higher than maximum value",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"mergeTags": [
 			{
 				"label": "max",
@@ -156,6 +173,7 @@
 	},
 	"label.errorAlert.maxCharacters": {
 		"title": "If characters number is higher than maximum value",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"mergeTags": [
 			{
 				"label": "maxCharacters",
@@ -166,18 +184,15 @@
 		"default": "Maximum characters reached!",
 		"category": "alerts"
 	},
-	"label.successAlert.submission": {
-		"title": "Form submission success message",
-		"default": "Form has been submitted successfully!",
-		"category": "alerts"
-	},
 	"label.errorAlert.noConnection": {
 		"title": "Error for no connection with server",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Can\"t connect to the server right now!",
 		"category": "alerts"
 	},
 	"label.errorAlert.serverError": {
 		"title": "Error for a problem with server",
+		"allowedFormats": [ "bold", "link", "italic" ],
 		"default": "Server error!",
 		"category": "alerts"
 	}
