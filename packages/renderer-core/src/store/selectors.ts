@@ -314,3 +314,14 @@ export function getFieldValidationErr(
 export function isFocused( state: State ): boolean {
 	return state.isFocused;
 }
+
+/**
+ * Should footer be displayed flag
+ *
+ * @param {State}  state    Global application state.
+ *
+ * @return {boolean} isFocused flag
+ */
+export function shouldFooterBeDisplayed( state: State ): boolean {
+	return state.footerDisplay;
+}

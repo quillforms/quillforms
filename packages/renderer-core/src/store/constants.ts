@@ -13,4 +13,5 @@ export const SET_IS_REVIEWING = 'SET_IS_REVIEWING';
 export const SET_SUBMISSION_ERRORS = 'SET_SUBMISSION_ERRORS';
 export const SET_IS_SUBMITTING = 'SET_IS_SUBMITTING';
 export const SET_IS_FOCUSED = 'SET_IS_FOCUSED';
+export const SET_FOOTER_DISPLAY = 'SET_FOOTER_DISPLAY';
 export const STORE_KEY = 'quillForms/renderer-core';

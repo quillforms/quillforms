@@ -14,6 +14,7 @@ import {
 	SET_FIELD_VALIDATION_ERR,
 	RESET_ANSWERS,
 	SET_IS_FOCUSED,
+	SET_FOOTER_DISPLAY,
 } from './constants';
 
 import type {
@@ -247,6 +248,21 @@ export const setSubmissionErrs = ( val: string[] ): SubmitActionTypes => {
 export const setIsFocused = ( val: boolean ) => {
 	return {
 		type: SET_IS_FOCUSED,
+		val,
+	};
+};
+
+/**
+ * Set footerDisplay flag
+ * This flag will alomst be needed to control in touch screens.
+ *
+ * @param {Boolean} val   The new flag value.
+ *
+ * @return {Object} Action object
+ */
+export const setFooterDisplay = ( val: boolean ) => {
+	return {
+		type: SET_FOOTER_DISPLAY,
 		val,
 	};
 };

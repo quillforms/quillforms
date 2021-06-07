@@ -34,6 +34,7 @@ import {
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
 	SET_IS_FOCUSED,
+	SET_FOOTER_DISPLAY,
 } from './constants';
 import type {
 	SwiperState,
@@ -133,8 +134,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					}
 				}
 			);
-
-			console.log( validBlocksStructure );
 
 			if ( ! validBlocksStructure ) {
 				return state;
@@ -415,7 +414,20 @@ const isFocused: Reducer = ( state = false, action ) => {
 				return state;
 			}
 
-			console.log( action );
+			return action.val;
+		}
+	}
+
+	return state;
+};
+
+const footerDisplay: Reducer = ( state = true, action ) => {
+	switch ( action.type ) {
+		case SET_FOOTER_DISPLAY: {
+			if ( typeof action.val !== 'boolean' ) {
+				return state;
+			}
+
 			return action.val;
 		}
 	}
@@ -567,6 +579,7 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 
 const RendererCoreReducer = combineReducers( {
 	answers,
+	footerDisplay,
 	isFocused,
 	submit,
 	swiper,
