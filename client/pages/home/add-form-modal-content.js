@@ -22,7 +22,6 @@ const AddFormModalContent = ( { closeModal } ) => {
 
 	const ref = useRef( null );
 	useEffect( () => {
-		console.log( ref );
 		if ( ref && ref.current ) ref.current.focus();
 	}, [ ref.current ] );
 

@@ -24,13 +24,8 @@ import Builder from '../pages/builder';
 import Share from '../pages/share';
 
 export const Controller = ( { page, match, location } ) => {
-	const [ shouldBeRendered, setShouldBeRendered ] = useState( false );
-
 	useEffect( () => {
 		window.document.documentElement.scrollTop = 0;
-		setTimeout( () => {
-			setShouldBeRendered( true );
-		}, 350 );
 	}, [] );
 
 	const getQuery = ( searchString ) => {
@@ -51,14 +46,12 @@ export const Controller = ( { page, match, location } ) => {
 				'has-sidebar': ! page.template || page.template === 'default',
 			} ) }
 		>
-			{ shouldBeRendered && (
-				<page.component
-					params={ params }
-					path={ url }
-					pathMatch={ page.path }
-					query={ query }
-				/>
-			) }
+			<page.component
+				params={ params }
+				path={ url }
+				pathMatch={ page.path }
+				query={ query }
+			/>
 			<AdminNotices />
 		</div>
 	);
