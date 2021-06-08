@@ -1,9 +1,3 @@
-@mixin edit-post__fade-in-animation($speed: 0.2s, $delay: 0s) {
-	animation: edit-post__fade-in-animation $speed ease-out $delay;
-	animation-fill-mode: forwards;
-	@include reduce-motion("animation");
-}
-
 
 // Set up animation
 @keyframes loading-fade {
