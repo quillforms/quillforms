@@ -78,6 +78,7 @@ const EmailMessage = ( {
 					setValue={ ( newVal ) => {
 						setValue( newVal );
 					} }
+					allowedFormats={ [ 'bold', 'italic', 'link' ] }
 				/>
 			</__experimentalControlWrapper>
 			{ ! isValid && isReviewing && (
