@@ -1,6 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { __experimentalGradientPicker } from '@wordpress/components';
+import {
+	__experimentalGradientPicker,
+	GradientPicker as WPGradientPicker,
+} from '@wordpress/components';
 const GradientPicker = ( { value, onChange } ) => {
+	const WPGradientPickerComponent =
+		WPGradientPicker || __experimentalGradientPicker;
 	const props = {
 		colors: [
 			{
@@ -139,7 +144,7 @@ const GradientPicker = ( { value, onChange } ) => {
 
 	return (
 		<div className="admin-components-gradient-picker">
-			<__experimentalGradientPicker
+			<WPGradientPickerComponent
 				value={ value }
 				onChange={ onChange }
 				{ ...{ ...props } }
