@@ -92,8 +92,6 @@ export const registerBlockType = (
 		default: '',
 	};
 
-	console.log( attributes );
-
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

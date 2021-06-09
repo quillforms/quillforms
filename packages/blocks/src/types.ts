@@ -22,10 +22,10 @@ export interface BlockAdminSettings {
 }
 
 export interface BlockRendererSettings {
-	output?: FC | Component | JSX.Element;
+	display?: FC | Component | JSX.Element;
 	mergeTag?: FC | Component | JSX.Element;
-	counterContent?: FC | Component | JSX.Element;
-	nextBtn?: FC | Component | JSX.Element;
+	counterIcon?: FC | Component | JSX.Element;
+	blockAction?: FC | Component | JSX.Element;
 }
 export type BlockSupportedFeatures = {
 	attachment?: boolean;

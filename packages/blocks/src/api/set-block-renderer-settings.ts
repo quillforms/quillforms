@@ -6,7 +6,7 @@ import { select, dispatch } from '@wordpress/data';
  */
 import { isFunction, pick } from 'lodash';
 
-import type { BlockRendererSettings } from "../types";
+import type { BlockRendererSettings } from '../types';
 /**
  * Set block renderer settings
  * Set block renderer settings is for defining renderer behavior for the block
@@ -15,9 +15,12 @@ import type { BlockRendererSettings } from "../types";
  * @param {Object} settings Block renderer settings.
  *
  */
-export const setBlockRendererSettings = ( name:string, settings:BlockRendererSettings ) : BlockRendererSettings | undefined => {
+export const setBlockRendererSettings = (
+	name: string,
+	settings: BlockRendererSettings
+): BlockRendererSettings | undefined => {
 	settings = {
-		output: () => null,
+		display: () => null,
 		...settings,
 	};
 
@@ -35,7 +38,7 @@ export const setBlockRendererSettings = ( name:string, settings:BlockRendererSet
 		return;
 	}
 
-	if ( ! isFunction( settings.output ) ) {
+	if ( ! isFunction( settings.display ) ) {
 		console.error( 'The "output" property must be a valid function!' );
 		return;
 	}
@@ -45,20 +48,23 @@ export const setBlockRendererSettings = ( name:string, settings:BlockRendererSet
 		return;
 	}
 
-	if ( settings.counterContent && ! isFunction( settings.counterContent ) ) {
-		console.error(
-			'The "counterContent" property must be a valid function!'
-		);
+	if ( settings.counterIcon && ! isFunction( settings.counterIcon ) ) {
+		console.error( 'The "counterIcon" property must be a valid function!' );
 		return;
 	}
 
-	if ( settings.nextBtn && ! isFunction( settings.nextBtn ) ) {
-		console.error( 'The "nextBtn" property must be a valid function!' );
+	if ( settings.blockAction && ! isFunction( settings.blockAction ) ) {
+		console.error( 'The "blockAction" property must be a valid function!' );
 		return;
 	}
 
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
-		pick( settings, [ 'output', 'mergeTag', 'nextBtn', 'counterContent' ] ),
+		pick( settings, [
+			'output',
+			'mergeTag',
+			'blockAction',
+			'counterIcon',
+		] ),
 		name
 	);
 
