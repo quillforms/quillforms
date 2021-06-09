@@ -6,7 +6,7 @@ import { useTheme, useMessages } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -19,7 +19,6 @@ const EmailOutput = ( props ) => {
 	const {
 		id,
 		attributes,
-		isValid,
 		setIsValid,
 		setIsAnswered,
 		setValidationErr,
@@ -29,6 +28,8 @@ const EmailOutput = ( props ) => {
 		showErrMsg,
 		next,
 		inputRef,
+		isTouchDevice,
+		setFooterDisplay,
 	} = props;
 	const messages = useMessages();
 	const theme = useTheme();
@@ -36,7 +37,8 @@ const EmailOutput = ( props ) => {
 	const { required } = attributes;
 
 	const validateEmail = ( email ) => {
-		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const re = /^\S+@\S+$/;
+
 		return re.test( String( email ).toLowerCase() );
 	};
 
@@ -65,12 +67,12 @@ const EmailOutput = ( props ) => {
 		checkFieldValidation( value );
 		setVal( value );
 		showErrMsg( false );
-		if ( value !== '' ) {
-			setIsAnswered( true );
-			showSubmitBtn( true );
-		} else {
+		if ( ! value ) {
 			setIsAnswered( false );
 			showSubmitBtn( false );
+		} else {
+			setIsAnswered( true );
+			showSubmitBtn( true );
 		}
 	};
 
@@ -122,9 +124,19 @@ const EmailOutput = ( props ) => {
 				`
 			) }
 			id={ 'email-' + id }
-			placeholder="Type your email here..."
+			placeholder={ messages[ 'block.email.placeholder' ] }
 			onChange={ changeHandler }
 			value={ val && val.length > 0 ? val : '' }
+			onFocus={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( false );
+				}
+			} }
+			onBlur={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( true );
+				}
+			} }
 		/>
 	);
 };
