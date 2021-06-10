@@ -13,6 +13,7 @@ const SubPanel = () => {
 		<Fragment>
 			{ currentSubPanel && (
 				<div className="activeChild__panelContent">
+					{ /* @ts-expect-error */ }
 					<currentSubPanel.render />
 				</div>
 			) }

@@ -3,7 +3,7 @@
  */
 import { __experimentalDragDropContext as DragDropContext } from '@quillforms/admin-components';
 import { sanitizeBlockAttributes } from '@quillforms/blocks';
-import { FormBlock } from '@quillforms/config';
+import { FormBlock } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -194,7 +194,6 @@ const Layout: React.FC = () => {
 					const blockName = Object.keys( blockTypes )[ source.index ];
 					const blockType = blockTypes[ blockName ];
 					const blockToInsert = createBlock( blockName );
-					// console.log( blockToInsert );
 					if ( blockToInsert ) {
 						// blockToInsert.id = generateBlockId();
 						if ( blockType.supports.editable )

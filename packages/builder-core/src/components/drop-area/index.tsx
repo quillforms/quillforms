@@ -33,8 +33,6 @@ const DropArea = ( props ) => {
 		};
 	} );
 
-	// console.log( formBlocks );
-
 	return (
 		<div
 			className="builder-core-drop-area"

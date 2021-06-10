@@ -119,7 +119,6 @@ const FormPreview: React.FC = () => {
 	useEffect( () => {
 		if ( ! hasThemesFinishedResolution ) return;
 		clearTimeout( $timer );
-		console.log( '#########################################' );
 		if ( ! applyJumpLogic ) {
 			const formFields = blocks.filter(
 				( block ) =>

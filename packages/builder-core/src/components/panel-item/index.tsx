@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import type { IconDescriptor, Icon as IconType } from '@quillforms/utils';
+import type { IconDescriptor, Icon as IconType } from '@quillforms/types';
 
 /**
  * WordPress Dependencies

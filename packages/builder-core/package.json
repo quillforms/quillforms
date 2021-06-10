@@ -27,6 +27,7 @@
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/builder-panels": "file:../builder-panels",
 		"@quillforms/renderer-core": "file:../renderer-core",
+		"@quillforms/types": "file:../types",
 		"@wordpress/api-fetch": "^3.21.5",
 		"@wordpress/compose": "^3.24.3",
 		"@wordpress/data": "^4.26.5",

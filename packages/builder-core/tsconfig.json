@@ -10,6 +10,7 @@
 		{ "path": "../admin-components"},
 		{ "path": "../builder-panels"},
 		{ "path": "../rest-fields" },
+		{ "path": "../types" }
 	],
 	// NOTE: This package is being progressively typed. You are encouraged to
 	// expand this array with files which can be type-checked. At some point in
@@ -17,6 +18,6 @@
 	"include": [
 		"src/**/*",
 		"src/*",
-		"../../typings/rememo/index.d.ts", "../admin-components/src/builder-notices",
+		"../../typings/rememo/index.d.ts"
 	]
 }

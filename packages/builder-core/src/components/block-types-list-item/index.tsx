@@ -3,7 +3,7 @@ import { memo } from '@wordpress/element';
 import { Icon, Dashicon } from '@wordpress/components';
 import { blockDefault, plus } from '@wordpress/icons';
 import { useSelect } from '@wordpress/data';
-import type { IconDescriptor, Icon as IconType } from '@quillforms/utils';
+import type { IconDescriptor, Icon as IconType } from '@quillforms/types';
 import { FC } from 'react';
 
 const areEqual = ( prevProps: Props, nextProps: Props ): boolean => {
