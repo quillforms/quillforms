@@ -2,14 +2,18 @@
  * QuillForms Dependencies
  */
 import { setBlockRendererSettings } from '@quillforms/blocks';
-import { useFieldRenderContext, Button } from '@quillforms/renderer-core';
+import {
+	useFieldRenderContext,
+	Button,
+	useTheme,
+} from '@quillforms/renderer-core';
 
 /**
  * Internal Dependencies
  */
 import { type } from '../block.json';
 
-const NextBtnComponent = ( { onClick } ) => {
+const BlockActionComponent = ( { onClick } ) => {
 	const { attributes } = useFieldRenderContext();
 
 	return (
@@ -27,9 +31,10 @@ const NextBtnComponent = ( { onClick } ) => {
 	);
 };
 
-const CounterContentComponent = () => {
+const counterIconComponent = () => {
 	const { attributes } = useFieldRenderContext();
 	const { quotationMarks } = attributes;
+	const theme = useTheme();
 	return (
 		<>
 			{ quotationMarks && (
@@ -42,10 +47,10 @@ const CounterContentComponent = () => {
 					} }
 				>
 					<svg
-						style={ { width: '15px' } }
 						strokeWidth="0"
 						viewBox="0 0 14 16"
 						xmlns="http://www.w3.org/2000/svg"
+						style={ { fill: theme.questionsColor, width: '15px' } }
 					>
 						<path
 							fillRule="evenodd"
@@ -59,8 +64,8 @@ const CounterContentComponent = () => {
 };
 
 export const rendererSettings = {
-	counterContent: CounterContentComponent,
-	nextBtn: NextBtnComponent,
+	counterIcon: counterIconComponent,
+	blockAction: BlockActionComponent,
 };
 
 setBlockRendererSettings( type, rendererSettings );

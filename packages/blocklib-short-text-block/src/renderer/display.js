@@ -28,8 +28,8 @@ const ShortTextOutput = ( props ) => {
 		setVal,
 		showErrMsg,
 		inputRef,
+		isTouchDevice,
 	} = props;
-	// console.log( val );
 	const messages = useMessages();
 	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
@@ -59,7 +59,6 @@ const ShortTextOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		// console.log( value );
 		if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
@@ -99,6 +98,9 @@ const ShortTextOutput = ( props ) => {
 						@media ( max-width: 600px ) {
 							font-size: 24px;
 						}
+						@media ( max-width: 400px ) {
+							font-size: 20px;
+						}
 					}
 
 					&::placeholder {
@@ -128,9 +130,19 @@ const ShortTextOutput = ( props ) => {
 				`
 			) }
 			id={ 'short-text-' + id }
-			placeholder="Type your answer here..."
+			placeholder={ messages[ 'block.shortText.placeholder' ] }
 			onChange={ changeHandler }
 			value={ val ? val.toString() : '' }
+			onFocus={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( false );
+				}
+			} }
+			onBlur={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( true );
+				}
+			} }
 		/>
 	);
 };

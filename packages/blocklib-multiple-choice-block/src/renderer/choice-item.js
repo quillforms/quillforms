@@ -1,7 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useTheme } from '@quillforms/renderer-core';
+import { useMessages, useTheme } from '@quillforms/renderer-core';
 
 /**
  * External Dependencies
@@ -13,6 +13,7 @@ import tinyColor from 'tinycolor2';
 
 const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 	const { answersColor } = useTheme();
+	const messages = useMessages();
 	const [ isClicked, setIsClicked ] = useState( false );
 	return (
 		<div
@@ -24,44 +25,44 @@ const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 					clicked: isClicked,
 				},
 				css`
-					background: ${tinyColor( answersColor )
+					background: ${ tinyColor( answersColor )
 						.setAlpha( 0.1 )
-						.toString()};
+						.toString() };
 
-					border-color: ${answersColor};
-					color: ${answersColor};
+					border-color: ${ answersColor };
+					color: ${ answersColor };
 
 					&:hover {
-						background: ${tinyColor( answersColor )
+						background: ${ tinyColor( answersColor )
 							.setAlpha( 0.2 )
-							.toString()};
+							.toString() };
 					}
 
 					&.selected {
-						background: ${tinyColor( answersColor )
+						background: ${ tinyColor( answersColor )
 							.setAlpha( 0.75 )
-							.toString()};
-						color: ${tinyColor( answersColor ).isDark()
+							.toString() };
+						color: ${ tinyColor( answersColor ).isDark()
 							? '#fff'
 							: tinyColor( answersColor )
 									.darken( 20 )
 
-									.toString()};
+									.toString() };
 
 						.multipleChoice__optionKey {
-							color: ${tinyColor( answersColor ).isDark()
+							color: ${ tinyColor( answersColor ).isDark()
 								? '#fff'
 								: tinyColor( answersColor )
 										.darken( 20 )
 
-										.toString()};
+										.toString() };
 
-							border-color: ${tinyColor( answersColor ).isDark()
+							border-color: ${ tinyColor( answersColor ).isDark()
 								? '#fff'
 								: tinyColor( answersColor )
 										.darken( 20 )
 
-										.toString()};
+										.toString() };
 						}
 					}
 				`
@@ -81,13 +82,13 @@ const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 				className={ classnames(
 					'multipleChoice__optionKey',
 					css`
-						background: ${tinyColor( answersColor )
+						background: ${ tinyColor( answersColor )
 							.setAlpha( 0.1 )
-							.toString()};
-						color: ${answersColor};
-						border-color: ${tinyColor( answersColor )
+							.toString() };
+						color: ${ answersColor };
+						border-color: ${ tinyColor( answersColor )
 							.setAlpha( 0.4 )
-							.toString()};
+							.toString() };
 					`
 				) }
 			>
@@ -95,16 +96,16 @@ const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 					className={ classnames(
 						'multipleChoice__optionKeyTip',
 						css`
-							background: ${answersColor};
-							color: ${tinyColor( answersColor ).isDark()
+							background: ${ answersColor };
+							color: ${ tinyColor( answersColor ).isDark()
 								? '#fff'
 								: tinyColor( answersColor )
 										.darken( 20 )
-										.toString()};
+										.toString() };
 						`
 					) }
 				>
-					KEY
+					{ messages[ 'label.hintText.key' ] }
 				</span>
 				{ order }
 			</span>

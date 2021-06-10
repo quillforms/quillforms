@@ -27,6 +27,8 @@ const WebsiteOutput = ( props ) => {
 		setVal,
 		showErrMsg,
 		inputRef,
+		isTouchDevice,
+		setFooterDisplay,
 	} = props;
 	const messages = useMessages();
 	const theme = useTheme();
@@ -51,7 +53,6 @@ const WebsiteOutput = ( props ) => {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else if ( ! validateUrl( value ) && value ) {
-			console.log( value );
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.url' ] );
 		} else {
@@ -97,6 +98,10 @@ const WebsiteOutput = ( props ) => {
 						@media ( max-width: 600px ) {
 							font-size: 24px;
 						}
+
+						@media ( max-width: 400px ) {
+							font-size: 20px;
+						}
 					}
 
 					&::placeholder {
@@ -129,6 +134,16 @@ const WebsiteOutput = ( props ) => {
 			placeholder="https://"
 			onChange={ changeHandler }
 			value={ val && val.length > 0 ? val : '' }
+			onFocus={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( false );
+				}
+			} }
+			onBlur={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( true );
+				}
+			} }
 		/>
 	);
 };

@@ -6,12 +6,12 @@ import { setBlockRendererSettings } from '@quillforms/blocks';
 /**
  * Internal Dependencies
  */
-import output from './output';
+import display from './display';
 import mergeTag from './merge-tag';
 import { type } from '../block.json';
 
 export const rendererSettings = {
-	output,
+	display,
 	mergeTag,
 };
 setBlockRendererSettings( type, rendererSettings );

@@ -30,6 +30,8 @@ const LongTextOutput = ( props ) => {
 		showErrMsg,
 		next,
 		inputRef,
+		isTouchDevice,
+		setFooterDisplay,
 	} = props;
 	const { setMaxCharacters, maxCharacters, required } = attributes;
 	const messages = useMessages();
@@ -108,12 +110,17 @@ const LongTextOutput = ( props ) => {
 							padding-bottom: 8px;
 							background: transparent;
 							transition: box-shadow 0.1s ease-out 0s;
+							resize: none;
 							box-shadow: ${ answersColor
 									.setAlpha( 0.3 )
 									.toString() }
 								0px 1px;
 							@media ( max-width: 600px ) {
 								font-size: 24px;
+							}
+
+							@media ( max-width: 400px ) {
+								font-size: 20px;
 							}
 						}
 
@@ -146,13 +153,34 @@ const LongTextOutput = ( props ) => {
 					`
 				) }
 				id={ 'longText-' + id }
-				placeholder="Type your answer here..."
+				placeholder={ messages[ 'block.longText.placeholder' ] }
 				onChange={ changeHandler }
 				value={ val && val.length > 0 ? val : '' }
+				onFocus={ () => {
+					if ( isTouchDevice ) {
+						setFooterDisplay( false );
+					}
+				} }
+				onBlur={ () => {
+					if ( isTouchDevice ) {
+						setFooterDisplay( true );
+					}
+				} }
 			/>
-			<div className="question__instruction">
-				<HTMLParser value={ messages[ 'block.longText.hint' ] } />
-			</div>
+			{ ! isTouchDevice && (
+				<div
+					className={ classnames(
+						'qf-blocklib-long-text-block-renderer__hint-text',
+						css`
+							margin-top: 12px;
+							color: ${ theme.questionsColor };
+							font-size: 14px;
+						`
+					) }
+				>
+					<HTMLParser value={ messages[ 'block.longText.hint' ] } />
+				</div>
+			) }
 		</>
 	);
 };

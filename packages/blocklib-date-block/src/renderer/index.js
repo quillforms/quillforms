@@ -6,10 +6,10 @@ import { setBlockRendererSettings } from '@quillforms/blocks';
 /**
  * Internal Dependencies
  */
-import output from './output';
+import display from './display';
 import { type } from '../block.json';
 
 export const rendererSettings = {
-	output,
+	display,
 };
 setBlockRendererSettings( type, rendererSettings );

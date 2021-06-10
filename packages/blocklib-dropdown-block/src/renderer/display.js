@@ -25,7 +25,7 @@ import CloseIcon from './close-icon';
 import ChoiceItem from './choice-item';
 
 let timer;
-const DropdownOutput = ( props ) => {
+const DropdownDisplay = ( props ) => {
 	const {
 		id,
 		attributes,
@@ -37,6 +37,7 @@ const DropdownOutput = ( props ) => {
 		next,
 		showErrMsg,
 		isTouchDevice,
+		setFooterDisplay,
 		inputRef,
 	} = props;
 	const { choices, required } = attributes;
@@ -59,7 +60,9 @@ const DropdownOutput = ( props ) => {
 	const checkfieldValidation = () => {
 		if ( required === true && ( ! val || val === '' ) ) {
 			setIsValid( false );
-			setValidationErr( messages[ 'label.errorAlert.required' ] );
+			setValidationErr(
+				messages[ 'label.errorAlert.selectionRequired' ]
+			);
 		} else {
 			setIsValid( true );
 			setValidationErr( null );
@@ -78,7 +81,6 @@ const DropdownOutput = ( props ) => {
 		if ( showDropdown ) {
 			// Bind the event listener
 			document.addEventListener( 'mousedown', handleClickOutside );
-			console.log( 'lkfijewf' );
 			if (
 				document.querySelector(
 					`#block-${ id } .renderer-core-field-footer`
@@ -155,6 +157,10 @@ const DropdownOutput = ( props ) => {
 							@media ( max-width: 600px ) {
 								font-size: 24px;
 							}
+
+							@media ( max-wdith: 400px ) {
+								font-size: 20px;
+							}
 						}
 
 						&::placeholder {
@@ -186,10 +192,20 @@ const DropdownOutput = ( props ) => {
 					`
 				) }
 				id={ 'dropdown-' + id }
-				placeholder="Type or select an option"
+				placeholder={ messages[ 'block.dropdown.placeholder' ] }
 				onChange={ changeHandler }
 				value={ searchKeyword }
 				onClick={ () => setShowDropdown( true ) }
+				onFocus={ () => {
+					if ( isTouchDevice ) {
+						setFooterDisplay( false );
+					}
+				} }
+				onBlur={ () => {
+					if ( isTouchDevice ) {
+						setFooterDisplay( true );
+					}
+				} }
 			/>
 			{ val && val.length > 0 ? (
 				<CloseIcon
@@ -197,7 +213,9 @@ const DropdownOutput = ( props ) => {
 						setSearchKeyword( '' );
 						setIsAnswered( false );
 						setVal( undefined );
-						elemRef.current.focus();
+						if ( ! isTouchDevice ) {
+							inputRef.current.focus();
+						}
 					} }
 				/>
 			) : (
@@ -255,7 +273,7 @@ const DropdownOutput = ( props ) => {
 								border-radius: 5px;
 							` }
 						>
-							No suggestions found
+							{ messages[ 'block.dropdown.noSuggestions' ] }
 						</div>
 					) }
 				</div>
@@ -263,4 +281,4 @@ const DropdownOutput = ( props ) => {
 		</div>
 	);
 };
-export default DropdownOutput;
+export default DropdownDisplay;

@@ -18,11 +18,17 @@
 
 		.multipleChoice__optionWrapper {
 			max-width: 215px;
+			@media(max-width: $break-small) {
+				max-width: 480px;
+			}
 		}
 	}
 
 	.multipleChoice__optionWrapper {
 		& {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
 			min-width: 215px;
 			flex: 1 1 0%;
 			border-radius: 10px;
@@ -37,9 +43,14 @@
 			appearance: none;
 			text-align: left;
 			user-select: none;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
+			font-size: 14px;
+
+			@media(max-width: $break-small) {
+				margin: 0 16px 10px 0;
+				padding: 8px 10px;
+				border-radius: 7px;
+				font-size: 14px;
+			}
 		}
 
 
@@ -76,6 +87,7 @@
 				border-radius: 50%;
 				border-width: 1px;
 				border-style: solid;
+				font-size: 14px;
 			}
 
 			.multipleChoice__optionKeyTip {

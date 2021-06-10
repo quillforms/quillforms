@@ -28,6 +28,8 @@ const NumberOutput = ( props ) => {
 		setVal,
 		showErrMsg,
 		inputRef,
+		isTouchDevice,
+		setFooterDisplay,
 	} = props;
 	const { setMax, max, setMin, min, required } = attributes;
 	const messages = useMessages();
@@ -92,6 +94,10 @@ const NumberOutput = ( props ) => {
 						@media ( max-width: 600px ) {
 							font-size: 24px;
 						}
+
+						@media ( max-width: 400px ) {
+							font-size: 20px;
+						}
 					}
 
 					&::placeholder {
@@ -121,9 +127,19 @@ const NumberOutput = ( props ) => {
 				`
 			) }
 			id={ 'number-' + id }
-			placeholder="Type your answer here..."
+			placeholder={ messages[ 'block.number.placeholder' ] }
 			onChange={ changeHandler }
 			value={ val ? val : '' }
+			onFocus={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( false );
+				}
+			} }
+			onBlur={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( true );
+				}
+			} }
 		/>
 	);
 };

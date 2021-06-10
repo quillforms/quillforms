@@ -35,6 +35,9 @@ const DateOutput = ( props ) => {
 		showErrMsg,
 		val,
 		setVal,
+		setFooterDisplay,
+		isTouchDevice,
+		isActive,
 		inputRef,
 	} = props;
 	const { format, separator, required } = attributes;
@@ -62,6 +65,9 @@ const DateOutput = ( props ) => {
 	};
 
 	useEffect( () => {
+		// if change in required flag and is in preview mode, check validation
+		// Note, that this effect will also be called on mount, that's why we check if isReviewing = false
+		// because we want to display errors coming from server.
 		if ( isPreview || ! isReviewing ) checkFieldValidation( val );
 	}, [ required ] );
 
@@ -125,7 +131,6 @@ const DateOutput = ( props ) => {
 
 	return (
 		<MaskedInput
-			id={ `date-input-${ id }` }
 			onChange={ changeHandler }
 			ref={ inputRef }
 			className={ classnames(
@@ -143,6 +148,10 @@ const DateOutput = ( props ) => {
 							0px 1px;
 						@media ( max-width: 600px ) {
 							font-size: 24px;
+						}
+
+						@media ( max-width: 400px ) {
+							font-size: 20px;
 						}
 					}
 
@@ -176,6 +185,16 @@ const DateOutput = ( props ) => {
 			mask={ getMask() }
 			pipe={ autoCorrectedDatePipe }
 			value={ val && val.length > 0 ? val : '' }
+			onFocus={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( false );
+				}
+			} }
+			onBlur={ () => {
+				if ( isTouchDevice ) {
+					setFooterDisplay( true );
+				}
+			} }
 		/>
 	);
 };

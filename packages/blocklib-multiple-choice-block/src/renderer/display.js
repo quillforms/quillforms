@@ -53,7 +53,7 @@ const MultipleChoiceOutput = ( props ) => {
 		if ( choiceClicked && val?.length > 0 && ! multiple ) {
 			multipleChoiceTimer = setTimeout( () => {
 				next();
-			}, 500 );
+			}, 600 );
 		}
 	}, [ choiceClicked ] );
 
