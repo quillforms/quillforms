@@ -8,7 +8,8 @@
 		{"path" : "packages/admin-components"},
 		{"path" : "packages/builder-core"},
 		{"path" : "packages/rich-text"},
-		{"path" : "packages/navigation"}
+		{"path" : "packages/navigation"},
+		{"path" : "packages/types"}
 	],
 	"files": []
 
