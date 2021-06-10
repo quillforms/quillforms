@@ -1,7 +1,4 @@
-import type { FormMessages } from './form-messages';
-import type { FormBlocks } from './form-blocks';
-import type { FormLogic } from './form-logic';
-import type { FormNotications } from './form-notifications';
+import type { FormMessages, FormBlocks, FormLogic } from '@quillforms/types';
 
 export type BuilderInitialPayload = {
 	id: string;
@@ -16,7 +13,7 @@ export type BuilderInitialPayload = {
 	blocks?: FormBlocks;
 	messages?: FormMessages;
 	theme?: { id: number };
-	notifications?: FormNotications;
 	logic?: FormLogic;
+	// Any other rest field
 	[ x: string ]: unknown;
 };

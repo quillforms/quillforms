@@ -3,12 +3,8 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"declarationDir": "build-types",
-		"resolveJsonModule": true
 	},
-	"references": [
-		{"path": "../types" }
-	],
 	"include": [
-		"src/**/*", "src/*", "src/json/*.json"
+		"src/**/*", "src/*"
 	],
 }

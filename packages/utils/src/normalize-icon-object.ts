@@ -1,4 +1,9 @@
 /**
+ * QuillForms Dependencies
+ */
+import type { IconDescriptor, IconRenderer, Icon } from '@quillforms/types';
+
+/**
  * External dependencies
  */
 import { default as tinycolor, mostReadable } from 'tinycolor2';
@@ -7,7 +12,6 @@ import { has } from 'lodash';
 /**
  * Internal Dependencies
  */
-import type { IconDescriptor, IconRenderer, Icon } from './types';
 import { isValidIcon } from './is-valid-icon';
 
 const ICON_COLORS = [ '#191e23', '#f8f9f9' ];

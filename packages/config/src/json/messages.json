@@ -19,7 +19,7 @@
 	},
 	"block.dropdown.placeholder": {
 		"title": "Placeholder for dropdown",
-		"default": "Please type or select an option",
+		"default": "Type or select an option",
 		"category": "buttons-hints-placeholders"
 	},
 	"block.dropdown.noSuggestions": {
@@ -30,12 +30,12 @@
 	},
 	"block.shortText.placeholder": {
 		"title": "Placeholder for short text input",
-		"default": "Please format your answer here",
+		"default": "Type your answer here",
 		"category": "buttons-hints-placeholders"
 	},
 	"block.longText.placeholder": {
 		"title": "Placeholder for long text input",
-		"default": "Please format your answer here",
+		"default": "Type your answer here",
 		"category": "buttons-hints-placeholders"
 	},
 	"block.longText.hint": {
@@ -56,7 +56,7 @@
 	},
 	"block.defaultThankYouScreen.label": {
 		"title": "Default Thank you screen label",
-		"default": "Thanks for filling this in\n\n We will contact you soon",
+		"default": "Thanks for filling this in.\n\n We will contact you soon",
 		"allowedFormats": [ "bold", "link", "italic" ],
 		"category": "buttons-hints-placeholders"
 	},

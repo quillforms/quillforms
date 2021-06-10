@@ -1,7 +1,8 @@
 /**
  * QuillForms Dependencies
  */
-import ConfigAPI, { FormMessages } from '@quillforms/config';
+import ConfigAPI from '@quillforms/config';
+import type { FormMessages } from '@quillforms/types';
 
 /**
  * External Dependencies
