@@ -1,4 +1,8 @@
 /**
+ * QuillForms Dependencies
+ */
+import type { BuilderInitialPayload } from '@quillforms/config';
+/**
  * WordPress Dependencies
  */
 import { useEffect } from '@wordpress/element';
@@ -6,9 +10,11 @@ import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { Modal } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+
 /**
  * External Dependencies
  */
+
 import { css } from 'emotion';
 import classnames from 'classnames';
 
@@ -32,8 +38,8 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 				_fields: [ 'link' ],
 			} ),
 		} ).then( ( res ) => {
-			console.log( res );
 			setIsFetching( false );
+			//@ts-expect-error
 			setPermalink( res.link );
 		} );
 	}, [] );

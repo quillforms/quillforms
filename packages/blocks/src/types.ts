@@ -1,12 +1,11 @@
 import { Component } from '@wordpress/element';
-import type { IconRenderer } from '@quillforms/utils';
 import React, { FC } from 'react';
 import {
 	SET_BLOCK_ADMIN_SETTINGS,
 	SET_BLOCK_RENDERER_SETTINGS,
 	ADD_BLOCK_TYPES,
 } from './store/constants';
-import type { BlockAttributes } from '@quillforms/config';
+import type { BlockAttributes, IconRenderer } from '@quillforms/types';
 
 interface ControlsProps {
 	id: string;

@@ -8,7 +8,7 @@ import * as selectors from './selectors';
 import { STORE_KEY } from './constants';
 import type { State } from './reducer';
 
-import type { DispatchFromMap, SelectFromMap } from '@quillforms/utils';
+import type { DispatchFromMap, SelectFromMap } from '@quillforms/types';
 
 const store = registerStore< State >( STORE_KEY, {
 	actions,

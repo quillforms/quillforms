@@ -7,7 +7,8 @@ import {
 	__experimentalControlWrapper,
 	__experimentalControlLabel,
 } from '@quillforms/admin-components';
-import type { BlockAttributes } from '@quillforms/config';
+import type { BlockAttributes } from '@quillforms/types';
+
 /**
  * WordPress Dependencies
  */

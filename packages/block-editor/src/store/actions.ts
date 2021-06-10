@@ -12,7 +12,7 @@ import type {
 	InitialPayload,
 	DraggedBlockDestination,
 } from './types';
-import type { FormBlock } from '@quillforms/config';
+import type { FormBlock } from '@quillforms/types';
 
 /**
  * Set up the store.

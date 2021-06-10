@@ -5,8 +5,7 @@
 		"declarationDir": "build-types"
 	},
 	"references": [
-		{"path": "../utils" },
-		{"path": "../config"},
+		{"path": "../types" },
 		{"path": "../builder-panels"},
 		{"path": "../rich-text"}
 	],

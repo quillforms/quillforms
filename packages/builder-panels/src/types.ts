@@ -4,7 +4,7 @@ import {
 	REGISTER_BUILDER_PANEL,
 	REGISTER_BUILDER_SUBPANEL,
 } from './store/constants';
-import type { IconRenderer } from '@quillforms/utils';
+import type { IconRenderer } from '@quillforms/types';
 import { FC, Component } from 'react';
 
 export type PanelSettings = {

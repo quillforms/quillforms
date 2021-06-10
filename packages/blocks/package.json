@@ -28,6 +28,9 @@
 		"@quillforms/utils": "file:../utils",
 		"lodash": "^4.17.21"
 	},
+	"devDependencies": {
+		"@quillforms/types": "file:../types"
+	},
 	"publishConfig": {
 		"access": "public"
 	}

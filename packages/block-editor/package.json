@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Quill forms block editor",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "GPL-2.0-or-later",
+	"license": "MIT",
 	"keywords": [
 		"quillforms",
 		"block",
@@ -24,7 +24,9 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.6",
 		"@quillforms/admin-components": "file:../admin-components",
+		"@quillforms/config": "file:../config",
 		"@quillforms/rich-text": "file:../rich-text",
+		"@quillforms/types": "file:../types",
 		"@wordpress/compose": "^3.24.3",
 		"@wordpress/data": "^4.26.5",
 		"@wordpress/element": "^2.19.1",

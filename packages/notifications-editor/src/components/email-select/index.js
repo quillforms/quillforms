@@ -21,7 +21,6 @@ import { useSelect } from '@wordpress/data';
 import AlertMessageWrapper from '../alert-message-wrapper';
 
 const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
-	console.log( value );
 	if ( ! value || ! value.match( /{{field:([a-zA-Z0-9-_]+)}}/g ) ) {
 		value = '';
 	}

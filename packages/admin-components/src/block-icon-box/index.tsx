@@ -5,7 +5,7 @@ import type {
 	IconRenderer,
 	IconDescriptor,
 	Icon as IconType,
-} from '@quillforms/utils';
+} from '@quillforms/types';
 
 /**
  * WordPress Dependencies

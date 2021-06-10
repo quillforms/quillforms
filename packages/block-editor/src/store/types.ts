@@ -1,4 +1,4 @@
-import type { FormBlocks, FormBlock } from '@quillforms/config';
+import type { FormBlocks, FormBlock } from '@quillforms/types';
 
 import {
 	SETUP_STORE,

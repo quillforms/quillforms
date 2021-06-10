@@ -8,7 +8,7 @@ import {
 	__unstableReactEditor as ReactEditor,
 	getPlainText,
 } from '@quillforms/rich-text';
-import type { BlockAttributes } from '@quillforms/config';
+import type { BlockAttributes } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -67,9 +67,6 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		isSelected,
 	} = props;
 	let attachment;
-	// console.log( '****' );
-	// console.log( label, desc );
-	// console.log( '****' );
 
 	if ( attributes?.attachment ) {
 		attachment = attributes.attachment;
@@ -111,8 +108,6 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 	// Serialize label is a debounced function that updates the store with serialized html value
 	const serializeLabel = useCallback(
 		debounce( ( value ) => {
-			// console.log( value );
-			// console.log( serialize( value ) );
 			setBlockAttributes( id, { label: serialize( value ) } );
 		}, 200 ),
 		[]
@@ -182,6 +177,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 						setCurrentBlock( id );
 						setFocusedEl( 'label' );
 					} }
+					allowedFormats={ [ 'bold', 'italic', 'link' ] }
 				/>
 			</div>
 		),
@@ -203,6 +199,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 						setCurrentBlock( id );
 						setFocusedEl( 'desc' );
 					} }
+					allowedFormats={ [ 'bold', 'italic', 'link' ] }
 				/>
 			</div>
 		),

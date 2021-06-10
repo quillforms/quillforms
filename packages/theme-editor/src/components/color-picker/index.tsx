@@ -90,7 +90,6 @@ const ColorPicker = ( { value, onChange } ) => {
 				colors={ colors }
 				value={ value }
 				onChange={ ( val ) => {
-					console.log( val );
 					// If is hex
 					if (
 						typeof val === 'object' ||

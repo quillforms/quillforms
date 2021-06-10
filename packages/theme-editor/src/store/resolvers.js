@@ -26,7 +26,5 @@ export function* getCurrentTheme( state ) {
 		} else {
 			return null;
 		}
-	} catch ( error ) {
-		// console.log( error );
-	}
+	} catch ( error ) {}
 }

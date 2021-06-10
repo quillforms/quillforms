@@ -21,7 +21,7 @@ import type {
 	BlockEditorState,
 	BlockEditorPureState,
 } from './types';
-import type { FormBlocks } from '@quillforms/config';
+import type { FormBlocks } from '@quillforms/types';
 
 /**
  * Sort blocks. We should have welcome screens at first then others then thankyou screens.
@@ -92,7 +92,6 @@ const withBlockCache = < T extends Reducer >(
 	const newState: BlockEditorState = reducer( state, action );
 
 	if ( newState === state ) {
-		// console.log( 'this is being firing' );
 		return state;
 	}
 	newState.cache = state.cache ? state.cache : {};
@@ -152,7 +151,6 @@ const withBlockCache = < T extends Reducer >(
 			break;
 		}
 	}
-	// console.log( newState );
 	return newState;
 };
 
@@ -232,7 +230,6 @@ const BlockEditorReducer: Reducer<
 				...blocks[ blockIndex ],
 				attributes: { ...nextAttributes },
 			};
-			// console.log( blocks );
 			return {
 				...state,
 				blocks,
@@ -265,7 +262,6 @@ const BlockEditorReducer: Reducer<
 			blocks.splice( index, 0, {
 				...block,
 			} );
-			// console.log( blocks );
 			return {
 				blocks: sortBlocks( blocks ),
 				currentBlockId: block.id,
@@ -274,7 +270,6 @@ const BlockEditorReducer: Reducer<
 
 		// DELETE FORM BLOCK
 		case DELETE_BLOCK: {
-			// console.log( 'Action started' );
 			const { blockId } = action;
 
 			// Get block index.

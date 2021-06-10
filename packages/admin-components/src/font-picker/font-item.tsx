@@ -38,11 +38,7 @@ const FontItem: React.FC< Props > = ( { font, fontType } ) => {
 			const existingLinkEl = document.querySelector(
 				`link[href='${ link.href }']`
 			);
-			if (
-				typeof existingLinkEl !== 'undefined' &&
-				existingLinkEl != null
-			)
-				head.appendChild( link );
+			if ( ! existingLinkEl ) head.appendChild( link );
 		}
 	}, [] );
 

@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/admin-components": "file:../admin-components",
+		"@quillforms/config": "file:../config",
 		"@wordpress/data": "^4.26.5",
 		"@wordpress/element": "^2.19.1"
 	},
