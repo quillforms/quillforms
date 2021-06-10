@@ -1,8 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import type { BuilderInitialPayload } from '@quillforms/config';
-/**
  * WordPress Dependencies
  */
 import { useEffect } from '@wordpress/element';
