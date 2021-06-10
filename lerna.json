@@ -5,10 +5,7 @@
 		}
 	},
 	"ignoreChanges": [
-		"**/benchmark/*.js",
-		"**/CHANGELOG.md",
-		"**/{__mocks__,__tests__,test}/**",
-		"**/{storybook,stories}/**"
+		"**/CHANGELOG.md"
 	],
 	"packages": [
 		"packages/*"
