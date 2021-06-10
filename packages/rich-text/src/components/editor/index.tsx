@@ -255,7 +255,6 @@ const TextEditor: React.FC< Props > = ( props ) => {
 						onFocus={ onFocus }
 						onKeyDown={ onKeyDown }
 						onDOMBeforeInput={ ( event: Event ) => {
-							// // // console.log(event.inputType);
 							switch ( ( event as InputEvent ).inputType ) {
 								case 'formatBold':
 									return toggleFormat( editor, 'bold' );

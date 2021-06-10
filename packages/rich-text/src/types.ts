@@ -1,4 +1,4 @@
-import type { IconRenderer } from '@quillforms/utils';
+import type { IconRenderer } from '@quillforms/types';
 import { Element } from 'slate';
 export type MergeTag = {
 	type: string;

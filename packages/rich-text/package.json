@@ -25,6 +25,7 @@
 		"@babel/runtime": "^7.9.2",
 		"@wordpress/element": "^2.19.1",
 		"emotion": "^10.0.27",
+		"escape-html": "^1.0.3",
 		"slate": "^0.59.0",
 		"slate-history": "^0.59.0",
 		"slate-hyperscript": "^0.59.0",
