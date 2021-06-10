@@ -9,5 +9,5 @@ registerBuilderPanel( 'settings', {
 	title: 'Settings',
 	icon: Icon,
 	mode: 'parent',
-	areaToShow: 'drop-area',
+	areaToShow: 'preview-area',
 } );

@@ -16,7 +16,6 @@ import MessageRow from '../message-row';
 
 const PanelRender = () => {
 	const messagesStructure = configApi.getMessagesStructure();
-	console.log( messagesStructure );
 	const { messages } = useSelect( ( select ) => {
 		return {
 			messages: select( 'quillForms/messages-editor' ).getMessages(),
@@ -41,6 +40,9 @@ const PanelRender = () => {
 							messages[ messageKey ]
 								? messages[ messageKey ]
 								: messagesStructure[ messageKey ].default
+						}
+						allowedFormats={
+							messagesStructure[ messageKey ].allowedFormats
 						}
 						defaultValue={ messagesStructure[ messageKey ].default }
 					/>

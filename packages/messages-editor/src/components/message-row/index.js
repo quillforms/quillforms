@@ -16,8 +16,8 @@ const MessageRow = ( {
 	format,
 	label,
 	mergeTags,
+	allowedFormats,
 } ) => {
-	console.log( value );
 	const isSelected = messageToEdit === messageKey;
 	return (
 		<div
@@ -42,6 +42,7 @@ const MessageRow = ( {
 							} }
 							mergeTags={ mergeTags }
 							defaultValue={ defaultValue }
+							allowedFormats={ allowedFormats }
 						/>
 					) }
 				</MessageControlWrapper>

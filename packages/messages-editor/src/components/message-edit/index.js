@@ -10,6 +10,7 @@ import { useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 
 const MessageEdit = ( {
+	allowedFormats,
 	messageKey,
 	editingComplete,
 	value,
@@ -28,6 +29,7 @@ const MessageEdit = ( {
 					setVal( newVal );
 				} }
 				focusOnMount={ true }
+				allowedFormats={ allowedFormats }
 			/>
 
 			<div className="messages-editor-message-edit__actions">
