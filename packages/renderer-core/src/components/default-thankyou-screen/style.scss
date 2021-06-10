@@ -10,8 +10,11 @@
 	bottom: 0;
 	margin-right: auto;
 	margin-left: auto;
-	font-size: 24px;
+	font-size: 26px;
+	padding: 20px 30px;
 	max-width: 700px;
+	line-height: 1.5em;
+	text-align: center;
 	height: 100%;
 	margin: 0 auto;
 	z-index: 0;
@@ -24,6 +27,10 @@
 		visibility: visible;
 		opacity: 1;
 		z-index :1;
+	}
+
+	@media (max-width: $break-small) {
+		font-size: 22px;
 	}
 
 }

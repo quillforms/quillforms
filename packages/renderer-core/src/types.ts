@@ -6,7 +6,7 @@ import type {
 	FormMessages,
 	FormTheme,
 	FormLogic,
-} from '@quillforms/config';
+} from '@quillforms/types';
 
 export type FormObj = {
 	blocks: FormBlocks;

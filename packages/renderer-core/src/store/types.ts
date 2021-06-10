@@ -28,8 +28,8 @@ export type SwiperState = {
 	nextBlockId: undefined | string;
 	lastActiveBlockId: undefined | string;
 	prevBlockId: undefined | string;
-	canGoNext: boolean;
-	canGoPrev: boolean;
+	canSwipeNext: boolean;
+	canSwipePrev: boolean;
 	isAnimating: boolean;
 	isThankyouScreenActive: boolean;
 	isWelcomeScreenActive: boolean;

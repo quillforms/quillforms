@@ -2,19 +2,20 @@
 /**
  * QuillForms Dependencies
  */
-import { FormBlocks } from '@quillforms/config';
+import { FormBlocks } from '@quillforms/types';
 
 /**
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState, useRef } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
 import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
+
 import { forEach, size } from 'lodash';
 import { Lethargy } from 'lethargy';
 
@@ -49,19 +50,23 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		nextBlockId,
 		prevBlockId,
 		lastActiveBlockId,
-		canGoNext,
-		canGoPrev,
+		canSwipeNext,
+		canSwipePrev,
 		isAnimating,
 	} = swiper;
 
+	const isTouchScreen =
+		'ontouchstart' in window ||
+		navigator.maxTouchPoints > 0 ||
+		navigator.msMaxTouchPoints > 0;
 	const getFieldsToRender = (): string[] => {
 		const fieldIds: string[] = [];
 		const filteredBlocks = walkPath.filter(
 			( block ) =>
 				block.id === currentBlockId ||
-				block.id === nextBlockId ||
-				block.id === prevBlockId ||
-				block.id === lastActiveBlockId
+				( ! isTouchScreen && block.id === nextBlockId ) ||
+				( ! isTouchScreen && block.id === prevBlockId ) ||
+				( ! isTouchScreen && block.id === lastActiveBlockId )
 		);
 		filteredBlocks.forEach( ( block ) => {
 			if (
@@ -98,6 +103,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		preventDefaultTouchmoveEvent: false,
 		trackMouse: false,
 		trackTouch: true,
+		delta: 60,
 	} );
 
 	// Mouse Wheel Handler
@@ -109,7 +115,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		const lethargyCheck = lethargy.check( e );
 		const now = new Date().getTime();
 		let timeDelay = 750;
-		if ( touch ) timeDelay = 1000;
+		if ( touch ) timeDelay = 500;
 		if (
 			lethargyCheck === false ||
 			isAnimating ||
@@ -117,7 +123,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		)
 			return;
 		if (
-			canGoPrev &&
+			canSwipePrev &&
 			( ( e.deltaY < -50 && ! touch ) || ( touch && e.deltaY > 50 ) ) &&
 			! isFirstField
 		) {
@@ -125,7 +131,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			lastScrollDate = new Date().getTime();
 			goPrev();
 		} else if (
-			canGoNext &&
+			canSwipeNext &&
 			( ( e.deltaY < -50 && touch ) || ( ! touch && e.deltaY > 50 ) ) &&
 			! isLastField
 		) {
@@ -380,7 +386,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				walkPath: path,
 				currentBlockId: blocks[ 0 ].id,
 				prevBlockId: undefined,
-				canGoPrev: false,
+				canSwipePrev: false,
 				lastActiveBlockId: undefined,
 				nextBlockId,
 			} );

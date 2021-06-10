@@ -34,12 +34,12 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showErrMsg,
 	} = useFieldRenderContext();
 
-	const isTouchDevice =
+	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
 		navigator.msMaxTouchPoints > 0;
 
-	useHandleFocus( inputRef, isActive, isTouchDevice );
+	useHandleFocus( inputRef, isActive, isTouchScreen );
 	const { isPreview } = useFormContext();
 
 	if ( ! blockName || ! id ) return null;
@@ -83,6 +83,10 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			setIsShaking( false );
 			if ( shakingErr ) setShakingErr( null );
 		}
+
+		if ( isActive ) {
+			setFooterDisplay( true );
+		}
 	}, [ isActive ] );
 
 	const shakeWithError = ( err ) => {
@@ -102,6 +106,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		setFieldValidationErr,
 		setIsFieldAnswered,
 		setFieldAnswer,
+		setFooterDisplay,
 	} = useDispatch( 'quillForms/renderer-core' );
 
 	const props = {
@@ -118,13 +123,17 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		blockWithError: ( err: string ) => shakeWithError( err ),
 		showErrMsg,
 		isPreview,
-		isTouchDevice,
+		isTouchScreen,
 		inputRef,
+		setFooterDisplay,
 	};
 
 	return (
-		<div role="presentation" className="renderer-components-block-output">
-			{ blockType?.output && <blockType.output { ...props } /> }
+		<div
+			role="presentation"
+			className="renderer-core-field-display-wrapper"
+		>
+			{ blockType?.display && <blockType.display { ...props } /> }
 			<BlockFooter shakingErr={ shakingErr } />
 		</div>
 	);

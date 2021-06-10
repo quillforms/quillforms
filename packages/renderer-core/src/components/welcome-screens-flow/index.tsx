@@ -28,7 +28,7 @@ const WelcomeScreensFlow = () => {
 				welcomeScreens.map( ( screen ) => {
 					const blockType = blockTypes[ 'welcome-screen' ];
 					return (
-						<blockType.output
+						<blockType.display
 							next={ goNext }
 							isActive={ currentBlockId === screen.id }
 							key={ screen.id }

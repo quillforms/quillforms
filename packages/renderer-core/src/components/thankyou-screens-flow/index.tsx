@@ -25,7 +25,7 @@ const ThankyouScreensFlow = () => {
 	return (
 		<>
 			{ currentBlockId === 'default_thankyou_screen' ||
-			! blockTypes[ 'thankyou-screen' ]?.output ? (
+			! blockTypes[ 'thankyou-screen' ]?.display ? (
 				<DefaultThankYouScreen />
 			) : (
 				<>
@@ -33,7 +33,7 @@ const ThankyouScreensFlow = () => {
 						thankyouScreens.map( ( screen ) => {
 							const blockType = blockTypes[ 'thankyou-screen' ];
 							return (
-								<blockType.output
+								<blockType.display
 									key={ screen.id }
 									id={ screen.id }
 									attributes={ screen.attributes }

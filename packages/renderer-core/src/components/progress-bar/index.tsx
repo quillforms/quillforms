@@ -22,9 +22,9 @@ const ProgressBar = () => {
 					'renderer-core-progress-bar__label',
 					css`
 						color: ${ theme.questionsColor };
-						font-size: 16px;
+						font-size: 15px;
 						@media ( max-width: 600px ) {
-							font-size: 14px;
+							font-size: 13px;
 						}
 					`
 				) }

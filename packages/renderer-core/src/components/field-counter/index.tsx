@@ -42,8 +42,8 @@ const BlockCounter: React.FC = () => {
 				</span>
 			) }
 			<span className="renderer-components-block-counter__content">
-				{ blockType?.counterContent ? (
-					<blockType.counterContent />
+				{ blockType?.counterIcon ? (
+					<blockType.counterIcon />
 				) : (
 					<ArrowIcon />
 				) }

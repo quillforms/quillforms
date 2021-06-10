@@ -1,11 +1,22 @@
 /**
+ * WordPress Dependencies
+ */
+import { useEffect, useState } from '@wordpress/element';
+
+/**
  * External Depdnencies
  */
 import classnames from 'classnames';
-import { useEffect, useState } from '@wordpress/element';
+
+/**
+ * Internal Dependencies
+ */
+import { useMessages } from '../../hooks';
+import { HTMLParser } from '..';
 
 const DefaultThankYouScreen: React.FC = () => {
 	const [ isActive, setIsActive ] = useState( false );
+	const messages = useMessages();
 	useEffect( () => {
 		setIsActive( true );
 	}, [] );
@@ -18,7 +29,9 @@ const DefaultThankYouScreen: React.FC = () => {
 				}
 			) }
 		>
-			Thanks for filling this in
+			<HTMLParser
+				value={ messages[ 'block.defaultThankYouScreen.label' ] }
+			/>
 		</div>
 	);
 };

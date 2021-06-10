@@ -9,8 +9,9 @@
 	right: 0;
 	left: 0;
 	padding: 10px 20px;
-
-
+	@media(max-width: $break-small){
+		justify-content: space-between;
+	}
 
 	&.hidden {
 		display: none;

@@ -25,7 +25,6 @@ const FieldRender: React.FC< Props > = memo(
 		);
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
 
-		// console.log( id, name, attributes );
 		const { isReviewing, isValid, block } = useSelect( ( select ) => {
 			return {
 				isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),

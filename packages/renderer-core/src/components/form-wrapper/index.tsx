@@ -23,7 +23,6 @@ interface Props {
 const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const editableFields = useEditableFields();
 	const blocks = useBlocks();
-	console.log( blocks );
 	const { insertEmptyFieldAnswer, goToBlock } = useDispatch(
 		'quillForms/renderer-core'
 	);
@@ -67,7 +66,6 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 			} );
 
 			setTimeout( () => {
-				console.log( firstBlock );
 				if ( firstBlock?.id ) {
 					goToBlock( firstBlock.id );
 				}

@@ -2,7 +2,7 @@
 /**
  * QuillForms Dependencies
  */
-import { FormBlock } from '@quillforms/config';
+import { FormBlock } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -54,8 +54,8 @@ const initialState: SwiperState = {
 	nextBlockId: undefined,
 	lastActiveBlockId: undefined,
 	prevBlockId: undefined,
-	canGoNext: false,
-	canGoPrev: false,
+	canSwipeNext: false,
+	canSwipePrev: false,
 	isAnimating: true,
 	isThankyouScreenActive: false,
 	isWelcomeScreenActive: false,
@@ -164,7 +164,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					...newWalkPath,
 					...newWelcomeScreens,
 				];
-				console.log( allBlocks );
 				if (
 					newSwiperState[ prop ] &&
 					! some(
@@ -179,8 +178,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				}
 			} );
 
-			console.log( checkCorrectIds );
-
 			if ( ! checkCorrectIds ) return state;
 
 			let correctBooleans = true;
@@ -188,8 +185,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			// if typeof  new boolean props isn't boolean.
 			[
 				'isAnimating',
-				'canGoNext',
-				'canGoPrev',
+				'canSwipeNext',
+				'canSwipePrev',
 				'isThankyouScreenActive',
 				'isWelcomeScreenActive',
 			].forEach( ( prop ) => {
@@ -220,18 +217,18 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			return {
 				...state,
 				...newSwiperState,
-				canGoNext:
-					newSwiperState.canGoNext === undefined
-						? state.canGoNext
-						: newSwiperState.canGoNext === true && isLastField
+				canSwipeNext:
+					newSwiperState.canSwipeNext === undefined
+						? state.canSwipeNext
+						: newSwiperState.canSwipeNext === true && isLastField
 						? false
-						: newSwiperState.canGoNext,
-				canGoPrev:
-					newSwiperState.canGoPrev === undefined
-						? state.canGoPrev
-						: newSwiperState.canGoPrev === true && isFirstField
+						: newSwiperState.canSwipeNext,
+				canSwipePrev:
+					newSwiperState.canSwipePrev === undefined
+						? state.canSwipePrev
+						: newSwiperState.canSwipePrev === true && isFirstField
 						? false
-						: newSwiperState.canGoPrev,
+						: newSwiperState.canSwipePrev,
 				isWelcomeScreenActive:
 					newWelcomeScreens.length &&
 					some(
@@ -279,8 +276,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			}
 			return {
 				...state,
-				canGoNext: ! $newCurrentBlockId ? false : true,
-				canGoPrev: true,
+				canSwipeNext: ! $newCurrentBlockId ? false : true,
+				canSwipePrev: true,
 				currentBlockId: $newCurrentBlockId,
 				prevBlockId: $newCurrentBlockId
 					? walkPath[ newCurrentFieldIndex - 1 ]
@@ -309,8 +306,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			);
 			return {
 				...state,
-				canGoPrev: walkPath[ currentFieldIndex - 2 ] ? true : false,
-				canGoNext: true,
+				canSwipePrev: walkPath[ currentFieldIndex - 2 ] ? true : false,
+				canSwipeNext: true,
 				currentBlockId: prevBlockId,
 				lastActiveBlockId: currentBlockId,
 				nextBlockId: currentBlockId,
@@ -323,14 +320,11 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		}
 
 		case GO_TO_BLOCK: {
-			console.log( state );
 			const { id } = action;
-			console.log( id );
 			if ( currentBlockId === id ) return state;
 			const isTheBlockWelcomeScreenBlock = state.welcomeScreens.some(
 				( screen ) => screen.id === id
 			);
-			console.log( isTheBlockWelcomeScreenBlock );
 			const isTheBlockThankyouScreenBlock = state.thankyouScreens.some(
 				( screen ) => screen.id === id
 			);
@@ -343,8 +337,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					...state,
 					currentBlockId: id,
 					isAnimating: true,
-					canGoNext: false,
-					canGoPrev: false,
+					canSwipeNext: false,
+					canSwipePrev: false,
 					nextBlockId: undefined,
 					prevBlockId: undefined,
 					lastActiveBlockId: currentBlockId,
@@ -356,7 +350,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				( field ) => field.id === id
 			);
 
-			console.log( isTheBlockFieldBlock );
 			// If invalid block
 			if (
 				! isTheBlockFieldBlock &&
@@ -373,8 +366,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				...state,
 				currentBlockId: id,
 				isAnimating: true,
-				canGoNext: walkPath[ fieldIndex + 1 ] ? true : false,
-				canGoPrev: walkPath[ fieldIndex - 1 ] ? true : false,
+				canSwipeNext: walkPath[ fieldIndex + 1 ] ? true : false,
+				canSwipePrev: walkPath[ fieldIndex - 1 ] ? true : false,
 				nextBlockId: walkPath[ fieldIndex + 1 ]
 					? walkPath[ fieldIndex + 1 ].id
 					: undefined,
@@ -389,8 +382,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		case COMPLETE_FORM: {
 			return {
 				...state,
-				canGoNext: false,
-				canGoPrev: false,
+				canSwipeNext: false,
+				canSwipePrev: false,
 				isThankyouScreenActive: true,
 				currentBlockId: nextBlockId
 					? nextBlockId

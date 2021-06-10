@@ -20,7 +20,7 @@ const FieldAction = ( { clickHandler, show } ) => {
 	const { blockName, isSubmitBtnVisible } = useFieldRenderContext();
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
-	const isTouchDevice =
+	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
 		navigator.msMaxTouchPoints > 0;
@@ -31,14 +31,14 @@ const FieldAction = ( { clickHandler, show } ) => {
 				'is-visible': isSubmitBtnVisible || show,
 			} ) }
 		>
-			{ blockType?.nextBtn ? (
-				<blockType.nextBtn onClick={ clickHandler } />
+			{ blockType?.blockAction ? (
+				<blockType.blockAction onClick={ clickHandler } />
 			) : (
 				<>
 					<Button onClick={ clickHandler }>
 						<HTMLParser value={ messages[ 'label.button.ok' ] } />
 					</Button>
-					{ ! isTouchDevice && (
+					{ ! isTouchScreen && (
 						<div
 							className={ classnames(
 								'renderer-core-field-action__helper-text',

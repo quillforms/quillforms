@@ -42,15 +42,15 @@ const FieldWrapper: React.FC = () => {
 	);
 
 	const { walkPath, currentBlockId, isAnimating } = swiper;
-	const setCanGoNext = ( val: boolean ) => {
+	const setCanSwipeNext = ( val: boolean ) => {
 		// if ( walkPath[ walkPath.length - 1 ].id === id ) val = false;
 		setSwiper( {
-			canGoNext: val,
+			canSwipeNext: val,
 		} );
 	};
-	const setCanGoPrev = ( val: boolean ) => {
+	const setCanSwipePrev = ( val: boolean ) => {
 		setSwiper( {
-			canGoPrev: val,
+			canSwipePrev: val,
 		} );
 	};
 	const fieldIndex = walkPath.findIndex( ( field ) => field.id === id );
@@ -79,8 +79,8 @@ const FieldWrapper: React.FC = () => {
 		} else {
 			clearTimeout( tabTimer );
 			clearTimeout( scrollTimer );
-			setCanGoNext( true );
-			setCanGoPrev( true );
+			setCanSwipeNext( true );
+			setCanSwipePrev( true );
 		}
 	}, [ isActive ] );
 
@@ -113,16 +113,12 @@ const FieldWrapper: React.FC = () => {
 	}
 
 	function processTab( e, isShiftPressed ) {
-		console.log( 'lafkoas' );
 		e.preventDefault();
 		if ( isAnimating ) {
 			return;
 		}
 		let activeElement = document.activeElement;
-		console.log( activeElement );
 		const focusableElements = getFocusables( `#block-${ id }` );
-		console.log( isFocused );
-		console.log( focusableElements );
 		//outside the block? Let's not hijack the tab!
 		if ( ! isFocused ) {
 			return;
@@ -194,20 +190,20 @@ const FieldWrapper: React.FC = () => {
 		if ( ! ref.current ) return;
 		if ( ref.current.scrollTop === 0 ) {
 			scrollTimer = setTimeout( () => {
-				setCanGoPrev( true );
+				setCanSwipePrev( true );
 			}, 500 );
 		} else {
-			setCanGoPrev( false );
+			setCanSwipePrev( false );
 		}
 		if (
 			ref.current.scrollHeight - ref.current.clientHeight ===
 			ref.current.scrollTop
 		) {
 			scrollTimer = setTimeout( () => {
-				setCanGoNext( true );
+				setCanSwipeNext( true );
 			}, 500 );
 		} else {
-			setCanGoNext( false );
+			setCanSwipeNext( false );
 		}
 	};
 	return (

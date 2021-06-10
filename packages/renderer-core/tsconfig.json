@@ -5,7 +5,7 @@
 		"declarationDir": "build-types"
 	},
 	"references": [
-		{ "path": "../utils"},
+		{ "path": "../types"},
 	],
 	"include": [
 		"src/**/*",

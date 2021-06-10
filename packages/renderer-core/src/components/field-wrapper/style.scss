@@ -66,6 +66,9 @@
 			box-shadow: none !important;
 			outline: none !important;
 		}
+		@media (max-width: $break-small) {
+			padding: 30px 45px;
+		}
 	}
 
 }

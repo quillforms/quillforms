@@ -10,17 +10,22 @@ import { memo } from '@wordpress/element';
  */
 import classnames from 'classnames';
 import FieldNavigation from '../field-navigation';
+import { css } from 'emotion';
+import tinyColor from 'tinycolor2';
 
 /**
  * Internal Dependencies
  */
 import ProgressBar from '../progress-bar';
+import { useTheme } from '../../hooks';
 
 const FormFooter: React.FC = memo( () => {
+	const theme = useTheme();
 	const {
 		currentBlockId,
 		isWelcomeScreenActive,
 		isThankyouScreenActive,
+		shouldFooterBeDisplayed,
 	} = useSelect( ( select ) => {
 		return {
 			currentBlockId: select(
@@ -32,15 +37,31 @@ const FormFooter: React.FC = memo( () => {
 			isWelcomeScreenActive: select(
 				'quillForms/renderer-core'
 			).isWelcomeScreenActive(),
+			shouldFooterBeDisplayed: select(
+				'quillForms/renderer-core'
+			).shouldFooterBeDisplayed(),
 		};
 	} );
 
 	if ( ! currentBlockId ) return null;
 	return (
 		<div
-			className={ classnames( 'renderer-components-form-footer', {
-				hidden: isWelcomeScreenActive || isThankyouScreenActive,
-			} ) }
+			className={ classnames(
+				'renderer-components-form-footer',
+				{
+					hidden:
+						isWelcomeScreenActive ||
+						isThankyouScreenActive ||
+						! shouldFooterBeDisplayed,
+				},
+				css`
+					@media ( max-width: 600px ) {
+						background: ${ tinyColor( theme.backgroundColor )
+							.setAlpha( 0.75 )
+							.toString() };
+					}
+				`
+			) }
 			tabIndex={ -1 }
 		>
 			<ProgressBar />

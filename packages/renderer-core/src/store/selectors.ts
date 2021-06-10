@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import type { FormBlock, FormBlocks } from '@quillforms/config';
+import type { FormBlock, FormBlocks } from '@quillforms/types';
 
 /**
  * WordPress Dependencies

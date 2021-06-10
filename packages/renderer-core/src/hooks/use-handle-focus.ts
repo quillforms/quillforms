@@ -8,7 +8,7 @@ let focusTimer;
 const useHandleFocus = (
 	inputRef,
 	isActive: boolean,
-	isTouchDevice: boolean
+	isTouchScreen: boolean
 ) => {
 	const { isAnimating, currentBlockId } = useSelect( ( select ) => {
 		return {
@@ -27,8 +27,11 @@ const useHandleFocus = (
 
 	const isVisible = ( ref ) => {
 		if ( ! ref?.current ) return false;
+		const current = ref?.current?.inputElement
+			? ref.current.inputElement
+			: ref.current;
 		var rect = ( findDOMNode(
-			ref.current
+			current
 		) as Element )?.getBoundingClientRect();
 
 		return (
@@ -46,11 +49,13 @@ const useHandleFocus = (
 	};
 
 	useEffect( () => {
-		if ( ! isTouchDevice && isFocused && isActive && ! isAnimating ) {
+		if ( ! isTouchScreen && isFocused && isActive && ! isAnimating ) {
 			if ( isVisible( inputRef ) ) {
 				focusTimer = setTimeout( () => {
 					if ( inputRef?.current?.focus ) {
 						inputRef.current.focus();
+					} else if ( inputRef?.current?.inputElement?.focus ) {
+						inputRef.current.inputElement.focus();
 					}
 				} );
 			} else {
@@ -79,7 +84,6 @@ const useHandleFocus = (
 			! isActive &&
 			document.activeElement === inputRef.current
 		) {
-			console.log( 'lkjndhwsqk' );
 			inputRef.current.blur();
 		}
 	}, [ inputRef, isActive ] );
