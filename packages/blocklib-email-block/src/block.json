@@ -1,5 +1,5 @@
 {
-	"type": "email",
+	"name": "email",
 	"supports": {
 		"editable": true,
 		"required": true,

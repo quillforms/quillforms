@@ -3,7 +3,7 @@ import { setBlockAdminSettings } from '@quillforms/blocks';
 /**
  * Internal Dependencies
  */
-import { type } from '../block.json';
+import { name } from '../block.json';
 import Icon from './icon';
 import controls from './controls';
 
@@ -14,4 +14,4 @@ export const blockAdminSettings = {
 	controls,
 };
 
-setBlockAdminSettings( type, blockAdminSettings );
+setBlockAdminSettings( name, blockAdminSettings );

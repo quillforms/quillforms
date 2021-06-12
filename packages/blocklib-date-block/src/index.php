@@ -12,11 +12,11 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Date Block
  *
- * @class QF_Date
+ * @class QF_Date_Block_Type
  *
  * @since 1.0.0
  */
-class QF_Date_Block extends QF_Block_Type {
+class QF_Date_Block_Type extends QF_Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -35,19 +35,8 @@ class QF_Date_Block extends QF_Block_Type {
 	 *
 	 * @return string The block type
 	 */
-	public function get_type() {
-		return $this->get_metadata()['type'];
-	}
-
-	/**
-	 * Get block name.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string The block name
-	 */
-	public function get_name() {
-		return __( 'Date', 'quillforms' );
+	public function get_name() : string {
+		return $this->get_metadata()['name'];
 	}
 
 	/**
@@ -57,31 +46,35 @@ class QF_Date_Block extends QF_Block_Type {
 	 *
 	 * @return array The block supported features
 	 */
-	public function get_block_supported_features() {
+	public function get_block_supported_features() : iterable {
 		return $this->get_metadata()['supports'];
 	}
 
 	/**
-	 * Get block styles
+	 * Get block admin assets
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block admin assets
 	 */
-	public function get_block_styles() {
+	public function get_block_admin_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-date-block-admin-style',
-			'renderer' => 'quillforms-blocklib-date-block-renderer-style',
+			'style'  => 'quillforms-blocklib-date-block-admin-style',
+			'script' => 'quillforms-blocklib-date-block-admin-script',
 		);
 	}
 
 	/**
-	 * Get block scripts
+	 * Get block renderer assets
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block renderer assets
 	 */
-	public function get_block_scripts() {
+	public function get_block_renderer_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-date-block-admin-script',
-			'renderer' => 'quillforms-blocklib-date-block-renderer-script',
+			'style'  => 'quillforms-blocklib-date-block-renderer-style',
+			'script' => 'quillforms-blocklib-date-block-renderer-script',
 		);
 	}
 
@@ -92,7 +85,7 @@ class QF_Date_Block extends QF_Block_Type {
 	 *
 	 * @return array The block custom attributes
 	 */
-	public function get_custom_attributes() {
+	public function get_custom_attributes() : iterable {
 		return $this->get_metadata()['attributes'];
 	}
 
@@ -103,9 +96,9 @@ class QF_Date_Block extends QF_Block_Type {
 	 * @since 1.0.0
 	 *
 	 * @param mixed $value     The value to validate.
-	 * @param array $form_data The form data
+	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $form_data ) {
+	public function validate_field( $value, $form_data ) : void {
 		$messages = $form_data['messages'];
 		if ( ! empty( $value ) ) {
 			$format    = $this->attributes['format'];
@@ -142,9 +135,9 @@ class QF_Date_Block extends QF_Block_Type {
 	 *
 	 * @access private
 	 *
-	 * @return array|null metadata from block . json file
+	 * @return array metadata from block.json file
 	 */
-	private function get_metadata() {
+	private function get_metadata() : iterable {
 		if ( ! $this->metadata ) {
 			$this->metadata = json_decode(
 				file_get_contents(
@@ -165,10 +158,10 @@ class QF_Date_Block extends QF_Block_Type {
 	 *
 	 * @return string The directory path
 	 */
-	private function get_dir() {
+	private function get_dir() : string {
 		return trailingslashit( dirname( __FILE__ ) );
 	}
 
 }
 
-QF_Blocks_Factory::get_instance()->register( new QF_Date_Block() );
+QF_Blocks_Factory::get_instance()->register( new QF_Date_Block_Type() );

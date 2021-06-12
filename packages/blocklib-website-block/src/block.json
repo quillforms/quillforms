@@ -1,5 +1,5 @@
 {
-	"type": "website",
+	"name": "website",
 	"supports": {
 		"editable": true,
 		"required": true,

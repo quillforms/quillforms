@@ -3,7 +3,7 @@
  */
 import { setBlockRendererSettings } from '@quillforms/blocks';
 import {
-	useFieldRenderContext,
+	__experimentalUseFieldRenderContext,
 	Button,
 	useTheme,
 } from '@quillforms/renderer-core';
@@ -11,10 +11,10 @@ import {
 /**
  * Internal Dependencies
  */
-import { type } from '../block.json';
+import { name } from '../block.json';
 
 const BlockActionComponent = ( { onClick } ) => {
-	const { attributes } = useFieldRenderContext();
+	const { attributes } = __experimentalUseFieldRenderContext();
 
 	return (
 		<Button
@@ -32,7 +32,7 @@ const BlockActionComponent = ( { onClick } ) => {
 };
 
 const counterIconComponent = () => {
-	const { attributes } = useFieldRenderContext();
+	const { attributes } = __experimentalUseFieldRenderContext();
 	const { quotationMarks } = attributes;
 	const theme = useTheme();
 	return (
@@ -68,4 +68,4 @@ export const rendererSettings = {
 	blockAction: BlockActionComponent,
 };
 
-setBlockRendererSettings( type, rendererSettings );
+setBlockRendererSettings( name, rendererSettings );

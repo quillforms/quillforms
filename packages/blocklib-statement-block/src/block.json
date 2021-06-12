@@ -1,5 +1,5 @@
 {
-	"type": "statement",
+	"name": "statement",
 	"supports": {
 		"editable": false,
 		"required": true,

@@ -1,5 +1,5 @@
 {
-	"type": "number",
+	"name": "number",
 	"supports": {
 		"editable": true,
 		"required": true,

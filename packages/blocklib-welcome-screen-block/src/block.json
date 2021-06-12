@@ -1,5 +1,5 @@
 {
-	"type": "welcome-screen",
+	"name": "welcome-screen",
 	"attributes": {
 		"buttonText": {
 			"type": "string",

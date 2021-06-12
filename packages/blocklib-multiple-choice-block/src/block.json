@@ -1,5 +1,5 @@
 {
-	"type": "multiple-choice",
+	"name": "multiple-choice",
 	"supports": {
 		"editable": true,
 		"required": true,
@@ -23,7 +23,7 @@
 		  },
 		  "default": [
 			{
-			  "value": "124e4567-e89b-12d3-a456-426614174000",
+			  "value": "124e4567e89b",
 			  "label": "Choice 1"
 			}
 		  ]

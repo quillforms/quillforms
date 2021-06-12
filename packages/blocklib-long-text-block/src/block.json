@@ -1,5 +1,5 @@
 {
-	"type": "long-text",
+	"name": "long-text",
 	"supports": {
 		"editable": true,
 		"required": true,

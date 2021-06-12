@@ -1,5 +1,5 @@
 {
-	"type":"dropdown",
+	"name":"dropdown",
 	"attributes": {
 		"choices": {
 			"type": "array",
@@ -15,7 +15,7 @@
 				}
 			},
 			"default": [ {
-				"value": "123e4567-e89b-12d3-a456-426614174000",
+				"value": "123e45z7o89b",
 				"label": "Choice 1"
 			}]
 		}

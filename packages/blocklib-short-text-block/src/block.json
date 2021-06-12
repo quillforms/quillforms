@@ -1,5 +1,5 @@
 {
-	"type": "short-text",
+	"name": "short-text",
 	"supports": {
 		"editable": true,
 		"required": true,

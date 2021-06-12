@@ -8,10 +8,10 @@ import { setBlockRendererSettings } from '@quillforms/blocks';
  */
 import display from './display';
 import mergeTag from './merge-tag';
-import { type } from '../block.json';
+import { name } from '../block.json';
 
 export const rendererSettings = {
 	display,
 	mergeTag,
 };
-setBlockRendererSettings( type, rendererSettings );
+setBlockRendererSettings( name, rendererSettings );

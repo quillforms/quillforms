@@ -4,7 +4,7 @@ import { setBlockAdminSettings } from '@quillforms/blocks';
  * Internal Dependencies
  */
 import controls from './controls';
-import { type } from '../block.json';
+import { name } from '../block.json';
 import logicControl from './logic-control';
 import Icon from './icon';
 
@@ -16,4 +16,4 @@ export const blockAdminSettings = {
 	title: 'Number',
 };
 
-setBlockAdminSettings( type, blockAdminSettings );
+setBlockAdminSettings( name, blockAdminSettings );

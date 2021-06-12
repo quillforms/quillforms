@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @class QF_Dropdown
  * @since 1.0.0
  */
-class QF_Dropdown_Block extends QF_Block_Type {
+class QF_Dropdown_Block_Type extends QF_Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -32,21 +32,10 @@ class QF_Dropdown_Block extends QF_Block_Type {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @return string The block type
+		 * @return string The block unique name
 		 */
-	public function get_type() {
-		return $this->get_metadata()['type'];
-	}
-
-	/**
-	 * Get block name.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string The block name
-	 */
-	public function get_name() {
-		return __( 'Dropdown', 'quillforms' );
+	public function get_name() : string {
+		return $this->get_metadata()['name'];
 	}
 
 	/**
@@ -56,7 +45,7 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 *
 	 * @return array The block supported features
 	 */
-	public function get_block_supported_features() {
+	public function get_block_supported_features() : iterable {
 		return $this->get_metadata()['supports'];
 	}
 
@@ -64,23 +53,27 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 * Get block styles
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block admin assets
 	 */
-	public function get_block_styles() {
+	public function get_block_admin_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-dropdown-block-admin-style',
-			'renderer' => 'quillforms-blocklib-dropdown-block-renderer-style',
+			'style'  => 'quillforms-blocklib-dropdown-block-admin-style',
+			'script' => 'quillforms-blocklib-dropdown-block-admin-script',
 		);
 	}
 
 	/**
-	 * Get block scripts
+	 * Get block renderer assets
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block renderer assets
 	 */
-	public function get_block_scripts() {
+	public function get_block_renderer_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-dropdown-block-admin-script',
-			'renderer' => 'quillforms-blocklib-dropdown-block-renderer-script',
+			'style'  => 'quillforms-blocklib-dropdown-block-renderer-style',
+			'script' => 'quillforms-blocklib-dropdown-block-renderer-script',
 		);
 	}
 
@@ -91,7 +84,7 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 *
 	 * @return array The block custom attributes
 	 */
-	public function get_custom_attributes() {
+	public function get_custom_attributes() : iterable {
 		return $this->get_metadata()['attributes'];
 	}
 
@@ -102,20 +95,19 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 *
 	 * @return array The logical operators
 	 */
-	public function get_logical_operators() {
+	public function get_logical_operators() : iterable {
 		return $this->get_metadata()['logicalOperators'];
 	}
 
 	/**
-	 * Get meta data
+	 * Get meta data from block.json file.
 	 * This file is just for having some shared properties between front end and back end.
-	 * Just as the block type.
 	 *
 	 * @access private
 	 *
 	 * @return array|null metadata from block . json file
 	 */
-	private function get_metadata() {
+	private function get_metadata() : iterable {
 		if ( ! $this->metadata ) {
 			$this->metadata = json_decode(
 				file_get_contents(
@@ -136,7 +128,7 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 *
 	 * @return string The directory path
 	 */
-	private function get_dir() {
+	private function get_dir() : string {
 		return trailingslashit( dirname( __FILE__ ) );
 	}
 
@@ -148,7 +140,7 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 * @param mixed $value     The field value.
 	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $form_data ) {
+	public function validate_field( $value, $form_data ) : void {
 		$messages = $form_data['messages'];
 		if ( empty( $value ) && $this->attributes['required'] ) {
 			$this->is_valid       = false;
@@ -166,19 +158,20 @@ class QF_Dropdown_Block extends QF_Block_Type {
 	 *
 	 * @return mixed $value The merged entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data ) {
+	public function get_merge_tag_value( $value, $form_data ) : string {
 		$choices      = $this->attributes['choices'];
 		$choice_label = '';
-		foreach ( $choices as $choice ) {
+		foreach ( $choices as $choice_index => $choice ) {
 			if ( $choice['value'] === $value ) {
 				$choice_label = $choice['label'];
+				if ( ! $choice_label ) {
+					$choice_label = 'Choice ' . ( $choice_index + 1 );
+				}
 				break;
 			}
 		}
-		var_dump( $choice_label );
-		die;
 		return $choice_label;
 	}
 }
 
-QF_Blocks_Factory::get_instance()->register( new QF_Dropdown_Block() );
+QF_Blocks_Factory::get_instance()->register( new QF_Dropdown_Block_Type() );

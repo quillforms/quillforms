@@ -1,6 +1,6 @@
 <?php
 /**
- * Block Library: class QF_Email_Block
+ * Block Library: class QF_Email_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary
@@ -12,11 +12,11 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Email Block
  *
- * @class    QF_Email_Block
+ * @class    QF_Email_Block_Type
  *
  * @since 1.0.0
  */
-class QF_Email_Block extends QF_Block_Type {
+class QF_Email_Block_Type extends QF_Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -28,26 +28,15 @@ class QF_Email_Block extends QF_Block_Type {
 	private $metadata;
 
 	/**
-	 * Get Block Type
+	 * Get block name.
 	 * It must be unique name.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string The block type
-	 */
-	public function get_type() {
-		return $this->get_metadata()['type'];
-	}
-
-	/**
-	 * Get Block Name.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return string The block name
 	 */
-	public function get_name() {
-		return __( 'Email', 'quillforms' );
+	public function get_name() : string {
+		return $this->get_metadata()['name'];
 	}
 
 	/**
@@ -57,31 +46,35 @@ class QF_Email_Block extends QF_Block_Type {
 	 *
 	 * @return array The block supported features
 	 */
-	public function get_block_supported_features() {
+	public function get_block_supported_features() : iterable {
 		return $this->get_metadata()['supports'];
 	}
 
 	/**
-	 * Get block styles
+	 * Get block admin assets.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block admin assets
 	 */
-	public function get_block_styles() {
+	public function get_block_admin_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-email-block-admin-style',
-			'renderer' => 'quillforms-blocklib-email-block-renderer-style',
+			'style'  => 'quillforms-blocklib-email-block-admin-style',
+			'script' => 'quillforms-blocklib-email-block-admin-script',
 		);
 	}
 
 	/**
-	 * Get block scripts
+	 * Get block renderer assets
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block renderer assets
 	 */
-	public function get_block_scripts() {
+	public function get_block_renderer_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-email-block-admin-script',
-			'renderer' => 'quillforms-blocklib-email-block-renderer-script',
+			'style'  => 'quillforms-blocklib-email-block-renderer-style',
+			'script' => 'quillforms-blocklib-email-block-renderer-script',
 		);
 	}
 
@@ -92,7 +85,7 @@ class QF_Email_Block extends QF_Block_Type {
 	 *
 	 * @return array The block custom attributes
 	 */
-	public function get_custom_attributes() {
+	public function get_custom_attributes() : iterable {
 		return $this->get_metadata()['attributes'];
 	}
 
@@ -103,7 +96,7 @@ class QF_Email_Block extends QF_Block_Type {
 	 *
 	 * @return array The logical operators
 	 */
-	public function get_logical_operators() {
+	public function get_logical_operators() : iterable {
 		return $this->get_metadata()['logicalOperators'];
 	}
 
@@ -137,7 +130,7 @@ class QF_Email_Block extends QF_Block_Type {
 	}
 
 	/**
-	 * Get block directory
+	 * Get block directory.
 	 *
 	 * @since 1.0.0
 	 *
@@ -145,7 +138,7 @@ class QF_Email_Block extends QF_Block_Type {
 	 *
 	 * @return string The directory path
 	 */
-	private function get_dir() {
+	private function get_dir() : string {
 		return trailingslashit( dirname( __FILE__ ) );
 	}
 
@@ -158,7 +151,7 @@ class QF_Email_Block extends QF_Block_Type {
 	 * @param mixed $value     The field value.
 	 * @param array $form_data The form data.
 	 */
-	public function validate_field( $value, $form_data ) {
+	public function validate_field( $value, $form_data ) : void {
 		$messages = $form_data['messages'];
 		if ( ! empty( $value ) ) {
 			if ( ! filter_var( $value, FILTER_VALIDATE_EMAIL ) ) {
@@ -175,4 +168,4 @@ class QF_Email_Block extends QF_Block_Type {
 }
 
 
-QF_Blocks_Factory::get_instance()->register( new QF_Email_Block() );
+QF_Blocks_Factory::get_instance()->register( new QF_Email_Block_Type() );

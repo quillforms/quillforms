@@ -1,5 +1,5 @@
 {
-	"type": "date",
+	"name": "date",
 	"supports": {
 		"editable": true,
 		"required": true,

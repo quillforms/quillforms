@@ -6,7 +6,7 @@ import { setBlockAdminSettings } from '@quillforms/blocks';
 import controls from './controls';
 import Icon from './icon';
 import logicControl from './logic-control';
-import { type } from '../block.json';
+import { name } from '../block.json';
 
 export const blockAdminSettings = {
 	color: '#9e5210',
@@ -16,4 +16,4 @@ export const blockAdminSettings = {
 	title: 'Multiple Choice',
 };
 
-setBlockAdminSettings( type, blockAdminSettings );
+setBlockAdminSettings( name, blockAdminSettings );

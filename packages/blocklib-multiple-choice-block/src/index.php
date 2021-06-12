@@ -1,6 +1,6 @@
 <?php
 /**
- * Block Library: class QF_Date
+ * Block Library: class QF_Multiple_Choice_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary
@@ -12,11 +12,11 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Date Block
  *
- * @class QF_Date
+ * @class QF_Multiple_Choice_Block_Type
  *
  * @since 1.0.0
  */
-class QF_Multiple_Choice_Block extends QF_Block_Type {
+class QF_Multiple_Choice_Block_Type extends QF_Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -35,19 +35,8 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	 *
 	 * @return string The block type
 	 */
-	public function get_type() {
-		return $this->get_metadata()['type'];
-	}
-
-	/**
-	 * Get block name.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string The block name
-	 */
-	public function get_name() {
-		return __( 'Multiple Choice', 'quillforms' );
+	public function get_name() : string {
+		return $this->get_metadata()['name'];
 	}
 
 	/**
@@ -57,7 +46,7 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	 *
 	 * @return array The block supported features
 	 */
-	public function get_block_supported_features() {
+	public function get_block_supported_features() : iterable {
 		return $this->get_metadata()['supports'];
 	}
 
@@ -65,23 +54,27 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	 * Get block styles
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block admin assets
 	 */
-	public function get_block_styles() {
+	public function get_block_admin_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-multiple-choice-block-admin-style',
-			'renderer' => 'quillforms-blocklib-multiple-choice-block-renderer-style',
+			'style'  => 'quillforms-blocklib-multiple-choice-block-admin-style',
+			'script' => 'quillforms-blocklib-multiple-choice-block-admin-script',
 		);
 	}
 
 	/**
-	 * Get block scripts
+	 * Get block renderer assets
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block renderer assets
 	 */
-	public function get_block_scripts() {
+	public function get_block_renderer_assets() : iterable {
 		return array(
-			'admin'    => 'quillforms-blocklib-multiple-choice-block-admin-script',
-			'renderer' => 'quillforms-blocklib-multiple-choice-block-renderer-script',
+			'style'  => 'quillforms-blocklib-multiple-choice-block-renderer-style',
+			'script' => 'quillforms-blocklib-multiple-choice-block-renderer-script',
 		);
 	}
 
@@ -92,7 +85,7 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	 *
 	 * @return array The block custom attributes
 	 */
-	public function get_custom_attributes() {
+	public function get_custom_attributes() : iterable {
 		return $this->get_metadata()['attributes'];
 	}
 
@@ -103,7 +96,7 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	 *
 	 * @return array The initial attributes
 	 */
-	public function get_logical_operators() {
+	public function get_logical_operators() : iterable {
 		return $this->get_metadata()['logicalOperators'];
 	}
 
@@ -138,7 +131,7 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	 *
 	 * @return string The directory path
 	 */
-	private function get_dir() {
+	private function get_dir() : string {
 		return trailingslashit( dirname( __FILE__ ) );
 	}
 
@@ -187,4 +180,4 @@ class QF_Multiple_Choice_Block extends QF_Block_Type {
 	}
 }
 
-QF_Blocks_Factory::get_instance()->register( new QF_Multiple_Choice_Block() );
+QF_Blocks_Factory::get_instance()->register( new QF_Multiple_Choice_Block_Type() );
