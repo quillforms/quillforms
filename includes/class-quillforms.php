@@ -34,24 +34,6 @@ final class QuillForms {
 	public static $instance;
 
 	/**
-	 * Editor Mode
-	 *
-	 * @var bool
-	 *
-	 * @since 1.0.0
-	 */
-	public $editor_mode = false;
-
-	/**
-	 * Frontend Mode
-	 *
-	 * @var bool
-	 *
-	 * @since 1.0.0
-	 */
-	public $frontend_mode = false;
-
-	/**
 	 * QuillForms_Main Instance.
 	 *
 	 * Instantiates or reuses an instance of QuillForms_Main.
@@ -77,6 +59,7 @@ final class QuillForms {
 	public function __construct() {
 		$this->load_dependencies();
 		$this->initialize_objects();
+		$this->init_hooks();
 	}
 
 	/**
@@ -136,11 +119,8 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-merge-tags.php';
 		require_once QF_PLUGIN_DIR . 'includes/emails/class-qf-emails.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-messages.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-notifications.php';
 		require_once QF_PLUGIN_DIR . 'includes/render/class-qf-form-renderer.php';
 		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-submission.php';
-
 
 		/**
 		 * REST API.
@@ -151,10 +131,10 @@ final class QuillForms {
 		/**
 		 * REST Fields
 		 */
-		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
-		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/messages.php';
-		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
-		 require_once QF_PLUGIN_DIR . 'includes/rest-fields/theme.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/messages.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
+		require_once QF_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 
 	}
 
@@ -166,5 +146,16 @@ final class QuillForms {
 	public function initialize_objects() {
 		QF_Admin::instance();
 		QF_REST_API::get_instance();
+	}
+
+	/**
+	 * Init hools
+	 *
+	 * @since 1.0.0
+	 */
+	public function init_hooks() {
+
+		add_action( 'init', array( 'QF_Capabilities', 'assign_capabilities_for_user_roles' ) );
+		add_action( 'init', array( 'QF_Core', 'register_quillforms_post_type' ) );
 	}
 }
