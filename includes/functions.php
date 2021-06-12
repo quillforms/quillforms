@@ -1,5 +1,14 @@
 <?php
 /**
+ * Some helper functions.
+ *
+ * @since 1.0.0
+ * @package QuillForms
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
  * Helper function to sanitize a string from user input or from the db
  * Forked from WordPress core
  *
@@ -9,7 +18,7 @@
  *
  * @since 1.0.0
  *
- * @param string $string        String to deeply sanitize.
+ * @param string $str           String to deeply sanitize.
  * @param bool   $keep_newlines Whether to keep newlines. Default: false.
  *
  * @return string Sanitized string, or empty string if not a string provided.
