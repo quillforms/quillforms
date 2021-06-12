@@ -2,11 +2,11 @@
  * Internal Dependencies
  */
 import FieldAction from '../field-action';
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 import SubmitBtn from '../submission-screen';
 
 const NonEditableBlockFooter = () => {
-	const { next, isLastField } = useFieldRenderContext();
+	const { next, isLastField } = __experimentalUseFieldRenderContext();
 	return (
 		<div className="renderer-components-block-footer">
 			{ isLastField ? (

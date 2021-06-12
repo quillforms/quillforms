@@ -12,11 +12,11 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import HTMLParser from '../html-parser';
-import { useFieldRenderContext } from '../field-render/context';
+import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import useTheme from '../../hooks/use-theme';
 
 const BlockDesc: React.FC = () => {
-	const { attributes } = useFieldRenderContext();
+	const { attributes } = __experimentalUseFieldRenderContext();
 	if ( ! attributes || ! attributes.description ) return null;
 	const theme = useTheme();
 	const { description } = attributes;

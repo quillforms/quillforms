@@ -1,7 +1,7 @@
 import { Fragment } from '@wordpress/element';
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 const BlockAttachment: React.FC = () => {
-	const { attributes } = useFieldRenderContext();
+	const { attributes } = __experimentalUseFieldRenderContext();
 	if ( ! attributes ) return null;
 	const { attachment } = attributes;
 	return (

@@ -8,7 +8,7 @@ import { useSelect } from '@wordpress/data';
  */
 import FieldAction from '../field-action';
 import ErrMsg from '../error-message';
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 import { BlockFooterProps } from './index';
 import SubmitBtn from '../submission-screen';
 
@@ -30,7 +30,7 @@ const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
 		isErrMsgVisible,
 		showErrMsg,
 		isLastField,
-	} = useFieldRenderContext();
+	} = __experimentalUseFieldRenderContext();
 	return (
 		<>
 			{ shakingErr ||

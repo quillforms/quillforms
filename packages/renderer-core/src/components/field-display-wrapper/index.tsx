@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 /**
  * Internal Dependencies
  */
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import BlockFooter from '../field-footer';
 import useFormContext from '../../hooks/use-form-context';
@@ -32,7 +32,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		attributes,
 		showSubmitBtn,
 		showErrMsg,
-	} = useFieldRenderContext();
+	} = __experimentalUseFieldRenderContext();
 
 	const isTouchScreen =
 		'ontouchstart' in window ||

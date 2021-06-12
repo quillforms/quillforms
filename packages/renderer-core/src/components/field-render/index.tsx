@@ -6,10 +6,13 @@ import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import { FieldRenderContextProvider, useFieldRenderContext } from './context';
+import {
+	FieldRenderContextProvider,
+	__experimentalUseFieldRenderContext,
+} from './context';
 import FieldWrapper from '../field-wrapper';
 
-export { useFieldRenderContext };
+export { __experimentalUseFieldRenderContext };
 
 interface Props {
 	id: string;

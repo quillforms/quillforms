@@ -15,10 +15,10 @@ import Loader from 'react-loader-spinner';
  */
 import Button from '../button';
 import useFormContext from '../../hooks/use-form-context';
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 
 const SubmitBtn: React.FC = () => {
-	const { isLastField, isActive } = useFieldRenderContext();
+	const { isLastField, isActive } = __experimentalUseFieldRenderContext();
 	const { goToBlock, setIsReviewing, setIsSubmitting } = useDispatch(
 		'quillForms/renderer-core'
 	);

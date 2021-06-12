@@ -8,13 +8,13 @@ import classnames from 'classnames';
  * Internal Dependencies
  */
 import ArrowIcon from './arrow-icon';
-import { useFieldRenderContext } from '../field-render/context';
+import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import useBlockTypes from '../../hooks/use-block-types';
 import useTheme from '../../hooks/use-theme';
 import { useSelect } from '@wordpress/data';
 
 const BlockCounter: React.FC = () => {
-	const { blockName, id } = useFieldRenderContext();
+	const { blockName, id } = __experimentalUseFieldRenderContext();
 	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ blockName ];

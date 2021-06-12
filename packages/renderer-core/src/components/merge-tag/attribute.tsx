@@ -1,10 +1,10 @@
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 
 interface Props {
 	modifier: string;
 }
 const AttributeMergeTag: React.FC< Props > = ( { modifier } ) => {
-	const { attributes } = useFieldRenderContext();
+	const { attributes } = __experimentalUseFieldRenderContext();
 	let modifierRender: React.ReactNode = <>'_ _ _ _ _'</>;
 	if ( attributes && attributes[ modifier ] ) {
 		modifierRender = <> { attributes[ modifier ] } </>;

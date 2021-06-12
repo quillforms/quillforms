@@ -13,7 +13,7 @@ import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
-import { useFieldRenderContext } from '../field-render/context';
+import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import FieldContent from '../field-content';
 import { filter, findIndex } from 'lodash';
 
@@ -27,7 +27,7 @@ const FieldWrapper: React.FC = () => {
 		shouldBeRendered,
 		showErrMsg,
 		next,
-	} = useFieldRenderContext();
+	} = __experimentalUseFieldRenderContext();
 	if ( ! id ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
 		return {

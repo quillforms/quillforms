@@ -8,13 +8,13 @@ import { useSelect } from '@wordpress/data';
  */
 import EditableBlockFooter from './editable';
 import NonEditableBlockFooter from './non-editable';
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 
 export interface BlockFooterProps {
 	shakingErr: string | null;
 }
 const BlockFooter: React.FC< BlockFooterProps > = ( { shakingErr } ) => {
-	const { id, blockName } = useFieldRenderContext();
+	const { id, blockName } = __experimentalUseFieldRenderContext();
 	if ( ! blockName ) return null;
 	const { isEditable } = useSelect( ( select ) => {
 		return {

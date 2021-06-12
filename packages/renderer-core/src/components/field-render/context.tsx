@@ -54,6 +54,6 @@ export const FieldRenderContextProvider = ( { value, children } ) => {
  *
  * @return {Object} Block render context
  */
-export function useFieldRenderContext(): FieldRenderContext {
+export function __experimentalUseFieldRenderContext(): FieldRenderContext {
 	return useContext( Context );
 }

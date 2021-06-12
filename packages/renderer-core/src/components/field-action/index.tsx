@@ -9,7 +9,7 @@ import { css } from 'emotion';
  */
 import Button from '../button';
 import HTMLParser from '../html-parser';
-import { useFieldRenderContext } from '../field-render';
+import { __experimentalUseFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import useMessages from '../../hooks/use-messages';
 import useTheme from '../../hooks/use-theme';
@@ -17,7 +17,10 @@ import useTheme from '../../hooks/use-theme';
 const FieldAction = ( { clickHandler, show } ) => {
 	const messages = useMessages();
 	const theme = useTheme();
-	const { blockName, isSubmitBtnVisible } = useFieldRenderContext();
+	const {
+		blockName,
+		isSubmitBtnVisible,
+	} = __experimentalUseFieldRenderContext();
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
 	const isTouchScreen =

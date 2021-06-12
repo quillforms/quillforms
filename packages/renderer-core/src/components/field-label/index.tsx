@@ -8,11 +8,11 @@ import classnames from 'classnames';
  * Internal Dependencies
  */
 import HtmlParser from '../html-parser';
-import { useFieldRenderContext } from '../field-render/context';
+import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import useTheme from '../../hooks/use-theme';
 
 const BlockLabel: React.FC = () => {
-	const { attributes } = useFieldRenderContext();
+	const { attributes } = __experimentalUseFieldRenderContext();
 	let label = '...';
 	if ( attributes?.label ) label = attributes.label;
 	const theme = useTheme();
