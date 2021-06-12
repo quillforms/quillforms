@@ -32,10 +32,10 @@ class QF_Install {
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
-		// if ( version_compare( get_option( 'quillforms_version' ), QuillForms::instance()->version, '<' ) ) {
+		if ( version_compare( get_option( 'quillforms_version' ), QuillForms::instance()->version, '<' ) ) {
 			self::install();
-		// do_action( 'quillforms_updated' );
-		// }
+			do_action( 'quillforms_updated' );
+		}
 	}
 
 	/**
@@ -53,7 +53,6 @@ class QF_Install {
 		// If we made it till here nothing is running yet, lets set the transient now.
 		set_transient( 'qf_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
-		QF_Capabilities::assign_capabilities_for_user_roles();
 		QF_Core::register_quillforms_post_type();
 		self::create_tables();
 		self::update_qf_version();
@@ -78,16 +77,7 @@ class QF_Install {
 			$collate = $wpdb->get_charset_collate();
 		}
 
-		$sql = "CREATE TABLE {$wpdb->prefix}quillforms_entry_values (
-				ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-				entry_id bigint(20) NOT NULL,
-				field_id varchar(50) NOT NULL,
-				value longtext NOT NULL,
-				PRIMARY KEY (ID),
-				KEY entry_id (entry_id),
-				KEY field_id (field_id)
-			);
-			CREATE TABLE {$wpdb->prefix}quillforms_themes (
+		$sql = "CREATE TABLE {$wpdb->prefix}quillforms_themes (
 			    ID mediumint(8) unsigned NOT NULL auto_increment,
 				theme_properties longtext NOT NULL,
 				theme_title varchar(50) NOT NULL,
@@ -123,5 +113,3 @@ class QF_Install {
 	}
 
 }
-
-QF_Install::init();
