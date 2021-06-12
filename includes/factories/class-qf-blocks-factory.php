@@ -39,26 +39,18 @@ final class QF_Blocks_Factory {
 	 *
 	 * @return QF_Block_Type the registered block type on success, or false on failure
 	 */
-	public function register( $block ) {
-		$block_type = null;
-		if ( ! $block instanceof QF_Block_Type ) {
-			$message = __( 'Registered Block must be instance of QF_Block_Type.', 'quillforms' );
-			_doing_it_wrong( __METHOD__, $message, '1.0.0' );
+	public function register( QF_Block_Type $block ) {
+		$block_type = $block;
+		$block_name = $block_type->name;
 
-			return false;
-		} else {
-			$block_type = $block;
-			$type       = $block_type->type;
-		}
-
-		if ( preg_match( '/[A-Z]+/', $type ) ) {
+		if ( preg_match( '/[A-Z]+/', $block_name ) ) {
 			$message = __( 'Block type names must not contain uppercase characters.', 'quillforms' );
 			_doing_it_wrong( __METHOD__, $message, '1.0.0' );
 
 			return false;
 		}
 
-		if ( $this->is_registered( $type ) ) {
+		if ( $this->is_registered( $block_name ) ) {
 			/* translators: %s: Block name. */
 			$message = sprintf( __( 'Block type "%s" is already registered.', 'quillforms' ), $type );
 			_doing_it_wrong( __METHOD__, $message, '1.0.0' );
@@ -66,7 +58,7 @@ final class QF_Blocks_Factory {
 			return false;
 		}
 
-		$this->registered_block_types[ $type ] = $block_type;
+		$this->registered_block_types[ $block_name ] = $block_type;
 
 		return $block_type;
 	}
@@ -82,9 +74,6 @@ final class QF_Blocks_Factory {
 	 * @return QF_Block_Type|false the unregistered block type on success, or false on failure
 	 */
 	public function unregister( $type ) {
-		if ( $type instanceof QF_Block_Type ) {
-			$type = $type->type;
-		}
 
 		if ( ! $this->is_registered( $type ) ) {
 			/* translators: %s: Block name. */
@@ -150,7 +139,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @return QF_Block_Type[] associative array of `$block_type_name => $block_type` pairs
 	 */
-	public function get_all_registered() {
+	public function get_all_registered() : iterable {
 		return $this->registered_block_types;
 	}
 
@@ -163,7 +152,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @return bool true if the block type is registered, false otherwise
 	 */
-	public function is_registered( $name ) {
+	public function is_registered( $name ) : bool {
 		return isset( $this->registered_block_types[ $name ] );
 	}
 
@@ -176,7 +165,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @return QF_Blocks_Factory the main instance
 	 */
-	public static function get_instance() {
+	public static function get_instance() : object {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
