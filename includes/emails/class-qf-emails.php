@@ -1,5 +1,13 @@
 <?php
+/**
+ * Emails: class QF_Emails
+ *
+ * @since 1.0.0
+ * @package QuillForms
+ * @subpackage Emails
+ */
 
+defined( 'ABSPATH' ) || exit;
 /**
  * Emails.
  *

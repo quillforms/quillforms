@@ -2,9 +2,14 @@
 /**
  * Email form field entry.
  *
+ * Heavily influenced by the great AffiliateWP plugin by Pippin Williamson.
+ * https://github.com/JustinSainton/AffiliateWP/blob/master/includes/emails/class-affwp-emails.php
+
  * This is used with the {{form:all_answers}} merge tag.
  *
  * @since 1.0.0
+ * @package QuillForms
+ * @subpackage Emails
  */
 
 // Exit if accessed directly.

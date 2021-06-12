@@ -3,9 +3,11 @@
  * Email Body
  *
  * Heavily influenced by the great AffiliateWP plugin by Pippin Williamson.
- * https://github.com/AffiliateWP/AffiliateWP/tree/master/templates/emails
+ * https://github.com/JustinSainton/AffiliateWP/blob/master/includes/emails/class-affwp-emails.php
  *
- * @since 1.1.3
+ * @since 1.0.0
+ * @package QuillForms
+ * @subpackage Emails
  */
 
 // Exit if accessed directly.

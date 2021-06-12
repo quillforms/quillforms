@@ -1,12 +1,18 @@
 <?php
 /**
  * Email Footer.
+ * Heavily influenced by the great AffiliateWP plugin by Pippin Williamson.
+ * https://github.com/JustinSainton/AffiliateWP/blob/master/includes/emails/class-affwp-emails.php
  *
- * @since 1.1.3
+ * @since 1.0.0
+ * @package QuillForms
+ * @subpackage Emails
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 $background_color = qf_setting( 'email-background-color', '#e9eaec' );
 ?>

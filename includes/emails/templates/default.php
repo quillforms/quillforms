@@ -2,14 +2,21 @@
 /**
  * Default email template.
  *
+ * Heavily influenced by the great AffiliateWP plugin by Pippin Williamson.
+ * https://github.com/JustinSainton/AffiliateWP/blob/master/includes/emails/class-affwp-emails.php
+
  * Don't forget to run final template through
  * http://templates.mailchimp.com/resources/inline-css/
  *
- * @since 1.1.3
+ * @since 1.0.0
+ * @package QuillForms
+ * @subpackage Emails
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 $header_image = qf_setting( 'email-header-image', false );
 ?>
@@ -257,7 +264,7 @@ $header_image = qf_setting( 'email-header-image', false );
 					<![endif]-->
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
 						<?php
-						if ( !empty( $header_image ) ) {
+						if ( ! empty( $header_image ) ) {
 							echo '<tr><td valign="top" align="center" id="templateHeader" style="padding-bottom:20px;text-align:center;">';
 								echo '<img src="' . esc_url( $header_image ) . '" alt="' . get_bloginfo( 'name' ) . '" />';
 							echo '</td></tr>';
