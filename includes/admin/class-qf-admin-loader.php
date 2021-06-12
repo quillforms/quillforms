@@ -7,6 +7,8 @@
  * @subpackage Loader
  */
 
+ defined( 'ABSPATH' ) || exit;
+
 /**
  * Register the scripts, styles, and includes needed for pieces of the QuillForms Admin experience.
  */
@@ -15,14 +17,14 @@ class QF_Admin_Loader {
 	/**
 	 * Class instance.
 	 *
-	 * @var Loader instance
+	 * @var QF_Admin_Loader instance
 	 */
 	protected static $instance = null;
 
 	/**
 	 * Get class instance.
 	 */
-	public static function get_instance() {
+	public static function get_instance() : object {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
@@ -32,9 +34,11 @@ class QF_Admin_Loader {
 	/**
 	 * Returns true if we are on a JS powered admin page.
 	 */
-	public static function is_admin_page() {
-		$current_screen  = get_current_screen();
-		if($current_screen->id === 'toplevel_page_quillforms') return true;
+	public static function is_admin_page() : bool {
+		$current_screen = get_current_screen();
+		if ( 'toplevel_page_quillforms' === $current_screen->id ) {
+			return true;
+		}
 		return false;
 	}
 
@@ -49,10 +53,7 @@ class QF_Admin_Loader {
 		add_action( 'admin_head', array( __CLASS__, 'remove_notices' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
-		add_filter( 'admin_body_class', array(__CLASS__,  'add_admin_body_class'), PHP_INT_MAX );
-
-
-		// add_action( 'admin_head', array( __CLASS__, 'remove_app_entry_page_menu_item' ), 20 );
+		add_filter( 'admin_body_class', array( __CLASS__, 'add_admin_body_class' ), PHP_INT_MAX );
 
 		/*
 		* Remove the emoji script.
@@ -63,12 +64,14 @@ class QF_Admin_Loader {
 	}
 
 	/**
-	 * Add admin body class
+	 * Add admin body class.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $classes Body classes.
 	 */
-	public static function add_admin_body_class($classes) {
-		if(self::is_admin_page()) {
+	public static function add_admin_body_class( $classes ) {
+		if ( self::is_admin_page() ) {
 			return "$classes js is-fullscreen-mode";
 		}
 	}
@@ -85,7 +88,7 @@ class QF_Admin_Loader {
 			'qfAdmin',
 			array(
 				'assetsBuildUrl' => QF_PLUGIN_URL,
-				'submenuPages' => $submenu['quillforms']
+				'submenuPages'   => $submenu['quillforms'],
 			)
 		);
 	}
@@ -165,19 +168,39 @@ class QF_Admin_Loader {
 		echo '</div>';
 	}
 
-		/**
+	/**
 	 * Set up a div for the app to render into.
 	 */
 	public static function page_wrapper() {
+		// Load client script and style. Client is main app entry.
 		wp_enqueue_script( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-client' );
+
+		// Load builder core package style.
 		wp_enqueue_style( 'quillforms-builder-core' );
+
+		// Important to check for authentication.
 		wp_auth_check_load();
+
+		// load all block styles and scripts.
 		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
-			wp_enqueue_script( $block->get_block_scripts()['admin'] );
-			wp_enqueue_script( $block->get_block_scripts()['renderer'] );
-			wp_enqueue_style( $block->get_block_styles()['admin'] );
-			wp_enqueue_style( $block->get_block_styles()['renderer'] );
+			if ( ! empty( $block->block_admin_assets ) ) {
+				if ( ! empty( $block->block_admin_assets['style'] ) ) {
+					wp_enqueue_style( $block->block_admin_assets['style'] );
+				}
+				if ( ! empty( $block->block_admin_assets['script'] ) ) {
+					wp_enqueue_script( $block->block_admin_assets['script'] );
+				}
+			}
+
+			if ( ! empty( $block->block_renderer_assets ) ) {
+				if ( ! empty( $block->block_renderer_assets['style'] ) ) {
+					wp_enqueue_style( $block->block_renderer_assets['style'] );
+				}
+				if ( ! empty( $block->block_renderer_assets['script'] ) ) {
+					wp_enqueue_script( $block->block_renderer_assets['script'] );
+				}
+			}
 		}
 		?>
 		<div class="wrap">
@@ -223,7 +246,7 @@ class QF_Admin_Loader {
 							<linearGradient
 								id="_lgradient_13"
 								x1="141.08428"
-					 			y1="142.3715"
+								y1="142.3715"
 								x2="167.544"
 								y2="105.50069"
 								gradientTransform="matrix(1,0,0,-1,-95.226,176.556)"
