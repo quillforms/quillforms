@@ -3,7 +3,7 @@
 	<description>Sniffs for WordPress plugins, with minor modifications for Quill Forms</description>
 
 	<rule ref="PHPCompatibility"/>
-	<config name="testVersion" value="5.6-"/>
+	<config name="testVersion" value="7.2-"/>
 
 	<rule ref="WordPress-Core"/>
 	<rule ref="WordPress-Docs"/>
@@ -20,7 +20,7 @@
 	<!-- Ignore filename error since it requires WP core build process change -->
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
 		<exclude-pattern>includes/abstracts/*</exclude-pattern>
-		<exclude-pattern>packages/block-library/src/*</exclude-pattern>
+		<exclude-pattern>packages/blocklib-**-block/src/*</exclude-pattern>
 	</rule>
 
 	<rule ref="VariableAnalysis.CodeAnalysis.VariableAnalysis">
@@ -31,7 +31,7 @@
 	<rule ref="WordPress.CodeAnalysis.EmptyStatement"/>
 
 	<rule ref="WordPress.WP.I18n.MissingArgDomainDefault">
-		<exclude-pattern>packages/block-library/src/*</exclude-pattern>
+		<exclude-pattern>packages/blocklib-**-block/src/*</exclude-pattern>
 	</rule>
 
 	<arg value="ps"/>
