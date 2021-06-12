@@ -1,15 +1,5 @@
 {
-	"editor.formatOnSave": true,
 	"[php]": {
-		"editor.defaultFormatter": "persoderlind.vscode-phpcbf"
+		"editor.defaultFormatter": "valeryanm.vscode-phpsab"
 	},
-	"phpcs.standard": "./phpcs.xml.dist",
-	"phpcs.enable": true,
-	"phpcs.executablePath": "/Applications/MAMP/htdocs/mf-reviews/wp-content/plugins/QuillForms/vendor/bin/phpcs",
-	"phpcbf.enable": true,
-	"phpcbf.documentFormattingProvider": true,
-	"phpcbf.onsave": true,
-	"phpcbf.executablePath": "/Applications/MAMP/htdocs/mf-reviews/wp-content/plugins/QuillForms/vendor/bin/phpcbf",
-	"phpcbf.standard": "WordPress",
-
 }
