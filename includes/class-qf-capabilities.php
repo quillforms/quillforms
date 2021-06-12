@@ -13,7 +13,7 @@
 class QF_Capabilities {
 
 	/**
-	 * Get capabilities for WooCommerce - these are assigned to admin/shop manager during installation or reset.
+	 * Get capabilities.
 	 *
 	 * @since 1.0.0
 	 *
