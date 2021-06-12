@@ -125,7 +125,7 @@ class QF_Fonts {
 		return array_filter(
 			self::get_fonts(),
 			function ( $font ) use ( $groups ) {
-				return in_array( $font, $groups );
+				return in_array( $font, $groups, true );
 			}
 		);
 	}
