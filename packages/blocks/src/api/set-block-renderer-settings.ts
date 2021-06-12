@@ -39,7 +39,7 @@ export const setBlockRendererSettings = (
 	}
 
 	if ( ! isFunction( settings.display ) ) {
-		console.error( 'The "output" property must be a valid function!' );
+		console.error( 'The "display" property must be a valid function!' );
 		return;
 	}
 
@@ -60,7 +60,7 @@ export const setBlockRendererSettings = (
 
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
 		pick( settings, [
-			'output',
+			'display',
 			'mergeTag',
 			'blockAction',
 			'counterIcon',
