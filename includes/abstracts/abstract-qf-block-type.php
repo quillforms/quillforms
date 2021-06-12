@@ -15,13 +15,13 @@
 abstract class QF_Block_Type extends stdClass {
 
 	/**
-	 * Block type
+	 * Block unique name
 	 *
 	 * @var string
 	 *
 	 * @since 1.0.0
 	 */
-	public $type;
+	public $name;
 
 	/**
 	 * Block attributes
@@ -32,14 +32,6 @@ abstract class QF_Block_Type extends stdClass {
 	 */
 	public $attributes;
 
-	/**
-	 * Block name
-	 *
-	 * @var string
-	 *
-	 * @since 1.0.0
-	 */
-	public $block_name;
 
 	/**
 	 * Is valid
@@ -67,17 +59,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @return string The block type
 	 */
-	abstract public function get_type();
-
-	/**
-	 * Get Block Name
-	 * The block name that will appear in public.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string The block name
-	 */
-	abstract public function get_name();
+	abstract public function get_name() : string;
 
 	/**
 	 * Constructor
@@ -88,22 +70,21 @@ abstract class QF_Block_Type extends stdClass {
 	 *                                 Default empty array.
 	 */
 	public function __construct( $args = array() ) {
-		$default_supported_features = array(
+		$default_supported_features  = array(
 			'editable'    => true,
 			'required'    => true,
 			'attachment'  => true,
 			'description' => true,
 			'logic'       => true,
 		);
-		$this->type                 = $this->get_type();
-		$this->block_name           = $this->get_name();
-		$this->block_styles         = $this->get_block_styles();
-		$this->block_scripts        = $this->get_block_scripts();
-		$this->supported_features   = wp_parse_args( $this->get_block_supported_features(), $default_supported_features );
-		$this->custom_attributes    = $this->get_custom_attributes();
-		$this->attributes_schema    = $this->get_attributes_schema();
-		$this->attributes           = $this->prepare_attributes_for_render();
-		$this->logical_operators    = $this->get_logical_operators();
+		$this->name                  = $this->get_name();
+		$this->block_admin_assets    = $this->get_block_admin_assets();
+		$this->block_renderer_assets = $this->get_block_renderer_assets();
+		$this->supported_features    = wp_parse_args( $this->get_block_supported_features(), $default_supported_features );
+		$this->custom_attributes     = $this->get_custom_attributes();
+		$this->attributes_schema     = $this->get_attributes_schema();
+		$this->attributes            = $this->prepare_attributes_for_render();
+		$this->logical_operators     = $this->get_logical_operators();
 		$this->set_props( $args );
 	}
 
@@ -132,26 +113,30 @@ abstract class QF_Block_Type extends stdClass {
 	}
 
 	/**
-	 * Get block styles
+	 * Get block admin assets
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block admin assets
 	 */
-	public function get_block_styles() {
+	public function get_block_admin_assets() : iterable {
 		return array(
-			'admin'    => '',
-			'renderer' => '',
+			'style'  => '',
+			'script' => '',
 		);
 	}
 
 	/**
-	 * Get block scripts
+	 * Get block renderer assets
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array The block renderer assets
 	 */
-	public function get_block_scripts() {
+	public function get_block_renderer_assets() : iterable {
 		return array(
-			'admin'    => '',
-			'renderer' => '',
+			'style'  => '',
+			'script' => '',
 		);
 	}
 
@@ -163,7 +148,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @return array The block attributes
 	 */
-	public function get_custom_attributes() {
+	public function get_custom_attributes() : iterable {
 		return array();
 	}
 
@@ -176,7 +161,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @return array $attributes_schema Attributes schema
 	 */
-	final public function get_attributes_schema() {
+	final public function get_attributes_schema() : iterable {
 		$attributes_schema = $this->custom_attributes;
 
 		if ( $this->supported_features['required'] ) {
@@ -225,7 +210,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @return array prepared block attributes
 	 */
-	final public function prepare_attributes_for_render( $attributes = array() ) {
+	final public function prepare_attributes_for_render( $attributes = array() ) : iterable {
 		// If there are no attribute definitions for the block type, skip
 		// processing and return vebatim.
 		if ( ! isset( $this->attributes_schema ) ) {
@@ -270,7 +255,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @return array The block supported features
 	 */
-	public function get_block_supported_features() {
+	public function get_block_supported_features() : iterable {
 		return array(
 			'editable'   => true,
 			'required'   => true,
@@ -286,7 +271,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @return array
 	 */
-	public function get_logical_operators() {
+	public function get_logical_operators() : iterable {
 		return array( 'is', 'is_not', 'greater_than', 'lower_than' );
 	}
 
@@ -319,19 +304,6 @@ abstract class QF_Block_Type extends stdClass {
 	}
 
 	/**
-	 * Get entry value that should be saved in database.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value The entry value.
-	 *
-	 * @return mixed $value The entry value that should be saved into dababase.
-	 */
-	public function get_value_entry_save( $value ) {
-		return $value;
-	}
-
-	/**
 	 * Validate field value
 	 * The validation should be done by setting $this->is_valid true or false and setting the validation message  $this->validation_err
 	 *
@@ -354,7 +326,7 @@ abstract class QF_Block_Type extends stdClass {
 	 *
 	 * @return bool
 	 */
-	public function is_condition_fulfilled( $field_value, $condition ) {
+	public function is_condition_fulfilled( $field_value, $condition ) : bool {
 
 		$condition_value = $condition['value'];
 		switch ( $condition['operator'] ) {
