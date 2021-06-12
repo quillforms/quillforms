@@ -130,7 +130,6 @@ function quillforms_override_script( $scripts, $handle, $src, $deps = array(), $
  * @since 1.0.0
  */
 function quillforms_register_packages_scripts( $scripts ) {
-
 	foreach ( glob( quillforms_dir_path() . 'build/*/index.js' ) as $path ) {
 		// Prefix `quillforms-` to package directory to get script handle.
 		$handle = 'quillforms-' . basename( dirname( $path ) );
@@ -216,16 +215,6 @@ function quillforms_register_packages_scripts( $scripts ) {
 			true
 		);
 	}
-
-	// Register Vendor scripts
-	quillforms_override_script(
-		$scripts,
-		'react-window',
-		QF_PLUGIN_URL . '/lib/vendor/react-window.min.js',
-		array( 'react' ),
-		'1.8.6',
-		true
-	);
 
 	quillforms_override_script(
 		$scripts,

@@ -352,9 +352,6 @@ module.exports = {
 					case 'emotion': {
 						return 'emotion';
 					}
-					case 'react-window': {
-						return 'react-window';
-					}
 				}
 				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
 					return [
