@@ -1,4 +1,19 @@
 <?php
+/**
+ * Core: class QF_Core.
+ * Responsible for registering post type and registering block types in JS and some functions to get blocks, messages, ..etc.
+ *
+ * @since 1.0.0
+ * @package QuillForms
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * QF_Core class
+ *
+ * @since 1.0.0
+ */
 class QF_Core {
 
 	/**
@@ -10,7 +25,7 @@ class QF_Core {
 		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
 			wp_add_inline_script(
 				'quillforms-blocks',
-				'qf.blocks.registerBlockType("' . $block->type . '",' . wp_json_encode(
+				'qf.blocks.registerBlockType("' . $block->name . '",' . wp_json_encode(
 					array(
 						'attributes'       => $block->custom_attributes,
 						'supports'         => $block->supported_features,
@@ -138,4 +153,3 @@ class QF_Core {
 		return $theme;
 	}
 }
-
