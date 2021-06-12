@@ -19,7 +19,7 @@ register_rest_field(
 			$value = get_post_meta( $form_id, 'notifications', true );
 			$value = $value ? $value : array();
 
-			return QF_Form_Notifications::prepare_notifications_for_render( $value );
+			return $value;
 		},
 		'update_callback' => function( $meta, $object ) {
 			$form_id = $object->ID;
