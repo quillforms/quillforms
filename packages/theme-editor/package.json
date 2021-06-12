@@ -26,6 +26,7 @@
 		"@wordpress/data": "^4.26.5",
 		"@wordpress/element": "^2.19.1",
 		"@wordpress/i18n": "^3.18.0",
+		"gradient-parser": "^0.1.5",
 		"lodash": "~4.17.21"
 	},
 	"publishConfig": {
