@@ -2,23 +2,29 @@
  * QuillForms Dependencies
  */
 import { Button } from '@quillforms/admin-components';
+import ConfigAPI from '@quillforms/config';
 
 /**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
 import { Icon, arrowRight } from '@wordpress/icons';
+import { useState } from '@wordpress/element';
+import { Modal } from '@wordpress/components';
 
 /**
  * External Dependencies
  */
+import classnames from 'classnames';
 import { css } from 'emotion';
+
 /**
  * Internal Dependencies
  */
 import NotificationBox from '../notification-box';
 
 const NotificationsList = ( { goNext, setCurrentNotificationId } ) => {
+	const [ displayProModal, setDisplayProModal ] = useState( false );
 	const { notifications } = useSelect( ( select ) => {
 		return {
 			notifications: select(
@@ -46,8 +52,16 @@ const NotificationsList = ( { goNext, setCurrentNotificationId } ) => {
 						` }
 						isPrimary
 						onClick={ () => {
-							setCurrentNotificationId( null );
-							goNext();
+							if (
+								notifications.length > 0 &&
+								( ! ConfigAPI.getLicenseKey() ||
+									! ConfigAPI.isLicenseValid() )
+							) {
+								setDisplayProModal( true );
+							} else {
+								setCurrentNotificationId( null );
+								goNext();
+							}
 						} }
 						isLarge
 					>
@@ -81,6 +95,64 @@ const NotificationsList = ( { goNext, setCurrentNotificationId } ) => {
 					</div>
 				) }
 			</>
+
+			{ displayProModal && (
+				<Modal
+					className={ classnames(
+						css`
+							border: none !important;
+							border-radius: 9px;
+
+							.components-modal__header {
+								background: linear-gradient(
+									42deg,
+									rgb( 235 54 221 ),
+									rgb( 238 142 22 )
+								);
+								h1 {
+									color: #fff;
+								}
+								svg {
+									fill: #fff;
+								}
+							}
+						`
+					) }
+					title="Multiple notifications is a pro feature"
+					onRequestClose={ () => {
+						setDisplayProModal( false );
+					} }
+				>
+					<p
+						className={ css`
+							font-size: 15px;
+						` }
+					>
+						We're sorry, the Multiple notifications is not available{ ' ' }
+						<br />
+						on your plan. Please upgrade to the PRO plan to unlock{ ' ' }
+						<br />
+						all these awesome features.
+					</p>
+					<a
+						href="https://quillforms.com"
+						className="admin-components-button is-primary"
+						target="_blank"
+						className={ css`
+						padding: 15px 20px;
+						display: inline-flex;
+						align-items: center;
+						color: #fff;
+						text-transform: none;
+						background: linear-gradient(
+					42deg
+					, rgb( 235 54 221 ), rgb( 238 142 22 ) );
+					} ` }
+					>
+						Upgrade to pro!
+					</a>
+				</Modal>
+			) }
 		</div>
 	);
 };
