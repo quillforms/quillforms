@@ -24,7 +24,7 @@ class QF_Admin_Loader {
 	/**
 	 * Get class instance.
 	 */
-	public static function get_instance() : object {
+	public static function get_instance() {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}

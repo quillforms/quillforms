@@ -165,7 +165,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @return QF_Blocks_Factory the main instance
 	 */
-	public static function get_instance() : object {
+	public static function get_instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
