@@ -158,7 +158,7 @@ const DropdownDisplay = ( props ) => {
 								font-size: 24px;
 							}
 
-							@media ( max-wdith: 400px ) {
+							@media ( max-width: 420px ) {
 								font-size: 20px;
 							}
 						}

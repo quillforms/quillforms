@@ -95,6 +95,9 @@ const EmailOutput = ( props ) => {
 						@media ( max-width: 600px ) {
 							font-size: 24px;
 						}
+						@media ( max-width: 420px ) {
+							font-size: 20px;
+						}
 					}
 
 					&::placeholder {
