@@ -42,7 +42,7 @@ interface setBlockAttributesAction {
 	blockId: string;
 }
 
-interface reorderBlocksAction {
+interface __experimentalReorderBlocksAction {
 	type: typeof REORDER_BLOCKS;
 	sourceIndex: number;
 	destinationIndex: number;
@@ -52,7 +52,7 @@ export type DraggedBlockDestination = {
 	index?: number;
 	droppableId?: string;
 };
-interface insertBlockAction {
+interface __experimentalInsertBlockAction {
 	type: typeof INSERT_BLOCK;
 	block: FormBlock;
 	destination: DraggedBlockDestination;
@@ -71,8 +71,8 @@ interface deleteBlockAction {
 export type BlockEditorActionTypes =
 	| setupStoreAction
 	| setBlockAttributesAction
-	| reorderBlocksAction
-	| insertBlockAction
+	| __experimentalReorderBlocksAction
+	| __experimentalInsertBlockAction
 	| setCurrentBlockAction
 	| deleteBlockAction
 	| ReturnType< () => { type: 'NOOP' } >;

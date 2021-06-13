@@ -57,9 +57,11 @@ const Layout: React.FC = () => {
 		}
 	);
 
-	const { insertBlock, reorderBlocks, setCurrentBlock } = useDispatch(
-		'quillForms/block-editor'
-	);
+	const {
+		__experimentalInsertBlock,
+		__experimentalReorderBlocks,
+		setCurrentBlock,
+	} = useDispatch( 'quillForms/block-editor' );
 	const { insertEmptyFieldAnswer } = useDispatch(
 		'quillForms/renderer-core'
 	);
@@ -170,7 +172,7 @@ const Layout: React.FC = () => {
 							return (
 								<DragAlert
 									approve={ () => {
-										reorderBlocks(
+										__experimentalReorderBlocks(
 											source.index,
 											destination.index
 										);
@@ -185,7 +187,10 @@ const Layout: React.FC = () => {
 						},
 					} );
 				} else {
-					reorderBlocks( source.index, destination.index );
+					__experimentalReorderBlocks(
+						source.index,
+						destination.index
+					);
 				}
 				break;
 			case 'BLOCKS_LIST': {
@@ -202,7 +207,7 @@ const Layout: React.FC = () => {
 								blockName
 							);
 
-						insertBlock( blockToInsert, destination );
+						__experimentalInsertBlock( blockToInsert, destination );
 					}
 				}
 			}

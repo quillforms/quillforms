@@ -57,7 +57,7 @@ export const setBlockAttributes = (
  *
  * @return {BlockEditorActionTypes} Action object.
  */
-export const reorderBlocks = (
+export const __experimentalReorderBlocks = (
 	sourceIndex: number,
 	destinationIndex: number
 ): BlockEditorActionTypes => {
@@ -76,7 +76,7 @@ export const reorderBlocks = (
  *
  * @return {BlockEditorActionTypes} Action object.
  */
-export const insertBlock = (
+export const __experimentalInsertBlock = (
 	block: FormBlock,
 	destination: DraggedBlockDestination
 ): BlockEditorActionTypes => {
