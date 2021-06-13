@@ -11,7 +11,7 @@ Conversational Forms Builder WordPress Plugin with React.js
 # Does it work for WordPress only?
 No, it can work with any React app.
 
-# Cool, how to use?
+# How to use?
 Docs will be coming soon
 
 # Concept
