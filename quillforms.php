@@ -46,7 +46,7 @@ if ( ! defined( 'QF_PLUGIN_URL' ) ) {
 define( 'QF_MIN_WP_VERSION', '5.5' );
 
 // Define minimun php version.
-define( 'QF_MIN_PHP_VERSION', '7.2' );
+define( 'QF_MIN_PHP_VERSION', '7.1' );
 
 quillforms_pre_init();
 
