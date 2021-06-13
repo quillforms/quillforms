@@ -21,6 +21,7 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
+import lockIcon from './lock-icon';
 import NotificationBox from '../notification-box';
 
 const NotificationsList = ( { goNext, setCurrentNotificationId } ) => {
@@ -116,6 +117,9 @@ const NotificationsList = ( { goNext, setCurrentNotificationId } ) => {
 									fill: #fff;
 								}
 							}
+							.components-modal__content {
+								text-align: center;
+							}
 						`
 					) }
 					title="Multiple notifications is a pro feature"
@@ -123,31 +127,46 @@ const NotificationsList = ( { goNext, setCurrentNotificationId } ) => {
 						setDisplayProModal( false );
 					} }
 				>
+					<Icon
+						className={ css`
+							fill: #333;
+						` }
+						icon={ lockIcon }
+						size={ 120 }
+					/>
 					<p
 						className={ css`
 							font-size: 15px;
 						` }
 					>
-						We're sorry, the Multiple notifications is not available{ ' ' }
+						We're sorry, the Multiple notifications is not available
 						<br />
-						on your plan. Please upgrade to the PRO plan to unlock{ ' ' }
+						on your plan. Please upgrade to the PRO plan to unlock
 						<br />
-						all these awesome features.
+						all of PRO features.
 					</p>
 					<a
 						href="https://quillforms.com"
 						className="admin-components-button is-primary"
 						target="_blank"
 						className={ css`
-						padding: 15px 20px;
-						display: inline-flex;
-						align-items: center;
-						color: #fff;
-						text-transform: none;
-						background: linear-gradient(
-					42deg
-					, rgb( 235 54 221 ), rgb( 238 142 22 ) );
-					} ` }
+							color: #fff !important;
+							padding: 15px 20px;
+							display: inline-flex;
+							-webkit-box-align: center;
+							align-items: center;
+							color: rgb( 255, 255, 255 );
+							text-decoration: none;
+							border-radius: 5px;
+							background: linear-gradient(
+								42deg,
+								rgb( 235, 54, 221 ),
+								rgb( 238, 142, 22 )
+							);
+							font-size: 15px;
+							text-transform: uppercase;
+							font-weight: bold;
+						` }
 					>
 						Upgrade to pro!
 					</a>
