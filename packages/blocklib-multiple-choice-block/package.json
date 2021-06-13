@@ -3,10 +3,11 @@
 	"version": "1.0.0",
 	"description": "Multiple choice block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "GPL-2.0-or-later",
+	"license": "MIT",
 	"keywords": [
 		"quillforms",
-		"date",
+		"multiple",
+		"choice",
 		"block"
 	],
 	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/blocklib-multiple-choice-block/README.md",

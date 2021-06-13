@@ -1,13 +1,13 @@
 {
 	"name": "@quillforms/notifications-editor",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Notifications editor package",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "GPL-2.0-or-later",
+	"license": "MIT",
 	"keywords": [
 		"quillforms",
-		"builder",
-		"core"
+		"notifications",
+		"editor"
 	],
 	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/notifications-editor/README.md",
 	"repository": {

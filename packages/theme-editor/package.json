@@ -3,17 +3,17 @@
 	"version": "1.0.0",
 	"description": "Quill Forms Theme Editor",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "GPL-2.0-or-later",
+	"license": "MIT",
 	"keywords": [
 		"quillforms",
 		"theme",
 		"editor"
 	],
-	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/rich-text/README.md",
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/theme-editor/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/QuillForms/quillforms.git",
-		"directory": "packages/rich-text"
+		"directory": "packages/theme-editor"
 	},
 	"bugs": {
 		"url": "https://github.com/QuillForms/quillforms/issues"

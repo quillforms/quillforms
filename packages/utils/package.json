@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "GPL-2.0-or-later",
+	"license": "MIT",
 	"keywords": [
 		"quillforms",
 		"utils"
@@ -13,7 +13,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/QuillForms/quillforms.git",
-		"directory": "packages/config"
+		"directory": "packages/utils"
 	},
 	"bugs": {
 		"url": "https://github.com/QuillForms/quillforms/issues"

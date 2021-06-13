@@ -1,15 +1,15 @@
 {
 	"name": "@quillforms/rest-fields",
 	"version": "1.0.0",
-	"description": "Meta keys manager for editor",
+	"description": "Rest fields for builder",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "GPL-2.0-or-later",
+	"license": "MIT",
 	"keywords": [
 		"quillforms",
-		"shared",
-		"data"
+		"rest",
+		"fields"
 	],
-	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/shared-data/README.md",
+	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/rest-fields/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/QuillForms/quillforms.git",
