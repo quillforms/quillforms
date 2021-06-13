@@ -104,10 +104,16 @@ class QF_Email_Block_Type extends QF_Block_Type {
 	 * Format and sanitize entry value.
 	 *
 	 * @since 1.0.0
+	 * ß
+	 * @param mixed $value     The entry value.
+	 * @param array $form_data The form data.
+
+	 * @return string The sanitized email
 	 */
 	public function format_entry_value( $value, $form_data ) {
 		return sanitize_email( $value );
 	}
+
 	/**
 	 * Get meta data
 	 * This file is just for having some shared properties between front end and back end.
