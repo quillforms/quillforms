@@ -291,6 +291,8 @@ class QF_Emails {
 	 * @return string
 	 */
 	public function build_email( $message ) {
+		var_dump( $message );
+		die;
 
 		// Plain text email shortcut.
 		if ( false === $this->html ) {
@@ -455,7 +457,7 @@ class QF_Emails {
 	 */
 	public function process_tag( $string = '' ) {
 
-		return QF_Merge_Tags::process_tag( $string, $this->form_data, $this->fields, $this->entry_id );
+		return QF_Merge_Tags::process_tag( $string, $this->form_data, $this->answers, $this->entry_id );
 	}
 
 	/**
@@ -469,7 +471,7 @@ class QF_Emails {
 	 */
 	public function html_field_value( $is_html_email = true ) { // phpcs:ignore
 
-		if ( empty( $this->fields ) ) {
+		if ( empty( $this->answers ) ) {
 			return '';
 		}
 
@@ -500,17 +502,17 @@ class QF_Emails {
 				$field_label = '';
 				$field_val   = '';
 
-				if ( ! isset( $this->fields[ $block['id'] ] ) || '' === (string) $this->fields[ $block['id'] ] ) {
+				if ( ! isset( $this->answers[ $block['id'] ] ) || '' === (string) $this->answers[ $block['id'] ] ) {
 						continue;
 				}
 
-				$field_label = $this->fields[ $block['id'] ]['attributes']['label'];
-				$field_val   = empty( $this->fields[ $block['id']['value'] ] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_merge_tag_value( $this->fields[ $block['id'] ]['value'], $this->form_data );
+				$field_label = $block['attributes']['label'];
+				$field_val   = empty( $this->answers[ $block['id'] ]['value'] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_merge_tag_value( $this->answers[ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) && null !== $field_label ) {
 					$field_label = sprintf( /* translators: %d - field ID. */
-						esc_html__( 'Field ID #%d', 'quillforms' ),
-						absint( $block['id'] )
+						esc_html__( 'Field ID #%s', 'quillforms' ),
+						$block['id']
 					);
 				}
 
@@ -540,12 +542,12 @@ class QF_Emails {
 				$field_label = '';
 				$field_val   = '';
 
-				if ( ! isset( $this->fields[ $block['id'] ] ) || '' === (string) $this->fields[ $block['id'] ] ) {
+				if ( ! isset( $this->answers[ $block['id'] ] ) || '' === (string) $this->answers[ $block['id'] ] ) {
 					continue;
 				}
 
-				$field_label = $this->fields[ $block['id'] ]['attributes']['label'];
-				$field_val   = empty( $this->fields[ $block['id'] ] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_merge_tag_value( $this->fields[ $block['id'] ] );
+				$field_label = $block['attributes']['label'];
+				$field_val   = empty( $this->answers[ $block['id'] ]['value'] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_merge_tag_value( $this->answers[ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) ) {
 					$field_label = sprintf( /* translators: %d - field ID. */

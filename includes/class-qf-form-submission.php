@@ -203,7 +203,7 @@ class QF_Form_Submission {
 			// Create new email.
 			$emails = new QF_Emails();
 			$emails->__set( 'form_data', $form_data );
-			$emails->__set( 'fields', $entry['answers'] );
+			$emails->__set( 'answers', $entry['answers'] );
 			$emails->__set( 'notification_id', $notification_id );
 			$emails->__set( 'entry_id', $this->entry_id );
 			$emails->__set( 'from_name', $email['sender_name'] );
