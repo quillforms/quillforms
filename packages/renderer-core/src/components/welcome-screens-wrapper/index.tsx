@@ -7,7 +7,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  * Internal Dependencies
  */
 import { useBlockTypes } from '../../hooks';
-const WelcomeScreensFlow = () => {
+const WelcomeScreensWrapper = () => {
 	const blockTypes = useBlockTypes();
 
 	const { welcomeScreens, currentBlockId } = useSelect( ( select ) => {
@@ -41,4 +41,4 @@ const WelcomeScreensFlow = () => {
 	);
 };
 
-export default WelcomeScreensFlow;
+export default WelcomeScreensWrapper;

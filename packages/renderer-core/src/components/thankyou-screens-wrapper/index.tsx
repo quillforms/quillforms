@@ -9,7 +9,7 @@ import { useSelect } from '@wordpress/data';
 import { useBlockTypes } from '../../hooks';
 import DefaultThankYouScreen from '../default-thankyou-screen';
 
-const ThankyouScreensFlow = () => {
+const ThankyouScreensWrapper = () => {
 	const blockTypes = useBlockTypes();
 
 	const { thankyouScreens, currentBlockId } = useSelect( ( select ) => {
@@ -46,4 +46,4 @@ const ThankyouScreensFlow = () => {
 	);
 };
 
-export default ThankyouScreensFlow;
+export default ThankyouScreensWrapper;

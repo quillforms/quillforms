@@ -14,8 +14,8 @@ import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
-import WelcomeScreensFlow from '../welcome-screens-flow';
-import ThankyouScreensFlow from '../thankyou-screens-flow';
+import WelcomeScreensWrapper from '../welcome-screens-wrapper';
+import ThankyouScreensWrapper from '../thankyou-screens-wrapper';
 import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
 import useTheme from '../../hooks/use-theme';
@@ -121,7 +121,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 			>
 				{ blocks.length > 0 && (
 					<Fragment>
-						{ isWelcomeScreenActive && <WelcomeScreensFlow /> }
+						{ isWelcomeScreenActive && <WelcomeScreensWrapper /> }
 						<FieldsWrapper
 							isActive={
 								! isWelcomeScreenActive &&
@@ -130,7 +130,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 							applyLogic={ applyLogic }
 						/>
 
-						{ isThankyouScreenActive && <ThankyouScreensFlow /> }
+						{ isThankyouScreenActive && <ThankyouScreensWrapper /> }
 					</Fragment>
 				) }
 				<FormFooter />
