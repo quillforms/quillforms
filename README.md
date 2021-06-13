@@ -1,5 +1,5 @@
 # QuillForms
-Conversational Forms Builder WordPress Plugin with React.js\
+Conversational Forms Builder WordPress Plugin with React.js
 
 [Watch Demo](https://www.quillforms.com/demo)
 
