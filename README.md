@@ -17,3 +17,6 @@ Docs will be coming soon
 
 # Concept
 The project concept is inspired by WordPress [Gutenberg](https://github.com/WordPress/gutenberg) project and its blocks concept.
+
+# Donation
+[![Donate to this project using Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/paypalme/mohamedmagdymohamed)
