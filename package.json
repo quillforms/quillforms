@@ -39,7 +39,8 @@
 		"publish:dev": "npm run build:packages && lerna publish --dist-tag next",
 		"publish:patch": "npm run build:packages && lerna publish --dist-tag patch",
 		"publish:prod": "npm run build:packages && lerna publish",
-		"env": "wp-scripts env"
+		"env": "wp-scripts env",
+		"wp-env": "wp-env"
 	},
 	"dependencies": {
 		"@quillforms/admin-components": "file:packages/admin-components",
