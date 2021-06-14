@@ -80,9 +80,7 @@ const SaveButton = ( { formId, isResolving } ) => {
 								) }
 							</NavigationPrompt>
 							<Button
-								isButton
 								isPrimary={ true }
-								isSecondary={ false }
 								isLarge
 								className={ classnames(
 									'qf-builder-save-button',
