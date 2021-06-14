@@ -5,7 +5,7 @@
  * @since             1.0.0
  *
  * @wordpress-plugin
- * Plugin Name:       Quill Forms
+ * Plugin Name:       QuillForms
  * Plugin URI:        https://www.quillforms.com/
  * Description:       Conversational Forms Builder for WordPress
  * Version:           1.0.0
@@ -13,8 +13,8 @@
  * Author URI:        https://www.quillforms.com/
  * Text Domain:       quillforms
  * Domain Path:       /languages
- * Requires at least: 5.5
- * Requires PHP: 7.2
+ * Requires at least: 5.4
+ * Requires PHP: 7.1
  * Version: 1.0.0
  *
  * @package QuillForms
@@ -43,7 +43,7 @@ if ( ! defined( 'QF_PLUGIN_URL' ) ) {
 }
 
 // Define minimum WP version.
-define( 'QF_MIN_WP_VERSION', '5.5' );
+define( 'QF_MIN_WP_VERSION', '5.3' );
 
 // Define minimun php version.
 define( 'QF_MIN_PHP_VERSION', '7.1' );
@@ -79,7 +79,7 @@ function quillforms_pre_init() {
 
 	require_once QF_PLUGIN_DIR . '/includes/class-quillforms.php';
 	QuillForms::instance();
-	register_activation_hook( QF_PLUGIN_DIR, array( 'QF_Install', 'init' ) );
+	register_activation_hook( QF_PLUGIN_DIR, array( 'QF_Install', 'install' ) );
 }
 
 /**

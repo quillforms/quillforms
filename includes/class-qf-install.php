@@ -113,3 +113,4 @@ class QF_Install {
 	}
 
 }
+QF_Install::init();
