@@ -13,7 +13,7 @@ import {
  */
 import { name } from '../block.json';
 
-const BlockActionComponent = ( { onClick } ) => {
+const NextBtnComponent = ( { onClick } ) => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 
 	return (
@@ -31,7 +31,7 @@ const BlockActionComponent = ( { onClick } ) => {
 	);
 };
 
-const counterIconComponent = () => {
+const CounterIconComponent = () => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	const { quotationMarks } = attributes;
 	const theme = useTheme();
@@ -64,8 +64,8 @@ const counterIconComponent = () => {
 };
 
 export const rendererSettings = {
-	counterIcon: counterIconComponent,
-	blockAction: BlockActionComponent,
+	counterIcon: CounterIconComponent,
+	nextBtn: NextBtnComponent,
 };
 
 setBlockRendererSettings( name, rendererSettings );

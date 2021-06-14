@@ -34,8 +34,8 @@ const FieldAction = ( { clickHandler, show } ) => {
 				'is-visible': isSubmitBtnVisible || show,
 			} ) }
 		>
-			{ blockType?.blockAction ? (
-				<blockType.blockAction onClick={ clickHandler } />
+			{ blockType?.nextBtn ? (
+				<blockType.nextBtn onClick={ clickHandler } />
 			) : (
 				<>
 					<Button onClick={ clickHandler }>

@@ -24,7 +24,7 @@ export interface BlockRendererSettings {
 	display?: FC | Component | JSX.Element;
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
-	blockAction?: FC | Component | JSX.Element;
+	nextBtn?: FC | Component | JSX.Element;
 }
 export type BlockSupportedFeatures = {
 	attachment?: boolean;

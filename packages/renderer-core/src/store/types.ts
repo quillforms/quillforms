@@ -58,7 +58,7 @@ type goPrevAction = {
 	type: typeof GO_PREV;
 };
 
-type goToBlockAction = {
+type goTonextBtn = {
 	type: typeof GO_TO_BLOCK;
 	id: string;
 };
@@ -141,7 +141,7 @@ export type SwiperActionTypes =
 	| setSwiperAction
 	| goNextAction
 	| goPrevAction
-	| goToBlockAction
+	| goTonextBtn
 	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;
 

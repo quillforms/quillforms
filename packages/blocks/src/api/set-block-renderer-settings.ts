@@ -53,7 +53,7 @@ export const setBlockRendererSettings = (
 		return;
 	}
 
-	if ( settings.blockAction && ! isFunction( settings.blockAction ) ) {
+	if ( settings.nextBtn && ! isFunction( settings.nextBtn ) ) {
 		console.error( 'The "blockAction" property must be a valid function!' );
 		return;
 	}
