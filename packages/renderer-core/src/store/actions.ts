@@ -4,7 +4,7 @@ import {
 	GO_PREV,
 	COMPLETE_FORM,
 	GO_TO_BLOCK,
-	SET_SUBMISSION_ERRORS,
+	SET_SUBMISSION_ERR,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
 	SET_FIELD_ANSWER,
@@ -227,13 +227,13 @@ export const setIsSubmitting = ( val: boolean ): SubmitActionTypes => {
 /**
  * Set submission errors.
  *
- * @param {String[]} val  The new submission errors.
+ * @param {String} val  The new submission errors.
  *
  * @return {Object} Action object
  */
-export const setSubmissionErrs = ( val: string[] ): SubmitActionTypes => {
+export const setSubmissionErr = ( val: string ): SubmitActionTypes => {
 	return {
-		type: SET_SUBMISSION_ERRORS,
+		type: SET_SUBMISSION_ERR,
 		val,
 	};
 };

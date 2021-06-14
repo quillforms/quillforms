@@ -1,6 +1,6 @@
-import { BlockAttributes, FormBlocks } from '@quillforms/config';
+import { BlockAttributes, FormBlocks } from '@quillforms/types';
 import {
-	SET_SUBMISSION_ERRORS,
+	SET_SUBMISSION_ERR,
 	SET_SWIPER_STATE,
 	COMPLETE_FORM,
 	GO_NEXT,
@@ -38,7 +38,7 @@ export type SwiperState = {
 export type SubmissionState = {
 	isReviewing: boolean;
 	isSubmitting: boolean;
-	submissionErrors: string[];
+	submissionErr: string;
 };
 
 /**
@@ -124,9 +124,9 @@ type setIsSubmitting = {
 	val: boolean;
 };
 
-type setSumbissionErrors = {
-	type: typeof SET_SUBMISSION_ERRORS;
-	val: string[];
+type setSumbissionErr = {
+	type: typeof SET_SUBMISSION_ERR;
+	val: string;
 };
 export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
@@ -148,6 +148,6 @@ export type SwiperActionTypes =
 export type SubmitActionTypes =
 	| setIsReviewing
 	| setIsSubmitting
-	| setSumbissionErrors
+	| setSumbissionErr
 	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;

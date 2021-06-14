@@ -24,7 +24,7 @@ import {
 	COMPLETE_FORM,
 	SET_SWIPER_STATE,
 	GO_TO_BLOCK,
-	SET_SUBMISSION_ERRORS,
+	SET_SUBMISSION_ERR,
 	SET_FIELD_ANSWER,
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_IS_FIELD_VALID,
@@ -432,7 +432,7 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 	state = {
 		isSubmitting: false,
 		isReviewing: false,
-		submissionErrors: [],
+		submissionErr: '',
 	},
 	action
 ) => {
@@ -441,7 +441,7 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 			return {
 				isSubmitting: false,
 				isReviewing: false,
-				submissionErrors: [],
+				submissionErr: '',
 			};
 		}
 		case SET_IS_REVIEWING: {
@@ -457,17 +457,18 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 			return {
 				...state,
 				isSubmitting: val,
+				submissionErr: '',
 			};
 		}
 
-		case SET_SUBMISSION_ERRORS: {
+		case SET_SUBMISSION_ERR: {
 			// Make sure this action is called while the form is submitting already, otherwhise, do nothing.
 			if ( ! state.isSubmitting ) return state;
 			const { val } = action;
 			return {
 				...state,
 				isSubmitting: false,
-				submissionErrors: val,
+				submissionErr: val,
 			};
 		}
 	}

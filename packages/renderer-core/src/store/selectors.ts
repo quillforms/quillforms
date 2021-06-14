@@ -325,3 +325,14 @@ export function isFocused( state: State ): boolean {
 export function shouldFooterBeDisplayed( state: State ): boolean {
 	return state.footerDisplay;
 }
+
+/**
+ * Get submission error message
+ *
+ * @param {State}   state    Global application state.
+ *
+ * @return {string} submission error message
+ */
+export function getSubmissionErr( state: State ): string {
+	return state.submit.submissionErr;
+}

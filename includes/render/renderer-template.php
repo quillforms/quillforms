@@ -1,4 +1,10 @@
 <?php
+/**
+ * Renderer Template.
+ *
+ * @since 1.0.0
+ * @package QuillForms
+ */
 the_post();
 $form_id     = get_the_ID();
 $form_object = QF_Form_Renderer::prepare_form_object( $form_id );
@@ -24,7 +30,7 @@ switch ( $font_type ) {
 
 
 ?>
-<html>
+<html style="margin-top: 0 !important;">
 	<head>
 		<style>
 			html, body {
@@ -72,10 +78,12 @@ switch ( $font_type ) {
 		<div id="quillforms-renderer">
 		</div>
 			<?php wp_footer(); ?>
-		<script>ReactDOM.render(React.createElement(
+		<script>
+		var formObject = JSON.parse(JSON.stringify(<?php echo json_encode( $form_object ); ?>));
+		ReactDOM.render(React.createElement(
 		qf.rendererCore.Form,
 		{
-			formObj: JSON.parse(JSON.stringify(<?php echo json_encode( $form_object ); ?>)),
+			formObj: formObject,
 			onSubmit: function() {
 				var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 				const data = new FormData();
@@ -90,11 +98,14 @@ switch ( $font_type ) {
 					credentials:'same-origin',
 					body: data
 				})
-				.then( function(resp) { return resp.json() })
+				.then( function(response) {
+					if (!response.ok) {
+						return Promise.reject(response);
+					}
+					return response.json();
+				})
 				.then(function(res) {
-					console.log(res);
 					if(res && res.success) {
-						console.log("ldmfkndfi");
 						wp.data.dispatch('quillForms/renderer-core').completeForm();
 					}
 					else {
@@ -118,7 +129,13 @@ switch ( $font_type ) {
 						}
 					}
 				}).catch(function(err) {
-					console.log(err);
+					if(err && err.status === 500) {
+						wp.data.dispatch('quillForms/renderer-core').setSubmissionErr(formObject['messages']['label.errorAlert.serverError']);
+					}
+					else {
+						wp.data.dispatch('quillForms/renderer-core').setSubmissionErr(formObject['messages']['label.errorAlert.noConnection']);
+
+					}
 				});
 
 			}
