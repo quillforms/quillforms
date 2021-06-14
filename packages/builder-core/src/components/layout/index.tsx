@@ -11,6 +11,7 @@ import { FormBlock } from '@quillforms/types';
 import { useState, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { PluginArea } from '@wordpress/plugins';
+import { SlotFillProvider } from '@wordpress/components';
 
 /**
  * External Dependencies
@@ -262,30 +263,33 @@ const Layout: React.FC = () => {
 	}, [] );
 
 	return (
-		<div
-			className="builder-core-layout"
-			onKeyDown={ ( e ) => e.stopPropagation() }
-		>
-			{ pluginsArea }
-			{ builderPanelsBar }
-			<DragDropContext
-				onDragStart={ onDragStart }
-				onDragEnd={ onDragEnd }
-				onDragUpdate={ onDragUpdate }
-				onBeforeCapture={ onBeforeCapture }
+		<SlotFillProvider>
+			<div
+				className="builder-core-layout"
+				onKeyDown={ ( e ) => e.stopPropagation() }
 			>
-				{ currentPanel && panel }
-				{ ( ! areaToShow || areaToShow === 'drop-area' ) && (
-					<DropArea
-						isDragging={ isDragging }
-						currentPanel={ currentPanel }
-						targetIndex={ targetIndex }
-						areaToShow={ areaToShow }
-					/>
-				) }
-			</DragDropContext>
-			{ ( ! areaToShow || areaToShow === 'preview-area' ) && formPreview }
-		</div>
+				{ pluginsArea }
+				{ builderPanelsBar }
+				<DragDropContext
+					onDragStart={ onDragStart }
+					onDragEnd={ onDragEnd }
+					onDragUpdate={ onDragUpdate }
+					onBeforeCapture={ onBeforeCapture }
+				>
+					{ currentPanel && panel }
+					{ ( ! areaToShow || areaToShow === 'drop-area' ) && (
+						<DropArea
+							isDragging={ isDragging }
+							currentPanel={ currentPanel }
+							targetIndex={ targetIndex }
+							areaToShow={ areaToShow }
+						/>
+					) }
+				</DragDropContext>
+				{ ( ! areaToShow || areaToShow === 'preview-area' ) &&
+					formPreview }
+			</div>
+		</SlotFillProvider>
 	);
 };
 
