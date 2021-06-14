@@ -36,12 +36,13 @@ const Sidebar = () => {
 		<div className="qf-admin-sidebar">
 			<h1 className="qf-admin-sidebar-heading">Quill Forms</h1>
 			<div className="qf-admin-sidebar-nav-items">
-				{ map( qfAdmin.submenuPages, ( page ) => {
+				{ map( qfAdmin.submenuPages, ( page, index ) => {
 					if (
 						matchesRegesiteredRoutes( '/' + clean( page[ 2 ] ) )
 					) {
 						return (
 							<NavLink
+								key={ `page-${ index }` }
 								isActive={ ( match, location ) => {
 									if (
 										( location.pathname ===
