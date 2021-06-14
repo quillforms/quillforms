@@ -75,7 +75,6 @@ const DropArea = ( props ) => {
 						) }
 						{ ...provided.droppableProps }
 						ref={ provided.innerRef }
-						data-isDraggingOver={ snapshot.isDraggingOver }
 					>
 						{ ! formBlocks || formBlocks.length === 0 ? (
 							<DropAreaPlaceholder
