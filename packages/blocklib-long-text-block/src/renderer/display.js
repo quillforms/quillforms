@@ -23,7 +23,7 @@ const LongTextOutput = ( props ) => {
 		setIsValid,
 		setIsAnswered,
 		setValidationErr,
-		showSubmitBtn,
+		showNextBtn,
 		blockWithError,
 		val,
 		setVal,
@@ -86,10 +86,10 @@ const LongTextOutput = ( props ) => {
 		}
 		if ( value !== '' ) {
 			setIsAnswered( true );
-			showSubmitBtn( true );
+			showNextBtn( true );
 		} else {
 			setIsAnswered( false );
-			showSubmitBtn( false );
+			showNextBtn( false );
 		}
 	};
 

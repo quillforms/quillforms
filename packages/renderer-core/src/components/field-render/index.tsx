@@ -23,7 +23,7 @@ interface Props {
 
 const FieldRender: React.FC< Props > = memo(
 	( { id, isActive, isLastField, shouldBeRendered } ) => {
-		const [ isSubmitBtnVisible, showSubmitBtn ] = useState< boolean >(
+		const [ isSubmitBtnVisible, showNextBtn ] = useState< boolean >(
 			false
 		);
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
@@ -57,7 +57,7 @@ const FieldRender: React.FC< Props > = memo(
 			isErrMsgVisible,
 			showErrMsg,
 			isSubmitBtnVisible,
-			showSubmitBtn,
+			showNextBtn,
 			next: goNext,
 			isLastField,
 		};

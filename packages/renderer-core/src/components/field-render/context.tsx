@@ -21,7 +21,7 @@ interface FieldRenderContext {
 	isActive: boolean;
 	isSubmitBtnVisible: boolean;
 	isErrMsgVisible: boolean;
-	showSubmitBtn: ( x: boolean ) => void;
+	showNextBtn: ( x: boolean ) => void;
 	showErrMsg: ( x: boolean ) => void;
 	next: () => void;
 	isLastField: boolean;
@@ -35,7 +35,7 @@ const Context = createContext< FieldRenderContext >( {
 	isSubmitBtnVisible: false,
 	isErrMsgVisible: false,
 	showErrMsg: noop,
-	showSubmitBtn: noop,
+	showNextBtn: noop,
 	next: noop,
 	isLastField: false,
 } );

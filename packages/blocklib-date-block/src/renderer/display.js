@@ -31,7 +31,7 @@ const DateOutput = ( props ) => {
 		isPreview,
 		setIsAnswered,
 		setValidationErr,
-		showSubmitBtn,
+		showNextBtn,
 		showErrMsg,
 		val,
 		setVal,
@@ -79,10 +79,10 @@ const DateOutput = ( props ) => {
 
 		if ( value !== '' ) {
 			setIsAnswered( true );
-			showSubmitBtn( true );
+			showNextBtn( true );
 		} else {
 			setIsAnswered( false );
-			showSubmitBtn( false );
+			showNextBtn( false );
 		}
 	};
 

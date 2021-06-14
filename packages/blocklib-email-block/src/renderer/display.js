@@ -22,7 +22,7 @@ const EmailOutput = ( props ) => {
 		setIsValid,
 		setIsAnswered,
 		setValidationErr,
-		showSubmitBtn,
+		showNextBtn,
 		val,
 		setVal,
 		showErrMsg,
@@ -69,10 +69,10 @@ const EmailOutput = ( props ) => {
 		showErrMsg( false );
 		if ( ! value ) {
 			setIsAnswered( false );
-			showSubmitBtn( false );
+			showNextBtn( false );
 		} else {
 			setIsAnswered( true );
-			showSubmitBtn( true );
+			showNextBtn( true );
 		}
 	};
 

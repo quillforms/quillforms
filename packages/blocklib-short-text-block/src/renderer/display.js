@@ -22,7 +22,7 @@ const ShortTextOutput = ( props ) => {
 		setIsValid,
 		setIsAnswered,
 		setValidationErr,
-		showSubmitBtn,
+		showNextBtn,
 		blockWithError,
 		val,
 		setVal,
@@ -72,10 +72,10 @@ const ShortTextOutput = ( props ) => {
 		}
 		if ( value && value !== '' ) {
 			setIsAnswered( true );
-			showSubmitBtn( true );
+			showNextBtn( true );
 		} else {
 			setIsAnswered( false );
-			showSubmitBtn( false );
+			showNextBtn( false );
 		}
 	};
 

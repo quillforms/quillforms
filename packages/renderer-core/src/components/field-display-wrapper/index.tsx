@@ -30,7 +30,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		blockName,
 		isActive,
 		attributes,
-		showSubmitBtn,
+		showNextBtn,
 		showErrMsg,
 	} = __experimentalUseFieldRenderContext();
 
@@ -119,7 +119,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),
 		setValidationErr: ( val: string ) => setFieldValidationErr( id, val ),
 		setVal: ( val: string ) => setFieldAnswer( id, val ),
-		showSubmitBtn,
+		showNextBtn,
 		blockWithError: ( err: string ) => shakeWithError( err ),
 		showErrMsg,
 		isPreview,

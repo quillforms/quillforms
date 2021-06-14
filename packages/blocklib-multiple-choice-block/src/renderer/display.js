@@ -20,7 +20,7 @@ const MultipleChoiceOutput = ( props ) => {
 		attributes,
 		setIsValid,
 		setIsAnswered,
-		showSubmitBtn,
+		showNextBtn,
 		setValidationErr,
 		val,
 		setVal,
@@ -70,12 +70,12 @@ const MultipleChoiceOutput = ( props ) => {
 		}
 		if ( multiple ) {
 			if ( val?.length > 0 ) {
-				showSubmitBtn( true );
+				showNextBtn( true );
 			} else {
-				showSubmitBtn( false );
+				showNextBtn( false );
 			}
 		} else {
-			showSubmitBtn( false );
+			showNextBtn( false );
 		}
 	}, [ val, attributes ] );
 

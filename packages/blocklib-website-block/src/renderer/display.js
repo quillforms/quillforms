@@ -22,7 +22,7 @@ const WebsiteOutput = ( props ) => {
 		setIsValid,
 		setIsAnswered,
 		setValidationErr,
-		showSubmitBtn,
+		showNextBtn,
 		val,
 		setVal,
 		showErrMsg,
@@ -71,10 +71,10 @@ const WebsiteOutput = ( props ) => {
 		setVal( value );
 		showErrMsg( false );
 		if ( value !== '' ) {
-			showSubmitBtn( true );
+			showNextBtn( true );
 			setIsAnswered( true );
 		} else {
-			showSubmitBtn( false );
+			showNextBtn( false );
 			setIsAnswered( false );
 		}
 	};
