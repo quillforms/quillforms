@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Date block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "MIT",
+	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
 		"date",
@@ -23,9 +23,9 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/admin-components": "file:../admin-components",
-		"@wordpress/element": "^2.19.1",
-		"antd": "^4.9.4",
-		"dayjs": "^1.9.7",
+		"@quillforms/renderer-core": "file:../renderer-core",
+		"@wordpress/element": "^3.1.1",
+		"dayjs": "^1.10.5",
 		"react-text-mask": "^5.4.3"
 	},
 	"publishConfig": {

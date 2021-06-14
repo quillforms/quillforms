@@ -2,7 +2,9 @@
 	"name": "quill-forms",
 	"version": "1.0.0",
 	"private": true,
-	"description": "Quill forms - new revolution in Wordpress forms",
+	"description": "Quill forms - Converstaional forms builder for WordPress",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"analyze-bundles": "npm run build -- --webpack-bundle-analyzer",
 		"prebuild": "npm run check-engines",
@@ -39,8 +41,6 @@
 		"publish:prod": "npm run build:packages && lerna publish",
 		"env": "wp-scripts env"
 	},
-	"author": "Mohamed Magdy",
-	"license": "ISC",
 	"dependencies": {
 		"@quillforms/admin-components": "file:packages/admin-components",
 		"@quillforms/block-editor": "file:packages/block-editor",

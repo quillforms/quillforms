@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Welcome screen block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "MIT",
+	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
 		"welcome",
@@ -23,7 +23,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@quillforms/admin-components": "file:../admin-components"
+		"@quillforms/admin-components": "file:../admin-components",
+		"@quillforms/renderer-core": "file:../renderer-core"
 	},
 	"publishConfig": {
 		"access": "public"

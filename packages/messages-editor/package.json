@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "MIT",
+	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
 		"messages",
@@ -24,10 +24,9 @@
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config",
-		"@wordpress/data": "^4.26.5",
-		"@wordpress/element": "^2.19.1",
-		"@wordpress/i18n": "^3.18.0",
-		"@wordpress/media-utils": "^1.19.5"
+		"@wordpress/data": "^5.1.1",
+		"@wordpress/element": "^3.1.1",
+		"@wordpress/i18n":  "^4.1.1"
 	},
 	"publishConfig": {
 		"access": "public"

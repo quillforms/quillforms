@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "MIT",
+	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
 		"navigation"
@@ -24,7 +24,7 @@
 		"@babel/runtime": "^7.9.2",
 		"react-router-dom": "^5.2.0",
 		"@woocommerce/navigation": "^6.0.1",
-		"react-router-navigation-prompt": "1.8.13"
+		"react-router-navigation-prompt": "^1.8.13"
 	},
 	"publishConfig": {
 		"access": "public"

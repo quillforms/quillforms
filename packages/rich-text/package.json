@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
-	"license": "MIT",
+	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
 		"rich",
@@ -23,7 +23,7 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/element": "^2.19.1",
+		"@wordpress/element": "^3.1.1",
 		"emotion": "^10.0.27",
 		"escape-html": "^1.0.3",
 		"slate": "^0.59.0",
