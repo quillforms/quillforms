@@ -3,7 +3,7 @@
  */
 import FieldAction from '../field-action';
 import { __experimentalUseFieldRenderContext } from '../field-render';
-import SubmitBtn from '../submission-screen';
+import SubmitBtn from '../submit-btn';
 
 const NonEditableBlockFooter = () => {
 	const { next, isLastField } = __experimentalUseFieldRenderContext();

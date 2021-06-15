@@ -10,7 +10,7 @@ import FieldAction from '../field-action';
 import ErrMsg from '../error-message';
 import { __experimentalUseFieldRenderContext } from '../field-render';
 import { BlockFooterProps } from './index';
-import SubmitBtn from '../submission-screen';
+import SubmitBtn from '../submit-btn';
 
 interface Props extends BlockFooterProps {
 	id: string | undefined;
