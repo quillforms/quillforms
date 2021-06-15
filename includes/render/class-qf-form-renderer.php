@@ -1,4 +1,12 @@
 <?php
+/**
+ * Form Renderer: QF_Form_Renderer class.
+ *
+ * @package QuillForms
+ * @since 1.0.0
+ */
+
+
 class QF_Form_Renderer {
 
 
@@ -50,14 +58,18 @@ class QF_Form_Renderer {
 			$blocks = QF_Core::get_blocks( $form_id );
 			// Render styles for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type         = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
-				$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
+				$block_type = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
+				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['style'] ) ) {
+					$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
+				}
 			}
 
 			// Render scripts for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type          = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
-				$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
+				$block_type = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
+				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['script'] ) ) {
+					$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
+				}
 			}
 		endif;
 	}
