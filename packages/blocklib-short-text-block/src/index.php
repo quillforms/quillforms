@@ -182,4 +182,4 @@ class QF_Short_Text_Block_Type extends QF_Block_Type {
 	}
 }
 
-QF_Blocks_Factory::get_instance()->register( new QF_Short_Text_Block_Type() );
+QF_Blocks_Manager::get_instance()->register( new QF_Short_Text_Block_Type() );

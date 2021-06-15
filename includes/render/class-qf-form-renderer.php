@@ -94,7 +94,7 @@ class QF_Form_Renderer {
 
 			// Render styles for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
+				$block_type = QF_Blocks_Manager::get_instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['style'] ) ) {
 					$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
 				}
@@ -102,7 +102,7 @@ class QF_Form_Renderer {
 
 			// Render scripts for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type = QF_Blocks_Factory::get_instance()->get_registered( $block['name'] );
+				$block_type = QF_Blocks_Manager::get_instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['script'] ) ) {
 					$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
 				}

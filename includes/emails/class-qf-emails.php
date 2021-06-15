@@ -498,7 +498,7 @@ class QF_Emails {
 
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = QF_Blocks_Factory::get_instance()->create( $block );
+				$block_type  = QF_Blocks_Manager::get_instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 
@@ -538,7 +538,7 @@ class QF_Emails {
 			 */
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = QF_Blocks_Factory::get_instance()->create( $block );
+				$block_type  = QF_Blocks_Manager::get_instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 

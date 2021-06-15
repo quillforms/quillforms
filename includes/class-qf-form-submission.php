@@ -135,7 +135,7 @@ class QF_Form_Submission {
 		// Validate fields.
 		if ( ! empty( $walk_path ) ) {
 			foreach ( $walk_path as $field ) {
-				$block_type = QF_Blocks_Factory::get_instance()->create( $field );
+				$block_type = QF_Blocks_Manager::get_instance()->create( $field );
 
 				if ( ! $block_type ) {
 					continue;
@@ -163,7 +163,7 @@ class QF_Form_Submission {
 			// Sanitze entry fields.
 			if ( ! empty( $walk_path ) ) {
 				foreach ( $walk_path as $field ) {
-					$block_type = QF_Blocks_Factory::get_instance()->create( $field );
+					$block_type = QF_Blocks_Manager::get_instance()->create( $field );
 
 					if ( ! $block_type ) {
 						unset( $entry['answers'][ $field['id'] ] );

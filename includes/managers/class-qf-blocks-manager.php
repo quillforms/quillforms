@@ -1,6 +1,6 @@
 <?php
 /**
- * Blocks API: QF_Blocks_Factory class.
+ * Blocks API: QF_Blocks_Manager class.
  *
  * @package QuillForms
  * @since 1.0.0
@@ -11,7 +11,7 @@
  *
  * @since 1.0.0
  */
-final class QF_Blocks_Factory {
+final class QF_Blocks_Manager {
 	/**
 	 * Registered block types, as `$name => $instance` pairs.
 	 *
@@ -26,7 +26,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var QF_Blocks_Factory|null
+	 * @var QF_Blocks_Manager|null
 	 */
 	private static $instance = null;
 
@@ -163,7 +163,7 @@ final class QF_Blocks_Factory {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return QF_Blocks_Factory the main instance
+	 * @return QF_Blocks_Manager the main instance
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {

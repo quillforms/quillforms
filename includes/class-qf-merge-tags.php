@@ -31,7 +31,7 @@ class QF_Merge_Tags {
 	 * Process merge tags.
 	 * It is very important to mention that merge tags in this plugin are a bit different.
 	 * They have a consistent structure {{a:b}} where "a" is the merge tag type and "b" is the merge tag modifier.
-	 * It worth mentioning that no other structure will be workking like for example: {a:b} or {{a=b}}, those won't work.
+	 * It worth mentioning that no other structure will be working like for example: {a:b} or {{a=b}}, those won't work.
 	 *
 	 * @since 1.0.0
 	 *
@@ -87,7 +87,7 @@ class QF_Merge_Tags {
 			if ( ! is_array( $answers[ $field_id ] ) || ! $answers[ $field_id ]['blockName'] || ! isset( $answers[ $field_id ]['value'] ) ) {
 				return '';
 			}
-			$block_type = QF_Blocks_Factory::get_instance()->get_registered( $answers[ $field_id ]['blockName'] );
+			$block_type = QF_Blocks_Manager::get_instance()->get_registered( $answers[ $field_id ]['blockName'] );
 			return $block_type->get_merge_tag_value( $answers[ $field_id ]['value'], $form_data );
 		}
 		return $replacement;

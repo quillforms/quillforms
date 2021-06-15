@@ -183,7 +183,7 @@ class QF_Admin_Loader {
 		wp_auth_check_load();
 
 		// load all block styles and scripts.
-		foreach ( QF_Blocks_Factory::get_instance()->get_all_registered() as $block ) {
+		foreach ( QF_Blocks_Manager::get_instance()->get_all_registered() as $block ) {
 			if ( ! empty( $block->block_admin_assets ) ) {
 				if ( ! empty( $block->block_admin_assets['style'] ) ) {
 					wp_enqueue_style( $block->block_admin_assets['style'] );

@@ -82,9 +82,9 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-levels.php';
 
 		/**
-		 * Factories
+		 * Managers
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/factories/class-qf-blocks-factory.php';
+		require_once QF_PLUGIN_DIR . 'includes/managers/class-qf-blocks-manager.php';
 
 		/**
 		 * Functions.
