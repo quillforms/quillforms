@@ -119,11 +119,7 @@ const CustomizeThemePanel = () => {
 								}
 								allowedTypes={ [ 'image' ] }
 								render={ ( { open } ) => (
-									<Button
-										isSmall
-										isSecondary
-										onClick={ open }
-									>
+									<Button isSmall onClick={ open }>
 										Add
 									</Button>
 								) }

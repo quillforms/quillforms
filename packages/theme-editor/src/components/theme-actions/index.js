@@ -19,7 +19,9 @@ const ThemeActions = ( { id } ) => {
 		>
 			<DropdownMenu
 				icon={ moreHorizontal }
-				position="bottom left"
+				popoverProps={ {
+					position: 'bottom left',
+				} }
 				className="theme-editor-theme-actions__dropdown"
 			>
 				{ ( { onClose } ) => (

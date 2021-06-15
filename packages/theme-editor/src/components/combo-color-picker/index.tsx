@@ -59,7 +59,6 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 						}
 					} }
 					isPrimary={ activeSwitcher === 'solid' }
-					isSecondary={ activeSwitcher !== 'solid' }
 					isSmall
 					isFlat
 				>
@@ -73,7 +72,6 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 						}
 					} }
 					isPrimary={ activeSwitcher === 'gradient' }
-					isSecondary={ activeSwitcher !== 'gradient' }
 					isSmall
 					isFlat
 				>
