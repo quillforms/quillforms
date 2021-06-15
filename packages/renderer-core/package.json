@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/blocks": "file:../blocks",
+		"@quillforms/utils": "file:../utils",
 		"@wordpress/element": "^3.1.1",
 		"html-react-parser": "1.2.6",
 		"lethargy": "^1.0.9",
