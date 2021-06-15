@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme API: QF_Theme class.
+ * Theme API: QF_Form_Theme class.
  *
  * @package QuillForms
  * @since 1.0.0
@@ -49,13 +49,12 @@ class QF_Form_Theme {
 	 * @return array Theme proeprties.
 	 */
 	public function get_theme_properties() {
-		return array(
-			'font' => array(
-				'type'    => 'string',
-				'default' => 'Viga',
+		return json_decode(
+			file_get_contents(
+				QF_PLUGIN_DIR . 'includes/json/theme.json'
 			),
+			true
 		);
-
 	}
 
 	/**
