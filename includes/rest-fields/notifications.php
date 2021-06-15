@@ -1,10 +1,10 @@
 <?php
 /**
- * Metafields: class QF_Notifications_Meta_Field
+ * RESTFields: notifications
  *
  * @since 1.0.0
  * @package QuillForms
- * @subpackage MetaFields
+ * @subpackage RESTFields
  */
 
 defined( 'ABSPATH' ) || exit;

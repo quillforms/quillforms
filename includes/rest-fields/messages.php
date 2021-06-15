@@ -1,6 +1,6 @@
 <?php
 /**
- * Metafields: class QF_Messages_Meta_Field
+ * RESTFields: messages
  *
  * @since 1.0.0
  * @package QuillForms
