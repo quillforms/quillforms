@@ -81,53 +81,61 @@ register_rest_field(
 
 					return $value;
 				},
-
-				'schema'            => array(
-					'type'        => 'array',
-					'items'       => array(
-						'type'       => 'object',
-						'properties' => array(
-							'id'         => array(
-								'type'     => 'string',
-								'required' => true,
-							),
-							'properties' => array(
+				'validate_callback' => function ( $notifications ) {
+					// validate notifications.
+					// We simply didn't use schema because we support WP 5.4 at which "uniqueItems" weren't implemented.
+					$validation = qf_rest_validate_value_from_schema(
+						$notifications,
+						array(
+							'type'        => 'array',
+							'items'       => array(
 								'type'       => 'object',
 								'properties' => array(
-									'title'      => array(
-										'type' => 'string',
+									'id'         => array(
+										'type'     => 'string',
+										'required' => true,
 									),
-									'active'     => array(
-										'type' => 'boolean',
-									),
-									'toType'     => array(
-										'type' => 'string',
-										'enum' => array( 'email', 'field' ),
-									),
-									'recipients' => array(
-										'type'  => 'array',
-										'items' => array(
-											'type' => 'string',
+									'properties' => array(
+										'type'       => 'object',
+										'properties' => array(
+											'title'      => array(
+												'type' => 'string',
+											),
+											'active'     => array(
+												'type' => 'boolean',
+											),
+											'toType'     => array(
+												'type' => 'string',
+												'enum' => array( 'email', 'field' ),
+											),
+											'recipients' => array(
+												'type'  => 'array',
+												'items' => array(
+													'type' => 'string',
+												),
+											),
+											'replyTo'    => array(
+												'type' => 'string',
+											),
+											'subject'    => array(
+												'type' => 'string',
+											),
+											'message'    => array(
+												'type' => 'string',
+											),
 										),
 									),
-									'replyTo'    => array(
-										'type' => 'string',
-									),
-									'subject'    => array(
-										'type' => 'string',
-									),
-									'message'    => array(
-										'type' => 'string',
-									),
+
 								),
+
 							),
-
-						),
-
-					),
-					'uniqueItems' => array( 'id' ),
-				),
+							'uniqueItems' => array( 'id' ),
+						)
+					);
+					return $validation;
+				},
 			),
+
 		),
 	)
 );

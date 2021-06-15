@@ -85,7 +85,7 @@ register_rest_field(
 				},
 				'validate_callback' => function ( $blocks ) use ( $blocks_schema ) {
 					// Block validation except for attributes.
-					$validation = rest_validate_value_from_schema(
+					$validation = qf_rest_validate_value_from_schema(
 						$blocks,
 						$blocks_schema
 					);
@@ -95,7 +95,7 @@ register_rest_field(
 								$block_type     = QF_Blocks_Manager::get_instance()->get_registered( $block['name'] );
 								if ( $block_type ) {
 									if ( $block['attributes'] ) {
-										$validation = rest_validate_value_from_schema(
+										$validation = qf_rest_validate_value_from_schema(
 											$block['attributes'],
 											array(
 												'type' => 'object',
