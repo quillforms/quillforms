@@ -103,6 +103,7 @@ const LongTextOutput = ( props ) => {
 						& {
 							margin-top: 15px;
 							width: 100%;
+							padding: 0;
 							border: none;
 							outline: none;
 							border-radius: 0;
