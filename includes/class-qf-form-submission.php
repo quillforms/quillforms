@@ -69,7 +69,7 @@ class QF_Form_Submission {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $entry     User submitted data.
+	 * @param array $entry     User submitted data after being validated and formatted.
 	 * @param array $form_data Prepared form settings.
 	 *
 	 * @return int
@@ -91,7 +91,7 @@ class QF_Form_Submission {
 
 		// Check for valid nonce field.
 		$nonce_name = 'quillforms_forms_display_nonce';
-		if ( ! check_ajax_referer( $nonce_name, '_nonce', $die = false ) ) {
+		if ( ! check_ajax_referer( $nonce_name, '_nonce', false ) ) {
 			$this->errors['form'] = 'Invalid nonce field!';
 			return;
 		}
@@ -190,9 +190,12 @@ class QF_Form_Submission {
 
 
 	/**
-	 * Entry email
+	 * Process emails based on entry and form data.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param array $entry     User submitted data after being validated and formatted.
+	 * @param array $form_data Prepared form settings.
 	 */
 	public function entry_email( $entry, $form_data ) {
 
@@ -210,7 +213,7 @@ class QF_Form_Submission {
 
 			$process_email = apply_filters( 'quillforms_entry_email_process', true, $entry, $form_data, $notification_id );
 
-			// if process email = false or notifcation isn't active, continue
+			// if process email = false or notifcation isn't active, continue.
 			if ( ! $process_email || ! $notification_properties['active'] ) {
 				continue;
 			}

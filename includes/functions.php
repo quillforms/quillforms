@@ -96,7 +96,7 @@ function qf_sanitize_text_deeply( $string, $keep_newlines = false ) {
  *
  * @since 1.0.0
  *
- * @param string $key
+ * @param string $key The key that should be sanitized.
  *
  * @return string
  */
@@ -110,9 +110,9 @@ function qf_sanitize_key( $key = '' ) {
  *
  * @since 1.0.0
  *
- * @param string $key
- * @param mixed  $default
- * @param string $option
+ * @param string $key     The key.
+ * @param mixed  $default The default value.
+ * @param string $option  The option.
  *
  * @return mixed
  */
