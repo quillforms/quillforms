@@ -16,13 +16,6 @@ defined( 'ABSPATH' ) || exit;
  */
 final class QuillForms {
 
-	/**
-	 * QuillForms version.
-	 *
-	 * @var string
-	 */
-	public $version = '1.0.0';
-
 
 	/**
 	 * Class Instance.

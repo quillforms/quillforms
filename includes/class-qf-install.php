@@ -32,7 +32,7 @@ class QF_Install {
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
-		if ( version_compare( get_option( 'quillforms_version' ), QuillForms::instance()->version, '<' ) ) {
+		if ( version_compare( get_option( 'quillforms_version' ), QF_VERSION, '<' ) ) {
 			self::install();
 			do_action( 'quillforms_updated' );
 		}
@@ -54,6 +54,7 @@ class QF_Install {
 		set_transient( 'qf_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
 		QF_Core::register_quillforms_post_type();
+		QF_Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
 		self::update_qf_version();
 
@@ -109,7 +110,7 @@ class QF_Install {
 	 */
 	private static function update_qf_version() {
 		delete_option( 'quillforms_version' );
-		add_option( 'quillforms_version', QuillForms::instance()->version );
+		add_option( 'quillforms_version', QF_VERSION );
 	}
 
 }
