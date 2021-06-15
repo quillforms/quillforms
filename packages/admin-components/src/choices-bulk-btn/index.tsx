@@ -35,7 +35,6 @@ const ChoicesBulkBtn: React.FC< Props > = ( { choices, setChoices } ) => {
 	return (
 		<div className="admin-components-choices-bulk-btn">
 			<Button
-				isSecondary
 				isDefault
 				className={ css`
 					display: inline-block;

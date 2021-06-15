@@ -33,11 +33,8 @@ const BlockTypesList: FC = () => {
 	return (
 		<div className="admin-components-blocks-list">
 			<Droppable droppableId="BLOCKS_LIST" isDropDisabled={ true }>
-				{ ( provided, snapshot ) => (
-					<div
-						ref={ provided.innerRef }
-						data-isDraggingOver={ snapshot.isDraggingOver }
-					>
+				{ ( provided, _snapshot ) => (
+					<div ref={ provided.innerRef }>
 						{ map(
 							filter(
 								keys( blockTypes ),
@@ -82,9 +79,6 @@ const BlockTypesList: FC = () => {
 														{ ...provided.dragHandleProps }
 														ref={
 															provided.innerRef
-														}
-														data-isDragging={
-															snapshot.isDragging
 														}
 														style={ {
 															...provided

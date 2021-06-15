@@ -29,7 +29,10 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 		<DropdownMenu
 			label=""
 			icon={ 'ellipsis' }
-			position="bottom left"
+			// @ts-expect-error
+			popoverProps={ {
+				position: 'bottom left',
+			} }
 			className="block-editor-block-actions__dropdown"
 		>
 			{ () => (

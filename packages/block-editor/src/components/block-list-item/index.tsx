@@ -141,14 +141,13 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 						draggableId={ id.toString() }
 						index={ index }
 					>
-						{ ( provided, snapshot ) => (
+						{ ( provided, _snapshot ) => (
 							<BoxWrapper id={ id }>
 								<div className="block-editor-block-edit-box__content-wrapper">
 									<div
 										className="block-editor-block-edit-box__content"
 										{ ...provided.draggableProps }
 										ref={ provided.innerRef }
-										data-isDragging={ snapshot.isDragging }
 										style={ provided.draggableProps.style }
 									>
 										{ inView ? (

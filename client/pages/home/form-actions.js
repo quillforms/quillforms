@@ -23,7 +23,9 @@ const FormActions = ( { formId, setIsDeleting } ) => {
 		>
 			<DropdownMenu
 				icon={ moreHorizontal }
-				position="bottom left"
+				popoverProps={ {
+					position: 'bottom left',
+				} }
 				className="quillforms-home-form-actions__dropdown"
 			>
 				{ ( { onClose } ) => (
