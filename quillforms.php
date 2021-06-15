@@ -1,8 +1,5 @@
 <?php
 /**
- * QuillForms.
- *
- * @since             1.0.0
  *
  * @wordpress-plugin
  * Plugin Name:       QuillForms
