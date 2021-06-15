@@ -1,6 +1,6 @@
 <?php
 /**
- * Quill Forms.
+ * QuillForms.
  *
  * @since             1.0.0
  *
@@ -43,7 +43,7 @@ if ( ! defined( 'QF_PLUGIN_URL' ) ) {
 }
 
 // Define minimum WP version.
-define( 'QF_MIN_WP_VERSION', '5.3' );
+define( 'QF_MIN_WP_VERSION', '5.4' );
 
 // Define minimun php version.
 define( 'QF_MIN_PHP_VERSION', '7.1' );
