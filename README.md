@@ -1,7 +1,7 @@
 # QuillForms
 Conversational Forms Builder WordPress Plugin with React.js
 
-[Watch Demo](https://www.quillforms.com/demo)
+[Watch Demo](https://quillforms.com/quillforms/my-first-form/)
 
 [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/mohamedmagdymohamed)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
