@@ -59,7 +59,7 @@ const DropdownDisplay = ( props ) => {
 			choice.label.toLowerCase().includes( searchKeyword.toLowerCase() )
 		);
 
-	const checkfieldValidation = () => {
+	const checkFieldValidation = () => {
 		if ( required === true && ( ! val || val === '' ) ) {
 			setIsValid( false );
 			setValidationErr(
@@ -118,10 +118,6 @@ const DropdownDisplay = ( props ) => {
 			document.removeEventListener( 'mousedown', handleClickOutside );
 		};
 	}, [ showDropdown ] );
-
-	useEffect( () => {
-		checkfieldValidation( val );
-	}, [ val, attributes ] );
 
 	useEffect( () => {
 		// if change in attributes and is in preview mode, check validation
