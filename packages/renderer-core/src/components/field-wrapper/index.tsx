@@ -112,8 +112,7 @@ const FieldWrapper: React.FC = () => {
 		);
 	}
 
-	function processTab( e, isShiftPressed ) {
-		e.preventDefault();
+	function processTab( isShiftPressed ) {
 		if ( isAnimating ) {
 			return;
 		}
@@ -180,8 +179,9 @@ const FieldWrapper: React.FC = () => {
 	function onTab( e, isShiftPressed ) {
 		clearTimeout( tabTimer );
 		if ( isAnimating ) return;
+		e.preventDefault();
 		tabTimer = setTimeout( () => {
-			processTab( e, isShiftPressed );
+			processTab( isShiftPressed );
 		}, 150 );
 	}
 
