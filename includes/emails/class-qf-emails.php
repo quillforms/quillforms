@@ -291,8 +291,6 @@ class QF_Emails {
 	 * @return string
 	 */
 	public function build_email( $message ) {
-		var_dump( $message );
-		die;
 
 		// Plain text email shortcut.
 		if ( false === $this->html ) {

@@ -5,7 +5,6 @@
  * Description:       Conversational Forms Builder for WordPress
  * Version:           1.0.0
  * Author:            quillforms.com
- * Author URI:        https://www.quillforms.com/
  * Text Domain:       quillforms
  * Domain Path:       /languages
  * Requires at least: 5.4
