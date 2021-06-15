@@ -26,7 +26,7 @@
 		"@quillforms/config": "file:../config",
 		"@wordpress/data": "^5.1.1",
 		"@wordpress/element": "^3.1.1",
-		"@wordpress/i18n":  "^4.1.1"
+		"@wordpress/i18n": "^4.1.1"
 	},
 	"publishConfig": {
 		"access": "public"

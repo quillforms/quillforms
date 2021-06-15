@@ -29,7 +29,7 @@
 		"@quillforms/types": "file:../types",
 		"@wordpress/compose": "^4.1.1",
 		"@wordpress/data": "5.1.1",
-		"@wordpress/element":  "^3.1.1",
+		"@wordpress/element": "^3.1.1",
 		"@wordpress/icons": "^4.0.1",
 		"emoji-mart": "^3.0.1",
 		"is-url": "^1.2.4",
