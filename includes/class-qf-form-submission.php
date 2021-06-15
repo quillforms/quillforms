@@ -1,9 +1,25 @@
 <?php
+/**
+ * Form Submission: class QF_Form_Submission
+ *
+ * @since 1.0.0
+ *
+ * @package QuillForms
+ */
 
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Form Sumbission class is responsible for handling form submission and response with success or error messages.
+ *
+ * @since 1.0.0
+ */
 class QF_Form_Submission {
 
 	/**
 	 * Form data and settings
+	 *
+	 * @var $form_data
 	 *
 	 * @since 1.0.0
 	 */
@@ -12,6 +28,8 @@ class QF_Form_Submission {
 	/**
 	 * Form errors
 	 *
+	 * @var $errors
+	 *
 	 * @since 1.0.0
 	 */
 	public $errors = array();
@@ -19,16 +37,28 @@ class QF_Form_Submission {
 	/**
 	 * Entry id after successful save in db
 	 *
+	 * @var $entry_id
+	 *
 	 * @since 1.0.0
 	 */
 	public $entry_id = 0;
 
+	/**
+	 * Constructor
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		add_action( 'wp_ajax_quillforms_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_quillforms_form_submit', array( $this, 'submit' ) );
 	}
 
 
+	/**
+	 * Ajax submit.
+	 *
+	 * @since 1.0.0
+	 */
 	public function submit() {
 		$this->process_submission();
 		$this->respond();
@@ -51,6 +81,11 @@ class QF_Form_Submission {
 		return $this->entry_id;
 	}
 
+	/**
+	 * Process submission
+	 *
+	 * @since 1.0.0
+	 */
 	public function process_submission() {
 		$entry = json_decode( stripslashes( $_POST['formData'] ), true );
 
@@ -81,6 +116,7 @@ class QF_Form_Submission {
 		}
 
 		$this->form_data = array(
+			'id'            => $form_id,
 			'title'         => get_the_title( $form_id ),
 			'blocks'        => QF_Core::get_blocks( $form_id ),
 			'messages'      => QF_Core::get_messages( $form_id ),
@@ -144,10 +180,20 @@ class QF_Form_Submission {
 				}
 			}
 
+			// Success - add entry to database.
+			$this->entry_id = $this->entry_save( $entry, $this->form_data );
+
+			// Process email notifications.
 			$this->entry_email( $entry, $this->form_data );
 		}
 	}
 
+
+	/**
+	 * Entry email
+	 *
+	 * @since 1.0.0
+	 */
 	public function entry_email( $entry, $form_data ) {
 
 		// Make sure we have and entry id.
@@ -164,7 +210,8 @@ class QF_Form_Submission {
 
 			$process_email = apply_filters( 'quillforms_entry_email_process', true, $entry, $form_data, $notification_id );
 
-			if ( ! $process_email ) {
+			// if process email = false or notifcation isn't active, continue
+			if ( ! $process_email || ! $notification_properties['active'] ) {
 				continue;
 			}
 
@@ -225,11 +272,12 @@ class QF_Form_Submission {
 	}
 
 
-
-	/*
-	* Overwrite method for parent class.
-	*/
-	protected function respond( $data = array() ) {
+	/**
+	 * Respond with error or success.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function respond() {
 		// Restore form instance ID.
 		if ( ! empty( $this->errors ) ) {
 			wp_send_json_error( $this->errors, 400 );
