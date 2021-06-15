@@ -1,7 +1,5 @@
 <?php
 /**
- *
- * @wordpress-plugin
  * Plugin Name:       QuillForms
  * Plugin URI:        https://www.quillforms.com/
  * Description:       Conversational Forms Builder for WordPress
