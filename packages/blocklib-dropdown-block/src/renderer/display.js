@@ -8,6 +8,7 @@ import { useTheme, useMessages } from '@quillforms/renderer-core';
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -39,6 +40,7 @@ const DropdownDisplay = ( props ) => {
 		isTouchDevice,
 		setFooterDisplay,
 		inputRef,
+		isPreview,
 	} = props;
 	const { choices, required } = attributes;
 	const [ showDropdown, setShowDropdown ] = useState( false );
@@ -68,6 +70,12 @@ const DropdownDisplay = ( props ) => {
 			setValidationErr( null );
 		}
 	};
+
+	const { isReviewing } = useSelect( ( select ) => {
+		return {
+			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
+		};
+	} );
 
 	// Handle click outside the countries dropdown
 	const handleClickOutside = ( e ) => {
@@ -115,6 +123,13 @@ const DropdownDisplay = ( props ) => {
 		checkfieldValidation( val );
 	}, [ val, attributes ] );
 
+	useEffect( () => {
+		// if change in attributes and is in preview mode, check validation
+		// Note, that this effect will also be called on mount, that's why we check if isReviewing = false
+		// because we want to display errors coming from server.
+		if ( isPreview || ! isReviewing ) checkFieldValidation( val );
+	}, [ val, attributes ] );
+
 	const changeHandler = ( e ) => {
 		setShowDropdown( true );
 		if ( val ) {
@@ -158,7 +173,7 @@ const DropdownDisplay = ( props ) => {
 								font-size: 24px;
 							}
 
-							@media ( max-width: 420px ) {
+							@media ( max-width: 480px ) {
 								font-size: 20px;
 							}
 						}
