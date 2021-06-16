@@ -54,17 +54,12 @@ export const setBlockRendererSettings = (
 	}
 
 	if ( settings.nextBtn && ! isFunction( settings.nextBtn ) ) {
-		console.error( 'The "blockAction" property must be a valid function!' );
+		console.error( 'The "nextBtn" property must be a valid function!' );
 		return;
 	}
 
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
-		pick( settings, [
-			'display',
-			'mergeTag',
-			'blockAction',
-			'counterIcon',
-		] ),
+		pick( settings, [ 'display', 'mergeTag', 'nextBtn', 'counterIcon' ] ),
 		name
 	);
 
