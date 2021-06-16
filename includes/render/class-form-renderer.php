@@ -53,7 +53,7 @@ class Form_Renderer {
 	 */
 	public static function template_loader( $template ) {
 		if ( is_singular( 'quill_forms' ) ) {
-			return QF_PLUGIN_DIR . '/includes/render/renderer-template.php';
+			return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';
 		}
 		return $template;
 	}

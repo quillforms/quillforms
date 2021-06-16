@@ -688,7 +688,7 @@ class Emails {
 		$file_paths = array(
 			1   => trailingslashit( get_stylesheet_directory() ) . $template_dir,
 			10  => trailingslashit( get_template_directory() ) . $template_dir,
-			100 => QF_PLUGIN_DIR . 'includes/emails/templates',
+			100 => QUILLFORMS_PLUGIN_DIR . 'includes/emails/templates',
 		);
 
 		$file_paths = apply_filters( 'quillforms_email_template_paths', $file_paths );

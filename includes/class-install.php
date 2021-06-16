@@ -32,7 +32,7 @@ class Install {
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
-		if ( version_compare( get_option( 'quillforms_version' ), QF_VERSION, '<' ) ) {
+		if ( version_compare( get_option( 'quillforms_version' ), QUILLFORMS_VERSION, '<' ) ) {
 			self::install();
 			do_action( 'quillforms_updated' );
 		}
@@ -110,7 +110,7 @@ class Install {
 	 */
 	private static function update_qf_version() {
 		delete_option( 'quillforms_version' );
-		add_option( 'quillforms_version', QF_VERSION );
+		add_option( 'quillforms_version', QUILLFORMS_VERSION );
 	}
 
 }

@@ -53,7 +53,7 @@ class Form_Theme {
 	public function get_theme_properties() {
 		return json_decode(
 			file_get_contents(
-				QF_PLUGIN_DIR . 'includes/json/theme-properties.json'
+				QUILLFORMS_PLUGIN_DIR . 'includes/json/theme-properties.json'
 			),
 			true
 		);

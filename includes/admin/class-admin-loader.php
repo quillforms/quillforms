@@ -90,7 +90,7 @@ class Admin_Loader {
 			'quillforms-client',
 			'qfAdmin',
 			array(
-				'assetsBuildUrl' => QF_PLUGIN_URL,
+				'assetsBuildUrl' => QUILLFORMS_PLUGIN_URL,
 				'submenuPages'   => $submenu['quillforms'],
 			)
 		);

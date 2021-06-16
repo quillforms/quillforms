@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $messages_data = json_decode(
 	file_get_contents(
-		QF_PLUGIN_DIR . 'includes/json/messages.json'
+		QUILLFORMS_PLUGIN_DIR . 'includes/json/messages.json'
 	),
 	true
 );

@@ -68,19 +68,19 @@ final class QuillForms {
 		/**
 		 * Functions.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/functions.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/functions.php';
 
 		/**
 		 * Load all blocks.
 		 */
-		foreach ( glob( QF_PLUGIN_DIR . 'includes/blocks/**/*.php' ) as $block ) {
+		foreach ( glob( QUILLFORMS_PLUGIN_DIR . 'includes/blocks/**/*.php' ) as $block ) {
 			require_once $block;
 		}
 
 		/**
 		 * Core classes.
 		 */
-		require_once QF_PLUGIN_DIR . 'lib/client-assets.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'lib/client-assets.php';
 		new Admin_Loader();
 		Install::init();
 		new Merge_Tags();
@@ -90,10 +90,10 @@ final class QuillForms {
 		/**
 		 * REST Fields
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/messages.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-fields/theme.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/messages.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 	}
 
 	/**

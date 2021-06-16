@@ -26,7 +26,7 @@ function quillforms_autoload( $class ) {
 			$class_breakdown
 		);
 		$class_breakdown[] = 'class-' . array_pop( $class_breakdown );
-		$class_file        = QF_PLUGIN_DIR . 'includes/' . implode( '/', $class_breakdown ) . '.php';
+		$class_file        = QUILLFORMS_PLUGIN_DIR . 'includes/' . implode( '/', $class_breakdown ) . '.php';
 		if ( file_exists( $class_file ) ) {
 			include $class_file;
 		}

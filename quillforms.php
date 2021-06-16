@@ -17,33 +17,33 @@
 defined( 'ABSPATH' ) || exit;
 
 // Plugin file.
-if ( ! defined( 'QF_PLUGIN_FILE' ) ) {
-	define( 'QF_PLUGIN_FILE', __FILE__ );
+if ( ! defined( 'QUILLFORMS_PLUGIN_FILE' ) ) {
+	define( 'QUILLFORMS_PLUGIN_FILE', __FILE__ );
 }
 
 // Plugin version.
-if ( ! defined( 'QF_VERSION' ) ) {
-	define( 'QF_VERSION', '1.0.0' );
+if ( ! defined( 'QUILLFORMS_VERSION' ) ) {
+	define( 'QUILLFORMS_VERSION', '1.0.0' );
 }
 
 // Plugin Folder Path.
-if ( ! defined( 'QF_PLUGIN_DIR' ) ) {
-	define( 'QF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'QUILLFORMS_PLUGIN_DIR' ) ) {
+	define( 'QUILLFORMS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
 
 // Plugin Folder URL.
-if ( ! defined( 'QF_PLUGIN_URL' ) ) {
-	define( 'QF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'QUILLFORMS_PLUGIN_URL' ) ) {
+	define( 'QUILLFORMS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
 // Define minimum WP version.
-define( 'QF_MIN_WP_VERSION', '5.4' );
+define( 'QUILLFORMS_MIN_WP_VERSION', '5.4' );
 
 // Define minimun php version.
-define( 'QF_MIN_PHP_VERSION', '7.1' );
+define( 'QUILLFORMS_MIN_PHP_VERSION', '7.1' );
 
 // Require autoload.
-require_once QF_PLUGIN_DIR . 'includes/autoload.php';
+require_once QUILLFORMS_PLUGIN_DIR . 'includes/autoload.php';
 
 quillforms_pre_init();
 
@@ -63,19 +63,19 @@ function quillforms_pre_init() {
 	$version = str_replace( '-src', '', $wp_version );
 
 	// Check for minimum WordPress version.
-	if ( version_compare( $version, QF_MIN_WP_VERSION, '<' ) ) {
+	if ( version_compare( $version, QUILLFORMS_MIN_WP_VERSION, '<' ) ) {
 		add_action( 'admin_notices', 'quillforms_wordpress_version_notice' );
 		return;
 	}
 
 	// Check for minimum PHP version.
-	if ( version_compare( phpversion(), QF_MIN_PHP_VERSION, '<' ) ) {
+	if ( version_compare( phpversion(), QUILLFORMS_MIN_PHP_VERSION, '<' ) ) {
 		add_action( 'admin_notices', 'quillforms_php_version_notice' );
 		return;
 	}
 
 	QuillForms\QuillForms::instance();
-	register_activation_hook( QF_PLUGIN_DIR, array( QuillForms\Install::class, 'install' ) );
+	register_activation_hook( QUILLFORMS_PLUGIN_DIR, array( QuillForms\Install::class, 'install' ) );
 }
 
 /**
@@ -86,7 +86,7 @@ function quillforms_pre_init() {
 function quillforms_wordpress_version_notice() {
 	echo '<div class="error"><p>';
 	/* translators: %s: Minimum required version */
-	printf( __( 'QuillForms requires WordPress %s or later to function properly. Please upgrade WordPress before activating QuillForms.', 'quillforms' ), QF_MIN_WP_VERSION );
+	printf( __( 'QuillForms requires WordPress %s or later to function properly. Please upgrade WordPress before activating QuillForms.', 'quillforms' ), QUILLFORMS_MIN_WP_VERSION );
 	echo '</p></div>';
 
 	deactivate_plugins( array( 'QuillForms/quillforms.php' ) );
@@ -101,7 +101,7 @@ function quillforms_wordpress_version_notice() {
 function quillforms_php_version_notice() {
 	echo '<div class="error"><p>';
 	/* translators: %s: Minimum required version */
-	printf( __( 'QuillForms requires PHP %s or later to function properly. Please upgrade your PHP version before activating QuillForms.', 'quillforms' ), QF_MIN_PHP_VERSION );
+	printf( __( 'QuillForms requires PHP %s or later to function properly. Please upgrade your PHP version before activating QuillForms.', 'quillforms' ), QUILLFORMS_MIN_PHP_VERSION );
 	echo '</p></div>';
 
 	deactivate_plugins( array( 'QuillForms/quillforms.php' ) );

@@ -83,7 +83,7 @@ class Fonts {
 	private static function get_native_fonts() {
 		return json_decode(
 			file_get_contents(
-				QF_PLUGIN_DIR . 'includes/json/fonts.json'
+				QUILLFORMS_PLUGIN_DIR . 'includes/json/fonts.json'
 			),
 			true
 		);
