@@ -73,7 +73,7 @@ switch ( $font_type ) {
 			}
 		</style>
 		<?php if ( $font_url ) { ?>
-			<link href="<?php echo $font_url; ?>" rel="stylesheet" />
+			<link href="<?php echo esc_url( $font_url ); ?>" rel="stylesheet" />
 		<?php } ?>
 		<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
 		<title><?php echo get_the_title(); ?></title>
@@ -85,7 +85,7 @@ switch ( $font_type ) {
 		</div>
 			<?php wp_footer(); ?>
 		<script>
-		var formObject = JSON.parse(JSON.stringify(<?php echo json_encode( $form_object ); ?>));
+		var formObject = <?php echo wp_json_encode( $form_object ); ?>;
 		ReactDOM.render(React.createElement(
 		qf.rendererCore.Form,
 		{
@@ -97,7 +97,7 @@ switch ( $font_type ) {
 				data.append( '_nonce', '<?php echo wp_create_nonce( 'quillforms_forms_display_nonce' ); ?>' )
 				data.append( 'formData', JSON.stringify({
 					answers: wp.data.select('quillForms/renderer-core').getAnswers(),
-					formId: '<?php echo $form_id; ?>'
+					formId: '<?php echo esc_js( $form_id ); ?>'
 				} ));
 				fetch(ajaxurl, {
 					method: 'POST',
