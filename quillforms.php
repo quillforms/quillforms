@@ -43,7 +43,7 @@ define( 'QF_MIN_WP_VERSION', '5.4' );
 define( 'QF_MIN_PHP_VERSION', '7.1' );
 
 // Require autoload.
-require_once QF_PLUGIN_DIR . '/includes/autoload.php';
+require_once QF_PLUGIN_DIR . 'includes/autoload.php';
 
 quillforms_pre_init();
 
@@ -74,7 +74,6 @@ function quillforms_pre_init() {
 		return;
 	}
 
-	require_once QF_PLUGIN_DIR . '/includes/class-quillforms.php';
 	QuillForms\QuillForms::instance();
 	register_activation_hook( QF_PLUGIN_DIR, array( QuillForms\Install::class, 'install' ) );
 }
