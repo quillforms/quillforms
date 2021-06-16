@@ -1,6 +1,6 @@
 <?php
 /**
- * Block Library: class QF_Date
+ * Block Library: class Date_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary

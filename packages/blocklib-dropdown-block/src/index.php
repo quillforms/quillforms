@@ -1,6 +1,6 @@
 <?php
 /**
- * Block Library: class QF_Dropdown
+ * Block Library: class Dropdown_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * The dropdown block
  *
- * @class QF_Dropdown
+ * @class Dropdown_Block_Type
  * @since 1.0.0
  */
 class Dropdown_Block_Type extends Block_Type {
