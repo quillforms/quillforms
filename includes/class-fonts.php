@@ -1,10 +1,12 @@
 <?php
 /**
- * Fonts API: QF_Fonts class.
+ * Fonts API: Fonts class.
  *
  * @package QuillForms
  * @since 1.0.0
  */
+
+namespace QuillForms;
 
 /**
  * Quill Forms fonts.
@@ -14,7 +16,7 @@
  *
  * @since 1.0.0
  */
-class QF_Fonts {
+class Fonts {
 	/**
 	 * The system font name.
 	 */

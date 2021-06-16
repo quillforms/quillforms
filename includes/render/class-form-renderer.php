@@ -1,19 +1,22 @@
 <?php
 /**
- * Form Renderer: QF_Form_Renderer class.
+ * Form Renderer: Form_Renderer class.
  *
  * @package QuillForms
  * @since 1.0.0
  */
 
- defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Render;
+
+use QuillForms\Core;
+use QuillForms\Managers\Blocks_Manager;
 
 /**
- * Class QF_Form_Renderer is responsible for overriding single post page with the renderer template and enqueuing assets.
+ * Class Form_Renderer is responsible for overriding single post page with the renderer template and enqueuing assets.
  *
  * @since 1.0.0
  */
-class QF_Form_Renderer {
+class Form_Renderer {
 
 
 	/**
@@ -66,9 +69,9 @@ class QF_Form_Renderer {
 		return  apply_filters(
 			'quillforms_renderer_form_object',
 			array(
-				'blocks'   => QF_Core::get_blocks( $form_id ),
-				'messages' => QF_Core::get_messages( $form_id ),
-				'theme'    => QF_Core::get_theme( $form_id ),
+				'blocks'   => Core::get_blocks( $form_id ),
+				'messages' => Core::get_messages( $form_id ),
+				'theme'    => Core::get_theme( $form_id ),
 			),
 			$form_id
 		);
@@ -84,17 +87,17 @@ class QF_Form_Renderer {
 			global $wp_scripts;
 			global $wp_styles;
 			global $post;
-			QF_Core::register_block_types_by_js();
+			Core::register_block_types_by_js();
 
 			$form_id           = $post->ID;
 			$wp_scripts->queue = array( 'quillforms-renderer-core' );
 			$wp_styles->queue  = array( 'quillforms-renderer-core' );
 
-			$blocks = QF_Core::get_blocks( $form_id );
+			$blocks = Core::get_blocks( $form_id );
 
 			// Render styles for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type = QF_Blocks_Manager::get_instance()->get_registered( $block['name'] );
+				$block_type = Blocks_Manager::get_instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['style'] ) ) {
 					$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
 				}
@@ -102,7 +105,7 @@ class QF_Form_Renderer {
 
 			// Render scripts for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type = QF_Blocks_Manager::get_instance()->get_registered( $block['name'] );
+				$block_type = Blocks_Manager::get_instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['script'] ) ) {
 					$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
 				}
@@ -111,5 +114,3 @@ class QF_Form_Renderer {
 	}
 
 }
-
-QF_Form_Renderer::init();

@@ -6,6 +6,9 @@
  * @package QuillForms
  */
 
+use QuillForms\Interfaces\Logger_Interface;
+use QuillForms\Logger;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -359,17 +362,17 @@ function qf_clean( $var ) {
  * Use the quillforms_logging_class filter to change the logging class. You may provide one of the following:
  *     - a class name which will be instantiated as `new $class` with no arguments
  *     - an instance which will be used directly as the logger
- * In either case, the class or instance *must* implement QF_Logger_Interface.
+ * In either case, the class or instance *must* implement Logger_Interface.
  *
  * @since 1.0.0
- * @see QF_Logger_Interface
+ * @see Logger_Interface
  *
- * @return QF_Logger
+ * @return Logger
  */
 function qf_get_logger() {
 	static $logger = null;
 
-	$class = apply_filters( 'quillforms_logging_class', 'QF_Logger' );
+	$class = apply_filters( 'quillforms_logging_class', Logger::class );
 
 	if ( null !== $logger && is_string( $class ) && is_a( $logger, $class ) ) {
 		return $logger;
@@ -377,22 +380,22 @@ function qf_get_logger() {
 
 	$implements = class_implements( $class );
 
-	if ( is_array( $implements ) && in_array( 'QF_Logger_Interface', $implements, true ) ) {
+	if ( is_array( $implements ) && in_array( Logger_Interface::class, $implements, true ) ) {
 		$logger = is_object( $class ) ? $class : new $class();
 	} else {
 		_doing_it_wrong(
 			__FUNCTION__,
 			sprintf(
-				/* translators: 1: class name 2: quillforms_logging_class 3: QF_Logger_Interface */
+				/* translators: 1: class name 2: quillforms_logging_class 3: Logger_Interface */
 				__( 'The class %1$s provided by %2$s filter must implement %3$s.', 'quillforms' ),
 				'<code>' . esc_html( is_object( $class ) ? get_class( $class ) : $class ) . '</code>',
 				'<code>quillforms_logging_class</code>',
-				'<code>QF_Logger_Interface</code>'
+				'<code>Logger_Interface</code>'
 			),
 			'1.0.0'
 		);
 
-		$logger = is_a( $logger, 'QF_Logger' ) ? $logger : new QF_Logger();
+		$logger = is_a( $logger, Logger::class ) ? $logger : new Logger();
 	}
 
 	return $logger;

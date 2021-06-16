@@ -1,23 +1,27 @@
 <?php
 /**
- * Blocks API: QF_Blocks_Manager class.
+ * Blocks API: Blocks_Manager class.
  *
  * @package QuillForms
  * @since 1.0.0
  */
+
+namespace QuillForms\Managers;
+
+use QuillForms\Abstracts\Block_Type;
 
 /**
  * Core class used for interacting with block types.
  *
  * @since 1.0.0
  */
-final class QF_Blocks_Manager {
+final class Blocks_Manager {
 	/**
 	 * Registered block types, as `$name => $instance` pairs.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var QF_Block_Type[]
+	 * @var Block_Type[]
 	 */
 	private $registered_block_types = array();
 
@@ -26,7 +30,7 @@ final class QF_Blocks_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var QF_Blocks_Manager|null
+	 * @var Blocks_Manager|null
 	 */
 	private static $instance = null;
 
@@ -35,11 +39,11 @@ final class QF_Blocks_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param QF_Block_Type $block QF_Block_Type instance.
+	 * @param Block_Type $block Block_Type instance.
 	 *
-	 * @return QF_Block_Type the registered block type on success, or false on failure
+	 * @return Block_Type the registered block type on success, or false on failure
 	 */
-	public function register( QF_Block_Type $block ) {
+	public function register( Block_Type $block ) {
 		$block_type = $block;
 		$block_name = $block_type->name;
 
@@ -52,7 +56,7 @@ final class QF_Blocks_Manager {
 
 		if ( $this->is_registered( $block_name ) ) {
 			/* translators: %s: Block name. */
-			$message = sprintf( __( 'Block type "%s" is already registered.', 'quillforms' ), $type );
+			$message = sprintf( __( 'Block type "%s" is already registered.', 'quillforms' ), $block_name );
 			_doing_it_wrong( __METHOD__, $message, '1.0.0' );
 
 			return false;
@@ -68,10 +72,10 @@ final class QF_Blocks_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string|QF_Block_Type $type block type name including namespace, or alternatively a
-	 *                              complete QF_Block_Type instance.
+	 * @param string|Block_Type $type block type name including namespace, or alternatively a
+	 *                              complete Block_Type instance.
 	 *
-	 * @return QF_Block_Type|false the unregistered block type on success, or false on failure
+	 * @return Block_Type|false the unregistered block type on success, or false on failure
 	 */
 	public function unregister( $type ) {
 
@@ -95,7 +99,7 @@ final class QF_Blocks_Manager {
 	 *
 	 * @param array $properties The block properties.
 	 *
-	 * @return QF_Block_Type|bool
+	 * @return Block_Type|bool
 	 */
 	public function create( $properties ) {
 
@@ -122,7 +126,7 @@ final class QF_Blocks_Manager {
 	 *
 	 * @param string $name block type name including namespace.
 	 *
-	 * @return QF_Block_Type|null the registered block type, or null if it is not registered
+	 * @return Block_Type|null the registered block type, or null if it is not registered
 	 */
 	public function get_registered( $name ) {
 		if ( ! $this->is_registered( $name ) ) {
@@ -137,7 +141,7 @@ final class QF_Blocks_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return QF_Block_Type[] associative array of `$block_type_name => $block_type` pairs
+	 * @return Block_Type[] associative array of `$block_type_name => $block_type` pairs
 	 */
 	public function get_all_registered() : iterable {
 		return $this->registered_block_types;
@@ -163,7 +167,7 @@ final class QF_Blocks_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return QF_Blocks_Manager the main instance
+	 * @return Blocks_Manager the main instance
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {

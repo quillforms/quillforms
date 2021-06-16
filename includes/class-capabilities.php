@@ -1,16 +1,18 @@
 <?php
 /**
- * Capabilities: class QF_Capabilities
+ * Capabilities: class Capabilities
  *
  * @package QuillForms
  * @subpackage Capabilities
  * @since 1.0.0
  */
 
+namespace QuillForms;
+
 /**
- * Class QF_Capabilities is for getting capabilities and assigning them to user roles.
+ * Class Capabilities is for getting capabilities and assigning them to user roles.
  */
-class QF_Capabilities {
+class Capabilities {
 
 	/**
 	 * Get capabilities.
@@ -66,7 +68,7 @@ class QF_Capabilities {
 		}
 
 		if ( ! isset( $wp_roles ) ) {
-			$wp_roles = new WP_Roles(); // @codingStandardsIgnoreLine
+			$wp_roles = new \WP_Roles(); // @codingStandardsIgnoreLine
 		}
 
 		$capabilities = self::get_core_capabilities();

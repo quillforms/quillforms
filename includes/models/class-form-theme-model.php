@@ -1,17 +1,22 @@
 <?php
 /**
- * Form Theme Model: QF_Form_Theme_Model class.
+ * Form Theme Model: Form_Theme_Model class.
  *
  * @package QuillForms
  * @since 1.0.0
  */
+
+namespace QuillForms\Models;
+
+use QuillForms\Form_Theme;
+use WP_Error;
 
 /**
  * Form theme model class is used for interacting with qf_themes db table.
  *
  * @since 1.0.0
  */
-class QF_Form_Theme_Model {
+class Form_Theme_Model {
 
 	/**
 	 * Get all registered themes.
@@ -39,7 +44,7 @@ class QF_Form_Theme_Model {
 					return array(
 						'id'         => intVal( $theme['ID'] ),
 						'title'      => $theme['theme_title'],
-						'properties' => QF_Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $theme['theme_properties'] ) ),
+						'properties' => Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $theme['theme_properties'] ) ),
 
 					);
 				},
@@ -88,7 +93,7 @@ class QF_Form_Theme_Model {
 		}
 		return  array(
 			'title'      => $data['theme_title'],
-			'properties' => QF_Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $data['theme_properties'] ) ),
+			'properties' => Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $data['theme_properties'] ) ),
 		);
 	}
 

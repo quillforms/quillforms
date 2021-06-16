@@ -6,8 +6,12 @@
  * @package QuillForms
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms;
 
+use QuillForms\Admin\Admin;
+use QuillForms\Admin\Admin_Loader;
+use QuillForms\Render\Form_Renderer;
+use QuillForms\REST_API\REST_API;
 
 /**
  * QuillForms Main Class.
@@ -61,31 +65,6 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	public function load_dependencies() {
-
-		/**
-		 * Models.
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/models/class-qf-form-theme-model.php';
-
-		/**
-		 * Interfaces.
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-logger-interface.php';
-		require_once QF_PLUGIN_DIR . 'includes/interfaces/class-qf-log-handler-interface.php';
-
-		/**
-		 * Abstract Classes.
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-block-type.php';
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-rest-controller.php';
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-handler.php';
-		require_once QF_PLUGIN_DIR . 'includes/abstracts/abstract-qf-log-levels.php';
-
-		/**
-		 * Managers
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/managers/class-qf-blocks-manager.php';
-
 		/**
 		 * Functions.
 		 */
@@ -101,25 +80,12 @@ final class QuillForms {
 		/**
 		 * Core classes.
 		 */
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-core.php';
 		require_once QF_PLUGIN_DIR . 'lib/client-assets.php';
-		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin-loader.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-capabilities.php';
-		require_once QF_PLUGIN_DIR . 'includes/admin/class-qf-admin.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-fonts.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-install.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-logger.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-merge-tags.php';
-		require_once QF_PLUGIN_DIR . 'includes/emails/class-qf-emails.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-theme.php';
-		require_once QF_PLUGIN_DIR . 'includes/render/class-qf-form-renderer.php';
-		require_once QF_PLUGIN_DIR . 'includes/class-qf-form-submission.php';
-
-		/**
-		 * REST API.
-		 */
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/controllers/v1/class-qf-rest-form-theme-controller.php';
-		require_once QF_PLUGIN_DIR . 'includes/rest-api/class-qf-rest-api.php';
+		new Admin_Loader();
+		Install::init();
+		new Merge_Tags();
+		Form_Renderer::init();
+		new Form_Submission();
 
 		/**
 		 * REST Fields
@@ -128,7 +94,6 @@ final class QuillForms {
 		require_once QF_PLUGIN_DIR . 'includes/rest-fields/messages.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
 		require_once QF_PLUGIN_DIR . 'includes/rest-fields/theme.php';
-
 	}
 
 	/**
@@ -137,8 +102,8 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	public function initialize_objects() {
-		QF_Admin::instance();
-		QF_REST_API::get_instance();
+		Admin::instance();
+		REST_API::get_instance();
 	}
 
 	/**
@@ -147,8 +112,7 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	public function init_hooks() {
-
-		add_action( 'init', array( 'QF_Capabilities', 'assign_capabilities_for_user_roles' ) );
-		add_action( 'init', array( 'QF_Core', 'register_quillforms_post_type' ) );
+		add_action( 'init', array( Capabilities::class, 'assign_capabilities_for_user_roles' ) );
+		add_action( 'init', array( Core::class, 'register_quillforms_post_type' ) );
 	}
 }

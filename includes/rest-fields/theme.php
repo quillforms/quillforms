@@ -7,6 +7,8 @@
  * @subpackage RESTFields
  */
 
+use QuillForms\Models\Form_Theme_Model;
+
 defined( 'ABSPATH' ) || exit;
 
 register_rest_field(
@@ -18,7 +20,7 @@ register_rest_field(
 			$theme_id = (int) get_post_meta( $form_id, 'theme', true );
 			return  array(
 				'id'         => $theme_id,
-				'theme_data' => QF_Form_Theme_Model::get_theme( $theme_id ),
+				'theme_data' => Form_Theme_Model::get_theme( $theme_id ),
 			);
 
 		},

@@ -8,9 +8,7 @@
  * @subpackage Interface
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+namespace QuillForms\Interfaces;
 
 /**
  * QF Log Handler Interface
@@ -19,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-interface QF_Log_Handler_Interface {
+interface Log_Handler_Interface {
 
 	/**
 	 * Handle a log entry.

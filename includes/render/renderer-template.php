@@ -6,13 +6,17 @@
  * @package QuillForms
  */
 
+namespace QuillForms\Render;
+
+use QuillForms\Fonts;
+
 defined( 'ABSPATH' ) || exit;
 the_post();
 $form_id     = get_the_ID();
-$form_object = QF_Form_Renderer::prepare_form_object( $form_id );
+$form_object = Form_Renderer::prepare_form_object( $form_id );
 $theme       = $form_object['theme'];
 $font        = $theme['font'];
-$font_type   = QF_Fonts::get_font_type( $font );
+$font_type   = Fonts::get_font_type( $font );
 $font_url    = null;
 switch ( $font_type ) {
 	case 'googlefonts':

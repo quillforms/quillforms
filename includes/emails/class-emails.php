@@ -1,13 +1,17 @@
 <?php
 /**
- * Emails: class QF_Emails
+ * Emails: class Emails
  *
  * @since 1.0.0
  * @package QuillForms
  * @subpackage Emails
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Emails;
+
+use QuillForms\Managers\Blocks_Manager;
+use QuillForms\Merge_Tags;
+
 /**
  * Emails.
  *
@@ -18,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-class QF_Emails {
+class Emails {
 
 	/**
 	 * Store the from address.
@@ -348,7 +352,7 @@ class QF_Emails {
 	public function send( $to, $subject, $message, $attachments = array() ) {
 
 		if ( ! did_action( 'init' ) && ! did_action( 'admin_init' ) ) {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'You cannot send emails with QF_Emails() until init/admin_init has been reached.', 'quillforms' ), null );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'You cannot send emails with Emails() until init/admin_init has been reached.', 'quillforms' ), null );
 
 			return false;
 		}
@@ -369,7 +373,7 @@ class QF_Emails {
 		/*
 		 * Allow to filter data on per-email basis,
 		 * useful for localizations based on recipient email address, form settings,
-		 * or for specific notifications - whatever available in QF_Emails class.
+		 * or for specific notifications - whatever available in Emails class.
 		 */
 		$data = apply_filters(
 			'quillforms_emails_send_email_data',
@@ -455,7 +459,7 @@ class QF_Emails {
 	 */
 	public function process_tag( $string = '' ) {
 
-		return QF_Merge_Tags::process_tag( $string, $this->form_data, $this->answers, $this->entry_id );
+		return Merge_Tags::process_tag( $string, $this->form_data, $this->answers, $this->entry_id );
 	}
 
 	/**
@@ -496,7 +500,7 @@ class QF_Emails {
 
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = QF_Blocks_Manager::get_instance()->create( $block );
+				$block_type  = Blocks_Manager::get_instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 
@@ -536,7 +540,7 @@ class QF_Emails {
 			 */
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = QF_Blocks_Manager::get_instance()->create( $block );
+				$block_type  = Blocks_Manager::get_instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 

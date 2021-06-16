@@ -1,25 +1,28 @@
 <?php
 /**
- * Admin: class QF_Admin
+ * Admin: class Admin
  *
  * @since 1.0.0
  * @package QuillForms
  * @subpackage Admin
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Admin;
+
+use QuillForms\Capabilities;
+
 /**
  * QuillForms Admin
  *
  * @since 1.0.0
  */
-class QF_Admin {
+class Admin {
 
 
 	/**
 	 * Class Instance.
 	 *
-	 * @var QF_Admin
+	 * @var Admin
 	 *
 	 * @since 1.0.0
 	 */
@@ -33,13 +36,13 @@ class QF_Admin {
 	 * @since 1.0.0
 	 * @static
 	 *
-	 * @see QF_Admin()
+	 * @see Admin()
 	 *
-	 * @return QF_Admin - Single instance
+	 * @return Admin - Single instance
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
-			self::$instance = new QF_Admin();
+			self::$instance = new Admin();
 		}
 
 		return self::$instance;
@@ -53,7 +56,7 @@ class QF_Admin {
 	 */
 	private function __construct() {
 		$this->admin_hooks();
-		QF_Capabilities::assign_capabilities_for_user_roles();
+		Capabilities::assign_capabilities_for_user_roles();
 	}
 
 	/**
@@ -76,7 +79,7 @@ class QF_Admin {
 			__( 'Quill Forms', 'quillforms' ),
 			'manage_quillforms',
 			'quillforms',
-			array( 'QF_Admin_loader', 'page_wrapper' ),
+			array( 'QuillForms\Admin\Admin_loader', 'page_wrapper' ),
 			'data:image/svg+xml;base64,' . base64_encode(
 				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5219 5951" width="5519x" height="5519px">
 					<style>
@@ -95,10 +98,10 @@ class QF_Admin {
 			30
 		);
 		// Add main page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'Quill Forms', 'quillforms' ), __( 'All Forms', 'quillforms' ), 'manage_quillforms', 'quillforms', array( 'QF_Admin_loader', 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'Quill Forms', 'quillforms' ), __( 'All Forms', 'quillforms' ), 'manage_quillforms', 'quillforms', array( 'QuillForms\Admin\Admin_loader', 'page_wrapper' ) );
 
 		// Add support page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'Support', 'quillforms' ), __( 'Support', 'quillforms' ), 'manage_quillforms', 'quillforms&path=support', array( 'QF_Admin_loader', 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'Support', 'quillforms' ), __( 'Support', 'quillforms' ), 'manage_quillforms', 'quillforms&path=support', array( 'QuillForms\Admin\Admin_loader', 'page_wrapper' ) );
 	}
 
 }

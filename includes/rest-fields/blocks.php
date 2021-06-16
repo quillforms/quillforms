@@ -7,6 +7,8 @@
  * @subpackage RESTFields
  */
 
+use QuillForms\Managers\Blocks_Manager;
+
 defined( 'ABSPATH' ) || exit;
 
 $blocks_schema = array(
@@ -44,7 +46,7 @@ register_rest_field(
 			// Just to add missing attributes.
 			if ( ! empty( $blocks ) ) {
 				foreach ( $blocks as $index => $block ) {
-					$block_type = QF_Blocks_Manager::get_instance()->create( $block );
+					$block_type = Blocks_Manager::get_instance()->create( $block );
 					if ( ! empty( $block_type ) ) {
 						$block_attributes              = $block['attributes'] ? $block['attributes'] : array();
 						$blocks[ $index ]['attributes'] = $block_type->prepare_attributes_for_render( $block_attributes );
@@ -92,7 +94,7 @@ register_rest_field(
 					if ( ! is_wp_error( $validation ) ) {
 						if ( ! empty( $blocks ) ) {
 							foreach ( $blocks as $index => $block ) {
-								$block_type     = QF_Blocks_Manager::get_instance()->get_registered( $block['name'] );
+								$block_type     = Blocks_Manager::get_instance()->get_registered( $block['name'] );
 								if ( $block_type ) {
 									if ( $block['attributes'] ) {
 										$validation = qf_rest_validate_value_from_schema(

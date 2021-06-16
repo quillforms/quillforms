@@ -1,13 +1,15 @@
 <?php
 /**
- * Logging api: class QF_Log
+ * Logging api: class Log
  * This class is forked from Woocommerce.
  *
  * @since 1.0.0
  * @package QuillForms/Abstracts
  */
 
-defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+namespace QuillForms\Abstracts;
+
+use QuillForms\Interfaces\Log_Handler_Interface;
 
 /**
  * Abstract QF Log Handler Class
@@ -15,7 +17,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
  * @version        1.0.0
  * @package        WooCommerce/Abstracts
  */
-abstract class QF_Log_Handler implements QF_Log_Handler_Interface {
+abstract class Log_Handler implements Log_Handler_Interface {
 
 	/**
 	 * Formats a timestamp for use in log messages.

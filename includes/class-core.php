@@ -1,20 +1,23 @@
 <?php
 /**
- * Core: class QF_Core.
+ * Core: class Core.
  * Responsible for registering post type and registering block types in JS and some functions to get blocks, messages, ..etc.
  *
  * @since 1.0.0
  * @package QuillForms
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms;
+
+use QuillForms\Managers\Blocks_Manager;
+use QuillForms\Models\Form_Theme_Model;
 
 /**
- * QF_Core class
+ * Core class
  *
  * @since 1.0.0
  */
-class QF_Core {
+class Core {
 
 	/**
 	 * Register Block types via inline scripts.
@@ -22,7 +25,7 @@ class QF_Core {
 	 * @since 1.0.0
 	 */
 	public static function register_block_types_by_js() {
-		foreach ( QF_Blocks_Manager::get_instance()->get_all_registered() as $block ) {
+		foreach ( Blocks_Manager::get_instance()->get_all_registered() as $block ) {
 			wp_add_inline_script(
 				'quillforms-blocks',
 				'qf.blocks.registerBlockType("' . $block->name . '",' . wp_json_encode(
@@ -142,13 +145,13 @@ class QF_Core {
 	 */
 	public static function get_theme( $form_id ) {
 		$theme_id  = get_post_meta( $form_id, 'theme', true );
-		$theme_obj = QF_Form_Theme_Model::get_theme( $theme_id );
+		$theme_obj = Form_Theme_Model::get_theme( $theme_id );
 		if ( ! $theme_obj ) {
-			$theme = QF_Form_Theme::get_instance()->prepare_theme_properties_for_render();
+			$theme = Form_Theme::get_instance()->prepare_theme_properties_for_render();
 		} else {
 			$theme_properties = $theme_obj['properties'];
 			$theme_properties = $theme_properties ? $theme_properties : array();
-			$theme            = QF_Form_Theme::get_instance()->prepare_theme_properties_for_render( $theme_properties );
+			$theme            = Form_Theme::get_instance()->prepare_theme_properties_for_render( $theme_properties );
 		}
 		return $theme;
 	}

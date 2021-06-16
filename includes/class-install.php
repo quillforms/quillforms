@@ -1,21 +1,21 @@
 <?php
 /**
- * Install: class QF_Install
+ * Install: class Install
  *
  * @since 1.0.0
  * @package QuillForms
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms;
 
 /**
- * Class QF_Install is responsible for main set up.
+ * Class Install is responsible for main set up.
  * create needed database tables.
  * assign capabilities to user roles.
  *
  * @since 1.0.0
  */
-class QF_Install {
+class Install {
 
 	/**
 	 * Init
@@ -46,19 +46,19 @@ class QF_Install {
 	 */
 	public static function install() {
 		// Check if we are not already running this routine.
-		if ( 'yes' === get_transient( 'qf_installing' ) ) {
+		if ( 'yes' === get_transient( 'installing' ) ) {
 			return;
 		}
 
 		// If we made it till here nothing is running yet, lets set the transient now.
-		set_transient( 'qf_installing', 'yes', MINUTE_IN_SECONDS * 10 );
+		set_transient( 'installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
-		QF_Core::register_quillforms_post_type();
-		QF_Capabilities::assign_capabilities_for_user_roles();
+		Core::register_quillforms_post_type();
+		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
 		self::update_qf_version();
 
-		delete_transient( 'qf_installing' );
+		delete_transient( 'installing' );
 
 	}
 
@@ -114,4 +114,3 @@ class QF_Install {
 	}
 
 }
-QF_Install::init();
