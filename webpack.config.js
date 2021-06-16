@@ -326,7 +326,7 @@ module.exports = {
 				test: RegExp( 'blocklib-([a-zA-Z-]+)-block/src/index.php$' ),
 				to: path.resolve(
 					__dirname,
-					'includes/blocks/[1]/class-qf-[1]-block.php'
+					'includes/blocks/[1]/class-[1]-block.php'
 				),
 			},
 			{
