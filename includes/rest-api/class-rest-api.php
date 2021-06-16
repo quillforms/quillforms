@@ -9,6 +9,8 @@
 
 namespace QuillForms\REST_API;
 
+use QuillForms\REST_API\Controllers\V1\REST_Form_Theme_Controller;
+
 /**
  * REST_API class is mainly responsible for registering routes.
  *
@@ -63,7 +65,7 @@ class REST_API {
 	 */
 	public function register_rest_routes() {
 		$controllers = array(
-			'QuillForms\REST_API\Controllers\V1\REST_Form_Theme_Controller',
+			REST_Form_Theme_Controller::class,
 		);
 
 		foreach ( $controllers as $controller ) {

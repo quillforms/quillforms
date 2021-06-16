@@ -46,19 +46,19 @@ class Install {
 	 */
 	public static function install() {
 		// Check if we are not already running this routine.
-		if ( 'yes' === get_transient( 'installing' ) ) {
+		if ( 'yes' === get_transient( 'quillforms_installing' ) ) {
 			return;
 		}
 
 		// If we made it till here nothing is running yet, lets set the transient now.
-		set_transient( 'installing', 'yes', MINUTE_IN_SECONDS * 10 );
+		set_transient( 'quillforms_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
 		Core::register_quillforms_post_type();
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
 		self::update_quillforms_version();
 
-		delete_transient( 'installing' );
+		delete_transient( 'quillforms_installing' );
 
 	}
 

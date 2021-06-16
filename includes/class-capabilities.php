@@ -9,6 +9,8 @@
 
 namespace QuillForms;
 
+use WP_Roles;
+
 /**
  * Class Capabilities is for getting capabilities and assigning them to user roles.
  */
@@ -68,7 +70,7 @@ class Capabilities {
 		}
 
 		if ( ! isset( $wp_roles ) ) {
-			$wp_roles = new \WP_Roles(); // @codingStandardsIgnoreLine
+			$wp_roles = new WP_Roles(); // @codingStandardsIgnoreLine
 		}
 
 		$capabilities = self::get_core_capabilities();
