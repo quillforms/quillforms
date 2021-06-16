@@ -1,22 +1,27 @@
 <?php
 /**
- * Block Library: class QF_Email_Block_Type
+ * Block Library: class Email_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary
  * @since 1.0.0
  */
 
+namespace QuillForms\Blocks;
+
+use QuillForms\Abstracts\Block_Type;
+use QuillForms\Managers\Blocks_Manager;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Email Block
  *
- * @class    QF_Email_Block_Type
+ * @class    Email_Block_Type
  *
  * @since 1.0.0
  */
-class QF_Email_Block_Type extends QF_Block_Type {
+class Email_Block_Type extends Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -174,4 +179,4 @@ class QF_Email_Block_Type extends QF_Block_Type {
 }
 
 
-QF_Blocks_Manager::get_instance()->register( new QF_Email_Block_Type() );
+Blocks_Manager::get_instance()->register( new Email_Block_Type() );

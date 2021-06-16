@@ -1,6 +1,6 @@
 <?php
 /**
- * Class QF_Log_Handler_DB file.
+ * Class Log_Handler_DB file.
  *
  * @package QuillForms
  * @subpackage Log_Handlers
@@ -8,19 +8,20 @@
  * @since 1.0.0
  */
 
+namespace QuillForms\Log_Handlers;
+
 use Automattic\Jetpack\Constants;
-
-
-defined( 'ABSPATH' ) || exit;
+use QuillForms\Abstracts\Log_Handler;
+use QuillForms\Abstracts\Log_Levels;
 
 /**
  * Handles log entries by writing to database.
  *
- * @class          QF_Log_Handler_DB
+ * @class          Log_Handler_DB
  *
  * @since        1.0.0
  */
-class QF_Log_Handler_DB extends QF_Log_Handler {
+class Log_Handler_DB extends Log_Handler {
 
 	/**
 	 * Handle a log entr
@@ -37,7 +38,7 @@ class QF_Log_Handler_DB extends QF_Log_Handler {
 	 *                  If no source is provided, attempt to provide sensible default.
 	 * }
 	 *
-	 * @see QF_Log_Handler_DB::get_log_source() for default source.
+	 * @see Log_Handler_DB::get_log_source() for default source.
 	 *
 	 * @return bool False if value was not handled and true if value was handled.
 	 */
@@ -70,7 +71,7 @@ class QF_Log_Handler_DB extends QF_Log_Handler {
 
 		$insert = array(
 			'timestamp' => gmdate( 'Y-m-d H:i:s', $timestamp ),
-			'level'     => QF_Log_Levels::get_level_severity( $level ),
+			'level'     => Log_Levels::get_level_severity( $level ),
 			'message'   => $message,
 			'source'    => $source,
 		);

@@ -1,24 +1,26 @@
 <?php
 /**
- * Theme API: QF_Form_Theme class.
+ * Theme API: Form_Theme class.
  *
  * @package QuillForms
  * @since 1.0.0
  */
+
+namespace QuillForms;
 
 /**
  * Quill Forms Thene.
  *
  * @since 1.0.0
  */
-class QF_Form_Theme {
+class Form_Theme {
 
 	/**
 	 * Container for the main instance of the class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var QF_Form_Theme|null
+	 * @var Form_Theme|null
 	 */
 	private static $instance = null;
 
@@ -51,7 +53,7 @@ class QF_Form_Theme {
 	public function get_theme_properties() {
 		return json_decode(
 			file_get_contents(
-				QF_PLUGIN_DIR . 'includes/json/theme-properties.json'
+				QUILLFORMS_PLUGIN_DIR . 'includes/json/theme-properties.json'
 			),
 			true
 		);
@@ -116,7 +118,7 @@ class QF_Form_Theme {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return QF_Form_Theme the main instance
+	 * @return Form_Theme the main instance
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {

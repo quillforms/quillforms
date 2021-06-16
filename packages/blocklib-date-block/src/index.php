@@ -1,22 +1,27 @@
 <?php
 /**
- * Block Library: class QF_Date
+ * Block Library: class Date_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary
  * @since 1.0.0
  */
 
+namespace QuillForms\Blocks;
+
+use QuillForms\Abstracts\Block_Type;
+use QuillForms\Managers\Blocks_Manager;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Date Block
  *
- * @class QF_Date_Block_Type
+ * @class Date_Block_Type
  *
  * @since 1.0.0
  */
-class QF_Date_Block_Type extends QF_Block_Type {
+class Date_Block_Type extends Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -111,7 +116,7 @@ class QF_Date_Block_Type extends QF_Block_Type {
 				$date_format = 'Y' . $separator . 'm' . $separator . 'd';
 			}
 
-			$d = DateTime::createFromFormat( $date_format, $value );
+			$d = \DateTime::createFromFormat( $date_format, $value );
 
 			// The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
 			$is_valid_date = $d && $d->format( $date_format ) === $value;
@@ -164,4 +169,4 @@ class QF_Date_Block_Type extends QF_Block_Type {
 
 }
 
-QF_Blocks_Manager::get_instance()->register( new QF_Date_Block_Type() );
+Blocks_Manager::get_instance()->register( new Date_Block_Type() );

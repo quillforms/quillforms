@@ -1,20 +1,22 @@
 <?php
 /**
- * REST API: class QF_REST_API
+ * REST API: class REST_API
  *
  * @since 1.0.0
  * @package QuillForms
  * @subpackage REST_API
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\REST_API;
+
+use QuillForms\REST_API\Controllers\V1\REST_Form_Theme_Controller;
 
 /**
- * QF_REST_API class is mainly responsible for registering routes.
+ * REST_API class is mainly responsible for registering routes.
  *
  * @since 1.0.0
  */
-class QF_REST_API {
+class REST_API {
 	/**
 	 *  Class singleton instance
 	 *
@@ -29,11 +31,11 @@ class QF_REST_API {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return QF_REST_API $_instance An instance of the QF_REST_API class
+	 * @return REST_API $_instance An instance of the REST_API class
 	 */
 	public static function get_instance() {
 		if ( null === self::$_instance ) {
-			self::$_instance = new QF_REST_API();
+			self::$_instance = new REST_API();
 		}
 
 		return self::$_instance;
@@ -48,7 +50,7 @@ class QF_REST_API {
 	} /* do nothing */
 
 	/**
-	 * QF_REST_API constructor.
+	 * REST_API constructor.
 	 *
 	 * @since 1.0.0
 	 */
@@ -63,7 +65,7 @@ class QF_REST_API {
 	 */
 	public function register_rest_routes() {
 		$controllers = array(
-			'QF_REST_Form_Theme_Controller',
+			REST_Form_Theme_Controller::class,
 		);
 
 		foreach ( $controllers as $controller ) {

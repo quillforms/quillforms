@@ -1,12 +1,14 @@
 <?php
 /**
- * Merge Tags: class QF_Merge_Tags
+ * Merge Tags: class Merge_Tags
  *
  * @since 1.0.0
  * @package QuillForms
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms;
+
+use QuillForms\Managers\Blocks_Manager;
 
 /**
  * This class is to handle merge tags.
@@ -16,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-class QF_Merge_Tags {
+class Merge_Tags {
 
 	/**
 	 * Constructor
@@ -87,12 +89,10 @@ class QF_Merge_Tags {
 			if ( ! is_array( $answers[ $field_id ] ) || ! $answers[ $field_id ]['blockName'] || ! isset( $answers[ $field_id ]['value'] ) ) {
 				return '';
 			}
-			$block_type = QF_Blocks_Manager::get_instance()->get_registered( $answers[ $field_id ]['blockName'] );
+			$block_type = Blocks_Manager::get_instance()->get_registered( $answers[ $field_id ]['blockName'] );
 			return $block_type->get_merge_tag_value( $answers[ $field_id ]['value'], $form_data );
 		}
 		return $replacement;
 	}
 
 }
-
-new QF_Merge_Tags();

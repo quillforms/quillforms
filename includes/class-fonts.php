@@ -1,10 +1,12 @@
 <?php
 /**
- * Fonts API: QF_Fonts class.
+ * Fonts API: Fonts class.
  *
  * @package QuillForms
  * @since 1.0.0
  */
+
+namespace QuillForms;
 
 /**
  * Quill Forms fonts.
@@ -14,7 +16,7 @@
  *
  * @since 1.0.0
  */
-class QF_Fonts {
+class Fonts {
 	/**
 	 * The system font name.
 	 */
@@ -81,7 +83,7 @@ class QF_Fonts {
 	private static function get_native_fonts() {
 		return json_decode(
 			file_get_contents(
-				QF_PLUGIN_DIR . 'includes/json/fonts.json'
+				QUILLFORMS_PLUGIN_DIR . 'includes/json/fonts.json'
 			),
 			true
 		);

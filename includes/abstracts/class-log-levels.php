@@ -7,12 +7,12 @@
  * @package QuillForms/Abstracts
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Abstracts;
 
 /**
  * Log levels class.
  */
-abstract class QF_Log_Levels {
+abstract class Log_Levels {
 
 	/**
 	 * Log Levels

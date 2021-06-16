@@ -1,21 +1,21 @@
 <?php
 /**
- * Install: class QF_Install
+ * Install: class Install
  *
  * @since 1.0.0
  * @package QuillForms
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms;
 
 /**
- * Class QF_Install is responsible for main set up.
+ * Class Install is responsible for main set up.
  * create needed database tables.
  * assign capabilities to user roles.
  *
  * @since 1.0.0
  */
-class QF_Install {
+class Install {
 
 	/**
 	 * Init
@@ -32,7 +32,7 @@ class QF_Install {
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
-		if ( version_compare( get_option( 'quillforms_version' ), QF_VERSION, '<' ) ) {
+		if ( version_compare( get_option( 'quillforms_version' ), QUILLFORMS_VERSION, '<' ) ) {
 			self::install();
 			do_action( 'quillforms_updated' );
 		}
@@ -46,19 +46,19 @@ class QF_Install {
 	 */
 	public static function install() {
 		// Check if we are not already running this routine.
-		if ( 'yes' === get_transient( 'qf_installing' ) ) {
+		if ( 'yes' === get_transient( 'quillforms_installing' ) ) {
 			return;
 		}
 
 		// If we made it till here nothing is running yet, lets set the transient now.
-		set_transient( 'qf_installing', 'yes', MINUTE_IN_SECONDS * 10 );
+		set_transient( 'quillforms_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
-		QF_Core::register_quillforms_post_type();
-		QF_Capabilities::assign_capabilities_for_user_roles();
+		Core::register_quillforms_post_type();
+		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
-		self::update_qf_version();
+		self::update_quillforms_version();
 
-		delete_transient( 'qf_installing' );
+		delete_transient( 'quillforms_installing' );
 
 	}
 
@@ -108,10 +108,9 @@ class QF_Install {
 	 *
 	 * @since 1.0.0
 	 */
-	private static function update_qf_version() {
+	private static function update_quillforms_version() {
 		delete_option( 'quillforms_version' );
-		add_option( 'quillforms_version', QF_VERSION );
+		add_option( 'quillforms_version', QUILLFORMS_VERSION );
 	}
 
 }
-QF_Install::init();

@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$header_image     = qf_setting( 'email-header-image', false );
-$background_color = qf_setting( 'email-background-color', '#e9eaec' );
+$header_image     = quillforms_setting( 'email-header-image', false );
+$background_color = quillforms_setting( 'email-background-color', '#e9eaec' );
 $text_direction   = is_rtl() ? 'rtl' : 'ltr';
 ?>
 <!doctype html>

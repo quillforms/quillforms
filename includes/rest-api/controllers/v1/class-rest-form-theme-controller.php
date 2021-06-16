@@ -7,14 +7,22 @@
  * @subpackage API
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\REST_API\Controllers\V1;
+
+use QuillForms\Abstracts\REST_Controller;
+use QuillForms\Form_Theme;
+use QuillForms\Models\Form_Theme_Model;
+use WP_Error;
+use WP_REST_Response;
+use WP_REST_Server;
+use WP_User;
 
 /**
- * QF_REST_Form_Theme_Controller is REST api controller class for form themes
+ * REST_Form_Theme_Controller is REST api controller class for form themes
  *
  * @since 1.0.0
  */
-class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
+class REST_Form_Theme_Controller extends REST_Controller {
 
 	/**
 	 * REST Base
@@ -116,7 +124,7 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 				$prepared_theme['theme_author'] = $user->ID;
 			} else {
 				return new WP_Error(
-					'qf_rest_theme_author_invalid',
+					'quillforms_rest_theme_author_invalid',
 					__( 'Invalid theme author ID.', 'quillforms' ),
 					array( 'status' => 400 )
 				);
@@ -156,7 +164,7 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 	 */
 	public function get_items( $request ) {
 
-		$data = QF_Form_Theme_Model::get_all_registered_themes();
+		$data = Form_Theme_Model::get_all_registered_themes();
 
 		return new WP_REST_Response( $data, 200 );
 	}
@@ -172,12 +180,12 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 	 */
 	public function get_item( $request ) {
 		$theme_id = $request['id'];
-		$data     = QF_Form_Theme_Model::get_theme( $theme_id );
+		$data     = Form_Theme_Model::get_theme( $theme_id );
 
 		if ( $data ) {
 			return new WP_REST_Response( $data, 200 );
 		} else {
-			return new WP_Error( 'qf_theme_not_found', __( 'Theme not found', 'quillforms' ) );
+			return new WP_Error( 'quillforms_theme_not_found', __( 'Theme not found', 'quillforms' ) );
 		}
 	}
 
@@ -197,9 +205,9 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 			return new WP_Error( $theme->get_error_code(), $theme->get_error_message(), array( 'status' => 400 ) );
 		}
 
-		$result = QF_Form_Theme_Model::insert_theme( $theme );
+		$result = Form_Theme_Model::insert_theme( $theme );
 		if ( ! $result || is_wp_error( $result ) ) {
-			return new WP_Error( 'qf_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ), array( 'status' => 400 ) );
+			return new WP_Error( 'quillforms_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ), array( 'status' => 400 ) );
 		}
 
 		$response = $this->prepare_item_for_response( $result, $request );
@@ -242,9 +250,9 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 			return new WP_Error( $theme->get_error_code(), $theme->get_error_message(), array( 'status' => 400 ) );
 		}
 
-		$result = QF_Form_Theme_Model::insert_theme( $theme );
+		$result = Form_Theme_Model::insert_theme( $theme );
 		if ( ! $result ) {
-			return new WP_Error( 'qf_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ) );
+			return new WP_Error( 'quillforms_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ) );
 		}
 
 		$response = $this->prepare_item_for_response( $result, $request );
@@ -281,7 +289,7 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 
 		$theme_id = $request['id'];
 
-		$result = QF_Form_Theme_Model::delete_theme( $theme_id );
+		$result = Form_Theme_Model::delete_theme( $theme_id );
 
 		if ( is_wp_error( $result ) ) {
 			return $result;
@@ -374,7 +382,7 @@ class QF_REST_Form_Theme_Controller extends QF_REST_Controller {
 				'properties'   => array(
 					'description' => __( 'Theme properties.', 'quillforms' ),
 					'type'        => 'object',
-					'properties'  => QF_Form_Theme::get_instance()->get_theme_properties(),
+					'properties'  => Form_Theme::get_instance()->get_theme_properties(),
 				),
 				'date_created' => array(
 					'description' => __( 'The date the theme was created', 'quillforms' ),

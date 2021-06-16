@@ -1,13 +1,17 @@
 <?php
 /**
- * Emails: class QF_Emails
+ * Emails: class Emails
  *
  * @since 1.0.0
  * @package QuillForms
  * @subpackage Emails
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Emails;
+
+use QuillForms\Managers\Blocks_Manager;
+use QuillForms\Merge_Tags;
+
 /**
  * Emails.
  *
@@ -18,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-class QF_Emails {
+class Emails {
 
 	/**
 	 * Store the from address.
@@ -171,7 +175,7 @@ class QF_Emails {
 			$this->from_name = get_bloginfo( 'name' );
 		}
 
-		return apply_filters( 'quillforms_email_from_name', qf_decode_string( $this->from_name ), $this );
+		return apply_filters( 'quillforms_email_from_name', quillforms_decode_string( $this->from_name ), $this );
 	}
 
 	/**
@@ -189,7 +193,7 @@ class QF_Emails {
 			$this->from_address = get_option( 'admin_email' );
 		}
 
-		return apply_filters( 'quillforms_email_from_address', qf_decode_string( $this->from_address ), $this );
+		return apply_filters( 'quillforms_email_from_address', quillforms_decode_string( $this->from_address ), $this );
 	}
 
 	/**
@@ -210,7 +214,7 @@ class QF_Emails {
 			}
 		}
 
-		return apply_filters( 'quillforms_email_reply_to', qf_decode_string( $this->reply_to ), $this );
+		return apply_filters( 'quillforms_email_reply_to', quillforms_decode_string( $this->reply_to ), $this );
 	}
 
 	/**
@@ -237,7 +241,7 @@ class QF_Emails {
 			$this->cc = implode( ',', $addresses );
 		}
 
-		return apply_filters( 'quillforms_email_cc', qf_decode_string( $this->cc ), $this );
+		return apply_filters( 'quillforms_email_cc', quillforms_decode_string( $this->cc ), $this );
 	}
 
 	/**
@@ -297,7 +301,7 @@ class QF_Emails {
 			$message = $this->process_tag( $message );
 			$message = str_replace( '{{form:all_answers}}', $this->html_field_value( false ), $message );
 
-			return apply_filters( 'quillforms_email_message', qf_decode_string( $message ), $this );
+			return apply_filters( 'quillforms_email_message', quillforms_decode_string( $message ), $this );
 		}
 
 		/*
@@ -348,7 +352,7 @@ class QF_Emails {
 	public function send( $to, $subject, $message, $attachments = array() ) {
 
 		if ( ! did_action( 'init' ) && ! did_action( 'admin_init' ) ) {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'You cannot send emails with QF_Emails() until init/admin_init has been reached.', 'quillforms' ), null );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'You cannot send emails with Emails() until init/admin_init has been reached.', 'quillforms' ), null );
 
 			return false;
 		}
@@ -369,7 +373,7 @@ class QF_Emails {
 		/*
 		 * Allow to filter data on per-email basis,
 		 * useful for localizations based on recipient email address, form settings,
-		 * or for specific notifications - whatever available in QF_Emails class.
+		 * or for specific notifications - whatever available in Emails class.
 		 */
 		$data = apply_filters(
 			'quillforms_emails_send_email_data',
@@ -445,7 +449,7 @@ class QF_Emails {
 	 * Process a smart tag.
 	 * Decodes entities and sanitized (keeping line breaks) by default.
 	 *
-	 * @uses qf_decode_string()
+	 * @uses quillforms_decode_string()
 	 *
 	 * @since 1.0.0
 	 *
@@ -455,7 +459,7 @@ class QF_Emails {
 	 */
 	public function process_tag( $string = '' ) {
 
-		return QF_Merge_Tags::process_tag( $string, $this->form_data, $this->answers, $this->entry_id );
+		return Merge_Tags::process_tag( $string, $this->form_data, $this->answers, $this->entry_id );
 	}
 
 	/**
@@ -496,7 +500,7 @@ class QF_Emails {
 
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = QF_Blocks_Manager::get_instance()->create( $block );
+				$block_type  = Blocks_Manager::get_instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 
@@ -536,7 +540,7 @@ class QF_Emails {
 			 */
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = QF_Blocks_Manager::get_instance()->create( $block );
+				$block_type  = Blocks_Manager::get_instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 
@@ -590,7 +594,7 @@ class QF_Emails {
 	public function get_template() {
 
 		if ( ! $this->template ) {
-			$this->template = qf_setting( 'email-template', 'default' );
+			$this->template = quillforms_setting( 'email-template', 'default' );
 		}
 
 		return apply_filters( 'quillforms_email_template', $this->template );
@@ -684,7 +688,7 @@ class QF_Emails {
 		$file_paths = array(
 			1   => trailingslashit( get_stylesheet_directory() ) . $template_dir,
 			10  => trailingslashit( get_template_directory() ) . $template_dir,
-			100 => QF_PLUGIN_DIR . 'includes/emails/templates',
+			100 => QUILLFORMS_PLUGIN_DIR . 'includes/emails/templates',
 		);
 
 		$file_paths = apply_filters( 'quillforms_email_template_paths', $file_paths );
@@ -710,6 +714,6 @@ class QF_Emails {
 
 		$subject = trim( str_replace( array( "\r\n", "\r", "\n" ), ' ', $subject ) );
 
-		return qf_decode_string( $subject );
+		return quillforms_decode_string( $subject );
 	}
 }

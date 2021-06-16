@@ -1,20 +1,23 @@
 <?php
 /**
- * Form Submission: class QF_Form_Submission
+ * Form Submission: class Form_Submission
  *
  * @since 1.0.0
  *
  * @package QuillForms
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms;
+
+use QuillForms\Emails\Emails;
+use QuillForms\Managers\Blocks_Manager;
 
 /**
  * Form Sumbission class is responsible for handling form submission and response with success or error messages.
  *
  * @since 1.0.0
  */
-class QF_Form_Submission {
+class Form_Submission {
 
 	/**
 	 * Form data and settings
@@ -118,9 +121,9 @@ class QF_Form_Submission {
 		$this->form_data = array(
 			'id'            => $form_id,
 			'title'         => get_the_title( $form_id ),
-			'blocks'        => QF_Core::get_blocks( $form_id ),
-			'messages'      => QF_Core::get_messages( $form_id ),
-			'notifications' => QF_Core::get_notifications( $form_id ),
+			'blocks'        => Core::get_blocks( $form_id ),
+			'messages'      => Core::get_messages( $form_id ),
+			'notifications' => Core::get_notifications( $form_id ),
 		);
 
 		$fields = array_filter(
@@ -135,7 +138,7 @@ class QF_Form_Submission {
 		// Validate fields.
 		if ( ! empty( $walk_path ) ) {
 			foreach ( $walk_path as $field ) {
-				$block_type = QF_Blocks_Manager::get_instance()->create( $field );
+				$block_type = Blocks_Manager::get_instance()->create( $field );
 
 				if ( ! $block_type ) {
 					continue;
@@ -163,7 +166,7 @@ class QF_Form_Submission {
 			// Sanitze entry fields.
 			if ( ! empty( $walk_path ) ) {
 				foreach ( $walk_path as $field ) {
-					$block_type = QF_Blocks_Manager::get_instance()->create( $field );
+					$block_type = Blocks_Manager::get_instance()->create( $field );
 
 					if ( ! $block_type ) {
 						unset( $entry['answers'][ $field['id'] ] );
@@ -227,7 +230,7 @@ class QF_Form_Submission {
 			if ( 'field' === $notification_properties['toType'] ) {
 				$email['address'] = array_map(
 					function( $address ) use ( $entry, $form_data ) {
-						return QF_Merge_Tags::process_tag( $address, $form_data, $entry['answers'], $this->entry_id );
+						return Merge_Tags::process_tag( $address, $form_data, $entry['answers'], $this->entry_id );
 					},
 					$email['address']
 				);
@@ -251,7 +254,7 @@ class QF_Form_Submission {
 			$email                   = apply_filters( 'quillforms_entry_email_atts', $email, $entry, $form_data, $notification_id );
 
 			// Create new email.
-			$emails = new QF_Emails();
+			$emails = new Emails();
 			$emails->__set( 'form_data', $form_data );
 			$emails->__set( 'answers', $entry['answers'] );
 			$emails->__set( 'notification_id', $notification_id );
@@ -261,7 +264,7 @@ class QF_Form_Submission {
 			$emails->__set( 'reply_to', $email['replyto'] );
 
 			// Maybe include CC.
-			if ( ! empty( $notification['carboncopy'] ) && qf_setting( 'email-carbon-copy', false ) ) {
+			if ( ! empty( $notification['carboncopy'] ) && quillforms_setting( 'email-carbon-copy', false ) ) {
 				$emails->__set( 'cc', $notification['carboncopy'] );
 			}
 
@@ -289,5 +292,3 @@ class QF_Form_Submission {
 		}
 	}
 }
-
-new QF_Form_Submission();

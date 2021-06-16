@@ -8,13 +8,15 @@
  * It's required to follow "Controller Classes" guide before extending this class:
  * <https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/>
  *
- * @class   QF_REST_Controller
+ * @class   REST_Controller
  * @package QuillForms
  * @subpackage REST_API
  * @see     https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Abstracts;
+
+use WP_REST_Controller;
 
 /**
  * Abstract Rest Controller Class
@@ -22,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
  * @extends  WP_REST_Controller
  * @since  1.0.0
  */
-abstract class QF_REST_Controller extends WP_REST_Controller {
+abstract class REST_Controller extends WP_REST_Controller {
 
 	/**
 	 * Endpoint namespace.
@@ -40,7 +42,7 @@ abstract class QF_REST_Controller extends WP_REST_Controller {
 
 
 	/**
-	 * QF_REST_API constructor.
+	 * REST_Controller constructor.
 	 *
 	 * @since 1.0.0
 	 */

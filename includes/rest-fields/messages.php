@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $messages_data = json_decode(
 	file_get_contents(
-		QF_PLUGIN_DIR . 'includes/json/messages.json'
+		QUILLFORMS_PLUGIN_DIR . 'includes/json/messages.json'
 	),
 	true
 );
@@ -42,7 +42,7 @@ register_rest_field(
 			);
 			if ( false === $ret ) {
 				return new WP_Error(
-					'qf_messages_update_failed',
+					'quillforms_messages_update_failed',
 					__( 'Failed to update blocks.', 'quillforms' ),
 					array( 'status' => 500 )
 				);

@@ -1,10 +1,14 @@
 <?php
 /**
- * Blocks API: QF_Block_Type class.
+ * Blocks API: Block_Type class.
  *
  * @since 1.0.0
  * @package QuillForms/Abstracts
  */
+
+namespace QuillForms\Abstracts;
+
+use stdClass;
 
 /**
  * Abstract block class which defines some abstract methods that should be overriden
@@ -12,7 +16,7 @@
  *
  * @since 1.0.0
  */
-abstract class QF_Block_Type extends stdClass {
+abstract class Block_Type extends stdClass {
 
 	/**
 	 * Block unique name

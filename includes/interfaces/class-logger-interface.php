@@ -8,7 +8,9 @@
  * @since 1.0.0
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Interfaces;
+
+use QuillForms\Abstracts\Log_Levels;
 
 /**
  * QF Logger Interface
@@ -17,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @version 1.0.0
  */
-interface QF_Logger_Interface {
+interface Logger_Interface {
 
 	/**
 	 * Add a log entry.
@@ -31,7 +33,7 @@ interface QF_Logger_Interface {
 	 *
 	 * @return bool True if log was added, otherwise false.
 	 */
-	public function add( $handle, $message, $level = QF_Log_Levels::NOTICE );
+	public function add( $handle, $message, $level = Log_Levels::NOTICE );
 
 	/**
 	 * Add a log entry.

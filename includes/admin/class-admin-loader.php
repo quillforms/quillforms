@@ -1,23 +1,26 @@
 <?php
 /**
- * Admin: class QF_Admin_Loader
+ * Admin: class Admin_Loader
  *
  * @since 1.0.0
  * @package Admin
  * @subpackage Loader
  */
 
- defined( 'ABSPATH' ) || exit;
+namespace QuillForms\Admin;
+
+use QuillForms\Core;
+use QuillForms\Managers\Blocks_Manager;
 
 /**
  * Register the scripts, styles, and includes needed for pieces of the QuillForms Admin experience.
  */
-class QF_Admin_Loader {
+class Admin_Loader {
 
 	/**
 	 * Class instance.
 	 *
-	 * @var QF_Admin_Loader instance
+	 * @var Admin_Loader instance
 	 */
 	protected static $instance = null;
 
@@ -87,7 +90,7 @@ class QF_Admin_Loader {
 			'quillforms-client',
 			'qfAdmin',
 			array(
-				'assetsBuildUrl' => QF_PLUGIN_URL,
+				'assetsBuildUrl' => QUILLFORMS_PLUGIN_URL,
 				'submenuPages'   => $submenu['quillforms'],
 			)
 		);
@@ -113,7 +116,7 @@ class QF_Admin_Loader {
 	 * @since 1.0.0
 	 */
 	public static function add_inline_scripts() {
-		QF_Core::register_block_types_by_js();
+		Core::register_block_types_by_js();
 	}
 
 	/**
@@ -183,7 +186,7 @@ class QF_Admin_Loader {
 		wp_auth_check_load();
 
 		// load all block styles and scripts.
-		foreach ( QF_Blocks_Manager::get_instance()->get_all_registered() as $block ) {
+		foreach ( Blocks_Manager::get_instance()->get_all_registered() as $block ) {
 			if ( ! empty( $block->block_admin_assets ) ) {
 				if ( ! empty( $block->block_admin_assets['style'] ) ) {
 					wp_enqueue_style( $block->block_admin_assets['style'] );
@@ -420,5 +423,3 @@ class QF_Admin_Loader {
 
 	}
 }
-
-new QF_Admin_Loader();

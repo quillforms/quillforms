@@ -120,7 +120,7 @@ function quillforms_override_script( $scripts, $handle, $src, $deps = array(), $
  * @param WP_Scripts $scripts   WP_Scripts instance.
  */
 function quillforms_register_packages_scripts( $scripts ) {
-	foreach ( glob( QF_PLUGIN_DIR . 'build/*/index.js' ) as $path ) {
+	foreach ( glob( QUILLFORMS_PLUGIN_DIR . 'build/*/index.js' ) as $path ) {
 		// Prefix `quillforms-` to package directory to get script handle.
 		$handle = 'quillforms-' . basename( dirname( $path ) );
 
@@ -143,7 +143,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		}
 
 		// Get the path from Gutenberg directory as expected by `quillforms_url`.
-		$quillforms_path = substr( $path, strlen( QF_PLUGIN_DIR ) );
+		$quillforms_path = substr( $path, strlen( QUILLFORMS_PLUGIN_DIR ) );
 
 		quillforms_override_script(
 			$scripts,
@@ -155,7 +155,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		);
 	}
 
-	foreach ( glob( QF_PLUGIN_DIR . 'build/blocklib-**-block/admin/index.js' ) as $path ) {
+	foreach ( glob( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-**-block/admin/index.js' ) as $path ) {
 		// Prefix `quillforms-` to package directory to get script handle.
 		preg_match( '/blocklib-([a-zA-Z-]+)-block\/admin\/index.js$/', $path, $matches );
 		$handle = 'quillforms-blocklib-' . $matches[1] . '-block-admin-script';
@@ -169,7 +169,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		$version      = isset( $asset['version'] ) ? $asset['version'] : filemtime( $path );
 
 		// Get the path from Gutenberg directory as expected by `quillforms_url`.
-		$quillforms_path = substr( $path, strlen( QF_PLUGIN_DIR ) );
+		$quillforms_path = substr( $path, strlen( QUILLFORMS_PLUGIN_DIR ) );
 
 		quillforms_override_script(
 			$scripts,
@@ -181,7 +181,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		);
 	}
 
-	foreach ( glob( QF_PLUGIN_DIR . 'build/blocklib-**-block/renderer/index.js' ) as $path ) {
+	foreach ( glob( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-**-block/renderer/index.js' ) as $path ) {
 		// Prefix `quillforms-` to package directory to get script handle.
 		preg_match( '/blocklib-([a-zA-Z-]+)-block\/renderer\/index.js$/', $path, $matches );
 		$handle = 'quillforms-blocklib-' . $matches[1] . '-block-renderer-script';
@@ -194,7 +194,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 		$version      = isset( $asset['version'] ) ? $asset['version'] : filemtime( $path );
 
 		// Get the path from Gutenberg directory as expected by `quillforms_url`.
-		$quillforms_path = substr( $path, strlen( QF_PLUGIN_DIR ) );
+		$quillforms_path = substr( $path, strlen( QUILLFORMS_PLUGIN_DIR ) );
 
 		quillforms_override_script(
 			$scripts,
@@ -209,7 +209,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 	quillforms_override_script(
 		$scripts,
 		'emotion',
-		QF_PLUGIN_URL . '/lib/vendor/emotion.min.js',
+		QUILLFORMS_PLUGIN_URL . '/lib/vendor/emotion.min.js',
 		array( 'react', 'wp-element' ),
 		'1.8.6',
 		true
@@ -241,7 +241,7 @@ function quillforms_register_packages_styles( $styles ) {
 			'wp-components',
 			'common',
 		),
-		filemtime( QF_PLUGIN_DIR . 'build/builder-core/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/builder-core/style.css' )
 	);
 	$styles->add_data( 'quillforms-builder-core', 'rtl', 'replace' );
 
@@ -251,7 +251,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-admin-components',
 		quillforms_url( 'build/admin-components/style.css' ),
 		array( 'quillforms-rich-text' ),
-		filemtime( QF_PLUGIN_DIR . 'build/builder-core/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/builder-core/style.css' )
 	);
 	$styles->add_data( 'quillforms-admin-components', 'rtl', 'replace' );
 
@@ -261,7 +261,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-block-editor',
 		quillforms_url( 'build/block-editor/style.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/block-editor/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/block-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-block-editor', 'rtl', 'replace' );
 
@@ -271,7 +271,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-notifications-editor',
 		quillforms_url( 'build/notifications-editor/style.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/notifications-editor/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/notifications-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-notifications-editor', 'rtl', 'replace' );
 
@@ -281,7 +281,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-renderer-core',
 		quillforms_url( 'build/renderer-core/style.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/renderer-core/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/renderer-core/style.css' )
 	);
 	$styles->add_data( 'quillforms-renderer-core', 'rtl', 'replace' );
 
@@ -291,7 +291,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-rich-text',
 		quillforms_url( 'build/rich-text/style.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/rich-text/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/rich-text/style.css' )
 	);
 	$styles->add_data( 'quillforms-rich-text', 'rtl', 'replace' );
 
@@ -301,7 +301,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-theme-editor',
 		quillforms_url( 'build/theme-editor/style.css' ),
 		array( 'quillforms-rich-text' ),
-		filemtime( QF_PLUGIN_DIR . 'build/theme-editor/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/theme-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-theme-editor', 'rtl', 'replace' );
 
@@ -311,7 +311,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-messages-editor',
 		quillforms_url( 'build/messages-editor/style.css' ),
 		array( 'quillforms-rich-text' ),
-		filemtime( QF_PLUGIN_DIR . 'build/messages-editor/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/messages-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-messages-editor', 'rtl', 'replace' );
 
@@ -321,7 +321,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-client',
 		quillforms_url( 'build/client/style.css' ),
 		array( 'quillforms-admin-components', 'wp-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/client/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/client/style.css' )
 	);
 	$styles->add_data( 'quillforms-client', 'rtl', 'replace' );
 
@@ -330,7 +330,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-date-block-admin-style',
 		quillforms_url( 'build/blocklib-date-block/admin.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-date-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-date-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-date-block-admin-style', 'rtl', 'replace' );
@@ -340,7 +340,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-date-block-renderer-style',
 		quillforms_url( 'build/blocklib-date-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-date-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-date-block/renderer.css' )
 	);
 
 	quillforms_override_style(
@@ -348,7 +348,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-dropdown-block-admin-style',
 		quillforms_url( 'build/blocklib-dropdown-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-dropdown-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-dropdown-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-dropdown-block-admin-style', 'rtl', 'replace' );
@@ -358,7 +358,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-dropdown-block-renderer-style',
 		quillforms_url( 'build/blocklib-dropdown-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-dropdown-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-dropdown-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-dropdown-block-renderer-style', 'rtl', 'replace' );
@@ -368,7 +368,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-email-block-admin-style',
 		quillforms_url( 'build/blocklib-email-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-email-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-email-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-email-block-admin-style', 'rtl', 'replace' );
@@ -378,7 +378,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-email-block-renderer-style',
 		quillforms_url( 'build/blocklib-email-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-email-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-email-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-email-block-renderer-style', 'rtl', 'replace' );
@@ -388,7 +388,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-long-text-block-admin-style',
 		quillforms_url( 'build/blocklib-long-text-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-long-text-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-long-text-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-long-text-block-admin-style', 'rtl', 'replace' );
@@ -398,7 +398,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-long-text-block-renderer-style',
 		quillforms_url( 'build/blocklib-long-text-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-long-text-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-long-text-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-long-text-block-renderer-style', 'rtl', 'replace' );
@@ -408,7 +408,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-multiple-choice-block-admin-style',
 		quillforms_url( 'build/blocklib-multiple-choice-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-multiple-choice-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-multiple-choice-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-multiple-choice-block-admin-style', 'rtl', 'replace' );
@@ -418,7 +418,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-multiple-choice-block-renderer-style',
 		quillforms_url( 'build/blocklib-multiple-choice-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-multiple-choice-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-multiple-choice-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-multiple-choice-block-renderer-style', 'rtl', 'replace' );
@@ -428,7 +428,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-number-block-admin-style',
 		quillforms_url( 'build/blocklib-number-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-number-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-number-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-number-block-admin-style', 'rtl', 'replace' );
@@ -438,7 +438,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-number-block-renderer-style',
 		quillforms_url( 'build/blocklib-number-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-number-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-number-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-number-block-renderer-style', 'rtl', 'replace' );
@@ -448,7 +448,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-short-text-block-admin-style',
 		quillforms_url( 'build/blocklib-short-text-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-short-text-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-short-text-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-short-text-block-admin-style', 'rtl', 'replace' );
@@ -458,7 +458,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-short-text-block-renderer-style',
 		quillforms_url( 'build/blocklib-short-text-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-short-text-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-short-text-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-short-text-block-renderer-style', 'rtl', 'replace' );
@@ -468,7 +468,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-statement-block-admin-style',
 		quillforms_url( 'build/blocklib-statement-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-statement-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-statement-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-statement-block-admin-style', 'rtl', 'replace' );
@@ -478,7 +478,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-statement-block-renderer-style',
 		quillforms_url( 'build/blocklib-statement-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-statement-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-statement-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-statement-block-renderer-style', 'rtl', 'replace' );
@@ -488,7 +488,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-website-block-admin-style',
 		quillforms_url( 'build/blocklib-website-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-website-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-website-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-website-block-admin-style', 'rtl', 'replace' );
@@ -498,7 +498,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-website-block-renderer-style',
 		quillforms_url( 'build/blocklib-website-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-website-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-website-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-website-block-renderer-style', 'rtl', 'replace' );
@@ -508,7 +508,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-welcome-screen-block-admin-style',
 		quillforms_url( 'build/blocklib-welcome-screen-block/admin.css' ),
 		array( 'quillforms-admin-components' ),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-welcome-screen-block/admin.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-welcome-screen-block/admin.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-welcome-screen-block-admin-style', 'rtl', 'replace' );
@@ -518,7 +518,7 @@ function quillforms_register_packages_styles( $styles ) {
 		'quillforms-blocklib-welcome-screen-block-renderer-style',
 		quillforms_url( 'build/blocklib-welcome-screen-block/renderer.css' ),
 		array(),
-		filemtime( QF_PLUGIN_DIR . 'build/blocklib-welcome-screen-block/renderer.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/blocklib-welcome-screen-block/renderer.css' )
 	);
 
 	$styles->add_data( 'quillforms-blocklib-welcome-screen-block-renderer-style', 'rtl', 'replace' );

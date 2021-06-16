@@ -1,22 +1,27 @@
 <?php
 /**
- * Block Library: class QF_Statement_Block_Type
+ * Block Library: class Statement_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary
  * @since 1.0.0
  */
 
+namespace QuillForms\Blocks;
+
+use QuillForms\Abstracts\Block_Type;
+use QuillForms\Managers\Blocks_Manager;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Statement Block
  *
- * @class QF_Statement_Block_Type
+ * @class Statement_Block_Type
  *
  * @since 1.0.0
  */
-class QF_Statement_Block_Type extends QF_Block_Type {
+class Statement_Block_Type extends Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -122,4 +127,4 @@ class QF_Statement_Block_Type extends QF_Block_Type {
 
 }
 
-QF_Blocks_Manager::get_instance()->register( new QF_Statement_Block_Type() );
+Blocks_Manager::get_instance()->register( new Statement_Block_Type() );

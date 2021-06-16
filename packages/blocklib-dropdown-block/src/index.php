@@ -1,21 +1,26 @@
 <?php
 /**
- * Block Library: class QF_Dropdown
+ * Block Library: class Dropdown_Block_Type
  *
  * @package QuillForms
  * @subpackage BlockLibrary
  * @since 1.0.0
  */
 
+namespace QuillForms\Blocks;
+
+use QuillForms\Abstracts\Block_Type;
+use QuillForms\Managers\Blocks_Manager;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * The dropdown block
  *
- * @class QF_Dropdown
+ * @class Dropdown_Block_Type
  * @since 1.0.0
  */
-class QF_Dropdown_Block_Type extends QF_Block_Type {
+class Dropdown_Block_Type extends Block_Type {
 
 	/**
 	 * Metadata json file.
@@ -174,4 +179,4 @@ class QF_Dropdown_Block_Type extends QF_Block_Type {
 	}
 }
 
-QF_Blocks_Manager::get_instance()->register( new QF_Dropdown_Block_Type() );
+Blocks_Manager::get_instance()->register( new Dropdown_Block_Type() );
