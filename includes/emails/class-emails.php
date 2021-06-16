@@ -175,7 +175,7 @@ class Emails {
 			$this->from_name = get_bloginfo( 'name' );
 		}
 
-		return apply_filters( 'quillforms_email_from_name', qf_decode_string( $this->from_name ), $this );
+		return apply_filters( 'quillforms_email_from_name', quillforms_decode_string( $this->from_name ), $this );
 	}
 
 	/**
@@ -193,7 +193,7 @@ class Emails {
 			$this->from_address = get_option( 'admin_email' );
 		}
 
-		return apply_filters( 'quillforms_email_from_address', qf_decode_string( $this->from_address ), $this );
+		return apply_filters( 'quillforms_email_from_address', quillforms_decode_string( $this->from_address ), $this );
 	}
 
 	/**
@@ -214,7 +214,7 @@ class Emails {
 			}
 		}
 
-		return apply_filters( 'quillforms_email_reply_to', qf_decode_string( $this->reply_to ), $this );
+		return apply_filters( 'quillforms_email_reply_to', quillforms_decode_string( $this->reply_to ), $this );
 	}
 
 	/**
@@ -241,7 +241,7 @@ class Emails {
 			$this->cc = implode( ',', $addresses );
 		}
 
-		return apply_filters( 'quillforms_email_cc', qf_decode_string( $this->cc ), $this );
+		return apply_filters( 'quillforms_email_cc', quillforms_decode_string( $this->cc ), $this );
 	}
 
 	/**
@@ -301,7 +301,7 @@ class Emails {
 			$message = $this->process_tag( $message );
 			$message = str_replace( '{{form:all_answers}}', $this->html_field_value( false ), $message );
 
-			return apply_filters( 'quillforms_email_message', qf_decode_string( $message ), $this );
+			return apply_filters( 'quillforms_email_message', quillforms_decode_string( $message ), $this );
 		}
 
 		/*
@@ -449,7 +449,7 @@ class Emails {
 	 * Process a smart tag.
 	 * Decodes entities and sanitized (keeping line breaks) by default.
 	 *
-	 * @uses qf_decode_string()
+	 * @uses quillforms_decode_string()
 	 *
 	 * @since 1.0.0
 	 *
@@ -594,7 +594,7 @@ class Emails {
 	public function get_template() {
 
 		if ( ! $this->template ) {
-			$this->template = qf_setting( 'email-template', 'default' );
+			$this->template = quillforms_setting( 'email-template', 'default' );
 		}
 
 		return apply_filters( 'quillforms_email_template', $this->template );
@@ -714,6 +714,6 @@ class Emails {
 
 		$subject = trim( str_replace( array( "\r\n", "\r", "\n" ), ' ', $subject ) );
 
-		return qf_decode_string( $subject );
+		return quillforms_decode_string( $subject );
 	}
 }

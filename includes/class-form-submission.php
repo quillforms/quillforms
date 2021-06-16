@@ -264,7 +264,7 @@ class Form_Submission {
 			$emails->__set( 'reply_to', $email['replyto'] );
 
 			// Maybe include CC.
-			if ( ! empty( $notification['carboncopy'] ) && qf_setting( 'email-carbon-copy', false ) ) {
+			if ( ! empty( $notification['carboncopy'] ) && quillforms_setting( 'email-carbon-copy', false ) ) {
 				$emails->__set( 'cc', $notification['carboncopy'] );
 			}
 

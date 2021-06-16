@@ -124,7 +124,7 @@ class REST_Form_Theme_Controller extends REST_Controller {
 				$prepared_theme['theme_author'] = $user->ID;
 			} else {
 				return new WP_Error(
-					'qf_rest_theme_author_invalid',
+					'quillforms_rest_theme_author_invalid',
 					__( 'Invalid theme author ID.', 'quillforms' ),
 					array( 'status' => 400 )
 				);
@@ -185,7 +185,7 @@ class REST_Form_Theme_Controller extends REST_Controller {
 		if ( $data ) {
 			return new WP_REST_Response( $data, 200 );
 		} else {
-			return new WP_Error( 'qf_theme_not_found', __( 'Theme not found', 'quillforms' ) );
+			return new WP_Error( 'quillforms_theme_not_found', __( 'Theme not found', 'quillforms' ) );
 		}
 	}
 
@@ -207,7 +207,7 @@ class REST_Form_Theme_Controller extends REST_Controller {
 
 		$result = Form_Theme_Model::insert_theme( $theme );
 		if ( ! $result || is_wp_error( $result ) ) {
-			return new WP_Error( 'qf_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ), array( 'status' => 400 ) );
+			return new WP_Error( 'quillforms_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ), array( 'status' => 400 ) );
 		}
 
 		$response = $this->prepare_item_for_response( $result, $request );
@@ -252,7 +252,7 @@ class REST_Form_Theme_Controller extends REST_Controller {
 
 		$result = Form_Theme_Model::insert_theme( $theme );
 		if ( ! $result ) {
-			return new WP_Error( 'qf_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ) );
+			return new WP_Error( 'quillforms_error_on_insertion_in_db', __( 'Error on insertion in DB!', 'quillforms' ) );
 		}
 
 		$response = $this->prepare_item_for_response( $result, $request );

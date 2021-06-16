@@ -12,7 +12,7 @@ use QuillForms\Form_Theme;
 use WP_Error;
 
 /**
- * Form theme model class is used for interacting with qf_themes db table.
+ * Form theme model class is used for interacting with quillforms_themes db table.
  *
  * @since 1.0.0
  */
@@ -171,7 +171,7 @@ class Form_Theme_Model {
 			$theme_before = self::get_theme( $theme_id );
 
 			if ( is_null( $theme_before ) ) {
-				return new WP_Error( 'qf_invalid_theme', __( 'Invalid theme ID.', 'quillforms' ) );
+				return new WP_Error( 'quillforms_invalid_theme', __( 'Invalid theme ID.', 'quillforms' ) );
 			}
 		}
 
@@ -201,7 +201,7 @@ class Form_Theme_Model {
 			if ( false === $wpdb->update( "{$wpdb->prefix}quillforms_themes", $data, $where ) ) {
 				$message = __( 'Could not update theme in the database.', 'quillforms' );
 
-				return new WP_Error( 'qf_db_update_theme_error', $message, $wpdb->last_error );
+				return new WP_Error( 'quillforms_db_update_theme_error', $message, $wpdb->last_error );
 			}
 		} else {
 
@@ -209,7 +209,7 @@ class Form_Theme_Model {
 
 				$message = __( 'Could not insert theme into the database.', 'quillforms' );
 
-				return new WP_Error( 'qf_db_insert_theme_error', $message, $wpdb->last_error );
+				return new WP_Error( 'quillforms_db_insert_theme_error', $message, $wpdb->last_error );
 
 			}
 
@@ -232,7 +232,7 @@ class Form_Theme_Model {
 		global $wpdb;
 
 		if ( ! self::get_theme( $theme_id ) ) {
-			return new WP_Error( 'qf_theme_not_found', __( 'Theme not found', 'quillforms' ), array( 'status' => 400 ) );
+			return new WP_Error( 'quillforms_theme_not_found', __( 'Theme not found', 'quillforms' ), array( 'status' => 400 ) );
 		}
 		$wpdb->delete(
 			"{$wpdb->prefix}quillforms_themes",

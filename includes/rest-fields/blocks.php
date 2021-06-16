@@ -66,7 +66,7 @@ register_rest_field(
 
 			if ( false === $ret ) {
 				return new WP_Error(
-					'qf_blocks_update_failed',
+					'quillforms_blocks_update_failed',
 					__( 'Failed to update blocks.', 'quillforms' ),
 					array( 'status' => 500 )
 				);
@@ -87,7 +87,7 @@ register_rest_field(
 				},
 				'validate_callback' => function ( $blocks ) use ( $blocks_schema ) {
 					// Block validation except for attributes.
-					$validation = qf_rest_validate_value_from_schema(
+					$validation = quillforms_rest_validate_value_from_schema(
 						$blocks,
 						$blocks_schema
 					);
@@ -97,7 +97,7 @@ register_rest_field(
 								$block_type     = Blocks_Manager::get_instance()->get_registered( $block['name'] );
 								if ( $block_type ) {
 									if ( $block['attributes'] ) {
-										$validation = qf_rest_validate_value_from_schema(
+										$validation = quillforms_rest_validate_value_from_schema(
 											$block['attributes'],
 											array(
 												'type' => 'object',

@@ -34,7 +34,7 @@ register_rest_field(
 			$ret = update_post_meta( $form_id, 'theme', intval( $meta ) );
 			if ( false === $ret ) {
 				return new WP_Error(
-					'qf_theme_update_failed',
+					'quillforms_theme_update_failed',
 					__( 'Failed to update theme.', 'quillforms' ),
 					array( 'status' => 500 )
 				);

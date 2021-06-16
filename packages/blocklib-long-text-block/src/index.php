@@ -170,7 +170,7 @@ class Long_Text_Block_Type extends Block_Type {
 		if ( empty( $value ) ) {
 			return '';
 		}
-		return qf_sanitize_text_deeply( $value, true );
+		return quillforms_sanitize_text_deeply( $value, true );
 	}
 
 

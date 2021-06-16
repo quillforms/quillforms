@@ -181,7 +181,7 @@ class Multiple_Choice_Block_Type extends Block_Type {
 			}
 		}
 
-		return qf_implode_non_blank( ',', $choice_labels );
+		return quillforms_implode_non_blank( ',', $choice_labels );
 	}
 }
 

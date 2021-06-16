@@ -56,7 +56,7 @@ class Install {
 		Core::register_quillforms_post_type();
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
-		self::update_qf_version();
+		self::update_quillforms_version();
 
 		delete_transient( 'installing' );
 
@@ -108,7 +108,7 @@ class Install {
 	 *
 	 * @since 1.0.0
 	 */
-	private static function update_qf_version() {
+	private static function update_quillforms_version() {
 		delete_option( 'quillforms_version' );
 		add_option( 'quillforms_version', QUILLFORMS_VERSION );
 	}

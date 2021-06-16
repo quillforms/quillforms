@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$background_color = qf_setting( 'email-background-color', '#e9eaec' );
+$background_color = quillforms_setting( 'email-background-color', '#e9eaec' );
 ?>
 															</td>
 														</tr>

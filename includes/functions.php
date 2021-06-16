@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Validate a value based on a schema.
  * This function is forked from rest_validate_value_from_schema core function in wp rest api.
- * The reason we copied this function with a prefix "qf_" is:
+ * The reason we copied this function with a prefix "quillforms_" is:
  * 1- We have a minimum WP version requirement: 5.4 but we depend on features in this function that have been added in recent versions after 5.4.
  * 2- The core WP REST api is being developed always and we might need features later in future versions, so we will just modify this function
  * to add backward compatibility.
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
  * @param string $param The parameter name, used in error messages.
  * @return true|WP_Error
  */
-function qf_rest_validate_value_from_schema( $value, $args, $param = '' ) {
+function quillforms_rest_validate_value_from_schema( $value, $args, $param = '' ) {
 	if ( isset( $args['anyOf'] ) ) {
 		$matching_schema = rest_find_any_matching_schema( $value, $args, $param );
 		if ( is_wp_error( $matching_schema ) ) {
@@ -176,7 +176,7 @@ function qf_rest_validate_value_from_schema( $value, $args, $param = '' ) {
  *
  * @return string Sanitized string, or empty string if not a string provided.
  */
-function qf_sanitize_text_fields( $str, $keep_newlines = false ) {
+function quillforms_sanitize_text_fields( $str, $keep_newlines = false ) {
 	if ( is_object( $str ) || is_array( $str ) ) {
 		return '';
 	}
@@ -226,7 +226,7 @@ function qf_sanitize_text_fields( $str, $keep_newlines = false ) {
  *
  * @return string Sanitized string, or empty string if not a string provided.
  */
-function qf_sanitize_text_deeply( $string, $keep_newlines = false ) {
+function quillforms_sanitize_text_deeply( $string, $keep_newlines = false ) {
 
 	if ( is_object( $string ) || is_array( $string ) ) {
 		return '';
@@ -235,10 +235,10 @@ function qf_sanitize_text_deeply( $string, $keep_newlines = false ) {
 	$string        = (string) $string;
 	$keep_newlines = (bool) $keep_newlines;
 
-	$new_value = qf_sanitize_text_fields( $string, $keep_newlines );
+	$new_value = quillforms_sanitize_text_fields( $string, $keep_newlines );
 
 	if ( strlen( $new_value ) !== strlen( $string ) ) {
-		$new_value = qf_sanitize_text_deeply( $new_value, $keep_newlines );
+		$new_value = quillforms_sanitize_text_deeply( $new_value, $keep_newlines );
 	}
 
 	return $new_value;
@@ -253,7 +253,7 @@ function qf_sanitize_text_deeply( $string, $keep_newlines = false ) {
  *
  * @return string
  */
-function qf_sanitize_key( $key = '' ) {
+function quillforms_sanitize_key( $key = '' ) {
 	return preg_replace( '/[^a-zA-Z0-9_\-\.\:\/]/', '', $key );
 }
 
@@ -269,9 +269,9 @@ function qf_sanitize_key( $key = '' ) {
  *
  * @return mixed
  */
-function qf_setting( $key, $default = false, $option = 'qf_settings' ) {
+function quillforms_setting( $key, $default = false, $option = 'quillforms_settings' ) {
 
-	$key     = qf_sanitize_key( $key );
+	$key     = quillforms_sanitize_key( $key );
 	$options = get_option( $option, false );
 	$value   = is_array( $options ) && ! empty( $options[ $key ] ) ? wp_unslash( $options[ $key ] ) : $default;
 
@@ -288,7 +288,7 @@ function qf_setting( $key, $default = false, $option = 'qf_settings' ) {
  *
  * @return string The imploded array
  */
-function qf_implode_non_blank( $separator, $array ) {
+function quillforms_implode_non_blank( $separator, $array ) {
 
 	if ( ! is_array( $array ) ) {
 		return '';
@@ -316,7 +316,7 @@ function qf_implode_non_blank( $separator, $array ) {
  *
  * @return string
  */
-function qf_decode_string( $string ) {
+function quillforms_decode_string( $string ) {
 
 	if ( ! is_string( $string ) ) {
 		return $string;
@@ -326,13 +326,13 @@ function qf_decode_string( $string ) {
 	 * Sanitization should be done first, so tags are stripped and < is converted to &lt; etc.
 	 * This iteration may do nothing when the string already comes with &lt; and &gt; only.
 	 */
-	$string = qf_sanitize_text_deeply( $string, true );
+	$string = quillforms_sanitize_text_deeply( $string, true );
 
 	// Now we need to convert the string without tags: &lt; back to < (same for quotes).
 	$string = wp_kses_decode_entities( html_entity_decode( $string, ENT_QUOTES ) );
 
 	// And now we need to sanitize AGAIN, to avoid unwanted tags that appeared after decoding.
-	return qf_sanitize_text_deeply( $string, true );
+	return quillforms_sanitize_text_deeply( $string, true );
 }
 
 /**
@@ -346,9 +346,9 @@ function qf_decode_string( $string ) {
  *
  * @return string|array
  */
-function qf_clean( $var ) {
+function quillforms_clean( $var ) {
 	if ( is_array( $var ) ) {
-		return array_map( 'qf_clean', $var );
+		return array_map( 'quillforms_clean', $var );
 	} else {
 		return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
 	}
@@ -369,7 +369,7 @@ function qf_clean( $var ) {
  *
  * @return Logger
  */
-function qf_get_logger() {
+function quillforms_get_logger() {
 	static $logger = null;
 
 	$class = apply_filters( 'quillforms_logging_class', Logger::class );
@@ -406,11 +406,11 @@ function qf_get_logger() {
  *
  * @since 1.0.0
  */
-function qf_cleanup_logs() {
-	$logger = qf_get_logger();
+function quillforms_cleanup_logs() {
+	$logger = quillforms_get_logger();
 
 	if ( is_callable( array( $logger, 'clear_expired_logs' ) ) ) {
 		$logger->clear_expired_logs();
 	}
 }
-add_action( 'quillforms_cleanup_logs', 'qf_cleanup_logs' );
+add_action( 'quillforms_cleanup_logs', 'quillforms_cleanup_logs' );
