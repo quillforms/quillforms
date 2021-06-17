@@ -154,9 +154,8 @@ class Form_Submission {
 			$block_type = Blocks_Manager::get_instance()->create( $block );
 			if ( $block_type->supported_features['editable'] ) {
 				if ( isset( $unsanitized_entry['answers'][ $block['id'] ] ) && isset( $unsanitized_entry['answers'][ $block['id'] ]['value'] ) ) {
-					$field_answer                         = $unsanitized_entry['answers'][ $block['id'] ]['value'];
 					$answers[ $block['id'] ]              = array();
-					$answers[ $block['id'] ]['value']     = $block_type->format_entry_value( $field_answer, $this->form_data );
+					$answers[ $block['id'] ]['value']     = $block_type->format_entry_value( $unsanitized_entry['answers'][ $block['id'] ]['value'], $this->form_data );
 					$answers[ $block['id'] ]['blockName'] = sanitize_key( $block['name'] );
 				}
 			}
