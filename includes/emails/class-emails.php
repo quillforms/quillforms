@@ -553,8 +553,8 @@ class Emails {
 
 				if ( empty( $field_label ) ) {
 					$field_label = sprintf( /* translators: %d - field ID. */
-						esc_html__( 'Field ID #%d', 'quillforms' ),
-						absint( $field['id'] )
+						esc_html__( 'Field ID #%s', 'quillforms' ),
+						esc_attr( $block['id'] )
 					);
 				}
 
