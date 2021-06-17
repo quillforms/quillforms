@@ -84,7 +84,7 @@ register_rest_field(
 				'validate_callback' => function ( $notifications ) {
 					// validate notifications.
 					// We simply didn't use schema because we support WP 5.4 at which "uniqueItems" weren't implemented.
-					$validation = quillforms_rest_validate_value_from_schema(
+					$validation = rest_validate_value_from_schema(
 						$notifications,
 						array(
 							'type'        => 'array',
