@@ -18,7 +18,6 @@ use QuillForms\Capabilities;
  */
 class Admin {
 
-
 	/**
 	 * Class Instance.
 	 *
@@ -26,7 +25,7 @@ class Admin {
 	 *
 	 * @since 1.0.0
 	 */
-	public static $instance;
+	private static $instance;
 
 	/**
 	 * QuillForms_Admin Instance.
@@ -40,11 +39,10 @@ class Admin {
 	 *
 	 * @return Admin - Single instance
 	 */
-	public static function instance() {
+	public static function get_instance() {
 		if ( ! self::$instance ) {
-			self::$instance = new Admin();
+			self::$instance = new self();
 		}
-
 		return self::$instance;
 	}
 

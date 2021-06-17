@@ -35,9 +35,8 @@ class REST_API {
 	 */
 	public static function get_instance() {
 		if ( null === self::$_instance ) {
-			self::$_instance = new REST_API();
+			self::$_instance = new self();
 		}
-
 		return self::$_instance;
 	}
 
@@ -54,7 +53,7 @@ class REST_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct() {
+	private function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 	}
 
