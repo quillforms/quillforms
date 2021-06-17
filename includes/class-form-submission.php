@@ -105,7 +105,10 @@ class Form_Submission {
 			return;
 		}
 
-		$entry['formId'] = sanitize_text_field( $entry['formId'] );
+		$entry = array(
+			'formId'  => sanitize_text_field( $entry['formId'] ),
+			'answers' => $entry['answers'],
+		);
 
 		$form_id = $entry['formId'];
 
