@@ -78,14 +78,9 @@ final class QuillForms {
 		}
 
 		/**
-		 * Core classes.
+		 * Client assets.
 		 */
 		require_once QUILLFORMS_PLUGIN_DIR . 'lib/client-assets.php';
-		new Admin_Loader();
-		Install::init();
-		new Merge_Tags();
-		Form_Renderer::get_instance();
-		new Form_Submission();
 
 		/**
 		 * REST Fields
@@ -102,7 +97,12 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	public function initialize_objects() {
-		Admin::instance();
+		Admin_Loader::get_instance();
+		Install::init();
+		Merge_Tags::get_instance();
+		Form_Renderer::get_instance();
+		Form_Submission::get_instance();
+		Admin::get_instance();
 		REST_API::get_instance();
 	}
 

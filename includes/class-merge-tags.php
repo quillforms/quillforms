@@ -21,11 +21,28 @@ use QuillForms\Managers\Blocks_Manager;
 class Merge_Tags {
 
 	/**
+	 * Class instance.
+	 *
+	 * @var Merge_Tags instance
+	 */
+	private static $instance = null;
+
+	/**
+	 * Get class instance.
+	 */
+	public static function get_instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
 	 * Constructor
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct() {
+	private function __construct() {
 		add_filter( 'quillforms_process_merge_tag', array( $this, 'process_field_merge_tag' ), 10, 6 );
 	}
 
