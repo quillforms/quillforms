@@ -290,7 +290,16 @@ abstract class Block_Type extends stdClass {
 	 * @return mixed $value The formatted entry value.
 	 */
 	public function format_entry_value( $value, $form_data ) {
-		return $value;
+		if ( ! is_array( $value ) ) {
+			return sanitize_text_field( $value );
+		} else {
+			return array_map(
+				function( $item ) {
+					return sanitize_text_field( $item );
+				},
+				$value
+			);
+		}
 	}
 
 	/**
