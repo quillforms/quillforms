@@ -107,10 +107,9 @@ const GradientPicker = ( { value, onChange } ) => {
 				slug: 'blush-light-purple',
 			},
 			{
-				name: __( 'Blush bordeaux' ),
-				gradient:
-					'linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%)',
-				slug: 'blush-bordeaux',
+				name: __( 'pinky bordeaux' ),
+				gradient: 'linear-gradient(135deg, #E13680 0%, #A43AB2 100%)',
+				slug: 'pinky-bordeaux',
 			},
 			{
 				name: __( 'Luminous dusk' ),
