@@ -204,16 +204,16 @@ class Form_Submission {
 		}
 
 		if ( empty( $this->errors ) ) {
+
+			$walk_path_answers = array();
 			// Sanitze entry fields.
 			if ( ! empty( $walk_path ) ) {
 				foreach ( $walk_path as $field ) {
-					$block_type = Blocks_Manager::get_instance()->create( $field );
-
-					if ( ! $block_type ) {
-						unset( $entry['answers'][ $field['id'] ] );
-					}
+					$walk_path_answers[ $field['id'] ] = $answers[ $field['id'] ];
 				}
 			}
+
+			$entry['answers'] = $walk_path['answers'];
 
 			// Success - add entry to database.
 			$this->entry_id = $this->entry_save( $entry, $this->form_data );
