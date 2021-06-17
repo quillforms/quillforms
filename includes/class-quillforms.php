@@ -84,7 +84,7 @@ final class QuillForms {
 		new Admin_Loader();
 		Install::init();
 		new Merge_Tags();
-		Form_Renderer::init();
+		Form_Renderer::get_instance();
 		new Form_Submission();
 
 		/**
