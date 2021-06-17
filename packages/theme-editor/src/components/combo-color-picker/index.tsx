@@ -13,7 +13,7 @@ import { useState, useEffect, Fragment } from '@wordpress/element';
  */
 import { isSolid, isGradient } from './utils';
 import GradientPicker from '../gradient-picker/index.js';
-import ColorPicker from '../color-picker';
+import AlphaColorPicker from '../alpha-color-picker';
 
 const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 	const [ activeSwitcher, setActiveSwitcher ] = useState( null );
@@ -86,7 +86,7 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 			) : (
 				<Fragment>
 					{ activeSwitcher === 'solid' && (
-						<ColorPicker
+						<AlphaColorPicker
 							value={ selectedColor }
 							onChange={ ( val ) => setColor( val ) }
 						/>

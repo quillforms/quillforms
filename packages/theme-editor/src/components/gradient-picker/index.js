@@ -79,16 +79,14 @@ const GradientPicker = ( { value, onChange } ) => {
 				slug: 'light-green-cyan-to-vivid-green-cyan',
 			},
 			{
-				name: __( 'Luminous vivid amber to luminous vivid orange' ),
-				gradient:
-					'linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%)',
-				slug: 'luminous-vivid-amber-to-luminous-vivid-orange',
+				name: __( 'Custom gradient' ),
+				gradient: 'linear-gradient(to right, #29e0c0 0%, #1cc4ff 100%)',
+				slug: 'custom-bg-gradient-3',
 			},
 			{
-				name: __( 'Luminous vivid orange to vivid red' ),
-				gradient:
-					'linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%)',
-				slug: 'luminous-vivid-orange-to-vivid-red',
+				name: __( 'custom gradient' ),
+				gradient: 'linear-gradient(135deg,#F8C390 0%, #D279EE 100%)',
+				slug: 'custom-bg-gradient-4',
 			},
 			{
 				name: __( 'Very light gray to cyan bluish gray' ),
@@ -133,10 +131,9 @@ const GradientPicker = ( { value, onChange } ) => {
 				slug: 'electric-grass',
 			},
 			{
-				name: __( 'Midnight' ),
-				gradient:
-					'linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%)',
-				slug: 'midnight',
+				name: __( 'Before Sunset' ),
+				gradient: 'linear-gradient(135deg, #FDEB82 0%, #F78FAD 100%)',
+				slug: 'before-sunset',
 			},
 		],
 		disableCustomGradients: false,
