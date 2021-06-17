@@ -22,7 +22,7 @@ class Admin_Loader {
 	 *
 	 * @var Admin_Loader instance
 	 */
-	protected static $instance = null;
+	private static $instance = null;
 
 	/**
 	 * Get class instance.
@@ -48,7 +48,7 @@ class Admin_Loader {
 	/**
 	 * Constructor.
 	 */
-	public function __construct() {
+	private function __construct() {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'add_inline_scripts' ), 14 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localize_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'remove_all_scripts' ), 999 );

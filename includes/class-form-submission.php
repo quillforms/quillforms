@@ -20,6 +20,13 @@ use QuillForms\Managers\Blocks_Manager;
 class Form_Submission {
 
 	/**
+	 * Class instance.
+	 *
+	 * @var Form_Submission instance
+	 */
+	private static $instance = null;
+
+	/**
 	 * Form data and settings
 	 *
 	 * @var $form_data
@@ -47,11 +54,21 @@ class Form_Submission {
 	public $entry_id = 0;
 
 	/**
+	 * Get class instance.
+	 */
+	public static function get_instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
 	 * Constructor
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct() {
+	private function __construct() {
 		add_action( 'wp_ajax_quillforms_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_quillforms_form_submit', array( $this, 'submit' ) );
 	}
