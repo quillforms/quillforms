@@ -3,6 +3,7 @@
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
+import tinyColor from 'tinycolor2';
 
 /**
  * Internal Dependencies
@@ -15,8 +16,20 @@ const ProgressBar = () => {
 	const theme = useTheme();
 	const percent = useProgressPerecent();
 	const messages = useMessages();
+	const questionsColor = tinyColor( theme.questionsColor );
 	return (
-		<div className="renderer-core-progress-bar">
+		<div
+			className={ classnames(
+				'renderer-core-progress-bar',
+				css`
+					@media ( min-width: 601px ) {
+						background-color: ${ questionsColor
+							.setAlpha( 0.1 )
+							.toString() };
+					}
+				`
+			) }
+		>
 			<div
 				className={ classnames(
 					'renderer-core-progress-bar__label',

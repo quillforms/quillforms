@@ -4,9 +4,6 @@
 		width: 220px;
 		overflow: hidden;
 		border-radius: 3px;
-		@media(min-width: 601px) {
-			background-color: rgba(245, 241, 234, 0.8);
-		}
 	}
 
 	.renderer-core-progress-bar__track {
