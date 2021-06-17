@@ -107,7 +107,7 @@ class Form_Submission {
 	 * @since 1.0.0
 	 */
 	public function process_submission() {
-		$entry = json_decode( stripslashes( $_POST['formData'] ), true );
+		$unsanitized_entry = json_decode( stripslashes( $_POST['formData'] ), true );
 
 		// Check for valid nonce field.
 		$nonce_name = 'quillforms_forms_display_nonce';
@@ -117,22 +117,23 @@ class Form_Submission {
 		}
 
 		// Check if form id is valid.
-		if ( ! isset( $entry ) || ! isset( $entry['formId'] ) ) {
+		if ( ! isset( $unsanitized_entry ) || ! isset( $unsanitized_entry['formId'] ) ) {
 			$this->errors['form'] = 'Form Id missing!';
 			return;
 		}
 
-		$entry = array(
-			'formId'  => sanitize_text_field( $entry['formId'] ),
-			'answers' => $entry['answers'],
-		);
+		// Check if answers is array.
+		if ( ! isset( $unsanitized_entry['answers'] ) || ! is_array( $unsanitized_entry['answers'] ) ) {
+			$this->errors['form'] = "Answers aren't sent or invalid";
+			return;
+		}
 
-		$form_id = $entry['formId'];
+		$form_id = sanitize_text_field( $unsanitized_entry['formId'] );
 
 		// Check if post type is quill_forms and its status is publish.
 		if (
-			'quill_forms' !== get_post_type( $form_id )
-			|| 'publish' !== get_post_status( $form_id )
+		'quill_forms' !== get_post_type( $form_id )
+		|| 'publish' !== get_post_status( $form_id )
 		) {
 			$this->errors['form'] = 'Invalid form id!';
 			return;
@@ -144,6 +145,26 @@ class Form_Submission {
 			'blocks'        => Core::get_blocks( $form_id ),
 			'messages'      => Core::get_messages( $form_id ),
 			'notifications' => Core::get_notifications( $form_id ),
+		);
+
+		$answers = array();
+
+		// sanitizing answers.
+		foreach ( $this->form_data['blocks'] as $block ) {
+			$block_type = Blocks_Manager::get_instance()->create( $block );
+			if ( $block_type->supported_features['editable'] ) {
+				if ( isset( $unsanitized_entry['answers'][ $block['id'] ] ) && isset( $unsanitized_entry['answers'][ $block['id'] ]['value'] ) ) {
+					$field_answer                         = $unsanitized_entry['answers'][ $block['id'] ]['value'];
+					$answers[ $block['id'] ]              = array();
+					$answers[ $block['id'] ]['value']     = $block_type->format_entry_value( $field_answer, $this->form_data );
+					$answers[ $block['id'] ]['blockName'] = sanitize_key( $block['name'] );
+				}
+			}
+		}
+
+		$entry = array(
+			'formId'  => $form_id,
+			'answers' => $answers,
 		);
 
 		$fields = array_filter(
@@ -191,15 +212,6 @@ class Form_Submission {
 					if ( ! $block_type ) {
 						unset( $entry['answers'][ $field['id'] ] );
 					}
-
-					if ( $block_type->supported_features['editable'] ) {
-
-						$field_answer = null;
-						if ( ! empty( $entry['answers'] ) && isset( $entry['answers'][ $field['id'] ] ) && isset( $entry['answers'][ $field['id'] ]['value'] ) ) {
-							$field_answer                              = $entry['answers'][ $field['id'] ]['value'];
-							$entry['answers'][ $field['id'] ]['value'] = $block_type->format_entry_value( $field_answer, $this->form_data );
-						}
-					}
 				}
 			}
 
@@ -210,7 +222,6 @@ class Form_Submission {
 			$this->entry_email( $entry, $this->form_data );
 		}
 	}
-
 
 	/**
 	 * Process emails based on entry and form data.
@@ -296,7 +307,6 @@ class Form_Submission {
 			}
 		endforeach;
 	}
-
 
 	/**
 	 * Respond with error or success.
