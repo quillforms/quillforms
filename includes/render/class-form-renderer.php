@@ -9,6 +9,7 @@
 namespace QuillForms\Render;
 
 use QuillForms\Core;
+use QuillForms\Fonts;
 use QuillForms\Managers\Blocks_Manager;
 
 /**
@@ -18,19 +19,74 @@ use QuillForms\Managers\Blocks_Manager;
  */
 class Form_Renderer {
 
+	/**
+	 * Form id
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var int
+	 */
+	private $form_id = null;
+
+	/**
+	 * Form object
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	private $form_object = null;
+
+
+	/**
+	 * Container for the main instance of the class.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var Form_Renderer|null
+	 */
+	private static $instance = null;
+
+
+	/**
+	 * Utility method to retrieve the main instance of the class.
+	 *
+	 * The instance will be created if it does not exist yet.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Form_Render the main instance
+	 */
+	public static function get_instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
+	private function __construct() {
+		$this->init();
+	}
 
 	/**
 	 * Init method to initialize some hooks.
 	 *
 	 * @since 1.0.0
 	 */
-	public static function init() {
+	public function init() {
 
 		// Overriding single post page with custom template.
-		add_action( 'init', array( __CLASS__, 'template_include' ) );
+		add_action( 'init', array( $this, 'template_include' ) );
 
 		// Enqueuing assets to make the form render properly.
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ), 9999999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
 	}
 
 	/**
@@ -38,8 +94,8 @@ class Form_Renderer {
 	 *
 	 * @since 1.0.0
 	 */
-	public static function template_include() {
-		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
+	public function template_include() {
+		add_filter( 'template_include', array( $this, 'template_loader' ) );
 	}
 
 	/**
@@ -51,11 +107,25 @@ class Form_Renderer {
 	 *
 	 * @return string The modified template
 	 */
-	public static function template_loader( $template ) {
+	public function template_loader( $template ) {
 		if ( is_singular( 'quill_forms' ) ) {
+			$this->set_form_id( get_the_ID() );
 			return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';
 		}
 		return $template;
+	}
+
+	/**
+	 * Set form id.
+	 * private function because it shouldn't be public.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @param int $form_id The form id.
+	 */
+	private function set_form_id( int $form_id ) {
+		$this->form_id = $form_id;
 	}
 
 	/**
@@ -63,18 +133,25 @@ class Form_Renderer {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $form_id The form id.
+	 * @return array The form object.
 	 */
-	public static function prepare_form_object( $form_id ) {
-		return  apply_filters(
-			'quillforms_renderer_form_object',
-			array(
-				'blocks'   => Core::get_blocks( $form_id ),
-				'messages' => Core::get_messages( $form_id ),
-				'theme'    => Core::get_theme( $form_id ),
-			),
-			$form_id
-		);
+	public function prepare_form_object() {
+		// if form_id property isn't set, do nothing.
+		if ( ! $this->form_id ) {
+			return;
+		}
+		if ( ! $this->form_object ) {
+			$this->form_object = apply_filters(
+				'quillforms_renderer_form_object',
+				array(
+					'blocks'   => Core::get_blocks( $this->form_id ),
+					'messages' => Core::get_messages( $this->form_id ),
+					'theme'    => Core::get_theme( $this->form_id ),
+				),
+				$this->form_id
+			);
+		}
+		return $this->form_object;
 	}
 
 	/**
@@ -82,7 +159,7 @@ class Form_Renderer {
 	 *
 	 * @since 1.0.0
 	 */
-	public static function enqueue_assets() {
+	public function enqueue_assets() {
 		if ( is_singular( 'quill_forms' ) ) :
 			global $wp_scripts;
 			global $wp_styles;
@@ -110,6 +187,36 @@ class Form_Renderer {
 					$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
 				}
 			}
+
+			// Loading font.
+			$form_object = $this->prepare_form_object();
+			if ( $form_object ) {
+				$theme     = $form_object['theme'];
+				$font      = esc_attr( $theme['font'] );
+				$font_type = Fonts::get_font_type( $font );
+				$font_url  = null;
+				switch ( $font_type ) {
+					case 'googlefonts':
+						$font_url =
+							'https://fonts.googleapis.com/css?family=' .
+							$font .
+							':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+
+						break;
+
+					case 'earlyaccess':
+						$font_lower_case = strtolower( $font );
+						$font_url        =
+							'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
+						break;
+				}
+				if ( $font_url ) {
+					// Enqueue font url, it is important to generate a random id every time this font enqueud because it is dynamic
+					// and we don't want it to be cached by any way.
+					wp_enqueue_style( 'quillforms-renderer-load-font', esc_url( $font_url ), array(), uniqid() );
+				}
+			}
+
 		endif;
 	}
 

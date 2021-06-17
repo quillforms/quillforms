@@ -13,27 +13,7 @@ use QuillForms\Fonts;
 defined( 'ABSPATH' ) || exit;
 the_post();
 $form_id     = get_the_ID();
-$form_object = Form_Renderer::prepare_form_object( $form_id );
-$theme       = $form_object['theme'];
-$font        = $theme['font'];
-$font_type   = Fonts::get_font_type( $font );
-$font_url    = null;
-switch ( $font_type ) {
-	case 'googlefonts':
-		$font_url =
-			'https://fonts.googleapis.com/css?family=' .
-			$font .
-			':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
-
-		break;
-
-	case 'earlyaccess':
-		$font_lower_case = strtolower( $font );
-		$font_url        =
-			'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
-		break;
-}
-
+$form_object = Form_Renderer::get_instance()->prepare_form_object();
 
 ?>
 <html style="margin-top: 0 !important;">
@@ -72,9 +52,6 @@ switch ( $font_type ) {
 				box-sizing: border-box;
 			}
 		</style>
-		<?php if ( $font_url ) { ?>
-			<link href="<?php echo esc_url( $font_url ); ?>" rel="stylesheet" />
-		<?php } ?>
 		<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
 		<title><?php echo get_the_title(); ?></title>
 
