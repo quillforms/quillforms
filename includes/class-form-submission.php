@@ -212,7 +212,7 @@ class Form_Submission {
 				}
 			}
 
-			$entry['answers'] = $walk_path['answers'];
+			$entry['answers'] = $walk_path_answers;
 
 			// Success - add entry to database.
 			$this->entry_id = $this->entry_save( $entry, $this->form_data );
