@@ -12,6 +12,9 @@ Conversational Forms Builder WordPress Plugin with React.js
 # Does it work for WordPress only?
 No, it can work with any React app.
 
+# Installation as a WordPress plugin
+This plugin is available on the [https://wordpress.org/plugins/quillforms](WordPress.org plugin repository), and can be installed either directly from there or from the admin dashboard within your website.
+
 # Documentation
 Docs will be coming soon
 
