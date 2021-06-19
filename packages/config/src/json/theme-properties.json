@@ -40,6 +40,6 @@
 	},
 	"progressBarBgColor": {
 		"type": "string",
-		"default": "#e3e3e3"
+		"default": "#ccc"
 	}
 }
