@@ -2,14 +2,15 @@
 Contributors: mdmag
 Tested up to: 5.7
 Stable tag: 1.0.0
-Donate link: http://example.com/
+Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: conversational, forms, typeform, conversation, chat, contact
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Conversational forms builder for WordPress.
+A new revolution in WordPress forms and surveys.
 
 == Description ==
+#Conversational forms builder for WordPress#
 
 Contact forms and surveys act as lead generation machines and bridge the gap between your audience and products.
 But are people motivated to answer all the questions when you ask them?
@@ -38,9 +39,11 @@ Moreover, QuillForms free version comes with variety of blocks:
 
 What are you waiting for? start creating irresistible forms right away!
 
-### Discover More
+= Demo =
+You can watch the demo [here](https://quillforms.com/quillforms/my-first-form)
 
-The development hub for the QuillForms project is on Github at: <a href="https://github.com/QuillForms/QuillForms/"> https://github.com/QuillForms/QuillForms</a>
+= Be a contributor =
+If you want to contribute, go to our [QuillForms GitHub Repository](https://github.com/QuillForms/QuillForms) and see where you can help.
 
 
 == Frequently Asked Questions ==
