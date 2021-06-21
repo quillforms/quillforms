@@ -37,7 +37,7 @@ const DropdownDisplay = ( props ) => {
 		setVal,
 		next,
 		showErrMsg,
-		isTouchDevice,
+		isTouchScreen,
 		setFooterDisplay,
 		inputRef,
 		isPreview,
@@ -208,12 +208,12 @@ const DropdownDisplay = ( props ) => {
 				value={ searchKeyword }
 				onClick={ () => setShowDropdown( true ) }
 				onFocus={ () => {
-					if ( isTouchDevice ) {
+					if ( isTouchScreen ) {
 						setFooterDisplay( false );
 					}
 				} }
 				onBlur={ () => {
-					if ( isTouchDevice ) {
+					if ( isTouchScreen ) {
 						setFooterDisplay( true );
 					}
 				} }
@@ -224,7 +224,7 @@ const DropdownDisplay = ( props ) => {
 						setSearchKeyword( '' );
 						setIsAnswered( false );
 						setVal( undefined );
-						if ( ! isTouchDevice ) {
+						if ( ! isTouchScreen ) {
 							inputRef.current.focus();
 						}
 					} }

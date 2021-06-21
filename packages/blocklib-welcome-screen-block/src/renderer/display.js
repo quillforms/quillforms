@@ -171,7 +171,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 const ScreenAction = ( { isSticky, buttonText, next } ) => {
 	const messages = useMessages();
 	const theme = useTheme();
-	const isTouchDevice =
+	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
 		navigator.msMaxTouchPoints > 0;
@@ -194,7 +194,7 @@ const ScreenAction = ( { isSticky, buttonText, next } ) => {
 					`
 				) }
 			>
-				{ ! isTouchDevice && (
+				{ ! isTouchScreen && (
 					<HTMLParser value={ messages[ 'label.hintText.enter' ] } />
 				) }
 			</div>

@@ -30,7 +30,7 @@ const LongTextOutput = ( props ) => {
 		showErrMsg,
 		next,
 		inputRef,
-		isTouchDevice,
+		isTouchScreen,
 		setFooterDisplay,
 	} = props;
 	const { setMaxCharacters, maxCharacters, required } = attributes;
@@ -158,17 +158,17 @@ const LongTextOutput = ( props ) => {
 				onChange={ changeHandler }
 				value={ val && val.length > 0 ? val : '' }
 				onFocus={ () => {
-					if ( isTouchDevice ) {
+					if ( isTouchScreen ) {
 						setFooterDisplay( false );
 					}
 				} }
 				onBlur={ () => {
-					if ( isTouchDevice ) {
+					if ( isTouchScreen ) {
 						setFooterDisplay( true );
 					}
 				} }
 			/>
-			{ ! isTouchDevice && (
+			{ ! isTouchScreen && (
 				<div
 					className={ classnames(
 						'qf-blocklib-long-text-block-renderer__hint-text',

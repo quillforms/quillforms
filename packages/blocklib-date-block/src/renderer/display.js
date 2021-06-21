@@ -36,7 +36,7 @@ const DateOutput = ( props ) => {
 		val,
 		setVal,
 		setFooterDisplay,
-		isTouchDevice,
+		isTouchScreen,
 		isActive,
 		inputRef,
 	} = props;
@@ -186,12 +186,12 @@ const DateOutput = ( props ) => {
 			pipe={ autoCorrectedDatePipe }
 			value={ val && val.length > 0 ? val : '' }
 			onFocus={ () => {
-				if ( isTouchDevice ) {
+				if ( isTouchScreen ) {
 					setFooterDisplay( false );
 				}
 			} }
 			onBlur={ () => {
-				if ( isTouchDevice ) {
+				if ( isTouchScreen ) {
 					setFooterDisplay( true );
 				}
 			} }

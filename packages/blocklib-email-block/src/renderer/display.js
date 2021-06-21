@@ -28,7 +28,7 @@ const EmailOutput = ( props ) => {
 		showErrMsg,
 		next,
 		inputRef,
-		isTouchDevice,
+		isTouchScreen,
 		setFooterDisplay,
 	} = props;
 	const messages = useMessages();
@@ -131,12 +131,12 @@ const EmailOutput = ( props ) => {
 			onChange={ changeHandler }
 			value={ val && val.length > 0 ? val : '' }
 			onFocus={ () => {
-				if ( isTouchDevice ) {
+				if ( isTouchScreen ) {
 					setFooterDisplay( false );
 				}
 			} }
 			onBlur={ () => {
-				if ( isTouchDevice ) {
+				if ( isTouchScreen ) {
 					setFooterDisplay( true );
 				}
 			} }

@@ -28,7 +28,7 @@ const ShortTextOutput = ( props ) => {
 		setVal,
 		showErrMsg,
 		inputRef,
-		isTouchDevice,
+		isTouchScreen,
 	} = props;
 	const messages = useMessages();
 	const theme = useTheme();
@@ -134,12 +134,12 @@ const ShortTextOutput = ( props ) => {
 			onChange={ changeHandler }
 			value={ val ? val.toString() : '' }
 			onFocus={ () => {
-				if ( isTouchDevice ) {
+				if ( isTouchScreen ) {
 					setFooterDisplay( false );
 				}
 			} }
 			onBlur={ () => {
-				if ( isTouchDevice ) {
+				if ( isTouchScreen ) {
 					setFooterDisplay( true );
 				}
 			} }
