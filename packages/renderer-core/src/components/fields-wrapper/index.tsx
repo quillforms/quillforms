@@ -14,14 +14,7 @@ import { useEffect, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import classNames from 'classnames';
-import {
-	useSwipeable,
-	SwipeEventData,
-	SwipeEventData,
-	SwipeEventData,
-	SwipeEventData,
-	SwipeEventData,
-} from 'react-swipeable';
+import { useSwipeable, SwipeEventData } from 'react-swipeable';
 
 import { forEach, size } from 'lodash';
 import { Lethargy } from 'lethargy';
