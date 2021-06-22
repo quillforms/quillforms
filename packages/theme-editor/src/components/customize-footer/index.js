@@ -11,6 +11,11 @@ import { createPortal, useEffect } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 
 /**
+ * External Dependencies
+ */
+import { mapValues } from 'lodash';
+
+/**
  * Internal Dependencies
  */
 import IsSavingBtn from './is-saving-btn';
@@ -21,6 +26,13 @@ const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
 		};
 	} );
+	themeProperties = mapValues( themeProperties, ( property ) => {
+		if ( property === undefined ) {
+			return '';
+		}
+		return property;
+	} );
+
 	const {
 		addNewTheme,
 		updateTheme,

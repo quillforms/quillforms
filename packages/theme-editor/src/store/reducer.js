@@ -8,7 +8,7 @@ import {
 	UPDATE_THEME_SUCCESS,
 	SET_IS_SAVING,
 	SET_CURRENT_THEME_TITLE,
-	SETUP_THEMES
+	SETUP_THEMES,
 } from './constants';
 
 const initialState = {
@@ -130,7 +130,6 @@ const ThemeReducer = ( state = initialState, action ) => {
 					themesList: [ ...themes ],
 				};
 			return state;
-		
 		}
 
 		case ADD_NEW_THEMES: {
@@ -162,7 +161,7 @@ const ThemeReducer = ( state = initialState, action ) => {
 			const themeIndex = $themesList.findIndex(
 				( theme ) => theme.id === themeId
 			);
-			if(themeIndex === -1) return state;
+			if ( themeIndex === -1 ) return state;
 			$themesList[ themeIndex ].title = themeTitle;
 			$themesList[ themeIndex ].properties = themeProperties;
 			const stateClone = { ...state, themesList: $themesList };
