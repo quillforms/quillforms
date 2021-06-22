@@ -64,6 +64,7 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 
 = 1.1.0 =
 Fix: Incorrect param "isTouchDevice" is replaced by "isTouchScreen"
+Feature: Restrict swiping in touch screens
 
 = 1.0.0 =
 * Initial release
