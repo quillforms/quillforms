@@ -104,7 +104,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		preventDefaultTouchmoveEvent: false,
 		trackMouse: false,
 		trackTouch: true,
-		delta: 60,
+		delta: 70,
 	} );
 
 	// Mouse Wheel Handler
@@ -128,7 +128,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			( ( e.deltaY < -50 && ! touch ) ||
 				( touch &&
 					e.deltaY > 50 &&
-					( e as SwipeEventData ).dir === 'Up' ) ) &&
+					( e as SwipeEventData ).dir === 'Down' ) ) &&
 			! isFirstField
 		) {
 			// Scroll up
@@ -138,7 +138,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			canSwipeNext &&
 			( ( e.deltaY < -50 &&
 				touch &&
-				( e as SwipeEventData ).dir === 'Down' ) ||
+				( e as SwipeEventData ).dir === 'Up' ) ||
 				( ! touch && e.deltaY > 50 ) ) &&
 			! isLastField
 		) {
