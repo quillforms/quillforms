@@ -14,7 +14,14 @@ import { useEffect, useRef } from '@wordpress/element';
  * External Dependencies
  */
 import classNames from 'classnames';
-import { useSwipeable, SwipeEventData } from 'react-swipeable';
+import {
+	useSwipeable,
+	SwipeEventData,
+	SwipeEventData,
+	SwipeEventData,
+	SwipeEventData,
+	SwipeEventData,
+} from 'react-swipeable';
 
 import { forEach, size } from 'lodash';
 import { Lethargy } from 'lethargy';
@@ -25,6 +32,7 @@ import { Lethargy } from 'lethargy';
 import FieldRender from '../field-render';
 import useLogic from '../../hooks/use-logic';
 import useBlocks from '../../hooks/use-blocks';
+import React from 'react';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -124,7 +132,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			return;
 		if (
 			canSwipePrev &&
-			( ( e.deltaY < -50 && ! touch ) || ( touch && e.deltaY > 50 ) ) &&
+			( ( e.deltaY < -50 && ! touch ) ||
+				( touch &&
+					e.deltaY > 50 &&
+					( e as SwipeEventData ).dir === 'Up' ) ) &&
 			! isFirstField
 		) {
 			// Scroll up
@@ -132,7 +143,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			goPrev();
 		} else if (
 			canSwipeNext &&
-			( ( e.deltaY < -50 && touch ) || ( ! touch && e.deltaY > 50 ) ) &&
+			( ( e.deltaY < -50 &&
+				touch &&
+				( e as SwipeEventData ).dir === 'Down' ) ||
+				( ! touch && e.deltaY > 50 ) ) &&
 			! isLastField
 		) {
 			lastScrollDate = new Date().getTime();
