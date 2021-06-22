@@ -185,8 +185,8 @@ const FieldWrapper: React.FC = () => {
 		}, 150 );
 	}
 
-	const scrollHandler = () => {
-		// e.preventDefault();
+	const scrollHandler = ( e ) => {
+		e.preventDefault();
 		if ( ! ref.current ) return;
 		if ( ref.current.scrollTop === 0 ) {
 			scrollTimer = setTimeout( () => {
@@ -195,9 +195,14 @@ const FieldWrapper: React.FC = () => {
 		} else {
 			setCanSwipePrev( false );
 		}
+		// Adding tolerance to detect scroll end.
+		// It was a problem with mobile devices.
 		if (
-			ref.current.scrollHeight - ref.current.clientHeight ===
-			ref.current.scrollTop
+			Math.abs(
+				ref.current.scrollHeight -
+					ref.current.clientHeight -
+					ref.current.scrollTop
+			) <= 3.0
 		) {
 			scrollTimer = setTimeout( () => {
 				setCanSwipeNext( true );
@@ -215,7 +220,7 @@ const FieldWrapper: React.FC = () => {
 				},
 				position ? position : ''
 			) }
-			onScroll={ ( e ) => scrollHandler() }
+			onScroll={ ( e ) => scrollHandler( e ) }
 		>
 			{ shouldBeRendered && (
 				<section id={ 'block-' + id }>
