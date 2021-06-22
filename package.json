@@ -40,7 +40,9 @@
 		"publish:patch": "npm run build:packages && lerna publish --dist-tag patch",
 		"publish:prod": "npm run build:packages && lerna publish",
 		"env": "wp-scripts env",
-		"wp-env": "wp-env"
+		"wp-env": "wp-env",
+		"pretest-unit-php": "wp-env start",
+		"test-unit-php": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/QuillForms/phpunit.xml.dist --verbose'"
 	},
 	"dependencies": {
 		"@quillforms/admin-components": "file:packages/admin-components",
