@@ -7,14 +7,16 @@ import { useEffect, useState } from '@wordpress/element';
  * External Depdnencies
  */
 import classnames from 'classnames';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
  */
-import { useMessages } from '../../hooks';
+import { useMessages, useTheme } from '../../hooks';
 import { HTMLParser } from '..';
 
 const DefaultThankYouScreen: React.FC = () => {
+	const theme = useTheme();
 	const [ isActive, setIsActive ] = useState( false );
 	const messages = useMessages();
 	useEffect( () => {
@@ -26,7 +28,10 @@ const DefaultThankYouScreen: React.FC = () => {
 				'renderer-components-default-thankyou-screen',
 				{
 					active: isActive,
-				}
+				},
+				css`
+					color: ${ theme.questionsColor };
+				`
 			) }
 		>
 			<HTMLParser
