@@ -163,7 +163,7 @@ class Dropdown_Block_Type extends Block_Type {
 	 *
 	 * @return mixed $value The merged entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data ) : string {
+	public function get_human_readable_value( $value, $form_data ) : string {
 		$choices      = $this->attributes['choices'];
 		$choice_label = '';
 		foreach ( $choices as $choice_index => $choice ) {

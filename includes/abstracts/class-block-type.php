@@ -312,7 +312,7 @@ abstract class Block_Type extends stdClass {
 	 *
 	 * @return mixed $value The merged entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data ) {
+	public function get_human_readable_value( $value, $form_data ) {
 		return $value;
 	}
 

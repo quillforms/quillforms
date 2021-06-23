@@ -107,7 +107,7 @@ class Merge_Tags {
 				return '';
 			}
 			$block_type = Blocks_Manager::get_instance()->get_registered( $answers[ $field_id ]['blockName'] );
-			return $block_type->get_merge_tag_value( $answers[ $field_id ]['value'], $form_data );
+			return $block_type->get_human_readable_value( $answers[ $field_id ]['value'], $form_data );
 		}
 		return $replacement;
 	}

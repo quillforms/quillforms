@@ -166,7 +166,7 @@ class Multiple_Choice_Block_Type extends Block_Type {
 	 *
 	 * @return mixed $value The merged entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data ) {
+	public function get_human_readable_value( $value, $form_data ) {
 		$choices       = $this->attributes['choices'];
 		$choice_labels = array();
 		if ( ! empty( $choices ) ) {
