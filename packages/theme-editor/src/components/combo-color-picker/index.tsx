@@ -23,10 +23,12 @@ const CompoColorPicker = ( { color, setColor, defaultVal = '#000' } ) => {
 		'linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%)';
 
 	useEffect( () => {
+		if ( ! color ) return;
 		setSelectedColor( color );
 	}, [ color ] );
 
 	useEffect( () => {
+		if ( ! color ) return;
 		if ( isGradient( color ) ) {
 			setActiveSwitcher( 'gradient' );
 			setColor( color );
