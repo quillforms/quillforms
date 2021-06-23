@@ -31,7 +31,7 @@
 			align-items: center;
 			min-width: 215px;
 			flex: 1 1 0%;
-			border-radius: 10px;
+			border-radius: 5px;
 			cursor: pointer;
 			padding: 10px;
 			margin: 0 16px 16px 0;
@@ -44,11 +44,13 @@
 			text-align: left;
 			user-select: none;
 			font-size: 14px;
+			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
 
 			@media(max-width: $break-small) {
 				margin: 0 16px 10px 0;
 				padding: 8px 10px;
-				border-radius: 7px;
+				border-radius: 4px;
 				font-size: 14px;
 			}
 		}
