@@ -90,9 +90,7 @@ const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 							background: ${ answersColor };
 							color: ${ tinyColor( answersColor ).isDark()
 								? '#fff'
-								: tinyColor( answersColor )
-										.darken( 20 )
-										.toString() };
+								: '#333' };
 						`
 					) }
 				>
