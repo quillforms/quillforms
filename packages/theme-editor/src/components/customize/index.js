@@ -130,7 +130,7 @@ const CustomizeThemePanel = () => {
 								isSmall
 								onClick={ () =>
 									setCurrentThemeProperties( {
-										backgroundImage: {},
+										backgroundImage: '',
 									} )
 								}
 							>
