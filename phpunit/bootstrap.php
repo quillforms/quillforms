@@ -20,3 +20,8 @@ tests_add_filter(
 
 // Start up the WP testing environment.
 require getenv( 'WP_PHPUNIT__DIR' ) . '/includes/bootstrap.php';
+
+// Include factories.
+foreach ( glob( __DIR__ . '/factories/*.php' ) as $factory_filename ) {
+	require_once $factory_filename;
+}
