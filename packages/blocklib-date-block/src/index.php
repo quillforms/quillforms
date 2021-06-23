@@ -106,15 +106,7 @@ class Date_Block_Type extends Block_Type {
 	public function validate_field( $value, $form_data ) : void {
 		$messages = $form_data['messages'];
 		if ( ! empty( $value ) ) {
-			$format    = $this->attributes['format'];
-			$separator = $this->attributes['separator'];
-			if ( 'MMDDYYYY' === $format ) {
-				$date_format = 'm' . $separator . 'd' . $separator . 'Y';
-			} elseif ( 'DDMMYYYY' === $format ) {
-				$date_format = 'd' . $separator . 'm' . $separator . 'Y';
-			} else {
-				$date_format = 'Y' . $separator . 'm' . $separator . 'd';
-			}
+			$date_format = $this->get_date_format();
 
 			$d = \DateTime::createFromFormat( $date_format, $value );
 
@@ -133,6 +125,53 @@ class Date_Block_Type extends Block_Type {
 		}
 
 	}
+
+	/**
+	 * Get date format
+	 *
+	 * @return string
+	 */
+	private function get_date_format() {
+		$format    = $this->attributes['format'];
+		$separator = $this->attributes['separator'];
+		if ( 'MMDDYYYY' === $format ) {
+			return 'm' . $separator . 'd' . $separator . 'Y';
+		} elseif ( 'DDMMYYYY' === $format ) {
+			return 'd' . $separator . 'm' . $separator . 'Y';
+		} else {
+			return 'Y' . $separator . 'm' . $separator . 'd';
+		}
+	}
+
+	/**
+	 * Get merge tag value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value     The entry value.
+	 * @param array $form_data The form data.
+	 *
+	 * @return mixed $value The merged entry value.
+	 */
+	public function get_merge_tag_value( $value, $form_data ) {
+		return \DateTime::createFromFormat( 'Y-m-d', $value )->format( $this->get_date_format() );
+	}
+
+	/**
+	 * Get value save entry.
+	 * Some blocks needs some adjustment before saving into database, that's why we introduce this method.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value      The formatted entry value.
+	 * @param array $form_data  The form data.
+	 *
+	 * @return mixed $value The entry value before being saved into database
+	 */
+	public function get_value_save_entry( $value, $form_data ) {
+		return \DateTime::createFromFormat( $this->get_date_format(), $value )->format( 'Y-m-d' );
+	}
+
 	/**
 	 * Get meta data
 	 * This file is just for having some shared properties between front end and back end.
