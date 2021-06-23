@@ -1,7 +1,7 @@
  === Quill Forms ===
 Contributors: mdmag
 Tested up to: 5.7
-Stable tag: 1.1.1
+Stable tag: 1.1.3
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact
 License: GPLv2 or later
@@ -61,6 +61,9 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 5. QuillForms Renderer
 
 == Changelog ==
+
+= 1.1.2 =
+Fix: Theme colors issue fixed
 
 = 1.1.1 =
 Fix: Swiping issue after last update has been fixed.
