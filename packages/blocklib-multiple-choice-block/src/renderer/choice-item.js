@@ -44,25 +44,16 @@ const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
 							.toString() };
 						color: ${ tinyColor( answersColor ).isDark()
 							? '#fff'
-							: tinyColor( answersColor )
-									.darken( 20 )
-
-									.toString() };
+							: '#333' };
 
 						.multipleChoice__optionKey {
 							color: ${ tinyColor( answersColor ).isDark()
 								? '#fff'
-								: tinyColor( answersColor )
-										.darken( 20 )
-
-										.toString() };
+								: '#333' };
 
 							border-color: ${ tinyColor( answersColor ).isDark()
 								? '#fff'
-								: tinyColor( answersColor )
-										.darken( 20 )
-
-										.toString() };
+								: '#333' };
 						}
 					}
 				`

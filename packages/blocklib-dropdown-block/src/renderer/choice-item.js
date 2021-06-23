@@ -41,21 +41,12 @@ const ChoiceItem = ( { choice, val, clickHandler, showDropdown } ) => {
 					color: ${ theme.answersColor };
 
 					&:hover {
-						background: ${ answersColor
-							.setAlpha( 0.2 )
-							.toString() };
+						background: ${ answersColor.setAlpha( 0.2 ).toString() };
 					}
 
 					&.selected {
-						background: ${ tinyColor( theme.answersColor )
-							.setAlpha( 0.75 )
-							.toString() };
-						color: ${ tinyColor( theme.answersColor ).isDark()
-							? '#fff'
-							: tinyColor( theme.answersColor )
-									.darken( 20 )
-									.toString() };
-					}
+						background: ${ tinyColor( theme.answersColor ).setAlpha( 0.75 ).toString() };
+						color: ${ tinyColor( theme.answersColor ).isDark() ? '#fff' : '#333' }
 				`
 			) }
 			role="presentation"
