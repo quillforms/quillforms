@@ -1,5 +1,5 @@
-# QuillForms
-Conversational Forms Builder WordPress Plugin with React.js
+# Quill Forms
+Typeform free alternative WordPress Plugin based on React.js
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/)
 
