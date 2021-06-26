@@ -77,6 +77,14 @@ function quillforms_pre_init() {
 
 	QuillForms\QuillForms::instance();
 	register_activation_hook( QUILLFORMS_PLUGIN_DIR, array( QuillForms\Install::class, 'install' ) );
+
+	// do quillforms_loaded action for other plugins.
+	add_action(
+		'plugins_loaded',
+		function() {
+			do_action( 'quillforms_loaded' );
+		}
+	);
 }
 
 /**
