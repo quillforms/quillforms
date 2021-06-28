@@ -280,7 +280,7 @@ abstract class Block_Type extends stdClass {
 	}
 
 	/**
-	 * Format entry value.
+	 * Sanitize field value.
 	 *
 	 * @since 1.0.0
 	 *
@@ -289,7 +289,7 @@ abstract class Block_Type extends stdClass {
 	 *
 	 * @return mixed $value The formatted entry value.
 	 */
-	public function format_entry_value( $value, $form_data ) {
+	public function sanitize_field( $value, $form_data ) {
 		if ( ! is_array( $value ) ) {
 			return sanitize_text_field( $value );
 		} else {

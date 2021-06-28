@@ -157,7 +157,7 @@ class Long_Text_Block_Type extends Block_Type {
 	}
 
 	/**
-	 * Format entry value.
+	 * Sanitize entry value.
 	 *
 	 * @since 1.0.0
 	 *
@@ -166,7 +166,7 @@ class Long_Text_Block_Type extends Block_Type {
 	 *
 	 * @return mixed $value The formatted entry value.
 	 */
-	public function format_entry_value( $value, $form_data ) : string {
+	public function sanitize_field( $value, $form_data ) : string {
 		if ( empty( $value ) ) {
 			return '';
 		}

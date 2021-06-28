@@ -170,7 +170,7 @@ class Short_Text_Block_Type extends Block_Type {
 	}
 
 	/**
-	 * Format entry value.
+	 * Sanitize entry value.
 	 *
 	 * @since 1.0.0
 	 *
@@ -179,7 +179,7 @@ class Short_Text_Block_Type extends Block_Type {
 	 *
 	 * @return mixed $value The formatted entry value.
 	 */
-	public function format_entry_value( $value, $form_data ) {
+	public function sanitize_field( $value, $form_data ) {
 		if ( empty( $value ) ) {
 			return '';
 		}
