@@ -280,7 +280,7 @@ abstract class Block_Type extends stdClass {
 	}
 
 	/**
-	 * Format entry value.
+	 * Sanitize field value.
 	 *
 	 * @since 1.0.0
 	 *
@@ -289,7 +289,7 @@ abstract class Block_Type extends stdClass {
 	 *
 	 * @return mixed $value The formatted entry value.
 	 */
-	public function format_entry_value( $value, $form_data ) {
+	public function sanitize_field( $value, $form_data ) {
 		if ( ! is_array( $value ) ) {
 			return sanitize_text_field( $value );
 		} else {
@@ -300,6 +300,33 @@ abstract class Block_Type extends stdClass {
 				$value
 			);
 		}
+	}
+
+	/**
+	 * Validate field value
+	 * The validation should be done by setting $this->is_valid true or false and setting the validation message  $this->validation_err
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value       The value to validate.
+	 * @param array $form_data   The form data.
+	 */
+	public function validate_field( $value, $form_data ) {
+		// Here we do the validation.
+	}
+
+	/**
+	 * Format field value
+	 * After validation, Format is done for fields to be used or saved.
+	 *
+	 * @since 1.1.3
+	 *
+	 * @param mixed $value       The value to validate.
+	 * @param array $form_data   The form data.
+	 * @return mixed
+	 */
+	public function format_field( $value, $form_data ) {
+		return $value;
 	}
 
 	/**
@@ -314,35 +341,6 @@ abstract class Block_Type extends stdClass {
 	 */
 	public function get_human_readable_value( $value, $form_data ) {
 		return $value;
-	}
-
-
-	/**
-	 * Get value save entry.
-	 * Some blocks needs some adjustment before saving into database, that's why we introduce this method.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value      The formatted entry value.
-	 * @param array $form_data  The form data.
-	 *
-	 * @return mixed $value The entry value before being saved into database
-	 */
-	public function get_value_save_entry( $value, $form_data ) {
-		return $value;
-	}
-
-	/**
-	 * Validate field value
-	 * The validation should be done by setting $this->is_valid true or false and setting the validation message  $this->validation_err
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value       The value to validate.
-	 * @param array $form_data   The form data.
-	 */
-	public function validate_field( $value, $form_data ) {
-		// Here we do the validation.
 	}
 
 	/**

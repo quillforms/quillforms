@@ -106,7 +106,7 @@ class Email_Block_Type extends Block_Type {
 	}
 
 	/**
-	 * Format and sanitize entry value.
+	 * Sanitize entry value.
 	 *
 	 * @since 1.0.0
 	 * ß
@@ -115,7 +115,7 @@ class Email_Block_Type extends Block_Type {
 
 	 * @return string The sanitized email
 	 */
-	public function format_entry_value( $value, $form_data ) {
+	public function sanitize_field( $value, $form_data ) {
 		return sanitize_email( $value );
 	}
 
