@@ -127,6 +127,20 @@ class Date_Block_Type extends Block_Type {
 	}
 
 	/**
+	 * Format field value
+	 * After validation, Format is done for fields to be used or saved.
+	 *
+	 * @since 1.1.3
+	 *
+	 * @param mixed $value       The value to validate.
+	 * @param array $form_data   The form data.
+	 * @return mixed
+	 */
+	public function format_field( $value, $form_data ) {
+		return \DateTime::createFromFormat( $this->get_date_format(), $value )->format( 'Y-m-d' );
+	}
+
+	/**
 	 * Get date format
 	 *
 	 * @return string
@@ -155,21 +169,6 @@ class Date_Block_Type extends Block_Type {
 	 */
 	public function get_human_readable_value( $value, $form_data ) {
 		return \DateTime::createFromFormat( 'Y-m-d', $value )->format( $this->get_date_format() );
-	}
-
-	/**
-	 * Get value save entry.
-	 * Some blocks needs some adjustment before saving into database, that's why we introduce this method.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value      The formatted entry value.
-	 * @param array $form_data  The form data.
-	 *
-	 * @return mixed $value The entry value before being saved into database
-	 */
-	public function get_value_save_entry( $value, $form_data ) {
-		return \DateTime::createFromFormat( $this->get_date_format(), $value )->format( 'Y-m-d' );
 	}
 
 	/**

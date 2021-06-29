@@ -205,9 +205,16 @@ class Form_Submission {
 		if ( empty( $this->errors ) ) {
 
 			$walk_path_answers = array();
-			// Sanitze entry fields.
+			// Format fields.
 			if ( ! empty( $walk_path ) ) {
 				foreach ( $walk_path as $field ) {
+					$block_type = Blocks_Manager::get_instance()->create( $field );
+					if ( ! $block_type ) {
+						continue;
+					}
+					if ( ! empty( $answers[ $field['id'] ] ) ) {
+						$answers[ $field['id'] ]['value'] = $block_type->format_field( $answers[ $field['id'] ]['value'], $this->form_data );
+					}
 					$walk_path_answers[ $field['id'] ] = $answers[ $field['id'] ];
 				}
 			}
