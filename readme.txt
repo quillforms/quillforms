@@ -18,6 +18,8 @@ Not if they feel overwhelmed.
 
 That’s why we created QuillForms.
 
+Quill Forms plugin is free Typeform alternative for WordPress.
+
 With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
 By asking one question at a time in a friendly tone, you nudge the respondents to complete the desired forms and boost your conversion rate.
 What’s more, QuillForms offers loads of hip features that make creating forms as much fun as filling them!
@@ -61,6 +63,10 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 5. QuillForms Renderer
 
 == Changelog ==
+
+= 1.1.3 =  2 Jul 2021
+Fix: Theme background image not displaying in themes list.
+Feature: Improvement for block type php methods.
 
 = 1.1.2 =
 Fix: Theme colors issue fixed

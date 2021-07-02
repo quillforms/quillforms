@@ -10,7 +10,7 @@
  * Domain Path:       /languages
  * Requires at least: 5.4
  * Requires PHP: 7.1
- * Version: 1.1.2
+ * Version: 1.1.3
  *
  * @package QuillForms
  */
