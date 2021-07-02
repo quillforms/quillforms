@@ -18,6 +18,14 @@ const FormCard = memo( ( { form } ) => {
 	const theme = form?.theme?.theme_data?.properties
 		? form.theme.theme_data.properties
 		: {};
+
+	let backgroundImageCSS = '';
+	if ( theme?.backgroundImage ) {
+		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
+				background-size: cover;
+				background-position: center;
+			`;
+	}
 	return (
 		<>
 			{ ! isDeleting ? (
@@ -30,28 +38,37 @@ const FormCard = memo( ( { form } ) => {
 						);
 					} }
 				>
-					<CardBody
+					<div
 						className={ classnames(
-							'quillforms-home__form-card-body',
+							'quillforms-home__form-card-body-header',
 							css`
-								background: ${ theme.backgroundColor };
+								${ backgroundImageCSS }
 							`
 						) }
 					>
-						<div
+						<CardBody
 							className={ classnames(
-								'quillforms-home__form-title',
+								'quillforms-home__form-card-body',
 								css`
-									color: ${ theme.questionsColor };
-									text-decoration: none;
+									background: ${ theme.backgroundColor };
 								`
 							) }
 						>
-							{ form.title.rendered
-								? form.title.rendered
-								: 'Untitled' }
-						</div>
-					</CardBody>
+							<div
+								className={ classnames(
+									'quillforms-home__form-title',
+									css`
+										color: ${ theme.questionsColor };
+										text-decoration: none;
+									`
+								) }
+							>
+								{ form.title.rendered
+									? form.title.rendered
+									: 'Untitled' }
+							</div>
+						</CardBody>
+					</div>
 					<CardDivider />
 					<CardHeader
 						className={ classnames(

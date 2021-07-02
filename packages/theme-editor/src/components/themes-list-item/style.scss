@@ -5,10 +5,14 @@
 	width: 100%;
 	height: 100%;
 
-	.theme-editor-themes-list-item__header {
+	.theme-editor-themes-list-item__header-wrapper {
 		height: 135px;
 		width: 100%;
-		padding: 30px;
+		.theme-editor-themes-list-item__header {
+			width: 100%;
+			height: 100%;
+			padding: 30px;
+		}
 
 		.theme-editor-themes-list-item__header-question {
 			margin-bottom: 5px;

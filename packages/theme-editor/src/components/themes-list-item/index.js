@@ -87,6 +87,14 @@ const ThemesListItem = ( { theme } ) => {
 		)
 			head.appendChild( link );
 	}, [] );
+	let backgroundImageCSS = '';
+	if ( theme?.properties?.backgroundImage ) {
+		backgroundImageCSS = `background: url('${ theme.properties.backgroundImage }') no-repeat;
+			background-size: cover;
+			background-position: center;
+		`;
+	}
+
 	return (
 		<div
 			role="presentation"
@@ -97,42 +105,51 @@ const ThemesListItem = ( { theme } ) => {
 		>
 			<div
 				className={ classnames(
-					'theme-editor-themes-list-item__header',
+					'theme-editor-themes-list-item__header-wrapper',
 					css`
-						background: ${ themeData.backgroundColor };
-						font-family: ${ themeData.font };
+						${ backgroundImageCSS };
 					`
 				) }
 			>
 				<div
 					className={ classnames(
-						'theme-editor-themes-list-item__header-question',
+						'theme-editor-themes-list-item__header',
 						css`
-							color: ${ themeData.questionsColor };
+							background: ${ themeData.backgroundColor };
+							font-family: ${ themeData.font };
 						`
 					) }
 				>
-					Question
-				</div>
-				<div
-					className={ classnames(
-						'theme-editor-themes-list-item__header-answer',
-						css`
-							color: ${ themeData.answersColor };
-						`
-					) }
-				>
-					Answer
-				</div>
-				<div
-					className={ classnames(
-						'theme-editor-themes-list-item__header-buttons',
-						css`
+					<div
+						className={ classnames(
+							'theme-editor-themes-list-item__header-question',
+							css`
+								color: ${ themeData.questionsColor };
+							`
+						) }
+					>
+						Question
+					</div>
+					<div
+						className={ classnames(
+							'theme-editor-themes-list-item__header-answer',
+							css`
+								color: ${ themeData.answersColor };
+							`
+						) }
+					>
+						Answer
+					</div>
+					<div
+						className={ classnames(
+							'theme-editor-themes-list-item__header-buttons',
+							css`
 							color: ${ themeData.buttonsFontColor },
 							background: ${ themeData.buttonsBgColor },
 						`
-					) }
-				></div>
+						) }
+					></div>
+				</div>
 			</div>
 			<div className="theme-editor-themes-list-item__footer">
 				<div className="theme-editor-themes-list-item__footer-title">
