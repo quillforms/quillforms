@@ -39,7 +39,7 @@ Moreover, QuillForms free version comes with variety of blocks:
 9- Long text block
 10- Default thank you screen
 
-What are you waiting for? start creating irresistible forms right away!
+What are you waiting for? start creating irresistible forms that are similar to Typeform for free!
 
 = Demo =
 You can watch the demo [here](https://quillforms.com/quillforms/my-first-form)
