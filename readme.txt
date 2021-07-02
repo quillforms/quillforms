@@ -1,7 +1,7 @@
  === Quill Forms ===
 Contributors: mdmag
 Tested up to: 5.7
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact
 License: GPLv2 or later
@@ -64,9 +64,13 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 
 == Changelog ==
 
-= 1.1.3 =  2 Jul 2021
+= 1.1.4 =  2 Jul 2021
 Fix: Theme background image not displaying in themes list.
 Feature: Improvement for block type php methods.
+
+= 1.1.3 =
+Fix: Color bugs with multiple choice and dropdown block
+Fix: Theme issues with background image and empty background colors
 
 = 1.1.2 =
 Fix: Theme colors issue fixed
