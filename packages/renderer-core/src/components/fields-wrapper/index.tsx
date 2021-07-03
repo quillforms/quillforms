@@ -56,6 +56,17 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		isAnimating,
 	} = swiper;
 
+	const { answers, currentBlockAnswer } = useSelect( ( select ) => {
+		return {
+			answers: select( 'quillForms/renderer-core' ).getAnswers(),
+			currentBlockAnswer: currentBlockId
+				? select( 'quillForms/renderer-core' ).getFieldAnswerVal(
+						currentBlockId
+				  )
+				: null,
+		};
+	} );
+
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
@@ -64,6 +75,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		const fieldIds: string[] = [];
 		const filteredBlocks = walkPath.filter(
 			( block ) =>
+				answers[ block.id ]?.isPending ||
 				block.id === currentBlockId ||
 				( ! isTouchScreen && block.id === nextBlockId ) ||
 				( ! isTouchScreen && block.id === prevBlockId ) ||
@@ -172,17 +184,6 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	// 			: null,
 	// 	};
 	// } );
-
-	const { answers, currentBlockAnswer } = useSelect( ( select ) => {
-		return {
-			answers: select( 'quillForms/renderer-core' ).getAnswers(),
-			currentBlockAnswer: currentBlockId
-				? select( 'quillForms/renderer-core' ).getFieldAnswerVal(
-						currentBlockId
-				  )
-				: null,
-		};
-	} );
 
 	const isConditionFulfilled = (
 		conditionOperator: string,

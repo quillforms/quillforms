@@ -105,6 +105,8 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		setIsFieldValid,
 		setFieldValidationErr,
 		setIsFieldAnswered,
+		setIsFieldPending,
+		setFieldPendingMsg,
 		setFieldAnswer,
 		setFooterDisplay,
 	} = useDispatch( 'quillForms/renderer-core' );
@@ -117,6 +119,8 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		val: answerValue,
 		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),
+		setIsPending: ( val: boolean ) => setIsFieldPending( id, val ),
+		setPendingMsg: ( val: string ) => setFieldPendingMsg( id, val ),
 		setValidationErr: ( val: string ) => setFieldValidationErr( id, val ),
 		setVal: ( val: string ) => setFieldAnswer( id, val ),
 		showNextBtn,
