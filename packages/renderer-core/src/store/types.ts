@@ -11,6 +11,8 @@ import {
 	SET_IS_FIELD_VALID,
 	SET_FIELD_VALIDATION_ERR,
 	SET_IS_FIELD_ANSWERED,
+	SET_IS_FIELD_PENDING,
+	SET_FIELD_PENDING_MSG,
 	RESET_ANSWERS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
@@ -70,6 +72,8 @@ type completeFormAction = {
 export type Answer = {
 	isValid: boolean;
 	isAnswered: boolean;
+	isPending: boolean;
+	pendingMsg: string | undefined;
 	blockName: string;
 	value: unknown;
 	validationErr: string | undefined;
@@ -104,6 +108,18 @@ type setIsFieldAnsweredAction = {
 	val: boolean;
 };
 
+type setIsFieldPendingAction = {
+	type: typeof SET_IS_FIELD_PENDING;
+	id: string;
+	val: boolean;
+};
+
+type setFieldPendingMsg = {
+	type: typeof SET_FIELD_PENDING_MSG;
+	id: string;
+	val: string;
+};
+
 type setIsFieldValidationErr = {
 	type: typeof SET_FIELD_VALIDATION_ERR;
 	id: string;
@@ -134,6 +150,8 @@ export type RendererAnswersActionTypes =
 	| setIsFieldValidAction
 	| setIsFieldValidationErr
 	| setIsFieldAnsweredAction
+	| setIsFieldPendingAction
+	| setFieldPendingMsg
 	| resetAnswers
 	| ReturnType< () => { type: 'NOOP' } >;
 

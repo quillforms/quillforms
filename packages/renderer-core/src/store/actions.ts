@@ -9,6 +9,8 @@ import {
 	SET_IS_SUBMITTING,
 	SET_FIELD_ANSWER,
 	SET_IS_FIELD_ANSWERED,
+	SET_IS_FIELD_PENDING,
+	SET_FIELD_PENDING_MSG,
 	SET_IS_FIELD_VALID,
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_FIELD_VALIDATION_ERR,
@@ -172,6 +174,44 @@ export const setIsFieldAnswered = (
 ): RendererAnswersActionTypes => {
 	return {
 		type: SET_IS_FIELD_ANSWERED,
+		id,
+		val,
+	};
+};
+
+/**
+ * Returns an action object used in setting fields pending flag.
+ *
+ * @param {string}  id   Field uuid.
+ * @param {boolean} val  Field isPending flag.
+ *
+ * @return {RendererAnswersActionTypes} Action object.
+ */
+export const setIsFieldPending = (
+	id: string,
+	val: boolean
+): RendererAnswersActionTypes => {
+	return {
+		type: SET_IS_FIELD_PENDING,
+		id,
+		val,
+	};
+};
+
+/**
+ * Returns and object used in setting pending message key
+ *
+ * @param {string}  id   Field uuid.
+ * @param {string}  val  Field pendingMsg flag.
+ *
+ * @return {Object} Action object.
+ */
+export const setFieldPendingMsg = (
+	id: string,
+	val: string
+): RendererAnswersActionTypes => {
+	return {
+		type: SET_FIELD_PENDING_MSG,
 		id,
 		val,
 	};
