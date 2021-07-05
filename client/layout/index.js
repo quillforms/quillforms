@@ -12,6 +12,7 @@ import {
 /**
  * WordPress Dependencies
  */
+import { SlotFillProvider } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 /**
@@ -35,19 +36,21 @@ export const Layout = ( props ) => {
 		} );
 	}, [] );
 	return (
-		<div className="quillforms-layout">
-			{ ! props.page.header ? (
-				<Header />
-			) : (
-				<props.page.header { ...props } />
-			) }
+		<SlotFillProvider>
+			<div className="quillforms-layout">
+				{ ! props.page.header ? (
+					<Header />
+				) : (
+					<props.page.header { ...props } />
+				) }
 
-			<div className="quillforms-layout__main">
-				{ ( ! props.page.template ||
-					props.page.template === 'default' ) && <Sidebar /> }
-				<Controller { ...props } />
+				<div className="quillforms-layout__main">
+					{ ( ! props.page.template ||
+						props.page.template === 'default' ) && <Sidebar /> }
+					<Controller { ...props } />
+				</div>
 			</div>
-		</div>
+		</SlotFillProvider>
 	);
 };
 
