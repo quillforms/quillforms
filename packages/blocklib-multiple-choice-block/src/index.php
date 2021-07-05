@@ -24,6 +24,13 @@ defined( 'ABSPATH' ) || exit;
 class Multiple_Choice_Block_Type extends Block_Type {
 
 	/**
+	 * Is value array
+	 *
+	 * @var boolean
+	 */
+	protected $is_value_array = true;
+
+	/**
 	 * Metadata json file.
 	 *
 	 * @var string

@@ -56,6 +56,13 @@ abstract class Block_Type extends stdClass {
 	public $validation_err = null;
 
 	/**
+	 * Is value array
+	 *
+	 * @var boolean
+	 */
+	protected $is_value_array = false;
+
+	/**
 	 * Get Block Type
 	 * It must be unique name.
 	 *
@@ -64,6 +71,15 @@ abstract class Block_Type extends stdClass {
 	 * @return string The block type
 	 */
 	abstract public function get_name() : string;
+
+	/**
+	 * Is value array
+	 *
+	 * @return boolean
+	 */
+	public function is_value_array() {
+		return $this->is_value_array;
+	}
 
 	/**
 	 * Constructor
