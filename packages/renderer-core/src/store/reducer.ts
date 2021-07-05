@@ -29,6 +29,8 @@ import {
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_IS_FIELD_VALID,
 	SET_IS_FIELD_ANSWERED,
+	SET_IS_FIELD_PENDING,
+	SET_FIELD_PENDING_MSG,
 	SET_FIELD_VALIDATION_ERR,
 	RESET_ANSWERS,
 	SET_IS_REVIEWING,
@@ -491,6 +493,8 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 					value: undefined,
 					isValid: true,
 					isAnswered: false,
+					isPending: false,
+					pendingMsg: undefined,
 					validationErr: undefined,
 					blockName,
 				};
@@ -548,6 +552,38 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 				[ id ]: {
 					...state[ id ],
 					isAnswered: val,
+				},
+			};
+		}
+
+		// SET IS FIELD PENDING
+		case SET_IS_FIELD_PENDING: {
+			const { id, val } = action;
+			// If the field id is incorrect or the value passed is the same value, return same state.
+			if ( ! state[ id ] || val === state[ id ].isPending ) {
+				return state;
+			}
+			return {
+				...state,
+				[ id ]: {
+					...state[ id ],
+					isPending: val,
+				},
+			};
+		}
+
+		// SET FIELD PENDING MSG
+		case SET_FIELD_PENDING_MSG: {
+			const { id, val } = action;
+			// If the field id is incorrect or the value passed is the same value, return same state.
+			if ( ! state[ id ] || val === state[ id ].pendingMsg ) {
+				return state;
+			}
+			return {
+				...state,
+				[ id ]: {
+					...state[ id ],
+					pendingMsg: val,
 				},
 			};
 		}
