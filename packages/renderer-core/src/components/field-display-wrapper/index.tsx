@@ -40,7 +40,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		navigator.msMaxTouchPoints > 0;
 
 	useHandleFocus( inputRef, isActive, isTouchScreen );
-	const { isPreview } = useFormContext();
+	const { isPreview, formId } = useFormContext();
 
 	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
@@ -130,6 +130,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		isTouchScreen,
 		inputRef,
 		setFooterDisplay,
+		formId,
 	};
 
 	return (

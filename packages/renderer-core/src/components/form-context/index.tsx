@@ -9,6 +9,7 @@ interface FormContext {
 	formObj: FormObj;
 	onSubmit: () => void;
 	isPreview: boolean;
+	formId?: number;
 }
 const FormContext = createContext< FormContext >( {
 	formObj: {

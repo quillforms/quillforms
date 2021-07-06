@@ -28,7 +28,7 @@ import { PreviewContextProvider } from '../preview-context';
 
 let $timer;
 
-const FormPreview: React.FC = () => {
+const FormPreview: React.FC = ( { formId } ) => {
 	const theme = useTheme();
 
 	const { hasThemesFinishedResolution } = useSelect( ( select ) => {
@@ -186,6 +186,7 @@ const FormPreview: React.FC = () => {
 						{ ( fills ) => (
 							<>
 								<Form
+									formId={ formId }
 									formObj={ {
 										blocks: cloneDeep( blocks ),
 										theme,

@@ -14,6 +14,7 @@ import FormWrapper from '../form-wrapper';
 import type { FormObj } from '../../types';
 
 interface Props {
+	formId: number;
 	formObj: FormObj;
 	onSubmit: () => void;
 	applyLogic: boolean;
@@ -21,6 +22,7 @@ interface Props {
 }
 const Form: React.FC< Props > = ( {
 	formObj,
+	formId,
 	onSubmit,
 	applyLogic,
 	isPreview = false,
@@ -45,7 +47,12 @@ const Form: React.FC< Props > = ( {
 	};
 	return (
 		<FormContextProvider
-			value={ { formObj: formatFormObj( formObj ), onSubmit, isPreview } }
+			value={ {
+				formObj: formatFormObj( formObj ),
+				onSubmit,
+				isPreview,
+				formId,
+			} }
 		>
 			<FormWrapper applyLogic={ applyLogic } />
 		</FormContextProvider>

@@ -32,7 +32,7 @@ import type {
 	OnDragStartResponder,
 } from 'react-beautiful-dnd';
 
-const Layout: React.FC = () => {
+const Layout: React.FC = ( { formId } ) => {
 	const [ targetIndex, setTargetIndex ] = useState< number >();
 	const [ isDraggingContent, setIsDraggingContent ] = useState< boolean >(
 		false
@@ -234,7 +234,7 @@ const Layout: React.FC = () => {
 	};
 
 	const formPreview = useMemo( () => {
-		return <FormPreview />;
+		return <FormPreview formId={ formId } />;
 	}, [] );
 
 	const pluginsArea = useMemo( () => {

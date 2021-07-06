@@ -105,7 +105,7 @@ const Builder = ( { params } ) => {
 					/>
 				</div>
 			) : (
-				<BuilderLayout />
+				<BuilderLayout formId={ id } />
 			) }
 
 			<SaveButton formId={ id } isResolving={ isResolving } />
