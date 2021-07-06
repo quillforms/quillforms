@@ -41,6 +41,20 @@ class Core {
 	}
 
 	/**
+	 * Set config
+	 *
+	 * @since 1.1.5
+	 *
+	 * @return void
+	 */
+	public static function set_config() {
+		wp_add_inline_script(
+			'quillforms-config',
+			'qf.config.default.setMaxUploadSize(' . wp_max_upload_size() / ( 1024 * 1024 ) . ');'
+		);
+	}
+
+	/**
 	 * Register Quill Forms Post Type.
 	 *
 	 * @since 1.0.0
