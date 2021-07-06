@@ -25,6 +25,7 @@ const FieldMergeTag: React.FC< Props > = ( { modifier } ) => {
 			fieldMergeTagValue: blockType ? (
 				blockType?.mergeTag && fieldVal ? (
 					<blockType.mergeTag
+						fieldId={ modifier }
 						val={ fieldVal }
 						attributes={ block.attributes }
 					/>
