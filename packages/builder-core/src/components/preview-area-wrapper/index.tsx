@@ -27,8 +27,10 @@ import PreviewArea from '../preview-area';
 import { PreviewContextProvider } from '../preview-context';
 
 let $timer;
-
-const FormPreview: React.FC = ( { formId } ) => {
+interface Props {
+	formId: number;
+}
+const FormPreview: React.FC< Props > = ( { formId } ) => {
 	const theme = useTheme();
 
 	const { hasThemesFinishedResolution } = useSelect( ( select ) => {

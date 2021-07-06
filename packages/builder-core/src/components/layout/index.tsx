@@ -32,7 +32,10 @@ import type {
 	OnDragStartResponder,
 } from 'react-beautiful-dnd';
 
-const Layout: React.FC = ( { formId } ) => {
+interface Props {
+	formId: number;
+}
+const Layout: React.FC< Props > = ( { formId } ) => {
 	const [ targetIndex, setTargetIndex ] = useState< number >();
 	const [ isDraggingContent, setIsDraggingContent ] = useState< boolean >(
 		false
