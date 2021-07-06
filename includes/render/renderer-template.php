@@ -67,6 +67,7 @@ $form_object = Form_Renderer::get_instance()->prepare_form_object();
 		qf.rendererCore.Form,
 		{
 			formObj: formObject,
+			formId: <?php echo $form_id; ?>,
 			onSubmit: function() {
 				var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 				const data = new FormData();
