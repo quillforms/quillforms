@@ -120,7 +120,7 @@ type setFieldPendingMsg = {
 	val: string;
 };
 
-type setIsFieldValidationErr = {
+type setFieldValidationErr = {
 	type: typeof SET_FIELD_VALIDATION_ERR;
 	id: string;
 	val: string;
@@ -148,7 +148,7 @@ export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
 	| setFieldAnswerAction
 	| setIsFieldValidAction
-	| setIsFieldValidationErr
+	| setFieldValidationErr
 	| setIsFieldAnsweredAction
 	| setIsFieldPendingAction
 	| setFieldPendingMsg
