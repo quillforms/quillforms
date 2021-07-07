@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { CustomSelectControl } from '@wordpress/components';
+import { SelectControl } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -13,13 +13,18 @@ import { useEffect } from '@wordpress/element';
  */
 import { css } from 'emotion';
 
-const MultipleChoice = ( { attributes, value, setValue, removeCondition } ) => {
+const DropdownLogicControl = ( {
+	attributes,
+	value,
+	setValue,
+	removeCondition,
+} ) => {
 	const { choices } = attributes;
 
 	useEffect( () => {
 		if ( ! value ) {
-			setValue( choices[ 0 ].ref );
-		} else if ( ! choices.some( ( choice ) => choice.ref === value ) ) {
+			setValue( choices[ 0 ].value );
+		} else if ( ! choices.some( ( choice ) => choice.value === value ) ) {
 			removeCondition();
 		}
 	}, [] );
@@ -30,19 +35,20 @@ const MultipleChoice = ( { attributes, value, setValue, removeCondition } ) => {
 		};
 	} );
 	return (
-		<CustomSelectControl
+		<SelectControl
 			className={ css`
 				margin-top: 10px;
 				margin-bottom: 10px;
 				width: 200px;
 			` }
-			value={ value }
+			value={ options.find( ( option ) => option.key === value ) }
 			onChange={ ( selectedChoice ) => {
-				setValue( selectedChoice );
+				console.log( selectedChoice );
+				setValue( selectedChoice.selectedItem.key );
 			} }
 			options={ options }
 		/>
 	);
 };
 
-export default MultipleChoice;
+export default DropdownLogicControl;

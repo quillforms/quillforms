@@ -5,7 +5,7 @@
 		"required": true,
 		"attachment": true,
 		"description": true,
-		"logic": false
+		"logic": true
 	},
 	"attributes": {
 		"set_max": {

@@ -33,7 +33,6 @@ export const setBlockAdminSettings = (
 		color: '#333s',
 		icon: 'plus',
 		controls: () => null,
-		logicControl: () => null,
 		...settings,
 	};
 
@@ -61,7 +60,7 @@ export const setBlockAdminSettings = (
 		return;
 	}
 
-	if ( ! isFunction( settings.logicControl ) ) {
+	if ( settings.logicControl && ! isFunction( settings.logicControl ) ) {
 		console.error(
 			'The "logicControl" property must be a valid function!'
 		);

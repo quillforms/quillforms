@@ -93,6 +93,17 @@ class Long_Text_Block_Type extends Block_Type {
 	}
 
 	/**
+	 * Get logical operators
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array The logical operators
+	 */
+	public function get_logical_operators() : iterable {
+		return $this->get_metadata()['logicalOperators'];
+	}
+
+	/**
 	 * Get meta data
 	 * This file is just for having some shared properties between front end and back end.
 	 * Just as the block type.
