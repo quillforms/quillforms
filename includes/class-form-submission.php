@@ -215,7 +215,7 @@ class Form_Submission {
 					if ( ! empty( $answers[ $field['id'] ] ) ) {
 						$answers[ $field['id'] ]['value'] = $block_type->format_field( $answers[ $field['id'] ]['value'], $this->form_data );
 					}
-					$walk_path_answers[ $field['id'] ] = $answers[ $field['id'] ];
+					$walk_path_answers[ $field['id'] ] = $answers[ $field['id'] ] ?? null;
 				}
 			}
 
