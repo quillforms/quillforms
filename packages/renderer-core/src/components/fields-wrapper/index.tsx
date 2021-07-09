@@ -266,13 +266,6 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		return false;
 	};
 
-	const getBlockLogic = ( blockId: string ) => {
-		if ( ! jumpLogic ) return null;
-		return size( jumpLogic ) > 0
-			? jumpLogic.find( ( blockLogic ) => blockLogic.blockId === blockId )
-			: null;
-	};
-
 	const ruleGroupConditionsMet = ( ruleGroupConditions ): boolean => {
 		let res = true;
 		forEach( ruleGroupConditions, ( condition ) => {
@@ -326,10 +319,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			}
 			path.push( question );
 			let newIndex = index;
-			const blockJumpLogic = getBlockLogic( question.id );
-			if ( blockJumpLogic && blockJumpLogic?.actions?.length > 0 ) {
+			const blockJumpLogic = jumpLogic?.[ question.id ];
+			if ( blockJumpLogic && blockJumpLogic.length > 0 ) {
 				let $break = false;
-				forEach( blockJumpLogic.actions, ( action ) => {
+				forEach( blockJumpLogic, ( action ) => {
 					if ( ! $break ) {
 						if (
 							action &&
