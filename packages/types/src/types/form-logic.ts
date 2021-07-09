@@ -6,7 +6,7 @@ export enum LogicActionType {
 	multiply = 'multiply',
 }
 
-export enum LogicOperator {
+export enum LogicConditionOperator {
 	is = 'is',
 	isNot = 'is_not',
 	greaterThan = 'greater_than',
@@ -23,7 +23,7 @@ export enum LogicConditionVarType {
 }
 
 export type LogicCondition = {
-	op: LogicOperator;
+	op: LogicConditionOperator;
 	vars: [
 		{
 			type: LogicConditionVarType;
