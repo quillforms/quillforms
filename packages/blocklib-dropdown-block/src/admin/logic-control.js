@@ -44,7 +44,6 @@ const DropdownLogicControl = ( {
 			` }
 			value={ options.find( ( option ) => option.key === value ) }
 			onChange={ ( selectedChoice ) => {
-				console.log( selectedChoice );
 				setValue( selectedChoice.selectedItem.key );
 			} }
 			options={ options }
