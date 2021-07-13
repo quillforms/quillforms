@@ -6,7 +6,7 @@ export type {
 
 export type { FormMessages } from './types/form-messages';
 
-export type { FormLogic } from './types/form-logic';
+export * from './types/form-logic';
 
 export type { FormTheme } from './types/form-theme';
 
