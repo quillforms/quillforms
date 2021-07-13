@@ -1,4 +1,4 @@
-export enum BlockLogicActionType {
+export enum LogicActionType {
 	jump = 'jump',
 	add = 'add',
 	substract = 'substract',
@@ -6,7 +6,7 @@ export enum BlockLogicActionType {
 	multiply = 'multiply',
 }
 
-export enum BlockLogicActionConditionOperators {
+export enum LogicConditionOperator {
 	is = 'is',
 	isNot = 'is_not',
 	greaterThan = 'greater_than',
@@ -17,16 +17,16 @@ export enum BlockLogicActionConditionOperators {
 	notContains = 'not_contains',
 }
 
-export enum BlockLogicActionConditionVarTypes {
+export enum LogicConditionVarType {
 	field = 'field',
 	variable = 'variable',
 }
 
-export type BlockLogicActionCondition = {
-	op: BlockLogicActionConditionOperators;
+export type LogicCondition = {
+	op: LogicConditionOperator;
 	vars: [
 		{
-			type: BlockLogicActionConditionVarTypes;
+			type: LogicConditionVarType;
 			value: string;
 		},
 		{
@@ -34,15 +34,11 @@ export type BlockLogicActionCondition = {
 		}
 	];
 };
-export type BlockLogicAction = {
-	type: BlockLogicActionType;
+
+export type LogicAction = {
+	type: LogicActionType;
 	target?: string;
-	conditions?: BlockLogicActionCondition[][];
+	conditions?: LogicCondition[][];
 };
 
-export type BlockLogic = {
-	blockId: string;
-	actions: BlockLogicAction[];
-};
-
-export type FormLogic = BlockLogic[];
+export type FormLogic = Record< string, LogicAction[] >;
