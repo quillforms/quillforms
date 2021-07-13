@@ -1,26 +1,21 @@
-export enum LogicActionType {
-	jump = 'jump',
-	add = 'add',
-	substract = 'substract',
-	divide = 'divide',
-	multiply = 'multiply',
-}
+export type LogicActionType =
+	| 'jump'
+	| 'add'
+	| 'substract'
+	| 'divide'
+	| 'multiply';
 
-export enum LogicConditionOperator {
-	is = 'is',
-	isNot = 'is_not',
-	greaterThan = 'greater_than',
-	lowerThan = 'lower_than',
-	startsWith = 'starts_with',
-	endsWith = 'ends_with',
-	contains = 'contains',
-	notContains = 'not_contains',
-}
+export type LogicConditionOperator =
+	| 'is'
+	| 'is_not'
+	| 'greater_than'
+	| 'lower_than'
+	| 'starts_with'
+	| 'ends_with'
+	| 'contains'
+	| 'not_contains';
 
-export enum LogicConditionVarType {
-	field = 'field',
-	variable = 'variable',
-}
+export type LogicConditionVarType = 'field' | 'variable';
 
 export type LogicCondition = {
 	op: LogicConditionOperator;
