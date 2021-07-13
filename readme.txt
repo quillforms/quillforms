@@ -1,9 +1,9 @@
- === Quill Forms ===
+ === Quill Forms | Typeform alternative for WordPress ===
 Contributors: mdmag
 Tested up to: 5.7
 Stable tag: 1.1.4
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, conversational, forms, typeform, conversation, chat, contact
+Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
