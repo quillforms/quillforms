@@ -144,9 +144,9 @@ const ThemesListItem = ( { theme } ) => {
 						className={ classnames(
 							'theme-editor-themes-list-item__header-buttons',
 							css`
-							color: ${ themeData.buttonsFontColor },
-							background: ${ themeData.buttonsBgColor },
-						`
+								color: ${ themeData.buttonsFontColor };
+								background: ${ themeData.buttonsBgColor };
+							`
 						) }
 					></div>
 				</div>
