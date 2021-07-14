@@ -11,6 +11,7 @@
 		"editable": false,
 		"required": false,
 		"attachment": true,
-		"description": true
+		"description": true,
+		"logic": false
 	}
 }
