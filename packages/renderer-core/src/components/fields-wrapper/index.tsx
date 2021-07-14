@@ -295,6 +295,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 
 	const generatePath = () => {
 		const path: FormBlocks = [];
+		let nextBlockId: string | undefined;
+
 		let index = 0;
 		blocks_loop: do {
 			const question = blocks[ index ];
@@ -316,6 +318,9 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 						let targetIndex = getBlockIndex( action.target );
 						if ( targetIndex !== -1 ) {
 							index = targetIndex;
+							if ( currentBlockId === question.id ) {
+								nextBlockId = action.target;
+							}
 							continue blocks_loop;
 						}
 					}
@@ -324,10 +329,12 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			index++;
 		} while ( index < blocks.length );
 
-		let currentBlockIndex = path.findIndex(
-			( block ) => block.id === currentBlockId
-		);
-		let nextBlockId = path[ currentBlockIndex + 1 ]?.id ?? undefined;
+		if ( ! nextBlockId ) {
+			let currentBlockIndex = path.findIndex(
+				( block ) => block.id === currentBlockId
+			);
+			nextBlockId = path[ currentBlockIndex + 1 ]?.id ?? undefined;
+		}
 
 		return { path, nextBlockId };
 	};
