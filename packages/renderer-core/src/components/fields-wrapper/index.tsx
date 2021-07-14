@@ -91,7 +91,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	};
 
 	const fieldsToRender = getFieldsToRender();
-	const fields = blocks.filter(
+	const fields = walkPath.filter(
 		( block ) =>
 			block.name !== 'welcome-screen' && block.name !== 'thankyou-screen'
 	);
