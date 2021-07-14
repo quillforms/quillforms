@@ -15,8 +15,6 @@ import { useEffect, useRef } from '@wordpress/element';
  */
 import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
-
-import { forEach, size } from 'lodash';
 import { Lethargy } from 'lethargy';
 
 /**
@@ -266,33 +264,26 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		return false;
 	};
 
-	const ruleGroupConditionsMet = ( ruleGroupConditions ): boolean => {
-		let res = true;
-		forEach( ruleGroupConditions, ( condition ) => {
+	const isGroupConditionsMet = ( groupConditions ): boolean => {
+		for ( let condition of groupConditions ) {
 			const { op, vars } = condition;
 			const fieldId = vars[ 0 ].value;
-			const fieldAnswer = answers[ fieldId ];
+			const fieldAnswer = answers[ fieldId ]?.value;
 			const value = vars[ 1 ].value;
-			if ( ! isConditionFulfilled( op, value, fieldAnswer ) ) res = false;
-		} );
-		return res;
-	};
-
-	const conditionsMet = ( conditions ): boolean => {
-		let res = false;
-		forEach( conditions, ( ruleGroupConditions ) => {
-			if ( ruleGroupConditionsMet( ruleGroupConditions ) ) {
-				res = true;
+			if ( ! isConditionFulfilled( op, value, fieldAnswer ) ) {
+				return false;
 			}
-		} );
-		return res;
+		}
+		return true;
 	};
 
-	const getNextTarget = ( target: string, conditions ) => {
-		if ( conditionsMet( conditions ) ) {
-			return target;
+	const isConditionsMet = ( conditions ): boolean => {
+		for ( let groupConditions of conditions ) {
+			if ( isGroupConditionsMet( groupConditions ) ) {
+				return true;
+			}
 		}
-		return undefined;
+		return false;
 	};
 
 	const getBlockIndex = ( blockId: string | undefined ) => {
@@ -304,11 +295,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 
 	const generatePath = () => {
 		const path: FormBlocks = [];
-		let nextBlockId: string | undefined;
 		let index = 0;
-
-		let shouldBreakTheWholeLoop = false;
-		do {
+		blocks_loop: do {
 			const question = blocks[ index ];
 			if ( question.name === 'welcome-screen' ) {
 				index++;
@@ -318,54 +306,28 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				break;
 			}
 			path.push( question );
-			let newIndex = index;
 			const blockJumpLogic = jumpLogic?.[ question.id ];
-			if ( blockJumpLogic && blockJumpLogic.length > 0 ) {
-				let $break = false;
-				forEach( blockJumpLogic, ( action ) => {
-					if ( ! $break ) {
-						if (
-							action &&
-							action.conditions &&
-							size( action.conditions ) > 0 &&
-							action.target
-						) {
-							const nextId = getNextTarget(
-								action.target,
-								action.conditions
-							);
-							const nextBlockIndex = getBlockIndex( nextId );
-							if ( nextId && nextBlockIndex !== -1 ) {
-								if ( nextBlockIndex < index ) {
-									shouldBreakTheWholeLoop = true;
-								} else {
-									newIndex = nextBlockIndex;
-								}
-								if ( currentBlockId === question.id ) {
-									nextBlockId = nextId;
-								}
-								$break = true;
-							}
+			if ( blockJumpLogic && blockJumpLogic.length !== 0 ) {
+				for ( let action of blockJumpLogic ) {
+					if (
+						action?.conditions &&
+						isConditionsMet( action.conditions )
+					) {
+						let targetIndex = getBlockIndex( action.target );
+						if ( targetIndex !== -1 ) {
+							index = targetIndex;
+							continue blocks_loop;
 						}
 					}
-				} );
-				if ( newIndex === index && ! shouldBreakTheWholeLoop ) {
-					index++;
-				} else {
-					index = newIndex;
 				}
-			} else {
-				index++;
 			}
-			if ( currentBlockId === question.id ) {
-				nextBlockId = nextBlockId
-					? nextBlockId
-					: blocks[ index ]?.id
-					? blocks[ index ].id
-					: undefined;
-			}
-			if ( shouldBreakTheWholeLoop ) break;
+			index++;
 		} while ( index < blocks.length );
+
+		let currentBlockIndex = path.findIndex(
+			( block ) => block.id === currentBlockId
+		);
+		let nextBlockId = path[ currentBlockIndex + 1 ]?.id ?? undefined;
 
 		return { path, nextBlockId };
 	};
@@ -393,6 +355,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			} );
 		}
 	}, [ applyLogic ] );
+
 	return (
 		<div
 			onWheel={ swipingHandler }

@@ -48,7 +48,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 	const [ selfDispatch, setSelfDispatch ] = useState( false );
 	const fonts = configApi.getFonts();
 	const { font } = theme;
-	const { currentBlockBeingEdited, blocks, messages } = useSelect(
+	const { currentBlockBeingEdited, blocks, messages, logic } = useSelect(
 		( select ) => {
 			return {
 				currentBlockBeingEdited: select(
@@ -56,6 +56,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 				).getCurrentBlockId(),
 				blocks: select( 'quillForms/block-editor' ).getBlocks(),
 				messages: select( 'quillForms/messages-editor' ).getMessages(),
+				logic: select( 'quillForms/logic-editor' )?.getLogic(),
 			};
 		}
 	);
@@ -193,7 +194,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 										blocks: cloneDeep( blocks ),
 										theme,
 										messages,
-										logic: null,
+										logic,
 									} }
 									applyLogic={ applyJumpLogic }
 									onSubmit={ completeForm }
