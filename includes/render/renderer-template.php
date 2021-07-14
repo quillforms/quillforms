@@ -68,6 +68,7 @@ $form_object = Form_Renderer::get_instance()->prepare_form_object();
 		{
 			formObj: formObject,
 			formId: <?php echo $form_id; ?>,
+			applyLogic: true,
 			onSubmit: function() {
 				var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 				const data = new FormData();
