@@ -2,15 +2,15 @@ import { TextControl } from '@quillforms/admin-components';
 import { useEffect, useState } from '@wordpress/element';
 
 const NumberLogicControl = ( { value, setValue } ) => {
-	const [ controlVal, setControlVal ] = useState( 0 );
+	const [ controlVal, setControlVal ] = useState( value );
 	useEffect( () => {
-		setValue( parseInt( controlVal ) );
+		setValue( parseInt( controlVal, 10 ) );
 	}, [ controlVal ] );
 	return (
 		<TextControl
 			type="number"
 			value={ value }
-			setValue={ ( val ) => setControlVal( val ) }
+			onChange={ ( val ) => setControlVal( val ) }
 		/>
 	);
 };
