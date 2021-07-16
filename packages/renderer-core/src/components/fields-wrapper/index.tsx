@@ -317,11 +317,15 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 					) {
 						let targetIndex = getBlockIndex( action.target );
 						if ( targetIndex !== -1 ) {
-							index = targetIndex;
 							if ( currentBlockId === question.id ) {
 								nextBlockId = action.target;
 							}
-							continue blocks_loop;
+							if ( targetIndex > index ) {
+								index = targetIndex;
+								continue blocks_loop;
+							} else {
+								break blocks_loop;
+							}
 						}
 					}
 				}

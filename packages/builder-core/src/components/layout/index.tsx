@@ -9,7 +9,7 @@ import { FormBlock } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { useState, useMemo, useEffect } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch, select, dispatch } from '@wordpress/data';
 import { PluginArea } from '@wordpress/plugins';
 
 /**
@@ -143,7 +143,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		setTargetIndex( next );
 	};
 
-	const onDragEnd: OnDragEndResponder = ( result ) => {
+	const onDragEnd: OnDragEndResponder = async ( result ) => {
 		setIsDragging( false );
 		setTargetIndex( undefined );
 		setIsDraggingContent( false );
@@ -160,6 +160,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 				if ( destination.droppableId === 'BLOCKS_LIST' ) {
 					return;
 				}
+				// check incorrect merge tags.
 				if (
 					hasIncorrectFieldMergeTags(
 						source.index,
@@ -170,31 +171,75 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 						source.index
 					)
 				) {
-					confirmAlert( {
-						customUI: ( { onClose } ) => {
-							return (
-								<DragAlert
-									approve={ () => {
-										__experimentalReorderBlocks(
-											source.index,
-											destination.index
-										);
-										onClose();
-									} }
-									reject={ () => {
-										onClose();
-									} }
-									closeModal={ onClose }
-								/>
-							);
-						},
+					let accepted = await new Promise( ( resolve ) => {
+						confirmAlert( {
+							customUI: ( { onClose } ) => {
+								return (
+									<DragAlert
+										message="This block recalls information from previous fields.
+											This info will be lost if you proceed with this block movement."
+										approve={ () => {
+											resolve( true );
+											onClose();
+										} }
+										reject={ () => {
+											resolve( false );
+											onClose();
+										} }
+										closeModal={ onClose }
+									/>
+								);
+							},
+						} );
 					} );
-				} else {
-					__experimentalReorderBlocks(
-						source.index,
-						destination.index
-					);
+					if ( ! accepted ) return;
 				}
+				// check invalid logics.
+				let invalidConditions: {
+					actionIndex: number;
+					groupIndex: number;
+					conditionIndex: number;
+				}[] = select(
+					'quillForms/logic-editor'
+				)?.getBlockJumpLogicInvalidConditions(
+					source.index,
+					destination.index
+				);
+				if ( invalidConditions?.length > 0 ) {
+					let accepted = await new Promise( ( resolve ) => {
+						confirmAlert( {
+							customUI: ( { onClose } ) => {
+								return (
+									<DragAlert
+										message="This block depends on logic conditions of previous fields.
+											These conditions will be lost if you proceed with this block movement."
+										approve={ () => {
+											resolve( true );
+											onClose();
+										} }
+										reject={ () => {
+											resolve( false );
+											onClose();
+										} }
+										closeModal={ onClose }
+									/>
+								);
+							},
+						} );
+					} );
+					if ( ! accepted ) return;
+					for ( let condition of invalidConditions.reverse() ) {
+						dispatch(
+							'quillForms/logic-editor'
+						).deleteLogicCondition(
+							formBlocks[ source.index ].id,
+							condition.actionIndex,
+							condition.groupIndex,
+							condition.conditionIndex
+						);
+					}
+				}
+				__experimentalReorderBlocks( source.index, destination.index );
 				break;
 			case 'BLOCKS_LIST': {
 				if ( destination.droppableId === 'DROP_AREA' ) {
