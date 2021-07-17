@@ -15,11 +15,13 @@ import classnames from 'classnames';
 import { css } from 'emotion';
 
 interface Props {
+	messages: string[];
 	approve: () => void;
 	reject: () => void;
 	closeModal: () => void;
 }
 const DragAlertModal: React.FC< Props > = ( {
+	messages,
 	approve,
 	reject,
 	closeModal,
@@ -42,10 +44,15 @@ const DragAlertModal: React.FC< Props > = ( {
 			onRequestClose={ closeModal }
 		>
 			<p>
-				This block recalls information from previous fields. This info
-				will be lost if you proceed with this block movement.
+				<div>
+					{ messages.length === 1
+						? messages[ 0 ]
+						: messages.map( ( message, index ) => (
+								<div>{ `${ index + 1 }. ${ message }` }</div>
+						  ) ) }
+				</div>
 				<br />
-				<br /> Are you sure you want to proceed?
+				<div>Are you sure you want to proceed?</div>
 			</p>
 			<div
 				className={ css`
