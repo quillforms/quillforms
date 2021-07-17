@@ -370,7 +370,6 @@ abstract class Block_Type extends stdClass {
 	 * @return bool
 	 */
 	public function is_condition_fulfilled( $field_value, $condition ) : bool {
-
 		$condition_value = $condition['value'];
 		switch ( $condition['operator'] ) {
 			case 'is':
@@ -378,37 +377,36 @@ abstract class Block_Type extends stdClass {
 					// possible input is "1" to be compared with 1.
 					return in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				}
-				if ( is_numeric( $condition_value ) ) {
-					return ( (int) $field_value === (int) $condition_value );
-				}
+				return ( $field_value == $condition_value );
 
-				return ( $field_value === $condition_value );
 			case 'is_not':
 				if ( is_array( $field_value ) ) {
 					// possible input is "1" to be compared with 1.
 					return ! in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				}
+				return ( $field_value != $condition_value );
 
-				return ( $field_value !== $condition_value );
 			case 'greater_than':
 				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
 					return false;
 				}
+				return (int) $field_value > (int) $condition_value;
 
-				return $field_value > $condition_value;
 			case 'lower_than':
 				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
 					return false;
 				}
-
 				return $field_value < $condition_value;
+
 			case 'contains':
-				return ( stripos( $field_value, $condition_value ) === false ? false : true );
+				return stripos( $field_value, $condition_value ) !== false;
+
 			case 'starts_with':
 				return substr_compare( $field_value, $condition_value, 0, strlen( $condition_value ) ) === 0;
 
 			case 'ends_with':
 				return substr_compare( $field_value, $condition_value, -strlen( $condition_value ) ) === 0;
+
 			default:
 				return false;
 		}
