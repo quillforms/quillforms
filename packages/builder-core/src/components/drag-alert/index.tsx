@@ -15,13 +15,13 @@ import classnames from 'classnames';
 import { css } from 'emotion';
 
 interface Props {
-	message: string;
+	messages: string[];
 	approve: () => void;
 	reject: () => void;
 	closeModal: () => void;
 }
 const DragAlertModal: React.FC< Props > = ( {
-	message,
+	messages,
 	approve,
 	reject,
 	closeModal,
@@ -44,9 +44,15 @@ const DragAlertModal: React.FC< Props > = ( {
 			onRequestClose={ closeModal }
 		>
 			<p>
-				{ message }
+				<div>
+					{ messages.length === 1
+						? messages[ 0 ]
+						: messages.map( ( message, index ) => (
+								<div>{ `${ index + 1 }. ${ message }` }</div>
+						  ) ) }
+				</div>
 				<br />
-				<br /> Are you sure you want to proceed?
+				<div>Are you sure you want to proceed?</div>
 			</p>
 			<div
 				className={ css`
