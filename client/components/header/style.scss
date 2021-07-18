@@ -12,9 +12,20 @@
 	background: #f5f5f5;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 
-	.qf-admin-header__user {
+	.qf-admin-header__right, .qf-admin-header__left, .qf-admin-header__dashboard-link{
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
+	}
+
+	.qf-admin-header__dashboard-link {
+		text-decoration: none;
+		color: #333;
+		margin-left: 50px;
+
+		svg {
+			margin-right: 5px;
+		}
 	}
 
 	.qf-admin-header__user-image {

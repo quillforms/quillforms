@@ -1,6 +1,8 @@
 /**
  * WordPress Dependencies
  */
+import { Icon } from '@wordpress/components';
+import { arrowLeft } from '@wordpress/icons';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -29,10 +31,16 @@ const Header = () => {
 	);
 	return (
 		<div className="qf-admin-header">
-			<div className="qf-admin-header__logo">
+			<div className="qf-admin-header__left">
 				<Logo />
+				<a
+					className="qf-admin-header__dashboard-link"
+					href={ qfAdmin.adminUrl }
+				>
+					<Icon icon={ arrowLeft } /> Back to WordPress Dashboard
+				</a>
 			</div>
-			<div className="qf-admin-header__user">
+			<div className="qf-admin-header__right">
 				<div className="qf-admin-header__user-name">
 					Howdy,{ ' ' }
 					{ ! hasGetCurrentUserFinishedResolution ? (
