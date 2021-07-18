@@ -184,6 +184,12 @@
 		"default": "Maximum characters reached!",
 		"category": "alerts"
 	},
+	"label.submitBtn": {
+		"title": "Submit button label",
+		"allowedFormats": [ "bold", "link", "italic" ],
+		"default": "Submit",
+		"category": "buttons-hints-placeholders"
+	},
 	"label.errorAlert.noConnection": {
 		"title": "Error for no connection with server",
 		"allowedFormats": [ "bold", "link", "italic" ],
