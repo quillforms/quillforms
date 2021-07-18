@@ -25,6 +25,7 @@ $blocks_schema = array(
 			),
 			'name'       => array(
 				'type'     => 'string',
+				'enum'     => array_keys( Blocks_Manager::get_instance()->get_all_registered() ),
 				'required' => true,
 			),
 		),
