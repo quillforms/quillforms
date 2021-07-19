@@ -26,6 +26,7 @@
 		"@wordpress/data": "^5.1.1",
 		"@wordpress/element": "^3.1.1",
 		"@wordpress/i18n": "^4.1.1",
+		"@wordpress/media-utils": "^2.1.1",
 		"lodash": "~4.17.21"
 	},
 	"publishConfig": {
