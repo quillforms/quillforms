@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress ===
 Contributors: mdmag
 Tested up to: 5.7
-Stable tag: 1.1.4
+Stable tag: 1.2.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
 License: GPLv2 or later
@@ -63,6 +63,12 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 5. QuillForms Renderer
 
 == Changelog ==
+
+= 1.2.0 =  19 Jul 2021
+Feature: Add control for submit button label.
+Feature: Add some validation contraints for blocks.
+Feature: Adding a link in header for navigating back to WordPress dashboard.
+Fix: Fixing various bugs related to logic and extendability.
 
 = 1.1.4 =  2 Jul 2021
 Fix: Theme background image not displaying in themes list.
