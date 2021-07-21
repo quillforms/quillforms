@@ -1,7 +1,6 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment } from '@wordpress/element';
 import { autop } from '@wordpress/autop';
 
 /**
@@ -30,7 +29,6 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 	);
 
 	value = autop( value );
-
 	return (
 		<div className="renderer-core-html-parser">
 			{ parse( value, {
@@ -40,13 +38,7 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 						domNode?.name === 'mergetag'
 					) {
 						const { modifier, type } = domNode.attribs;
-						return (
-							<MergeTag
-								key={ `merge-tag-${ type }-${ modifier }-${ uniqueId() }` }
-								type={ type }
-								modifier={ modifier }
-							/>
-						);
+						return <MergeTag type={ type } modifier={ modifier } />;
 					}
 				},
 			} ) }
