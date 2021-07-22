@@ -97,7 +97,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		};
 	} );
 	mergeTags = mergeTags.concat(
-		applyFilters( 'quillforms.builder-merge-tags', [] ) as any[]
+		applyFilters( 'quillforms.builder.merge-tags', [] ) as any[]
 	);
 
 	// State for popup showed after Accessing merge tag {{xx:yyy}} explicitly from editor!

@@ -66,7 +66,7 @@ const EmailMessage = ( {
 		},
 	].concat( fields );
 	mergeTags = mergeTags.concat(
-		applyFilters( 'quillforms.builder-merge-tags', [] )
+		applyFilters( 'quillforms.builder.merge-tags', [] )
 	);
 
 	return (
