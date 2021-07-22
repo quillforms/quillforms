@@ -43,7 +43,7 @@ const DragAlertModal: React.FC< Props > = ( {
 			title="Warning!"
 			onRequestClose={ closeModal }
 		>
-			<p>
+			<div>
 				<div>
 					{ messages.length === 1
 						? messages[ 0 ]
@@ -53,7 +53,7 @@ const DragAlertModal: React.FC< Props > = ( {
 				</div>
 				<br />
 				<div>Are you sure you want to proceed?</div>
-			</p>
+			</div>
 			<div
 				className={ css`
 					display: flex;
