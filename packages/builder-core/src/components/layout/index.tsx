@@ -9,8 +9,9 @@ import { FormBlock } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { useState, useMemo, useEffect } from '@wordpress/element';
-import { useSelect, useDispatch, select, dispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { PluginArea } from '@wordpress/plugins';
+import { doAction, applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -176,22 +177,12 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 						This info will be lost if you proceed with this block movement.'
 					);
 				}
-				let invalidLogicConditions: {
-					actionIndex: number;
-					groupIndex: number;
-					conditionIndex: number;
-				}[] = select(
-					'quillForms/logic-editor'
-				)?.getBlockJumpLogicInvalidConditions(
+				dragAlerts = applyFilters(
+					'quillforms.builder-core.blocks-reorder-alerts',
+					dragAlerts,
 					source.index,
 					destination.index
-				);
-				if ( invalidLogicConditions?.length > 0 ) {
-					dragAlerts.push(
-						'This block depends on logic conditions of previous fields.\
-						These conditions will be lost if you proceed with this block movement.'
-					);
-				}
+				) as string[];
 				if ( dragAlerts.length > 0 ) {
 					confirmAlert( {
 						customUI: ( { onClose } ) => {
@@ -199,21 +190,11 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 								<DragAlert
 									messages={ dragAlerts }
 									approve={ () => {
-										if (
-											invalidLogicConditions?.length > 0
-										) {
-											for ( let condition of invalidLogicConditions.reverse() ) {
-												dispatch(
-													'quillForms/logic-editor'
-												).deleteLogicCondition(
-													formBlocks[ source.index ]
-														.id,
-													condition.actionIndex,
-													condition.groupIndex,
-													condition.conditionIndex
-												);
-											}
-										}
+										doAction(
+											'quillforms.builder-core.blocks-reorder',
+											source.index,
+											destination.index
+										);
 										__experimentalReorderBlocks(
 											source.index,
 											destination.index
