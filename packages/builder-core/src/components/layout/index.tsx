@@ -177,12 +177,14 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 						This info will be lost if you proceed with this block movement.'
 					);
 				}
-				dragAlerts = applyFilters(
-					'quillforms.builder-core.blocks-reorder-alerts',
-					dragAlerts,
-					source.index,
-					destination.index
-				) as string[];
+				dragAlerts = dragAlerts.concat(
+					applyFilters(
+						'quillforms.builder-core.blocks-reorder-alerts',
+						[],
+						source.index,
+						destination.index
+					) as string[]
+				);
 				if ( dragAlerts.length > 0 ) {
 					confirmAlert( {
 						customUI: ( { onClose } ) => {
