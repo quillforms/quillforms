@@ -13,6 +13,7 @@ import { getPlainExcerpt, RichTextControl } from '@quillforms/rich-text';
  */
 import { useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -56,6 +57,18 @@ const EmailMessage = ( {
 				} ),
 		};
 	} );
+
+	let mergeTags = [
+		{
+			type: 'form',
+			modifier: 'all_answers',
+			label: 'all_answers',
+		},
+	].concat( fields );
+	mergeTags = mergeTags.concat(
+		applyFilters( 'quillforms.builder-merge-tags', [] )
+	);
+
 	return (
 		<__experimentalBaseControl>
 			<__experimentalControlWrapper orientation="vertical">
@@ -67,13 +80,7 @@ const EmailMessage = ( {
 					className={ css`
 						min-height: 120px !important;
 					` }
-					mergeTags={ [
-						{
-							type: 'form',
-							modifier: 'all_answers',
-							label: 'all_answers',
-						},
-					].concat( fields ) }
+					mergeTags={ mergeTags }
 					value={ value }
 					setValue={ ( newVal ) => {
 						setValue( newVal );

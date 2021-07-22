@@ -16,6 +16,7 @@ import type { BlockAttributes } from '@quillforms/types';
 import { Modal } from '@wordpress/components';
 import { useState, useCallback, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -85,7 +86,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		};
 	} );
 
-	const mergeTags = prevFields.map( ( field ) => {
+	let mergeTags = prevFields.map( ( field ) => {
 		return {
 			type: 'field',
 			label: field?.attributes?.label,
@@ -95,6 +96,9 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 			order: field.order,
 		};
 	} );
+	mergeTags = mergeTags.concat(
+		applyFilters( 'quillforms.builder-merge-tags', [] ) as any[]
+	);
 
 	// State for popup showed after Accessing merge tag {{xx:yyy}} explicitly from editor!
 	const [ mergeTagAlertPopup, setMergeTagAlertPopup ] = useState< boolean >(
