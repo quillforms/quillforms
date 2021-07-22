@@ -25,6 +25,7 @@
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/utils": "file:../utils",
 		"@wordpress/element": "^3.1.1",
+		"@wordpress/hooks": "^3.2.0",
 		"html-react-parser": "1.2.6",
 		"lethargy": "^1.0.9",
 		"lodash": "^4.17.21",

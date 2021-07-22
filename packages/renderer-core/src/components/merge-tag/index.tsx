@@ -4,6 +4,7 @@
 import FieldMergeTag from './field';
 import AttributeMergeTag from './attribute';
 import ProgressMergeTag from './progress';
+import { applyFilters } from '@wordpress/hooks';
 
 interface Props {
 	type: string;
@@ -21,7 +22,12 @@ const MergeTag: React.FC< Props > = ( { type, modifier } ) => {
 			return <ProgressMergeTag modifier={ modifier } />;
 		}
 		default:
-			return null;
+			return applyFilters(
+				'quillforms.renderer-core.merge-tag',
+				null,
+				type,
+				modifier
+			) as React.ReactElement< any, any > | null;
 	}
 };
 
