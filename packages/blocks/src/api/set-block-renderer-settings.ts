@@ -57,9 +57,105 @@ export const setBlockRendererSettings = (
 		console.error( 'The "nextBtn" property must be a valid function!' );
 		return;
 	}
+	if (
+		settings.isConditionFulfilled &&
+		! isFunction( settings.isConditionFulfilled )
+	) {
+		console.error(
+			'The "isConditionFulfilled" property must be a valid function!'
+		);
+		return;
+	}
+	if ( ! settings.isConditionFulfilled ) {
+		settings.isConditionFulfilled = (
+			conditionOperator: string,
+			conditionVal: unknown,
+			fieldValue: unknown
+		): boolean => {
+			switch ( conditionOperator ) {
+				case 'is': {
+					if ( Array.isArray( fieldValue ) )
+						return fieldValue.includes( conditionVal );
 
+					if (
+						typeof conditionVal === 'number' &&
+						typeof fieldValue === 'string'
+					)
+						return parseInt( fieldValue ) === conditionVal;
+
+					return fieldValue === conditionVal;
+				}
+
+				case 'is_not': {
+					if ( Array.isArray( fieldValue ) )
+						return ! fieldValue.includes( conditionVal );
+
+					return fieldValue !== conditionVal;
+				}
+
+				case 'greater_than': {
+					if (
+						typeof fieldValue !== 'number' ||
+						typeof conditionVal !== 'number'
+					) {
+						return false;
+					}
+
+					return fieldValue > conditionVal;
+				}
+
+				case 'lower_than': {
+					if (
+						typeof fieldValue !== 'number' ||
+						typeof conditionVal !== 'number'
+					) {
+						return false;
+					}
+
+					return fieldValue < conditionVal;
+				}
+
+				case 'contains': {
+					if (
+						typeof fieldValue !== 'string' ||
+						typeof conditionVal !== 'string'
+					) {
+						return false;
+					}
+					return fieldValue.indexOf( conditionVal ) !== -1;
+				}
+
+				case 'starts_with': {
+					if (
+						typeof fieldValue !== 'string' ||
+						typeof conditionVal !== 'string'
+					) {
+						return false;
+					}
+					return fieldValue.startsWith( conditionVal );
+				}
+
+				case 'ends_with': {
+					if (
+						typeof fieldValue !== 'string' ||
+						typeof conditionVal !== 'string'
+					) {
+						return false;
+					}
+					return fieldValue.endsWith( conditionVal );
+				}
+			}
+			return false;
+		};
+	}
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
-		pick( settings, [ 'display', 'mergeTag', 'nextBtn', 'counterIcon' ] ),
+		pick( settings, [
+			'display',
+			'mergeTag',
+			'nextBtn',
+			'counterIcon',
+			'isConditionFulfilled',
+		] ),
 		name
 	);
 
