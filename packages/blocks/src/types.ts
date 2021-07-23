@@ -25,7 +25,7 @@ export interface BlockRendererSettings {
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
 	nextBtn?: FC | Component | JSX.Element;
-	isConditionFulfilled(
+	isConditionFulfilled?(
 		conditionOperator: string,
 		conditionVal: unknown,
 		fieldValue: unknown
