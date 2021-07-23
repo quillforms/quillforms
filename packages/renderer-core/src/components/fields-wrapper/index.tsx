@@ -1,14 +1,10 @@
 /* eslint-disable no-nested-ternary */
 /**
- * QuillForms Dependencies
- */
-import { FormBlocks } from '@quillforms/types';
-
-/**
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useRef } from '@wordpress/element';
+import { doAction } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -23,6 +19,7 @@ import { Lethargy } from 'lethargy';
 import FieldRender from '../field-render';
 import useLogic from '../../hooks/use-logic';
 import useBlocks from '../../hooks/use-blocks';
+import useBlockTypes from '../../hooks/use-block-types';
 import React from 'react';
 
 let lastScrollDate = 0;
@@ -34,8 +31,9 @@ interface Props {
 }
 
 const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
-	const jumpLogic = useLogic();
 	const blocks = useBlocks();
+	const blockTypes = useBlockTypes();
+	const logic = useLogic();
 	const ref = useRef< HTMLDivElement | null >( null );
 	const { swiper } = useSelect( ( select ) => {
 		return {
@@ -169,201 +167,34 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		}
 	}, [ swiper ] );
 
-	// const currentBlock = blocks.find(
-	// 	( block ) => block.id === currentBlockId
-	// );
-	// const { isCurrentBlockEditable } = useSelect( ( select ) => {
-	// 	return {
-	// 		isCurrentBlockEditable: currentBlock
-	// 			? select( 'quillForms/blocks' ).hasBlockSupport(
-	// 					currentBlock.name,
-	// 					'editable'
-	// 			  )
-	// 			: null,
-	// 	};
-	// } );
-
-	const isConditionFulfilled = (
-		conditionOperator: string,
-		conditionVal: unknown,
-		fieldValue: unknown
-	): boolean => {
-		switch ( conditionOperator ) {
-			case 'is': {
-				if ( Array.isArray( fieldValue ) )
-					return fieldValue.includes( conditionVal );
-
-				if (
-					typeof conditionVal === 'number' &&
-					typeof fieldValue === 'string'
-				)
-					return parseInt( fieldValue ) === conditionVal;
-
-				return fieldValue === conditionVal;
-			}
-
-			case 'is_not': {
-				if ( Array.isArray( fieldValue ) )
-					return ! fieldValue.includes( conditionVal );
-
-				return fieldValue !== conditionVal;
-			}
-
-			case 'greater_than': {
-				if (
-					typeof fieldValue !== 'number' ||
-					typeof conditionVal !== 'number'
-				) {
-					return false;
-				}
-
-				return fieldValue > conditionVal;
-			}
-
-			case 'lower_than': {
-				if (
-					typeof fieldValue !== 'number' ||
-					typeof conditionVal !== 'number'
-				) {
-					return false;
-				}
-
-				return fieldValue < conditionVal;
-			}
-
-			case 'contains': {
-				if (
-					typeof fieldValue !== 'string' ||
-					typeof conditionVal !== 'string'
-				) {
-					return false;
-				}
-				return fieldValue.indexOf( conditionVal ) !== -1;
-			}
-
-			case 'starts_with': {
-				if (
-					typeof fieldValue !== 'string' ||
-					typeof conditionVal !== 'string'
-				) {
-					return false;
-				}
-				return fieldValue.startsWith( conditionVal );
-			}
-
-			case 'ends_with': {
-				if (
-					typeof fieldValue !== 'string' ||
-					typeof conditionVal !== 'string'
-				) {
-					return false;
-				}
-				return fieldValue.endsWith( conditionVal );
-			}
-		}
-		return false;
-	};
-
-	const isGroupConditionsMet = ( groupConditions ): boolean => {
-		for ( let condition of groupConditions ) {
-			const { op, vars } = condition;
-			const fieldId = vars[ 0 ].value;
-			const fieldAnswer = answers[ fieldId ]?.value;
-			const value = vars[ 1 ].value;
-			if ( ! isConditionFulfilled( op, value, fieldAnswer ) ) {
-				return false;
-			}
-		}
-		return true;
-	};
-
-	const isConditionsMet = ( conditions ): boolean => {
-		for ( let groupConditions of conditions ) {
-			if ( isGroupConditionsMet( groupConditions ) ) {
-				return true;
-			}
-		}
-		return false;
-	};
-
-	const getBlockIndex = ( blockId: string | undefined ) => {
-		if ( ! blockId ) {
-			return -1;
-		}
-		return blocks.findIndex( ( block ) => block.id === blockId );
-	};
-
-	const generatePath = () => {
-		const path: FormBlocks = [];
-		let nextBlockId: string | undefined;
-
-		let index = 0;
-		blocks_loop: do {
-			const question = blocks[ index ];
-			if ( question.name === 'welcome-screen' ) {
-				index++;
-				continue;
-			}
-			if ( question.name === 'thankyou-screen' ) {
-				break;
-			}
-			path.push( question );
-			const blockJumpLogic = jumpLogic?.[ question.id ];
-			if ( blockJumpLogic && blockJumpLogic.length !== 0 ) {
-				for ( let action of blockJumpLogic ) {
-					if (
-						action?.conditions &&
-						isConditionsMet( action.conditions )
-					) {
-						let targetIndex = getBlockIndex( action.target );
-						if ( targetIndex !== -1 ) {
-							if ( currentBlockId === question.id ) {
-								nextBlockId = action.target;
-							}
-							if ( targetIndex > index ) {
-								index = targetIndex;
-								continue blocks_loop;
-							} else {
-								break blocks_loop;
-							}
-						}
-					}
-				}
-			}
-			index++;
-		} while ( index < blocks.length );
-
-		if ( ! nextBlockId ) {
-			let currentBlockIndex = path.findIndex(
-				( block ) => block.id === currentBlockId
-			);
-			nextBlockId = path[ currentBlockIndex + 1 ]?.id ?? undefined;
-		}
-
-		return { path, nextBlockId };
-	};
-
 	useEffect( () => {
 		if ( applyLogic && isActive ) {
-			const { path, nextBlockId } = generatePath();
-			setSwiper( {
-				walkPath: path,
-				nextBlockId,
-			} );
+			doAction(
+				'QuillForms.Renderer.LogicApply',
+				blocks,
+				blockTypes,
+				logic
+			);
 		}
 	}, [ currentBlockAnswer, currentBlockId ] );
 
 	useEffect( () => {
 		if ( applyLogic && isActive ) {
-			const { path, nextBlockId } = generatePath();
 			setSwiper( {
-				walkPath: path,
 				currentBlockId: blocks[ 0 ].id,
 				prevBlockId: undefined,
 				canSwipePrev: false,
 				lastActiveBlockId: undefined,
-				nextBlockId,
 			} );
+			doAction(
+				'QuillForms.Renderer.LogicApply',
+				blocks,
+				blockTypes,
+				logic
+			);
+		}
+		if ( ! applyLogic ) {
+			doAction( 'QuillForms.Renderer.LogicTurnOff' );
 		}
 	}, [ applyLogic ] );
 

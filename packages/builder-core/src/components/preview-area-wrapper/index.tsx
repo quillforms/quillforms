@@ -155,6 +155,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 		JSON.stringify( blocks ),
 		currentBlockBeingEdited,
 		hasThemesFinishedResolution,
+		applyJumpLogic,
 	] );
 
 	return (
