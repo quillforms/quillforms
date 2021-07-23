@@ -41,6 +41,11 @@ export type LogicAction = {
 
 export type FormLogicActions = Record< LogicActionBlockId, LogicAction[] >;
 
+export type FormLogicDefaultJumpTargets = Record<
+	LogicActionBlockId,
+	LogicActionBlockId | 'next'
+>;
+
 export type LogicVariableId = string;
 
 export type LogicVariable = {
@@ -52,5 +57,6 @@ export type FormLogicVariables = Record< LogicVariableId, LogicVariable >;
 
 export type FormLogic = {
 	actions: FormLogicActions;
+	defaultJumpTargets: FormLogicDefaultJumpTargets;
 	variables: FormLogicVariables;
 };
