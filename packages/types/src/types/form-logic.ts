@@ -30,8 +30,6 @@ export type LogicCondition = {
 	];
 };
 
-export type LogicActionBlockId = string;
-
 export type LogicAction = {
 	type: LogicActionType;
 	target: string;
@@ -39,21 +37,22 @@ export type LogicAction = {
 	conditions: LogicCondition[][];
 };
 
-export type FormLogicActions = Record< LogicActionBlockId, LogicAction[] >;
+export type FormLogicActions = {
+	[ BlockId: string ]: LogicAction[];
+};
 
-export type FormLogicDefaultJumpTargets = Record<
-	LogicActionBlockId,
-	LogicActionBlockId | 'next'
->;
-
-export type LogicVariableId = string;
+export type FormLogicDefaultJumpTargets = {
+	[ BlockId: string ]: string;
+};
 
 export type LogicVariable = {
 	label: string;
 	initialValue: number;
 };
 
-export type FormLogicVariables = Record< LogicVariableId, LogicVariable >;
+export type FormLogicVariables = {
+	[ VariableId: string ]: LogicVariable;
+};
 
 export type FormLogic = {
 	actions: FormLogicActions;
