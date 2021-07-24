@@ -173,7 +173,7 @@ class Form_Submission {
 			}
 		);
 
-		$walk_path = apply_filters( 'quillforms_submission_walk_path', $fields, $form_id, $entry );
+		list( $walk_path, $entry ) = apply_filters( 'quillforms_submission_walk_path', array( $fields, $entry ) );
 
 		// Validate fields.
 		if ( ! empty( $walk_path ) ) {
