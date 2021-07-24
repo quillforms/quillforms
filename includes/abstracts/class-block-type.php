@@ -399,12 +399,18 @@ abstract class Block_Type extends stdClass {
 				return (float) $field_value < (float) $condition_value;
 
 			case 'contains':
-				return stripos( $field_value, $condition_value ) !== false;
+				return strpos( $field_value, $condition_value ) !== false;
 
 			case 'starts_with':
+				if ( strlen( $condition_value ) > strlen( $field_value ) ) {
+					return false;
+				}
 				return substr_compare( $field_value, $condition_value, 0, strlen( $condition_value ) ) === 0;
 
 			case 'ends_with':
+				if ( strlen( $condition_value ) > strlen( $field_value ) ) {
+					return false;
+				}
 				return substr_compare( $field_value, $condition_value, -strlen( $condition_value ) ) === 0;
 
 			default:
