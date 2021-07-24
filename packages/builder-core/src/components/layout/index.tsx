@@ -10,7 +10,6 @@ import { FormBlock } from '@quillforms/types';
  */
 import { useState, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { PluginArea } from '@wordpress/plugins';
 import { doAction, applyFilters } from '@wordpress/hooks';
 
 /**
@@ -262,10 +261,6 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		return <FormPreview formId={ formId } />;
 	}, [] );
 
-	const pluginsArea = useMemo( () => {
-		return <PluginArea />;
-	}, [] );
-
 	const builderPanelsBar = useMemo( () => {
 		return <BuilderPanelsBar />;
 	}, [] );
@@ -291,7 +286,6 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 			className="builder-core-layout"
 			onKeyDown={ ( e ) => e.stopPropagation() }
 		>
-			{ pluginsArea }
 			{ builderPanelsBar }
 			<DragDropContext
 				onDragStart={ onDragStart }

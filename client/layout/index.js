@@ -13,7 +13,8 @@ import {
  * WordPress Dependencies
  */
 import { SlotFillProvider } from '@wordpress/components';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
+import { PluginArea } from '@wordpress/plugins';
 import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
@@ -23,6 +24,9 @@ import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
 export const Layout = ( props ) => {
+	const pluginsArea = useMemo( () => {
+		return <PluginArea />;
+	}, [] );
 	const { notices } = useSelect( ( select ) => {
 		return {
 			notices: select( 'core/notices' ).getNotices(),
@@ -37,6 +41,7 @@ export const Layout = ( props ) => {
 	}, [] );
 	return (
 		<SlotFillProvider>
+			{ pluginsArea }
 			<div className="quillforms-layout">
 				{ ! props.page.header ? (
 					<Header />
