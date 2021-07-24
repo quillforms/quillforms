@@ -390,13 +390,13 @@ abstract class Block_Type extends stdClass {
 				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
 					return false;
 				}
-				return (int) $field_value > (int) $condition_value;
+				return (float) $field_value > (float) $condition_value;
 
 			case 'lower_than':
 				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
 					return false;
 				}
-				return $field_value < $condition_value;
+				return (float) $field_value < (float) $condition_value;
 
 			case 'contains':
 				return stripos( $field_value, $condition_value ) !== false;
