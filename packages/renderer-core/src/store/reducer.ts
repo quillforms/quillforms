@@ -252,10 +252,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		case GO_NEXT: {
 			const { isSwiping } = action;
 			if ( isAnimating ) return state;
-			const isLastField =
-				walkPath?.length > 0 &&
-				walkPath[ walkPath.length - 1 ].id === currentBlockId;
-			if ( isLastField ) return state;
 			const currentFieldIndex = walkPath.findIndex(
 				( field ) => field.id === currentBlockId
 			);
@@ -267,12 +263,11 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			);
 
 			if (
-				isLastField &&
-				( newCurrentFieldIndex === -1 ||
-					newCurrentFieldIndex === currentFieldIndex ||
-					// In case of swiping by mouse wheel or nav buttons, don't go back to the next block if next block should be before the current block, continue
-					// to submission screen; this previous case can be produced by implementing jump logic to previous block.
-					isSwiping )
+				newCurrentFieldIndex === -1 ||
+				newCurrentFieldIndex === currentFieldIndex ||
+				// In case of swiping by mouse wheel or nav buttons, don't go back to the next block if next block should be before the current block, continue
+				// to submission screen; this previous case can be produced by implementing jump logic to previous block.
+				isSwiping
 			) {
 				$newCurrentBlockId = undefined;
 			}

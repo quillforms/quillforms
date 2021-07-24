@@ -69,50 +69,42 @@ export const setBlockRendererSettings = (
 	if ( ! settings.isConditionFulfilled ) {
 		settings.isConditionFulfilled = (
 			conditionOperator: string,
-			conditionVal: unknown,
-			fieldValue: unknown
+			conditionVal: any,
+			fieldValue: any
 		): boolean => {
 			switch ( conditionOperator ) {
 				case 'is': {
 					if ( Array.isArray( fieldValue ) )
 						return fieldValue.includes( conditionVal );
 
-					if (
-						typeof conditionVal === 'number' &&
-						typeof fieldValue === 'string'
-					)
-						return parseInt( fieldValue ) === conditionVal;
-
-					return fieldValue === conditionVal;
+					return fieldValue == conditionVal;
 				}
 
 				case 'is_not': {
 					if ( Array.isArray( fieldValue ) )
 						return ! fieldValue.includes( conditionVal );
 
-					return fieldValue !== conditionVal;
+					return fieldValue != conditionVal;
 				}
 
 				case 'greater_than': {
-					if (
-						typeof fieldValue !== 'number' ||
-						typeof conditionVal !== 'number'
-					) {
+					if ( isNaN( fieldValue ) || isNaN( conditionVal ) ) {
 						return false;
 					}
 
-					return fieldValue > conditionVal;
+					return (
+						parseFloat( fieldValue ) > parseFloat( conditionVal )
+					);
 				}
 
 				case 'lower_than': {
-					if (
-						typeof fieldValue !== 'number' ||
-						typeof conditionVal !== 'number'
-					) {
+					if ( isNaN( fieldValue ) || isNaN( conditionVal ) ) {
 						return false;
 					}
 
-					return fieldValue < conditionVal;
+					return (
+						parseFloat( fieldValue ) < parseFloat( conditionVal )
+					);
 				}
 
 				case 'contains': {
