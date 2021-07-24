@@ -198,6 +198,9 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		}
 	}, [ applyLogic ] );
 
+	const isThereLastField =
+		fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
+
 	return (
 		<div
 			onWheel={ swipingHandler }
@@ -218,7 +221,9 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 								field.id
 							) }
 							isActive={ isActive }
-							isLastField={ index === fields.length - 1 }
+							isLastField={
+								isThereLastField && index === fields.length - 1
+							}
 						/>
 					);
 				} ) }
