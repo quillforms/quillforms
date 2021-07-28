@@ -119,5 +119,6 @@
 
 }
 .quillforms-home__add-form-modal-footer {
-	text-align: right;
+	display: flex;
+    justify-content: flex-end;
 }
