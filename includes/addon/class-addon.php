@@ -34,7 +34,7 @@ abstract class Addon {
 	 *
 	 * @return Addon - Single instance
 	 */
-	public static function instance(): Addon {
+	public static function instance() {
 		if ( ! isset( self::$instances[ static::class ] ) ) {
 			self::$instances[ static::class ] = new static();
 		}
