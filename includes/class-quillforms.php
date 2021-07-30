@@ -81,14 +81,6 @@ final class QuillForms {
 		 * Client assets.
 		 */
 		require_once QUILLFORMS_PLUGIN_DIR . 'lib/client-assets.php';
-
-		/**
-		 * REST Fields
-		 */
-		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
-		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/messages.php';
-		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
-		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 	}
 
 	/**
@@ -114,5 +106,18 @@ final class QuillForms {
 	public function init_hooks() {
 		add_action( 'init', array( Capabilities::class, 'assign_capabilities_for_user_roles' ) );
 		add_action( 'init', array( Core::class, 'register_quillforms_post_type' ) );
+		add_action( 'init', array( $this, 'register_rest_fields' ) );
+	}
+
+	/**
+	 * Register REST fields.
+	 *
+	 * @return void
+	 */
+	public function register_rest_fields() {
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/messages.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 	}
 }
