@@ -1,0 +1,69 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "375805fba910fb03624d5175de67c44c",
+    "packages": [
+        {
+            "name": "automattic/jetpack-constants",
+            "version": "v1.6.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Automattic/jetpack-constants.git",
+                "reference": "1e02eebb828c6701f3bf97fa8404e9fc85d3fb63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/1e02eebb828c6701f3bf97fa8404e9fc85d3fb63",
+                "reference": "1e02eebb828c6701f3bf97fa8404e9fc85d3fb63",
+                "shasum": ""
+            },
+            "require-dev": {
+                "automattic/jetpack-changelogger": "^1.2",
+                "brain/monkey": "2.6.0",
+                "yoast/phpunit-polyfills": "0.2.0"
+            },
+            "type": "library",
+            "extra": {
+                "autotagger": true,
+                "mirror-repo": "Automattic/jetpack-constants",
+                "changelogger": {
+                    "link-template": "https://github.com/Automattic/jetpack-constants/compare/v${old}...v${new}"
+                },
+                "branch-alias": {
+                    "dev-master": "1.6.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "A wrapper for defining constants in a more testable way.",
+            "support": {
+                "source": "https://github.com/Automattic/jetpack-constants/tree/v1.6.5"
+            },
+            "time": "2021-05-25T16:35:30+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.1"
+    },
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.1"
+    },
+    "plugin-api-version": "2.0.0"
+}

@@ -43,6 +43,10 @@ define( 'QUILLFORMS_MIN_WP_VERSION', '5.4' );
 // Define minimun php version.
 define( 'QUILLFORMS_MIN_PHP_VERSION', '7.1' );
 
+// Require dependencies.
+require_once QUILLFORMS_PLUGIN_DIR . 'dependencies/libraries/load.php';
+require_once QUILLFORMS_PLUGIN_DIR . 'dependencies/vendor/autoload.php';
+
 // Require autoload.
 require_once QUILLFORMS_PLUGIN_DIR . 'includes/autoload.php';
 

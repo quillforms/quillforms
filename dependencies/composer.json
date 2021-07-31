@@ -1,0 +1,42 @@
+{
+	"prefer-stable": true,
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=7.1",
+		"automattic/jetpack-constants": "^1.1"
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"platform": {
+			"php": "7.1"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"QuillForms\\Vendor\\": "packages/"
+		},
+		"psr-0": {
+			"QuillForms\\Vendor\\": "packages/"
+		}
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"../vendor/bin/mozart compose",
+			"composer dump-autoload"
+		],
+		"post-update-cmd": [
+			"../vendor/bin/mozart compose",
+			"composer dump-autoload"
+		]
+	},
+	"extra": {
+		"mozart": {
+			"dep_namespace": "QuillForms\\Vendor\\",
+			"dep_directory": "/packages/",
+			"classmap_directory": "/classes/",
+			"classmap_prefix": "QuillForms_Vendor_",
+			"packages": [],
+			"delete_vendor_directories": true
+		}
+	}
+}
