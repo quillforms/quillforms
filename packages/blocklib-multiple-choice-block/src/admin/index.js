@@ -14,6 +14,7 @@ export const blockAdminSettings = {
 	controls,
 	logicControl,
 	title: 'Multiple Choice',
+	order: 5,
 };
 
 setBlockAdminSettings( name, blockAdminSettings );

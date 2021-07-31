@@ -14,6 +14,7 @@ export const blockAdminSettings = {
 	icon: Icon,
 	controls,
 	logicControl,
+	order: 6,
 };
 
 setBlockAdminSettings( name, blockAdminSettings );

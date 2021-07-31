@@ -15,6 +15,7 @@ export const blockAdminSettings = {
 	title: 'Date',
 	icon: Icon,
 	controls,
+	order: 7,
 };
 
 setBlockAdminSettings( name, blockAdminSettings );

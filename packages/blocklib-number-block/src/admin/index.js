@@ -14,6 +14,7 @@ export const blockAdminSettings = {
 	controls,
 	logicControl,
 	title: 'Number',
+	order: 4,
 };
 
 setBlockAdminSettings( name, blockAdminSettings );

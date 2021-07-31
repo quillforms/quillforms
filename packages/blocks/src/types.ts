@@ -18,6 +18,7 @@ export interface BlockAdminSettings {
 	icon?: IconRenderer;
 	controls?: React.ComponentType< ControlsProps >;
 	logicControl?: FC | Component | JSX.Element;
+	order?: number;
 }
 
 export interface BlockRendererSettings {

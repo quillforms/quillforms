@@ -12,6 +12,7 @@ export const blockAdminSettings = {
 	icon: Icon,
 	title: 'Welcome Screen',
 	controls,
+	order: 0,
 };
 
 setBlockAdminSettings( name, blockAdminSettings );

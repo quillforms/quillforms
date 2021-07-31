@@ -10,6 +10,7 @@ export const blockAdminSettings = {
 	color: '#6b4646',
 	icon: Icon,
 	title: 'Website',
+	order: 8,
 };
 
 setBlockAdminSettings( name, blockAdminSettings );

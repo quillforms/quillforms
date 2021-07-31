@@ -32,6 +32,7 @@ export const setBlockAdminSettings = (
 		title: 'Untitled',
 		color: '#333s',
 		icon: 'plus',
+		order: 20,
 		controls: () => null,
 		...settings,
 	};
@@ -72,6 +73,11 @@ export const setBlockAdminSettings = (
 		return;
 	}
 
+	if ( settings.order && isNaN( settings.order ) ) {
+		console.error( 'The "order" property must be a valid number!' );
+		return;
+	}
+
 	dispatch( 'quillForms/blocks' ).setBlockAdminSettings(
 		pick( settings, [
 			'controls',
@@ -79,6 +85,7 @@ export const setBlockAdminSettings = (
 			'color',
 			'icon',
 			'title',
+			'order',
 		] ),
 		name
 	);

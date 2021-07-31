@@ -18,7 +18,7 @@ import { useSelect } from '@wordpress/data';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { keys, map, filter } from 'lodash';
+import { keys, map, filter, sortBy } from 'lodash';
 import { FC } from 'react';
 
 const BlockTypesList: FC = () => {
@@ -36,9 +36,14 @@ const BlockTypesList: FC = () => {
 				{ ( provided, _snapshot ) => (
 					<div ref={ provided.innerRef }>
 						{ map(
-							filter(
-								keys( blockTypes ),
-								( blockName ) => blockName !== 'unknown'
+							sortBy(
+								filter(
+									keys( blockTypes ),
+									( blockName ) => blockName !== 'unknown'
+								),
+								( o ) => {
+									return blockTypes[ o ].order;
+								}
 							),
 							( blockName, index ) => {
 								let isDragDisabled = false;

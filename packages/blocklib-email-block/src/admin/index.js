@@ -10,6 +10,7 @@ export const blockAdminSettings = {
 	color: '#27aec3',
 	icon: Icon,
 	title: 'Email',
+	order: 3,
 };
 
 setBlockAdminSettings( name, blockAdminSettings );
