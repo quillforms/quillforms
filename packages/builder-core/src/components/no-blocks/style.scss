@@ -1,0 +1,12 @@
+.builder-core-no-blocks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 80px 20px;
+
+	svg {
+		width: 200px;
+	}
+}

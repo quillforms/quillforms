@@ -25,6 +25,7 @@ import { css } from 'emotion';
  */
 import PreviewArea from '../preview-area';
 import { PreviewContextProvider } from '../preview-context';
+import NoBlocks from '../no-blocks';
 
 let $timer;
 interface Props {
@@ -182,30 +183,36 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 					/>
 				</div>
 			) : (
-				<PreviewContextProvider
-					value={ { applyJumpLogic, setApplyJumpLogic } }
-				>
-					{ /** @ts-expect-error */ }
-					<PreviewArea.Slot>
-						{ ( fills ) => (
-							<>
-								<Form
-									formId={ formId }
-									formObj={ {
-										blocks: cloneDeep( blocks ),
-										theme,
-										messages,
-										logic,
-									} }
-									applyLogic={ applyJumpLogic }
-									onSubmit={ completeForm }
-									isPreview={ true }
-								/>
-								{ fills }
-							</>
-						) }
-					</PreviewArea.Slot>
-				</PreviewContextProvider>
+				<>
+					{ blocks.length > 0 ? (
+						<PreviewContextProvider
+							value={ { applyJumpLogic, setApplyJumpLogic } }
+						>
+							{ /** @ts-expect-error */ }
+							<PreviewArea.Slot>
+								{ ( fills ) => (
+									<>
+										<Form
+											formId={ formId }
+											formObj={ {
+												blocks: cloneDeep( blocks ),
+												theme,
+												messages,
+												logic,
+											} }
+											applyLogic={ applyJumpLogic }
+											onSubmit={ completeForm }
+											isPreview={ true }
+										/>
+										{ fills }
+									</>
+								) }
+							</PreviewArea.Slot>
+						</PreviewContextProvider>
+					) : (
+						<NoBlocks />
+					) }
+				</>
 			) }
 		</div>
 	);
