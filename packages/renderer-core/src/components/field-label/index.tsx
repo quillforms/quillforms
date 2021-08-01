@@ -15,6 +15,7 @@ const BlockLabel: React.FC = () => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	let label = '...';
 	if ( attributes?.label ) label = attributes.label;
+	if ( attributes?.required ) label = label + ' *';
 	const theme = useTheme();
 
 	return (
