@@ -29,14 +29,28 @@ const Builder = ( { params } ) => {
 
 	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
 	const { resetAnswers } = useDispatch( 'quillForms/renderer-core' );
-
 	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
 	const connectedStores = flatten(
 		map( getRestFields(), ( restField ) => restField.connectedStores )
 	);
 	const [ isResolving, setIsResolving ] = useState( true );
 	const [ isLoading, setIsLoading ] = useState( true );
+	const [ unknownBlocks, setUnknownBlocks ] = useState( undefined );
 
+	// Making sure all stores are set up already
+	// We pick one store only (any store would work) "The  block editor store" to make sure all resolvers depending on builder initial payload has finished resolution.
+	// what would make this would work is that we have the save button components rendered already while fetching.
+	// The save button component has observers for all rest fields changes so here we would be notified if the resolution has finished.
+	const { hasBlockEditorFinishedResolution, blockTypes } = useSelect(
+		( select ) => {
+			return {
+				hasBlockEditorFinishedResolution: select(
+					'quillForms/block-editor'
+				).hasFinishedResolution( 'getBlocks' ),
+				blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			};
+		}
+	);
 	const invalidateResolutionForAllConnectedStores = () => {
 		// Invalidate resolution for all connected stores.
 		forEach( uniq( connectedStores ), ( store ) => {
@@ -53,11 +67,22 @@ const Builder = ( { params } ) => {
 			path: `/wp/v2/quill_forms/${ id }`,
 			method: 'GET',
 		} ).then( ( res ) => {
-			configApi.setInitialBuilderPayload( res );
-			invalidateResolutionForAllConnectedStores();
 			setTimeout( () => {
 				setIsLoading( false );
 			}, 100 );
+			if ( res?.blocks?.length ) {
+				const unKnownBlocks = res.blocks.filter(
+					( block ) => ! blockTypes[ block.name ]
+				);
+
+				if ( unKnownBlocks?.length ) {
+					setUnknownBlocks(
+						uniq( map( unKnownBlocks, ( block ) => block.name ) )
+					);
+				}
+			}
+			configApi.setInitialBuilderPayload( res );
+			invalidateResolutionForAllConnectedStores();
 		} );
 
 		return () => {
@@ -66,18 +91,6 @@ const Builder = ( { params } ) => {
 			resetAnswers();
 		};
 	}, [] );
-
-	// Making sure all stores are set up already
-	// We pick one store only (any store would work) "The  block editor store" to make sure all resolvers depending on builder initial payload has finished resolution.
-	// what would make this would work is that we have the save button components rendered already while fetching.
-	// The save button component has observers for all rest fields changes so here we would be notified if the resolution has finished.
-	const { hasBlockEditorFinishedResolution } = useSelect( ( select ) => {
-		return {
-			hasBlockEditorFinishedResolution: select(
-				'quillForms/block-editor'
-			).hasFinishedResolution( 'getBlocks' ),
-		};
-	} );
 
 	useEffect( () => {
 		if ( ! isLoading && hasBlockEditorFinishedResolution ) {
@@ -105,7 +118,33 @@ const Builder = ( { params } ) => {
 					/>
 				</div>
 			) : (
-				<BuilderLayout formId={ id } />
+				<>
+					{ unknownBlocks?.length ? (
+						<div
+							className={ css`
+								margin: auto;
+								padding: 20px;
+								max-width: 400px;
+								background: #9b32324d;
+								color: #a71616;
+							` }
+						>
+							The following blocks aren't known:
+							<ul
+								className={ css`
+									list-style: auto;
+									margin-left: 20px;
+								` }
+							>
+								{ unknownBlocks.map( ( blockname ) => (
+									<li key={ blockname }> { blockname } </li>
+								) ) }
+							</ul>
+						</div>
+					) : (
+						<BuilderLayout formId={ id } />
+					) }
+				</>
 			) }
 
 			<SaveButton formId={ id } isResolving={ isResolving } />
