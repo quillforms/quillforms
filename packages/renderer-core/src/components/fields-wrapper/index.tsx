@@ -198,7 +198,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		}
 	}, [ applyLogic ] );
 
-	const isThereLastField =
+	const isThereNextField =
 		fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
 	return (
@@ -222,7 +222,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 							) }
 							isActive={ isActive }
 							isLastField={
-								isThereLastField && index === fields.length - 1
+								isThereNextField && index === fields.length - 1
 							}
 						/>
 					);
