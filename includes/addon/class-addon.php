@@ -2,7 +2,7 @@
 /**
  * Addon class.
  *
- * @since 1.0.0
+ * @since 1.3.0
  * @package QuillForms
  */
 
@@ -11,7 +11,7 @@ namespace QuillForms\Addon;
 /**
  * Abstract class for plugin extensions.
  *
- * @since 1.0.0
+ * @since 1.3.0
  */
 abstract class Addon {
 
@@ -20,16 +20,16 @@ abstract class Addon {
 	 *
 	 * @var array
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 */
 	private static $instances = array();
 
 	/**
-	 * Addon Instance.
+	 * Addon Instances.
 	 *
-	 * Instantiates or reuses an instance of Addon.
+	 * Instantiates or reuses an instances of Addon.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 * @static
 	 *
 	 * @return Addon - Single instance
@@ -44,7 +44,7 @@ abstract class Addon {
 	/**
 	 * Constructor.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 */
 	protected function __construct() {
 		$this->init_scripts();
@@ -52,6 +52,8 @@ abstract class Addon {
 
 	/**
 	 * Initialize scripts.
+	 *
+	 * @since 1.3.0
 	 *
 	 * @return void
 	 */

@@ -2,7 +2,7 @@
 /**
  * Scripts class.
  *
- * @since 1.0.0
+ * @since 1.3.0
  * @package QuillForms
  */
 
@@ -11,9 +11,9 @@ namespace QuillForms\Addon;
 use QuillForms\Admin\Admin_Loader;
 
 /**
- * Abstract class for plugin extensions.
+ * Abstract scripts class for plugin extensions.
  *
- * @since 1.0.0
+ * @since 1.3.0
  */
 abstract class Scripts {
 
@@ -22,7 +22,7 @@ abstract class Scripts {
 	 *
 	 * @var array
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 */
 	private static $instances = array();
 
@@ -30,6 +30,8 @@ abstract class Scripts {
 	 * Plugin dir
 	 *
 	 * @var string
+	 *
+	 * @since 1.3.0
 	 */
 	protected $plugin_dir;
 
@@ -37,6 +39,8 @@ abstract class Scripts {
 	 * Plugin url
 	 *
 	 * @var string
+	 *
+	 * @since 1.3.0
 	 */
 	protected $plugin_url;
 
@@ -45,6 +49,8 @@ abstract class Scripts {
 	 * 'handle' => [ 'path' => 'relative/to/plugin', 'eneuque' => [ 'admin', 'renderer' ] ]
 	 *
 	 * @var array
+	 *
+	 * @since 1.3.0
 	 */
 	protected $scripts = array();
 
@@ -53,20 +59,22 @@ abstract class Scripts {
 	 * 'handle' => [ 'path' => 'relative/to/plugin', 'dependencies' => [], 'eneuque' => [ 'admin', 'renderer' ] ]
 	 *
 	 * @var array
+	 *
+	 * @since 1.3.0
 	 */
 	protected $styles = array();
 
 	/**
-	 * Scripts Instance.
+	 * Scripts Instances.
 	 *
-	 * Instantiates or reuses an instance of Scripts.
+	 * Instantiates or reuses an instances of Scripts.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 * @static
 	 *
 	 * @return Scripts - Single instance
 	 */
-	public static function instance(): Scripts {
+	public static function instance() {
 		if ( ! isset( self::$instances[ static::class ] ) ) {
 			self::$instances[ static::class ] = new static();
 		}
@@ -76,7 +84,7 @@ abstract class Scripts {
 	/**
 	 * Constructor.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 */
 	protected function __construct() {
 		// register.
@@ -92,6 +100,8 @@ abstract class Scripts {
 
 	/**
 	 * Register scripts
+	 *
+	 * @since 1.3.0
 	 *
 	 * @param WP_Scripts $scripts WordPress scripts.
 	 * @return void
@@ -118,6 +128,8 @@ abstract class Scripts {
 	/**
 	 * Register styles
 	 *
+	 * @since 1.3.0
+	 *
 	 * @param WP_Styles $styles WordPress Styles.
 	 * @return void
 	 */
@@ -136,6 +148,8 @@ abstract class Scripts {
 
 	/**
 	 * Enqueue admin scripts and styles.
+	 *
+	 * @since 1.3.0
 	 *
 	 * @return void
 	 */
@@ -157,6 +171,8 @@ abstract class Scripts {
 	/**
 	 * Enqueue renderer scripts and styles.
 	 *
+	 * @since 1.3.0
+	 *
 	 * @return void
 	 */
 	public function enqueue_renderer_scripts() {
@@ -177,12 +193,16 @@ abstract class Scripts {
 	/**
 	 * Localize scripts.
 	 *
+	 * @since 1.3.0
+	 *
 	 * @return void
 	 */
 	public function localize_scripts() {}
 
 	/**
 	 * Is current page is quill_forms post type.
+	 *
+	 * @since 1.3.0
 	 *
 	 * @return boolean
 	 */
