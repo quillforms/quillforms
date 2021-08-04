@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/block-editor",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Quill forms block editor",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
