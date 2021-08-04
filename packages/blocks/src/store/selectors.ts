@@ -40,7 +40,9 @@ export const getBlockTypes = ( state: BlocksState ): BlocksState => {
 	return reduce(
 		sortBy( keys( state ), ( blockName ) => state[ blockName ].order ),
 		( acc, key ) => {
-			acc[ key ] = state[ key ];
+			if ( key !== 'unknown' ) {
+				acc[ key ] = state[ key ];
+			}
 			return acc;
 		},
 		{}
