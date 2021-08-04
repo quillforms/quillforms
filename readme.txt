@@ -65,8 +65,9 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 == Changelog ==
 
 = 1.4.0 =  4 Aug 2021
-Fix: fixing drag and drop issue that drops wrong block.
-Fix: fixing issue related to block naviation.
+Feature: improving the renderer buttons UI.
+Fix: Fixing drag and drop issue that drops wrong block.
+Fix: Fixing issue related to block naviation.
 
 = 1.3.0 =  2 Aug 2021
 Feature: Adding core class for addons.
