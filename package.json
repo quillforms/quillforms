@@ -62,6 +62,7 @@
 		"@quillforms/builder-panels": "file:packages/builder-panels",
 		"@quillforms/config": "file:packages/config",
 		"@quillforms/document-editor": "file:packages/document-editor",
+		"@quillforms/form-integrations": "file:packages/form-integrations",
 		"@quillforms/messages-editor": "file:packages/messages-editor",
 		"@quillforms/navigation": "file:packages/navigation",
 		"@quillforms/notifications-editor": "file:packages/notifications-editor",
