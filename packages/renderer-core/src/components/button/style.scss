@@ -1,14 +1,20 @@
 .renderer-core-button {
 	display: inline-flex;
-	align-items: center;
+    align-items: center;
 	margin-right: 10px;
-	padding: 8px 22px;
-	line-height: 1.5;
-	border: none;
-	border-radius: 5px;
-	font-size: 20px;
-	outline: none;
-	cursor: pointer;
+    padding: 9px 20px 9px 23px;
+    border-radius: 25px;
+    line-height: 1.5;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    cursor: pointer;
+
+	svg {
+		margin-left: 14px;
+		width: 16px;
+		height: 16px;
+	}
 
 	@media (max-width: $break-small) {
 		padding: 6px 18px;

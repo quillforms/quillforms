@@ -16,7 +16,6 @@ import { doAction, applyFilters } from '@wordpress/hooks';
  * External Dependencies
  */
 import { confirmAlert } from 'react-confirm-alert';
-import { filter, sortBy, keys } from 'lodash';
 
 /**
  * Internal Dependencies

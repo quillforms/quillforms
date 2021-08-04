@@ -8,6 +8,7 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import useTheme from '../../hooks/use-theme';
+import ArrowIcon from './arrow-icon';
 
 interface Props {
 	className?: string;
@@ -73,6 +74,7 @@ const Button: React.FC< Props > = ( {
 			{ ...props }
 		>
 			{ children }
+			<ArrowIcon />
 		</div>
 	);
 };
