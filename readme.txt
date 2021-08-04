@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress ===
 Contributors: mdmag
-Tested up to: 5.7
-Stable tag: 1.2.0
+Tested up to: 5.8
+Stable tag: 1.4.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
 License: GPLv2 or later
@@ -63,6 +63,17 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 5. QuillForms Renderer
 
 == Changelog ==
+
+= 1.4.0 =  4 Aug 2021
+Fix: fixing drag and drop issue that drops wrong block.
+Fix: fixing issue related to block naviation.
+
+= 1.3.0 =  2 Aug 2021
+Feature: Adding core class for addons.
+Feature: Adding block order for all blocks.
+Feature: Adding more hooks.
+Fix: Fixing go next if next block is before the last block.
+Fix: Fixing merge tags issue in front end when there are multiple merge tags.
 
 = 1.2.0 =  19 Jul 2021
 Feature: Add control for submit button label.
