@@ -49,7 +49,11 @@ const FieldNavigation = () => {
 					`
 				) }
 				onClick={ () => {
-					goNext();
+					if (
+						walkPath[ walkPath.length - 1 ].id !== currentBlockId
+					) {
+						goNext();
+					}
 				} }
 			>
 				<DownIcon />
