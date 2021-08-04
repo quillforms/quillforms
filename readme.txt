@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress ===
 Contributors: mdmag
 Tested up to: 5.8
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
 License: GPLv2 or later
@@ -64,8 +64,11 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 
 == Changelog ==
 
+= 1.4.1 =  4 Aug 2021
+Fix: Removing "Unknown" block from the block types list.
+
 = 1.4.0 =  4 Aug 2021
-Feature: improving the renderer buttons UI.
+Feature: Improving the renderer buttons UI.
 Fix: Fixing drag and drop issue that drops wrong block.
 Fix: Fixing issue related to block naviation.
 
