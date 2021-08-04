@@ -66,6 +66,12 @@ const Button: React.FC< Props > = ( {
 						box-shadow: none;
 						display: none;
 					}
+					svg {
+						transition: all 0.2s;
+					}
+					&:hover svg {
+						transform: translateX( 3px );
+					}
 				`
 			) }
 			role="presentation"
