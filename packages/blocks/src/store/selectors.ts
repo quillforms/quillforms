@@ -1,12 +1,17 @@
 /**
  * External dependencies
  */
-import { get } from 'lodash';
+import { get, sortBy, keys, reduce } from 'lodash';
 
 /**
  * Internal Dependencies
  */
-import type { BlockTypeSettings, BlocksState, BlockSupportedFeatures, BlockTypeInterface } from "../types";
+import type {
+	BlockTypeSettings,
+	BlocksState,
+	BlockSupportedFeatures,
+	BlockTypeInterface,
+} from '../types';
 /**
  * Given a block name or block type object, returns the corresponding
  * normalized block type object.
@@ -16,9 +21,12 @@ import type { BlockTypeSettings, BlocksState, BlockSupportedFeatures, BlockTypeI
  *
  * @return {Object} Block type object.
  */
-const getNormalizedBlockType = (state: BlocksState, nameOrType: string | BlockTypeInterface) =>
+const getNormalizedBlockType = (
+	state: BlocksState,
+	nameOrType: string | BlockTypeInterface
+) =>
 	'string' === typeof nameOrType
-		? getBlockType(state, nameOrType)
+		? getBlockType( state, nameOrType )
 		: nameOrType;
 
 /**
@@ -28,9 +36,16 @@ const getNormalizedBlockType = (state: BlocksState, nameOrType: string | BlockTy
  *
  * @return {Array} Registered blocks
  */
-export const getBlockTypes = (state: BlocksState): BlocksState => {
-	return state;
-}
+export const getBlockTypes = ( state: BlocksState ): BlocksState => {
+	return reduce(
+		sortBy( keys( state ), ( blockName ) => state[ blockName ].order ),
+		( acc, key ) => {
+			acc[ key ] = state[ key ];
+			return acc;
+		},
+		{}
+	);
+};
 
 /**
  * Returns a block type by name.
@@ -40,8 +55,11 @@ export const getBlockTypes = (state: BlocksState): BlocksState => {
  *
  * @return {Object?} Block Type.
  */
-export function getBlockType(state: BlocksState, name: string): BlockTypeSettings | undefined{
-	return state[name];
+export function getBlockType(
+	state: BlocksState,
+	name: string
+): BlockTypeSettings | undefined {
+	return state[ name ];
 }
 
 /**
@@ -60,8 +78,8 @@ export const getBlockSupport = (
 	nameOrType: string | BlockTypeInterface,
 	feature: keyof BlockSupportedFeatures
 ): boolean | undefined => {
-	const blockType = getNormalizedBlockType(state, nameOrType);
-	return get(blockType, ['supports', feature]);
+	const blockType = getNormalizedBlockType( state, nameOrType );
+	return get( blockType, [ 'supports', feature ] );
 };
 
 /**
@@ -75,6 +93,10 @@ export const getBlockSupport = (
  *
  * @return {boolean} Whether block supports feature.
  */
-export function hasBlockSupport(state: BlocksState, nameOrType: string, feature: keyof BlockSupportedFeatures): boolean {
-	return !!getBlockSupport(state, nameOrType, feature);
+export function hasBlockSupport(
+	state: BlocksState,
+	nameOrType: string,
+	feature: keyof BlockSupportedFeatures
+): boolean {
+	return !! getBlockSupport( state, nameOrType, feature );
 }
