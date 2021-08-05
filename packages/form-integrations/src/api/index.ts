@@ -60,6 +60,7 @@ export const registerIntegrationModule = (
 
 	if ( ! isFunction( settings.render ) ) {
 		console.error( 'The "render" property must be a valid function!' );
+		return;
 	}
 
 	if ( ! settings.title ) {
