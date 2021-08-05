@@ -2,7 +2,7 @@
  * QuillForms Dependencies
  */
 import { getIntegrationModules } from '@quillforms/form-integrations';
-
+import { Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
@@ -21,6 +21,7 @@ import { map, keys, size } from 'lodash';
 import Icon from './icon';
 import SearchIcon from './search-icon';
 import './style.scss';
+import ConnectButton from './connect-button';
 
 const IntegrationsPage = () => {
 	const integrationsModules = getIntegrationModules();
@@ -54,8 +55,8 @@ const IntegrationsPage = () => {
 
 			<div className="quillforms-integrations-page__integrations-list">
 				{ size( integrationsModules ) > 0 ? (
-					map( keys( integrationsModules ), ( module ) => {
-						const icon = integrationsModules[ module ].icon;
+					map( keys( integrationsModules ), ( slug ) => {
+						const icon = integrationsModules[ slug ].icon;
 						return (
 							<div className="quillforms-integrations-page__integration-list-item">
 								<div className="quillforms-integrations-page__integration-module-header">
@@ -65,15 +66,13 @@ const IntegrationsPage = () => {
 										/>
 									</div>
 									<div className="quillforms-integrations-page__integration-module-title">
-										{ integrationsModules[ module ].title }
+										{ integrationsModules[ slug ].title }
 									</div>
 								</div>
 								<div className="quillforms-integrations-page__integration-module-desc">
-									{
-										integrationsModules[ module ]
-											.description
-									}
+									{ integrationsModules[ slug ].description }
 								</div>
+								<ConnectButton slug={ slug } />
 							</div>
 						);
 					} )
@@ -90,7 +89,7 @@ const IntegrationsPage = () => {
 							margin-top: 100px;
 						` }
 					>
-						Page Not found!
+						No integrations found!
 					</div>
 				) }
 			</div>
