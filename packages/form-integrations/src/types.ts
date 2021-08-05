@@ -6,7 +6,7 @@ export type IntegrationModuleSettings = {
 	icon: IconRenderer;
 	title: string;
 	description: string;
-	displayMode: 'modal' | 'page';
+	displayMode?: 'modal' | 'page';
 };
 
 export type IntegrationModules = Record< string, IntegrationModuleSettings >;

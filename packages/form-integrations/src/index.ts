@@ -1,1 +1,2 @@
-export { registerIntegrationModule } from './api/registeration';
+export * from './api';
+import './built-in-integrations/mailchimp';
