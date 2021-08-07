@@ -18,15 +18,6 @@ use QuillForms\Admin\Admin_Loader;
 abstract class Scripts {
 
 	/**
-	 * Subclasses instances.
-	 *
-	 * @var array
-	 *
-	 * @since 1.3.0
-	 */
-	private static $instances = array();
-
-	/**
 	 * Plugin dir
 	 *
 	 * @var string
@@ -65,28 +56,11 @@ abstract class Scripts {
 	protected $styles = array();
 
 	/**
-	 * Scripts Instances.
-	 *
-	 * Instantiates or reuses an instances of Scripts.
-	 *
-	 * @since 1.3.0
-	 * @static
-	 *
-	 * @return Scripts - Single instance
-	 */
-	public static function instance() {
-		if ( ! isset( self::$instances[ static::class ] ) ) {
-			self::$instances[ static::class ] = new static();
-		}
-		return self::$instances[ static::class ];
-	}
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 1.3.0
 	 */
-	protected function __construct() {
+	public function __construct() {
 		// register.
 		add_action( 'wp_default_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'wp_default_styles', array( $this, 'register_styles' ) );
