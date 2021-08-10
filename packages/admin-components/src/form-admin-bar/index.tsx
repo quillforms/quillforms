@@ -46,8 +46,9 @@ const FormAdminBar = ( { formId } ) => {
 						<NavLink
 							isActive={ ( _match, location ): boolean | void => {
 								if (
-									location.pathname ===
-									`/forms/${ formId }/integrations`
+									location.pathname.startsWith(
+										`/forms/${ formId }/integrations`
+									)
 								) {
 									return true;
 								}

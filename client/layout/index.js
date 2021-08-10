@@ -68,7 +68,7 @@ const _PageLayout = () => {
 						<Route
 							key={ page.path }
 							path={ page.path }
-							exact={ true }
+							exact={ page.exact }
 							render={ ( props ) => (
 								<Layout page={ page } { ...props } />
 							) }

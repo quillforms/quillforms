@@ -24,7 +24,6 @@ import Builder from '../pages/builder';
 import Share from '../pages/share';
 import Support from '../pages/support';
 import IntegrationsPage from '../pages/integrations';
-import SingleIntegrationPage from '../pages/single-integration';
 export const Controller = ( { page, match, location } ) => {
 	useEffect( () => {
 		window.document.documentElement.scrollTop = 0;
@@ -89,16 +88,7 @@ registerAdminPage( 'support', {
 registerAdminPage( 'integrations', {
 	component: IntegrationsPage,
 	path: '/forms/:id/integrations',
-	template: 'full-screen',
-	header: ( { match } ) => {
-		const { params } = match;
-		return <FormAdminBar formId={ params.id } />;
-	},
-} );
-
-registerAdminPage( 'single-integration', {
-	component: SingleIntegrationPage,
-	path: '/forms/:id/integrations/:slug',
+	exact: false,
 	template: 'full-screen',
 	header: ( { match } ) => {
 		const { params } = match;

@@ -1,98 +1,65 @@
 /**
  * QuillForms Dependencies
  */
+import { Switch, Route, useRouteMatch } from '@quillforms/navigation';
 import { getIntegrationModules } from '@quillforms/form-integrations';
-import { Button } from '@quillforms/admin-components';
+import configApi from '@quillforms/config';
+
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
-import { Icon as IconComponent } from '@wordpress/components';
-
-/**
- * External Dependencies
- */
-import { css } from 'emotion';
-import { map, keys, size } from 'lodash';
+import { useState, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * Internal Dependencies
  */
-import Icon from './icon';
-import SearchIcon from './search-icon';
 import './style.scss';
-import ConnectButton from './connect-button';
+import Home from './home';
+import Integration from './integration';
+import NotFound from './not-found';
 
-const IntegrationsPage = () => {
+const IntegrationsPage = ( { params } ) => {
+	const { id } = params;
+
+	const { path } = useRouteMatch();
+	const [ isLoading, setIsLoading ] = useState( true );
 	const integrationsModules = getIntegrationModules();
-	const [ searchKeyword, setSearchKeyword ] = useState( '' );
+
+	useEffect( () => {
+		apiFetch( {
+			path: `/wp/v2/quill_forms/${ id }`,
+			method: 'GET',
+		} ).then( ( res ) => {
+			configApi.setInitialPayload( res );
+			setIsLoading( false );
+		} );
+	}, [] );
+
 	return (
 		<div className="quillforms-integrations-page">
-			<div className="quillforms-integrations-page-header">
-				<Icon />
-				<div className="quillforms-integrations-page-heading">
-					<p>Connect your form to your best-loved apps </p>
-					<p>
-						Establish workflows that work for you. Automate your
-						marketing, sales, and service processes to make your
-						form more efficient
-					</p>
-				</div>
-			</div>
-
-			<div className="quillforms-integrations-page-search">
-				<input
-					className="quillforms-integrations-page-search__input"
-					type="text"
-					value={ searchKeyword }
-					placeholder={ 'Search Integrations' }
-					onChange={ ( e ) => {
-						setSearchKeyword( e.target.value );
-					} }
-				/>
-				<SearchIcon />
-			</div>
-
-			<div className="quillforms-integrations-page__integrations-list">
-				{ size( integrationsModules ) > 0 ? (
-					map( keys( integrationsModules ), ( slug ) => {
-						const icon = integrationsModules[ slug ].icon;
-						return (
-							<div className="quillforms-integrations-page__integration-list-item">
-								<div className="quillforms-integrations-page__integration-module-header">
-									<div className="quillforms-integrations-page__integration-module-icon">
-										<IconComponent
-											icon={ icon?.src ? icon.src : icon }
-										/>
-									</div>
-									<div className="quillforms-integrations-page__integration-module-title">
-										{ integrationsModules[ slug ].title }
-									</div>
-								</div>
-								<div className="quillforms-integrations-page__integration-module-desc">
-									{ integrationsModules[ slug ].description }
-								</div>
-								<ConnectButton slug={ slug } />
-							</div>
-						);
-					} )
-				) : (
-					<div
-						className={ css`
-							background: #e05252;
-							color: #fff;
-							padding: 10px;
-							border-radius: 5px;
-							max-width: 300px;
-							margin: auto;
-							text-align: center;
-							margin-top: 100px;
-						` }
-					>
-						No integrations found!
-					</div>
-				) }
-			</div>
+			<Switch>
+				<Route path={ `${ path }` } exact={ true }>
+					<Home isLoading={ isLoading } />
+				</Route>
+				{ Object.keys( integrationsModules ).map( ( slug ) => {
+					return (
+						<Route
+							key={ slug }
+							path={ `${ path }/${ slug }` }
+							exact={ true }
+						>
+							<Integration
+								slug={ slug }
+								isLoading={ isLoading }
+							/>
+						</Route>
+					);
+				} ) }
+				<Route path={ `${ path }/*` }>
+					<NotFound />
+				</Route>
+			</Switch>
 		</div>
 	);
 };
