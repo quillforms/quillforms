@@ -1,4 +1,4 @@
-import type { BuilderInitialPayload } from './builder-initial-payload';
+import type { InitialPayload } from './builder-initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 
 export type ConfigData = Record< string, unknown > & {
@@ -8,7 +8,7 @@ export type ConfigData = Record< string, unknown > & {
 		theme: ThemeStructure;
 		messages: MessagesStructure;
 	};
-	builderInitialPayload: BuilderInitialPayload;
+	initialPayload: InitialPayload;
 	fonts: Record< string, string >;
 	licenseKey: string;
 	licenseType: string;

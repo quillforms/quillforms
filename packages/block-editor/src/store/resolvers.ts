@@ -6,10 +6,8 @@ import ConfigAPI from '@quillforms/config';
 import { setupStore } from './actions';
 
 export const getBlocks = () => {
-	const builderInitialPayload = ConfigAPI.getInitialBuilderPayload();
+	const initialPayload = ConfigAPI.getInitialPayload();
 	return setupStore(
-		builderInitialPayload?.blocks
-			? sanitizeBlocks( builderInitialPayload.blocks )
-			: []
+		initialPayload?.blocks ? sanitizeBlocks( initialPayload.blocks ) : []
 	);
 };

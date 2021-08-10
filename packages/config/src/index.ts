@@ -2,12 +2,12 @@ import type { ConfigData } from './types/config-data';
 import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
 import messages from './json/messages.json';
-import { BuilderInitialPayload } from './types/builder-initial-payload';
+import { InitialPayload } from './types/builder-initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 
-export type { BuilderInitialPayload };
+export type { InitialPayload };
 const configData: ConfigData = {
-	builderInitialPayload: {
+	initialPayload: {
 		id: '',
 		blocks: [],
 		messages: {},
@@ -94,10 +94,8 @@ const setWPEnv = ( data: ConfigData ) => ( value: boolean ) => {
  *
  * @param data the json environment configuration to use for getting config values
  */
-const setInitialBuilderPayload = ( data: ConfigData ) => (
-	value: BuilderInitialPayload
-) => {
-	data[ 'builderInitialPayload' ] = value;
+const setInitialPayload = ( data: ConfigData ) => ( value: InitialPayload ) => {
+	data[ 'initialPayload' ] = value;
 };
 
 /**
@@ -105,10 +103,8 @@ const setInitialBuilderPayload = ( data: ConfigData ) => (
  *
  * @param data the json environment configuration to use for getting config values
  */
-const getInitialBuilderPayload = (
-	data: ConfigData
-) => (): BuilderInitialPayload => {
-	return data.builderInitialPayload;
+const getInitialPayload = ( data: ConfigData ) => (): InitialPayload => {
+	return data.initialPayload;
 };
 
 /**
@@ -170,8 +166,8 @@ const setMaxUploadSize = ( data: ConfigData ) => ( value: number ) => {
 
 export interface ConfigApi {
 	< T >( key: string ): T;
-	setInitialBuilderPayload: ( value: BuilderInitialPayload ) => void;
-	getInitialBuilderPayload: () => BuilderInitialPayload;
+	setInitialPayload: ( value: InitialPayload ) => void;
+	getInitialPayload: () => InitialPayload;
 	getMessagesStructure: () => MessagesStructure;
 	getThemeStructure: () => ThemeStructure;
 	getFonts: () => Record< string, string >;
@@ -187,8 +183,8 @@ export interface ConfigApi {
 
 const createConfig = ( data: ConfigData ): ConfigApi => {
 	const configApi = config( data ) as ConfigApi;
-	configApi.setInitialBuilderPayload = setInitialBuilderPayload( data );
-	configApi.getInitialBuilderPayload = getInitialBuilderPayload( data );
+	configApi.setInitialPayload = setInitialPayload( data );
+	configApi.getInitialPayload = getInitialPayload( data );
 	configApi.getMessagesStructure = getMessagesStructure( data );
 	configApi.getThemeStructure = getThemeStructure( data );
 	configApi.getFonts = getFonts( data );

@@ -17,7 +17,7 @@ import {
 export function* getCurrentTheme( state ) {
 	const path = `/qf/v1/themes`;
 	try {
-		const themeId = ConfigAPI.getInitialBuilderPayload().theme.id;
+		const themeId = ConfigAPI.getInitialPayload().theme.id;
 		const themes = yield apiFetch( { path } );
 		yield setUpThemes( themes );
 		yield setCurrentThemeId( themeId );

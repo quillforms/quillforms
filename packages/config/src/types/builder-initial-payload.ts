@@ -1,6 +1,6 @@
 import type { FormMessages, FormBlocks, FormLogic } from '@quillforms/types';
 
-export type BuilderInitialPayload = {
+export type InitialPayload = {
 	id: string;
 	title?: {
 		rendered: string;
