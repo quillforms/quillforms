@@ -1,4 +1,4 @@
-import type { InitialPayload } from './builder-initial-payload';
+import type { InitialPayload } from './initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 
 export type ConfigData = Record< string, unknown > & {

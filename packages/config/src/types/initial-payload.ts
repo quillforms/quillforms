@@ -14,6 +14,9 @@ export type InitialPayload = {
 	messages?: FormMessages;
 	theme?: { id: number };
 	logic?: FormLogic;
+	integrations?: {
+		[ x: string ]: any;
+	};
 	// Any other rest field
-	[ x: string ]: unknown;
+	[ x: string ]: any;
 };

@@ -2,7 +2,7 @@ import type { ConfigData } from './types/config-data';
 import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
 import messages from './json/messages.json';
-import { InitialPayload } from './types/builder-initial-payload';
+import { InitialPayload } from './types/initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 
 export type { InitialPayload };
