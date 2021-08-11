@@ -77,9 +77,8 @@ abstract class API {
 	final public function get_accounts() {
 		$accounts = array();
 		foreach ( $this->get_accounts_data() as $account_id => $account_data ) {
-			$accounts[] = array(
-				'id'    => $account_id,
-				'label' => $account_data['label'] ?: 'Unkown label', //phpcs:ignore
+			$accounts[ $account_id ] = array(
+				'name' => $account_data['name'] ?: 'Unkown name', //phpcs:ignore
 			);
 		}
 		return $accounts;
@@ -90,7 +89,7 @@ abstract class API {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param array $data Account data. Contains label and other auth data.
+	 * @param array $data Account data. Contains name and credentials.
 	 * @return string|boolean
 	 */
 	final public function add_account( $data = array() ) {

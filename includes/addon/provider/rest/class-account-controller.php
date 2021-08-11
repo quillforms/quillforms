@@ -111,7 +111,7 @@ abstract class Account_Controller extends REST_Controller {
 					'type'     => 'string',
 					'readonly' => true,
 				),
-				'label'       => array(
+				'name'        => array(
 					'type'     => 'string',
 					'required' => true,
 				),
@@ -204,7 +204,7 @@ abstract class Account_Controller extends REST_Controller {
 	 */
 	public function create_item( $request ) {
 		$account_data = array(
-			'label'       => $request['label'],
+			'name'        => $request['name'],
 			'credentials' => $request['credentials'],
 		);
 		$result       = $this->provider->api->add_account( $account_data );
