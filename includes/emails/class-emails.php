@@ -31,7 +31,7 @@ class Emails {
 	 *
 	 * @var string
 	 */
-	private $from_address;
+	public $from_address;
 
 	/**
 	 * Store the from name.
@@ -40,7 +40,7 @@ class Emails {
 	 *
 	 * @var string
 	 */
-	private $from_name;
+	public $from_name;
 
 	/**
 	 * Store the reply-to address.
@@ -49,7 +49,7 @@ class Emails {
 	 *
 	 * @var string
 	 */
-	private $reply_to = false;
+	public $reply_to = false;
 
 	/**
 	 * Store the carbon copy addresses.
@@ -58,7 +58,7 @@ class Emails {
 	 *
 	 * @var string
 	 */
-	private $cc = false;
+	public $cc = false;
 
 	/**
 	 * Store the email content type.
@@ -67,7 +67,7 @@ class Emails {
 	 *
 	 * @var string
 	 */
-	private $content_type;
+	public $content_type;
 
 	/**
 	 * Store the email headers.
@@ -76,7 +76,7 @@ class Emails {
 	 *
 	 * @var string
 	 */
-	private $headers;
+	public $headers;
 
 	/**
 	 * Whether to send email in HTML.
@@ -85,7 +85,7 @@ class Emails {
 	 *
 	 * @var bool
 	 */
-	private $html = true;
+	public $html = true;
 
 	/**
 	 * The email template to use.
@@ -94,7 +94,7 @@ class Emails {
 	 *
 	 * @var string
 	 */
-	private $template;
+	public $template;
 
 	/**
 	 * Form data and settings.
@@ -145,19 +145,6 @@ class Emails {
 
 		add_action( 'quillforms_email_send_before', array( $this, 'send_before' ) );
 		add_action( 'quillforms_email_send_after', array( $this, 'send_after' ) );
-	}
-
-	/**
-	 * Set a property.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $key   Object property key.
-	 * @param mixed  $value Object property value.
-	 */
-	public function __set( $key, $value ) {
-
-		$this->$key = $value;
 	}
 
 	/**
@@ -459,7 +446,7 @@ class Emails {
 	 */
 	public function process_tag( $string = '' ) {
 
-		return Merge_Tags::process_tag( $string, $this->form_data, $this->answers, $this->entry_id );
+		return Merge_Tags::process_tag( $string, $this->form_data, $this->entry, $this->entry_id );
 	}
 
 	/**
@@ -473,7 +460,7 @@ class Emails {
 	 */
 	public function html_field_value( $is_html_email = true ) { // phpcs:ignore
 
-		if ( empty( $this->answers ) ) {
+		if ( empty( $this->entry['answers'] ) ) {
 			return '';
 		}
 
@@ -504,12 +491,12 @@ class Emails {
 				$field_label = '';
 				$field_val   = '';
 
-				if ( ! isset( $this->answers[ $block['id'] ] ) || '' === (string) $this->answers[ $block['id'] ] ) {
+				if ( ! isset( $this->entry['answers'][ $block['id'] ] ) || '' === (string) $this->entry['answers'][ $block['id'] ] ) {
 						continue;
 				}
 
 				$field_label = $block['attributes']['label'];
-				$field_val   = empty( $this->answers[ $block['id'] ]['value'] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_human_readable_value( $this->answers[ $block['id'] ]['value'], $this->form_data );
+				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_human_readable_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) && null !== $field_label ) {
 					$field_label = sprintf( /* translators: %d - field ID. */
@@ -544,12 +531,12 @@ class Emails {
 				$field_label = '';
 				$field_val   = '';
 
-				if ( ! isset( $this->answers[ $block['id'] ] ) || '' === (string) $this->answers[ $block['id'] ] ) {
+				if ( ! isset( $this->entry['answers'][ $block['id'] ] ) || '' === (string) $this->entry['answers'][ $block['id'] ] ) {
 					continue;
 				}
 
 				$field_label = $block['attributes']['label'];
-				$field_val   = empty( $this->answers[ $block['id'] ]['value'] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_human_readable_value( $this->answers[ $block['id'] ]['value'], $this->form_data );
+				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_human_readable_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) ) {
 					$field_label = sprintf( /* translators: %d - field ID. */

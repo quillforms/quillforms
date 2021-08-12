@@ -267,7 +267,7 @@ class Form_Submission {
 			if ( 'field' === $notification_properties['toType'] ) {
 				$email['address'] = array_map(
 					function( $address ) use ( $entry, $form_data ) {
-						return Merge_Tags::process_tag( $address, $form_data, $entry['answers'], $this->entry_id );
+						return Merge_Tags::process_tag( $address, $form_data, $entry, $this->entry_id );
 					},
 					$email['address']
 				);
@@ -291,18 +291,18 @@ class Form_Submission {
 			$email                   = apply_filters( 'quillforms_entry_email_atts', $email, $entry, $form_data, $notification_id );
 
 			// Create new email.
-			$emails = new Emails();
-			$emails->__set( 'form_data', $form_data );
-			$emails->__set( 'answers', $entry['answers'] );
-			$emails->__set( 'notification_id', $notification_id );
-			$emails->__set( 'entry_id', $this->entry_id );
-			$emails->__set( 'from_name', $email['sender_name'] );
-			$emails->__set( 'from_address', $email['sender_address'] );
-			$emails->__set( 'reply_to', $email['replyto'] );
+			$emails                  = new Emails();
+			$emails->form_data       = $form_data;
+			$emails->entry           = $entry;
+			$emails->notification_id = $notification_id;
+			$emails->entry_id        = $this->entry_id;
+			$emails->from_name       = $email['sender_name'];
+			$emails->from_address    = $email['sender_address'];
+			$emails->reply_to        = $email['replyto'];
 
 			// Maybe include CC.
 			if ( ! empty( $notification['carboncopy'] ) && quillforms_setting( 'email-carbon-copy', false ) ) {
-				$emails->__set( 'cc', $notification['carboncopy'] );
+				$emails->cc = $notification['carboncopy'];
 			}
 
 			$emails = apply_filters( 'quillforms_entry_email_before_send', $emails );
