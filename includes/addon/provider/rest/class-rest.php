@@ -8,6 +8,10 @@
 
 namespace QuillForms\Addon\Provider\REST;
 
+use WP_Post;
+use WP_REST_Request;
+use WP_REST_Response;
+
 /**
  * REST abstract class.
  *
@@ -47,6 +51,25 @@ abstract class REST {
 		$this->provider = $provider;
 		new static::$account_controller_class( $this->provider ); // phpcs:ignore
 		new static::$form_data_controller_class( $this->provider ); // phpcs:ignore
+		add_filter( 'rest_prepare_quill_forms', array( $this, 'add_provider_form_data' ), 10, 3 );
+	}
+
+	/**
+	 * Add provider form data
+	 *
+	 * @param WP_REST_Response $response The response object.
+	 * @param WP_Post          $post     Post object.
+	 * @param WP_REST_Request  $request  Request object.
+	 * @return WP_REST_Response
+	 */
+	public function add_provider_form_data( $response, $post, $request ) { // phpcs:ignore
+		$data = $response->get_data();
+		if ( ! isset( $data['integrations'] ) ) {
+			$data['integrations'] = array();
+		}
+		$data['integrations'][ $this->provider->slug ] = $this->provider->form_data->get( $post->ID );
+		$response->set_data( $data );
+		return $response;
 	}
 
 }
