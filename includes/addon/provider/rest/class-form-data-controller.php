@@ -139,12 +139,18 @@ abstract class Form_Data_Controller {
 	 */
 	public function get_connections_schema() {
 		$schema = array(
-			'$schema'              => 'http://json-schema.org/draft-04/schema#',
-			'title'                => 'connections',
-			'type'                 => 'object',
-			'additionalProperties' => array(
-				'type'       => 'object',
-				'properties' => $this->connection_schema,
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => 'connections',
+			'type'       => 'object',
+			'properties' => array(
+				'connections' => array(
+					'type'                 => 'object',
+					'required'             => true,
+					'additionalProperties' => array(
+						'type'       => 'object',
+						'properties' => $this->connection_schema,
+					),
+				),
 			),
 		);
 		return $schema;
@@ -189,7 +195,11 @@ abstract class Form_Data_Controller {
 		$form_id = $request->get_param( 'form_id' );
 		$enabled = $request->get_param( 'enabled' );
 		$updated = $this->provider->form_data->update( $form_id, array( 'enabled' => $enabled ), true );
-		return new WP_REST_Response( null, $updated ? 200 : 422 );
+		if ( $updated ) {
+			return new WP_REST_Response( array( 'success' => true ), 200 );
+		} else {
+			return new WP_Error( 'quillforms-mailchimp-enabled-update', esc_html__( 'Cannot update enabled!', 'quillforms' ), array( 'status' => 422 ) );
+		}
 	}
 
 	/**
@@ -244,7 +254,11 @@ abstract class Form_Data_Controller {
 		$form_id     = $request->get_param( 'form_id' );
 		$connections = $request->get_param( 'connections' );
 		$updated     = $this->provider->form_data->update( $form_id, array( 'connections' => $connections ), true );
-		return new WP_REST_Response( null, $updated ? 200 : 422 );
+		if ( $updated ) {
+			return new WP_REST_Response( array( 'success' => true ), 200 );
+		} else {
+			return new WP_Error( 'quillforms-mailchimp-enabled-update', esc_html__( 'Cannot update connections!', 'quillforms' ), array( 'status' => 422 ) );
+		}
 	}
 
 	/**
