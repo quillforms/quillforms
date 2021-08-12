@@ -23,7 +23,6 @@ import SearchIcon from './search-icon';
 import ConnectButton from './connect-button';
 
 const Home = ( { isLoading } ) => {
-	console.log( isLoading );
 	const integrationsModules = getIntegrationModules();
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
 
