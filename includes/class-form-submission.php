@@ -162,7 +162,7 @@ class Form_Submission {
 		}
 
 		$entry = array(
-			'formId'  => $form_id,
+			'form_id' => $form_id,
 			'answers' => $answers,
 		);
 
@@ -226,6 +226,8 @@ class Form_Submission {
 
 			// Process email notifications.
 			$this->entry_email( $entry, $this->form_data );
+
+			do_action( 'quillforms_entry_processed', $entry, $this->form_data );
 		}
 	}
 
