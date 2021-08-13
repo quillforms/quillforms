@@ -65,6 +65,13 @@ abstract class Provider extends Addon {
 	protected static $rest_class;
 
 	/**
+	 * Entry_Process class name
+	 *
+	 * @var string
+	 */
+	protected static $entry_process_class;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.3.0
@@ -75,6 +82,7 @@ abstract class Provider extends Addon {
 		$this->form_data = new Form_Data( $this->slug );
 		$this->api = new static::$api_class( $this ); // phpcs:ignore
 		new static::$rest_class( $this ); // phpcs:ignore
+		new static::$entry_process_class( $this ); // phpcs:ignore
 	}
 
 }
