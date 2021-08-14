@@ -30,7 +30,7 @@ abstract class Form_Data {
 	 * @param string $slug Provider slug.
 	 */
 	final public function __construct( $slug ) {
-		$this->meta_key = "addon_$slug";
+		$this->meta_key = "provider_$slug";
 	}
 
 	/**
