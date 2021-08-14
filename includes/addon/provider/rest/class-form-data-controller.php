@@ -72,80 +72,39 @@ abstract class Form_Data_Controller {
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
-			"/{$this->rest_base}/enabled",
+			"/{$this->rest_base}",
 			array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_enabled' ),
-					'permission_callback' => array( $this, 'get_enabled_permissions_check' ),
+					'callback'            => array( $this, 'get' ),
+					'permission_callback' => array( $this, 'get_permissions_check' ),
 					'args'                => array(),
 				),
 				array(
 					'methods'             => WP_REST_Server::CREATABLE,
-					'callback'            => array( $this, 'update_enabled' ),
-					'permission_callback' => array( $this, 'update_enabled_permissions_check' ),
-					'args'                => rest_get_endpoint_args_for_schema( $this->get_enabled_schema(), WP_REST_Server::CREATABLE ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/connections",
-			array(
-				array(
-					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_connections' ),
-					'permission_callback' => array( $this, 'get_connections_permissions_check' ),
-					'args'                => array(),
-				),
-				array(
-					'methods'             => WP_REST_Server::CREATABLE,
-					'callback'            => array( $this, 'update_connections' ),
-					'permission_callback' => array( $this, 'update_connections_permissions_check' ),
-					'args'                => rest_get_endpoint_args_for_schema( $this->get_connections_schema(), WP_REST_Server::CREATABLE ),
+					'callback'            => array( $this, 'update' ),
+					'permission_callback' => array( $this, 'update_permissions_check' ),
+					'args'                => rest_get_endpoint_args_for_schema( $this->get_schema(), WP_REST_Server::CREATABLE ),
 				),
 			)
 		);
 	}
 
 	/**
-	 * Retrieves 'enabled' schema, conforming to JSON Schema.
+	 * Retrieves schema, conforming to JSON Schema.
 	 *
 	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
-	public function get_enabled_schema() {
+	public function get_schema() {
 		$schema = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => 'enabled',
-			'type'       => 'object',
-			'properties' => array(
-				'enabled' => array(
-					'type'     => 'boolean',
-					'required' => true,
-				),
-			),
-		);
-		return $schema;
-	}
-
-	/**
-	 * Retrieves 'connections' schema, conforming to JSON Schema.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @return array
-	 */
-	public function get_connections_schema() {
-		$schema = array(
-			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => 'connections',
+			'title'      => 'form_data',
 			'type'       => 'object',
 			'properties' => array(
 				'connections' => array(
 					'type'                 => 'object',
-					'required'             => true,
 					'additionalProperties' => array(
 						'type'       => 'object',
 						'properties' => $this->connection_schema,
@@ -157,119 +116,74 @@ abstract class Form_Data_Controller {
 	}
 
 	/**
-	 * Retrieves 'enabled'.
+	 * Retrieves form data.
 	 *
 	 * @since 1.3.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
-	public function get_enabled( $request ) {
+	public function get( $request ) {
 		$form_id = $request->get_param( 'form_id' );
-		$enabled = $this->provider->form_data->get( $form_id, 'enabled' ) ?? false;
-		return new WP_REST_Response( array( 'enabled' => $enabled ), 200 );
+		$props   = $request->get_param( 'props' );
+
+		$data = $this->provider->form_data->get( $form_id ) ?? array();
+		if ( $props ) {
+			$props = explode( ',', $props );
+			$data  = array_filter(
+				$data,
+				function( $key ) use ( $props ) {
+					return in_array( $key, $props, true );
+				},
+				ARRAY_FILTER_USE_KEY
+			);
+		}
+
+		return new WP_REST_Response( $data, 200 );
 	}
 
 	/**
-	 * Checks if a given request has access to get 'enabled'.
+	 * Checks if a given request has access to get form data.
 	 *
 	 * @since 1.3.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
 	 */
-	public function get_enabled_permissions_check( $request ) {
+	public function get_permissions_check( $request ) {
 		$capability = 'manage_quillforms';
 		return current_user_can( $capability, $request );
 	}
 
 	/**
-	 * Updates 'enabled'.
+	 * Updates form data.
 	 *
 	 * @since 1.3.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
-	public function update_enabled( $request ) {
+	public function update( $request ) {
 		$form_id = $request->get_param( 'form_id' );
-		$enabled = $request->get_param( 'enabled' );
-		$updated = $this->provider->form_data->update( $form_id, array( 'enabled' => $enabled ), true );
+		$data    = $request->get_json_params();
+
+		$updated = $this->provider->form_data->update( $form_id, $data, true );
 		if ( $updated ) {
 			return new WP_REST_Response( array( 'success' => true ), 200 );
 		} else {
-			return new WP_Error( 'quillforms-mailchimp-enabled-update', esc_html__( 'Cannot update enabled!', 'quillforms' ), array( 'status' => 422 ) );
+			return new WP_Error( 'quillforms-mailchimp-form-data-update', esc_html__( 'Cannot update form data!', 'quillforms' ), array( 'status' => 422 ) );
 		}
 	}
 
 	/**
-	 * Checks if a given request has access to get 'enabled'.
+	 * Checks if a given request has access to update form data.
 	 *
 	 * @since 1.3.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
 	 */
-	public function update_enabled_permissions_check( $request ) {
-		$capability = 'manage_quillforms';
-		return current_user_can( $capability, $request );
-	}
-
-	/**
-	 * Retrieves 'connections'.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
-	 */
-	public function get_connections( $request ) { // phpcs:ignore
-		$form_id     = $request->get_param( 'form_id' );
-		$connections = $this->provider->form_data->get( $form_id, 'connections' ) ?? array();
-		return new WP_REST_Response( $connections, 200 );
-	}
-
-	/**
-	 * Checks if a given request has access to get 'connections'.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
-	 */
-	public function get_connections_permissions_check( $request ) {
-		$capability = 'manage_quillforms';
-		return current_user_can( $capability, $request );
-	}
-
-	/**
-	 * Updates 'connections'.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
-	 */
-	public function update_connections( $request ) { // phpcs:ignore
-		$form_id     = $request->get_param( 'form_id' );
-		$connections = $request->get_param( 'connections' );
-		$updated     = $this->provider->form_data->update( $form_id, array( 'connections' => $connections ), true );
-		if ( $updated ) {
-			return new WP_REST_Response( array( 'success' => true ), 200 );
-		} else {
-			return new WP_Error( 'quillforms-mailchimp-enabled-update', esc_html__( 'Cannot update connections!', 'quillforms' ), array( 'status' => 422 ) );
-		}
-	}
-
-	/**
-	 * Checks if a given request has access to get 'connections'.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
-	 */
-	public function update_connections_permissions_check( $request ) {
+	public function update_permissions_check( $request ) {
 		$capability = 'manage_quillforms';
 		return current_user_can( $capability, $request );
 	}
