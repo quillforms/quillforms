@@ -33,11 +33,13 @@ abstract class API {
 	protected $accounts = array();
 
 	/**
-	 * Account class
+	 * Class names
 	 *
 	 * @var string
 	 */
-	protected static $account_class;
+	protected static $classes = array(
+		'account' => null,
+	);
 
 	/**
 	 * Constructor.
@@ -155,7 +157,7 @@ abstract class API {
 				return new WP_Error( "quillforms-{$this->provider->slug}-api-connect", 'Cannot find account data', array( 'status' => 422 ) );
 			}
 			try {
-				$this->accounts[ $account_id ] = new static::$account_class( $accounts_data[ $account_id ] ); // phpcs:ignore
+				$this->accounts[ $account_id ] = new static::$classes['account']( $accounts_data[ $account_id ] );
 			} catch ( Exception $e ) {
 				return new WP_Error( "quillforms-{$this->provider->slug}-api-connect", 'Cannot connect to account', array( 'status' => 422 ) );
 			}

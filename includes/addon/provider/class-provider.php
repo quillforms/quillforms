@@ -51,25 +51,15 @@ abstract class Provider extends Addon {
 	public $form_data;
 
 	/**
-	 * API class name
+	 * Class names
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected static $api_class;
-
-	/**
-	 * REST class name
-	 *
-	 * @var string
-	 */
-	protected static $rest_class;
-
-	/**
-	 * Entry_Process class name
-	 *
-	 * @var string
-	 */
-	protected static $entry_process_class;
+	protected static $provider_classes = array(
+		'api'           => null,
+		'rest'          => null,
+		'entry_process' => null,
+	);
 
 	/**
 	 * Constructor.
@@ -80,9 +70,9 @@ abstract class Provider extends Addon {
 		parent::__construct();
 
 		$this->form_data = new Form_Data( $this->slug );
-		$this->api = new static::$api_class( $this ); // phpcs:ignore
-		new static::$rest_class( $this ); // phpcs:ignore
-		new static::$entry_process_class( $this ); // phpcs:ignore
+		$this->api       = new static::$provider_classes['api']( $this );
+		new static::$provider_classes['rest']( $this );
+		new static::$provider_classes['entry_process']( $this );
 	}
 
 }

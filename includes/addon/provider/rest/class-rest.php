@@ -27,18 +27,14 @@ abstract class REST {
 	protected $provider;
 
 	/**
-	 * Account_Controller class
+	 * Class names
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected static $account_controller_class;
-
-	/**
-	 * Form_Data_Controller class
-	 *
-	 * @var string
-	 */
-	protected static $form_data_controller_class;
+	protected static $classes = array(
+		'account_controller'   => null,
+		'form_data_controller' => null,
+	);
 
 	/**
 	 * Constructor.
@@ -49,8 +45,8 @@ abstract class REST {
 	 */
 	public function __construct( $provider ) {
 		$this->provider = $provider;
-		new static::$account_controller_class( $this->provider ); // phpcs:ignore
-		new static::$form_data_controller_class( $this->provider ); // phpcs:ignore
+		new static::$classes['account_controller']( $this->provider );
+		new static::$classes['form_data_controller']( $this->provider );
 		add_filter( 'rest_prepare_quill_forms', array( $this, 'add_provider_form_data' ), 10, 3 );
 	}
 

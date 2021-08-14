@@ -16,11 +16,13 @@ namespace QuillForms\Addon;
 abstract class Addon {
 
 	/**
-	 * Scripts class name
+	 * Class names
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected static $scripts_class;
+	protected static $addon_classes = array(
+		'scripts' => null,
+	);
 
 	/**
 	 * Subclasses instances.
@@ -54,8 +56,8 @@ abstract class Addon {
 	 * @since 1.3.0
 	 */
 	protected function __construct() {
-		if ( static::$scripts_class ) {
-			new static::$scripts_class(); // phpcs:ignore
+		if ( static::$addon_classes['scripts'] ) {
+			new static::$addon_classes['scripts']();
 		}
 	}
 
