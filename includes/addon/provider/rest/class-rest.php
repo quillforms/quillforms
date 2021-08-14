@@ -32,8 +32,8 @@ abstract class REST {
 	 * @var array
 	 */
 	protected static $classes = array(
-		'account_controller'   => null,
-		'form_data_controller' => null,
+		// 'account_controller'   => Account_Controller::class,
+		// 'form_data_controller' => Form_Data_Controller::class,
 	);
 
 	/**

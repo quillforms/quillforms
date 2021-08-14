@@ -38,7 +38,7 @@ abstract class API {
 	 * @var string
 	 */
 	protected static $classes = array(
-		'account' => null,
+		// 'account' => Account::class,
 	);
 
 	/**

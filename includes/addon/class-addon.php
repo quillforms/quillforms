@@ -20,8 +20,8 @@ abstract class Addon {
 	 *
 	 * @var array
 	 */
-	protected static $addon_classes = array(
-		'scripts' => null,
+	protected static $classes = array(
+		// 'scripts' => Scripts::class,
 	);
 
 	/**
@@ -56,8 +56,8 @@ abstract class Addon {
 	 * @since 1.3.0
 	 */
 	protected function __construct() {
-		if ( static::$addon_classes['scripts'] ) {
-			new static::$addon_classes['scripts']();
+		if ( static::$classes['scripts'] ) {
+			new static::$classes['scripts']();
 		}
 	}
 
