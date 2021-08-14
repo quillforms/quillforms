@@ -13,7 +13,7 @@ namespace QuillForms\Addon\Provider;
  *
  * @since 1.3.0
  */
-final class Form_Data {
+abstract class Form_Data {
 
 	/**
 	 * Post meta key
@@ -29,8 +29,8 @@ final class Form_Data {
 	 *
 	 * @param string $slug Provider slug.
 	 */
-	public function __construct( $slug ) {
-		$this->meta_key = "provider_$slug";
+	final public function __construct( $slug ) {
+		$this->meta_key = "addon_$slug";
 	}
 
 	/**
@@ -40,13 +40,22 @@ final class Form_Data {
 	 * @param false|string $property Property.
 	 * @return mixed
 	 */
-	public function get( $form_id, $property = false ) {
+	final public function get( $form_id, $property = false ) {
 		$meta_value = get_post_meta( $form_id, $this->meta_key, true ) ?: array(); // phpcs:ignore
 		if ( $property ) {
 			return $meta_value[ $property ] ?? null;
 		}
 		return $meta_value;
 	}
+
+	/**
+	 * Get filtered form data
+	 *
+	 * @param int          $form_id Form id.
+	 * @param false|string $property Property.
+	 * @return mixed
+	 */
+	abstract public function get_filtered( $form_id, $property = false );
 
 	/**
 	 * Update form data
@@ -56,7 +65,7 @@ final class Form_Data {
 	 * @param boolean $partial Partial replacement or not.
 	 * @return boolean
 	 */
-	public function update( $form_id, $new_value, $partial = false ) {
+	final public function update( $form_id, $new_value, $partial = false ) {
 		$previous_value = $this->get( $form_id );
 		if ( $partial ) {
 			$new_value = array_replace( $previous_value, $new_value );
@@ -68,12 +77,22 @@ final class Form_Data {
 	}
 
 	/**
+	 * Update form data after filtering
+	 *
+	 * @param int     $form_id Form id.
+	 * @param mixed   $new_value New value.
+	 * @param boolean $partial Partial replacement or not.
+	 * @return boolean
+	 */
+	abstract public function update_filtered( $form_id, $new_value, $partial = false );
+
+	/**
 	 * Delete form data
 	 *
 	 * @param int $form_id Form id.
 	 * @return boolean
 	 */
-	public function delete( $form_id ) {
+	final public function delete( $form_id ) {
 		return delete_post_meta( $form_id, $this->meta_key );
 	}
 

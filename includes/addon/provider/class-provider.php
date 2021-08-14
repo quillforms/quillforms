@@ -57,6 +57,7 @@ abstract class Provider extends Addon {
 	 */
 	protected static $provider_classes = array(
 		'api'           => null,
+		'form_data'     => null,
 		'rest'          => null,
 		'entry_process' => null,
 	);
@@ -69,7 +70,7 @@ abstract class Provider extends Addon {
 	protected function __construct() {
 		parent::__construct();
 
-		$this->form_data = new Form_Data( $this->slug );
+		$this->form_data = new static::$provider_classes['form_data']( $this->slug );
 		$this->api       = new static::$provider_classes['api']( $this );
 		new static::$provider_classes['rest']( $this );
 		new static::$provider_classes['entry_process']( $this );
