@@ -42,13 +42,6 @@ abstract class Form_Data_Controller {
 	protected $provider;
 
 	/**
-	 * Connection schema
-	 *
-	 * @var array
-	 */
-	protected $connection_schema;
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 1.3.0
@@ -97,23 +90,7 @@ abstract class Form_Data_Controller {
 	 *
 	 * @return array
 	 */
-	public function get_schema() {
-		$schema = array(
-			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => 'form_data',
-			'type'       => 'object',
-			'properties' => array(
-				'connections' => array(
-					'type'                 => 'object',
-					'additionalProperties' => array(
-						'type'       => 'object',
-						'properties' => $this->connection_schema,
-					),
-				),
-			),
-		);
-		return $schema;
-	}
+	abstract public function get_schema();
 
 	/**
 	 * Retrieves form data.
@@ -127,7 +104,7 @@ abstract class Form_Data_Controller {
 		$form_id = $request->get_param( 'form_id' );
 		$props   = $request->get_param( 'props' );
 
-		$data = $this->provider->form_data->get( $form_id ) ?? array();
+		$data = $this->provider->form_data->get_filtered( $form_id ) ?? array();
 		if ( $props ) {
 			$props = explode( ',', $props );
 			$data  = array_filter(
@@ -167,7 +144,7 @@ abstract class Form_Data_Controller {
 		$form_id = $request->get_param( 'form_id' );
 		$data    = $request->get_json_params();
 
-		$updated = $this->provider->form_data->update( $form_id, $data, true );
+		$updated = $this->provider->form_data->update_filtered( $form_id, $data, true );
 		if ( $updated ) {
 			return new WP_REST_Response( array( 'success' => true ), 200 );
 		} else {
