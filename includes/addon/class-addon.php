@@ -56,7 +56,7 @@ abstract class Addon {
 	 * @since 1.3.0
 	 */
 	protected function __construct() {
-		if ( static::$classes['scripts'] ) {
+		if ( ! empty( static::$classes['scripts'] ) ) {
 			new static::$classes['scripts']();
 		}
 	}
