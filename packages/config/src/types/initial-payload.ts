@@ -14,7 +14,7 @@ export type InitialPayload = {
 	messages?: FormMessages;
 	theme?: { id: number };
 	logic?: FormLogic;
-	integrations?: {
+	addons?: {
 		[ x: string ]: any;
 	};
 	// Any other rest field
