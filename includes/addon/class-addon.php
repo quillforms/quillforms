@@ -43,14 +43,24 @@ abstract class Addon {
 	public $settings;
 
 	/**
+	 * Form data
+	 *
+	 * @since 1.3.0
+	 *
+	 * @var Form_Data
+	 */
+	public $form_data;
+
+	/**
 	 * Class names
 	 *
 	 * @var array
 	 */
 	protected static $classes = array(
-		// 'scripts'  => Scripts::class,
-		// 'settings' => Settings::class,
-		// 'rest'     => REST\REST::class,
+		// 'scripts'   => Scripts::class,
+		// 'settings'  => Settings::class,
+		// 'form_data' => Form_Data::class,
+		// 'rest'      => REST\REST::class,
 	);
 
 	/**
@@ -90,6 +100,9 @@ abstract class Addon {
 		}
 		if ( ! empty( static::$classes['settings'] ) ) {
 			$this->settings = new static::$classes['settings']( $this );
+		}
+		if ( ! empty( static::$classes['form_data'] ) ) {
+			$this->form_data = new static::$classes['form_data']( $this );
 		}
 		if ( ! empty( static::$classes['rest'] ) ) {
 			new static::$classes['rest']( $this );

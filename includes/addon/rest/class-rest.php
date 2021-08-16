@@ -28,7 +28,8 @@ abstract class REST {
 	 * @var array
 	 */
 	protected static $classes = array(
-		// 'settings_controller' => Settings_Controller::class,
+		// 'settings_controller'  => Settings_Controller::class,
+		// 'form_data_controller' => Form_Data_Controller::class,
 	);
 
 	/**
@@ -42,6 +43,9 @@ abstract class REST {
 		$this->addon = $addon;
 		if ( ! empty( static::$classes['settings_controller'] ) ) {
 			new static::$classes['settings_controller']( $this->addon );
+		}
+		if ( ! empty( static::$classes['form_data_controller'] ) ) {
+			new static::$classes['form_data_controller']( $this->addon );
 		}
 	}
 
