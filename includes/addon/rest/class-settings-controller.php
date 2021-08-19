@@ -35,6 +35,13 @@ abstract class Settings_Controller {
 	protected $rest_base;
 
 	/**
+	 * Rest endpoint.
+	 *
+	 * @var string
+	 */
+	protected $rest_endpoint = '/settings';
+
+	/**
 	 * Properties allowed to get
 	 *
 	 * @var array
@@ -64,7 +71,7 @@ abstract class Settings_Controller {
 	 */
 	public function __construct( $addon ) {
 		$this->addon     = $addon;
-		$this->rest_base = "addons/{$addon->slug}/settings";
+		$this->rest_base = "addons/{$this->addon->slug}{$this->rest_endpoint}";
 
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
