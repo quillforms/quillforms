@@ -9,7 +9,7 @@
 namespace QuillForms\Addon\Provider\REST;
 
 use QuillForms\Abstracts\REST_Controller;
-use QuillForms\Addon\Provider\API\Account;
+use QuillForms\Addon\Provider\Account_API;
 use QuillForms\Addon\Provider\Provider;
 use WP_Error;
 use WP_REST_Response;
@@ -34,7 +34,7 @@ abstract class Account_Controller extends REST_Controller {
 	 *
 	 * @var array
 	 */
-	protected $credentials_schema;
+	protected $credentials_schema = array();
 
 	/**
 	 * Constructor.
@@ -45,7 +45,7 @@ abstract class Account_Controller extends REST_Controller {
 	 */
 	public function __construct( $provider ) {
 		$this->provider  = $provider;
-		$this->rest_base = "providers/{$provider->slug}/accounts";
+		$this->rest_base = "addons/{$this->provider->slug}/accounts";
 
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
@@ -134,7 +134,7 @@ abstract class Account_Controller extends REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get_items( $request ) { // phpcs:ignore
-		$accounts = $this->provider->api->get_accounts();
+		$accounts = $this->provider->accounts->get_accounts();
 		return new WP_REST_Response( $accounts, 200 );
 	}
 
@@ -160,13 +160,13 @@ abstract class Account_Controller extends REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get_item( $request ) {
-		$id      = $request->get_param( 'id' );
-		$account = $this->provider->api->connect( $id );
-		if ( is_wp_error( $account ) ) {
-			return $account;
+		$id          = $request->get_param( 'id' );
+		$account_api = $this->provider->accounts->connect( $id );
+		if ( is_wp_error( $account_api ) ) {
+			return $account_api;
 		}
 
-		$details = $this->get_account_details( $account );
+		$details = $this->get_account_details( $account_api );
 		if ( is_wp_error( $details ) ) {
 			return $details;
 		}
@@ -176,10 +176,10 @@ abstract class Account_Controller extends REST_Controller {
 	/**
 	 * Get account details to be used in get_item
 	 *
-	 * @param Account $account Account.
+	 * @param Account_API $account_api Account API.
 	 * @return array|WP_Error
 	 */
-	abstract protected function get_account_details( $account );
+	abstract protected function get_account_details( $account_api );
 
 	/**
 	 * Checks if a given request has access to get a specific item.
@@ -203,17 +203,27 @@ abstract class Account_Controller extends REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function create_item( $request ) {
+		$account_id   = uniqid();
 		$account_data = array(
 			'name'        => $request['name'],
 			'credentials' => $request['credentials'],
 		);
-		$result       = $this->provider->api->add_account( $account_data );
-		if ( is_wp_error( $result ) ) {
-			return $result;
+
+		$added = $this->provider->accounts->add_account( $account_id, $account_data );
+		if ( is_wp_error( $added ) ) {
+			return $added;
+		}
+		if ( ! $added ) {
+			return new WP_Error( 'quillforms-account-controller-create', esc_html__( 'Cannot create account', 'quillforms' ) );
 		}
 
-		$account_data['id'] = $result;
-		return new WP_REST_Response( $account_data, 200 );
+		return new WP_REST_Response(
+			array(
+				'id'   => $account_id,
+				'name' => $account_data['name'],
+			),
+			200
+		);
 	}
 
 	/**
@@ -238,7 +248,7 @@ abstract class Account_Controller extends REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function delete_item( $request ) {
-		$this->provider->api->remove_account( $request['id'] );
+		$this->provider->accounts->remove_account( $request['id'] );
 		return new WP_REST_Response();
 	}
 
