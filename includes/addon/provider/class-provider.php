@@ -9,7 +9,6 @@
 namespace QuillForms\Addon\Provider;
 
 use QuillForms\Addon\Addon;
-use QuillForms\Addon\Provider\API\API;
 
 /**
  * Abstract class for provider plugin extensions.
@@ -19,36 +18,11 @@ use QuillForms\Addon\Provider\API\API;
 abstract class Provider extends Addon {
 
 	/**
-	 * Name
+	 * Accounts
 	 *
-	 * @since 1.3.0
-	 *
-	 * @var string
+	 * @var Accounts
 	 */
-	public $name;
-
-	/**
-	 * Slug
-	 *
-	 * @since 1.3.0
-	 *
-	 * @var string
-	 */
-	public $slug;
-
-	/**
-	 * API
-	 *
-	 * @var API
-	 */
-	public $api;
-
-	/**
-	 * Form data
-	 *
-	 * @var Form_Data
-	 */
-	public $form_data;
+	public $accounts;
 
 	/**
 	 * Class names
@@ -57,9 +31,7 @@ abstract class Provider extends Addon {
 	 */
 	protected static $classes = array(
 		// + classes from parent.
-		// 'api'           => API\API::class,
-		// 'form_data'     => Form_Data::class,
-		// 'rest'          => REST\REST::class,
+		// 'accounts'      => Accounts::class,
 		// 'entry_process' => Entry_Process::class,
 	);
 
@@ -71,10 +43,10 @@ abstract class Provider extends Addon {
 	protected function __construct() {
 		parent::__construct();
 
-		$this->form_data = new static::$classes['form_data']( $this->slug );
-		$this->api       = new static::$classes['api']( $this );
-		new static::$classes['rest']( $this );
-		new static::$classes['entry_process']( $this );
+		$this->accounts = new static::$classes['accounts']( $this );
+		if ( ! empty( static::$classes['entry_process'] ) ) {
+			new static::$classes['entry_process']( $this );
+		}
 	}
 
 }
