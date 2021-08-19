@@ -1,3 +1,3 @@
 export * from './api';
 export * from './types';
-import './built-in-integrations/mailchimp';
+import './built-in-integrations';
