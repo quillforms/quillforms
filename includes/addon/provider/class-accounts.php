@@ -79,9 +79,11 @@ abstract class Accounts {
 	 *
 	 * @param string $account_id Account id.
 	 * @param array  $account_data Account data.
-	 * @return boolean
+	 * @return boolean|WP_Error
 	 */
-	abstract public function add_account( $account_id, $account_data );
+	public function add_account( $account_id, $account_data ) {
+		return $this->add_account_data( $account_id, $account_data );
+	}
 
 	/**
 	 * Update account.
