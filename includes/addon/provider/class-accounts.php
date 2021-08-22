@@ -196,17 +196,39 @@ abstract class Accounts {
 	 * @return Account_API|WP_Error
 	 */
 	public function connect( $account_id ) {
-		// TODO: translate error messages.
 		if ( ! isset( $this->account_apis[ $account_id ] ) ) {
-			// init account.
 			$accounts_data = $this->get_accounts_data();
+			// get account data.
 			if ( ! isset( $accounts_data[ $account_id ] ) ) {
-				return new WP_Error( "quillforms-{$this->provider->slug}-accounts-connect", 'Cannot find account data', array( 'status' => 422 ) );
+				$message = esc_html__( 'Cannot find account data.', 'quillforms' );
+				quillforms_get_logger()->error(
+					$message,
+					array(
+						'provider'   => $this->provider->slug,
+						'account_id' => $account_id,
+					)
+				);
+				return new WP_Error(
+					"quillforms-{$this->provider->slug}-accounts-connect-data",
+					$message
+				);
 			}
+			// init account api.
 			try {
 				$this->account_apis[ $account_id ] = $this->init_account_api( $account_id, $accounts_data[ $account_id ] );
 			} catch ( Exception $e ) {
-				return new WP_Error( "quillforms-{$this->provider->slug}-accounts-connect", 'Cannot connect to account', array( 'status' => 422 ) );
+				$message = esc_html__( 'Cannot connect to account api.', 'quillforms' );
+				quillforms_get_logger()->error(
+					$message,
+					array(
+						'provider'   => $this->provider->slug,
+						'account_id' => $account_id,
+					)
+				);
+				return new WP_Error(
+					"quillforms-{$this->provider->slug}-accounts-connect-api",
+					$message
+				);
 			}
 		}
 		return $this->account_apis[ $account_id ];
