@@ -176,7 +176,7 @@ class Log_Handler_DB extends Log_Handler {
 	 * @return string Text to use as log source. "" (empty string) if none is found.
 	 */
 	protected static function get_log_source() {
-		static $ignore_files = array( 'class-log-handler-db', 'class-logger' );
+		static $ignore_classes = array( 'QuillForms\Log_Handlers\Log_Handler_DB', 'QuillForms\Logger' );
 
 		/**
 		 * PHP < 5.3.6 correct behavior
@@ -191,15 +191,31 @@ class Log_Handler_DB extends Log_Handler {
 
 		$trace = debug_backtrace( $debug_backtrace_arg ); // @codingStandardsIgnoreLine.
 		foreach ( $trace as $t ) {
-			if ( isset( $t['file'] ) ) {
-				$filename = pathinfo( $t['file'], PATHINFO_FILENAME );
-				if ( ! in_array( $filename, $ignore_files, true ) ) {
-					return $filename;
+			if ( isset( $t['class'] ) ) {
+				if ( in_array( $t['class'], $ignore_classes, true ) ) {
+					continue;
 				}
+				return $t['class'] . $t['type'] . $t['function'];
+			}
+			if ( isset( $t['file'] ) ) {
+				return static::clean_filename( $t['file'] );
 			}
 		}
 
 		return '';
+	}
+
+	/**
+	 * Clean filename
+	 *
+	 * @param string $filename Full path of file.
+	 * @return string
+	 */
+	protected static function clean_filename( $filename ) {
+		if ( substr( $filename, 0, strlen( ABSPATH ) ) === ABSPATH ) {
+			$filename = substr( $filename, strlen( ABSPATH ) );
+		}
+		return $filename;
 	}
 
 }
