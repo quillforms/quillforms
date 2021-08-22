@@ -40,15 +40,6 @@ abstract class REST_Controller extends WP_REST_Controller {
 	 */
 	protected $rest_base = '';
 
-
-	/**
-	 * REST_Controller constructor.
-	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
-		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
-	}
 	/**
 	 * Returns the http error status
 	 *

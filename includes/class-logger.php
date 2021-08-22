@@ -43,7 +43,7 @@ class Logger implements Logger_Interface {
 	/**
 	 * Constructor for the logger.
 	 *
-	 * @param array  $handlers Optional. Array of log handlers. If $handlers is not provided, the filter 'woocommerce_register_log_handlers' will be used to define the handlers. If $handlers is provided, the filter will not be applied and the handlers will be used directly.
+	 * @param array  $handlers Optional. Array of log handlers. If $handlers is not provided, the filter 'quillforms_register_log_handlers' will be used to define the handlers. If $handlers is provided, the filter will not be applied and the handlers will be used directly.
 	 * @param string $threshold Optional. Define an explicit threshold. May be configured via LOG_THRESHOLD. By default, all logs will be processed.
 	 */
 	public function __construct( $handlers = null, $threshold = null ) {

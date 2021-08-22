@@ -10,6 +10,7 @@ namespace QuillForms;
 
 use QuillForms\Admin\Admin;
 use QuillForms\Admin\Admin_Loader;
+use QuillForms\Log_Handlers\Log_Handler_DB;
 use QuillForms\Render\Form_Renderer;
 use QuillForms\REST_API\REST_API;
 
@@ -54,9 +55,9 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+		$this->init_hooks();
 		$this->load_dependencies();
 		$this->initialize_objects();
-		$this->init_hooks();
 	}
 
 	/**
@@ -104,9 +105,21 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	public function init_hooks() {
+		add_filter( 'quillforms_register_log_handlers', array( $this, 'register_log_handlers' ) );
 		add_action( 'init', array( Capabilities::class, 'assign_capabilities_for_user_roles' ) );
 		add_action( 'init', array( Core::class, 'register_quillforms_post_type' ) );
 		add_action( 'init', array( $this, 'register_rest_fields' ) );
+	}
+
+	/**
+	 * Register log handlers
+	 *
+	 * @param array $handlers Handlers array to filter.
+	 * @return array
+	 */
+	public function register_log_handlers( $handlers ) {
+		$handlers[] = new Log_Handler_DB();
+		return $handlers;
 	}
 
 	/**

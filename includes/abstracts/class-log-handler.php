@@ -15,7 +15,7 @@ use QuillForms\Interfaces\Log_Handler_Interface;
  * Abstract QF Log Handler Class
  *
  * @version        1.0.0
- * @package        WooCommerce/Abstracts
+ * @package        QuillForms/Abstracts
  */
 abstract class Log_Handler implements Log_Handler_Interface {
 
