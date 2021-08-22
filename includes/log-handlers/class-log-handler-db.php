@@ -24,7 +24,7 @@ use QuillForms\Abstracts\Log_Levels;
 class Log_Handler_DB extends Log_Handler {
 
 	/**
-	 * Handle a log entr
+	 * Handle a log entry.
 	 *
 	 * @since 1.0.0
 	 *
@@ -176,7 +176,7 @@ class Log_Handler_DB extends Log_Handler {
 	 * @return string Text to use as log source. "" (empty string) if none is found.
 	 */
 	protected static function get_log_source() {
-		static $ignore_files = array( 'class-qf-log-handler-db', 'class-qf-logger' );
+		static $ignore_files = array( 'class-log-handler-db', 'class-logger' );
 
 		/**
 		 * PHP < 5.3.6 correct behavior
@@ -200,43 +200,6 @@ class Log_Handler_DB extends Log_Handler {
 		}
 
 		return '';
-	}
-
-	/**
-	 * Formats a timestamp for use in log messages.
-	 *
-	 * @param int $timestamp Log timestamp.
-	 * @return string Formatted time for use in log entry.
-	 */
-	protected static function format_time( $timestamp ) {
-		return gmdate( 'c', $timestamp );
-	}
-
-	/**
-	 * Builds a log entry text from level, timestamp and message.
-	 *
-	 * @param int    $timestamp Log timestamp.
-	 * @param string $level emergency|alert|critical|error|warning|notice|info|debug.
-	 * @param string $message Log message.
-	 * @param array  $context Additional information for log handlers.
-	 *
-	 * @return string Formatted log entry.
-	 */
-	protected static function format_entry( $timestamp, $level, $message, $context ) {
-		$time_string  = self::format_time( $timestamp );
-		$level_string = strtoupper( $level );
-		$entry        = "{$time_string} {$level_string} {$message}";
-
-		return apply_filters(
-			'quillforms_format_log_entry',
-			$entry,
-			array(
-				'timestamp' => $timestamp,
-				'level'     => $level,
-				'message'   => $message,
-				'context'   => $context,
-			)
-		);
 	}
 
 }
