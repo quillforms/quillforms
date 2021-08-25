@@ -8,6 +8,8 @@
 
 namespace QuillForms\Addon\Provider;
 
+use QuillForms\Merge_Tags;
+
 /**
  * Entry_Process class.
  *
@@ -59,6 +61,16 @@ abstract class Entry_Process {
 	 * @return void
 	 */
 	abstract public function process();
+
+	/**
+	 * Process merge tag
+	 *
+	 * @param string $string String has merge tags to process.
+	 * @return string
+	 */
+	final protected function process_tag( $string ) {
+		return Merge_Tags::process_tag( $string, $this->entry, $this->form_data );
+	}
 
 	/**
 	 * Get client ip address
