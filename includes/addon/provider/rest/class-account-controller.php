@@ -196,6 +196,7 @@ abstract class Account_Controller extends REST_Controller {
 
 	/**
 	 * Creates one item from the collection.
+	 * This function creates an account or updates it if its id exists.
 	 *
 	 * @since 1.3.0
 	 *
@@ -203,18 +204,37 @@ abstract class Account_Controller extends REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function create_item( $request ) {
-		$account_id   = uniqid();
 		$account_data = array(
 			'name'        => $request['name'],
 			'credentials' => $request['credentials'],
 		);
 
-		$added = $this->provider->accounts->add_account( $account_id, $account_data );
-		if ( is_wp_error( $added ) ) {
-			return $added;
+		// get real account id from the api, random id if there isn't.
+		$account_id = $this->get_account_id( $request['credentials'] );
+		if ( is_wp_error( $account_id ) ) {
+			return $account_id;
 		}
-		if ( ! $added ) {
-			return new WP_Error( 'quillforms-account-controller-create', esc_html__( 'Cannot create account', 'quillforms' ) );
+
+		// if account already exists.
+		$account_exists = in_array( $account_id, array_keys( $this->provider->accounts->get_accounts() ), true );
+		if ( $account_exists ) {
+			$result = $this->provider->accounts->update_account( $account_id, $account_data );
+		} else {
+			$result = $this->provider->accounts->add_account( $account_id, $account_data );
+		}
+
+		if ( empty( $result ) || is_wp_error( $result ) ) {
+			$message = $account_exists
+				? esc_html__( 'Cannot update account', 'quillforms' )
+				: esc_html__( 'Cannot create account', 'quillforms' );
+			quillforms_get_logger()->error(
+				$message,
+				array(
+					'source'     => static::class . '->' . __FUNCTION__,
+					'account_id' => $account_id,
+				)
+			);
+			return new WP_Error( 'cannot_save_account', $message );
 		}
 
 		return new WP_REST_Response(
@@ -222,9 +242,17 @@ abstract class Account_Controller extends REST_Controller {
 				'id'   => $account_id,
 				'name' => $account_data['name'],
 			),
-			200
+			$account_exists ? 200 : 201
 		);
 	}
+
+	/**
+	 * Get real account id from the api, or random id if there isn't.
+	 *
+	 * @param array $credentials Credentials.
+	 * @return string|WP_Error
+	 */
+	abstract protected function get_account_id( $credentials );
 
 	/**
 	 * Checks if a given request has access to create items.
