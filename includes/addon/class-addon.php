@@ -8,6 +8,8 @@
 
 namespace QuillForms\Addon;
 
+use QuillForms\Tasks;
+
 /**
  * Abstract class for plugin extensions.
  *
@@ -50,6 +52,13 @@ abstract class Addon {
 	 * @var Form_Data
 	 */
 	public $form_data;
+
+	/**
+	 * Tasks
+	 *
+	 * @var Tasks
+	 */
+	public $tasks;
 
 	/**
 	 * Class names
@@ -107,6 +116,8 @@ abstract class Addon {
 		if ( ! empty( static::$classes['rest'] ) ) {
 			new static::$classes['rest']( $this );
 		}
+
+		$this->tasks = new Tasks( "quillforms_{$this->slug}" );
 	}
 
 }
