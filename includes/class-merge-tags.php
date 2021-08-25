@@ -43,7 +43,7 @@ class Merge_Tags {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		add_filter( 'quillforms_process_merge_tag', array( $this, 'process_field_merge_tag' ), 10, 6 );
+		add_filter( 'quillforms_process_merge_tag', array( $this, 'process_field_merge_tag' ), 10, 5 );
 	}
 
 	/**
@@ -55,24 +55,23 @@ class Merge_Tags {
 	 * @since 1.0.0
 	 *
 	 * @param string $string      The string on which merge tags will be processed.
-	 * @param array  $form_data   The form data and settings.
 	 * @param array  $entry       The entry data.
-	 * @param int    $entry_id    The entry id.
+	 * @param array  $form_data   The form data and settings.
 	 *
 	 * @return string The string after processing merge tags.
 	 */
-	public static function process_tag( $string, $form_data, $entry, $entry_id ) {
+	public static function process_tag( $string, $entry, $form_data ) {
 
 		$merge_tag_regex = '/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/';
 		$string          = preg_replace_callback(
 			$merge_tag_regex,
-			function( $matches ) use ( $form_data, $entry, $entry_id ) {
+			function( $matches ) use ( $entry, $form_data ) {
 
 				$merge_tag_type     = $matches[1];
 				$merge_tag_modifier = $matches[2];
 				// The default tag replacement is doing nothing!
 				$default_replacement = '{{' . $merge_tag_type . ':' . $merge_tag_modifier . '}}';
-				$replacement         = apply_filters( 'quillforms_process_merge_tag', $default_replacement, $merge_tag_type, $merge_tag_modifier, $form_data, $entry, $entry_id );
+				$replacement         = apply_filters( 'quillforms_process_merge_tag', $default_replacement, $merge_tag_type, $merge_tag_modifier, $entry, $form_data );
 				return $replacement;
 			},
 			$string
@@ -93,13 +92,12 @@ class Merge_Tags {
 	 * @param string $replacement         The string that should be replaced.
 	 * @param string $merge_tag_type      The merge tag type.
 	 * @param string $merge_tag_modifier  The merge tag modifier.
-	 * @param array  $form_data   The form data and settings.
 	 * @param array  $entry       The formatted answers.
-	 * @param int    $entry_id    The entry id.
+	 * @param array  $form_data   The form data and settings.
 	 *
 	 * @return string The string after processing merge tags.
 	 */
-	public function process_field_merge_tag( $replacement, $merge_tag_type, $merge_tag_modifier, $form_data, $entry, $entry_id ) {
+	public function process_field_merge_tag( $replacement, $merge_tag_type, $merge_tag_modifier, $entry, $form_data ) {
 		if ( 'field' === $merge_tag_type ) {
 			$field_id = $merge_tag_modifier;
 

@@ -115,15 +115,6 @@ class Emails {
 	public $entry = array();
 
 	/**
-	 * Entry ID.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var int
-	 */
-	public $entry_id = '';
-
-	/**
 	 * Notification ID that is currently being processed.
 	 *
 	 * @since 1.0.0
@@ -446,7 +437,7 @@ class Emails {
 	 */
 	public function process_tag( $string = '' ) {
 
-		return Merge_Tags::process_tag( $string, $this->form_data, $this->entry, $this->entry_id );
+		return Merge_Tags::process_tag( $string, $this->entry, $this->form_data );
 	}
 
 	/**

@@ -45,15 +45,6 @@ class Form_Submission {
 	public $errors = array();
 
 	/**
-	 * Entry id after successful save in db
-	 *
-	 * @var $entry_id
-	 *
-	 * @since 1.0.0
-	 */
-	public $entry_id = 0;
-
-	/**
 	 * Get class instance.
 	 */
 	public static function get_instance() {
@@ -73,7 +64,6 @@ class Form_Submission {
 		add_action( 'wp_ajax_nopriv_quillforms_form_submit', array( $this, 'submit' ) );
 	}
 
-
 	/**
 	 * Ajax submit.
 	 *
@@ -82,23 +72,6 @@ class Form_Submission {
 	public function submit() {
 		$this->process_submission();
 		$this->respond();
-	}
-
-	/**
-	 * Saves entry to database.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $entry     User submitted data after being validated and formatted.
-	 * @param array $form_data Prepared form settings.
-	 *
-	 * @return int
-	 */
-	public function entry_save( $entry, $form_data ) {
-
-		do_action( 'quillforms_process_entry_save', $entry, $form_data );
-
-		return $this->entry_id;
 	}
 
 	/**
@@ -218,15 +191,20 @@ class Form_Submission {
 					$walk_path_answers[ $field['id'] ] = $answers[ $field['id'] ] ?? null;
 				}
 			}
-
 			$entry['answers'] = $walk_path_answers;
 
-			// Success - add entry to database.
-			$this->entry_id = $this->entry_save( $entry, $this->form_data );
+			// this can add 'id' to entry array.
+			$entry = apply_filters( 'quillforms_entry_save', $entry, $this->form_data );
 
-			// Process email notifications.
+			// do entry saved action.
+			if ( ! empty( $entry['id'] ) ) {
+				do_action( 'quillforms_entry_saved', $entry, $this->form_data );
+			}
+
+			// process email notifications.
 			$this->entry_email( $entry, $this->form_data );
 
+			// finally do entry processed action.
 			do_action( 'quillforms_entry_processed', $entry, $this->form_data );
 		}
 	}
@@ -240,12 +218,6 @@ class Form_Submission {
 	 * @param array $form_data Prepared form settings.
 	 */
 	public function entry_email( $entry, $form_data ) {
-
-		// Make sure we have and entry id.
-		if ( empty( $this->entry_id ) ) {
-			$this->entry_id = (int) $this->entry_id;
-		}
-
 		$notifications = $form_data['notifications'];
 
 		foreach ( $notifications as $notification ) :
@@ -269,7 +241,7 @@ class Form_Submission {
 			if ( 'field' === $notification_properties['toType'] ) {
 				$email['address'] = array_map(
 					function( $address ) use ( $entry, $form_data ) {
-						return Merge_Tags::process_tag( $address, $form_data, $entry, $this->entry_id );
+						return Merge_Tags::process_tag( $address, $entry, $form_data );
 					},
 					$email['address']
 				);
@@ -297,7 +269,6 @@ class Form_Submission {
 			$emails->form_data       = $form_data;
 			$emails->entry           = $entry;
 			$emails->notification_id = $notification_id;
-			$emails->entry_id        = $this->entry_id;
 			$emails->from_name       = $email['sender_name'];
 			$emails->from_address    = $email['sender_address'];
 			$emails->reply_to        = $email['replyto'];
