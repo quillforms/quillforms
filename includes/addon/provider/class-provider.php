@@ -58,7 +58,10 @@ abstract class Provider extends Addon {
 		add_action(
 			'quillforms_entry_processed',
 			function( $entry, $form_data ) {
-				$this->tasks->enqueue_async( 'entry_process', compact( 'entry', 'form_data' ) );
+				$connections = $this->form_data->get( $entry['form_id'], 'connections' );
+				if ( ! empty( $connections ) ) {
+					$this->tasks->enqueue_async( 'entry_process', compact( 'entry', 'form_data' ) );
+				}
 			},
 			10,
 			2
