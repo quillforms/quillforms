@@ -23,16 +23,32 @@ abstract class Entry_Process {
 	protected $provider;
 
 	/**
+	 * Entry
+	 *
+	 * @var array
+	 */
+	protected $entry;
+
+	/**
+	 * Form data
+	 *
+	 * @var array
+	 */
+	protected $form_data;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.3.0
 	 *
 	 * @param Provider $provider Provider.
+	 * @param array    $entry Entry.
+	 * @param array    $form_data Form data.
 	 */
-	public function __construct( $provider ) {
-		$this->provider = $provider;
-
-		add_action( 'quillforms_entry_processed', array( $this, 'process' ), 10, 2 );
+	public function __construct( $provider, $entry, $form_data ) {
+		$this->provider  = $provider;
+		$this->entry     = $entry;
+		$this->form_data = $form_data;
 	}
 
 	/**
@@ -40,11 +56,9 @@ abstract class Entry_Process {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param array $entry Entry data.
-	 * @param array $form_data Form data.
 	 * @return void
 	 */
-	abstract public function process( $entry, $form_data);
+	abstract public function process();
 
 	/**
 	 * Get client ip address

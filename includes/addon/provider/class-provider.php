@@ -44,9 +44,35 @@ abstract class Provider extends Addon {
 		parent::__construct();
 
 		$this->accounts = new static::$classes['accounts']( $this );
-		if ( ! empty( static::$classes['entry_process'] ) ) {
-			new static::$classes['entry_process']( $this );
-		}
+
+		$this->handle_entry_process();
+	}
+
+	/**
+	 * Handle entry process
+	 *
+	 * @return void
+	 */
+	protected function handle_entry_process() {
+		// enqueue async task on entry added.
+		add_action(
+			'quillforms_entry_processed',
+			function( $entry, $form_data ) {
+				$this->tasks->enqueue_async( 'entry_process', compact( 'entry', 'form_data' ) );
+			},
+			10,
+			2
+		);
+
+		// register callback for async task.
+		$this->tasks->register_callback(
+			'entry_process',
+			function( $entry, $form_data ) {
+				$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
+				$entry_process->process();
+			},
+			2
+		);
 	}
 
 }
