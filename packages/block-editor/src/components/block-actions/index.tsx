@@ -2,9 +2,19 @@
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
+import { doAction, applyFilters } from '@wordpress/hooks';
 import { DropdownMenu, MenuGroup, MenuItem, Icon } from '@wordpress/components';
 import { trash } from '@wordpress/icons';
-import React from 'react';
+
+/**
+ * External Dependencies
+ */
+import { confirmAlert } from 'react-confirm-alert';
+
+/**
+ * Internal Dependencies
+ */
+import DeleteAlert from '../delete-alert';
 
 interface Props {
 	id: string;
@@ -16,13 +26,35 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 	const handleDelete = ( e: React.MouseEvent ) => {
 		e.stopPropagation();
 
-		if (
-			confirm(
-				'Are you sure you want to delete this item? All of its data will be deleted after saving'
-			)
-		) {
-			deleteBlock( id );
-		}
+		let deleteAlerts: string[] = [];
+		deleteAlerts = deleteAlerts.concat(
+			applyFilters(
+				'QuillForms.BlockEditor.BlockDeleteAlerts',
+				[],
+				id
+			) as string[]
+		);
+		confirmAlert( {
+			customUI: ( { onClose } ) => {
+				return (
+					<DeleteAlert
+						messages={ deleteAlerts }
+						approve={ () => {
+							doAction(
+								'QuillForms.BlockEditor.BlockDelete',
+								id
+							);
+							deleteBlock( id );
+							onClose();
+						} }
+						reject={ () => {
+							onClose();
+						} }
+						closeModal={ onClose }
+					/>
+				);
+			},
+		} );
 	};
 
 	return (
@@ -35,12 +67,15 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 			} }
 			className="block-editor-block-actions__dropdown"
 		>
-			{ () => (
+			{ ( { onClose } ) => (
 				<MenuGroup className="block-editor-block-actions__menu-group">
 					<MenuItem
 						onClick={ (
 							e: React.MouseEvent< HTMLButtonElement >
-						) => handleDelete( e ) }
+						) => {
+							onClose();
+							handleDelete( e );
+						} }
 					>
 						<Icon icon={ trash } /> Delete
 					</MenuItem>
