@@ -100,11 +100,13 @@ class Merge_Tags {
 	public function process_field_merge_tag( $replacement, $merge_tag_type, $merge_tag_modifier, $entry, $form_data ) {
 		if ( 'field' === $merge_tag_type ) {
 			$field_id = $merge_tag_modifier;
-
-			if ( ! is_array( $entry['answers'][ $field_id ] ) || ! $entry['answers'][ $field_id ]['blockName'] || ! isset( $entry['answers'][ $field_id ]['value'] ) ) {
+			if ( ! isset( $entry['answers'][ $field_id ]['value'] ) ) {
 				return '';
 			}
 			$block_type = Blocks_Manager::get_instance()->get_registered( $entry['answers'][ $field_id ]['blockName'] );
+			if ( ! $block_type ) {
+				return '';
+			}
 			return $block_type->get_human_readable_value( $entry['answers'][ $field_id ]['value'], $form_data );
 		}
 		return $replacement;
