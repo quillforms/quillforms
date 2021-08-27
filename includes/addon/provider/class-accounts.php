@@ -200,34 +200,18 @@ abstract class Accounts {
 			$accounts_data = $this->get_accounts_data();
 			// get account data.
 			if ( ! isset( $accounts_data[ $account_id ] ) ) {
-				$message = esc_html__( 'Cannot find account data.', 'quillforms' );
-				quillforms_get_logger()->error(
-					$message,
-					array(
-						'provider'   => $this->provider->slug,
-						'account_id' => $account_id,
-					)
-				);
 				return new WP_Error(
-					"quillforms-{$this->provider->slug}-accounts-connect-data",
-					$message
+					"quillforms_{$this->provider->slug}_cannot_find_account_data",
+					esc_html__( 'Cannot find account data', 'quillforms' )
 				);
 			}
 			// init account api.
 			try {
 				$this->account_apis[ $account_id ] = $this->init_account_api( $account_id, $accounts_data[ $account_id ] );
 			} catch ( Exception $e ) {
-				$message = esc_html__( 'Cannot connect to account api.', 'quillforms' );
-				quillforms_get_logger()->error(
-					$message,
-					array(
-						'provider'   => $this->provider->slug,
-						'account_id' => $account_id,
-					)
-				);
 				return new WP_Error(
-					"quillforms-{$this->provider->slug}-accounts-connect-api",
-					$message
+					"quillforms_{$this->provider->slug}_cannot_init_account_api",
+					esc_html__( 'Cannot connect to account api', 'quillforms' )
 				);
 			}
 		}

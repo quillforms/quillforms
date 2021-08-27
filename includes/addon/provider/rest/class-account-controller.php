@@ -163,6 +163,14 @@ abstract class Account_Controller extends REST_Controller {
 		$id          = $request->get_param( 'id' );
 		$account_api = $this->provider->accounts->connect( $id );
 		if ( is_wp_error( $account_api ) ) {
+			quillforms_get_logger()->error(
+				$account_api->get_error_message(),
+				array(
+					'source'     => static::class . '->' . __FUNCTION__,
+					'code'       => $account_api->get_error_code(),
+					'account_id' => $id,
+				)
+			);
 			return $account_api;
 		}
 
