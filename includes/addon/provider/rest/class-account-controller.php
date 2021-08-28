@@ -232,17 +232,7 @@ abstract class Account_Controller extends REST_Controller {
 		}
 
 		if ( empty( $result ) || is_wp_error( $result ) ) {
-			$message = $account_exists
-				? esc_html__( 'Cannot update account', 'quillforms' )
-				: esc_html__( 'Cannot create account', 'quillforms' );
-			quillforms_get_logger()->error(
-				$message,
-				array(
-					'source'     => static::class . '->' . __FUNCTION__,
-					'account_id' => $account_id,
-				)
-			);
-			return new WP_Error( 'cannot_save_account', $message );
+			return new WP_Error( "quillforms_{$this->provider->slug}_cannot_save_account", esc_html__( 'Cannot save account', 'quillforms' ) );
 		}
 
 		return new WP_REST_Response(

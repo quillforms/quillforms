@@ -79,7 +79,7 @@ abstract class Accounts {
 	 *
 	 * @param string $account_id Account id.
 	 * @param array  $account_data Account data.
-	 * @return boolean|WP_Error
+	 * @return boolean
 	 */
 	public function add_account( $account_id, $account_data ) {
 		return $this->add_account_data( $account_id, $account_data );
@@ -92,7 +92,7 @@ abstract class Accounts {
 	 *
 	 * @param string $account_id Account id.
 	 * @param array  $account_data Account data.
-	 * @return boolean|WP_Error
+	 * @return boolean
 	 */
 	public function update_account( $account_id, $account_data ) {
 		if ( isset( $this->account_apis[ $account_id ] ) ) {
@@ -142,12 +142,20 @@ abstract class Accounts {
 	 *
 	 * @param string $account_id Account id.
 	 * @param array  $account_data Account data. Contains name and credentials.
-	 * @return boolean|WP_Error
+	 * @return boolean
 	 */
 	final protected function add_account_data( $account_id, $account_data ) {
 		$data = $this->get_accounts_data();
 		if ( isset( $data[ $account_id ] ) ) {
-			return new WP_Error( "quillforms-{$this->provider->slug}-accounts-add-data", 'Account id already exists' );
+			quillforms_get_logger()->error(
+				esc_html__( 'Account id already exists', 'quillforms' ),
+				array(
+					'source'     => static::class . '->' . __FUNCTION__,
+					'code'       => 'account_id_already_exists',
+					'account_id' => $account_id,
+				)
+			);
+			return false;
 		}
 		$data[ $account_id ] = $account_data;
 		return $this->update_accounts_data( $data );
@@ -160,12 +168,20 @@ abstract class Accounts {
 	 *
 	 * @param string $account_id Account id.
 	 * @param array  $account_data Account data. Contains name and credentials.
-	 * @return boolean|WP_Error
+	 * @return boolean
 	 */
 	final protected function update_account_data( $account_id, $account_data ) {
 		$data = $this->get_accounts_data();
 		if ( ! isset( $data[ $account_id ] ) ) {
-			return new WP_Error( "quillforms-{$this->provider->slug}-accounts-update-data", "Account id doesn't exist" );
+			quillforms_get_logger()->error(
+				esc_html__( 'Cannot find account to update', 'quillforms' ),
+				array(
+					'source'     => static::class . '->' . __FUNCTION__,
+					'code'       => 'cannot_find_account_to_update',
+					'account_id' => $account_id,
+				)
+			);
+			return false;
 		}
 		$data[ $account_id ] = array_replace( $data[ $account_id ], $account_data );
 		return $this->update_accounts_data( $data );
