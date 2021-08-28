@@ -36,6 +36,15 @@ abstract class Addon {
 	public $slug;
 
 	/**
+	 * Version
+	 *
+	 * @since 1.3.0
+	 *
+	 * @var string
+	 */
+	public $version;
+
+	/**
 	 * Settings
 	 *
 	 * @since 1.3.0
