@@ -60,7 +60,7 @@ abstract class Provider extends Addon {
 			function( $entry, $form_data ) {
 				$connections = $this->form_data->get( $entry['form_id'], 'connections' );
 				if ( ! empty( $connections ) ) {
-					$this->tasks->enqueue_async( 'entry_process', compact( 'entry', 'form_data' ) );
+					$this->tasks->enqueue_async( 'entry_process', $entry, $form_data );
 				}
 			},
 			10,
@@ -73,8 +73,7 @@ abstract class Provider extends Addon {
 			function( $entry, $form_data ) {
 				$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
 				$entry_process->process();
-			},
-			2
+			}
 		);
 	}
 

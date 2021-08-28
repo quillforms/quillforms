@@ -87,6 +87,16 @@ class Install {
 				date_updated datetime,
 				PRIMARY KEY  (ID)
 			);
+			CREATE TABLE {$wpdb->prefix}quillforms_task_meta (
+				ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				action_id BIGINT UNSIGNED,
+				hook varchar(255) NOT NULL,
+				group_slug varchar(255) NOT NULL,
+				value longtext NOT NULL,
+				date_created datetime NOT NULL,
+				PRIMARY KEY  (ID),
+				KEY action_id (action_id)
+			);
 			CREATE TABLE {$wpdb->prefix}quillforms_log (
 				log_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				timestamp datetime NOT NULL,
