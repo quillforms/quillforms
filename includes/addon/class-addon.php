@@ -8,6 +8,7 @@
 
 namespace QuillForms\Addon;
 
+use QuillForms\Managers\Addons_Manager;
 use QuillForms\Tasks;
 
 /**
@@ -113,6 +114,8 @@ abstract class Addon {
 	 * @since 1.3.0
 	 */
 	protected function __construct() {
+		Addons_Manager::instance()->register( $this );
+
 		if ( ! empty( static::$classes['scripts'] ) ) {
 			new static::$classes['scripts']();
 		}
@@ -127,6 +130,15 @@ abstract class Addon {
 		}
 
 		$this->tasks = new Tasks( "quillforms_{$this->slug}" );
+	}
+
+	/**
+	 * Get main namespace
+	 *
+	 * @return string
+	 */
+	public function get_namespace() {
+		return explode( '\\', static::class )[0];
 	}
 
 }
