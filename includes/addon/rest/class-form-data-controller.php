@@ -161,7 +161,7 @@ abstract class Form_Data_Controller {
 
 		$updated = $this->addon->form_data->update_filtered( $form_id, $data );
 		if ( $updated ) {
-			return new WP_REST_Response();
+			return new WP_REST_Response( array( 'success' => true ) );
 		} else {
 			return new WP_Error( "quillforms_{$this->addon->slug}_cannot_update_form_data", esc_html__( 'Cannot update form data', 'quillforms' ) );
 		}
