@@ -90,12 +90,14 @@ abstract class Accounts {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param string $account_id Account id.
-	 * @param array  $account_data Account data.
+	 * @param string  $account_id Account id.
+	 * @param array   $account_data Account data.
+	 * @param boolean $disconnect Whether to unset the account api connection or not.
 	 * @return boolean
 	 */
-	public function update_account( $account_id, $account_data ) {
-		if ( isset( $this->account_apis[ $account_id ] ) ) {
+	public function update_account( $account_id, $account_data, $disconnect = true ) {
+		// disconnect.
+		if ( $disconnect && isset( $this->account_apis[ $account_id ] ) ) {
 			unset( $this->account_apis[ $account_id ] );
 		}
 
@@ -109,6 +111,7 @@ abstract class Accounts {
 	 * @return boolean
 	 */
 	public function remove_account( $account_id ) {
+		// disconnect.
 		if ( isset( $this->account_apis[ $account_id ] ) ) {
 			unset( $this->account_apis[ $account_id ] );
 		}
