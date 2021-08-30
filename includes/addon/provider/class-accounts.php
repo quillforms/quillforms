@@ -100,7 +100,6 @@ abstract class Accounts {
 		if ( $disconnect && isset( $this->account_apis[ $account_id ] ) ) {
 			unset( $this->account_apis[ $account_id ] );
 		}
-
 		return $this->update_account_data( $account_id, $account_data );
 	}
 
@@ -115,7 +114,7 @@ abstract class Accounts {
 		if ( isset( $this->account_apis[ $account_id ] ) ) {
 			unset( $this->account_apis[ $account_id ] );
 		}
-
+		$this->remove_account_connections( $account_id );
 		return $this->remove_account_data( $account_id );
 	}
 
@@ -204,6 +203,42 @@ abstract class Accounts {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Remove account connections.
+	 *
+	 * @param string $account_id Account id.
+	 * @return void
+	 */
+	protected function remove_account_connections( $account_id ) {
+		$forms = get_posts(
+			array(
+				'post_type'   => 'quill_forms',
+				'fields'      => 'ids',
+				'numberposts' => -1,
+			)
+		);
+		foreach ( $forms as $form_id ) {
+			$connections     = $this->provider->form_data->get( $form_id, 'connections' );
+			$new_connections = array_filter(
+				$connections,
+				function( $connection ) use ( $account_id ) {
+					return $connection['account_id'] !== $account_id;
+				}
+			);
+			if ( $connections !== $new_connections ) {
+				$this->provider->form_data->update( $form_id, array( 'connections' => $new_connections ) );
+				quillforms_get_logger()->notice(
+					esc_html__( 'Some integration connections are deleted due to deleting the related account.', 'quillforms' ),
+					array(
+						'code'    => 'account_connections_deleted',
+						'form_id' => $form_id,
+						'deleted' => array_diff_key( $connections, $new_connections ),
+					)
+				);
+			}
+		}
 	}
 
 	/**
