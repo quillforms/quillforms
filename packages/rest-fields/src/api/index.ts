@@ -76,7 +76,7 @@ export const registerRestField = (
 	}
 
 	settings = applyFilters(
-		'qfRestfields.registerRestField',
+		'QuillForms.RestFields.RestFieldSettings',
 		settings,
 		name
 	) as RestFieldSettings;
@@ -85,7 +85,7 @@ export const registerRestField = (
 		...settings,
 	};
 
-	doAction( 'qfRestFields.restFieldRegistered', settings, name );
+	doAction( 'QuillForms.RestFields.RestFieldRegistered', settings, name );
 
 	return settings;
 };

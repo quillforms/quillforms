@@ -170,7 +170,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	useEffect( () => {
 		if ( applyLogic && isActive ) {
 			doAction(
-				'QuillForms.Renderer.LogicApply',
+				'QuillForms.RendererCore.LogicApply',
 				blocks,
 				blockTypes,
 				logic
@@ -187,14 +187,14 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				lastActiveBlockId: undefined,
 			} );
 			doAction(
-				'QuillForms.Renderer.LogicApply',
+				'QuillForms.RendererCore.LogicApply',
 				blocks,
 				blockTypes,
 				logic
 			);
 		}
 		if ( ! applyLogic ) {
-			doAction( 'QuillForms.Renderer.LogicTurnOff' );
+			doAction( 'QuillForms.RendererCore.LogicTurnOff' );
 		}
 	}, [ applyLogic ] );
 

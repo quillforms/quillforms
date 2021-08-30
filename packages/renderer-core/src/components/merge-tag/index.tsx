@@ -23,7 +23,7 @@ const MergeTag: React.FC< Props > = ( { type, modifier } ) => {
 		}
 		default:
 			return applyFilters(
-				'quillforms.renderer-core.merge-tag',
+				'QuillForms.RendererCore.MergeTag',
 				null,
 				type,
 				modifier

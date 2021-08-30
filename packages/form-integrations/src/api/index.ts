@@ -32,7 +32,7 @@ export const registerIntegrationModule = (
 	settings: IntegrationModuleSettings
 ) => {
 	settings = applyFilters(
-		'QuillForms.formIntegrations.registerIntegrationModule',
+		'QuillForms.FormIntegrations.IntegrationModuleSettings',
 		settings,
 		slug
 	) as IntegrationModuleSettings;
