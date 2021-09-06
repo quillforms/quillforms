@@ -66,8 +66,10 @@ function quillforms_override_style( $styles, $handle, $src, $deps = array(), $ve
  *                                    If set to null, no version is added.
  * @param bool             $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
  *                                    Default 'false'.
+ * @param string           $text_domain Optional. Text domain.
+ * @param string|null      $domain_path Optional. Domain path.
  */
-function quillforms_override_script( $scripts, $handle, $src, $deps = array(), $ver = false, $in_footer = false ) {
+function quillforms_override_script( $scripts, $handle, $src, $deps = array(), $ver = false, $in_footer = false, $text_domain = 'quillforms', $domain_path = null ) {
 	$script = $scripts->query( $handle, 'registered' );
 	if ( $script ) {
 		/*
@@ -107,7 +109,7 @@ function quillforms_override_script( $scripts, $handle, $src, $deps = array(), $
 	 * See: https://core.trac.wordpress.org/ticket/46089
 	 */
 	if ( 'wp-i18n' !== $handle && 'wp-polyfill' !== $handle ) {
-		$scripts->set_translations( $handle, 'default' );
+		$scripts->set_translations( $handle, $text_domain, $domain_path );
 	}
 }
 
