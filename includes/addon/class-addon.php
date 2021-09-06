@@ -46,6 +46,33 @@ abstract class Addon {
 	public $version;
 
 	/**
+	 * Text domain
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	public $textdomain;
+
+	/**
+	 * Plugin dir
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	public $plugin_dir;
+
+	/**
+	 * Plugin url
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	public $plugin_url;
+
+	/**
 	 * Settings
 	 *
 	 * @since 1.3.0
@@ -116,8 +143,10 @@ abstract class Addon {
 	protected function __construct() {
 		Addons_Manager::instance()->register( $this );
 
+		$this->load_textdomain();
+
 		if ( ! empty( static::$classes['scripts'] ) ) {
-			new static::$classes['scripts']();
+			new static::$classes['scripts']( $this );
 		}
 		if ( ! empty( static::$classes['settings'] ) ) {
 			$this->settings = new static::$classes['settings']( $this );
@@ -128,8 +157,17 @@ abstract class Addon {
 		if ( ! empty( static::$classes['rest'] ) ) {
 			new static::$classes['rest']( $this );
 		}
-
 		$this->tasks = new Tasks( "quillforms_{$this->slug}" );
+	}
+
+	/**
+	 * Load plugin text domain
+	 *
+	 * @return void
+	 */
+	public function load_textdomain() {
+		$plugin_rel_path = substr( $this->plugin_dir, strlen( WP_PLUGIN_DIR ) ) . 'languages';
+		load_plugin_textdomain( $this->textdomain, false, $plugin_rel_path );
 	}
 
 	/**
