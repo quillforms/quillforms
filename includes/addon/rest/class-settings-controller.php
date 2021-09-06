@@ -166,7 +166,7 @@ abstract class Settings_Controller {
 
 		$updated = $this->addon->settings->update_filtered( $settings );
 		if ( $updated ) {
-			return new WP_REST_Response();
+			return new WP_REST_Response( array( 'success' => true ) );
 		} else {
 			return new WP_Error( "quillforms_{$this->addon->slug}_settings_update", esc_html__( 'Cannot update settings', 'quillforms' ) );
 		}
