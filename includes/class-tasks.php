@@ -8,6 +8,8 @@
 
 namespace QuillForms;
 
+use Exception;
+
 /**
  * Tasks class
  */
@@ -100,8 +102,9 @@ class Tasks {
 				$meta = $this->get_meta( $meta_id );
 				if ( ! isset( $meta['value'] ) ) {
 					quillforms_get_logger()->critical(
-						'Cannot find task meta',
+						esc_html__( 'Cannot find task meta', 'quillforms' ),
 						array(
+							'code'    => 'cannot_find_task_meta',
 							'hook'    => $hook,
 							'group'   => $this->group,
 							'meta_id' => $meta_id,
@@ -109,7 +112,23 @@ class Tasks {
 					);
 					return;
 				}
-				call_user_func_array( $callback, $meta['value'] );
+				try {
+					call_user_func_array( $callback, $meta['value'] );
+				} catch ( Exception $e ) {
+					quillforms_get_logger()->error(
+						esc_html__( 'Task threw an exception', 'quillforms' ),
+						array(
+							'code'      => 'task_threw_exception',
+							'hook'      => $hook,
+							'group'     => $this->group,
+							'exception' => array(
+								'code'    => $e->getCode(),
+								'message' => $e->getMessage(),
+								'trace'   => $e->getTraceAsString(),
+							),
+						)
+					);
+				}
 			}
 		);
 	}
