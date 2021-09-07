@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -15,9 +15,30 @@ import Slider from 'react-slick';
 import NotificationEditorWrapper from '../notification-editor-wrapper';
 import NotificationsList from '../notifications-list';
 
+let timer;
 const PanelRender = () => {
 	const [ activeSlide, setActiveSlide ] = useState( 0 );
-	const sliderRef = useRef();
+	const [ isAnimating, setIsAnimating ] = useState( false );
+
+	const ref = useRef();
+	useEffect( () => {
+		if ( ref?.current ) {
+			setTimeout( () => {
+				if ( ref?.current ) {
+					ref.current.scrollTo( 0, 0 );
+				}
+			}, 0 );
+		}
+	}, [ activeSlide ] );
+
+	useEffect( () => {
+		if ( isAnimating ) {
+			timer = setTimeout( () => {
+				setIsAnimating( false );
+			}, 600 );
+		}
+		return () => clearTimeout( timer );
+	}, [ isAnimating, activeSlide ] );
 
 	const [ currentNotificationId, setCurrentNotificationId ] = useState(
 		null
@@ -43,48 +64,38 @@ const PanelRender = () => {
 			},
 		};
 	} );
-	const sliderSettings = {
-		dots: false,
-		infinite: false,
-		speed: 500,
-		arrows: false,
-		draggable: false,
-		swipe: false,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		touchMove: false,
-		accessibility: false,
-		adaptiveHeight: true,
-	};
 
 	return (
 		<div
 			className={ `notifications-editor-panel-render active-slide-${ activeSlide }` }
+			ref={ ref }
 		>
-			<Slider
-				{ ...sliderSettings }
-				ref={ sliderRef }
-				beforeChange={ ( oldIndex, newIndex ) => {
-					setActiveSlide( newIndex );
+			<NotificationsList
+				isAnimating={ isAnimating }
+				isActive={ activeSlide === 0 }
+				setCurrentNotificationId={ setCurrentNotificationId }
+				goNext={ () => {
+					setIsAnimating( true );
+					setTimeout( () => {
+						setActiveSlide( 1 );
+					}, 50 );
 				} }
-			>
-				<NotificationsList
-					setCurrentNotificationId={ setCurrentNotificationId }
-					goNext={ () => {
-						sliderRef.current.slickNext();
-					} }
-				/>
-				<NotificationEditorWrapper
-					activeSlide={ activeSlide }
-					notificationId={ currentNotificationId }
-					currentNotificationProperties={ {
-						...currentNotificationProperties,
-					} }
-					goBack={ () => {
-						sliderRef.current.slickPrev();
-					} }
-				/>
-			</Slider>
+			/>
+			<NotificationEditorWrapper
+				isAnimating={ isAnimating }
+				isActive={ activeSlide === 1 }
+				activeSlide={ activeSlide }
+				notificationId={ currentNotificationId }
+				currentNotificationProperties={ {
+					...currentNotificationProperties,
+				} }
+				goBack={ () => {
+					setIsAnimating( true );
+					setTimeout( () => {
+						setActiveSlide( 0 );
+					}, 50 );
+				} }
+			/>
 		</div>
 	);
 };

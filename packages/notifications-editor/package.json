@@ -29,9 +29,7 @@
 		"@wordpress/hooks": "^3.2.0",
 		"@wordpress/icons": "^4.0.1",
 		"react-confirm-alert": "^2.7.0",
-		"react-multi-email": "^0.5.3",
-		"react-slick": "^0.28.1",
-		"slick-carousel": "^1.8.1"
+		"react-multi-email": "^0.5.3"
 	},
 	"publishConfig": {
 		"access": "public"

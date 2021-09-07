@@ -18,6 +18,7 @@ import { useEffect, useState } from '@wordpress/element';
  * External Dependencies
  */
 import { keys, zipObject } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
@@ -34,6 +35,8 @@ const NotificationEditorWrapper = ( {
 	currentNotificationProperties,
 	notificationId,
 	activeSlide,
+	isActive,
+	isAnimating,
 } ) => {
 	const [ properties, setProperties ] = useState( {
 		...currentNotificationProperties,
@@ -85,103 +88,111 @@ const NotificationEditorWrapper = ( {
 	} );
 
 	return (
-		<div className="notifications-editor-notification-editor-wrapper">
-			{ activeSlide && currentNotificationId === notificationId && (
-				<>
-					<h4 className="notifications-editor-notification-editor-wrapper__heading">
-						{ notificationId
-							? 'Edit Notification'
-							: 'Create a new notification' }
-					</h4>
-					<NotificationTitle
-						value={ title }
-						setValue={ ( value ) => {
-							setProperties( ( prevProperties ) => ( {
-								...prevProperties,
-								...value,
-							} ) );
-						} }
-					/>
-					<__experimentalBaseControl>
-						<__experimentalControlWrapper>
-							<__experimentalControlLabel label="Active" />
-							<ToggleControl
-								checked={ active }
-								onChange={ () => {
-									setProperties( ( prevProperties ) => ( {
-										...prevProperties,
-										active: ! active,
-									} ) );
-								} }
-							/>
-						</__experimentalControlWrapper>
-					</__experimentalBaseControl>
-					<NotificationTo
-						emailFields={ emailFields }
-						recipients={ recipients }
-						toType={ toType }
-						isValid={ { ...validationFlags }.recipients }
-						setIsValid={ ( value ) => {
-							setValidationFlags( ( prevFlags ) => ( {
-								...prevFlags,
-								recipients: value,
-							} ) );
-						} }
-						setValue={ ( value ) => {
-							setProperties( ( prevProperties ) => ( {
-								...prevProperties,
-								...value,
-							} ) );
-						} }
-						isReviewing={ isReviewing }
-					/>
-					<__experimentalBaseControl>
-						<EmailSelect
-							label="Reply to"
-							emailFields={ emailFields }
-							value={ replyTo }
-							setValue={ ( val ) =>
+		<div
+			className={ classnames(
+				'notifications-editor-notification-editor-wrapper',
+				{
+					active: isActive,
+					'is-animating': isAnimating,
+				}
+			) }
+		>
+			<>
+				<h4 className="notifications-editor-notification-editor-wrapper__heading">
+					{ notificationId
+						? 'Edit Notification'
+						: 'Create a new notification' }
+				</h4>
+				<NotificationTitle
+					value={ title }
+					setValue={ ( value ) => {
+						setProperties( ( prevProperties ) => ( {
+							...prevProperties,
+							...value,
+						} ) );
+					} }
+				/>
+				<__experimentalBaseControl>
+					<__experimentalControlWrapper>
+						<__experimentalControlLabel label="Active" />
+						<ToggleControl
+							checked={ active }
+							onChange={ () => {
 								setProperties( ( prevProperties ) => ( {
 									...prevProperties,
-									replyTo: `{{field:${ val }}}`,
-								} ) )
-							}
+									active: ! active,
+								} ) );
+							} }
 						/>
-					</__experimentalBaseControl>
-					<NotificationSubject
-						value={ subject }
-						setValue={ ( val ) => {
+					</__experimentalControlWrapper>
+				</__experimentalBaseControl>
+				<NotificationTo
+					emailFields={ emailFields }
+					recipients={ recipients }
+					toType={ toType }
+					isValid={ { ...validationFlags }.recipients }
+					setIsValid={ ( value ) => {
+						setValidationFlags( ( prevFlags ) => ( {
+							...prevFlags,
+							recipients: value,
+						} ) );
+					} }
+					setValue={ ( value ) => {
+						setProperties( ( prevProperties ) => ( {
+							...prevProperties,
+							...value,
+						} ) );
+					} }
+					isReviewing={ isReviewing }
+				/>
+				<__experimentalBaseControl>
+					<EmailSelect
+						label="Reply to"
+						emailFields={ emailFields }
+						value={ replyTo }
+						setValue={ ( val ) =>
 							setProperties( ( prevProperties ) => ( {
 								...prevProperties,
-								subject: val,
-							} ) );
-						} }
-						isValid={ { ...validationFlags }.subject }
-						setIsValid={ ( val ) => {
-							setValidationFlags( ( prevValidationFlags ) => ( {
-								...prevValidationFlags,
-								subject: val,
-							} ) );
-						} }
-						isReviewing={ isReviewing }
+								replyTo: `{{field:${ val }}}`,
+							} ) )
+						}
 					/>
-					<NotificationMessage
-						value={ message }
-						setValue={ ( val ) => {
-							setProperties( ( prevProperties ) => ( {
-								...prevProperties,
-								message: val,
-							} ) );
-						} }
-						isValid={ { ...validationFlags }.message }
-						setIsValid={ ( value ) => {
-							setValidationFlags( ( prevFlags ) => {
-								const $flags = { ...prevFlags, message: value };
-								return $flags;
-							} );
-						} }
-						isReviewing={ isReviewing }
-					/>
+				</__experimentalBaseControl>
+				<NotificationSubject
+					value={ subject }
+					setValue={ ( val ) => {
+						setProperties( ( prevProperties ) => ( {
+							...prevProperties,
+							subject: val,
+						} ) );
+					} }
+					isValid={ { ...validationFlags }.subject }
+					setIsValid={ ( val ) => {
+						setValidationFlags( ( prevValidationFlags ) => ( {
+							...prevValidationFlags,
+							subject: val,
+						} ) );
+					} }
+					isReviewing={ isReviewing }
+				/>
+				<NotificationMessage
+					value={ message }
+					setValue={ ( val ) => {
+						setProperties( ( prevProperties ) => ( {
+							...prevProperties,
+							message: val,
+						} ) );
+					} }
+					isValid={ { ...validationFlags }.message }
+					setIsValid={ ( value ) => {
+						setValidationFlags( ( prevFlags ) => {
+							const $flags = { ...prevFlags, message: value };
+							return $flags;
+						} );
+					} }
+					isReviewing={ isReviewing }
+				/>
+				{ isActive && (
 					<NotificationEditorFooter
 						isReviewing={ isReviewing }
 						setIsReviewing={ setIsReviewing }
@@ -190,8 +201,8 @@ const NotificationEditorWrapper = ( {
 						properties={ { ...properties } }
 						validationFlags={ { ...validationFlags } }
 					/>
-				</>
-			) }
+				) }
+			</>
 		</div>
 	);
 };

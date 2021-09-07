@@ -1,122 +1,43 @@
 .notifications-editor-panel-render.active-slide-1 .slick-list {
 	height: auto !important;
 }
-/* Slider */
-.slick-slider
-{
+.notifications-editor-panel-render {
     position: relative;
-
-    display: block;
-    box-sizing: border-box;
-
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
-    -ms-touch-action: pan-y;
-        touch-action: pan-y;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.slick-list
-{
-    position: relative;
-
-    display: block;
-    overflow: hidden;
-
-    margin: 0;
-    padding: 0;
-}
-.slick-list:focus
-{
-    outline: none;
-}
-.slick-list.dragging
-{
-    cursor: pointer;
-    cursor: hand;
-}
-
-.slick-slider .slick-track,
-.slick-slider .slick-list
-{
-    -webkit-transform: translate3d(0, 0, 0);
-       -moz-transform: translate3d(0, 0, 0);
-        -ms-transform: translate3d(0, 0, 0);
-         -o-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-}
-
-.slick-track
-{
-    position: relative;
-    top: 0;
-    left: 0;
-
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.slick-track:before,
-.slick-track:after
-{
-    display: table;
-
-    content: '';
-}
-.slick-track:after
-{
-    clear: both;
-}
-.slick-loading .slick-track
-{
-    visibility: hidden;
-}
-
-.slick-slide
-{
-    display: none;
-    float: left;
-
     height: 100%;
-    min-height: 1px;
-}
-[dir='rtl'] .slick-slide
-{
-    float: right;
-}
-.slick-slide img
-{
-    display: block;
-}
-.slick-slide.slick-loading img
-{
-    display: none;
-}
-.slick-slide.dragging img
-{
-    pointer-events: none;
-}
-.slick-initialized .slick-slide
-{
-    display: block;
-}
-.slick-loading .slick-slide
-{
-    visibility: hidden;
-}
-.slick-vertical .slick-slide
-{
-    display: block;
+    overflow-x: hidden;
+    margin-right: -18px;
+    margin-left: -18px;
+    margin-top: -18px;
+    margin-bottom: -18px;
 
-    height: auto;
+	.notifications-editor-notifciations-list {
+		&.active {
+			overflow-x: hidden;
+		}
+		&:not(.active) {
+			transform: translateX(-120%);
+			opacity: 0.3;
+		}
+	}
 
-    border: 1px solid transparent;
-}
-.slick-arrow.slick-hidden {
-    display: none;
+	.notifications-editor-notification-editor-wrapper:not(.active ) {
+		transform: translateX(120%);
+		opacity: 0.3;
+	}
+
+	.notifications-editor-notifciations-list, .notifications-editor-notification-editor-wrapper {
+		transition: all 0.5s ease-in-out;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right:0;
+		left:0;
+		width: 100%;
+		padding: 18px;
+
+		&:not(.active):not(.is-animating) {
+			display: none;
+		}
+	}
 }
