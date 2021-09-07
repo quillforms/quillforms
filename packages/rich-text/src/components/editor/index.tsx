@@ -2,13 +2,8 @@
 /**
  * WordPress Dependencies
  */
-import {
-	Fragment,
-	useCallback,
-	useState,
-	useEffect,
-	useRef,
-} from '@wordpress/element';
+import { Fragment, useCallback, useState, useRef } from '@wordpress/element';
+import { Popover } from '@wordpress/components';
 
 /**
  * External Dependencies
@@ -16,13 +11,14 @@ import {
 import { Transforms, Text, Editor, Range, Node as SlateNode } from 'slate';
 import { Slate, Editable, ReactEditor, RenderElementProps } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
+import { css } from 'emotion';
+
 /**
  * Internal Dependencies
  */
 import Element from '../element';
 import HoveringToolbar from '../hovering-toolbar';
 import MergeTagListItem from '../merge-tag-list-item';
-import Portal from '../portal';
 import type { MergeTags, MergeTag, allowedFormats } from '../../types';
 interface Props {
 	editor: ReactEditor & HistoryEditor;
@@ -146,45 +142,45 @@ const TextEditor: React.FC< Props > = ( props ) => {
 		[ index, search, target ]
 	);
 
-	useEffect( () => {
-		if ( target && $mergeTags.length > 0 ) {
-			const el: HTMLDivElement | null = ref.current;
-			const domRange = ReactEditor.toDOMRange( editor, target );
-			const rect = domRange.getBoundingClientRect();
-			if ( el ) {
-				el.style.top = `${ rect.top + window.pageYOffset + 24 }px`;
-				el.style.left = `${ rect.left + window.pageXOffset }px`;
-			}
-		}
-	}, [ $mergeTags.length, editor, index, search, target ] );
+	// useEffect( () => {
+	// 	if ( target && $mergeTags.length > 0 ) {
+	// 		const el: HTMLDivElement | null = ref.current;
+	// 		const domRange = ReactEditor.toDOMRange( editor, target );
+	// 		const rect = domRange.getBoundingClientRect();
+	// 		if ( el ) {
+	// 			el.style.top = `${ rect.top + window.pageYOffset + 24 }px`;
+	// 			el.style.left = `${ rect.left + window.pageXOffset }px`;
+	// 		}
+	// 	}
+	// }, [ $mergeTags.length, editor, index, search, target ] );
 
-	useEffect( () => {
-		/**
-		 * Alert if clicked on outside of element
-		 *
-		 * @param event
-		 */
-		function handleClickOutsidePortal( event: MouseEvent ): void {
-			if (
-				wrapperRef.current &&
-				ref.current &&
-				! wrapperRef.current.contains( event.target as Node ) &&
-				! ref.current.contains( event.target as Node )
-			) {
-				setTarget( undefined );
-			}
-		}
+	// useEffect( () => {
+	// 	/**
+	// 	 * Alert if clicked on outside of element
+	// 	 *
+	// 	 * @param event
+	// 	 */
+	// 	function handleClickOutsidePortal( event: MouseEvent ): void {
+	// 		if (
+	// 			wrapperRef.current &&
+	// 			ref.current &&
+	// 			! wrapperRef.current.contains( event.target as Node ) &&
+	// 			! ref.current.contains( event.target as Node )
+	// 		) {
+	// 			setTarget( undefined );
+	// 		}
+	// 	}
 
-		// Bind the event listener
-		document.addEventListener( 'mousedown', handleClickOutsidePortal );
-		return () => {
-			// Unbind the event listener on clean up
-			document.removeEventListener(
-				'mousedown',
-				handleClickOutsidePortal
-			);
-		};
-	}, [ ref ] );
+	// 	// Bind the event listener
+	// 	document.addEventListener( 'mousedown', handleClickOutsidePortal );
+	// 	return () => {
+	// 		// Unbind the event listener on clean up
+	// 		document.removeEventListener(
+	// 			'mousedown',
+	// 			handleClickOutsidePortal
+	// 		);
+	// 	};
+	// }, [ ref ] );
 
 	return (
 		<Fragment>
@@ -264,20 +260,31 @@ const TextEditor: React.FC< Props > = ( props ) => {
 						} }
 					/>
 					{ target && $mergeTags.length > 0 && (
-						<Portal>
+						<Popover
+							position={ 'bottom center' }
+							className={ css`
+								z-index: 1111111111111111111;
+								.components-popover__content {
+									padding: 3px;
+									border: none;
+									border-radius: 4px;
+									box-shadow: 0 1px 5px rgba( 0, 0, 0, 0.2 );
+									z-index: 111111111111111111;
+								}
+							` }
+							onKeyDown={ onKeyDown }
+						>
+							<div
+								className={ css`
+									padding: 5px 25px;
+									font-weight: bold;
+								` }
+							>
+								Recall Information from...
+							</div>
 							<div
 								className="rich-text-merge-tag-list"
 								ref={ ref }
-								style={ {
-									top: '-9999px',
-									left: '-9999px',
-									position: 'absolute',
-									zIndex: 33,
-									padding: '3px',
-									background: 'white',
-									borderRadius: '4px',
-									boxShadow: '0 1px 5px rgba(0,0,0,.2)',
-								} }
 							>
 								{ $mergeTags.map( ( mergeTag, i ) => (
 									<MergeTagListItem
@@ -293,7 +300,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 									/>
 								) ) }
 							</div>
-						</Portal>
+						</Popover>
 					) }
 				</Slate>
 			</div>

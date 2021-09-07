@@ -7,9 +7,10 @@
 		position: relative;
 		cursor: pointer;
 		z-index: 2;
+	}
+	&:not(.isSelected) {
 		overflow: hidden;
 	}
-
 	.rich-text-merge-tag-list-item__hidden-bg {
 		position: absolute;
 		content: "";
