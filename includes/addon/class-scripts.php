@@ -18,31 +18,11 @@ use QuillForms\Admin\Admin_Loader;
 abstract class Scripts {
 
 	/**
-	 * Subclasses instances.
+	 * Addon
 	 *
-	 * @var array
-	 *
-	 * @since 1.3.0
+	 * @var Addon
 	 */
-	private static $instances = array();
-
-	/**
-	 * Plugin dir
-	 *
-	 * @var string
-	 *
-	 * @since 1.3.0
-	 */
-	protected $plugin_dir;
-
-	/**
-	 * Plugin url
-	 *
-	 * @var string
-	 *
-	 * @since 1.3.0
-	 */
-	protected $plugin_url;
+	protected $addon;
 
 	/**
 	 * Scripts to register.
@@ -65,28 +45,15 @@ abstract class Scripts {
 	protected $styles = array();
 
 	/**
-	 * Scripts Instances.
-	 *
-	 * Instantiates or reuses an instances of Scripts.
-	 *
-	 * @since 1.3.0
-	 * @static
-	 *
-	 * @return Scripts - Single instance
-	 */
-	public static function instance() {
-		if ( ! isset( self::$instances[ static::class ] ) ) {
-			self::$instances[ static::class ] = new static();
-		}
-		return self::$instances[ static::class ];
-	}
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 1.3.0
+	 *
+	 * @param Addon $addon Addon.
 	 */
-	protected function __construct() {
+	public function __construct( $addon ) {
+		$this->addon = $addon;
+
 		// register.
 		add_action( 'wp_default_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'wp_default_styles', array( $this, 'register_styles' ) );
@@ -108,19 +75,21 @@ abstract class Scripts {
 	 */
 	public function register_scripts( $scripts ) {
 		foreach ( $this->scripts as $handle => $script ) {
-			$filepath     = $this->plugin_dir . $script['path'];
+			$filepath     = $this->addon->plugin_dir . $script['path'];
 			$asset_file   = substr( $filepath, 0, -3 ) . '.asset.php';
 			$asset        = file_exists( $asset_file ) ? require $asset_file : null;
 			$dependencies = isset( $asset['dependencies'] ) ? $asset['dependencies'] : array();
 			$version      = isset( $asset['version'] ) ? $asset['version'] : filemtime( $filepath );
-			$script_url   = $this->plugin_url . $script['path'];
+			$script_url   = $this->addon->plugin_url . $script['path'];
 			quillforms_override_script(
 				$scripts,
 				$handle,
 				$script_url,
 				$dependencies,
 				$version,
-				true
+				true,
+				$this->addon->textdomain,
+				$this->addon->plugin_dir . 'languages'
 			);
 		}
 	}
@@ -138,9 +107,9 @@ abstract class Scripts {
 			quillforms_override_style(
 				$styles,
 				$handle,
-				$this->plugin_url . $style['path'],
+				$this->addon->plugin_url . $style['path'],
 				$style['dependencies'],
-				filemtime( $this->plugin_dir . $style['path'] )
+				filemtime( $this->addon->plugin_dir . $style['path'] )
 			);
 			$styles->add_data( $handle, 'rtl', 'replace' );
 		}

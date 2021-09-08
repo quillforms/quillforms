@@ -13,6 +13,7 @@ namespace QuillForms\Log_Handlers;
 use Automattic\Jetpack\Constants;
 use QuillForms\Abstracts\Log_Handler;
 use QuillForms\Abstracts\Log_Levels;
+use QuillForms\Managers\Addons_Manager;
 
 /**
  * Handles log entries by writing to database.
@@ -43,11 +44,25 @@ class Log_Handler_DB extends Log_Handler {
 	 * @return bool False if value was not handled and true if value was handled.
 	 */
 	public function handle( $timestamp, $level, $message, $context ) {
-
-		if ( isset( $context['source'] ) && $context['source'] ) {
+		// source.
+		if ( ! empty( $context['source'] ) ) {
 			$source = $context['source'];
+			unset( $context['source'] );
 		} else {
 			$source = $this->get_log_source();
+		}
+
+		// versions.
+		$context['versions'] = array();
+		// add main plugin version.
+		$context['versions']['QuillForms'] = QUILLFORMS_VERSION;
+		// add addon version.
+		$main_namespace = explode( '\\', $source )[0];
+		if ( 'QuillForms' !== $main_namespace ) {
+			$addon = Addons_Manager::instance()->get_registered_by_namespace( $main_namespace );
+			if ( $addon ) {
+				$context['versions'][ $main_namespace ] = $addon->version;
+			}
 		}
 
 		return $this->add( $timestamp, $level, $message, $source, $context );

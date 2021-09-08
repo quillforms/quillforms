@@ -9,7 +9,6 @@ import ConfigAPI from '@quillforms/config';
 import { setupStore } from './actions';
 
 export const getMessages = () => {
-	const builderInitialPayload = ConfigAPI.getInitialBuilderPayload();
-
-	return setupStore( builderInitialPayload.messages );
+	const initialPayload = ConfigAPI.getInitialPayload();
+	return setupStore( initialPayload.messages );
 };

@@ -178,7 +178,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 				}
 				dragAlerts = dragAlerts.concat(
 					applyFilters(
-						'quillforms.builder-core.blocks-reorder-alerts',
+						'QuillForms.BuilderCore.BlockReorderAlerts',
 						[],
 						source.index,
 						destination.index
@@ -192,7 +192,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 									messages={ dragAlerts }
 									approve={ () => {
 										doAction(
-											'quillforms.builder-core.blocks-reorder',
+											'QuillForms.BuilderCore.BlockReorder',
 											source.index,
 											destination.index
 										);

@@ -9,15 +9,13 @@ import ConfigAPI from '@quillforms/config';
 import { setPostSlug, setPostTitle } from '../../build/store/actions';
 
 export function getPostSlug( state ) {
-	const builderInitialPayload = ConfigAPI.getInitialBuilderPayload();
-	return setPostSlug( builderInitialPayload.slug );
+	const initialPayload = ConfigAPI.getInitialPayload();
+	return setPostSlug( initialPayload.slug );
 }
 
 export function getPostTitle( state ) {
-	const builderInitialPayload = ConfigAPI.getInitialBuilderPayload();
+	const initialPayload = ConfigAPI.getInitialPayload();
 	return setPostTitle(
-		builderInitialPayload?.title?.rendered
-			? builderInitialPayload?.title?.rendered
-			: ''
+		initialPayload?.title?.rendered ? initialPayload?.title?.rendered : ''
 	);
 }

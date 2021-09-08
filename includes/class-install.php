@@ -56,6 +56,7 @@ class Install {
 		Core::register_quillforms_post_type();
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
+		self::create_cron_jobs();
 		self::update_quillforms_version();
 
 		delete_transient( 'quillforms_installing' );
@@ -87,6 +88,16 @@ class Install {
 				date_updated datetime,
 				PRIMARY KEY  (ID)
 			);
+			CREATE TABLE {$wpdb->prefix}quillforms_task_meta (
+				ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				action_id BIGINT UNSIGNED,
+				hook varchar(255) NOT NULL,
+				group_slug varchar(255) NOT NULL,
+				value longtext NOT NULL,
+				date_created datetime NOT NULL,
+				PRIMARY KEY  (ID),
+				KEY action_id (action_id)
+			);
 			CREATE TABLE {$wpdb->prefix}quillforms_log (
 				log_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				timestamp datetime NOT NULL,
@@ -101,6 +112,15 @@ class Install {
 
 		dbDelta( $sql );
 
+	}
+
+	/**
+	 * Create cron jobs (clear them first).
+	 */
+	private static function create_cron_jobs() {
+		wp_clear_scheduled_hook( 'quillforms_cleanup_logs' );
+
+		wp_schedule_event( time() + ( 3 * HOUR_IN_SECONDS ), 'daily', 'quillforms_cleanup_logs' );
 	}
 
 	/**

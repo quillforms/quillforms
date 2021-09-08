@@ -7,7 +7,6 @@
  * Author:            quillforms.com
  * Author URI:        http://www.quillforms.com
  * Text Domain:       quillforms
- * Domain Path:       /languages
  * Requires at least: 5.4
  * Requires PHP: 7.1
  *

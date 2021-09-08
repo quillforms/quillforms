@@ -81,7 +81,7 @@ const Builder = ( { params } ) => {
 					);
 				}
 			}
-			configApi.setInitialBuilderPayload( res );
+			configApi.setInitialPayload( res );
 			invalidateResolutionForAllConnectedStores();
 		} );
 

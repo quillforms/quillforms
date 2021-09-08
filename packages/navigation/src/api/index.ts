@@ -35,6 +35,15 @@ export const registerAdminPage = ( id: string, settings: PageSettings ) => {
 		return;
 	}
 
+	if ( settings.exact === undefined ) {
+		settings.exact = true;
+	}
+
+	if ( typeof settings.exact !== 'boolean' ) {
+		console.error( 'The "exact" property must be a boolean!' );
+		return;
+	}
+
 	if ( ! settings.component ) {
 		console.error( 'The "component" property is mandatory!' );
 		return;

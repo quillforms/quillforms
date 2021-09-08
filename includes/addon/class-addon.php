@@ -8,12 +8,106 @@
 
 namespace QuillForms\Addon;
 
+use QuillForms\Managers\Addons_Manager;
+use QuillForms\Tasks;
+
 /**
  * Abstract class for plugin extensions.
  *
  * @since 1.3.0
  */
 abstract class Addon {
+
+	/**
+	 * Name
+	 *
+	 * @since 1.3.0
+	 *
+	 * @var string
+	 */
+	public $name;
+
+	/**
+	 * Slug
+	 *
+	 * @since 1.3.0
+	 *
+	 * @var string
+	 */
+	public $slug;
+
+	/**
+	 * Version
+	 *
+	 * @since 1.3.0
+	 *
+	 * @var string
+	 */
+	public $version;
+
+	/**
+	 * Text domain
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	public $textdomain;
+
+	/**
+	 * Plugin dir
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	public $plugin_dir;
+
+	/**
+	 * Plugin url
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	public $plugin_url;
+
+	/**
+	 * Settings
+	 *
+	 * @since 1.3.0
+	 *
+	 * @var Settings
+	 */
+	public $settings;
+
+	/**
+	 * Form data
+	 *
+	 * @since 1.3.0
+	 *
+	 * @var Form_Data
+	 */
+	public $form_data;
+
+	/**
+	 * Tasks
+	 *
+	 * @var Tasks
+	 */
+	public $tasks;
+
+	/**
+	 * Class names
+	 *
+	 * @var array
+	 */
+	protected static $classes = array(
+		// 'scripts'   => Scripts::class,
+		// 'settings'  => Settings::class,
+		// 'form_data' => Form_Data::class,
+		// 'rest'      => REST\REST::class,
+	);
 
 	/**
 	 * Subclasses instances.
@@ -32,7 +126,7 @@ abstract class Addon {
 	 * @since 1.3.0
 	 * @static
 	 *
-	 * @return Addon - Single instance
+	 * @return static - Single instance
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instances[ static::class ] ) ) {
@@ -47,18 +141,42 @@ abstract class Addon {
 	 * @since 1.3.0
 	 */
 	protected function __construct() {
-		$this->init_scripts();
+		Addons_Manager::instance()->register( $this );
+
+		$this->load_textdomain();
+
+		if ( ! empty( static::$classes['scripts'] ) ) {
+			new static::$classes['scripts']( $this );
+		}
+		if ( ! empty( static::$classes['settings'] ) ) {
+			$this->settings = new static::$classes['settings']( $this );
+		}
+		if ( ! empty( static::$classes['form_data'] ) ) {
+			$this->form_data = new static::$classes['form_data']( $this );
+		}
+		if ( ! empty( static::$classes['rest'] ) ) {
+			new static::$classes['rest']( $this );
+		}
+		$this->tasks = new Tasks( "quillforms_{$this->slug}" );
 	}
 
 	/**
-	 * Initialize scripts.
-	 *
-	 * @since 1.3.0
+	 * Load plugin text domain
 	 *
 	 * @return void
 	 */
-	protected function init_scripts() {
-		// Scripts::instance(); // uncomment this in subclass.
+	public function load_textdomain() {
+		$plugin_rel_path = substr( $this->plugin_dir, strlen( WP_PLUGIN_DIR ) ) . 'languages';
+		load_plugin_textdomain( $this->textdomain, false, $plugin_rel_path );
+	}
+
+	/**
+	 * Get main namespace
+	 *
+	 * @return string
+	 */
+	public function get_namespace() {
+		return explode( '\\', static::class )[0];
 	}
 
 }
