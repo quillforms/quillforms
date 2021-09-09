@@ -16,14 +16,56 @@ namespace QuillForms;
 class Client_Messages {
 
 	/**
+	 * Default messages
+	 *
+	 * @var array
+	 */
+	private $default_messages;
+
+	/**
+	 * Custom messages
+	 *
+	 * @var array
+	 */
+	private $custom_messages = array();
+
+	/**
+	 * Class instance
+	 *
+	 * @var self instance
+	 */
+	private static $instance = null;
+
+	/**
+	 * Get class instance
+	 *
+	 * @return self
+	 */
+	public static function instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @since 1.5.0
+	 */
+	private function __construct() {
+		$this->set_default_messages();
+	}
+
+	/**
 	 * Get messages
 	 *
 	 * @since 1.5.0
 	 *
 	 * @return array
 	 */
-	public static function get_messages() {
-		return array_merge( self::get_default_messages(), self::get_custom_messages() );
+	public function get_messages() {
+		return array_merge( $this->default_messages, $this->custom_messages );
 	}
 
 	/**
@@ -33,8 +75,8 @@ class Client_Messages {
 	 *
 	 * @return array
 	 */
-	public static function get_custom_messages() {
-		return apply_filters( 'quillforms_client_custom_messages', array() );
+	public function get_custom_messages() {
+		return $this->custom_messages;
 	}
 
 	/**
@@ -44,8 +86,29 @@ class Client_Messages {
 	 *
 	 * @return array
 	 */
-	public static function get_default_messages() {
-		$messages = array(
+	public function get_default_messages() {
+		return $this->default_messages;
+	}
+
+	/**
+	 * Add custom messages
+	 *
+	 * @param array $messages Custom messages to add.
+	 * @return void
+	 */
+	public function add_custom_messages( $messages ) {
+		$this->custom_messages = array_merge( $this->custom_messages, $messages );
+	}
+
+	/**
+	 * Set default messages
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	private function set_default_messages() {
+		$this->default_messages = array(
 			'label.button.ok'                    => array(
 				'title'          => __( 'Button to confirm answer', 'quillforms' ),
 				'allowedFormats' => array( 'bold', 'link', 'italic' ),
@@ -250,7 +313,6 @@ class Client_Messages {
 				'category'       => 'alerts',
 			),
 		);
-		return $messages;
 	}
 
 }

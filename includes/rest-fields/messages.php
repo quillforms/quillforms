@@ -51,12 +51,12 @@ register_rest_field(
 					$a['type'] = 'string';
 					return $a;
 				},
-				Client_Messages::get_messages()
+				Client_Messages::instance()->get_messages()
 			),
 			'arg_options' => array(
 				'sanitize_callback' => function( $messages ) {
 					if ( ! empty( $messages ) ) {
-						foreach ( Client_Messages::get_messages() as $key => $message ) {
+						foreach ( Client_Messages::instance()->get_messages() as $key => $message ) {
 							if ( ! empty( $messages[ $key ] ) ) {
 								if ( ! empty( $message['allowedFormats'] ) ) {
 									$allowed_formats = array();
