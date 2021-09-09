@@ -58,7 +58,7 @@ final class Addons_Manager {
 		if ( empty( $addon->slug ) ) {
 			throw new Exception( sprintf( '%s addon slug is empty', get_class( $addon ) ) );
 		}
-		if ( ! preg_match( '/^[a-z0-9]+$/', $addon->slug ) ) {
+		if ( ! preg_match( '/^[a-z0-9_-]+$/', $addon->slug ) ) {
 			throw new Exception( sprintf( '%s addon slug has illegal characters (only a-z0-9 is allowed)', get_class( $addon ) ) );
 		}
 		if ( isset( $this->registered[ $addon->slug ] ) ) {
