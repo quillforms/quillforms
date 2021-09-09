@@ -8,6 +8,7 @@
 
 namespace QuillForms\Addon;
 
+use Exception;
 use QuillForms\Managers\Addons_Manager;
 use QuillForms\Tasks;
 
@@ -141,7 +142,9 @@ abstract class Addon {
 	 * @since 1.3.0
 	 */
 	protected function __construct() {
-		Addons_Manager::instance()->register( $this );
+		if ( ! $this->register() ) {
+			return;
+		}
 
 		$this->load_textdomain();
 
@@ -158,6 +161,30 @@ abstract class Addon {
 			new static::$classes['rest']( $this );
 		}
 		$this->tasks = new Tasks( "quillforms_{$this->slug}" );
+	}
+
+	/**
+	 * Register
+	 *
+	 * @return boolean
+	 */
+	protected function register() {
+		try {
+			Addons_Manager::instance()->register( $this );
+		} catch ( Exception $e ) {
+			quillforms_get_logger()->critical(
+				esc_html__( 'Cannot register addon', 'quillforms' ),
+				array(
+					'source'    => static::class . '->' . __FUNCTION__,
+					'code'      => 'cannot_register_addon',
+					'exception' => array(
+						'message' => $e->getMessage(),
+					),
+				)
+			);
+			return false;
+		}
+		return true;
 	}
 
 	/**

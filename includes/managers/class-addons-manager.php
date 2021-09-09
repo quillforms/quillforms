@@ -52,9 +52,19 @@ final class Addons_Manager {
 	 * @return void
 	 */
 	public function register( $addon ) {
-		if ( isset( $this->registered[ $addon->slug ] ) ) {
-			throw new Exception( 'Cannot register an addon with existing slug.' );
+		if ( ! $addon instanceof Addon ) {
+			throw new Exception( sprintf( '%s object is not instance of %s', get_class( $addon ), Addon::class ) );
 		}
+		if ( empty( $addon->slug ) ) {
+			throw new Exception( sprintf( '%s addon slug is empty', get_class( $addon ) ) );
+		}
+		if ( ! preg_match( '/^[a-z0-9]+$/', $addon->slug ) ) {
+			throw new Exception( sprintf( '%s addon slug has illegal characters (only a-z0-9 is allowed)', get_class( $addon ) ) );
+		}
+		if ( isset( $this->registered[ $addon->slug ] ) ) {
+			throw new Exception( sprintf( '%s addon slug is already used for %s', $addon->slug, get_class( $this->registered[ $addon->slug ] ) ) );
+		}
+
 		$this->registered[ $addon->slug ] = $addon;
 	}
 
