@@ -8,6 +8,7 @@ import configApi from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
+import { useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -24,7 +25,23 @@ const IntegrationsPage = ( { params } ) => {
 
 	const { path } = useRouteMatch();
 	const [ isLoading, setIsLoading ] = useState( true );
+	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
+
 	const integrationsModules = getIntegrationModules();
+
+	const invalidateResolutionForAllConnectedStores = () => {
+		// Invalidate resolution for all connected stores.
+		for ( const integration of Object.values( integrationsModules ) ) {
+			for ( const store of integration.connectedStores ) {
+				if (
+					store &&
+					wp.data.RegistryConsumer._currentValue.stores[ store ]
+				) {
+					invalidateResolutionForStore( store );
+				}
+			}
+		}
+	};
 
 	useEffect( () => {
 		apiFetch( {
@@ -34,6 +51,10 @@ const IntegrationsPage = ( { params } ) => {
 			configApi.setInitialPayload( res );
 			setIsLoading( false );
 		} );
+
+		return () => {
+			setTimeout( invalidateResolutionForAllConnectedStores );
+		};
 	}, [] );
 
 	return (
