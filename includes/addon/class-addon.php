@@ -141,11 +141,18 @@ abstract class Addon {
 	 *
 	 * @since 1.3.0
 	 */
-	protected function __construct() {
-		if ( ! $this->register() ) {
-			return;
+	private function __construct() {
+		if ( $this->register() ) {
+			$this->init();
 		}
+	}
 
+	/**
+	 * Initialize
+	 *
+	 * @return void
+	 */
+	protected function init() {
 		$this->load_textdomain();
 
 		if ( ! empty( static::$classes['scripts'] ) ) {
@@ -168,7 +175,7 @@ abstract class Addon {
 	 *
 	 * @return boolean
 	 */
-	protected function register() {
+	private function register() {
 		try {
 			Addons_Manager::instance()->register( $this );
 		} catch ( Exception $e ) {
@@ -192,7 +199,7 @@ abstract class Addon {
 	 *
 	 * @return void
 	 */
-	public function load_textdomain() {
+	protected function load_textdomain() {
 		$plugin_rel_path = substr( $this->plugin_dir, strlen( WP_PLUGIN_DIR ) ) . 'languages';
 		load_plugin_textdomain( $this->textdomain, false, $plugin_rel_path );
 	}

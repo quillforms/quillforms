@@ -36,12 +36,14 @@ abstract class Provider extends Addon {
 	);
 
 	/**
-	 * Constructor.
+	 * Initialize
 	 *
-	 * @since 1.3.0
+	 * @since 1.5.0
+	 *
+	 * @return void
 	 */
-	protected function __construct() {
-		parent::__construct();
+	protected function init() {
+		parent::init();
 
 		$this->accounts = new static::$classes['accounts']( $this );
 
