@@ -1,7 +1,6 @@
 import type { ConfigData } from './types/config-data';
 import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
-import messages from './json/messages.json';
 import { InitialPayload } from './types/initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 
@@ -20,7 +19,7 @@ const configData: ConfigData = {
 	fonts,
 	structures: {
 		theme,
-		messages,
+		messages: {},
 	},
 	maxUploadSize: 8,
 	isWPEnv: false,
@@ -61,6 +60,17 @@ const getThemeStructure = ( data: ConfigData ) => (): ThemeStructure => {
  */
 const getMessagesStructure = ( data: ConfigData ) => (): MessagesStructure => {
 	return data.structures.messages;
+};
+
+/**
+ * Set messages structure
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setMessagesStructure = ( data: ConfigData ) => (
+	value: MessagesStructure
+) => {
+	data.structures.messages = value;
 };
 
 /**
@@ -169,6 +179,7 @@ export interface ConfigApi {
 	setInitialPayload: ( value: InitialPayload ) => void;
 	getInitialPayload: () => InitialPayload;
 	getMessagesStructure: () => MessagesStructure;
+	setMessagesStructure: ( value: MessagesStructure ) => void;
 	getThemeStructure: () => ThemeStructure;
 	getFonts: () => Record< string, string >;
 	isWPEnv: () => boolean;
@@ -186,6 +197,7 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.setInitialPayload = setInitialPayload( data );
 	configApi.getInitialPayload = getInitialPayload( data );
 	configApi.getMessagesStructure = getMessagesStructure( data );
+	configApi.setMessagesStructure = setMessagesStructure( data );
 	configApi.getThemeStructure = getThemeStructure( data );
 	configApi.getFonts = getFonts( data );
 	configApi.isWPEnv = isWPEnv( data );

@@ -7,14 +7,9 @@
  * @subpackage MetaFields
  */
 
-defined( 'ABSPATH' ) || exit;
+use QuillForms\Client_Messages;
 
-$messages_data = json_decode(
-	file_get_contents(
-		QUILLFORMS_PLUGIN_DIR . 'includes/json/messages.json'
-	),
-	true
-);
+defined( 'ABSPATH' ) || exit;
 
 register_rest_field(
 	'quill_forms',
@@ -51,16 +46,17 @@ register_rest_field(
 		},
 		'schema'          => array(
 			'type'        => 'object',
-			'properties'  => array_walk(
-				$messages_data,
-				function( &$a ) {
+			'properties'  => array_map(
+				function( $a ) {
 					$a['type'] = 'string';
-				}
+					return $a;
+				},
+				Client_Messages::instance()->get_messages()
 			),
 			'arg_options' => array(
-				'sanitize_callback' => function( $messages ) use ( $messages_data ) {
+				'sanitize_callback' => function( $messages ) {
 					if ( ! empty( $messages ) ) {
-						foreach ( $messages_data as $key => $message ) {
+						foreach ( Client_Messages::instance()->get_messages() as $key => $message ) {
 							if ( ! empty( $messages[ $key ] ) ) {
 								if ( ! empty( $message['allowedFormats'] ) ) {
 									$allowed_formats = array();
