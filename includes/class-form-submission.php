@@ -120,16 +120,19 @@ class Form_Submission {
 			'notifications' => Core::get_notifications( $form_id ),
 		);
 
-		$answers = array();
-
 		// sanitizing answers.
+		$answers = array();
 		foreach ( $this->form_data['blocks'] as $block ) {
 			$block_type = Blocks_Manager::get_instance()->create( $block );
-			if ( $block_type->supported_features['editable'] ) {
-				if ( isset( $unsanitized_entry['answers'][ $block['id'] ] ) && isset( $unsanitized_entry['answers'][ $block['id'] ]['value'] ) ) {
-					$answers[ $block['id'] ]          = array();
-					$answers[ $block['id'] ]['value'] = $block_type->sanitize_field( $unsanitized_entry['answers'][ $block['id'] ]['value'], $this->form_data );
-				}
+			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
+				continue;
+			}
+
+			$field_answer = $unsanitized_entry['answers'][ $block['id'] ]['value'] ?? null;
+			if ( null !== $field_answer ) {
+				$answers[ $block['id'] ] = array(
+					'value' => $block_type->sanitize_field( $field_answer, $this->form_data ),
+				);
 			}
 		}
 
@@ -147,65 +150,51 @@ class Form_Submission {
 
 		list( $walk_path, $entry ) = apply_filters( 'quillforms_submission_walk_path', array( $fields, $entry ) );
 
-		// Validate fields.
-		if ( ! empty( $walk_path ) ) {
-			foreach ( $walk_path as $field ) {
-				$block_type = Blocks_Manager::get_instance()->create( $field );
+		// Validate all fields at the walkpath.
+		foreach ( $walk_path as $field ) {
+			$block_type = Blocks_Manager::get_instance()->create( $field );
+			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
+				continue;
+			}
 
-				if ( ! $block_type ) {
-					continue;
-				}
-
-				if ( $block_type->supported_features['editable'] ) {
-
-					$field_answer = null;
-					if ( ! empty( $entry['answers'] ) && isset( $entry['answers'][ $field['id'] ] ) && isset( $entry['answers'][ $field['id'] ]['value'] ) ) {
-						$field_answer = $entry['answers'][ $field['id'] ]['value'];
-					}
-					$block_type->validate_field( $field_answer, $this->form_data );
-
-					if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
-						if ( ! $this->errors['fields'] ) {
-							$this->errors['fields'] = array();
-						}
-						$this->errors['fields'][ $field['id'] ] = $block_type->validation_err;
-					}
-				}
+			$field_answer = $entry['answers'][ $field['id'] ]['value'] ?? null;
+			$block_type->validate_field( $field_answer, $this->form_data );
+			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
+				$this->errors['fields'][ $field['id'] ] = $block_type->validation_err;
 			}
 		}
 
-		if ( empty( $this->errors ) ) {
-
-			$walk_path_answers = array();
-			// Format fields.
-			if ( ! empty( $walk_path ) ) {
-				foreach ( $walk_path as $field ) {
-					$block_type = Blocks_Manager::get_instance()->create( $field );
-					if ( ! $block_type ) {
-						continue;
-					}
-					if ( ! empty( $answers[ $field['id'] ] ) ) {
-						$answers[ $field['id'] ]['value'] = $block_type->format_field( $answers[ $field['id'] ]['value'], $this->form_data );
-					}
-					$walk_path_answers[ $field['id'] ] = $answers[ $field['id'] ] ?? null;
-				}
-			}
-			$entry['answers'] = $walk_path_answers;
-
-			// this can add 'id' to entry array.
-			$entry = apply_filters( 'quillforms_entry_save', $entry, $this->form_data );
-
-			// do entry saved action.
-			if ( ! empty( $entry['id'] ) ) {
-				do_action( 'quillforms_entry_saved', $entry, $this->form_data );
-			}
-
-			// process email notifications.
-			$this->entry_email( $entry, $this->form_data );
-
-			// finally do entry processed action.
-			do_action( 'quillforms_entry_processed', $entry, $this->form_data );
+		// Stop if there are validation errors.
+		if ( ! empty( $this->errors ) ) {
+			return;
 		}
+
+		// Format the editable non-empty fields.
+		foreach ( $walk_path as $field ) {
+			$block_type = Blocks_Manager::get_instance()->create( $field );
+			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
+				continue;
+			}
+
+			$field_answer = $entry['answers'][ $field['id'] ]['value'] ?? null;
+			if ( null !== $field_answer ) {
+				$entry['answers'][ $field['id'] ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
+			}
+		}
+
+		// this can add 'id' to entry array.
+		$entry = apply_filters( 'quillforms_entry_save', $entry, $this->form_data );
+
+		// do entry saved action.
+		if ( ! empty( $entry['id'] ) ) {
+			do_action( 'quillforms_entry_saved', $entry, $this->form_data );
+		}
+
+		// process email notifications.
+		$this->entry_email( $entry, $this->form_data );
+
+		// finally do entry processed action.
+		do_action( 'quillforms_entry_processed', $entry, $this->form_data );
 	}
 
 	/**
