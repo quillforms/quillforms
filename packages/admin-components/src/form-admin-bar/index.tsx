@@ -43,7 +43,7 @@ const FormAdminBar = ( { formId } ) => {
 						<a onClick={ () => setIsShareModalOpen( true ) }>
 							Share
 						</a>
-						<NavLink
+						{ /* <NavLink
 							isActive={ ( _match, location ): boolean | void => {
 								if (
 									location.pathname.startsWith(
@@ -57,7 +57,7 @@ const FormAdminBar = ( { formId } ) => {
 							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/integrations` }
 						>
 							Integrations
-						</NavLink>
+						</NavLink> */ }
 
 						{ fills }
 					</>
