@@ -350,12 +350,13 @@ abstract class Block_Type extends stdClass {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value     The entry value.
-	 * @param array $form_data The form data.
+	 * @param mixed  $value     The entry value.
+	 * @param array  $form_data The form data.
+	 * @param string $context   The context.
 	 *
 	 * @return mixed $value The merged entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data ) {
+	public function get_merge_tag_value( $value, $form_data, $context = 'html' ) {
 		return $value;
 	}
 
