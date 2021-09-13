@@ -105,10 +105,26 @@ class Merge_Tags {
 			if ( ! isset( $entry['answers'][ $field_id ]['value'] ) ) {
 				return '';
 			}
-			$block_type = Blocks_Manager::get_instance()->get_registered( $entry['answers'][ $field_id ]['blockName'] );
+
+			// get block data.
+			$block_data = array_values(
+				array_filter(
+					$form_data['blocks'],
+					function( $block ) use ( $field_id ) {
+						return $block['id'] === $field_id;
+					}
+				)
+			) [0] ?? null;
+			if ( ! $block_data ) {
+				return '';
+			}
+
+			// get block type.
+			$block_type = Blocks_Manager::get_instance()->create( $block_data );
 			if ( ! $block_type ) {
 				return '';
 			}
+
 			return $block_type->get_merge_tag_value( $entry['answers'][ $field_id ]['value'], $form_data, $context );
 		}
 		return $replacement;
