@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-date-block",
-	"version": "1.1.12",
+	"version": "1.1.13",
 	"description": "Date block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
