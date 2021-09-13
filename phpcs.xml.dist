@@ -2,6 +2,9 @@
 <ruleset name="WordPress Coding Standards for Quill Forms Plugin">
 	<description>Sniffs for WordPress plugins, with minor modifications for Quill Forms</description>
 
+	<exclude-pattern>./vendor/*</exclude-pattern>
+	<exclude-pattern>./dependencies/*</exclude-pattern>
+
 	<rule ref="PHPCompatibility"/>
 	<config name="testVersion" value="7.2-"/>
 

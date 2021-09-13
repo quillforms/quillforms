@@ -11,7 +11,7 @@ import { applyFilters } from '@wordpress/hooks';
 /**
  * External Dependencies
  */
-import { isFunction } from 'lodash';
+import { isFunction, isArray } from 'lodash';
 
 /**
  * Internal Modules
@@ -60,6 +60,15 @@ export const registerIntegrationModule = (
 
 	if ( ! isFunction( settings.render ) ) {
 		console.error( 'The "render" property must be a valid function!' );
+		return;
+	}
+
+	if ( ! settings.connectedStores ) {
+		settings.connectedStores = [];
+	}
+
+	if ( ! isArray( settings.connectedStores ) ) {
+		console.error( `The 'connectedStores' property must be an array!` );
 		return;
 	}
 
