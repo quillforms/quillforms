@@ -68,8 +68,9 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 
 = 1.5.0 = 14 Sep 2021
 Fix: Merge tags positioning issue.
-Feature: Improving hooks.
+Feature: Supporting translations.
 Feature: Adding core structure for addons and form integrations.
+Feature: Improving hooks.
 Feature: Improving block type methods and general housekeeping.
 
 = 1.4.1 =  4 Aug 2021
