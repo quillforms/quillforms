@@ -68,7 +68,7 @@ abstract class Entry_Process {
 	 * @param string $string String has merge tags to process.
 	 * @return string
 	 */
-	final protected function process_tag( $string ) {
+	protected function process_tag( $string ) {
 		return Merge_Tags::process_tag( $string, $this->entry, $this->form_data );
 	}
 

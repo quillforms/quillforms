@@ -43,7 +43,7 @@ class Merge_Tags {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		add_filter( 'quillforms_process_merge_tag', array( $this, 'process_field_merge_tag' ), 10, 5 );
+		add_filter( 'quillforms_process_merge_tag', array( $this, 'process_field_merge_tag' ), 10, 6 );
 	}
 
 	/**
