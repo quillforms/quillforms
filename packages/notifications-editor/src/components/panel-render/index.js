@@ -5,11 +5,6 @@ import { useEffect, useRef, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
- * External Dependencies
- */
-import Slider from 'react-slick';
-
-/**
  * Internal Dependencies
  */
 import NotificationEditorWrapper from '../notification-editor-wrapper';
