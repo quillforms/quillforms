@@ -14,7 +14,7 @@ use QuillForms\Managers\Blocks_Manager;
  * This class is to handle merge tags.
  * Merge tags should have the same structure with type and modifier {{type:modifer}}
  * One example is {{field:field_id}}, here the type of merge tag is "field" and the modifier is its id.
- * The class should parse the merge tags to human readable values according to their type and their modifier.
+ * The class should parse the merge tags to merge tag values according to their type and their modifier.
  *
  * @since 1.0.0
  */
@@ -107,7 +107,7 @@ class Merge_Tags {
 			if ( ! $block_type ) {
 				return '';
 			}
-			return $block_type->get_human_readable_value( $entry['answers'][ $field_id ]['value'], $form_data );
+			return $block_type->get_merge_tag_value( $entry['answers'][ $field_id ]['value'], $form_data );
 		}
 		return $replacement;
 	}

@@ -487,7 +487,7 @@ class Emails {
 				}
 
 				$field_label = $block['attributes']['label'];
-				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_human_readable_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
+				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_merge_tag_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) && null !== $field_label ) {
 					$field_label = sprintf( /* translators: %d - field ID. */
@@ -527,7 +527,7 @@ class Emails {
 				}
 
 				$field_label = $block['attributes']['label'];
-				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_human_readable_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
+				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_merge_tag_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) ) {
 					$field_label = sprintf( /* translators: %d - field ID. */
