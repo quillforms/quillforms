@@ -108,7 +108,7 @@ abstract class Scripts {
 				$styles,
 				$handle,
 				$this->addon->plugin_url . $style['path'],
-				$style['dependencies'],
+				$style['dependencies'] ?? array(),
 				filemtime( $this->addon->plugin_dir . $style['path'] )
 			);
 			$styles->add_data( $handle, 'rtl', 'replace' );
