@@ -22,8 +22,9 @@ import NotFoundPage from '../pages/not-found';
 import Home from '../pages/home';
 import Builder from '../pages/builder';
 import Share from '../pages/share';
-import Support from '../pages/support';
 import IntegrationsPage from '../pages/integrations';
+import Support from '../pages/support';
+
 export const Controller = ( { page, match, location } ) => {
 	useEffect( () => {
 		window.document.documentElement.scrollTop = 0;
@@ -81,10 +82,6 @@ registerAdminPage( 'share', {
 	},
 } );
 
-registerAdminPage( 'support', {
-	component: Support,
-	path: 'support',
-} );
 registerAdminPage( 'integrations', {
 	component: IntegrationsPage,
 	path: '/forms/:id/integrations',
@@ -94,6 +91,11 @@ registerAdminPage( 'integrations', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+} );
+
+registerAdminPage( 'support', {
+	component: Support,
+	path: 'support',
 } );
 
 registerAdminPage( 'not_found', {
