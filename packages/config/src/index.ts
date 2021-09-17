@@ -1,4 +1,5 @@
 import type { ConfigData } from './types/config-data';
+import type { License } from './types/license';
 import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
 import { InitialPayload } from './types/initial-payload';
@@ -23,9 +24,7 @@ const configData: ConfigData = {
 	},
 	maxUploadSize: 8,
 	isWPEnv: false,
-	licenseKey: '',
-	licenseType: '',
-	licenseValid: false,
+	license: false,
 };
 /**
  * Returns configuration value for given key
@@ -127,42 +126,21 @@ const getMaxUploadSize = ( data: ConfigData ) => (): number => {
 };
 
 /**
- * Get license key.
+ * Get license
  *
  * @param data the json environment configuration to use for getting config values
- * @returns {string} license key
  */
-const getLicenseKey = ( data: ConfigData ) => (): string => {
-	return data.licenseKey;
+const getLicense = ( data: ConfigData ) => (): License => {
+	return data.license;
 };
 
 /**
- * Set license key.
+ * Set license
  *
  * @param data the json environment configuration to use for getting config values
  */
-const setLicenseKey = ( data: ConfigData ) => ( value: string ) => {
-	data.licenseKey;
-	value;
-};
-
-/**
- * Is valid license.
- *
- * @param data the json environment configuration to use for getting config values
- * @returns {boolean} Is license valid
- */
-const isLicenseValid = ( data: ConfigData ) => (): boolean => {
-	return data.licenseValid;
-};
-
-/**
- * Set is license valid flag.
- *
- * @param data the json environment configuration to use for getting config values
- */
-const setIsLicenseValid = ( data: ConfigData ) => ( value: boolean ) => {
-	data.licenseValid = value;
+const setLicense = ( data: ConfigData ) => ( value: License ) => {
+	data.license = value;
 };
 
 /**
@@ -186,8 +164,8 @@ export interface ConfigApi {
 	setWPEnv: ( value: boolean ) => void;
 	getMaxUploadSize: () => number;
 	setMaxUploadSize: ( value: number ) => void;
-	getLicenseKey: () => string;
-	setLicenseKey: ( value: string ) => void;
+	getLicense: () => License;
+	setLicense: ( value: License ) => void;
 	isLicenseValid: () => boolean;
 	setIsLicenseValid: ( value: boolean ) => void;
 }
@@ -204,10 +182,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.setWPEnv = setWPEnv( data );
 	configApi.getMaxUploadSize = getMaxUploadSize( data );
 	configApi.setMaxUploadSize = setMaxUploadSize( data );
-	configApi.getLicenseKey = getLicenseKey( data );
-	configApi.setLicenseKey = setLicenseKey( data );
-	configApi.isLicenseValid = isLicenseValid( data );
-	configApi.setIsLicenseValid = setIsLicenseValid( data );
+	configApi.getLicense = getLicense( data );
+	configApi.setLicense = setLicense( data );
 	return configApi;
 };
 

@@ -93,6 +93,7 @@ class Admin_Loader {
 				'adminUrl'       => admin_url(),
 				'assetsBuildUrl' => QUILLFORMS_PLUGIN_URL,
 				'submenuPages'   => $submenu['quillforms'],
+				'license_nonce'  => wp_create_nonce( 'quillforms_license' ),
 			)
 		);
 	}

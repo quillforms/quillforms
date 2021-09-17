@@ -23,6 +23,7 @@ import Home from '../pages/home';
 import Builder from '../pages/builder';
 import Share from '../pages/share';
 import IntegrationsPage from '../pages/integrations';
+import License from '../pages/license';
 import Support from '../pages/support';
 
 export const Controller = ( { page, match, location } ) => {
@@ -91,6 +92,11 @@ registerAdminPage( 'integrations', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+} );
+
+registerAdminPage( 'license', {
+	component: License,
+	path: 'license',
 } );
 
 registerAdminPage( 'support', {
