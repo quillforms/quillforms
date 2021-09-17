@@ -50,6 +50,7 @@ class Core {
 	public static function set_config() {
 		wp_add_inline_script(
 			'quillforms-config',
+			'qf.config.default.setLicense(' . json_encode( License::instance()->get_license_info() ) . ');' .
 			'qf.config.default.setMessagesStructure(' . json_encode( Client_Messages::instance()->get_messages() ) . ');' .
 			'qf.config.default.setMaxUploadSize(' . wp_max_upload_size() / ( 1024 * 1024 ) . ');'
 		);
