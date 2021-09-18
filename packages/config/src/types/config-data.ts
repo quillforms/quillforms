@@ -1,4 +1,5 @@
 import type { InitialPayload } from './initial-payload';
+import type { License } from './license';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 
 export type ConfigData = Record< string, unknown > & {
@@ -10,7 +11,5 @@ export type ConfigData = Record< string, unknown > & {
 	};
 	initialPayload: InitialPayload;
 	fonts: Record< string, string >;
-	licenseKey: string;
-	licenseType: string;
-	licenseValid: boolean;
+	license: License;
 };

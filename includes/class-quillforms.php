@@ -97,6 +97,7 @@ final class QuillForms {
 		Form_Submission::get_instance();
 		Admin::get_instance();
 		REST_API::get_instance();
+		License::instance();
 	}
 
 	/**
