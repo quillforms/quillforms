@@ -59,6 +59,40 @@ const License = () => {
 			} );
 	};
 
+	const update = () => {
+		const data = new FormData();
+		data.append( 'action', 'quillforms_license_update' );
+		data.append( '_nonce', window[ 'qfAdmin' ].license_nonce );
+
+		fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: data,
+		} )
+			.then( ( res ) => res.json() )
+			.then( ( res ) => {
+				if ( res.success ) {
+					configApi.setLicense( res.data );
+					setCount( count + 1 );
+					createSuccessNotice( '✅ License updated', {
+						type: 'snackbar',
+						isDismissible: true,
+					} );
+				} else {
+					createErrorNotice( `⛔ ${ res.data ?? 'Error' }`, {
+						type: 'snackbar',
+						isDismissible: true,
+					} );
+				}
+			} )
+			.catch( ( err ) => {
+				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
+					type: 'snackbar',
+					isDismissible: true,
+				} );
+			} );
+	};
+
 	const deactivate = () => {
 		const data = new FormData();
 		data.append( 'action', 'quillforms_license_deactivate' );
@@ -100,10 +134,25 @@ const License = () => {
 			<div className="quillforms-license-page__body">
 				{ license ? (
 					<div>
-						<div>Status: { license.status }</div>
+						<div>
+							Status:{ ' ' }
+							<span
+								className={
+									license.status === 'valid'
+										? 'quillforms-license-valid'
+										: 'quillforms-license-invalid'
+								}
+							>
+								{ license.status_label }
+							</span>
+						</div>
 						<div>Plan: { license.plan_label }</div>
 						<div>Expires: { license.expires }</div>
-						<Button isPrimary onClick={ deactivate }>
+						<div>Last check: { license.last_check }</div>
+						<Button isPrimary onClick={ update }>
+							Update
+						</Button>
+						<Button isDanger onClick={ deactivate }>
 							Deactivate
 						</Button>
 					</div>

@@ -46,22 +46,8 @@ class License {
 	 */
 	private function __construct() {
 		add_action( 'wp_ajax_quillforms_license_activate', array( $this, 'ajax_activate' ) );
+		add_action( 'wp_ajax_quillforms_license_update', array( $this, 'ajax_update' ) );
 		add_action( 'wp_ajax_quillforms_license_deactivate', array( $this, 'ajax_deactivate' ) );
-	}
-
-	/**
-	 * Get translated plan label
-	 *
-	 * @param string $plan Plan key.
-	 * @return string
-	 */
-	public function get_plan_label( $plan ) {
-		switch ( $plan ) {
-			case 'basic':
-				return esc_html__( 'Basic Plan', 'quillforms' );
-			default:
-				return 'unknown';
-		}
 	}
 
 	/**
@@ -73,14 +59,70 @@ class License {
 	public function get_license_info( $include_key = false ) {
 		$license = get_option( 'quillforms_license' );
 		if ( ! empty( $license ) ) {
-			// add plan label.
-			$license['plan_label'] = $this->get_plan_label( $license['plan'] );
+			// add labels.
+			$license['status_label'] = $this->get_status_label( $license['status'] );
+			$license['plan_label']   = $this->get_plan_label( $license['plan'] );
 			// maybe remove plan key.
 			if ( ! $include_key ) {
 				unset( $license['key'] );
 			}
 		}
 		return $license;
+	}
+
+	/**
+	 * Update license
+	 *
+	 * @return array
+	 */
+	public function update_license() {
+		// check current license.
+		$license = get_option( 'quillforms_license' );
+		if ( empty( $license['key'] ) ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'No license key found', 'quillforms' ),
+			);
+		}
+
+		$response = $this->api_request(
+			array(
+				'edd_action' => 'check_license',
+				'license'    => $license['key'],
+				'item_id'    => 'plan',
+			)
+		);
+
+		// failed request.
+		if ( ! $response['success'] ) {
+			$message = $response['message'] ?? esc_html__( 'An error occurred, please try again', 'quillforms' );
+			return array(
+				'success' => false,
+				'message' => $message,
+			);
+		}
+
+		if ( ! empty( $response['data']->plan ) ) {
+			$license_status = $response['data']->license;
+			$license_plan   = $response['data']->plan;
+		} else {  // empty plan, shouldn't be reached normally.
+			$license_status = 'item_name_mismatch';
+			$license_plan   = null;
+		}
+
+		// new license data.
+		$license = array(
+			'status'     => $license_status,
+			'plan'       => $license_plan,
+			'key'        => $license['key'],
+			'expires'    => $response['data']->expires ?? null,
+			'last_check' => gmdate( 'Y-m-d H:i:s' ),
+		);
+
+		// update option.
+		update_option( 'quillforms_license', $license );
+
+		return array( 'success' => true );
 	}
 
 	/**
@@ -121,46 +163,18 @@ class License {
 
 		// api request error.
 		if ( ! ( $response['data']->success ?? false ) ) {
-			switch ( $response['data']->error ) {
-				case 'expired':
-					$message = sprintf(
-						esc_html__( 'Your license key expired on %s.', 'quillforms' ), // phpcs:ignore
-						date_i18n( get_option( 'date_format' ), strtotime( $response['data']->expires, current_time( 'timestamp' ) ) ) // phpcs:ignore
-					);
-					break;
-
-				case 'disabled':
-				case 'revoked':
-					$message = esc_html__( 'Your license key has been disabled.', 'quillforms' );
-					break;
-
-				case 'missing':
-					$message = esc_html__( 'Invalid license.', 'quillforms' );
-					break;
-
-				case 'invalid':
-				case 'site_inactive':
-					$message = esc_html__( 'Your license is not active for this URL.', 'quillforms' );
-					break;
-
-				case 'item_name_mismatch':
-					$message = esc_html__( 'This appears to be an invalid license key for a plan.', 'quillforms' );
-					break;
-
-				case 'no_activations_left':
-					$message = esc_html__( 'Your license key has reached its activation limit.', 'quillforms' );
-					break;
-
-				default:
-					$message = esc_html__( 'An error occurred, please try again.', 'quillforms' );
-					break;
+			$status_label = $this->get_status_label( $response['data']->error ?? null );
+			if ( $status_label ) {
+				$message = esc_html__( 'License error', 'quillforms' ) . ": $status_label";
+			} else {
+				$message = esc_html__( 'An error occurred, please try again', 'quillforms' );
 			}
 			wp_send_json_error( $message, 422 );
 			exit;
 		}
 
 		if ( 'valid' !== $response['data']->license ) {
-			$message = esc_html__( 'Invalid license.', 'quillforms' );
+			$message = esc_html__( 'Invalid license', 'quillforms' );
 			wp_send_json_error( $message, 422 );
 			exit;
 		}
@@ -173,10 +187,11 @@ class License {
 
 		// new license data.
 		$license = array(
-			'status'  => 'valid',
-			'plan'    => $response['data']->plan,
-			'key'     => $license_key,
-			'expires' => $response['data']->expires,
+			'status'     => 'valid',
+			'plan'       => $response['data']->plan,
+			'key'        => $license_key,
+			'expires'    => $response['data']->expires,
+			'last_check' => gmdate( 'Y-m-d H:i:s' ),
 		);
 
 		// update option.
@@ -184,6 +199,22 @@ class License {
 
 		// return new license info.
 		wp_send_json_success( $this->get_license_info(), 200 );
+	}
+
+	/**
+	 * Handle update request
+	 *
+	 * @return void
+	 */
+	public function ajax_update() {
+		$this->check_authorization();
+
+		$update = $this->update_license();
+		if ( $update['success'] ) {
+			wp_send_json_success( $this->get_license_info(), 200 );
+		} else {
+			wp_send_json_error( $update['message'] );
+		}
 	}
 
 	/**
@@ -209,6 +240,56 @@ class License {
 		}
 
 		wp_send_json_success( esc_html__( 'License removed successfully', 'quillforms' ), 200 );
+	}
+
+	/**
+	 * Get translated plan label
+	 *
+	 * @param string $plan Plan key.
+	 * @return string|null
+	 */
+	public function get_plan_label( $plan ) {
+		$labels = array(
+			'basic' => esc_html__( 'Basic Plan', 'quillforms' ),
+		);
+
+		return $labels[ $plan ] ?? null;
+	}
+
+	/**
+	 * Get translated status label
+	 *
+	 * @param string $status Status key.
+	 * @return string|null
+	 */
+	public function get_status_label( $status ) {
+		switch ( $status ) {
+			case 'valid':
+				return esc_html__( 'Valid', 'quillforms' );
+
+			case 'expired':
+				return esc_html__( 'Expired', 'quillforms' );
+
+			case 'disabled':
+			case 'revoked':
+				return esc_html__( 'Disabled', 'quillforms' );
+
+			case 'missing':
+			case 'invalid':
+				return esc_html__( 'Invalid', 'quillforms' );
+
+			case 'site_inactive':
+				return esc_html__( 'Not active for this URL', 'quillforms' );
+
+			case 'item_name_mismatch':
+				return esc_html__( 'Invalid key for a plan', 'quillforms' );
+
+			case 'no_activations_left':
+				return esc_html__( 'Key reached its activation limit', 'quillforms' );
+
+			default:
+				return null;
+		}
 	}
 
 	/**
