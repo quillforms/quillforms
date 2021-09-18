@@ -102,9 +102,9 @@ class License {
 			);
 		}
 
-		if ( ! empty( $response['data']->plan ) ) {
-			$license_status = $response['data']->license;
-			$license_plan   = $response['data']->plan;
+		if ( ! empty( $response['data']['plan'] ) ) {
+			$license_status = $response['data']['license'];
+			$license_plan   = $response['data']['plan'];
 		} else {  // empty plan, shouldn't be reached normally.
 			$license_status = 'item_name_mismatch';
 			$license_plan   = null;
@@ -115,7 +115,7 @@ class License {
 			'status'     => $license_status,
 			'plan'       => $license_plan,
 			'key'        => $license['key'],
-			'expires'    => $response['data']->expires ?? null,
+			'expires'    => $response['data']['expires'] ?? null,
 			'last_check' => gmdate( 'Y-m-d H:i:s' ),
 		);
 
@@ -162,8 +162,8 @@ class License {
 		}
 
 		// api request error.
-		if ( ! ( $response['data']->success ?? false ) ) {
-			$status_label = $this->get_status_label( $response['data']->error ?? null );
+		if ( ! ( $response['data']['success'] ?? false ) ) {
+			$status_label = $this->get_status_label( $response['data']['error'] ?? null );
 			if ( $status_label ) {
 				$message = esc_html__( 'License error', 'quillforms' ) . ": $status_label";
 			} else {
@@ -173,13 +173,13 @@ class License {
 			exit;
 		}
 
-		if ( 'valid' !== $response['data']->license ) {
+		if ( 'valid' !== $response['data']['license'] ) {
 			$message = esc_html__( 'Invalid license', 'quillforms' );
 			wp_send_json_error( $message, 422 );
 			exit;
 		}
 
-		if ( empty( $response['data']->plan ) ) {
+		if ( empty( $response['data']['plan'] ) ) {
 			$message = esc_html__( 'Server error, please contact the support', 'quillforms' );
 			wp_send_json_error( $message, 422 );
 			exit;
@@ -188,9 +188,9 @@ class License {
 		// new license data.
 		$license = array(
 			'status'     => 'valid',
-			'plan'       => $response['data']->plan,
+			'plan'       => $response['data']['plan'],
 			'key'        => $license_key,
-			'expires'    => $response['data']->expires,
+			'expires'    => $response['data']['expires'],
 			'last_check' => gmdate( 'Y-m-d H:i:s' ),
 		);
 
@@ -346,7 +346,7 @@ class License {
 		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		return array(
 			'success' => $response_code === $success_code,
