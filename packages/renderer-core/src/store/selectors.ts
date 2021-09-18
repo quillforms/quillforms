@@ -279,13 +279,23 @@ export const getFirstInvalidFieldId = ( state: State ): string | undefined => {
  * Is valid field.
  *
  * @param {State} state   Global application state.
- * @param {string} id      Field id.
+ * @param {string} id     Field id.
  *
  * @return {boolean} showErr flag
  */
 export function isValidField( state: State, id: string ): boolean {
-	const isValid = state.answers[ id ]?.isValid;
-	return isValid;
+	return state.answers[ id ]?.isValid;
+}
+
+/**
+ * Is field pending.
+ * @param  {State} state   Global application state.
+ * @param {string} id      Field id.
+ *
+ * @return {boolean} isPending flag.
+ */
+export function isFieldPending( state: State, id: string ): boolean {
+	return state.answers[ id ]?.isPending;
 }
 
 /**
