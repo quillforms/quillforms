@@ -155,6 +155,23 @@ const License = () => {
 						<Button isDanger onClick={ deactivate }>
 							Deactivate
 						</Button>
+						{ license.upgrades && (
+							<div>
+								<h3>Upgrades:</h3>
+								{ Object.values( license.upgrades ).map(
+									( upgrade ) => {
+										return (
+											<a
+												href={ upgrade.url }
+												target="_blank"
+											>
+												{ upgrade.plan_label }
+											</a>
+										);
+									}
+								) }
+							</div>
+						) }
 					</div>
 				) : (
 					<div>

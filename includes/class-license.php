@@ -62,6 +62,9 @@ class License {
 			// add labels.
 			$license['status_label'] = $this->get_status_label( $license['status'] );
 			$license['plan_label']   = $this->get_plan_label( $license['plan'] );
+			foreach ( array_keys( $license['upgrades'] ) as $upgrade_plan ) {
+				$license['upgrades'][ $upgrade_plan ]['plan_label'] = $this->get_plan_label( $upgrade_plan );
+			}
 			// maybe remove plan key.
 			if ( ! $include_key ) {
 				unset( $license['key'] );
@@ -116,6 +119,7 @@ class License {
 			'plan'       => $license_plan,
 			'key'        => $license['key'],
 			'expires'    => $response['data']['expires'] ?? null,
+			'upgrades'   => $response['data']['upgrades'] ?? array(),
 			'last_check' => gmdate( 'Y-m-d H:i:s' ),
 		);
 
@@ -191,6 +195,7 @@ class License {
 			'plan'       => $response['data']['plan'],
 			'key'        => $license_key,
 			'expires'    => $response['data']['expires'],
+			'upgrades'   => $response['data']['upgrades'] ?? array(),
 			'last_check' => gmdate( 'Y-m-d H:i:s' ),
 		);
 
@@ -251,6 +256,7 @@ class License {
 	public function get_plan_label( $plan ) {
 		$labels = array(
 			'basic' => esc_html__( 'Basic Plan', 'quillforms' ),
+			'pro'   => esc_html__( 'Pro Plan', 'quillforms' ),
 		);
 
 		return $labels[ $plan ] ?? null;
