@@ -13,6 +13,7 @@ use QuillForms\Managers\Addons_Manager;
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Models\Form_Theme_Model;
 use QuillForms\Site\License;
+use QuillForms\Site\Store;
 
 /**
  * Core class
@@ -53,6 +54,7 @@ class Core {
 		wp_add_inline_script(
 			'quillforms-config',
 			'qf.config.default.setLicense(' . json_encode( License::instance()->get_license_info() ) . ');' .
+			'qf.config.default.setStoreAddons(' . json_encode( Store::instance()->get_all_addons() ) . ');' .
 			'qf.config.default.setMessagesStructure(' . json_encode( Client_Messages::instance()->get_messages() ) . ');' .
 			'qf.config.default.setMaxUploadSize(' . wp_max_upload_size() / ( 1024 * 1024 ) . ');'
 		);

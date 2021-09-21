@@ -4,6 +4,7 @@ import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
 import { InitialPayload } from './types/initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
+import { StoreAddons } from './types/store-addons';
 
 export type { InitialPayload };
 const configData: ConfigData = {
@@ -25,6 +26,7 @@ const configData: ConfigData = {
 	maxUploadSize: 8,
 	isWPEnv: false,
 	license: false,
+	storeAddons: {},
 };
 /**
  * Returns configuration value for given key
@@ -144,6 +146,24 @@ const setLicense = ( data: ConfigData ) => ( value: License ) => {
 };
 
 /**
+ * Get store addons
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getStoreAddons = ( data: ConfigData ) => (): StoreAddons => {
+	return data.storeAddons;
+};
+
+/**
+ * Set store addons
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setStoreAddons = ( data: ConfigData ) => ( value: StoreAddons ) => {
+	data.storeAddons = value;
+};
+
+/**
  * Set max upload size
  *
  * @param data the json environment configuration to use for getting config values
@@ -166,6 +186,8 @@ export interface ConfigApi {
 	setMaxUploadSize: ( value: number ) => void;
 	getLicense: () => License;
 	setLicense: ( value: License ) => void;
+	getStoreAddons: () => StoreAddons;
+	setStoreAddons: ( value: StoreAddons ) => void;
 	isLicenseValid: () => boolean;
 	setIsLicenseValid: ( value: boolean ) => void;
 }
@@ -184,6 +206,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.setMaxUploadSize = setMaxUploadSize( data );
 	configApi.getLicense = getLicense( data );
 	configApi.setLicense = setLicense( data );
+	configApi.getStoreAddons = getStoreAddons( data );
+	configApi.setStoreAddons = setStoreAddons( data );
 	return configApi;
 };
 
