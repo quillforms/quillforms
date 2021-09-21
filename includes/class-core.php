@@ -9,8 +9,10 @@
 
 namespace QuillForms;
 
+use QuillForms\Managers\Addons_Manager;
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Models\Form_Theme_Model;
+use QuillForms\Site\License;
 
 /**
  * Core class

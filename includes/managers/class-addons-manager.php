@@ -45,6 +45,14 @@ final class Addons_Manager {
 	}
 
 	/**
+	 * Constructor
+	 *
+	 * @since 1.6.0
+	 */
+	private function __construct() {
+	}
+
+	/**
 	 * Register addon
 	 *
 	 * @param Addon $addon Addon instance.

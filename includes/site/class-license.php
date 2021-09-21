@@ -6,7 +6,7 @@
  * @package QuillForms
  */
 
-namespace QuillForms;
+namespace QuillForms\Site;
 
 /**
  * License Class
@@ -21,11 +21,6 @@ class License {
 	 * @var self instance
 	 */
 	private static $instance = null;
-
-	/**
-	 * Store website url
-	 */
-	const STORE_SITE = 'http://172.17.0.1:8040'; // TODO: temporary url.
 
 	/**
 	 * Get class instance
@@ -88,7 +83,7 @@ class License {
 			);
 		}
 
-		$response = $this->api_request(
+		$response = Site::instance()->api_request(
 			array(
 				'edd_action' => 'check_license',
 				'license'    => $license['key'],
@@ -150,7 +145,7 @@ class License {
 			exit;
 		}
 
-		$response = $this->api_request(
+		$response = Site::instance()->api_request(
 			array(
 				'edd_action' => 'activate_license',
 				'license'    => $license_key,
@@ -233,7 +228,7 @@ class License {
 		// check current license.
 		$license = get_option( 'quillforms_license' );
 		if ( ! empty( $license['key'] ) ) {
-			$this->api_request(
+			Site::instance()->api_request(
 				array(
 					'edd_action' => 'deactivate_license',
 					'license'    => $license['key'],
@@ -316,49 +311,6 @@ class License {
 			wp_send_json_error( esc_html__( 'Forbidden', 'quillforms' ), 403 );
 			exit;
 		}
-	}
-
-	/**
-	 * API Request
-	 *
-	 * @param array   $body Body.
-	 * @param integer $success_code Success code.
-	 * @return array
-	 */
-	private function api_request( $body, $success_code = 200 ) {
-		$body = array_merge(
-			array(
-				'url'         => home_url(),
-				'environment' => function_exists( 'wp_get_environment_type' ) ? wp_get_environment_type() : 'production',
-			),
-			$body
-		);
-
-		$response = wp_remote_post(
-			self::STORE_SITE,
-			array(
-				'timeout'   => 15,
-				'sslverify' => false,
-				'body'      => $body,
-			)
-		);
-
-		if ( is_wp_error( $response ) ) {
-			return array(
-				'success' => false,
-				'code'    => $response->get_error_code(),
-				'message' => $response->get_error_message(),
-			);
-		}
-
-		$response_code = wp_remote_retrieve_response_code( $response );
-		$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
-
-		return array(
-			'success' => $response_code === $success_code,
-			'code'    => $response_code,
-			'data'    => $response_body,
-		);
 	}
 
 }

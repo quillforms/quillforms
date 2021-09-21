@@ -13,6 +13,7 @@ use QuillForms\Admin\Admin_Loader;
 use QuillForms\Log_Handlers\Log_Handler_DB;
 use QuillForms\Render\Form_Renderer;
 use QuillForms\REST_API\REST_API;
+use QuillForms\Site\Site;
 
 /**
  * QuillForms Main Class.
@@ -97,7 +98,7 @@ final class QuillForms {
 		Form_Submission::get_instance();
 		Admin::get_instance();
 		REST_API::get_instance();
-		License::instance();
+		Site::instance();
 	}
 
 	/**
