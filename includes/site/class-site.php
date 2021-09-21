@@ -42,6 +42,7 @@ class Site {
 	private function __construct() {
 		License::instance();
 		Store::instance();
+		Updater::instance();
 	}
 
 	/**
