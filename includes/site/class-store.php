@@ -90,6 +90,22 @@ class Store {
 	 * @return array
 	 */
 	public function install( $addon_slug ) {
+		// check addon.
+		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Cannot find addon', 'quillforms' ),
+			);
+		}
+
+		// check if already installed.
+		if ( $this->addons[ $addon_slug ]['is_installed'] ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Addon is already installed', 'quillforms' ),
+			);
+		}
+
 		// check current license.
 		$license = get_option( 'quillforms_license' );
 		if ( empty( $license['key'] ) ) {
@@ -221,6 +237,30 @@ class Store {
 	 * @return array
 	 */
 	public function activate( $addon_slug ) {
+		// check addon.
+		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Cannot find addon', 'quillforms' ),
+			);
+		}
+
+		// check if not installed.
+		if ( ! $this->addons[ $addon_slug ]['is_installed'] ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( "Addon isn't installed", 'quillforms' ),
+			);
+		}
+
+		// check if already active.
+		if ( $this->addons[ $addon_slug ]['is_active'] ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Addon is already active', 'quillforms' ),
+			);
+		}
+
 		$plugin_file = $this->addons[ $addon_slug ]['plugin_file'];
 
 		if ( ! function_exists( 'activate_plugin' ) ) {
@@ -278,12 +318,6 @@ class Store {
 			exit;
 		}
 
-		// check addon existence.
-		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
-			wp_send_json_error( esc_html__( 'Cannot find the addon', 'quillforms' ), 400 );
-			exit;
-		}
-
 		$result = $this->install( $addon_slug );
 		if ( $result['success'] ) {
 			wp_send_json_success( esc_html__( 'Addon plugin installed successfully', 'quillforms' ), 200 );
@@ -305,12 +339,6 @@ class Store {
 		$addon_slug = trim( $_POST['addon'] ?? '' );
 		if ( empty( $addon_slug ) ) {
 			wp_send_json_error( esc_html__( 'Addon slug is required', 'quillforms' ), 400 );
-			exit;
-		}
-
-		// check addon existence.
-		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
-			wp_send_json_error( esc_html__( 'Cannot find the addon', 'quillforms' ), 400 );
 			exit;
 		}
 
