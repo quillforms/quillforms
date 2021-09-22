@@ -8,6 +8,8 @@
 
 namespace QuillForms\Site;
 
+use Automatic_Upgrader_Skin;
+use Plugin_Upgrader;
 use Throwable;
 
 /**
@@ -51,6 +53,7 @@ class Store {
 	private function __construct() {
 		$this->define_addons();
 
+		add_action( 'wp_ajax_quillforms_addon_install', array( $this, 'ajax_install' ) );
 		add_action( 'wp_ajax_quillforms_addon_activate', array( $this, 'ajax_activate' ) );
 	}
 
@@ -77,6 +80,137 @@ class Store {
 				);
 			},
 			$this->addons
+		);
+	}
+
+	/**
+	 * Install addon
+	 *
+	 * @param string $addon_slug Addon slug.
+	 * @return array
+	 */
+	public function install( $addon_slug ) {
+		// check current license.
+		$license = get_option( 'quillforms_license' );
+		if ( empty( $license['key'] ) ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'No license key found', 'quillforms' ),
+			);
+		}
+
+		// get plugin data with download link.
+		$plugin_data   = Site::instance()->api_request(
+			array(
+				'edd_action' => 'get_version',
+				'license'    => $license['key'],
+				'item_id'    => "{$addon_slug}_addon",
+			)
+		);
+		$download_link = $plugin_data['data']['download_link'] ?? null;
+		if ( empty( $download_link ) ) {
+			quillforms_get_logger()->debug(
+				esc_html__( 'Cannot get addon info', 'quillforms' ),
+				array(
+					'code'       => 'cannot_get_addon_info',
+					'addon_slug' => $addon_slug,
+					'response'   => $plugin_data,
+				)
+			);
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Cannot get addon info, please check your license', 'quillforms' ),
+			);
+		}
+
+		// init plugin upgrader.
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		$installer_skin = new Automatic_Upgrader_Skin();
+		$installer      = new Plugin_Upgrader( $installer_skin );
+
+		// check file system permissions.
+		$filesystem_access = $installer_skin->request_filesystem_credentials();
+		if ( ! $filesystem_access ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Cannot install addon automatically, please download it and install it manually', 'quillforms' ),
+			);
+		}
+
+		// install the addon plugin.
+		$installer->install( $download_link );
+
+		// check wp_error.
+		if ( is_wp_error( $installer_skin->result ) ) {
+			quillforms_get_logger()->error(
+				esc_html__( 'Cannot install addon plugin', 'quillforms' ),
+				array(
+					'code'       => 'cannot_install_addon_plugin',
+					'addon_slug' => $addon_slug,
+					'error'      => array(
+						'code'    => $installer_skin->result->get_error_code(),
+						'message' => $installer_skin->result->get_error_message(),
+						'data'    => $installer_skin->result->get_error_data(),
+					),
+				)
+			);
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Cannot install addon plugin, check log for details', 'quillforms' ),
+			);
+		}
+
+		// check failed installation.
+		if ( ! $installer_skin->result || ! $installer->plugin_info() ) {
+			quillforms_get_logger()->error(
+				esc_html__( 'Cannot install addon plugin', 'quillforms' ),
+				array(
+					'code'             => 'cannot_install_addon_plugin',
+					'addon_slug'       => $addon_slug,
+					'upgrade_messages' => $installer_skin->get_upgrade_messages(),
+				)
+			);
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Cannot install addon plugin, check log for details', 'quillforms' ),
+			);
+		}
+
+		// check the installed plugin.
+		if ( $installer->plugin_info() !== $this->addons[ $addon_slug ]['plugin_file'] ) {
+			if ( ! function_exists( 'delete_plugins' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+			$removed = delete_plugins( array( $installer->plugin_info() ) );
+			quillforms_get_logger()->critical(
+				esc_html__( 'Invalid addon installation detected', 'quillforms' ),
+				array(
+					'code'                  => 'invalid_addon_installation',
+					'addon_slug'            => $addon_slug,
+					'plugin_file'           => $this->addons[ $addon_slug ]['plugin_file'],
+					'installer_plugin_info' => $installer->plugin_info(),
+					'removed'               => $removed,
+					'upgrade_messages'      => $installer_skin->get_upgrade_messages(),
+				)
+			);
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Cannot install addon plugin, check log for details', 'quillforms' ),
+			);
+		}
+
+		// log successful installation.
+		quillforms_get_logger()->info(
+			esc_html__( 'Addon plugin installed successfully', 'quillforms' ),
+			array(
+				'code'             => 'addon_installed_successfully',
+				'addon_slug'       => $addon_slug,
+				'upgrade_messages' => $installer_skin->get_upgrade_messages(),
+			)
+		);
+		return array(
+			'success' => true,
+			'message' => esc_html__( 'Addon plugin installed successfully', 'quillforms' ),
 		);
 	}
 
@@ -127,6 +261,36 @@ class Store {
 		return array(
 			'success' => $is_activated,
 		);
+	}
+
+	/**
+	 * Ajax handler for installing addon
+	 *
+	 * @return mixed
+	 */
+	public function ajax_install() {
+		$this->check_authorization();
+
+		// posted addon slug.
+		$addon_slug = trim( $_POST['addon'] ?? '' );
+		if ( empty( $addon_slug ) ) {
+			wp_send_json_error( esc_html__( 'Addon slug is required', 'quillforms' ), 400 );
+			exit;
+		}
+
+		// check addon existence.
+		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
+			wp_send_json_error( esc_html__( 'Cannot find the addon', 'quillforms' ), 400 );
+			exit;
+		}
+
+		$result = $this->install( $addon_slug );
+		if ( $result['success'] ) {
+			wp_send_json_success( esc_html__( 'Addon plugin installed successfully', 'quillforms' ), 200 );
+		} else {
+			wp_send_json_error( $result['message'] ?? esc_html__( 'Cannot install the addon plugin, please check the log for details', 'quillforms' ), 422 );
+		}
+		exit;
 	}
 
 	/**
