@@ -90,10 +90,11 @@ class Admin_Loader {
 			'quillforms-client',
 			'qfAdmin',
 			array(
-				'adminUrl'       => admin_url(),
-				'assetsBuildUrl' => QUILLFORMS_PLUGIN_URL,
-				'submenuPages'   => $submenu['quillforms'],
-				'license_nonce'  => wp_create_nonce( 'quillforms_license' ),
+				'adminUrl'         => admin_url(),
+				'assetsBuildUrl'   => QUILLFORMS_PLUGIN_URL,
+				'submenuPages'     => $submenu['quillforms'],
+				'site_store_nonce' => wp_create_nonce( 'quillforms_site_store' ),
+				'license_nonce'    => wp_create_nonce( 'quillforms_license' ),
 			)
 		);
 	}

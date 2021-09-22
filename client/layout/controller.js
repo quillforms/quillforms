@@ -23,6 +23,7 @@ import Home from '../pages/home';
 import Builder from '../pages/builder';
 import Share from '../pages/share';
 import IntegrationsPage from '../pages/integrations';
+import Addons from '../pages/addons';
 import License from '../pages/license';
 import Support from '../pages/support';
 
@@ -92,6 +93,11 @@ registerAdminPage( 'integrations', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+} );
+
+registerAdminPage( 'addons', {
+	component: Addons,
+	path: 'addons',
 } );
 
 registerAdminPage( 'license', {
