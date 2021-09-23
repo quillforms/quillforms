@@ -30,7 +30,7 @@ class Merge_Tags {
 	/**
 	 * Get class instance.
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
@@ -120,7 +120,7 @@ class Merge_Tags {
 			}
 
 			// get block type.
-			$block_type = Blocks_Manager::get_instance()->create( $block_data );
+			$block_type = Blocks_Manager::instance()->create( $block_data );
 			if ( ! $block_type ) {
 				return '';
 			}

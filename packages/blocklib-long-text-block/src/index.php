@@ -188,4 +188,4 @@ class Long_Text_Block_Type extends Block_Type {
 
 }
 
-Blocks_Manager::get_instance()->register( new Long_Text_Block_Type() );
+Blocks_Manager::instance()->register( new Long_Text_Block_Type() );

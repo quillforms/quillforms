@@ -13,7 +13,7 @@ use QuillForms\Fonts;
 defined( 'ABSPATH' ) || exit;
 the_post();
 $form_id     = get_the_ID();
-$form_object = Form_Renderer::get_instance()->prepare_form_object();
+$form_object = Form_Renderer::instance()->prepare_form_object();
 
 ?>
 <html style="margin-top: 0 !important;">

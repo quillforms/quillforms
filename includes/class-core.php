@@ -28,7 +28,7 @@ class Core {
 	 * @since 1.0.0
 	 */
 	public static function register_block_types_by_js() {
-		foreach ( Blocks_Manager::get_instance()->get_all_registered() as $block ) {
+		foreach ( Blocks_Manager::instance()->get_all_registered() as $block ) {
 			wp_add_inline_script(
 				'quillforms-blocks',
 				'qf.blocks.registerBlockType("' . $block->name . '",' . wp_json_encode(
@@ -167,11 +167,11 @@ class Core {
 		$theme_id  = get_post_meta( $form_id, 'theme', true );
 		$theme_obj = Form_Theme_Model::get_theme( $theme_id );
 		if ( ! $theme_obj ) {
-			$theme = Form_Theme::get_instance()->prepare_theme_properties_for_render();
+			$theme = Form_Theme::instance()->prepare_theme_properties_for_render();
 		} else {
 			$theme_properties = $theme_obj['properties'];
 			$theme_properties = $theme_properties ? $theme_properties : array();
-			$theme            = Form_Theme::get_instance()->prepare_theme_properties_for_render( $theme_properties );
+			$theme            = Form_Theme::instance()->prepare_theme_properties_for_render( $theme_properties );
 		}
 		return $theme;
 	}

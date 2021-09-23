@@ -208,4 +208,4 @@ class Date_Block_Type extends Block_Type {
 
 }
 
-Blocks_Manager::get_instance()->register( new Date_Block_Type() );
+Blocks_Manager::instance()->register( new Date_Block_Type() );

@@ -27,7 +27,7 @@ class Admin_Loader {
 	/**
 	 * Get class instance.
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
@@ -190,7 +190,7 @@ class Admin_Loader {
 		wp_auth_check_load();
 
 		// load all block styles and scripts.
-		foreach ( Blocks_Manager::get_instance()->get_all_registered() as $block ) {
+		foreach ( Blocks_Manager::instance()->get_all_registered() as $block ) {
 			if ( ! empty( $block->block_admin_assets ) ) {
 				if ( ! empty( $block->block_admin_assets['style'] ) ) {
 					wp_enqueue_style( $block->block_admin_assets['style'] );

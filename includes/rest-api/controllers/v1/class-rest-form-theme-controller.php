@@ -382,7 +382,7 @@ class REST_Form_Theme_Controller extends REST_Controller {
 				'properties'   => array(
 					'description' => __( 'Theme properties.', 'quillforms' ),
 					'type'        => 'object',
-					'properties'  => Form_Theme::get_instance()->get_theme_properties(),
+					'properties'  => Form_Theme::instance()->get_theme_properties(),
 				),
 				'date_created' => array(
 					'description' => __( 'The date the theme was created', 'quillforms' ),

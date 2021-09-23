@@ -47,7 +47,7 @@ class Form_Submission {
 	/**
 	 * Get class instance.
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
@@ -123,7 +123,7 @@ class Form_Submission {
 		// sanitizing answers.
 		$answers = array();
 		foreach ( $this->form_data['blocks'] as $block ) {
-			$block_type = Blocks_Manager::get_instance()->create( $block );
+			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
 				continue;
 			}
@@ -152,7 +152,7 @@ class Form_Submission {
 
 		// Validate all fields at the walkpath.
 		foreach ( $walk_path as $field ) {
-			$block_type = Blocks_Manager::get_instance()->create( $field );
+			$block_type = Blocks_Manager::instance()->create( $field );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
 				continue;
 			}
@@ -171,7 +171,7 @@ class Form_Submission {
 
 		// Format the editable non-empty fields.
 		foreach ( $walk_path as $field ) {
-			$block_type = Blocks_Manager::get_instance()->create( $field );
+			$block_type = Blocks_Manager::instance()->create( $field );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
 				continue;
 			}

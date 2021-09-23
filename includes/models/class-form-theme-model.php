@@ -44,7 +44,7 @@ class Form_Theme_Model {
 					return array(
 						'id'         => intVal( $theme['ID'] ),
 						'title'      => $theme['theme_title'],
-						'properties' => Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $theme['theme_properties'] ) ),
+						'properties' => Form_Theme::instance()->prepare_theme_properties_for_render( maybe_unserialize( $theme['theme_properties'] ) ),
 
 					);
 				},
@@ -93,7 +93,7 @@ class Form_Theme_Model {
 		}
 		return  array(
 			'title'      => $data['theme_title'],
-			'properties' => Form_Theme::get_instance()->prepare_theme_properties_for_render( maybe_unserialize( $data['theme_properties'] ) ),
+			'properties' => Form_Theme::instance()->prepare_theme_properties_for_render( maybe_unserialize( $data['theme_properties'] ) ),
 		);
 	}
 

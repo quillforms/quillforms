@@ -22,7 +22,6 @@ use QuillForms\Site\Site;
  */
 final class QuillForms {
 
-
 	/**
 	 * Class Instance.
 	 *
@@ -30,21 +29,21 @@ final class QuillForms {
 	 *
 	 * @since 1.0.0
 	 */
-	public static $instance;
+	private static $instance;
 
 	/**
-	 * QuillForms_Main Instance.
+	 * QuillForms Instance.
 	 *
-	 * Instantiates or reuses an instance of QuillForms_Main.
+	 * Instantiates or reuses an instance of QuillForms.
 	 *
 	 * @since 1.0.0
 	 * @static
 	 *
-	 * @return QuillForms - Single instance
+	 * @return self - Single instance
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
-			self::$instance = new QuillForms();
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -91,13 +90,13 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	public function initialize_objects() {
-		Admin_Loader::get_instance();
+		Admin_Loader::instance();
 		Install::init();
-		Merge_Tags::get_instance();
-		Form_Renderer::get_instance();
-		Form_Submission::get_instance();
-		Admin::get_instance();
-		REST_API::get_instance();
+		Merge_Tags::instance();
+		Form_Renderer::instance();
+		Form_Submission::instance();
+		Admin::instance();
+		REST_API::instance();
 		Site::instance();
 	}
 

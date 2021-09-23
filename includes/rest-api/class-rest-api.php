@@ -31,9 +31,9 @@ class REST_API {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return REST_API $_instance An instance of the REST_API class
+	 * @return self $_instance An instance of the REST_API class
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( null === self::$_instance ) {
 			self::$_instance = new self();
 		}

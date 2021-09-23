@@ -478,7 +478,7 @@ class Emails {
 
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = Blocks_Manager::get_instance()->create( $block );
+				$block_type  = Blocks_Manager::instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 
@@ -518,7 +518,7 @@ class Emails {
 			 */
 			foreach ( $this->form_data['blocks'] as $block ) {
 
-				$block_type  = Blocks_Manager::get_instance()->create( $block );
+				$block_type  = Blocks_Manager::instance()->create( $block );
 				$field_label = '';
 				$field_val   = '';
 

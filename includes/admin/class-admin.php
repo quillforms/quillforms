@@ -28,18 +28,18 @@ class Admin {
 	private static $instance;
 
 	/**
-	 * QuillForms_Admin Instance.
+	 * Admin Instance.
 	 *
-	 * Instantiates or reuses an instance of QuillForms_Admin.
+	 * Instantiates or reuses an instance of Admin.
 	 *
 	 * @since 1.0.0
 	 * @static
 	 *
 	 * @see Admin()
 	 *
-	 * @return Admin - Single instance
+	 * @return self - Single instance
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}

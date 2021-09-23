@@ -24,7 +24,6 @@ class Form_Theme {
 	 */
 	private static $instance = null;
 
-
 	/**
 	 * Get schema
 	 * The schema term is pretty much like the schema in WordPress REST api.
@@ -118,9 +117,9 @@ class Form_Theme {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Form_Theme the main instance
+	 * @return self the main instance
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}

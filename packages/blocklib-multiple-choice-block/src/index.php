@@ -193,4 +193,4 @@ class Multiple_Choice_Block_Type extends Block_Type {
 	}
 }
 
-Blocks_Manager::get_instance()->register( new Multiple_Choice_Block_Type() );
+Blocks_Manager::instance()->register( new Multiple_Choice_Block_Type() );

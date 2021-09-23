@@ -175,4 +175,4 @@ class Website_Block_Type extends Block_Type {
 }
 
 
-Blocks_Manager::get_instance()->register( new Website_Block_Type() );
+Blocks_Manager::instance()->register( new Website_Block_Type() );

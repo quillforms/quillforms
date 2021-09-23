@@ -169,7 +169,7 @@ final class Blocks_Manager {
 	 *
 	 * @return Blocks_Manager the main instance
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}

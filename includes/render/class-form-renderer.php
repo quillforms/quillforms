@@ -57,7 +57,7 @@ class Form_Renderer {
 	 *
 	 * @return Form_Render the main instance
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -174,7 +174,7 @@ class Form_Renderer {
 
 			// Render styles for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type = Blocks_Manager::get_instance()->get_registered( $block['name'] );
+				$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['style'] ) ) {
 					$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
 				}
@@ -182,7 +182,7 @@ class Form_Renderer {
 
 			// Render scripts for used blocks only.
 			foreach ( $blocks as $block ) {
-				$block_type = Blocks_Manager::get_instance()->get_registered( $block['name'] );
+				$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['script'] ) ) {
 					$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
 				}
