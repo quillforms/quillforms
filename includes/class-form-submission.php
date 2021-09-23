@@ -112,13 +112,7 @@ class Form_Submission {
 			return;
 		}
 
-		$this->form_data = array(
-			'id'            => $form_id,
-			'title'         => get_the_title( $form_id ),
-			'blocks'        => Core::get_blocks( $form_id ),
-			'messages'      => Core::get_messages( $form_id ),
-			'notifications' => Core::get_notifications( $form_id ),
-		);
+		$this->form_data = Core::get_form_data( $form_id );
 
 		// sanitizing answers.
 		$answers = array();

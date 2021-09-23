@@ -9,7 +9,6 @@
 
 namespace QuillForms;
 
-use QuillForms\Managers\Addons_Manager;
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Models\Form_Theme_Model;
 use QuillForms\Site\License;
@@ -109,6 +108,25 @@ class Core {
 		);
 		register_post_type( 'quill_forms', $args );
 		flush_rewrite_rules();
+	}
+
+	/**
+	 * Get form data
+	 * Includes id, title, blocks, messages, & notifications
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param integer $form_id Form id.
+	 * @return array
+	 */
+	public static function get_form_data( $form_id ) {
+		return array(
+			'id'            => $form_id,
+			'title'         => get_the_title( $form_id ),
+			'blocks'        => Core::get_blocks( $form_id ),
+			'messages'      => Core::get_messages( $form_id ),
+			'notifications' => Core::get_notifications( $form_id ),
+		);
 	}
 
 	/**
