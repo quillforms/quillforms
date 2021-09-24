@@ -20,7 +20,6 @@ const DropdownLogicControl = ( {
 	removeCondition,
 } ) => {
 	const { choices } = attributes;
-	console.log( choices );
 
 	useEffect( () => {
 		if ( ! value ) {
