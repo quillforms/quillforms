@@ -172,6 +172,29 @@ class Website_Block_Type extends Block_Type {
 	public function sanitize_field( $value, $form_data ) {
 		return sanitize_url( $value );
 	}
+
+	/**
+	 * Get merge tag value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed  $value     The entry value.
+	 * @param array  $form_data The form data.
+	 * @param string $context   The context.
+	 *
+	 * @return mixed $value The merged entry value.
+	 */
+	public function get_merge_tag_value( $value, $form_data, $context = 'html' ) {
+		switch ( $context ) {
+			case 'html':
+				return '<a href="' . $value . '">' . $value . '</a>';
+			case 'spreadsheet':
+				return '=HYPERLINK("' . $value . '","' . $value . '")';
+			case 'raw':
+			default:
+				return $value;
+		}
+	}
 }
 
 
