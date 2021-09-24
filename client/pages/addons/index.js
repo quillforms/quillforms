@@ -23,7 +23,8 @@ import './style.scss';
 const Addons = () => {
 	const license = configApi.getLicense();
 	const [ addons, setAddons ] = useState( configApi.getStoreAddons() );
-	const [ apiAction, setApiAction ] = useState( null ); // { action: , addon:  }
+	const [ apiAction, setApiAction ] = useState( null );
+	const [ reloadRequired, setReloadRequired ] = useState( false );
 
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
@@ -34,6 +35,14 @@ const Addons = () => {
 			configApi.setStoreAddons( addons );
 		}
 	}, [ addons ] );
+
+	useEffect( () => {
+		return () => {
+			if ( reloadRequired ) {
+				window.location.reload();
+			}
+		};
+	}, [ reloadRequired ] );
 
 	const api = ( action, addon ) => {
 		// prevent doing 2 actions at the same time.
@@ -68,6 +77,9 @@ const Addons = () => {
 									},
 								};
 							} );
+							// reload the page on leaving addons page
+							// to allow the new addons to register their scripts.
+							setReloadRequired( true );
 							break;
 						case 'install':
 							setAddons( ( addons ) => {
