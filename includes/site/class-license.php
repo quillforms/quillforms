@@ -74,6 +74,28 @@ class License {
 	}
 
 	/**
+	 * Is feature plan accessible to user plan
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string $user_plan User plan.
+	 * @param string $feature_plan Feature plan.
+	 * @return boolean
+	 */
+	public static function is_plan_accessible( $user_plan, $feature_plan ) {
+		$plans = array( 'basic', 'pro' );
+
+		$user_plan_level    = array_search( $user_plan, $plans, true );
+		$feature_plan_level = array_search( $feature_plan, $plans, true );
+
+		if ( false === $user_plan_level || false === $feature_plan_level ) {
+			return false;
+		}
+
+		return $user_plan_level >= $feature_plan_level;
+	}
+
+	/**
 	 * Update license
 	 *
 	 * @return array
