@@ -8,6 +8,8 @@
 
 namespace QuillForms\Site;
 
+use QuillForms\QuillForms;
+
 /**
  * License Class
  *
@@ -40,6 +42,9 @@ class License {
 	 * @since 1.6.0
 	 */
 	private function __construct() {
+		add_action( 'quillforms_loaded', array( $this, 'license_update_task' ) );
+
+		// ajax.
 		add_action( 'wp_ajax_quillforms_license_activate', array( $this, 'ajax_activate' ) );
 		add_action( 'wp_ajax_quillforms_license_update', array( $this, 'ajax_update' ) );
 		add_action( 'wp_ajax_quillforms_license_deactivate', array( $this, 'ajax_deactivate' ) );
@@ -122,6 +127,73 @@ class License {
 		update_option( 'quillforms_license', $license );
 
 		return array( 'success' => true );
+	}
+
+	/**
+	 * Initialize and handle license update task.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @return void
+	 */
+	public function license_update_task() {
+		// schedule task.
+		add_action(
+			'init',
+			function() {
+				if ( QuillForms::instance()->tasks->get_next_timestamp( 'license_update' ) === false ) {
+					QuillForms::instance()->tasks->schedule_recurring(
+						time(),
+						DAY_IN_SECONDS,
+						'license_update'
+					);
+				}
+			}
+		);
+
+		// scheduled task callback.
+		QuillForms::instance()->tasks->register_callback(
+			'license_update',
+			array( $this, 'handle_license_update_task' )
+		);
+
+		// direct update in case of overdue.
+		$license = get_option( 'quillforms_license' );
+		if ( $license && strtotime( $license['last_check'] ) < time() - 5 * DAY_IN_SECONDS ) {
+			$this->handle_license_update_task( 'direct' );
+		}
+	}
+
+	/**
+	 * Handle license update task callback
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string $trigger Trigger.
+	 * @return void
+	 */
+	public function handle_license_update_task( $trigger = 'cron' ) {
+		if ( get_option( 'quillforms_license' ) !== false ) {
+			$result = $this->update_license();
+
+			if ( $result['success'] ) {
+				quillforms_get_logger()->debug(
+					esc_html__( 'License update task done', 'quillforms' ),
+					array(
+						'code'    => 'license_update_task_done',
+						'trigger' => $trigger,
+					)
+				);
+			} else {
+				quillforms_get_logger()->warning(
+					esc_html__( 'License update task failed', 'quillforms' ),
+					array(
+						'code'    => 'license_update_task_failed',
+						'trigger' => $trigger,
+					)
+				);
+			}
+		}
 	}
 
 	/**
