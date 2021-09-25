@@ -17,17 +17,29 @@ use QuillForms\Site\Site;
 
 /**
  * QuillForms Main Class.
- *
  * The main class that's responsible for loading all dependencies
+ *
+ * @since 1.0.0
+ *
+ * @property-read Tasks $tasks
  */
 final class QuillForms {
 
 	/**
+	 * Tasks
+	 *
+	 * @since 1.6.0
+	 *
+	 * @var Tasks
+	 */
+	private $tasks;
+
+	/**
 	 * Class Instance.
 	 *
-	 * @var QuillForms
-	 *
 	 * @since 1.0.0
+	 *
+	 * @var QuillForms
 	 */
 	private static $instance;
 
@@ -60,6 +72,26 @@ final class QuillForms {
 	}
 
 	/**
+	 * Get readonly property
+	 *
+	 * @param string $name Property name.
+	 * @return mixed
+	 */
+	public function __get( $name ) {
+		return $this->$name;
+	}
+
+	/**
+	 * Isset for readonly property
+	 *
+	 * @param string $name Property name.
+	 * @return boolean
+	 */
+	public function __isset( $name ) {
+		return isset( $this->$name );
+	}
+
+	/**
 	 * Dependencies Loader.
 	 *
 	 * @since 1.0.0
@@ -83,6 +115,8 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	private function init_objects() {
+		$this->tasks = new Tasks( 'quillforms' );
+
 		Admin_Loader::instance();
 		Install::init();
 		Merge_Tags::instance();
