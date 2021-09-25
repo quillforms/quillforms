@@ -56,7 +56,7 @@ class Tasks {
 		add_action(
 			'action_scheduler_deleted_action',
 			function( $action_id ) {
-				$this->delete_meta( array( 'action_id' => $action_id ) );
+				self::delete_meta( array( 'action_id' => $action_id ) );
 			}
 		);
 	}
@@ -216,7 +216,7 @@ class Tasks {
 	 * @param array $where Where.
 	 * @return boolean
 	 */
-	private function delete_meta( $where ) {
+	private static function delete_meta( $where ) {
 		global $wpdb;
 
 		return (bool) $wpdb->delete(
