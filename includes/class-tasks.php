@@ -62,6 +62,19 @@ class Tasks {
 	}
 
 	/**
+	 * Get the next timestamp for a scheduled action
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string     $hook Hook name.
+	 * @param array|null $args Args passed to hook.
+	 * @return integer|false False if not scheduled
+	 */
+	public function get_next_timestamp( $hook, $args = null ) {
+		return as_next_scheduled_action( "{$this->group}_$hook", $args, $this->group );
+	}
+
+	/**
 	 * Enqueue async task
 	 * Must be called after 'init' action
 	 *
@@ -78,6 +91,65 @@ class Tasks {
 
 		// add action.
 		$action_id = as_enqueue_async_action( "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
+		if ( ! $action_id ) {
+			return false;
+		}
+
+		// assign action to meta.
+		$this->update_meta( $meta_id, array( 'action_id' => $action_id ), '%d' );
+
+		return $action_id;
+	}
+
+	/**
+	 * Schedule recurring task
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param integer $timestamp Timestamp of run.
+	 * @param string  $hook Hook name.
+	 * @param array   ...$args Args passed to hook.
+	 * @return integer|false
+	 */
+	public function schedule_single( $timestamp, $hook, ...$args ) {
+		// add args meta.
+		$meta_id = $this->add_meta( "{$this->group}_$hook", $args );
+		if ( ! $meta_id ) {
+			return false;
+		}
+
+		// add action.
+		$action_id = as_schedule_single_action( $timestamp, "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
+		if ( ! $action_id ) {
+			return false;
+		}
+
+		// assign action to meta.
+		$this->update_meta( $meta_id, array( 'action_id' => $action_id ), '%d' );
+
+		return $action_id;
+	}
+
+	/**
+	 * Schedule recurring task
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param integer $timestamp Timestamp of first run.
+	 * @param integer $interval Interval in seconds.
+	 * @param string  $hook Hook name.
+	 * @param array   ...$args Args passed to hook.
+	 * @return integer|false
+	 */
+	public function schedule_recurring( $timestamp, $interval, $hook, ...$args ) {
+		// add args meta.
+		$meta_id = $this->add_meta( "{$this->group}_$hook", $args );
+		if ( ! $meta_id ) {
+			return false;
+		}
+
+		// add action.
+		$action_id = as_schedule_recurring_action( $timestamp, $interval, "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
 		if ( ! $action_id ) {
 			return false;
 		}
