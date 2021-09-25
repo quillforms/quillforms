@@ -45,7 +45,6 @@ final class QuillForms {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
-
 		return self::$instance;
 	}
 
@@ -54,10 +53,10 @@ final class QuillForms {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct() {
-		$this->init_hooks();
+	private function __construct() {
 		$this->load_dependencies();
-		$this->initialize_objects();
+		$this->init_objects();
+		$this->init_hooks();
 	}
 
 	/**
@@ -65,22 +64,16 @@ final class QuillForms {
 	 *
 	 * @since 1.0.0
 	 */
-	public function load_dependencies() {
-		/**
-		 * Functions.
-		 */
+	private function load_dependencies() {
+		// functions.
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/functions.php';
 
-		/**
-		 * Load all blocks.
-		 */
+		// blocks.
 		foreach ( glob( QUILLFORMS_PLUGIN_DIR . 'includes/blocks/**/*.php' ) as $block ) {
 			require_once $block;
 		}
 
-		/**
-		 * Client assets.
-		 */
+		// client assets.
 		require_once QUILLFORMS_PLUGIN_DIR . 'lib/client-assets.php';
 	}
 
@@ -89,7 +82,7 @@ final class QuillForms {
 	 *
 	 * @since 1.0.0
 	 */
-	public function initialize_objects() {
+	private function init_objects() {
 		Admin_Loader::instance();
 		Install::init();
 		Merge_Tags::instance();
@@ -101,11 +94,11 @@ final class QuillForms {
 	}
 
 	/**
-	 * Init hools
+	 * Initialize hooks
 	 *
 	 * @since 1.0.0
 	 */
-	public function init_hooks() {
+	private function init_hooks() {
 		add_filter( 'quillforms_register_log_handlers', array( $this, 'register_log_handlers' ) );
 		add_action( 'init', array( Capabilities::class, 'assign_capabilities_for_user_roles' ) );
 		add_action( 'init', array( Core::class, 'register_quillforms_post_type' ) );
