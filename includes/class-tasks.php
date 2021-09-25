@@ -148,16 +148,8 @@ class Tasks {
 			return false;
 		}
 
-		// add action.
-		$action_id = as_schedule_recurring_action( $timestamp, $interval, "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
-		if ( ! $action_id ) {
-			return false;
-		}
-
-		// assign action to meta.
-		$this->update_meta( $meta_id, array( 'action_id' => $action_id ), '%d' );
-
-		return $action_id;
+		// the action id isn't single, so we won't assign it to the meta.
+		return as_schedule_recurring_action( $timestamp, $interval, "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
 	}
 
 	/**
