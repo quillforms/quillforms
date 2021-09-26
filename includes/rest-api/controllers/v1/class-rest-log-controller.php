@@ -72,10 +72,15 @@ class REST_Log_Controller extends REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
+		// check export.
+		if ( $request->get_param( 'export' ) ) {
+			return $this->export_items( $request );
+		}
+
 		$per_page = $request->get_param( 'per_page' );
 		$page     = $request->get_param( 'page' );
 		$offset   = $per_page * ( $page - 1 );
-		$logs     = Log_Handler_DB::get( $offset, $per_page );
+		$logs     = Log_Handler_DB::get_all( $offset, $per_page );
 
 		$total_items = Log_Handler_DB::get_count();
 		$total_pages = ceil( $total_items / $per_page );
@@ -89,6 +94,62 @@ class REST_Log_Controller extends REST_Controller {
 		);
 
 		return new WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Export items
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 * @return void|WP_Error|WP_REST_Response
+	 */
+	private function export_items( $request ) {
+		$format = $request->get_param( 'export' );
+
+		$logs = Log_Handler_DB::get_all();
+		if ( empty( $logs ) ) {
+			return new WP_Error( 'quillforms_cannot_find_logs', esc_html__( 'Cannot find any logs', 'quillforms' ), array( 'status' => 404 ) );
+		}
+
+		$rows = array();
+
+		// header row.
+		$header_row = array_keys( $logs[0] );
+		$rows[]     = $header_row;
+
+		// logs rows.
+		foreach ( $logs as $log ) {
+			$log_row = array_values( $log );
+			$rows[]  = $log_row;
+		}
+
+		switch ( $format ) {
+			case 'json':
+				$this->export_json( $rows );
+				break;
+			default:
+				return new WP_Error( 'quillforms_unknown_logs_export_format', esc_html__( 'Unknown export format', 'quillforms' ), array( 'status' => 422 ) );
+		}
+	}
+
+	/**
+	 * Export rows as json file
+	 *
+	 * @param array $rows File rows.
+	 * @return void
+	 */
+	private function export_json( $rows ) {
+		$filename = esc_html__( 'Logs export', 'quillforms' ) . '.json';
+
+		if ( ini_get( 'display_errors' ) ) {
+			ini_set( 'display_errors', '0' );
+		}
+		nocache_headers();
+		header( 'X-Robots-Tag: noindex', true );
+		header( 'Content-Type: application/json' );
+		header( 'Content-Description: File Transfer' );
+		header( "Content-Disposition: attachment; filename=\"$filename\";" );
+		echo json_encode( $rows );
+		exit;
 	}
 
 	/**

@@ -38,6 +38,25 @@ const System = () => {
 		} );
 	}, [ page, perPage ] );
 
+	const logsExport = () => {
+		apiFetch( {
+			path: `/qf/v1/logs?export=json`,
+			method: 'GET',
+			parse: false,
+		} )
+			.then( ( res ) => res.blob() )
+			.then( ( blob ) => {
+				const url = window.URL.createObjectURL( blob );
+				const a = document.createElement( 'a' );
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'Logs_Export.json';
+				document.body.appendChild( a );
+				a.click();
+				window.URL.revokeObjectURL( url );
+			} );
+	};
+
 	const modalLog = modalLogId
 		? logs.find( ( log ) => log.log_id === modalLogId )
 		: null;
@@ -45,6 +64,19 @@ const System = () => {
 	return (
 		<div className="quillforms-logs-tab">
 			<div className="quillforms-logs-tab__body">
+				<div
+					className={ css`
+						display: flex;
+						margin-bottom: 5px;
+						button {
+							margin-left: auto;
+						}
+					` }
+				>
+					<Button isPrimary onClick={ logsExport }>
+						Export
+					</Button>
+				</div>
 				<div className="quillforms-logs-tab__body-logs">
 					{ logs === null ? (
 						'Loading'

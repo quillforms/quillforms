@@ -107,7 +107,7 @@ class Log_Handler_DB extends Log_Handler {
 	}
 
 	/**
-	 * Get logs
+	 * Get all logs
 	 *
 	 * @since 1.6.0
 	 *
@@ -115,7 +115,7 @@ class Log_Handler_DB extends Log_Handler {
 	 * @param integer $count Count.
 	 * @return array
 	 */
-	public static function get( $offset, $count ) {
+	public static function get_all( $offset = 0, $count = 10000000 ) {
 		global $wpdb;
 
 		$results = $wpdb->get_results(
@@ -131,11 +131,12 @@ class Log_Handler_DB extends Log_Handler {
 			ARRAY_A
 		);
 
-		foreach ( $results as $index => $result ) {
+		$prepared_results = array();
+		foreach ( $results as $result ) {
 			// level label.
-			$results[ $index ]['level'] = Log_Levels::get_severity_level( (int) $result['level'] );
+			$level = Log_Levels::get_severity_level( (int) $result['level'] );
 
-			// add source plugin.
+			// source plugin.
 			$plugin         = '';
 			$main_namespace = explode( '\\', $result['source'] )[0];
 			if ( 'QuillForms' === $main_namespace ) {
@@ -146,16 +147,26 @@ class Log_Handler_DB extends Log_Handler {
 					$plugin = $addon->name;
 				}
 			}
-			$results[ $index ]['plugin'] = $plugin;
 
 			// prepare context.
-			$results[ $index ]['context'] = maybe_unserialize( $result['context'] );
+			$context = maybe_unserialize( $result['context'] );
 
-			// add local datetime.
-			$results[ $index ]['local_datetime'] = get_date_from_gmt( $result['timestamp'] );
+			// local datetime.
+			$local_datetime = get_date_from_gmt( $result['timestamp'] );
+
+			$prepared_results[] = array(
+				'log_id'         => $result['log_id'],
+				'plugin'         => $plugin,
+				'level'          => $level,
+				'message'        => $result['message'],
+				'source'         => $result['source'],
+				'context'        => $context,
+				'datetime'       => $result['timestamp'],
+				'local_datetime' => $local_datetime,
+			);
 		}
 
-		return $results;
+		return $prepared_results;
 	}
 
 	/**
