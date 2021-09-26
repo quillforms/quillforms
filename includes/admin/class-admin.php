@@ -104,6 +104,9 @@ class Admin {
 		// Add license page as a submenu page.
 		add_submenu_page( 'quillforms', __( 'License', 'quillforms' ), __( 'License', 'quillforms' ), 'manage_quillforms', 'quillforms&path=license', array( Admin_Loader::class, 'page_wrapper' ) );
 
+		// Add system page as a submenu page.
+		add_submenu_page( 'quillforms', __( 'System', 'quillforms' ), __( 'System', 'quillforms' ), 'manage_quillforms', 'quillforms&path=system', array( Admin_Loader::class, 'page_wrapper' ) );
+
 		// Add support page as a submenu page.
 		add_submenu_page( 'quillforms', __( 'Support', 'quillforms' ), __( 'Support', 'quillforms' ), 'manage_quillforms', 'quillforms&path=support', array( Admin_Loader::class, 'page_wrapper' ) );
 	}

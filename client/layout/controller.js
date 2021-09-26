@@ -25,6 +25,7 @@ import Share from '../pages/share';
 import IntegrationsPage from '../pages/integrations';
 import Addons from '../pages/addons';
 import License from '../pages/license';
+import System from '../pages/system';
 import Support from '../pages/support';
 
 export const Controller = ( { page, match, location } ) => {
@@ -103,6 +104,11 @@ registerAdminPage( 'addons', {
 registerAdminPage( 'license', {
 	component: License,
 	path: 'license',
+} );
+
+registerAdminPage( 'system', {
+	component: System,
+	path: 'system',
 } );
 
 registerAdminPage( 'support', {

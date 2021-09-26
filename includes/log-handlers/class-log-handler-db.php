@@ -107,6 +107,69 @@ class Log_Handler_DB extends Log_Handler {
 	}
 
 	/**
+	 * Get logs
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param integer $offset Offset.
+	 * @param integer $count Count.
+	 * @return array
+	 */
+	public static function get( $offset, $count ) {
+		global $wpdb;
+
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				"
+					SELECT *
+					FROM {$wpdb->prefix}quillforms_log
+					ORDER BY log_id DESC
+					LIMIT %d, %d;
+				",
+				array( $offset, $count )
+			),
+			ARRAY_A
+		);
+
+		foreach ( $results as $index => $result ) {
+			// level label.
+			$results[ $index ]['level'] = Log_Levels::get_severity_level( (int) $result['level'] );
+
+			// add source plugin.
+			$plugin         = '';
+			$main_namespace = explode( '\\', $result['source'] )[0];
+			if ( 'QuillForms' === $main_namespace ) {
+				$plugin = esc_html__( 'Core', 'quillforms' );
+			} else {
+				$addon = Addons_Manager::instance()->get_registered_by_namespace( $main_namespace );
+				if ( $addon ) {
+					$plugin = $addon->name;
+				}
+			}
+			$results[ $index ]['plugin'] = $plugin;
+
+			// prepare context.
+			$results[ $index ]['context'] = maybe_unserialize( $result['context'] );
+
+			// add local datetime.
+			$results[ $index ]['local_datetime'] = get_date_from_gmt( $result['timestamp'] );
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Get logs count
+	 *
+	 * @return int
+	 */
+	public static function get_count() {
+		global $wpdb;
+
+		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}quillforms_log" );
+	}
+
+	/**
 	 * Clear all logs from the DB.
 	 *
 	 * @since 1.0.0
