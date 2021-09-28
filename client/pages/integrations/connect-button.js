@@ -17,11 +17,6 @@ const ConnectButton = ( { slug } ) => {
 				border-radius: 20px !important;
 			` }
 			isPrimary
-			onClick={ () => {
-				getHistory().push(
-					getNewPath( {}, `/forms/${ id }/integrations/${ slug }` )
-				);
-			} }
 		>
 			Connect
 		</Button>
