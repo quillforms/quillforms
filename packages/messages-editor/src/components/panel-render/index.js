@@ -26,9 +26,10 @@ const PanelRender = () => {
 
 	return (
 		<div className="messages-editor-panel-render">
-			{ Object.keys( messagesStructure ).map( ( messageKey ) => {
+			{ Object.keys( messagesStructure ).map( ( messageKey, index ) => {
 				return (
 					<MessageRow
+						index={ index }
 						messageToEdit={ messageToEdit }
 						setMessageToEdit={ setMessageToEdit }
 						key={ messageKey }

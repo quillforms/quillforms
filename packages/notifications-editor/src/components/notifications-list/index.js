@@ -88,9 +88,10 @@ const NotificationsList = ( {
 			</div>
 			<>
 				{ notifications?.length > 0 ? (
-					notifications.map( ( notification ) => {
+					notifications.map( ( notification, index ) => {
 						return (
 							<NotificationBox
+								index={ index }
 								onEdit={ () => {
 									setCurrentNotificationId( notification.id );
 									goNext();

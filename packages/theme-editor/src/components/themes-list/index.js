@@ -24,9 +24,10 @@ const ThemesList = () => {
 		<div className="theme-editor-themes-list">
 			<AddNewTheme />
 
-			{ themesList.map( ( theme ) => {
+			{ themesList.map( ( theme, index ) => {
 				return (
 					<ThemeCard
+						index={ index }
 						key={ theme.id }
 						isSelected={ theme.id === currentThemeId }
 					>

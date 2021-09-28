@@ -23,10 +23,11 @@ const BuilderPanelsBar = () => {
 	} );
 	return (
 		<div className="builder-core-builder-panels-bar">
-			{ sortBy( panels, [ 'position' ] ).map( ( panel ) => {
+			{ sortBy( panels, [ 'position' ] ).map( ( panel, index ) => {
 				const isSelected = panel.name === currentPanelName;
 				return (
 					<NavItem
+						index={ index }
 						key={ panel.name }
 						panelName={ panel.name }
 						isSelected={ isSelected }

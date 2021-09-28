@@ -1,4 +1,15 @@
 /**
+ * WordPress Dependencies
+ */
+import { useState, useEffect } from '@wordpress/element';
+
+/**
+ * External Dependencies
+ */
+import classnames from 'classnames';
+import { css } from 'emotion';
+
+/**
  * Internal Dependencies
  */
 import MessagePreview from '../message-preview';
@@ -8,6 +19,7 @@ import MessageControlLabel from '../control-label';
 import MessageEdit from '../message-edit';
 
 const MessageRow = ( {
+	index,
 	messageToEdit,
 	setMessageToEdit,
 	defaultValue,
@@ -18,10 +30,33 @@ const MessageRow = ( {
 	mergeTags,
 	allowedFormats,
 } ) => {
+	const [ isMounted, setIsMounted ] = useState( false );
+
+	useEffect( () => {
+		setTimeout( () => {
+			setIsMounted( true );
+		}, 50 );
+	}, [] );
 	const isSelected = messageToEdit === messageKey;
 	return (
 		<div
-			className="message-editor-message-row"
+			className={ classnames(
+				'message-editor-message-row',
+				css`
+					opacity: 0;
+					transform: scale( 0.6 );
+					transition: all 0.3s ease;
+					transition-delay: ${ index * 0.05 }s;
+
+					&.mounted {
+						opacity: 1;
+						transform: scale( 1 );
+					}
+				`,
+				{
+					mounted: isMounted,
+				}
+			) }
 			role="presentation"
 			onClick={ () => setMessageToEdit( messageKey ) }
 		>

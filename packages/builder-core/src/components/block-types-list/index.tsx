@@ -81,6 +81,7 @@ const BlockTypesList: FC = () => {
 													} }
 												>
 													<BlockTypesListItem
+														index={ index }
 														blockName={ blockName }
 														disabled={
 															isDragDisabled
@@ -94,11 +95,15 @@ const BlockTypesList: FC = () => {
 														) }
 													>
 														<BlockTypesListItem
+															index={ index }
 															blockName={
 																blockName
 															}
 															disabled={
 																isDragDisabled
+															}
+															disableAnimation={
+																true
 															}
 														/>
 													</div>
