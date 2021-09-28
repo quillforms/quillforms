@@ -1,6 +1,7 @@
 /**
  * QuillForms Dependencies
  */
+import { Button } from '@quillforms/admin-components';
 import { getIntegrationModules } from '@quillforms/form-integrations';
 import configApi from '@quillforms/config';
 
@@ -24,12 +25,13 @@ import { map, keys, size } from 'lodash';
 import './style.scss';
 import Icon from './icon';
 import SearchIcon from './search-icon';
-import ConnectButton from './connect-button';
+import IntegrationModal from './integration-modal';
 
 const IntegrationsPage = ( { params } ) => {
 	const { id } = params;
 
 	const [ isLoading, setIsLoading ] = useState( true );
+	const [ modal, setModal ] = useState( null );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
 	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
 
@@ -115,7 +117,16 @@ const IntegrationsPage = ( { params } ) => {
 								<div className="quillforms-integrations-page__integration-module-desc">
 									{ integrationsModules[ slug ].description }
 								</div>
-								<ConnectButton slug={ slug } />
+								<Button
+									className={ css`
+										margin-top: 15px;
+										border-radius: 20px !important;
+									` }
+									isPrimary
+									onClick={ () => setModal( slug ) }
+								>
+									Connect
+								</Button>
 							</div>
 						);
 					} )
@@ -136,6 +147,12 @@ const IntegrationsPage = ( { params } ) => {
 					</div>
 				) }
 			</div>
+			{ modal && (
+				<IntegrationModal
+					integration={ integrationsModules[ modal ] }
+					onClose={ () => setModal( null ) }
+				/>
+			) }
 		</div>
 	);
 };
