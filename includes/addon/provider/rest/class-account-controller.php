@@ -113,7 +113,7 @@ abstract class Account_Controller extends REST_Controller {
 				),
 				'name'        => array(
 					'type'     => 'string',
-					'required' => true,
+					'required' => false,
 				),
 				'credentials' => array(
 					'type'       => 'object',
@@ -212,16 +212,16 @@ abstract class Account_Controller extends REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function create_item( $request ) {
+		$account_info = $this->get_account_info( $request );
+		if ( is_wp_error( $account_info ) ) {
+			return $account_info;
+		}
+
+		$account_id   = $account_info['id'];
 		$account_data = array(
-			'name'        => $request['name'],
+			'name'        => $account_info['name'],
 			'credentials' => $request['credentials'],
 		);
-
-		// get real account id from the api, random id if there isn't.
-		$account_id = $this->get_account_id( $request['credentials'] );
-		if ( is_wp_error( $account_id ) ) {
-			return $account_id;
-		}
 
 		// if account already exists.
 		$account_exists = in_array( $account_id, array_keys( $this->provider->accounts->get_accounts() ), true );
@@ -245,12 +245,13 @@ abstract class Account_Controller extends REST_Controller {
 	}
 
 	/**
-	 * Get real account id from the api, or random id if there isn't.
+	 * Get account id & name
+	 * Can be real id and name(email), or random id & a nick name.
 	 *
-	 * @param array $credentials Credentials.
-	 * @return string|WP_Error
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return array|WP_Error array of id & name on success.
 	 */
-	abstract protected function get_account_id( $credentials );
+	abstract protected function get_account_info( $request );
 
 	/**
 	 * Checks if a given request has access to create items.
