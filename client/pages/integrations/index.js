@@ -106,9 +106,15 @@ const IntegrationsPage = ( { params } ) => {
 							>
 								<div className="quillforms-integrations-page__integration-module-header">
 									<div className="quillforms-integrations-page__integration-module-icon">
-										<IconComponent
-											icon={ icon?.src ? icon.src : icon }
-										/>
+										{ typeof icon === 'string' ? (
+											<img src={ icon } />
+										) : (
+											<IconComponent
+												icon={
+													icon?.src ? icon.src : icon
+												}
+											/>
+										) }
 									</div>
 									<div className="quillforms-integrations-page__integration-module-title">
 										{ integrationsModules[ slug ].title }
