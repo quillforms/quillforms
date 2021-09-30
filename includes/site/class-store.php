@@ -398,6 +398,9 @@ class Store {
 				'plugin_file'    => 'QuillForms-ConstantContact/quillforms-constantcontact.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/icon.svg',
+				),
 			),
 			'mailchimp'         => array(
 				'name'           => esc_html__( 'MailChimp Addon', 'quillforms' ),
@@ -405,6 +408,9 @@ class Store {
 				'plugin_file'    => 'QuillForms-MailChimp/quillforms-mailchimp.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/icon.svg',
+				),
 			),
 			'getresponse'       => array(
 				'name'           => esc_html__( 'GetResponse Addon', 'quillforms' ),
@@ -412,6 +418,9 @@ class Store {
 				'plugin_file'    => 'QuillForms-GetResponse/quillforms-getresponse.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/icon.svg',
+				),
 			),
 			'googlesheets'      => array(
 				'name'           => esc_html__( 'GoogleSheets Addon', 'quillforms' ),
@@ -419,6 +428,9 @@ class Store {
 				'plugin_file'    => 'QuillForms-GoogleSheets/quillforms-googlesheets.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/icon.svg',
+				),
 			),
 		);
 
