@@ -365,35 +365,35 @@ class Store {
 	private function define_addons() {
 		$addons = array(
 			'entries'           => array(
-				'name'           => esc_html__( 'Entries Addon', 'quillforms' ),
+				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Store, view, manage and export entries', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-Entries/quillforms-entries.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 			),
 			'logic'             => array(
-				'name'           => esc_html__( 'Logic Addon', 'quillforms' ),
+				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-Logic/quillforms-logic.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 			),
 			'fileblock'         => array(
-				'name'           => esc_html__( 'File Block Addon', 'quillforms' ),
+				'name'           => esc_html__( 'File Block', 'quillforms' ),
 				'description'    => esc_html__( 'Enable users to upload files', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-FileBlock/quillforms-fileblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 			),
 			'opinionscaleblock' => array(
-				'name'           => esc_html__( 'Opinion Scale Block Addon', 'quillforms' ),
+				'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
 				'description'    => esc_html__( 'Opinion Scale Block', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-OpinionScaleBlock/quillforms-opinionscaleblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 			),
 			'constantcontact'   => array(
-				'name'           => esc_html__( 'Constant Contact Addon', 'quillforms' ),
+				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-ConstantContact/quillforms-constantcontact.php',
 				'plan'           => 'basic',
@@ -403,7 +403,7 @@ class Store {
 				),
 			),
 			'mailchimp'         => array(
-				'name'           => esc_html__( 'MailChimp Addon', 'quillforms' ),
+				'name'           => esc_html__( 'MailChimp', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your MailChimp lists', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-MailChimp/quillforms-mailchimp.php',
 				'plan'           => 'basic',
@@ -413,7 +413,7 @@ class Store {
 				),
 			),
 			'getresponse'       => array(
-				'name'           => esc_html__( 'GetResponse Addon', 'quillforms' ),
+				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GetResponse lists', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-GetResponse/quillforms-getresponse.php',
 				'plan'           => 'basic',
@@ -423,7 +423,7 @@ class Store {
 				),
 			),
 			'googlesheets'      => array(
-				'name'           => esc_html__( 'GoogleSheets Addon', 'quillforms' ),
+				'name'           => esc_html__( 'GoogleSheets', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GoogleSheets lists', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-GoogleSheets/quillforms-googlesheets.php',
 				'plan'           => 'basic',
