@@ -8,7 +8,7 @@ import { Modal } from '@wordpress/components';
  */
 import { css } from 'emotion';
 
-const IntegrationModal = ( { integration, onClose } ) => {
+const IntegrationModal = ( { slug, integration, onClose } ) => {
 	return (
 		<Modal
 			title={ integration.title }
@@ -18,7 +18,7 @@ const IntegrationModal = ( { integration, onClose } ) => {
 				width: 900px;
 			` }
 		>
-			<integration.render />
+			<integration.render slug={ slug } />
 		</Modal>
 	);
 };

@@ -101,6 +101,9 @@ class Admin {
 		// Add addons page as a submenu page.
 		add_submenu_page( 'quillforms', __( 'Addons', 'quillforms' ), __( 'Addons', 'quillforms' ), 'manage_quillforms', 'quillforms&path=addons', array( Admin_Loader::class, 'page_wrapper' ) );
 
+		// Add settings page as a submenu page.
+		add_submenu_page( 'quillforms', __( 'Settings', 'quillforms' ), __( 'Settings', 'quillforms' ), 'manage_quillforms', 'quillforms&path=settings', array( Admin_Loader::class, 'page_wrapper' ) );
+
 		// Add license page as a submenu page.
 		add_submenu_page( 'quillforms', __( 'License', 'quillforms' ), __( 'License', 'quillforms' ), 'manage_quillforms', 'quillforms&path=license', array( Admin_Loader::class, 'page_wrapper' ) );
 

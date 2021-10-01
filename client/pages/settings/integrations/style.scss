@@ -1,0 +1,18 @@
+.quillforms-integrations-tab-addon {
+	margin-bottom: 20px;
+}
+.quillforms-integrations-tab-addon-header {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #ccc;
+
+	img,
+	svg {
+		width: 40px;
+		height: 40px;
+	}
+
+	h4 {
+		margin-left: 5px;
+	}
+}
