@@ -144,6 +144,7 @@ const WebsiteOutput = ( props ) => {
 					setFooterDisplay( true );
 				}
 			} }
+			autoComplete="off"
 		/>
 	);
 };

@@ -148,7 +148,6 @@ const DropdownDisplay = ( props ) => {
 	return (
 		<div ref={ wrapperRef } style={ { position: 'relative' } }>
 			<input
-				autoComplete="off"
 				ref={ inputRef }
 				className={ classnames(
 					css`
@@ -217,6 +216,7 @@ const DropdownDisplay = ( props ) => {
 						setFooterDisplay( true );
 					}
 				} }
+				autoComplete="off"
 			/>
 			{ val && val.length > 0 ? (
 				<CloseIcon

@@ -140,6 +140,7 @@ const NumberOutput = ( props ) => {
 					setFooterDisplay( true );
 				}
 			} }
+			autoComplete="off"
 		/>
 	);
 };
