@@ -26,7 +26,7 @@ const AdminNotices = () => {
 		<>
 			<SnackbarList
 				notices={ snackbarNotices }
-				className="builder-core-builder-notices__snackbar"
+				className="admin-components-admin-notices__snackbar"
 				onRemove={ removeNotice }
 			/>
 		</>

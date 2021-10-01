@@ -1,8 +1,9 @@
-.builder-core-builder-notices__snackbar {
+.admin-components-admin-notices__snackbar {
 	bottom: 10px;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translateX( -50% );
 	width: 100%;
+	z-index: z-index( '.components-snackbar-list' ) !important;
 	@include break-medium() {
 		width: fit-content;
 	}
@@ -23,8 +24,7 @@
 		}
 
 		&:focus {
-			box-shadow: none
+			box-shadow: none;
 		}
-
 	}
 }
