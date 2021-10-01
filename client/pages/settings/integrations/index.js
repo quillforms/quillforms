@@ -6,6 +6,7 @@ import { getIntegrationModules } from '@quillforms/form-integrations';
 /**
  * WordPress Dependencies
  */
+import { Panel, PanelBody } from '@wordpress/components';
 import { Icon as IconComponent } from '@wordpress/components';
 
 /**
@@ -18,14 +19,11 @@ const Integrations = () => {
 
 	return (
 		<div className="quillforms-integrations-tab">
-			{ Object.entries( integrationsModules ).map(
-				( [ slug, integration ] ) => {
-					const icon = integration.icon;
-					return (
-						<div
-							key={ slug }
-							className="quillforms-integrations-tab-addon"
-						>
+			<Panel>
+				{ Object.entries( integrationsModules ).map(
+					( [ slug, integration ] ) => {
+						const icon = integration.icon;
+						const header = (
 							<div className="quillforms-integrations-tab-addon-header">
 								{ typeof icon === 'string' ? (
 									<img src={ icon } />
@@ -34,15 +32,24 @@ const Integrations = () => {
 										icon={ icon?.src ? icon.src : icon }
 									/>
 								) }
-								<h4>{ integration.title }</h4>
+								<div>{ integration.title }</div>
 							</div>
-							<div className="quillforms-integrations-tab-addon-body">
-								<integration.settingsRender slug={ slug } />
-							</div>
-						</div>
-					);
-				}
-			) }
+						);
+						return (
+							<PanelBody
+								key={ slug }
+								title={ header }
+								initialOpen={ false }
+								className="quillforms-integrations-tab-addon"
+							>
+								<div className="quillforms-integrations-tab-addon-body">
+									<integration.settingsRender slug={ slug } />
+								</div>
+							</PanelBody>
+						);
+					}
+				) }
+			</Panel>
 		</div>
 	);
 };
