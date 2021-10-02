@@ -12,13 +12,14 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import './style.scss';
+import General from './general';
 import Integrations from './integrations';
 
 const Settings = () => {
 	const getTab = ( name ) => {
 		switch ( name ) {
 			case 'general':
-				return <div>General Tab</div>;
+				return <General />;
 			case 'integrations':
 				return <Integrations />;
 			default:
