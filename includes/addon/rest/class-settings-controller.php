@@ -100,6 +100,11 @@ abstract class Settings_Controller {
 					'permission_callback' => array( $this, 'update_permissions_check' ),
 					'args'                => rest_get_endpoint_args_for_schema( $this->get_schema(), WP_REST_Server::CREATABLE ),
 				),
+				array(
+					'methods'             => WP_REST_Server::DELETABLE,
+					'callback'            => array( $this, 'delete' ),
+					'permission_callback' => array( $this, 'delete_permissions_check' ),
+				),
 			)
 		);
 	}
@@ -181,6 +186,32 @@ abstract class Settings_Controller {
 	 * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
 	 */
 	public function update_permissions_check( $request ) {
+		$capability = 'manage_quillforms';
+		return current_user_can( $capability, $request );
+	}
+
+	/**
+	 * Delete settings.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
+	 */
+	public function delete( $request ) { // phpcs:ignore
+		$this->addon->settings->delete();
+		return new WP_REST_Response( array( 'success' => true ) );
+	}
+
+	/**
+	 * Checks if a given request has access to delete settings.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
+	 */
+	public function delete_permissions_check( $request ) {
 		$capability = 'manage_quillforms';
 		return current_user_can( $capability, $request );
 	}
