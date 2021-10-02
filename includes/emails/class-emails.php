@@ -11,6 +11,7 @@ namespace QuillForms\Emails;
 
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Merge_Tags;
+use QuillForms\Settings;
 
 /**
  * Emails.
@@ -572,7 +573,7 @@ class Emails {
 	public function get_template() {
 
 		if ( ! $this->template ) {
-			$this->template = quillforms_setting( 'email-template', 'default' );
+			$this->template = Settings::get( 'email-template', 'default' );
 		}
 
 		return apply_filters( 'quillforms_email_template', $this->template );

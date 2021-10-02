@@ -96,40 +96,6 @@ function quillforms_sanitize_text_deeply( $string, $keep_newlines = false ) {
 }
 
 /**
- * Sanitize key, primarily used for looking up options.
- *
- * @since 1.0.0
- *
- * @param string $key The key that should be sanitized.
- *
- * @return string
- */
-function quillforms_sanitize_key( $key = '' ) {
-	return preg_replace( '/[^a-zA-Z0-9_\-\.\:\/]/', '', $key );
-}
-
-/**
- * Get the value of a specific QuillForms setting.
- * Forked from WPForms.
- *
- * @since 1.0.0
- *
- * @param string $key     The key.
- * @param mixed  $default The default value.
- * @param string $option  The option.
- *
- * @return mixed
- */
-function quillforms_setting( $key, $default = false, $option = 'quillforms_settings' ) {
-
-	$key     = quillforms_sanitize_key( $key );
-	$options = get_option( $option, false );
-	$value   = is_array( $options ) && ! empty( $options[ $key ] ) ? wp_unslash( $options[ $key ] ) : $default;
-
-	return $value;
-}
-
-/**
  * Implode array without including blank values.
  *
  * @since 1.0.0
