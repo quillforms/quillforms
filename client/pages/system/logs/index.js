@@ -156,6 +156,7 @@ const Logs = () => {
 						pre {
 							background: #e6e6e6;
 							padding: 5px 7px;
+							white-space: pre-wrap;
 						}
 					` }
 				>
