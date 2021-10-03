@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform.
 
 == Description ==
-https://www.youtube.com/watch?v=LqWv-WD-S88
+https://www.youtube.com/watch?v=GjmLUTDIdFc
 
 Contact forms and surveys act as lead generation machines and bridge the gap between your audience and products.
 But are people motivated to answer all the questions when you ask them?
