@@ -68,6 +68,13 @@ export const setBlockAdminSettings = (
 		return;
 	}
 
+	if ( settings.entryDetails && ! isFunction( settings.entryDetails ) ) {
+		console.error(
+			'The "entryDetails" property must be a valid function!'
+		);
+		return;
+	}
+
 	if ( ! isFunction( settings.controls ) ) {
 		console.error( 'The "controls" property must be a valid function!' );
 		return;
@@ -81,6 +88,7 @@ export const setBlockAdminSettings = (
 	dispatch( 'quillForms/blocks' ).setBlockAdminSettings(
 		pick( settings, [
 			'controls',
+			'entryDetails',
 			'logicControl',
 			'color',
 			'icon',

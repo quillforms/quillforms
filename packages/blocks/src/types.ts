@@ -12,6 +12,12 @@ interface ControlsProps {
 	attributes: BlockAttributes | undefined;
 	setAttributes( T: Record< string, unknown > ): void;
 }
+
+interface EntryDetailsProps {
+	id: string;
+	attributes: BlockAttributes | undefined;
+	value: any;
+}
 export interface BlockAdminSettings {
 	title?: string;
 	color?: string;
@@ -19,6 +25,7 @@ export interface BlockAdminSettings {
 	controls?: React.ComponentType< ControlsProps >;
 	logicControl?: FC | Component | JSX.Element;
 	order?: number;
+	entryDetails?: React.ComponentType< EntryDetailsProps >;
 }
 
 export interface BlockRendererSettings {
