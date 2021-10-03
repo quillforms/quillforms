@@ -9,13 +9,15 @@
  * @subpackage Emails
  */
 
+use QuillForms\Settings;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$header_image     = quillforms_setting( 'email-header-image', false );
-$background_color = quillforms_setting( 'email-background-color', '#e9eaec' );
+$header_image     = Settings::get( 'email-header-image', false );
+$background_color = Settings::get( 'email-background-color', '#e9eaec' );
 $text_direction   = is_rtl() ? 'rtl' : 'ltr';
 ?>
 <!doctype html>

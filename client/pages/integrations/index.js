@@ -31,7 +31,7 @@ const IntegrationsPage = ( { params } ) => {
 	const { id } = params;
 
 	const [ isLoading, setIsLoading ] = useState( true );
-	const [ modal, setModal ] = useState( null );
+	const [ modalIntegration, setModalIntegration ] = useState( null );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
 	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
 
@@ -106,9 +106,15 @@ const IntegrationsPage = ( { params } ) => {
 							>
 								<div className="quillforms-integrations-page__integration-module-header">
 									<div className="quillforms-integrations-page__integration-module-icon">
-										<IconComponent
-											icon={ icon?.src ? icon.src : icon }
-										/>
+										{ typeof icon === 'string' ? (
+											<img src={ icon } />
+										) : (
+											<IconComponent
+												icon={
+													icon?.src ? icon.src : icon
+												}
+											/>
+										) }
 									</div>
 									<div className="quillforms-integrations-page__integration-module-title">
 										{ integrationsModules[ slug ].title }
@@ -123,7 +129,9 @@ const IntegrationsPage = ( { params } ) => {
 										border-radius: 20px !important;
 									` }
 									isPrimary
-									onClick={ () => setModal( slug ) }
+									onClick={ () =>
+										setModalIntegration( slug )
+									}
 								>
 									Connect
 								</Button>
@@ -147,10 +155,11 @@ const IntegrationsPage = ( { params } ) => {
 					</div>
 				) }
 			</div>
-			{ modal && (
+			{ modalIntegration && (
 				<IntegrationModal
-					integration={ integrationsModules[ modal ] }
-					onClose={ () => setModal( null ) }
+					slug={ modalIntegration }
+					integration={ integrationsModules[ modalIntegration ] }
+					onClose={ () => setModalIntegration( null ) }
 				/>
 			) }
 		</div>

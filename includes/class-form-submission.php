@@ -256,7 +256,7 @@ class Form_Submission {
 			$emails->reply_to        = $email['replyto'];
 
 			// Maybe include CC.
-			if ( ! empty( $notification['carboncopy'] ) && quillforms_setting( 'email-carbon-copy', false ) ) {
+			if ( ! empty( $notification['carboncopy'] ) && Settings::get( 'email-carbon-copy' ) ) {
 				$emails->cc = $notification['carboncopy'];
 			}
 

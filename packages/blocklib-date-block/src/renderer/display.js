@@ -195,6 +195,7 @@ const DateOutput = ( props ) => {
 					setFooterDisplay( true );
 				}
 			} }
+			autoComplete="off"
 		/>
 	);
 };

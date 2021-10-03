@@ -20,7 +20,7 @@ import { css } from 'emotion';
  */
 import './style.scss';
 
-const System = () => {
+const Logs = () => {
 	const [ page, setPage ] = useState( 1 );
 	const [ perPage, setPerPage ] = useState( 10 );
 	const [ totalPages, setTotalPages ] = useState( null );
@@ -156,6 +156,7 @@ const System = () => {
 						pre {
 							background: #e6e6e6;
 							padding: 5px 7px;
+							white-space: pre-wrap;
 						}
 					` }
 				>
@@ -167,4 +168,4 @@ const System = () => {
 	);
 };
 
-export default System;
+export default Logs;

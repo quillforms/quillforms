@@ -24,6 +24,7 @@ import Builder from '../pages/builder';
 import Share from '../pages/share';
 import IntegrationsPage from '../pages/integrations';
 import Addons from '../pages/addons';
+import Settings from '../pages/settings';
 import License from '../pages/license';
 import System from '../pages/system';
 import Support from '../pages/support';
@@ -99,6 +100,11 @@ registerAdminPage( 'integrations', {
 registerAdminPage( 'addons', {
 	component: Addons,
 	path: 'addons',
+} );
+
+registerAdminPage( 'settings', {
+	component: Settings,
+	path: 'settings',
 } );
 
 registerAdminPage( 'license', {

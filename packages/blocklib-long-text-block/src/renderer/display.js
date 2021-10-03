@@ -167,6 +167,7 @@ const LongTextOutput = ( props ) => {
 						setFooterDisplay( true );
 					}
 				} }
+				autoComplete="off"
 			/>
 			{ ! isTouchScreen && (
 				<div

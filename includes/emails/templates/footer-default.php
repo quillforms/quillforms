@@ -9,12 +9,14 @@
  * @subpackage Emails
  */
 
+use QuillForms\Settings;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$background_color = quillforms_setting( 'email-background-color', '#e9eaec' );
+$background_color = Settings::get( 'email-background-color', '#e9eaec' );
 ?>
 															</td>
 														</tr>

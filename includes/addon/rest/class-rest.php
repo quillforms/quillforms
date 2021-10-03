@@ -52,25 +52,6 @@ abstract class REST {
 		if ( ! empty( static::$classes['form_data_controller'] ) ) {
 			new static::$classes['form_data_controller']( $this->addon );
 		}
-		// add_filter( 'rest_prepare_quill_forms', array( $this, 'add_form_data' ), 10, 3 ); // uncomment at subclass if needed.
-	}
-
-	/**
-	 * Add addon form data to quill_forms post type
-	 *
-	 * @param WP_REST_Response $response The response object.
-	 * @param WP_Post          $post     Post object.
-	 * @param WP_REST_Request  $request  Request object.
-	 * @return WP_REST_Response
-	 */
-	public function add_form_data( $response, $post, $request ) { // phpcs:ignore
-		$data = $response->get_data();
-		if ( ! isset( $data['addons'] ) ) {
-			$data['addons'] = array();
-		}
-		$data['addons'][ $this->addon->slug ] = $this->addon->form_data->get_filtered( $post->ID );
-		$response->set_data( $data );
-		return $response;
 	}
 
 }

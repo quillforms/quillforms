@@ -46,11 +46,13 @@ export const registerIntegrationModule = (
 		return;
 	}
 
-	settings.icon = normalizeIconObject( settings.icon );
+	if ( typeof settings.icon !== 'string' ) {
+		settings.icon = normalizeIconObject( settings.icon );
 
-	if ( ! isValidIcon( settings.icon.src ) ) {
-		console.error( 'The "icon" property must be a valid function!' );
-		return;
+		if ( ! isValidIcon( settings.icon.src ) ) {
+			console.error( 'The "icon" property must be a valid function!' );
+			return;
+		}
 	}
 
 	if ( ! settings.render ) {
