@@ -8,6 +8,7 @@
 
 use QuillForms\Interfaces\Logger_Interface;
 use QuillForms\Logger;
+use QuillForms\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -198,7 +199,8 @@ function quillforms_get_logger() {
 	$implements = class_implements( $class );
 
 	if ( is_array( $implements ) && in_array( Logger_Interface::class, $implements, true ) ) {
-		$logger = is_object( $class ) ? $class : new $class();
+		$threshold = Settings::get( 'log_debug' ) ? 'debug' : 'info';
+		$logger    = is_object( $class ) ? $class : new $class( null, $threshold );
 	} else {
 		_doing_it_wrong(
 			__FUNCTION__,
