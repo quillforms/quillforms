@@ -14,6 +14,7 @@ use QuillForms\Log_Handlers\Log_Handler_DB;
 use QuillForms\Render\Form_Renderer;
 use QuillForms\REST_API\REST_API;
 use QuillForms\Site\Site;
+use QuillForms\System_Status\System_Status;
 
 /**
  * QuillForms Main Class.
@@ -125,6 +126,7 @@ final class QuillForms {
 		Admin::instance();
 		REST_API::instance();
 		Site::instance();
+		System_Status::instance();
 	}
 
 	/**
