@@ -79,7 +79,7 @@ final class Addons_Manager {
 	/**
 	 * Get all registered
 	 *
-	 * @return array associative array of `$addon_slug => $addon` pairs
+	 * @return Addon[] associative array of `$addon_slug => $addon` pairs
 	 */
 	public function get_all_registered() {
 		return $this->registered;
