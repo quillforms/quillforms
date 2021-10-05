@@ -6,6 +6,7 @@ import { Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
+import { Modal } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 
@@ -22,7 +23,11 @@ import './style.scss';
 
 const Status = () => {
 	const [ report, setReport ] = useState( null );
-	const { createErrorNotice } = useDispatch( 'core/notices' );
+	const [ reportTime, setReportTime ] = useState( null );
+	const [ copyText, setCopyText ] = useState( null );
+	const { createSuccessNotice, createErrorNotice } = useDispatch(
+		'core/notices'
+	);
 
 	useEffect( () => {
 		const formdata = new FormData();
@@ -37,6 +42,7 @@ const Status = () => {
 			.then( ( res ) => {
 				if ( res.success ) {
 					setReport( res.data );
+					setReportTime( new Date().toUTCString() );
 				} else {
 					createErrorNotice( `⛔ ${ res.data ?? 'Error' }`, {
 						type: 'snackbar',
@@ -53,6 +59,25 @@ const Status = () => {
 				setReport( false );
 			} );
 	}, [] );
+
+	const copyReport = () => {
+		if ( ! report ) return;
+		let reportText = '';
+		for ( const env of report ) {
+			reportText += `### ${ env.label_raw } ###\r\n\r\n`;
+			for ( const table of env.items ) {
+				reportText += `--- ${ table.label_raw }\r\n`;
+				for ( const row of table.items ) {
+					reportText += `${ row.label_raw ?? row.label }: ${
+						row.value_raw ?? row.value
+					}\r\n`;
+				}
+				reportText += `\r\n`;
+			}
+		}
+		reportText += `### Fetched at: ${ reportTime } ###\r\n`;
+		setCopyText( reportText );
+	};
 
 	const tables = report ? (
 		<div>
@@ -126,9 +151,58 @@ const Status = () => {
 				) : ! report ? (
 					<div className="error">Error on loading system report</div>
 				) : (
-					<div>{ tables }</div>
+					<div>
+						<div
+							className={ css`
+								display: flex;
+								margin-bottom: 5px;
+								button {
+									margin-left: auto;
+								}
+							` }
+						>
+							<Button isPrimary onClick={ copyReport }>
+								Copy System Status Report
+							</Button>
+						</div>
+						{ tables }
+					</div>
 				) }
 			</div>
+			{ copyText && (
+				<Modal
+					title="System Status Report"
+					focusOnMount={ true }
+					onRequestClose={ () => setCopyText( null ) }
+					className={ css`
+						border: none !important;
+						border-radius: 9px;
+						width: 600px;
+
+						textarea {
+							width: 100%;
+							height: calc( 100vh - 210px );
+							background: #e6e6e6;
+							padding: 5px 7px;
+							white-space: pre-wrap;
+						}
+					` }
+				>
+					<textarea readOnly={ true } value={ copyText } />
+					<Button
+						isPrimary
+						onClick={ () => {
+							navigator.clipboard.writeText( copyText );
+							createSuccessNotice( '✅ Report Copied!', {
+								type: 'snackbar',
+								isDismissible: true,
+							} );
+						} }
+					>
+						Copy
+					</Button>
+				</Modal>
+			) }
 		</div>
 	);
 };
