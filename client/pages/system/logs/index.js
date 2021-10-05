@@ -14,6 +14,7 @@ import apiFetch from '@wordpress/api-fetch';
  * External Dependencies
  */
 import { css } from 'emotion';
+import Loader from 'react-loader-spinner';
 
 /**
  * Internal Dependencies
@@ -32,10 +33,14 @@ const Logs = () => {
 		apiFetch( {
 			path: `/qf/v1/logs?page=${ page }&per_page=${ perPage }`,
 			method: 'GET',
-		} ).then( ( res ) => {
-			setLogs( res.items );
-			setTotalPages( res.total_pages );
-		} );
+		} )
+			.then( ( res ) => {
+				setLogs( res.items );
+				setTotalPages( res.total_pages );
+			} )
+			.catch( () => {
+				setLogs( false );
+			} );
 	}, [ page, perPage ] );
 
 	const logsExport = () => {
@@ -79,7 +84,25 @@ const Logs = () => {
 				</div>
 				<div className="quillforms-logs-tab__body-logs">
 					{ logs === null ? (
-						'Loading'
+						<div
+							className={ css`
+								display: flex;
+								flex-wrap: wrap;
+								width: 100%;
+								height: 100px;
+								justify-content: center;
+								align-items: center;
+							` }
+						>
+							<Loader
+								type="ThreeDots"
+								color="#8640e3"
+								height={ 50 }
+								width={ 50 }
+							/>
+						</div>
+					) : ! logs ? (
+						<div className="error">Cannot fetch logs</div>
 					) : (
 						<table>
 							<thead>
