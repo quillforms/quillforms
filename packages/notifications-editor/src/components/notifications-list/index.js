@@ -31,6 +31,7 @@ const NotificationsList = ( {
 	isAnimating,
 } ) => {
 	const [ displayProModal, setDisplayProModal ] = useState( false );
+	const license = ConfigAPI.getLicense();
 	const { notifications } = useSelect( ( select ) => {
 		return {
 			notifications: select(
@@ -64,8 +65,7 @@ const NotificationsList = ( {
 					onClick={ () => {
 						if (
 							notifications.length > 0 &&
-							( ! ConfigAPI.getLicenseKey() ||
-								! ConfigAPI.isLicenseValid() )
+							! license?.status === 'valid'
 						) {
 							setDisplayProModal( true );
 						} else {
