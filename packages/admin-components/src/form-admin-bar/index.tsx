@@ -47,6 +47,21 @@ const FormAdminBar = ( { formId } ) => {
 							isActive={ ( _match, location ): boolean | void => {
 								if (
 									location.pathname.startsWith(
+										`/forms/${ formId }/results`
+									)
+								) {
+									return true;
+								}
+							} }
+							activeClassName="selected"
+							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/integrations` }
+						>
+							Integrations
+						</NavLink>
+						<NavLink
+							isActive={ ( _match, location ): boolean | void => {
+								if (
+									location.pathname.startsWith(
 										`/forms/${ formId }/integrations`
 									)
 								) {
