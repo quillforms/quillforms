@@ -12,13 +12,14 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import './style.scss';
+import Status from './status';
 import Logs from './logs';
 
 const System = () => {
 	const getTab = ( name ) => {
 		switch ( name ) {
 			case 'status':
-				return <div>Status Tab</div>;
+				return <Status />;
 			case 'logs':
 				return <Logs />;
 			default:
