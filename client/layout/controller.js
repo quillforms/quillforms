@@ -76,6 +76,13 @@ registerAdminPage( 'builder', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+	connectedStores: [
+		'quillForms/block-editor',
+		'quillForms/messages-editor',
+		'quillForms/notifications-editor',
+		'quillForms/theme-editor',
+		'quillForms/document-editor',
+	],
 } );
 
 registerAdminPage( 'share', {

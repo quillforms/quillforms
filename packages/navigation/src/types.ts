@@ -5,5 +5,6 @@ export type PageSettings = {
 	component: React.FC | JSX.Element | React.Component;
 	template: 'default' | 'full-screen';
 	header: React.FC | JSX.Element | React.Component;
+	connectedStores: string[];
 };
 export type Pages = Record< string, PageSettings >;

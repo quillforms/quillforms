@@ -4,12 +4,31 @@
 import { isFunction, some } from 'lodash';
 
 /**
+ * WordPress Dependencies
+ */
+import { applyFilters } from '@wordpress/hooks';
+
+/**
  * Internal Dependencies
  */
 import { Pages, PageSettings } from '../types';
 
 const adminPages: Pages = {};
 export const registerAdminPage = ( id: string, settings: PageSettings ) => {
+	if ( settings.exact === undefined ) {
+		settings.exact = true;
+	}
+
+	if ( settings.connectedStores === undefined ) {
+		settings.connectedStores = [];
+	}
+
+	settings = applyFilters(
+		'QuillForms.Navigation.PageSettings',
+		settings,
+		id
+	) as PageSettings;
+
 	if ( adminPages[ id ] ) {
 		console.error( 'This page id is already registered' );
 		return;
@@ -33,10 +52,6 @@ export const registerAdminPage = ( id: string, settings: PageSettings ) => {
 	) {
 		console.error( 'This path is already registered!' );
 		return;
-	}
-
-	if ( settings.exact === undefined ) {
-		settings.exact = true;
 	}
 
 	if ( typeof settings.exact !== 'boolean' ) {
@@ -67,6 +82,11 @@ export const registerAdminPage = ( id: string, settings: PageSettings ) => {
 
 	if ( settings.header && ! isFunction( settings.header ) ) {
 		console.error( 'The "header" property must be a valid function!' );
+		return;
+	}
+
+	if ( ! Array.isArray( settings.connectedStores ) ) {
+		console.error( 'The "connectedStores" property must be an array!' );
 		return;
 	}
 

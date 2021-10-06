@@ -16,6 +16,12 @@ import { SlotFillProvider } from '@wordpress/components';
 import { useEffect, useMemo } from '@wordpress/element';
 import { PluginArea } from '@wordpress/plugins';
 import { useSelect, useDispatch } from '@wordpress/data';
+
+/**
+ * External dependencies
+ */
+import { forEach, uniq } from 'lodash';
+
 /**
  * Internal dependencies
  */
@@ -32,13 +38,37 @@ export const Layout = ( props ) => {
 			notices: select( 'core/notices' ).getNotices(),
 		};
 	} );
+	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
 	const { removeNotice } = useDispatch( 'core/notices' );
+
+	const invalidateResolutionConnectedStores = () => {
+		// TODO: Remove console log.
+		console.log(
+			'Invalidating connected stores',
+			props.page.connectedStores
+		);
+		// Invalidate resolution for all connected stores.
+		forEach( uniq( props.page.connectedStores ), ( store ) => {
+			if (
+				store &&
+				wp.data.RegistryConsumer._currentValue.stores[ store ]
+			) {
+				invalidateResolutionForStore( store );
+			}
+		} );
+	};
+
 	// Remove all notices on any page mount
 	useEffect( () => {
 		notices.forEach( ( notice ) => {
 			removeNotice( notice.id );
 		} );
+
+		return () => {
+			invalidateResolutionConnectedStores();
+		};
 	}, [] );
+
 	return (
 		<SlotFillProvider>
 			{ pluginsArea }
