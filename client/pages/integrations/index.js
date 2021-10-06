@@ -33,23 +33,8 @@ const IntegrationsPage = ( { params } ) => {
 	const [ isLoading, setIsLoading ] = useState( true );
 	const [ modalIntegration, setModalIntegration ] = useState( null );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
-	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
 
 	const integrationsModules = getIntegrationModules();
-
-	const invalidateResolutionForAllConnectedStores = () => {
-		// Invalidate resolution for all connected stores.
-		for ( const integration of Object.values( integrationsModules ) ) {
-			for ( const store of integration.connectedStores ) {
-				if (
-					store &&
-					wp.data.RegistryConsumer._currentValue.stores[ store ]
-				) {
-					invalidateResolutionForStore( store );
-				}
-			}
-		}
-	};
 
 	useEffect( () => {
 		apiFetch( {
@@ -59,10 +44,6 @@ const IntegrationsPage = ( { params } ) => {
 			configApi.setInitialPayload( res );
 			setIsLoading( false );
 		} );
-
-		return () => {
-			setTimeout( invalidateResolutionForAllConnectedStores );
-		};
 	}, [] );
 
 	if ( isLoading ) {

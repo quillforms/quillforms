@@ -18,7 +18,6 @@ for ( const [ slug, addon ] of Object.entries( ConfigAPI.getStoreAddons() ) ) {
 			icon: addon.assets.icon,
 			render: Render,
 			settingsRender: SettingsRender,
-			connectedStores: [],
 		} );
 	}
 }

@@ -7,7 +7,6 @@ export type IntegrationModuleSettings = {
 		| React.FC< { slug: string } >
 		| JSX.Element
 		| React.Component;
-	connectedStores: string[];
 	icon: string | IconRenderer;
 	title: string;
 	description: string;
