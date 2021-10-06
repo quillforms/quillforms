@@ -1,6 +1,6 @@
 <?php
 /**
- * Class: QuillForms
+ * Class: QuillForms_Environment
  *
  * @since 1.6.0
  * @package QuillForms
@@ -15,7 +15,7 @@ use QuillForms\Managers\Addons_Manager;
 use QuillForms\Settings;
 
 /**
- * QuillForms Class
+ * QuillForms_Environment Class
  *
  * @since 1.6.0
  */

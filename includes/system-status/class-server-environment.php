@@ -1,6 +1,6 @@
 <?php
 /**
- * Class: Server
+ * Class: QuillForms_Environment
  *
  * @since 1.6.0
  * @package QuillForms
@@ -9,7 +9,7 @@
 namespace QuillForms\System_Status;
 
 /**
- * Server Class
+ * QuillForms_Environment Class
  *
  * @since 1.6.0
  */
