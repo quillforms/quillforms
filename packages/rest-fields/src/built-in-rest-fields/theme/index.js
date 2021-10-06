@@ -14,5 +14,4 @@ registerRestField( 'theme', {
 			select( 'quillForms/theme-editor' ).getCurrentThemeId()
 		);
 	},
-	connectedStores: [ 'quillForms/theme-editor' ],
 } );

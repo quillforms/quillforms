@@ -12,5 +12,4 @@ registerRestField( 'messages', {
 	selectValue: () => {
 		return select( 'quillForms/messages-editor' ).getMessages();
 	},
-	connectedStores: [ 'quillForms/messages-editor' ],
 } );

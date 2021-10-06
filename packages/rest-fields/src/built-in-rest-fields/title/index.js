@@ -12,5 +12,4 @@ registerRestField( 'title', {
 	selectValue: () => {
 		return select( 'quillForms/document-editor' ).getPostTitle();
 	},
-	connectedStores: [ 'quillForms/document-editor' ],
 } );

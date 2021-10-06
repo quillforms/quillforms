@@ -29,10 +29,7 @@ const Builder = ( { params } ) => {
 
 	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
 	const { resetAnswers } = useDispatch( 'quillForms/renderer-core' );
-	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
-	const connectedStores = flatten(
-		map( getRestFields(), ( restField ) => restField.connectedStores )
-	);
+
 	const [ isResolving, setIsResolving ] = useState( true );
 	const [ isLoading, setIsLoading ] = useState( true );
 	const [ unknownBlocks, setUnknownBlocks ] = useState( undefined );
@@ -51,17 +48,7 @@ const Builder = ( { params } ) => {
 			};
 		}
 	);
-	const invalidateResolutionForAllConnectedStores = () => {
-		// Invalidate resolution for all connected stores.
-		forEach( uniq( connectedStores ), ( store ) => {
-			if (
-				store &&
-				wp.data.RegistryConsumer._currentValue.stores[ store ]
-			) {
-				invalidateResolutionForStore( store );
-			}
-		} );
-	};
+
 	useEffect( () => {
 		apiFetch( {
 			path: `/wp/v2/quill_forms/${ id }`,
@@ -82,12 +69,10 @@ const Builder = ( { params } ) => {
 				}
 			}
 			configApi.setInitialPayload( res );
-			invalidateResolutionForAllConnectedStores();
 		} );
 
 		return () => {
 			setCurrentPanel( 'blocks' );
-			invalidateResolutionForAllConnectedStores();
 			resetAnswers();
 		};
 	}, [] );
@@ -97,6 +82,7 @@ const Builder = ( { params } ) => {
 			setIsResolving( false );
 		}
 	}, [ isLoading, hasBlockEditorFinishedResolution ] );
+
 	return (
 		<div id="quillforms-builder-page">
 			{ isResolving ? (

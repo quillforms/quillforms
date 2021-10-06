@@ -17,19 +17,6 @@ type RestFieldSettings = {
 	 * This function is expected to select the value from custom wp/data store related to this field.
 	 */
 	selectValue: () => unknown;
-
-	/**
-	 * Connected stores.
-	 * We decided to build the admin with Single Page Application concept but there are various problems we faced.
-	 * One of which is in builder. Builder depends on wp data stores and the challenge was how to force
-	 * the (wp-data) stores to refresh their resolvers and re-calculate their resolved values within this SPA.
-	 * That's why this param is here. You specify with your rest field the connected stores to it and all of
-	 * the connected stores are gathered to have their resolution cache to be invalidated so it is like hard refresh for resolvers.
-	 * However, it isn't necessray to pass this param.
-	 *
-	 * @see https://developer.wordpress.org/block-editor/packages/packages-data/#resolvers
-	 */
-	connectedStores?: string[];
 };
 /**
  * Defined behavior of a rest field.

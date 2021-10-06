@@ -12,5 +12,4 @@ registerRestField( 'notifications', {
 	selectValue: () => {
 		return select( 'quillForms/notifications-editor' ).getNotifications();
 	},
-	connectedStores: [ 'quillForms/notifications-editor' ],
 } );

@@ -12,5 +12,4 @@ registerRestField( 'blocks', {
 	selectValue: () => {
 		return select( 'quillForms/block-editor' ).getBlocks();
 	},
-	connectedStores: [ 'quillForms/block-editor' ],
 } );
