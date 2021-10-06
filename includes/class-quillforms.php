@@ -126,7 +126,6 @@ final class QuillForms {
 		Admin::instance();
 		REST_API::instance();
 		Site::instance();
-		System_Status::instance();
 	}
 
 	/**

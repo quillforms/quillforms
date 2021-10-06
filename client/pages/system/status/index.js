@@ -9,6 +9,7 @@ import { Button } from '@quillforms/admin-components';
 import { Modal } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * External Dependencies
@@ -30,33 +31,19 @@ const Status = () => {
 	);
 
 	useEffect( () => {
-		const formdata = new FormData();
-		formdata.append( 'action', 'quillforms_get_system_status_report' );
-
-		fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
-			method: 'POST',
-			credentials: 'same-origin',
-			body: formdata,
+		apiFetch( {
+			path: `/qf/v1/system-status`,
+			method: 'GET',
 		} )
-			.then( ( res ) => res.json() )
 			.then( ( res ) => {
-				if ( res.success ) {
-					setReport( res.data );
-					setReportTime( new Date().toUTCString() );
-				} else {
-					createErrorNotice( `⛔ ${ res.data ?? 'Error' }`, {
-						type: 'snackbar',
-						isDismissible: true,
-					} );
-					setReport( false );
-				}
+				setReport( res );
+				setReportTime( new Date().toUTCString() );
 			} )
 			.catch( ( err ) => {
-				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
+				createErrorNotice( `⛔ ${ err?.message ?? 'Error' }`, {
 					type: 'snackbar',
 					isDismissible: true,
 				} );
-				setReport( false );
 			} );
 	}, [] );
 
