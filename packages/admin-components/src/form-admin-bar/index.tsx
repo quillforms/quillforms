@@ -7,6 +7,8 @@ import { NavLink, withRouter } from '@quillforms/navigation';
  * WordPress Dependencies
  */
 import { useState } from '@wordpress/element';
+import { Icon } from '@wordpress/components';
+import { arrowLeft } from '@wordpress/icons';
 
 /**
  * Internal Dependencies
@@ -22,6 +24,12 @@ const FormAdminBar = ( { formId } ) => {
 			<div className="admin-components-form-admin-bar__logo">
 				<Logo />
 			</div>
+			<NavLink
+				className="admin-components-form-admin-bar__home-link"
+				to={ `/admin.php?page=quillforms` }
+			>
+				<Icon icon={ arrowLeft } /> Back to Quill Forms home page
+			</NavLink>
 			{ /** @ts-expect-error */ }
 			<FormAdminNav.Slot>
 				{ ( fills ) => (
@@ -54,9 +62,9 @@ const FormAdminBar = ( { formId } ) => {
 								}
 							} }
 							activeClassName="selected"
-							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/integrations` }
+							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/results` }
 						>
-							Integrations
+							Results
 						</NavLink>
 						<NavLink
 							isActive={ ( _match, location ): boolean | void => {

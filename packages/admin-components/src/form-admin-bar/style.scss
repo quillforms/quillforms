@@ -23,6 +23,20 @@
 		}
 	}
 
+	.admin-components-form-admin-bar__home-link {
+		display: flex;
+		flex-wrap: wrap;
+		position: absolute;
+		left: 55px;
+		align-items: center;
+		text-decoration: none;
+		text-transform: capitalize;
+		color: #333;
+
+		svg {
+			margin-right: 5px;
+		}
+	}
 
 	.admin-components-form-admin-bar__logo {
 		position: absolute;
