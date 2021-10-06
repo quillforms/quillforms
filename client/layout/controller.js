@@ -67,6 +67,7 @@ registerAdminPage( 'home', {
 	component: Home,
 	path: '/',
 } );
+
 registerAdminPage( 'builder', {
 	component: Builder,
 	path: '/forms/:id/builder/',
@@ -76,6 +77,7 @@ registerAdminPage( 'builder', {
 		return <FormAdminBar formId={ params.id } />;
 	},
 } );
+
 registerAdminPage( 'share', {
 	component: Share,
 	path: '/forms/:id/share',
@@ -89,7 +91,6 @@ registerAdminPage( 'share', {
 registerAdminPage( 'integrations', {
 	component: IntegrationsPage,
 	path: '/forms/:id/integrations',
-	exact: false,
 	template: 'full-screen',
 	header: ( { match } ) => {
 		const { params } = match;
