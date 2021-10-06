@@ -8,6 +8,7 @@ const EntryDetails = ( { id, attributes, value } ) => {
 				display: flex;
 				flex-wrap: wrap;
 				flex-direction: column;
+				align-items: flex-start;
 			` }
 		>
 			{ value.map( ( x, index ) => {
