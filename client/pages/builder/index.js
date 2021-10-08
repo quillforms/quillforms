@@ -2,19 +2,18 @@
  * QuillForms Dependencies
  */
 import { BuilderLayout } from '@quillforms/builder-core';
-import { getRestFields } from '@quillforms/rest-fields';
 import configApi from '@quillforms/config';
+
 /**
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
 
 /**
  * External Dependencies
  */
-import { flatten, map, forEach, uniq } from 'lodash';
+import { map, uniq } from 'lodash';
 import Loader from 'react-loader-spinner';
 import { css } from 'emotion';
 
@@ -31,7 +30,6 @@ const Builder = ( { params } ) => {
 	const { resetAnswers } = useDispatch( 'quillForms/renderer-core' );
 
 	const [ isResolving, setIsResolving ] = useState( true );
-	const [ isLoading, setIsLoading ] = useState( true );
 	const [ unknownBlocks, setUnknownBlocks ] = useState( undefined );
 
 	// Making sure all stores are set up already
@@ -50,26 +48,18 @@ const Builder = ( { params } ) => {
 	);
 
 	useEffect( () => {
-		apiFetch( {
-			path: `/wp/v2/quill_forms/${ id }`,
-			method: 'GET',
-		} ).then( ( res ) => {
-			setTimeout( () => {
-				setIsLoading( false );
-			}, 100 );
-			if ( res?.blocks?.length ) {
-				const unKnownBlocks = res.blocks.filter(
-					( block ) => ! blockTypes[ block.name ]
-				);
+		const initialPayload = configApi.getInitialPayload();
+		if ( initialPayload?.blocks?.length ) {
+			const unKnownBlocks = initialPayload.blocks.filter(
+				( block ) => ! blockTypes[ block.name ]
+			);
 
-				if ( unKnownBlocks?.length ) {
-					setUnknownBlocks(
-						uniq( map( unKnownBlocks, ( block ) => block.name ) )
-					);
-				}
+			if ( unKnownBlocks?.length ) {
+				setUnknownBlocks(
+					uniq( map( unKnownBlocks, ( block ) => block.name ) )
+				);
 			}
-			configApi.setInitialPayload( res );
-		} );
+		}
 
 		return () => {
 			setCurrentPanel( 'blocks' );
@@ -78,10 +68,10 @@ const Builder = ( { params } ) => {
 	}, [] );
 
 	useEffect( () => {
-		if ( ! isLoading && hasBlockEditorFinishedResolution ) {
+		if ( hasBlockEditorFinishedResolution ) {
 			setIsResolving( false );
 		}
-	}, [ isLoading, hasBlockEditorFinishedResolution ] );
+	}, [ hasBlockEditorFinishedResolution ] );
 
 	return (
 		<div id="quillforms-builder-page">
