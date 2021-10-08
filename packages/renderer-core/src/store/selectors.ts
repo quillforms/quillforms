@@ -299,6 +299,20 @@ export function isFieldPending( state: State, id: string ): boolean {
 }
 
 /**
+ * Get pending message if pending.
+ * @param  {State} state   Global application state.
+ * @param {string} id      Field id.
+ *
+ * @return {string|false} Pending message if pending, or false.
+ */
+export function getPendingMsg( state: State ): string | false {
+	for ( const answer of Object.values( state.answers ) ) {
+		if ( answer?.isPending ) return answer.pendingMsg ?? '';
+	}
+	return false;
+}
+
+/**
  * Get field validation error message.
  *
  * @param {State} state   Global application state.

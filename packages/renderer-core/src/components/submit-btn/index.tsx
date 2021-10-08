@@ -3,7 +3,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -28,22 +28,25 @@ const SubmitBtn: React.FC = () => {
 		'quillForms/renderer-core'
 	);
 	const { onSubmit } = useFormContext();
+	const [ isWaitingPending, setIsWaitingPending ] = useState( false );
 
-	const { firstInvalidFieldId, isSubmitting, submissionErr } = useSelect(
-		( select ) => {
-			return {
-				isSubmitting: select(
-					'quillForms/renderer-core'
-				).isSubmitting(),
-				firstInvalidFieldId: select(
-					'quillForms/renderer-core'
-				).getFirstInvalidFieldId(),
-				submissionErr: select(
-					'quillForms/renderer-core'
-				).getSubmissionErr(),
-			};
-		}
-	);
+	const {
+		firstInvalidFieldId,
+		pendingMsg,
+		isSubmitting,
+		submissionErr,
+	} = useSelect( ( select ) => {
+		return {
+			pendingMsg: select( 'quillForms/renderer-core' ).getPendingMsg(),
+			isSubmitting: select( 'quillForms/renderer-core' ).isSubmitting(),
+			firstInvalidFieldId: select(
+				'quillForms/renderer-core'
+			).getFirstInvalidFieldId(),
+			submissionErr: select(
+				'quillForms/renderer-core'
+			).getSubmissionErr(),
+		};
+	} );
 
 	const handleKeyDown = ( e ) => {
 		if ( e.key === 'Enter' ) {
@@ -67,6 +70,14 @@ const SubmitBtn: React.FC = () => {
 	}, [ isLastField, isActive ] );
 
 	const submitHandler = () => {
+		if ( pendingMsg === false ) {
+			reviewAndSubmit();
+		} else {
+			setIsWaitingPending( true );
+		}
+	};
+
+	const reviewAndSubmit = () => {
 		setIsReviewing( false );
 		if ( firstInvalidFieldId ) {
 			setTimeout( () => {
@@ -82,6 +93,13 @@ const SubmitBtn: React.FC = () => {
 		}
 	};
 
+	useEffect( () => {
+		if ( isWaitingPending && pendingMsg === false ) {
+			setIsWaitingPending( false );
+			reviewAndSubmit();
+		}
+	}, [ isWaitingPending, pendingMsg ] );
+
 	return (
 		<div className="renderer-core-submit-btn-wrapper">
 			<Button
@@ -96,8 +114,14 @@ const SubmitBtn: React.FC = () => {
 					}
 				} }
 			>
-				<HTMLParser value={ messages[ 'label.submitBtn' ] } />
-				{ isSubmitting && (
+				<HTMLParser
+					value={
+						isWaitingPending
+							? pendingMsg
+							: messages[ 'label.submitBtn' ]
+					}
+				/>
+				{ ( isWaitingPending || isSubmitting ) && (
 					<Loader
 						className="renderer-core-submit-btn__loader"
 						type="TailSpin"
