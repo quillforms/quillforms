@@ -9,6 +9,7 @@ import { Button } from '@quillforms/admin-components';
 import { Modal } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -71,6 +72,61 @@ const Logs = () => {
 				a.click();
 				window.URL.revokeObjectURL( url );
 			} );
+	};
+
+	const getLogLevel = ( level ) => {
+		switch ( level ) {
+			case 'emergency':
+				return (
+					<span className="log-emergency">
+						{ __( 'Emergency', 'quillforms' ) }
+					</span>
+				);
+			case 'alert':
+				return (
+					<span className="log-alert">
+						{ __( 'Alert', 'quillforms' ) }
+					</span>
+				);
+			case 'critical':
+				return (
+					<span className="log-critical">
+						{ __( 'Critical', 'quillforms' ) }
+					</span>
+				);
+			case 'error':
+				return (
+					<span className="log-error">
+						{ __( 'Error', 'quillforms' ) }
+					</span>
+				);
+			case 'warning':
+				return (
+					<span className="log-warning">
+						{ __( 'Warning', 'quillforms' ) }
+					</span>
+				);
+			case 'notice':
+				return (
+					<span className="log-notice">
+						{ __( 'Notice', 'quillforms' ) }
+					</span>
+				);
+			case 'info':
+				return (
+					<span className="log-info">
+						{ __( 'Info', 'quillforms' ) }
+					</span>
+				);
+			case 'debug':
+				return (
+					<span className="log-debug">
+						{ __( 'Debug', 'quillforms' ) }
+					</span>
+				);
+			default:
+				return <span>{ level }</span>;
+		}
 	};
 
 	const modalLog = modalLogId
@@ -144,7 +200,9 @@ const Logs = () => {
 										>
 											<td>{ log.log_id }</td>
 											<td>{ log.plugin }</td>
-											<td>{ log.level }</td>
+											<td>
+												{ getLogLevel( log.level ) }
+											</td>
 											<td>{ log.message }</td>
 											<td>{ log.local_datetime }</td>
 										</tr>

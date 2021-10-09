@@ -1,6 +1,5 @@
 .quillforms-logs-tab__body {
 	table {
-		font-family: arial, sans-serif;
 		border-collapse: collapse;
 		width: 100%;
 	}
@@ -21,5 +20,30 @@
 			cursor: pointer;
 			background-color: #bbb;
 		}
+	}
+
+	.log-emergency {
+		color: #800080;
+	}
+	.log-alert {
+		color: #800080;
+	}
+	.log-critical {
+		color: #800080;
+	}
+	.log-error {
+		color: #dc3545;
+	}
+	.log-warning {
+		color: #ff8c00;
+	}
+	.log-notice {
+		color: #007bff;
+	}
+	.log-info {
+		color: #17a2b8;
+	}
+	.log-debug {
+		color: #000;
 	}
 }
