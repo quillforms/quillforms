@@ -66,6 +66,12 @@ const Status = () => {
 		setCopyText( reportText );
 	};
 
+	const styleValue = ( value ) => {
+		return value
+			.replace( /✔/g, '<span class="system-status-check">✔</span>' )
+			.replace( /✘/g, '<span class="system-status-times">✘</span>' );
+	};
+
 	const tables = report ? (
 		<div>
 			{ report.map( ( section, index ) => {
@@ -96,7 +102,9 @@ const Status = () => {
 													></td>
 													<td
 														dangerouslySetInnerHTML={ {
-															__html: row.value,
+															__html: styleValue(
+																row.value
+															),
 														} }
 													></td>
 												</tr>
