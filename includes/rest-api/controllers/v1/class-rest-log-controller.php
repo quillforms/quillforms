@@ -47,6 +47,11 @@ class REST_Log_Controller extends REST_Controller {
 					'permission_callback' => array( $this, 'get_items_permissions_check' ),
 					'args'                => $this->get_collection_params(),
 				),
+				array(
+					'methods'             => WP_REST_Server::DELETABLE,
+					'callback'            => array( $this, 'delete_items' ),
+					'permission_callback' => array( $this, 'delete_items_permissions_check' ),
+				),
 			)
 		);
 		register_rest_route(
@@ -162,6 +167,40 @@ class REST_Log_Controller extends REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function get_items_permissions_check( $request ) {
+		$capability = 'manage_quillforms';
+		return current_user_can( $capability, $request );
+	}
+
+	/**
+	 * Delete items from the collection
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 *
+	 * @return WP_Error|WP_REST_RESPONSE
+	 */
+	public function delete_items( $request ) {
+		if ( isset( $request['ids'] ) ) {
+			$ids     = empty( $request['ids'] ) ? array() : explode( ',', $request['ids'] );
+			$deleted = (bool) Log_Handler_DB::delete( $ids );
+		} else {
+			$deleted = (bool) Log_Handler_DB::flush();
+		}
+
+		return new WP_REST_Response( array( 'success' => $deleted ), 200 );
+	}
+
+	/**
+	 * Delete items permission check
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 *
+	 * @return WP_Error|bool
+	 */
+	public function delete_items_permissions_check( $request ) {
 		$capability = 'manage_quillforms';
 		return current_user_can( $capability, $request );
 	}
