@@ -19,6 +19,10 @@ export const registerAdminPage = ( id: string, settings: PageSettings ) => {
 		settings.exact = true;
 	}
 
+	if ( settings.requiresInitialPayload === undefined ) {
+		settings.requiresInitialPayload = false;
+	}
+
 	if ( settings.connectedStores === undefined ) {
 		settings.connectedStores = [];
 	}
@@ -82,6 +86,11 @@ export const registerAdminPage = ( id: string, settings: PageSettings ) => {
 
 	if ( settings.header && ! isFunction( settings.header ) ) {
 		console.error( 'The "header" property must be a valid function!' );
+		return;
+	}
+
+	if ( typeof settings.requiresInitialPayload !== 'boolean' ) {
+		console.error( 'The "requiresInitialPayload" property must be a boolean!' );
 		return;
 	}
 

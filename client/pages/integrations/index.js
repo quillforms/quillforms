@@ -28,27 +28,10 @@ import SearchIcon from './search-icon';
 import IntegrationModal from './integration-modal';
 
 const IntegrationsPage = ( { params } ) => {
-	const { id } = params;
-
-	const [ isLoading, setIsLoading ] = useState( true );
 	const [ modalIntegration, setModalIntegration ] = useState( null );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
 
 	const integrationsModules = getIntegrationModules();
-
-	useEffect( () => {
-		apiFetch( {
-			path: `/wp/v2/quill_forms/${ id }`,
-			method: 'GET',
-		} ).then( ( res ) => {
-			configApi.setInitialPayload( res );
-			setIsLoading( false );
-		} );
-	}, [] );
-
-	if ( isLoading ) {
-		return <div>Loading...</div>;
-	}
 
 	return (
 		<div className="quillforms-integrations-page">

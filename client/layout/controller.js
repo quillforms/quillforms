@@ -76,6 +76,7 @@ registerAdminPage( 'builder', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+	requiresInitialPayload: true,
 	connectedStores: [
 		'quillForms/block-editor',
 		'quillForms/messages-editor',
@@ -103,6 +104,7 @@ registerAdminPage( 'integrations', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+	requiresInitialPayload: true,
 } );
 
 registerAdminPage( 'addons', {

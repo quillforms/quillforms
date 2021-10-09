@@ -8,19 +8,23 @@ import {
 	Switch,
 	getHistory,
 } from '@quillforms/navigation';
+import configApi from '@quillforms/config';
 
 /**
  * WordPress Dependencies
  */
 import { SlotFillProvider } from '@wordpress/components';
-import { useEffect, useMemo } from '@wordpress/element';
+import { useEffect, useState, useMemo } from '@wordpress/element';
 import { PluginArea } from '@wordpress/plugins';
 import { useSelect, useDispatch } from '@wordpress/data';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * External dependencies
  */
 import { forEach, uniq } from 'lodash';
+import Loader from 'react-loader-spinner';
+import { css } from 'emotion';
 
 /**
  * Internal dependencies
@@ -30,16 +34,24 @@ import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
 export const Layout = ( props ) => {
+	const { params } = props.match;
+
 	const pluginsArea = useMemo( () => {
 		return <PluginArea />;
 	}, [] );
+
 	const { notices } = useSelect( ( select ) => {
 		return {
 			notices: select( 'core/notices' ).getNotices(),
 		};
 	} );
+
 	const { invalidateResolutionForStore } = useDispatch( 'core/data' );
 	const { removeNotice } = useDispatch( 'core/notices' );
+
+	const [ isLoading, setIsLoading ] = useState(
+		props.page.requiresInitialPayload && params.id
+	);
 
 	const invalidateResolutionConnectedStores = () => {
 		// TODO: Remove console log.
@@ -60,6 +72,19 @@ export const Layout = ( props ) => {
 
 	// Remove all notices on any page mount
 	useEffect( () => {
+		if ( props.page.requiresInitialPayload && params.id ) {
+			apiFetch( {
+				path: `/wp/v2/quill_forms/${ params.id }`,
+				method: 'GET',
+			} ).then( ( res ) => {
+				setTimeout( () => {
+					setIsLoading( false );
+				}, 100 );
+				configApi.setInitialPayload( res );
+				invalidateResolutionConnectedStores();
+			} );
+		}
+
 		notices.forEach( ( notice ) => {
 			removeNotice( notice.id );
 		} );
@@ -82,7 +107,27 @@ export const Layout = ( props ) => {
 				<div className="quillforms-layout__main">
 					{ ( ! props.page.template ||
 						props.page.template === 'default' ) && <Sidebar /> }
-					<Controller { ...props } />
+					{ isLoading ? (
+						<div
+							className={ css`
+								display: flex;
+								flex-wrap: wrap;
+								width: 100%;
+								min-height: 100vh;
+								justify-content: center;
+								align-items: center;
+							` }
+						>
+							<Loader
+								type="ThreeDots"
+								color="#8640e3"
+								height={ 50 }
+								width={ 50 }
+							/>
+						</div>
+					) : (
+						<Controller { ...props } />
+					) }
 				</div>
 			</div>
 		</SlotFillProvider>
