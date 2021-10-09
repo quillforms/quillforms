@@ -4,8 +4,27 @@
 	margin-bottom: 10px !important;
 }
 
-.quillforms-license-page__body button {
-	margin: 0.5rem;
+.quillforms-license-page__body {
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+
+		td,
+		th {
+			border: 1px solid #ddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr td:first-child {
+			width: 200px;
+		}
+	}
+
+	button {
+		margin: 0.5rem;
+	}
 }
 
 .quillforms-license-valid {

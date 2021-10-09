@@ -134,22 +134,40 @@ const License = () => {
 			<div className="quillforms-license-page__body">
 				{ license ? (
 					<div>
-						<div>
-							Status:{ ' ' }
-							<span
-								className={
-									license.status === 'valid'
-										? 'quillforms-license-valid'
-										: 'quillforms-license-invalid'
-								}
-							>
-								{ license.status_label }
-							</span>
-						</div>
-						<div>Plan: { license.plan_label }</div>
-						<div>Expires: { license.expires }</div>
-						<div>Last update: { license.last_update }</div>
-						<div>Last check: { license.last_check }</div>
+						<table>
+							<tbody>
+								<tr>
+									<td>Status</td>
+									<td>
+										<span
+											className={
+												license.status === 'valid'
+													? 'quillforms-license-valid'
+													: 'quillforms-license-invalid'
+											}
+										>
+											{ license.status_label }
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td>Plan</td>
+									<td>{ license.plan_label }</td>
+								</tr>
+								<tr>
+									<td>Expires</td>
+									<td>{ license.expires }</td>
+								</tr>
+								<tr>
+									<td>Last update</td>
+									<td>{ license.last_update }</td>
+								</tr>
+								<tr>
+									<td>Last check</td>
+									<td>{ license.last_check }</td>
+								</tr>
+							</tbody>
+						</table>
 						<Button isPrimary onClick={ update }>
 							Update
 						</Button>
