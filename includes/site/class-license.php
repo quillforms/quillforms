@@ -185,9 +185,11 @@ class License {
 		);
 
 		// direct update in case of overdue.
-		$license = get_option( 'quillforms_license' );
-		if ( $license && strtotime( $license['last_check'] ) < time() - 5 * DAY_IN_SECONDS ) {
-			$this->handle_license_update_task( 'direct' );
+		if ( is_admin() ) {
+			$license = get_option( 'quillforms_license' );
+			if ( $license && strtotime( $license['last_check'] ) < time() - 5 * DAY_IN_SECONDS ) {
+				$this->handle_license_update_task( 'direct' );
+			}
 		}
 	}
 
