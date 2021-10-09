@@ -83,6 +83,15 @@ abstract class Addon {
 	public $plugin_url;
 
 	/**
+	 * Minimum required main plugin version
+	 *
+	 * @since 1.6.0
+	 *
+	 * @var string|null
+	 */
+	public $min_quillforms_version;
+
+	/**
 	 * Settings
 	 *
 	 * @since 1.3.0

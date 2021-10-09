@@ -81,6 +81,10 @@ final class Addons_Manager {
 		if ( isset( $this->registered[ $addon->slug ] ) ) {
 			throw new Exception( sprintf( '%s addon slug is already used for %s', $addon->slug, get_class( $this->registered[ $addon->slug ] ) ) );
 		}
+		// lower main plugin version than required.
+		if ( $addon->min_quillforms_version && version_compare( QUILLFORMS_VERSION, $addon->min_quillforms_version, '<' ) ) {
+			throw new Exception( sprintf( '%s addon requires at least QuillForms plugin version %s', $addon->slug, $addon->min_quillforms_version ) );
+		}
 
 		$this->registered[ $addon->slug ] = $addon;
 	}
