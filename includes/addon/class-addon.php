@@ -56,6 +56,15 @@ abstract class Addon {
 	public $textdomain;
 
 	/**
+	 * Plugin file
+	 *
+	 * @since 1.6.0
+	 *
+	 * @var string
+	 */
+	public $plugin_file;
+
+	/**
 	 * Plugin dir
 	 *
 	 * @since 1.5.0
