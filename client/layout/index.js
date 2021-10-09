@@ -50,7 +50,7 @@ export const Layout = ( props ) => {
 	const { removeNotice } = useDispatch( 'core/notices' );
 
 	const [ isLoading, setIsLoading ] = useState(
-		props.page.requiresInitialPayload
+		props.page.requiresInitialPayload && params.id
 	);
 
 	const invalidateResolutionConnectedStores = () => {
@@ -72,7 +72,7 @@ export const Layout = ( props ) => {
 
 	// Remove all notices on any page mount
 	useEffect( () => {
-		if ( props.page.requiresInitialPayload ) {
+		if ( props.page.requiresInitialPayload && params.id ) {
 			apiFetch( {
 				path: `/wp/v2/quill_forms/${ params.id }`,
 				method: 'GET',
