@@ -84,6 +84,18 @@ class Store {
 	}
 
 	/**
+	 * Get addon
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string $slug Addon slug.
+	 * @return array|null
+	 */
+	public function get_addon( $slug ) {
+		return $this->addons[ $slug ] ?? null;
+	}
+
+	/**
 	 * Install addon
 	 *
 	 * @param string $addon_slug Addon slug.

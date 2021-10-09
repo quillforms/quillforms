@@ -10,6 +10,7 @@ namespace QuillForms\Managers;
 
 use Exception;
 use QuillForms\Addon\Addon;
+use QuillForms\Site\Store;
 
 /**
  * Addons_Manager class.
@@ -63,12 +64,20 @@ final class Addons_Manager {
 		if ( ! $addon instanceof Addon ) {
 			throw new Exception( sprintf( '%s object is not instance of %s', get_class( $addon ), Addon::class ) );
 		}
+		// empty slug.
 		if ( empty( $addon->slug ) ) {
 			throw new Exception( sprintf( '%s addon slug is empty', get_class( $addon ) ) );
 		}
+		// disallowed slug characters.
 		if ( ! preg_match( '/^[a-z0-9_-]+$/', $addon->slug ) ) {
 			throw new Exception( sprintf( '%s addon slug has illegal characters (only a-z0-9 is allowed)', get_class( $addon ) ) );
 		}
+		// preserved store addon slug.
+		$store_addon = Store::instance()->get_addon( $addon->slug );
+		if ( $store_addon && $store_addon['full_plugin_file'] !== $addon->plugin_file ) {
+			throw new Exception( sprintf( '"%s" addon slug is preserved for Quillforms.com store addons.', $addon->slug ) );
+		}
+		// already used slug.
 		if ( isset( $this->registered[ $addon->slug ] ) ) {
 			throw new Exception( sprintf( '%s addon slug is already used for %s', $addon->slug, get_class( $this->registered[ $addon->slug ] ) ) );
 		}
