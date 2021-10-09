@@ -43,6 +43,17 @@ const Logs = () => {
 			} );
 	}, [ page, perPage ] );
 
+	const logsClear = () => {
+		apiFetch( {
+			path: `/qf/v1/logs`,
+			method: 'DELETE',
+		} ).then( () => {
+			setPage( 1 );
+			setTotalPages( null );
+			setLogs( [] );
+		} );
+	};
+
 	const logsExport = () => {
 		apiFetch( {
 			path: `/qf/v1/logs?export=json`,
@@ -73,14 +84,22 @@ const Logs = () => {
 					className={ css`
 						display: flex;
 						margin-bottom: 5px;
-						button {
+						.quillforms-logs-tab__body-buttons {
 							margin-left: auto;
+							button {
+								margin-left: 5px;
+							}
 						}
 					` }
 				>
-					<Button isPrimary onClick={ logsExport }>
-						Export
-					</Button>
+					<div className="quillforms-logs-tab__body-buttons">
+						<Button isDanger onClick={ logsClear }>
+							Clear All
+						</Button>
+						<Button isPrimary onClick={ logsExport }>
+							Export
+						</Button>
+					</div>
 				</div>
 				<div className="quillforms-logs-tab__body-logs">
 					{ logs === null ? (
@@ -138,29 +157,33 @@ const Logs = () => {
 									text-align: center;
 								` }
 							>
-								{ totalPages &&
-									Array( totalPages )
-										.fill( null )
-										.map( ( _v, index ) => {
-											return (
-												<Button
-													key={ index }
-													isPrimary
-													className={ css`
-														margin: 2px;
-														${ index + 1 === page
-															? 'color: #000 !important;'
-															: '' }
-													` }
-													onClick={ () => {
-														setLogs( null );
-														setPage( index + 1 );
-													} }
-												>
-													{ index + 1 }
-												</Button>
-											);
-										} ) }
+								{ totalPages
+									? Array( totalPages )
+											.fill( null )
+											.map( ( _v, index ) => {
+												return (
+													<Button
+														key={ index }
+														isPrimary
+														className={ css`
+															margin: 2px;
+															${ index + 1 ===
+															page
+																? 'color: #000 !important;'
+																: '' }
+														` }
+														onClick={ () => {
+															setLogs( null );
+															setPage(
+																index + 1
+															);
+														} }
+													>
+														{ index + 1 }
+													</Button>
+												);
+											} )
+									: '' }
 							</div>
 						</div>
 					) }
