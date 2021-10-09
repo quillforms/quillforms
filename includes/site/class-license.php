@@ -65,6 +65,10 @@ class License {
 			foreach ( array_keys( $license['upgrades'] ) as $upgrade_plan ) {
 				$license['upgrades'][ $upgrade_plan ]['plan_label'] = $this->get_plan_label( $upgrade_plan );
 			}
+			// convert gmt dates to local.
+			foreach ( array( 'expires', 'last_update', 'last_check' ) as $key ) {
+				$license[ $key ] = get_date_from_gmt( $license[ $key ] );
+			}
 			// maybe remove plan key.
 			if ( ! $include_key ) {
 				unset( $license['key'] );
