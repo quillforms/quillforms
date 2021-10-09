@@ -178,9 +178,10 @@ const License = () => {
 							<div>
 								<h3>Upgrades:</h3>
 								{ Object.values( license.upgrades ).map(
-									( upgrade ) => {
+									( upgrade, index ) => {
 										return (
 											<a
+												key={ index }
 												href={ upgrade.url }
 												target="_blank"
 											>
