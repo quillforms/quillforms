@@ -188,19 +188,31 @@ abstract class Addon {
 		try {
 			Addons_Manager::instance()->register( $this );
 		} catch ( Exception $e ) {
-			quillforms_get_logger()->critical(
-				esc_html__( 'Cannot register addon', 'quillforms' ),
-				array(
-					'source'    => static::class . '->' . __FUNCTION__,
-					'code'      => 'cannot_register_addon',
-					'exception' => array(
-						'message' => $e->getMessage(),
-					),
-				)
+			add_action(
+				'admin_notices',
+				function() use ( $e ) {
+					$this->output_registration_error( $e->getMessage() );
+				}
 			);
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Output registration error
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string $message Message.
+	 * @return void
+	 */
+	protected function output_registration_error( $message ) {
+		?>
+		<div class="notice notice-error">
+			<p><?php echo esc_html__( 'Cannot register QuillForms addon', 'quillforms' ) . ': ' . $message; ?></p>
+		</div>
+		<?php
 	}
 
 	/**
