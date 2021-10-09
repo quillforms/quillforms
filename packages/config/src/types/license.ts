@@ -11,6 +11,7 @@ export type License =
 					url: string;
 				};
 			};
+			last_update: string;
 			last_check: string;
 	  }
 	| false;

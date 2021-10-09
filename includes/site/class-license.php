@@ -120,6 +120,10 @@ class License {
 
 		// failed request.
 		if ( ! $response['success'] ) {
+			// update last check only.
+			$license['last_check'] = gmdate( 'Y-m-d H:i:s' );
+			update_option( 'quillforms_license', $license );
+
 			$message = $response['message'] ?? esc_html__( 'An error occurred, please try again', 'quillforms' );
 			return array(
 				'success' => false,
@@ -137,12 +141,13 @@ class License {
 
 		// new license data.
 		$license = array(
-			'status'     => $license_status,
-			'plan'       => $license_plan,
-			'key'        => $license['key'],
-			'expires'    => $response['data']['expires'] ?? null,
-			'upgrades'   => $response['data']['upgrades'] ?? array(),
-			'last_check' => gmdate( 'Y-m-d H:i:s' ),
+			'status'      => $license_status,
+			'plan'        => $license_plan,
+			'key'         => $license['key'],
+			'expires'     => $response['data']['expires'] ?? null,
+			'upgrades'    => $response['data']['upgrades'] ?? array(),
+			'last_update' => gmdate( 'Y-m-d H:i:s' ),
+			'last_check'  => gmdate( 'Y-m-d H:i:s' ),
 		);
 
 		// update option.
@@ -280,12 +285,13 @@ class License {
 
 		// new license data.
 		$license = array(
-			'status'     => 'valid',
-			'plan'       => $response['data']['plan'],
-			'key'        => $license_key,
-			'expires'    => $response['data']['expires'],
-			'upgrades'   => $response['data']['upgrades'] ?? array(),
-			'last_check' => gmdate( 'Y-m-d H:i:s' ),
+			'status'      => 'valid',
+			'plan'        => $response['data']['plan'],
+			'key'         => $license_key,
+			'expires'     => $response['data']['expires'],
+			'upgrades'    => $response['data']['upgrades'] ?? array(),
+			'last_update' => gmdate( 'Y-m-d H:i:s' ),
+			'last_check'  => gmdate( 'Y-m-d H:i:s' ),
 		);
 
 		// update option.

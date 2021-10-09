@@ -148,6 +148,7 @@ const License = () => {
 						</div>
 						<div>Plan: { license.plan_label }</div>
 						<div>Expires: { license.expires }</div>
+						<div>Last update: { license.last_update }</div>
 						<div>Last check: { license.last_check }</div>
 						<Button isPrimary onClick={ update }>
 							Update
