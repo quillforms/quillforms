@@ -104,63 +104,66 @@ const Logs = () => {
 					) : ! logs ? (
 						<div className="error">Cannot fetch logs</div>
 					) : (
-						<table>
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Source</th>
-									<th>Level</th>
-									<th>Message</th>
-									<th>Time</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ logs.map( ( log ) => (
-									<tr
-										key={ log.log_id }
-										onClick={ () =>
-											setModalLogId( log.log_id )
-										}
-									>
-										<td>{ log.log_id }</td>
-										<td>{ log.plugin }</td>
-										<td>{ log.level }</td>
-										<td>{ log.message }</td>
-										<td>{ log.local_datetime }</td>
+						<div>
+							<table>
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Source</th>
+										<th>Level</th>
+										<th>Message</th>
+										<th>Time</th>
 									</tr>
-								) ) }
-							</tbody>
-						</table>
-					) }
-					<div
-						className={ css`
-							margin-top: 10px;
-							text-align: center;
-						` }
-					>
-						{ totalPages &&
-							Array( totalPages )
-								.fill( null )
-								.map( ( _v, index ) => {
-									return (
-										<Button
-											key={ index }
-											isPrimary
-											className={ css`
-												margin: 2px;
-												${ index + 1 === page
-													? 'color: #000 !important;'
-													: '' }
-											` }
+								</thead>
+								<tbody>
+									{ logs.map( ( log ) => (
+										<tr
+											key={ log.log_id }
 											onClick={ () =>
-												setPage( index + 1 )
+												setModalLogId( log.log_id )
 											}
 										>
-											{ index + 1 }
-										</Button>
-									);
-								} ) }
-					</div>
+											<td>{ log.log_id }</td>
+											<td>{ log.plugin }</td>
+											<td>{ log.level }</td>
+											<td>{ log.message }</td>
+											<td>{ log.local_datetime }</td>
+										</tr>
+									) ) }
+								</tbody>
+							</table>
+							<div
+								className={ css`
+									margin-top: 10px;
+									text-align: center;
+								` }
+							>
+								{ totalPages &&
+									Array( totalPages )
+										.fill( null )
+										.map( ( _v, index ) => {
+											return (
+												<Button
+													key={ index }
+													isPrimary
+													className={ css`
+														margin: 2px;
+														${ index + 1 === page
+															? 'color: #000 !important;'
+															: '' }
+													` }
+													onClick={ () => {
+														setLogs( null );
+														setPage( index + 1 );
+													} }
+												>
+													{ index + 1 }
+												</Button>
+											);
+										} ) }
+							</div>
+						</div>
+					) }
 				</div>
 			</div>
 			{ modalLog && (
