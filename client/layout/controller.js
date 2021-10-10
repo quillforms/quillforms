@@ -22,6 +22,7 @@ import NotFoundPage from '../pages/not-found';
 import Home from '../pages/home';
 import Builder from '../pages/builder';
 import Share from '../pages/share';
+import ResultsPage from '../pages/results';
 import IntegrationsPage from '../pages/integrations';
 import Addons from '../pages/addons';
 import Settings from '../pages/settings';
@@ -89,6 +90,16 @@ registerAdminPage( 'builder', {
 registerAdminPage( 'share', {
 	component: Share,
 	path: '/forms/:id/share',
+	template: 'full-screen',
+	header: ( { match } ) => {
+		const { params } = match;
+		return <FormAdminBar formId={ params.id } />;
+	},
+} );
+
+registerAdminPage( 'results', {
+	component: ResultsPage,
+	path: '/forms/:id/results',
 	template: 'full-screen',
 	header: ( { match } ) => {
 		const { params } = match;
