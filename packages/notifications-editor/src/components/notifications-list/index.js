@@ -65,7 +65,7 @@ const NotificationsList = ( {
 					onClick={ () => {
 						if (
 							notifications.length > 0 &&
-							! license?.status === 'valid'
+							license?.status !== 'valid'
 						) {
 							setDisplayProModal( true );
 						} else {
