@@ -58,7 +58,9 @@ class License {
 	 */
 	public function get_license_info( $include_key = false ) {
 		$license = get_option( 'quillforms_license' );
-		if ( ! empty( $license ) ) {
+		if ( empty( $license ) ) {
+			return null;
+		} else {
 			// add labels.
 			$license['status_label'] = $this->get_status_label( $license['status'] );
 			$license['plan_label']   = $this->get_plan_label( $license['plan'] );
@@ -73,8 +75,8 @@ class License {
 			if ( ! $include_key ) {
 				unset( $license['key'] );
 			}
+			return $license;
 		}
-		return $license;
 	}
 
 	/**

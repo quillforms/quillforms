@@ -14,4 +14,4 @@ export type License =
 			last_update: string;
 			last_check: string;
 	  }
-	| false;
+	| null;

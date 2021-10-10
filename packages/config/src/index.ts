@@ -25,7 +25,7 @@ const configData: ConfigData = {
 	},
 	maxUploadSize: 8,
 	isWPEnv: false,
-	license: false,
+	license: null,
 	storeAddons: {},
 };
 /**
