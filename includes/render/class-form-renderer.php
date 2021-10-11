@@ -129,21 +129,6 @@ class Form_Renderer {
 	}
 
 	/**
-	 * Just a helper function to map over an associative array.
-	 *
-	 * @since 1.6
-	 *
-	 * @param callable $f callable function.
-	 * @param array    $a associative array.
-	 *
-	 * @return array
-	 */
-	private function array_map_assoc( callable $f, array $a ) {
-		return array_column( array_map( $f, array_keys( $a ), $a ), 1, 0 );
-	}
-
-
-	/**
 	 * Prepare form object to send it as a prop to FormRender component.
 	 *
 	 * @since 1.0.0
@@ -161,9 +146,9 @@ class Form_Renderer {
 				array(
 					'blocks'   => Core::get_blocks( $this->form_id ),
 					'messages' => array_merge(
-						$this->array_map_assoc(
-							function( $a, $b ) {
-								return array( $a, $b['default'] );
+						array_map(
+							function( $value ) {
+								return $value['default'];
 							},
 							Client_Messages::instance()->get_messages()
 						),

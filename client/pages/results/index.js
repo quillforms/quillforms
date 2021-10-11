@@ -2,7 +2,6 @@
  * QuillForms Dependencies
  */
 import { NavLink } from '@quillforms/navigation';
-import { Button } from '@quillforms/admin-components';
 import configApi from '@quillforms/config';
 
 /**
@@ -28,9 +27,7 @@ const ResultsPage = () => {
 	return (
 		<div className="quillforms-results-page">
 			{ license?.status === 'valid' ? (
-				addon.is_active ? (
-					<div>Entries addon isn't working well.</div>
-				) : (
+				! addon.is_active && (
 					<div>
 						Please install and activate entries addon from here{ ' ' }
 						<NavLink
