@@ -126,7 +126,7 @@ class Store {
 				'message' => esc_html__( 'No license found', 'quillforms' ),
 			);
 		}
-		if ( ! License::is_plan_accessible( $license['plan'], $this->addons[ $addon_slug ]['plan'] ) ) {
+		if ( ! License::instance()->is_plan_accessible( $license['plan'], $this->addons[ $addon_slug ]['plan'] ) ) {
 			return array(
 				'success' => false,
 				'message' => esc_html__( 'Please upgrade your plan to install this addon', 'quillforms' ),

@@ -18,6 +18,15 @@ use QuillForms\QuillForms;
 class License {
 
 	/**
+	 * Plans
+	 *
+	 * @since 1.6.0
+	 *
+	 * @var array
+	 */
+	private $plans;
+
+	/**
 	 * Class instance
 	 *
 	 * @var self instance
@@ -42,12 +51,57 @@ class License {
 	 * @since 1.6.0
 	 */
 	private function __construct() {
+		$this->define_plans();
+
 		add_action( 'quillforms_loaded', array( $this, 'license_update_task' ) );
 
 		// ajax.
 		add_action( 'wp_ajax_quillforms_license_activate', array( $this, 'ajax_activate' ) );
 		add_action( 'wp_ajax_quillforms_license_update', array( $this, 'ajax_update' ) );
 		add_action( 'wp_ajax_quillforms_license_deactivate', array( $this, 'ajax_deactivate' ) );
+	}
+
+	/**
+	 * Define plans
+	 *
+	 * @since 1.6.0
+	 *
+	 * @return void
+	 */
+	private function define_plans() {
+		$this->plans = array(
+			'basic' => array(
+				'label' => esc_html__( 'Basic', 'quillforms' ),
+			),
+			'pro'   => array(
+				'label' => esc_html__( 'Pro', 'quillforms' ),
+			),
+		);
+	}
+
+	/**
+	 * Get plans
+	 *
+	 * @since 1.6.0
+	 *
+	 * @return array
+	 */
+	public function get_plans() {
+		return $this->plans;
+	}
+
+	/**
+	 * Get plan label
+	 *
+	 * @param string $plan Plan key.
+	 * @return string|null
+	 */
+	public function get_plan_label( $plan ) {
+		if ( isset( $this->plans[ $plan ] ) ) {
+			return $this->plans[ $plan ]['label'];
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -88,11 +142,11 @@ class License {
 	 * @param string $feature_plan Feature plan.
 	 * @return boolean
 	 */
-	public static function is_plan_accessible( $user_plan, $feature_plan ) {
-		$plans = array( 'basic', 'pro' );
+	public function is_plan_accessible( $user_plan, $feature_plan ) {
+		$plans_keys = array_keys( $this->plans );
 
-		$user_plan_level    = array_search( $user_plan, $plans, true );
-		$feature_plan_level = array_search( $feature_plan, $plans, true );
+		$user_plan_level    = array_search( $user_plan, $plans_keys, true );
+		$feature_plan_level = array_search( $feature_plan, $plans_keys, true );
 
 		if ( false === $user_plan_level || false === $feature_plan_level ) {
 			return false;
@@ -348,21 +402,6 @@ class License {
 		}
 
 		wp_send_json_success( esc_html__( 'License removed successfully', 'quillforms' ), 200 );
-	}
-
-	/**
-	 * Get translated plan label
-	 *
-	 * @param string $plan Plan key.
-	 * @return string|null
-	 */
-	public function get_plan_label( $plan ) {
-		$labels = array(
-			'basic' => esc_html__( 'Basic Plan', 'quillforms' ),
-			'pro'   => esc_html__( 'Pro Plan', 'quillforms' ),
-		);
-
-		return $labels[ $plan ] ?? null;
 	}
 
 	/**
