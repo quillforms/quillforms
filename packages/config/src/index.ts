@@ -167,6 +167,30 @@ const setLicense = ( data: ConfigData ) => ( value: License ) => {
 };
 
 /**
+ * Is plan accessible
+ *
+ * @param data the json environment configuration to use for getting config values
+ * @returns {boolean}
+ */
+const isPlanAccessible = ( data: ConfigData ) => (
+	featurePlanKey: string
+): boolean => {
+	if ( data.license?.status !== 'valid' ) {
+		return false;
+	}
+
+	let plansKeys = Object.keys( data.plans );
+	let licensePlanIndex = plansKeys.indexOf( data.license.plan );
+	let featurePlanIndex = plansKeys.indexOf( featurePlanKey );
+
+	if ( licensePlanIndex === -1 || featurePlanIndex === -1 ) {
+		return false;
+	}
+
+	return licensePlanIndex >= featurePlanIndex;
+};
+
+/**
  * Get store addons
  *
  * @param data the json environment configuration to use for getting config values
@@ -209,6 +233,7 @@ export interface ConfigApi {
 	setPlans: ( value: Plans ) => void;
 	getLicense: () => License;
 	setLicense: ( value: License ) => void;
+	isPlanAccessible: ( featurePlanKey: string ) => boolean;
 	getStoreAddons: () => StoreAddons;
 	setStoreAddons: ( value: StoreAddons ) => void;
 	isLicenseValid: () => boolean;
@@ -231,6 +256,7 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.setPlans = setPlans( data );
 	configApi.getLicense = getLicense( data );
 	configApi.setLicense = setLicense( data );
+	configApi.isPlanAccessible = isPlanAccessible( data );
 	configApi.getStoreAddons = getStoreAddons( data );
 	configApi.setStoreAddons = setStoreAddons( data );
 	return configApi;
