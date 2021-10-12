@@ -29,12 +29,16 @@ class License {
 	/**
 	 * Class instance
 	 *
+	 * @since 1.6.0
+	 *
 	 * @var self instance
 	 */
 	private static $instance = null;
 
 	/**
 	 * Get class instance
+	 *
+	 * @since 1.6.0
 	 *
 	 * @return self
 	 */
@@ -93,6 +97,8 @@ class License {
 	/**
 	 * Get plan label
 	 *
+	 * @since 1.6.0
+	 *
 	 * @param string $plan Plan key.
 	 * @return string|null
 	 */
@@ -106,6 +112,8 @@ class License {
 
 	/**
 	 * Get current license info
+	 *
+	 * @since 1.6.0
 	 *
 	 * @param boolean $include_key Whether to include key or not.
 	 * @return array|false
@@ -157,6 +165,8 @@ class License {
 
 	/**
 	 * Update license
+	 *
+	 * @since 1.6.0
 	 *
 	 * @return array
 	 */
@@ -288,6 +298,8 @@ class License {
 	/**
 	 * Handle activate request
 	 *
+	 * @since 1.6.0
+	 *
 	 * @return void
 	 */
 	public function ajax_activate() {
@@ -366,6 +378,8 @@ class License {
 	/**
 	 * Handle update request
 	 *
+	 * @since 1.6.0
+	 *
 	 * @return void
 	 */
 	public function ajax_update() {
@@ -381,6 +395,8 @@ class License {
 
 	/**
 	 * Handle deactivate request
+	 *
+	 * @since 1.6.0
 	 *
 	 * @return void
 	 */
@@ -406,6 +422,8 @@ class License {
 
 	/**
 	 * Get translated status label
+	 *
+	 * @since 1.6.0
 	 *
 	 * @param string $status Status key.
 	 * @return string|null
@@ -443,6 +461,8 @@ class License {
 	/**
 	 * Check ajax request authorization.
 	 * Sends error response and exit if not authorized.
+	 *
+	 * @since 1.6.0
 	 *
 	 * @return void
 	 */
