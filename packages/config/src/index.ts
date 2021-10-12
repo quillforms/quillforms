@@ -1,4 +1,5 @@
 import type { ConfigData } from './types/config-data';
+import type { Plans } from './types/plans';
 import type { License } from './types/license';
 import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
@@ -25,9 +26,11 @@ const configData: ConfigData = {
 	},
 	maxUploadSize: 8,
 	isWPEnv: false,
+	plans: {},
 	license: null,
 	storeAddons: {},
 };
+
 /**
  * Returns configuration value for given key
  *
@@ -128,6 +131,24 @@ const getMaxUploadSize = ( data: ConfigData ) => (): number => {
 };
 
 /**
+ * Get plans
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getPlans = ( data: ConfigData ) => (): Plans => {
+	return data.plans;
+};
+
+/**
+ * Set plans
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setPlans = ( data: ConfigData ) => ( value: Plans ) => {
+	data.plans = value;
+};
+
+/**
  * Get license
  *
  * @param data the json environment configuration to use for getting config values
@@ -184,6 +205,8 @@ export interface ConfigApi {
 	setWPEnv: ( value: boolean ) => void;
 	getMaxUploadSize: () => number;
 	setMaxUploadSize: ( value: number ) => void;
+	getPlans: () => Plans;
+	setPlans: ( value: Plans ) => void;
 	getLicense: () => License;
 	setLicense: ( value: License ) => void;
 	getStoreAddons: () => StoreAddons;
@@ -204,6 +227,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.setWPEnv = setWPEnv( data );
 	configApi.getMaxUploadSize = getMaxUploadSize( data );
 	configApi.setMaxUploadSize = setMaxUploadSize( data );
+	configApi.getPlans = getPlans( data );
+	configApi.setPlans = setPlans( data );
 	configApi.getLicense = getLicense( data );
 	configApi.setLicense = setLicense( data );
 	configApi.getStoreAddons = getStoreAddons( data );
