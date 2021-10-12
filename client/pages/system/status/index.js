@@ -183,7 +183,13 @@ const Status = () => {
 						}
 					` }
 				>
-					<textarea readOnly={ true } value={ copyText } />
+					<textarea
+						readOnly={ true }
+						value={ copyText }
+						onClick={ ( e ) => {
+							e.target.select();
+						} }
+					/>
 					<Button
 						isPrimary
 						onClick={ () => {
