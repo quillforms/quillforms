@@ -174,7 +174,7 @@ const License = () => {
 						<Button isDanger onClick={ deactivate }>
 							Deactivate
 						</Button>
-						{ license.upgrades && (
+						{ !! Object.values( license.upgrades ).length && (
 							<div>
 								<h3>Upgrades:</h3>
 								{ Object.values( license.upgrades ).map(
