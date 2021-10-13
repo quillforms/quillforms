@@ -444,8 +444,9 @@ class License {
 			case 'invalid':
 				return esc_html__( 'Invalid', 'quillforms' );
 
+			case 'inactive':
 			case 'site_inactive':
-				return esc_html__( 'Not active for this URL', 'quillforms' );
+				return esc_html__( 'Not active for this website', 'quillforms' );
 
 			case 'item_name_mismatch':
 				return esc_html__( 'Invalid key for a plan', 'quillforms' );
