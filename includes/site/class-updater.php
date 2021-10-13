@@ -60,12 +60,10 @@ class Updater {
 
 		foreach ( Store::instance()->get_all_addons( true ) as $addon_slug => $plugin ) {
 			if ( $plugin['is_installed'] ) {
-				$full_plugin_file = $plugin['full_plugin_file'];
-
 				// init edd updater class.
 				new EDD_Plugin_Updater(
 					'http://172.17.0.1:8040', // TODO: use store url.
-					$full_plugin_file,
+					$plugin['full_plugin_file'],
 					array(
 						'version' => $plugin['version'],
 						'license' => $license_key,
@@ -76,6 +74,7 @@ class Updater {
 				);
 
 				// adding quillforms version to addon api params.
+				$full_plugin_file = $plugin['full_plugin_file'];
 				add_filter(
 					'edd_sl_plugin_updater_api_params',
 					function( $api_params, $api_data, $plugin_file ) use ( $full_plugin_file ) {
