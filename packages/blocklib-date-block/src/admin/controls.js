@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	SelectControl,
 } from '@quillforms/admin-components';
 
@@ -59,9 +59,9 @@ const DateControls = ( props ) => {
 		setFieldValidationErr,
 	} = useDispatch( 'quillForms/renderer-core' );
 	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel label="Date Format" />
+		<BaseControl>
+			<ControlWrapper orientation="vertical">
+				<ControlLabel label="Date Format" />
 
 				<SelectControl
 					className={ css`
@@ -95,8 +95,8 @@ const DateControls = ( props ) => {
 					}
 					options={ separatorOptions }
 				/>
-			</__experimentalControlWrapper>
-		</__experimentalBaseControl>
+			</ControlWrapper>
+		</BaseControl>
 	);
 };
 export default DateControls;

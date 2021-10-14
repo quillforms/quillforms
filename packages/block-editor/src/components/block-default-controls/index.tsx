@@ -3,9 +3,9 @@
  */
 import {
 	ToggleControl,
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 } from '@quillforms/admin-components';
 import type { BlockAttributes } from '@quillforms/types';
 
@@ -56,9 +56,9 @@ const DefaultControls: React.FC< Props > = ( {
 	return (
 		<Fragment>
 			{ editableSupport && requiredSupport && (
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper>
-						<__experimentalControlLabel label={ 'Required' } />
+				<BaseControl>
+					<ControlWrapper>
+						<ControlLabel label={ 'Required' } />
 						<ToggleControl
 							checked={ required }
 							onChange={ () =>
@@ -67,13 +67,13 @@ const DefaultControls: React.FC< Props > = ( {
 								} )
 							}
 						/>
-					</__experimentalControlWrapper>
-				</__experimentalBaseControl>
+					</ControlWrapper>
+				</BaseControl>
 			) }
 			{ attachmentSupport && (
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper>
-						<__experimentalControlLabel label={ 'Image' } />
+				<BaseControl>
+					<ControlWrapper>
+						<ControlLabel label={ 'Image' } />
 						{ isEmpty( attachment ) ? (
 							<MediaUpload
 								onSelect={ ( media ) =>
@@ -107,8 +107,8 @@ const DefaultControls: React.FC< Props > = ( {
 								Remove
 							</button>
 						) }
-					</__experimentalControlWrapper>
-				</__experimentalBaseControl>
+					</ControlWrapper>
+				</BaseControl>
 			) }
 		</Fragment>
 	);

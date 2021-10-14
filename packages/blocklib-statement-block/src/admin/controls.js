@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	ToggleControl,
 	TextControl,
 } from '@quillforms/admin-components';
@@ -19,9 +19,9 @@ const statementControls = ( props ) => {
 	const { buttonText, quotationMarks } = attributes;
 	return (
 		<Fragment>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Quotation marks" />
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Quotation marks" />
 					<ToggleControl
 						checked={ quotationMarks }
 						onChange={ () =>
@@ -30,11 +30,11 @@ const statementControls = ( props ) => {
 							} )
 						}
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="vertical">
-					<__experimentalControlLabel label="Button text" />
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper orientation="vertical">
+					<ControlLabel label="Button text" />
 					<TextControl
 						placeholder="Button Text"
 						value={ buttonText }
@@ -42,8 +42,8 @@ const statementControls = ( props ) => {
 							setAttributes( { buttonText: val } )
 						}
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
+				</ControlWrapper>
+			</BaseControl>
 		</Fragment>
 	);
 };

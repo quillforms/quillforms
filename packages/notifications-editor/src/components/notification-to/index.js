@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	SelectControl,
 } from '@quillforms/admin-components';
 
@@ -49,9 +49,9 @@ const NotificationTo = ( {
 	];
 
 	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="horizontal">
-				<__experimentalControlLabel
+		<BaseControl>
+			<ControlWrapper orientation="horizontal">
+				<ControlLabel
 					label="Send a notification to"
 					showAsterisk={ true }
 				/>
@@ -80,7 +80,7 @@ const NotificationTo = ( {
 						options={ options }
 					/>
 				</div>
-			</__experimentalControlWrapper>
+			</ControlWrapper>
 			{ toType === 'email' && (
 				<ReactMultiEmail
 					placeholder="Type an email then hit a space"
@@ -148,7 +148,7 @@ const NotificationTo = ( {
 						Please insert at least one correct email!
 					</AlertMessageWrapper>
 				) }
-		</__experimentalBaseControl>
+		</BaseControl>
 	);
 };
 

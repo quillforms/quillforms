@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	TextControl,
 } from '@quillforms/admin-components';
 
@@ -15,15 +15,15 @@ const WelcomeScreenControls = ( { attributes, setAttributes } ) => {
 		setAttributes( { buttonText: event.target.value } );
 	};
 	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel label="Button Text" />
+		<BaseControl>
+			<ControlWrapper orientation="vertical">
+				<ControlLabel label="Button Text" />
 				<TextControl
 					value={ buttonText }
 					onChange={ ( val ) => setAttributes( { buttonText: val } ) }
 				/>
-			</__experimentalControlWrapper>
-		</__experimentalBaseControl>
+			</ControlWrapper>
+		</BaseControl>
 	);
 };
 export default WelcomeScreenControls;

@@ -1,8 +1,8 @@
 import {
 	TextControl,
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 } from '@quillforms/admin-components';
 
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -14,15 +14,15 @@ const PostSlug = () => {
 		};
 	} );
 	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel label="Slug" />
+		<BaseControl>
+			<ControlWrapper orientation="vertical">
+				<ControlLabel label="Slug" />
 				<TextControl
 					value={ slug }
 					onChange={ ( val ) => setPostSlug( val ) }
 				/>
-			</__experimentalControlWrapper>
-		</__experimentalBaseControl>
+			</ControlWrapper>
+		</BaseControl>
 	);
 };
 

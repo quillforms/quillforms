@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlLabel,
-	__experimentalControlWrapper,
+	BaseControl,
+	ControlLabel,
+	ControlWrapper,
 } from '@quillforms/admin-components';
 import { getPlainExcerpt, RichTextControl } from '@quillforms/rich-text';
 
@@ -70,12 +70,9 @@ const EmailMessage = ( {
 	);
 
 	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel
-					label="Message"
-					showAsterisk={ true }
-				/>
+		<BaseControl>
+			<ControlWrapper orientation="vertical">
+				<ControlLabel label="Message" showAsterisk={ true } />
 				<RichTextControl
 					className={ css`
 						min-height: 120px !important;
@@ -87,13 +84,13 @@ const EmailMessage = ( {
 					} }
 					allowedFormats={ [ 'bold', 'italic', 'link' ] }
 				/>
-			</__experimentalControlWrapper>
+			</ControlWrapper>
 			{ ! isValid && isReviewing && (
 				<AlertMessageWrapper type="error">
 					This field is required!
 				</AlertMessageWrapper>
 			) }
-		</__experimentalBaseControl>
+		</BaseControl>
 	);
 };
 export default EmailMessage;

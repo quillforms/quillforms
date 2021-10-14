@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	ToggleControl,
 } from '@quillforms/admin-components';
 
@@ -112,9 +112,9 @@ const NotificationEditorWrapper = ( {
 						} ) );
 					} }
 				/>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper>
-						<__experimentalControlLabel label="Active" />
+				<BaseControl>
+					<ControlWrapper>
+						<ControlLabel label="Active" />
 						<ToggleControl
 							checked={ active }
 							onChange={ () => {
@@ -124,8 +124,8 @@ const NotificationEditorWrapper = ( {
 								} ) );
 							} }
 						/>
-					</__experimentalControlWrapper>
-				</__experimentalBaseControl>
+					</ControlWrapper>
+				</BaseControl>
 				<NotificationTo
 					emailFields={ emailFields }
 					recipients={ recipients }
@@ -145,7 +145,7 @@ const NotificationEditorWrapper = ( {
 					} }
 					isReviewing={ isReviewing }
 				/>
-				<__experimentalBaseControl>
+				<BaseControl>
 					<EmailSelect
 						label="Reply to"
 						emailFields={ emailFields }
@@ -157,7 +157,7 @@ const NotificationEditorWrapper = ( {
 							} ) )
 						}
 					/>
-				</__experimentalBaseControl>
+				</BaseControl>
 				<NotificationSubject
 					value={ subject }
 					setValue={ ( val ) => {

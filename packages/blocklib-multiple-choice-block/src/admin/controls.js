@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	ToggleControl,
 	ChoicesBulkBtn,
 	ChoicesInserter,
@@ -22,47 +22,47 @@ const multipleChoiceControls = ( props ) => {
 	} = props;
 	return (
 		<Fragment>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Multiple" />
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Multiple" />
 					<ToggleControl
 						checked={ multiple }
 						onChange={ () =>
 							setAttributes( { multiple: ! multiple } )
 						}
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Vertical Align" />
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Vertical Align" />
 					<ToggleControl
 						checked={ verticalAlign }
 						onChange={ () =>
 							setAttributes( { verticalAlign: ! verticalAlign } )
 						}
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Choices" />
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Choices" />
 					<ChoicesBulkBtn
 						choices={ choices }
 						setChoices={ ( val ) => {
 							setAttributes( { choices: val } );
 						} }
 					/>
-				</__experimentalControlWrapper>
-				<__experimentalControlWrapper orientation="vertical">
+				</ControlWrapper>
+				<ControlWrapper orientation="vertical">
 					<ChoicesInserter
 						choices={ choices }
 						setChoices={ ( val ) => {
 							setAttributes( { choices: val } );
 						} }
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
+				</ControlWrapper>
+			</BaseControl>
 		</Fragment>
 	);
 };

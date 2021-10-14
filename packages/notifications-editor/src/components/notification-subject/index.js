@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlLabel,
-	__experimentalControlWrapper,
+	BaseControl,
+	ControlLabel,
+	ControlWrapper,
 	TextControl,
 } from '@quillforms/admin-components';
 import { useEffect } from '@wordpress/element';
@@ -25,12 +25,9 @@ const EmailSubject = ( {
 		}
 	}, [ value ] );
 	return (
-		<__experimentalBaseControl>
-			<__experimentalControlWrapper orientation="vertical">
-				<__experimentalControlLabel
-					label="Subject"
-					showAsterisk={ true }
-				/>
+		<BaseControl>
+			<ControlWrapper orientation="vertical">
+				<ControlLabel label="Subject" showAsterisk={ true } />
 				<TextControl
 					value={ value }
 					onChange={ ( newVal ) => setValue( newVal ) }
@@ -40,8 +37,8 @@ const EmailSubject = ( {
 						This field is required!
 					</AlertMessageWrapper>
 				) }
-			</__experimentalControlWrapper>
-		</__experimentalBaseControl>
+			</ControlWrapper>
+		</BaseControl>
 	);
 };
 export default EmailSubject;

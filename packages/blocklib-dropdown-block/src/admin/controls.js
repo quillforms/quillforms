@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	ChoicesBulkBtn,
 	ChoicesInserter,
 } from '@quillforms/admin-components';
@@ -22,25 +22,25 @@ const DropdownControls = ( props ) => {
 
 	return (
 		<Fragment>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Choices" />
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Choices" />
 					<ChoicesBulkBtn
 						choices={ choices }
 						setChoices={ ( val ) => {
 							setAttributes( { choices: val } );
 						} }
 					/>
-				</__experimentalControlWrapper>
-				<__experimentalControlWrapper orientation="vertical">
+				</ControlWrapper>
+				<ControlWrapper orientation="vertical">
 					<ChoicesInserter
 						choices={ choices }
 						setChoices={ ( val ) => {
 							setAttributes( { choices: val } );
 						} }
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
+				</ControlWrapper>
+			</BaseControl>
 		</Fragment>
 	);
 };

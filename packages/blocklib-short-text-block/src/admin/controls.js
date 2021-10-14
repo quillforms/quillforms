@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	ToggleControl,
 	TextControl,
 } from '@quillforms/admin-components';
@@ -19,9 +19,9 @@ const shortTextControl = ( { attributes, setAttributes } ) => {
 
 	return (
 		<Fragment>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Max Characters" />
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Max Characters" />
 					<ToggleControl
 						checked={ setMaxCharacters }
 						onChange={ () => {
@@ -30,7 +30,7 @@ const shortTextControl = ( { attributes, setAttributes } ) => {
 							} );
 						} }
 					/>
-				</__experimentalControlWrapper>
+				</ControlWrapper>
 				{ setMaxCharacters && (
 					<TextControl
 						type="number"
@@ -43,7 +43,7 @@ const shortTextControl = ( { attributes, setAttributes } ) => {
 						}
 					/>
 				) }
-			</__experimentalBaseControl>
+			</BaseControl>
 		</Fragment>
 	);
 };

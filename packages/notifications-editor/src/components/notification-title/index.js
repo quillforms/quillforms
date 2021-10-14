@@ -2,18 +2,18 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	TextControl,
 } from '@quillforms/admin-components';
 
 const NotificationTitle = ( { value, setValue } ) => {
 	return (
 		<div className="notifications-editor-notification-title">
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper>
-					<__experimentalControlLabel label="Title" />
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel label="Title" />
 					<TextControl
 						value={ value }
 						onChange={ ( val ) => {
@@ -22,8 +22,8 @@ const NotificationTitle = ( { value, setValue } ) => {
 							} );
 						} }
 					/>
-				</__experimentalControlWrapper>
-			</__experimentalBaseControl>
+				</ControlWrapper>
+			</BaseControl>
 		</div>
 	);
 };

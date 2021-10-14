@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	ToggleControl,
 	TextControl,
 } from '@quillforms/admin-components';
@@ -40,9 +40,9 @@ const NumberControls = ( props ) => {
 	};
 	return (
 		<Fragment>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Set min number" />
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Set min number" />
 					<ToggleControl
 						checked={ setMin }
 						onChange={ () => {
@@ -50,7 +50,7 @@ const NumberControls = ( props ) => {
 							setMaxHandler( 1 );
 						} }
 					/>
-				</__experimentalControlWrapper>
+				</ControlWrapper>
 				{ setMin && (
 					<TextControl
 						type="number"
@@ -62,10 +62,10 @@ const NumberControls = ( props ) => {
 						onBlur={ () => setMinHandler( min ) }
 					/>
 				) }
-			</__experimentalBaseControl>
-			<__experimentalBaseControl>
-				<__experimentalControlWrapper orientation="horizontal">
-					<__experimentalControlLabel label="Set max number" />
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Set max number" />
 					<div role="presentation" className="switch-control-wrapper">
 						<ToggleControl
 							checked={ setMax }
@@ -75,7 +75,7 @@ const NumberControls = ( props ) => {
 							} }
 						/>
 					</div>
-				</__experimentalControlWrapper>
+				</ControlWrapper>
 				{ setMax && (
 					<TextControl
 						type="number"
@@ -87,7 +87,7 @@ const NumberControls = ( props ) => {
 						onBlur={ () => setMaxHandler( max ) }
 					/>
 				) }
-			</__experimentalBaseControl>
+			</BaseControl>
 		</Fragment>
 	);
 };

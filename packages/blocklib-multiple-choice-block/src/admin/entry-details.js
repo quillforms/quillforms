@@ -1,6 +1,5 @@
 import { css } from 'emotion';
 const EntryDetails = ( { id, attributes, value } ) => {
-	console.log( attributes );
 	const { choices } = attributes;
 	return (
 		<div

@@ -3,8 +3,8 @@
  */
 import { getPlainExcerpt } from '@quillforms/rich-text';
 import {
-	__experimentalControlLabel,
-	__experimentalControlWrapper,
+	ControlLabel,
+	ControlWrapper,
 	BlockIconBox,
 	SelectControl,
 } from '@quillforms/admin-components';
@@ -62,8 +62,8 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 	} );
 
 	return (
-		<__experimentalControlWrapper orientation="vertical">
-			{ !! label && <__experimentalControlLabel label={ label } /> }
+		<ControlWrapper orientation="vertical">
+			{ !! label && <ControlLabel label={ label } /> }
 			{ emailFields.length === 0 ? (
 				<AlertMessageWrapper type={ isRequired ? 'error' : '' }>
 					To select an email, you should have at least one email
@@ -82,7 +82,7 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 					options={ emailFieldsOptions }
 				/>
 			) }
-		</__experimentalControlWrapper>
+		</ControlWrapper>
 	);
 };
 export default EmailSelect;

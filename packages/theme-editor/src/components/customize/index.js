@@ -2,9 +2,9 @@
  * QuillForms Dependencies
  */
 import {
-	__experimentalBaseControl,
-	__experimentalControlWrapper,
-	__experimentalControlLabel,
+	BaseControl,
+	ControlWrapper,
+	ControlLabel,
 	Button,
 	FontPicker,
 	TextControl,
@@ -70,18 +70,18 @@ const CustomizeThemePanel = () => {
 	return (
 		<div className="theme-editor-customize">
 			<PanelBody title="General Settings" initialOpen={ false }>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Title" />
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Title" />
 						<TextControl
 							value={ title }
 							onChange={ ( val ) => {
 								setCurrentThemeTitle( val );
 							} }
 						/>
-					</__experimentalControlWrapper>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Font" />
+					</ControlWrapper>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Font" />
 						<FontPicker
 							fonts={ configApi.getFonts() }
 							selectedFont={ font }
@@ -91,13 +91,13 @@ const CustomizeThemePanel = () => {
 								} );
 							} }
 						/>
-					</__experimentalControlWrapper>
-				</__experimentalBaseControl>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Background" />
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Background" />
 						<ColorPreview color={ backgroundColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ComboColorPicker
 						color={ backgroundColor }
 						setColor={ ( value ) => {
@@ -106,10 +106,10 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Background Image" />
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Background Image" />
 						{ isEmpty( backgroundImage ) ? (
 							<MediaUpload
 								onSelect={ ( media ) =>
@@ -137,15 +137,15 @@ const CustomizeThemePanel = () => {
 								Remove
 							</Button>
 						) }
-					</__experimentalControlWrapper>
-				</__experimentalBaseControl>
+					</ControlWrapper>
+				</BaseControl>
 			</PanelBody>
 			<PanelBody title="Questions Settings" initialOpen={ false }>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Color" />
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Color" />
 						<ColorPreview color={ questionsColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ColorPicker
 						value={ questionsColor }
 						onChange={ ( value ) => {
@@ -154,14 +154,14 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
+				</BaseControl>
 			</PanelBody>
 			<PanelBody title="Answers Settings" initialOpen={ false }>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Color" />
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Color" />
 						<ColorPreview color={ answersColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ColorPicker
 						value={ answersColor }
 						onChange={ ( value ) => {
@@ -170,14 +170,14 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
+				</BaseControl>
 			</PanelBody>
 			<PanelBody title="Buttons Settings" initialOpen={ false }>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Text Color" />
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Text Color" />
 						<ColorPreview color={ buttonsFontColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ColorPicker
 						value={ buttonsFontColor }
 						onChange={ ( value ) => {
@@ -186,12 +186,12 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Background Color" />
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Background Color" />
 						<ColorPreview color={ buttonsBgColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ComboColorPicker
 						color={ buttonsBgColor }
 						setColor={ ( value ) => {
@@ -200,14 +200,14 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
+				</BaseControl>
 			</PanelBody>
 			<PanelBody title="Error Messages Settings" initialOpen={ false }>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Text Color" />
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Text Color" />
 						<ColorPreview color={ errorsFontColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ColorPicker
 						value={ errorsFontColor }
 						onChange={ ( value ) => {
@@ -216,12 +216,12 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Background Color" />
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Background Color" />
 						<ColorPreview color={ errorsBgColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ComboColorPicker
 						color={ errorsBgColor }
 						setColor={ ( value ) => {
@@ -230,14 +230,14 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
+				</BaseControl>
 			</PanelBody>
 			<PanelBody title="Progress Bar Settings" initialOpen={ false }>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Progress Bar Fill Color" />
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Progress Bar Fill Color" />
 						<ColorPreview color={ progressBarFillColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ColorPicker
 						value={ progressBarFillColor }
 						onChange={ ( value ) => {
@@ -246,12 +246,12 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
-				<__experimentalBaseControl>
-					<__experimentalControlWrapper orientation="horizontal">
-						<__experimentalControlLabel label="Progress Bar Background Color" />
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Progress Bar Background Color" />
 						<ColorPreview color={ progressBarBgColor } />
-					</__experimentalControlWrapper>
+					</ControlWrapper>
 					<ColorPicker
 						value={ progressBarBgColor }
 						onChange={ ( value ) => {
@@ -260,7 +260,7 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
-				</__experimentalBaseControl>
+				</BaseControl>
 			</PanelBody>
 			{ shouldBeSaved && (
 				<CustomizeFooter
