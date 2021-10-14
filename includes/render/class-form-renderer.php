@@ -85,6 +85,8 @@ class Form_Renderer {
 		// Overriding single post page with custom template.
 		add_action( 'init', array( $this, 'template_include' ) );
 
+		add_filter( 'show_admin_bar', array( $this, 'hide_admin_bar' ) );
+
 		// Enqueuing assets to make the form render properly.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
 	}
@@ -226,6 +228,19 @@ class Form_Renderer {
 			}
 
 		endif;
+	}
+
+	/**
+	 * Hide admin bar in form pages
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return boolean
+	 */
+	public function hide_admin_bar() {
+		if ( is_singular( 'quill_forms' ) ) {
+			return false;
+		}
 	}
 
 }
