@@ -28,7 +28,7 @@ const FormAdminBar = ( { formId } ) => {
 				className="admin-components-form-admin-bar__home-link"
 				to={ `/admin.php?page=quillforms` }
 			>
-				<Icon icon={ arrowLeft } /> Back to Quill Forms home page
+				<Icon icon={ arrowLeft } /> Back to home
 			</NavLink>
 			{ /** @ts-expect-error */ }
 			<FormAdminNav.Slot>
