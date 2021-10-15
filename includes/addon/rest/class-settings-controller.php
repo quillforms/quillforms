@@ -42,20 +42,6 @@ abstract class Settings_Controller {
 	protected $rest_endpoint = '/settings';
 
 	/**
-	 * Properties allowed to get
-	 *
-	 * @var array
-	 */
-	protected $gettable_properties = array();
-
-	/**
-	 * Properties allowed to update
-	 *
-	 * @var array
-	 */
-	protected $updatable_properties = array();
-
-	/**
 	 * Addon
 	 *
 	 * @var Addon
@@ -111,6 +97,8 @@ abstract class Settings_Controller {
 
 	/**
 	 * Retrieves schema, conforming to JSON Schema.
+	 * Should include context for gettable data
+	 * Should specify additionalProperties & readonly to specify updatable data
 	 *
 	 * @since 1.3.0
 	 *
@@ -128,13 +116,7 @@ abstract class Settings_Controller {
 	 */
 	public function get( $request ) { // phpcs:ignore
 		$settings = $this->addon->settings->get();
-		$settings = array_filter(
-			$settings,
-			function( $key ) {
-				return in_array( $key, $this->gettable_properties, true );
-			},
-			ARRAY_FILTER_USE_KEY
-		);
+		$settings = rest_filter_response_by_context( $settings, $this->get_schema(), 'view' );
 		return new WP_REST_Response( $settings, 200 );
 	}
 
@@ -161,15 +143,7 @@ abstract class Settings_Controller {
 	 */
 	public function update( $request ) {
 		$settings = $request->get_json_params();
-		$settings = array_filter(
-			$settings,
-			function( $key ) {
-				return in_array( $key, $this->updatable_properties, true );
-			},
-			ARRAY_FILTER_USE_KEY
-		);
-
-		$updated = $this->addon->settings->update( $settings );
+		$updated  = $this->addon->settings->update( $settings );
 		if ( $updated ) {
 			return new WP_REST_Response( array( 'success' => true ) );
 		} else {

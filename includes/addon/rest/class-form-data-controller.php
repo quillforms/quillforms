@@ -35,20 +35,6 @@ abstract class Form_Data_Controller {
 	protected $rest_base;
 
 	/**
-	 * Properties allowed to get
-	 *
-	 * @var array
-	 */
-	protected $gettable_properties = array();
-
-	/**
-	 * Properties allowed to update
-	 *
-	 * @var array
-	 */
-	protected $updatable_properties = array();
-
-	/**
 	 * Addon
 	 *
 	 * @var Addon
@@ -99,6 +85,8 @@ abstract class Form_Data_Controller {
 
 	/**
 	 * Retrieves schema, conforming to JSON Schema.
+	 * Should include context for gettable data
+	 * Should include additionalProperties & readonly to specify updatable data
 	 *
 	 * @since 1.3.0
 	 *
@@ -117,13 +105,7 @@ abstract class Form_Data_Controller {
 	public function get( $request ) {
 		$form_id = $request->get_param( 'form_id' );
 		$data    = $this->addon->form_data->get( $form_id ) ?? array();
-		$data    = array_filter(
-			$data,
-			function( $key ) {
-				return in_array( $key, $this->gettable_properties, true );
-			},
-			ARRAY_FILTER_USE_KEY
-		);
+		$data    = rest_filter_response_by_context( $data, $this->get_schema(), 'view' );
 		return new WP_REST_Response( $data, 200 );
 	}
 
@@ -151,14 +133,6 @@ abstract class Form_Data_Controller {
 	public function update( $request ) {
 		$form_id = $request->get_param( 'form_id' );
 		$data    = $request->get_json_params();
-		$data    = array_filter(
-			$data,
-			function( $key ) {
-				return in_array( $key, $this->updatable_properties, true );
-			},
-			ARRAY_FILTER_USE_KEY
-		);
-
 		$updated = $this->addon->form_data->update( $form_id, $data );
 		if ( $updated ) {
 			return new WP_REST_Response( array( 'success' => true ) );
