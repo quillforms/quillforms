@@ -190,7 +190,6 @@ class Website_Block_Type extends Block_Type {
 				return '<a href="' . $value . '">' . $value . '</a>';
 			case 'spreadsheet':
 				return '=HYPERLINK("' . $value . '","' . $value . '")';
-			case 'raw':
 			default:
 				return $value;
 		}

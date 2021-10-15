@@ -169,7 +169,12 @@ class Date_Block_Type extends Block_Type {
 	 * @return mixed $value The merged entry value.
 	 */
 	public function get_merge_tag_value( $value, $form_data, $context = 'html' ) {
-		return \DateTime::createFromFormat( 'Y-m-d', $value )->format( $this->get_date_format() );
+		switch ( $context ) {
+			case 'raw':
+				return $value;
+			default:
+				return \DateTime::createFromFormat( 'Y-m-d', $value )->format( $this->get_date_format() );
+		}
 	}
 
 	/**

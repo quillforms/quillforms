@@ -347,6 +347,11 @@ abstract class Block_Type extends stdClass {
 
 	/**
 	 * Get merge tag value.
+	 * Supported context may be:
+	 * - html: may contains html
+	 * - spreadsheet: may contains spreadsheet formula
+	 * - plain: mustn't contains html
+	 * - raw: must be in a unique format
 	 *
 	 * @since 1.0.0
 	 *
