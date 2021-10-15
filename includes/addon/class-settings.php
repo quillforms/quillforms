@@ -42,33 +42,6 @@ class Settings {
 	}
 
 	/**
-	 * Get filtered settings
-	 * To be overridden at subclass if needed.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param false|string $property Property.
-	 * @return mixed
-	 */
-	public function get_filtered( $property = false ) {
-		return $this->get( $property );
-	}
-
-	/**
-	 * Update settings after filtering
-	 * To be overridden at subclass if needed.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param array   $new_settings New settings.
-	 * @param boolean $partial Partial update or complete.
-	 * @return boolean
-	 */
-	public function update_filtered( $new_settings, $partial = true ) {
-		return $this->update( $new_settings, $partial );
-	}
-
-	/**
 	 * Get settings
 	 *
 	 * @since 1.3.0
@@ -76,7 +49,7 @@ class Settings {
 	 * @param false|string $property Property.
 	 * @return mixed
 	 */
-	final public function get( $property = false ) {
+	public function get( $property = false ) {
 		$settings = get_option( $this->option_key, array() );
 		if ( $property ) {
 			return $settings[ $property ] ?? null;
@@ -93,7 +66,7 @@ class Settings {
 	 * @param boolean $partial Partial update or complete.
 	 * @return boolean
 	 */
-	final public function update( $new_settings, $partial = true ) {
+	public function update( $new_settings, $partial = true ) {
 		$previous_settings = $this->get();
 		if ( $partial ) {
 			$new_settings = array_replace( $previous_settings, $new_settings );
@@ -112,7 +85,7 @@ class Settings {
 	 * @param false|string $property Property.
 	 * @return boolean
 	 */
-	final public function delete( $property = false ) {
+	public function delete( $property = false ) {
 		if ( $property ) {
 			return $this->update( array( $property => null ) );
 		} else {

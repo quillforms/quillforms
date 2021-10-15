@@ -116,7 +116,7 @@ abstract class Form_Data_Controller {
 	 */
 	public function get( $request ) {
 		$form_id = $request->get_param( 'form_id' );
-		$data    = $this->addon->form_data->get_filtered( $form_id ) ?? array();
+		$data    = $this->addon->form_data->get( $form_id ) ?? array();
 		$data    = array_filter(
 			$data,
 			function( $key ) {
@@ -159,7 +159,7 @@ abstract class Form_Data_Controller {
 			ARRAY_FILTER_USE_KEY
 		);
 
-		$updated = $this->addon->form_data->update_filtered( $form_id, $data );
+		$updated = $this->addon->form_data->update( $form_id, $data );
 		if ( $updated ) {
 			return new WP_REST_Response( array( 'success' => true ) );
 		} else {

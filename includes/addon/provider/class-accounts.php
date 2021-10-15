@@ -124,7 +124,7 @@ abstract class Accounts {
 	 * @return array
 	 */
 	final protected function get_accounts_data() {
-		return $this->provider->settings->get_filtered( 'accounts' ) ?? array();
+		return $this->provider->settings->get( 'accounts' ) ?? array();
 	}
 
 	/**
@@ -134,7 +134,7 @@ abstract class Accounts {
 	 * @return boolean
 	 */
 	final protected function update_accounts_data( $data ) {
-		return $this->provider->settings->update_filtered( array( 'accounts' => $data ) );
+		return $this->provider->settings->update( array( 'accounts' => $data ) );
 	}
 
 	/**

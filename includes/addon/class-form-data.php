@@ -42,38 +42,13 @@ class Form_Data {
 	}
 
 	/**
-	 * Get filtered form data
-	 * To be overridden at subclass if needed.
-	 *
-	 * @param int          $form_id Form id.
-	 * @param false|string $property Property.
-	 * @return mixed
-	 */
-	public function get_filtered( $form_id, $property = false ) {
-		return $this->get( $form_id, $property );
-	}
-
-	/**
-	 * Update form data after filtering
-	 * To be overridden at subclass if needed.
-	 *
-	 * @param int     $form_id Form id.
-	 * @param mixed   $new_data New form data.
-	 * @param boolean $partial Partial update or complete.
-	 * @return boolean
-	 */
-	public function update_filtered( $form_id, $new_data, $partial = true ) {
-		return $this->update( $form_id, $new_data, $partial );
-	}
-
-	/**
 	 * Get form data
 	 *
 	 * @param int          $form_id Form id.
 	 * @param false|string $property Property.
 	 * @return mixed
 	 */
-	final public function get( $form_id, $property = false ) {
+	public function get( $form_id, $property = false ) {
 		$data = get_post_meta( $form_id, $this->meta_key, true ) ?: array(); // phpcs:ignore
 		if ( $property ) {
 			return $data[ $property ] ?? null;
@@ -89,7 +64,7 @@ class Form_Data {
 	 * @param boolean $partial Partial update or complete.
 	 * @return boolean
 	 */
-	final public function update( $form_id, $new_data, $partial = true ) {
+	public function update( $form_id, $new_data, $partial = true ) {
 		$previous_data = $this->get( $form_id );
 		if ( $partial ) {
 			$new_data = array_replace( $previous_data, $new_data );
@@ -107,7 +82,7 @@ class Form_Data {
 	 * @param false|string $property Property.
 	 * @return boolean
 	 */
-	final public function delete( $form_id, $property = false ) {
+	public function delete( $form_id, $property = false ) {
 		if ( $property ) {
 			return $this->update( $form_id, array( $property => null ) );
 		} else {

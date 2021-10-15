@@ -127,7 +127,7 @@ abstract class Settings_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get( $request ) { // phpcs:ignore
-		$settings = $this->addon->settings->get_filtered();
+		$settings = $this->addon->settings->get();
 		$settings = array_filter(
 			$settings,
 			function( $key ) {
@@ -169,7 +169,7 @@ abstract class Settings_Controller {
 			ARRAY_FILTER_USE_KEY
 		);
 
-		$updated = $this->addon->settings->update_filtered( $settings );
+		$updated = $this->addon->settings->update( $settings );
 		if ( $updated ) {
 			return new WP_REST_Response( array( 'success' => true ) );
 		} else {
