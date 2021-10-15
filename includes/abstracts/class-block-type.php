@@ -376,16 +376,16 @@ abstract class Block_Type extends stdClass {
 			case 'is':
 				if ( is_array( $field_value ) ) {
 					// possible input is "1" to be compared with 1.
-					return in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+					return in_array( $condition_value, $field_value ); // phpcs:ignore
 				}
-				return ( $field_value == $condition_value );
+				return ( $field_value == $condition_value ); // phpcs:ignore
 
 			case 'is_not':
 				if ( is_array( $field_value ) ) {
 					// possible input is "1" to be compared with 1.
-					return ! in_array( $condition_value, $field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+					return ! in_array( $condition_value, $field_value ); // phpcs:ignore
 				}
-				return ( $field_value != $condition_value );
+				return ( $field_value != $condition_value ); // phpcs:ignore
 
 			case 'greater_than':
 				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
