@@ -32,15 +32,6 @@ abstract class Provider extends Addon {
 	public $accounts_remote_data;
 
 	/**
-	 * Connection properties that holds fields
-	 *
-	 * @since 1.6.0
-	 *
-	 * @var array
-	 */
-	protected $connection_fields_props = array();
-
-	/**
 	 * Class names
 	 *
 	 * @var array
@@ -68,7 +59,6 @@ abstract class Provider extends Addon {
 		}
 
 		$this->handle_entry_process();
-		$this->handle_form_blocks_updated();
 	}
 
 	/**
@@ -99,43 +89,6 @@ abstract class Provider extends Addon {
 				$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
 				$entry_process->process();
 			}
-		);
-	}
-
-	/**
-	 * Handle form blocks updated action
-	 *
-	 * @since 1.6.0
-	 *
-	 * @return void
-	 */
-	protected function handle_form_blocks_updated() {
-		add_action(
-			'quillforms_form_blocks_updated',
-			function( $form_id, $blocks ) {
-				if ( empty( $this->connection_fields_props ) ) {
-					return;
-				}
-
-				$blocks_ids = array();
-				foreach ( $blocks as $block ) {
-					$blocks_ids[] = $block['id'];
-				}
-
-				$connections = $this->form_data->get( $form_id, 'connections' );
-				if ( empty( $connections ) ) {
-					return;
-				}
-
-				foreach ( $connections as &$connection ) {
-					foreach ( $this->connection_fields_props as $field_prop ) {
-						$connection[ $field_prop ] = $this->filter_connection_fields( $connection[ $field_prop ], $blocks_ids );
-					}
-				}
-				$this->form_data->update( $form_id, compact( 'connections' ) );
-			},
-			10,
-			2
 		);
 	}
 
