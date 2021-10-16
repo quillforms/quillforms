@@ -63,8 +63,8 @@ register_rest_field(
 			if ( $prev_value === $meta ) {
 				return true;
 			}
-			$ret = update_post_meta( $form_id, 'blocks', $meta );
 
+			$ret = update_post_meta( $form_id, 'blocks', $meta );
 			if ( false === $ret ) {
 				return new WP_Error(
 					'quillforms_blocks_update_failed',
@@ -72,6 +72,8 @@ register_rest_field(
 					array( 'status' => 500 )
 				);
 			}
+
+			do_action( 'quillforms_form_blocks_updated', $form_id, $meta );
 			return true;
 		},
 		'schema'          => array(
