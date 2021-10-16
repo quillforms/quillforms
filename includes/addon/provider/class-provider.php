@@ -25,6 +25,13 @@ abstract class Provider extends Addon {
 	public $accounts;
 
 	/**
+	 * Accounts data
+	 *
+	 * @var Accounts_Remote_Data
+	 */
+	public $accounts_remote_data;
+
+	/**
 	 * Connection properties that holds fields
 	 *
 	 * @since 1.6.0
@@ -40,8 +47,9 @@ abstract class Provider extends Addon {
 	 */
 	protected static $classes = array(
 		// + classes from parent.
-		// 'accounts'      => Accounts::class,
-		// 'entry_process' => Entry_Process::class,
+		// 'accounts'             => Accounts::class,
+		// 'accounts_remote_data' => Accounts_Remote_Data::class,
+		// 'entry_process'        => Entry_Process::class,
 	);
 
 	/**
@@ -55,6 +63,9 @@ abstract class Provider extends Addon {
 		parent::init();
 
 		$this->accounts = new static::$classes['accounts']( $this );
+		if ( ! empty( static::$classes['accounts_remote_data'] ) ) {
+			$this->accounts_remote_data = new static::$classes['accounts_remote_data']( $this );
+		}
 
 		$this->handle_entry_process();
 		$this->handle_form_blocks_updated();

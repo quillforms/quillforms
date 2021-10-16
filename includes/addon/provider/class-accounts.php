@@ -114,7 +114,9 @@ abstract class Accounts {
 		if ( isset( $this->account_apis[ $account_id ] ) ) {
 			unset( $this->account_apis[ $account_id ] );
 		}
+		$this->provider->accounts_remote_data->clear_cache( $account_id );
 		$this->remove_account_connections( $account_id );
+
 		return $this->remove_account_data( $account_id );
 	}
 
