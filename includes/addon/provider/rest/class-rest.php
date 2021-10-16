@@ -73,7 +73,7 @@ abstract class REST extends Abstract_REST {
 	 */
 	protected function get_rest_data( $post ) {
 		$connections = $this->addon->form_data->get( $post->ID, 'connections' ) ?? array();
-		$connections = $this->addon->filter_connections( $connections, $post->ID );
+		$connections = $this->addon->filter_connections( $post->ID, $connections );
 
 		$accounts = $this->addon->accounts->get_accounts();
 
