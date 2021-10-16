@@ -140,6 +140,31 @@ abstract class Provider extends Addon {
 	}
 
 	/**
+	 * Filter form data
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param integer $form_id Form id.
+	 * @param array   $form_data Form data.
+	 * @return array
+	 */
+	public function filter_form_data( $form_id, $form_data ) {
+		$form_data['connections'] = $this->filter_connections( $form_id, $form_data['connections'] ?? array() );
+		return $form_data;
+	}
+
+	/**
+	 * Filter connections
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param integer $form_id Form id.
+	 * @param array   $connections Connections.
+	 * @return array
+	 */
+	abstract public function filter_connections( $form_id, $connections );
+
+	/**
 	 * Filter connection fields
 	 *
 	 * @since 1.6.0
@@ -148,7 +173,7 @@ abstract class Provider extends Addon {
 	 * @param array $valid_blocks_ids Valid blocks ids.
 	 * @return array
 	 */
-	private function filter_connection_fields( $fields, $valid_blocks_ids ) {
+	protected function filter_connection_fields( $fields, $valid_blocks_ids ) {
 		$filtered_fields = array();
 		foreach ( $fields as $field_key => $field ) {
 			if ( ! empty( $field['value'] ) ) {
@@ -171,7 +196,7 @@ abstract class Provider extends Addon {
 	 * @param array  $valid_blocks_ids Valid blocks ids.
 	 * @return array
 	 */
-	private function filter_connection_field_value( $field_value, $valid_blocks_ids ) {
+	protected function filter_connection_field_value( $field_value, $valid_blocks_ids ) {
 		return preg_replace_callback(
 			'/{{field:([a-zA-Z0-9-_]+)}}/',
 			function( $matches ) use ( $valid_blocks_ids ) {

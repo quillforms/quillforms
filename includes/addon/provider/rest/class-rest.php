@@ -8,12 +8,15 @@
 
 namespace QuillForms\Addon\Provider\REST;
 
+use QuillForms\Addon\Provider\Provider;
 use QuillForms\Addon\REST\REST as Abstract_REST;
 
 /**
  * REST abstract class.
  *
  * @since 1.3.0
+ *
+ * @property Provider $addon
  */
 abstract class REST extends Abstract_REST {
 
@@ -32,7 +35,7 @@ abstract class REST extends Abstract_REST {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param Addon $addon Addon.
+	 * @param Provider $addon Provider addon.
 	 */
 	public function __construct( $addon ) {
 		parent::__construct( $addon );
@@ -69,10 +72,12 @@ abstract class REST extends Abstract_REST {
 	 * @return mixed
 	 */
 	protected function get_rest_data( $post ) {
-		return array(
-			'connections' => $this->addon->form_data->get( $post->ID, 'connections' ) ?? array(),
-			'accounts'    => $this->addon->accounts->get_accounts(),
-		);
+		$connections = $this->addon->form_data->get( $post->ID, 'connections' ) ?? array();
+		$connections = $this->addon->filter_connections( $connections, $post->ID );
+
+		$accounts = $this->addon->accounts->get_accounts();
+
+		return compact( 'connections', 'accounts' );
 	}
 
 }

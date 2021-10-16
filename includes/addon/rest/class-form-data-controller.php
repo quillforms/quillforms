@@ -105,6 +105,7 @@ abstract class Form_Data_Controller {
 	public function get( $request ) {
 		$form_id = $request->get_param( 'form_id' );
 		$data    = $this->addon->form_data->get( $form_id ) ?? array();
+		$data    = $this->addon->filter_form_data( $form_id, $data );
 		$data    = rest_filter_response_by_context( $data, $this->get_schema(), 'view' );
 		return new WP_REST_Response( $data, 200 );
 	}
