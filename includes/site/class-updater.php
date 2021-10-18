@@ -86,6 +86,27 @@ class Updater {
 					10,
 					3
 				);
+
+				add_action(
+					'in_plugin_update_message-' . $plugin['plugin_file'],
+					function() use ( $plugin ) {
+						$license_info = License::instance()->get_license_info();
+						$license_page = esc_url( admin_url( 'admin.php?page=quillforms&path=license' ) );
+
+						// invalid license.
+						if ( ! $license_info || 'valid' !== $license_info['status'] ) {
+							echo '&nbsp;<strong><a href="' . $license_page . '">' . esc_html__( 'Enter valid license key for automatic updates.', 'quillforms' ) . '</a></strong>';
+							return;
+						}
+
+						// lower plan.
+						if ( ! License::instance()->is_plan_accessible( $license_info['plan'], $plugin['plan'] ) ) {
+							echo '&nbsp;<strong><a href="' . $license_page . '">' . esc_html__( 'Upgrade your license for automatic updates.', 'quillforms' ) . '</a></strong>';
+							return;
+						}
+					},
+					10
+				);
 			}
 		}
 	}
