@@ -111,4 +111,43 @@ class Updater {
 		}
 	}
 
+	/**
+	 * Clear addons update cache
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string|null $license_key License key to clear cache for. if null provided, current license key will be used.
+	 * @return boolean
+	 */
+	public function clear_addons_update_cache( $license_key = null ) {
+		if ( null === $license_key ) {
+			$license     = get_option( 'quillforms_license' );
+			$license_key = empty( $license['key'] ) ? null : $license['key'];
+		}
+
+		// clear edd plugin updater cache.
+		foreach ( Store::instance()->get_all_addons( true ) as $plugin ) {
+			$slug = basename( $plugin['full_plugin_file'], '.php' );
+			$beta = false;
+
+			// clear cache with license.
+			if ( ! empty( $license_key ) ) {
+				$cache_key = 'edd_sl_' . md5( serialize( $slug . $license_key . $beta ) );
+				delete_option( $cache_key );
+			}
+
+			// clear cache without license.
+			$cache_key = 'edd_sl_' . md5( serialize( $slug . $beta ) );
+			delete_option( $cache_key );
+		}
+
+		// clear wp plugins cache.
+		if ( ! function_exists( 'wp_clean_plugins_cache' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		wp_clean_plugins_cache();
+
+		return true;
+	}
+
 }
