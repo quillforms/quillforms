@@ -22,25 +22,23 @@ const ThankyouScreensWrapper = () => {
 			).getCurrentBlockId(),
 		};
 	} );
+
+	const currentThankYouScreen = thankyouScreens.find(
+		( screen ) => screen.id === currentBlockId
+	);
+	const blockType = blockTypes[ 'thankyou-screen' ];
+
 	return (
 		<>
 			{ currentBlockId === 'default_thankyou_screen' ||
 			! blockTypes[ 'thankyou-screen' ]?.display ? (
 				<DefaultThankYouScreen />
 			) : (
-				<>
-					{ thankyouScreens?.length > 0 &&
-						thankyouScreens.map( ( screen ) => {
-							const blockType = blockTypes[ 'thankyou-screen' ];
-							return (
-								<blockType.display
-									key={ screen.id }
-									id={ screen.id }
-									attributes={ screen.attributes }
-								/>
-							);
-						} ) }
-				</>
+				<blockType.display
+					key={ currentThankYouScreen?.id }
+					id={ currentThankYouScreen?.id }
+					attributes={ currentThankYouScreen?.attributes }
+				/>
 			) }
 		</>
 	);
