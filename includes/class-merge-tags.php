@@ -125,7 +125,7 @@ class Merge_Tags {
 				return '';
 			}
 
-			return $block_type->get_merge_tag_value( $entry['answers'][ $field_id ]['value'], $form_data, $context );
+			return $block_type->get_readable_value( $entry['answers'][ $field_id ]['value'], $form_data, $context );
 		}
 		return $replacement;
 	}

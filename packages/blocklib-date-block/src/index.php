@@ -158,7 +158,7 @@ class Date_Block_Type extends Block_Type {
 	}
 
 	/**
-	 * Get merge tag value.
+	 * Get readable value.
 	 *
 	 * @since 1.0.0
 	 *
@@ -166,9 +166,9 @@ class Date_Block_Type extends Block_Type {
 	 * @param array  $form_data The form data.
 	 * @param string $context   The context.
 	 *
-	 * @return mixed $value The merged entry value.
+	 * @return mixed $value The entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data, $context = 'html' ) {
+	public function get_readable_value( $value, $form_data, $context = 'html' ) {
 		switch ( $context ) {
 			case 'raw':
 				return $value;
