@@ -49,7 +49,7 @@ const EmailOutput = ( props ) => {
 		) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
-		} else if ( ! validateEmail( val ) && value && value.length > 0 ) {
+		} else if ( ! validateEmail( value ) && value && value.length > 0 ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.email' ] );
 		} else {
