@@ -1,7 +1,14 @@
 /* eslint no-console: [ 'error', { allow: [ 'error' ] } ] */
-import { select, dispatch } from '@wordpress/data';
-
+/**
+ * QuillForms Dependencies
+ */
 import { isValidIcon, normalizeIconObject } from '@quillforms/utils';
+
+/**
+ * WordPress Dependencies
+ */
+import { select, dispatch } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -24,6 +31,12 @@ export const registerBuilderPanel = (
 	name: string,
 	settings: PanelSettings
 ): PanelSettings | undefined => {
+	settings = applyFilters(
+		'QuillForms.BuilderPanels.PanelSettings',
+		settings,
+		name
+	) as PanelSettings;
+
 	if ( typeof name !== 'string' ) {
 		console.error( 'Builder panel "name" must be string.' );
 		return;

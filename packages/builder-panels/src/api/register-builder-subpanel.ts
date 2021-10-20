@@ -3,6 +3,7 @@
  * WordPress Dependencies
  */
 import { select, dispatch } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -26,6 +27,11 @@ export const registerBuilderSubPanel = (
 	name: string,
 	settings: SubPanelSettings
 ): SubPanelSettings | undefined => {
+	settings = applyFilters(
+		'QuillForms.BuilderPanels.SubPanelSettings',
+		settings,
+		name
+	) as SubPanelSettings;
 	if ( typeof name !== 'string' ) {
 		console.error( 'Builder subpanel names must be strings.' );
 		return;
