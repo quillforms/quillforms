@@ -129,13 +129,10 @@ abstract class Provider extends Addon {
 	protected function filter_connection_fields( $fields, $valid_blocks_ids ) {
 		$filtered_fields = array();
 		foreach ( $fields as $field_key => $field ) {
-			if ( ! empty( $field['value'] ) ) {
-				$field_value = $this->filter_connection_field_value( $field['value'], $valid_blocks_ids );
-				if ( ! empty( $field_value ) ) {
-					$filtered_fields[ $field_key ] = array_merge(
-						$field,
-						array( 'value' => $field_value )
-					);
+			if ( ! empty( $field ) ) {
+				$filtered_field = $this->filter_connection_field( $field, $valid_blocks_ids );
+				if ( ! empty( $filtered_field ) ) {
+					$filtered_fields[ $field_key ] = $filtered_field;
 				}
 			}
 		}
@@ -143,20 +140,33 @@ abstract class Provider extends Addon {
 	}
 
 	/**
-	 * Filter connection field value
+	 * Filter connection field
 	 *
-	 * @param string $field_value Field value.
-	 * @param array  $valid_blocks_ids Valid blocks ids.
-	 * @return array
+	 * @param array $field Field.
+	 * @param array $valid_blocks_ids Valid blocks ids.
+	 * @return array|false
 	 */
-	protected function filter_connection_field_value( $field_value, $valid_blocks_ids ) {
-		return preg_replace_callback(
-			'/{{field:([a-zA-Z0-9-_]+)}}/',
-			function( $matches ) use ( $valid_blocks_ids ) {
-				return in_array( $matches[1], $valid_blocks_ids, true ) ? $matches[0] : '';
-			},
-			$field_value
-		);
+	protected function filter_connection_field( $field, $valid_blocks_ids ) {
+		$field_type  = $field['type'] ?? null;
+		$field_value = $field['value'] ?? '';
+		switch ( $field_type ) {
+			case 'field':
+				if ( in_array( $field_value, $valid_blocks_ids, true ) ) {
+					return $field;
+				} else {
+					return false;
+				}
+			case 'text':
+				return preg_replace_callback(
+					'/{{field:([a-zA-Z0-9-_]+)}}/',
+					function( $matches ) use ( $valid_blocks_ids ) {
+						return in_array( $matches[1], $valid_blocks_ids, true ) ? $matches[0] : '';
+					},
+					$field_value
+				);
+			default:
+				return false;
+		}
 	}
 
 }
