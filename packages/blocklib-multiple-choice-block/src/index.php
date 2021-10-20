@@ -189,7 +189,12 @@ class Multiple_Choice_Block_Type extends Block_Type {
 			}
 		}
 
-		return quillforms_implode_non_blank( ',', $choice_labels );
+		switch ( $context ) {
+			case 'raw':
+				return $choice_labels;
+			default:
+				return quillforms_implode_non_blank( ',', $choice_labels );
+		}
 	}
 }
 
