@@ -75,7 +75,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		prevBlockId,
 		thankyouScreens,
 	} = state;
-
 	switch ( action.type ) {
 		case SET_SWIPER_STATE: {
 			const newSwiperState = action.swiperState;
@@ -154,7 +153,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				: state.thankyouScreens;
 			// If  new current block id or new next block id or new prev block id or last active block id aren't
 			// in the new walkPath
-
 			let checkCorrectIds = true;
 			[
 				'currentBlockId',
@@ -165,6 +163,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				const allBlocks: ( Screen | FormBlock )[] = [
 					...newWalkPath,
 					...newWelcomeScreens,
+					...newThanksScreens,
 				];
 				if (
 					newSwiperState[ prop ] &&
