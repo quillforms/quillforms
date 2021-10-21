@@ -164,7 +164,7 @@ class Multiple_Choice_Block_Type extends Block_Type {
 	}
 
 	/**
-	 * Get merge tag value.
+	 * Get readable value.
 	 *
 	 * @since 1.0.0
 	 *
@@ -172,9 +172,9 @@ class Multiple_Choice_Block_Type extends Block_Type {
 	 * @param array  $form_data The form data.
 	 * @param string $context   The context.
 	 *
-	 * @return mixed $value The merged entry value.
+	 * @return mixed $value The entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data, $context = 'html' ) {
+	public function get_readable_value( $value, $form_data, $context = 'html' ) {
 		$choices       = $this->attributes['choices'];
 		$choice_labels = array();
 		if ( ! empty( $choices ) ) {
@@ -189,7 +189,12 @@ class Multiple_Choice_Block_Type extends Block_Type {
 			}
 		}
 
-		return quillforms_implode_non_blank( ',', $choice_labels );
+		switch ( $context ) {
+			case 'raw':
+				return $choice_labels;
+			default:
+				return quillforms_implode_non_blank( ',', $choice_labels );
+		}
 	}
 }
 

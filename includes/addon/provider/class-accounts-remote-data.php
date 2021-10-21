@@ -42,7 +42,7 @@ abstract class Accounts_Remote_Data {
 	 *
 	 * @var integer
 	 */
-	protected $cache_expiration = 24 * 60 * 60;
+	protected $cache_expiration = 10 * 60;
 
 	/**
 	 * Constructor.

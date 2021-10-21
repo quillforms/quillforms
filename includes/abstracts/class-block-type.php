@@ -346,12 +346,12 @@ abstract class Block_Type extends stdClass {
 	}
 
 	/**
-	 * Get merge tag value.
+	 * Get readable value.
 	 * Supported context may be:
 	 * - html: may contains html
 	 * - spreadsheet: may contains spreadsheet formula
 	 * - plain: mustn't contains html
-	 * - raw: must be in a unique format
+	 * - raw: must be in a unique type and format
 	 *
 	 * @since 1.0.0
 	 *
@@ -359,9 +359,9 @@ abstract class Block_Type extends stdClass {
 	 * @param array  $form_data The form data.
 	 * @param string $context   The context.
 	 *
-	 * @return mixed $value The merged entry value.
+	 * @return mixed $value The entry value.
 	 */
-	public function get_merge_tag_value( $value, $form_data, $context = 'html' ) {
+	public function get_readable_value( $value, $form_data, $context = 'html' ) {
 		return $value;
 	}
 

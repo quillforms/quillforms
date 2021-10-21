@@ -8,6 +8,7 @@
 
 namespace QuillForms\Addon\Provider;
 
+use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Merge_Tags;
 
 /**
@@ -63,13 +64,67 @@ abstract class Entry_Process {
 	abstract public function process();
 
 	/**
-	 * Process merge tag
+	 * Get connection field value
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param array  $field Connection field array, has 'type' and 'value' keys.
+	 * @param string $context Context.
+	 * @return mixed
+	 */
+	protected function get_connection_field_value( $field, $context = 'plain' ) {
+		if ( empty( $field ) ) {
+			return null;
+		}
+		$field_type  = $field['type'] ?? null;
+		$field_value = $field['value'] ?? '';
+		switch ( $field_type ) {
+			case 'field':
+				return $this->process_field( $field_value, $context );
+			case 'text':
+			default:
+				return $this->process_text( $field_value, $context );
+		}
+	}
+
+	/**
+	 * Process form field
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string $field_id Field id.
+	 * @param string $context Context.
+	 * @return mixed
+	 */
+	protected function process_field( $field_id, $context = 'plain' ) {
+		// get block data.
+		$block_data = array_values(
+			array_filter(
+				$this->form_data['blocks'],
+				function( $block ) use ( $field_id ) {
+					return $block['id'] === $field_id;
+				}
+			)
+		) [0] ?? null;
+		if ( ! $block_data ) {
+			return null;
+		}
+		// get block type.
+		$block_type = Blocks_Manager::instance()->create( $block_data );
+		if ( ! $block_type ) {
+			return null;
+		}
+		return $block_type->get_readable_value( $this->entry['answers'][ $field_id ]['value'], $this->form_data, $context );
+	}
+
+	/**
+	 * Process text with merge tags
 	 *
 	 * @param string $string String has merge tags to process.
 	 * @param string $context Context.
 	 * @return string
 	 */
-	protected function process_tag( $string, $context = 'plain' ) {
+	protected function process_text( $string, $context = 'plain' ) {
 		return Merge_Tags::process_tag( $string, $this->entry, $this->form_data, $context );
 	}
 
