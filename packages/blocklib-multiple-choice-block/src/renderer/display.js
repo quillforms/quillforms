@@ -43,6 +43,13 @@ const MultipleChoiceOutput = ( props ) => {
 	};
 
 	useEffect( () => {
+		return () => clearTimeout( multipleChoiceTimer );
+	}, [] );
+
+	useEffect( () => {
+		if ( ! isActive ) {
+			clearTimeout( multipleChoiceTimer );
+		}
 		if ( ! isActive && ! isAnimating ) {
 			setChoiceClicked( null );
 		}

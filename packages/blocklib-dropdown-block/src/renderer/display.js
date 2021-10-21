@@ -37,6 +37,7 @@ const DropdownDisplay = ( props ) => {
 		setVal,
 		next,
 		showErrMsg,
+		isActive,
 		isTouchScreen,
 		setFooterDisplay,
 		inputRef,
@@ -137,12 +138,19 @@ const DropdownDisplay = ( props ) => {
 	};
 
 	useEffect( () => {
+		if ( ! isActive ) {
+			clearTimeout( timer );
+		}
+	}, [ isActive ] );
+
+	useEffect( () => {
 		if ( val ) {
 			const selectedChoice = $choices.find(
 				( choice ) => choice.value === val
 			);
 			setSearchKeyword( selectedChoice ? selectedChoice.label : '' );
 		}
+		return () => clearTimeout( timer );
 	}, [] );
 
 	return (
