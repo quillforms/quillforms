@@ -15,6 +15,7 @@ import { useSelect } from '@wordpress/data';
 import tinyColor from 'tinycolor2';
 import MaskedInput from 'react-text-mask';
 import dayJs from 'dayjs';
+import CustomParseFormat from 'dayjs/plugin/customParseFormat';
 import { css } from 'emotion';
 import classnames from 'classnames';
 
@@ -50,8 +51,19 @@ const DateOutput = ( props ) => {
 	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
 
+	const getPlaceholder = () => {
+		if ( format === 'MMDDYYYY' ) {
+			return 'MM' + separator + 'DD' + separator + 'YYYY';
+		} else if ( format === 'DDMMYYYY' ) {
+			return 'DD' + separator + 'MM' + separator + 'YYYY';
+		} else if ( format === 'YYYYMMDD' ) {
+			return 'YYYY' + separator + 'MM' + separator + 'DD';
+		}
+	};
+
 	const checkFieldValidation = ( value ) => {
-		const date = dayJs( value );
+		dayJs.extend( CustomParseFormat );
+		const date = dayJs( value, getPlaceholder(), true );
 		if ( required === true && ( ! value || value === '' ) ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
@@ -83,16 +95,6 @@ const DateOutput = ( props ) => {
 		} else {
 			setIsAnswered( false );
 			showNextBtn( false );
-		}
-	};
-
-	const getPlaceholder = () => {
-		if ( format === 'MMDDYYYY' ) {
-			return 'MM' + separator + 'DD' + separator + 'YYYY';
-		} else if ( format === 'DDMMYYYY' ) {
-			return 'DD' + separator + 'MM' + separator + 'YYYY';
-		} else if ( format === 'YYYYMMDD' ) {
-			return 'YYYY' + separator + 'MM' + separator + 'DD';
 		}
 	};
 
