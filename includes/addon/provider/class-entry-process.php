@@ -97,6 +97,10 @@ abstract class Entry_Process {
 	 * @return mixed
 	 */
 	protected function process_field( $field_id, $context = 'plain' ) {
+		// ensure entry field existence.
+		if ( ! isset( $this->entry['answers'][ $field_id ]['value'] ) ) {
+			return null;
+		}
 		// get block data.
 		$block_data = array_values(
 			array_filter(
