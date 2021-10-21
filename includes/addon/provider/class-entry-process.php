@@ -129,6 +129,18 @@ abstract class Entry_Process {
 	}
 
 	/**
+	 * Is field value empty
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param mixed $value Field value.
+	 * @return boolean
+	 */
+	protected function is_field_value_empty( $value ) {
+		return null === $value || '' === $value || array() === $value;
+	}
+
+	/**
 	 * Get client ip address
 	 * https://github.com/easydigitaldownloads/easy-digital-downloads/blob/master/includes/misc-functions.php
 	 *
