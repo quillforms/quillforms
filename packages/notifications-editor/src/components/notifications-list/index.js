@@ -1,7 +1,10 @@
 /**
  * QuillForms Dependencies
  */
-import { Button } from '@quillforms/admin-components';
+import {
+	Button,
+	__experimentalFeatureAvailability,
+} from '@quillforms/admin-components';
 import ConfigAPI from '@quillforms/config';
 
 /**
@@ -21,7 +24,6 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import lockIcon from './lock-icon';
 import NotificationBox from '../notification-box';
 
 const NotificationsList = ( {
@@ -138,51 +140,11 @@ const NotificationsList = ( {
 							setDisplayProModal( false );
 						} }
 					>
-						<Icon
-							className={ css`
-								fill: #333;
-							` }
-							icon={ lockIcon }
-							size={ 120 }
+						<__experimentalFeatureAvailability
+							featureName="Multiple notifications"
+							planKey="basic"
+							showLockIcon={ true }
 						/>
-						<p
-							className={ css`
-								font-size: 15px;
-							` }
-						>
-							We're sorry, the Multiple notifications is not
-							available
-							<br />
-							on your plan. Please upgrade to the PRO plan to
-							unlock
-							<br />
-							all of PRO features.
-						</p>
-						<a
-							href="https://quillforms.com"
-							className="admin-components-button is-primary"
-							target="_blank"
-							className={ css`
-								color: #fff !important;
-								padding: 15px 20px;
-								display: inline-flex;
-								-webkit-box-align: center;
-								align-items: center;
-								color: rgb( 255, 255, 255 );
-								text-decoration: none;
-								border-radius: 5px;
-								background: linear-gradient(
-									42deg,
-									rgb( 235, 54, 221 ),
-									rgb( 238, 142, 22 )
-								);
-								font-size: 15px;
-								text-transform: uppercase;
-								font-weight: bold;
-							` }
-						>
-							Upgrade to pro!
-						</a>
 					</Modal>
 				) }
 			</>
