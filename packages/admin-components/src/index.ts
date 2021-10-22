@@ -10,6 +10,8 @@ export { default as ControlLabel } from './control-label';
 export { default as __experimentalDragDropContext } from './drag-drop-context';
 export { default as __experimentalDraggable } from './draggable';
 export { default as __experimentalDroppable } from './droppable';
+export { default as __experimentalFeatureAvailability } from './feature-availability';
+export { default as __experimentalAddonFeatureAvailability } from './addon-feature-availability';
 export { default as FontPicker } from './font-picker';
 export { default as FormAdminBar } from './form-admin-bar';
 export { default as FormAdminNav } from './form-admin-bar/admin-nav';
