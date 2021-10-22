@@ -97,6 +97,10 @@ abstract class Entry_Process {
 	 * @return mixed
 	 */
 	protected function process_field( $field_id, $context = 'plain' ) {
+		// ensure entry field existence.
+		if ( ! isset( $this->entry['answers'][ $field_id ]['value'] ) ) {
+			return null;
+		}
 		// get block data.
 		$block_data = array_values(
 			array_filter(
@@ -126,6 +130,18 @@ abstract class Entry_Process {
 	 */
 	protected function process_text( $string, $context = 'plain' ) {
 		return Merge_Tags::process_tag( $string, $this->entry, $this->form_data, $context );
+	}
+
+	/**
+	 * Is field value empty
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param mixed $value Field value.
+	 * @return boolean
+	 */
+	protected function is_field_value_empty( $value ) {
+		return null === $value || '' === $value || array() === $value;
 	}
 
 	/**

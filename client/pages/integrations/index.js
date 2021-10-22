@@ -3,15 +3,13 @@
  */
 import { Button } from '@quillforms/admin-components';
 import { getIntegrationModules } from '@quillforms/form-integrations';
-import configApi from '@quillforms/config';
 
 /**
  * WordPress Dependencies
  */
-import { useDispatch } from '@wordpress/data';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
 import { Icon as IconComponent } from '@wordpress/components';
-import apiFetch from '@wordpress/api-fetch';
 
 /**
  * External Dependencies
@@ -63,6 +61,11 @@ const IntegrationsPage = ( { params } ) => {
 				{ size( integrationsModules ) > 0 ? (
 					map( keys( integrationsModules ), ( slug ) => {
 						const icon = integrationsModules[ slug ].icon;
+						const connected = applyFilters(
+							'QuillForms.Integrations.IsConnected',
+							false,
+							slug
+						);
 						return (
 							<div
 								key={ slug }
@@ -97,7 +100,11 @@ const IntegrationsPage = ( { params } ) => {
 										setModalIntegration( slug )
 									}
 								>
-									Connect
+									{ connected ? (
+										<span>Edit Connections</span>
+									) : (
+										<span>Connect</span>
+									) }
 								</Button>
 							</div>
 						);
