@@ -383,6 +383,9 @@ class Store {
 				'plugin_file'    => 'QuillForms-Entries/quillforms-entries.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
+				'assets' => array(
+					'icon' => '',
+				),
 			),
 			'logic'             => array(
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
@@ -390,6 +393,9 @@ class Store {
 				'plugin_file'    => 'QuillForms-Logic/quillforms-logic.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
+				'assets' => array(
+					'icon' => '',
+				),
 			),
 			'fileblock'         => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
@@ -397,6 +403,9 @@ class Store {
 				'plugin_file'    => 'QuillForms-FileBlock/quillforms-fileblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
+				'assets' => array(
+					'icon' => '',
+				),
 			),
 			'opinionscaleblock' => array(
 				'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
@@ -404,6 +413,19 @@ class Store {
 				'plugin_file'    => 'QuillForms-OpinionScaleBlock/quillforms-opinionscaleblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
+				'assets' => array(
+					'icon' => '',
+				),
+			),
+			'custom-thankyouScreen' => array(
+				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
+				'description'    => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
+				'plugin_file'    => 'QuillForms-custom-thankyouScreen/quillforms-customThankyouScreen.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets' => array(
+					'icon' => '',
+				),
 			),
 			'constantcontact'   => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),

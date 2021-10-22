@@ -81,7 +81,7 @@ const DateOutput = ( props ) => {
 		// Note, that this effect will also be called on mount, that's why we check if isReviewing = false
 		// because we want to display errors coming from server.
 		if ( isPreview || ! isReviewing ) checkFieldValidation( val );
-	}, [ required ] );
+	}, [ attributes ] );
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
