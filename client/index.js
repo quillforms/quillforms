@@ -5,8 +5,9 @@ import '@quillforms/blocks';
 import '@quillforms/form-integrations';
 import PageLayout from './layout';
 import './style.scss';
+import './pro-panels';
+import { doAction } from '@wordpress/hooks';
 
 const appRoot = document.getElementById( 'qf-admin-root' );
-setTimeout( () => {
-	render( <PageLayout />, appRoot );
-}, 400 );
+render( <PageLayout />, appRoot );
+doAction( 'QuillForms.Admin.PluginsLoaded' );
