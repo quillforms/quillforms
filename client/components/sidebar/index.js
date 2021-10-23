@@ -55,7 +55,7 @@ const Sidebar = () => {
 								} }
 								activeClassName="selected"
 								className="qf-admin-sidebar-nav-item"
-								to={ `admin.php?page=${ page[ 2 ] }` }
+								to={ `/admin.php?page=${ page[ 2 ] }` }
 							>
 								{ page[ 0 ] }
 							</NavLink>
@@ -63,7 +63,7 @@ const Sidebar = () => {
 					} else {
 						return (
 							<a
-								href={ `admin.php?page=${ page[ 2 ] }` }
+								href={ `/admin.php?page=${ page[ 2 ] }` }
 								className="qf-admin-sidebar-nav-item"
 								target="_blank"
 							/>
