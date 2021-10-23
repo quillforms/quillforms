@@ -8,6 +8,7 @@ export type StoreAddon = {
 	is_active: boolean;
 	assets: {
 		icon: string;
+		banner: string;
 	};
 };
 
