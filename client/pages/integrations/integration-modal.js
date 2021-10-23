@@ -15,7 +15,7 @@ const IntegrationModal = ( { slug, integration, onClose } ) => {
 			focusOnMount={ true }
 			onRequestClose={ onClose }
 			className={ css`
-				width: 900px;
+				width: 750px;
 			` }
 		>
 			<integration.render slug={ slug } />
