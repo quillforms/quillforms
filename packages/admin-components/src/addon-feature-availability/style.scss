@@ -1,0 +1,26 @@
+.addon-feature-availability {
+	text-align: center;
+
+	.addon-feature-availability-lock-icon {
+		fill: #333;
+	}
+
+	.addon-feature-availability-upgrade-button {
+		color: #fff !important;
+		padding: 15px 20px;
+		display: inline-flex;
+		-webkit-box-align: center;
+		align-items: center;
+		color: rgb( 255, 255, 255 );
+		text-decoration: none;
+		border-radius: 5px;
+		background: linear-gradient(
+			42deg,
+			rgb( 235, 54, 221 ),
+			rgb( 238, 142, 22 )
+		);
+		font-size: 15px;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+}

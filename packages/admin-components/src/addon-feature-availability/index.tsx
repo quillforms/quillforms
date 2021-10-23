@@ -43,14 +43,14 @@ const AddonFeatureAvailability: React.FC< Props > = ( {
 		let licenseNote = <div></div>;
 		if ( license?.status !== 'valid' ) {
 			licenseNote = (
-				<div>
+				<div className="addon-feature-availability-license-note">
 					Renewing your license is recommended to receive updates for
 					this addon.
 				</div>
 			);
 		} else if ( ! isPlanAccessible ) {
 			licenseNote = (
-				<div>
+				<div className="addon-feature-availability-license-note">
 					Upgrading your license to { featurePlanLabel } is
 					recommended to receive updates for this addon.
 				</div>
@@ -103,16 +103,10 @@ const AddonFeatureAvailability: React.FC< Props > = ( {
 			// else, no license or the license is invalid or the feature of addon require higher plan.
 		} else {
 			content = (
-				<div
-					className={ css`
-						text-align: center;
-					` }
-				>
+				<div>
 					{ showLockIcon && (
 						<Icon
-							className={ css`
-								fill: #333;
-							` }
+							className="addon-feature-availability-lock-icon"
 							icon={ lockIcon }
 							size={ 120 }
 						/>
@@ -135,24 +129,7 @@ const AddonFeatureAvailability: React.FC< Props > = ( {
 					<a
 						href="https://quillforms.com"
 						target="_blank"
-						className={ css`
-							color: #fff !important;
-							padding: 15px 20px;
-							display: inline-flex;
-							-webkit-box-align: center;
-							align-items: center;
-							color: rgb( 255, 255, 255 );
-							text-decoration: none;
-							border-radius: 5px;
-							background: linear-gradient(
-								42deg,
-								rgb( 235, 54, 221 ),
-								rgb( 238, 142, 22 )
-							);
-							font-size: 15px;
-							text-transform: uppercase;
-							font-weight: bold;
-						` }
+						className="addon-feature-availability-upgrade-button"
 					>
 						Upgrade to { featurePlanLabel }!
 					</a>
@@ -161,15 +138,7 @@ const AddonFeatureAvailability: React.FC< Props > = ( {
 		}
 	}
 
-	return (
-		<div
-			className={ css`
-				text-align: center;
-			` }
-		>
-			{ content }
-		</div>
-	);
+	return <div className="addon-feature-availability">{ content }</div>;
 };
 
 export default AddonFeatureAvailability;

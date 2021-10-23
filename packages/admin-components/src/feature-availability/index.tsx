@@ -33,20 +33,16 @@ const FeatureAvailability: React.FC< Props > = ( {
 	const featurePlanLabel = ConfigApi.getPlans()[ planKey ].label;
 	const isPlanAccessible = ConfigApi.isPlanAccessible( planKey );
 
+	let content = <div></div>;
+
 	if ( license?.status === 'valid' && isPlanAccessible ) {
-		return <div>{ featureName } is already available on your plan.</div>;
+		content = <div>{ featureName } is already available on your plan.</div>;
 	} else {
-		return (
-			<div
-				className={ css`
-					text-align: center;
-				` }
-			>
+		content = (
+			<div>
 				{ showLockIcon && (
 					<Icon
-						className={ css`
-							fill: #333;
-						` }
+						className="feature-availability-lock-icon"
 						icon={ lockIcon }
 						size={ 120 }
 					/>
@@ -69,30 +65,15 @@ const FeatureAvailability: React.FC< Props > = ( {
 				<a
 					href="https://quillforms.com"
 					target="_blank"
-					className={ css`
-						color: #fff !important;
-						padding: 15px 20px;
-						display: inline-flex;
-						-webkit-box-align: center;
-						align-items: center;
-						color: rgb( 255, 255, 255 );
-						text-decoration: none;
-						border-radius: 5px;
-						background: linear-gradient(
-							42deg,
-							rgb( 235, 54, 221 ),
-							rgb( 238, 142, 22 )
-						);
-						font-size: 15px;
-						text-transform: uppercase;
-						font-weight: bold;
-					` }
+					className="feature-availability-upgrade-button"
 				>
 					Upgrade to { featurePlanLabel }!
 				</a>
 			</div>
 		);
 	}
+
+	return <div className="feature-availability">{ content }</div>;
 };
 
 export default FeatureAvailability;
