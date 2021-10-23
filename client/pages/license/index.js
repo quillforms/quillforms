@@ -11,6 +11,11 @@ import { useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 
 /**
+ * External Dependencies
+ */
+import { css } from 'emotion';
+
+/**
  * Internal Dependencies
  */
 import './style.scss';
@@ -197,6 +202,9 @@ const License = () => {
 					<div>
 						<TextControl
 							label="License key"
+							className={ css`
+								width: 300px;
+							` }
 							onChange={ ( value ) => setLicenseKey( value ) }
 						/>
 						<Button isPrimary onClick={ activate }>
