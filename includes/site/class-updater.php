@@ -62,7 +62,7 @@ class Updater {
 			if ( $plugin['is_installed'] ) {
 				// init edd updater class.
 				new EDD_Plugin_Updater(
-					'http://172.17.0.1:8040', // TODO: use store url.
+					'https://quillforms.com',
 					$plugin['full_plugin_file'],
 					array(
 						'version' => $plugin['version'],

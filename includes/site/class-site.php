@@ -62,7 +62,7 @@ class Site {
 		);
 
 		$response = wp_remote_post(
-			'http://172.17.0.1:8040', // TODO: use store url.
+			'https://quillforms.com',
 			array(
 				'timeout'   => 15,
 				'sslverify' => false,
