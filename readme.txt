@@ -66,6 +66,10 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 
 == Changelog ==
 
+= 1.6.0 = 24 Oct 2021
+Feature: Having core structure ready for launching the pro version.
+Feature: Improving hooks at front end.
+
 = 1.5.0 = 14 Sep 2021
 Fix: Merge tags positioning issue.
 Feature: Supporting translations.
