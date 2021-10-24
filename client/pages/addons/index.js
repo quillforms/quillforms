@@ -14,7 +14,8 @@ import { useDispatch } from '@wordpress/data';
  * External Dependencies
  */
 import { isEqual } from 'lodash';
-
+import { css } from 'emotion';
+import classNames from 'classnames';
 /**
  * Internal Dependencies
  */
@@ -126,48 +127,64 @@ const Addons = () => {
 				<div className="quillforms-addons-page__body-addons">
 					{ Object.entries( addons ).map( ( [ addon, data ] ) => {
 						return (
-							<div
-								key={ addon }
-								className="quillforms-addons-page__body-addon"
-							>
-								<h3>{ data.name }</h3>
-								<h4>{ data.description }</h4>
-								<div className="quillforms-addons-page__body-addon-footer">
-									{ ! data.is_installed ? (
-										<Button
-											isPrimary
-											onClick={ () =>
-												api( 'install', addon )
-											}
-											disabled={ apiAction !== null }
-										>
-											{ isDoingApiAction(
-												'install',
-												addon
-											)
-												? 'Installing...'
-												: 'Install' }
-										</Button>
-									) : ! data.is_active ? (
-										<Button
-											isPrimary
-											onClick={ () =>
-												api( 'activate', addon )
-											}
-											disabled={ apiAction !== null }
-										>
-											{ isDoingApiAction(
-												'activate',
-												addon
-											)
-												? 'Activating...'
-												: 'Activate' }
-										</Button>
-									) : (
-										<span className="quillforms-addons-active">
-											Active
-										</span>
+							<div className="quillforms-addons-page_addon">
+								<div className="quillforms-addons-page_addon__heading">
+									{ data.name }
+								</div>
+								<div
+									className={ classNames(
+										'quillforms-addons-page_addon-icon',
+										css`
+											background-size: cover;
+											height: 130px;
+											background-position: center center;
+										`
 									) }
+								>
+									<img src={ data.assets.icon } />
+								</div>
+								<div
+									key={ addon }
+									className="quillforms-addons-page__body-addon"
+								>
+									<p>{ data.description }</p>
+									<div className="quillforms-addons-page__body-addon-footer">
+										{ ! data.is_installed ? (
+											<Button
+												isPrimary
+												onClick={ () =>
+													api( 'install', addon )
+												}
+												disabled={ apiAction !== null }
+											>
+												{ isDoingApiAction(
+													'install',
+													addon
+												)
+													? 'Installing...'
+													: 'Install' }
+											</Button>
+										) : ! data.is_active ? (
+											<Button
+												isPrimary
+												onClick={ () =>
+													api( 'activate', addon )
+												}
+												disabled={ apiAction !== null }
+											>
+												{ isDoingApiAction(
+													'activate',
+													addon
+												)
+													? 'Activating...'
+													: 'Activate' }
+											</Button>
+										) : (
+											<span className="quillforms-addons-active">
+												Active
+											</span>
+										) }
+									</div>
 								</div>
 							</div>
 						);

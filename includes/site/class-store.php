@@ -384,7 +384,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon'   => '',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
 				),
 			),
@@ -395,7 +395,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon'   => '',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/banner.png',
 				),
 			),
@@ -406,7 +406,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon'   => '',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/file-block/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/file-block/banner.png',
 				),
 			),
@@ -417,7 +417,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon'   => '',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinion-scale/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinion-scale/banner.png',
 				),
 			),
@@ -428,7 +428,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon'   => '',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/custom-thankyou-screen/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/custom-thankyou-screen/banner.png',
 				),
 			),

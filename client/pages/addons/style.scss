@@ -9,14 +9,42 @@
 	flex-wrap: wrap;
 }
 
+.quillforms-addons-page_addon {
+	border: 1px solid #edebeb;
+	border-radius: 5px;
+	margin: 15px;
+	width: 260px;
+	overflow: hidden;
+}
+.quillforms-addons-page_addon__heading {
+    padding: 15px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    background: linear-gradient( 45deg,#8b42e2,#7c25e5);
+    color: #fff;
+    font-size: 15px;
+}
+.quillforms-addons-page__body-addon-footer button {
+    width: 100%;
+    justify-content: center;
+    background: linear-gradient(45deg,#0d8aff,#1585ef) !important;
+}
+.quillforms-addons-page__body-addon-footer .quillforms-addons-active {
+    display: block;
+    text-align: center
+}
+.quillforms-addons-page_addon-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.quillforms-addons-page_addon-icon img {
+    width: 80px
+}
 .quillforms-addons-page__body-addon {
 	display: flex;
 	flex-direction: column;
-	width: 210px;
 	min-height: 150px;
-	margin: 15px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
 	padding: 15px;
 
 	h3 {
