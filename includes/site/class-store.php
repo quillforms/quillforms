@@ -377,94 +377,103 @@ class Store {
 	 */
 	private function define_addons() {
 		$addons = array(
-			'entries'                   => array(
+			'entries'               => array(
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Store, view, manage and export entries', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-Entries/quillforms-entries.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon' => '',
+					'icon'   => '',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
 				),
 			),
-			'logic'                     => array(
+			'logic'                 => array(
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-Logic/quillforms-logic.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon' => '',
+					'icon'   => '',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/banner.png',
 				),
 			),
-			'fileblock'                 => array(
+			'fileblock'             => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
 				'description'    => esc_html__( 'Enable users to upload files', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-FileBlock/quillforms-fileblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon' => '',
+					'icon'   => '',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/file-block/banner.png',
 				),
 			),
-			'opinionscaleblock'         => array(
+			'opinionscaleblock'     => array(
 				'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
 				'description'    => esc_html__( 'Opinion Scale Block', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-OpinionScaleBlock/quillforms-opinionscaleblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon' => '',
+					'icon'   => '',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinion-scale/banner.png',
 				),
 			),
-			'customthankyouscreenblock' => array(
+			'custom-thankyouScreen' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-CustomThankYouScreenBlock/quillforms-customthankyouscreenblock.php',
+				'plugin_file'    => 'QuillForms-custom-thankyouScreen/quillforms-customthankyouscreen.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon' => '',
+					'icon'   => '',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/custom-thankyou-screen/banner.png',
 				),
 			),
-			'constantcontact'           => array(
+			'constantcontact'       => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-ConstantContact/quillforms-constantcontact.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/icon.svg',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/icon.svg',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/banner.png',
 				),
 			),
-			'mailchimp'                 => array(
+			'mailchimp'             => array(
 				'name'           => esc_html__( 'MailChimp', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your MailChimp lists', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-MailChimp/quillforms-mailchimp.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/icon.svg',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/icon.svg',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/banner.png',
 				),
 			),
-			'getresponse'               => array(
+			'getresponse'           => array(
 				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GetResponse lists', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-GetResponse/quillforms-getresponse.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/icon.svg',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/icon.svg',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/banner.png',
 				),
 			),
-			'googlesheets'              => array(
+			'googlesheets'          => array(
 				'name'           => esc_html__( 'GoogleSheets', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Google Sheets. Syncs automatically when a new form is submitted!', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-GoogleSheets/quillforms-googlesheets.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/icon.svg',
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/icon.svg',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/banner.png',
 				),
 			),
 		);
