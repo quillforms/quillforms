@@ -110,7 +110,6 @@ const License = () => {
 		} )
 			.then( ( res ) => res.json() )
 			.then( ( res ) => {
-				console.log( res );
 				if ( res.success ) {
 					configApi.setLicense( false );
 					setCount( count + 1 );

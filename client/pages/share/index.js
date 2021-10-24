@@ -24,7 +24,6 @@ const Share = ( { params } ) => {
 			path: `/wp/v2/quill_forms/${ id }`,
 			method: 'GET',
 		} ).then( ( res ) => {
-			console.log( res );
 			setIsLoading( false );
 			setPayload( res );
 		} );
