@@ -101,7 +101,6 @@ const LongTextOutput = ( props ) => {
 				className={ classnames(
 					css`
 						& {
-							margin-top: 15px;
 							width: 100%;
 							padding: 0;
 							border: none;

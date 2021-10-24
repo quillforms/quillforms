@@ -85,7 +85,6 @@ const ShortTextOutput = ( props ) => {
 			className={ classnames(
 				css`
 					& {
-						margin-top: 15px;
 						width: 100%;
 						border: none;
 						outline: none;

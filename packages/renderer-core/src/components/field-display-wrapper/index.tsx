@@ -5,6 +5,10 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
 
 /**
+ * External Dependencies
+ */
+import { css } from 'emotion';
+/**
  * Internal Dependencies
  */
 import { __experimentalUseFieldRenderContext } from '../field-render';
@@ -138,7 +142,15 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			role="presentation"
 			className="renderer-core-field-display-wrapper"
 		>
-			{ blockType?.display && <blockType.display { ...props } /> }
+			{ blockType?.display && (
+				<div
+					className={ css`
+						margin-top: 15px;
+					` }
+				>
+					<blockType.display { ...props } />{ ' ' }
+				</div>
+			) }
 			<BlockFooter shakingErr={ shakingErr } />
 		</div>
 	);
