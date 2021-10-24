@@ -380,7 +380,7 @@ class Store {
 			'entries'                   => array(
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-Entries/quillforms-entries.php',
+				'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -391,7 +391,7 @@ class Store {
 			'logic'                     => array(
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-Logic/quillforms-logic.php',
+				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -402,7 +402,7 @@ class Store {
 			'fileblock'                 => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
 				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-FileBlock/quillforms-fileblock.php',
+				'plugin_file'    => 'quillforms-fileblock/quillforms-fileblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -413,7 +413,7 @@ class Store {
 			'opinionscaleblock'         => array(
 				'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
 				'description'    => esc_html__( 'An Opinion Scale lets people select an opinion on the scale you provide them. Easy to understand and quick to use, it is a nice way to collect opinions.', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-OpinionScaleBlock/quillforms-opinionscaleblock.php',
+				'plugin_file'    => 'quillforms-opinionscaleblock/quillforms-opinionscaleblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -424,7 +424,7 @@ class Store {
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-CustomThankYouScreenBlock/quillforms-customthankyouscreenblock.php',
+				'plugin_file'    => 'quillforms-customthankyouscreenblock/quillforms-customthankyouscreenblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -435,7 +435,7 @@ class Store {
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-ConstantContact/quillforms-constantcontact.php',
+				'plugin_file'    => 'quillforms-constantcontact/quillforms-constantcontact.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -446,7 +446,7 @@ class Store {
 			'mailchimp'                 => array(
 				'name'           => esc_html__( 'MailChimp', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your MailChimp lists', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-MailChimp/quillforms-mailchimp.php',
+				'plugin_file'    => 'quillforms-mailchimp/quillforms-mailchimp.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -457,7 +457,7 @@ class Store {
 			'getresponse'               => array(
 				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GetResponse lists', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-GetResponse/quillforms-getresponse.php',
+				'plugin_file'    => 'quillforms-getresponse/quillforms-getresponse.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -468,7 +468,7 @@ class Store {
 			'googlesheets'              => array(
 				'name'           => esc_html__( 'GoogleSheets', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Google Sheets. Syncs automatically when a new form is submitted!', 'quillforms' ),
-				'plugin_file'    => 'QuillForms-GoogleSheets/quillforms-googlesheets.php',
+				'plugin_file'    => 'quillforms-googlesheets/quillforms-googlesheets.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
