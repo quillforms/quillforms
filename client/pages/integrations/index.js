@@ -90,22 +90,20 @@ const IntegrationsPage = ( { params } ) => {
 								<div className="quillforms-integrations-page__integration-module-desc">
 									{ integrationsModules[ slug ].description }
 								</div>
-								<Button
-									className={ css`
-										margin-top: 15px;
-										border-radius: 20px !important;
-									` }
-									isPrimary
-									onClick={ () =>
-										setModalIntegration( slug )
-									}
-								>
-									{ connected ? (
-										<span>Edit Connections</span>
-									) : (
-										<span>Connect</span>
-									) }
-								</Button>
+								<div className="quillforms-integrations-page__integration-module-footer">
+									<Button
+										isPrimary
+										onClick={ () =>
+											setModalIntegration( slug )
+										}
+									>
+										{ connected ? (
+											<span>Edit Connections</span>
+										) : (
+											<span>Connect</span>
+										) }
+									</Button>
+								</div>
 							</div>
 						);
 					} )

@@ -53,14 +53,14 @@
     flex-wrap: wrap;
 }
 .quillforms-integrations-page__integration-list-item {
-	height: 220px;
     background: #fff;
-    display: inline-block;
+    display: flex;
+    flex-flow: column;
     width: 265px;
     margin: 20px 10px;
     border-radius: 10px;
     border: 1px solid #eee;
-    padding: 0px 20px;
+    padding: 20px;
 }
 .quillforms-integrations-page__integration-module-header {
     display: flex;
@@ -82,5 +82,12 @@
 }
 .quillforms-integrations-page__integration-module-desc {
     margin-top: 20px;
-	height: 73px;
+    margin-bottom: 20px;
+}
+.quillforms-integrations-page__integration-module-footer {
+    margin-top: auto;
+
+    button {
+        border-radius: 20px !important;
+    }
 }
