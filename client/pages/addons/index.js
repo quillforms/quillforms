@@ -127,7 +127,10 @@ const Addons = () => {
 				<div className="quillforms-addons-page__body-addons">
 					{ Object.entries( addons ).map( ( [ addon, data ] ) => {
 						return (
-							<div className="quillforms-addons-page_addon">
+							<div
+								key={ addon }
+								className="quillforms-addons-page_addon"
+							>
 								<div className="quillforms-addons-page_addon__heading">
 									{ data.name }
 								</div>
