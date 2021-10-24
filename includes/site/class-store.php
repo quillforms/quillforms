@@ -379,7 +379,7 @@ class Store {
 		$addons = array(
 			'entries'                   => array(
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
-				'description'    => esc_html__( 'Store, view, manage and export entries', 'quillforms' ),
+				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-Entries/quillforms-entries.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -390,7 +390,7 @@ class Store {
 			),
 			'logic'                     => array(
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
-				'description'    => esc_html__( 'Jump logic and calculator', 'quillforms' ),
+				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-Logic/quillforms-logic.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -401,7 +401,7 @@ class Store {
 			),
 			'fileblock'                 => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
-				'description'    => esc_html__( 'Enable users to upload files', 'quillforms' ),
+				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-FileBlock/quillforms-fileblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -412,7 +412,7 @@ class Store {
 			),
 			'opinionscaleblock'         => array(
 				'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
-				'description'    => esc_html__( 'Opinion Scale Block', 'quillforms' ),
+				'description'    => esc_html__( 'An Opinion Scale lets people select an opinion on the scale you provide them. Easy to understand and quick to use, it is a nice way to collect opinions.', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-OpinionScaleBlock/quillforms-opinionscaleblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -423,7 +423,7 @@ class Store {
 			),
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
-				'description'    => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
+				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
 				'plugin_file'    => 'QuillForms-CustomThankYouScreenBlock/quillforms-customthankyouscreenblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,

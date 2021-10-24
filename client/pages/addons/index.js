@@ -139,7 +139,7 @@ const Addons = () => {
 										'quillforms-addons-page_addon-icon',
 										css`
 											background-size: cover;
-											height: 130px;
+											height: 100px;
 											background-position: center center;
 										`
 									) }
