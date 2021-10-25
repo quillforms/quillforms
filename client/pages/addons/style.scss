@@ -10,23 +10,25 @@
 }
 
 .quillforms-addons-page_addon {
-	border: 1px solid #edebeb;
+	background: #f1f1f1;
 	border-radius: 5px;
 	margin: 15px;
-	width: 260px;
+    width: 290px;
 	overflow: hidden;
 }
 .quillforms-addons-page_addon__heading {
-    padding: 15px 10px;
+    padding: 16px 10px;
     text-align: center;
-    border-bottom: 1px solid #eee;
-    background: linear-gradient( 45deg,#8b42e2,#7c25e5);
+    background: linear-gradient(45deg,#645c6a,#4b4158);
     color: #fff;
     font-size: 15px;
 }
 .quillforms-addons-page__body-addon-footer button {
     width: 100%;
     justify-content: center;
+	align-items: center;
+	height: 33px;
+	padding: 0;
     background: linear-gradient(45deg,#0d8aff,#1585ef) !important;
 }
 .quillforms-addons-page__body-addon-footer .quillforms-addons-active {
