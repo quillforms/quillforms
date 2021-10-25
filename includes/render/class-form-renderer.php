@@ -241,6 +241,8 @@ class Form_Renderer {
 		if ( is_singular( 'quill_forms' ) ) {
 			return false;
 		}
+
+		return true;
 	}
 
 }
