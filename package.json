@@ -14,7 +14,7 @@
 		"build:packages": "npm run build:package-types && node ./bin/packages/build.js",
 		"build:package-types": "node ./bin/packages/validate-typescript-version.js && tsc --build",
 		"build": "npm run build:packages && wp-scripts build",
-		"dist": "rm -rf dist && mkdir dist && zip -rq dist/QuillForms.zip assets build dependencies includes lib quillforms.php readme.txt",
+		"dist": "rm -rf dist && mkdir dist && zip -rq dist/quillforms.zip assets build dependencies includes lib quillforms.php readme.txt",
 		"changelog": "./bin/plugin/cli.js changelog",
 		"check-engines": "wp-scripts check-engines",
 		"precheck-local-changes": "npm run docs:build",
