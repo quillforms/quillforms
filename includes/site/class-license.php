@@ -74,11 +74,14 @@ class License {
 	 */
 	private function define_plans() {
 		$this->plans = array(
-			'basic' => array(
+			'basic'      => array(
 				'label' => esc_html__( 'Basic', 'quillforms' ),
 			),
-			'pro'   => array(
-				'label' => esc_html__( 'Pro', 'quillforms' ),
+			'plus'       => array(
+				'label' => esc_html__( 'Plus', 'quillforms' ),
+			),
+			'enterprise' => array(
+				'label' => esc_html__( 'Enterprise', 'quillforms' ),
 			),
 		);
 	}
