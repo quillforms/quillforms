@@ -8,15 +8,12 @@
 
 namespace QuillForms\Render;
 
-use QuillForms\Fonts;
 
 defined( 'ABSPATH' ) || exit;
 the_post();
 $form_id     = get_the_ID();
 $form_object = Form_Renderer::instance()->prepare_form_object();
-
-?>
-<html style="margin-top: 0 !important;">
+?><html style="margin-top: 0 !important;">
 	<head>
 		<style>
 			html, body {
@@ -136,6 +133,5 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 		), document.getElementById('quillforms-renderer')) </script>
 
 	</body>
-<html>
+</html>
 <?php
-wp_reset_postdata();

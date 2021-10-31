@@ -116,7 +116,7 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 							background: #eeeeee;
 						` }
 					>
-						{ `<iframe src="${ permalink }" width="500" height="600"/>` }
+						{ `<iframe src="${ permalink }" width="500" height="600"></iframe>` }
 					</div>
 				) }
 			</div>
