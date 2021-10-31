@@ -57,7 +57,7 @@ class License {
 	private function __construct() {
 		$this->define_plans();
 
-		add_action( 'quillforms_loaded', array( $this, 'license_update_task' ) );
+		add_action( 'quillforms_loaded', array( $this, 'license_update_task' ), 100 );
 
 		// ajax.
 		add_action( 'wp_ajax_quillforms_license_activate', array( $this, 'ajax_activate' ) );
