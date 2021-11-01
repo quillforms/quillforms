@@ -53,7 +53,9 @@ abstract class Provider extends Addon {
 	protected function init() {
 		parent::init();
 
-		$this->accounts = new static::$classes['accounts']( $this );
+		if ( ! empty( static::$classes['accounts'] ) ) {
+			$this->accounts = new static::$classes['accounts']( $this );
+		}
 		if ( ! empty( static::$classes['accounts_remote_data'] ) ) {
 			$this->accounts_remote_data = new static::$classes['accounts_remote_data']( $this );
 		}

@@ -40,7 +40,10 @@ abstract class REST extends Abstract_REST {
 	public function __construct( $addon ) {
 		parent::__construct( $addon );
 
-		new static::$classes['account_controller']( $this->addon );
+		if ( ! empty( static::$classes['account_controller'] ) ) {
+			new static::$classes['account_controller']( $this->addon );
+		}
+
 		add_filter( 'rest_prepare_quill_forms', array( $this, 'add_rest_data' ), 10, 3 );
 	}
 
@@ -72,12 +75,16 @@ abstract class REST extends Abstract_REST {
 	 * @return mixed
 	 */
 	protected function get_rest_data( $post ) {
-		$connections = $this->addon->form_data->get( $post->ID, 'connections' ) ?? array();
-		$connections = $this->addon->filter_connections( $post->ID, $connections );
+		$data = array();
 
-		$accounts = $this->addon->accounts->get_accounts();
+		$connections         = $this->addon->form_data->get( $post->ID, 'connections' ) ?? array();
+		$data['connections'] = $this->addon->filter_connections( $post->ID, $connections );
 
-		return compact( 'connections', 'accounts' );
+		if ( $this->addon->accounts ) {
+			$data['accounts'] = $this->addon->accounts->get_accounts();
+		}
+
+		return $data;
 	}
 
 }
