@@ -70,7 +70,6 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 				var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 				const data = new FormData();
 				data.append( 'action', 'quillforms_form_submit' );
-				data.append( '_nonce', '<?php echo wp_create_nonce( 'quillforms_forms_display_nonce' ); ?>' )
 				data.append( 'formData', JSON.stringify({
 					answers: wp.data.select('quillForms/renderer-core').getAnswers(),
 					formId: '<?php echo esc_js( $form_id ); ?>'

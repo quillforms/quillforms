@@ -82,13 +82,6 @@ class Form_Submission {
 	public function process_submission() {
 		$unsanitized_entry = json_decode( stripslashes( $_POST['formData'] ), true );
 
-		// Check for valid nonce field.
-		$nonce_name = 'quillforms_forms_display_nonce';
-		if ( ! check_ajax_referer( $nonce_name, '_nonce', false ) ) {
-			$this->errors['form'] = 'Invalid nonce field!';
-			return;
-		}
-
 		// Check if form id is valid.
 		if ( ! isset( $unsanitized_entry ) || ! isset( $unsanitized_entry['formId'] ) ) {
 			$this->errors['form'] = 'Form Id missing!';
