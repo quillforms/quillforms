@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress ===
 Contributors: mdmag
 Tested up to: 5.8
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
 License: GPLv2 or later
@@ -65,6 +65,13 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 5. QuillForms Renderer
 
 == Changelog ==
+
+= 1.7.0 = 1 Nov 2021
+Fix: Urgent fix fo nonce field issues with caching plugins
+
+= 1.6.3 = 1 Nov 2021
+Fix: iframe issue in sharing.
+Feature: Updating plans.
 
 = 1.6.2 = 25 Oct 2021
 Feature: Small improvment in addons page styling
