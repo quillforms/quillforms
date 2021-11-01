@@ -476,6 +476,17 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/banner.png',
 				),
 			),
+			'zapier'                    => array(
+				'name'           => esc_html__( 'Zapier', 'quillforms' ),
+				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-zapier/quillforms-zapier.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/icon.svg',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/banner.png',
+				),
+			),
 		);
 
 		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugin_data' ) ) {
