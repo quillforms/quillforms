@@ -12,13 +12,13 @@ use QuillForms\Addon\Provider\Provider;
 use QuillForms\Addon\REST\REST as Abstract_REST;
 
 /**
- * REST abstract class.
+ * REST class.
  *
  * @since 1.3.0
  *
  * @property Provider $addon
  */
-abstract class REST extends Abstract_REST {
+class REST extends Abstract_REST {
 
 	/**
 	 * Class names

@@ -9,16 +9,13 @@
 namespace QuillForms\Addon\REST;
 
 use QuillForms\Addon\Addon;
-use WP_Post;
-use WP_REST_Request;
-use WP_REST_Response;
 
 /**
- * REST abstract class.
+ * REST class.
  *
  * @since 1.3.0
  */
-abstract class REST {
+class REST {
 
 	/**
 	 * Addon
