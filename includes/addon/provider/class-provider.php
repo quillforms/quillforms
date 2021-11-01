@@ -20,14 +20,14 @@ abstract class Provider extends Addon {
 	/**
 	 * Accounts
 	 *
-	 * @var Accounts
+	 * @var Accounts|null
 	 */
 	public $accounts;
 
 	/**
 	 * Accounts data
 	 *
-	 * @var Accounts_Remote_Data
+	 * @var Accounts_Remote_Data|null
 	 */
 	public $accounts_remote_data;
 

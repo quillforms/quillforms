@@ -96,7 +96,7 @@ abstract class Addon {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @var Settings
+	 * @var Settings|null
 	 */
 	public $settings;
 
@@ -105,7 +105,7 @@ abstract class Addon {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @var Form_Data
+	 * @var Form_Data|null
 	 */
 	public $form_data;
 
