@@ -181,19 +181,25 @@ const License = () => {
 						{ !! Object.values( license.upgrades ).length && (
 							<div>
 								<h3>Upgrades:</h3>
-								{ Object.values( license.upgrades ).map(
-									( upgrade, index ) => {
-										return (
-											<a
-												key={ index }
-												href={ upgrade.url }
-												target="_blank"
-											>
-												{ upgrade.plan_label }
-											</a>
-										);
-									}
-								) }
+								<ul>
+									{ Object.values( license.upgrades ).map(
+										( upgrade, index ) => {
+											return (
+												<li>
+													<a
+														key={ index }
+														href={ upgrade.url }
+														target="_blank"
+													>
+														Upgrade to{ ' ' }
+														{ upgrade.plan_label }{ ' ' }
+														plan
+													</a>
+												</li>
+											);
+										}
+									) }
+								</ul>
 							</div>
 						) }
 					</div>
