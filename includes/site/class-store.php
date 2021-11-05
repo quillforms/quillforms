@@ -466,7 +466,7 @@ class Store {
 				),
 			),
 			'googlesheets'              => array(
-				'name'           => esc_html__( 'GoogleSheets', 'quillforms' ),
+				'name'           => esc_html__( 'Google Sheets', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Google Sheets. Syncs automatically when a new form is submitted!', 'quillforms' ),
 				'plugin_file'    => 'quillforms-googlesheets/quillforms-googlesheets.php',
 				'plan'           => 'basic',
