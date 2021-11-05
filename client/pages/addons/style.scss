@@ -29,7 +29,11 @@
 	align-items: center;
 	height: 33px;
 	padding: 0;
-    background: linear-gradient(45deg,#0d8aff,#1585ef) !important;
+    background: #1585ef !important;
+
+	&:hover:not(:disabled) {
+		background: #004b92 !important;
+	}
 }
 .quillforms-addons-page__body-addon-footer .quillforms-addons-active {
     display: block;
