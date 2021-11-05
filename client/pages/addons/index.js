@@ -1,14 +1,18 @@
 /**
  * QuillForms Dependencies.
  */
-import configApi from '@quillforms/config';
-import { Button } from '@quillforms/admin-components';
+import ConfigApi from '@quillforms/config';
+import {
+	Button,
+	__experimentalAddonFeatureAvailability,
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
+import { Modal } from '@wordpress/components';
 
 /**
  * External Dependencies
@@ -22,18 +26,18 @@ import classNames from 'classnames';
 import './style.scss';
 
 const Addons = () => {
-	const license = configApi.getLicense();
-	const [ addons, setAddons ] = useState( configApi.getStoreAddons() );
+	const [ addons, setAddons ] = useState( ConfigApi.getStoreAddons() );
 	const [ apiAction, setApiAction ] = useState( null );
 	const [ reloadRequired, setReloadRequired ] = useState( false );
+	const [ proModalAddon, setProModalAddon ] = useState( null );
 
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
 	);
 
 	useEffect( () => {
-		if ( ! isEqual( addons, configApi.getStoreAddons() ) ) {
-			configApi.setStoreAddons( addons );
+		if ( ! isEqual( addons, ConfigApi.getStoreAddons() ) ) {
+			ConfigApi.setStoreAddons( addons );
 		}
 	}, [ addons ] );
 
@@ -155,9 +159,19 @@ const Addons = () => {
 										{ ! data.is_installed ? (
 											<Button
 												isPrimary
-												onClick={ () =>
-													api( 'install', addon )
-												}
+												onClick={ () => {
+													if (
+														ConfigApi.isPlanAccessible(
+															data.plan
+														)
+													) {
+														api( 'install', addon );
+													} else {
+														setProModalAddon(
+															addon
+														);
+													}
+												} }
 												disabled={ apiAction !== null }
 											>
 												{ isDoingApiAction(
@@ -194,6 +208,41 @@ const Addons = () => {
 					} ) }
 				</div>
 			</div>
+			{ proModalAddon && (
+				<Modal
+					className={ css`
+						border: none !important;
+						border-radius: 9px;
+
+						.components-modal__header {
+							background: linear-gradient(
+								42deg,
+								rgb( 235 54 221 ),
+								rgb( 238 142 22 )
+							);
+							h1 {
+								color: #fff;
+							}
+							svg {
+								fill: #fff;
+							}
+						}
+						.components-modal__content {
+							text-align: center;
+						}
+					` }
+					title={ addons[ proModalAddon ].name + ' is a pro addon' }
+					onRequestClose={ () => {
+						setProModalAddon( null );
+					} }
+				>
+					<__experimentalAddonFeatureAvailability
+						featureName={ addons[ proModalAddon ].name + ' addon' }
+						addonSlug={ proModalAddon }
+						showLockIcon={ true }
+					/>
+				</Modal>
+			) }
 		</div>
 	);
 };
