@@ -219,7 +219,7 @@ abstract class Addon {
 	protected function output_registration_error( $message ) {
 		?>
 		<div class="notice notice-error">
-			<p><?php echo esc_html__( 'Cannot register QuillForms addon', 'quillforms' ) . ': ' . $message; ?></p>
+			<p><?php echo esc_html__( 'Cannot register a Quill Forms addon', 'quillforms' ) . ': ' . $message; ?></p>
 		</div>
 		<?php
 	}
