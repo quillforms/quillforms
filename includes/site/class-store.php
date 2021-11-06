@@ -133,8 +133,8 @@ class Store {
 			);
 		}
 
-		// get plugin data with download link.
-		$plugin_data   = Site::instance()->api_request(
+		// get plugin data from the api.
+		$plugin_data = Site::instance()->api_request(
 			array_merge(
 				array(
 					'edd_action' => 'get_version',
@@ -144,6 +144,8 @@ class Store {
 				Site::instance()->get_api_versions_params()
 			)
 		);
+
+		// check download link.
 		$download_link = $plugin_data['data']['download_link'] ?? null;
 		if ( empty( $download_link ) ) {
 			quillforms_get_logger()->debug(
@@ -157,6 +159,14 @@ class Store {
 			return array(
 				'success' => false,
 				'message' => esc_html__( 'Cannot get addon info, please check your license', 'quillforms' ),
+			);
+		}
+
+		// check version.
+		if ( empty( $plugin_data['data']['new_version'] ) ) {
+			return array(
+				'success' => false,
+				'message' => esc_html__( 'Please check addon requirements at quillforms.com.', 'quillforms' ),
 			);
 		}
 
