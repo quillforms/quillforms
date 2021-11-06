@@ -88,4 +88,25 @@ class Site {
 		);
 	}
 
+	/**
+	 * Get api version parameters
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
+	 */
+	public function get_api_versions_params() {
+		$params = array(
+			'php_version'        => phpversion(),
+			'wp_version'         => get_bloginfo( 'version' ),
+			'quillforms_version' => QUILLFORMS_VERSION,
+		);
+		foreach ( Store::instance()->get_all_addons() as $addon_slug => $plugin ) {
+			if ( $plugin['is_installed'] ) {
+				$params[ "{$addon_slug}_addon_version" ] = $plugin['version'];
+			}
+		}
+		return $params;
+	}
+
 }

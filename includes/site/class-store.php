@@ -135,11 +135,13 @@ class Store {
 
 		// get plugin data with download link.
 		$plugin_data   = Site::instance()->api_request(
-			array(
-				'edd_action'         => 'get_version',
-				'license'            => $license['key'],
-				'item_id'            => "{$addon_slug}_addon",
-				'quillforms_version' => QUILLFORMS_VERSION,
+			array_merge(
+				array(
+					'edd_action' => 'get_version',
+					'license'    => $license['key'],
+					'item_id'    => "{$addon_slug}_addon",
+				),
+				Site::instance()->get_api_versions_params()
 			)
 		);
 		$download_link = $plugin_data['data']['download_link'] ?? null;

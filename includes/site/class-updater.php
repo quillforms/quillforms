@@ -79,7 +79,10 @@ class Updater {
 					'edd_sl_plugin_updater_api_params',
 					function( $api_params, $api_data, $plugin_file ) use ( $full_plugin_file ) {
 						if ( $plugin_file === $full_plugin_file ) {
-							$api_params['quillforms_version'] = QUILLFORMS_VERSION;
+							$api_params = array_merge(
+								$api_params,
+								Site::instance()->get_api_versions_params()
+							);
 						}
 						return $api_params;
 					},
