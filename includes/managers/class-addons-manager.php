@@ -81,9 +81,21 @@ final class Addons_Manager {
 		if ( isset( $this->registered[ $addon->slug ] ) ) {
 			throw new Exception( sprintf( '%s addon slug is already used for %s', $addon->slug, get_class( $this->registered[ $addon->slug ] ) ) );
 		}
-		// lower main plugin version than required.
-		if ( $addon->min_quillforms_version && version_compare( QUILLFORMS_VERSION, $addon->min_quillforms_version, '<' ) ) {
-			throw new Exception( sprintf( '%s addon requires at least QuillForms plugin version %s', $addon->slug, $addon->min_quillforms_version ) );
+		// incompatible dependencies.
+		foreach ( $addon->dependencies ?? array() as $key => $value ) {
+			if ( 'quillforms' === $key ) {
+				if ( version_compare( QUILLFORMS_VERSION, $value['version'], '<' ) ) {
+					throw new Exception( sprintf( '%s addon requires at least Quill Forms plugin version %s', $addon->slug, $value['version'] ) );
+				}
+			} elseif ( substr( $key, -6 ) === '_addon' ) {
+				$dependency_addon_slug = substr( $key, 0, -6 );
+				$dependency_addon      = $this->registered[ $dependency_addon_slug ] ?? null;
+				if ( ! $dependency_addon || version_compare( $dependency_addon->version, $value['version'], '<' ) ) {
+					throw new Exception( sprintf( '%s addon requires at least %s addon version %s', $addon->slug, $dependency_addon_slug, $value['version'] ) );
+				}
+			} else {
+				throw new Exception( sprintf( '%s addon has unknown dependency %s', $addon->slug, $key ) );
+			}
 		}
 
 		$this->registered[ $addon->slug ] = $addon;

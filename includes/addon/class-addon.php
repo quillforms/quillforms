@@ -83,13 +83,18 @@ abstract class Addon {
 	public $plugin_url;
 
 	/**
-	 * Minimum required main plugin version
+	 * Dependencies
 	 *
-	 * @since 1.6.0
+	 * @since 1.8.0
 	 *
-	 * @var string|null
+	 * @var array {
+	 *   An associative array of dependencies.
+	 *   its keys can be quillforms or {other_addon_slug}_addon
+	 *
+	 *   @type string $version Dependency version.
+	 * }
 	 */
-	public $min_quillforms_version;
+	public $dependencies = array();
 
 	/**
 	 * Settings
