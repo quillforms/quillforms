@@ -100,7 +100,7 @@ function quillforms_wordpress_version_notice() {
 	printf( __( 'QuillForms requires WordPress %s or later to function properly. Please upgrade WordPress before activating QuillForms.', 'quillforms' ), QUILLFORMS_MIN_WP_VERSION );
 	echo '</p></div>';
 
-	deactivate_plugins( array( 'QuillForms/quillforms.php' ) );
+	deactivate_plugins( 'quillforms/quillforms.php' );
 }
 
 
@@ -115,5 +115,5 @@ function quillforms_php_version_notice() {
 	printf( __( 'QuillForms requires PHP %s or later to function properly. Please upgrade your PHP version before activating QuillForms.', 'quillforms' ), QUILLFORMS_MIN_PHP_VERSION );
 	echo '</p></div>';
 
-	deactivate_plugins( array( 'QuillForms/quillforms.php' ) );
+	deactivate_plugins( 'quillforms/quillforms.php' );
 }
