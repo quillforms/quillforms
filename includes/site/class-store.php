@@ -55,6 +55,7 @@ class Store {
 
 		add_action( 'wp_ajax_quillforms_addon_install', array( $this, 'ajax_install' ) );
 		add_action( 'wp_ajax_quillforms_addon_activate', array( $this, 'ajax_activate' ) );
+		add_action( 'wp_ajax_quillforms_addon_ensure_activation', array( $this, 'ajax_ensure_activation' ) );
 	}
 
 	/**
@@ -265,9 +266,10 @@ class Store {
 	 * Activate addon
 	 *
 	 * @param string $addon_slug Addon slug.
+	 * @param string $redirect Redirect url. see activate_plugin().
 	 * @return array
 	 */
-	public function activate( $addon_slug ) {
+	public function activate( $addon_slug, $redirect = '' ) {
 		// check addon.
 		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
 			return array(
@@ -300,7 +302,7 @@ class Store {
 
 		// try to activate.
 		try {
-			$result = activate_plugin( $plugin_file );
+			$result = activate_plugin( $plugin_file, $redirect );
 			if ( is_wp_error( $result ) ) {
 				quillforms_get_logger()->error(
 					esc_html__( 'Unexpected output on activating the addon plugin', 'quillforms' ),
@@ -328,16 +330,16 @@ class Store {
 			);
 		}
 
-		$is_activated = is_plugin_active( $plugin_file );
 		return array(
-			'success' => $is_activated,
+			'success' => is_plugin_active( $plugin_file ),
+			'error'   => is_wp_error( $result ) ? $result : ( $e ?? null ),
 		);
 	}
 
 	/**
 	 * Ajax handler for installing addon
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function ajax_install() {
 		$this->check_authorization();
@@ -361,7 +363,7 @@ class Store {
 	/**
 	 * Ajax handler for activating addon
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function ajax_activate() {
 		$this->check_authorization();
@@ -373,11 +375,42 @@ class Store {
 			exit;
 		}
 
-		$result = $this->activate( $addon_slug );
+		$redirect_url = add_query_arg(
+			array(
+				'action' => 'quillforms_addon_ensure_activation',
+				'addon'  => $addon_slug,
+			),
+			admin_url( 'admin-ajax.php' )
+		);
+
+		$result = $this->activate( $addon_slug, $redirect_url );
 		if ( $result['success'] ) {
+			wp_redirect( add_query_arg( array( 'success' => true ), $redirect_url ) );
+		} else {
+			wp_send_json_error( $result['message'] ?? esc_html__( 'Cannot activate the addon plugin, please check the log for details', 'quillforms' ), 500 );
+		}
+		exit;
+	}
+
+	/**
+	 * Ajax handler for ensuring addon activation
+	 * This action shouldn't be called directly. it is used on redirection at activate action.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	public function ajax_ensure_activation() {
+		if ( empty( $_GET['success'] ) ) {
+			wp_send_json_error( esc_html__( 'Fatal error occurred on activating the addon plugin', 'quillforms' ), 500 );
+			exit;
+		}
+
+		$plugin_file = $this->addons[ $_GET['addon'] ]['plugin_file'];
+		if ( is_plugin_active( $plugin_file ) ) {
 			wp_send_json_success( esc_html__( 'Addon plugin activated successfully', 'quillforms' ), 200 );
 		} else {
-			wp_send_json_error( $result['message'] ?? esc_html__( 'Cannot activate the addon plugin, please check the log for details', 'quillforms' ), 422 );
+			wp_send_json_error( esc_html__( 'Cannot activate the addon plugin, please check the log for details', 'quillforms' ), 500 );
 		}
 		exit;
 	}
