@@ -60,7 +60,6 @@ class QuillForms_Environment {
 	 */
 	public function get_report() {
 		$is_upload_dir_writable = $this->is_upload_dir_writable();
-		$debug_log              = Settings::get( 'log_debug', true );
 
 		$quillforms_report = array(
 			array(
@@ -89,10 +88,9 @@ class QuillForms_Environment {
 						'value_raw' => $is_upload_dir_writable,
 					),
 					array(
-						'label'     => esc_html__( 'Debug log', 'quillforms' ),
-						'label_raw' => 'Debug log',
-						'value'     => $debug_log ? esc_html__( 'ON', 'quillforms' ) : esc_html__( 'OFF', 'quillforms' ),
-						'value_raw' => $debug_log,
+						'label'     => esc_html__( 'Log level', 'quillforms' ),
+						'label_raw' => 'Log level',
+						'value'     => Settings::get( 'log_level', 'info' ),
 					),
 				),
 			),

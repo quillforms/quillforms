@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies.
  */
-import { Button } from '@quillforms/admin-components';
+import { SelectControl, Button } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -61,6 +61,30 @@ const General = () => {
 			} );
 	};
 
+	const setSettingField = ( key, value ) => {
+		setSettings( ( settings ) => {
+			return {
+				...settings,
+				[ key ]: value,
+			};
+		} );
+	};
+
+	const logLevelOptions = [
+		{
+			key: 'notice',
+			name: 'Notice',
+		},
+		{
+			key: 'info',
+			name: 'Info',
+		},
+		{
+			key: 'debug',
+			name: 'Debug',
+		},
+	];
+
 	return (
 		<div className="quillforms-settings-general-tab">
 			{ settings === null ? (
@@ -85,18 +109,24 @@ const General = () => {
 				<div className="error">Cannot load settings</div>
 			) : (
 				<div>
-					<CheckboxControl
-						label="Debug logging"
-						checked={ settings.log_debug }
-						onChange={ ( checked ) => {
-							setSettings( ( settings ) => {
-								return {
-									...settings,
-									log_debug: checked,
-								};
-							} );
-						} }
-					/>
+					<div>
+						<SelectControl
+							className={ css`
+								width: 200px;
+							` }
+							label="Log level"
+							value={ logLevelOptions.find(
+								( option ) => option.key === settings.log_level
+							) }
+							onChange={ ( selectedChoice ) => {
+								setSettingField(
+									'log_level',
+									selectedChoice.selectedItem.key
+								);
+							} }
+							options={ logLevelOptions }
+						/>
+					</div>
 					<div
 						className={ css`
 							text-align: center;

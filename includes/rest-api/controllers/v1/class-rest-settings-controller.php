@@ -77,9 +77,9 @@ class REST_Settings_Controller extends REST_Controller {
 					'type'                 => 'object',
 					'additionalProperties' => false,
 					'properties'           => array(
-						'log_debug' => array(
-							'type'    => 'boolean',
-							'default' => true,
+						'log_level' => array(
+							'type'    => 'string',
+							'default' => 'info',
 						),
 					),
 				),

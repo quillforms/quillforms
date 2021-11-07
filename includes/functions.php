@@ -199,7 +199,7 @@ function quillforms_get_logger() {
 	$implements = class_implements( $class );
 
 	if ( is_array( $implements ) && in_array( Logger_Interface::class, $implements, true ) ) {
-		$threshold = Settings::get( 'log_debug' ) ? 'debug' : 'info';
+		$threshold = Settings::get( 'log_level', 'info' );
 		$logger    = is_object( $class ) ? $class : new $class( null, $threshold );
 	} else {
 		_doing_it_wrong(
