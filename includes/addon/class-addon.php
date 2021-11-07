@@ -208,6 +208,17 @@ abstract class Addon {
 					$this->output_registration_error( $e->getMessage() );
 				}
 			);
+			if ( $e->getCode() === Addons_Manager::INCOMPATIBLE_DEPENDENCIES ) {
+				deactivate_plugins( $this->plugin_file );
+				quillforms_get_logger()->error(
+					esc_html__( 'Addon deactivated due to incompatible dependencies', 'quillforms' ),
+					array(
+						'source'       => static::class . '->' . __FUNCTION__,
+						'code'         => 'addon_deactivated_due_to_incompatible_dependencies',
+						'dependencies' => $this->dependencies,
+					)
+				);
+			}
 			return false;
 		}
 		return true;
