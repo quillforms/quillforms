@@ -396,7 +396,7 @@ class Store {
 	 * Ajax handler for ensuring addon activation
 	 * This action shouldn't be called directly. it is used on redirection at activate action.
 	 *
-	 * @since 1.8.0
+	 * @since 1.7.1
 	 *
 	 * @return void
 	 */

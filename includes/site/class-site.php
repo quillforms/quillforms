@@ -91,7 +91,7 @@ class Site {
 	/**
 	 * Get api version parameters
 	 *
-	 * @since 1.8.0
+	 * @since 1.7.1
 	 *
 	 * @return array
 	 */

@@ -85,7 +85,7 @@ abstract class Addon {
 	/**
 	 * Dependencies
 	 *
-	 * @since 1.8.0
+	 * @since 1.7.1
 	 *
 	 * @var array {
 	 *   An associative array of dependencies.
