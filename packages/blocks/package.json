@@ -9,14 +9,14 @@
 		"block",
 		"editor"
 	],
-	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/blocks/README.md",
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocks/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/QuillForms/quillforms.git",
+		"url": "https://github.com/quillforms/quillforms.git",
 		"directory": "packages/blocks"
 	},
 	"bugs": {
-		"url": "https://github.com/QuillForms/quillforms/issues"
+		"url": "https://github.com/quillforms/quillforms/issues"
 	},
 	"types": "build-types",
 	"main": "build/index.js",

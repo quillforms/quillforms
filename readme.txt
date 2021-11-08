@@ -47,14 +47,14 @@ What are you waiting for? start creating irresistible forms that are similar to 
 You can watch the demo [here](https://quillforms.com/quillforms/my-first-form)
 
 = Be a contributor =
-If you want to contribute, go to our [QuillForms GitHub Repository](https://github.com/QuillForms/QuillForms) and see where you can help.
+If you want to contribute, go to our [QuillForms GitHub Repository](https://github.com/quillforms/quillforms) and see where you can help.
 
 
 == Frequently Asked Questions ==
 
 = How can I send feedback or get help with a bug? =
 
-We'd love to hear your bug reports, feature suggestions and any other feedback! Please head over to <a href="https://github.com/QuillForms/QuillForms/issues">the GitHub issues page</a> to search for existing issues or open a new one.
+We'd love to hear your bug reports, feature suggestions and any other feedback! Please head over to <a href="https://github.com/quillforms/quillforms/issues">the GitHub issues page</a> to search for existing issues or open a new one.
 
 == Screenshots ==
 

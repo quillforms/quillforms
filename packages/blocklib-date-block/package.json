@@ -9,14 +9,14 @@
 		"date",
 		"block"
 	],
-	"homepage": "https://github.com/QuillForms/quillforms/tree/master/packages/blocklib-date-block/README.md",
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocklib-date-block/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/QuillForms/quillforms.git",
+		"url": "https://github.com/quillforms/quillforms.git",
 		"directory": "packages/blocklib-date-block"
 	},
 	"bugs": {
-		"url": "https://github.com/QuillForms/quillforms/issues"
+		"url": "https://github.com/quillforms/quillforms/issues"
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",

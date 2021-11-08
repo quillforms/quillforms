@@ -172,11 +172,6 @@ const BUILD_TASK_BY_EXTENSION = {
 };
 
 module.exports = async ( file, callback ) => {
-	// if (
-	// 	file.startsWith(
-	// 		'/Applications/MAMP/htdocs/mf-reviews/wp-content/plugins/QuillForms/packages/config'
-	// 	)
-	// ) {
 	const extension = path.extname( file );
 	const task = BUILD_TASK_BY_EXTENSION[ extension ];
 
@@ -190,5 +185,4 @@ module.exports = async ( file, callback ) => {
 	} catch ( error ) {
 		callback( error );
 	}
-	// }
 };

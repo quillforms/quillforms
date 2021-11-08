@@ -15,7 +15,7 @@ const Support = () => {
 			<div className="quillforms-support-page__via">
 				<div className="quillforms-support-page__via-github">
 					<a
-						href="https://www.github.com/QuillForms/QuillForms"
+						href="https://www.github.com/quillforms/quillforms"
 						target="_blank"
 					>
 						<div className="quillforms-support-page__github-icon">
