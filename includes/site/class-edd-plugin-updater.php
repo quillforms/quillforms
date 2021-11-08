@@ -440,9 +440,9 @@ class EDD_Plugin_Updater {
 		}
 
 		// Don't allow a plugin to ping itself
-		if ( trailingslashit( home_url() ) === $this->api_url ) {
-			return false;
-		}
+		// if ( trailingslashit( home_url() ) === $this->api_url ) {
+		// 	return false;
+		// }
 
 		return $this->get_version_from_remote();
 	}
