@@ -330,6 +330,8 @@ class Emails {
 	 */
 	public function send( $to, $subject, $message, $attachments = array() ) {
 
+		quillforms_get_logger()->debug( 'Sending an email', compact( 'to', 'subject', 'message', 'attachments' ) );
+
 		if ( ! did_action( 'init' ) && ! did_action( 'admin_init' ) ) {
 			_doing_it_wrong( __FUNCTION__, esc_html__( 'You cannot send emails with Emails() until init/admin_init has been reached.', 'quillforms' ), null );
 
@@ -366,9 +368,18 @@ class Emails {
 			$this
 		);
 
+		quillforms_get_logger()->debug( 'Email data', compact( 'data' ) );
+
 		// Prepare subject and message.
 		$prepared_subject = $this->get_prepared_subject( $data['subject'] );
 		$prepared_message = $this->build_email( $data['message'] );
+
+		quillforms_get_logger()->debug( 'Prepared email data', compact( 'prepared_subject', 'prepared_message' ) );
+
+		$on_mail_error = function( $wp_error ) {
+			quillforms_get_logger()->debug( 'Email error', compact( 'wp_error' ) );
+		};
+		add_action( 'wp_mail_failed', $on_mail_error );
 
 		// Let's do this NOW.
 		$result = wp_mail(
@@ -378,6 +389,10 @@ class Emails {
 			$data['headers'],
 			$data['attachments']
 		);
+
+		remove_action( 'wp_mail_failed', $on_mail_error );
+
+		quillforms_get_logger()->debug( 'Email result', compact( 'result' ) );
 
 		// Hooks after the email is sent.
 		do_action( 'quillforms_email_send_after', $this );

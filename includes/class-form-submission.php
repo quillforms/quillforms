@@ -195,6 +195,8 @@ class Form_Submission {
 	public function entry_email( $entry, $form_data ) {
 		$notifications = $form_data['notifications'];
 
+		quillforms_get_logger()->debug( 'Start processing notifications', compact( 'notifications', 'entry', 'form_data' ) );
+
 		foreach ( $notifications as $notification ) :
 
 			$notification_id         = $notification['id'];
@@ -239,6 +241,8 @@ class Form_Submission {
 			$email['message']        = ! empty( $notification_properties['message'] ) ? $notification_properties['message'] : '{{form:all_answers}}';
 			$email                   = apply_filters( 'quillforms_entry_email_atts', $email, $entry, $form_data, $notification_id );
 
+			quillforms_get_logger()->debug( 'Initial email data', compact( 'email' ) );
+
 			// Create new email.
 			$emails                  = new Emails();
 			$emails->form_data       = $form_data;
@@ -254,6 +258,8 @@ class Form_Submission {
 			}
 
 			$emails = apply_filters( 'quillforms_entry_email_before_send', $emails );
+
+			quillforms_get_logger()->debug( 'Emails object', compact( 'emails' ) );
 
 			// Go.
 			foreach ( $email['address'] as $address ) {
