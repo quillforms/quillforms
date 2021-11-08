@@ -73,15 +73,15 @@ const General = () => {
 	const logLevelOptions = [
 		{
 			key: 'notice',
-			name: 'Notice',
+			name: 'Errors',
 		},
 		{
 			key: 'info',
-			name: 'Info',
+			name: 'Info & Errors',
 		},
 		{
 			key: 'debug',
-			name: 'Debug',
+			name: 'Debug & Info & Errors',
 		},
 	];
 
