@@ -77,9 +77,17 @@ class REST_Settings_Controller extends REST_Controller {
 					'type'                 => 'object',
 					'additionalProperties' => false,
 					'properties'           => array(
-						'log_level' => array(
+						'log_level'                     => array(
 							'type'    => 'string',
 							'default' => 'info',
+						),
+						'disable_collecting_user_ip'    => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'disable_collecting_user_agent' => array(
+							'type'    => 'boolean',
+							'default' => false,
 						),
 					),
 				),

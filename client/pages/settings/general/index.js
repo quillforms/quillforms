@@ -127,6 +127,35 @@ const General = () => {
 							options={ logLevelOptions }
 						/>
 					</div>
+					<h4
+						className={ css`
+							margin-top: 1rem;
+							margin-bottom: 0.5rem;
+						` }
+					>
+						GDPR Enhancements
+					</h4>
+					<div>
+						<CheckboxControl
+							label="Disable collecting user ip"
+							checked={ settings.disable_collecting_user_ip }
+							onChange={ ( checked ) => {
+								setSettingField( 'disable_collecting_user_ip', checked );
+							} }
+						/>
+					</div>
+					<div>
+						<CheckboxControl
+							label="Disable collecting user agent"
+							checked={ settings.disable_collecting_user_agent }
+							onChange={ ( checked ) => {
+								setSettingField(
+									'disable_collecting_user_agent',
+									checked
+								);
+							} }
+						/>
+					</div>
 					<div
 						className={ css`
 							text-align: center;
