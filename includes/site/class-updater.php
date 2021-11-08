@@ -41,6 +41,12 @@ class Updater {
 	 */
 	private function __construct() {
 		add_action( 'init', array( $this, 'init_addon_updater' ) );
+		add_action(
+			'upgrader_process_complete',
+			function() {
+				$this->clear_addons_update_cache();
+			}
+		);
 	}
 
 	/**
