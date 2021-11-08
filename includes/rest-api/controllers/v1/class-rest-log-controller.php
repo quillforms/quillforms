@@ -12,6 +12,7 @@ namespace QuillForms\REST_API\Controllers\V1;
 use QuillForms\Abstracts\REST_Controller;
 use QuillForms\Log_Handlers\Log_Handler_DB;
 use WP_Error;
+use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 
@@ -77,17 +78,23 @@ class REST_Log_Controller extends REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
+		$levels = $request->get_param( 'levels' ) ?? false;
+		if ( $levels ) {
+			$levels = explode( ',', $levels );
+		}
+
 		// check export.
-		if ( $request->get_param( 'export' ) ) {
-			return $this->export_items( $request );
+		$export = $request->get_param( 'export' );
+		if ( $export ) {
+			return $this->export_items( $export, $levels );
 		}
 
 		$per_page = $request->get_param( 'per_page' );
 		$page     = $request->get_param( 'page' );
 		$offset   = $per_page * ( $page - 1 );
-		$logs     = Log_Handler_DB::get_all( $offset, $per_page );
+		$logs     = Log_Handler_DB::get_all( $levels, $offset, $per_page );
 
-		$total_items = Log_Handler_DB::get_count();
+		$total_items = Log_Handler_DB::get_count( $levels );
 		$total_pages = ceil( $total_items / $per_page );
 
 		$data = array(
@@ -104,13 +111,14 @@ class REST_Log_Controller extends REST_Controller {
 	/**
 	 * Export items
 	 *
-	 * @param WP_REST_Request $request Full data about the request.
+	 * @since 1.7.1
+	 *
+	 * @param string $format Format.
+	 * @param array  $levels Levels.
 	 * @return void|WP_Error|WP_REST_Response
 	 */
-	private function export_items( $request ) {
-		$format = $request->get_param( 'export' );
-
-		$logs = Log_Handler_DB::get_all();
+	private function export_items( $format, $levels ) {
+		$logs = Log_Handler_DB::get_all( $levels );
 		if ( empty( $logs ) ) {
 			return new WP_Error( 'quillforms_cannot_find_logs', esc_html__( 'Cannot find any logs', 'quillforms' ), array( 'status' => 404 ) );
 		}

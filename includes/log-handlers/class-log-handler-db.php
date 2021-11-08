@@ -111,23 +111,40 @@ class Log_Handler_DB extends Log_Handler {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param integer $offset Offset.
-	 * @param integer $count Count.
+	 * @param array|false $levels Array of levels, false for all.
+	 * @param integer     $offset Offset.
+	 * @param integer     $count Count.
 	 * @return array
 	 */
-	public static function get_all( $offset = 0, $count = 10000000 ) {
+	public static function get_all( $levels = false, $offset = 0, $count = 10000000 ) {
 		global $wpdb;
 
+		$where = '';
+		if ( ! empty( $levels ) ) {
+			$levels = array_filter(
+				array_map(
+					function( $level ) {
+						return Log_Levels::get_level_severity( $level );
+					},
+					$levels
+				)
+			);
+			$where  = 'WHERE level IN (' . implode( ',', $levels ) . ')';
+		}
+
 		$results = $wpdb->get_results(
+			// @codingStandardsIgnoreStart
 			$wpdb->prepare(
 				"
 					SELECT *
 					FROM {$wpdb->prefix}quillforms_log
+					$where
 					ORDER BY log_id DESC
 					LIMIT %d, %d;
 				",
 				array( $offset, $count )
 			),
+			// @codingStandardsIgnoreEnd
 			ARRAY_A
 		);
 
@@ -172,12 +189,26 @@ class Log_Handler_DB extends Log_Handler {
 	/**
 	 * Get logs count
 	 *
+	 * @param array|false $levels Levels.
 	 * @return int
 	 */
-	public static function get_count() {
+	public static function get_count( $levels = false ) {
 		global $wpdb;
 
-		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}quillforms_log" );
+		$where = '';
+		if ( ! empty( $levels ) ) {
+			$levels = array_filter(
+				array_map(
+					function( $level ) {
+						return Log_Levels::get_level_severity( $level );
+					},
+					$levels
+				)
+			);
+			$where  = 'WHERE level IN (' . implode( ',', $levels ) . ')';
+		}
+
+		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}quillforms_log $where" ); // phpcs:ignore
 	}
 
 	/**
