@@ -92,6 +92,7 @@ abstract class Addon {
 	 *   its keys can be quillforms or {other_addon_slug}_addon
 	 *
 	 *   @type string $version Dependency version.
+	 *   @type boolean $required For addon dependency only.
 	 * }
 	 */
 	public $dependencies = array();
