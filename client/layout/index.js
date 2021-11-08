@@ -70,7 +70,6 @@ export const Layout = ( props ) => {
 		} );
 	};
 
-	// Remove all notices on any page mount
 	useEffect( () => {
 		if ( props.page.requiresInitialPayload && params.id ) {
 			apiFetch( {
@@ -85,6 +84,7 @@ export const Layout = ( props ) => {
 			} );
 		}
 
+		// Remove all notices on any page mount
 		notices.forEach( ( notice ) => {
 			removeNotice( notice.id );
 		} );
