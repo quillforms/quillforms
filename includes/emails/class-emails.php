@@ -366,11 +366,15 @@ class Emails {
 			$this
 		);
 
+		// Prepare subject and message.
+		$prepared_subject = $this->get_prepared_subject( $data['subject'] );
+		$prepared_message = $this->build_email( $data['message'] );
+
 		// Let's do this NOW.
 		$result = wp_mail(
 			$data['to'],
-			$this->get_prepared_subject( $data['subject'] ),
-			$this->build_email( $data['message'] ),
+			$prepared_subject,
+			$prepared_message,
 			$data['headers'],
 			$data['attachments']
 		);
