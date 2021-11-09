@@ -28,6 +28,10 @@
 			}
 		  ]
 		},
+		"verticalAlign": {
+			"type": "boolean",
+			"default": false
+		},
 		"multiple": {
 		  "type": "boolean"
 		}
