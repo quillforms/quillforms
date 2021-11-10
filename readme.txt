@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress ===
 Contributors: mdmag
 Tested up to: 5.8
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
 License: GPLv2 or later
@@ -39,7 +39,7 @@ Moreover, QuillForms free version comes with variety of blocks:
 9- Long text block
 10- Default thank you screen
 
-Quill Forms is definitely the best contact form for wordpress.
+Quill Forms is definitely the best contact form plugin for wordpress.
 
 What are you waiting for? start creating irresistible forms that are similar to Typeform for free!
 
@@ -65,6 +65,10 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 5. QuillForms Renderer
 
 == Changelog ==
+
+= 1.7.1 = 9 Nov 2021
+Fix: fixing for various minor issues and having some improvements.
+Feature: Introducing Zapier integration.
 
 = 1.7.0 = 1 Nov 2021
 Fix: Urgent fix fo nonce field issues with caching plugins
