@@ -521,6 +521,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/banner.png',
 				),
 			),
+			'hubspot'                   => array(
+				'name'           => esc_html__( 'HubSpot', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your HubSpot account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-hubspot/quillforms-hubspot.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
+				),
+			),
 			'zapier'                    => array(
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),

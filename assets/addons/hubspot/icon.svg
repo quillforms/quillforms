@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Outlines_-_Full_Color"
+   data-name="Outlines - Full Color"
+   viewBox="0 0 154.90413 162.3185"
+   version="1.1"
+   sodipodi:docname="icon.svg"
+   width="154.90413"
+   height="162.3185"
+   inkscape:version="1.1.1 (eb90963e84, 2021-10-02)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="2.0700389"
+     inkscape:cx="77.534774"
+     inkscape:cy="80.433271"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Outlines_-_Full_Color" />
+  <defs
+     id="defs7">
+    <style
+       id="style2">.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#ff7a59;}</style>
+    <clipPath
+       id="clip-path">
+      <rect
+         class="cls-1"
+         x="42.869999"
+         y="46.900002"
+         width="156.42"
+         height="163.35001"
+         id="rect4" />
+    </clipPath>
+  </defs>
+  <title
+     id="title9">sprocket-web-color_sprocket-black-web</title>
+  <g
+     id="Sprocket"
+     transform="translate(-43.652046,-47.611505)">
+    <g
+       class="cls-2"
+       clip-path="url(#clip-path)"
+       id="g15">
+      <g
+         class="cls-2"
+         clip-path="url(#clip-path)"
+         id="g13">
+        <path
+           class="cls-3"
+           d="M 162.79,101.25 V 82 a 14.84,14.84 0 0 0 8.56,-13.38 V 68.17 A 14.87,14.87 0 0 0 156.52,53.34 h -0.45 a 14.87,14.87 0 0 0 -14.83,14.83 v 0.45 A 14.84,14.84 0 0 0 149.8,82 v 19.29 a 42.06,42.06 0 0 0 -20,8.8 L 76.86,68.86 A 16.89,16.89 0 1 0 68.95,79.15 L 121,119.67 a 42.18,42.18 0 0 0 0.65,47.56 l -15.84,15.84 a 13.6,13.6 0 0 0 -3.93,-0.64 13.75,13.75 0 1 0 13.75,13.75 13.56,13.56 0 0 0 -0.64,-3.93 l 15.67,-15.67 a 42.25,42.25 0 1 0 32.1,-75.33 m -6.49,63.42 A 21.68,21.68 0 1 1 178,143 21.68,21.68 0 0 1 156.32,164.68"
+           id="path11" />
+      </g>
+    </g>
+  </g>
+  <metadata
+     id="metadata21">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>sprocket-web-color_sprocket-black-web</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
