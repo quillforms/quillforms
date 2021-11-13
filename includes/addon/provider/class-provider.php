@@ -159,13 +159,18 @@ abstract class Provider extends Addon {
 					return false;
 				}
 			case 'text':
-				return preg_replace_callback(
+				$field_value = preg_replace_callback(
 					'/{{field:([a-zA-Z0-9-_]+)}}/',
 					function( $matches ) use ( $valid_blocks_ids ) {
 						return in_array( $matches[1], $valid_blocks_ids, true ) ? $matches[0] : '';
 					},
 					$field_value
 				);
+				if ( ! $field_value ) {
+					return false;
+				}
+				$field['value'] = $field_value;
+				return $field;
 			default:
 				return false;
 		}
