@@ -97,9 +97,9 @@ trait Account_Controller_Creatable {
 			return $account_info;
 		}
 
-		$account_id   = $account_info['id'];
+		$account_id   = (string) $account_info['id'];
 		$account_data = array(
-			'name'        => $account_info['name'],
+			'name'        => (string) $account_info['name'],
 			'credentials' => $request['credentials'],
 		);
 
