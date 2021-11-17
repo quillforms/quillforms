@@ -235,14 +235,15 @@ class Form_Renderer {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @param boolean $show_admin_bar Whether the admin bar should be shown.
 	 * @return boolean
 	 */
-	public function hide_admin_bar() {
+	public function hide_admin_bar( $show_admin_bar ) {
 		if ( is_singular( 'quill_forms' ) ) {
 			return false;
 		}
 
-		return true;
+		return $show_admin_bar;
 	}
 
 }
