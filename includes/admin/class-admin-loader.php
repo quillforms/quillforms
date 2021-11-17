@@ -75,8 +75,10 @@ class Admin_Loader {
 	 */
 	public static function add_admin_body_class( $classes ) {
 		if ( self::is_admin_page() ) {
-			return "$classes js is-fullscreen-mode";
+			$classes .= ' js is-fullscreen-mode';
 		}
+
+		return $classes;
 	}
 
 	/**
