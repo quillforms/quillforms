@@ -195,10 +195,11 @@ if ( files.length ) {
 
 	bar.tick( 0 );
 
+	const normalizedPackagesDir = PACKAGES_DIR.replace( /\\/g, '/' );
 	stream = glob.stream(
 		[
-			`${ PACKAGES_DIR }/*/src/**/*.{js,ts,tsx}`,
-			`${ PACKAGES_DIR }/*/src/*.scss`,
+			`${ normalizedPackagesDir }/*/src/**/*.{js,ts,tsx}`,
+			`${ normalizedPackagesDir }/*/src/*.scss`,
 		],
 		{
 			ignore: [
