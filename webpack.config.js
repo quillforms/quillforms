@@ -38,18 +38,21 @@ const {
 const QUILLFORMS_NAMESPACE = '@quillforms/';
 const entryPoints = {};
 
-const quillFormsBlocklibPackages = [
-	'@quillforms/blocklib-date-block',
-	'@quillforms/blocklib-dropdown-block',
-	'@quillforms/blocklib-email-block',
-	'@quillforms/blocklib-long-text-block',
-	'@quillforms/blocklib-multiple-choice-block',
-	'@quillforms/blocklib-number-block',
-	'@quillforms/blocklib-short-text-block',
-	'@quillforms/blocklib-statement-block',
-	'@quillforms/blocklib-website-block',
-	'@quillforms/blocklib-welcome-screen-block',
+const quillFormsBlocklibPackagesNames = [
+	'date',
+	'dropdown',
+	'email',
+	'long-text',
+	'multiple-choice',
+	'number',
+	'short-text',
+	'statement',
+	'website',
+	'welcome-screen',
 ];
+const quillFormsBlocklibPackages = quillFormsBlocklibPackagesNames.map(
+	( name ) => `@quillforms/blocklib-${ name }-block`
+);
 const quillformsPackages = Object.keys( dependencies )
 	.filter( ( packageName ) => packageName.startsWith( QUILLFORMS_NAMESPACE ) )
 	.map( ( packageName ) => packageName.replace( QUILLFORMS_NAMESPACE, '' ) );
@@ -104,6 +107,27 @@ quillFormsBlocklibPackages.forEach( ( packageName ) => {
 		''
 	) }/src/renderer`;
 }, {} );
+
+const quillFormsBlocklibPackagesCopy = [];
+quillFormsBlocklibPackagesNames.forEach( ( name ) => {
+	quillFormsBlocklibPackagesCopy.push(
+		{
+			from: `./packages/blocklib-${ name }-block/src/index.php`,
+			to: path.resolve(
+				__dirname,
+				`includes/blocks/${ name }/class-${ name }-block.php`
+			),
+		},
+		{
+			from: `./packages/blocklib-${ name }-block/src/block.json`,
+			to: path.resolve(
+				__dirname,
+				`includes/blocks/${ name }/block.json`
+			),
+		}
+	);
+} );
+
 module.exports = {
 	...defaultConfig,
 	mode,
@@ -321,25 +345,12 @@ module.exports = {
 			} ) )
 		),
 		new CopyWebpackPlugin( [
-			{
-				from: './packages/blocklib-**-block/src/index.php',
-				test: RegExp( 'blocklib-([a-zA-Z-]+)-block/src/index.php$' ),
-				to: path.resolve(
-					__dirname,
-					'includes/blocks/[1]/class-[1]-block.php'
-				),
-			},
-			{
-				from: './packages/blocklib-**-block/src/block.json',
-				test: RegExp( 'blocklib-([a-zA-Z-]+)-block/src/block.json$' ),
-				to: path.resolve( __dirname, 'includes/blocks/[1]/block.json' ),
-			},
+			...quillFormsBlocklibPackagesCopy,
 			{
 				from: './packages/config/src/json',
 				to: path.resolve( __dirname, './includes/json' ),
 			},
 		] ),
-
 		...defaultConfig.plugins.filter(
 			( plugin ) =>
 				plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
