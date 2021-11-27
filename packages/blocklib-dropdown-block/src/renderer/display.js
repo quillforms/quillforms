@@ -8,7 +8,7 @@ import { useTheme, useMessages } from '@quillforms/renderer-core';
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { use, useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -24,6 +24,11 @@ import { cloneDeep, some } from 'lodash';
 import DropdownIcon from './expand-icon';
 import CloseIcon from './close-icon';
 import ChoiceItem from './choice-item';
+
+const ENTER_CODE = 13;
+const ESC_CODE = 27;
+const ARROW_UP_CODE = 38;
+const ARROW_DOWN_CODE = 40;
 
 let timer;
 const DropdownDisplay = ( props ) => {
@@ -45,7 +50,12 @@ const DropdownDisplay = ( props ) => {
 	} = props;
 	const { choices, required } = attributes;
 	const [ showDropdown, setShowDropdown ] = useState( false );
-	const [ searchKeyword, setSearchKeyword ] = useState( '' );
+	const [searchKeyword, setSearchKeyword] = useState('');
+	const [selectedChoiceIndex, setSelectedChoiceIndex] = useState(-1);
+	const [clicked, setClicked] = useState(false);
+	const [showCloseIcon, setShowCloseIcon] = useState(false);
+	const [inputValue, setInputValue] = useState('');
+	const [showFixedDropdown, setShowFixedDropdown] = useState(false);
 	const wrapperRef = useRef();
 	const choicesWrappeerRef = useRef();
 	const messages = useMessages();
@@ -53,7 +63,7 @@ const DropdownDisplay = ( props ) => {
 	const answersColor = tinyColor( theme.answersColor );
 	const $choices = cloneDeep( choices )
 		.map( ( choice, index ) => {
-			if ( ! choice.label ) choice.label = 'Choice ' + ( index + 1 );
+			if (!choice.label) choice.label = 'Choice ' + (index + 1);
 			return choice;
 		} )
 		.filter( ( choice ) =>
@@ -127,7 +137,10 @@ const DropdownDisplay = ( props ) => {
 		if ( isPreview || ! isReviewing ) checkFieldValidation( val );
 	}, [ val, attributes ] );
 
-	const changeHandler = ( e ) => {
+	const changeHandler = (e) => {
+		// show close icon of there is any string
+		setShowCloseIcon(e.target.value !== '');
+		setInputValue(e.target.value);
 		setShowDropdown( true );
 		if ( val ) {
 			setVal( null );
@@ -151,7 +164,64 @@ const DropdownDisplay = ( props ) => {
 			setSearchKeyword( selectedChoice ? selectedChoice.label : '' );
 		}
 		return () => clearTimeout( timer );
-	}, [] );
+	}, []);
+
+	const handleChoiceKeyDown = (e) => {
+		if (isTouchScreen) return;
+		if (e.keyCode === ESC_CODE) {
+			setShowDropdown(false);
+			setShowCloseIcon(inputValue !== '');
+			setSelectedChoiceIndex(-1);
+		}
+
+		if (e.keyCode === ARROW_UP_CODE) {
+			if (selectedChoiceIndex <= 0) {
+				return;
+			}
+			setSelectedChoiceIndex(selectedChoiceIndex - 1);
+			return;
+		}
+
+		if (e.keyCode === ARROW_DOWN_CODE) {
+			if (selectedChoiceIndex === $choices.length - 1) {
+				return
+			}
+			!showDropdown && setShowDropdown(true);
+			setSelectedChoiceIndex(selectedChoiceIndex + 1);
+			return;
+		}
+
+		if (e.keyCode === ENTER_CODE) {
+			if (selectedChoiceIndex === -1) {
+				setShowDropdown(false);
+				return;
+			}
+			setClicked(true);
+			return;
+		}	
+	} 
+	
+	const clickHandler = (choice = $choices[selectedChoiceIndex]) => {
+		const selectedIndex = $choices.findIndex(c => c.value === choice.value);
+		if (selectedIndex !== selectedChoiceIndex) setSelectedChoiceIndex(selectedIndex);
+		setClicked(false);
+		setShowCloseIcon(false);
+		showErrMsg(false);
+		clearTimeout( timer );
+		if ( val && val === choice.value ) {
+			setVal( null );
+			setIsAnswered( false );
+			setSearchKeyword( '' );
+			return;
+		}
+		setIsAnswered( true );
+		setVal( choice.value );
+		timer = setTimeout( () => {
+			setSearchKeyword( choice.label );
+			setShowDropdown( false );
+			next();
+		}, 700 );
+	}
 
 	return (
 		<div ref={ wrapperRef } style={ { position: 'relative' } }>
@@ -212,7 +282,10 @@ const DropdownDisplay = ( props ) => {
 				placeholder={ messages[ 'block.dropdown.placeholder' ] }
 				onChange={ changeHandler }
 				value={ searchKeyword }
-				onClick={ () => setShowDropdown( true ) }
+				onClick={() => {
+					if (isTouchScreen) setShowFixedDropdown(true);
+					setShowDropdown(true);
+				} }
 				onFocus={ () => {
 					if ( isTouchScreen ) {
 						setFooterDisplay( false );
@@ -222,59 +295,68 @@ const DropdownDisplay = ( props ) => {
 					if ( isTouchScreen ) {
 						setFooterDisplay( true );
 					}
-				} }
+				}}
+				onKeyDown={handleChoiceKeyDown}
 				autoComplete="off"
 			/>
-			{ val && val.length > 0 ? (
+			{ (val && val.length > 0) || showCloseIcon ? (
 				<CloseIcon
 					onClick={ () => {
+						clearTimeout(timer);
 						setSearchKeyword( '' );
 						setIsAnswered( false );
-						setVal( undefined );
+						setVal(undefined);
+						setShowCloseIcon(false);
 						if ( ! isTouchScreen ) {
 							inputRef.current.focus();
 						}
-					} }
+					}}
 				/>
 			) : (
-				<DropdownIcon onClick={ () => setShowDropdown( true ) } />
+					<DropdownIcon style={{ transform: `${showDropdown ? 'rotate(180deg)' : 'rotate(0deg)'}` }} onClick={() => { setShowDropdown(!showDropdown); inputRef.current.focus() }} onKeyDown={(e) => {
+						if (e.keyCode === ENTER_CODE) {
+							setShowDropdown(!showDropdown)
+						} else {
+							return;
+						}
+					}} />
 			) }
 			{ showDropdown && (
 				<div
 					className={
 						'qf-block-dropdown-display__choices' +
-						( showDropdown ? ' visible' : ' hidden' )
+						(showDropdown ? ' visible ' : ' hidden ') +
+						classnames(
+							css`
+							${showFixedDropdown ? `
+							    position: fixed;
+								inset: 0;
+								background-color: #fff;
+			                    height: 100% !important;
+								` : ``}
+									
+							`
+						)
 					}
 					ref={ choicesWrappeerRef }
 					onWheel={ ( e ) => {
 						if ( showDropdown ) {
 							e.stopPropagation();
 						}
-					} }
+					}}
 				>
+					{
+						showFixedDropdown && <svg className="css-who0lh" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
+					}
 					{ $choices?.length > 0 ? (
-						$choices.map( ( choice ) => {
+						$choices.map( ( choice, index ) => {
 							return (
 								<ChoiceItem
+									hovered={index === selectedChoiceIndex}
+									clicked={index === selectedChoiceIndex && clicked}
 									role="presentation"
 									key={ `block-dropdown-${ id }-choice-${ choice.value }` }
-									clickHandler={ () => {
-										showErrMsg( false );
-										clearTimeout( timer );
-										if ( val && val === choice.value ) {
-											setVal( null );
-											setIsAnswered( false );
-											setSearchKeyword( '' );
-											return;
-										}
-										setIsAnswered( true );
-										setVal( choice.value );
-										timer = setTimeout( () => {
-											setSearchKeyword( choice.label );
-											setShowDropdown( false );
-											next();
-										}, 700 );
-									} }
+									clickHandler={() => clickHandler(choice)}
 									choice={ choice }
 									val={ val }
 									showDropdown={ showDropdown }
