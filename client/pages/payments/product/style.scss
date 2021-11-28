@@ -1,0 +1,30 @@
+.quillforms-payments-page-settings-product {
+	display: flex;
+	align-items: center;
+	min-width: 675px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+
+	&:first-child {
+		padding-top: 0;
+	}
+
+	// &:last-child {
+	// 	border-bottom: 0;
+	// }
+
+	.components-custom-select-control__label {
+		margin-bottom: 0;
+	}
+	.components-base-control__field {
+		margin-bottom: 0;
+	}
+	.components-text-control__input {
+		margin: 0;
+	}
+
+	.ml-2 {
+		margin-left: 0.5rem !important;
+	}
+}

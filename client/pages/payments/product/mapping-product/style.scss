@@ -1,0 +1,29 @@
+.quillforms-payments-page-settings-product-mapping {
+	flex-grow: 1;
+}
+
+.quillforms-payments-page-settings-product-mapping-header {
+	display: flex;
+	align-items: center;
+}
+
+.quillforms-payments-page-settings-product-mapping-body {
+	padding-left: 50px;
+}
+
+.quillforms-payments-page-settings-product-mapping-choice {
+	display: flex;
+	align-items: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+
+	&:last-child {
+		border-bottom: 0;
+	}
+
+	.admin-components-text-control {
+		margin-left: 10px;
+		width: 75px;
+	}
+}

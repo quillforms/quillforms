@@ -23,6 +23,7 @@ import Home from '../pages/home';
 import Builder from '../pages/builder';
 import Share from '../pages/share';
 import ResultsPage from '../pages/results';
+import PaymentsPage from '../pages/payments';
 import IntegrationsPage from '../pages/integrations';
 import Addons from '../pages/addons';
 import Settings from '../pages/settings';
@@ -105,6 +106,17 @@ registerAdminPage( 'results', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+} );
+
+registerAdminPage( 'payments', {
+	component: PaymentsPage,
+	path: '/forms/:id/payments',
+	template: 'full-screen',
+	header: ( { match } ) => {
+		const { params } = match;
+		return <FormAdminBar formId={ params.id } />;
+	},
+	requiresInitialPayload: true,
 } );
 
 registerAdminPage( 'integrations', {

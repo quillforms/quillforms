@@ -1,0 +1,34 @@
+.quillforms-payments-page-field-select {
+	width: 200px;
+	display: inline-block;
+	vertical-align: middle;
+
+	.quillforms-payments-page-field-select__select {
+		margin-top: 0;
+	}
+
+	.MuiSelect-selectMenu {
+		padding: 4px 9px;
+	}
+}
+
+.quillforms-payments-page-field-select__menu-item:hover
+	.quillforms-payments-page-dropdown-menu-item__hidden-div,
+.quillforms-payments-page-field-select__menu-item.Mui-selected
+	.quillforms-payments-page-dropdown-menu-item__hidden-div {
+	display: block;
+	z-index: 111111;
+}
+
+.quillforms-payments-page-dropdown-menu-item__hidden-div {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.1;
+	display: none;
+	content: '';
+}
