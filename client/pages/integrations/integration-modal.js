@@ -49,6 +49,14 @@ const IntegrationModal = ( { slug, integration, onClose } ) => {
 							margin: 0 0 45px;
 						}
 					}
+					.components-modal__header
+						.components-modal__header-heading {
+						font-size: 1rem;
+						/* font-weight: 600; */
+						font-family: 'Roboto', sans-serif;
+						font-weight: 300;
+						font-size: 20px;
+					}
 				`
 			}
 			onRequestClose={ onClose }
