@@ -85,14 +85,6 @@ export const registerIntegrationModule = (
 		return;
 	}
 
-	if ( ! settings.displayMode ) {
-		settings.displayMode = 'page';
-	}
-
-	if ( settings.displayMode !== 'page' && settings.displayMode !== 'modal' ) {
-		console.error( `The 'displayMode' property must be 'modal' or 'page'` );
-		return;
-	}
 	integrationModules[ slug ] = settings;
 };
 
