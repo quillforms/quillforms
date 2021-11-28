@@ -45,6 +45,9 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 				width: 100%;
 				height: 100%;
 			}
+			#quillforms-renderer ~ * {
+				display: none !important;
+			}
 			* {
 				box-sizing: border-box;
 			}
