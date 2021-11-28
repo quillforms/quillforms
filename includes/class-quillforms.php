@@ -160,6 +160,7 @@ final class QuillForms {
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/messages.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/payments.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 	}
 }

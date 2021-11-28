@@ -7,8 +7,10 @@ import { ToggleControl, Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
+import apiFetch from '@wordpress/api-fetch';
 import { CheckboxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+import { useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
@@ -31,10 +33,15 @@ const defaultSettings = {
 };
 
 const PaymentsPage = ( { params } ) => {
+	const formId = params.id;
+
 	const [ settings, setSettings ] = useState( {
 		...defaultSettings,
 		...ConfigApi.getInitialPayload().payments,
 	} );
+	const { createErrorNotice, createSuccessNotice } = useDispatch(
+		'core/notices'
+	);
 
 	const setSetting = ( key, value ) => {
 		console.log( key, value );
@@ -104,7 +111,8 @@ const PaymentsPage = ( { params } ) => {
 						{ Object.entries( methods ).map( ( [ key, data ] ) => {
 							return (
 								<CheckboxControl
-									label={ methods[ key ].label }
+									key={ key }
+									label={ data.label }
 									checked={ !! settings.methods[ key ] }
 									onChange={ ( checked ) => {
 										const methods = { ...settings.methods };
@@ -153,6 +161,35 @@ const PaymentsPage = ( { params } ) => {
 					<Button
 						className="quillforms-payments-page-settings-save"
 						isPrimary
+						onClick={ () => {
+							apiFetch( {
+								path:
+									`/wp/v2/quill_forms/${ formId }` +
+									`?context=edit&_timestamp=${ Date.now() }`,
+								method: 'POST',
+								data: {
+									payments: settings,
+								},
+							} )
+								.then( () => {
+									createSuccessNotice(
+										'🚀 Saved successfully!',
+										{
+											type: 'snackbar',
+											isDismissible: true,
+										}
+									);
+								} )
+								.catch( () => {
+									createErrorNotice(
+										'⛔ Error while saving!',
+										{
+											type: 'snackbar',
+											isDismissible: true,
+										}
+									);
+								} );
+						} }
 					>
 						Save
 					</Button>
