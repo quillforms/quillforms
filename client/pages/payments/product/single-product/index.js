@@ -32,9 +32,9 @@ import FieldSelect from '../field-select';
 
 const SingleProduct = () => {
 	const { data, onUpdate, typeSelectControl } = useProductContext();
-	const { name, valueType, value } = data;
+	const { name, value_type, value } = data;
 
-	const valueTypeOption = [
+	const value_typeOption = [
 		{ key: 'specific', name: 'Specific' },
 		{ key: 'field', name: 'Numeric Field' },
 		{ key: 'variable', name: 'Calculation' },
@@ -56,19 +56,19 @@ const SingleProduct = () => {
 			/>
 			<SelectControl
 				className="ml-2"
-				options={ valueTypeOption }
-				value={ valueTypeOption.find(
-					( option ) => option.key === valueType
+				options={ value_typeOption }
+				value={ value_typeOption.find(
+					( option ) => option.key === value_type
 				) }
 				onChange={ ( selectedChoice ) => {
 					onUpdate( {
 						...data,
-						valueType: selectedChoice.selectedItem.key,
+						value_type: selectedChoice.selectedItem.key,
 						value: undefined,
 					} );
 				} }
 			/>
-			{ valueType === 'specific' ? (
+			{ value_type === 'specific' ? (
 				<TextControl
 					className="quillforms-payments-page-settings-product-single-price ml-2"
 					placeholder="Price"
@@ -81,7 +81,7 @@ const SingleProduct = () => {
 						} );
 					} }
 				/>
-			) : valueType === 'field' ? (
+			) : value_type === 'field' ? (
 				<FieldSelect
 					className="ml-2"
 					blockNames={ [ 'number' ] }

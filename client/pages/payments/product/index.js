@@ -35,7 +35,7 @@ import AddRemoveButtons from './add-remove-buttons';
 product: {
 	type: 'single';
 	name: string;
-	valueType: 'specific' | 'field' | 'variable';
+	value_type: 'specific' | 'field' | 'variable';
 	value: number | string;
 } | {
 	type: 'mapping';
@@ -69,7 +69,7 @@ const Product = ( params ) => {
 					type,
 				};
 				if ( type === 'single' ) {
-					product.valueType = 'specific';
+					product.value_type = 'specific';
 				}
 				onUpdate( product );
 			} }

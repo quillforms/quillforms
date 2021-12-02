@@ -35,23 +35,23 @@ $payments_schema = array(
 			'items' => array(
 				'type'       => 'object',
 				'properties' => array(
-					'type'      => array(
+					'type'       => array(
 						'type'     => 'string',
 						'enum'     => array( 'single', 'mapping' ),
 						'required' => true,
 					),
 					// single.
-					'name'      => array(
+					'name'       => array(
 						'type' => 'string',
 					),
-					'valueType' => array(
+					'value_type' => array(
 						'type' => 'string',
 					),
-					'value'     => array(
+					'value'      => array(
 						'type' => 'string',
 					),
 					// mapping.
-					'values'    => array(
+					'values'     => array(
 						'type'                 => 'object',
 						'additionalProperties' => array(
 							'type' => 'string',

@@ -44,7 +44,6 @@ const PaymentsPage = ( { params } ) => {
 	);
 
 	const setSetting = ( key, value ) => {
-		console.log( key, value );
 		setSettings( {
 			...settings,
 			[ key ]: value,
