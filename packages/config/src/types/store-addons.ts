@@ -3,6 +3,7 @@ export type StoreAddon = {
 	description: string;
 	version: string;
 	plan: string;
+	is_payment_gateway: boolean;
 	is_integration: boolean;
 	is_installed: boolean;
 	is_active: boolean;

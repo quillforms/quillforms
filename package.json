@@ -67,6 +67,7 @@
 		"@quillforms/messages-editor": "file:packages/messages-editor",
 		"@quillforms/navigation": "file:packages/navigation",
 		"@quillforms/notifications-editor": "file:packages/notifications-editor",
+		"@quillforms/payment-gateways": "file:packages/payment-gateways",
 		"@quillforms/renderer-core": "file:packages/renderer-core",
 		"@quillforms/rest-fields": "file:packages/rest-fields",
 		"@quillforms/rich-text": "file:packages/rich-text",
