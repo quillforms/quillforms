@@ -13,6 +13,7 @@ import { css } from 'emotion';
  */
 import './style.scss';
 import General from './general';
+import Payments from './payments';
 import Integrations from './integrations';
 
 const Settings = () => {
@@ -20,6 +21,8 @@ const Settings = () => {
 		switch ( name ) {
 			case 'general':
 				return <General />;
+			case 'payments':
+				return <Payments />;
 			case 'integrations':
 				return <Integrations />;
 			default:
@@ -46,6 +49,11 @@ const Settings = () => {
 							name: 'general',
 							title: 'General',
 							className: 'tab-general',
+						},
+						{
+							name: 'payments',
+							title: 'Payments',
+							className: 'tab-payments',
 						},
 						{
 							name: 'integrations',
