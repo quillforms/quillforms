@@ -163,6 +163,7 @@ class Tasks {
 		add_action(
 			"{$this->group}_$hook",
 			function( $meta_id ) use ( $hook, $callback ) {
+				quillforms_get_logger()->debug( "Start processing 'as' task '{$this->group}_$hook'" );
 				$meta = $this->get_meta( $meta_id );
 				if ( ! isset( $meta['value'] ) ) {
 					quillforms_get_logger()->critical(
@@ -177,6 +178,7 @@ class Tasks {
 					return;
 				}
 				try {
+					quillforms_get_logger()->debug( "Processing 'as' task.", compact( 'callback', 'meta' ) );
 					call_user_func_array( $callback, $meta['value'] );
 				} catch ( Exception $e ) {
 					quillforms_get_logger()->error(
