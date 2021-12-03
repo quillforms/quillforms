@@ -24,6 +24,7 @@ const configData: ConfigData = {
 		theme,
 		messages: {},
 	},
+	pluginDirUrl: '',
 	maxUploadSize: 8,
 	isWPEnv: false,
 	plans: {},
@@ -119,6 +120,24 @@ const setInitialPayload = ( data: ConfigData ) => ( value: InitialPayload ) => {
  */
 const getInitialPayload = ( data: ConfigData ) => (): InitialPayload => {
 	return data.initialPayload;
+};
+
+/**
+ * Get plugin dir url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getPluginDirUrl = ( data: ConfigData ) => (): string => {
+	return data.pluginDirUrl;
+};
+
+/**
+ * Set plugin dir url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setPluginDirUrl = ( data: ConfigData ) => ( value: string ) => {
+	data.pluginDirUrl = value;
 };
 
 /**
@@ -227,6 +246,8 @@ export interface ConfigApi {
 	getFonts: () => Record< string, string >;
 	isWPEnv: () => boolean;
 	setWPEnv: ( value: boolean ) => void;
+	getPluginDirUrl: () => string;
+	setPluginDirUrl: ( value: string ) => void;
 	getMaxUploadSize: () => number;
 	setMaxUploadSize: ( value: number ) => void;
 	getPlans: () => Plans;
@@ -250,6 +271,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.getFonts = getFonts( data );
 	configApi.isWPEnv = isWPEnv( data );
 	configApi.setWPEnv = setWPEnv( data );
+	configApi.getPluginDirUrl = getPluginDirUrl( data );
+	configApi.setPluginDirUrl = setPluginDirUrl( data );
 	configApi.getMaxUploadSize = getMaxUploadSize( data );
 	configApi.setMaxUploadSize = setMaxUploadSize( data );
 	configApi.getPlans = getPlans( data );

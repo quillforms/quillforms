@@ -51,6 +51,9 @@ $payments_schema = array(
 						'type' => 'string',
 					),
 					// mapping.
+					'field'      => array(
+						'type' => 'string',
+					),
 					'values'     => array(
 						'type'                 => 'object',
 						'additionalProperties' => array(

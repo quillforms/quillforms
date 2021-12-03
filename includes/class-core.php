@@ -52,6 +52,7 @@ class Core {
 	public static function set_config() {
 		wp_add_inline_script(
 			'quillforms-config',
+			'qf.config.default.setPluginDirUrl("' . QUILLFORMS_PLUGIN_URL . '");' .
 			'qf.config.default.setLicense(' . json_encode( License::instance()->get_license_info() ) . ');' .
 			'qf.config.default.setStoreAddons(' . json_encode( Store::instance()->get_all_addons() ) . ');' .
 			'qf.config.default.setPlans(' . json_encode( License::instance()->get_plans() ) . ');' .
