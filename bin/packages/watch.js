@@ -59,7 +59,10 @@ function isDirectory(pathname) {
 function isSourceFile(filename) {
 	// Only run this regex on the relative path, otherwise we might run
 	// into some false positives when eg. the project directory contains `src`
-	const relativePath = path.relative(process.cwd(), filename);
+	let relativePath = path.relative(process.cwd(), filename);
+
+	// normalize path for widnows
+	relativePath = relativePath.replace(/\\/g, '/');
 
 	return (
 		/\/src\/.+\.(ts|tsx|js|json|scss)$/.test(relativePath) &&
