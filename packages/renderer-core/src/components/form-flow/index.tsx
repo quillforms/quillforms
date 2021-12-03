@@ -31,13 +31,10 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const ref = useRef( null );
 	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
 		( select ) => {
+			const store = select( 'quillForms/renderer-core' );
 			return {
-				isThankyouScreenActive: select(
-					'quillForms/renderer-core'
-				).isThankyouScreenActive(),
-				isWelcomeScreenActive: select(
-					'quillForms/renderer-core'
-				).isWelcomeScreenActive(),
+				isThankyouScreenActive: store.isThankyouScreenActive(),
+				isWelcomeScreenActive: store.isWelcomeScreenActive(),
 			};
 		}
 	);
