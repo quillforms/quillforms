@@ -77,6 +77,10 @@ class REST_Settings_Controller extends REST_Controller {
 					'type'                 => 'object',
 					'additionalProperties' => false,
 					'properties'           => array(
+						'providers_sync_entry_process'  => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
 						'log_level'                     => array(
 							'type'    => 'string',
 							'default' => 'info',

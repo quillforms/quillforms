@@ -137,6 +137,22 @@ const General = () => {
 							options={ logLevelOptions }
 						/>
 					</div>
+					<div
+						className={ css`
+							margin-top: 0.6rem;
+						` }
+					>
+						<CheckboxControl
+							label="Process form entry for integrations synchronously"
+							checked={ settings.providers_sync_entry_process }
+							onChange={ ( checked ) => {
+								setSettingField(
+									'providers_sync_entry_process',
+									checked
+								);
+							} }
+						/>
+					</div>
 					<h4
 						className={ css`
 							margin-top: 1rem;
