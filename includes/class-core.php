@@ -125,9 +125,10 @@ class Core {
 		$form_data = array(
 			'id'            => $form_id,
 			'title'         => get_the_title( $form_id ),
-			'blocks'        => Core::get_blocks( $form_id ),
-			'messages'      => Core::get_messages( $form_id ),
-			'notifications' => Core::get_notifications( $form_id ),
+			'blocks'        => self::get_blocks( $form_id ),
+			'messages'      => self::get_messages( $form_id ),
+			'notifications' => self::get_notifications( $form_id ),
+			'payments'      => self::get_payments( $form_id ),
 		);
 
 		$form_data = apply_filters( 'quillforms_form_data', $form_data, $form_id );
@@ -176,6 +177,20 @@ class Core {
 	public static function get_notifications( $form_id ) {
 		$notifications = get_post_meta( $form_id, 'notifications', true );
 		return $notifications;
+	}
+
+	/**
+	 * Get payments for a specific form id.
+	 *
+	 * @param integer $form_id   Form id.
+	 *
+	 * @return array|null The form payments
+	 *
+	 * @since 1.0.0
+	 */
+	public static function get_payments( $form_id ) {
+		$payments = get_post_meta( $form_id, 'payments', true );
+		return $payments;
 	}
 
 	/**
