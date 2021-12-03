@@ -477,6 +477,26 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
 				),
 			),
+			'stripe'                    => array(
+				'name'               => esc_html__( 'Stripe', 'quillforms' ),
+				'description'        => esc_html__( 'Accept payments through stripe gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-stripe/quillforms-stripe.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/stripe/icon.png',
+				),
+			),
+			'paypal'                    => array(
+				'name'               => esc_html__( 'PayPal', 'quillforms' ),
+				'description'        => esc_html__( 'Accept payments through paypal gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-paypal/quillforms-paypal.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/paypal/icon.png',
+				),
+			),
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists', 'quillforms' ),
