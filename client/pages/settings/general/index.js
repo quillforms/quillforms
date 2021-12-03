@@ -109,12 +109,22 @@ const General = () => {
 				<div className="error">Cannot load settings</div>
 			) : (
 				<div>
-					<div>
+					<div
+						className={ css`
+							display: flex;
+							align-items: center;
+						` }
+					>
+						<div>Log level</div>
 						<SelectControl
 							className={ css`
 								width: 200px;
+								margin-left: 10px;
+
+								.components-custom-select-control__label {
+									margin-bottom: 0;
+								}
 							` }
-							label="Log level"
 							value={ logLevelOptions.find(
 								( option ) => option.key === settings.log_level
 							) }
@@ -140,7 +150,10 @@ const General = () => {
 							label="Disable collecting user ip"
 							checked={ settings.disable_collecting_user_ip }
 							onChange={ ( checked ) => {
-								setSettingField( 'disable_collecting_user_ip', checked );
+								setSettingField(
+									'disable_collecting_user_ip',
+									checked
+								);
 							} }
 						/>
 					</div>
