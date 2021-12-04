@@ -24,6 +24,7 @@ const configData: ConfigData = {
 		theme,
 		messages: {},
 	},
+	adminUrl: '',
 	pluginDirUrl: '',
 	maxUploadSize: 8,
 	isWPEnv: false,
@@ -120,6 +121,24 @@ const setInitialPayload = ( data: ConfigData ) => ( value: InitialPayload ) => {
  */
 const getInitialPayload = ( data: ConfigData ) => (): InitialPayload => {
 	return data.initialPayload;
+};
+
+/**
+ * Get admin url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getAdminUrl = ( data: ConfigData ) => (): string => {
+	return data.adminUrl;
+};
+
+/**
+ * Set admin url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setAdminUrl = ( data: ConfigData ) => ( value: string ) => {
+	data.adminUrl = value;
 };
 
 /**
@@ -246,6 +265,8 @@ export interface ConfigApi {
 	getFonts: () => Record< string, string >;
 	isWPEnv: () => boolean;
 	setWPEnv: ( value: boolean ) => void;
+	getAdminUrl: () => string;
+	setAdminUrl: ( value: string ) => void;
 	getPluginDirUrl: () => string;
 	setPluginDirUrl: ( value: string ) => void;
 	getMaxUploadSize: () => number;
@@ -271,6 +292,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.getFonts = getFonts( data );
 	configApi.isWPEnv = isWPEnv( data );
 	configApi.setWPEnv = setWPEnv( data );
+	configApi.getAdminUrl = getAdminUrl( data );
+	configApi.setAdminUrl = setAdminUrl( data );
 	configApi.getPluginDirUrl = getPluginDirUrl( data );
 	configApi.setPluginDirUrl = setPluginDirUrl( data );
 	configApi.getMaxUploadSize = getMaxUploadSize( data );

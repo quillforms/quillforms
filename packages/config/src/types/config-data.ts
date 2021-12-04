@@ -13,6 +13,7 @@ export type ConfigData = Record< string, unknown > & {
 	};
 	initialPayload: InitialPayload;
 	fonts: Record< string, string >;
+	adminUrl: string;
 	pluginDirUrl: string;
 	plans: Plans;
 	license: License;
