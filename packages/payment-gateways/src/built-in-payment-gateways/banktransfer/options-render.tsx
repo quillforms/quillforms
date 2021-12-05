@@ -1,7 +1,6 @@
 /**
  * QuillForms Dependencies
  */
-import ConfigApi from '@quillforms/config';
 
 interface Props {
 	slug: string;
@@ -9,11 +8,7 @@ interface Props {
 	onOptionsChange: ( options ) => void;
 }
 
-const OptionsRender: React.FC< Props > = ( {
-	slug,
-	options,
-	onOptionsChange,
-} ) => {
+const OptionsRender: React.FC< Props > = ( {} ) => {
 	return <div></div>;
 };
 

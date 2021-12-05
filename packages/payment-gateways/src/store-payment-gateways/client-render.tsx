@@ -7,10 +7,9 @@ import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-compon
 interface Props {
 	slug: string;
 	options: any;
-	onOptionsChange: ( options ) => void;
 }
 
-const OptionsRender: React.FC< Props > = ( { slug } ) => {
+const ClientRender: React.FC< Props > = ( { slug } ) => {
 	const addon = ConfigApi.getStoreAddons()[ slug ];
 
 	return (
@@ -24,4 +23,4 @@ const OptionsRender: React.FC< Props > = ( { slug } ) => {
 	);
 };
 
-export default OptionsRender;
+export default ClientRender;

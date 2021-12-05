@@ -4,10 +4,11 @@
 
 interface Props {
 	slug: string;
+	options: any;
 }
 
-const SettingsRender: React.FC< Props > = ( {} ) => {
+const ClientRender: React.FC< Props > = () => {
 	return <div></div>;
 };
 
-export default SettingsRender;
+export default ClientRender;

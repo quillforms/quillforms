@@ -46,6 +46,17 @@ export const registerPaymentGatewayModule = (
 		);
 		return;
 	}
+
+	if ( ! settings.name ) {
+		console.error( `The 'name' property is mandatory!` );
+		return;
+	}
+
+	if ( typeof settings.name !== 'string' ) {
+		console.error( `The 'name' property must be a string!` );
+		return;
+	}
+
 	if ( ! settings.icon ) {
 		console.error( `The 'icon' property is mandatory!` );
 		return;
@@ -60,15 +71,8 @@ export const registerPaymentGatewayModule = (
 		}
 	}
 
-	if ( ! settings.optionsRender ) {
-		console.error( `The 'optionsRender' property is mandatory!` );
-		return;
-	}
-
-	if ( ! isFunction( settings.optionsRender ) ) {
-		console.error(
-			'The "optionsRender" property must be a valid function!'
-		);
+	if ( ! settings.description ) {
+		console.error( `The 'description' property is mandatory!` );
 		return;
 	}
 
@@ -84,29 +88,47 @@ export const registerPaymentGatewayModule = (
 		return;
 	}
 
-	if ( ! settings.title ) {
-		console.error( `The 'title' property is mandatory!` );
+	if ( ! settings.methods ) {
+		console.error( `The 'methods' property is mandatory!` );
 		return;
 	}
 
-	if ( typeof settings.title !== 'string' ) {
-		console.error( `The 'title' property must be a string!` );
-		return;
-	}
+	for ( const method of Object.values( settings.methods ) ) {
+		if ( ! method.name ) {
+			console.error( `The 'method.name' property is mandatory!` );
+			return;
+		}
 
-	if ( ! settings.description ) {
-		console.error( `The 'description' property is mandatory!` );
-		return;
-	}
+		if ( typeof method.name !== 'string' ) {
+			console.error( `The 'method.name' property must be a string!` );
+			return;
+		}
 
-	if ( typeof settings.description !== 'string' ) {
-		console.error( `The 'title' property must be a string!` );
-		return;
-	}
+		if ( ! method.optionsRender ) {
+			console.error(
+				`The 'method.optionsRender' property is mandatory!`
+			);
+			return;
+		}
 
-	if ( typeof settings.active !== 'boolean' ) {
-		console.error( `The 'active' property must be a boolean!` );
-		return;
+		if ( ! isFunction( method.optionsRender ) ) {
+			console.error(
+				'The "method.optionsRender" property must be a valid function!'
+			);
+			return;
+		}
+
+		if ( ! method.clientRender ) {
+			console.error( `The 'method.clientRender' property is mandatory!` );
+			return;
+		}
+
+		if ( ! isFunction( method.clientRender ) ) {
+			console.error(
+				'The "method.clientRender" property must be a valid function!'
+			);
+			return;
+		}
 	}
 
 	paymentGatewayModules[ slug ] = settings;
