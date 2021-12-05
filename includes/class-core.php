@@ -72,7 +72,8 @@ class Core {
 	public static function set_renderer_config() {
 		wp_add_inline_script(
 			'quillforms-config',
-			'qf.config.default.setAdminUrl("' . admin_url() . '");'
+			'qf.config.default.setAdminUrl("' . admin_url() . '");' .
+			'qf.config.default.setStoreAddons(' . json_encode( Store::instance()->get_all_addons() ) . ');'
 		);
 	}
 
