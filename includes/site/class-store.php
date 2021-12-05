@@ -486,6 +486,16 @@ class Store {
 				'assets'             => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/stripe/icon.png',
 				),
+				'additional'         => array(
+					'methods' => array(
+						'form'     => array(
+							'name' => 'Card processing by stripe',
+						),
+						'checkout' => array(
+							'name' => 'Checkout at stripe',
+						),
+					),
+				),
 			),
 			'paypal'                    => array(
 				'name'               => esc_html__( 'PayPal', 'quillforms' ),
@@ -495,6 +505,16 @@ class Store {
 				'is_payment_gateway' => true,
 				'assets'             => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/paypal/icon.png',
+				),
+				'additional'         => array(
+					'methods' => array(
+						'checkout' => array(
+							'name' => 'Checkout at paypal',
+						),
+						'card'     => array(
+							'name' => 'Card processing by paypal',
+						),
+					),
 				),
 			),
 			'constantcontact'           => array(

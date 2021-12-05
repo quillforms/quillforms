@@ -11,6 +11,7 @@ export type StoreAddon = {
 		icon: string;
 		banner: string;
 	};
+	additional: any;
 };
 
 export type StoreAddons = {
