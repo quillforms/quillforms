@@ -11,13 +11,14 @@ interface Props {
 }
 
 const OptionsRender: React.FC< Props > = ( { slug } ) => {
-	const addon = ConfigApi.getStoreAddons()[ slug ];
+	const [ gateway, _method ] = slug.split( ':' );
+	const addon = ConfigApi.getStoreAddons()[ gateway ];
 
 	return (
 		<div style={ { marginBottom: '40px' } }>
 			<__experimentalAddonFeatureAvailability
 				featureName={ addon.name + ' Payment Method' }
-				addonSlug={ slug }
+				addonSlug={ gateway }
 				showLockIcon={ true }
 			/>
 		</div>

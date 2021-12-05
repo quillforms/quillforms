@@ -51,7 +51,7 @@ const Methods = ( { settings, onChange } ) => {
 						/>
 						{ value.enabled && (
 							<data.optionsRender
-								slug={ gateway }
+								slug={ key }
 								options={ value.options ?? {} }
 								onOptionsChange={ ( options ) => {
 									const methods = { ...settings.methods };

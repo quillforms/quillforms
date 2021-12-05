@@ -7,7 +7,7 @@ export type PaymentGatewayModuleSettings = {
 	description: string;
 	active: boolean;
 	settingsRender:
-		| React.FC< { slug: string } >
+		| React.FC< { slug: string } > /* gateway */
 		| JSX.Element
 		| React.Component;
 	methods: {
@@ -15,7 +15,7 @@ export type PaymentGatewayModuleSettings = {
 			name: string;
 			optionsRender:
 				| React.FC< {
-						slug: string;
+						slug: string /* gateway:method */;
 						options: any;
 						onOptionsChange: ( options: any ) => void;
 				  } >
@@ -23,7 +23,7 @@ export type PaymentGatewayModuleSettings = {
 				| React.Component;
 			clientRender:
 				| React.FC< {
-						slug: string;
+						slug: string /* gateway:method */;
 						options: any;
 				  } >
 				| JSX.Element
