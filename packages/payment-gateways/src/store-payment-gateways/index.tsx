@@ -21,6 +21,11 @@ addAction(
 	'QuillForms/PaymentGateways/RegisterStoreModules',
 	register
 );
+addAction(
+	'QuillForms.Renderer.Loaded',
+	'QuillForms/PaymentGateways/RegisterStoreModules',
+	register
+);
 
 function register() {
 	for ( const [ slug, addon ] of Object.entries(
