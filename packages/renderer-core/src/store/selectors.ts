@@ -142,6 +142,18 @@ export function isReviewing( state: State ): boolean {
 export function isSubmitting( state: State ): boolean {
 	return state.submit.isSubmitting;
 }
+
+/**
+ * Get payment data.
+ *
+ * @param {State} state       Global application state.
+ *
+ * @return {boolean} Is payment modal active
+ */
+export function getPaymentData( state: State ): boolean {
+	return state.submit.paymentData;
+}
+
 /**
  * Get block counter value
  *

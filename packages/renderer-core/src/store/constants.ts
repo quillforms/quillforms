@@ -14,6 +14,7 @@ export const SET_FIELD_VALIDATION_ERR = 'SET_FIELD_VALIDATION_ERR';
 export const SET_IS_REVIEWING = 'SET_IS_REVIEWING';
 export const SET_SUBMISSION_ERR = 'SET_SUBMISSION_ERR';
 export const SET_IS_SUBMITTING = 'SET_IS_SUBMITTING';
+export const SET_PAYMENT_DATA = 'SET_PAYMENT_DATA';
 export const SET_IS_FOCUSED = 'SET_IS_FOCUSED';
 export const SET_FOOTER_DISPLAY = 'SET_FOOTER_DISPLAY';
 export const STORE_KEY = 'quillForms/renderer-core';

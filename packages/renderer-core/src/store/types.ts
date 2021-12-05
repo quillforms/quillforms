@@ -16,6 +16,7 @@ import {
 	RESET_ANSWERS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
+	SET_PAYMENT_DATA,
 } from './constants';
 export type Screen = {
 	id: string;
@@ -41,6 +42,7 @@ export type SubmissionState = {
 	isReviewing: boolean;
 	isSubmitting: boolean;
 	submissionErr: string;
+	paymentData: any;
 };
 
 /**
@@ -144,6 +146,23 @@ type setSumbissionErr = {
 	type: typeof SET_SUBMISSION_ERR;
 	val: string;
 };
+
+type setPaymentDataAction = {
+	type: typeof SET_PAYMENT_DATA;
+	data: {
+		products: {
+			name: string;
+			value: number;
+		}[];
+		total: number;
+		methods: {
+			[
+				key: string
+			 ]: {} /* stripe:checkout, stripe:form, paypal:checkout, paypal:card */;
+		};
+	};
+};
+
 export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
 	| setFieldAnswerAction
@@ -167,5 +186,6 @@ export type SubmitActionTypes =
 	| setIsReviewing
 	| setIsSubmitting
 	| setSumbissionErr
+	| setPaymentDataAction
 	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;

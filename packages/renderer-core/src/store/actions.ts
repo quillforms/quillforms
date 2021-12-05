@@ -7,6 +7,7 @@ import {
 	SET_SUBMISSION_ERR,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
+	SET_PAYMENT_DATA,
 	SET_FIELD_ANSWER,
 	SET_IS_FIELD_ANSWERED,
 	SET_IS_FIELD_PENDING,
@@ -275,6 +276,18 @@ export const setSubmissionErr = ( val: string ): SubmitActionTypes => {
 	return {
 		type: SET_SUBMISSION_ERR,
 		val,
+	};
+};
+
+/**
+ * Set payment data
+ *
+ * @return {SwiperActionTypes} Action object
+ */
+export const setPaymentData = ( data: any ): SubmitActionTypes => {
+	return {
+		type: SET_PAYMENT_DATA,
+		data,
 	};
 };
 
