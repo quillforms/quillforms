@@ -10,8 +10,13 @@ import { DropdownMenu, MenuItem, MenuGroup } from '@wordpress/components';
 import { moreHorizontal } from '@wordpress/icons';
 import { useDispatch } from '@wordpress/data';
 
-const FormActions = ( { formId, setIsDeleting } ) => {
-	const { deleteEntityRecord } = useDispatch( 'core' );
+/**
+ * External Dependencies
+ */
+import { omit } from 'lodash';
+
+const FormActions = ( { form, formId, setIsDeleting } ) => {
+	const { deleteEntityRecord, saveEntityRecord } = useDispatch( 'core' );
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
 	);
@@ -44,6 +49,48 @@ const FormActions = ( { formId, setIsDeleting } ) => {
 						>
 							Edit
 						</MenuItem>
+						<MenuItem
+							className="quillforms-home-form-actions__menu-item"
+							onClick={ () => {
+								saveEntityRecord( 'postType', 'quill_forms', {
+									...omit( form, [ 'id' ] ),
+									title: form.title.rendered + '-copy',
+									status: 'draft',
+									theme: form.theme.id,
+								} );
+							} }
+						>
+							Duplicate
+						</MenuItem>
+						<MenuItem
+							className="quillforms-home-form-actions__menu-item"
+							onClick={ () => {
+								const history = getHistory();
+								history.push(
+									getNewPath(
+										{},
+										`/forms/${ formId }/results`
+									)
+								);
+							} }
+						>
+							Results
+						</MenuItem>
+						<MenuItem
+							className="quillforms-home-form-actions__menu-item"
+							onClick={ () => {
+								const history = getHistory();
+								history.push(
+									getNewPath(
+										{},
+										`/forms/${ formId }/integrations`
+									)
+								);
+							} }
+						>
+							Integrations
+						</MenuItem>
+
 						<MenuItem
 							className="quillforms-home-form-actions__menu-item quillforms-home-form-actions__delete-form"
 							onClick={ async () => {

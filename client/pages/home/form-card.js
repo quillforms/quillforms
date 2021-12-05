@@ -89,6 +89,7 @@ const FormCard = memo( ( { form } ) => {
 						</div>
 
 						<FormActions
+							form={ form }
 							formId={ form.id }
 							setIsDeleting={ setIsDeleting }
 						/>
