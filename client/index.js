@@ -3,6 +3,7 @@ import '@wordpress/core-data';
 import '@wordpress/notices';
 import '@quillforms/blocks';
 import '@quillforms/form-integrations';
+import '@quillforms/payment-gateways';
 import PageLayout from './layout';
 import './style.scss';
 import './pro-panels';
@@ -10,4 +11,5 @@ import { doAction } from '@wordpress/hooks';
 
 const appRoot = document.getElementById( 'qf-admin-root' );
 render( <PageLayout />, appRoot );
+
 doAction( 'QuillForms.Admin.PluginsLoaded' );
