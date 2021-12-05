@@ -24,3 +24,8 @@
 		-o-transition: width 0.3s;
 	}
 }
+@media(max-width: 550px) {
+	.renderer-core-progress-bar {
+		width: 200px;
+	}
+}
