@@ -3,16 +3,13 @@
  */
 import ConfigApi from '@quillforms/config';
 import { ToggleControl, Button } from '@quillforms/admin-components';
-import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 
 /**
  * WordPress Dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
-import { CheckboxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -24,12 +21,13 @@ import Product from './product';
  * Internal Dependencies
  */
 import './style.scss';
+import Methods from './methods';
 
 const defaultSettings = {
 	enabled: false,
 	recurring: false,
 	required: false,
-	methods: { check: {}, stripe: {}, paypal: {} },
+	methods: {},
 	products: [ {} ],
 };
 
@@ -50,8 +48,6 @@ const PaymentsPage = ( { params } ) => {
 			[ key ]: value,
 		} );
 	};
-
-	const gateways = getPaymentGatewayModules();
 
 	return (
 		<div className="quillforms-payments-page">
@@ -98,62 +94,12 @@ const PaymentsPage = ( { params } ) => {
 							margin-top: 5px;
 						` }
 					>
-						{ Object.entries( gateways ).map(
-							( [ key, module ] ) => {
-								const enabled = !! settings.methods[ key ]
-									?.enabled;
-								return (
-									<div key={ key }>
-										<CheckboxControl
-											label={ module.title }
-											checked={ enabled }
-											onChange={ ( checked ) => {
-												const methods = {
-													...settings.methods,
-												};
-												if ( checked ) {
-													methods[ key ] = {
-														...methods[ key ],
-														enabled: true,
-													};
-												} else {
-													methods[
-														key
-													].enabled = false;
-												}
-												setSetting(
-													'methods',
-													methods
-												);
-											} }
-										/>
-										{ enabled && (
-											<module.optionsRender
-												slug={ key }
-												options={
-													settings.methods[ key ]
-														?.options ?? {}
-												}
-												onOptionsChange={ (
-													options
-												) => {
-													const methods = {
-														...settings.methods,
-													};
-													methods[
-														key
-													].options = options;
-													setSetting(
-														'methods',
-														methods
-													);
-												} }
-											/>
-										) }
-									</div>
-								);
-							}
-						) }
+						<Methods
+							settings={ settings }
+							onChange={ ( methods ) => {
+								setSetting( 'methods', methods );
+							} }
+						/>
 					</div>
 				</div>
 				<div className="quillforms-payments-page-settings-row">
