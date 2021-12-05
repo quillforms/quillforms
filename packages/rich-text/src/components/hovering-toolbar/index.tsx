@@ -104,6 +104,10 @@ const HoveringToolbar = ( {
 				background-color: #222;
 				border-radius: 4px;
 				transition: opacity 0.75s;
+
+				svg {
+					width: 20px;
+				}
 			` }
 		>
 			{ !! formattingControls && formattingControls.includes( 'bold' ) && (

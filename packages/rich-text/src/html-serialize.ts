@@ -41,7 +41,9 @@ const serializeNode = ( node: Editor | Element ) => {
 	const children = node.children.map( ( n ) => serialize( n ) ).join( '' );
 	switch ( node.type ) {
 		case 'link':
-			return `<a href="${ escapeHtml( node.url ) }">${ children }</a>`;
+			return `<a target="_blank" href="${ escapeHtml(
+				node.url
+			) }">${ children }</a>`;
 		case 'mergeTag':
 			return `{{${ ( node.data as MergeTag ).type }:${
 				( node.data as MergeTag ).modifier
