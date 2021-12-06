@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress ===
-Contributors: mdmag
+Contributors: quillforms, mdmag
 Tested up to: 5.8
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
 License: GPLv2 or later
@@ -77,8 +77,13 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 4. QuillForms Notifications
 5. QuillForms Renderer
 
+
 == Changelog ==
-= 1.7.2 18 Nov 2021
+= 1.7.3 =  29 Nov 2021
+Fix: Hide every thing except the form in the form page.
+Feature: Improving some styles.
+
+= 1.7.2 = 18 Nov 2021
 Fix: Styling conflict with other plugins
 Feature: Introducing Hubspot integration.
 
