@@ -27,7 +27,7 @@ const ChoiceItem = ( { choice, val, clickHandler, showDropdown, clicked, hovered
 	}, [ showDropdown ] );
 	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
-	const isSelected = !!val && val === choice.value;
+	const isSelected = val && val === choice.value;
 	useEffect(() => {
 		if(clicked) item.current.click();
 		return () => {

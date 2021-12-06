@@ -1,3 +1,19 @@
+.fixed-dropdown{
+	position: fixed;
+	inset: 0;
+	background-color: #fff;
+	height: 100% !important;
+	display: flex; 
+	flex-direction: column;
+	padding: 20px 10px;
+
+	.back-icon{
+		width: 20px;
+		height: 20px;
+		margin-right: 5px;
+	}
+}
+
 .qf-block-dropdown-display__choices {
 	& {
 		position: absolute;
@@ -10,6 +26,9 @@
 		overflow-y: auto;
 		transition: transform, opacity 0.3s linear;
 		z-index: 11111;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-10px);
 	}
 
 	&.visible {
@@ -19,10 +38,10 @@
 		transform: none;
 	}
 
-	&.hidden {
-		opacity: 0;
-		visibility: hidden;
-		transform: translateY(-10px);
+	&.fixed-choices{
+		position: static;
+		height: auto !important;
+		padding: 10px 20px; 
 	}
 
 	.dropdown__choiceWrapper {
