@@ -49,11 +49,12 @@ const FormActions = ( { form, formId, setIsDeleting } ) => {
 						>
 							Edit
 						</MenuItem>
-						<MenuItem
+						{ /* <MenuItem
 							className="quillforms-home-form-actions__menu-item"
 							onClick={ () => {
+								onClose();
 								saveEntityRecord( 'postType', 'quill_forms', {
-									...omit( form, [ 'id' ] ),
+									...omit( form, [ 'id', 'integrations' ] ),
 									title: form.title.rendered + '-copy',
 									status: 'draft',
 									theme: form.theme.id,
@@ -61,7 +62,7 @@ const FormActions = ( { form, formId, setIsDeleting } ) => {
 							} }
 						>
 							Duplicate
-						</MenuItem>
+						</MenuItem> */ }
 						<MenuItem
 							className="quillforms-home-form-actions__menu-item"
 							onClick={ () => {
