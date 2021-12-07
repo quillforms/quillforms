@@ -64,6 +64,43 @@ class Admin {
 	 */
 	public function admin_hooks() {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
+		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
+	}
+
+	/**
+	 * Duplicate form
+	 *
+	 * @since 1.7.4
+	 *
+	 * @param integer $form_id Form id to be duplicated.
+	 * @return integer|WP_Error|false
+	 */
+	public function duplicate_form( $form_id ) {
+		$form = get_post( $form_id );
+		if ( ! $form ) {
+			return false;
+		}
+
+		$new_form_id = wp_insert_post(
+			array(
+				'post_title'  => $form->post_title,
+				'post_status' => $form->post_status,
+				'post_type'   => $form->post_type,
+				'post_author' => $form->post_author,
+			)
+		);
+		if ( is_wp_error( $new_form_id ) ) {
+			return $new_form_id;
+		}
+
+		$form_meta = get_post_meta( $form_id );
+		foreach ( $form_meta as $key => $values ) {
+			foreach ( $values as $value ) {
+				add_post_meta( $new_form_id, $key, $value );
+			}
+		}
+
+		return $new_form_id;
 	}
 
 	/**

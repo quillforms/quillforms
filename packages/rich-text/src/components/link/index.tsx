@@ -57,6 +57,7 @@ const Link: React.FC< Props > = ( { editor } ) => {
 				event.preventDefault();
 				if ( isLinkActive() ) {
 					unwrapLink();
+					return;
 				}
 				// eslint-disable-next-line no-alert
 				const url = window.prompt( 'Enter the URL of the link:' );

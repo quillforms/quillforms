@@ -71,7 +71,7 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 			applyLogic: true,
 			onSubmit: function() {
 				var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
-				const data = new FormData();
+				var data = new FormData();
 				data.append( 'action', 'quillforms_form_submit' );
 				data.append( 'formData', JSON.stringify({
 					answers: wp.data.select('quillForms/renderer-core').getAnswers(),

@@ -109,12 +109,22 @@ const General = () => {
 				<div className="error">Cannot load settings</div>
 			) : (
 				<div>
-					<div>
+					<div
+						className={ css`
+							display: flex;
+							align-items: center;
+						` }
+					>
+						<div>Log level</div>
 						<SelectControl
 							className={ css`
 								width: 200px;
+								margin-left: 10px;
+
+								.components-custom-select-control__label {
+									margin-bottom: 0;
+								}
 							` }
-							label="Log level"
 							value={ logLevelOptions.find(
 								( option ) => option.key === settings.log_level
 							) }
@@ -125,6 +135,22 @@ const General = () => {
 								);
 							} }
 							options={ logLevelOptions }
+						/>
+					</div>
+					<div
+						className={ css`
+							margin-top: 0.6rem;
+						` }
+					>
+						<CheckboxControl
+							label="Process form entry for integrations synchronously"
+							checked={ settings.providers_sync_entry_process }
+							onChange={ ( checked ) => {
+								setSettingField(
+									'providers_sync_entry_process',
+									checked
+								);
+							} }
 						/>
 					</div>
 					<h4
@@ -140,7 +166,10 @@ const General = () => {
 							label="Disable collecting user ip"
 							checked={ settings.disable_collecting_user_ip }
 							onChange={ ( checked ) => {
-								setSettingField( 'disable_collecting_user_ip', checked );
+								setSettingField(
+									'disable_collecting_user_ip',
+									checked
+								);
 							} }
 						/>
 					</div>
