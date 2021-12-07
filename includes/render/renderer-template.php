@@ -91,7 +91,13 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 				.then(function(res) {
 					if(res && res.success) {
 						// In case of successful submission, complete the form.
-						wp.data.dispatch('quillForms/renderer-core').completeForm();
+						if (res.data.status === 'completed') {
+							wp.data.dispatch('quillForms/renderer-core').completeForm();
+						} else if (res.data.status === 'pending_payment') {
+							wp.data.dispatch('quillForms/renderer-core').setPaymentData(res.data);					
+						} else {
+							throw "Server error; unkown status!";
+						}
 					}
 					else {
 						if( res && res.data ) {

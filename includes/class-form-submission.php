@@ -180,6 +180,39 @@ class Form_Submission {
 			$entry['meta']['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 		}
 
+		// check payment.
+		$payment = $this->get_payment_data( $entry );
+		if ( $payment ) {
+			$entry['payment'] = $payment;
+
+			$submission_id = $this->save_pending_submission( $entry );
+			if ( ! $submission_id ) {
+				wp_send_json_error( array( 'message' => 'Cannot save the pending submission' ), 500 );
+				exit;
+			}
+
+			wp_send_json_success(
+				array(
+					'status'        => 'pending_payment',
+					'submission_id' => $submission_id,
+					'payment'       => $payment,
+					'methods'       => $this->get_payment_methods(),
+				),
+				200
+			);
+			exit;
+		}
+
+		$this->process_entry( $entry );
+	}
+
+	/**
+	 * Process the entry after validation
+	 *
+	 * @param array $entry Entry data.
+	 * @return void
+	 */
+	public function process_entry( $entry ) {
 		// this can add 'id' to entry array.
 		$entry = apply_filters( 'quillforms_entry_save', $entry, $this->form_data );
 
@@ -193,6 +226,145 @@ class Form_Submission {
 
 		// finally do entry processed action.
 		do_action( 'quillforms_entry_processed', $entry, $this->form_data );
+	}
+
+	/**
+	 * Get payment data
+	 *
+	 * @param array $entry Entry data.
+	 * @return array|null
+	 */
+	public function get_payment_data( $entry ) {
+		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
+			return null;
+		}
+		$products = array();
+		foreach ( $this->form_data['payments']['products'] ?? null as $product ) {
+			switch ( $product['type'] ) {
+				case 'single':
+					$value = 0;
+					switch ( $product['value_type'] ) {
+						case 'specific':
+							$value = (float) $product['value'] ?? 0;
+							break;
+						case 'field':
+							$value = (float) $entry['answers'][ $product['value'] ]['value'] ?? 0;
+							break;
+						case 'variable':
+							$value = (float) $entry['variables'][ $product['value'] ] ?? 0;
+							break;
+					}
+					if ( is_numeric( $value ) && $value > 0 ) {
+						$products[] = array(
+							'name'  => $product['name'],
+							'value' => $value,
+						);
+					}
+					break;
+				case 'mapping':
+					$field_id   = $product['field'];
+					$block_data = array_values(
+						array_filter(
+							$this->form_data['blocks'],
+							function( $block ) use ( $field_id ) {
+								return $block['id'] === $field_id;
+							}
+						)
+					) [0] ?? null;
+					if ( ! $block_data ) {
+						break;
+					}
+
+					$choices_labels = array();
+					foreach ( $block_data['attributes']['choices'] as $choice ) {
+						$choices_labels[ $choice['value'] ] = $choice['label'];
+					}
+
+					$selected_choices = (array) $entry['answers'][ $field_id ]['value'] ?? array();
+					foreach ( $product['values'] as $choice_id => $value ) {
+						if ( is_numeric( $value ) && (float) $value > 0 && in_array( $choice_id, $selected_choices, true ) ) {
+							$products[] = array(
+								'name'  => $choices_labels[ $choice_id ],
+								'value' => (float) $value,
+							);
+						}
+					}
+					break;
+			}
+		}
+
+		$total = array_reduce(
+			$products,
+			function( $carry, $product ) {
+				return $carry + $product['value'];
+			},
+			0
+		);
+
+		if ( empty( $products ) || empty( $total ) ) {
+			return null;
+		}
+
+		return compact( 'products', 'total' );
+	}
+
+	/**
+	 * Get payment methods
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
+	 */
+	public function get_payment_methods() {
+		$methods = array();
+		foreach ( $this->form_data['payments']['methods'] ?? array() as $key => $data ) {
+			if ( empty( $data['enabled'] ) ) {
+				continue;
+			}
+			$gateway = explode( ':', $key )[0];
+			$active  = apply_filters( "quillforms_{$gateway}_is_active", false );
+			if ( ! $active ) {
+				continue;
+			}
+			$methods[ $key ] = array(
+				'options' => $data['options'] ?? array(),
+			);
+		}
+		return $methods;
+	}
+
+	/**
+	 * Save pending submission
+	 *
+	 * @param array $entry Entry data.
+	 * @return id
+	 */
+	public function save_pending_submission( $entry ) {
+		global $wpdb;
+
+		$insert = $wpdb->insert(
+			"{$wpdb->prefix}quillforms_pending_submissions",
+			array(
+				'form_id'      => $entry['form_id'],
+				'step'         => 'payment',
+				'entry_data'   => maybe_serialize( $entry ),
+				'form_data'    => maybe_serialize( $this->form_data ),
+				'date_created' => gmdate( 'Y-m-d H:i:s' ),
+			)
+		);
+
+		if ( ! $insert ) {
+			quillforms_get_logger()->alert(
+				'Cannot insert pending submission',
+				array(
+					'entry'     => $entry,
+					'form_data' => $this->form_data,
+				)
+			);
+			return false;
+		}
+
+		return $wpdb->insert_id;
 	}
 
 	/**
@@ -289,7 +461,7 @@ class Form_Submission {
 		if ( ! empty( $this->errors ) ) {
 			wp_send_json_error( $this->errors, 400 );
 		} else {
-			wp_send_json_success( 'Updated successfully!', 200 );
+			wp_send_json_success( array( 'status' => 'completed' ), 200 );
 		}
 	}
 
