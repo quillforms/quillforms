@@ -8,7 +8,7 @@
 
 namespace QuillForms;
 
-use Exception;
+use Throwable;
 
 /**
  * Tasks class
@@ -178,9 +178,9 @@ class Tasks {
 					return;
 				}
 				try {
-					quillforms_get_logger()->debug( "Processing 'as' task.", compact( 'callback', 'meta' ) );
+					quillforms_get_logger()->debug( "Processing 'as' task.", compact( 'meta' ) );
 					call_user_func_array( $callback, $meta['value'] );
-				} catch ( Exception $e ) {
+				} catch ( Throwable $e ) {
 					quillforms_get_logger()->error(
 						esc_html__( 'Task threw an exception', 'quillforms' ),
 						array(

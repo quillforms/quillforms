@@ -56,6 +56,7 @@ class Install {
 		Core::register_quillforms_post_type();
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
+		self::version_1_7_5_migration();
 		self::create_cron_jobs();
 		self::update_quillforms_version();
 
@@ -73,11 +74,7 @@ class Install {
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-		$collate = '';
-
-		if ( $wpdb->has_cap( 'collation' ) ) {
-			$collate = $wpdb->get_charset_collate();
-		}
+		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = "CREATE TABLE {$wpdb->prefix}quillforms_themes (
 			    ID mediumint(8) unsigned NOT NULL auto_increment,
@@ -87,7 +84,7 @@ class Install {
 				date_created datetime NOT NULL,
 				date_updated datetime,
 				PRIMARY KEY  (ID)
-			);
+			) $charset_collate;
 			CREATE TABLE {$wpdb->prefix}quillforms_task_meta (
 				ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				action_id BIGINT UNSIGNED,
@@ -97,7 +94,7 @@ class Install {
 				date_created datetime NOT NULL,
 				PRIMARY KEY  (ID),
 				KEY action_id (action_id)
-			);
+			) $charset_collate;
 			CREATE TABLE {$wpdb->prefix}quillforms_log (
 				log_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				timestamp datetime NOT NULL,
@@ -107,11 +104,43 @@ class Install {
 				context longtext NULL,
 				PRIMARY KEY (log_id),
 				KEY level (level)
-			)
-			$collate;";
+			) $charset_collate;";
 
 		dbDelta( $sql );
+	}
 
+	/**
+	 * Version 1.7.5 migration
+	 * - Fix charset collate for v1.7.4 and below
+	 *
+	 * @since 1.7.5
+	 *
+	 * @return void
+	 */
+	private static function version_1_7_5_migration() {
+		global $wpdb;
+
+		$version = get_option( 'quillforms_version' );
+		// skip new installations.
+		if ( ! $version ) {
+			return;
+		}
+
+		// fix charset collate.
+		if ( version_compare( $version, '1.7.5', '<' ) ) {
+			$charset_collate = '';
+			if ( ! empty( $wpdb->charset ) ) {
+				$charset_collate = "character set $wpdb->charset";
+			}
+			if ( ! empty( $wpdb->collate ) ) {
+				$charset_collate .= " collate $wpdb->collate";
+			}
+
+			if ( $charset_collate ) {
+				$wpdb->query( "alter table {$wpdb->prefix}quillforms_themes convert to $charset_collate;" ); // phpcs:ignore
+				$wpdb->query( "alter table {$wpdb->prefix}quillforms_task_meta convert to $charset_collate;" ); // phpcs:ignore
+			}
+		}
 	}
 
 	/**
