@@ -185,7 +185,7 @@ class Form_Submission {
 		if ( $payment ) {
 			$entry['payment'] = $payment;
 
-			$submission_id = $this->save_pending_submission( $entry );
+			$submission_id = $this->save_pending_submission( $entry, 'payment' );
 			if ( ! $submission_id ) {
 				wp_send_json_error( array( 'message' => 'Cannot save the pending submission' ), 500 );
 				exit;
@@ -336,17 +336,18 @@ class Form_Submission {
 	/**
 	 * Save pending submission
 	 *
-	 * @param array $entry Entry data.
+	 * @param array  $entry Entry data.
+	 * @param string $step Step.
 	 * @return id
 	 */
-	public function save_pending_submission( $entry ) {
+	private function save_pending_submission( $entry, $step ) {
 		global $wpdb;
 
 		$insert = $wpdb->insert(
 			"{$wpdb->prefix}quillforms_pending_submissions",
 			array(
 				'form_id'      => $entry['form_id'],
-				'step'         => 'payment',
+				'step'         => $step,
 				'entry_data'   => maybe_serialize( $entry ),
 				'form_data'    => maybe_serialize( $this->form_data ),
 				'date_created' => gmdate( 'Y-m-d H:i:s' ),
@@ -365,6 +366,63 @@ class Form_Submission {
 		}
 
 		return $wpdb->insert_id;
+	}
+
+	/**
+	 * Get pending submission
+	 *
+	 * @param integer $id Submission id.
+	 * @return array
+	 */
+	private function get_pending_submission( $id ) {
+		global $wpdb;
+
+		$result = $wpdb->get_row(
+			$wpdb->prepare(
+				"
+					SELECT *
+					FROM {$wpdb->prefix}quillforms_pending_submissions
+					WHERE ID = %d
+				",
+				$id
+			),
+			ARRAY_A
+		);
+
+		if ( ! $result ) {
+			quillforms_get_logger()->alert(
+				'Cannot get pending submission',
+				array(
+					'id' => $id,
+				)
+			);
+			return null;
+		}
+
+		if ( isset( $result['entry_data'] ) ) {
+			$result['entry_data'] = maybe_unserialize( $result['entry_data'] );
+		}
+		if ( isset( $result['form_data'] ) ) {
+			$result['form_data'] = maybe_unserialize( $result['form_data'] );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Delete pending submission
+	 *
+	 * @param integer $id Submission id.
+	 * @return boolean
+	 */
+	private function delete_pending_submission( $id ) {
+		global $wpdb;
+
+		return (bool) $wpdb->delete(
+			"{$wpdb->prefix}quillforms_pending_submissions",
+			array( 'ID' => $id ),
+			array( '%d' )
+		);
 	}
 
 	/**
