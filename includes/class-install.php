@@ -56,6 +56,7 @@ class Install {
 		Core::register_quillforms_post_type();
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
+		self::version_1_7_5_migration();
 		self::create_cron_jobs();
 		self::update_quillforms_version();
 
@@ -106,7 +107,40 @@ class Install {
 			) $charset_collate;";
 
 		dbDelta( $sql );
+	}
 
+	/**
+	 * Version 1.7.5 migration
+	 * - Fix charset collate for v1.7.4 and below
+	 *
+	 * @since 1.7.5
+	 *
+	 * @return void
+	 */
+	private static function version_1_7_5_migration() {
+		global $wpdb;
+
+		$version = get_option( 'quillforms_version' );
+		// skip new installations.
+		if ( ! $version ) {
+			return;
+		}
+
+		// fix charset collate.
+		if ( version_compare( $version, '1.7.5', '<' ) ) {
+			$charset_collate = '';
+			if ( ! empty( $wpdb->charset ) ) {
+				$charset_collate = "character set $wpdb->charset";
+			}
+			if ( ! empty( $wpdb->collate ) ) {
+				$charset_collate .= " collate $wpdb->collate";
+			}
+
+			if ( $charset_collate ) {
+				$wpdb->query( "alter table {$wpdb->prefix}quillforms_themes convert to $charset_collate;" ); // phpcs:ignore
+				$wpdb->query( "alter table {$wpdb->prefix}quillforms_task_meta convert to $charset_collate;" ); // phpcs:ignore
+			}
+		}
 	}
 
 	/**
