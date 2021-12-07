@@ -6,7 +6,7 @@ import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-compon
 
 interface Props {
 	slug: string;
-	options: any;
+	data: any;
 }
 
 const ClientRender: React.FC< Props > = ( { slug } ) => {

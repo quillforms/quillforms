@@ -24,7 +24,7 @@ export type PaymentGatewayModuleSettings = {
 			clientRender:
 				| React.FC< {
 						slug: string /* gateway:method */;
-						options: any;
+						data: any;
 				  } >
 				| JSX.Element
 				| React.Component;

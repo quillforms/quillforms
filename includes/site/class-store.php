@@ -489,7 +489,7 @@ class Store {
 				'additional'         => array(
 					'methods' => array(
 						'form'     => array(
-							'name' => 'Card processing by stripe',
+							'name' => 'Checkout at the website',
 						),
 						'checkout' => array(
 							'name' => 'Checkout at stripe',

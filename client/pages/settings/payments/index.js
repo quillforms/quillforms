@@ -32,7 +32,7 @@ const Payments = () => {
 										icon={ icon?.src ? icon.src : icon }
 									/>
 								) }
-								<div>{ paymentGateway.title }</div>
+								<div>{ paymentGateway.name }</div>
 							</div>
 						);
 						return (
