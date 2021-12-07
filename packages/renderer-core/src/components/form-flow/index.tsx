@@ -20,6 +20,7 @@ import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
 import useTheme from '../../hooks/use-theme';
 import useBlocks from '../../hooks/use-blocks';
+import PaymentModal from '../payment-modal';
 
 interface Props {
 	applyLogic: boolean;
@@ -29,15 +30,18 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const theme = useTheme();
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
 	const ref = useRef( null );
-	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
-		( select ) => {
-			const store = select( 'quillForms/renderer-core' );
-			return {
-				isThankyouScreenActive: store.isThankyouScreenActive(),
-				isWelcomeScreenActive: store.isWelcomeScreenActive(),
-			};
-		}
-	);
+	const {
+		isWelcomeScreenActive,
+		isThankyouScreenActive,
+		paymentData,
+	} = useSelect( ( select ) => {
+		const store = select( 'quillForms/renderer-core' );
+		return {
+			isThankyouScreenActive: store.isThankyouScreenActive(),
+			isWelcomeScreenActive: store.isWelcomeScreenActive(),
+			paymentData: store.getPaymentData(),
+		};
+	} );
 
 	useEffect( () => {
 		/**
@@ -132,6 +136,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				) }
 				<FormFooter />
 			</div>
+			{ !! paymentData && <PaymentModal data={ paymentData } /> }
 		</div>
 	);
 };

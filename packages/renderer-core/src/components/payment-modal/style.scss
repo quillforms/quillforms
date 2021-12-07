@@ -1,0 +1,12 @@
+.renderer-core-payment-modal {
+	position: fixed;
+	top: 75px;
+	left: 75px;
+	height: calc( 100vh - 150px );
+	width: calc( 100vw - 150px );
+	background: #fff;
+	z-index: 10;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 2rem;
+}
