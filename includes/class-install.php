@@ -73,11 +73,7 @@ class Install {
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-		$collate = '';
-
-		if ( $wpdb->has_cap( 'collation' ) ) {
-			$collate = $wpdb->get_charset_collate();
-		}
+		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = "CREATE TABLE {$wpdb->prefix}quillforms_themes (
 			    ID mediumint(8) unsigned NOT NULL auto_increment,
@@ -87,7 +83,7 @@ class Install {
 				date_created datetime NOT NULL,
 				date_updated datetime,
 				PRIMARY KEY  (ID)
-			);
+			) $charset_collate;
 			CREATE TABLE {$wpdb->prefix}quillforms_task_meta (
 				ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				action_id BIGINT UNSIGNED,
@@ -97,7 +93,7 @@ class Install {
 				date_created datetime NOT NULL,
 				PRIMARY KEY  (ID),
 				KEY action_id (action_id)
-			);
+			) $charset_collate;
 			CREATE TABLE {$wpdb->prefix}quillforms_log (
 				log_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				timestamp datetime NOT NULL,
@@ -107,8 +103,7 @@ class Install {
 				context longtext NULL,
 				PRIMARY KEY (log_id),
 				KEY level (level)
-			)
-			$collate;";
+			) $charset_collate;";
 
 		dbDelta( $sql );
 
