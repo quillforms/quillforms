@@ -20,32 +20,57 @@ use QuillForms\Managers\Blocks_Manager;
 class Form_Submission {
 
 	/**
-	 * Class instance.
-	 *
-	 * @var Form_Submission instance
-	 */
-	private static $instance = null;
-
-	/**
-	 * Form data and settings
-	 *
-	 * @var $form_data
+	 * Form data
 	 *
 	 * @since 1.0.0
+	 *
+	 * @var array
 	 */
-	public $form_data = array();
+	public $form_data;
+
+	/**
+	 * Entry data
+	 *
+	 * @since 1.8.0
+	 *
+	 * @var array
+	 */
+	public $entry;
+
+	/**
+	 * Submission id
+	 * Exists if handling a pending submission
+	 *
+	 * @since 1.8.0
+	 *
+	 * @var integer
+	 */
+	public $submission_id;
 
 	/**
 	 * Form errors
 	 *
-	 * @var $errors
-	 *
 	 * @since 1.0.0
+	 *
+	 * @var array
 	 */
 	public $errors = array();
 
 	/**
-	 * Get class instance.
+	 * Class instance
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var self instance
+	 */
+	private static $instance = null;
+
+	/**
+	 * Get class instance
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return self
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -97,10 +122,7 @@ class Form_Submission {
 		$form_id = sanitize_text_field( $unsanitized_entry['formId'] );
 
 		// Check if post type is quill_forms and its status is publish.
-		if (
-		'quill_forms' !== get_post_type( $form_id )
-		|| 'publish' !== get_post_status( $form_id )
-		) {
+		if ( 'quill_forms' !== get_post_type( $form_id ) || 'publish' !== get_post_status( $form_id ) ) {
 			$this->errors['form'] = 'Invalid form id!';
 			return;
 		}
@@ -169,23 +191,26 @@ class Form_Submission {
 			}
 		}
 
+		// set entry property.
+		$this->entry = $entry;
+
 		// add entry meta.
-		$entry['meta'] = array(
+		$this->entry['meta'] = array(
 			'user_id' => get_current_user_id(),
 		);
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$entry['meta']['user_ip'] = $this->get_client_ip();
+			$this->entry['meta']['user_ip'] = $this->get_client_ip();
 		}
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$entry['meta']['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
+			$this->entry['meta']['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 		}
 
 		// check payment.
-		$payment = $this->get_payment_data( $entry );
+		$payment = $this->get_payment_data();
 		if ( $payment ) {
-			$entry['payment'] = $payment;
+			$this->entry['payment'] = $payment;
 
-			$submission_id = $this->save_pending_submission( $entry, 'payment' );
+			$submission_id = $this->save_pending_submission( 'payment' );
 			if ( ! $submission_id ) {
 				wp_send_json_error( array( 'message' => 'Cannot save the pending submission' ), 500 );
 				exit;
@@ -203,38 +228,36 @@ class Form_Submission {
 			exit;
 		}
 
-		$this->process_entry( $entry );
+		$this->process_entry();
 	}
 
 	/**
 	 * Process the entry after validation
 	 *
-	 * @param array $entry Entry data.
 	 * @return void
 	 */
-	public function process_entry( $entry ) {
+	public function process_entry() {
 		// this can add 'id' to entry array.
-		$entry = apply_filters( 'quillforms_entry_save', $entry, $this->form_data );
+		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
 
 		// do entry saved action.
-		if ( ! empty( $entry['id'] ) ) {
-			do_action( 'quillforms_entry_saved', $entry, $this->form_data );
+		if ( ! empty( $this->entry['id'] ) ) {
+			do_action( 'quillforms_entry_saved', $this->entry, $this->form_data );
 		}
 
 		// process email notifications.
-		$this->entry_email( $entry, $this->form_data );
+		$this->entry_email();
 
 		// finally do entry processed action.
-		do_action( 'quillforms_entry_processed', $entry, $this->form_data );
+		do_action( 'quillforms_entry_processed', $this->entry, $this->form_data );
 	}
 
 	/**
 	 * Get payment data
 	 *
-	 * @param array $entry Entry data.
 	 * @return array|null
 	 */
-	public function get_payment_data( $entry ) {
+	public function get_payment_data() {
 		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
 			return null;
 		}
@@ -248,10 +271,10 @@ class Form_Submission {
 							$value = (float) $product['value'] ?? 0;
 							break;
 						case 'field':
-							$value = (float) $entry['answers'][ $product['value'] ]['value'] ?? 0;
+							$value = (float) $this->entry['answers'][ $product['value'] ]['value'] ?? 0;
 							break;
 						case 'variable':
-							$value = (float) $entry['variables'][ $product['value'] ] ?? 0;
+							$value = (float) $this->entry['variables'][ $product['value'] ] ?? 0;
 							break;
 					}
 					if ( is_numeric( $value ) && $value > 0 ) {
@@ -280,7 +303,7 @@ class Form_Submission {
 						$choices_labels[ $choice['value'] ] = $choice['label'];
 					}
 
-					$selected_choices = (array) $entry['answers'][ $field_id ]['value'] ?? array();
+					$selected_choices = (array) $this->entry['answers'][ $field_id ]['value'] ?? array();
 					foreach ( $product['values'] as $choice_id => $value ) {
 						if ( is_numeric( $value ) && (float) $value > 0 && in_array( $choice_id, $selected_choices, true ) ) {
 							$products[] = array(
@@ -336,19 +359,18 @@ class Form_Submission {
 	/**
 	 * Save pending submission
 	 *
-	 * @param array  $entry Entry data.
 	 * @param string $step Step.
 	 * @return id
 	 */
-	private function save_pending_submission( $entry, $step ) {
+	private function save_pending_submission( $step ) {
 		global $wpdb;
 
 		$insert = $wpdb->insert(
 			"{$wpdb->prefix}quillforms_pending_submissions",
 			array(
-				'form_id'      => $entry['form_id'],
+				'form_id'      => $this->entry['form_id'],
 				'step'         => $step,
-				'entry_data'   => maybe_serialize( $entry ),
+				'entry_data'   => maybe_serialize( $this->entry ),
 				'form_data'    => maybe_serialize( $this->form_data ),
 				'date_created' => gmdate( 'Y-m-d H:i:s' ),
 			)
@@ -358,7 +380,7 @@ class Form_Submission {
 			quillforms_get_logger()->alert(
 				'Cannot insert pending submission',
 				array(
-					'entry'     => $entry,
+					'entry'     => $this->entry,
 					'form_data' => $this->form_data,
 				)
 			);
@@ -430,20 +452,23 @@ class Form_Submission {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $entry     User submitted data after being validated and formatted.
-	 * @param array $form_data Prepared form settings.
+	 * @return void
 	 */
-	public function entry_email( $entry, $form_data ) {
-		$notifications = $form_data['notifications'];
+	public function entry_email() {
+		quillforms_get_logger()->debug(
+			'Start processing notifications',
+			array(
+				'form_data' => $this->form_data,
+				'entry'     => $this->entry,
+			)
+		);
 
-		quillforms_get_logger()->debug( 'Start processing notifications', compact( 'notifications', 'entry', 'form_data' ) );
-
-		foreach ( $notifications as $notification ) :
+		foreach ( $this->form_data['notifications'] as $notification ) {
 
 			$notification_id         = $notification['id'];
 			$notification_properties = $notification['properties'];
 
-			$process_email = apply_filters( 'quillforms_entry_email_process', true, $entry, $form_data, $notification_id );
+			$process_email = apply_filters( 'quillforms_entry_email_process', true, $this->entry, $this->form_data, $notification_id );
 
 			// if process email = false or notifcation isn't active, continue.
 			if ( ! $process_email || ! $notification_properties['active'] ) {
@@ -454,12 +479,12 @@ class Form_Submission {
 
 			// Setup email properties.
 			/* translators: %s - form name. */
-			$email['subject'] = ! empty( $notification_properties['subject'] ) ? $notification_properties['subject'] : sprintf( esc_html__( 'New %s Entry', 'quillforms' ), $form_data['title'] );
+			$email['subject'] = ! empty( $notification_properties['subject'] ) ? $notification_properties['subject'] : sprintf( esc_html__( 'New %s Entry', 'quillforms' ), $this->form_data['title'] );
 			$email['address'] = $notification_properties['recipients'];
 			if ( 'field' === $notification_properties['toType'] ) {
 				$email['address'] = array_map(
-					function( $address ) use ( $entry, $form_data ) {
-						return Merge_Tags::process_tag( $address, $entry, $form_data );
+					function( $address ) {
+						return Merge_Tags::process_tag( $address, $this->entry, $this->form_data );
 					},
 					$email['address']
 				);
@@ -480,14 +505,14 @@ class Form_Submission {
 			$email['sender_name']    = get_bloginfo( 'name' );
 			$email['replyto']        = ! empty( $notification['properties']['replyTo'] ) ? $notification['properties']['replyTo'] : false;
 			$email['message']        = ! empty( $notification_properties['message'] ) ? $notification_properties['message'] : '{{form:all_answers}}';
-			$email                   = apply_filters( 'quillforms_entry_email_atts', $email, $entry, $form_data, $notification_id );
+			$email                   = apply_filters( 'quillforms_entry_email_atts', $email, $this->entry, $this->form_data, $notification_id );
 
 			quillforms_get_logger()->debug( 'Initial email data', compact( 'email' ) );
 
 			// Create new email.
 			$emails                  = new Emails();
-			$emails->form_data       = $form_data;
-			$emails->entry           = $entry;
+			$emails->form_data       = $this->form_data;
+			$emails->entry           = $this->entry;
 			$emails->notification_id = $notification_id;
 			$emails->from_name       = $email['sender_name'];
 			$emails->from_address    = $email['sender_address'];
@@ -506,7 +531,7 @@ class Form_Submission {
 			foreach ( $email['address'] as $address ) {
 				$emails->send( trim( $address ), $email['subject'], $email['message'] );
 			}
-		endforeach;
+		}
 	}
 
 	/**
