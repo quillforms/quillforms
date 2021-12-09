@@ -25,6 +25,7 @@ export type PaymentGatewayModuleSettings = {
 				| React.FC< {
 						slug: string /* gateway:method */;
 						data: any;
+						onComplete: () => void;
 				  } >
 				| JSX.Element
 				| React.Component;

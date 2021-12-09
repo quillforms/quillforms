@@ -8,6 +8,7 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
  */
 import { RadioControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+import { useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -22,6 +23,10 @@ interface Props {
 }
 
 const PaymentModal: React.FC< Props > = ( { data } ) => {
+	const { setPaymentData, completeForm } = useDispatch(
+		'quillForms/renderer-core'
+	);
+
 	const gateways = getPaymentGatewayModules();
 	const methodsKeys = Object.keys( data.methods );
 
@@ -46,7 +51,14 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 				options={ options }
 				onChange={ setSelected }
 			/>
-			<CientRender slug={ selected } data={ data } />
+			<CientRender
+				slug={ selected }
+				data={ data }
+				onComplete={ () => {
+					setPaymentData( null );
+					completeForm();
+				} }
+			/>
 		</div>
 	);
 };
