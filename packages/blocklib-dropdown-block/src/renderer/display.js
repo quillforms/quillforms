@@ -32,6 +32,7 @@ const ARROW_DOWN_CODE = 40;
 
 let timer;
 let timer2;
+let timer3;
 const DropdownDisplay = (props) => {
 	const {
 		id,
@@ -51,13 +52,13 @@ const DropdownDisplay = (props) => {
 	} = props;
 	const { choices, required } = attributes;
 	const [showDropdown, setShowDropdown] = useState(false);
-	const [firstDropdown, setFirstDropdown] = useState(true);
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [selectedChoiceIndex, setSelectedChoiceIndex] = useState(-1);
 	const [clicked, setClicked] = useState(false);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [showFixedDropdown, setShowFixedDropdown] = useState(false);
+	const [showFDrop, setShowFDrop] = useState(false);
 	const wrapperRef = useRef();
 	const choicesWrappeerRef = useRef();
 	const messages = useMessages();
@@ -69,7 +70,7 @@ const DropdownDisplay = (props) => {
 				if (!choice.label) choice.label = 'Choice ' + (index + 1);
 				return choice;
 			})
-			.filter((choice) =>choice.label.toLowerCase().includes(isTouchScreen? '' : searchKeyword.toLowerCase())
+			.filter((choice) =>choice.label.toLowerCase().includes(val && isTouchScreen? '' : searchKeyword.toLowerCase())
 			);
 	}, [choices, searchKeyword])
 
@@ -141,11 +142,25 @@ const DropdownDisplay = (props) => {
 		if (isPreview || !isReviewing) checkFieldValidation(val);
 	}, [val, attributes]);
 
+	useEffect(() => {
+		if(showFDrop){
+			setShowFixedDropdown(showFDrop)
+		}else{
+			timer3 = setTimeout(() => {
+				setShowFixedDropdown(showFDrop)
+			}, 500);
+		}
+		
+
+		return () => clearTimeout(timer3);
+
+	}, [showFDrop])
+
 	const changeHandler = (e) => {
 		// show close icon of there is any string
 		setShowCloseIcon(e.target.value !== '');
 		setInputValue(e.target.value);
-	 	!isTouchScreen &&	setShowDropdown(true);
+	 	!isTouchScreen && setShowDropdown(true);
 		if (val) {
 			setVal(null);
 			setSearchKeyword('');
@@ -163,7 +178,6 @@ const DropdownDisplay = (props) => {
 
 	useEffect(() => {
 		if (val) {
-			console.log('val',val)
 			const selectedChoice = $choices.find(
 				(choice) => choice.value === val
 			);
@@ -179,7 +193,6 @@ const DropdownDisplay = (props) => {
 		if (isTouchScreen) return;
 		if (e.keyCode === ESC_CODE) {
 			setShowDropdown(false);
-			setFirstDropdown(true);
 			setShowCloseIcon(inputValue !== '');
 			setSelectedChoiceIndex(-1);
 		}
@@ -207,7 +220,6 @@ const DropdownDisplay = (props) => {
 			if (selectedChoiceIndex === $choices.length - 1) {
 				return;
 			}
-			console.log('ARROW_DOWN_CODE');
 			!showDropdown && setShowDropdown(true);
 			setSelectedChoiceIndex(selectedChoiceIndex + 1);
 			let block = document.querySelector('.qf-block-dropdown-display__choices');
@@ -255,10 +267,11 @@ const DropdownDisplay = (props) => {
 			setShowDropdown(false);
 			setSelectedChoiceIndex(-1);
 			if (isTouchScreen) {
+				setShowFDrop(false);
 				// timer2 for showing the input after choosing value
 				timer2 = setTimeout(() => {
 					next();
-				}, 500);
+				}, 750);
 			} else {
 				next();
 			}
@@ -323,10 +336,14 @@ const DropdownDisplay = (props) => {
 				id={'dropdown-' + id}
 				placeholder={messages['block.dropdown.placeholder']}
 				onChange={changeHandler}
-				value={searchKeyword}
+				value={val && isTouchScreen? searchKeyword : !isTouchScreen? searchKeyword : ''}
 				onClick={() => {
-					if (isTouchScreen) setShowFixedDropdown(true);
-					setShowDropdown(true);
+					if (isTouchScreen) {
+						setShowFDrop(true);
+						inputRef.current.blur();
+					} else {
+						setShowDropdown(true);
+					}   
 				}}
 				onFocus={() => {
 					if (isTouchScreen) {
@@ -341,7 +358,7 @@ const DropdownDisplay = (props) => {
 				onKeyDown={handleChoiceKeyDown}
 				autoComplete="off"
 			/>
-			{(val && val.length > 0) || showCloseIcon ? (
+			{(val && val.length > 0) || showCloseIcon && !isTouchScreen ? (
 				<CloseIcon
 					onClick={() => {
 						clearTimeout(timer);
@@ -358,121 +375,167 @@ const DropdownDisplay = (props) => {
 			) : (
 					<DropdownIcon style={{ transform: `${showDropdown ? 'rotate(180deg)' : 'rotate(0deg)'}` }} onClick={() => {
 						showDropdown && setSelectedChoiceIndex(-1);
-						setShowDropdown(!showDropdown);
+					    isTouchScreen && setShowFDrop(!showFDrop);
+						!isTouchScreen && setShowDropdown(!showDropdown);
 						inputRef.current.focus()
 					}} onKeyDown={(e) => {
-					if (e.keyCode === ENTER_CODE) {
-						e.stopPropagation();
-						setShowDropdown(!showDropdown);
-						!showDropdown && setFirstDropdown(true);
+						if (e.keyCode === ENTER_CODE) {
+							e.stopPropagation();
+							showDropdown && setSelectedChoiceIndex(-1);
+							isTouchScreen && setShowFDrop(!showFDrop);
+							!isTouchScreen && setShowDropdown(!showDropdown);
+							!showDropdown && inputRef.current.focus();
 					} else {
 						return;
 					}
 				}} />
 			)}
-			
-			{showDropdown && (
-				<div className={showFixedDropdown && 'fixed-dropdown'}>
-					{
-						showFixedDropdown &&
-						<div className={
-							classnames(
-								css`
-								display: flex;
-    							align-items: center;
-								`
-							)
-						}>
-							<svg
-								onClick={() => { setShowDropdown(false); setShowFixedDropdown(false); }}
-								className="back-icon"
-								focusable="false"
-								viewBox="0 0 16 16"
-								aria-hidden="true"
-								role="presentation">
-								<path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
-							</svg>
-							<input className={classnames(
-								css`
-						& {
-							width: 100%;
-							border: none;
-							outline: none;
-							font-size: 30px;
-							padding-bottom: 8px;
-							background: transparent;
-							margin-bottom: 10px;
-							transition: box-shadow 0.1s ease-out 0s;
-							box-shadow: ${answersColor
-										.setAlpha(0.3)
-										.toString()}
-								0px 1px;
-							@media ( max-width: 600px ) {
-								font-size: 24px;
+
+			{showDropdown &&
+				<div
+					className={
+						classnames(
+							'qf-block-dropdown-display__choices' , {
+								visible: showDropdown,
 							}
-
-							@media ( max-width: 480px ) {
-								font-size: 20px;
-							}
+						)}
+					ref={choicesWrappeerRef}
+					onWheel={(e) => {
+						if (showDropdown) {
+							e.stopPropagation();
 						}
-
-						&::placeholder {
-							opacity: 0.3;
-							/* Chrome, Firefox, Opera, Safari 10.1+ */
-							color: ${theme.answersColor};
-						}
-
-						&:-ms-input-placeholder {
-							opacity: 0.3;
-							/* Internet Explorer 10-11 */
-							color: ${theme.answersColor};
-						}
-
-						&::-ms-input-placeholder {
-							opacity: 0.3;
-							/* Microsoft Edge */
-							color: ${theme.answersColor};
-						}
-
-						&:focus {
-							box-shadow: ${answersColor
-										.setAlpha(1)
-										.toString()}
-								0px 2px;
-						}
-
-						color: ${theme.answersColor};
-					`
-							)}
-								placeholder={messages['block.dropdown.placeholder']}
-								onChange={changeHandler}
-								onFocus={() => {
-									setFooterDisplay(false);
-								}}
-								onBlur={() => {
-									setFooterDisplay(true);
-								}}
-								onKeyDown={handleChoiceKeyDown}
-								autoComplete="off"
-							/>
+					}}
+				>		
+					{$choices?.length > 0 ? (
+						$choices.map((choice, index) => {
+							return (
+								<ChoiceItem
+									hovered={index === selectedChoiceIndex}
+									clicked={index === selectedChoiceIndex && clicked}
+									role="presentation"
+									key={`block-dropdown-${id}-choice-${choice.value}`}
+									clickHandler={() => clickHandler(choice)}
+									choice={choice}
+									val={val}
+									showDropdown={showDropdown}
+								/>
+							);
+						})
+					) : (
+						<div
+							className={css`
+								background: ${theme.errorsBgColor};
+								color: ${theme.errorsFontColor};
+								display: inline-block;
+								padding: 5px 10px;
+								border-radius: 5px;
+							` }
+						>
+							{messages['block.dropdown.noSuggestions']}
 						</div>
-					}
-					<div
-						className={
-							classnames(
-								'qf-block-dropdown-display__choices' , {
-									visible: showDropdown,
-									'fixed-choices': showFixedDropdown
+					)}
+					</div>
+			}
+			
+			{showFixedDropdown && (
+				<div className={classnames('fixed-dropdown', {
+					'show' : showFDrop,
+					'hide': !showFDrop
 								}
-							)}
+							)}>
+					<div className={
+						classnames(
+							css`
+							display: flex;
+							align-items: center;
+							`
+						)
+					}>
+						<svg
+							onClick={() => {
+								setShowFDrop(false);
+							}}
+							className="back-icon"
+							focusable="false"
+							viewBox="0 0 16 16"
+							aria-hidden="true"
+							role="presentation">
+							<path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
+						</svg>
+						<input className={classnames(
+							css`
+					& {
+						width: 100%;
+						border: none;
+						outline: none;
+						font-size: 30px;
+						padding-bottom: 8px;
+						background: transparent;
+						margin-bottom: 10px;
+						transition: box-shadow 0.1s ease-out 0s;
+						box-shadow: ${answersColor
+									.setAlpha(0.3)
+									.toString()}
+							0px 1px;
+						@media ( max-width: 600px ) {
+							font-size: 24px;
+						}
+
+						@media ( max-width: 480px ) {
+							font-size: 20px;
+						}
+					}
+
+					&::placeholder {
+						opacity: 0.3;
+						/* Chrome, Firefox, Opera, Safari 10.1+ */
+						color: ${theme.answersColor};
+					}
+
+					&:-ms-input-placeholder {
+						opacity: 0.3;
+						/* Internet Explorer 10-11 */
+						color: ${theme.answersColor};
+					}
+
+					&::-ms-input-placeholder {
+						opacity: 0.3;
+						/* Microsoft Edge */
+						color: ${theme.answersColor};
+					}
+
+					&:focus {
+						box-shadow: ${answersColor
+									.setAlpha(1)
+									.toString()}
+							0px 2px;
+					}
+
+					color: ${theme.answersColor};
+				`
+						)}
+							placeholder={messages['block.dropdown.placeholder']}
+							onChange={changeHandler}
+							value={searchKeyword}
+							onFocus={() => {
+								setFooterDisplay(false);
+							}}
+							onBlur={() => {
+								setFooterDisplay(true);
+							}}
+							onKeyDown={handleChoiceKeyDown}
+							autoComplete="off"
+						/>
+					</div>
+					<div
+						className="qf-block-dropdown-display__choices visible fixed-choices"
 						ref={choicesWrappeerRef}
 						onWheel={(e) => {
-							if (showDropdown) {
+							if (showFixedDropdown) {
 								e.stopPropagation();
 							}
 						}}
-					>
-						
+					>	
 						{$choices?.length > 0 ? (
 							$choices.map((choice, index) => {
 								return (

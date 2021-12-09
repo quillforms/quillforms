@@ -6,12 +6,33 @@
 	display: flex; 
 	flex-direction: column;
 	padding: 20px 10px;
+	
+	&.show{
+		transform: translateY(100%);
+		animation: moveUp 0.5s ease-in-out  1 forwards ;
+	}
+
+	&.hide{
+		transform: translateY(0%);
+		animation: moveDown 0.5s ease-in-out  1 forwards ;
+	}
 
 	.back-icon{
 		width: 20px;
 		height: 20px;
 		margin-right: 5px;
 	}
+}
+
+
+@keyframes moveUp {
+	0%{transform: translateY(100%);}
+	100%{transform: translateY(0%);}
+}
+
+@keyframes moveDown {
+	0%{transform: translateY(0%);}
+	100%{transform: translateY(100%);}
 }
 
 .qf-block-dropdown-display__choices {
