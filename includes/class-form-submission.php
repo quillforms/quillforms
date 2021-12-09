@@ -39,13 +39,23 @@ class Form_Submission {
 
 	/**
 	 * Submission id
-	 * Exists if handling a pending submission
+	 * Defined if handling a pending submission
 	 *
 	 * @since 1.8.0
 	 *
 	 * @var integer
 	 */
 	public $submission_id;
+
+	/**
+	 * Step
+	 * Defined if handling a pending submission
+	 *
+	 * @since 1.8.0
+	 *
+	 * @var string
+	 */
+	public $step;
 
 	/**
 	 * Form errors
@@ -208,7 +218,7 @@ class Form_Submission {
 		// check payment.
 		$payment = $this->get_payment_data();
 		if ( $payment ) {
-			$this->entry['payment'] = $payment;
+			$this->entry['meta']['payment'] = $payment;
 
 			$submission_id = $this->save_pending_submission( 'payment' );
 			if ( ! $submission_id ) {
@@ -232,11 +242,53 @@ class Form_Submission {
 	}
 
 	/**
+	 * Restore pending submission
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param integer $submission_id Submission id.
+	 * @return boolean
+	 */
+	public function restore_pending_submission( $submission_id ) {
+		$pending_submission = $this->get_pending_submission( $submission_id );
+		if ( ! $pending_submission ) {
+			return false;
+		}
+
+		$this->submission_id = $pending_submission['ID'];
+		$this->step          = $pending_submission['step'];
+		$this->form_data     = $pending_submission['form_data'];
+		$this->entry         = $pending_submission['entry_data'];
+
+		return true;
+	}
+
+	/**
+	 * Continue pending submission
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	public function continue_pending_submission() {
+		switch ( $this->step ) {
+			case 'payment':
+				$this->process_entry();
+				$this->delete_pending_submission( $this->submission_id );
+				break;
+		}
+	}
+
+	/**
 	 * Process the entry after validation
 	 *
 	 * @return void
 	 */
 	public function process_entry() {
+		if ( $this->submission_id ) {
+			$this->entry['meta']['submission_id'] = $this->submission_id;
+		}
+
 		// this can add 'id' to entry array.
 		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
 
