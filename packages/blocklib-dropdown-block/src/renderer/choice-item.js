@@ -14,20 +14,29 @@ import { useState, useEffect } from '@wordpress/element';
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
+import { useRef } from '@wordpress/element';
 
 let selectionTimer;
 
-const ChoiceItem = ( { choice, val, clickHandler, showDropdown } ) => {
-	const [ isBeingSelected, setIsBeingSelected ] = useState( false );
+const ChoiceItem = ( { choice, val, clickHandler, showDropdown, clicked, hovered } ) => {
+	const [isBeingSelected, setIsBeingSelected] = useState(false);
+	const item = useRef();
 
 	useEffect( () => {
 		if ( ! showDropdown ) setIsBeingSelected( false );
 	}, [ showDropdown ] );
 	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
-	const isSelected = !! val && val === choice.value;
+	const isSelected = val && val === choice.value;
+	useEffect(() => {
+		if(clicked) item.current.click();
+		return () => {
+			clicked = false;
+		}
+	}, [clicked])
 	return (
 		<div
+			ref={item}
 			className={ classnames(
 				'dropdown__choiceWrapper',
 				{
@@ -35,7 +44,7 @@ const ChoiceItem = ( { choice, val, clickHandler, showDropdown } ) => {
 					isBeingSelected,
 				},
 				css`
-					background: ${ answersColor.setAlpha( 0.1 ).toString() };
+					background: ${ hovered ? answersColor.setAlpha( 0.2 ).toString()  : answersColor.setAlpha( 0.1 ).toString() };
 
 					border-color: ${ theme.answersColor };
 					color: ${ theme.answersColor };
