@@ -31,8 +31,8 @@ $payments_schema = array(
 			),
 		),
 		'products'  => array(
-			'type'  => 'array',
-			'items' => array(
+			'type'                 => 'object',
+			'additionalProperties' => array(
 				'type'       => 'object',
 				'properties' => array(
 					'type'       => array(

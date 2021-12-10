@@ -23,12 +23,18 @@ import Product from './product';
 import './style.scss';
 import Methods from './methods';
 
+const randomId = () => {
+	return Math.random().toString( 36 ).substring( 2, 8 );
+};
+
 const defaultSettings = {
 	enabled: false,
 	recurring: false,
 	required: false,
 	methods: {},
-	products: [ {} ],
+	products: {
+		[ randomId() ]: {},
+	},
 };
 
 const PaymentsPage = ( { params } ) => {
@@ -48,6 +54,31 @@ const PaymentsPage = ( { params } ) => {
 			[ key ]: value,
 		} );
 	};
+
+	const productsItems = Object.entries( settings.products ).map(
+		( [ id, product ], index ) => (
+			<Product
+				key={ id }
+				data={ product }
+				onAdd={ () => {
+					const products = Object.entries( settings.products );
+					products.splice( index + 1, 0, [ randomId(), {} ] );
+					setSetting( 'products', Object.fromEntries( products ) );
+				} }
+				onRemove={ () => {
+					const products = { ...settings.products };
+					delete products[ id ];
+					setSetting( 'products', products );
+				} }
+				onUpdate={ ( data ) => {
+					const products = { ...settings.products };
+					products[ id ] = data;
+					setSetting( 'products', products );
+				} }
+				removeEnabled={ Object.entries( settings.products ).length > 1 }
+			/>
+		)
+	);
 
 	return (
 		<div className="quillforms-payments-page">
@@ -106,30 +137,7 @@ const PaymentsPage = ( { params } ) => {
 					<div className="quillforms-payments-page-settings-row-label">
 						Products
 					</div>
-					<div>
-						{ settings.products.map( ( product, index ) => (
-							<Product
-								key={ index }
-								data={ product }
-								onAdd={ () => {
-									const products = [ ...settings.products ];
-									products.splice( index + 1, 0, {} );
-									setSetting( 'products', products );
-								} }
-								onRemove={ () => {
-									const products = [ ...settings.products ];
-									products.splice( index, 1 );
-									setSetting( 'products', products );
-								} }
-								onUpdate={ ( data ) => {
-									const products = [ ...settings.products ];
-									products[ index ] = data;
-									setSetting( 'products', products );
-								} }
-								removeEnabled={ settings.products.length > 1 }
-							/>
-						) ) }
-					</div>
+					<div>{ productsItems }</div>
 				</div>
 				<div>
 					<Button
