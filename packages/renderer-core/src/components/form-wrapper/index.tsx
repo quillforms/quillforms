@@ -23,11 +23,12 @@ interface Props {
 const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const editableFields = useEditableFields();
 	const blocks = useBlocks();
-	const { insertEmptyFieldAnswer, goToBlock } = useDispatch(
-		'quillForms/renderer-core'
-	);
 	const { isPreview } = useFormContext();
-	const { setSwiper } = useDispatch( 'quillForms/renderer-core' );
+	const {
+		setSwiper,
+		insertEmptyFieldAnswer,
+		goToBlock,
+	} = useDispatch( 'quillForms/renderer-core' );
 	useEffect( () => {
 		if ( ! isPreview ) {
 			editableFields.forEach( ( field ) =>
