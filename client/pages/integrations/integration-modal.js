@@ -41,6 +41,7 @@ const IntegrationModal = ( { slug, integration, onClose } ) => {
 				`integration-modal integration-modal-${ slug } ` +
 				css`
 					width: 750px;
+					border-radius: 8px;
 
 					.components-modal__content {
 						padding: 0;
