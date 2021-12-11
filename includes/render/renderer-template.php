@@ -8,6 +8,7 @@
 
 namespace QuillForms\Render;
 
+use QuillForms\Form_Submission;
 
 defined( 'ABSPATH' ) || exit;
 the_post();
@@ -62,6 +63,25 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 		</div>
 			<?php wp_footer(); ?>
 		<script>
+		<?php
+		$submission_id = $_GET['submission_id'] ?? null;
+		$step          = $_GET['step'] ?? null;
+		if ( $submission_id && 'payment' === $step ) {
+			$form_submission = Form_Submission::instance();
+			$restore         = $form_submission->restore_pending_submission( $submission_id );
+			if ( $restore ) {
+				$pending_submission_info = array(
+					'status'        => 'pending_payment',
+					'submission_id' => $submission_id,
+					'payment'       => $form_submission->entry['meta']['payment'],
+					'methods'       => $form_submission->get_payment_methods(),
+				);
+				?>
+				window.pending_submission = <?php echo json_encode( $pending_submission_info ); ?>;
+				<?php
+			}
+		}
+		?>
 		var formObject = <?php echo wp_json_encode( $form_object ); ?>;
 		ReactDOM.render(React.createElement(
 		qf.rendererCore.Form,
