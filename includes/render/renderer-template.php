@@ -139,7 +139,6 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 			}
 		}
 		), document.getElementById('quillforms-renderer'));
-		wp.hooks.doAction('QuillForms.Renderer.Loaded');
 		</script>
 
 	</body>

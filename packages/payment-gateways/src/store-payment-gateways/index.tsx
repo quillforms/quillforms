@@ -22,7 +22,7 @@ addAction(
 	register
 );
 addAction(
-	'QuillForms.Renderer.Loaded',
+	'QuillForms.RendererCore.Loaded',
 	'QuillForms/PaymentGateways/RegisterStoreModules',
 	register
 );

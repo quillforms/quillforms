@@ -6,6 +6,13 @@ import {
 	getDefaultMessages,
 	getDefaultThemeProperties,
 } from '@quillforms/utils';
+
+/**
+ * WordPress Dependencies
+ */
+import { useEffect } from '@wordpress/element';
+import { doAction } from '@wordpress/hooks';
+
 /**
  * Internal Dependencies
  */
@@ -45,6 +52,11 @@ const Form: React.FC< Props > = ( {
 		};
 		return formObj;
 	};
+
+	useEffect( () => {
+		doAction( 'QuillForms.RendererCore.Loaded' );
+	}, [] );
+
 	return (
 		<FormContextProvider
 			value={ {
