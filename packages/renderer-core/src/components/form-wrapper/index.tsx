@@ -3,6 +3,7 @@
  */
 import { useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
+import { doAction } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -17,6 +18,7 @@ import FormFlow from '../form-flow';
 import useBlocks from '../../hooks/use-blocks';
 import type { Screen } from '../../store/types';
 import useFormContext from '../../hooks/use-form-context';
+
 interface Props {
 	applyLogic: boolean;
 }
@@ -28,7 +30,10 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 		setSwiper,
 		insertEmptyFieldAnswer,
 		goToBlock,
+		completeForm,
+		setPaymentData,
 	} = useDispatch( 'quillForms/renderer-core' );
+
 	useEffect( () => {
 		if ( ! isPreview ) {
 			editableFields.forEach( ( field ) =>
@@ -66,11 +71,31 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 						: ( thankyouScreens as Screen[] ),
 			} );
 
-			setTimeout( () => {
-				if ( firstBlock?.id ) {
-					goToBlock( firstBlock.id );
-				}
-			}, 100 );
+			const urlParams = new URLSearchParams( window.location.search );
+			const isPaymentStep = urlParams.get( 'step' ) === 'payment';
+
+			let completed = false;
+			if ( isPaymentStep ) {
+				doAction(
+					'QuillForms.RendererCore.PaymentStep',
+					urlParams,
+					() => {
+						completed = true;
+						completeForm();
+					},
+					() => {
+						setPaymentData( window[ 'pending_submission' ] );
+					}
+				);
+			}
+
+			if ( ! completed ) {
+				setTimeout( () => {
+					if ( firstBlock?.id ) {
+						goToBlock( firstBlock.id );
+					}
+				}, 100 );
+			}
 		}
 	}, [] );
 
