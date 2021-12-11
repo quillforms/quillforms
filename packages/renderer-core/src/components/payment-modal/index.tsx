@@ -38,7 +38,16 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 		};
 	} );
 
-	const [ selected, setSelected ] = useState( methodsKeys[ 0 ] );
+	const urlParams = new URLSearchParams( window.location.search );
+	let defaultMethod = methodsKeys[ 0 ];
+	if (
+		urlParams.get( 'step' ) === 'payment' &&
+		methodsKeys.includes( urlParams.get( 'method' ) ?? '' )
+	) {
+		defaultMethod = urlParams.get( 'method' ) ?? '';
+	}
+
+	const [ selected, setSelected ] = useState( defaultMethod );
 	const [ gateway, method ] = selected.split( ':' );
 
 	const CientRender = gateways[ gateway ].methods[ method ].clientRender;
