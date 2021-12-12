@@ -232,10 +232,11 @@ class Form_Submission {
 
 			wp_send_json_success(
 				array(
-					'status'        => 'pending_payment',
-					'submission_id' => $submission_id,
-					'payment'       => $payment,
-					'methods'       => $this->get_payment_methods(),
+					'status'             => 'pending_payment',
+					'submission_id'      => $submission_id,
+					'payment'            => $payment,
+					'methods'            => $this->get_payment_methods(),
+					'thankyou_screen_id' => $this->get_thankyou_screen_id(),
 				),
 				200
 			);
@@ -410,6 +411,33 @@ class Form_Submission {
 			);
 		}
 		return $methods;
+	}
+
+	/**
+	 * Get thank you screen id
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return string
+	 */
+	public function get_thankyou_screen_id() {
+		$walk_path_ids = $this->entry['meta']['walk_path'];
+
+		$last_block_id = $walk_path_ids[ count( $walk_path_ids ) - 1 ];
+		$last_block    = array_values(
+			array_filter(
+				$this->form_data['blocks'],
+				function( $block ) use ( $last_block_id ) {
+					return $block['id'] === $last_block_id;
+				}
+			)
+		)[0];
+
+		if ( 'thankyou-screen' === $last_block['name'] ) {
+			return $last_block['id'];
+		} else {
+			return 'default_thankyou_screen';
+		}
 	}
 
 	/**

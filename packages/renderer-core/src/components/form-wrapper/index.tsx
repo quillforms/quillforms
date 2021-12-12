@@ -81,7 +81,9 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					urlParams,
 					() => {
 						completed = true;
-						completeForm();
+						goToBlock(
+							window[ 'pending_submission' ].thankyou_screen_id
+						);
 					},
 					() => {
 						setPaymentData( window[ 'pending_submission' ] );
