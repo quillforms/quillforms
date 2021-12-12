@@ -30,7 +30,6 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 		setSwiper,
 		insertEmptyFieldAnswer,
 		goToBlock,
-		completeForm,
 		setPaymentData,
 	} = useDispatch( 'quillForms/renderer-core' );
 
