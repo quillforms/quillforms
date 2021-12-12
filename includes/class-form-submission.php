@@ -160,14 +160,7 @@ class Form_Submission {
 			'answers' => $answers,
 		);
 
-		$fields = array_filter(
-			$this->form_data['blocks'],
-			function ( $block ) {
-				return 'welcome-screen' !== $block['name'] && 'thankyou-screen' !== $block['name'];
-			}
-		);
-
-		list( $walk_path, $entry ) = apply_filters( 'quillforms_submission_walk_path', array( $fields, $entry ) );
+		list( $walk_path, $entry ) = apply_filters( 'quillforms_submission_walk_path', array( $this->form_data['blocks'], $entry ) );
 
 		// Validate all fields at the walkpath.
 		foreach ( $walk_path as $field ) {
@@ -204,9 +197,20 @@ class Form_Submission {
 		// set entry property.
 		$this->entry = $entry;
 
+		// get walk path ids.
+		$walk_path_ids = array_values(
+			array_map(
+				function( $block ) {
+					return $block['id'];
+				},
+				$walk_path
+			)
+		);
+
 		// add entry meta.
 		$this->entry['meta'] = array(
-			'user_id' => get_current_user_id(),
+			'walk_path' => $walk_path_ids,
+			'user_id'   => get_current_user_id(),
 		);
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
 			$this->entry['meta']['user_ip'] = $this->get_client_ip();
