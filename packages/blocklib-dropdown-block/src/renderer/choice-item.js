@@ -18,8 +18,17 @@ import { useRef } from '@wordpress/element';
 
 let selectionTimer;
 
-const ChoiceItem = ( { choice, val, clickHandler, showDropdown, clicked, hovered } ) => {
-	const [isBeingSelected, setIsBeingSelected] = useState(false);
+const ChoiceItem = ( {
+	choice,
+	blockId,
+	choiceIndex,
+	val,
+	clickHandler,
+	showDropdown,
+	clicked,
+	hovered,
+} ) => {
+	const [ isBeingSelected, setIsBeingSelected ] = useState( false );
 	const item = useRef();
 
 	useEffect( () => {
@@ -28,15 +37,16 @@ const ChoiceItem = ( { choice, val, clickHandler, showDropdown, clicked, hovered
 	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
 	const isSelected = val && val === choice.value;
-	useEffect(() => {
-		if(clicked) item.current.click();
+	useEffect( () => {
+		if ( clicked ) item.current.click();
 		return () => {
 			clicked = false;
-		}
-	}, [clicked])
+		};
+	}, [ clicked ] );
 	return (
 		<div
-			ref={item}
+			ref={ item }
+			id={ `block-${ blockId }-option-${ choiceIndex }` }
 			className={ classnames(
 				'dropdown__choiceWrapper',
 				{
@@ -44,7 +54,11 @@ const ChoiceItem = ( { choice, val, clickHandler, showDropdown, clicked, hovered
 					isBeingSelected,
 				},
 				css`
-					background: ${ hovered ? answersColor.setAlpha( 0.2 ).toString()  : answersColor.setAlpha( 0.1 ).toString() };
+					background: ${
+						hovered
+							? answersColor.setAlpha( 0.2 ).toString()
+							: answersColor.setAlpha( 0.1 ).toString()
+					};
 
 					border-color: ${ theme.answersColor };
 					color: ${ theme.answersColor };

@@ -194,66 +194,52 @@ const DropdownDisplay = ( props ) => {
 		};
 	}, [] );
 
+	function checkInView( container, element ) {
+		//Get container properties
+		let cTop = container.scrollTop;
+		let cBottom = cTop + container.clientHeight;
+
+		//Get element properties
+		let eTop = element.offsetTop;
+		let eBottom = eTop + element.clientHeight;
+
+		//Check if in view
+		return eTop >= cTop + 10 && eBottom <= cBottom - 50;
+	}
+
 	const handleChoiceKeyDown = ( e ) => {
 		if ( isTouchScreen ) return;
 		if ( e.keyCode === ESC_CODE ) {
 			setShowDropdown( false );
 			setShowCloseIcon( inputValue !== '' );
 			setSelectedChoiceIndex( -1 );
-		}
-
-		if ( e.keyCode === ARROW_UP_CODE ) {
-			if ( selectedChoiceIndex <= 0 ) {
-				return;
-			}
-			! showDropdown && setShowDropdown( true );
-			let block = document.querySelector(
-				'.qf-block-dropdown-display__choices'
-			);
-			if ( ! block ) return;
-			let element =
-				block.children[
-					selectedChoiceIndex < 0 ? 0 : selectedChoiceIndex
-				];
-			let elHeight = element.getBoundingClientRect().height;
-			elHeight += parseInt(
-				window
-					.getComputedStyle( element )
-					.getPropertyValue( 'margin-bottom' )
-			);
-			setSelectedChoiceIndex( selectedChoiceIndex - 1 );
-			if ( element.offsetTop - block.scrollTop < elHeight * 2 ) {
-				block.scrollTo( {
-					top: block.scrollTop - elHeight,
-				} );
-			}
 			return;
 		}
 
-		if ( e.keyCode === ARROW_DOWN_CODE ) {
-			if ( selectedChoiceIndex === $choices.length - 1 ) {
-				return;
-			}
-			! showDropdown && setShowDropdown( true );
-			setSelectedChoiceIndex( selectedChoiceIndex + 1 );
+		if ( e.keyCode === ARROW_UP_CODE || e.keyCode === ARROW_DOWN_CODE ) {
 			let block = document.querySelector(
 				'.qf-block-dropdown-display__choices'
 			);
-			if ( ! block ) return;
-			let element =
-				block.children[
-					selectedChoiceIndex < 0 ? 0 : selectedChoiceIndex
-				];
-			let elHeight = element.getBoundingClientRect().height;
-			elHeight += parseInt(
-				window
-					.getComputedStyle( element )
-					.getPropertyValue( 'margin-bottom' )
+			if (
+				! block ||
+				( selectedChoiceIndex <= 0 && e.keyCode === ARROW_UP_CODE ) ||
+				( selectedChoiceIndex === $choices.length - 1 &&
+					e.keyCode === ARROW_DOWN_CODE )
+			) {
+				return;
+			}
+			setShowDropdown( true );
+			const newChoiceIndex =
+				e.keyCode === ARROW_UP_CODE
+					? selectedChoiceIndex - 1
+					: selectedChoiceIndex + 1;
+			setSelectedChoiceIndex( newChoiceIndex );
+			const choiceEl = document.getElementById(
+				`block-${ id }-option-${ newChoiceIndex }`
 			);
-			if ( element.offsetTop - block.scrollTop > elHeight * 4 )
-				block.scrollTo( {
-					top: block.scrollTop + elHeight,
-				} );
+			if ( ! checkInView( block, choiceEl ) ) {
+				block.scrollTop = choiceEl.offsetTop - 30;
+			}
 			return;
 		}
 
@@ -265,10 +251,10 @@ const DropdownDisplay = ( props ) => {
 				return;
 			}
 			setClicked( true );
-			selectedChoiceIndex > 4 &&
-				document
-					.querySelector( '.qf-block-dropdown-display__choices' )
-					.scrollTo( 0, ( selectedChoiceIndex - 3 ) * 49 );
+			// selectedChoiceIndex > 4 &&
+			// 	document
+			// 		.querySelector( '.qf-block-dropdown-display__choices' )
+			// 		.scrollTo( 0, ( selectedChoiceIndex - 3 ) * 49 );
 			return;
 		}
 	};
@@ -459,6 +445,8 @@ const DropdownDisplay = ( props ) => {
 						$choices.map( ( choice, index ) => {
 							return (
 								<ChoiceItem
+									blockId={ id }
+									choiceIndex={ index }
 									hovered={ index === selectedChoiceIndex }
 									clicked={
 										index === selectedChoiceIndex && clicked
@@ -601,6 +589,8 @@ const DropdownDisplay = ( props ) => {
 										hovered={
 											index === selectedChoiceIndex
 										}
+										choiceIndex={ index }
+										blockId={ id }
 										clicked={
 											index === selectedChoiceIndex &&
 											clicked
