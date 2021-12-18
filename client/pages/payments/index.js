@@ -30,7 +30,6 @@ const randomId = () => {
 const defaultSettings = {
 	enabled: false,
 	recurring: false,
-	required: false,
 	methods: {},
 	products: {
 		[ randomId() ]: {},
@@ -102,17 +101,6 @@ const PaymentsPage = ( { params } ) => {
 						checked={ settings.recurring }
 						onChange={ () =>
 							setSetting( 'recurring', ! settings.recurring )
-						}
-					/>
-				</div>
-				<div className="quillforms-payments-page-settings-row">
-					<div className="quillforms-payments-page-settings-row-label">
-						Required
-					</div>
-					<ToggleControl
-						checked={ settings.required }
-						onChange={ () =>
-							setSetting( 'required', ! settings.required )
 						}
 					/>
 				</div>

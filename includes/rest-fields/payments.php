@@ -20,10 +20,6 @@ $payments_schema = array(
 			'type'     => 'boolean',
 			'required' => true,
 		),
-		'required'  => array(
-			'type'     => 'boolean',
-			'required' => true,
-		),
 		'methods'   => array(
 			'type'                 => 'object',
 			'additionalProperties' => array(
