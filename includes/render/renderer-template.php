@@ -70,15 +70,8 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 			$form_submission = Form_Submission::instance();
 			$restore         = $form_submission->restore_pending_submission( $submission_id );
 			if ( $restore ) {
-				$pending_submission_info = array(
-					'status'             => 'pending_payment',
-					'submission_id'      => $submission_id,
-					'payment'            => $form_submission->entry['meta']['payment'],
-					'methods'            => $form_submission->get_payment_methods(),
-					'thankyou_screen_id' => $form_submission->get_thankyou_screen_id(),
-				);
 				?>
-				window.pending_submission = <?php echo json_encode( $pending_submission_info ); ?>;
+				window.pending_submission = <?php echo json_encode( $form_submission->get_pending_submission_renderer_data() ); ?>;
 				<?php
 			}
 		}

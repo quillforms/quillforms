@@ -224,22 +224,13 @@ class Form_Submission {
 		if ( $payment ) {
 			$this->entry['meta']['payment'] = $payment;
 
-			$submission_id = $this->save_pending_submission( 'payment' );
-			if ( ! $submission_id ) {
+			$this->submission_id = $this->save_pending_submission( 'payment' );
+			if ( ! $this->submission_id ) {
 				wp_send_json_error( array( 'message' => 'Cannot save the pending submission' ), 500 );
 				exit;
 			}
 
-			wp_send_json_success(
-				array(
-					'status'             => 'pending_payment',
-					'submission_id'      => $submission_id,
-					'payment'            => $payment,
-					'methods'            => $this->get_payment_methods(),
-					'thankyou_screen_id' => $this->get_thankyou_screen_id(),
-				),
-				200
-			);
+			wp_send_json_success( $this->get_pending_submission_renderer_data(), 200 );
 			exit;
 		}
 
@@ -386,6 +377,23 @@ class Form_Submission {
 		}
 
 		return compact( 'products', 'total' );
+	}
+
+	/**
+	 * Get pending submission renderer data
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	public function get_pending_submission_renderer_data() {
+		return array(
+			'status'             => 'pending_payment',
+			'submission_id'      => $this->submission_id,
+			'payment'            => $this->entry['meta']['payment'],
+			'methods'            => $this->get_payment_methods(),
+			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
+		);
 	}
 
 	/**
