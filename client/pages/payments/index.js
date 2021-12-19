@@ -28,6 +28,7 @@ import Product from './product';
  */
 import './style.scss';
 import Methods from './methods';
+import FieldSelect from './field-select';
 
 const randomId = () => {
 	return Math.random().toString( 36 ).substring( 2, 8 );
@@ -37,6 +38,10 @@ const defaultSettings = {
 	enabled: false,
 	recurring: { enabled: false, interval_count: 1, interval_unit: 'month' },
 	methods: {},
+	customer: {
+		name: { type: 'field', value: '' },
+		email: { type: 'field', value: '' },
+	},
 	products: {
 		[ randomId() ]: {},
 	},
@@ -203,6 +208,35 @@ const PaymentsPage = ( { params } ) => {
 							settings={ settings }
 							onChange={ ( methods ) => {
 								setSetting( 'methods', methods );
+							} }
+						/>
+					</div>
+				</div>
+				<div className="quillforms-payments-page-settings-row">
+					<div className="quillforms-payments-page-settings-row-label">
+						Customer
+					</div>
+					<div>
+						<FieldSelect
+							label="Name"
+							blockNames={ [ 'short-text', 'long-text' ] }
+							value={ settings.customer?.name?.value ?? '' }
+							onChange={ ( value ) => {
+								setSetting( 'customer', {
+									...settings.customer,
+									name: { type: 'field', value },
+								} );
+							} }
+						/>
+						<FieldSelect
+							label="Email"
+							blockNames={ [ 'email' ] }
+							value={ settings.customer?.email?.value ?? '' }
+							onChange={ ( value ) => {
+								setSetting( 'customer', {
+									...settings.customer,
+									email: { type: 'field', value },
+								} );
 							} }
 						/>
 					</div>

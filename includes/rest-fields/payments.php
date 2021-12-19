@@ -39,6 +39,35 @@ $payments_schema = array(
 				'type' => 'object',
 			),
 		),
+		'customer'  => array(
+			'type'       => 'object',
+			'properties' => array(
+				'name'  => array(
+					'type'       => 'object',
+					'properties' => array(
+						'type'  => array(
+							'type' => 'string',
+							'enum' => array( 'field' ),
+						),
+						'value' => array(
+							'type' => 'string',
+						),
+					),
+				),
+				'email' => array(
+					'type'       => 'object',
+					'properties' => array(
+						'type'  => array(
+							'type' => 'string',
+							'enum' => array( 'field' ),
+						),
+						'value' => array(
+							'type' => 'string',
+						),
+					),
+				),
+			),
+		),
 		'products'  => array(
 			'type'                 => 'object',
 			'additionalProperties' => array(
