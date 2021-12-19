@@ -2,7 +2,12 @@
  * QuillForms Dependencies
  */
 import ConfigApi from '@quillforms/config';
-import { ToggleControl, Button } from '@quillforms/admin-components';
+import {
+	ToggleControl,
+	TextControl,
+	SelectControl,
+	Button,
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -10,6 +15,7 @@ import { ToggleControl, Button } from '@quillforms/admin-components';
 import apiFetch from '@wordpress/api-fetch';
 import { useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -29,7 +35,7 @@ const randomId = () => {
 
 const defaultSettings = {
 	enabled: false,
-	recurring: false,
+	recurring: { enabled: false, interval_count: 1, interval_unit: 'month' },
 	methods: {},
 	products: {
 		[ randomId() ]: {},
@@ -52,6 +58,32 @@ const PaymentsPage = ( { params } ) => {
 			...settings,
 			[ key ]: value,
 		} );
+	};
+
+	const recurringIntervalUnitOptions = [
+		{
+			name: __( 'Day/s', 'quillforms' ),
+			key: 'day',
+		},
+		{
+			name: __( 'Week/s', 'quillforms' ),
+			key: 'week',
+		},
+		{
+			name: __( 'Month/s', 'quillforms' ),
+			key: 'month',
+		},
+		{
+			name: __( 'Year/s', 'quillforms' ),
+			key: 'year',
+		},
+	];
+
+	const recurringIntervalCountMax = {
+		day: 365,
+		week: 52,
+		month: 12,
+		year: 10,
 	};
 
 	const productsItems = Object.entries( settings.products ).map(
@@ -97,12 +129,66 @@ const PaymentsPage = ( { params } ) => {
 					<div className="quillforms-payments-page-settings-row-label">
 						Recurring
 					</div>
-					<ToggleControl
-						checked={ settings.recurring }
-						onChange={ () =>
-							setSetting( 'recurring', ! settings.recurring )
-						}
-					/>
+					<div>
+						<ToggleControl
+							checked={ settings.recurring.enabled }
+							onChange={ () =>
+								setSetting( 'recurring', {
+									...settings.recurring,
+									enabled: ! settings.recurring.enabled,
+								} )
+							}
+						/>
+						{ settings.recurring.enabled && (
+							<>
+								<TextControl
+									type="number"
+									value={
+										settings.recurring.interval_count ?? ''
+									}
+									onChange={ ( value ) =>
+										setSetting( 'recurring', {
+											...settings.recurring,
+											interval_count: value,
+										} )
+									}
+									step={ 1 }
+									min={ 1 }
+									max={
+										recurringIntervalCountMax[
+											settings.recurring.interval_unit
+										]
+									}
+								/>
+								<SelectControl
+									options={ recurringIntervalUnitOptions }
+									value={ recurringIntervalUnitOptions.find(
+										( option ) =>
+											option.key ===
+											settings.recurring.interval_unit
+									) }
+									onChange={ ( { selectedItem } ) => {
+										if ( selectedItem ) {
+											let interval_unit =
+												selectedItem.key;
+											let interval_count = Math.min(
+												settings.recurring
+													.interval_count,
+												recurringIntervalCountMax[
+													interval_unit
+												]
+											);
+											setSetting( 'recurring', {
+												...settings.recurring,
+												interval_unit,
+												interval_count,
+											} );
+										}
+									} }
+								/>
+							</>
+						) }
+					</div>
 				</div>
 				<div className="quillforms-payments-page-settings-row">
 					<div className="quillforms-payments-page-settings-row-label">

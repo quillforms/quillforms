@@ -17,8 +17,21 @@ $payments_schema = array(
 			'required' => true,
 		),
 		'recurring' => array(
-			'type'     => 'boolean',
-			'required' => true,
+			'type'       => 'object',
+			'required'   => true,
+			'properties' => array(
+				'enabled'        => array(
+					'type'     => 'boolean',
+					'required' => true,
+				),
+				'interval_count' => array(
+					'type' => 'integer',
+				),
+				'interval_unit'  => array(
+					'type' => 'string',
+					'enum' => array( 'day', 'week', 'month', 'year' ),
+				),
+			),
 		),
 		'methods'   => array(
 			'type'                 => 'object',
