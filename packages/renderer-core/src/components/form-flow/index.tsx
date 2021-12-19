@@ -29,7 +29,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
 	const theme = useTheme();
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
-	const ref = useRef( null );
+	const ref = useRef< any >( null );
 	const {
 		isWelcomeScreenActive,
 		isThankyouScreenActive,
