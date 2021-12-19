@@ -28,7 +28,7 @@ import { css } from 'emotion';
 import './style.scss';
 import { useProductContext } from '../context';
 import AddRemoveButtons from '../add-remove-buttons';
-import FieldSelect from '../field-select';
+import FieldSelect from '../../field-select';
 
 const SingleProduct = () => {
 	const { data, onUpdate, typeSelectControl } = useProductContext();

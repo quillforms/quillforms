@@ -24,6 +24,7 @@ import BlockItem from './block-item';
 import VariableItem from './variable-item';
 
 const FieldSelect = ( {
+	label,
 	className,
 	blockNames,
 	includeVariables,
@@ -98,7 +99,7 @@ const FieldSelect = ( {
 			}
 		>
 			<SelectControl
-				label=""
+				label={ label ?? '' }
 				className={ css`
 					margin-top: 0 !important;
 				` }
