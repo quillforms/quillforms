@@ -384,7 +384,7 @@ class Form_Submission {
 	/**
 	 * Get pending submission renderer data
 	 *
-	 * @since 1.0.0
+	 * @since 1.8.0
 	 *
 	 * @return array
 	 */
@@ -403,14 +403,14 @@ class Form_Submission {
 	/**
 	 * Get payment settings
 	 *
-	 * @since 1.0.0
+	 * @since 1.8.0
 	 *
 	 * @return array
 	 */
 	public function get_payment_settings() {
 		return array(
 			'customer'  => $this->get_customer(),
-			'recurring' => $this->form_data['payments']['recurring'] ?? null,
+			'recurring' => $this->get_recurring(),
 			'methods'   => $this->get_payment_methods(),
 		);
 	}
@@ -443,7 +443,7 @@ class Form_Submission {
 	/**
 	 * Get customer info
 	 *
-	 * @since 1.0.0
+	 * @since 1.8.0
 	 *
 	 * @return array
 	 */
@@ -455,6 +455,25 @@ class Form_Submission {
 			'name'  => $name_field ? ( $this->entry['answers'][ $name_field ]['value'] ?? null ) : null,
 			'email' => $email_field ? ( $this->entry['answers'][ $email_field ]['value'] ?? null ) : null,
 		);
+	}
+
+	/**
+	 * Get recurring
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array|null
+	 */
+	public function get_recurring() {
+		$recurring = $this->form_data['payments']['recurring'] ?? null;
+		if ( $recurring['enabled'] ?? null ) {
+			return array(
+				'interval_count' => (int) $recurring['interval_count'],
+				'interval_unit'  => $recurring['interval_unit'],
+			);
+		} else {
+			return null;
+		}
 	}
 
 	/**
