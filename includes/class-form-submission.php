@@ -223,7 +223,9 @@ class Form_Submission {
 		$products = $this->get_products();
 		if ( $products ) {
 			$this->entry['meta']['payments'] = array(
-				'products' => $products,
+				'products'  => $products,
+				'customer'  => $this->get_customer(),
+				'recurring' => $this->get_recurring(),
 			);
 
 			$this->submission_id = $this->save_pending_submission( 'payment' );
@@ -382,65 +384,6 @@ class Form_Submission {
 	}
 
 	/**
-	 * Get pending submission renderer data
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return array
-	 */
-	public function get_pending_submission_renderer_data() {
-		return array(
-			'status'             => 'pending_payment',
-			'submission_id'      => $this->submission_id,
-			'payments'           => array(
-				'products' => $this->entry['meta']['payments']['products'],
-				'settings' => $this->get_payment_settings(),
-			),
-			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
-		);
-	}
-
-	/**
-	 * Get payment settings
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return array
-	 */
-	public function get_payment_settings() {
-		return array(
-			'customer'  => $this->get_customer(),
-			'recurring' => $this->get_recurring(),
-			'methods'   => $this->get_payment_methods(),
-		);
-	}
-
-	/**
-	 * Get payment methods
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return array
-	 */
-	public function get_payment_methods() {
-		$methods = array();
-		foreach ( $this->form_data['payments']['methods'] ?? array() as $key => $data ) {
-			if ( empty( $data['enabled'] ) ) {
-				continue;
-			}
-			$gateway = explode( ':', $key )[0];
-			$active  = apply_filters( "quillforms_{$gateway}_is_active", false );
-			if ( ! $active ) {
-				continue;
-			}
-			$methods[ $key ] = array(
-				'options' => $data['options'] ?? array(),
-			);
-		}
-		return $methods;
-	}
-
-	/**
 	 * Get customer info
 	 *
 	 * @since 1.8.0
@@ -474,6 +417,52 @@ class Form_Submission {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Get pending submission renderer data
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
+	 */
+	public function get_pending_submission_renderer_data() {
+		return array(
+			'status'             => 'pending_payment',
+			'submission_id'      => $this->submission_id,
+			'payments'           => array_merge(
+				$this->entry['meta']['payments'],
+				array(
+					'methods' => $this->get_payment_methods(),
+				)
+			),
+			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
+		);
+	}
+
+	/**
+	 * Get payment methods
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
+	 */
+	public function get_payment_methods() {
+		$methods = array();
+		foreach ( $this->form_data['payments']['methods'] ?? array() as $key => $data ) {
+			if ( empty( $data['enabled'] ) ) {
+				continue;
+			}
+			$gateway = explode( ':', $key )[0];
+			$active  = apply_filters( "quillforms_{$gateway}_is_active", false );
+			if ( ! $active ) {
+				continue;
+			}
+			$methods[ $key ] = array(
+				'options' => $data['options'] ?? array(),
+			);
+		}
+		return $methods;
 	}
 
 	/**
