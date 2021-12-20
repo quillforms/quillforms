@@ -383,6 +383,7 @@ module.exports = {
 			},
 		} ),
 		new WebpackRTLPlugin( {
+			filename: './[name]/style-rtl.css',
 			minify: {
 				safe: true,
 			},
