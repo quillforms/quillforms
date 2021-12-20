@@ -218,7 +218,7 @@ const DropdownDisplay = ( props ) => {
 
 		if ( e.keyCode === ARROW_UP_CODE || e.keyCode === ARROW_DOWN_CODE ) {
 			let block = document.querySelector(
-				'.qf-block-dropdown-display__choices'
+				`#block-${ id }  .qf-block-dropdown-display__choices`
 			);
 			if (
 				! block ||
