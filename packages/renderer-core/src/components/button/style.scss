@@ -20,3 +20,15 @@
 		font-size: 16px;
 	}
 }
+
+html[dir="rtl"] .renderer-core-button {
+
+ 	svg {
+		transform: rotate(180deg);
+	}
+
+	&:hover svg {
+		transform: rotate(180deg) translateX( -3px );
+
+	}
+}
