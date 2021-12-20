@@ -488,7 +488,7 @@ class Store {
 				),
 				'additional'         => array(
 					'methods' => array(
-						'form'     => array(
+						'elements' => array(
 							'name' => 'Checkout at the website',
 						),
 						'checkout' => array(
