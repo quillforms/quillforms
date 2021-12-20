@@ -220,9 +220,11 @@ class Form_Submission {
 		}
 
 		// check payment.
-		$payment = $this->get_payment_data();
-		if ( $payment ) {
-			$this->entry['meta']['payment'] = $payment;
+		$products = $this->get_products();
+		if ( $products ) {
+			$this->entry['meta']['payments'] = array(
+				'products' => $products,
+			);
 
 			$this->submission_id = $this->save_pending_submission( 'payment' );
 			if ( ! $this->submission_id ) {
@@ -301,15 +303,15 @@ class Form_Submission {
 	}
 
 	/**
-	 * Get payment data
+	 * Get products data
 	 *
 	 * @return array|null
 	 */
-	public function get_payment_data() {
+	public function get_products() {
 		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
 			return null;
 		}
-		$products = array();
+		$items = array();
 		foreach ( $this->form_data['payments']['products'] ?? null as $product ) {
 			switch ( $product['type'] ) {
 				case 'single':
@@ -326,7 +328,7 @@ class Form_Submission {
 							break;
 					}
 					if ( is_numeric( $value ) && $value > 0 ) {
-						$products[] = array(
+						$items[] = array(
 							'name'  => $product['name'],
 							'value' => $value,
 						);
@@ -354,7 +356,7 @@ class Form_Submission {
 					$selected_choices = (array) $this->entry['answers'][ $field_id ]['value'] ?? array();
 					foreach ( $product['values'] as $choice_id => $value ) {
 						if ( is_numeric( $value ) && (float) $value > 0 && in_array( $choice_id, $selected_choices, true ) ) {
-							$products[] = array(
+							$items[] = array(
 								'name'  => $choices_labels[ $choice_id ],
 								'value' => (float) $value,
 							);
@@ -365,18 +367,18 @@ class Form_Submission {
 		}
 
 		$total = array_reduce(
-			$products,
+			$items,
 			function( $carry, $product ) {
 				return $carry + $product['value'];
 			},
 			0
 		);
 
-		if ( empty( $products ) || empty( $total ) ) {
+		if ( empty( $items ) || empty( $total ) ) {
 			return null;
 		}
 
-		return compact( 'products', 'total' );
+		return compact( 'items', 'total' );
 	}
 
 	/**
@@ -390,9 +392,26 @@ class Form_Submission {
 		return array(
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
-			'payment'            => $this->entry['meta']['payment'],
-			'methods'            => $this->get_payment_methods(),
+			'payments'           => array(
+				'products' => $this->entry['meta']['payments']['products'],
+				'settings' => $this->get_payment_settings(),
+			),
 			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
+		);
+	}
+
+	/**
+	 * Get payment settings
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	public function get_payment_settings() {
+		return array(
+			'customer'  => $this->get_customer(),
+			'recurring' => $this->form_data['payments']['recurring'] ?? null,
+			'methods'   => $this->get_payment_methods(),
 		);
 	}
 
@@ -419,6 +438,23 @@ class Form_Submission {
 			);
 		}
 		return $methods;
+	}
+
+	/**
+	 * Get customer info
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	public function get_customer() {
+		$name_field  = $this->form_data['payments']['customer']['name']['value'] ?? null;
+		$email_field = $this->form_data['payments']['customer']['email']['value'] ?? null;
+
+		return array(
+			'name'  => $name_field ? ( $this->entry['answers'][ $name_field ]['value'] ?? null ) : null,
+			'email' => $email_field ? ( $this->entry['answers'][ $email_field ]['value'] ?? null ) : null,
+		);
 	}
 
 	/**

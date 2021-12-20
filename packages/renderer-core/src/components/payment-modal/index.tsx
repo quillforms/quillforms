@@ -28,7 +28,7 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 	);
 
 	const gateways = getPaymentGatewayModules();
-	const methodsKeys = Object.keys( data.methods );
+	const methodsKeys = Object.keys( data.payments.settings.methods );
 
 	const options = methodsKeys.map( ( key ) => {
 		const [ gateway, method ] = key.split( ':' );
