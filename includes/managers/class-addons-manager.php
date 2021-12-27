@@ -25,6 +25,7 @@ final class Addons_Manager {
 	const PRESERVED_STORE_ADDON_SLUG = 4;
 	const ALREADY_USED_SLUG          = 5;
 	const INCOMPATIBLE_DEPENDENCIES  = 6;
+	const INCOMPATIBLE_VERSION       = 7;
 
 	/**
 	 * Registered addons
@@ -88,8 +89,8 @@ final class Addons_Manager {
 				self::DISALLOWED_SLUG_CHARACTERS
 			);
 		}
-		// preserved store addon slug.
 		$store_addon = Store::instance()->get_addon( $addon->slug );
+		// preserved store addon slug.
 		if ( $store_addon && $store_addon['full_plugin_file'] !== $addon->plugin_file ) {
 			throw new Exception(
 				sprintf( '"%s" addon slug is preserved for Quillforms.com store addons.', $addon->slug ),
@@ -101,6 +102,13 @@ final class Addons_Manager {
 			throw new Exception(
 				sprintf( '%s addon slug is already used for %s', $addon->slug, get_class( $this->registered[ $addon->slug ] ) ),
 				self::ALREADY_USED_SLUG
+			);
+		}
+		// incompatible version.
+		if ( $store_addon && ( $store_addon['min_version'] ?? null ) && version_compare( $store_addon['version'], $store_addon['min_version'], '<' ) ) {
+			throw new Exception(
+				sprintf( 'Quill Forms %s addon must be updated', $addon->slug ),
+				self::INCOMPATIBLE_VERSION
 			);
 		}
 		// incompatible dependencies.
