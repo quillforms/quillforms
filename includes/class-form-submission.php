@@ -548,12 +548,6 @@ class Form_Submission {
 		);
 
 		if ( ! $result ) {
-			quillforms_get_logger()->alert(
-				'Cannot get pending submission',
-				array(
-					'id' => $id,
-				)
-			);
 			return null;
 		}
 
