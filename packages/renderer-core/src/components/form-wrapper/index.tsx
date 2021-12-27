@@ -81,7 +81,10 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					() => {
 						completed = true;
 						goToBlock(
-							window[ 'pending_submission' ].thankyou_screen_id
+							window[ 'pending_submission' ]
+								?.thankyou_screen_id ??
+								urlParams.get( 'thankyou_screen_id' ) ??
+								'default_thankyou_screen'
 						);
 					},
 					() => {
