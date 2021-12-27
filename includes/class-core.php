@@ -43,9 +43,9 @@ class Core {
 	}
 
 	/**
-	 * Set config
+	 * Set admin config
 	 *
-	 * @since 1.1.5
+	 * @since 1.8.0
 	 *
 	 * @return void
 	 */
