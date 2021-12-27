@@ -1,12 +1,4 @@
-.question__header .quote-icon {
-	& {
-		position: absolute;
-		left: -23px;
-		top: -5px;
-	}
 
-	svg {
-		width: 15px;
-		fill: #fbaaaa;
-	}
+html[dir="rtl"] .quote-icon {
+	transform: rotate(180deg);
 }

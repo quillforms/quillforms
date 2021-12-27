@@ -38,3 +38,6 @@
 		}
 	}
 }
+html[dir="rtl"] .renderer-components-block-counter__arrow-icon {
+	transform: rotate(180deg);
+}

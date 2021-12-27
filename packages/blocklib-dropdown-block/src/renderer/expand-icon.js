@@ -11,7 +11,7 @@ import { css } from "emotion"
 const DownIcon = ( props ) => {
 	const theme = useTheme();
 	return (
-		<div { ...props } className="block-dropdown-renderer-expand-icon">
+		<div tabIndex="0" { ...props } className="block-dropdown-renderer-expand-icon">
 			<svg
 				stroke="currentColor"
 				fill="currentColor"

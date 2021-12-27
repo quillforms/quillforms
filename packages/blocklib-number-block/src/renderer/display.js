@@ -75,8 +75,15 @@ const NumberOutput = ( props ) => {
 		}
 	};
 
+	let specialProps = {};
+	if(isTouchScreen) {
+		specialProps= {
+			type: "number"
+		}
+	}
 	return (
 		<input
+			{ ... specialProps }
 			ref={ inputRef }
 			className={ classnames(
 				css`
