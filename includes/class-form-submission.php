@@ -430,7 +430,6 @@ class Form_Submission {
 		return array(
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
-			'form_url'           => get_post_permalink( $this->entry['form_id'] ),
 			'payments'           => array_merge(
 				$this->entry['meta']['payments'],
 				array(
