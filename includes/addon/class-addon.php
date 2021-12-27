@@ -209,7 +209,7 @@ abstract class Addon {
 					$this->output_registration_error( $e->getMessage() );
 				}
 			);
-			$deactivation_codes = array( Addons_Manager::INCOMPATIBLE_DEPENDENCIES );
+			$deactivation_codes = array();
 			if ( in_array( $e->getCode(), $deactivation_codes, true ) ) {
 				deactivate_plugins( $this->plugin_file );
 				quillforms_get_logger()->error(
