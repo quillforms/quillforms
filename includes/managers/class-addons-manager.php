@@ -130,6 +130,20 @@ final class Addons_Manager {
 							self::INCOMPATIBLE_DEPENDENCIES
 						);
 				}
+			} elseif ( 'ssl' === $key ) {
+				if ( ! $this->is_ssl() ) {
+					throw new Exception(
+						sprintf( '%s addon requires ssl', $addon->slug ),
+						self::INCOMPATIBLE_DEPENDENCIES
+					);
+				}
+			} elseif ( 'curl' === $key ) {
+				if ( ! $this->is_curl_enabled() ) {
+					throw new Exception(
+						sprintf( '%s addon requires curl', $addon->slug ),
+						self::INCOMPATIBLE_DEPENDENCIES
+					);
+				}
 			} else {
 				throw new Exception(
 					sprintf( '%s addon has unknown dependency %s', $addon->slug, $key ),
@@ -173,6 +187,35 @@ final class Addons_Manager {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Is ssl
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return boolean
+	 */
+	private function is_ssl() {
+		$is_ssl = is_ssl();
+
+		// cloudflare flexible ssl.
+		if ( ( json_decode( $_SERVER['HTTP_CF_VISITOR'] ?? '{}' )->scheme ?? null ) === 'https' ) {
+			$is_ssl = true;
+		}
+
+		return apply_filters( 'quillforms_addon_manager_is_ssl', $is_ssl );
+	}
+
+	/**
+	 * Is curl enabled
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return boolean
+	 */
+	private function is_curl_enabled() {
+		return function_exists( 'curl_version' ) || extension_loaded( 'curl' );
 	}
 
 }
