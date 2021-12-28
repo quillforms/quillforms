@@ -3,7 +3,7 @@ Contributors: quillforms, mdmag
 Tested up to: 5.8
 Stable tag: 1.7.5
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
+Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Not if they feel overwhelmed.
 
 That’s why we created QuillForms.
 
-Quill Forms plugin is free Typeform alternative for WordPress.
+If you are searching for Typeform WordPress plugin then Quill Forms plugin is free Typeform alternative for WordPress.
 
 With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
 By asking one question at a time in a friendly tone, you nudge the respondents to complete the desired forms and boost your conversion rate.
@@ -58,6 +58,9 @@ QuillForms free version comes with variety of blocks:
 
 = Demo =
 You can watch the demo [here](https://quillforms.com/quillforms/my-first-form)
+
+= Compare Quill Forms With Others =
+[Compare Quill Forms with Typeform](https://quillforms.com/typeform-alternative)
 
 = Be a contributor =
 If you want to contribute, go to our [QuillForms GitHub Repository](https://github.com/quillforms/quillforms) and see where you can help.
