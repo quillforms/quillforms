@@ -508,7 +508,7 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_FIELD_ANSWER: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( ! state[ id ] || val === state[ id ].value ) {
+			if ( val === state[ id ]?.value ) {
 				return state;
 			}
 
