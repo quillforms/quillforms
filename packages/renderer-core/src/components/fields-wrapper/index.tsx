@@ -63,6 +63,13 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		};
 	} );
 
+	const currentBlockIndex = walkPath.findIndex(
+		( block ) => block.id === currentBlockId
+	);
+	const lastActiveBlockIndex = walkPath.findIndex(
+		( block ) => block.id === lastActiveBlockId
+	);
+
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
@@ -206,6 +213,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			onWheel={ swipingHandler }
 			className={ classNames( 'renderer-core-fields-wrapper', {
 				active: isActive,
+				'is-moving-up':
+					isAnimating && currentBlockIndex < lastActiveBlockIndex,
+				'is-moving-down':
+					isAnimating && currentBlockIndex > lastActiveBlockIndex,
 			} ) }
 			ref={ ref }
 			aria-hidden={ isActive ? false : true }

@@ -217,6 +217,7 @@ const FieldWrapper: React.FC = () => {
 				'renderer-components-field-wrapper',
 				{
 					active: isActive,
+					'is-animating': isAnimating,
 				},
 				position ? position : ''
 			) }
