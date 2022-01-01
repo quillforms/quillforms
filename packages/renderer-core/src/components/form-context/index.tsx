@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import React, { createContext, useMemo } from '@wordpress/element';
+import React, { createContext, useMemo } from 'react';
 import { noop } from 'lodash';
 import { FormObj } from '../../types';
 

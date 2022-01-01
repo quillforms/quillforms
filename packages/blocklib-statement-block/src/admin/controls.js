@@ -12,7 +12,7 @@ import {
 /**
  * WordPress Dependencies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 
 const statementControls = ( props ) => {
 	const { attributes, setAttributes } = props;

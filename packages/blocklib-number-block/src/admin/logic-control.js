@@ -1,5 +1,5 @@
 import { TextControl } from '@quillforms/admin-components';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 
 const NumberLogicControl = ( { value, setValue } ) => {
 	const [ controlVal, setControlVal ] = useState( value );

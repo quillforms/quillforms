@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { Card, CardBody, CardDivider, CardHeader } from '@wordpress/components';
-import { memo, useState } from '@wordpress/element';
+import { memo, useState } from 'react';
 
 /**
  * External Dependencies

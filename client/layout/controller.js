@@ -7,7 +7,7 @@ import { FormAdminBar, AdminNotices } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 
 /**
  * External Dependencies

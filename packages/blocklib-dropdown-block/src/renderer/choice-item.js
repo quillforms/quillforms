@@ -6,7 +6,7 @@ import { useTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from 'react';
 
 /**
  * External Dependencies
@@ -14,7 +14,7 @@ import { useState, useEffect } from '@wordpress/element';
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
 import { css } from '@emotion/css';
-import { useRef } from '@wordpress/element';
+import { useRef } from 'react';
 
 let selectionTimer;
 

@@ -8,7 +8,7 @@ import { filter } from 'lodash';
  */
 import { SnackbarList, NoticeList } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 
 const AdminNotices = () => {
 	const { notices } = useSelect( ( select ) => {

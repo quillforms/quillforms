@@ -8,7 +8,7 @@ import { Button } from '@quillforms/admin-components';
  */
 import { Modal } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 import apiFetch from '@wordpress/api-fetch';
 
 /**

@@ -6,7 +6,7 @@ import { BlockAttributes } from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
-import { createContext, useContext, useMemo } from '@wordpress/element';
+import { createContext, useContext, useMemo } from 'react';
 
 /**
  * External Dependencies

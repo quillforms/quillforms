@@ -14,7 +14,7 @@ import type { BlockAttributes } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { Modal } from '@wordpress/components';
-import { useState, useCallback, useMemo, useEffect } from '@wordpress/element';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 

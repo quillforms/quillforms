@@ -6,7 +6,7 @@
 import { Card, CardBody, CardDivider, CardHeader } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { Icon, plusCircle } from '@wordpress/icons';
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from 'react';
 
 /**
  * Internal Dependencies

@@ -14,7 +14,7 @@ import configApi from '@quillforms/config';
  * WordPress Dependencies
  */
 import { SlotFillProvider } from '@wordpress/components';
-import { useEffect, useState, useMemo } from '@wordpress/element';
+import { useEffect, useState, useMemo } from 'react';
 import { PluginArea } from '@wordpress/plugins';
 import { useSelect, useDispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';

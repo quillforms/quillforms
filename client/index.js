@@ -1,4 +1,4 @@
-import { render } from '@wordpress/element';
+import { render } from 'react-dom';
 import '@wordpress/core-data';
 import '@wordpress/notices';
 import '@quillforms/blocks';

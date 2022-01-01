@@ -1,4 +1,4 @@
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 import apiFetch from '@wordpress/api-fetch';
 
 const useEnqueueJS = ( handle ) => {

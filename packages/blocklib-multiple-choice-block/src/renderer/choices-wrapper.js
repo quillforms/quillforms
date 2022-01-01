@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { memo } from '@wordpress/element';
+import { memo } from 'react';
 
 /**
  * External Dependencies

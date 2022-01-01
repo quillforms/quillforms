@@ -1,11 +1,11 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { Modal } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 
 /**
  * External Dependencies

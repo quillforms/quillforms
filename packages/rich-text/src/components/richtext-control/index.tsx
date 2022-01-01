@@ -1,13 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import {
-	useMemo,
-	useCallback,
-	useEffect,
-	useState,
-	Fragment,
-} from '@wordpress/element';
+import { useMemo, useCallback, useEffect, useState, Fragment } from 'react';
 import { autop } from '@wordpress/autop';
 import { plusCircle } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';

@@ -12,7 +12,7 @@ import ConfigAPI from '@quillforms/config';
  */
 import { useSelect } from '@wordpress/data';
 import { Icon, arrowRight } from '@wordpress/icons';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { Modal } from '@wordpress/components';
 
 /**

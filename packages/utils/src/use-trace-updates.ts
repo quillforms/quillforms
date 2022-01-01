@@ -1,4 +1,4 @@
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect } from 'react';
 
 interface ObjectDict {
 	[ index: string ]: any;

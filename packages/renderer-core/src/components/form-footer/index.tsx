@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { memo } from '@wordpress/element';
+import { memo } from 'react';
 
 /**
  *

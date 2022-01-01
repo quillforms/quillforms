@@ -1,13 +1,8 @@
 /**
  * WordPress Dependencies
  */
-import {
-	useRef,
-	useEffect,
-	createPortal,
-	forwardRef,
-} from '@wordpress/element';
-
+import { useRef, useEffect, forwardRef } from 'react';
+import { createPortal } from 'react-dom';
 /**
  * External Dependencies
  */

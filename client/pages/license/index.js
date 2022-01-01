@@ -7,7 +7,7 @@ import { Button, TextControl } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { useDispatch } from '@wordpress/data';
 
 /**

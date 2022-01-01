@@ -7,7 +7,7 @@ import { getIntegrationModules } from '@quillforms/form-integrations';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { applyFilters } from '@wordpress/hooks';
 import { Icon as IconComponent } from '@wordpress/components';
 

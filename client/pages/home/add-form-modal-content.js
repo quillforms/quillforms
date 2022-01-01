@@ -7,7 +7,7 @@ import { getHistory, getNewPath } from '@quillforms/navigation';
 /**
  * WordPress Dependencies
  */
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from 'react';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
