@@ -24,6 +24,7 @@
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/utils": "file:../utils",
+		"@wordpress/data": "^6.1.5",
 		"@wordpress/element": "^4.0.4",
 		"@wordpress/hooks": "^3.2.0",
 		"html-react-parser": "1.2.6",
