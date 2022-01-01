@@ -10,7 +10,7 @@ import {
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { Modal } from '@wordpress/components';
 

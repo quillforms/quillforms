@@ -8,7 +8,7 @@ import { useMessages, useTheme } from '@quillforms/renderer-core';
  */
 import classnames from 'classnames';
 import { css } from '@emotion/css';
-import { useState } from 'react';
+import { useState } from '@wordpress/element';
 import tinyColor from 'tinycolor2';
 
 const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {

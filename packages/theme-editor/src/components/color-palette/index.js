@@ -8,7 +8,7 @@ import tinycolor from 'tinycolor2';
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from '@wordpress/element';
 import { ColorPicker } from '@wordpress/components';
 
 /**

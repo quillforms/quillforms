@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { forwardRef } from 'react';
+import { forwardRef } from '@wordpress/element';
 
 import { css } from '@emotion/css';
 

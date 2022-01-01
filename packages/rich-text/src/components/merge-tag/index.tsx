@@ -5,7 +5,7 @@ import type { IconDescriptor, Icon as IconType } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { Icon, Dashicon } from '@wordpress/components';
 import { plus, close } from '@wordpress/icons';
 

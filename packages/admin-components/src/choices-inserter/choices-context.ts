@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from '@wordpress/element';
 import { noop } from 'lodash';
 
 /**

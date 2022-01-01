@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment } from '@wordpress/element';
 
 const MessagePreview = ( { value } ) => {
 	const formatValue = ( val ) => {

@@ -6,7 +6,7 @@ import { useTheme, useMessages, HTMLParser } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies

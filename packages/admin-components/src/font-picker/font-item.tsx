@@ -1,7 +1,7 @@
 /**
  * WordPress Depdencies
  */
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect } from '@wordpress/element';
 
 interface Props {
 	font: string;

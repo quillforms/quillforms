@@ -14,7 +14,13 @@ import {
 /**
  * WordPress Dependencies
  */
-import { Fragment, memo, useEffect, useState, useMemo } from 'react';
+import {
+	Fragment,
+	memo,
+	useEffect,
+	useState,
+	useMemo,
+} from '@wordpress/element';
 // @ts-expect-error
 import { useSelect, AsyncModeProvider } from '@wordpress/data';
 

@@ -11,7 +11,7 @@ import { __experimentalDroppable as Droppable } from '@quillforms/admin-componen
 /**
  * Wordpress Dependencies
  */
-import { Fragment } from 'react';
+import { Fragment } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**

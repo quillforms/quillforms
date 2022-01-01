@@ -12,7 +12,7 @@ import { getPlainExcerpt, RichTextControl } from '@quillforms/rich-text';
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 
 /**

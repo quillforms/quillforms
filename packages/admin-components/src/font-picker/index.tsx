@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from '@wordpress/element';
 import { search, chevronDown } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 /**

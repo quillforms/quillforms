@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component } from '@wordpress/element';
 import React, { FC } from 'react';
 import {
 	SET_BLOCK_ADMIN_SETTINGS,

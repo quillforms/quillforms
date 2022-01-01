@@ -10,8 +10,8 @@ import { getHistory, NavigationPrompt } from '@quillforms/navigation';
  */
 import apiFetch from '@wordpress/api-fetch';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import { createPortal, useState, useEffect } from '@wordpress/element';
+
 /**
  * External Dependencies
  */

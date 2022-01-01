@@ -7,7 +7,7 @@ import {
 	ControlWrapper,
 	TextControl,
 } from '@quillforms/admin-components';
-import { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import AlertMessageWrapper from '../alert-message-wrapper';
 
 const EmailSubject = ( {

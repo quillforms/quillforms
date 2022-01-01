@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { Fragment } from 'react';
+import { Fragment } from '@wordpress/element';
 
 const SubPanel = () => {
 	const currentSubPanel = useSelect( ( select ) =>

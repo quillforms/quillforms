@@ -7,7 +7,7 @@ import { ToggleControl } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * External Dependencies

@@ -6,7 +6,7 @@ import { Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 
 const IsSavingBtn = () => {

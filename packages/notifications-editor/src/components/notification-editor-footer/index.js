@@ -7,7 +7,7 @@ import { Button } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { createPortal } from 'react-dom';
+import { createPortal } from '@wordpress/element';
 import { Icon } from '@wordpress/components';
 import { arrowLeft } from '@wordpress/icons';
 

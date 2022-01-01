@@ -10,7 +10,7 @@ import configApi from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**

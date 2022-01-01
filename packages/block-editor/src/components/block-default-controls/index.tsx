@@ -14,7 +14,7 @@ import type { BlockAttributes } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { Fragment } from 'react';
+import { Fragment } from '@wordpress/element';
 import { MediaUpload } from '@wordpress/media-utils';
 
 /**

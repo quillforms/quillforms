@@ -12,7 +12,7 @@ import {
 /**
  * WordPress Dependencies
  */
-import { Fragment } from 'react';
+import { Fragment } from '@wordpress/element';
 
 const LongTextControl = ( { attributes, setAttributes } ) => {
 	const { setMaxCharacters, maxCharacters } = attributes;

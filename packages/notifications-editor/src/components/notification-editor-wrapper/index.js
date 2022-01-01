@@ -12,7 +12,7 @@ import {
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * External Dependencies

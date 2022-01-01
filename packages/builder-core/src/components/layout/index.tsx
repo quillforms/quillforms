@@ -8,7 +8,7 @@ import { FormBlock } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { doAction, applyFilters } from '@wordpress/hooks';
 

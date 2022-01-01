@@ -8,7 +8,7 @@ import { SelectControl, Button } from '@quillforms/admin-components';
  */
 import { CheckboxControl } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
