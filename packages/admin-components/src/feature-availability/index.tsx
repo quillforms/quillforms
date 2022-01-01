@@ -11,7 +11,7 @@ import { Icon } from '@wordpress/components';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies

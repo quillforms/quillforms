@@ -14,7 +14,7 @@ import { arrowLeft } from '@wordpress/icons';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const NotificationEditorFooter = ( {
 	goBack,

@@ -13,7 +13,7 @@ import { useState, useEffect } from '@wordpress/element';
  * External Dependencies
  */
 import { confirmAlert } from 'react-confirm-alert';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import classnames from 'classnames';
 import NotificationDeleteDialog from '../notification-delete-dialog';
 

@@ -2,7 +2,7 @@
  * External Dependencies
  */
 import { motion } from 'framer-motion';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 interface Props {
 	isDraggingOver: boolean;

@@ -12,7 +12,7 @@ import { useState, useEffect } from '@wordpress/element';
  * External Dependencies
  */
 import tinyColor from 'tinycolor2';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import classnames from 'classnames';
 
 const WebsiteOutput = ( props ) => {

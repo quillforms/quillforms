@@ -13,7 +13,7 @@ import { useState, useEffect } from '@wordpress/element';
  */
 import tinyColor from 'tinycolor2';
 import TextareaAutosize from 'react-autosize-textarea';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import classnames from 'classnames';
 
 const LongTextOutput = ( props ) => {

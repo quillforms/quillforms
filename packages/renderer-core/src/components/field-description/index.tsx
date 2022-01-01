@@ -7,7 +7,7 @@ import { Fragment } from '@wordpress/element';
  * External Dependencies
  */
 import classNames from 'classnames';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 /**
  * Internal Dependencies
  */

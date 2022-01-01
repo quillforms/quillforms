@@ -3,7 +3,7 @@
  */
 import { forwardRef } from '@wordpress/element';
 
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 interface Props {
 	children: React.ReactNode;

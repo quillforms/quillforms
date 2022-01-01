@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies

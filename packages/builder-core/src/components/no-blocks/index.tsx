@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const NoBlocks = () => {
 	return (

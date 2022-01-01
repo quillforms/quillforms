@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import classnames from 'classnames';
 
 /**
@@ -16,8 +16,8 @@ const ArrowIcon = () => {
 			className={ classnames(
 				'renderer-components-block-counter__arrow-icon',
 				css`
-					fill: ${theme.questionsColor};
-					stroke: ${theme.questionsColor};
+					fill: ${ theme.questionsColor };
+					stroke: ${ theme.questionsColor };
 				`
 			) }
 			focusable="false"

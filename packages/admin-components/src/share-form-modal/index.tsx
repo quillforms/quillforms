@@ -11,7 +11,7 @@ import { useState } from '@wordpress/element';
  * External Dependencies
  */
 
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import classnames from 'classnames';
 
 /**

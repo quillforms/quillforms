@@ -11,7 +11,7 @@ import { Popover } from '@wordpress/components';
 import { Transforms, Text, Editor, Range, Node as SlateNode } from 'slate';
 import { Slate, Editable, ReactEditor, RenderElementProps } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies

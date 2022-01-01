@@ -19,7 +19,7 @@ import { Modal } from '@wordpress/components';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies

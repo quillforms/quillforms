@@ -31,7 +31,7 @@
 		"@wordpress/icons": "^4.0.1",
 		"@wordpress/media-utils": "^2.1.1",
 		"classnames": "^2.3.1",
-		"emotion": "^11.0.0",
+		"@emotion/css": "^11.7.1",
 		"gradient-parser": "^0.1.5",
 		"lodash": "^4.17.21",
 		"react-beautiful-dnd": "^13.1.0",

@@ -12,7 +12,7 @@ import { Modal } from '@wordpress/components';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 interface Props {
 	messages: string[];
@@ -44,7 +44,10 @@ const DeleteAlertModal: React.FC< Props > = ( {
 			onRequestClose={ closeModal }
 		>
 			<div>
-				<div>Are you sure you want to delete this item? All of its data will be deleted.</div>
+				<div>
+					Are you sure you want to delete this item? All of its data
+					will be deleted.
+				</div>
 				<div>
 					{ messages.length === 1
 						? messages[ 0 ]

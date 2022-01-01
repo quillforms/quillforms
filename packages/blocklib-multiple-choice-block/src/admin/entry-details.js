@@ -1,4 +1,4 @@
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 const EntryDetails = ( { id, attributes, value } ) => {
 	const { choices } = attributes;
 	return (

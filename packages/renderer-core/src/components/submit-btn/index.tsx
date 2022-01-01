@@ -10,7 +10,7 @@ import { useEffect, useState } from '@wordpress/element';
  */
 import classNames from 'classnames';
 import Loader from 'react-loader-spinner';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies

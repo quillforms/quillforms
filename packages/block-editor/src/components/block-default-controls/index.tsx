@@ -6,6 +6,7 @@ import {
 	BaseControl,
 	ControlWrapper,
 	ControlLabel,
+	Button,
 } from '@quillforms/admin-components';
 import type { BlockAttributes } from '@quillforms/types';
 
@@ -31,27 +32,33 @@ const DefaultControls: React.FC< Props > = ( {
 	attributes,
 	setAttributes,
 } ) => {
-	const { editableSupport, requiredSupport, attachmentSupport } = useSelect(
-		( select ) => {
-			return {
-				editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-					blockName,
-					'editable'
-				),
-				requiredSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-					blockName,
-					'required'
-				),
-				attachmentSupport: select(
-					'quillForms/blocks'
-				).hasBlockSupport( blockName, 'attachment' ),
-			};
-		}
-	);
+	const {
+		editableSupport,
+		requiredSupport,
+		attachmentSupport,
+		themesList,
+	} = useSelect( ( select ) => {
+		return {
+			editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'editable'
+			),
+			requiredSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'required'
+			),
+			attachmentSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'attachment'
+			),
+			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
+		};
+	} );
 	let required, attachment;
 	if ( attributes ) {
 		required = attributes.required;
 		attachment = attributes.attachment;
+		// theme = attributes.theme;
 	}
 	return (
 		<Fragment>
@@ -110,6 +117,18 @@ const DefaultControls: React.FC< Props > = ( {
 					</ControlWrapper>
 				</BaseControl>
 			) }
+			<BaseControl>
+				<ControlWrapper orientation="vertical">
+					<ControlLabel
+						label={ 'Override theme for this block' }
+					></ControlLabel>
+					{ themesList?.length === 0 && (
+						<Button isSecondary isButton isDefault>
+							Create a theme first!
+						</Button>
+					) }
+				</ControlWrapper>
+			</BaseControl>
 		</Fragment>
 	);
 };

@@ -7,7 +7,7 @@ import { BlockIconBox } from '@quillforms/admin-components';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies

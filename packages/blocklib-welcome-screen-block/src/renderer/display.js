@@ -24,7 +24,7 @@ import { autop } from '@wordpress/autop';
  * External Dependencies
  */
 import { noop } from 'lodash';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import classNames from 'classnames';
 
 const WelcomeScreenOutput = ( { attributes } ) => {

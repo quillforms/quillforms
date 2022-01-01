@@ -11,7 +11,7 @@ import {
 /**
  * External Dependencies
  */
-import { cx, css } from 'emotion';
+import { cx, css } from '@emotion/css';
 import { ReactEditor, useSlate } from 'slate-react';
 import { Editor, Range } from 'slate';
 

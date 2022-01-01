@@ -11,7 +11,7 @@ import { useEffect } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const DropdownLogicControl = ( {
 	attributes,

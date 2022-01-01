@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 /**
  * Internal Dependencies
  */

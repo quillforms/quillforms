@@ -14,7 +14,7 @@ import { plus, close } from '@wordpress/icons';
  */
 import { Editor, Path } from 'slate';
 import classnames from 'classnames';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { ReactEditor, RenderElementProps } from 'slate-react';
 
 /**
