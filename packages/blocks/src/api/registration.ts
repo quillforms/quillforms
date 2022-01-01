@@ -98,8 +98,10 @@ export const registerBlockType = (
 		name,
 		...pick( settings, [ 'attributes', 'supports', 'logicalOperators' ] ),
 	} );
-	setBlockRendererSettings( name, settings );
-	setBlockAdminSettings( name, settings );
+	setTimeout( () => {
+		setBlockRendererSettings( name, settings );
+		setBlockAdminSettings( name, settings );
+	} );
 	return settings;
 };
 
