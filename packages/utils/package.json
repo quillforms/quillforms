@@ -1,6 +1,10 @@
 {
 	"name": "@quillforms/utils",
+<<<<<<< HEAD
 	"version": "1.0.3",
+=======
+	"version": "1.0.1",
+>>>>>>> parent of 2c70285... chore(release): publish
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
