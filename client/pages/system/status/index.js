@@ -14,7 +14,7 @@ import apiFetch from '@wordpress/api-fetch';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import Loader from 'react-loader-spinner';
 
 /**

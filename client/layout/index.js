@@ -24,7 +24,7 @@ import apiFetch from '@wordpress/api-fetch';
  */
 import { forEach, uniq } from 'lodash';
 import Loader from 'react-loader-spinner';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal dependencies

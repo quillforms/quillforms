@@ -14,7 +14,7 @@ import { Icon as IconComponent } from '@wordpress/components';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { map, keys, size } from 'lodash';
 
 /**

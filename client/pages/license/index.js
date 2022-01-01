@@ -13,7 +13,7 @@ import { useDispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies

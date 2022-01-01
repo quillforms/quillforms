@@ -1,5 +1,5 @@
 import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-components';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const CalculatorRender = () => {
 	return (

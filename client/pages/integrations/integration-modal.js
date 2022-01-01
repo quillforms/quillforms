@@ -6,7 +6,7 @@ import { Modal } from '@wordpress/components';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const IntegrationModal = ( { slug, integration, onClose } ) => {
 	const icon = integration.icon;

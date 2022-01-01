@@ -15,7 +15,7 @@ import { useEffect, useState } from '@wordpress/element';
  */
 import { map, uniq } from 'lodash';
 import Loader from 'react-loader-spinner';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 /**
  * Internal Dependencies
