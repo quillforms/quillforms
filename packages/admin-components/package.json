@@ -1,10 +1,6 @@
 {
 	"name": "@quillforms/admin-components",
-<<<<<<< HEAD
-	"version": "1.0.12",
-=======
 	"version": "1.0.10",
->>>>>>> parent of 2c70285... chore(release): publish
 	"description": "Quill forms admin components",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -31,7 +27,7 @@
 		"@wordpress/autop": "^2.11.1",
 		"@wordpress/components": "^14.1.2",
 		"@wordpress/data": "^5.1.1",
-		"@wordpress/element": "^3.1.1",
+		"@wordpress/element": "^4.0.4",
 		"@wordpress/icons": "^4.0.1",
 		"@wordpress/media-utils": "^2.1.1",
 		"classnames": "^2.3.1",
@@ -41,6 +37,10 @@
 		"react-beautiful-dnd": "^13.1.0",
 		"react-window": "^1.8.6",
 		"tinycolor2": "^1.4.1"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

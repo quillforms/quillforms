@@ -1,10 +1,6 @@
 {
 	"name": "@quillforms/renderer-core",
-<<<<<<< HEAD
-	"version": "1.1.6",
-=======
 	"version": "1.1.4",
->>>>>>> parent of 2c70285... chore(release): publish
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -28,7 +24,7 @@
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/utils": "file:../utils",
-		"@wordpress/element": "^3.1.1",
+		"@wordpress/element": "^4.0.4",
 		"@wordpress/hooks": "^3.2.0",
 		"html-react-parser": "1.2.6",
 		"lethargy": "^1.0.9",
@@ -37,6 +33,10 @@
 		"react-swipeable": "^6.1.2",
 		"rememo": "^3.0.0",
 		"use-focus-visible": "^1.0.0"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

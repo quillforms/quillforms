@@ -1,10 +1,6 @@
 {
 	"name": "@quillforms/blocks",
-<<<<<<< HEAD
-	"version": "1.1.4",
-=======
 	"version": "1.1.2",
->>>>>>> parent of 2c70285... chore(release): publish
 	"description": "Block api for Quill forms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",

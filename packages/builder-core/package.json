@@ -1,10 +1,6 @@
 {
 	"name": "@quillforms/builder-core",
-<<<<<<< HEAD
-	"version": "1.0.16",
-=======
 	"version": "1.0.14",
->>>>>>> parent of 2c70285... chore(release): publish
 	"description": "Builder Core for Quill Forms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -35,12 +31,16 @@
 		"@wordpress/api-fetch": "^5.1.1",
 		"@wordpress/compose": "^4.1.1",
 		"@wordpress/data": "^5.1.1",
-		"@wordpress/element": "^3.1.1",
+		"@wordpress/element": "^4.0.4",
 		"@wordpress/hooks": "^3.2.0",
 		"framer-motion": "^4.1.17",
 		"lodash": "^4.17.21",
 		"react-confirm-alert": "^2.7.0",
 		"uuid": "^3.3.2"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

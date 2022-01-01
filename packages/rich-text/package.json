@@ -1,10 +1,6 @@
 {
 	"name": "@quillforms/rich-text",
-<<<<<<< HEAD
-	"version": "1.0.4",
-=======
 	"version": "1.0.2",
->>>>>>> parent of 2c70285... chore(release): publish
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -27,13 +23,17 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/element": "^3.1.1",
+		"@wordpress/element": "^4.0.4",
 		"@emotion/css": "^11.7.1",
 		"escape-html": "^1.0.3",
 		"slate": "^0.59.0",
 		"slate-history": "^0.59.0",
 		"slate-hyperscript": "^0.59.0",
 		"slate-react": "^0.59.0"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
