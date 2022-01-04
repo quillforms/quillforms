@@ -37,7 +37,7 @@ const randomId = () => {
 const defaultSettings = {
 	enabled: false,
 	recurring: { enabled: false, interval_count: 1, interval_unit: 'month' },
-	currency: { value: 'USD', symbol_pos: 'left' },
+	currency: { code: 'USD', symbol_pos: 'left' },
 	methods: {},
 	customer: {
 		name: { type: 'field', value: '' },
@@ -102,7 +102,7 @@ const PaymentsPage = ( { params } ) => {
 		} );
 	}
 
-	const currencySymbol = Currencies[ settings.currency.value ].symbol;
+	const currencySymbol = Currencies[ settings.currency.code ].symbol;
 	const currencySymbolPosOptions = [
 		{
 			key: 'left',
@@ -253,13 +253,13 @@ const PaymentsPage = ( { params } ) => {
 							options={ currencyOptions }
 							value={ currencyOptions.find(
 								( option ) =>
-									option.key === settings.currency.value
+									option.key === settings.currency.code
 							) }
 							onChange={ ( { selectedItem } ) => {
 								if ( selectedItem ) {
 									setSetting( 'currency', {
 										...settings.currency,
-										value: selectedItem.key,
+										code: selectedItem.key,
 										symbol_pos:
 											Currencies[ selectedItem.key ]
 												.symbol_pos,
