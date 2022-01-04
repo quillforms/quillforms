@@ -233,11 +233,13 @@ const PaymentsPage = ( { params } ) => {
 					<div
 						className={ css`
 							display: flex;
+							align-items: center;
 						` }
 					>
 						<SelectControl
 							className={ css`
 								width: 225px;
+								margin-right: 1rem;
 								.components-custom-select-control__label {
 									margin-bottom: 0;
 								}
@@ -265,9 +267,10 @@ const PaymentsPage = ( { params } ) => {
 								}
 							} }
 						/>
+						<div>Format:</div>
 						<SelectControl
 							className={ css`
-								margin-left: 0.5rem;
+								margin-left: 0.25rem;
 								.components-custom-select-control__label {
 									margin-bottom: 0;
 								}
