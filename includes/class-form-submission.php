@@ -223,6 +223,7 @@ class Form_Submission {
 		$products = $this->get_products();
 		if ( $products ) {
 			$this->entry['meta']['payments'] = array(
+				'currency'  => $this->form_data['payments']['currency'],
 				'products'  => $products,
 				'customer'  => $this->get_customer(),
 				'recurring' => $this->get_recurring(),
