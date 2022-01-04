@@ -37,6 +37,7 @@ const randomId = () => {
 const defaultSettings = {
 	enabled: false,
 	recurring: { enabled: false, interval_count: 1, interval_unit: 'month' },
+	currency: { value: 'USD', symbol_pos: 'left' },
 	methods: {},
 	customer: {
 		name: { type: 'field', value: '' },
@@ -90,6 +91,36 @@ const PaymentsPage = ( { params } ) => {
 		month: 12,
 		year: 10,
 	};
+
+	const Currencies = ConfigApi.getCurrencies();
+
+	const currencyOptions = [];
+	for ( const [ key, currency ] of Object.entries( Currencies ) ) {
+		currencyOptions.push( {
+			key,
+			name: currency.name,
+		} );
+	}
+
+	const currencySymbol = Currencies[ settings.currency.value ].symbol;
+	const currencySymbolPosOptions = [
+		{
+			key: 'left',
+			name: `${ currencySymbol }10`,
+		},
+		{
+			key: 'left_space',
+			name: `${ currencySymbol } 10`,
+		},
+		{
+			key: 'right',
+			name: `10${ currencySymbol }`,
+		},
+		{
+			key: 'right_space',
+			name: `10 ${ currencySymbol }`,
+		},
+	];
 
 	const productsItems = Object.entries( settings.products ).map(
 		( [ id, product ], index ) => (
@@ -193,6 +224,77 @@ const PaymentsPage = ( { params } ) => {
 								/>
 							</>
 						) }
+					</div>
+				</div>
+				<div className="quillforms-payments-page-settings-row">
+					<div className="quillforms-payments-page-settings-row-label">
+						Currency
+					</div>
+					<div
+						className={ css`
+							display: flex;
+						` }
+					>
+						<SelectControl
+							className={ css`
+								width: 225px;
+								.components-custom-select-control__label {
+									margin-bottom: 0;
+								}
+								.components-base-control__field {
+									margin-bottom: 0;
+								}
+								.components-text-control__input {
+									margin: 0;
+								}
+							` }
+							options={ currencyOptions }
+							value={ currencyOptions.find(
+								( option ) =>
+									option.key === settings.currency.value
+							) }
+							onChange={ ( { selectedItem } ) => {
+								if ( selectedItem ) {
+									setSetting( 'currency', {
+										...settings.currency,
+										value: selectedItem.key,
+										symbol_pos:
+											Currencies[ selectedItem.key ]
+												.symbol_pos,
+									} );
+								}
+							} }
+						/>
+						<SelectControl
+							className={ css`
+								margin-left: 0.5rem;
+								.components-custom-select-control__label {
+									margin-bottom: 0;
+								}
+								.components-base-control__field {
+									margin-bottom: 0;
+								}
+								.components-text-control__input {
+									margin: 0;
+								}
+							` }
+							options={ currencySymbolPosOptions }
+							value={
+								currencySymbolPosOptions.find(
+									( option ) =>
+										option.key ===
+										settings.currency.symbol_pos
+								) ?? currencySymbolPosOptions[ 0 ]
+							}
+							onChange={ ( { selectedItem } ) => {
+								if ( selectedItem ) {
+									setSetting( 'currency', {
+										...settings.currency,
+										symbol_pos: selectedItem.key,
+									} );
+								}
+							} }
+						/>
 					</div>
 				</div>
 				<div className="quillforms-payments-page-settings-row">
