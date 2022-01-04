@@ -56,6 +56,7 @@ class Core {
 			'qf.config.default.setPluginDirUrl("' . QUILLFORMS_PLUGIN_URL . '");' .
 			'qf.config.default.setLicense(' . json_encode( License::instance()->get_license_info() ) . ');' .
 			'qf.config.default.setStoreAddons(' . json_encode( Store::instance()->get_all_addons() ) . ');' .
+			'qf.config.default.setCurrencies(' . json_encode( Payments::instance()->get_currencies( array( 'name', 'symbol', 'symbol_pos' ) ) ) . ');' .
 			'qf.config.default.setPlans(' . json_encode( License::instance()->get_plans() ) . ');' .
 			'qf.config.default.setMessagesStructure(' . json_encode( Client_Messages::instance()->get_messages() ) . ');' .
 			'qf.config.default.setMaxUploadSize(' . wp_max_upload_size() / ( 1024 * 1024 ) . ');'

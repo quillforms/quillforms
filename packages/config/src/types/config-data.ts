@@ -3,6 +3,7 @@ import type { Plans } from './plans';
 import type { License } from './license';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 import { StoreAddons } from './store-addons';
+import { Currencies } from './currencies';
 
 export type ConfigData = Record< string, unknown > & {
 	isWPEnv: boolean;
@@ -19,4 +20,5 @@ export type ConfigData = Record< string, unknown > & {
 	plans: Plans;
 	license: License;
 	storeAddons: StoreAddons;
+	currencies: Currencies;
 };

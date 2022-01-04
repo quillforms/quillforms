@@ -50,10 +50,33 @@ class Payments {
 	 *
 	 * @since 1.8.0
 	 *
+	 * @param string|array $properties Currencies properties to return. 'all' for all currencies.
 	 * @return array
 	 */
-	public function get_currencies() {
-		return apply_filters( 'quillforms_currencies', $this->get_default_currencies() );
+	public function get_currencies( $properties = 'all' ) {
+		/**
+		 * Filter available currencies
+		 *
+		 * @see https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/i18n/locale-info.php
+		 */
+		$currencies = apply_filters( 'quillforms_currencies', $this->get_default_currencies() );
+
+		if ( 'all' === $properties ) {
+			return $currencies;
+		}
+
+		return array_map(
+			function( $currency ) use ( $properties ) {
+				return array_filter(
+					$currency,
+					function( $property ) use ( $properties ) {
+						return in_array( $property, $properties, true );
+					},
+					ARRAY_FILTER_USE_KEY
+				);
+			},
+			$currencies
+		);
 	}
 
 	/**

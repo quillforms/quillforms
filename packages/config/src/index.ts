@@ -6,6 +6,7 @@ import theme from './json/theme-properties.json';
 import { InitialPayload } from './types/initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 import { StoreAddons } from './types/store-addons';
+import { Currencies } from './types/currencies';
 
 export type { InitialPayload };
 const configData: ConfigData = {
@@ -32,6 +33,7 @@ const configData: ConfigData = {
 	plans: {},
 	license: null,
 	storeAddons: {},
+	currencies: {},
 };
 
 /**
@@ -266,6 +268,24 @@ const setStoreAddons = ( data: ConfigData ) => ( value: StoreAddons ) => {
 };
 
 /**
+ * Get currencies
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getCurrencies = ( data: ConfigData ) => (): Currencies => {
+	return data.currencies;
+};
+
+/**
+ * Set currencies
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setCurrencies = ( data: ConfigData ) => ( value: Currencies ) => {
+	data.currencies = value;
+};
+
+/**
  * Set max upload size
  *
  * @param data the json environment configuration to use for getting config values
@@ -299,6 +319,8 @@ export interface ConfigApi {
 	isPlanAccessible: ( featurePlanKey: string ) => boolean;
 	getStoreAddons: () => StoreAddons;
 	setStoreAddons: ( value: StoreAddons ) => void;
+	getCurrencies: () => Currencies;
+	setCurrencies: ( value: Currencies ) => void;
 	isLicenseValid: () => boolean;
 	setIsLicenseValid: ( value: boolean ) => void;
 }
@@ -328,6 +350,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.isPlanAccessible = isPlanAccessible( data );
 	configApi.getStoreAddons = getStoreAddons( data );
 	configApi.setStoreAddons = setStoreAddons( data );
+	configApi.getCurrencies = getCurrencies( data );
+	configApi.setCurrencies = setCurrencies( data );
 	return configApi;
 };
 
