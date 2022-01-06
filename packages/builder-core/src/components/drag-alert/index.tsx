@@ -12,7 +12,7 @@ import { Modal } from '@wordpress/components';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 interface Props {
 	messages: string[];

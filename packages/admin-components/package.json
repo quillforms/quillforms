@@ -23,7 +23,7 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@emotion/css": "^11.7.1",
+		"emotion": "^11.0.0",
 		"@quillforms/blocks": "file:../blocks",
 		"@wordpress/autop": "^2.11.1",
 		"@wordpress/components": "^14.1.2",

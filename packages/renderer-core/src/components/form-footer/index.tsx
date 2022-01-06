@@ -10,7 +10,7 @@ import { memo } from '@wordpress/element';
  */
 import classnames from 'classnames';
 import FieldNavigation from '../field-navigation';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import tinyColor from 'tinycolor2';
 
 /**

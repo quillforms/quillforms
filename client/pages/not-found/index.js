@@ -1,4 +1,4 @@
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 const NotFoundPage = () => {
 	return (
 		<div

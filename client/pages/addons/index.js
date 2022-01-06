@@ -18,7 +18,7 @@ import { Modal } from '@wordpress/components';
  * External Dependencies
  */
 import { isEqual } from 'lodash';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classNames from 'classnames';
 /**
  * Internal Dependencies

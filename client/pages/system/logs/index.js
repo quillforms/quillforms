@@ -14,7 +14,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import Loader from 'react-loader-spinner';
 
 /**

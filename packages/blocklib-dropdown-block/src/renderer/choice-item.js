@@ -13,7 +13,7 @@ import { useState, useEffect } from '@wordpress/element';
  */
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import { useRef } from '@wordpress/element';
 
 let selectionTimer;

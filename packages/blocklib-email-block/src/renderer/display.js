@@ -12,7 +12,7 @@ import { useEffect } from '@wordpress/element';
  * External Dependencies
  */
 import tinyColor from 'tinycolor2';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 
 const EmailOutput = ( props ) => {

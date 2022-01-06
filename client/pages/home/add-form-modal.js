@@ -6,7 +6,7 @@ import { Modal } from '@wordpress/components';
 /**
  * External Dependencies.
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 import AddFormModalContent from './add-form-modal-content';
 

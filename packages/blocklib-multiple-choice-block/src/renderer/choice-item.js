@@ -7,7 +7,7 @@ import { useMessages, useTheme } from '@quillforms/renderer-core';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import { useState } from '@wordpress/element';
 import tinyColor from 'tinycolor2';
 

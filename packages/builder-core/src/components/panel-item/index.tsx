@@ -15,7 +15,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  External Dependencies
   */
 import classnames from 'classnames';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 interface Props {
 	panelName: string;

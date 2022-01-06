@@ -8,7 +8,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 
 /**

@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
 

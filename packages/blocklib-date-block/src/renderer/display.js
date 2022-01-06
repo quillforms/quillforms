@@ -16,7 +16,7 @@ import tinyColor from 'tinycolor2';
 import MaskedInput from 'react-text-mask';
 import dayJs from 'dayjs';
 import CustomParseFormat from 'dayjs/plugin/customParseFormat';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 
 /**

@@ -17,7 +17,7 @@ import { useEffect } from '@wordpress/element';
  * External Dependencies
  */
 import { ReactMultiEmail, isEmail } from 'react-multi-email';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import { uniq } from 'lodash';
 import classnames from 'classnames';
 /**

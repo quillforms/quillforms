@@ -8,7 +8,7 @@ import { memo, useState } from '@wordpress/element';
  * External Dependencies
  */
 import { getNewPath, getHistory } from '@quillforms/navigation';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 import FormActions from './form-actions';
 

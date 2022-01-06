@@ -6,7 +6,7 @@ import { useTheme } from '@quillforms/renderer-core';
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 const CloseIcon = ( props ) => {
 	const theme = useTheme();
