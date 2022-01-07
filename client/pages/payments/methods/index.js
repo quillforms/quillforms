@@ -6,13 +6,8 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 /**
  * WordPress Dependencies
  */
-import { CheckboxControl } from '@wordpress/components';
+import { CheckboxControl, Button } from '@wordpress/components';
 import { Icon as IconComponent } from '@wordpress/components';
-
-/**
- * External Dependencies
- */
-import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -32,9 +27,19 @@ const Methods = ( { settings, onChange } ) => {
 		}
 	}
 
+	const methodsEntries = Object.entries( settings.methods );
+
+	const reorder = ( index, action ) => {
+		const toIndex = index + ( action === 'up' ? -1 : 1 );
+		const item = methodsEntries[ index ];
+		methodsEntries[ index ] = methodsEntries[ toIndex ];
+		methodsEntries[ toIndex ] = item;
+		onChange( Object.fromEntries( methodsEntries ) );
+	};
+
 	return (
 		<div>
-			{ Object.entries( settings.methods ).map( ( [ key, value ] ) => {
+			{ methodsEntries.map( ( [ key, value ], index ) => {
 				const [ gateway, method ] = key.split( ':' );
 				const data = gateways[ gateway ].methods[ method ];
 				return (
@@ -56,6 +61,22 @@ const Methods = ( { settings, onChange } ) => {
 									) }
 									{ data.admin.label.text }
 									{ data.admin.label.notice ?? null }
+									<Button
+										onClick={ () => reorder( index, 'up' ) }
+										disabled={ index === 0 }
+									>
+										↑
+									</Button>
+									<Button
+										onClick={ () =>
+											reorder( index, 'down' )
+										}
+										disabled={
+											index === methodsEntries.length - 1
+										}
+									>
+										↓
+									</Button>
 								</div>
 							}
 							checked={ value.enabled ?? false }
