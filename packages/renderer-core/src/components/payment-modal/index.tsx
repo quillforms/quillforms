@@ -55,6 +55,17 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 
 	return (
 		<div className="renderer-core-payment-modal">
+			<div>
+				{ data.payments.products.items.map( ( item, index ) => {
+					return (
+						<div key={ index }>
+							{ item.name }: { item.value }
+						</div>
+					);
+				} ) }
+				Total: { data.payments.products.total }
+			</div>
+			<hr />
 			<RadioControl
 				label="Select payment method"
 				selected={ selected }
