@@ -1,7 +1,3 @@
-/**
- * QuillForms Dependencies
- */
-
 interface Props {
 	slug: string;
 }

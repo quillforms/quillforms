@@ -16,29 +16,26 @@ import { isFunction } from 'lodash';
 /**
  * Internal Modules
  */
-import type {
-	PaymentGatewayModules,
-	PaymentGatewayModuleSettings,
-} from '../types';
+import type { PaymentGatewayModules, PaymentGatewayModule } from '../types';
 
 let paymentGatewayModules = {};
 
 /**
  * Register PaymentGateway Module
  *
- * @param {string}                    slug     The module slug
- * @param {PaymentGatewayModuleSettings} settings The module settings.
+ * @param {string}               slug     The module slug
+ * @param {PaymentGatewayModule} module The module properties.
  *
  */
 export const registerPaymentGatewayModule = (
 	slug: string,
-	settings: PaymentGatewayModuleSettings
+	module: PaymentGatewayModule
 ) => {
-	settings = applyFilters(
-		'QuillForms.PaymentGateways.PaymentGatewayModuleSettings',
-		settings,
+	module = applyFilters(
+		'QuillForms.PaymentGateways.PaymentGatewayModule',
+		module,
 		slug
-	) as PaymentGatewayModuleSettings;
+	) as PaymentGatewayModule;
 
 	if ( paymentGatewayModules[ slug ] ) {
 		console.error(
@@ -47,91 +44,55 @@ export const registerPaymentGatewayModule = (
 		return;
 	}
 
-	if ( ! settings.name ) {
+	if ( ! module.name ) {
 		console.error( `The 'name' property is mandatory!` );
 		return;
 	}
 
-	if ( typeof settings.name !== 'string' ) {
+	if ( typeof module.name !== 'string' ) {
 		console.error( `The 'name' property must be a string!` );
 		return;
 	}
 
-	if ( ! settings.icon ) {
+	if ( ! module.icon ) {
 		console.error( `The 'icon' property is mandatory!` );
 		return;
 	}
 
-	if ( typeof settings.icon !== 'string' ) {
-		settings.icon = normalizeIconObject( settings.icon );
+	if ( typeof module.icon !== 'string' ) {
+		module.icon = normalizeIconObject( module.icon );
 
-		if ( ! isValidIcon( settings.icon.src ) ) {
+		if ( ! isValidIcon( module.icon.src ) ) {
 			console.error( 'The "icon" property must be a valid function!' );
 			return;
 		}
 	}
 
-	if ( ! settings.description ) {
+	if ( ! module.description ) {
 		console.error( `The 'description' property is mandatory!` );
 		return;
 	}
 
-	if ( ! settings.settingsRender ) {
-		console.error( `The 'settingsRender' property is mandatory!` );
+	if ( ! module.settings ) {
+		console.error( `The 'settings' property is mandatory!` );
 		return;
 	}
 
-	if ( ! isFunction( settings.settingsRender ) ) {
-		console.error(
-			'The "settingsRender" property must be a valid function!'
-		);
+	if ( ! isFunction( module.settings ) ) {
+		console.error( 'The "settings" property must be a valid function!' );
 		return;
 	}
 
-	if ( ! settings.methods ) {
+	if ( ! module.methods ) {
 		console.error( `The 'methods' property is mandatory!` );
 		return;
 	}
 
-	for ( const method of Object.values( settings.methods ) ) {
-		if ( ! method.name ) {
-			console.error( `The 'method.name' property is mandatory!` );
-			return;
-		}
-
-		if ( typeof method.name !== 'string' ) {
-			console.error( `The 'method.name' property must be a string!` );
-			return;
-		}
-
-		if ( ! method.optionsRender ) {
-			console.error(
-				`The 'method.optionsRender' property is mandatory!`
-			);
-			return;
-		}
-
-		if ( ! isFunction( method.optionsRender ) ) {
-			console.error(
-				'The "method.optionsRender" property must be a valid function!'
-			);
-			return;
-		}
-
-		if ( ! method.clientRender ) {
-			console.error( `The 'method.clientRender' property is mandatory!` );
-			return;
-		}
-
-		if ( ! isFunction( method.clientRender ) ) {
-			console.error(
-				'The "method.clientRender" property must be a valid function!'
-			);
-			return;
-		}
+	for ( const _method of Object.values( module.methods ) ) {
+		// TODO: method props check.
 	}
 
-	paymentGatewayModules[ slug ] = settings;
+	paymentGatewayModules[ slug ] = module;
 };
 
 export const getPaymentGatewayModules = (): PaymentGatewayModules => {

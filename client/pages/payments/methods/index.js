@@ -7,6 +7,12 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
  * WordPress Dependencies
  */
 import { CheckboxControl } from '@wordpress/components';
+import { Icon as IconComponent } from '@wordpress/components';
+
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -34,7 +40,24 @@ const Methods = ( { settings, onChange } ) => {
 				return (
 					<div key={ key }>
 						<CheckboxControl
-							label={ data.name }
+							label={
+								<div className="quillforms-payments-page-method-label">
+									{ typeof data.admin.label.icon ===
+									'string' ? (
+										<img src={ data.admin.label.icon } />
+									) : (
+										<IconComponent
+											icon={
+												data.admin.label.icon?.src
+													? data.admin.label.icon.src
+													: data.admin.label.icon
+											}
+										/>
+									) }
+									{ data.admin.label.text }
+									{ data.admin.label.notice ?? null }
+								</div>
+							}
 							checked={ value.enabled ?? false }
 							onChange={ ( checked ) => {
 								const methods = { ...settings.methods };
@@ -49,8 +72,8 @@ const Methods = ( { settings, onChange } ) => {
 								onChange( methods );
 							} }
 						/>
-						{ value.enabled && (
-							<data.optionsRender
+						{ value.enabled && data.admin.options && (
+							<data.admin.options
 								slug={ key }
 								options={ value.options ?? {} }
 								onOptionsChange={ ( options ) => {

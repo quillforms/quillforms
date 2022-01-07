@@ -33,7 +33,7 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 	const options = methodsKeys.map( ( key ) => {
 		const [ gateway, method ] = key.split( ':' );
 		return {
-			label: gateways[ gateway ].methods[ method ].name,
+			label: gateways[ gateway ].methods[ method ].customer.label.text,
 			value: key,
 		};
 	} );
@@ -50,7 +50,8 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 	const [ selected, setSelected ] = useState( defaultMethod );
 	const [ gateway, method ] = selected.split( ':' );
 
-	const CientRender = gateways[ gateway ].methods[ method ].clientRender;
+	const CustomerRender =
+		gateways[ gateway ].methods[ method ].customer.render;
 
 	return (
 		<div className="renderer-core-payment-modal">
@@ -60,7 +61,7 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 				options={ options }
 				onChange={ setSelected }
 			/>
-			<CientRender
+			<CustomerRender
 				slug={ selected }
 				data={ data }
 				onComplete={ () => {

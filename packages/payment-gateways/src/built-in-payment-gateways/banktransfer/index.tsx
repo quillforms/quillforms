@@ -7,21 +7,34 @@ import ConfigAPI from '@quillforms/config';
  * Internal Dependencies.
  */
 import { registerPaymentGatewayModule } from '../../api';
-import ClientRender from './client-render';
-import OptionsRender from './options-render';
+import CustomerRender from './customer-render';
+import MethodOptions from './method-options';
 import SettingsRender from './settings-render';
+
+const iconPath =
+	ConfigAPI.getPluginDirUrl() + 'assets/payments/banktransfer/icon.jpg';
 
 registerPaymentGatewayModule( 'banktransfer', {
 	name: 'Bank Transfer',
 	description: 'Take payments in person via direct bank transfer.',
-	icon: ConfigAPI.getPluginDirUrl() + 'assets/payments/banktransfer/icon.jpg',
+	icon: iconPath,
 	active: true,
-	settingsRender: SettingsRender,
+	settings: SettingsRender,
 	methods: {
 		default: {
-			name: 'Bank Transfer',
-			optionsRender: OptionsRender,
-			clientRender: ClientRender,
+			admin: {
+				label: {
+					icon: iconPath,
+					text: 'Bank Transfer',
+				},
+				options: MethodOptions,
+			},
+			customer: {
+				label: {
+					text: 'Bank Transfer',
+				},
+				render: CustomerRender,
+			},
 		},
 	},
 } );

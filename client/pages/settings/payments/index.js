@@ -43,7 +43,7 @@ const Payments = () => {
 								className="quillforms-settings-payments-tab-addon"
 							>
 								<div className="quillforms-settings-payments-tab-addon-body">
-									<paymentGateway.settingsRender
+									<paymentGateway.settings
 										slug={ slug }
 									/>
 								</div>
