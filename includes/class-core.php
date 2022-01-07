@@ -74,8 +74,7 @@ class Core {
 		wp_add_inline_script(
 			'quillforms-config',
 			'qf.config.default.setAdminUrl("' . admin_url() . '");' .
-			'qf.config.default.setFormUrl("' . get_post_permalink() . '");' .
-			'qf.config.default.setStoreAddons(' . json_encode( Store::instance()->get_all_addons() ) . ');'
+			'qf.config.default.setFormUrl("' . get_post_permalink() . '");'
 		);
 	}
 
