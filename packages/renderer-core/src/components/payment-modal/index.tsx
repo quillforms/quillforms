@@ -63,7 +63,12 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 						</div>
 					);
 				} ) }
-				Total: { data.payments.products.total }
+				<div>Total: { data.payments.products.total }</div>
+				<div>
+					{ data.payments.recurring
+						? `Paid every ${ data.payments.recurring.interval_count } ${ data.payments.recurring.interval_unit }/s`
+						: 'Paid one-time' }
+				</div>
 			</div>
 			<hr />
 			<RadioControl
