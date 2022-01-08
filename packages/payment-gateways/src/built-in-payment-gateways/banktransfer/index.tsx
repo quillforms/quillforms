@@ -22,6 +22,11 @@ registerPaymentGatewayModule( 'banktransfer', {
 	settings: SettingsRender,
 	methods: {
 		default: {
+			isRecurringSupported: false,
+			isCustomerRequired: {
+				onetime: true,
+				recurring: true,
+			},
 			admin: {
 				label: {
 					icon: iconPath,

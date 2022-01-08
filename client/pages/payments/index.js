@@ -8,6 +8,7 @@ import {
 	SelectControl,
 	Button,
 } from '@quillforms/admin-components';
+import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 
 /**
  * WordPress Dependencies
@@ -50,6 +51,7 @@ const defaultSettings = {
 
 const PaymentsPage = ( { params } ) => {
 	const formId = params.id;
+	const gateways = getPaymentGatewayModules();
 
 	const [ settings, setSettings ] = useState( {
 		...defaultSettings,
@@ -146,6 +148,21 @@ const PaymentsPage = ( { params } ) => {
 			/>
 		)
 	);
+
+	let customerRequired = false;
+	for ( const [ key, value ] of Object.entries( settings.methods ) ) {
+		if ( value.enabled ) {
+			const [ gateway, method ] = key.split( ':' );
+			if (
+				gateways[ gateway ].methods[ method ].isCustomerRequired?.[
+					settings.recurring?.enabled ? 'recurring' : 'onetime'
+				]
+			) {
+				customerRequired = true;
+				break;
+			}
+		}
+	}
 
 	return (
 		<div className="quillforms-payments-page">
@@ -317,35 +334,37 @@ const PaymentsPage = ( { params } ) => {
 						/>
 					</div>
 				</div>
-				<div className="quillforms-payments-page-settings-row">
-					<div className="quillforms-payments-page-settings-row-label">
-						Customer
+				{ customerRequired && (
+					<div className="quillforms-payments-page-settings-row">
+						<div className="quillforms-payments-page-settings-row-label">
+							Customer
+						</div>
+						<div>
+							<FieldSelect
+								label="Name"
+								blockNames={ [ 'short-text', 'long-text' ] }
+								value={ settings.customer?.name?.value ?? '' }
+								onChange={ ( value ) => {
+									setSetting( 'customer', {
+										...settings.customer,
+										name: { type: 'field', value },
+									} );
+								} }
+							/>
+							<FieldSelect
+								label="Email"
+								blockNames={ [ 'email' ] }
+								value={ settings.customer?.email?.value ?? '' }
+								onChange={ ( value ) => {
+									setSetting( 'customer', {
+										...settings.customer,
+										email: { type: 'field', value },
+									} );
+								} }
+							/>
+						</div>
 					</div>
-					<div>
-						<FieldSelect
-							label="Name"
-							blockNames={ [ 'short-text', 'long-text' ] }
-							value={ settings.customer?.name?.value ?? '' }
-							onChange={ ( value ) => {
-								setSetting( 'customer', {
-									...settings.customer,
-									name: { type: 'field', value },
-								} );
-							} }
-						/>
-						<FieldSelect
-							label="Email"
-							blockNames={ [ 'email' ] }
-							value={ settings.customer?.email?.value ?? '' }
-							onChange={ ( value ) => {
-								setSetting( 'customer', {
-									...settings.customer,
-									email: { type: 'field', value },
-								} );
-							} }
-						/>
-					</div>
-				</div>
+				) }
 				<div className="quillforms-payments-page-settings-row">
 					<div className="quillforms-payments-page-settings-row-label">
 						Products

@@ -12,6 +12,11 @@ export type PaymentGatewayModule = {
 		| React.Component;
 	methods: {
 		[ key: string ]: {
+			isRecurringSupported: boolean;
+			isCustomerRequired?: {
+				onetime?: boolean;
+				recurring?: boolean;
+			};
 			admin: {
 				label: {
 					icon: string | IconRenderer;

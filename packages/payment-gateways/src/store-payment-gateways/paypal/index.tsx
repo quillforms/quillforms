@@ -37,6 +37,7 @@ function register() {
 		settings: Settings,
 		methods: {
 			checkout: {
+				isRecurringSupported: true,
 				admin: {
 					label: {
 						icon: `${ assetsDir }/pp-logo-200px.webp`,
@@ -51,6 +52,7 @@ function register() {
 				},
 			},
 			card: {
+				isRecurringSupported: false,
 				admin: {
 					label: {
 						icon: `${ assetsDir }/pp-logo-200px.webp`,

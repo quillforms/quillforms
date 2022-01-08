@@ -37,6 +37,10 @@ function register() {
 		settings: Settings,
 		methods: {
 			elements: {
+				isRecurringSupported: true,
+				isCustomerRequired: {
+					recurring: true,
+				},
 				admin: {
 					label: {
 						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,
@@ -51,6 +55,10 @@ function register() {
 				},
 			},
 			checkout: {
+				isRecurringSupported: true,
+				isCustomerRequired: {
+					recurring: true,
+				},
 				admin: {
 					label: {
 						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,

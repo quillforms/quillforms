@@ -27,6 +27,7 @@ const Methods = ( { settings, onChange } ) => {
 		}
 	}
 
+	const recurringEnabled = !! settings.recurring?.enabled;
 	const methodsEntries = Object.entries( settings.methods );
 
 	const reorder = ( index, action ) => {
@@ -42,6 +43,12 @@ const Methods = ( { settings, onChange } ) => {
 			{ methodsEntries.map( ( [ key, value ], index ) => {
 				const [ gateway, method ] = key.split( ':' );
 				const data = gateways[ gateway ].methods[ method ];
+
+				// check recurring support.
+				if ( recurringEnabled && ! data.isRecurringSupported ) {
+					return null;
+				}
+
 				return (
 					<div key={ key }>
 						<CheckboxControl
