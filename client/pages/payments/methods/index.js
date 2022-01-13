@@ -8,6 +8,7 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
  */
 import { CheckboxControl, Button } from '@wordpress/components';
 import { Icon as IconComponent } from '@wordpress/components';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Internal Dependencies
@@ -29,6 +30,36 @@ const Methods = ( { settings, onChange } ) => {
 
 	const recurringEnabled = !! settings.recurring?.enabled;
 	const methodsEntries = Object.entries( settings.methods );
+	const availableMethods = methodsEntries.reduce(
+		( result, [ key, value ] ) => {
+			const [ gateway, method ] = key.split( ':' );
+			const data = gateways[ gateway ].methods[ method ];
+			if ( ! ( recurringEnabled && ! data.isRecurringSupported ) ) {
+				result.push( key );
+			}
+			return result;
+		},
+		[]
+	);
+
+	// when recurring is enabled, disable the unavailable methods and move them to the end.
+	useEffect( () => {
+		if ( settings.recurring.enabled ) {
+			console.log( 'Recurring enabled, and should check order?' );
+			const available = [];
+			const unavailable = [];
+			for ( const [ key, value ] of methodsEntries ) {
+				if ( availableMethods.includes( key ) ) {
+					available.push( [ key, value ] );
+				} else {
+					value.enabled = false;
+					unavailable.push( [ key, value ] );
+				}
+			}
+			const all = [ ...available, ...unavailable ];
+			onChange( Object.fromEntries( all ) );
+		}
+	}, [ settings.recurring.enabled ] );
 
 	const reorder = ( index, action ) => {
 		const toIndex = index + ( action === 'up' ? -1 : 1 );
@@ -44,8 +75,9 @@ const Methods = ( { settings, onChange } ) => {
 				const [ gateway, method ] = key.split( ':' );
 				const data = gateways[ gateway ].methods[ method ];
 
-				// check recurring support.
-				if ( recurringEnabled && ! data.isRecurringSupported ) {
+				// check if not available.
+				const indexOfAvailable = availableMethods.indexOf( key );
+				if ( indexOfAvailable === -1 ) {
 					return null;
 				}
 
@@ -79,7 +111,8 @@ const Methods = ( { settings, onChange } ) => {
 											reorder( index, 'down' )
 										}
 										disabled={
-											index === methodsEntries.length - 1
+											indexOfAvailable ===
+											availableMethods.length - 1
 										}
 									>
 										↓
