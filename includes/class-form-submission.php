@@ -223,8 +223,8 @@ class Form_Submission {
 		$products = $this->get_products();
 		if ( $products ) {
 			$this->entry['meta']['payments'] = array(
-				'currency'  => $this->form_data['payments']['currency'],
 				'products'  => $products,
+				'currency'  => $this->get_currency(),
 				'customer'  => $this->get_customer(),
 				'recurring' => $this->get_recurring(),
 			);
@@ -382,6 +382,23 @@ class Form_Submission {
 		}
 
 		return compact( 'items', 'total' );
+	}
+
+	/**
+	 * Get currency data
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
+	 */
+	public function get_currency() {
+		$currency = $this->form_data['payments']['currency'];
+		$symbol   = Payments::instance()->get_currencies()[ $currency['code'] ]['symbol'];
+		return array(
+			'code'       => $currency['code'],
+			'symbol'     => $symbol,
+			'symbol_pos' => $currency['symbol_pos'],
+		);
 	}
 
 	/**

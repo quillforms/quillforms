@@ -9,6 +9,7 @@ import {
 	Button,
 } from '@quillforms/admin-components';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
+import { formatMoney } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -108,19 +109,19 @@ const PaymentsPage = ( { params } ) => {
 	const currencySymbolPosOptions = [
 		{
 			key: 'left',
-			name: `${ currencySymbol }10`,
+			name: formatMoney( 1, currencySymbol, 'left' ),
 		},
 		{
 			key: 'left_space',
-			name: `${ currencySymbol } 10`,
+			name: formatMoney( 1, currencySymbol, 'left_space' ),
 		},
 		{
 			key: 'right',
-			name: `10${ currencySymbol }`,
+			name: formatMoney( 1, currencySymbol, 'right' ),
 		},
 		{
 			key: 'right_space',
-			name: `10 ${ currencySymbol }`,
+			name: formatMoney( 1, currencySymbol, 'right_space' ),
 		},
 	];
 

@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
+import { formatMoney } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -50,6 +51,8 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 	const [ selected, setSelected ] = useState( defaultMethod );
 	const [ gateway, method ] = selected.split( ':' );
 
+	const cs = data.payments.currency.symbol;
+	const csp = data.payments.currency.symbol_pos;
 	const CustomerRender =
 		gateways[ gateway ].methods[ method ].customer.render;
 
@@ -59,11 +62,15 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 				{ data.payments.products.items.map( ( item, index ) => {
 					return (
 						<div key={ index }>
-							{ item.name }: { item.value }
+							{ item.name }:{ ' ' }
+							{ formatMoney( item.value, cs, csp ) }
 						</div>
 					);
 				} ) }
-				<div>Total: { data.payments.products.total }</div>
+				<div>
+					Total:{ ' ' }
+					{ formatMoney( data.payments.products.total, cs, csp ) }
+				</div>
 				<div>
 					{ data.payments.recurring
 						? `Paid every ${ data.payments.recurring.interval_count } ${ data.payments.recurring.interval_unit }/s`
