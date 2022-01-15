@@ -165,6 +165,30 @@ const PaymentsPage = ( { params } ) => {
 		}
 	}
 
+	const onSave = () => {
+		apiFetch( {
+			path:
+				`/wp/v2/quill_forms/${ formId }` +
+				`?context=edit&_timestamp=${ Date.now() }`,
+			method: 'POST',
+			data: {
+				payments: settings,
+			},
+		} )
+			.then( () => {
+				createSuccessNotice( '🚀 Saved successfully!', {
+					type: 'snackbar',
+					isDismissible: true,
+				} );
+			} )
+			.catch( () => {
+				createErrorNotice( '⛔ Error while saving!', {
+					type: 'snackbar',
+					isDismissible: true,
+				} );
+			} );
+	};
+
 	return (
 		<div className="quillforms-payments-page">
 			<div className="quillforms-payments-page-settings">
@@ -376,35 +400,7 @@ const PaymentsPage = ( { params } ) => {
 					<Button
 						className="quillforms-payments-page-settings-save"
 						isPrimary
-						onClick={ () => {
-							apiFetch( {
-								path:
-									`/wp/v2/quill_forms/${ formId }` +
-									`?context=edit&_timestamp=${ Date.now() }`,
-								method: 'POST',
-								data: {
-									payments: settings,
-								},
-							} )
-								.then( () => {
-									createSuccessNotice(
-										'🚀 Saved successfully!',
-										{
-											type: 'snackbar',
-											isDismissible: true,
-										}
-									);
-								} )
-								.catch( () => {
-									createErrorNotice(
-										'⛔ Error while saving!',
-										{
-											type: 'snackbar',
-											isDismissible: true,
-										}
-									);
-								} );
-						} }
+						onClick={ onSave }
 					>
 						Save
 					</Button>
