@@ -58,6 +58,7 @@ const PaymentsPage = ( { params } ) => {
 		...defaultSettings,
 		...ConfigApi.getInitialPayload().payments,
 	} );
+	const [ errors, setErrors ] = useState( { products: {} } );
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
 	);
@@ -146,6 +147,7 @@ const PaymentsPage = ( { params } ) => {
 					setSetting( 'products', products );
 				} }
 				removeEnabled={ Object.entries( settings.products ).length > 1 }
+				error={ errors.products[ id ] ?? null }
 			/>
 		)
 	);
@@ -166,6 +168,46 @@ const PaymentsPage = ( { params } ) => {
 	}
 
 	const onSave = () => {
+		// validate
+		const _errors = {
+			products: {},
+		};
+		// validate products
+		for ( const [ id, product ] of Object.entries( settings.products ) ) {
+			// type
+			if ( ! [ 'single', 'mapping' ].includes( product.type ) ) {
+				_errors.products[ id ] = 'Please select product type';
+				continue;
+			}
+
+			// for single product
+			if ( product.type === 'single' ) {
+				if ( ! product.name ) {
+					_errors.products[ id ] = 'Please type product name';
+					continue;
+				}
+				if ( ! product.value ) {
+					_errors.products[ id ] = 'Please set product value';
+					continue;
+				}
+			}
+
+			// for mapping products
+			if ( product.type === 'mapping' ) {
+				if ( ! product.field ) {
+					_errors.products[ id ] = 'Please select product field';
+					continue;
+				}
+			}
+		}
+		setErrors( _errors );
+
+		// stop saving if there is any errors.
+		if ( Object.entries( _errors.products ).length ) {
+			return;
+		}
+
+		// save
 		apiFetch( {
 			path:
 				`/wp/v2/quill_forms/${ formId }` +

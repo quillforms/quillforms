@@ -1,6 +1,4 @@
 .quillforms-payments-page-settings-product {
-	display: flex;
-	align-items: center;
 	min-width: 675px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -27,4 +25,13 @@
 	.ml-2 {
 		margin-left: 0.5rem !important;
 	}
+}
+
+.quillforms-payments-page-settings-product-unspecified {
+	display: flex;
+	align-items: center;
+}
+
+.quillforms-payments-page-settings-product-error {
+	color: red;
 }

@@ -84,12 +84,17 @@ const Product = ( params ) => {
 				) : type === 'mapping' ? (
 					<MappingProduct />
 				) : (
-					<>
+					<div className="quillforms-payments-page-settings-product-unspecified">
 						{ typeSelectControl }
 						<AddRemoveButtons />
-					</>
+					</div>
 				) }
 			</ProductContextProvider>
+			{ params.error && (
+				<div className="quillforms-payments-page-settings-product-error">
+					{ params.error }
+				</div>
+			) }
 		</div>
 	);
 };
