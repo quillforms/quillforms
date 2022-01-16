@@ -13,6 +13,7 @@ import { addAction } from '@wordpress/hooks';
  */
 import { registerPaymentGatewayModule } from '../../api';
 import CustomerRender from '../customer-render';
+import LabelNotice from '../label-notice';
 import Settings from '../settings';
 
 addAction(
@@ -45,6 +46,7 @@ function register() {
 					label: {
 						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,
 						text: 'Elements',
+						notice: LabelNotice,
 					},
 				},
 				customer: {
@@ -63,6 +65,7 @@ function register() {
 					label: {
 						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,
 						text: 'Checkout',
+						notice: LabelNotice,
 					},
 				},
 				customer: {

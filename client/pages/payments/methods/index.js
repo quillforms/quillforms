@@ -73,6 +73,7 @@ const Methods = ( { settings, onChange } ) => {
 		<div>
 			{ methodsEntries.map( ( [ key, value ], index ) => {
 				const [ gateway, method ] = key.split( ':' );
+				const active = gateways[ gateway ].active;
 				const data = gateways[ gateway ].methods[ method ];
 
 				// check if not available.
@@ -99,7 +100,11 @@ const Methods = ( { settings, onChange } ) => {
 										/>
 									) }
 									{ data.admin.label.text }
-									{ data.admin.label.notice ?? null }
+									{ data.admin.label.notice ? (
+										<data.admin.label.notice
+											slug={ gateway }
+										/>
+									) : null }
 									<Button
 										onClick={ () => reorder( index, 'up' ) }
 										disabled={ index === 0 }
@@ -119,7 +124,8 @@ const Methods = ( { settings, onChange } ) => {
 									</Button>
 								</div>
 							}
-							checked={ value.enabled ?? false }
+							checked={ active && ( value.enabled ?? false ) }
+							disabled={ ! active }
 							onChange={ ( checked ) => {
 								const methods = { ...settings.methods };
 								if ( checked ) {
