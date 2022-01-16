@@ -7,17 +7,15 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  * Internal Dependencies
  */
 import useFormContext from './use-form-context';
-import useCurrentBlock from './use-current-block';
 
-const useTheme = () => {
+const useBlockTheme = ( themeId ) => {
 	const {
 		formObj: { theme, themesList },
 	} = useFormContext();
 	console.log( theme, themesList );
-	const currentBlock = useCurrentBlock();
 	let appliedThemeId = theme;
-	if ( currentBlock?.attributes?.theme ) {
-		appliedThemeId = currentBlock.attributes.theme;
+	if ( themeId ) {
+		appliedThemeId = themeId;
 	}
 
 	let appliedTheme = themesList.find(
@@ -32,4 +30,4 @@ const useTheme = () => {
 	};
 };
 
-export default useTheme;
+export default useBlockTheme;

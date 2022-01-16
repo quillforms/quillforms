@@ -1,5 +1,10 @@
 /* eslint-disable no-nested-ternary */
 /**
+ * QuillForms Dependencies
+ */
+import useBlockTheme from '../../hooks/use-block-theme';
+
+/**
  * WordPress Dependencies
  */
 import { useRef, useEffect } from '@wordpress/element';
@@ -9,6 +14,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  * External Dependencies
  */
 import classnames from 'classnames';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -27,6 +33,7 @@ const FieldWrapper: React.FC = () => {
 		shouldBeRendered,
 		showErrMsg,
 		next,
+		attributes,
 	} = __experimentalUseFieldRenderContext();
 	if ( ! id ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
@@ -37,7 +44,7 @@ const FieldWrapper: React.FC = () => {
 		};
 	} );
 
-	const { setSwiper, goToBlock, goNext, goPrev } = useDispatch(
+	const { setSwiper, goNext, goPrev } = useDispatch(
 		'quillForms/renderer-core'
 	);
 
@@ -211,6 +218,15 @@ const FieldWrapper: React.FC = () => {
 			setCanSwipeNext( false );
 		}
 	};
+	const theme = useBlockTheme( attributes?.theme );
+	let backgroundImageCSS = '';
+	if ( theme.backgroundImage && theme.backgroundImage ) {
+		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
+			background-size: cover;
+			background-position: center;
+		`;
+	}
+
 	return (
 		<div
 			className={ classnames(
@@ -219,7 +235,15 @@ const FieldWrapper: React.FC = () => {
 					active: isActive,
 					'is-animating': isAnimating,
 				},
-				position ? position : ''
+				position ? position : '',
+				css`
+					background: ${ theme.backgroundColor };
+					font-family: ${ theme.font };
+					textarea,
+					input {
+						font-family: ${ theme.font };
+					}
+				`
 			) }
 			onScroll={ ( e ) => scrollHandler( e ) }
 		>

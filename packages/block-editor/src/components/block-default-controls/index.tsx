@@ -8,19 +8,25 @@ import {
 	ControlLabel,
 	Button,
 } from '@quillforms/admin-components';
+
+// @ts-expect-error
+import { ThemeCard, ThemeListItem } from '@quillforms/theme-editor';
 import type { BlockAttributes } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
+import { Modal } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 
 /**
  * External Dependencies
  */
 import { isEmpty } from 'lodash';
+import classnames from 'classnames';
+import { css } from 'emotion';
 
 interface Props {
 	blockName: string;
@@ -32,6 +38,7 @@ const DefaultControls: React.FC< Props > = ( {
 	attributes,
 	setAttributes,
 } ) => {
+	const [ showThemeModal, setShowThemeModal ] = useState( false );
 	const {
 		editableSupport,
 		requiredSupport,
@@ -54,11 +61,11 @@ const DefaultControls: React.FC< Props > = ( {
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
 		};
 	} );
-	let required, attachment;
+	let required, attachment, blockTheme;
 	if ( attributes ) {
 		required = attributes.required;
 		attachment = attributes.attachment;
-		// theme = attributes.theme;
+		blockTheme = attributes.theme;
 	}
 	return (
 		<Fragment>
@@ -118,17 +125,70 @@ const DefaultControls: React.FC< Props > = ( {
 				</BaseControl>
 			) }
 			<BaseControl>
-				<ControlWrapper orientation="vertical">
-					<ControlLabel
-						label={ 'Override theme for this block' }
-					></ControlLabel>
-					{ themesList?.length === 0 && (
-						<Button isSecondary isButton isDefault>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label={ 'Override theme' }></ControlLabel>
+					{ themesList?.length === 0 ? (
+						<Button
+							isSecondary
+							isButton
+							isDefault
+							onClick={ () => {} }
+						>
 							Create a theme first!
+						</Button>
+					) : (
+						<Button
+							isPrimary
+							isButton
+							isDefault
+							onClick={ () => {
+								setShowThemeModal( true );
+							} }
+						>
+							Select a theme
 						</Button>
 					) }
 				</ControlWrapper>
 			</BaseControl>
+			{ showThemeModal && (
+				<Modal
+					className={ classnames(
+						'builder-core-drag-alert-modal',
+						css`
+							border: none !important;
+							min-width: 420px !important;
+							max-width: 470px !important;
+							border-radius: 10px;
+							z-index: 1111111;
+						`
+					) }
+					// Because focus on editor is causing the click handler to be triggered
+					shouldCloseOnClickOutside={ false }
+					title="Select a theme!"
+					onRequestClose={ () => {
+						setShowThemeModal( false );
+					} }
+				>
+					{ themesList.map( ( theme, index ) => {
+						return (
+							<ThemeCard
+								index={ index }
+								key={ theme.id }
+								isSelected={ theme.id === blockTheme }
+							>
+								<ThemeListItem
+									theme={ theme }
+									onClick={ () => {
+										setAttributes( {
+											theme: theme.id,
+										} );
+									} }
+								/>
+							</ThemeCard>
+						);
+					} ) }
+				</Modal>
+			) }
 		</Fragment>
 	);
 };

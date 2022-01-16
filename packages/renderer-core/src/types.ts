@@ -10,7 +10,13 @@ import type {
 
 export type FormObj = {
 	blocks: FormBlocks;
-	theme?: Partial< FormTheme >;
+	themesList: [
+		{
+			id: number;
+			properties: Partial< FormTheme >;
+		}
+	];
+	theme?: number;
 	messages?: Partial< FormMessages >;
 	logic?: FormLogic;
 };

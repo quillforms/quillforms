@@ -88,6 +88,10 @@
 		@media (max-width: $break-small) {
 			padding: 30px 45px;
 		}
+
+	    @media (max-width: $break-small) {
+			padding-bottom: 60px;
+		}
 	}
 
 }

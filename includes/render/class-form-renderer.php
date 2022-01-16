@@ -101,6 +101,39 @@ class Form_Renderer {
 	}
 
 	/**
+	 * Do not cache.
+	 *
+	 * Tell WordPress cache plugins not to cache this request.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function do_not_cache() {
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}
+
+		if ( ! defined( 'DONOTCACHEDB' ) ) {
+			define( 'DONOTCACHEDB', true );
+		}
+
+		if ( ! defined( 'DONOTMINIFY' ) ) {
+			define( 'DONOTMINIFY', true );
+		}
+
+		if ( ! defined( 'DONOTCDN' ) ) {
+			define( 'DONOTCDN', true );
+		}
+
+		if ( ! defined( 'DONOTCACHCEOBJECT' ) ) {
+			define( 'DONOTCACHCEOBJECT', true );
+		}
+
+		// // Set the headers to prevent caching for the different browsers.
+		// nocache_headers();
+	}
+
+	/**
 	 * Load the template.
 	 *
 	 * @since 1.0.0
@@ -110,6 +143,7 @@ class Form_Renderer {
 	 * @return string The modified template
 	 */
 	public function template_loader( $template ) {
+		$this->do_not_cache();
 		if ( is_singular( 'quill_forms' ) ) {
 			$this->set_form_id( get_the_ID() );
 			return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';

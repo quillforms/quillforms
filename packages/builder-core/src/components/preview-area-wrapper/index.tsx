@@ -1,11 +1,8 @@
 /**
  * QuillForms Dependencies
  */
-// @ts-expect-error
 import { Form } from '@quillforms/renderer-core';
-// @ts-expect-error
 import { useTheme } from '@quillforms/theme-editor';
-import configApi from '@quillforms/config';
 
 /**
  * WordPress Dependencies
@@ -33,71 +30,37 @@ interface Props {
 }
 const FormPreview: React.FC< Props > = ( { formId } ) => {
 	const theme = useTheme();
-
-	const { hasThemesFinishedResolution } = useSelect( ( select ) => {
+	const {
+		hasThemesFinishedResolution,
+		themesList,
+		currentBlockBeingEdited,
+		blocks,
+		messages,
+		logic,
+	} = useSelect( ( select ) => {
 		// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
 		const { hasFinishedResolution } = select( 'quillForms/theme-editor' );
 
 		return {
 			hasThemesFinishedResolution: hasFinishedResolution(
-				'getCurrentTheme'
+				'getThemesList'
 			),
+			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
+			currentBlockBeingEdited: select(
+				'quillForms/block-editor'
+			).getCurrentBlockId(),
+			blocks: select( 'quillForms/block-editor' ).getBlocks(),
+			messages: select( 'quillForms/messages-editor' ).getMessages(),
+			logic: select( 'quillForms/logic-editor' )?.getLogic(),
 		};
 	} );
 
 	const [ applyJumpLogic, setApplyJumpLogic ] = useState( false );
 	const [ selfDispatch, setSelfDispatch ] = useState( false );
-	const fonts = configApi.getFonts();
-	const { font } = theme;
-	const { currentBlockBeingEdited, blocks, messages, logic } = useSelect(
-		( select ) => {
-			return {
-				currentBlockBeingEdited: select(
-					'quillForms/block-editor'
-				).getCurrentBlockId(),
-				blocks: select( 'quillForms/block-editor' ).getBlocks(),
-				messages: select( 'quillForms/messages-editor' ).getMessages(),
-				logic: select( 'quillForms/logic-editor' )?.getLogic(),
-			};
-		}
+	const { setSwiper, goToBlock, completeForm } = useDispatch(
+		'quillForms/renderer-core'
 	);
-	const { setSwiper, goToBlock } = useDispatch( 'quillForms/renderer-core' );
-
 	const { setCurrentBlock } = useDispatch( 'quillForms/block-editor' );
-	const { completeForm } = useDispatch( 'quillForms/renderer-core' );
-	const fontType = fonts[ font ];
-	let fontUrl;
-	switch ( fontType ) {
-		case 'googlefonts':
-			fontUrl =
-				'https://fonts.googleapis.com/css?family=' +
-				font +
-				':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
-
-			break;
-
-		case 'earlyaccess':
-			const fontLowerString = font.replace( /\s+/g, '' ).toLowerCase();
-			fontUrl =
-				'https://fonts.googleapis.com/earlyaccess/' +
-				fontLowerString +
-				'.css';
-			break;
-	}
-	useEffect( () => {
-		const head = document.head;
-		const link = document.createElement( 'link' );
-
-		link.type = 'text/css';
-		link.rel = 'stylesheet';
-		if ( font ) {
-			link.href = fontUrl;
-			const existingLinkEl = document.querySelector(
-				`link[href='${ link.href }']`
-			);
-			if ( ! existingLinkEl ) head.appendChild( link );
-		}
-	}, [ font ] );
 
 	useEffect( () => {
 		if ( applyJumpLogic ) {
@@ -199,6 +162,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 												theme,
 												messages,
 												logic,
+												themesList,
 											} }
 											applyLogic={ applyJumpLogic }
 											onSubmit={ completeForm }

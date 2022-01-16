@@ -67,9 +67,29 @@ If you want to contribute, go to our [QuillForms GitHub Repository](https://gith
 
 == Frequently Asked Questions ==
 
-= How can I send feedback or get help with a bug? =
+= Is the project open source? =
 
-We'd love to hear your bug reports, feature suggestions and any other feedback! Please head over to <a href="https://github.com/quillforms/quillforms/issues">the GitHub issues page</a> to search for existing issues or open a new one.
+Yes, Quill Forms is an [open source Typeform alternative](https://github.com/quillforms/quillforms)
+
+= Does the free version has any branding? =
+
+No, the free version doesn't contain any branding.
+
+= How many forms can I create with the free version? =
+
+You can build unlimited forms with the free version.
+
+= Can I use jump logic with your form? =
+
+Absoletely yes, but you need to upgrade first to our pro version
+
+= Can I use calculator for creating quizzes, cost estimation or advacned calculations? =
+
+Absoletely yes, but you need to upgrade first to our pro version
+
+= Does it work with Elementor, Gutenberg, Divi, Visual Composer and Oxygen builders?
+
+Yes, with iframe embedding, you can just copy the iframe code provided by us and insert it in your builder. That's it!
 
 == Screenshots ==
 

@@ -1,24 +1,18 @@
 /**
- * QuillForms Dependencies
- */
-import { getDefaultThemeProperties } from '@quillforms/utils';
-
-/**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
 
 const useTheme = () => {
-	const { currentTheme } = useSelect( ( select ) => {
+	const { currentThemeId } = useSelect( ( select ) => {
 		return {
-			currentTheme: select( 'quillForms/theme-editor' ).getCurrentTheme(),
+			currentThemeId: select(
+				'quillForms/theme-editor'
+			).getCurrentThemeId(),
 		};
 	} );
 
-	return {
-		...getDefaultThemeProperties(),
-		...currentTheme.properties,
-	};
+	return currentThemeId;
 };
 
 export default useTheme;

@@ -1,5 +1,9 @@
 /* eslint-disable no-nested-ternary */
 /**
+ * Quill Forms Dependencies
+ */
+import configApi from '@quillforms/config';
+/**
  * WordPress Dependencies
  */
 import { Fragment, useEffect, useRef } from '@wordpress/element';
@@ -27,6 +31,46 @@ interface Props {
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
 	const theme = useTheme();
+	const fonts = configApi.getFonts();
+
+	const { font } = theme;
+
+	// @ts-expect-error
+	const fontType = fonts[ font ];
+	let fontUrl;
+	switch ( fontType ) {
+		case 'googlefonts':
+			fontUrl =
+				'https://fonts.googleapis.com/css?family=' +
+				font +
+				':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+
+			break;
+
+		case 'earlyaccess':
+			//@ts-expect-error
+			const fontLowerString = font.replace( /\s+/g, '' ).toLowerCase();
+			fontUrl =
+				'https://fonts.googleapis.com/earlyaccess/' +
+				fontLowerString +
+				'.css';
+			break;
+	}
+	useEffect( () => {
+		const head = document.head;
+		const link = document.createElement( 'link' );
+
+		link.type = 'text/css';
+		link.rel = 'stylesheet';
+		if ( font ) {
+			link.href = fontUrl;
+			const existingLinkEl = document.querySelector(
+				`link[href='${ link.href }']`
+			);
+			if ( ! existingLinkEl ) head.appendChild( link );
+		}
+	}, [ font ] );
+
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
 	const ref = useRef( null );
 	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
@@ -76,20 +120,11 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 		};
 	}, [] );
 
-	let backgroundImageCSS = '';
-	if ( theme.backgroundImage && theme.backgroundImage ) {
-		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
-			background-size: cover;
-			background-position: center;
-		`;
-	}
-
 	return (
 		<div
 			ref={ ref }
 			className={ classnames(
 				css`
-					${ backgroundImageCSS };
 					height: 100%;
 					width: 100%;
 				`,
@@ -102,8 +137,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				className={ classnames(
 					'renderer-core-form-flow',
 					css`
-						background: ${ theme.backgroundColor };
-						font-family: ${ theme.font };
 						position: relative;
 						width: 100%;
 						height: 100%;

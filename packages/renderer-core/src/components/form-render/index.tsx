@@ -2,10 +2,7 @@
  * QuillForms Dependencies
  */
 import { sanitizeBlocks } from '@quillforms/blocks';
-import {
-	getDefaultMessages,
-	getDefaultThemeProperties,
-} from '@quillforms/utils';
+import { getDefaultMessages } from '@quillforms/utils';
 /**
  * Internal Dependencies
  */
@@ -34,10 +31,6 @@ const Form: React.FC< Props > = ( {
 		if ( ! isPreview ) {
 			formObj.blocks = sanitizeBlocks( formObj.blocks );
 		}
-		formObj.theme = {
-			...getDefaultThemeProperties(),
-			...formObj.theme,
-		};
 
 		formObj.messages = {
 			...getDefaultMessages(),
