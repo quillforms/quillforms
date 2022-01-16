@@ -237,48 +237,57 @@ const FieldWrapper: React.FC = () => {
 				},
 				position ? position : '',
 				css`
-					background: ${ theme.backgroundColor };
 					font-family: ${ theme.font };
 					textarea,
 					input {
 						font-family: ${ theme.font };
 					}
+
+					${ backgroundImageCSS };
 				`
 			) }
 			onScroll={ ( e ) => scrollHandler( e ) }
 		>
-			{ shouldBeRendered && (
-				<section id={ 'block-' + id }>
-					<div
-						className="renderer-components-field-wrapper__content-wrapper"
-						ref={ ref }
-						tabIndex={ 0 }
-						onKeyDown={ ( e: KeyboardEvent ): void => {
-							const isShiftPressed = e.shiftKey;
-							if ( isAnimating ) {
-								e.preventDefault();
-								return;
-							}
-							if ( e.key === 'Enter' ) {
-								if ( isValid ) {
-									next();
-								} else {
-									showErrMsg( true );
-								}
-							} else {
-								//tab?
-								if ( e.key === 'Tab' ) {
-									e.stopPropagation();
+			<div
+				className={ css`
+					background: ${ theme.backgroundColor };
+					width: 100%;
+					height: 100%;
+				` }
+			>
+				{ shouldBeRendered && (
+					<section id={ 'block-' + id }>
+						<div
+							className="renderer-components-field-wrapper__content-wrapper"
+							ref={ ref }
+							tabIndex={ 0 }
+							onKeyDown={ ( e: KeyboardEvent ): void => {
+								const isShiftPressed = e.shiftKey;
+								if ( isAnimating ) {
 									e.preventDefault();
-									onTab( e, isShiftPressed );
+									return;
 								}
-							}
-						} }
-					>
-						<FieldContent />
-					</div>
-				</section>
-			) }
+								if ( e.key === 'Enter' ) {
+									if ( isValid ) {
+										next();
+									} else {
+										showErrMsg( true );
+									}
+								} else {
+									//tab?
+									if ( e.key === 'Tab' ) {
+										e.stopPropagation();
+										e.preventDefault();
+										onTab( e, isShiftPressed );
+									}
+								}
+							} }
+						>
+							<FieldContent />
+						</div>
+					</section>
+				) }
+			</div>
 		</div>
 	);
 };

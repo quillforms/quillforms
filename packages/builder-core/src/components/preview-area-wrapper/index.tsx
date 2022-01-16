@@ -1,7 +1,9 @@
 /**
  * QuillForms Dependencies
  */
+// @ts-expect-error
 import { Form } from '@quillforms/renderer-core';
+//@ts-expect-error
 import { useTheme } from '@quillforms/theme-editor';
 
 /**
