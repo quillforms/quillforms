@@ -16,7 +16,7 @@ export type FormObj = {
 			properties: Partial< FormTheme >;
 		}
 	];
-	theme?: number;
+	themeId?: number;
 	messages?: Partial< FormMessages >;
 	logic?: FormLogic;
 };

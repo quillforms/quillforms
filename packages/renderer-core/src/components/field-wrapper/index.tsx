@@ -218,7 +218,7 @@ const FieldWrapper: React.FC = () => {
 			setCanSwipeNext( false );
 		}
 	};
-	const theme = useBlockTheme( attributes?.theme );
+	const theme = useBlockTheme( attributes?.themeId );
 	let backgroundImageCSS = '';
 	if ( theme.backgroundImage && theme.backgroundImage ) {
 		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
@@ -242,15 +242,15 @@ const FieldWrapper: React.FC = () => {
 					input {
 						font-family: ${ theme.font };
 					}
-
-					${ backgroundImageCSS };
+					${ attributes.themeId && backgroundImageCSS }
 				`
 			) }
 			onScroll={ ( e ) => scrollHandler( e ) }
 		>
 			<div
 				className={ css`
-					background: ${ theme.backgroundColor };
+					${ attributes.themeId &&
+					`background: ${ theme.backgroundColor }` };
 					width: 100%;
 					height: 100%;
 				` }

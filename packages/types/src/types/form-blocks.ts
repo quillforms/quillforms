@@ -7,7 +7,7 @@ type DefaultAttributes = {
 	description?: string;
 	required?: boolean;
 	attachment?: BlockAttachment;
-	theme?: number;
+	themeId?: number;
 };
 export interface BlockAttributes extends DefaultAttributes {
 	[ x: string ]: unknown;

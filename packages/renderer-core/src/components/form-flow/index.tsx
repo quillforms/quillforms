@@ -3,6 +3,8 @@
  * Quill Forms Dependencies
  */
 import configApi from '@quillforms/config';
+import useCurrentBlock from '../../hooks/use-current-block';
+
 /**
  * WordPress Dependencies
  */
@@ -22,18 +24,20 @@ import WelcomeScreensWrapper from '../welcome-screens-wrapper';
 import ThankyouScreensWrapper from '../thankyou-screens-wrapper';
 import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
-import useTheme from '../../hooks/use-theme';
+import useGeneralTheme from '../../hooks/use-general-theme';
 import useBlocks from '../../hooks/use-blocks';
+import { useTheme } from '../..';
 
 interface Props {
 	applyLogic: boolean;
 }
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
-	const theme = useTheme();
+	const generalTheme = useGeneralTheme();
+	const currentTheme = useTheme();
 	const fonts = configApi.getFonts();
 
-	const { font } = theme;
+	const { font } = currentTheme;
 
 	// @ts-expect-error
 	const fontType = fonts[ font ];
@@ -120,6 +124,14 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 		};
 	}, [] );
 
+	let backgroundImageCSS = '';
+	if ( generalTheme.backgroundImage && generalTheme.backgroundImage ) {
+		backgroundImageCSS = `background: url('${ generalTheme.backgroundImage }') no-repeat;
+			background-size: cover;
+			background-position: center;
+		`;
+	}
+
 	return (
 		<div
 			ref={ ref }
@@ -127,6 +139,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				css`
 					height: 100%;
 					width: 100%;
+					${ backgroundImageCSS }
 				`,
 				'renderer-core-form-flow__wrapper'
 			) }
@@ -141,11 +154,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 						width: 100%;
 						height: 100%;
 						overflow: hidden;
-
-						textarea,
-						input {
-							font-family: ${ theme.font };
-						}
+						background: ${ generalTheme.backgroundColor } };
 					`
 				) }
 				onClick={ () => {

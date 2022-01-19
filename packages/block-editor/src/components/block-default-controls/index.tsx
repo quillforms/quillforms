@@ -65,7 +65,7 @@ const DefaultControls: React.FC< Props > = ( {
 	if ( attributes ) {
 		required = attributes.required;
 		attachment = attributes.attachment;
-		blockTheme = attributes.theme;
+		blockTheme = attributes.themeId;
 	}
 	return (
 		<Fragment>
@@ -180,7 +180,7 @@ const DefaultControls: React.FC< Props > = ( {
 									theme={ theme }
 									onClick={ () => {
 										setAttributes( {
-											theme: theme.id,
+											themeId: theme.id,
 										} );
 									} }
 								/>

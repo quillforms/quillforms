@@ -1,7 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useMessages, useTheme } from '@quillforms/renderer-core';
+import { useMessages } from '@quillforms/renderer-core';
 
 /**
  * External Dependencies
@@ -11,8 +11,14 @@ import { css } from 'emotion';
 import { useState } from '@wordpress/element';
 import tinyColor from 'tinycolor2';
 
-const ChoiceItem = ( { order, selected, choiceLabel, clickHandler } ) => {
-	const { answersColor } = useTheme();
+const ChoiceItem = ( {
+	order,
+	selected,
+	choiceLabel,
+	clickHandler,
+	theme,
+} ) => {
+	const { answersColor } = theme;
 	const messages = useMessages();
 	const [ isClicked, setIsClicked ] = useState( false );
 	return (

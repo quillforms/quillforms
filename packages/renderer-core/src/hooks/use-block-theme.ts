@@ -1,6 +1,7 @@
 /**
  * QuillForms Dependencies
  */
+import { FormTheme } from '@quillforms/types/src';
 import { getDefaultThemeProperties } from '@quillforms/utils';
 
 /**
@@ -8,14 +9,13 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  */
 import useFormContext from './use-form-context';
 
-const useBlockTheme = ( themeId ) => {
+const useBlockTheme = ( blockThemeId: number | undefined ) => {
 	const {
-		formObj: { theme, themesList },
+		formObj: { themeId, themesList },
 	} = useFormContext();
-	console.log( theme, themesList );
-	let appliedThemeId = theme;
-	if ( themeId ) {
-		appliedThemeId = themeId;
+	let appliedThemeId = themeId;
+	if ( blockThemeId ) {
+		appliedThemeId = blockThemeId;
 	}
 
 	let appliedTheme = themesList.find(
@@ -27,7 +27,7 @@ const useBlockTheme = ( themeId ) => {
 	return {
 		...getDefaultThemeProperties(),
 		...appliedTheme,
-	};
+	} as FormTheme;
 };
 
 export default useBlockTheme;

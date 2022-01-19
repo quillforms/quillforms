@@ -44,7 +44,7 @@ const SaveButton = ( { formId, isResolving } ) => {
 
 		return {
 			hasThemesFinishedResolution: hasFinishedResolution(
-				'getCurrentTheme'
+				'getThemesList'
 			),
 		};
 	} );

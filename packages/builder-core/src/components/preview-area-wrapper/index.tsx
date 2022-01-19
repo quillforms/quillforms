@@ -4,7 +4,7 @@
 // @ts-expect-error
 import { Form } from '@quillforms/renderer-core';
 //@ts-expect-error
-import { useTheme } from '@quillforms/theme-editor';
+import { useCurrentThemeId, useCurrentTheme } from '@quillforms/theme-editor';
 
 /**
  * WordPress Dependencies
@@ -31,7 +31,10 @@ interface Props {
 	formId: number;
 }
 const FormPreview: React.FC< Props > = ( { formId } ) => {
-	const theme = useTheme();
+	const themeId = useCurrentThemeId();
+	const currentTheme = useCurrentTheme();
+	console.log( themeId );
+	console.log( currentTheme );
 	const {
 		hasThemesFinishedResolution,
 		themesList,
@@ -56,6 +59,17 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 			logic: select( 'quillForms/logic-editor' )?.getLogic(),
 		};
 	} );
+
+	let $themesList = cloneDeep( themesList );
+	console.log( themesList );
+	if ( themeId ) {
+		$themesList[
+			$themesList.findIndex( ( theme ) => theme.id === themeId )
+		] = {
+			id: themeId,
+			...currentTheme,
+		};
+	}
 
 	const [ applyJumpLogic, setApplyJumpLogic ] = useState( false );
 	const [ selfDispatch, setSelfDispatch ] = useState( false );
@@ -161,10 +175,10 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 											formId={ formId }
 											formObj={ {
 												blocks: cloneDeep( blocks ),
-												theme,
+												themeId,
 												messages,
 												logic,
-												themesList,
+												themesList: $themesList,
 											} }
 											applyLogic={ applyJumpLogic }
 											onSubmit={ completeForm }

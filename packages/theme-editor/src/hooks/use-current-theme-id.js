@@ -3,7 +3,7 @@
  */
 import { useSelect } from '@wordpress/data';
 
-const useTheme = () => {
+const useCurrentThemeId = () => {
 	const { currentThemeId } = useSelect( ( select ) => {
 		return {
 			currentThemeId: select(
@@ -15,4 +15,4 @@ const useTheme = () => {
 	return currentThemeId;
 };
 
-export default useTheme;
+export default useCurrentThemeId;

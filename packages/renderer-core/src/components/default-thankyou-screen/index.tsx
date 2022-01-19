@@ -12,11 +12,11 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { useMessages, useTheme } from '../../hooks';
+import { useBlockTheme, useMessages } from '../../hooks';
 import { HTMLParser } from '..';
 
 const DefaultThankYouScreen: React.FC = () => {
-	const theme = useTheme();
+	const theme = useBlockTheme( undefined );
 	const [ isActive, setIsActive ] = useState( false );
 	const messages = useMessages();
 	useEffect( () => {

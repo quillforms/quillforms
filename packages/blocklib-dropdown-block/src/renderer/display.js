@@ -2,7 +2,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useTheme, useMessages } from '@quillforms/renderer-core';
+import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -51,6 +51,7 @@ const DropdownDisplay = ( props ) => {
 		isPreview,
 	} = props;
 	const { choices, required } = attributes;
+	const theme = useBlockTheme( attributes.themeId );
 	const [ showDropdown, setShowDropdown ] = useState( false );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
 	const [ selectedChoiceIndex, setSelectedChoiceIndex ] = useState( -1 );
@@ -64,7 +65,6 @@ const DropdownDisplay = ( props ) => {
 	const wrapperRef = useRef();
 	const choicesWrappeerRef = useRef();
 	const messages = useMessages();
-	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
 	const $choices = useMemo( () => {
 		return cloneDeep( choices )

@@ -233,7 +233,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 							) }
 							isActive={ isActive }
 							isLastField={
-								isThereNextField && index === fields.length - 1
+								// isThereNextField &&
+								index === fields.length - 1
 							}
 						/>
 					);

@@ -52,19 +52,28 @@
 		pointer-events: none;
 	}
 
-	&.is-up, &.is-up .renderer-components-question-header, &.is-up .renderer-core-field-display-wrapper {
+	&.is-up {
 		transform: translate3d(0, -100%, 0);
 		-webkit-transform: translate3d(0, -100%, 0);
 		-moz-transform: trasnslate3d(0, -100%, 0);
 	}
 
-	&.is-down, &.is-down .renderer-components-question-header, &.is-down .renderer-core-field-display-wrapper {
+	&.is-up .renderer-components-question-header, &.is-up .renderer-core-field-display-wrapper {
+		transform: translate3d(0, -100vh, 0);
+		-webkit-transform: translate3d(0, -100vh, 0);
+		-moz-transform: trasnslate3d(0, -100vh, 0);
+	}
+	&.is-down {
 		transform: translate3d(0, 100%, 0);
 		-webkit-transform: translate3d(0, 100%, 0);
 		-moz-transform: trasnslate3d(0, 100%, 0);
 	}
 
-
+	&.is-down .renderer-components-question-header, &.is-down .renderer-core-field-display-wrapper {
+		transform: translate3d(0, 100vh, 0);
+		-webkit-transform: translate3d(0, 100vh, 0);
+		-moz-transform: trasnslate3d(0, 100vh, 0);
+	}
 	section {
 		position: relative;
 		display: block;
