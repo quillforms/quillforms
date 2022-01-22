@@ -37,4 +37,45 @@ abstract class Payment_Gateway extends Addon {
 		parent::init();
 	}
 
+	/**
+	 * Is gateway and method configured
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $method Method.
+	 * @return boolean
+	 */
+	abstract public function is_configured( $method );
+
+	/**
+	 * Is currency supported by the gateway
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $currency Currency.
+	 * @return boolean
+	 */
+	abstract public function is_currency_supported( $currency );
+
+	/**
+	 * Is recurring supported by method
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $method Method.
+	 * @return boolean
+	 */
+	abstract public function is_recurring_supported( $method );
+
+	/**
+	 * Is recurring interval supported
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string  $unit Interval unit.
+	 * @param integer $count Interval count.
+	 * @return boolean
+	 */
+	abstract public function is_recurring_interval_supported( $unit, $count );
+
 }
