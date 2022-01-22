@@ -9,7 +9,9 @@
 
 namespace QuillForms;
 
+use QuillForms\Addon\Payment_Gateway\Payment_Gateway;
 use QuillForms\Emails\Emails;
+use QuillForms\Managers\Addons_Manager;
 use QuillForms\Managers\Blocks_Manager;
 
 /**
@@ -468,14 +470,40 @@ class Form_Submission {
 	public function get_payment_methods() {
 		$methods = array();
 		foreach ( $this->form_data['payments']['methods'] ?? array() as $key => $data ) {
+			// check if enabled.
 			if ( empty( $data['enabled'] ) ) {
 				continue;
 			}
-			$gateway = explode( ':', $key )[0];
-			$active  = apply_filters( "quillforms_{$gateway}_is_active", false );
-			if ( ! $active ) {
+
+			list( $gateway, $method ) = explode( ':', $key );
+			/** @var Payment_Gateway */ // phpcs:ignore
+			$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
+
+			// check if registered.
+			if ( ! $gateway_addon ) {
 				continue;
 			}
+
+			// check if configured.
+			if ( ! $gateway_addon->is_configured( $method ) ) {
+				continue;
+			}
+
+			// check settings support.
+			// this is a double check. settings shouldn't be saved if not supported.
+			if ( ! $gateway_addon->is_currency_supported( $this->get_currency()['code'] ) ) {
+				continue;
+			}
+			$recurring = $this->get_recurring();
+			if ( $recurring ) {
+				if ( ! $gateway_addon->is_recurring_supported( $method ) ) {
+					continue;
+				}
+				if ( ! $gateway_addon->is_recurring_interval_supported( $recurring['interval_unit'], (int) $recurring['interval_count'] ) ) {
+					continue;
+				}
+			}
+
 			$methods[ $key ] = array(
 				'options' => $data['options'] ?? array(),
 			);
