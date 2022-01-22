@@ -80,6 +80,34 @@ class Payments {
 	}
 
 	/**
+	 * Format money
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param float  $value Value.
+	 * @param string $currency Currency symbol.
+	 * @param string $format Format left, left_space, right, right_space or custom string containing %c and %v.
+	 * @return string
+	 */
+	public function format_money( $value, $currency, $format ) {
+		switch ( $format ) {
+			case 'left':
+				$format = '%c%v';
+				break;
+			case 'left_space':
+				$format = '%c %v';
+				break;
+			case 'right':
+				$format = '%v%c';
+				break;
+			case 'right_space':
+				$format = '%v %c';
+				break;
+		}
+		return str_replace( array( '%c', '%v' ), array( $currency, $value ), $format );
+	}
+
+	/**
 	 * Get default currencies
 	 *
 	 * @since 1.8.0
