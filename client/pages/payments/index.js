@@ -40,6 +40,7 @@ const defaultSettings = {
 	enabled: false,
 	recurring: { enabled: false, interval_count: 1, interval_unit: 'month' },
 	currency: { code: 'USD', symbol_pos: 'left' },
+	gateways: {},
 	methods: {},
 	customer: {
 		name: { type: 'field', value: '' },
@@ -152,17 +153,20 @@ const PaymentsPage = ( { params } ) => {
 		)
 	);
 
+	let enabledGateways = [];
 	let customerRequired = false;
 	for ( const [ key, value ] of Object.entries( settings.methods ) ) {
 		if ( value.enabled ) {
 			const [ gateway, method ] = key.split( ':' );
+			if ( ! enabledGateways.includes( gateway ) ) {
+				enabledGateways.push( gateway );
+			}
 			if (
 				gateways[ gateway ].methods[ method ].isCustomerRequired?.[
 					settings.recurring?.enabled ? 'recurring' : 'onetime'
 				]
 			) {
 				customerRequired = true;
-				break;
 			}
 		}
 	}
@@ -435,6 +439,25 @@ const PaymentsPage = ( { params } ) => {
 						</div>
 					</div>
 				) }
+				{ enabledGateways.map( ( gateway ) => {
+					let GatewayOptions = gateways[ gateway ].options ?? null;
+					return GatewayOptions ? (
+						<GatewayOptions
+							key={ gateway }
+							slug={ gateway }
+							settings={ settings }
+							onOptionsChange={ ( options ) => {
+								setSetting( 'gateways', {
+									...settings.gateways,
+									[ gateway ]: {
+										...settings.gateways[ gateway ],
+										options,
+									},
+								} );
+							} }
+						/>
+					) : null;
+				} ) }
 				<div className="quillforms-payments-page-settings-row">
 					<div className="quillforms-payments-page-settings-row-label">
 						Products

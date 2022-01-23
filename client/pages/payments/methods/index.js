@@ -142,7 +142,7 @@ const Methods = ( { settings, onChange } ) => {
 						{ value.enabled && data.admin.options && (
 							<data.admin.options
 								slug={ key }
-								options={ value.options ?? {} }
+								settings={ settings }
 								onOptionsChange={ ( options ) => {
 									const methods = { ...settings.methods };
 									methods[ key ].options = options;
