@@ -7,6 +7,8 @@
  * @subpackage RESTFields
  */
 
+use QuillForms\Managers\Addons_Manager;
+
 defined( 'ABSPATH' ) || exit;
 
 $payments_schema = array(
@@ -30,6 +32,20 @@ $payments_schema = array(
 				'interval_unit'  => array(
 					'type' => 'string',
 					'enum' => array( 'day', 'week', 'month', 'year' ),
+				),
+			),
+		),
+		'currency'  => array(
+			'type'       => 'object',
+			'required'   => true,
+			'properties' => array(
+				'code'       => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'symbol_pos' => array(
+					'type'     => 'string',
+					'required' => true,
 				),
 			),
 		),
@@ -115,7 +131,42 @@ register_rest_field(
 		},
 		'update_callback' => function( $meta, $object ) {
 			$form_id = $object->ID;
-			// Calculation the previous value because update_post_meta returns false if the same value passed.
+
+			// check support.
+			foreach ( $meta['methods'] ?? array() as $key => $data ) {
+				if ( ! ( $data['enabled'] ?? false ) ) {
+					unset( $meta['methods'][ $key ] );
+					continue;
+				}
+
+				list( $gateway, $method ) = explode( ':', $key );
+				/** @var Payment_Gateway */ // phpcs:ignore
+				$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
+
+				// check if registered.
+				if ( ! $gateway_addon ) {
+					/* translators: %s for gateway:method */
+					return new WP_Error( 'quillforms_payments_update_failed', sprintf( esc_html__( 'Method %s is not active.', 'quillforms' ), $key ) );
+				}
+
+				// check settings support.
+				if ( ! $gateway_addon->is_currency_supported( $meta['currency']['code'] ) ) {
+					/* translators: %s for gateway */
+					return new WP_Error( 'quillforms_payments_update_failed', sprintf( esc_html__( 'Currency is not supported by %s.', 'quillforms' ), $gateway ) );
+				}
+				if ( $meta['recurring']['enabled'] ?? false ) {
+					if ( ! $gateway_addon->is_recurring_supported( $method ) ) {
+						/* translators: %s for gateway:method */
+						return new WP_Error( 'quillforms_payments_update_failed', sprintf( esc_html__( 'Recurring is not supported by %s method.', 'quillforms' ), $key ) );
+					}
+					if ( ! $gateway_addon->is_recurring_interval_supported( $meta['recurring']['interval_unit'], (int) $meta['recurring']['interval_count'] ) ) {
+						/* translators: %s for gateway */
+						return new WP_Error( 'quillforms_payments_update_failed', sprintf( esc_html__( 'Recurring interval is not supported by %s.', 'quillforms' ), $gateway ) );
+					}
+				}
+			}
+
+			// compare the new value with the previous value because update_post_meta returns false if the same value passed.
 			$prev_value = get_post_meta( $form_id, 'payments', true );
 			if ( $prev_value === $meta ) {
 				return true;
@@ -130,7 +181,7 @@ register_rest_field(
 				);
 			}
 
-			do_action( 'quillforms_form_payments_updated', $form_id, $meta );
+			do_action( 'quillforms_form_payments_updated', $form_id, $meta, $prev_value );
 			return true;
 		},
 		'schema'          => array(

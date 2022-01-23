@@ -223,11 +223,14 @@ const PaymentsPage = ( { params } ) => {
 					isDismissible: true,
 				} );
 			} )
-			.catch( () => {
-				createErrorNotice( '⛔ Error while saving!', {
-					type: 'snackbar',
-					isDismissible: true,
-				} );
+			.catch( ( error ) => {
+				createErrorNotice(
+					`⛔ ${ error?.message ?? 'Error while saving!' }`,
+					{
+						type: 'snackbar',
+						isDismissible: true,
+					}
+				);
 			} );
 	};
 
