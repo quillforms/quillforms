@@ -468,24 +468,25 @@ class Form_Submission {
 	 * @return array
 	 */
 	public function get_payment_methods() {
-		$methods = array();
+		$result = array();
+
+		// enabled gateways & methods.
+		$enabled_methods = array();
 		foreach ( $this->form_data['payments']['methods'] ?? array() as $key => $data ) {
-			// check if enabled.
 			if ( empty( $data['enabled'] ) ) {
 				continue;
 			}
+			list( $gateway, $method )      = explode( ':', $key );
+			$enabled_methods[ $gateway ][] = $method;
+		}
 
-			list( $gateway, $method ) = explode( ':', $key );
+		// check support.
+		foreach ( $enabled_methods as $gateway => $methods ) {
 			/** @var Payment_Gateway */ // phpcs:ignore
 			$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
 
 			// check if registered.
 			if ( ! $gateway_addon ) {
-				continue;
-			}
-
-			// check if configured.
-			if ( ! $gateway_addon->is_configured( $method ) ) {
 				continue;
 			}
 
@@ -495,20 +496,29 @@ class Form_Submission {
 				continue;
 			}
 			$recurring = $this->get_recurring();
-			if ( $recurring ) {
-				if ( ! $gateway_addon->is_recurring_supported( $method ) ) {
-					continue;
-				}
-				if ( ! $gateway_addon->is_recurring_interval_supported( $recurring['interval_unit'], (int) $recurring['interval_count'] ) ) {
-					continue;
-				}
+			if ( $recurring && ! $gateway_addon->is_recurring_interval_supported( $recurring['interval_unit'], (int) $recurring['interval_count'] ) ) {
+				continue;
 			}
 
-			$methods[ $key ] = array(
-				'options' => $data['options'] ?? array(),
-			);
+			// methods check and adding.
+			foreach ( $methods as $method ) {
+				// check if configured.
+				if ( ! $gateway_addon->is_configured( $method ) ) {
+					continue;
+				}
+				// check recurring support.
+				if ( $recurring && ! $gateway_addon->is_recurring_supported( $method ) ) {
+					continue;
+				}
+
+				$key            = "$gateway:$method";
+				$result[ $key ] = array(
+					'options' => $this->form_data['payments']['methods'][ $key ]['options'] ?? array(),
+				);
+			}
 		}
-		return $methods;
+
+		return $result;
 	}
 
 	/**
