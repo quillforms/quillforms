@@ -54,11 +54,6 @@ export const Layout = ( props ) => {
 	);
 
 	const invalidateResolutionConnectedStores = () => {
-		// TODO: Remove console log.
-		console.log(
-			'Invalidating connected stores',
-			props.page.connectedStores
-		);
 		// Invalidate resolution for all connected stores.
 		forEach( uniq( props.page.connectedStores ), ( store ) => {
 			if (

@@ -33,8 +33,6 @@ interface Props {
 const FormPreview: React.FC< Props > = ( { formId } ) => {
 	const themeId = useCurrentThemeId();
 	const currentTheme = useCurrentTheme();
-	console.log( themeId );
-	console.log( currentTheme );
 	const {
 		hasThemesFinishedResolution,
 		themesList,
@@ -42,6 +40,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 		blocks,
 		messages,
 		logic,
+		settings,
 	} = useSelect( ( select ) => {
 		// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
 		const { hasFinishedResolution } = select( 'quillForms/theme-editor' );
@@ -57,11 +56,11 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 			blocks: select( 'quillForms/block-editor' ).getBlocks(),
 			messages: select( 'quillForms/messages-editor' ).getMessages(),
 			logic: select( 'quillForms/logic-editor' )?.getLogic(),
+			settings: select( 'quillForms/settings-editor' ).getSettings(),
 		};
 	} );
 
 	let $themesList = cloneDeep( themesList );
-	console.log( themesList );
 	if ( themeId ) {
 		$themesList[
 			$themesList.findIndex( ( theme ) => theme.id === themeId )
@@ -179,6 +178,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 												messages,
 												logic,
 												themesList: $themesList,
+												settings,
 											} }
 											applyLogic={ applyJumpLogic }
 											onSubmit={ completeForm }

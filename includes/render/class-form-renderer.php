@@ -193,6 +193,7 @@ class Form_Renderer {
 					),
 					'themeId'    => (int) Core::get_theme_id( $this->form_id ),
 					'themesList' => Form_Theme_Model::get_all_registered_themes(),
+					'settings'   => Core::get_form_settings( $this->form_id ),
 				),
 				$this->form_id
 			);

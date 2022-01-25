@@ -1,0 +1,37 @@
+{
+	"name": "@quillforms/settings-editor",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"settings",
+		"editor"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/settings-editor/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/document-editor"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@quillforms/admin-components": "file:../admin-components",
+		"@quillforms/config": "file:../config",
+		"@wordpress/data": "^4.26.5",
+		"@wordpress/element": "^4.0.4"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

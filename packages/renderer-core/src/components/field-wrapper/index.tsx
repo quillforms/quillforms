@@ -22,6 +22,7 @@ import { css } from 'emotion';
 import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import FieldContent from '../field-content';
 import { filter, findIndex } from 'lodash';
+import useFormSettings from '../../hooks/use-form-settings';
 
 let scrollTimer: ReturnType< typeof setTimeout >;
 let tabTimer: ReturnType< typeof setTimeout >;
@@ -35,6 +36,7 @@ const FieldWrapper: React.FC = () => {
 		next,
 		attributes,
 	} = __experimentalUseFieldRenderContext();
+	const settings = useFormSettings();
 	if ( ! id ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
 		return {
@@ -193,6 +195,7 @@ const FieldWrapper: React.FC = () => {
 	}
 
 	const scrollHandler = ( e ) => {
+		if ( settings?.disableWheelSwiping ) return;
 		e.preventDefault();
 		if ( ! ref.current ) return;
 		if ( ref.current.scrollTop === 0 ) {

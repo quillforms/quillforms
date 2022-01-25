@@ -70,6 +70,7 @@
 		"@quillforms/renderer-core": "file:packages/renderer-core",
 		"@quillforms/rest-fields": "file:packages/rest-fields",
 		"@quillforms/rich-text": "file:packages/rich-text",
+		"@quillforms/settings-editor": "file:packages/settings-editor",
 		"@quillforms/theme-editor": "file:packages/theme-editor",
 		"@quillforms/types": "file:packages/types",
 		"@quillforms/utils": "file:packages/utils",
