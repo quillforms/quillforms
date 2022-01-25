@@ -12,6 +12,7 @@ use QuillForms\Client_Messages;
 use QuillForms\Core;
 use QuillForms\Fonts;
 use QuillForms\Managers\Blocks_Manager;
+use QuillForms\Models\Form_Theme_Model;
 
 /**
  * Class Form_Renderer is responsible for overriding single post page with the renderer template and enqueuing assets.
@@ -180,8 +181,8 @@ class Form_Renderer {
 			$this->form_object = apply_filters(
 				'quillforms_renderer_form_object',
 				array(
-					'blocks'   => Core::get_blocks( $this->form_id ),
-					'messages' => array_merge(
+					'blocks'     => Core::get_blocks( $this->form_id ),
+					'messages'   => array_merge(
 						array_map(
 							function( $value ) {
 								return $value['default'];
@@ -190,7 +191,8 @@ class Form_Renderer {
 						),
 						Core::get_messages( $this->form_id )
 					),
-					'theme'    => Core::get_theme( $this->form_id ),
+					'themeId'    => (int) Core::get_theme_id( $this->form_id ),
+					'themesList' => Form_Theme_Model::get_all_registered_themes(),
 				),
 				$this->form_id
 			);
@@ -235,7 +237,8 @@ class Form_Renderer {
 			// Loading font.
 			$form_object = $this->prepare_form_object();
 			if ( $form_object ) {
-				$theme     = $form_object['theme'];
+				$theme = Core::get_theme( $form_id );
+
 				$font      = esc_attr( $theme['font'] );
 				$font_type = Fonts::get_font_type( $font );
 				$font_url  = null;

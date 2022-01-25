@@ -86,7 +86,11 @@ export const registerBlockType = (
 			default: '',
 		};
 	}
-
+	if ( supports.theme ) {
+		attributes.themeId = {
+			type: 'number',
+		};
+	}
 	attributes.label = {
 		type: 'string',
 		default: '',

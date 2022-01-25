@@ -3,7 +3,6 @@
  * Quill Forms Dependencies
  */
 import configApi from '@quillforms/config';
-import useCurrentBlock from '../../hooks/use-current-block';
 
 /**
  * WordPress Dependencies
@@ -26,7 +25,7 @@ import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
 import useGeneralTheme from '../../hooks/use-general-theme';
 import useBlocks from '../../hooks/use-blocks';
-import { useTheme } from '../..';
+import { useCurrentTheme } from '../..';
 
 interface Props {
 	applyLogic: boolean;
@@ -34,7 +33,7 @@ interface Props {
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
 	const generalTheme = useGeneralTheme();
-	const currentTheme = useTheme();
+	const currentTheme = useCurrentTheme();
 	const fonts = configApi.getFonts();
 
 	const { font } = currentTheme;
@@ -154,7 +153,8 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 						width: 100%;
 						height: 100%;
 						overflow: hidden;
-						background: ${ generalTheme.backgroundColor } };
+						background: ${ generalTheme.backgroundColor };
+						font-family: ${ generalTheme.font };
 					`
 				) }
 				onClick={ () => {

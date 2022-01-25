@@ -5,10 +5,10 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { useTheme } from '../../hooks';
+import { useCurrentTheme } from '../../hooks';
 
 const DownIcon = () => {
-	const theme = useTheme();
+	const theme = useCurrentTheme();
 	return (
 		<svg
 			stroke="currentColor"
