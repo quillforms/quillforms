@@ -16,7 +16,7 @@ import { useDispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 const DateControls = ( props ) => {
 	const {

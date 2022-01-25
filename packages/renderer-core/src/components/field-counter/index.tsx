@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 
 /**
@@ -10,15 +10,15 @@ import classnames from 'classnames';
 import ArrowIcon from './arrow-icon';
 import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import useBlockTypes from '../../hooks/use-block-types';
-import useTheme from '../../hooks/use-theme';
+import useBlockTheme from '../../hooks/use-block-theme';
 import { useSelect } from '@wordpress/data';
 
 const BlockCounter: React.FC = () => {
-	const { blockName, id } = __experimentalUseFieldRenderContext();
+	const { blockName, id, attributes } = __experimentalUseFieldRenderContext();
 	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ blockName ];
-	const theme = useTheme();
+	const theme = useBlockTheme( attributes.themeId );
 
 	const { counter } = useSelect( ( select ) => {
 		return {
@@ -45,7 +45,7 @@ const BlockCounter: React.FC = () => {
 				{ blockType?.counterIcon ? (
 					<blockType.counterIcon />
 				) : (
-					<ArrowIcon />
+					<ArrowIcon theme={ theme } />
 				) }
 			</span>
 		</div>

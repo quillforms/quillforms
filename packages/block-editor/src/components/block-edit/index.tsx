@@ -24,7 +24,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { debounce } from 'lodash';
 import { Node } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 
 /**

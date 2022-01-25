@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 
 /**
@@ -9,14 +9,14 @@ import classnames from 'classnames';
  */
 import HtmlParser from '../html-parser';
 import { __experimentalUseFieldRenderContext } from '../field-render/context';
-import useTheme from '../../hooks/use-theme';
+import useBlockTheme from '../../hooks/use-block-theme';
 
 const BlockLabel: React.FC = () => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	let label = '...';
 	if ( attributes?.label ) label = attributes.label;
 	if ( attributes?.required ) label = label + ' *';
-	const theme = useTheme();
+	const theme = useBlockTheme( attributes.themeId );
 
 	return (
 		<div

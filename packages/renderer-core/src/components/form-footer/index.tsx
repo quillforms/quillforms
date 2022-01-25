@@ -10,17 +10,17 @@ import { memo } from '@wordpress/element';
  */
 import classnames from 'classnames';
 import FieldNavigation from '../field-navigation';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import tinyColor from 'tinycolor2';
 
 /**
  * Internal Dependencies
  */
 import ProgressBar from '../progress-bar';
-import { useTheme } from '../../hooks';
+import { useCurrentTheme } from '../../hooks';
 
 const FormFooter: React.FC = memo( () => {
-	const theme = useTheme();
+	const theme = useCurrentTheme();
 	const {
 		currentBlockId,
 		isWelcomeScreenActive,

@@ -1,19 +1,19 @@
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
 
 /**
  * Internal Dependencies
  */
-import { useTheme, useMessages } from '../../hooks';
+import { useCurrentTheme, useMessages } from '../../hooks';
 import useProgressPerecent from '../../hooks/use-progress-percent';
 import { HTMLParser } from '..';
 
 const ProgressBar = () => {
-	const theme = useTheme();
+	const theme = useCurrentTheme();
 	const percent = useProgressPerecent();
 	const messages = useMessages();
 	const questionsColor = tinyColor( theme.questionsColor );

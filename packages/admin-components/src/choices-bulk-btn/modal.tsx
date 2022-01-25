@@ -6,7 +6,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 import Loader from 'react-loader-spinner';
 

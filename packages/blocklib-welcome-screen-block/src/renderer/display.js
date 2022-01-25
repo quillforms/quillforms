@@ -4,7 +4,7 @@
 import {
 	Button,
 	HTMLParser,
-	useTheme,
+	useBlockTheme,
 	useMessages,
 	useFormContext,
 } from '@quillforms/renderer-core';
@@ -24,7 +24,7 @@ import { autop } from '@wordpress/autop';
  * External Dependencies
  */
 import { noop } from 'lodash';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classNames from 'classnames';
 
 const WelcomeScreenOutput = ( { attributes } ) => {
@@ -33,7 +33,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 	const [ stickyFooter, setStickyFooter ] = useState( false );
 	let label = '...';
 	if ( attributes?.label ) label = attributes.label;
-	const theme = useTheme();
+	const theme = useBlockTheme( attributes.themeId );
 	const screenWrapperRef = useRef();
 	const screenContentRef = useRef();
 
@@ -159,6 +159,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 						</div>
 					</div>
 					<ScreenAction
+						theme={ theme }
 						next={ next }
 						isSticky={ stickyFooter }
 						buttonText={ attributes.buttonText }
@@ -168,9 +169,8 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 		</div>
 	);
 };
-const ScreenAction = ( { isSticky, buttonText, next } ) => {
+const ScreenAction = ( { isSticky, buttonText, next, theme } ) => {
 	const messages = useMessages();
-	const theme = useTheme();
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
@@ -183,7 +183,9 @@ const ScreenAction = ( { isSticky, buttonText, next } ) => {
 			} ) }
 		>
 			<div className="qf-welcome-screen-block__action">
-				<Button onClick={ next }> { buttonText } </Button>
+				<Button theme={ theme } onClick={ next }>
+					{ buttonText }
+				</Button>
 			</div>
 
 			<div

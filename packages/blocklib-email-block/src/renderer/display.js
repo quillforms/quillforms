@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useTheme, useMessages } from '@quillforms/renderer-core';
+import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -12,7 +12,7 @@ import { useEffect } from '@wordpress/element';
  * External Dependencies
  */
 import tinyColor from 'tinycolor2';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 import classnames from 'classnames';
 
 const EmailOutput = ( props ) => {
@@ -31,8 +31,8 @@ const EmailOutput = ( props ) => {
 		isTouchScreen,
 		setFooterDisplay,
 	} = props;
+	const theme = useBlockTheme( attributes.themeId );
 	const messages = useMessages();
-	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
 	const { required } = attributes;
 

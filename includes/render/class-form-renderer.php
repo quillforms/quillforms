@@ -12,6 +12,7 @@ use QuillForms\Client_Messages;
 use QuillForms\Core;
 use QuillForms\Fonts;
 use QuillForms\Managers\Blocks_Manager;
+use QuillForms\Models\Form_Theme_Model;
 
 /**
  * Class Form_Renderer is responsible for overriding single post page with the renderer template and enqueuing assets.
@@ -101,6 +102,39 @@ class Form_Renderer {
 	}
 
 	/**
+	 * Do not cache.
+	 *
+	 * Tell WordPress cache plugins not to cache this request.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function do_not_cache() {
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}
+
+		if ( ! defined( 'DONOTCACHEDB' ) ) {
+			define( 'DONOTCACHEDB', true );
+		}
+
+		if ( ! defined( 'DONOTMINIFY' ) ) {
+			define( 'DONOTMINIFY', true );
+		}
+
+		if ( ! defined( 'DONOTCDN' ) ) {
+			define( 'DONOTCDN', true );
+		}
+
+		if ( ! defined( 'DONOTCACHCEOBJECT' ) ) {
+			define( 'DONOTCACHCEOBJECT', true );
+		}
+
+		// // Set the headers to prevent caching for the different browsers.
+		// nocache_headers();
+	}
+
+	/**
 	 * Load the template.
 	 *
 	 * @since 1.0.0
@@ -110,6 +144,7 @@ class Form_Renderer {
 	 * @return string The modified template
 	 */
 	public function template_loader( $template ) {
+		$this->do_not_cache();
 		if ( is_singular( 'quill_forms' ) ) {
 			$this->set_form_id( get_the_ID() );
 			return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';
@@ -146,8 +181,8 @@ class Form_Renderer {
 			$this->form_object = apply_filters(
 				'quillforms_renderer_form_object',
 				array(
-					'blocks'   => Core::get_blocks( $this->form_id ),
-					'messages' => array_merge(
+					'blocks'     => Core::get_blocks( $this->form_id ),
+					'messages'   => array_merge(
 						array_map(
 							function( $value ) {
 								return $value['default'];
@@ -156,7 +191,8 @@ class Form_Renderer {
 						),
 						Core::get_messages( $this->form_id )
 					),
-					'theme'    => Core::get_theme( $this->form_id ),
+					'themeId'    => (int) Core::get_theme_id( $this->form_id ),
+					'themesList' => Form_Theme_Model::get_all_registered_themes(),
 				),
 				$this->form_id
 			);
@@ -201,7 +237,8 @@ class Form_Renderer {
 			// Loading font.
 			$form_object = $this->prepare_form_object();
 			if ( $form_object ) {
-				$theme     = $form_object['theme'];
+				$theme = Core::get_theme( $form_id );
+
 				$font      = esc_attr( $theme['font'] );
 				$font_type = Fonts::get_font_type( $font );
 				$font_url  = null;

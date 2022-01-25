@@ -7,7 +7,7 @@ import { useState, useEffect } from '@wordpress/element';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 const Icon = () => {
 	const [ isActive, setIsActive ] = useState( false );

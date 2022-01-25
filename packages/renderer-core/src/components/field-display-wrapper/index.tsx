@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
@@ -16,6 +16,7 @@ import useBlockTypes from '../../hooks/use-block-types';
 import BlockFooter from '../field-footer';
 import useFormContext from '../../hooks/use-form-context';
 import useHandleFocus from '../../hooks/use-handle-focus';
+import useBlockTheme from '../../hooks/use-block-theme';
 interface Props {
 	setIsShaking: ( value: boolean ) => void;
 	isShaking: boolean;
@@ -37,7 +38,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showNextBtn,
 		showErrMsg,
 	} = __experimentalUseFieldRenderContext();
-
+	const theme = useBlockTheme( attributes.theme );
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
@@ -135,6 +136,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		inputRef,
 		setFooterDisplay,
 		formId,
+		theme,
 	};
 
 	return (

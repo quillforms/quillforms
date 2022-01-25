@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
  * External Dependencies
  */
 import Loader from 'react-loader-spinner';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 const Share = ( { params } ) => {
 	const { id } = params;

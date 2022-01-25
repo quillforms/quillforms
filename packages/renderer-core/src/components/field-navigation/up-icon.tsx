@@ -1,14 +1,14 @@
 /**
  * External Dependencies
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { useTheme } from '../../hooks';
+import { useCurrentTheme } from '../../hooks';
 
 const UpIcon = () => {
-	const theme = useTheme();
+	const theme = useCurrentTheme();
 	return (
 		<svg
 			stroke="currentColor"

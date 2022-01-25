@@ -86,7 +86,11 @@ export const registerBlockType = (
 			default: '',
 		};
 	}
-
+	if ( supports.theme ) {
+		attributes.themeId = {
+			type: 'number',
+		};
+	}
 	attributes.label = {
 		type: 'string',
 		default: '',
@@ -98,10 +102,8 @@ export const registerBlockType = (
 		name,
 		...pick( settings, [ 'attributes', 'supports', 'logicalOperators' ] ),
 	} );
-	setTimeout( () => {
-		setBlockRendererSettings( name, settings );
-		setBlockAdminSettings( name, settings );
-	} );
+	setBlockRendererSettings( name, settings );
+	setBlockAdminSettings( name, settings );
 	return settings;
 };
 

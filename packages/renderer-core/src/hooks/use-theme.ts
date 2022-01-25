@@ -1,20 +1,7 @@
-/**
- * QuillForms Dependencies
- */
-import { FormTheme } from '@quillforms/config';
+import useGeneralTheme from './use-general-theme';
 
-/**
- * Internal Dependencies
- */
-import useFormContext from './use-form-context';
-
-const useTheme = (): FormTheme => {
-	const {
-		formObj: { theme },
-	} = useFormContext();
-	return {
-		...theme,
-	} as FormTheme;
+const useTheme = () => {
+	return useGeneralTheme();
 };
 
 export default useTheme;

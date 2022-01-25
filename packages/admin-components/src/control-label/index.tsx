@@ -1,7 +1,7 @@
 /**
  * External Dependencies.
  */
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 interface Props {
 	label: string;
 	showAsterisk?: boolean;

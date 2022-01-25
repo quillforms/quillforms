@@ -16,7 +16,7 @@ import { FC } from 'react';
  * External Dependencies
  */
 import classNames from 'classnames';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 const areEqual = ( prevProps: Props, nextProps: Props ): boolean => {
 	if ( prevProps.disabled === nextProps.disabled ) return true;

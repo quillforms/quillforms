@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * Internal Dependencies
@@ -19,6 +19,7 @@ const ThemesList = () => {
 			).getCurrentThemeId(),
 		};
 	} );
+	const { setCurrentThemeId } = useDispatch( 'quillForms/theme-editor' );
 
 	return (
 		<div className="theme-editor-themes-list">
@@ -31,7 +32,12 @@ const ThemesList = () => {
 						key={ theme.id }
 						isSelected={ theme.id === currentThemeId }
 					>
-						<ThemesListItem theme={ theme } />
+						<ThemesListItem
+							theme={ theme }
+							onClick={ () => {
+								setCurrentThemeId( theme.id );
+							} }
+						/>
 					</ThemeCard>
 				);
 			} ) }

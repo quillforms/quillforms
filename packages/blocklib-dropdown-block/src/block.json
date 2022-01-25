@@ -25,7 +25,8 @@
 		"required": true,
 		"attachment": true,
 		"description": true,
-		"logic": true
+		"logic": true,
+		"theme": true
 	},
 	"logicalOperators" : ["is", "is_not"]
 }

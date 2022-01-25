@@ -1,8 +1,9 @@
 /**
  * External dependencies
  */
+import { FormTheme } from '@quillforms/types/src';
 import classnames from 'classnames';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -14,15 +15,18 @@ interface Props {
 	className?: string;
 	onClick: React.MouseEventHandler< HTMLDivElement >;
 	onKeyDown?: React.KeyboardEventHandler< HTMLDivElement >;
+	theme?: FormTheme;
 }
 const Button: React.FC< Props > = ( {
 	className,
 	onClick,
 	children,
 	onKeyDown,
+	theme,
 	...props
 } ) => {
-	const theme = useTheme();
+	// @ts-expect-error
+	if ( ! theme ) theme = useTheme();
 	return (
 		<div
 			tabIndex={ 0 }
@@ -80,7 +84,7 @@ const Button: React.FC< Props > = ( {
 			{ ...props }
 		>
 			{ children }
-			<ArrowIcon />
+			<ArrowIcon theme={ theme } />
 		</div>
 	);
 };

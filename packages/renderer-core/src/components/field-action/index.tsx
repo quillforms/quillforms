@@ -2,7 +2,7 @@
  * External Dependencies
  */
 import classnames from 'classnames';
-import { css } from '@emotion/css';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -12,15 +12,17 @@ import HTMLParser from '../html-parser';
 import { __experimentalUseFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import useMessages from '../../hooks/use-messages';
-import useTheme from '../../hooks/use-theme';
+import useBlockTheme from '../../hooks/use-block-theme';
 
 const FieldAction = ( { clickHandler, show } ) => {
 	const messages = useMessages();
-	const theme = useTheme();
 	const {
 		blockName,
 		isSubmitBtnVisible,
+		attributes,
 	} = __experimentalUseFieldRenderContext();
+	const theme = useBlockTheme( attributes.themeId );
+
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
 	const isTouchScreen =
@@ -38,7 +40,7 @@ const FieldAction = ( { clickHandler, show } ) => {
 				<blockType.nextBtn onClick={ clickHandler } />
 			) : (
 				<>
-					<Button onClick={ clickHandler }>
+					<Button theme={ theme } onClick={ clickHandler }>
 						<HTMLParser value={ messages[ 'label.button.ok' ] } />
 					</Button>
 					{ ! isTouchScreen && (
