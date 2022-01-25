@@ -1,13 +1,13 @@
- === Quill Forms | Typeform alternative for WordPress ===
+ === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
 Contributors: quillforms, mdmag
 Tested up to: 5.8
 Stable tag: 1.7.5
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin
+Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform.
+A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quill Forms is the best WordPress form plugin.
 
 == Description ==
 https://www.youtube.com/watch?v=GjmLUTDIdFc
@@ -27,7 +27,7 @@ What’s more, QuillForms offers loads of hip features that make creating forms 
 ·  Personalize your themes
 ·  Change font, colors and backgrounds with a single click
 
-Quill Forms is definitely the best contact form plugin for wordpress.
+Quill Forms is definitely the best WordPress form plugin.
 QuillForms free version comes with variety of blocks:
 1- Welcome screen block
 2- Date block
