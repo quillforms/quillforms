@@ -137,7 +137,10 @@ class Date_Block_Type extends Block_Type {
 	 * @return mixed
 	 */
 	public function format_field( $value, $form_data ) {
-		return \DateTime::createFromFormat( $this->get_date_format(), $value )->format( 'Y-m-d' );
+		if ( ! empty( $value ) ) {
+			return \DateTime::createFromFormat( $this->get_date_format(), $value )->format( 'Y-m-d' );
+		}
+		return $value;
 	}
 
 	/**
