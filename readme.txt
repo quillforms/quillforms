@@ -7,7 +7,7 @@ Tags: quill, conversational, forms, typeform, conversation, chat, contact, surve
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quill Forms is the best WordPress form plugin.
+A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quil Forms is the best WordPress form plugin.
 
 == Description ==
 https://www.youtube.com/watch?v=GjmLUTDIdFc
@@ -47,9 +47,9 @@ QuillForms free version comes with variety of blocks:
 3- Jump logic
 4- Calculator
 5- Zapier integration to connect with 3000+ apps
-6- MailChimp integration
-7- Constant Contact integration
-8- GoogleSheets integration
+6- GoogleSheets integration
+7- MailChimp integration
+8- Constant Contact integration
 9- GetResponse integration
 10- Opinion scale block
 11- Custom thank you screen
