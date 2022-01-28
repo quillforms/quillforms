@@ -80,6 +80,26 @@ abstract class Payment_Gateway extends Addon {
 	abstract public function is_recurring_interval_supported( $unit, $count );
 
 	/**
+	 * Is transaction status ok
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $status Transaction status.
+	 * @return boolean
+	 */
+	abstract public function is_transaction_status_ok( $status );
+
+	/**
+	 * Is subscription status ok
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $status Subscription status.
+	 * @return boolean
+	 */
+	abstract public function is_subscription_status_ok( $status );
+
+	/**
 	 * Check new form payments settings before update
 	 *
 	 * @since 1.8.0
