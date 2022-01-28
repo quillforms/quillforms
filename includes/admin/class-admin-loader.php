@@ -426,6 +426,5 @@ class Admin_Loader {
 			</div>
 		</div>
 		<?php
-
 	}
 }
