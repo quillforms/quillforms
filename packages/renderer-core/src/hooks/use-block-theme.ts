@@ -11,16 +11,14 @@ import useFormContext from './use-form-context';
 
 const useBlockTheme = ( blockThemeId: number | undefined ) => {
 	const {
-		formObj: { themeId, themesList },
+		formObj: { theme, themesList },
 	} = useFormContext();
-	let appliedThemeId = themeId;
+	let appliedTheme = theme;
 	if ( blockThemeId ) {
-		appliedThemeId = blockThemeId;
+		appliedTheme = themesList.find(
+			( $theme ) => $theme.id === blockThemeId
+		)?.properties as FormTheme;
 	}
-
-	let appliedTheme = themesList.find(
-		( $theme ) => $theme.id === appliedThemeId
-	)?.properties;
 	if ( ! appliedTheme ) {
 		appliedTheme = {};
 	}

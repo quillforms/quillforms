@@ -15,7 +15,7 @@ type Theme = {
 export type FormObj = {
 	blocks: FormBlocks;
 	themesList: Theme[];
-	themeId?: number;
+	theme: Partial< FormTheme >;
 	messages?: Partial< FormMessages >;
 	logic?: FormLogic;
 	settings: {

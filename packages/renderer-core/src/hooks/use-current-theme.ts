@@ -12,17 +12,15 @@ import { FormTheme } from '@quillforms/types/src';
 
 const useCurrentTheme = () => {
 	const {
-		formObj: { themeId, themesList },
+		formObj: { theme, themesList },
 	} = useFormContext();
 	const currentBlock = useCurrentBlock();
-	let appliedThemeId = themeId;
+	let appliedTheme = theme;
 	if ( currentBlock?.attributes?.themeId ) {
-		appliedThemeId = currentBlock.attributes.themeId;
+		appliedTheme = themesList.find(
+			( $theme ) => $theme.id === currentBlock?.attributes?.themeId
+		)?.properties as FormTheme;
 	}
-
-	let appliedTheme = themesList.find(
-		( $theme ) => $theme.id === appliedThemeId
-	)?.properties;
 	if ( ! appliedTheme ) {
 		appliedTheme = {};
 	}

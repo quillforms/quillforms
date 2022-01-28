@@ -11,19 +11,11 @@ import useFormContext from './use-form-context';
 
 const useGeneralTheme = () => {
 	const {
-		formObj: { themeId, themesList },
+		formObj: { theme },
 	} = useFormContext();
-	let appliedThemeId = themeId;
-
-	let appliedTheme = themesList.find(
-		( $theme ) => $theme.id === appliedThemeId
-	)?.properties;
-	if ( ! appliedTheme ) {
-		appliedTheme = {};
-	}
 	return {
 		...getDefaultThemeProperties(),
-		...appliedTheme,
+		...theme,
 	} as FormTheme;
 };
 

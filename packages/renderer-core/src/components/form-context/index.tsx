@@ -15,11 +15,12 @@ const FormContext = createContext< FormContext >( {
 	formObj: {
 		blocks: [],
 		messages: {},
-		themeId: undefined,
+		theme: {},
 		logic: undefined,
 		themesList: [],
 		settings: {
 			disableProgressBar: false,
+			disableWheelSwiping: false,
 		},
 	},
 	onSubmit: noop,

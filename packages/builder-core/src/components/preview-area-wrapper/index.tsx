@@ -1,9 +1,9 @@
 /**
  * QuillForms Dependencies
  */
-// @ts-expect-error
+// @ts-expect-error.
 import { Form } from '@quillforms/renderer-core';
-//@ts-expect-error
+//@ts-expect-error.
 import { useCurrentThemeId, useCurrentTheme } from '@quillforms/theme-editor';
 
 /**
@@ -174,7 +174,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 											formId={ formId }
 											formObj={ {
 												blocks: cloneDeep( blocks ),
-												themeId,
+												theme: currentTheme?.properties,
 												messages,
 												logic,
 												themesList: $themesList,

@@ -191,7 +191,7 @@ class Form_Renderer {
 						),
 						Core::get_messages( $this->form_id )
 					),
-					'themeId'    => (int) Core::get_theme_id( $this->form_id ),
+					'theme'      => Core::get_theme( $this->form_id ),
 					'themesList' => Form_Theme_Model::get_all_registered_themes(),
 					'settings'   => Core::get_form_settings( $this->form_id ),
 				),
@@ -238,7 +238,7 @@ class Form_Renderer {
 			// Loading font.
 			$form_object = $this->prepare_form_object();
 			if ( $form_object ) {
-				$theme = Core::get_theme( $form_id );
+				$theme = $form_object['theme'];
 
 				$font      = esc_attr( $theme['font'] );
 				$font_type = Fonts::get_font_type( $font );
