@@ -1,13 +1,13 @@
  === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
 Contributors: quillforms, mdmag
-Tested up to: 5.8
-Stable tag: 1.7.5
+Tested up to: 5.9
+Stable tag: 1.8
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider
+Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quil Forms is the best WordPress form plugin.
+A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quil Forms is the best WordPress form plugin that focuses on having better UI/UX for forms.
 
 == Description ==
 https://www.youtube.com/watch?v=GjmLUTDIdFc
@@ -54,6 +54,9 @@ QuillForms free version comes with variety of blocks:
 10- Opinion scale block
 11- Custom thank you screen
 [Purchase The Pro Version](https://quillforms.com)
+
+= Introducing Block Themes =
+https://www.youtube.com/watch?v=nv_YucsnSEY
 
 = Demo =
 You can watch the demo [here](https://quillforms.com/quillforms/my-first-form)
@@ -102,6 +105,13 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.8.0 =  28 Jan 2022
+Feature: Introducing theme per block.
+Feature: Enabling admin to disable progress bar.
+Feature: Enabling admin to disable swiping by wheel.
+Fix: Fix an error thrown at dashboard for user profile image.
+Fix: Fix an issue with date formatting when the value is empty.
+
 = 1.7.5 =  20 Dec 2021
 Feature: Support for RTL.
 Feature: Improving accessibility with keyboard for dropdown block.
@@ -110,7 +120,7 @@ Feature: Showing number only keyboard for mobile users when they answer number q
 = 1.7.4 =  6 Dec 2021
 Feature: Add option for syncing entry processing for integrations.
 Feature: Add link feature in rich text.
-Fix: styling issues in mobile screen at render part.
+Fix: Styling issues in mobile screen at render part.
 
 = 1.7.3 =  29 Nov 2021
 Fix: Hide every thing except the form in the form page.
