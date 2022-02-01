@@ -105,6 +105,14 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.8.2 =  1 Feb 2022
+Fix: Fix conflict with SG optimizer plugin.
+Fix: Fix conflict with Autoptimize plugin.
+Fix: Fix conflict with WP Optimize plugin.
+
+= 1.8.1 =  28 Jan 2022
+Fix: Urgent fix for missing files
+
 = 1.8.0 =  28 Jan 2022
 Feature: Introducing theme per block.
 Feature: Enabling admin to disable progress bar.
