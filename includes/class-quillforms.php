@@ -108,6 +108,10 @@ final class QuillForms {
 
 		// client assets.
 		require_once QUILLFORMS_PLUGIN_DIR . 'lib/client-assets.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/autoptimize/class-autoptimize-compatibility.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/wpoptimize/class-wpoptimize-compatibility.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/sg-optimize/class-sg-optimize-compatibility.php';
+
 	}
 
 	/**
