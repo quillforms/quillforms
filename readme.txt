@@ -109,6 +109,7 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 Fix: Fix conflict with SG optimizer plugin.
 Fix: Fix conflict with Autoptimize plugin.
 Fix: Fix conflict with WP Optimize plugin.
+Feature: Improving the UI for Settings, Addons, License and System Pages.
 
 = 1.8.1 =  28 Jan 2022
 Fix: Urgent fix for missing files
