@@ -424,7 +424,7 @@ class Store {
 		$addons = array(
 			'entries'                   => array(
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
-				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions', 'quillforms' ),
+				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -435,7 +435,7 @@ class Store {
 			),
 			'logic'                     => array(
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
-				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form', 'quillforms' ),
+				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -446,7 +446,7 @@ class Store {
 			),
 			'fileblock'                 => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
-				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions', 'quillforms' ),
+				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-fileblock/quillforms-fileblock.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -479,7 +479,7 @@ class Store {
 			),
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-constantcontact/quillforms-constantcontact.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
@@ -490,7 +490,7 @@ class Store {
 			),
 			'mailchimp'                 => array(
 				'name'           => esc_html__( 'MailChimp', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your MailChimp lists', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your MailChimp lists.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-mailchimp/quillforms-mailchimp.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
@@ -501,7 +501,7 @@ class Store {
 			),
 			'getresponse'               => array(
 				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your GetResponse lists', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your GetResponse lists.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-getresponse/quillforms-getresponse.php',
 				'plan'           => 'basic',
 				'is_integration' => true,

@@ -135,21 +135,19 @@ const Addons = () => {
 								key={ addon }
 								className="quillforms-addons-page_addon"
 							>
-								<div className="quillforms-addons-page_addon__heading">
-									{ data.name }
+								<div className="quillforms-addons-page_addon__header">
+									<div
+										className={ classNames(
+											'quillforms-addons-page_addon-icon'
+										) }
+									>
+										<img src={ data.assets.icon } />
+									</div>
+									<div className="quillforms-addons-page_addon__title">
+										{ data.name }
+									</div>
 								</div>
-								<div
-									className={ classNames(
-										'quillforms-addons-page_addon-icon',
-										css`
-											background-size: cover;
-											height: 100px;
-											background-position: center center;
-										`
-									) }
-								>
-									<img src={ data.assets.icon } />
-								</div>
+
 								<div
 									key={ addon }
 									className="quillforms-addons-page__body-addon"

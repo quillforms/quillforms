@@ -46,3 +46,25 @@ body.js.is-fullscreen-mode {
 		display: none;
 	}
 }
+.components-tab-panel__tabs {
+	background: #f6f6f6;
+	display: flex !important;
+	align-items: center !important;
+	margin-bottom: 20px;
+	padding: 15px 20px;
+	border-radius: 5px
+
+}
+.components-tab-panel__tabs-item {
+	height: auto !important;
+	padding: 8px 10px;
+	border-radius: 5px;
+	margin-right: 10px;
+	box-shadow: none !important;
+	border: none !important;
+}
+.components-tab-panel__tabs-item.active-tab {
+	background: #7962d7;
+	color: #fff;
+	height: auto !important;
+}

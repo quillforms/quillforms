@@ -10,19 +10,34 @@
 }
 
 .quillforms-addons-page_addon {
-	background: #f1f1f1;
-	border-radius: 5px;
-	margin: 15px;
+	background: #fff;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    flex-flow: column;
     width: 290px;
-	overflow: hidden;
+    margin: 20px 10px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 20px;
 }
-.quillforms-addons-page_addon__heading {
-    padding: 16px 10px;
-    text-align: center;
-    background: linear-gradient(45deg,#645c6a,#4b4158);
-    color: #fff;
-    font-size: 15px;
+
+.quillforms-addons-page_addon__header {
+    display: flex;
+    align-items: center;
 }
+.quillforms-addons-page_addon-icon  img {
+	width: 50px;
+	height: 60px;
+}
+
+.quillforms-addons-page_addon__title {
+    font-size: 20px;
+    margin-left: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+	line-height: 1.2em;
+}
+
 .quillforms-addons-page__body-addon-footer button {
     width: 100%;
     justify-content: center;
@@ -39,23 +54,12 @@
     display: block;
     text-align: center
 }
-.quillforms-addons-page_addon-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.quillforms-addons-page_addon-icon img {
-    width: 60px
-}
+
 .quillforms-addons-page__body-addon {
 	display: flex;
 	flex-direction: column;
 	min-height: 187px;
-	padding: 15px;
-
-	h3 {
-		margin: 0;
-	}
+	margin-top: 20px;
 
 	.quillforms-addons-page__body-addon-footer {
 		margin-top: auto;
