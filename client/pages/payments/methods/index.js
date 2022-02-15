@@ -2,6 +2,11 @@
  * QuillForms Dependencies
  */
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
+import {
+	BaseControl,
+	ToggleControl,
+	ControlWrapper,
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -45,7 +50,7 @@ const Methods = ( { settings, onChange } ) => {
 	// when recurring is enabled, disable the unavailable methods and move them to the end.
 	useEffect( () => {
 		if ( settings.recurring.enabled ) {
-			console.log( 'Recurring enabled, and should check order?' );
+			// console.log( 'Recurring enabled, and should check order?' );
 			const available = [];
 			const unavailable = [];
 			for ( const [ key, value ] of methodsEntries ) {
@@ -83,62 +88,57 @@ const Methods = ( { settings, onChange } ) => {
 				}
 
 				return (
-					<div key={ key }>
-						<CheckboxControl
-							label={
-								<div className="quillforms-payments-page-method-label">
-									{ typeof data.admin.label.icon ===
-									'string' ? (
-										<img src={ data.admin.label.icon } />
-									) : (
-										<IconComponent
-											icon={
-												data.admin.label.icon?.src
-													? data.admin.label.icon.src
-													: data.admin.label.icon
-											}
-										/>
-									) }
-									{ data.admin.label.text }
-									{ data.admin.label.notice ? (
-										<data.admin.label.notice
-											slug={ gateway }
-										/>
-									) : null }
-									<Button
-										onClick={ () => reorder( index, 'up' ) }
-										disabled={ index === 0 }
-									>
-										↑
-									</Button>
-									<Button
-										onClick={ () =>
-											reorder( index, 'down' )
+					<BaseControl key={ key }>
+						<ControlWrapper orientation="horizontal">
+							<div className="quillforms-payments-page-method-label">
+								{ typeof data.admin.label.icon === 'string' ? (
+									<img src={ data.admin.label.icon } />
+								) : (
+									<IconComponent
+										icon={
+											data.admin.label.icon?.src
+												? data.admin.label.icon.src
+												: data.admin.label.icon
 										}
-										disabled={
-											indexOfAvailable ===
-											availableMethods.length - 1
-										}
-									>
-										↓
-									</Button>
-								</div>
-							}
-							checked={ active && ( value.enabled ?? false ) }
-							disabled={ ! active }
-							onChange={ ( checked ) => {
-								const methods = { ...settings.methods };
-								if ( checked ) {
-									methods[ key ] = {
-										...methods[ key ],
-										enabled: true,
-									};
-								} else {
-									methods[ key ].enabled = false;
-								}
-								onChange( methods );
-							} }
-						/>
+									/>
+								) }
+								{ data.admin.label.text }
+								{ data.admin.label.notice ? (
+									<data.admin.label.notice slug={ gateway } />
+								) : null }
+								<Button
+									onClick={ () => reorder( index, 'up' ) }
+									disabled={ index === 0 }
+								>
+									↑
+								</Button>
+								<Button
+									onClick={ () => reorder( index, 'down' ) }
+									disabled={
+										indexOfAvailable ===
+										availableMethods.length - 1
+									}
+								>
+									↓
+								</Button>
+							</div>
+							<ToggleControl
+								checked={ active && ( value.enabled ?? false ) }
+								disabled={ ! active }
+								onChange={ ( checked ) => {
+									const methods = { ...settings.methods };
+									if ( checked ) {
+										methods[ key ] = {
+											...methods[ key ],
+											enabled: true,
+										};
+									} else {
+										methods[ key ].enabled = false;
+									}
+									onChange( methods );
+								} }
+							/>
+						</ControlWrapper>
 						{ value.enabled && data.admin.options && (
 							<data.admin.options
 								slug={ key }
@@ -150,7 +150,7 @@ const Methods = ( { settings, onChange } ) => {
 								} }
 							/>
 						) }
-					</div>
+					</BaseControl>
 				);
 			} ) }
 		</div>

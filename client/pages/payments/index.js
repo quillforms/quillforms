@@ -7,6 +7,9 @@ import {
 	TextControl,
 	SelectControl,
 	Button,
+	BaseControl,
+	ControlLabel,
+	ControlWrapper,
 } from '@quillforms/admin-components';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 import { formatMoney } from '@quillforms/utils';
@@ -31,6 +34,7 @@ import Product from './product';
 import './style.scss';
 import Methods from './methods';
 import FieldSelect from './field-select';
+import Icon from './icon';
 
 const randomId = () => {
 	return Math.random().toString( 36 ).substring( 2, 8 );
@@ -240,161 +244,198 @@ const PaymentsPage = ( { params } ) => {
 
 	return (
 		<div className="quillforms-payments-page">
-			<div className="quillforms-payments-page-settings">
-				<div className="quillforms-payments-page-settings-row">
-					<div className="quillforms-payments-page-settings-row-label">
-						Enable
-					</div>
-					<ToggleControl
-						checked={ settings.enabled }
-						onChange={ () =>
-							setSetting( 'enabled', ! settings.enabled )
-						}
-					/>
+			<div className="quillforms-payments-page-header">
+				<Icon />
+				<div className="quillforms-payments-page-heading">
+					<p>Accept payments via your forms easily!</p>
+					<p>
+						Create orders, accept donations or get any type of
+						payments with the most versatile form builder that
+						integrates with your favorite payment gateways!
+					</p>
 				</div>
-				<div className="quillforms-payments-page-settings-row">
-					<div className="quillforms-payments-page-settings-row-label">
-						Recurring
-					</div>
-					<div>
-						<ToggleControl
-							checked={ settings.recurring.enabled }
-							onChange={ () =>
-								setSetting( 'recurring', {
-									...settings.recurring,
-									enabled: ! settings.recurring.enabled,
-								} )
-							}
-						/>
-						{ settings.recurring.enabled && (
-							<>
-								<TextControl
-									type="number"
-									value={
-										settings.recurring.interval_count ?? ''
-									}
-									onChange={ ( value ) =>
-										setSetting( 'recurring', {
-											...settings.recurring,
-											interval_count: value,
-										} )
-									}
-									step={ 1 }
-									min={ 1 }
-									max={
-										recurringIntervalCountMax[
-											settings.recurring.interval_unit
-										]
-									}
-								/>
-								<SelectControl
-									options={ recurringIntervalUnitOptions }
-									value={ recurringIntervalUnitOptions.find(
-										( option ) =>
-											option.key ===
-											settings.recurring.interval_unit
-									) }
-									onChange={ ( { selectedItem } ) => {
-										if ( selectedItem ) {
-											let interval_unit =
-												selectedItem.key;
-											let interval_count = Math.min(
-												settings.recurring
-													.interval_count,
-												recurringIntervalCountMax[
-													interval_unit
-												]
-											);
+			</div>
+			<div className="quillforms-payments-page-settings">
+				<div className="quillforms-payments-page-settings__general">
+					<h3> General Settings </h3>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Enable Payments"></ControlLabel>
+							<ToggleControl
+								checked={ settings.enabled }
+								onChange={ () =>
+									setSetting( 'enabled', ! settings.enabled )
+								}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Recurring payment" />
+							<ToggleControl
+								checked={ settings.recurring.enabled }
+								onChange={ () =>
+									setSetting( 'recurring', {
+										...settings.recurring,
+										enabled: ! settings.recurring.enabled,
+									} )
+								}
+							/>
+						</ControlWrapper>
+						<>
+							{ settings.recurring.enabled && (
+								<div
+									className={ css`
+										display: flex;
+										flex-wrap: wrap;
+										align-items: center;
+
+										.admin-components-text-control {
+											width: auto;
+										}
+
+										.components-custom-select-control
+											label {
+											margin-top: 0;
+											margin-bottom: 0;
+										}
+									` }
+								>
+									<span
+										className={ css`
+											margin-right: 10px;
+										` }
+									>
+										Every
+									</span>
+									<TextControl
+										type="number"
+										value={
+											settings.recurring.interval_count ??
+											''
+										}
+										onChange={ ( value ) =>
 											setSetting( 'recurring', {
 												...settings.recurring,
-												interval_unit,
-												interval_count,
-											} );
+												interval_count: value,
+											} )
 										}
-									} }
-								/>
-							</>
-						) }
-					</div>
-				</div>
-				<div className="quillforms-payments-page-settings-row">
-					<div className="quillforms-payments-page-settings-row-label">
-						Currency
-					</div>
-					<div
-						className={ css`
-							display: flex;
-							align-items: center;
-						` }
-					>
-						<SelectControl
-							className={ css`
-								width: 225px;
-								margin-right: 1rem;
-								.components-custom-select-control__label {
-									margin-bottom: 0;
-								}
-								.components-base-control__field {
-									margin-bottom: 0;
-								}
-								.components-text-control__input {
-									margin: 0;
-								}
-							` }
-							options={ currencyOptions }
-							value={ currencyOptions.find(
-								( option ) =>
-									option.key === settings.currency.code
+										step={ 1 }
+										min={ 1 }
+										max={
+											recurringIntervalCountMax[
+												settings.recurring.interval_unit
+											]
+										}
+										className={ css`
+											width: 100px;
+											margin-right: 10px;
+										` }
+									/>
+									<SelectControl
+										options={ recurringIntervalUnitOptions }
+										value={ recurringIntervalUnitOptions.find(
+											( option ) =>
+												option.key ===
+												settings.recurring.interval_unit
+										) }
+										onChange={ ( { selectedItem } ) => {
+											if ( selectedItem ) {
+												let interval_unit =
+													selectedItem.key;
+												let interval_count = Math.min(
+													settings.recurring
+														.interval_count,
+													recurringIntervalCountMax[
+														interval_unit
+													]
+												);
+												setSetting( 'recurring', {
+													...settings.recurring,
+													interval_unit,
+													interval_count,
+												} );
+											}
+										} }
+									/>
+								</div>
 							) }
-							onChange={ ( { selectedItem } ) => {
-								if ( selectedItem ) {
-									setSetting( 'currency', {
-										...settings.currency,
-										code: selectedItem.key,
-										symbol_pos:
-											Currencies[ selectedItem.key ]
-												.symbol_pos,
-									} );
-								}
-							} }
-						/>
-						<div>Format:</div>
-						<SelectControl
-							className={ css`
-								margin-left: 0.25rem;
-								.components-custom-select-control__label {
-									margin-bottom: 0;
-								}
-								.components-base-control__field {
-									margin-bottom: 0;
-								}
-								.components-text-control__input {
-									margin: 0;
-								}
-							` }
-							options={ currencySymbolPosOptions }
-							value={
-								currencySymbolPosOptions.find(
+						</>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Currency" />
+							<SelectControl
+								className={ css`
+									width: 225px;
+									.components-custom-select-control__label {
+										margin-bottom: 0;
+									}
+									.components-base-control__field {
+										margin-bottom: 0;
+									}
+									.components-text-control__input {
+										margin: 0;
+									}
+								` }
+								options={ currencyOptions }
+								value={ currencyOptions.find(
 									( option ) =>
-										option.key ===
-										settings.currency.symbol_pos
-								) ?? currencySymbolPosOptions[ 0 ]
-							}
-							onChange={ ( { selectedItem } ) => {
-								if ( selectedItem ) {
-									setSetting( 'currency', {
-										...settings.currency,
-										symbol_pos: selectedItem.key,
-									} );
+										option.key === settings.currency.code
+								) }
+								onChange={ ( { selectedItem } ) => {
+									if ( selectedItem ) {
+										setSetting( 'currency', {
+											...settings.currency,
+											code: selectedItem.key,
+											symbol_pos:
+												Currencies[ selectedItem.key ]
+													.symbol_pos,
+										} );
+									}
+								} }
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Currency Format" />
+							<SelectControl
+								className={ css`
+									margin-left: 0.25rem;
+									.components-custom-select-control__label {
+										margin-bottom: 0;
+									}
+									.components-base-control__field {
+										margin-bottom: 0;
+									}
+									.components-text-control__input {
+										margin: 0;
+									}
+								` }
+								options={ currencySymbolPosOptions }
+								value={
+									currencySymbolPosOptions.find(
+										( option ) =>
+											option.key ===
+											settings.currency.symbol_pos
+									) ?? currencySymbolPosOptions[ 0 ]
 								}
-							} }
-						/>
-					</div>
+								onChange={ ( { selectedItem } ) => {
+									if ( selectedItem ) {
+										setSetting( 'currency', {
+											...settings.currency,
+											symbol_pos: selectedItem.key,
+										} );
+									}
+								} }
+							/>
+						</ControlWrapper>
+					</BaseControl>
 				</div>
-				<div className="quillforms-payments-page-settings-row">
-					<div className="quillforms-payments-page-settings-row-label">
-						Methods
-					</div>
+				<div className="quillforms-payments-page-settings__methods">
+					<h3> Methods </h3>
+
 					<div
 						className={ css`
 							margin-top: 5px;
