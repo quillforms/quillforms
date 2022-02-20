@@ -110,6 +110,7 @@ class Form_Renderer {
 	 * @access public
 	 */
 	public function do_not_cache() {
+
 		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 			define( 'DONOTCACHEPAGE', true );
 		}
@@ -128,6 +129,10 @@ class Form_Renderer {
 
 		if ( ! defined( 'DONOTCACHCEOBJECT' ) ) {
 			define( 'DONOTCACHCEOBJECT', true );
+		}
+
+		if ( ! defined( 'DONOTROCKETOPTIMIZE' ) ) {
+			define( 'DONOTROCKETOPTIMIZE', true );
 		}
 
 		// // Set the headers to prevent caching for the different browsers.
