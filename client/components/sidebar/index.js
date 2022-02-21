@@ -13,7 +13,12 @@ import {
  */
 import './style.scss';
 import { forEach, map } from 'lodash';
-
+import SettingsIcon from './settings-icon';
+import HomeIcon from './home-icon';
+import AddonIcon from './addons-icon';
+import LicenseIcon from './license-icon';
+import SupportIcon from './support-icon';
+import SystemIcon from './system-icon';
 const clean = ( str ) => {
 	return str.replace( 'quillforms', '' ).replace( '&path=', '' );
 };
@@ -57,6 +62,25 @@ const Sidebar = () => {
 								className="qf-admin-sidebar-nav-item"
 								to={ `/admin.php?page=${ page[ 2 ] }` }
 							>
+								<div className="qf-admin-sidebar-nav-item__icon">
+									{ page[ 2 ] === 'quillforms' ? (
+										<HomeIcon />
+									) : page[ 2 ] ===
+									  'quillforms&path=addons' ? (
+										<AddonIcon />
+									) : page[ 2 ] ===
+									  'quillforms&path=license' ? (
+										<LicenseIcon />
+									) : page[ 2 ] ===
+									  'quillforms&path=support' ? (
+										<SupportIcon />
+									) : page[ 2 ] ===
+									  'quillforms&path=system' ? (
+										<SystemIcon />
+									) : (
+										<SettingsIcon />
+									) }
+								</div>
 								{ page[ 0 ] }
 							</NavLink>
 						);

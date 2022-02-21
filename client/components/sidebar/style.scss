@@ -3,7 +3,7 @@
     position: fixed;
     bottom: 0;
     top: 56px;
-    background: #322D44;
+    background: #F8F9FA;
     padding: 5px 11px;
 	text-align: center;
 
@@ -38,19 +38,51 @@
 		margin-top: 30px;
 		text-align: left;
 		.qf-admin-sidebar-nav-item {
-			display: block;
+			display: flex !important;
+			flex-wrap: wrap;
+			align-items: center;
 			text-decoration: none;
 			padding:  13px;
 			margin: 10px 0;
 			font-size: 15px;
-			color: #8e8e8e;
+			color: #67748e;
 
 			&.selected {
-				background: linear-gradient(42deg, #9236eb, #ee1698);
-				color: #fff;
-				border-radius: 5px
+				font-weight: 600;
+				background: #fff;
+				box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+				border-radius: 0.5rem;
+				color: #000 !important;
+
+				.qf-admin-sidebar-nav-item__icon {
+					background-image: linear-gradient(310deg,#cb0c9f,#cb0c9f);
+					color: #fff;
+					svg {
+						fill: #fff;
+						color: #fff;
+						path {
+							stroke: #fff !important;
+						}
+					}
+				}
+
 			}
 		}
 	}
 
+	.qf-admin-sidebar-nav-item__icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-right: 0.5rem;
+		border-radius: 0.5rem;
+		width: 32px;
+		height: 32px;
+		background: #fff;
+		box-shadow: 0 .25rem .375rem -.0625rem hsla(0,0%,8%,.12),0 .125rem .25rem -.0625rem hsla(0,0%,8%,.07)!important;
+	}
+	.qf-admin-sidebar-nav-item__icon svg {
+		width: 14px;
+		height: 14px;
+	}
 }
