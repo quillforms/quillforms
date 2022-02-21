@@ -499,21 +499,23 @@ const PaymentsPage = ( { params } ) => {
 						/>
 					) : null;
 				} ) }
-				<div className="quillforms-payments-page-settings-row">
-					<div className="quillforms-payments-page-settings-row-label">
-						Products
-					</div>
-					<div>{ productsItems }</div>
+				<div className="quillforms-payments-page-settings__products">
+					<h3> Products </h3>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<div>{ productsItems }</div>
+						</ControlWrapper>
+					</BaseControl>
 				</div>
-				<div>
-					<Button
-						className="quillforms-payments-page-settings-save"
-						isPrimary
-						onClick={ onSave }
-					>
-						Save
-					</Button>
-				</div>
+
+				<Button
+					className="quillforms-payments-page-settings-save"
+					isPrimary
+					isLarge
+					onClick={ onSave }
+				>
+					Save
+				</Button>
 			</div>
 		</div>
 	);

@@ -1,8 +1,5 @@
 .quillforms-payments-page-settings-product {
 	min-width: 675px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #ccc;
 
 	&:first-child {
 		padding-top: 0;
@@ -23,7 +20,8 @@
 	}
 
 	.ml-2 {
-		margin-left: 0.5rem !important;
+		margin: 0 0.5rem!important;
+		width: 170px;
 	}
 }
 

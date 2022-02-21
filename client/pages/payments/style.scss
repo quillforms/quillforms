@@ -43,6 +43,31 @@
 }
 
 .quillforms-payments-page-settings-save {
-	display: block;
-	margin: 25px auto 250px;
+	position: absolute;
+    top: 15px;
+    right: 150px;
+}
+
+.quillforms-payments-page-settings__general,
+.quillforms-payments-page-settings__methods,
+.quillforms-payments-page-settings__products{
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 20%);
+    margin-top: 40px;
+    min-height: 250px;
+}
+.quillforms-payments-page-settings__general h3,
+.quillforms-payments-page-settings__methods h3,
+.quillforms-payments-page-settings__products h3{
+	color: #6d78d8;
+}
+.quillforms-payments-page-settings__general .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__methods .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__products .admin-components-base-control:last-child {
+    border: none
+}
+.quillforms-payments-page-settings__products {
+	margin-bottom: 300px
 }
