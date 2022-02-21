@@ -44,7 +44,7 @@ import ThemeActions from '../theme-actions';
  *
  * @param {QFTheme} theme
  */
-const ThemesListItem = ( { theme } ) => {
+const ThemesListItem = ( { theme, onClick } ) => {
 	const themeId = theme.id;
 	const themeData = {
 		...getDefaultThemeProperties(),
@@ -52,7 +52,6 @@ const ThemesListItem = ( { theme } ) => {
 	};
 	const { font } = themeData;
 	const fonts = ConfigAPI.getFonts();
-	const { setCurrentThemeId } = useDispatch( 'quillForms/theme-editor' );
 
 	const fontType = fonts[ font ];
 	let fontUrl;
@@ -99,9 +98,7 @@ const ThemesListItem = ( { theme } ) => {
 		<div
 			role="presentation"
 			className="theme-editor-themes-list-item"
-			onClick={ () => {
-				setCurrentThemeId( themeId );
-			} }
+			onClick={ onClick }
 		>
 			<div
 				className={ classnames(

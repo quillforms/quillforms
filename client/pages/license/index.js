@@ -207,9 +207,7 @@ const License = () => {
 					<div>
 						<TextControl
 							label="License key"
-							className={ css`
-								width: 300px;
-							` }
+							className={ css`` }
 							onChange={ ( value ) => setLicenseKey( value ) }
 						/>
 						<Button isPrimary onClick={ activate }>

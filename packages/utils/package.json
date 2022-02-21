@@ -1,7 +1,7 @@
 {
 	"name": "@quillforms/utils",
-	"version": "1.0.1",
-	"description": "",
+	"version": "1.1.0",
+	"description": "Utils package for defining some helpful functions",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
@@ -24,9 +24,13 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/element": "^2.19.1",
+		"@wordpress/element": "^4.0.4",
 		"lodash": "4.17.21",
 		"tinycolor2": "^1.4.2"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

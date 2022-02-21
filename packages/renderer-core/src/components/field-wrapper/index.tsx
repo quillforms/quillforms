@@ -1,5 +1,10 @@
 /* eslint-disable no-nested-ternary */
 /**
+ * QuillForms Dependencies
+ */
+import useBlockTheme from '../../hooks/use-block-theme';
+
+/**
  * WordPress Dependencies
  */
 import { useRef, useEffect } from '@wordpress/element';
@@ -9,6 +14,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  * External Dependencies
  */
 import classnames from 'classnames';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -16,6 +22,7 @@ import classnames from 'classnames';
 import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import FieldContent from '../field-content';
 import { filter, findIndex } from 'lodash';
+import useFormSettings from '../../hooks/use-form-settings';
 
 let scrollTimer: ReturnType< typeof setTimeout >;
 let tabTimer: ReturnType< typeof setTimeout >;
@@ -27,7 +34,9 @@ const FieldWrapper: React.FC = () => {
 		shouldBeRendered,
 		showErrMsg,
 		next,
+		attributes,
 	} = __experimentalUseFieldRenderContext();
+	const settings = useFormSettings();
 	if ( ! id ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
 		return {
@@ -37,7 +46,7 @@ const FieldWrapper: React.FC = () => {
 		};
 	} );
 
-	const { setSwiper, goToBlock, goNext, goPrev } = useDispatch(
+	const { setSwiper, goNext, goPrev } = useDispatch(
 		'quillForms/renderer-core'
 	);
 
@@ -186,6 +195,7 @@ const FieldWrapper: React.FC = () => {
 	}
 
 	const scrollHandler = ( e ) => {
+		if ( settings?.disableWheelSwiping ) return;
 		e.preventDefault();
 		if ( ! ref.current ) return;
 		if ( ref.current.scrollTop === 0 ) {
@@ -211,49 +221,76 @@ const FieldWrapper: React.FC = () => {
 			setCanSwipeNext( false );
 		}
 	};
+	const theme = useBlockTheme( attributes?.themeId );
+	let backgroundImageCSS = '';
+	if ( theme.backgroundImage && theme.backgroundImage ) {
+		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
+			background-size: cover;
+			background-position: center;
+		`;
+	}
+
 	return (
 		<div
 			className={ classnames(
 				'renderer-components-field-wrapper',
 				{
 					active: isActive,
+					'is-animating': isAnimating,
 				},
-				position ? position : ''
+				position ? position : '',
+				css`
+					font-family: ${ theme.font };
+					textarea,
+					input {
+						font-family: ${ theme.font };
+					}
+					${ attributes.themeId && backgroundImageCSS }
+				`
 			) }
 			onScroll={ ( e ) => scrollHandler( e ) }
 		>
-			{ shouldBeRendered && (
-				<section id={ 'block-' + id }>
-					<div
-						className="renderer-components-field-wrapper__content-wrapper"
-						ref={ ref }
-						tabIndex={ 0 }
-						onKeyDown={ ( e: KeyboardEvent ): void => {
-							const isShiftPressed = e.shiftKey;
-							if ( isAnimating ) {
-								e.preventDefault();
-								return;
-							}
-							if ( e.key === 'Enter' ) {
-								if ( isValid ) {
-									next();
-								} else {
-									showErrMsg( true );
-								}
-							} else {
-								//tab?
-								if ( e.key === 'Tab' ) {
-									e.stopPropagation();
+			<div
+				className={ css`
+					${ attributes.themeId &&
+					`background: ${ theme.backgroundColor }` };
+					width: 100%;
+					height: 100%;
+				` }
+			>
+				{ shouldBeRendered && (
+					<section id={ 'block-' + id }>
+						<div
+							className="renderer-components-field-wrapper__content-wrapper"
+							ref={ ref }
+							tabIndex={ 0 }
+							onKeyDown={ ( e: KeyboardEvent ): void => {
+								const isShiftPressed = e.shiftKey;
+								if ( isAnimating ) {
 									e.preventDefault();
-									onTab( e, isShiftPressed );
+									return;
 								}
-							}
-						} }
-					>
-						<FieldContent />
-					</div>
-				</section>
-			) }
+								if ( e.key === 'Enter' ) {
+									if ( isValid ) {
+										next();
+									} else {
+										showErrMsg( true );
+									}
+								} else {
+									//tab?
+									if ( e.key === 'Tab' ) {
+										e.stopPropagation();
+										e.preventDefault();
+										onTab( e, isShiftPressed );
+									}
+								}
+							} }
+						>
+							<FieldContent />
+						</div>
+					</section>
+				) }
+			</div>
 		</div>
 	);
 };

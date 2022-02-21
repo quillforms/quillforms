@@ -29,3 +29,8 @@
 		width: 200px;
 	}
 }
+@media(max-width: 400px) {
+	.renderer-core-progress-bar {
+		width: 160px
+	}
+}

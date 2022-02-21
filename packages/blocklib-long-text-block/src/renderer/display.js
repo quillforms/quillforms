@@ -1,7 +1,11 @@
 /**
  * QuillForms Depndencies
  */
-import { useTheme, useMessages, HTMLParser } from '@quillforms/renderer-core';
+import {
+	useMessages,
+	HTMLParser,
+	useBlockTheme,
+} from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -34,8 +38,8 @@ const LongTextOutput = ( props ) => {
 		setFooterDisplay,
 	} = props;
 	const { setMaxCharacters, maxCharacters, required } = attributes;
+	const theme = useBlockTheme( attributes.themeId );
 	const messages = useMessages();
-	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
 
 	const checkfieldValidation = ( value ) => {

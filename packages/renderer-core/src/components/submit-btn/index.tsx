@@ -17,13 +17,18 @@ import { css } from 'emotion';
  */
 import Button from '../button';
 import HTMLParser from '../html-parser';
-import { useTheme, useFormContext, useMessages } from '../../hooks';
+import { useBlockTheme, useFormContext, useMessages } from '../../hooks';
 import { __experimentalUseFieldRenderContext } from '../field-render';
 
 const SubmitBtn: React.FC = () => {
-	const theme = useTheme();
 	const messages = useMessages();
-	const { isLastField, isActive } = __experimentalUseFieldRenderContext();
+	const {
+		isLastField,
+		isActive,
+		attributes,
+	} = __experimentalUseFieldRenderContext();
+	const theme = useBlockTheme( attributes.themeId );
+
 	const { goToBlock, setIsReviewing, setIsSubmitting } = useDispatch(
 		'quillForms/renderer-core'
 	);
@@ -113,6 +118,7 @@ const SubmitBtn: React.FC = () => {
 						if ( ! isSubmitting ) submitHandler();
 					}
 				} }
+				theme={ theme }
 			>
 				<HTMLParser
 					value={

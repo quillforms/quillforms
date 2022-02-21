@@ -14,7 +14,7 @@ import {
 	setUpThemes,
 } from './actions';
 
-export function* getCurrentTheme( state ) {
+export function* getThemesList( state ) {
 	const path = `/qf/v1/themes`;
 	try {
 		const themeId = ConfigAPI.getInitialPayload().theme.id;

@@ -46,7 +46,7 @@ const Header = () => {
 					{ ! hasGetCurrentUserFinishedResolution ? (
 						<UserNamePlaceholder />
 					) : (
-						currentUser.name
+						currentUser?.name
 					) }
 				</div>
 
@@ -56,9 +56,16 @@ const Header = () => {
 					) : (
 						<img
 							src={
+								currentUser?.avatar_urls &&
+								size( currentUser.avatar_urls ) &&
+								size( keys( currentUser.avatar_urls ) ) &&
 								currentUser.avatar_urls[
 									keys( currentUser.avatar_urls )[ 0 ]
 								]
+									? currentUser.avatar_urls[
+											keys( currentUser.avatar_urls )[ 0 ]
+									  ]
+									: ''
 							}
 						/>
 					) }

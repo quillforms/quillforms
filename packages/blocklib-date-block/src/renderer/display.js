@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useTheme, useMessages } from '@quillforms/renderer-core';
+import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -42,13 +42,13 @@ const DateOutput = ( props ) => {
 		inputRef,
 	} = props;
 	const { format, separator, required } = attributes;
+	const theme = useBlockTheme( attributes.themeId );
 	const { isReviewing } = useSelect( ( select ) => {
 		return {
 			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
 		};
 	} );
 	const messages = useMessages();
-	const theme = useTheme();
 	const answersColor = tinyColor( theme.answersColor );
 
 	const getPlaceholder = () => {

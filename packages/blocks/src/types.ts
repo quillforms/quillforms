@@ -45,6 +45,7 @@ export type BlockSupportedFeatures = {
 	editable?: boolean;
 	required?: boolean;
 	logic?: boolean;
+	theme?: boolean;
 };
 
 export interface BlockTypeSettings

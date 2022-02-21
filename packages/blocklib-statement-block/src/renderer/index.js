@@ -5,7 +5,7 @@ import { setBlockRendererSettings } from '@quillforms/blocks';
 import {
 	__experimentalUseFieldRenderContext,
 	Button,
-	useTheme,
+	useBlockTheme,
 } from '@quillforms/renderer-core';
 
 /**
@@ -15,7 +15,7 @@ import { name } from '../block.json';
 
 const NextBtnComponent = ( { onClick } ) => {
 	const { attributes } = __experimentalUseFieldRenderContext();
-
+	const theme = useBlockTheme( attributes.themeId );
 	return (
 		<Button
 			tabIndex={ 0 }
@@ -25,6 +25,7 @@ const NextBtnComponent = ( { onClick } ) => {
 				}
 			} }
 			onClick={ onClick }
+			theme={ theme }
 		>
 			{ attributes.buttonText }
 		</Button>
@@ -34,7 +35,7 @@ const NextBtnComponent = ( { onClick } ) => {
 const CounterIconComponent = () => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	const { quotationMarks } = attributes;
-	const theme = useTheme();
+	const theme = useBlockTheme( attributes.themeId );
 	return (
 		<>
 			{ quotationMarks && (

@@ -7,6 +7,9 @@ import {
 	ControlWrapper,
 	ControlLabel,
 } from '@quillforms/admin-components';
+
+// @ts-expect-error
+import { ThemeCard, ThemeListItem } from '@quillforms/theme-editor';
 import type { BlockAttributes } from '@quillforms/types';
 
 /**
@@ -21,6 +24,11 @@ import { MediaUpload } from '@wordpress/media-utils';
  */
 import { isEmpty } from 'lodash';
 
+/**
+ * Internal Dependencies
+ */
+import BlockThemeControl from '../block-theme';
+
 interface Props {
 	blockName: string;
 	attributes?: BlockAttributes;
@@ -31,27 +39,36 @@ const DefaultControls: React.FC< Props > = ( {
 	attributes,
 	setAttributes,
 } ) => {
-	const { editableSupport, requiredSupport, attachmentSupport } = useSelect(
-		( select ) => {
-			return {
-				editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-					blockName,
-					'editable'
-				),
-				requiredSupport: select( 'quillForms/blocks' ).hasBlockSupport(
-					blockName,
-					'required'
-				),
-				attachmentSupport: select(
-					'quillForms/blocks'
-				).hasBlockSupport( blockName, 'attachment' ),
-			};
-		}
-	);
-	let required, attachment;
+	const {
+		editableSupport,
+		requiredSupport,
+		attachmentSupport,
+		themeSupport,
+	} = useSelect( ( select ) => {
+		return {
+			editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'editable'
+			),
+			requiredSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'required'
+			),
+			attachmentSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'attachment'
+			),
+			themeSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'theme'
+			),
+		};
+	} );
+	let required, attachment, blockTheme;
 	if ( attributes ) {
 		required = attributes.required;
 		attachment = attributes.attachment;
+		blockTheme = attributes.themeId;
 	}
 	return (
 		<Fragment>
@@ -109,6 +126,12 @@ const DefaultControls: React.FC< Props > = ( {
 						) }
 					</ControlWrapper>
 				</BaseControl>
+			) }
+			{ themeSupport && (
+				<BlockThemeControl
+					blockTheme={ blockTheme }
+					setAttributes={ setAttributes }
+				/>
 			) }
 		</Fragment>
 	);

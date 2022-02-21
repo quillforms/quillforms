@@ -4,3 +4,4 @@ import './notifications';
 import './theme';
 import './title';
 import './slug';
+import './settings';

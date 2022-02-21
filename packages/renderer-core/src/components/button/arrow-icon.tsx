@@ -3,13 +3,7 @@
  */
 import { css } from 'emotion';
 
-/**
- * Internal Dependencies
- */
-import useTheme from '../../hooks/use-theme';
-
-const ArrowIcon = () => {
-	const theme = useTheme();
+const ArrowIcon = ( { theme } ) => {
 	return (
 		<svg
 			className={ css`

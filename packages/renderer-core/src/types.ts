@@ -8,9 +8,18 @@ import type {
 	FormLogic,
 } from '@quillforms/types';
 
+type Theme = {
+	id: number;
+	properties: Partial< FormTheme >;
+};
 export type FormObj = {
 	blocks: FormBlocks;
-	theme?: Partial< FormTheme >;
+	themesList: Theme[];
+	theme: Partial< FormTheme >;
 	messages?: Partial< FormMessages >;
 	logic?: FormLogic;
+	settings: {
+		disableProgressBar?: boolean;
+		disableWheelSwiping?: boolean;
+	};
 };

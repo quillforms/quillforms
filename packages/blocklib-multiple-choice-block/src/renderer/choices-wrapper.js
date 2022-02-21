@@ -1,4 +1,8 @@
 /**
+ * QuillForms Dependencies
+ */
+import { useBlockTheme } from '@quillforms/renderer-core';
+/**
  * WordPress Dependencies
  */
 import { memo } from '@wordpress/element';
@@ -26,8 +30,9 @@ const areEqual = ( prevProps, nextProps ) => {
 };
 const ChoicesWrapper = memo(
 	( { id, attributes, val, setVal, setChoiceClicked } ) => {
-		const { verticalAlign, multiple, choices } = attributes;
+		const { verticalAlign, multiple, choices, themeId } = attributes;
 
+		const theme = useBlockTheme( themeId );
 		const charCode = 'a'.charCodeAt( 0 );
 		// Simple algorithm to generate alphabatical idented order
 		const identName = ( a ) => {
@@ -103,6 +108,7 @@ const ChoicesWrapper = memo(
 						$choices.map( ( choice, index ) => {
 							return (
 								<ChoiceItem
+									theme={ theme }
 									key={ `block-multiple-choice-${ id }-choice-${ choice.value }` }
 									choiceLabel={ choice.label }
 									choiceValue={ choice.value }

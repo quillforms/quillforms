@@ -1,5 +1,10 @@
 /* eslint-disable no-nested-ternary */
 /**
+ * Quill Forms Dependencies
+ */
+import configApi from '@quillforms/config';
+
+/**
  * WordPress Dependencies
  */
 import { Fragment, useEffect, useRef } from '@wordpress/element';
@@ -18,16 +23,58 @@ import WelcomeScreensWrapper from '../welcome-screens-wrapper';
 import ThankyouScreensWrapper from '../thankyou-screens-wrapper';
 import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
-import useTheme from '../../hooks/use-theme';
+import useGeneralTheme from '../../hooks/use-general-theme';
 import useBlocks from '../../hooks/use-blocks';
 import PaymentModal from '../payment-modal';
+import { useCurrentTheme } from '../..';
 
 interface Props {
 	applyLogic: boolean;
 }
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
-	const theme = useTheme();
+	const generalTheme = useGeneralTheme();
+	const currentTheme = useCurrentTheme();
+	const fonts = configApi.getFonts();
+
+	const { font } = currentTheme;
+
+	// @ts-expect-error
+	const fontType = fonts[ font ];
+	let fontUrl;
+	switch ( fontType ) {
+		case 'googlefonts':
+			fontUrl =
+				'https://fonts.googleapis.com/css?family=' +
+				font +
+				':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+
+			break;
+
+		case 'earlyaccess':
+			//@ts-expect-error
+			const fontLowerString = font.replace( /\s+/g, '' ).toLowerCase();
+			fontUrl =
+				'https://fonts.googleapis.com/earlyaccess/' +
+				fontLowerString +
+				'.css';
+			break;
+	}
+	useEffect( () => {
+		const head = document.head;
+		const link = document.createElement( 'link' );
+
+		link.type = 'text/css';
+		link.rel = 'stylesheet';
+		if ( font ) {
+			link.href = fontUrl;
+			const existingLinkEl = document.querySelector(
+				`link[href='${ link.href }']`
+			);
+			if ( ! existingLinkEl ) head.appendChild( link );
+		}
+	}, [ font ] );
+
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
 	const ref = useRef< any >( null );
 	const {
@@ -78,8 +125,8 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	}, [] );
 
 	let backgroundImageCSS = '';
-	if ( theme.backgroundImage && theme.backgroundImage ) {
-		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
+	if ( generalTheme.backgroundImage && generalTheme.backgroundImage ) {
+		backgroundImageCSS = `background: url('${ generalTheme.backgroundImage }') no-repeat;
 			background-size: cover;
 			background-position: center;
 		`;
@@ -90,9 +137,9 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 			ref={ ref }
 			className={ classnames(
 				css`
-					${ backgroundImageCSS };
 					height: 100%;
 					width: 100%;
+					${ backgroundImageCSS }
 				`,
 				'renderer-core-form-flow__wrapper'
 			) }
@@ -103,17 +150,12 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				className={ classnames(
 					'renderer-core-form-flow',
 					css`
-						background: ${ theme.backgroundColor };
-						font-family: ${ theme.font };
 						position: relative;
 						width: 100%;
 						height: 100%;
 						overflow: hidden;
-
-						textarea,
-						input {
-							font-family: ${ theme.font };
-						}
+						background: ${ generalTheme.backgroundColor };
+						font-family: ${ generalTheme.font };
 					`
 				) }
 				onClick={ () => {

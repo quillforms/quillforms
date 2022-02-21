@@ -5,7 +5,8 @@
 		"required": true,
 		"attachment": true,
 		"description": true,
-		"logic": false
+		"logic": false,
+		"theme": true
 	},
 	"attributes": {
 		"format": {

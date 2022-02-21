@@ -231,4 +231,32 @@ class Core {
 		}
 		return $theme;
 	}
+
+	/**
+	 * Get the theme id form a specific form id.
+	 *
+	 * @param integer $form_id    Form id.
+	 *
+	 * @return integer|null The form theme id
+	 *
+	 * @since 1.8
+	 */
+	public static function get_theme_id( $form_id ) {
+		$theme_id = get_post_meta( $form_id, 'theme', true );
+		return $theme_id;
+	}
+
+	/**
+	 * Get form settings
+	 *
+	 * @param integer $form_id    Form id.
+	 *
+	 * @return array The form settings
+	 *
+	 * @since 1.8
+	 */
+	public static function get_form_settings( $form_id ) {
+		$settings = get_post_meta( $form_id, 'settings', true );
+		return $settings;
+	}
 }

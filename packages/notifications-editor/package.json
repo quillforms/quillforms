@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/notifications-editor",
-	"version": "1.0.11",
+	"version": "1.1.2",
 	"description": "Notifications editor package",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -25,11 +25,15 @@
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config",
 		"@wordpress/data": "^5.1.1",
-		"@wordpress/element": "^3.1.1",
+		"@wordpress/element": "^4.0.4",
 		"@wordpress/hooks": "^3.2.0",
 		"@wordpress/icons": "^4.0.1",
 		"react-confirm-alert": "^2.7.0",
 		"react-multi-email": "^0.5.3"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

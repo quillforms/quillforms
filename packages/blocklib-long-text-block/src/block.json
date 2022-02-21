@@ -5,7 +5,8 @@
 		"required": true,
 		"attachment": true,
 		"description": true,
-		"logic": true
+		"logic": true,
+		"theme": true
 	},
 	"attributes": {
 		"setMaxCharacters":  {

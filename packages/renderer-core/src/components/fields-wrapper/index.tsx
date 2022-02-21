@@ -20,6 +20,7 @@ import FieldRender from '../field-render';
 import useLogic from '../../hooks/use-logic';
 import useBlocks from '../../hooks/use-blocks';
 import useBlockTypes from '../../hooks/use-block-types';
+import useFormSettings from '../../hooks/use-form-settings';
 import React from 'react';
 
 let lastScrollDate = 0;
@@ -34,6 +35,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
+	const settings = useFormSettings();
 	const ref = useRef< HTMLDivElement | null >( null );
 	const { swiper } = useSelect( ( select ) => {
 		return {
@@ -62,6 +64,13 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				: null,
 		};
 	} );
+
+	const currentBlockIndex = walkPath.findIndex(
+		( block ) => block.id === currentBlockId
+	);
+	const lastActiveBlockIndex = walkPath.findIndex(
+		( block ) => block.id === lastActiveBlockId
+	);
 
 	const isTouchScreen =
 		'ontouchstart' in window ||
@@ -120,6 +129,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		e: React.WheelEvent | SwipeEventData,
 		touch = false
 	) => {
+		if ( settings?.disableWheelSwiping ) return;
 		if ( swiper.isAnimating ) return;
 		const lethargyCheck = lethargy.check( e );
 		const now = new Date().getTime();
@@ -206,6 +216,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			onWheel={ swipingHandler }
 			className={ classNames( 'renderer-core-fields-wrapper', {
 				active: isActive,
+				'is-moving-up':
+					isAnimating && currentBlockIndex < lastActiveBlockIndex,
+				'is-moving-down':
+					isAnimating && currentBlockIndex > lastActiveBlockIndex,
 			} ) }
 			ref={ ref }
 			aria-hidden={ isActive ? false : true }
@@ -222,7 +236,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 							) }
 							isActive={ isActive }
 							isLastField={
-								isThereNextField && index === fields.length - 1
+								// isThereNextField &&
+								index === fields.length - 1
 							}
 						/>
 					);

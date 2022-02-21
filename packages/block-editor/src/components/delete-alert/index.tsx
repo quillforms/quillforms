@@ -44,7 +44,10 @@ const DeleteAlertModal: React.FC< Props > = ( {
 			onRequestClose={ closeModal }
 		>
 			<div>
-				<div>Are you sure you want to delete this item? All of its data will be deleted.</div>
+				<div>
+					Are you sure you want to delete this item? All of its data
+					will be deleted.
+				</div>
 				<div>
 					{ messages.length === 1
 						? messages[ 0 ]

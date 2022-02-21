@@ -1,7 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useTheme, useMessages } from '@quillforms/renderer-core';
+import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -31,7 +31,7 @@ const WebsiteOutput = ( props ) => {
 		setFooterDisplay,
 	} = props;
 	const messages = useMessages();
-	const theme = useTheme();
+	const theme = useBlockTheme( attributes.themeId );
 	const answersColor = tinyColor( theme.answersColor );
 	const { required } = attributes;
 

@@ -1,13 +1,13 @@
- === Quill Forms | Typeform alternative for WordPress ===
+ === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
 Contributors: quillforms, mdmag
-Tested up to: 5.8
-Stable tag: 1.7.5
+Tested up to: 5.9
+Stable tag: 1.8.2
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz
+Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform.
+A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quil Forms is the best WordPress form plugin that focuses on having better UI/UX for forms.
 
 == Description ==
 https://www.youtube.com/watch?v=GjmLUTDIdFc
@@ -18,8 +18,7 @@ Not if they feel overwhelmed.
 
 That’s why we created QuillForms.
 
-Quill Forms plugin is free Typeform alternative for WordPress.
-
+If you are searching for Typeform WordPress plugin then Quill Forms plugin is free Typeform alternative for WordPress.
 With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
 By asking one question at a time in a friendly tone, you nudge the respondents to complete the desired forms and boost your conversion rate.
 What’s more, QuillForms offers loads of hip features that make creating forms as much fun as filling them!
@@ -28,7 +27,7 @@ What’s more, QuillForms offers loads of hip features that make creating forms 
 ·  Personalize your themes
 ·  Change font, colors and backgrounds with a single click
 
-Quill Forms is definitely the best contact form plugin for wordpress.
+Quill Forms is definitely the best WordPress form plugin.
 QuillForms free version comes with variety of blocks:
 1- Welcome screen block
 2- Date block
@@ -48,16 +47,22 @@ QuillForms free version comes with variety of blocks:
 3- Jump logic
 4- Calculator
 5- Zapier integration to connect with 3000+ apps
-6- MailChimp integration
-7- Constant Contact integration
-8- GoogleSheets integration
+6- GoogleSheets integration
+7- MailChimp integration
+8- Constant Contact integration
 9- GetResponse integration
 10- Opinion scale block
 11- Custom thank you screen
 [Purchase The Pro Version](https://quillforms.com)
 
+= Introducing Block Themes =
+https://www.youtube.com/watch?v=nv_YucsnSEY
+
 = Demo =
 You can watch the demo [here](https://quillforms.com/quillforms/my-first-form)
+
+= Compare Quill Forms With Others =
+[Compare Quill Forms with Typeform](https://quillforms.com/typeform-alternative)
 
 = Be a contributor =
 If you want to contribute, go to our [QuillForms GitHub Repository](https://github.com/quillforms/quillforms) and see where you can help.
@@ -65,9 +70,29 @@ If you want to contribute, go to our [QuillForms GitHub Repository](https://gith
 
 == Frequently Asked Questions ==
 
-= How can I send feedback or get help with a bug? =
+= Is the project open source? =
 
-We'd love to hear your bug reports, feature suggestions and any other feedback! Please head over to <a href="https://github.com/quillforms/quillforms/issues">the GitHub issues page</a> to search for existing issues or open a new one.
+Yes, Quill Forms is an [open source Typeform alternative](https://github.com/quillforms/quillforms)
+
+= Does the free version has any branding? =
+
+No, the free version doesn't contain any branding.
+
+= How many forms can I create with the free version? =
+
+You can build unlimited forms with the free version.
+
+= Can I use jump logic with your form? =
+
+Absoletely yes, but you need to upgrade first to our pro version
+
+= Can I use calculator for creating quizzes, cost estimation or advacned calculations? =
+
+Absoletely yes, but you need to upgrade first to our pro version
+
+= Does it work with Elementor, Gutenberg, Divi, Visual Composer and Oxygen builders?
+
+Yes, with iframe embedding, you can just copy the iframe code provided by us and insert it in your builder. That's it!
 
 == Screenshots ==
 
@@ -80,6 +105,22 @@ We'd love to hear your bug reports, feature suggestions and any other feedback! 
 
 == Changelog ==
 
+= 1.8.2 =  1 Feb 2022
+Fix: Fix conflict with SG optimizer plugin.
+Fix: Fix conflict with Autoptimize plugin.
+Fix: Fix conflict with WP Optimize plugin.
+Feature: Improving the UI for Settings, Addons, License and System Pages.
+
+= 1.8.1 =  28 Jan 2022
+Fix: Urgent fix for missing files
+
+= 1.8.0 =  28 Jan 2022
+Feature: Introducing theme per block.
+Feature: Enabling admin to disable progress bar.
+Feature: Enabling admin to disable swiping by wheel.
+Fix: Fix an error thrown at dashboard for user profile image.
+Fix: Fix an issue with date formatting when the value is empty.
+
 = 1.7.5 =  20 Dec 2021
 Feature: Support for RTL.
 Feature: Improving accessibility with keyboard for dropdown block.
@@ -88,7 +129,7 @@ Feature: Showing number only keyboard for mobile users when they answer number q
 = 1.7.4 =  6 Dec 2021
 Feature: Add option for syncing entry processing for integrations.
 Feature: Add link feature in rich text.
-Fix: styling issues in mobile screen at render part.
+Fix: Styling issues in mobile screen at render part.
 
 = 1.7.3 =  29 Nov 2021
 Fix: Hide every thing except the form in the form page.

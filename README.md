@@ -1,7 +1,7 @@
 # Quill Forms
-Typeform free alternative WordPress Plugin based on React.js
+Typeform open source WordPress Plugin based on React.js and Typescript
 
-[Watch Demo](https://quillforms.com/quillforms/my-first-form/)
+[Watch Demo](https://quillforms.com/quillforms/my-first-form/) 
 
 [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/mohamedmagdymohamed)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
@@ -17,6 +17,10 @@ This plugin is available on the [WordPress.org plugin repository](https://wordpr
 
 # Documentation
 Docs will be coming soon
+
+# Compare Quill Forms vs Others
+[Compare Quill Forms vs Typeform](https://quillforms.com/typeform-alternative)
+
 
 # Concept
 The project concept is inspired by WordPress [Gutenberg](https://github.com/WordPress/gutenberg) project and its blocks concept.

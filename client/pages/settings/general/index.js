@@ -1,7 +1,14 @@
 /**
  * QuillForms Dependencies.
  */
-import { SelectControl, Button } from '@quillforms/admin-components';
+import {
+	SelectControl,
+	Button,
+	BaseControl,
+	ControlLabel,
+	ControlWrapper,
+	ToggleControl,
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -109,89 +116,89 @@ const General = () => {
 				<div className="error">Cannot load settings</div>
 			) : (
 				<div>
-					<div
-						className={ css`
-							display: flex;
-							align-items: center;
-						` }
-					>
-						<div>Log level</div>
-						<SelectControl
-							className={ css`
-								width: 200px;
-								margin-left: 10px;
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Log level"></ControlLabel>
+							<SelectControl
+								className={ css`
+									width: 200px;
+									margin-left: 10px;
 
-								.components-custom-select-control__label {
-									margin-bottom: 0;
+									.components-custom-select-control__label {
+										margin-bottom: 0;
+									}
+								` }
+								value={ logLevelOptions.find(
+									( option ) =>
+										option.key === settings.log_level
+								) }
+								onChange={ ( selectedChoice ) => {
+									setSettingField(
+										'log_level',
+										selectedChoice.selectedItem.key
+									);
+								} }
+								options={ logLevelOptions }
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Process form entry for integrations synchronously" />
+
+							<ToggleControl
+								checked={
+									settings?.providers_sync_entry_process
 								}
-							` }
-							value={ logLevelOptions.find(
-								( option ) => option.key === settings.log_level
-							) }
-							onChange={ ( selectedChoice ) => {
-								setSettingField(
-									'log_level',
-									selectedChoice.selectedItem.key
-								);
-							} }
-							options={ logLevelOptions }
-						/>
-					</div>
+								onChange={ () => {
+									setSettingField(
+										'providers_sync_entry_process',
+										! settings?.providers_sync_entry_process
+									);
+								} }
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Disable collecting user ip" />
+
+							<ToggleControl
+								checked={ settings.disable_collecting_user_ip }
+								onChange={ () => {
+									setSettingField(
+										'disable_collecting_user_ip',
+										! settings.disable_collecting_user_ip
+									);
+								} }
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Disable collecting user agent" />
+
+							<ToggleControl
+								checked={
+									settings.disable_collecting_user_agent
+								}
+								onChange={ () => {
+									setSettingField(
+										'disable_collecting_user_agent',
+										! settings.disable_collecting_user_agent
+									);
+								} }
+							/>
+						</ControlWrapper>
+					</BaseControl>
+
 					<div
 						className={ css`
-							margin-top: 0.6rem;
-						` }
-					>
-						<CheckboxControl
-							label="Process form entry for integrations synchronously"
-							checked={ settings.providers_sync_entry_process }
-							onChange={ ( checked ) => {
-								setSettingField(
-									'providers_sync_entry_process',
-									checked
-								);
-							} }
-						/>
-					</div>
-					<h4
-						className={ css`
-							margin-top: 1rem;
-							margin-bottom: 0.5rem;
-						` }
-					>
-						GDPR Enhancements
-					</h4>
-					<div>
-						<CheckboxControl
-							label="Disable collecting user ip"
-							checked={ settings.disable_collecting_user_ip }
-							onChange={ ( checked ) => {
-								setSettingField(
-									'disable_collecting_user_ip',
-									checked
-								);
-							} }
-						/>
-					</div>
-					<div>
-						<CheckboxControl
-							label="Disable collecting user agent"
-							checked={ settings.disable_collecting_user_agent }
-							onChange={ ( checked ) => {
-								setSettingField(
-									'disable_collecting_user_agent',
-									checked
-								);
-							} }
-						/>
-					</div>
-					<div
-						className={ css`
-							text-align: center;
+							text-align: left;
 							margin-top: 20px;
 						` }
 					>
-						<Button isPrimary onClick={ save }>
+						<Button isLarge isPrimary onClick={ save }>
 							Save
 						</Button>
 					</div>

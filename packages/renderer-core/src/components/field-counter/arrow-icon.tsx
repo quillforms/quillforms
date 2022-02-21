@@ -4,20 +4,14 @@
 import { css } from 'emotion';
 import classnames from 'classnames';
 
-/**
- * Internal Dependencies
- */
-import useTheme from '../../hooks/use-theme';
-
-const ArrowIcon = () => {
-	const theme = useTheme();
+const ArrowIcon = ( { theme } ) => {
 	return (
 		<svg
 			className={ classnames(
 				'renderer-components-block-counter__arrow-icon',
 				css`
-					fill: ${theme.questionsColor};
-					stroke: ${theme.questionsColor};
+					fill: ${ theme.questionsColor };
+					stroke: ${ theme.questionsColor };
 				`
 			) }
 			focusable="false"

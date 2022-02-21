@@ -11,13 +11,13 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { useTheme } from '../../hooks';
+import { useCurrentTheme } from '../../hooks';
 import DownIcon from './down-icon';
 import UpIcon from './up-icon';
 
 const FieldNavigation = () => {
 	const { goNext, goPrev } = useDispatch( 'quillForms/renderer-core' );
-	const theme = useTheme();
+	const theme = useCurrentTheme();
 	const { currentBlockId, walkPath } = useSelect( ( select ) => {
 		return {
 			currentBlockId: select(

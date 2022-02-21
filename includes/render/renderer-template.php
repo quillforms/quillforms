@@ -14,7 +14,8 @@ defined( 'ABSPATH' ) || exit;
 the_post();
 $form_id     = get_the_ID();
 $form_object = Form_Renderer::instance()->prepare_form_object();
-?><html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
+?>
+<html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
 	<head>
 		<style>
 			html, body {

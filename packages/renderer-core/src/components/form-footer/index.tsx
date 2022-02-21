@@ -17,10 +17,11 @@ import tinyColor from 'tinycolor2';
  * Internal Dependencies
  */
 import ProgressBar from '../progress-bar';
-import { useTheme } from '../../hooks';
+import { useCurrentTheme, useFormContext } from '../../hooks';
 
 const FormFooter: React.FC = memo( () => {
-	const theme = useTheme();
+	const theme = useCurrentTheme();
+	const { formObj } = useFormContext();
 	const {
 		currentBlockId,
 		isWelcomeScreenActive,
@@ -64,7 +65,7 @@ const FormFooter: React.FC = memo( () => {
 			) }
 			tabIndex={ -1 }
 		>
-			<ProgressBar />
+			{ ! formObj?.settings?.disableProgressBar && <ProgressBar /> }
 			<FieldNavigation />
 		</div>
 	);
