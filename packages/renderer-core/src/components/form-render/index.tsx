@@ -47,7 +47,9 @@ const Form: React.FC< Props > = ( {
 	};
 
 	useEffect( () => {
-		doAction( 'QuillForms.RendererCore.Loaded' );
+		if ( ! isPreview ) {
+			doAction( 'QuillForms.RendererCore.Loaded' );
+		}
 	}, [] );
 
 	return (

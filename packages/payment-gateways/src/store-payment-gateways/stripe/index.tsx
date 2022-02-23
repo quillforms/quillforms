@@ -36,6 +36,7 @@ function register() {
 		icon: `${ assetsDir }/icon.png`,
 		active: false,
 		settings: Settings,
+		isPro: true,
 		methods: {
 			elements: {
 				isRecurringSupported: true,
@@ -46,7 +47,6 @@ function register() {
 					label: {
 						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,
 						text: 'Elements',
-						notice: LabelNotice,
 					},
 				},
 				customer: {
@@ -65,7 +65,6 @@ function register() {
 					label: {
 						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,
 						text: 'Checkout',
-						notice: LabelNotice,
 					},
 				},
 				customer: {

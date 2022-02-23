@@ -36,6 +36,7 @@ function register() {
 		icon: `${ assetsDir }/icon.png`,
 		active: false,
 		settings: Settings,
+		isPro: true,
 		methods: {
 			checkout: {
 				isRecurringSupported: true,
@@ -43,7 +44,6 @@ function register() {
 					label: {
 						icon: `${ assetsDir }/pp-logo-200px.webp`,
 						text: 'Checkout',
-						notice: LabelNotice,
 					},
 				},
 				customer: {
@@ -59,7 +59,6 @@ function register() {
 					label: {
 						icon: `${ assetsDir }/pp-logo-200px.webp`,
 						text: 'Card',
-						notice: LabelNotice,
 					},
 				},
 				customer: {

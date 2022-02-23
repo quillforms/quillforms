@@ -501,6 +501,44 @@ const PaymentsPage = ( { params } ) => {
 				} ) }
 				<div className="quillforms-payments-page-settings__products">
 					<h3> Products </h3>
+					<div className="quillforms-payments-page-settings__products-hint">
+						Here you should add your products. There are 2 options
+						for each product:
+						<ol>
+							<li>
+								Single product <br />
+								Here you have 3 options:{ ' ' }
+								<ul
+									style={ {
+										listStyle: 'none',
+										paddingLeft: '20px',
+									} }
+								>
+									<li>
+										a- Specific <br />
+										If there is a fixed price for the
+										product.
+									</li>
+									<li>
+										b- Numeric field <br /> If you would
+										like your user to set the product price
+										themselves with "Number block" question.
+									</li>
+									<li>
+										c- Calculation <br /> This needs "Logic
+										Addon" to be installed to use calculated
+										variables based on "Calculator" feature.
+									</li>{ ' ' }
+								</ul>
+							</li>
+							<li>
+								Mapping <br />
+								Use this option if you would like to map your
+								products from "Multiple Choice" question or
+								"Dropdown" question{ ' ' }
+							</li>{ ' ' }
+						</ol>
+					</div>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
 							<div>{ productsItems }</div>

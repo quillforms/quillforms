@@ -217,7 +217,6 @@ class Form_Renderer {
 			global $wp_styles;
 			global $post;
 			Core::register_block_types_by_js();
-			Core::set_renderer_config();
 
 			$form_id           = $post->ID;
 			$wp_scripts->queue = array( 'quillforms-renderer-core' );

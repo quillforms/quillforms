@@ -7,6 +7,7 @@ export type PaymentGatewayModule = {
 	description: string;
 	active: boolean;
 	settings: React.FC< { slug: string } > | JSX.Element | React.Component;
+	isPro?: boolean;
 	options?:
 		| React.FC< {
 				slug: string;
@@ -26,12 +27,6 @@ export type PaymentGatewayModule = {
 				label: {
 					icon: string | IconRenderer;
 					text: string;
-					notice?:
-						| React.FC< {
-								slug: string /* gateway:method */;
-						  } >
-						| JSX.Element
-						| React.Component;
 				};
 				options?:
 					| React.FC< {
