@@ -20,14 +20,13 @@
 
 		.admin-components-toggle-control__track {
 			opacity: 1;
-			border-color: #58b9b0;
-			background-color: #58b9b0;
+			background: linear-gradient(135deg,#8778ff,#526ec7);
 		}
 	}
 
 	.admin-components-toggle-control__base {
 		& {
-			color: #9e9e9e;
+			color: #fff;
 			padding: 2px;
 			top: 0;
 			left: 0;
@@ -87,10 +86,9 @@
 
 	}
 	.admin-components-toggle-control__track {
-		border: 1px solid #9e9e9e;
 		opacity: 1;
 		border-radius: 8px;
-		background-color: #fff;
+		background-color: #c4c5cf;
 		width: 100%;
 		height: 100%;
 		z-index: -1;

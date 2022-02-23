@@ -10,4 +10,5 @@ import { doAction } from '@wordpress/hooks';
 
 const appRoot = document.getElementById( 'qf-admin-root' );
 render( <PageLayout />, appRoot );
+
 doAction( 'QuillForms.Admin.PluginsLoaded' );
