@@ -38,6 +38,7 @@ const Button: React.FC< Props > = ( {
 					background: ${ theme.buttonsBgColor };
 					color: ${ theme.buttonsFontColor };
 					z-index: 1;
+					border-radius: ${ theme.buttonsBorderRadius }px;
 					&:before {
 						position: absolute;
 						top: -2.5px;

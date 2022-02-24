@@ -16,14 +16,14 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { PanelBody } from '@wordpress/components';
+import { PanelBody, RangeControl } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 
 /**
  * External Dependencies
  */
 import { isEmpty } from 'lodash';
-import CustomizeFooter from '../customize-footer';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -31,6 +31,7 @@ import CustomizeFooter from '../customize-footer';
 import ColorPicker from '../color-picker';
 import ComboColorPicker from '../combo-color-picker';
 import ColorPreview from '../color-preview';
+import CustomizeFooter from '../customize-footer';
 
 const CustomizeThemePanel = () => {
 	const { setCurrentThemeProperties, setCurrentThemeTitle } = useDispatch(
@@ -62,6 +63,7 @@ const CustomizeThemePanel = () => {
 		answersColor,
 		buttonsFontColor,
 		buttonsBgColor,
+		buttonsBorderRadius,
 		errorsFontColor,
 		errorsBgColor,
 		progressBarBgColor,
@@ -200,6 +202,24 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Border Radius(px)" />
+						<RangeControl
+							className={ css`
+								width: 30%;
+							` }
+							value={ buttonsBorderRadius }
+							onChange={ ( value ) =>
+								setCurrentThemeProperties( {
+									buttonsBorderRadius: value,
+								} )
+							}
+							min={ 1 }
+							max={ 30 }
+						/>
+					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
 			<PanelBody title="Error Messages Settings" initialOpen={ false }>
