@@ -26,6 +26,10 @@
 		"type": "string",
 		"default": "#22bcaa"
 	},
+	"buttonsBorderRadius": {
+		"type": "number",
+		"default": 25
+	},
 	"errorsFontColor": {
 		"type": "string",
 		"default": "#fff"
