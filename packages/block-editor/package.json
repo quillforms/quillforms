@@ -27,7 +27,6 @@
 		"@quillforms/config": "file:../config",
 		"@quillforms/rich-text": "file:../rich-text",
 		"@quillforms/types": "file:../types",
-		"@wordpress/compose": "^4.1.1",
 		"emoji-mart": "^3.0.1",
 		"is-url": "^1.2.4",
 		"lodash": "^4.17.15",
