@@ -26,10 +26,6 @@
 		"@babel/runtime": "^7.16.0",
 		"tinycolor2": "^1.4.2"
 	},
-	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
-	},
 	"publishConfig": {
 		"access": "public"
 	}

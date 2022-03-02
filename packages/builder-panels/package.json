@@ -28,10 +28,6 @@
 		"@quillforms/types": "file:../types",
 		"@quillforms/utils": "file:../utils"
 	},
-	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
-	},
 	"publishConfig": {
 		"access": "public"
 	}
