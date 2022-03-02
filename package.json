@@ -108,7 +108,7 @@
 		"@types/classnames": "^2.3.1",
 		"@types/eslint": "6.8.0",
 		"@types/estree": "0.0.44",
-		"@types/lodash": "^4.14.168",
+		"@types/lodash": "4.14.172",
 		"@types/prettier": "1.19.0",
 		"@types/qs": "6.9.1",
 		"@types/react-beautiful-dnd": "13.0.0",
