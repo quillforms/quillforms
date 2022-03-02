@@ -21,7 +21,7 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
+		"@babel/runtime": "^7.16.0",
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/utils": "file:../utils",
 		"html-react-parser": "1.2.6",

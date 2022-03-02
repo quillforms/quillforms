@@ -21,7 +21,7 @@
 	"module": "build-module/index.js",
 	"types": "build-types",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
+		"@babel/runtime": "^7.16.0",
 		"@woocommerce/navigation": "^6.0.1",
 		"react-router-dom": "^5.2.0",
 		"react-router-navigation-prompt": "^1.8.13"

@@ -23,7 +23,7 @@
 	"quillforms:src": "src/index.ts",
 	"types": "build-types",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
+		"@babel/runtime": "^7.16.0",
 		"@quillforms/types": "file:../types"
 	},
 	"publishConfig": {
