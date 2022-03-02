@@ -24,7 +24,6 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@wordpress/element": "^4.0.4",
 		"lodash": "4.17.21",
 		"tinycolor2": "^1.4.2"
 	},

@@ -27,8 +27,6 @@
 		"@quillforms/notifications-editor": "file:../notifications-editor",
 		"@quillforms/types": "file:../types",
 		"@quillforms/utils": "file:../utils",
-		"@wordpress/data": "^4.26.5",
-		"@wordpress/element": "^4.0.4",
 		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {

@@ -24,7 +24,6 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"emotion": "^11.0.0",
-		"@wordpress/element": "^4.0.4",
 		"escape-html": "^1.0.3",
 		"slate": "^0.59.0",
 		"slate-history": "^0.59.0",

@@ -24,8 +24,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/renderer-core": "file:../renderer-core",
-		"@wordpress/element": "^4.0.4"
+		"@quillforms/renderer-core": "file:../renderer-core"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",
