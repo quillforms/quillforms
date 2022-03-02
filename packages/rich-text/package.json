@@ -23,7 +23,6 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"emotion": "^11.0.0",
 		"escape-html": "^1.0.3",
 		"slate": "^0.59.0",
 		"slate-history": "^0.59.0",
