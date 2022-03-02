@@ -29,7 +29,6 @@
 		"@quillforms/types": "file:../types",
 		"emoji-mart": "^3.0.1",
 		"is-url": "^1.2.4",
-		"lodash": "^4.17.15",
 		"react-intersection-observer": "^8.32.0",
 		"rememo": "^3.0.0"
 	},

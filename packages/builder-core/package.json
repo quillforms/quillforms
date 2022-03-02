@@ -29,7 +29,6 @@
 		"@quillforms/renderer-core": "file:../renderer-core",
 		"@quillforms/types": "file:../types",
 		"framer-motion": "^4.1.17",
-		"lodash": "^4.17.21",
 		"react-confirm-alert": "^2.7.0",
 		"uuid": "^3.3.2"
 	},

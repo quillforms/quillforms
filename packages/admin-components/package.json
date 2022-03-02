@@ -26,7 +26,6 @@
 		"emotion": "^11.0.0",
 		"@quillforms/blocks": "file:../blocks",
 		"gradient-parser": "^0.1.5",
-		"lodash": "^4.17.21",
 		"react-beautiful-dnd": "^13.1.0",
 		"react-window": "^1.8.6",
 		"tinycolor2": "^1.4.1"

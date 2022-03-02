@@ -23,8 +23,7 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/utils": "file:../utils",
-		"lodash": "^4.17.21"
+		"@quillforms/utils": "file:../utils"
 	},
 	"devDependencies": {
 		"@quillforms/types": "file:../types"

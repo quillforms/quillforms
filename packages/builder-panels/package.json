@@ -26,8 +26,7 @@
 		"@quillforms/block-editor": "file:../block-editor",
 		"@quillforms/notifications-editor": "file:../notifications-editor",
 		"@quillforms/types": "file:../types",
-		"@quillforms/utils": "file:../utils",
-		"lodash": "^4.17.21"
+		"@quillforms/utils": "file:../utils"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",
