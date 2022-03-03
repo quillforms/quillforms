@@ -61,7 +61,6 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 		<DropdownMenu
 			label=""
 			icon={ 'ellipsis' }
-			// @ts-expect-error
 			popoverProps={ {
 				position: 'bottom left',
 			} }

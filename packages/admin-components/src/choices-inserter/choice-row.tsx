@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { plus, minus, dragHandle } from '@wordpress/icons';
+import { plus, closeSmall, dragHandle } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 /**
  * External Dependencies
@@ -46,7 +46,7 @@ const ChoiceRow: React.FC< Props > = ( { choices, index, provided } ) => {
 				{ choices.length > 1 && (
 					<div className="admin-components-choices-inserter__choice-remove">
 						<Icon
-							icon={ minus }
+							icon={ closeSmall }
 							onClick={ () => {
 								deleteChoice( item.value );
 							} }

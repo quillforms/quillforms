@@ -22,10 +22,8 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
-		"@quillforms/utils": "file:../utils",
-		"@wordpress/data": "^6.1.5",
-		"lodash": "^4.17.21"
+		"@babel/runtime": "^7.16.0",
+		"@quillforms/utils": "file:../utils"
 	},
 	"devDependencies": {
 		"@quillforms/types": "file:../types"

@@ -18,7 +18,6 @@ import { useSelect } from '@wordpress/data';
  * External Dependencies.
  */
 import classNames from 'classnames';
-import React from 'react';
 import DropAreaPlaceholder from '../drop-area-placeholder';
 
 const BlockDragIndexLine = () => {
