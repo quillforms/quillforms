@@ -531,6 +531,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
 				),
 			),
+			'salesforce'                => array(
+				'name'           => esc_html__( 'Salesforce', 'quillforms' ),
+				'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-salesforce/quillforms-salesforce.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
+				),
+			),
 			'zapier'                    => array(
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
