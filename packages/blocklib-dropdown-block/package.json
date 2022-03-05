@@ -21,14 +21,9 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
+		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/renderer-core": "file:../renderer-core",
-		"@wordpress/element": "^4.0.4"
-	},
-	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
+		"@quillforms/renderer-core": "file:../renderer-core"
 	},
 	"publishConfig": {
 		"access": "public"

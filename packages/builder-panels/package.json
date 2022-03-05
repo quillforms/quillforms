@@ -22,18 +22,11 @@
 	"module": "build-module/index.js",
 	"types": "build-types",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
+		"@babel/runtime": "^7.16.0",
 		"@quillforms/block-editor": "file:../block-editor",
 		"@quillforms/notifications-editor": "file:../notifications-editor",
 		"@quillforms/types": "file:../types",
-		"@quillforms/utils": "file:../utils",
-		"@wordpress/data": "^4.26.5",
-		"@wordpress/element": "^4.0.4",
-		"lodash": "^4.17.21"
-	},
-	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
+		"@quillforms/utils": "file:../utils"
 	},
 	"publishConfig": {
 		"access": "public"

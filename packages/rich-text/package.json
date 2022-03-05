@@ -22,18 +22,12 @@
 	"module": "build-module/index.js",
 	"types": "build-types",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
-		"emotion": "^11.0.0",
-		"@wordpress/element": "^4.0.4",
+		"@babel/runtime": "^7.16.0",
 		"escape-html": "^1.0.3",
 		"slate": "^0.59.0",
 		"slate-history": "^0.59.0",
 		"slate-hyperscript": "^0.59.0",
 		"slate-react": "^0.59.0"
-	},
-	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

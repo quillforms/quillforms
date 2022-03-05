@@ -21,19 +21,11 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
+		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config",
-		"@wordpress/data": "^5.1.1",
-		"@wordpress/element": "^4.0.4",
-		"@wordpress/hooks": "^3.2.0",
-		"@wordpress/icons": "^4.0.1",
 		"react-confirm-alert": "^2.7.0",
 		"react-multi-email": "^0.5.3"
-	},
-	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
