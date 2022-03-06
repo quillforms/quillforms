@@ -477,6 +477,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
 				),
 			),
+			'activecampaign'            => array(
+				'name'           => esc_html__( 'ActiveCampaign', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your ActiveCampaign account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-activecampaign/quillforms-activecampaign.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
+				),
+			),
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
