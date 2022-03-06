@@ -56,53 +56,58 @@ const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 				.classList.remove( 'has-sticky-footer' );
 	}, [] );
 
-	return createPortal(
-		<div className="theme-editor-customize-footer">
-			<Button
-				isDefault
-				onClick={ () => {
-					if ( ! isSaving ) {
-						if ( themeId ) {
-							const themeIndex = themesList.findIndex(
-								( $theme ) => $theme.id === themeId
-							);
-							if ( themeIndex !== -1 ) {
-								setCurrentThemeProperties(
-									themesList[ themeIndex ].properties
-								);
-								setCurrentThemeTitle(
-									themesList[ themeIndex ].title
-								);
-								return;
-							}
-						}
-						setCurrentThemeProperties(
-							getDefaultThemeProperties()
-						);
-						setCurrentThemeTitle( '' );
-					}
-				} }
-			>
-				Revert changes
-			</Button>
-			{ ! isSaving ? (
+	return (
+		<>
+			<div className="theme-editor-customize-footer">
 				<Button
-					isPrimary
+					isDefault
 					onClick={ () => {
-						if ( themeId ) {
-							updateTheme( themeId, themeTitle, themeProperties );
-						} else {
-							addNewTheme( themeTitle, themeProperties );
+						if ( ! isSaving ) {
+							if ( themeId ) {
+								const themeIndex = themesList.findIndex(
+									( $theme ) => $theme.id === themeId
+								);
+								if ( themeIndex !== -1 ) {
+									setCurrentThemeProperties(
+										themesList[ themeIndex ].properties
+									);
+									setCurrentThemeTitle(
+										themesList[ themeIndex ].title
+									);
+									return;
+								}
+							}
+							setCurrentThemeProperties(
+								getDefaultThemeProperties()
+							);
+							setCurrentThemeTitle( '' );
 						}
 					} }
 				>
-					{ themeId ? 'Save changes' : 'Save as a new theme' }
+					Revert changes
 				</Button>
-			) : (
-				<IsSavingBtn />
-			) }
-		</div>,
-		document.querySelector( '.builder-core-panel' )
+				{ ! isSaving ? (
+					<Button
+						isPrimary
+						onClick={ () => {
+							if ( themeId ) {
+								updateTheme(
+									themeId,
+									themeTitle,
+									themeProperties
+								);
+							} else {
+								addNewTheme( themeTitle, themeProperties );
+							}
+						} }
+					>
+						{ themeId ? 'Save changes' : 'Save as a new theme' }
+					</Button>
+				) : (
+					<IsSavingBtn />
+				) }
+			</div>
+		</>
 	);
 };
 
