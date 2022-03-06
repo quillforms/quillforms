@@ -3,6 +3,8 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"declarationDir": "build-types",
+		"skipLibCheck": true,
+		"strictNullChecks": true
 	},
 	"references": [
 		{ "path": "../config"},

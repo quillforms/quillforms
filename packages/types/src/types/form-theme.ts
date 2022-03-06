@@ -6,6 +6,7 @@ export type FormTheme = {
 	answersColor: string;
 	buttonsFontColor: string;
 	buttonsBgColor: string;
+	buttonsBorderRadius: number;
 	errorsFontColor: string;
 	errorsBgColor: string;
 	progressBarFillColor: string;

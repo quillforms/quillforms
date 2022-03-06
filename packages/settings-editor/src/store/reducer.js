@@ -1,5 +1,6 @@
 import {
 	DISABLE_PROGRESS_BAR,
+	DISABLE_NAVIGATION_ARROWS,
 	DISABLE_WHEEL_SWIPING,
 	SETUP_STORE,
 } from './constants';
@@ -54,4 +55,31 @@ export function disableWheelSwiping( state = false, action ) {
 	return state;
 }
 
-export default combineReducers( { disableProgressBar, disableWheelSwiping } );
+/**
+ * Disable Navigation Arrows.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function disableNavigationArrows( state = false, action ) {
+	switch ( action.type ) {
+		case DISABLE_NAVIGATION_ARROWS:
+			return action.flag;
+
+		case SETUP_STORE: {
+			return action.initialPayload?.disableNavigationArrows
+				? action.initialPayload?.disableNavigationArrows
+				: false;
+		}
+	}
+
+	return state;
+}
+
+export default combineReducers( {
+	disableProgressBar,
+	disableWheelSwiping,
+	disableNavigationArrows,
+} );

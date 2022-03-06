@@ -3,7 +3,9 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"declarationDir": "build-types",
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strictNullChecks": true
 	},
 	"references": [
 		{"path": "../types" }

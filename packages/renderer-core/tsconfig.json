@@ -2,7 +2,9 @@
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
 		"rootDir": "src",
-		"declarationDir": "build-types"
+		"declarationDir": "build-types",
+		"skipLibCheck": true,
+		"strictNullChecks": true
 	},
 	"references": [
 		{ "path": "../types"},

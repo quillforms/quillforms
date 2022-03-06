@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
 Contributors: quillforms, mdmag
 Tested up to: 5.9
-Stable tag: 1.8.2
+Stable tag: 1.8.4
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -18,7 +18,7 @@ Not if they feel overwhelmed.
 
 That’s why we created QuillForms.
 
-If you are searching for Typeform WordPress plugin then Quill Forms plugin is free Typeform alternative for WordPress.
+Quill Forms is the best free Typeform alternative for WordPress.
 With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
 By asking one question at a time in a friendly tone, you nudge the respondents to complete the desired forms and boost your conversion rate.
 What’s more, QuillForms offers loads of hip features that make creating forms as much fun as filling them!
@@ -53,6 +53,7 @@ QuillForms free version comes with variety of blocks:
 9- GetResponse integration
 10- Opinion scale block
 11- Custom thank you screen
+12- Hubspot integration
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
@@ -104,6 +105,15 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.8.4 = 24 Feb 2022
+Fix: Fixing a conflice between Quill Forms and WP Fastest Cache.
+Feature: Adding a control for buttons border radius.
+Feature: Adding a toggle control for disabling navigation arrows.
+
+= 1.8.3 = 23 Feb 2022
+Fix: Fixing a conflict between Quill Forms and Oxygen builder.
+Feature: Improving the UI for the admin dashboard.
 
 = 1.8.2 =  1 Feb 2022
 Fix: Fix conflict with SG optimizer plugin.

@@ -21,6 +21,7 @@ import { mapValues } from 'lodash';
 import IsSavingBtn from './is-saving-btn';
 
 const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
+	const [ domReady, setDomReady ] = useState( false );
 	const { themesList } = useSelect( ( select ) => {
 		return {
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
@@ -33,6 +34,9 @@ const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 		return property;
 	} );
 
+	useEffect( () => {
+		setDomReady( true );
+	}, [] );
 	const {
 		addNewTheme,
 		updateTheme,
@@ -56,53 +60,73 @@ const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 				.classList.remove( 'has-sticky-footer' );
 	}, [] );
 
-	return createPortal(
-		<div className="theme-editor-customize-footer">
-			<Button
-				isDefault
-				onClick={ () => {
-					if ( ! isSaving ) {
-						if ( themeId ) {
-							const themeIndex = themesList.findIndex(
-								( $theme ) => $theme.id === themeId
-							);
-							if ( themeIndex !== -1 ) {
-								setCurrentThemeProperties(
-									themesList[ themeIndex ].properties
-								);
-								setCurrentThemeTitle(
-									themesList[ themeIndex ].title
-								);
-								return;
-							}
-						}
-						setCurrentThemeProperties(
-							getDefaultThemeProperties()
-						);
-						setCurrentThemeTitle( '' );
-					}
-				} }
-			>
-				Revert changes
-			</Button>
-			{ ! isSaving ? (
-				<Button
-					isPrimary
-					onClick={ () => {
-						if ( themeId ) {
-							updateTheme( themeId, themeTitle, themeProperties );
-						} else {
-							addNewTheme( themeTitle, themeProperties );
-						}
-					} }
-				>
-					{ themeId ? 'Save changes' : 'Save as a new theme' }
-				</Button>
-			) : (
-				<IsSavingBtn />
+	return (
+		<>
+			{ domReady && (
+				<>
+					{ createPortal(
+						<div className="theme-editor-customize-footer">
+							<Button
+								isDefault
+								onClick={ () => {
+									if ( ! isSaving ) {
+										if ( themeId ) {
+											const themeIndex = themesList.findIndex(
+												( $theme ) =>
+													$theme.id === themeId
+											);
+											if ( themeIndex !== -1 ) {
+												setCurrentThemeProperties(
+													themesList[ themeIndex ]
+														.properties
+												);
+												setCurrentThemeTitle(
+													themesList[ themeIndex ]
+														.title
+												);
+												return;
+											}
+										}
+										setCurrentThemeProperties(
+											getDefaultThemeProperties()
+										);
+										setCurrentThemeTitle( '' );
+									}
+								} }
+							>
+								Revert changes
+							</Button>
+							{ ! isSaving ? (
+								<Button
+									isPrimary
+									onClick={ () => {
+										if ( themeId ) {
+											updateTheme(
+												themeId,
+												themeTitle,
+												themeProperties
+											);
+										} else {
+											addNewTheme(
+												themeTitle,
+												themeProperties
+											);
+										}
+									} }
+								>
+									{ themeId
+										? 'Save changes'
+										: 'Save as a new theme' }
+								</Button>
+							) : (
+								<IsSavingBtn />
+							) }
+						</div>,
+						document.querySelector( '.builder-core-panel' )
+					) }
+				</>
 			) }
-		</div>,
-		document.querySelector( '.builder-core-panel' )
+		</>
 	);
 };
 

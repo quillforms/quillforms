@@ -87,6 +87,9 @@ class Form_Renderer {
 		add_action( 'init', array( $this, 'template_include' ) );
 
 		add_filter( 'show_admin_bar', array( $this, 'hide_admin_bar' ) );
+
+		// Enqueuing assets to make the form render properly.
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
 	}
 
 	/**
@@ -95,7 +98,7 @@ class Form_Renderer {
 	 * @since 1.0.0
 	 */
 	public function template_include() {
-		add_filter( 'template_include', array( $this, 'template_loader' ), 2000 );
+		add_filter( 'template_include', array( $this, 'template_loader' ), 999999 );
 	}
 
 	/**
@@ -128,10 +131,15 @@ class Form_Renderer {
 			define( 'DONOTCACHCEOBJECT', true );
 		}
 
+		// WP Rocket.
 		if ( ! defined( 'DONOTROCKETOPTIMIZE' ) ) {
 			define( 'DONOTROCKETOPTIMIZE', true );
 		}
 
+		// WP Fastest cache.
+		if ( function_exists( 'wpfc_exclude_current_page' ) ) {
+			wpfc_exclude_current_page();
+		}
 		// // Set the headers to prevent caching for the different browsers.
 		// nocache_headers();
 	}
@@ -146,9 +154,8 @@ class Form_Renderer {
 	 * @return string The modified template
 	 */
 	public function template_loader( $template ) {
-		$this->enqueue_assets();
-		$this->do_not_cache();
 		if ( is_singular( 'quill_forms' ) ) {
+			$this->do_not_cache();
 			$this->set_form_id( get_the_ID() );
 			return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';
 		}
