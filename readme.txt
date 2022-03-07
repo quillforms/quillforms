@@ -1,7 +1,7 @@
  === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
 Contributors: quillforms, mdmag
 Tested up to: 5.9
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -54,6 +54,7 @@ QuillForms free version comes with variety of blocks:
 10- Opinion scale block
 11- Custom thank you screen
 12- Hubspot integration
+13- SalesForce integration
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
@@ -105,6 +106,10 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.8.5 = 7 Mar 2022
+Fix: fixing the registering of addons with their plugin file.
+Feature: Adding SalesForce integration.
 
 = 1.8.4 = 24 Feb 2022
 Fix: Fixing a conflice between Quill Forms and WP Fastest Cache.

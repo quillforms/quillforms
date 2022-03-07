@@ -22,7 +22,7 @@ if ( ! defined( 'QUILLFORMS_PLUGIN_FILE' ) ) {
 
 // Plugin version.
 if ( ! defined( 'QUILLFORMS_VERSION' ) ) {
-	define( 'QUILLFORMS_VERSION', '1.8.4' );
+	define( 'QUILLFORMS_VERSION', '1.8.5' );
 }
 
 // Plugin Folder Path.
