@@ -91,9 +91,12 @@ final class Addons_Manager {
 		// preserved store addon slug.
 		$store_addon = Store::instance()->get_addon( $addon->slug );
 		if ( $store_addon && $store_addon['full_plugin_file'] !== $addon->plugin_file ) {
-			throw new Exception(
-				sprintf( '"%s" addon slug is preserved for Quillforms.com store addons.', $addon->slug ),
-				self::PRESERVED_STORE_ADDON_SLUG
+			quillforms_get_logger()->debug(
+				sprintf( 'Exception?: "%s" addon slug is preserved for Quillforms.com store addons.', $addon->slug ),
+				array(
+					'store_full_plugin_file' => $store_addon['full_plugin_file'],
+					'plugin_file'            => $addon->plugin_file,
+				)
 			);
 		}
 		// already used slug.
