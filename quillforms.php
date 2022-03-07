@@ -3,7 +3,7 @@
  * Plugin Name:       Quill Forms
  * Plugin URI:        https://www.quillforms.com/
  * Description:       Conversational Forms Builder for WordPress
- * Version:           1.8.4
+ * Version:           1.8.5
  * Author:            quillforms.com
  * Author URI:        http://www.quillforms.com
  * Text Domain:       quillforms
