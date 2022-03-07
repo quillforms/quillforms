@@ -33,7 +33,7 @@ trait Account_Controller_Gettable {
 	protected function register_gettable_route() {
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<id>[\w]+)',
+			'/' . $this->rest_base . '/(?P<id>[^\/\?]+)',
 			array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
