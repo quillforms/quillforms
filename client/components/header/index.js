@@ -18,17 +18,6 @@ import UserImagePlaceholder from '../user-image-placeholder';
 import UserNamePlaceholder from '../user-name-placeholder';
 
 const Header = () => {
-	const { currentUser, hasGetCurrentUserFinishedResolution } = useSelect(
-		( select ) => {
-			return {
-				currentUser: select( 'core' ).getCurrentUser(),
-				hasGetCurrentUserFinishedResolution: select(
-					'core'
-				).hasFinishedResolution( 'getCurrentUser' ),
-			};
-		},
-		[]
-	);
 	return (
 		<div className="qf-admin-header">
 			<div className="qf-admin-header__left">
@@ -42,33 +31,17 @@ const Header = () => {
 			</div>
 			<div className="qf-admin-header__right">
 				<div className="qf-admin-header__user-name">
-					Howdy,{ ' ' }
-					{ ! hasGetCurrentUserFinishedResolution ? (
-						<UserNamePlaceholder />
-					) : (
-						currentUser?.name
-					) }
+					Howdy, { qfAdmin.current_user_name }
 				</div>
 
 				<div className="qf-admin-header__user-image">
-					{ ! hasGetCurrentUserFinishedResolution ? (
-						<UserImagePlaceholder />
-					) : (
-						<img
-							src={
-								currentUser?.avatar_urls &&
-								size( currentUser.avatar_urls ) &&
-								size( keys( currentUser.avatar_urls ) ) &&
-								currentUser.avatar_urls[
-									keys( currentUser.avatar_urls )[ 0 ]
-								]
-									? currentUser.avatar_urls[
-											keys( currentUser.avatar_urls )[ 0 ]
-									  ]
-									: ''
-							}
-						/>
-					) }
+					<img
+						src={
+							qfAdmin.current_user_avatar_url
+								? qfAdmin.current_user_avatar_url
+								: ''
+						}
+					/>
 				</div>
 			</div>
 		</div>
