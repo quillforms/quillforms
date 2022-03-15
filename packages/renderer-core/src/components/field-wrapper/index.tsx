@@ -36,6 +36,8 @@ const FieldWrapper: React.FC = () => {
 		next,
 		attributes,
 	} = __experimentalUseFieldRenderContext();
+
+	console.log( 'kjsdfks' );
 	const settings = useFormSettings();
 	if ( ! id ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
@@ -195,6 +197,7 @@ const FieldWrapper: React.FC = () => {
 	}
 
 	const scrollHandler = ( e ) => {
+		console.log( 'sdf' );
 		if ( settings?.disableWheelSwiping ) return;
 		e.preventDefault();
 		if ( ! ref.current ) return;
@@ -215,9 +218,11 @@ const FieldWrapper: React.FC = () => {
 			) <= 3.0
 		) {
 			scrollTimer = setTimeout( () => {
+				console.log( 'setting swipe next true' );
 				setCanSwipeNext( true );
 			}, 500 );
 		} else {
+			console.log( 'setting swipe next false' );
 			setCanSwipeNext( false );
 		}
 	};
@@ -248,7 +253,6 @@ const FieldWrapper: React.FC = () => {
 					${ attributes.themeId && backgroundImageCSS }
 				`
 			) }
-			onScroll={ ( e ) => scrollHandler( e ) }
 		>
 			<div
 				className={ css`
@@ -285,6 +289,7 @@ const FieldWrapper: React.FC = () => {
 									}
 								}
 							} }
+							onScroll={ ( e ) => scrollHandler( e ) }
 						>
 							<FieldContent />
 						</div>

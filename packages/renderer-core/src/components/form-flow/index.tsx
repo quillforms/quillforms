@@ -161,6 +161,11 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 					setIsFocused( true );
 				} }
 			>
+				{ generalTheme?.logo?.src && (
+					<div className="renderer-core-form-brand-logo">
+						<img src={ generalTheme.logo.src } />
+					</div>
+				) }
 				{ blocks.length > 0 && (
 					<Fragment>
 						{ isWelcomeScreenActive && <WelcomeScreensWrapper /> }
