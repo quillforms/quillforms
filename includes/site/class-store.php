@@ -437,6 +437,7 @@ class Store {
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
+				'min_version'    => '1.1.2',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
