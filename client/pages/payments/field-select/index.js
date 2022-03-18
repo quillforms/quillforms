@@ -69,7 +69,7 @@ const FieldSelect = ( {
 	}
 	if ( includeVariables ) {
 		for ( const [ key, data ] of Object.entries(
-			ConfigAPI.getInitialPayload().logic.variables ?? {}
+			ConfigAPI.getInitialPayload().logic?.variables ?? {}
 		) ) {
 			options.push( {
 				key: key,
