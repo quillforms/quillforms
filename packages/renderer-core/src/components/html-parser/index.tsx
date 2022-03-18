@@ -9,8 +9,6 @@ import { autop } from '@wordpress/autop';
 import parse from 'html-react-parser';
 import { Element } from 'domhandler/lib/node';
 
-import { uniqueId } from 'lodash';
-
 /**
  * Internal Dependencies
  */
@@ -28,7 +26,7 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 		}
 	);
 
-	value = autop( value );
+	value = autop( value, false );
 	return (
 		<div className="renderer-core-html-parser">
 			{ parse( value, {

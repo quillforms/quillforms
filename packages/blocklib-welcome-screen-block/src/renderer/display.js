@@ -18,7 +18,6 @@ import {
 	useEffect,
 } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { autop } from '@wordpress/autop';
 
 /**
  * External Dependencies
@@ -137,7 +136,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 									`
 								) }
 							>
-								<HTMLParser value={ autop( label ) } />
+								<HTMLParser value={ label } />
 							</div>
 							{ attributes?.description &&
 								attributes.description !== '' && (
@@ -150,9 +149,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 										) }
 									>
 										<HTMLParser
-											value={ autop(
-												attributes.description
-											) }
+											value={ attributes.description }
 										/>
 									</div>
 								) }
