@@ -14,7 +14,7 @@ import {
 import { CheckboxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
-import { plus, minus } from '@wordpress/icons';
+import { plus } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 
 /**

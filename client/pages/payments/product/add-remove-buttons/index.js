@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { plus, minus } from '@wordpress/icons';
+import { plus, closeSmall } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 
 /**
@@ -17,7 +17,7 @@ const AddRemoveButtons = () => {
 		<div className="quillforms-payments-page-settings-product-buttons">
 			{ removeEnabled && (
 				<div className="quillforms-payments-page-settings-product-remove">
-					<Icon icon={ minus } onClick={ onRemove } />
+					<Icon icon={ closeSmall } onClick={ onRemove } />
 				</div>
 			) }
 			<div className="quillforms-payments-page-settings-product-add">
