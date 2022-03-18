@@ -438,6 +438,7 @@ class Store {
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
+				'min_version'    => '1.1.2',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -498,6 +499,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/paypal/icon.png',
 				),
 			),
+			'activecampaign'            => array(
+				'name'           => esc_html__( 'ActiveCampaign', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your ActiveCampaign account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-activecampaign/quillforms-activecampaign.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
+				),
+			),
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
@@ -552,6 +563,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
 				),
 			),
+			'salesforce'                => array(
+				'name'           => esc_html__( 'Salesforce', 'quillforms' ),
+				'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-salesforce/quillforms-salesforce.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
+				),
+			),
 			'zapier'                    => array(
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
@@ -569,8 +590,11 @@ class Store {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
 
+		// base dir of plugins (with trailing slash) instead of WP_PLUGIN_DIR.
+		$plugins_dir = trailingslashit( dirname( dirname( QUILLFORMS_PLUGIN_FILE ) ) );
+
 		foreach ( $addons as $slug => $addon ) {
-			$full_plugin_file = WP_PLUGIN_DIR . '/' . $addon['plugin_file'];
+			$full_plugin_file = $plugins_dir . $addon['plugin_file'];
 			$plugin_exists    = file_exists( $full_plugin_file );
 			$plugin_data      = $plugin_exists ? get_plugin_data( $full_plugin_file ) : array();
 

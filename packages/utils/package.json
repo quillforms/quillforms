@@ -23,14 +23,8 @@
 	"quillforms:src": "src/index.ts",
 	"types": "build-types",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2",
-		"@wordpress/element": "^4.0.4",
-		"lodash": "4.17.21",
+		"@babel/runtime": "^7.16.0",
 		"tinycolor2": "^1.4.2"
-	},
-	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

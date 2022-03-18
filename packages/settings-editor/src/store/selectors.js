@@ -7,3 +7,6 @@ export function isProgressBarDisabled( state ) {
 export function isWheelSwipingDisabled( state ) {
 	return state.disableWheelSwiping;
 }
+export function isNavigationArrowsDisabled( state ) {
+	return state.disableNavigationArrows;
+}

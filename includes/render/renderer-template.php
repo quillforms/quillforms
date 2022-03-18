@@ -56,6 +56,7 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 		</style>
 		<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
 		<title><?php echo get_the_title(); ?></title>
+		<?php do_action( 'wp_enqueue_scripts' ); ?>
 	</head>
 	<body>
 		<div id="quillforms-renderer">

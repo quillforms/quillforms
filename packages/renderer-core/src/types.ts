@@ -21,5 +21,6 @@ export type FormObj = {
 	settings: {
 		disableProgressBar?: boolean;
 		disableWheelSwiping?: boolean;
+		disableNavigationArrows?: boolean;
 	};
 };

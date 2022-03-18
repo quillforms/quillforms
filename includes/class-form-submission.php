@@ -670,7 +670,7 @@ class Form_Submission {
 			if ( 'field' === $notification_properties['toType'] ) {
 				$email['address'] = array_map(
 					function( $address ) {
-						return Merge_Tags::process_tag( $address, $this->entry, $this->form_data );
+						return Merge_Tags::instance()->process_text( $address, $this->entry, $this->form_data );
 					},
 					$email['address']
 				);

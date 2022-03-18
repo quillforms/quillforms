@@ -78,58 +78,11 @@ abstract class Entry_Process {
 		}
 		$field_type  = $field['type'] ?? null;
 		$field_value = $field['value'] ?? '';
-		switch ( $field_type ) {
-			case 'field':
-				return $this->process_field( $field_value, $context );
-			case 'text':
-			default:
-				return $this->process_text( $field_value, $context );
+		if ( in_array( $field_type, Merge_Tags::instance()->get_registered_types(), true ) ) {
+			return Merge_Tags::instance()->process_tag( $field_type, $field_value, $this->entry, $this->form_data, $context );
+		} else {
+			return Merge_Tags::instance()->process_text( $field_value, $this->entry, $this->form_data, $context );
 		}
-	}
-
-	/**
-	 * Process form field
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string $field_id Field id.
-	 * @param string $context Context.
-	 * @return mixed
-	 */
-	protected function process_field( $field_id, $context = 'plain' ) {
-		// ensure entry field existence.
-		if ( ! isset( $this->entry['answers'][ $field_id ]['value'] ) ) {
-			return null;
-		}
-		// get block data.
-		$block_data = array_values(
-			array_filter(
-				$this->form_data['blocks'],
-				function( $block ) use ( $field_id ) {
-					return $block['id'] === $field_id;
-				}
-			)
-		) [0] ?? null;
-		if ( ! $block_data ) {
-			return null;
-		}
-		// get block type.
-		$block_type = Blocks_Manager::instance()->create( $block_data );
-		if ( ! $block_type ) {
-			return null;
-		}
-		return $block_type->get_readable_value( $this->entry['answers'][ $field_id ]['value'], $this->form_data, $context );
-	}
-
-	/**
-	 * Process text with merge tags
-	 *
-	 * @param string $string String has merge tags to process.
-	 * @param string $context Context.
-	 * @return string
-	 */
-	protected function process_text( $string, $context = 'plain' ) {
-		return Merge_Tags::process_tag( $string, $this->entry, $this->form_data, $context );
 	}
 
 	/**

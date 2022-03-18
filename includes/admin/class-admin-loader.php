@@ -88,15 +88,21 @@ class Admin_Loader {
 	 */
 	public static function localize_scripts() {
 		global $submenu;
+		$user = wp_get_current_user();
+
 		wp_localize_script(
 			'quillforms-client',
 			'qfAdmin',
 			array(
-				'adminUrl'         => admin_url(),
-				'assetsBuildUrl'   => QUILLFORMS_PLUGIN_URL,
-				'submenuPages'     => $submenu['quillforms'],
-				'site_store_nonce' => wp_create_nonce( 'quillforms_site_store' ),
-				'license_nonce'    => wp_create_nonce( 'quillforms_license' ),
+				'adminUrl'                => admin_url(),
+				'assetsBuildUrl'          => QUILLFORMS_PLUGIN_URL,
+				'submenuPages'            => $submenu['quillforms'],
+				'site_store_nonce'        => wp_create_nonce( 'quillforms_site_store' ),
+				'license_nonce'           => wp_create_nonce( 'quillforms_license' ),
+				'current_user_name'       => $user->display_name,
+				'current_user_avatar_url' => esc_url(
+					get_avatar_url( $user->ID )
+				),
 			)
 		);
 	}
