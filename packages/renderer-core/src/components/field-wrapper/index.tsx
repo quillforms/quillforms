@@ -37,7 +37,6 @@ const FieldWrapper: React.FC = () => {
 		attributes,
 	} = __experimentalUseFieldRenderContext();
 
-	console.log( 'kjsdfks' );
 	const settings = useFormSettings();
 	if ( ! id ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {

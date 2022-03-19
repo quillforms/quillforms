@@ -1,12 +1,12 @@
 /**
  * QuillForms Dependencies
  */
-import { getPlainExcerpt } from '@quillforms/rich-text';
 import {
 	ControlLabel,
 	ControlWrapper,
 	BlockIconBox,
 	SelectControl,
+	getPlainExcerpt,
 } from '@quillforms/admin-components';
 
 /**

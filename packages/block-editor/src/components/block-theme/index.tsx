@@ -9,7 +9,7 @@ import {
 	SelectControl,
 } from '@quillforms/admin-components';
 
-// @ts-expect-error
+// @ts-expect-error.
 import { ThemeCard, ThemeListItem } from '@quillforms/theme-editor';
 
 /**

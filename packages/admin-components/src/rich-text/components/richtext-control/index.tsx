@@ -22,21 +22,16 @@ import { HistoryEditor } from 'slate-history';
 import { ReactEditor } from 'slate-react';
 
 /**
- * QuillForms Dependencies
+ * Internal Dependencies
  */
-
-import {
-	__unstableCreateEditor as createEditor,
-	__unstableHtmlSerialize as serialize,
-	__unstableHtmlDeserialize as deserialize,
-	__experimentalEditor as RichTextEditor,
-} from '@quillforms/rich-text';
-// @ts-expect-error
-import type { allowedFormats, MergeTags } from '@quillforms/rich-text';
+import createEditor from '../../create-editor';
+import deserialize from '../../html-deserialize';
+import serialize from '../../html-serialize';
+import RichTextEditor from '../editor';
+import { allowedFormats, MergeTags } from '../../types';
 
 interface Props {
 	value: string;
-	editor: ReactEditor & HistoryEditor;
 	setValue: ( value: string ) => void;
 	mergeTags?: MergeTags;
 	className?: string;
@@ -51,8 +46,6 @@ const RichTextControl: React.FC< Props > = ( {
 	allowedFormats,
 	focusOnMount = false,
 } ) => {
-	const editor = useMemo( () => createEditor(), [] );
-
 	const [ jsonVal, setJsonVal ] = useState< Node[] >( [
 		{
 			type: 'paragraph',
@@ -64,16 +57,15 @@ const RichTextControl: React.FC< Props > = ( {
 		},
 	] );
 
-	// Temp fix for changing value. There is an issue happens in notification message regarding changing the values of one rich text
-	// And this is supposed to solve the problem.
-	useEffect( () => {
-		setJsonVal( deserialize( autop( value ) ) );
-	}, [ value ] );
-
 	const [ currentSelection, setCurrentSelection ] = useState( {
 		path: [ 0, 0 ],
 		offset: 0,
 	} );
+
+	const editor: ReactEditor & HistoryEditor = useMemo(
+		() => createEditor(),
+		[]
+	);
 
 	// serializeVal is a debounced function that updates the store with serialized html value
 	const serializeVal = useCallback(
@@ -101,6 +93,7 @@ const RichTextControl: React.FC< Props > = ( {
 				ReactEditor.focus( editor );
 			}, 0 );
 		}
+		setJsonVal( deserialize( autop( value ) ) );
 	}, [] );
 
 	const TextEditor = useMemo(

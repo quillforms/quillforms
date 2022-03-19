@@ -4,12 +4,9 @@
 import {
 	__experimentalDraggable,
 	BlockIconWrapper,
-} from '@quillforms/admin-components';
-
-import {
 	__unstableCreateEditor as createEditor,
 	__unstableHtmlDeserialize as deserialize,
-} from '@quillforms/rich-text';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies

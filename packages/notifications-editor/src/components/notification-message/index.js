@@ -5,8 +5,9 @@ import {
 	BaseControl,
 	ControlLabel,
 	ControlWrapper,
+	getPlainExcerpt,
+	RichTextControl,
 } from '@quillforms/admin-components';
-import { getPlainExcerpt, RichTextControl } from '@quillforms/rich-text';
 
 /**
  * WordPress Dependencies

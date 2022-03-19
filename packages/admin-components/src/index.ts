@@ -15,8 +15,8 @@ export { default as __experimentalAddonFeatureAvailability } from './addon-featu
 export { default as FontPicker } from './font-picker';
 export { default as FormAdminBar } from './form-admin-bar';
 export { default as FormAdminNav } from './form-admin-bar/admin-nav';
+export * from './rich-text';
 export { default as Logo } from './logo';
-export { default as RichTextControl } from './richtext-control';
 export { default as ToggleControl } from './toggle-control';
 export { default as SelectControl } from './select-control';
 export { default as TextControl } from './text-control';

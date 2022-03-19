@@ -25,7 +25,6 @@
 		"@babel/runtime": "^7.9.6",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config",
-		"@quillforms/rich-text": "file:../rich-text",
 		"@quillforms/types": "file:../types",
 		"emoji-mart": "^3.0.1",
 		"is-url": "^1.2.4",
