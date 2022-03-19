@@ -1,4 +1,5 @@
 export * from './components';
+export type { MergeTags, allowedFormats } from './types';
 export { default as __unstableHtmlSerialize } from './html-serialize';
 export { default as __unstableHtmlDeserialize } from './html-deserialize';
 export { default as __unstableCreateEditor } from './create-editor';
