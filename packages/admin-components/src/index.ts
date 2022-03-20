@@ -19,4 +19,5 @@ export * from './rich-text';
 export { default as Logo } from './logo';
 export { default as ToggleControl } from './toggle-control';
 export { default as SelectControl } from './select-control';
+export { default as MappingValueControl } from './mapping-value-control';
 export { default as TextControl } from './text-control';
