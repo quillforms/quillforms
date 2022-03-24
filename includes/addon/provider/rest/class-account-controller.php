@@ -64,7 +64,7 @@ class Account_Controller extends REST_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<id>[\w]+)',
+			'/' . $this->rest_base . '/(?P<id>[^\/\?]+)',
 			array(
 				array(
 					'methods'             => WP_REST_Server::DELETABLE,

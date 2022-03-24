@@ -101,6 +101,7 @@ class Form_Renderer {
 		add_filter( 'template_include', array( $this, 'template_loader' ), 999999 );
 	}
 
+
 	/**
 	 * Do not cache.
 	 *
@@ -140,8 +141,6 @@ class Form_Renderer {
 		if ( function_exists( 'wpfc_exclude_current_page' ) ) {
 			wpfc_exclude_current_page();
 		}
-		// // Set the headers to prevent caching for the different browsers.
-		// nocache_headers();
 	}
 
 	/**
@@ -161,6 +160,7 @@ class Form_Renderer {
 		}
 		return $template;
 	}
+
 
 	/**
 	 * Set form id.
@@ -256,16 +256,16 @@ class Form_Renderer {
 				switch ( $font_type ) {
 					case 'googlefonts':
 						$font_url =
-							'https://fonts.googleapis.com/css?family=' .
-							$font .
-							':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+						'https://fonts.googleapis.com/css?family=' .
+						$font .
+						':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
 
 						break;
 
 					case 'earlyaccess':
 						$font_lower_case = strtolower( $font );
 						$font_url        =
-							'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
+						'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
 						break;
 				}
 				if ( $font_url ) {
@@ -274,6 +274,24 @@ class Form_Renderer {
 					wp_enqueue_style( 'quillforms-renderer-load-font', esc_url( $font_url ), array(), uniqid() );
 				}
 			}
+
+			wp_enqueue_script(
+				'quillforms-react-renderer-script',
+				QUILLFORMS_PLUGIN_URL . 'includes/render/render.js',
+				array( 'quillforms-renderer-core' ),
+				QUILLFORMS_VERSION,
+				true
+			);
+
+			wp_localize_script(
+				'quillforms-react-renderer-script',
+				'qfRender',
+				array(
+					'ajaxurl'    => admin_url( 'admin-ajax.php' ),
+					'formObject' => $form_object,
+					'formId'     => $form_id,
+				)
+			);
 
 		endif;
 	}

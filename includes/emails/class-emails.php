@@ -457,7 +457,7 @@ class Emails {
 	 */
 	public function process_tag( $string = '' ) {
 
-		return Merge_Tags::process_tag( $string, $this->entry, $this->form_data );
+		return Merge_Tags::instance()->process_text( $string, $this->entry, $this->form_data );
 	}
 
 	/**

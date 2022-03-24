@@ -2,6 +2,10 @@ export type FormTheme = {
 	font: string;
 	backgroundColor: string;
 	backgroundImage: string;
+	logo: {
+		type?: string;
+		src?: string;
+	};
 	questionsColor: string;
 	answersColor: string;
 	buttonsFontColor: string;

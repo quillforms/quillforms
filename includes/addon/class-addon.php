@@ -90,6 +90,7 @@ abstract class Addon {
 	 * @var array {
 	 *   An associative array of dependencies.
 	 *   its keys can be quillforms or {other_addon_slug}_addon
+	 *   it also supports ssl, curl
 	 *
 	 *   @type string $version Dependency version.
 	 *   @type boolean $required For addon dependency only.

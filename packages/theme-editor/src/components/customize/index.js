@@ -58,6 +58,7 @@ const CustomizeThemePanel = () => {
 	const {
 		backgroundColor,
 		backgroundImage,
+		logo,
 		font,
 		questionsColor,
 		answersColor,
@@ -109,6 +110,7 @@ const CustomizeThemePanel = () => {
 						} }
 					/>
 				</BaseControl>
+
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Background Image" />
@@ -133,6 +135,41 @@ const CustomizeThemePanel = () => {
 								onClick={ () =>
 									setCurrentThemeProperties( {
 										backgroundImage: '',
+									} )
+								}
+							>
+								Remove
+							</Button>
+						) }
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="logo" />
+						{ isEmpty( logo ) ? (
+							<MediaUpload
+								onSelect={ ( media ) =>
+									setCurrentThemeProperties( {
+										logo: {
+											type: 'image',
+											src: media.url,
+										},
+									} )
+								}
+								allowedTypes={ [ 'image' ] }
+								render={ ( { open } ) => (
+									<Button isSmall onClick={ open }>
+										Add
+									</Button>
+								) }
+							/>
+						) : (
+							<Button
+								isDanger
+								isSmall
+								onClick={ () =>
+									setCurrentThemeProperties( {
+										logo: {},
 									} )
 								}
 							>

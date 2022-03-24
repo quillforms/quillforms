@@ -25,6 +25,7 @@ final class Addons_Manager {
 	const PRESERVED_STORE_ADDON_SLUG = 4;
 	const ALREADY_USED_SLUG          = 5;
 	const INCOMPATIBLE_DEPENDENCIES  = 6;
+	const INCOMPATIBLE_VERSION       = 7;
 
 	/**
 	 * Registered addons
@@ -88,8 +89,8 @@ final class Addons_Manager {
 				self::DISALLOWED_SLUG_CHARACTERS
 			);
 		}
-		// preserved store addon slug.
 		$store_addon = Store::instance()->get_addon( $addon->slug );
+		// preserved store addon slug.
 		if ( $store_addon && $store_addon['full_plugin_file'] !== $addon->plugin_file ) {
 			quillforms_get_logger()->debug(
 				sprintf( 'Exception?: "%s" addon slug is preserved for Quillforms.com store addons.', $addon->slug ),
@@ -104,6 +105,13 @@ final class Addons_Manager {
 			throw new Exception(
 				sprintf( '%s addon slug is already used for %s', $addon->slug, get_class( $this->registered[ $addon->slug ] ) ),
 				self::ALREADY_USED_SLUG
+			);
+		}
+		// incompatible version.
+		if ( $store_addon && ( $store_addon['min_version'] ?? null ) && version_compare( $store_addon['version'], $store_addon['min_version'], '<' ) ) {
+			throw new Exception(
+				sprintf( 'Quill Forms %s addon must be updated', $addon->slug ),
+				self::INCOMPATIBLE_VERSION
 			);
 		}
 		// incompatible dependencies.
@@ -124,6 +132,20 @@ final class Addons_Manager {
 							sprintf( '%s addon requires at least %s addon version %s. please update it.', $addon->slug, $dependency_addon_slug, $value['version'] ),
 							self::INCOMPATIBLE_DEPENDENCIES
 						);
+				}
+			} elseif ( 'ssl' === $key ) {
+				if ( ! $this->is_ssl() ) {
+					throw new Exception(
+						sprintf( '%s addon requires ssl', $addon->slug ),
+						self::INCOMPATIBLE_DEPENDENCIES
+					);
+				}
+			} elseif ( 'curl' === $key ) {
+				if ( ! $this->is_curl_enabled() ) {
+					throw new Exception(
+						sprintf( '%s addon requires curl', $addon->slug ),
+						self::INCOMPATIBLE_DEPENDENCIES
+					);
 				}
 			} else {
 				throw new Exception(
@@ -168,6 +190,35 @@ final class Addons_Manager {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Is ssl
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return boolean
+	 */
+	private function is_ssl() {
+		$is_ssl = is_ssl();
+
+		// cloudflare flexible ssl.
+		if ( ( json_decode( $_SERVER['HTTP_CF_VISITOR'] ?? '{}' )->scheme ?? null ) === 'https' ) {
+			$is_ssl = true;
+		}
+
+		return apply_filters( 'quillforms_addon_manager_is_ssl', $is_ssl );
+	}
+
+	/**
+	 * Is curl enabled
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return boolean
+	 */
+	private function is_curl_enabled() {
+		return function_exists( 'curl_version' ) || extension_loaded( 'curl' );
 	}
 
 }

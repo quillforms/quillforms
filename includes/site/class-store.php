@@ -437,6 +437,7 @@ class Store {
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
+				'min_version'    => '1.1.2',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -475,6 +476,16 @@ class Store {
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
+				),
+			),
+			'activecampaign'            => array(
+				'name'           => esc_html__( 'ActiveCampaign', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your ActiveCampaign account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-activecampaign/quillforms-activecampaign.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
 				),
 			),
 			'constantcontact'           => array(

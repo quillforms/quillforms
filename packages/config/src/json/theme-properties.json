@@ -10,6 +10,10 @@
 	"backgroundImage": {
 		"type": "string"
 	},
+	"logo": {
+		"type": "object",
+		"default": {}
+	},
 	"questionsColor": {
 		"type": "string",
 		"default": "#000"
