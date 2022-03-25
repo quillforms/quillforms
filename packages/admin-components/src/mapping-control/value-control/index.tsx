@@ -4,6 +4,11 @@
 import { IconRenderer } from '@quillforms/types';
 
 /**
+ * WordPress Dependencies
+ */
+import { applyFilters } from '@wordpress/hooks';
+
+/**
  * Internal Dependencies
  */
 import { MappingValueControlContextProvider } from './context';
@@ -121,6 +126,15 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 		} )
 	);
 
+	// apply global customize filter to sections and options.
+	const filtered = applyFilters(
+		'QuillForms.AdminComponents.MappingValueControl.Customize',
+		{ sections, options }
+	) as CustomizeObject;
+	sections = filtered.sections;
+	options = filtered.options;
+
+	// apply local customize filter to sections and options.
 	if ( customize ) {
 		let customized = customize( { sections, options } );
 		sections = customized.sections;
