@@ -62,6 +62,7 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 	let sections: Sections = [];
 	let options: Options = [];
 
+	// fields
 	if ( fields.length ) {
 		sections.push( {
 			key: 'fields',
@@ -69,6 +70,7 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 		} );
 		options = options.concat( fields );
 	}
+	// variables
 	if ( variables.length ) {
 		sections.push( {
 			key: 'variables',
@@ -76,6 +78,48 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 		} );
 		options = options.concat( variables );
 	}
+	// entry properties
+	const EntryProperties = [
+		{
+			value: 'id',
+			label: 'Entry ID',
+		},
+		{
+			value: 'form_id',
+			label: 'Form ID',
+		},
+		{
+			value: 'date_created',
+			label: 'Entry Date (YYYY-MM-DD)',
+		},
+		{
+			value: 'user_id',
+			label: 'User ID',
+		},
+		{
+			value: 'user_ip',
+			label: 'User IP Address',
+		},
+		{
+			value: 'user_agent',
+			label: 'HTTP User Agent',
+		},
+	];
+	sections.push( {
+		key: 'entry_properties',
+		label: 'Entry Properties',
+	} );
+	options = options.concat(
+		EntryProperties.map( ( property ) => {
+			return {
+				type: 'property',
+				value: property.value,
+				label: property.label,
+				section: 'entry_properties',
+				isMergeTag: true,
+			};
+		} )
+	);
 
 	if ( customize ) {
 		let customized = customize( { sections, options } );
