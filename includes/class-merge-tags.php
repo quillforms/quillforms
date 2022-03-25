@@ -58,7 +58,7 @@ class Merge_Tags {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		$this->register( 'entry', array( $this, 'process_entry_merge_tag' ) );
+		$this->register( 'property', array( $this, 'process_property_merge_tag' ) );
 		$this->register( 'field', array( $this, 'process_field_merge_tag' ) );
 	}
 
@@ -133,9 +133,9 @@ class Merge_Tags {
 	}
 
 	/**
-	 * Process entry merge tag.
-	 * Field merge tag is when we have {{entry:any}} in the string.
-	 * So, now the merge tag type is "entry" and the modifier is "any".
+	 * Process property merge tag.
+	 * Property merge tag is when we have {{property:any}} in the string.
+	 * So, now the merge tag type is "property" and the modifier is "any".
 	 * We need to do some processing on this merge tag and replace it with the appropriate string.
 	 *
 	 * @since 1.8.9
@@ -147,7 +147,7 @@ class Merge_Tags {
 	 *
 	 * @return string The string after processing merge tags.
 	 */
-	public function process_entry_merge_tag( $modifier, $entry, $form_data, $context ) { // phpcs:ignore
+	public function process_property_merge_tag( $modifier, $entry, $form_data, $context ) { // phpcs:ignore
 		switch ( $modifier ) {
 			case 'id':
 				return $entry['id'] ?? '';
