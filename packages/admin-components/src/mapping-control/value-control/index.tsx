@@ -39,7 +39,7 @@ export type CustomizeObject = {
 	options: Options;
 };
 
-interface Props {
+export type MappingValueControlProps = {
 	// if type is text, the component will load rich text editor. else the component will load the select.
 	value: MappingValue;
 	onChange: ( value: MappingValue ) => void;
@@ -48,9 +48,9 @@ interface Props {
 	isToggleEnabled?: boolean;
 	// customize sections and options.
 	customize?: ( value: CustomizeObject ) => CustomizeObject;
-}
+};
 
-const MappingValueControl: React.FC< Props > = ( {
+const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 	value,
 	onChange,
 	isToggleEnabled = true,

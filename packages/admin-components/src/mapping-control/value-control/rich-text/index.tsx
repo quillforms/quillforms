@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { MergeTags, RichTextControl } from '../../rich-text';
+import { MergeTags, RichTextControl } from '../../../rich-text';
 
 /**
  * WordPress Dependencies
@@ -20,7 +20,7 @@ interface Props {}
 
 const RichText: React.FC< Props > = ( {} ) => {
 	const {
-		sections,
+		// sections,
 		options,
 		value,
 		onChange,
@@ -41,7 +41,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 	}
 
 	return (
-		<div>
+		<div className="mapping-value-control-rich-text">
 			<RichTextControl
 				value={ value.value ?? '' }
 				setValue={ ( value ) => onChange( { type: 'text', value } ) }

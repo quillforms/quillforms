@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import SelectControl from '../../select-control';
+import SelectControl from '../../../select-control';
 
 /**
  * WordPress Dependencies

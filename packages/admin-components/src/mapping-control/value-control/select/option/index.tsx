@@ -6,7 +6,7 @@ import type { IconRenderer } from '@quillforms/types';
 /**
  * External Dependencies
  */
-import BlockIconBox from '../../../block-icon-box';
+import BlockIconBox from '../../../../block-icon-box';
 
 /**
  * Internal Dependencies
