@@ -8,7 +8,7 @@
 
 namespace QuillForms\Addon\Provider;
 
-use QuillForms\Managers\Blocks_Manager;
+use Exception;
 use QuillForms\Merge_Tags;
 
 /**
@@ -55,13 +55,47 @@ abstract class Entry_Process {
 	}
 
 	/**
-	 * Process entry
+	 * Start entry process
 	 *
-	 * @since 1.3.0
+	 * @since next.version
 	 *
 	 * @return void
 	 */
-	abstract public function process();
+	public function execute() {
+		$connections = $this->provider->form_data->get( $this->entry['form_id'], 'connections' ) ?? array();
+		foreach ( $connections as $connection_id => $connection ) {
+			try {
+				$this->execute_connection( $connection_id, $connection );
+			} catch ( Exception $e ) {
+				quillforms_get_logger()->error(
+					esc_html__( 'Cannot process connection', 'quillforms' ),
+					array(
+						'source'     => static::class . '->' . __FUNCTION__,
+						'code'       => 'cannot_process_connection',
+						'connection' => $connection,
+						'entry'      => $this->entry,
+						'exception'  => array(
+							'code'    => $e->getCode(),
+							'message' => $e->getMessage(),
+							'trace'   => $e->getTraceAsString(),
+						),
+					)
+				);
+			}
+		}
+	}
+
+	/**
+	 * Process connection
+	 * This function will be abstract in the future. All addons must use it and remove process().
+	 *
+	 * @since next.version
+	 *
+	 * @param string $connection_id Connection id.
+	 * @param array  $connection Connection data.
+	 * @return array includes 'status'
+	 */
+	protected function execute_connection( $connection_id, $connection ) {}
 
 	/**
 	 * Get connection field value

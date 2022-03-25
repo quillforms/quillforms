@@ -115,7 +115,11 @@ abstract class Provider extends Addon {
 	 */
 	public function handle_entry_process_action( $entry, $form_data ) {
 		$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
-		$entry_process->process();
+		if ( method_exists( $entry_process, 'process' ) ) {
+			$entry_process->process();
+		} else {
+			$entry_process->execute();
+		}
 	}
 
 	/**
@@ -145,7 +149,11 @@ abstract class Provider extends Addon {
 	 */
 	public function handle_entry_process_task( $entry, $form_data ) {
 		$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
-		$entry_process->process();
+		if ( method_exists( $entry_process, 'process' ) ) {
+			$entry_process->process();
+		} else {
+			$entry_process->execute();
+		}
 	}
 
 	/**
