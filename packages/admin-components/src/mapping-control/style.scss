@@ -1,0 +1,56 @@
+.mapping-control {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 7px;
+	.components-custom-select-control {
+		width: 100% !important;
+		.components-custom-select-control__label {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.mapping-control {
+	.mapping-key-control,
+	.mapping-value-control {
+		width: 44%;
+	}
+}
+
+.mapping-control-separator {
+	width: 22px;
+	height: 2px;
+	background: #e3e1e1;
+}
+.mapping-control-buttons {
+	display: flex;
+	margin-left: 5px;
+
+	> div {
+		width: 15px;
+		height: 15px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		color: #fff;
+		cursor: pointer;
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.mapping-control-buttons-remove {
+		background: #b65454;
+		svg {
+			fill: #fff;
+		}
+	}
+	.mapping-control-buttons-add {
+		background: #5fd995;
+		margin-left: 3px;
+	}
+}
+
+@import './key-control/style.scss';
