@@ -126,7 +126,8 @@ class Merge_Tags {
 	 */
 	public function process_tag( $type, $modifier, $entry, $form_data, $context ) {
 		if ( isset( $this->types[ $type ] ) ) {
-			return $this->types[ $type ]( $modifier, $entry, $form_data, $context );
+			$value = $this->types[ $type ]( $modifier, $entry, $form_data, $context );
+			return apply_filters( "quillforms_process_{$type}_merge_tag", $value, $modifier, $entry, $form_data, $context );
 		} else {
 			return null;
 		}
