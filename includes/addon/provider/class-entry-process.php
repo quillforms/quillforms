@@ -8,8 +8,9 @@
 
 namespace QuillForms\Addon\Provider;
 
-use Exception;
+use QuillForms\Abstracts\Log_Levels;
 use QuillForms\Merge_Tags;
+use Throwable;
 
 /**
  * Entry_Process class.
@@ -17,6 +18,10 @@ use QuillForms\Merge_Tags;
  * @since 1.3.0
  */
 abstract class Entry_Process {
+
+	const SUCCEEDED = 'succeeded';
+	const FAILED    = 'failed';
+	const SKIPPED   = 'skipped';
 
 	/**
 	 * Provider
@@ -61,23 +66,20 @@ abstract class Entry_Process {
 	 *
 	 * @return void
 	 */
-	public function execute() {
+	final public function execute() {
 		$connections = $this->provider->form_data->get( $this->entry['form_id'], 'connections' ) ?? array();
 		foreach ( $connections as $connection_id => $connection ) {
 			try {
-				$this->execute_connection( $connection_id, $connection );
-			} catch ( Exception $e ) {
-				quillforms_get_logger()->error(
-					esc_html__( 'Cannot process connection', 'quillforms' ),
+				$result = $this->execute_connection( $connection_id, $connection );
+				$this->log_result( $connection_id, $connection, $result );
+			} catch ( Throwable $e ) {
+				$this->log_result(
+					$connection_id,
+					$connection,
 					array(
-						'source'     => static::class . '->' . __FUNCTION__,
-						'code'       => 'cannot_process_connection',
-						'connection' => $connection,
-						'entry'      => $this->entry,
-						'exception'  => array(
-							'code'    => $e->getCode(),
-							'message' => $e->getMessage(),
-							'trace'   => $e->getTraceAsString(),
+						'status'  => self::FAILED,
+						'details' => array(
+							'exception' => $e,
 						),
 					)
 				);
@@ -85,6 +87,7 @@ abstract class Entry_Process {
 		}
 	}
 
+	// @codingStandardsIgnoreStart
 	/**
 	 * Process connection
 	 * This function will be abstract in the future. All addons must use it and remove process().
@@ -93,9 +96,10 @@ abstract class Entry_Process {
 	 *
 	 * @param string $connection_id Connection id.
 	 * @param array  $connection Connection data.
-	 * @return array includes 'status'
+	 * @return array includes 'status' (one of status constants) and 'details'
 	 */
 	protected function execute_connection( $connection_id, $connection ) {}
+	// @codingStandardsIgnoreEnd
 
 	/**
 	 * Get connection field value
@@ -129,6 +133,61 @@ abstract class Entry_Process {
 	 */
 	protected function is_field_value_empty( $value ) {
 		return null === $value || '' === $value || array() === $value;
+	}
+
+	/**
+	 * Log connection process result
+	 *
+	 * @since next.version
+	 *
+	 * @param string $connection_id Connection id.
+	 * @param array  $connection Connection data.
+	 * @param array  $result includes 'status' and 'details'.
+	 * @return void
+	 */
+	private function log_result( $connection_id, $connection, $result ) {
+		switch ( $result['status'] ) {
+			case self::SUCCEEDED:
+				$level   = Log_Levels::INFO;
+				$message = esc_html__( 'Connection processed successfully', 'quillforms' );
+				$code    = 'connection_processed_successfully';
+				break;
+			case self::FAILED:
+				$level   = Log_Levels::ERROR;
+				$message = esc_html__( 'Cannot process connection', 'quillforms' );
+				$code    = 'cannot_process_connection';
+				break;
+			case self::SKIPPED:
+				$level   = Log_Levels::INFO;
+				$message = esc_html__( 'Connection process skipped', 'quillforms' );
+				$code    = 'connection_process_skipped';
+				break;
+		}
+
+		// add basic log context info.
+		$context = array(
+			'source'          => static::class . '->execute',
+			'code'            => $code,
+			'connection_id'   => $connection_id,
+			'connection_name' => $connection['name'],
+		);
+
+		// add result details to context.
+		$context = array_merge( $context, $result['details'] ?? array() );
+
+		// add additional info for failed and skipped connections.
+		if ( in_array( $result['status'], array( self::FAILED, self::SKIPPED ), true ) ) {
+			$context = array_merge(
+				$context,
+				array(
+					'connection' => $connection,
+					'entry'      => $this->entry,
+					'form_data'  => $this->form_data,
+				)
+			);
+		}
+
+		quillforms_get_logger()->log( $level, $message, $context );
 	}
 
 	/**
