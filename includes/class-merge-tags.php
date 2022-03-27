@@ -60,6 +60,7 @@ class Merge_Tags {
 	private function __construct() {
 		$this->register( 'property', array( $this, 'process_property_merge_tag' ) );
 		$this->register( 'field', array( $this, 'process_field_merge_tag' ) );
+		$this->register( 'website', array( $this, 'process_website_merge_tag' ) );
 	}
 
 	/**
@@ -207,6 +208,31 @@ class Merge_Tags {
 		}
 
 		return $block_type->get_readable_value( $entry['answers'][ $field_id ]['value'], $form_data, $context );
+	}
+
+	/**
+	 * Process website merge tag.
+	 * Website merge tag is when we have {{website:any}} in the string.
+	 * So, now the merge tag type is "website" and the modifier is "any".
+	 * We need to do some processing on this merge tag and replace it with the appropriate string.
+	 *
+	 * @since 1.8.9
+	 *
+	 * @param string $modifier  The merge tag modifier.
+	 * @param array  $entry     The formatted answers.
+	 * @param array  $form_data The form data and settings.
+	 * @param string $context   The context.
+	 *
+	 * @return string The string after processing merge tags.
+	 */
+	public function process_website_merge_tag( $modifier, $entry, $form_data, $context ) { // phpcs:ignore
+		switch ( $modifier ) {
+			case 'admin_ajax_url':
+				return admin_url( 'admin-ajax.php' );
+			case 'rest_api_url':
+				return rest_url();
+		}
+		return '';
 	}
 
 }
