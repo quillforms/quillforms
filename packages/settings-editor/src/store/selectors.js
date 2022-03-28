@@ -10,3 +10,7 @@ export function isWheelSwipingDisabled( state ) {
 export function isNavigationArrowsDisabled( state ) {
 	return state.disableNavigationArrows;
 }
+
+export function getAnimationDirection( state ) {
+	return state.animationDirection;
+}

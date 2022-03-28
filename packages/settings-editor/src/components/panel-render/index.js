@@ -2,10 +2,11 @@
  * QuillForms Dependencies
  */
 import {
-	ToggleControl,
 	BaseControl,
 	ControlWrapper,
 	ControlLabel,
+	ToggleControl,
+	SelectControl,
 } from '@quillforms/admin-components';
 
 /**
@@ -13,17 +14,24 @@ import {
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
+
 const PanelRender = () => {
 	const {
 		disableProgressBar,
 		disableWheelSwiping,
 		disableNavigationArrows,
+		changeAnimationDirection,
 	} = useDispatch( 'quillForms/settings-editor' );
 
 	const {
 		isProgressBarDisabled,
 		isWheelSwipingDisabled,
 		isNavigationArrowsDisabled,
+		animationDirection,
 	} = useSelect( ( select ) => {
 		return {
 			isProgressBarDisabled: select(
@@ -35,8 +43,21 @@ const PanelRender = () => {
 			isNavigationArrowsDisabled: select(
 				'quillForms/settings-editor'
 			).isNavigationArrowsDisabled(),
+			animationDirection: select(
+				'quillForms/settings-editor'
+			).getAnimationDirection(),
 		};
 	} );
+	const animationOptions = [
+		{
+			key: 'horizontal',
+			name: 'Horizontal',
+		},
+		{
+			key: 'vertical',
+			name: 'Vertical',
+		},
+	];
 	return (
 		<div className="settings-editor-panel-render">
 			<BaseControl>
@@ -71,6 +92,23 @@ const PanelRender = () => {
 								! isNavigationArrowsDisabled
 							)
 						}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel label={ 'Animation Direction' } />
+					<SelectControl
+						className={ css`
+							margin-top: 5px;
+						` }
+						onChange={ ( { selectedItem } ) => {
+							changeAnimationDirection( selectedItem.key );
+						} }
+						options={ animationOptions }
+						value={ animationOptions.find(
+							( option ) => option.key === animationDirection
+						) }
 					/>
 				</ControlWrapper>
 			</BaseControl>

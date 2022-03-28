@@ -12,8 +12,6 @@ use QuillForms\Form_Submission;
 
 defined( 'ABSPATH' ) || exit;
 the_post();
-$form_id     = get_the_ID();
-$form_object = Form_Renderer::instance()->prepare_form_object();
 ?>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
 	<head>
@@ -61,9 +59,9 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 	<body>
 		<div id="quillforms-renderer">
 		</div>
-			<?php wp_footer(); ?>
 		<script>
 		<?php
+		// TODO: check this. maybe it needs to be moved from here.
 		$submission_id = $_GET['submission_id'] ?? null;
 		$step          = $_GET['step'] ?? null;
 		if ( $submission_id && 'payment' === $step ) {
@@ -76,85 +74,9 @@ $form_object = Form_Renderer::instance()->prepare_form_object();
 			}
 		}
 		?>
-		var formObject = <?php echo wp_json_encode( $form_object ); ?>;
-		ReactDOM.render(React.createElement(
-		qf.rendererCore.Form,
-		{
-			formObj: formObject,
-			formId: <?php echo $form_id; ?>,
-			applyLogic: true,
-			onSubmit: function() {
-				var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
-				var data = new FormData();
-				data.append( 'action', 'quillforms_form_submit' );
-				data.append( 'formData', JSON.stringify({
-					answers: wp.data.select('quillForms/renderer-core').getAnswers(),
-					formId: '<?php echo esc_js( $form_id ); ?>'
-				} ));
-				fetch(ajaxurl, {
-					method: 'POST',
-					credentials:'same-origin',
-					body: data
-				})
-				.then( function(response) {
-					if (!response.ok) {
-						return Promise.reject(response);
-					}
-					return response.json();
-				})
-				.then(function(res) {
-					if(res && res.success) {
-						// In case of successful submission, complete the form.
-						if (res.data.status === 'completed') {
-							wp.data.dispatch('quillForms/renderer-core').completeForm();
-						} else if (res.data.status === 'pending_payment') {
-							wp.data.dispatch('quillForms/renderer-core').setPaymentData(res.data);					
-						} else {
-							throw "Server error; unkown status!";
-						}
-					}
-					else {
-						if( res && res.data ) {
-							if(res.data.fields) {
-								// In case of fields error from server side, set their valid flag with false and set their validation error.
-								Object.keys(res.data.fields).forEach(function(fieldId, index) {
-									wp.data.dispatch('quillForms/renderer-core').setIsFieldValid(fieldId, false)
-									wp.data.dispatch('quillForms/renderer-core').setFieldValidationErr(fieldId, res.data.fields[fieldId]);
-
-								});
-								var walkPath = wp.data.select('quillForms/renderer-core').getWalkPath();
-								var firstFieldIndex = walkPath.findIndex( function( o )  {
-									return Object.keys(res.data.fields).includes( o.id )
-								});
-								// Get the first invalid field and go back to it.
-								if ( firstFieldIndex !== -1 ) {
-									wp.data.dispatch('quillForms/renderer-core').setIsReviewing(true);
-									wp.data.dispatch('quillForms/renderer-core').setIsSubmitting(false);
-									wp.data.dispatch('quillForms/renderer-core').goToBlock( walkPath[ firstFieldIndex ].id );
-								}
-							}
-						}
-					}
-				}).catch(function(err) {
-					if(err && err.status === 500) {
-						// Server error = 500
-						wp.data.dispatch('quillForms/renderer-core').setSubmissionErr(formObject['messages']['label.errorAlert.serverError']);
-					}
-					else {
-						// Any other error.
-						// @todo may be worth checking if there are some other types of errors.
-						// There should be some other of types like invalid nonce field, or spam detected.
-						// but this is enough for the moment.
-						wp.data.dispatch('quillForms/renderer-core').setSubmissionErr(formObject['messages']['label.errorAlert.noConnection']);
-
-					}
-				});
-
-			}
-		}
-		), document.getElementById('quillforms-renderer'));
 		</script>
 
+		<?php wp_footer(); ?>
 	</body>
 </html>
 <?php

@@ -42,11 +42,7 @@ const NotificationEditorWrapper = ( {
 		...currentNotificationProperties,
 	} );
 
-	// This state is just a workaround to force remounting of rich text component
-	// @todo This needs to be refactored btw.
-	const [ currentNotificationId, setCurrentNotificationId ] = useState(
-		null
-	);
+	const [ isFormActive, setIsFormActive ] = useState( false );
 	const [ isReviewing, setIsReviewing ] = useState( false );
 
 	const [ validationFlags, setValidationFlags ] = useState(
@@ -61,11 +57,10 @@ const NotificationEditorWrapper = ( {
 			setProperties( { ...currentNotificationProperties } );
 		}
 		setIsReviewing( false );
-
-		if ( activeSlide === 0 ) {
-			setCurrentNotificationId( null );
+		if ( activeSlide === 1 ) {
+			setIsFormActive( true );
 		} else {
-			setCurrentNotificationId( notificationId );
+			setIsFormActive( false );
 		}
 	}, [ activeSlide ] );
 
@@ -175,23 +170,25 @@ const NotificationEditorWrapper = ( {
 					} }
 					isReviewing={ isReviewing }
 				/>
-				<NotificationMessage
-					value={ message }
-					setValue={ ( val ) => {
-						setProperties( ( prevProperties ) => ( {
-							...prevProperties,
-							message: val,
-						} ) );
-					} }
-					isValid={ { ...validationFlags }.message }
-					setIsValid={ ( value ) => {
-						setValidationFlags( ( prevFlags ) => {
-							const $flags = { ...prevFlags, message: value };
-							return $flags;
-						} );
-					} }
-					isReviewing={ isReviewing }
-				/>
+				{ isFormActive && (
+					<NotificationMessage
+						value={ message }
+						setValue={ ( val ) => {
+							setProperties( ( prevProperties ) => ( {
+								...prevProperties,
+								message: val,
+							} ) );
+						} }
+						isValid={ { ...validationFlags }.message }
+						setIsValid={ ( value ) => {
+							setValidationFlags( ( prevFlags ) => {
+								const $flags = { ...prevFlags, message: value };
+								return $flags;
+							} );
+						} }
+						isReviewing={ isReviewing }
+					/>
+				) }
 				{ isActive && (
 					<NotificationEditorFooter
 						isReviewing={ isReviewing }

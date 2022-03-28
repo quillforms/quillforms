@@ -10,6 +10,7 @@ namespace QuillForms\Addon;
 
 /**
  * Form_Data class.
+ * Handles data of addon related to each form.
  *
  * @since 1.3.0
  */
@@ -42,7 +43,7 @@ class Form_Data {
 	}
 
 	/**
-	 * Get form data
+	 * Get addon form data
 	 *
 	 * @param int          $form_id Form id.
 	 * @param false|string $property Property.
@@ -57,7 +58,7 @@ class Form_Data {
 	}
 
 	/**
-	 * Update form data
+	 * Update addon form data
 	 *
 	 * @param int     $form_id Form id.
 	 * @param mixed   $new_data New form data.
@@ -76,7 +77,7 @@ class Form_Data {
 	}
 
 	/**
-	 * Delete form data
+	 * Delete addon form data
 	 *
 	 * @param int          $form_id Form id.
 	 * @param false|string $property Property.

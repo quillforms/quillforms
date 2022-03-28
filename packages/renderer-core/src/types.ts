@@ -22,5 +22,6 @@ export type FormObj = {
 		disableProgressBar?: boolean;
 		disableWheelSwiping?: boolean;
 		disableNavigationArrows?: boolean;
+		animationDirection: 'vertical' | 'horizontal';
 	};
 };

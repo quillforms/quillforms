@@ -2,6 +2,7 @@ import {
 	DISABLE_PROGRESS_BAR,
 	DISABLE_NAVIGATION_ARROWS,
 	DISABLE_WHEEL_SWIPING,
+	CHANGE_ANIMATION_DIRECTION,
 	SETUP_STORE,
 } from './constants';
 
@@ -78,8 +79,32 @@ export function disableNavigationArrows( state = false, action ) {
 	return state;
 }
 
+/**
+ * Change animation direction.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function animationDirection( state = false, action ) {
+	switch ( action.type ) {
+		case CHANGE_ANIMATION_DIRECTION:
+			return action.direction;
+
+		case SETUP_STORE: {
+			return action.initialPayload?.changeAnimationDirection
+				? action.initialPayload?.changeAnimationDirection
+				: 'vertical';
+		}
+	}
+
+	return state;
+}
+
 export default combineReducers( {
 	disableProgressBar,
 	disableWheelSwiping,
 	disableNavigationArrows,
+	animationDirection,
 } );

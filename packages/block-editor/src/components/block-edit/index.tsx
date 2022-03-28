@@ -1,13 +1,13 @@
 /**
  * QuillForms Dependencies
  */
-import { Button } from '@quillforms/admin-components';
 import {
+	Button,
 	__experimentalEditor as TextEditor,
 	__unstableHtmlSerialize as serialize,
 	__unstableReactEditor as ReactEditor,
 	getPlainText,
-} from '@quillforms/rich-text';
+} from '@quillforms/admin-components';
 import type { BlockAttributes } from '@quillforms/types';
 
 /**
