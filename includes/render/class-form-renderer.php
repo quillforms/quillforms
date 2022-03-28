@@ -11,6 +11,7 @@ namespace QuillForms\Render;
 use QuillForms\Client_Messages;
 use QuillForms\Core;
 use QuillForms\Fonts;
+use QuillForms\Form_Submission;
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Models\Form_Theme_Model;
 
@@ -292,6 +293,20 @@ class Form_Renderer {
 					'formId'     => $form_id,
 				)
 			);
+
+			$submission_id = $_GET['submission_id'] ?? null;
+			$step          = $_GET['step'] ?? null;
+			if ( $submission_id && 'payment' === $step ) {
+				$form_submission = Form_Submission::instance();
+				$restore         = $form_submission->restore_pending_submission( $submission_id );
+				if ( $restore ) {
+					wp_localize_script(
+						'quillforms-react-renderer-script',
+						'pending_submission',
+						$form_submission->get_pending_submission_renderer_data()
+					);
+				}
+			}
 
 		endif;
 	}

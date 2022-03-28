@@ -8,8 +8,6 @@
 
 namespace QuillForms\Render;
 
-use QuillForms\Form_Submission;
-
 defined( 'ABSPATH' ) || exit;
 the_post();
 ?>
@@ -59,23 +57,6 @@ the_post();
 	<body>
 		<div id="quillforms-renderer">
 		</div>
-		<script>
-		<?php
-		// TODO: check this. maybe it needs to be moved from here.
-		$submission_id = $_GET['submission_id'] ?? null;
-		$step          = $_GET['step'] ?? null;
-		if ( $submission_id && 'payment' === $step ) {
-			$form_submission = Form_Submission::instance();
-			$restore         = $form_submission->restore_pending_submission( $submission_id );
-			if ( $restore ) {
-				?>
-				window.pending_submission = <?php echo json_encode( $form_submission->get_pending_submission_renderer_data() ); ?>;
-				<?php
-			}
-		}
-		?>
-		</script>
-
 		<?php wp_footer(); ?>
 	</body>
 </html>
