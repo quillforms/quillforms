@@ -6,10 +6,7 @@
  * @package QuillForms
  */
 
-namespace QuillForms\Render;
-
 defined( 'ABSPATH' ) || exit;
-the_post();
 ?>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
 	<head>
