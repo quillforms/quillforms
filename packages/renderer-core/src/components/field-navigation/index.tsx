@@ -11,13 +11,14 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { useCurrentTheme } from '../../hooks';
+import { useCurrentTheme, useFormSettings } from '../../hooks';
 import DownIcon from './down-icon';
 import UpIcon from './up-icon';
 
 const FieldNavigation = () => {
 	const { goNext, goPrev } = useDispatch( 'quillForms/renderer-core' );
 	const theme = useCurrentTheme();
+	const settings = useFormSettings();
 	const { currentBlockId, walkPath } = useSelect( ( select ) => {
 		return {
 			currentBlockId: select(
@@ -31,6 +32,9 @@ const FieldNavigation = () => {
 			<div
 				className={ classnames(
 					'renderer-core-field-navigation__up-icon',
+					{
+						rotate: settings.animationDirection === 'horizontal',
+					},
 					css`
 						background: ${ theme.buttonsBgColor };
 					`
@@ -44,6 +48,9 @@ const FieldNavigation = () => {
 			<div
 				className={ classnames(
 					'renderer-core-field-navigation__down-icon',
+					{
+						rotate: settings.animationDirection === 'horizontal',
+					},
 					css`
 						background: ${ theme.buttonsBgColor };
 					`

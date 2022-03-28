@@ -26,4 +26,10 @@
 			height: 20px;
 		}
 	}
+	.renderer-core-field-navigation__up-icon.rotate {
+		transform: rotate(-90deg)
+	}
+	.renderer-core-field-navigation__down-icon.rotate {
+		transform: rotate(-90deg)
+	}
 }

@@ -98,7 +98,7 @@
 							wp.data
 								.dispatch( 'quillForms/renderer-core' )
 								.setSubmissionErr(
-									formObject[ 'messages' ][
+									qfRender.formObj[ 'messages' ][
 										'label.errorAlert.serverError'
 									]
 								);
@@ -110,7 +110,7 @@
 							wp.data
 								.dispatch( 'quillForms/renderer-core' )
 								.setSubmissionErr(
-									formObject[ 'messages' ][
+									qfRender.formObject[ 'messages' ][
 										'label.errorAlert.noConnection'
 									]
 								);
