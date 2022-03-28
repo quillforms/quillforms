@@ -13,6 +13,7 @@ import { css } from 'emotion';
  */
 import './style.scss';
 import General from './general';
+import Analytics from './analytics';
 import Integrations from './integrations';
 
 const Settings = () => {
@@ -24,6 +25,10 @@ const Settings = () => {
 		integrations: {
 			title: 'Integrations',
 			render: <Integrations />,
+		},
+		analytics: {
+			title: 'Analytics',
+			render: <Analytics />,
 		},
 	};
 
