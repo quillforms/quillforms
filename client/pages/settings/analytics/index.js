@@ -27,6 +27,7 @@ const Analytics = () => {
 					const addon = StoreAddons[ slug ];
 					return (
 						<PanelBody
+							key={ slug }
 							title={
 								<div className="quillforms-analytics-tab-addon-header">
 									<img src={ addon.assets.icon } />
