@@ -27,7 +27,7 @@ const Settings = () => {
 			render: <Integrations />,
 		},
 		analytics: {
-			title: 'Analytics',
+			title: 'Tracking & Analytics',
 			render: <Analytics />,
 		},
 	};
