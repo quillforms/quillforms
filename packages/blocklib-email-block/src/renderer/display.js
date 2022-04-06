@@ -83,14 +83,14 @@ const EmailOutput = ( props ) => {
 				css`
 					& {
 						width: 100%;
-						border: none;
+						border: none !important;
 						outline: none;
 						font-size: 30px;
 						padding-bottom: 8px;
 						background: transparent;
 						transition: box-shadow 0.1s ease-out 0s;
 						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
-							0px 1px;
+							0px 1px !important;
 						@media ( max-width: 600px ) {
 							font-size: 24px;
 						}
@@ -126,6 +126,7 @@ const EmailOutput = ( props ) => {
 				`
 			) }
 			id={ 'email-' + id }
+			type="email"
 			placeholder={ messages[ 'block.email.placeholder' ] }
 			onChange={ changeHandler }
 			value={ val && val.length > 0 ? val : '' }
