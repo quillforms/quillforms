@@ -1,14 +1,15 @@
 .renderer-components-field-wrapper {
 	&.is-animating {
-		&, .renderer-components-field-wrapper__content-wrapper {
+		&,
+		.renderer-components-field-wrapper__content-wrapper {
 			overflow-y: auto;
 			scrollbar-width: none; /* Firefox */
-			-ms-overflow-style: none;  /* Internet Explorer 10+ */
+			-ms-overflow-style: none; /* Internet Explorer 10+ */
 		}
-		&::-webkit-scrollbar, .renderer-components-field-wrapper__content-wrapper::-webkit-scrollbar {
+		&::-webkit-scrollbar,
+		.renderer-components-field-wrapper__content-wrapper::-webkit-scrollbar {
 			width: 0px;
 		}
-
 	}
 	& {
 		position: absolute;
@@ -17,15 +18,16 @@
 		left: 0;
 		top: 0;
 		bottom: 0;
+		opacity: 0;
 		overflow-y: auto;
 		outline: none !important;
-		transition: transform 600ms cubic-bezier(.7,0,.3,1) 0s;
-		-webkit-transition: transform 600ms cubic-bezier(.7,0,.3,1) 0s;
-		-moz-transition: transform 600ms cubic-bezier(.7,0,.3,1) 0s;
+		transition: transform 600ms cubic-bezier(0.7, 0, 0.3, 1) 0s, opacity 600ms ease 500ms;
+		-webkit-transition: transform 600ms cubic-bezier(0.7, 0, 0.3, 1) 0s, opacity 600ms ease 500ms;
+		-moz-transition: transform 600ms cubic-bezier(0.7, 0, 0.3, 1) 0s, opacity 600ms ease 500ms;
 		transform: translate3d(0, 0, 0);
 		-webkit-transform: translate3d(0, 0, 0);
 		-moz-transform: trasnslate3d(0, 0, 0);
-		will-change: transform, z-index;
+		will-change: transform, opacith, z-index;
 
 		// .renderer-components-question-header, .renderer-core-field-display-wrapper {
 		// 	transition: transform 600ms ease 0s;
@@ -36,12 +38,15 @@
 		// 	-moz-transform: trasnslate3d(0, 0, 0);
 		// 	will-change: transform, z-index;
 		// }
-
-
 	}
 
 	&.active {
 		z-index: 1;
+		opacity: 1;
+		transition: transform 600ms cubic-bezier(0.7, 0, 0.3, 1) 0s, opacity 0s;
+		-webkit-transition: transform 600ms cubic-bezier(0.7, 0, 0.3, 1) 0s, opacity 0s;
+		-moz-transition: transform 600ms cubic-bezier(0.7, 0, 0.3, 1) 0s, opacity 0s;
+
 		.renderer-components-field-wrapper__content.is-shaking {
 			-webkit-animation: isShaking 0.1s linear infinite;
 			animation: isShaking 0.1s linear infinite;
@@ -76,7 +81,6 @@
 		-moz-transform: translate3d(0, 100%, 0);
 	}
 
-
 	section {
 		position: relative;
 		display: block;
@@ -101,11 +105,10 @@
 			padding: 30px 45px;
 		}
 
-	    @media (max-width: $break-small) {
+		@media (max-width: $break-small) {
 			padding-bottom: 60px;
 		}
 	}
-
 }
 @keyframes isShaking {
 	0% {
@@ -123,7 +126,7 @@
 }
 
 .renderer-core-fields-wrapper.is-moving-down .renderer-core-field-display-wrapper,
-.renderer-core-fields-wrapper.is-moving-up .renderer-components-question-header  {
+.renderer-core-fields-wrapper.is-moving-up .renderer-components-question-header {
 	transition-delay: 0.1s;
 	-webkit-transition-delay: 0.1s;
 	-moz-transition-delay: 0.1s;
