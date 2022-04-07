@@ -23,8 +23,13 @@ import type { Choices } from '../choices-bulk-btn/types';
 interface Props {
 	choices: Choices;
 	setChoices: ( choices: Choices ) => void;
+	withAttachment: boolean;
 }
-const ChoicesInserter: React.FC< Props > = ( { choices, setChoices } ) => {
+const ChoicesInserter: React.FC< Props > = ( {
+	choices,
+	setChoices,
+	withAttachment,
+} ) => {
 	const labelChangeHandler = ( val: string, index: number ) => {
 		const $choices = cloneDeep( choices );
 		$choices[ index ] = { ...$choices[ index ], label: val };
@@ -47,10 +52,24 @@ const ChoicesInserter: React.FC< Props > = ( { choices, setChoices } ) => {
 		setChoices( newChoices );
 	};
 
+	const deleteImageHandler = ( index ) => {
+		const $choices = cloneDeep( choices );
+		$choices[ index ].imageUrl = undefined;
+		setChoices( $choices );
+	};
+	const handleMediaUpload = ( media, index ) => {
+		const $choices = cloneDeep( choices );
+		$choices[ index ].imageUrl = media.url;
+		setChoices( $choices );
+	};
+
 	const context = {
 		addChoice,
 		labelChangeHandler,
 		deleteChoice,
+		deleteImageHandler,
+		handleMediaUpload,
+		withAttachment,
 	};
 
 	return (
