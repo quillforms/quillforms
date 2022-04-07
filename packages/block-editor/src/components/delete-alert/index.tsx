@@ -52,7 +52,9 @@ const DeleteAlertModal: React.FC< Props > = ( {
 					{ messages.length === 1
 						? messages[ 0 ]
 						: messages.map( ( message, index ) => (
-								<div>{ `${ index + 1 }. ${ message }` }</div>
+								<div key={ index }>{ `${
+									index + 1
+								}. ${ message }` }</div>
 						  ) ) }
 				</div>
 				<br />

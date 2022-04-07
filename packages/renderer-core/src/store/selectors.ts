@@ -276,6 +276,18 @@ export const getFirstInvalidFieldId = ( state: State ): string | undefined => {
 };
 
 /**
+ * Is answered field.
+ *
+ * @param {State} state   Global application state.
+ * @param {string} id     Field id.
+ *
+ * @return {boolean} showErr flag
+ */
+export function isAnsweredField( state: State, id: string ): boolean {
+	return state.answers[ id ]?.isAnswered === true;
+}
+
+/**
  * Is valid field.
  *
  * @param {State} state   Global application state.

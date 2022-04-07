@@ -97,10 +97,7 @@ class Form_Submission {
 		$form_id = sanitize_text_field( $unsanitized_entry['formId'] );
 
 		// Check if post type is quill_forms and its status is publish.
-		if (
-		'quill_forms' !== get_post_type( $form_id )
-		|| 'publish' !== get_post_status( $form_id )
-		) {
+		if ( 'quill_forms' !== get_post_type( $form_id ) || 'publish' !== get_post_status( $form_id ) ) {
 			$this->errors['form'] = 'Invalid form id!';
 			return;
 		}

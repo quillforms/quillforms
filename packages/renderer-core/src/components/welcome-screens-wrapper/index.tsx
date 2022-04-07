@@ -2,12 +2,15 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
+import { doAction } from '@wordpress/hooks';
 
 /**
  * Internal Dependencies
  */
-import { useBlockTypes } from '../../hooks';
+import { useBlockTypes, useFormContext } from '../../hooks';
 const WelcomeScreensWrapper = () => {
+	const { formId } = useFormContext();
 	const blockTypes = useBlockTypes();
 
 	const { welcomeScreens, currentBlockId } = useSelect( ( select ) => {
@@ -20,6 +23,15 @@ const WelcomeScreensWrapper = () => {
 			).getCurrentBlockId(),
 		};
 	} );
+
+	useEffect( () => {
+		// fire event on unmount.
+		return () => {
+			doAction( 'QuillForms.RendererCore.WelcomeScreenPassed', {
+				formId,
+			} );
+		};
+	}, [] );
 
 	const { goNext } = useDispatch( 'quillForms/renderer-core' );
 	return (

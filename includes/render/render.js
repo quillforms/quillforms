@@ -34,6 +34,10 @@
 							wp.data
 								.dispatch( 'quillForms/renderer-core' )
 								.completeForm();
+							wp.hooks.doAction(
+								'QuillForms.Render.FormSubmitted',
+								{ formId: qfRender.formId }
+							);
 						} else {
 							if ( res && res.data ) {
 								if ( res.data.fields ) {

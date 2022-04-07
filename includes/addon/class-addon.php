@@ -262,17 +262,4 @@ abstract class Addon {
 		return explode( '\\', static::class )[0];
 	}
 
-	/**
-	 * Filter form data
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param integer $form_id Form id.
-	 * @param array   $form_data Form data.
-	 * @return array
-	 */
-	public function filter_form_data( $form_id, $form_data ) {
-		return $form_data;
-	}
-
 }

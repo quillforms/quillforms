@@ -478,6 +478,26 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
 				),
 			),
+			'googleanalytics'           => array(
+				'name'           => esc_html__( 'Google Analytics', 'quillforms' ),
+				'description'    => esc_html__( 'Track your users activity and behavior by google analytics.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-googleanalytics/quillforms-googleanalytics.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googleanalytics/icon.svg',
+				),
+			),
+			'facebookpixel'             => array(
+				'name'           => esc_html__( 'Facebook Pixel', 'quillforms' ),
+				'description'    => esc_html__( 'Track your users activity and behavior by facebook pixel.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-facebookpixel/quillforms-facebookpixel.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/facebookpixel/icon.svg',
+				),
+			),
 			'activecampaign'            => array(
 				'name'           => esc_html__( 'ActiveCampaign', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your ActiveCampaign account.', 'quillforms' ),
@@ -550,6 +570,16 @@ class Store {
 				'is_integration' => true,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
+				),
+			),
+			'webhooks'                  => array(
+				'name'           => esc_html__( 'Webhooks', 'quillforms' ),
+				'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-webhooks/quillforms-webhooks.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
 				),
 			),
 			'zapier'                    => array(

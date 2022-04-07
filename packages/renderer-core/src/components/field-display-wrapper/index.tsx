@@ -3,6 +3,7 @@
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
+import { doAction } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -60,10 +61,13 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
 		};
 	} );
-	const { answerValue, isValid } = useSelect( ( select ) => {
+	const { answerValue, isAnswered, isValid } = useSelect( ( select ) => {
 		return {
 			answerValue: isCurrentBlockEditable
 				? select( 'quillForms/renderer-core' ).getFieldAnswerVal( id )
+				: null,
+			isAnswered: isCurrentBlockEditable
+				? select( 'quillForms/renderer-core' ).isAnsweredField( id )
 				: null,
 			isValid: isCurrentBlockEditable
 				? select( 'quillForms/renderer-core' ).isValidField( id )
@@ -105,6 +109,16 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			setShakingErr( null );
 		}, 1200 );
 	};
+
+	useEffect( () => {
+		if ( isAnswered && ! isActive ) {
+			doAction( 'QuillForms.RendererCore.FieldAnswered', {
+				formId,
+				id,
+				label: attributes.label,
+			} );
+		}
+	}, [ isAnswered, isActive ] );
 
 	const {
 		setIsFieldValid,
