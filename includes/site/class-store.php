@@ -467,6 +467,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinionscaleblock/banner.png',
 				),
 			),
+			'picturechoiceblock'        => array(
+				'name'           => esc_html__( 'Picture Choice Block', 'quillforms' ),
+				'description'    => esc_html__( 'Make your survey more interesting with the use of suitable images to select as answers. It is a type of multiple choice question type, only with images instead of text.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-picturechoiceblock/quillforms-picturechoiceblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
+				),
+			),
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
