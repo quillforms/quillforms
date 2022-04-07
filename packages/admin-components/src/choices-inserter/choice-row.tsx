@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { plus, closeSmall, dragHandle, trash } from '@wordpress/icons';
+import { plus, closeSmall, dragHandle } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 
