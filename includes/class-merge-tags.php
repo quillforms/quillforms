@@ -23,7 +23,7 @@ class Merge_Tags {
 	 *
 	 * @since 1.8.9
 	 *
-	 * @var array type => callback
+	 * @var array type => args
 	 */
 	private $types = array();
 
@@ -56,8 +56,8 @@ class Merge_Tags {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		$this->register( 'property', array( $this, 'process_property_merge_tag' ) );
-		$this->register( 'website', array( $this, 'process_website_merge_tag' ) );
+		$this->register( 'property', array( 'process' => array( $this, 'process_property_merge_tag' ) ) );
+		$this->register( 'website', array( 'process' => array( $this, 'process_website_merge_tag' ) ) );
 	}
 
 	/**
@@ -65,12 +65,15 @@ class Merge_Tags {
 	 *
 	 * @since 1.8.9
 	 *
-	 * @param string   $type Merge tag type.
-	 * @param callback $callback Process callback accepts $merge_tag_modifier, $entry, $form_data and $context.
+	 * @param string $type Merge tag type.
+	 * @param array  $args {
+	 *      Merge tag type args.
+	 *      @type callable $process Process callback accepts $merge_tag_modifier, $entry, $form_data and $context.
+	 * }
 	 */
-	public function register( $type, $callback ) {
-		if ( ! isset( $this->types[ $type ] ) && is_callable( $callback ) ) {
-			$this->types[ $type ] = $callback;
+	public function register( $type, $args ) {
+		if ( ! isset( $this->types[ $type ] ) && is_callable( $args['process'] ) ) {
+			$this->types[ $type ] = $args;
 		}
 	}
 
@@ -124,7 +127,7 @@ class Merge_Tags {
 	 */
 	public function process_tag( $type, $modifier, $entry, $form_data, $context ) {
 		if ( isset( $this->types[ $type ] ) ) {
-			$value = $this->types[ $type ]( $modifier, $entry, $form_data, $context );
+			$value = $this->types[ $type ]['process']( $modifier, $entry, $form_data, $context );
 			return apply_filters( "quillforms_process_{$type}_merge_tag", $value, $modifier, $entry, $form_data, $context );
 		} else {
 			return null;

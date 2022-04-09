@@ -89,9 +89,11 @@ class Entry_Record_Types {
 		// register record merge tag.
 		Merge_Tags::instance()->register(
 			$type,
-			function( $record_id, $entry, $form_data, $context ) use ( $type ) {
-				return $entry->get_record_readable_value( $type, $record_id, $form_data, $context ) ?? '';
-			}
+			array(
+				'process' => function( $record_id, $entry, $form_data, $context ) use ( $type ) {
+					return $entry->get_record_readable_value( $type, $record_id, $form_data, $context ) ?? '';
+				},
+			)
 		);
 
 		$this->types[ $type ] = $args;
