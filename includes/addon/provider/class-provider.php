@@ -109,7 +109,7 @@ abstract class Provider extends Addon {
 	 *
 	 * @since 1.7.4
 	 *
-	 * @param array $entry Entry data.
+	 * @param Entry $entry Entry.
 	 * @param array $form_data Form data.
 	 * @return void
 	 */
@@ -127,12 +127,12 @@ abstract class Provider extends Addon {
 	 *
 	 * @since 1.7.4
 	 *
-	 * @param array $entry Entry data.
+	 * @param Entry $entry Entry.
 	 * @param array $form_data Form data.
 	 * @return void
 	 */
 	public function add_entry_process_task( $entry, $form_data ) {
-		$connections = $this->form_data->get( $entry['form_id'], 'connections' );
+		$connections = $this->form_data->get( $entry->form_id, 'connections' );
 		if ( ! empty( $connections ) ) {
 			$this->tasks->enqueue_async( 'entry_process', $entry, $form_data );
 		}
@@ -143,7 +143,7 @@ abstract class Provider extends Addon {
 	 *
 	 * @since 1.7.4
 	 *
-	 * @param array $entry Entry data.
+	 * @param Entry $entry Entry.
 	 * @param array $form_data Form data.
 	 * @return void
 	 */

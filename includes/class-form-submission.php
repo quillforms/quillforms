@@ -104,8 +104,14 @@ class Form_Submission {
 
 		$this->form_data = Core::get_form_data( $form_id );
 
-		// sanitizing answers.
-		$answers = array();
+		// initialize entry object.
+		$this->entry               = new Entry();
+		$this->entry->form_id      = $form_id;
+		$this->entry->date_created = gmdate( 'Y-m-d H:i:s' );
+		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
+
+		// add sanitized fields.
+		$this->entry->records['fields'] = array();
 		foreach ( $this->form_data['blocks'] as $block ) {
 			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
@@ -114,25 +120,26 @@ class Form_Submission {
 
 			$field_answer = $unsanitized_entry['answers'][ $block['id'] ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$answers[ $block['id'] ] = array(
+				$this->entry->records['fields'][ $block['id'] ] = array(
 					'value' => $block_type->sanitize_field( $field_answer, $this->form_data ),
 				);
 			}
 		}
 
-		$entry = array(
-			'form_id' => $form_id,
-			'answers' => $answers,
-		);
+		// filter for entry object init.
+		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data );
 
-		$fields = array_filter(
-			$this->form_data['blocks'],
-			function ( $block ) {
-				return 'welcome-screen' !== $block['name'] && 'thankyou-screen' !== $block['name'];
-			}
+		// blocks walk path.
+		$walk_path = array_values(
+			array_filter(
+				$this->form_data['blocks'],
+				function ( $block ) {
+					return 'welcome-screen' !== $block['name'] && 'thankyou-screen' !== $block['name'];
+				}
+			)
 		);
-
-		list( $walk_path, $entry ) = apply_filters( 'quillforms_submission_walk_path', array( $fields, $entry ) );
+		// filter walk path and entry.
+		list( $walk_path, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walk_path, $this->entry ), $this->form_data );
 
 		// Validate all fields at the walkpath.
 		foreach ( $walk_path as $field ) {
@@ -141,7 +148,7 @@ class Form_Submission {
 				continue;
 			}
 
-			$field_answer = $entry['answers'][ $field['id'] ]['value'] ?? null;
+			$field_answer = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
 			$block_type->validate_field( $field_answer, $this->form_data );
 			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
 				$this->errors['fields'][ $field['id'] ] = $block_type->validation_err;
@@ -160,36 +167,40 @@ class Form_Submission {
 				continue;
 			}
 
-			$field_answer = $entry['answers'][ $field['id'] ]['value'] ?? null;
+			$field_answer = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$entry['answers'][ $field['id'] ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
+				$this->entry->records['fields'][ $field['id'] ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
 			}
 		}
 
 		// add entry meta.
-		$entry['meta'] = array(
-			'user_id' => get_current_user_id(),
+		$this->entry->records['meta']['user_id'] = array(
+			'value' => get_current_user_id(),
 		);
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$entry['meta']['user_ip'] = $this->get_client_ip();
+			$this->entry->records['meta']['user_ip'] = array(
+				'value' => $this->get_client_ip(),
+			);
 		}
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$entry['meta']['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
+			$this->entry->records['meta']['user_agent'] = array(
+				'value' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+			);
 		}
 
 		// this can add 'id' to entry array.
-		$entry = apply_filters( 'quillforms_entry_save', $entry, $this->form_data );
+		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
 
 		// do entry saved action.
-		if ( ! empty( $entry['id'] ) ) {
-			do_action( 'quillforms_entry_saved', $entry, $this->form_data );
+		if ( $this->entry->ID ) {
+			do_action( 'quillforms_entry_saved', $this->entry, $this->form_data );
 		}
 
 		// process email notifications.
-		$this->entry_email( $entry, $this->form_data );
+		$this->entry_email( $this->entry, $this->form_data );
 
 		// finally do entry processed action.
-		do_action( 'quillforms_entry_processed', $entry, $this->form_data );
+		do_action( 'quillforms_entry_processed', $this->entry, $this->form_data );
 	}
 
 	/**

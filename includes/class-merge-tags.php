@@ -8,8 +8,6 @@
 
 namespace QuillForms;
 
-use QuillForms\Managers\Blocks_Manager;
-
 /**
  * This class is to handle merge tags.
  * Merge tags should have the same structure with type and modifier {{type:modifer}}
@@ -59,7 +57,6 @@ class Merge_Tags {
 	 */
 	private function __construct() {
 		$this->register( 'property', array( $this, 'process_property_merge_tag' ) );
-		$this->register( 'field', array( $this, 'process_field_merge_tag' ) );
 		$this->register( 'website', array( $this, 'process_website_merge_tag' ) );
 	}
 
@@ -143,7 +140,7 @@ class Merge_Tags {
 	 * @since 1.8.9
 	 *
 	 * @param string $modifier  The merge tag modifier.
-	 * @param array  $entry     The formatted answers.
+	 * @param Entry  $entry     The entry object.
 	 * @param array  $form_data The form data and settings.
 	 * @param string $context   The context.
 	 *
@@ -152,62 +149,21 @@ class Merge_Tags {
 	public function process_property_merge_tag( $modifier, $entry, $form_data, $context ) { // phpcs:ignore
 		switch ( $modifier ) {
 			case 'id':
-				return $entry['id'] ?? '';
+				return $entry->ID ?? '';
 			case 'form_id':
-				return $entry['form_id'] ?? '';
+				return $entry->form_id;
 			case 'date_created':
-				return gmdate( 'Y-m-d H:i:s' ); // TODO: implement it.
+				return $entry->date_created;
+			case 'date_updated':
+				return $entry->date_updated;
 			case 'user_id':
-				return $entry['meta']['user_id'] ?? '';
+				return $entry->meta['user_id']['value'] ?? '';
 			case 'user_ip':
-				return $entry['meta']['user_ip'] ?? '';
+				return $entry->meta['user_ip']['value'] ?? '';
 			case 'user_agent':
-				return $entry['meta']['user_agent'] ?? '';
+				return $entry->meta['user_agent']['value'] ?? '';
 		}
 		return '';
-	}
-
-	/**
-	 * Process field merge tag.
-	 * Field merge tag is when we have {{field:any}} in the string.
-	 * So, now the merge tag type is "field" and the modifier is "any".
-	 * We need to do some processing on this merge tag and replace it with the appropriate string.
-	 *
-	 * @since 1.8.9
-	 *
-	 * @param string $modifier  The merge tag modifier.
-	 * @param array  $entry     The formatted answers.
-	 * @param array  $form_data The form data and settings.
-	 * @param string $context   The context.
-	 *
-	 * @return string The string after processing merge tags.
-	 */
-	public function process_field_merge_tag( $modifier, $entry, $form_data, $context ) {
-		$field_id = $modifier;
-		if ( ! isset( $entry['answers'][ $field_id ]['value'] ) ) {
-			return '';
-		}
-
-		// get block data.
-		$block_data = array_values(
-			array_filter(
-				$form_data['blocks'],
-				function( $block ) use ( $field_id ) {
-					return $block['id'] === $field_id;
-				}
-			)
-		) [0] ?? null;
-		if ( ! $block_data ) {
-			return '';
-		}
-
-		// get block type.
-		$block_type = Blocks_Manager::instance()->create( $block_data );
-		if ( ! $block_type ) {
-			return '';
-		}
-
-		return $block_type->get_readable_value( $entry['answers'][ $field_id ]['value'], $form_data, $context );
 	}
 
 	/**
@@ -219,7 +175,7 @@ class Merge_Tags {
 	 * @since 1.8.9
 	 *
 	 * @param string $modifier  The merge tag modifier.
-	 * @param array  $entry     The formatted answers.
+	 * @param Entry  $entry     The entry object.
 	 * @param array  $form_data The form data and settings.
 	 * @param string $context   The context.
 	 *

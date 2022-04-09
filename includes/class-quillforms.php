@@ -125,6 +125,7 @@ final class QuillForms {
 		Admin_Loader::instance();
 		Install::init();
 		Merge_Tags::instance();
+		Entry_Record_Types::instance();
 		Form_Renderer::instance();
 		Form_Submission::instance();
 		Admin::instance();
