@@ -426,6 +426,7 @@ class Store {
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
+				'min_version'    => '1.2.0',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -437,7 +438,7 @@ class Store {
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
-				'min_version'    => '1.1.2',
+				'min_version'    => '1.2.0',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -596,6 +597,7 @@ class Store {
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-zapier/quillforms-zapier.php',
+				'min_version'    => '1.2.0',
 				'plan'           => 'plus',
 				'is_integration' => true,
 				'assets'         => array(
