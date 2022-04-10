@@ -2,7 +2,7 @@
 /**
  * Rest_Field_Controller class.
  *
- * @since next.version
+ * @since 1.10.0
  * @package QuillForms
  */
 
@@ -13,14 +13,14 @@ use QuillForms\Addon\Addon;
 /**
  * Rest_Field_Controller abstract class.
  *
- * @since next.version
+ * @since 1.10.0
  */
 abstract class Rest_Field_Controller {
 
 	/**
 	 * Rest field name
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var string|null
 	 */
@@ -29,7 +29,7 @@ abstract class Rest_Field_Controller {
 	/**
 	 * Addon
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var Addon
 	 */
@@ -38,7 +38,7 @@ abstract class Rest_Field_Controller {
 	/**
 	 * Constructor.
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param Addon $addon Addon.
 	 */
@@ -67,7 +67,7 @@ abstract class Rest_Field_Controller {
 	 * Should include context for gettable data
 	 * Should include additionalProperties & readonly to specify updatable data
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @return array
 	 */
@@ -76,7 +76,7 @@ abstract class Rest_Field_Controller {
 	/**
 	 * Rest field get_callback
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param array $object Object.
 	 * @return array
@@ -89,7 +89,7 @@ abstract class Rest_Field_Controller {
 	/**
 	 * Rest field get_callback
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param array  $data Addon form data.
 	 * @param object $object Object.
@@ -102,7 +102,7 @@ abstract class Rest_Field_Controller {
 	/**
 	 * Sanitize callback
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param array $data Data.
 	 * @return array
@@ -117,7 +117,7 @@ abstract class Rest_Field_Controller {
 	/**
 	 * Validate callback
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param array $data Data.
 	 * @return array

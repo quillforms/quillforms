@@ -2,7 +2,7 @@
 /**
  * Class Entry
  *
- * @since next.version
+ * @since 1.10.0
  * @package QuillForms
  */
 
@@ -14,14 +14,14 @@ use Exception;
 /**
  * Entry class
  *
- * @since next.version
+ * @since 1.10.0
  */
 class Entry implements ArrayAccess {
 
 	/**
 	 * ID
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var int|null null if not saved.
 	 */
@@ -30,7 +30,7 @@ class Entry implements ArrayAccess {
 	/**
 	 * Form id
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var int
 	 */
@@ -39,7 +39,7 @@ class Entry implements ArrayAccess {
 	/**
 	 * Date created
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var string GMT/UTC date/time with format 'Y-m-d H:i:s'.
 	 */
@@ -48,7 +48,7 @@ class Entry implements ArrayAccess {
 	/**
 	 * Date updated
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var string GMT/UTC date/time with format 'Y-m-d H:i:s'.
 	 */
@@ -64,7 +64,7 @@ class Entry implements ArrayAccess {
 	 *      ],
 	 * ]
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var array
 	 */
@@ -78,7 +78,7 @@ class Entry implements ArrayAccess {
 	 *      ]
 	 * ]
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var array
 	 */
@@ -88,7 +88,7 @@ class Entry implements ArrayAccess {
 	 * Get readable records
 	 * Returns the same $this->records with 'readable_value' with each record
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param array|null $form_data The form data.
 	 * @param string     $context The context.
@@ -107,7 +107,7 @@ class Entry implements ArrayAccess {
 	/**
 	 * Get record readable value
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $record_type Record type.
 	 * @param string $record_id   Record id.

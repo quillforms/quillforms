@@ -160,7 +160,7 @@ abstract class Provider extends Addon {
 	 * Filter connections
 	 *
 	 * @since 1.6.0
-	 * @deprecated next.version
+	 * @deprecated 1.10.0
 	 *
 	 * @param integer $form_id Form id.
 	 * @param array   $connections Connections.
@@ -174,7 +174,7 @@ abstract class Provider extends Addon {
 	 * Filter connection fields
 	 *
 	 * @since 1.6.0
-	 * @deprecated next.version
+	 * @deprecated 1.10.0
 	 *
 	 * @param array $fields Fields.
 	 * @param array $valid_blocks_ids Valid blocks ids.

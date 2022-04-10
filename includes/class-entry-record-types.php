@@ -2,7 +2,7 @@
 /**
  * Class Entry_Record_Types
  *
- * @since next.version
+ * @since 1.10.0
  * @package QuillForms
  */
 
@@ -13,14 +13,14 @@ use QuillForms\Managers\Blocks_Manager;
 /**
  * Entry_Record_Types Class
  *
- * @since next.version
+ * @since 1.10.0
  */
 class Entry_Record_Types {
 
 	/**
 	 * Types
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var array
 	 */
@@ -29,7 +29,7 @@ class Entry_Record_Types {
 	/**
 	 * Class instance
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @var self instance
 	 */
@@ -38,7 +38,7 @@ class Entry_Record_Types {
 	/**
 	 * Get class instance
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @return self
 	 */
@@ -52,7 +52,7 @@ class Entry_Record_Types {
 	/**
 	 * Constructor
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 */
 	private function __construct() {
 		$this->register(
@@ -67,7 +67,7 @@ class Entry_Record_Types {
 	/**
 	 * Register
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $type Record type.
 	 * @param array  $args {
@@ -103,7 +103,7 @@ class Entry_Record_Types {
 	/**
 	 * Get all types
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @return array
 	 */
@@ -114,7 +114,7 @@ class Entry_Record_Types {
 	/**
 	 * Get type
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $type Type.
 	 * @return array|null
@@ -126,7 +126,7 @@ class Entry_Record_Types {
 	/**
 	 * Get field readable value
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $field_id  Field id.
 	 * @param Entry  $entry     Entry object.

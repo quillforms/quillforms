@@ -63,7 +63,7 @@ abstract class Entry_Process {
 	/**
 	 * Start entry process
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @return void
 	 */
@@ -93,7 +93,7 @@ abstract class Entry_Process {
 	 * Process connection
 	 * This function will be abstract in the future. All addons must use it and remove process().
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $connection_id Connection id.
 	 * @param array  $connection Connection data.
@@ -139,7 +139,7 @@ abstract class Entry_Process {
 	/**
 	 * Log connection process result
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $connection_id Connection id.
 	 * @param array  $connection Connection data.
