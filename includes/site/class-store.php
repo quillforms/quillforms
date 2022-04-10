@@ -446,6 +446,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/banner.png',
 				),
 			),
+			'hiddenfields'              => array(
+				'name'           => esc_html__( 'Hidden Fields', 'quillforms' ),
+				'description'    => esc_html__( 'Add customization to your form by hidden fields.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-hiddenfields/quillforms-hiddenfields.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
+				),
+			),
 			'fileblock'                 => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
 				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions.', 'quillforms' ),
