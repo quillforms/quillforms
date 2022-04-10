@@ -127,7 +127,7 @@ class Form_Submission {
 		}
 
 		// filter for entry object init.
-		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data );
+		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
 
 		// blocks walk path.
 		$walk_path = array_values(
