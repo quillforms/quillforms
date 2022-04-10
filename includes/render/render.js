@@ -1,7 +1,12 @@
 ( function () {
+	var formObject = wp.hooks.applyFilters(
+		'QuillForms.Renderer.FormObject',
+		qfRender.formObject
+	);
+
 	ReactDOM.render(
 		React.createElement( qf.rendererCore.Form, {
-			formObj: qfRender.formObject,
+			formObj: formObject,
 			formId: qfRender.formId,
 			applyLogic: true,
 			onSubmit: function () {
@@ -114,7 +119,7 @@
 							wp.data
 								.dispatch( 'quillForms/renderer-core' )
 								.setSubmissionErr(
-									qfRender.formObject[ 'messages' ][
+									formObject[ 'messages' ][
 										'label.errorAlert.noConnection'
 									]
 								);
