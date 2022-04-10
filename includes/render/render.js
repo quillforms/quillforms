@@ -11,17 +11,20 @@
 			applyLogic: true,
 			onSubmit: function () {
 				var ajaxurl = qfRender.ajaxurl;
+				var formData = {
+					answers: wp.data
+						.select( 'quillForms/renderer-core' )
+						.getAnswers(),
+					formId: qfRender.formId,
+				};
+				formData = wp.hooks.applyFilters(
+					'QuillForms.Renderer.SubmissionFormData',
+					formData,
+					{ formObject }
+				);
 				var data = new FormData();
 				data.append( 'action', 'quillforms_form_submit' );
-				data.append(
-					'formData',
-					JSON.stringify( {
-						answers: wp.data
-							.select( 'quillForms/renderer-core' )
-							.getAnswers(),
-						formId: qfRender.formId,
-					} )
-				);
+				data.append( 'formData', JSON.stringify( formData ) );
 				fetch( ajaxurl, {
 					method: 'POST',
 					credentials: 'same-origin',
