@@ -27,7 +27,12 @@
 		"gradient-parser": "^0.1.5",
 		"react-beautiful-dnd": "^13.1.0",
 		"react-window": "^1.8.6",
-		"tinycolor2": "^1.4.1"
+		"tinycolor2": "^1.4.1",
+		"escape-html": "^1.0.3",
+		"slate": "^0.59.0",
+		"slate-history": "^0.59.0",
+		"slate-hyperscript": "^0.59.0",
+		"slate-react": "^0.59.0"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,8 +1,8 @@
 /**
  * QuillForms Dependencies
  */
-import { Button } from '@quillforms/admin-components';
-import { RichTextControl } from '@quillforms/rich-text';
+import { Button, RichTextControl } from '@quillforms/admin-components';
+
 /**
  * WordPress Dependencies
  */

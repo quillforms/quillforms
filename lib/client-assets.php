@@ -252,7 +252,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-admin-components',
 		quillforms_url( 'build/admin-components/style.css' ),
-		array( 'quillforms-rich-text' ),
+		array(),
 		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/builder-core/style.css' )
 	);
 	$styles->add_data( 'quillforms-admin-components', 'rtl', 'replace' );
@@ -287,22 +287,12 @@ function quillforms_register_packages_styles( $styles ) {
 	);
 	$styles->add_data( 'quillforms-renderer-core', 'rtl', 'replace' );
 
-	// Rich Text.
-	quillforms_override_style(
-		$styles,
-		'quillforms-rich-text',
-		quillforms_url( 'build/rich-text/style.css' ),
-		array(),
-		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/rich-text/style.css' )
-	);
-	$styles->add_data( 'quillforms-rich-text', 'rtl', 'replace' );
-
 	// Theme Editor.
 	quillforms_override_style(
 		$styles,
 		'quillforms-theme-editor',
 		quillforms_url( 'build/theme-editor/style.css' ),
-		array( 'quillforms-rich-text' ),
+		array(),
 		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/theme-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-theme-editor', 'rtl', 'replace' );
@@ -312,7 +302,7 @@ function quillforms_register_packages_styles( $styles ) {
 		$styles,
 		'quillforms-messages-editor',
 		quillforms_url( 'build/messages-editor/style.css' ),
-		array( 'quillforms-rich-text' ),
+		array( 'quillforms-admin-components' ),
 		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/messages-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-messages-editor', 'rtl', 'replace' );

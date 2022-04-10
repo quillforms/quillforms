@@ -37,7 +37,6 @@ const FieldWrapper: React.FC = () => {
 		attributes,
 	} = __experimentalUseFieldRenderContext();
 
-	console.log( 'kjsdfks' );
 	const settings = useFormSettings();
 	if ( ! id ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
@@ -197,8 +196,12 @@ const FieldWrapper: React.FC = () => {
 	}
 
 	const scrollHandler = ( e ) => {
-		console.log( 'sdf' );
-		if ( settings?.disableWheelSwiping ) return;
+		if (
+			settings?.disableWheelSwiping ||
+			settings.animationDirection === 'horizontal'
+		) {
+			return;
+		}
 		e.preventDefault();
 		if ( ! ref.current ) return;
 		if ( ref.current.scrollTop === 0 ) {
@@ -242,6 +245,8 @@ const FieldWrapper: React.FC = () => {
 				{
 					active: isActive,
 					'is-animating': isAnimating,
+					'is-horizontal-animation':
+						settings.animationDirection === 'horizontal',
 				},
 				position ? position : '',
 				css`

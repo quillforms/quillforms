@@ -2,6 +2,7 @@ import { render } from '@wordpress/element';
 import '@wordpress/core-data';
 import '@wordpress/notices';
 import '@quillforms/blocks';
+import '@quillforms/rich-text';
 import '@quillforms/form-integrations';
 import '@quillforms/payment-gateways';
 import PageLayout from './layout';

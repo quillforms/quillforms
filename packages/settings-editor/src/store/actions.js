@@ -2,6 +2,7 @@ import {
 	DISABLE_PROGRESS_BAR,
 	DISABLE_WHEEL_SWIPING,
 	DISABLE_NAVIGATION_ARROWS,
+	CHANGE_ANIMATION_DIRECTION,
 	SETUP_STORE,
 } from './constants';
 export const setUpStore = ( initialPayload ) => {
@@ -27,5 +28,12 @@ export const disableNavigationArrows = ( flag ) => {
 	return {
 		type: DISABLE_NAVIGATION_ARROWS,
 		flag,
+	};
+};
+
+export const changeAnimationDirection = ( direction ) => {
+	return {
+		type: CHANGE_ANIMATION_DIRECTION,
+		direction,
 	};
 };

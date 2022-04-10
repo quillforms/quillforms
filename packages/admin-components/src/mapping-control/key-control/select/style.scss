@@ -1,0 +1,36 @@
+.mapping-key-control-select {
+	.components-custom-select-control__item {
+		padding: 2px 4px;
+	}
+
+	.components-button:disabled {
+		opacity: 0.7;
+	}
+}
+
+.mapping-key-control-select-section {
+	cursor: default !important;
+	font-weight: bold;
+	text-decoration: underline;
+
+	&:hover {
+		background: #fff !important;
+	}
+}
+.mapping-key-control-select-option {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.mapping-key-control-select-option-icon {
+	vertical-align: middle;
+	color: orange;
+}
+.mapping-key-control-select-option-label {
+	margin-left: 8px;
+}
+
+.components-custom-select-control__menu
+	.mapping-key-control-select-option-has_section {
+	padding-left: 15px;
+}

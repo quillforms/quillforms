@@ -5,14 +5,15 @@ import {
 	BaseControl,
 	ControlLabel,
 	ControlWrapper,
+	getPlainExcerpt,
+	RichTextControl,
 } from '@quillforms/admin-components';
-import { getPlainExcerpt, RichTextControl } from '@quillforms/rich-text';
 
 /**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 
 /**

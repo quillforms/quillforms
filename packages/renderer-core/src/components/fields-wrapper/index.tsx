@@ -130,6 +130,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		touch = false
 	) => {
 		if ( settings?.disableWheelSwiping ) return;
+		let delta = e.deltaY;
+		if ( settings.animationDirection === 'horizontal' ) {
+			delta = e.deltaX;
+		}
 		if ( swiper.isAnimating ) return;
 		const lethargyCheck = lethargy.check( e );
 		const now = new Date().getTime();
@@ -143,9 +147,9 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			return;
 		if (
 			canSwipePrev &&
-			( ( e.deltaY < -50 && ! touch ) ||
+			( ( delta < -50 && ! touch ) ||
 				( touch &&
-					e.deltaY > 50 &&
+					delta > 50 &&
 					( e as SwipeEventData ).dir === 'Down' ) ) &&
 			! isFirstField
 		) {
@@ -154,10 +158,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			goPrev();
 		} else if (
 			canSwipeNext &&
-			( ( e.deltaY < -50 &&
+			( ( delta < -50 &&
 				touch &&
 				( e as SwipeEventData ).dir === 'Up' ) ||
-				( ! touch && e.deltaY > 50 ) ) &&
+				( ! touch && delta > 50 ) ) &&
 			! isLastField
 		) {
 			lastScrollDate = new Date().getTime();

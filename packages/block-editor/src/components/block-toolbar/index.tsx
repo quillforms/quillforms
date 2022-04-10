@@ -4,7 +4,7 @@
 import {
 	__unstableTransforms as Transforms,
 	__unstableReactEditor as ReactEditor,
-} from '@quillforms/rich-text';
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies

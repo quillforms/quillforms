@@ -27,15 +27,15 @@
 		-moz-transform: trasnslate3d(0, 0, 0);
 		will-change: transform, z-index, opacity;
 
-		.renderer-components-question-header, .renderer-core-field-display-wrapper {
-			transition: transform 600ms ease 0s;
-			-webkit-transition: transform 600ms cubic-bezier(.7,0,.3,1) 0s;
-			-moz-transition: transform 600ms cubic-bezier(.7,0,.3,1) 0s;
-			transform: translate3d(0, 0, 0);
-			-webkit-transform: translate3d(0, 0, 0);
-			-moz-transform: trasnslate3d(0, 0, 0);
-			will-change: transform, z-index;
-		}
+		// .renderer-components-question-header, .renderer-core-field-display-wrapper {
+		// 	transition: transform 600ms ease 0s;
+		// 	-webkit-transition: transform 600ms cubic-bezier(.7,0,.3,1) 0s;
+		// 	-moz-transition: transform 600ms cubic-bezier(.7,0,.3,1) 0s;
+		// 	transform: translate3d(0, 0, 0);
+		// 	-webkit-transform: translate3d(0, 0, 0);
+		// 	-moz-transform: trasnslate3d(0, 0, 0);
+		// 	will-change: transform, z-index;
+		// }
 
 
 	}
@@ -52,28 +52,31 @@
 		pointer-events: none;
 	}
 
+	&.is-up.is-horizontal-animation {
+		transform: translate3d(-100%, 0, 0);
+		-webkit-transform: translate3d(-100%, 0, 0);
+		-moz-transform: translate3d(-100%, 0, 0);
+	}
+
+	&.is-down.is-horizontal-animation {
+		transform: translate3d(100%, 0, 0);
+		-webkit-transform: translate3d(100%, 0, 0);
+		-moz-transform: translate3d(100%, 0, 0);
+	}
+
 	&.is-up {
 		transform: translate3d(0, -100%, 0);
 		-webkit-transform: translate3d(0, -100%, 0);
-		-moz-transform: trasnslate3d(0, -100%, 0);
+		-moz-transform: translate3d(0, -100%, 0);
 	}
 
-	&.is-up .renderer-components-question-header, &.is-up .renderer-core-field-display-wrapper {
-		transform: translate3d(0, -100vh, 0);
-		-webkit-transform: translate3d(0, -100vh, 0);
-		-moz-transform: trasnslate3d(0, -100vh, 0);
-	}
 	&.is-down {
 		transform: translate3d(0, 100%, 0);
 		-webkit-transform: translate3d(0, 100%, 0);
-		-moz-transform: trasnslate3d(0, 100%, 0);
+		-moz-transform: translate3d(0, 100%, 0);
 	}
 
-	&.is-down .renderer-components-question-header, &.is-down .renderer-core-field-display-wrapper {
-		transform: translate3d(0, 100vh, 0);
-		-webkit-transform: translate3d(0, 100vh, 0);
-		-moz-transform: trasnslate3d(0, 100vh, 0);
-	}
+
 	section {
 		position: relative;
 		display: block;
