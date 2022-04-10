@@ -3,7 +3,7 @@ import { Fragment } from '@wordpress/element';
 const MessagePreview = ( { value } ) => {
 	const formatValue = ( val ) => {
 		if ( ! val ) return '';
-		return val.replace( /{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g, '_' );
+		return val.replace( /{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g, '_' );
 	};
 
 	return (

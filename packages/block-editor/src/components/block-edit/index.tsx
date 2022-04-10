@@ -140,7 +140,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 
 	// Regex for variables
 	const mergeTagRegexMatch = ( val: string ) =>
-		new RegExp( /{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/ ).test( val );
+		new RegExp( /{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/ ).test( val );
 
 	// Title Change Handler
 	const labelChangeHandler = ( value: Node[] ) => {

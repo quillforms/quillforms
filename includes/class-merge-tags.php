@@ -105,7 +105,7 @@ class Merge_Tags {
 	 */
 	public function process_text( $text, $entry, $form_data, $context = 'html' ) {
 		return preg_replace_callback(
-			'/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/',
+			'/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/',
 			function( $matches ) use ( $entry, $form_data, $context ) {
 				return $this->process_tag( $matches[1], $matches[2], $entry, $form_data, $context ) ?? $matches[0];
 			},
