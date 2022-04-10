@@ -90,6 +90,7 @@ class Form_Renderer {
 
 		// Enqueuing assets to make the form render properly.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_render_script' ), 99999999 );
 	}
 
 	/**
@@ -275,6 +276,22 @@ class Form_Renderer {
 				}
 			}
 
+		endif;
+	}
+
+	/**
+	 * Enqueue render.js script
+	 *
+	 * @since 1.10.0
+	 *
+	 * @return void
+	 */
+	public function enqueue_render_script() {
+		if ( is_singular( 'quill_forms' ) ) :
+			global $post;
+			$form_id     = $post->ID;
+			$form_object = $this->prepare_form_object();
+
 			wp_enqueue_script(
 				'quillforms-react-renderer-script',
 				QUILLFORMS_PLUGIN_URL . 'includes/render/render.js',
@@ -292,7 +309,6 @@ class Form_Renderer {
 					'formId'     => $form_id,
 				)
 			);
-
 		endif;
 	}
 
