@@ -36,6 +36,15 @@ class Form_Submission {
 	public $form_data = array();
 
 	/**
+	 * Submission Entry
+	 *
+	 * @since 1.10.0
+	 *
+	 * @var Entry
+	 */
+	public $entry;
+
+	/**
 	 * Form errors
 	 *
 	 * @var $errors
