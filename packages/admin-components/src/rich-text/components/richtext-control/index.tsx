@@ -37,6 +37,7 @@ interface Props {
 	className?: string;
 	allowedFormats?: allowedFormats;
 	focusOnMount?: boolean;
+	placeholder?: string;
 }
 const RichTextControl: React.FC< Props > = ( {
 	value,
@@ -45,6 +46,7 @@ const RichTextControl: React.FC< Props > = ( {
 	className,
 	allowedFormats,
 	focusOnMount = false,
+	placeholder,
 } ) => {
 	const [ jsonVal, setJsonVal ] = useState< Node[] >( [
 		{
@@ -112,6 +114,7 @@ const RichTextControl: React.FC< Props > = ( {
 					}
 				} }
 				allowedFormats={ allowedFormats }
+				placeholder={ placeholder }
 			/>
 		),
 		[ JSON.stringify( jsonVal ), JSON.stringify( mergeTags ) ]
