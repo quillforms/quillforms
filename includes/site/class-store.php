@@ -426,6 +426,7 @@ class Store {
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
+				'min_version'    => '1.2.0',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -437,12 +438,22 @@ class Store {
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
-				'min_version'    => '1.1.2',
+				'min_version'    => '1.2.0',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/banner.png',
+				),
+			),
+			'hiddenfields'              => array(
+				'name'           => esc_html__( 'Hidden Fields', 'quillforms' ),
+				'description'    => esc_html__( 'Add customization to your form by hidden fields.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-hiddenfields/quillforms-hiddenfields.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
 				),
 			),
 			'fileblock'                 => array(
@@ -467,6 +478,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinionscaleblock/banner.png',
 				),
 			),
+			'picturechoiceblock'        => array(
+				'name'           => esc_html__( 'Picture Choice Block', 'quillforms' ),
+				'description'    => esc_html__( 'Make your survey more interesting with the use of suitable images to select as answers. It is a type of multiple choice question type, only with images instead of text.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-picturechoiceblock/quillforms-picturechoiceblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
+				),
+			),
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
@@ -476,6 +497,26 @@ class Store {
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
+				),
+			),
+			'googleanalytics'           => array(
+				'name'           => esc_html__( 'Google Analytics', 'quillforms' ),
+				'description'    => esc_html__( 'Track your users activity and behavior by google analytics.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-googleanalytics/quillforms-googleanalytics.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googleanalytics/icon.svg',
+				),
+			),
+			'facebookpixel'             => array(
+				'name'           => esc_html__( 'Facebook Pixel', 'quillforms' ),
+				'description'    => esc_html__( 'Track your users activity and behavior by facebook pixel.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-facebookpixel/quillforms-facebookpixel.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/facebookpixel/icon.svg',
 				),
 			),
 			'activecampaign'            => array(
@@ -566,6 +607,7 @@ class Store {
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-zapier/quillforms-zapier.php',
+				'min_version'    => '1.2.0',
 				'plan'           => 'plus',
 				'is_integration' => true,
 				'assets'         => array(

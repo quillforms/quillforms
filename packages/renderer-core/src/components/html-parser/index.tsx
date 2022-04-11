@@ -22,7 +22,7 @@ interface Props {
 const HtmlParser: React.FC< Props > = ( { value } ) => {
 	if ( ! value ) return null;
 	value = value.replace(
-		/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g,
+		/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
 		( _match, p1, p2 ) => {
 			return `<mergetag type='${ p1 }' modifier='${ p2 }'></mergetag>`;
 		}

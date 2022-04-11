@@ -1,0 +1,17 @@
+.quillforms-analytics-tab-addon {
+	&.components-panel__body.is-opened > .components-panel__body-title {
+		margin-bottom: 10px !important;
+		border-bottom: 1px solid #eee;
+	}
+}
+.quillforms-analytics-tab-addon-header {
+	display: flex;
+	align-items: center;
+
+	img,
+	svg {
+		width: 30px;
+		height: 30px;
+		margin-right: 7px;
+	}
+}

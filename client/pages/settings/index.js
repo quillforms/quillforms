@@ -13,18 +13,23 @@ import { css } from 'emotion';
  */
 import './style.scss';
 import General from './general';
+import Analytics from './analytics';
 import Integrations from './integrations';
 
 const Settings = () => {
-	const getTab = ( name ) => {
-		switch ( name ) {
-			case 'general':
-				return <General />;
-			case 'integrations':
-				return <Integrations />;
-			default:
-				return <div>Not Found</div>;
-		}
+	const Tabs = {
+		general: {
+			title: 'General',
+			render: <General />,
+		},
+		integrations: {
+			title: 'Integrations',
+			render: <Integrations />,
+		},
+		analytics: {
+			title: 'Tracking & Analytics',
+			render: <Analytics />,
+		},
 	};
 
 	return (
@@ -41,20 +46,19 @@ const Settings = () => {
 						}
 					` }
 					activeClass="active-tab"
-					tabs={ [
-						{
-							name: 'general',
-							title: 'General',
-							className: 'tab-general',
-						},
-						{
-							name: 'integrations',
-							title: 'Integrations',
-							className: 'tab-integrations',
-						},
-					] }
+					tabs={ Object.entries( Tabs ).map( ( [ name, tab ] ) => {
+						return {
+							name,
+							title: tab.title,
+							className: 'tab-' + name,
+						};
+					} ) }
 				>
-					{ ( tab ) => <div>{ getTab( tab.name ) }</div> }
+					{ ( tab ) => (
+						<div>
+							{ Tabs[ tab.name ]?.render ?? <div>Not Found</div> }
+						</div>
+					) }
 				</TabPanel>
 			</div>
 		</div>

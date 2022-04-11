@@ -9,6 +9,7 @@
 namespace QuillForms\Addon\Provider;
 
 use QuillForms\Abstracts\Log_Levels;
+use QuillForms\Entry;
 use QuillForms\Merge_Tags;
 use Throwable;
 
@@ -33,7 +34,7 @@ abstract class Entry_Process {
 	/**
 	 * Entry
 	 *
-	 * @var array
+	 * @var Entry
 	 */
 	protected $entry;
 
@@ -50,7 +51,7 @@ abstract class Entry_Process {
 	 * @since 1.3.0
 	 *
 	 * @param Provider $provider Provider.
-	 * @param array    $entry Entry.
+	 * @param Entry    $entry Entry.
 	 * @param array    $form_data Form data.
 	 */
 	public function __construct( $provider, $entry, $form_data ) {
@@ -62,12 +63,12 @@ abstract class Entry_Process {
 	/**
 	 * Start entry process
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @return void
 	 */
 	final public function execute() {
-		$connections = $this->provider->form_data->get( $this->entry['form_id'], 'connections' ) ?? array();
+		$connections = $this->provider->form_data->get( $this->entry->form_id, 'connections' ) ?? array();
 		foreach ( $connections as $connection_id => $connection ) {
 			try {
 				$result = $this->execute_connection( $connection_id, $connection );
@@ -92,7 +93,7 @@ abstract class Entry_Process {
 	 * Process connection
 	 * This function will be abstract in the future. All addons must use it and remove process().
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $connection_id Connection id.
 	 * @param array  $connection Connection data.
@@ -138,7 +139,7 @@ abstract class Entry_Process {
 	/**
 	 * Log connection process result
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $connection_id Connection id.
 	 * @param array  $connection Connection data.

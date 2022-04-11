@@ -2,10 +2,13 @@
  * QuillForms Dependencies
  */
 import { MergeTags, RichTextControl } from '../../../rich-text';
+import Button from '../../../button';
 
 /**
  * WordPress Dependencies
  */
+import { Icon } from '@wordpress/components';
+import { arrowLeft } from '@wordpress/icons';
 
 /**
  * External Dependencies
@@ -24,7 +27,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 		options,
 		value,
 		onChange,
-		// isToggleEnabled,
+		isToggleEnabled,
 	} = useMappingValueControlContext();
 
 	let tags: MergeTags = [];
@@ -42,6 +45,14 @@ const RichText: React.FC< Props > = ( {} ) => {
 
 	return (
 		<div className="mapping-value-control-rich-text">
+			{ isToggleEnabled && (
+				<Button
+					className="mapping-value-control-rich-text-back"
+					onClick={ () => onChange( {} ) }
+				>
+					<Icon icon={ arrowLeft } />
+				</Button>
+			) }
 			<RichTextControl
 				value={ value.value ?? '' }
 				setValue={ ( value ) => onChange( { type: 'text', value } ) }

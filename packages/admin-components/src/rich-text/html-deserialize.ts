@@ -37,7 +37,7 @@ const formatBeforeDeserializing = ( value: string ): string => {
 		return '<p></p>';
 	}
 	const $value = value.replace(
-		/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g,
+		/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
 		"<mergetag data-type='$1' data-modifier='$2'>_____</mergetag>"
 	);
 	return $value;
