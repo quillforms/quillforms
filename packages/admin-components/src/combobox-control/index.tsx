@@ -11,7 +11,7 @@ import { applyFilters } from '@wordpress/hooks';
 /**
  * Internal Dependencies
  */
-import { MappingValueControlContextProvider } from './context';
+import { ComboboxControlContextProvider } from './context';
 import RichText from './rich-text';
 import Select from './select';
 import useFields from './use-fields';
@@ -36,7 +36,7 @@ export type Options = {
 		[ x: string ]: any;
 	};
 }[];
-export type MappingValue = {
+export type ComboboxControlValue = {
 	type?: string;
 	value?: string;
 };
@@ -45,10 +45,10 @@ export type CustomizeObject = {
 	options: Options;
 };
 
-export type MappingValueControlProps = {
+export type ComboboxControlProps = {
 	// if type is text, the component will load rich text editor. else the component will load the select.
-	value: MappingValue;
-	onChange: ( value: MappingValue ) => void;
+	value: ComboboxControlValue;
+	onChange: ( value: ComboboxControlValue ) => void;
 	// if true, select component will have custom value option that loads rich text
 	// and rich text editor will have back/exit button to loads select. (default true)
 	isToggleEnabled?: boolean;
@@ -58,7 +58,7 @@ export type MappingValueControlProps = {
 	placeholder?: string;
 };
 
-const MappingValueControl: React.FC< MappingValueControlProps > = ( {
+const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 	value,
 	onChange,
 	isToggleEnabled = true,
@@ -141,7 +141,7 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 
 	// apply global customize filter to sections and options.
 	const filtered = applyFilters(
-		'QuillForms.AdminComponents.MappingValueControl.Customize',
+		'QuillForms.AdminComponents.ComboboxControl.Customize',
 		{ sections, options }
 	) as CustomizeObject;
 	sections = filtered.sections;
@@ -155,8 +155,8 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 	}
 
 	return (
-		<div className="mapping-value-control">
-			<MappingValueControlContextProvider
+		<div className="combobox-control">
+			<ComboboxControlContextProvider
 				value={ {
 					sections,
 					options,
@@ -167,9 +167,9 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 				} }
 			>
 				{ value.type === 'text' ? <RichText /> : <Select /> }
-			</MappingValueControlContextProvider>
+			</ComboboxControlContextProvider>
 		</div>
 	);
 };
 
-export default MappingValueControl;
+export default ComboboxControl;
