@@ -15,6 +15,7 @@ import { MappingValueControlContextProvider } from './context';
 import RichText from './rich-text';
 import Select from './select';
 import useFields from './use-fields';
+import useHiddenFields from './use-hidden-fields';
 import useVariables from './use-variables';
 
 export type Sections = { key: string; label: string }[];
@@ -63,6 +64,7 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 } ) => {
 	const fields = useFields( { section: 'fields' } );
 	const variables = useVariables( { section: 'variables' } );
+	const hidden_fields = useHiddenFields( { section: 'hidden_fields' } );
 
 	let sections: Sections = [];
 	let options: Options = [];
@@ -82,6 +84,14 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 			label: 'Variables',
 		} );
 		options = options.concat( variables );
+	}
+	// hidden_fields
+	if ( hidden_fields.length ) {
+		sections.push( {
+			key: 'hidden_fields',
+			label: 'Hidden Fields',
+		} );
+		options = options.concat( hidden_fields );
 	}
 	// entry properties
 	const EntryProperties = [
