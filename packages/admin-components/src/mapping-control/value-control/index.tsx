@@ -54,6 +54,8 @@ export type MappingValueControlProps = {
 	isToggleEnabled?: boolean;
 	// customize sections and options.
 	customize?: ( value: CustomizeObject ) => CustomizeObject;
+	// used for rich text editor only.
+	placeholder?: string;
 };
 
 const MappingValueControl: React.FC< MappingValueControlProps > = ( {
@@ -61,6 +63,7 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 	onChange,
 	isToggleEnabled = true,
 	customize,
+	placeholder,
 } ) => {
 	const fields = useFields( { section: 'fields' } );
 	const variables = useVariables( { section: 'variables' } );
@@ -160,6 +163,7 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 					value,
 					onChange,
 					isToggleEnabled,
+					placeholder,
 				} }
 			>
 				{ value.type === 'text' ? <RichText /> : <Select /> }

@@ -28,6 +28,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 		value,
 		onChange,
 		isToggleEnabled,
+		placeholder,
 	} = useMappingValueControlContext();
 
 	let tags: MergeTags = [];
@@ -57,6 +58,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 				value={ value.value ?? '' }
 				setValue={ ( value ) => onChange( { type: 'text', value } ) }
 				mergeTags={ tags }
+				placeholder={ placeholder }
 			/>
 		</div>
 	);

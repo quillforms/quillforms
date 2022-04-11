@@ -14,6 +14,7 @@ const MappingValueControlContext = createContext< {
 	value: MappingValue;
 	onChange: ( value: MappingValue ) => void;
 	isToggleEnabled: boolean;
+	placeholder?: string;
 } >( {
 	sections: [],
 	options: [],
