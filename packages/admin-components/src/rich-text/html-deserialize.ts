@@ -3,8 +3,7 @@
  */
 import { jsx } from 'slate-hyperscript';
 import { Editor, Node as SlateNode, Descendant, Text } from 'slate';
-import { autop } from '@wordpress/autop';
-import { removep } from './removep';
+import { autop, removep } from '@wordpress/autop';
 
 /**
  * Internal Dependencies

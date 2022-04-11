@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { removep } from './removep';
+import { removep } from '@wordpress/autop';
 
 /**
  * External Dependencies
