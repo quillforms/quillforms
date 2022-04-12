@@ -44,11 +44,11 @@ class Updater {
 		add_action(
 			'upgrader_process_complete',
 			function() {
-				update_option( 'quillforms_addons_update_cache_needs_clear', true, true );
+				update_option( 'quillforms_addons_update_cache_needs_clear', true );
 			}
 		);
 		if ( get_option( 'quillforms_addons_update_cache_needs_clear' ) ) {
-			update_option( 'quillforms_addons_update_cache_needs_clear', false, true );
+			update_option( 'quillforms_addons_update_cache_needs_clear', false );
 			$this->clear_addons_update_cache();
 		}
 	}
