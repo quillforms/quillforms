@@ -1,9 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import ConfigApi from '@quillforms/config';
-
-/**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
