@@ -130,7 +130,7 @@ class Entry implements ArrayAccess {
 	public function offsetExists( $offset ): bool {
 		return in_array( $offset, array( 'id', 'form_id' ), true );
 	}
-	public function offsetGet( $offset ): mixed {
+	public function offsetGet( $offset ) {
 		switch ( $offset ) {
 			case 'id':
 				return $this->ID;
