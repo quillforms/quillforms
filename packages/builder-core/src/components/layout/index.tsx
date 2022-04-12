@@ -150,8 +150,8 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 
 		const { source, destination } = result;
 
-		// dropped outside the list
-		if ( ! destination ) {
+		// dropped outside the list or source and destination are the same 
+		if ( ! destination || source.index === destination.index ) {
 			return;
 		}
 
