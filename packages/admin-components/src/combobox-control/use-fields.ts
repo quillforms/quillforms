@@ -9,6 +9,11 @@ import ConfigApi from '@quillforms/config';
 import { useSelect } from '@wordpress/data';
 
 /**
+ * External Dependencies
+ */
+import { size } from 'lodash';
+
+/**
  * Internal Dependencies
  */
 import type { Options } from '.';
@@ -26,22 +31,25 @@ const useFields = ( { section } ) => {
 	);
 
 	const fields: Options = [];
-	for ( const block of blocks ) {
-		const blockType = blockTypes[ block.name ];
-		fields.push( {
-			type: 'field',
-			value: block.id,
-			label: block.attributes?.label ?? '',
-			iconBox: {
-				icon: blockType?.icon,
-				color: blockType?.color,
-			},
-			section,
-			isMergeTag: true,
-			other: {
-				name: block.name,
-			},
-		} );
+
+	if ( size( blocks ) > 0 ) {
+		for ( const block of blocks ) {
+			const blockType = blockTypes[ block.name ];
+			fields.push( {
+				type: 'field',
+				value: block.id,
+				label: block.attributes?.label ?? '',
+				iconBox: {
+					icon: blockType?.icon,
+					color: blockType?.color,
+				},
+				section,
+				isMergeTag: true,
+				other: {
+					name: block.name,
+				},
+			} );
+		}
 	}
 
 	return fields;

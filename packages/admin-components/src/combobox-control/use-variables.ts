@@ -9,6 +9,11 @@ import type { FormLogicVariables } from '@quillforms/types';
 import { useSelect } from '@wordpress/data';
 
 /**
+ * External Dependencies
+ */
+import { size } from 'lodash';
+
+/**
  * Internal Dependencies
  */
 import type { Options } from '.';
@@ -24,15 +29,17 @@ const useVariables = ( { section } ) => {
 	} );
 
 	const fields: Options = [];
-	for ( const [ id, variable ] of Object.entries( variables ) ) {
-		fields.push( {
-			type: 'variable',
-			value: id,
-			label: variable.label,
-			iconBox: {},
-			section,
-			isMergeTag: true,
-		} );
+	if ( size( variables ) > 0 ) {
+		for ( const [ id, variable ] of Object.entries( variables ) ) {
+			fields.push( {
+				type: 'variable',
+				value: id,
+				label: variable.label,
+				iconBox: {},
+				section,
+				isMergeTag: true,
+			} );
+		}
 	}
 
 	return fields;
