@@ -19,16 +19,15 @@ import { size } from 'lodash';
 import type { Options } from '.';
 
 const useFields = ( { section } ) => {
-	const { blockTypes } = useSelect( ( select ) => {
+	const { blockTypes, formBlocks } = useSelect( ( select ) => {
 		return {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
 		};
 	} );
-	const blocks = ( ConfigApi.getInitialPayload().blocks ?? [] ).filter(
-		( block ) => {
-			return blockTypes[ block.name ].supports.editable === true;
-		}
-	);
+	const blocks = ( formBlocks ?? [] ).filter( ( block ) => {
+		return blockTypes[ block.name ].supports.editable === true;
+	} );
 
 	const fields: Options = [];
 
