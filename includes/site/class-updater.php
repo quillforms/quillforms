@@ -44,9 +44,13 @@ class Updater {
 		add_action(
 			'upgrader_process_complete',
 			function() {
-				$this->clear_addons_update_cache();
+				update_option( 'quillforms_addons_update_cache_needs_clear', true, true );
 			}
 		);
+		if ( get_option( 'quillforms_addons_update_cache_needs_clear' ) ) {
+			update_option( 'quillforms_addons_update_cache_needs_clear', false, true );
+			$this->clear_addons_update_cache();
+		}
 	}
 
 	/**
