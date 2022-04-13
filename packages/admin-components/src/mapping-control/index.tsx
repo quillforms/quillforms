@@ -12,13 +12,13 @@ import {
 	MappingKeyControlProps,
 } from './key-control';
 import {
-	default as MappingValueControl,
-	MappingValueControlProps,
-} from './value-control';
+	default as ComboboxControl,
+	ComboboxControlProps,
+} from '../combobox-control';
 
 interface Props {
 	keyProps: MappingKeyControlProps;
-	valueProps: MappingValueControlProps;
+	valueProps: ComboboxControlProps;
 	onAddClick?: () => void;
 	onRemoveClick?: () => void;
 }
@@ -33,7 +33,7 @@ const MappingControl: React.FC< Props > = ( {
 		<div className="mapping-control">
 			<MappingKeyControl { ...keyProps } />
 			<div className="mapping-control-separator"></div>
-			<MappingValueControl { ...valueProps } />
+			<ComboboxControl { ...valueProps } />
 			<div className="mapping-control-buttons">
 				{ !! onRemoveClick && (
 					<div className="mapping-control-buttons-remove">
@@ -50,6 +50,4 @@ const MappingControl: React.FC< Props > = ( {
 	);
 };
 
-export { MappingControl };
-export { default as MappingKeyControl } from './key-control';
-export { default as MappingValueControl } from './value-control';
+export default MappingControl;

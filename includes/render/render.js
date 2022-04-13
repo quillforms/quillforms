@@ -1,22 +1,30 @@
 ( function () {
+	var formObject = wp.hooks.applyFilters(
+		'QuillForms.Renderer.FormObject',
+		qfRender.formObject
+	);
+
 	ReactDOM.render(
 		React.createElement( qf.rendererCore.Form, {
-			formObj: qfRender.formObject,
+			formObj: formObject,
 			formId: qfRender.formId,
 			applyLogic: true,
 			onSubmit: function () {
 				var ajaxurl = qfRender.ajaxurl;
+				var formData = {
+					answers: wp.data
+						.select( 'quillForms/renderer-core' )
+						.getAnswers(),
+					formId: qfRender.formId,
+				};
+				formData = wp.hooks.applyFilters(
+					'QuillForms.Renderer.SubmissionFormData',
+					formData,
+					{ formObject }
+				);
 				var data = new FormData();
 				data.append( 'action', 'quillforms_form_submit' );
-				data.append(
-					'formData',
-					JSON.stringify( {
-						answers: wp.data
-							.select( 'quillForms/renderer-core' )
-							.getAnswers(),
-						formId: qfRender.formId,
-					} )
-				);
+				data.append( 'formData', JSON.stringify( formData ) );
 				fetch( ajaxurl, {
 					method: 'POST',
 					credentials: 'same-origin',
@@ -35,6 +43,10 @@
 								wp.data
 									.dispatch( 'quillForms/renderer-core' )
 									.completeForm();
+								wp.hooks.doAction(
+									'QuillForms.Render.FormSubmitted',
+									{ formId: qfRender.formId }
+								);
 							} else if (
 								res.data.status === 'pending_payment'
 							) {
@@ -120,7 +132,7 @@
 							wp.data
 								.dispatch( 'quillForms/renderer-core' )
 								.setSubmissionErr(
-									qfRender.formObject[ 'messages' ][
+									formObject[ 'messages' ][
 										'label.errorAlert.noConnection'
 									]
 								);

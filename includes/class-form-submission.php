@@ -31,11 +31,11 @@ class Form_Submission {
 	public $form_data;
 
 	/**
-	 * Entry data
+	 * Submission Entry
 	 *
-	 * @since 1.8.0
+	 * @since 1.10.0
 	 *
-	 * @var array
+	 * @var Entry
 	 */
 	public $entry;
 
@@ -141,8 +141,14 @@ class Form_Submission {
 
 		$this->form_data = Core::get_form_data( $form_id );
 
-		// sanitizing answers.
-		$answers = array();
+		// initialize entry object.
+		$this->entry               = new Entry();
+		$this->entry->form_id      = $form_id;
+		$this->entry->date_created = gmdate( 'Y-m-d H:i:s' );
+		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
+
+		// add sanitized fields.
+		$this->entry->records['fields'] = array();
 		foreach ( $this->form_data['blocks'] as $block ) {
 			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
@@ -151,18 +157,19 @@ class Form_Submission {
 
 			$field_answer = $unsanitized_entry['answers'][ $block['id'] ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$answers[ $block['id'] ] = array(
+				$this->entry->records['fields'][ $block['id'] ] = array(
 					'value' => $block_type->sanitize_field( $field_answer, $this->form_data ),
 				);
 			}
 		}
 
-		$entry = array(
-			'form_id' => $form_id,
-			'answers' => $answers,
-		);
+		// filter for entry object init.
+		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
 
-		list( $walk_path, $entry ) = apply_filters( 'quillforms_submission_walk_path', array( $this->form_data['blocks'], $entry ) );
+		// blocks walk path.
+		$walk_path = $this->form_data['blocks'];
+		// filter walk path and entry.
+		list( $walk_path, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walk_path, $this->entry ), $this->form_data );
 
 		// Validate all fields at the walkpath.
 		foreach ( $walk_path as $field ) {
@@ -171,7 +178,7 @@ class Form_Submission {
 				continue;
 			}
 
-			$field_answer = $entry['answers'][ $field['id'] ]['value'] ?? null;
+			$field_answer = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
 			$block_type->validate_field( $field_answer, $this->form_data );
 			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
 				$this->errors['fields'][ $field['id'] ] = $block_type->validation_err;
@@ -190,14 +197,11 @@ class Form_Submission {
 				continue;
 			}
 
-			$field_answer = $entry['answers'][ $field['id'] ]['value'] ?? null;
+			$field_answer = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$entry['answers'][ $field['id'] ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
+				$this->entry->records['fields'][ $field['id'] ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
 			}
 		}
-
-		// set entry property.
-		$this->entry = $entry;
 
 		// get walk path ids.
 		$walk_path_ids = array_values(
@@ -210,21 +214,27 @@ class Form_Submission {
 		);
 
 		// add entry meta.
-		$this->entry['meta'] = array(
-			'walk_path' => $walk_path_ids,
-			'user_id'   => get_current_user_id(),
+		$this->entry->records['meta']['user_id']   = array(
+			'value' => get_current_user_id(),
+		);
+		$this->entry->records['meta']['walk_path'] = array(
+			'value' => $walk_path_ids,
 		);
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry['meta']['user_ip'] = $this->get_client_ip();
+			$this->entry->records['meta']['user_ip'] = array(
+				'value' => $this->get_client_ip(),
+			);
 		}
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry['meta']['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
+			$this->entry->records['meta']['user_agent'] = array(
+				'value' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+			);
 		}
 
 		// check payment.
 		$products = $this->get_products();
 		if ( $products ) {
-			$this->entry['meta']['payments'] = array(
+			$this->entry->records['meta']['payments']['value'] = array(
 				'products'  => $products,
 				'currency'  => $this->get_currency(),
 				'customer'  => $this->get_customer(),
@@ -261,7 +271,7 @@ class Form_Submission {
 		$this->submission_id = $pending_submission['ID'];
 		$this->step          = $pending_submission['step'];
 		$this->form_data     = $pending_submission['form_data'];
-		$this->entry         = $pending_submission['entry_data'];
+		$this->entry         = $pending_submission['entry'];
 
 		return true;
 	}
@@ -289,14 +299,14 @@ class Form_Submission {
 	 */
 	public function process_entry() {
 		if ( $this->submission_id ) {
-			$this->entry['meta']['submission_id'] = $this->submission_id;
+			$this->entry->records['meta']['submission_id']['value'] = $this->submission_id;
 		}
 
-		// this can add 'id' to entry array.
+		// this can add ID to the entry.
 		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
 
 		// do entry saved action.
-		if ( ! empty( $this->entry['id'] ) ) {
+		if ( $this->entry->ID ) {
 			do_action( 'quillforms_entry_saved', $this->entry, $this->form_data );
 		}
 
@@ -326,10 +336,10 @@ class Form_Submission {
 							$value = (float) $product['value'] ?? 0;
 							break;
 						case 'field':
-							$value = (float) $this->entry['answers'][ $product['value'] ]['value'] ?? 0;
+							$value = (float) $this->entry->records['fields'][ $product['value'] ]['value'] ?? 0;
 							break;
 						case 'variable':
-							$value = (float) $this->entry['variables'][ $product['value'] ] ?? 0;
+							$value = (float) $this->entry->records['variables'][ $product['value'] ]['value'] ?? 0;
 							break;
 					}
 					if ( is_numeric( $value ) && $value > 0 ) {
@@ -358,7 +368,7 @@ class Form_Submission {
 						$choices_labels[ $choice['value'] ] = $choice['label'];
 					}
 
-					$selected_choices = (array) $this->entry['answers'][ $field_id ]['value'] ?? array();
+					$selected_choices = (array) $this->entry->records['fields'][ $field_id ]['value'] ?? array();
 					foreach ( $product['values'] as $choice_id => $value ) {
 						if ( is_numeric( $value ) && (float) $value > 0 && in_array( $choice_id, $selected_choices, true ) ) {
 							$items[] = array(
@@ -415,8 +425,8 @@ class Form_Submission {
 		$email_field = $this->form_data['payments']['customer']['email']['value'] ?? null;
 
 		return array(
-			'name'  => $name_field ? ( $this->entry['answers'][ $name_field ]['value'] ?? null ) : null,
-			'email' => $email_field ? ( $this->entry['answers'][ $email_field ]['value'] ?? null ) : null,
+			'name'  => $name_field ? ( $this->entry->records['fields'][ $name_field ]['value'] ?? null ) : null,
+			'email' => $email_field ? ( $this->entry->records['fields'][ $email_field ]['value'] ?? null ) : null,
 		);
 	}
 
@@ -451,7 +461,7 @@ class Form_Submission {
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
 			'payments'           => array_merge(
-				$this->entry['meta']['payments'],
+				$this->entry['meta']['payments']['value'],
 				array(
 					'methods' => $this->get_payment_methods(),
 				)
@@ -529,7 +539,7 @@ class Form_Submission {
 	 * @return string
 	 */
 	public function get_thankyou_screen_id() {
-		$walk_path_ids = $this->entry['meta']['walk_path'];
+		$walk_path_ids = $this->entry['meta']['walk_path']['value'];
 
 		$last_block_id = $walk_path_ids[ count( $walk_path_ids ) - 1 ];
 		$last_block    = array_values(
@@ -560,22 +570,15 @@ class Form_Submission {
 		$insert = $wpdb->insert(
 			"{$wpdb->prefix}quillforms_pending_submissions",
 			array(
-				'form_id'      => $this->entry['form_id'],
+				'form_id'      => $this->entry->form_id,
 				'step'         => $step,
-				'entry_data'   => maybe_serialize( $this->entry ),
+				'entry'        => maybe_serialize( $this->entry ),
 				'form_data'    => maybe_serialize( $this->form_data ),
 				'date_created' => gmdate( 'Y-m-d H:i:s' ),
 			)
 		);
 
 		if ( ! $insert ) {
-			quillforms_get_logger()->alert(
-				'Cannot insert pending submission',
-				array(
-					'entry'     => $this->entry,
-					'form_data' => $this->form_data,
-				)
-			);
 			return false;
 		}
 
@@ -607,8 +610,8 @@ class Form_Submission {
 			return null;
 		}
 
-		if ( isset( $result['entry_data'] ) ) {
-			$result['entry_data'] = maybe_unserialize( $result['entry_data'] );
+		if ( isset( $result['entry'] ) ) {
+			$result['entry'] = maybe_unserialize( $result['entry'] );
 		}
 		if ( isset( $result['form_data'] ) ) {
 			$result['form_data'] = maybe_unserialize( $result['form_data'] );

@@ -1,8 +1,8 @@
 /**
  * QuillForms Dependencies
  */
-import { MergeTags, RichTextControl } from '../../../rich-text';
-import Button from '../../../button';
+import { MergeTags, RichTextControl } from '../../rich-text';
+import Button from '../../button';
 
 /**
  * WordPress Dependencies
@@ -17,7 +17,7 @@ import { arrowLeft } from '@wordpress/icons';
 /**
  * Internal Dependencies
  */
-import { useMappingValueControlContext } from '../context';
+import { useComboboxControlContext } from '../context';
 
 interface Props {}
 
@@ -28,7 +28,8 @@ const RichText: React.FC< Props > = ( {} ) => {
 		value,
 		onChange,
 		isToggleEnabled,
-	} = useMappingValueControlContext();
+		placeholder,
+	} = useComboboxControlContext();
 
 	let tags: MergeTags = [];
 	for ( const option of options ) {
@@ -44,10 +45,10 @@ const RichText: React.FC< Props > = ( {} ) => {
 	}
 
 	return (
-		<div className="mapping-value-control-rich-text">
+		<div className="combobox-control-rich-text">
 			{ isToggleEnabled && (
 				<Button
-					className="mapping-value-control-rich-text-back"
+					className="combobox-control-rich-text-back"
 					onClick={ () => onChange( {} ) }
 				>
 					<Icon icon={ arrowLeft } />
@@ -57,6 +58,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 				value={ value.value ?? '' }
 				setValue={ ( value ) => onChange( { type: 'text', value } ) }
 				mergeTags={ tags }
+				placeholder={ placeholder }
 			/>
 		</div>
 	);

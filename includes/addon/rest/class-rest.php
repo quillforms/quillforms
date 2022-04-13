@@ -30,8 +30,9 @@ class REST {
 	 * @var array
 	 */
 	protected static $classes = array(
-		// 'settings_controller'  => Settings_Controller::class,
-		// 'form_data_controller' => Form_Data_Controller::class,
+		// 'settings_controller'   => Settings_Controller::class,
+		// 'rest_field_controller' => Rest_Field_Controller::class,
+		// 'form_data_controller'  => Form_Data_Controller::class,
 	);
 
 	/**
@@ -45,6 +46,9 @@ class REST {
 		$this->addon = $addon;
 		if ( ! empty( static::$classes['settings_controller'] ) ) {
 			new static::$classes['settings_controller']( $this->addon );
+		}
+		if ( ! empty( static::$classes['rest_field_controller'] ) ) {
+			new static::$classes['rest_field_controller']( $this->addon );
 		}
 		if ( ! empty( static::$classes['form_data_controller'] ) ) {
 			new static::$classes['form_data_controller']( $this->addon );

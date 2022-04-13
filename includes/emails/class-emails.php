@@ -9,6 +9,7 @@
 
 namespace QuillForms\Emails;
 
+use QuillForms\Entry;
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Merge_Tags;
 use QuillForms\Settings;
@@ -111,9 +112,9 @@ class Emails {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var array
+	 * @var Entry
 	 */
-	public $entry = array();
+	public $entry;
 
 	/**
 	 * Notification ID that is currently being processed.
@@ -471,7 +472,7 @@ class Emails {
 	 */
 	public function html_field_value( $is_html_email = true ) { // phpcs:ignore
 
-		if ( empty( $this->entry['answers'] ) ) {
+		if ( empty( $this->entry->records['fields'] ) ) {
 			return '';
 		}
 
@@ -502,12 +503,12 @@ class Emails {
 				$field_label = '';
 				$field_val   = '';
 
-				if ( ! isset( $this->entry['answers'][ $block['id'] ] ) || '' === (string) $this->entry['answers'][ $block['id'] ] ) {
+				if ( ! isset( $this->entry->records['fields'][ $block['id'] ] ) || '' === (string) $this->entry->records['fields'][ $block['id'] ] ) {
 						continue;
 				}
 
 				$field_label = $block['attributes']['label'];
-				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_readable_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
+				$field_val   = empty( $this->entry->records['fields'][ $block['id'] ]['value'] ) ? '<em>' . esc_html__( '(empty)', 'quillforms' ) . '</em>' : $block_type->get_readable_value( $this->entry->records['fields'][ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) && null !== $field_label ) {
 					$field_label = sprintf( /* translators: %d - field ID. */
@@ -542,12 +543,12 @@ class Emails {
 				$field_label = '';
 				$field_val   = '';
 
-				if ( ! isset( $this->entry['answers'][ $block['id'] ] ) || '' === (string) $this->entry['answers'][ $block['id'] ] ) {
+				if ( ! isset( $this->entry->records['fields'][ $block['id'] ] ) || '' === (string) $this->entry->records['fields'][ $block['id'] ] ) {
 					continue;
 				}
 
 				$field_label = $block['attributes']['label'];
-				$field_val   = empty( $this->entry['answers'][ $block['id'] ]['value'] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_readable_value( $this->entry['answers'][ $block['id'] ]['value'], $this->form_data );
+				$field_val   = empty( $this->entry->records['fields'][ $block['id'] ]['value'] ) ? esc_html__( '(empty)', 'quillforms' ) : $block_type->get_readable_value( $this->entry->records['fields'][ $block['id'] ]['value'], $this->form_data );
 
 				if ( empty( $field_label ) ) {
 					$field_label = sprintf( /* translators: %d - field ID. */

@@ -150,8 +150,12 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 
 		const { source, destination } = result;
 
-		// dropped outside the list
-		if ( ! destination ) {
+		// dropped outside the list or source and destination are the same
+		if (
+			! destination ||
+			( source.index === destination.index &&
+				source.droppableId === 'DROP_AREA' )
+		) {
 			return;
 		}
 
@@ -173,7 +177,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 				) {
 					dragAlerts.push(
 						'This block recalls information from previous fields.\
-						This info will be lost if you proceed with this block movement.'
+						 This info will be lost if you proceed with this block movement.'
 					);
 				}
 				dragAlerts = dragAlerts.concat(

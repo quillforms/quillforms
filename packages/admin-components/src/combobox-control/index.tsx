@@ -11,10 +11,11 @@ import { applyFilters } from '@wordpress/hooks';
 /**
  * Internal Dependencies
  */
-import { MappingValueControlContextProvider } from './context';
+import { ComboboxControlContextProvider } from './context';
 import RichText from './rich-text';
 import Select from './select';
 import useFields from './use-fields';
+import useHiddenFields from './use-hidden-fields';
 import useVariables from './use-variables';
 
 export type Sections = { key: string; label: string }[];
@@ -35,7 +36,7 @@ export type Options = {
 		[ x: string ]: any;
 	};
 }[];
-export type MappingValue = {
+export type ComboboxControlValue = {
 	type?: string;
 	value?: string;
 };
@@ -44,25 +45,29 @@ export type CustomizeObject = {
 	options: Options;
 };
 
-export type MappingValueControlProps = {
+export type ComboboxControlProps = {
 	// if type is text, the component will load rich text editor. else the component will load the select.
-	value: MappingValue;
-	onChange: ( value: MappingValue ) => void;
+	value: ComboboxControlValue;
+	onChange: ( value: ComboboxControlValue ) => void;
 	// if true, select component will have custom value option that loads rich text
 	// and rich text editor will have back/exit button to loads select. (default true)
 	isToggleEnabled?: boolean;
 	// customize sections and options.
 	customize?: ( value: CustomizeObject ) => CustomizeObject;
+	// used for rich text editor only.
+	placeholder?: string;
 };
 
-const MappingValueControl: React.FC< MappingValueControlProps > = ( {
+const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 	value,
 	onChange,
 	isToggleEnabled = true,
 	customize,
+	placeholder,
 } ) => {
 	const fields = useFields( { section: 'fields' } );
 	const variables = useVariables( { section: 'variables' } );
+	const hidden_fields = useHiddenFields( { section: 'hidden_fields' } );
 
 	let sections: Sections = [];
 	let options: Options = [];
@@ -82,6 +87,14 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 			label: 'Variables',
 		} );
 		options = options.concat( variables );
+	}
+	// hidden_fields
+	if ( hidden_fields.length ) {
+		sections.push( {
+			key: 'hidden_fields',
+			label: 'Hidden Fields',
+		} );
+		options = options.concat( hidden_fields );
 	}
 	// entry properties
 	const EntryProperties = [
@@ -128,7 +141,7 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 
 	// apply global customize filter to sections and options.
 	const filtered = applyFilters(
-		'QuillForms.AdminComponents.MappingValueControl.Customize',
+		'QuillForms.AdminComponents.ComboboxControl.Customize',
 		{ sections, options }
 	) as CustomizeObject;
 	sections = filtered.sections;
@@ -142,20 +155,21 @@ const MappingValueControl: React.FC< MappingValueControlProps > = ( {
 	}
 
 	return (
-		<div className="mapping-value-control">
-			<MappingValueControlContextProvider
+		<div className="combobox-control">
+			<ComboboxControlContextProvider
 				value={ {
 					sections,
 					options,
 					value,
 					onChange,
 					isToggleEnabled,
+					placeholder,
 				} }
 			>
 				{ value.type === 'text' ? <RichText /> : <Select /> }
-			</MappingValueControlContextProvider>
+			</ComboboxControlContextProvider>
 		</div>
 	);
 };
 
-export default MappingValueControl;
+export default ComboboxControl;

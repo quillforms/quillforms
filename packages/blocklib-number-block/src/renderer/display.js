@@ -89,20 +89,30 @@ const NumberOutput = ( props ) => {
 				css`
 					& {
 						width: 100%;
-						border: none;
+						border: none !important;
 						outline: none;
 						font-size: 30px;
 						padding-bottom: 8px;
+						border-radius: 0 !important;
 						background: transparent;
 						transition: box-shadow 0.1s ease-out 0s;
 						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
-							0px 1px;
+							0px 1px !important;
+
+						-moz-appearance: textfield;
+
 						@media ( max-width: 600px ) {
 							font-size: 24px;
 						}
 
 						@media ( max-width: 400px ) {
 							font-size: 20px;
+						}
+
+						&::-webkit-outer-spin-button,
+						&::-webkit-inner-spin-button {
+							-webkit-appearance: none;
+							margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 						}
 					}
 
@@ -126,12 +136,15 @@ const NumberOutput = ( props ) => {
 
 					&:focus {
 						box-shadow: ${ answersColor.setAlpha( 1 ).toString() }
-							0px 2px;
+							0px 2px !important;
+						border: none !important;
+						outline: none !important;
 					}
 
 					color: ${ theme.answersColor };
 				`
 			) }
+			type="number"
 			id={ 'number-' + id }
 			placeholder={ messages[ 'block.number.placeholder' ] }
 			onChange={ changeHandler }

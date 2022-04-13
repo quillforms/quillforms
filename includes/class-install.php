@@ -99,7 +99,7 @@ class Install {
 				ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				form_id BIGINT UNSIGNED,
 				step varchar(255) NOT NULL,
-				entry_data longtext NOT NULL,
+				entry longtext NOT NULL,
 				form_data longtext NOT NULL,
 				date_created datetime NOT NULL,
 				PRIMARY KEY  (ID),

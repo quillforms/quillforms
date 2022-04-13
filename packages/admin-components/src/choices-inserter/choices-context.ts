@@ -13,6 +13,8 @@ const Context = createContext< ChoicesContextContent >( {
 	addChoice: noop,
 	labelChangeHandler: noop,
 	deleteChoice: noop,
+	handleMediaUpload: noop,
+	deleteImageHandler: noop,
 } );
 const { Provider } = Context;
 

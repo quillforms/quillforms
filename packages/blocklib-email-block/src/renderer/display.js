@@ -83,14 +83,15 @@ const EmailOutput = ( props ) => {
 				css`
 					& {
 						width: 100%;
-						border: none;
+						border: none !important;
 						outline: none;
 						font-size: 30px;
 						padding-bottom: 8px;
+						border-radius: 0 !important;
 						background: transparent;
 						transition: box-shadow 0.1s ease-out 0s;
 						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
-							0px 1px;
+							0px 1px !important;
 						@media ( max-width: 600px ) {
 							font-size: 24px;
 						}
@@ -119,13 +120,16 @@ const EmailOutput = ( props ) => {
 
 					&:focus {
 						box-shadow: ${ answersColor.setAlpha( 1 ).toString() }
-							0px 2px;
+							0px 2px !important;
+						border: none !important;
+						outline: none !important;
 					}
 
 					color: ${ theme.answersColor };
 				`
 			) }
 			id={ 'email-' + id }
+			type="email"
 			placeholder={ messages[ 'block.email.placeholder' ] }
 			onChange={ changeHandler }
 			value={ val && val.length > 0 ? val : '' }

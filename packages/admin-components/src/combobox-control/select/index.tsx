@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import SelectControl from '../../../select-control';
+import SelectControl from '../../select-control';
 
 /**
  * WordPress Dependencies
@@ -16,7 +16,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import { useMappingValueControlContext } from '../context';
+import { useComboboxControlContext } from '../context';
 import Option from './option';
 
 interface Props {}
@@ -28,7 +28,7 @@ const Select: React.FC< Props > = ( {} ) => {
 		value,
 		onChange,
 		isToggleEnabled,
-	} = useMappingValueControlContext();
+	} = useComboboxControlContext();
 
 	const SelectOptions: CustomSelectControl.Option[] = [
 		{
@@ -45,7 +45,7 @@ const Select: React.FC< Props > = ( {} ) => {
 					{ section.label }
 				</div>
 			),
-			className: 'mapping-value-control-select-section',
+			className: 'combobox-control-select-section',
 		} );
 		options.forEach( ( option, index ) => {
 			if ( option.section === section.key ) {
@@ -82,7 +82,7 @@ const Select: React.FC< Props > = ( {} ) => {
 	}
 
 	return (
-		<div className="mapping-value-control-select">
+		<div className="combobox-control-select">
 			<SelectControl
 				label=""
 				value={
