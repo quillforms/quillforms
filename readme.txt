@@ -104,6 +104,10 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.10.4 = 13 Apr 2022
+Fix: Fix the mobile keyboard for the number field.
+Fix: Fix the drag and drop for the welcome screen.
+
 = 1.10.3 = 13 Apr 2022
 Fix: Fix an issue for the new combo control.
 
