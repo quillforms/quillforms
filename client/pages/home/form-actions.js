@@ -13,13 +13,52 @@ import { useDispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { omit } from 'lodash';
+import classnames from 'classnames';
+import { css } from 'emotion';
 
 const FormActions = ( { form, formId, setIsDeleting } ) => {
-	const { deleteEntityRecord, saveEntityRecord } = useDispatch( 'core' );
+	const { deleteEntityRecord } = useDispatch( 'core' );
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
 	);
+	const { invalidateResolution } = useDispatch( 'core/data' );
+
+	const duplicate = () => {
+		const data = new FormData();
+		data.append( 'action', 'quillforms_duplicate_form' );
+		data.append( 'form_id', formId );
+
+		fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: data,
+		} )
+			.then( ( res ) => res.json() )
+			.then( ( res ) => {
+				if ( res.success ) {
+					invalidateResolution( 'core', 'getEntityRecords', [
+						'postType',
+						'quill_forms',
+						{
+							status: 'publish,draft',
+							per_page: -1,
+						},
+					] );
+				} else {
+					createErrorNotice( `⛔ Can't duplicate form`, {
+						type: 'snackbar',
+						isDismissible: true,
+					} );
+				}
+			} )
+			.catch( ( err ) => {
+				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
+					type: 'snackbar',
+					isDismissible: true,
+				} );
+			} );
+	};
+
 	return (
 		<div
 			role="presentation"
@@ -49,20 +88,15 @@ const FormActions = ( { form, formId, setIsDeleting } ) => {
 						>
 							Edit
 						</MenuItem>
-						{ /* <MenuItem
+						<MenuItem
 							className="quillforms-home-form-actions__menu-item"
 							onClick={ () => {
 								onClose();
-								saveEntityRecord( 'postType', 'quill_forms', {
-									...omit( form, [ 'id', 'integrations' ] ),
-									title: form.title.rendered + '-copy',
-									status: 'draft',
-									theme: form.theme.id,
-								} );
+								duplicate();
 							} }
 						>
 							Duplicate
-						</MenuItem> */ }
+						</MenuItem>
 						<MenuItem
 							className="quillforms-home-form-actions__menu-item"
 							onClick={ () => {
@@ -93,7 +127,14 @@ const FormActions = ( { form, formId, setIsDeleting } ) => {
 						</MenuItem>
 
 						<MenuItem
-							className="quillforms-home-form-actions__menu-item quillforms-home-form-actions__delete-form"
+							className={ classnames(
+								'quillforms-home-form-actions__menu-item quillforms-home-form-actions__delete-form',
+								css`
+									.components-menu-item__item {
+										color: #b71717 !important;
+									}
+								`
+							) }
 							onClick={ async () => {
 								setIsDeleting( true );
 								const res = await deleteEntityRecord(
