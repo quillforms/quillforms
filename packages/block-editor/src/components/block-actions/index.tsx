@@ -95,24 +95,26 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 		>
 			{ ( { onClose } ) => (
 				<MenuGroup className="block-editor-block-actions__menu-group">
-					<MenuItem
-						onClick={ (
-							e: React.MouseEvent< HTMLButtonElement >
-						) => {
-							onClose();
-							__experimentalInsertBlock(
-								{
-									...block,
-									id: Math.random()
-										.toString( 36 )
-										.substr( 2, 9 ),
-								},
-								{ index: currentBlockIndex + 1 }
-							);
-						} }
-					>
-						<DuplicateIcon /> Duplicate
-					</MenuItem>
+					{ block.name !== 'welcome-screen' && (
+						<MenuItem
+							onClick={ (
+								e: React.MouseEvent< HTMLButtonElement >
+							) => {
+								onClose();
+								__experimentalInsertBlock(
+									{
+										...block,
+										id: Math.random()
+											.toString( 36 )
+											.substr( 2, 9 ),
+									},
+									{ index: currentBlockIndex + 1 }
+								);
+							} }
+						>
+							<DuplicateIcon /> Duplicate
+						</MenuItem>
+					) }
 					<MenuItem
 						onClick={ (
 							e: React.MouseEvent< HTMLButtonElement >
