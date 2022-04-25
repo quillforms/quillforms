@@ -33,7 +33,7 @@ const License = () => {
 		const data = new FormData();
 		data.append( 'action', 'quillforms_license_activate' );
 		data.append( '_nonce', window[ 'qfAdmin' ].license_nonce );
-		data.append( 'license_key', licenseKey );
+		data.append( 'license_key', licenseKey?.trim() );
 
 		fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
 			method: 'POST',
