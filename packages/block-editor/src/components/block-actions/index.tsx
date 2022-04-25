@@ -3,8 +3,7 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { doAction, applyFilters } from '@wordpress/hooks';
-import { DropdownMenu, MenuGroup, MenuItem, Icon } from '@wordpress/components';
-import { trash } from '@wordpress/icons';
+import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 
 /**
  * External Dependencies
@@ -17,7 +16,6 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import DeleteAlert from '../delete-alert';
-import DuplicateIcon from '../duplicate-icon';
 
 interface Props {
 	id: string;
@@ -86,9 +84,6 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 				css`
 					.components-menu-item__item {
 						min-width: auto;
-						svg {
-							margin: 0 5px;
-						}
 					}
 				`
 			) }
@@ -112,7 +107,7 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 								);
 							} }
 						>
-							<DuplicateIcon /> Duplicate
+							Duplicate
 						</MenuItem>
 					) }
 					<MenuItem
@@ -122,8 +117,13 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 							onClose();
 							handleDelete( e );
 						} }
+						className={ css`
+							.components-menu-item__item {
+								color: #b71717 !important;
+							}
+						` }
 					>
-						<Icon icon={ trash } /> Delete
+						Delete
 					</MenuItem>
 				</MenuGroup>
 			) }
