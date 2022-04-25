@@ -16,19 +16,19 @@ import { useDispatch } from '@wordpress/data';
 import classnames from 'classnames';
 import { css } from 'emotion';
 
-const FormActions = ( { form, formId, setIsDeleting } ) => {
+const FormActions = ( { form, formId, setIsLoading } ) => {
 	const { deleteEntityRecord } = useDispatch( 'core' );
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
 	);
 	const { invalidateResolution } = useDispatch( 'core/data' );
 
-	const duplicate = () => {
+	const duplicate = async () => {
 		const data = new FormData();
 		data.append( 'action', 'quillforms_duplicate_form' );
 		data.append( 'form_id', formId );
 
-		fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
+		await fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
 			method: 'POST',
 			credentials: 'same-origin',
 			body: data,
@@ -90,9 +90,11 @@ const FormActions = ( { form, formId, setIsDeleting } ) => {
 						</MenuItem>
 						<MenuItem
 							className="quillforms-home-form-actions__menu-item"
-							onClick={ () => {
+							onClick={ async () => {
+								setIsLoading( true );
+								await duplicate();
+								setIsLoading( false );
 								onClose();
-								duplicate();
 							} }
 						>
 							Duplicate
@@ -136,7 +138,7 @@ const FormActions = ( { form, formId, setIsDeleting } ) => {
 								`
 							) }
 							onClick={ async () => {
-								setIsDeleting( true );
+								setIsLoading( true );
 								const res = await deleteEntityRecord(
 									'postType',
 									'quill_forms',
@@ -150,7 +152,7 @@ const FormActions = ( { form, formId, setIsDeleting } ) => {
 											isDismissible: true,
 										}
 									);
-									setIsDeleting( false );
+									setIsLoading( false );
 								} else {
 									createSuccessNotice(
 										'✅ Form moved to trash successfully!',
