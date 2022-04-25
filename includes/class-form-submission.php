@@ -157,10 +157,16 @@ class Form_Submission {
 				continue;
 			}
 
-			$field_answer = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
+			$validation_message = null;
+			$field_answer       = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
 			$block_type->validate_field( $field_answer, $this->form_data );
 			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
-				$this->errors['fields'][ $field['id'] ] = $block_type->validation_err;
+				$validation_message = $block_type->validation_err;
+			}
+
+			$validation_message = apply_filters( 'quillforms_entry_field_validation', $validation_message, $field, $block_type, $field_answer, $this->entry, $this->form_data );
+			if ( $validation_message ) {
+				$this->errors['fields'][ $field['id'] ] = $validation_message;
 			}
 		}
 
