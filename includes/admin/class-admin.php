@@ -92,11 +92,10 @@ class Admin {
 		if ( is_wp_error( $new_form_id ) ) {
 			return $new_form_id;
 		}
-
 		$form_meta = get_post_meta( $form_id );
 		foreach ( $form_meta as $key => $values ) {
 			foreach ( $values as $value ) {
-				add_post_meta( $new_form_id, $key, $value );
+				add_post_meta( $new_form_id, $key, maybe_unserialize( $value ) );
 			}
 		}
 
