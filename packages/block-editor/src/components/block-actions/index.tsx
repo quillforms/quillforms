@@ -92,9 +92,7 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 				<MenuGroup className="block-editor-block-actions__menu-group">
 					{ block.name !== 'welcome-screen' && (
 						<MenuItem
-							onClick={ (
-								e: React.MouseEvent< HTMLButtonElement >
-							) => {
+							onClick={ () => {
 								onClose();
 								__experimentalInsertBlock(
 									{
