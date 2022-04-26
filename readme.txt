@@ -41,20 +41,21 @@ QuillForms free version comes with variety of blocks:
 
 = Features in Pro version =
 1- File upload block
-2- Entries saving and management
-3- Jump logic to jump between questions based on a set of conditions
-4- Calculator for quizzes and cost estimations
-5- Hidden fields and custom URL parameters
-6- Zapier integration to connect with 3000+ apps
-7- GoogleSheets integration
-8- MailChimp integration
-9- Constant Contact integration
-10- GetResponse integration
-11- Opinion scale block
-12- Custom thank you screen
-13- Hubspot integration
-14- SalesForce integration
-15- ActiveCampaign integration
+2- Phone block
+3- Entries saving and management
+4- Jump logic to jump between questions based on a set of conditions
+5- Calculator for quizzes and cost estimations
+6- Hidden fields and custom URL parameters
+7- Zapier integration to connect with 3000+ apps
+8- GoogleSheets integration
+9- MailChimp integration
+10- Constant Contact integration
+11- GetResponse integration
+12- Opinion scale block
+13- Custom thank you screen
+14- Hubspot integration
+15- SalesForce integration
+16- ActiveCampaign integration
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
