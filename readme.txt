@@ -1,4 +1,4 @@
- === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
+ === Quill Forms | Typeform alternative for WordPress | Conversational forms builder for WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 5.9
 Stable tag: 1.10.5
