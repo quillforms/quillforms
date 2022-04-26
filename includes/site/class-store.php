@@ -467,6 +467,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/banner.png',
 				),
 			),
+			'phoneblock'                => array(
+				'name'           => esc_html__( 'Phone Block', 'quillforms' ),
+				'description'    => esc_html__( 'Add phone question type to your form with international format.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-phoneblock/quillforms-phoneblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/phoneblock/icon.svg',
+				),
+			),
 			'opinionscaleblock'         => array(
 				'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
 				'description'    => esc_html__( 'An Opinion Scale lets people select an opinion on the scale you provide them. Easy to understand and quick to use, it is a nice way to collect opinions.', 'quillforms' ),
