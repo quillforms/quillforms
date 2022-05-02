@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-statement-block",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "Statement block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
