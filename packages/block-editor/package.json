@@ -27,6 +27,7 @@
 		"@quillforms/config": "file:../config",
 		"@quillforms/types": "file:../types",
 		"@wordpress/icons": "^8.3.0",
+		"classnames": "^2.3.1",
 		"emoji-mart": "^3.0.1",
 		"is-url": "^1.2.4",
 		"react-intersection-observer": "^8.32.0",
