@@ -24,6 +24,7 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
+		"@quillforms/config": "file:../config",
 		"tinycolor2": "^1.4.2"
 	},
 	"publishConfig": {
