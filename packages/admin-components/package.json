@@ -24,8 +24,10 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/blocks": "file:../blocks",
+		"@wordpress/media-utils": "^3.5.0",
 		"escape-html": "^1.0.3",
 		"gradient-parser": "^0.1.5",
+		"is-url": "^1.2.4",
 		"react-beautiful-dnd": "^13.1.0",
 		"react-window": "^1.8.6",
 		"slate": "^0.59.0",
@@ -33,6 +35,10 @@
 		"slate-hyperscript": "^0.59.0",
 		"slate-react": "^0.59.0",
 		"tinycolor2": "^1.4.1"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
