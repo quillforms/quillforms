@@ -25,6 +25,7 @@
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/blocks": "file:../blocks",
 		"@wordpress/media-utils": "^3.5.0",
+		"emotion": "10.0.27",
 		"escape-html": "^1.0.3",
 		"gradient-parser": "^0.1.5",
 		"is-url": "^1.2.4",
