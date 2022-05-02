@@ -2,8 +2,8 @@
  * Internal Dependencies
  */
 import metadata from './block.json';
-import { blockAdminSettings } from './admin';
-import { blockRendererSettings } from './renderer';
-const { type } = metadata;
+import rendererSettings from './admin/settings';
+import adminSettings from './renderer/settings';
+const { name } = metadata;
 
-export { type, metadata, blockAdminSettings, blockRendererSettings };
+export { name, metadata, adminSettings, rendererSettings };
