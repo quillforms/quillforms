@@ -5,8 +5,10 @@ import {
 	rendererSettings,
 } from '@quillforms/blocklib-date-block';
 
-const register = registerBlockType( name, {
-	...metadata,
-	...rendererSettings,
-} );
+const register = () => {
+	registerBlockType( name, {
+		...metadata,
+		...rendererSettings,
+	} );
+};
 export default register;

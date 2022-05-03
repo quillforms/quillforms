@@ -5,9 +5,10 @@ import {
 	rendererSettings,
 } from '@quillforms/blocklib-statement-block';
 
-const register = () =>
+const register = () => {
 	registerBlockType( name, {
 		...metadata,
 		...rendererSettings,
 	} );
+};
 export default register;

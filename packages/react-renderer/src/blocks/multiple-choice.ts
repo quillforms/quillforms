@@ -5,9 +5,10 @@ import {
 	rendererSettings,
 } from '@quillforms/blocklib-multiple-choice-block';
 import '@quillforms/blocklib-multiple-choice-block/build-style/renderer.css';
-const register = () =>
+const register = () => {
 	registerBlockType( name, {
 		...metadata,
 		...rendererSettings,
 	} );
+};
 export default register;
