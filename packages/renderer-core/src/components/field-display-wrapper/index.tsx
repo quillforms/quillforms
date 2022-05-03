@@ -99,6 +99,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	}, [ isActive ] );
 
 	const shakeWithError = ( err ) => {
+		console.log( err );
 		clearTimers();
 		if ( ! isShaking ) setIsShaking( true );
 		if ( ! shakingErr ) setShakingErr( err );
