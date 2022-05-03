@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocks",
-	"version": "1.3.3",
+	"version": "1.3.4",
 	"description": "Block api for Quill forms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
