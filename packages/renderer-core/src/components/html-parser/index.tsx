@@ -22,7 +22,7 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 	value = value.replace(
 		/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
 		( _match, p1, p2 ) => {
-			return `<p kind='merge__tag' type='${ p1 }' modifier='${ p2 }'></p>`;
+			return `<mergetag type='${ p1 }' modifier='${ p2 }'></mergetag>`;
 		}
 	);
 
@@ -33,8 +33,7 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 				replace: ( domNode ): void | JSX.Element => {
 					if (
 						domNode instanceof Element &&
-						domNode?.name === 'p' &&
-						domNode.attribs.kind === 'merge__tag'
+						domNode?.name === 'mergetag'
 					) {
 						const { modifier, type } = domNode.attribs;
 						return <MergeTag type={ type } modifier={ modifier } />;
