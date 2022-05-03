@@ -31,7 +31,8 @@
 		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
 		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
 		"@quillforms/blocks": "file:../blocks",
-		"@quillforms/renderer-core": "file:../renderer-core"
+		"@quillforms/renderer-core": "file:../renderer-core",
+		"@wordpress/data": "^6.7.0"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",
