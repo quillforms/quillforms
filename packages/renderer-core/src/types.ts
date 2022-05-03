@@ -25,3 +25,12 @@ export type FormObj = {
 		animationDirection: 'vertical' | 'horizontal';
 	};
 };
+
+export type SubmissionDispatchers = {
+	setIsSubmitting: ( flag: boolean ) => void;
+	setIsReviewing: ( flag: boolean ) => void;
+	goToBlock: ( id: string ) => void;
+	setIsFieldValid: ( id: string, flag: boolean ) => void;
+	setFieldValidationErr: ( id: string, err: string ) => void;
+	completeForm: () => void;
+};

@@ -1,13 +1,13 @@
 /**
  * WordPress Dependencies
  */
-import React, { createContext, useMemo } from '@wordpress/element';
+import { createContext, useMemo } from '@wordpress/element';
 import { noop } from 'lodash';
-import { FormObj } from '../../types';
+import { FormObj, SubmissionDispatchers } from '../../types';
 
 interface FormContext {
 	formObj: FormObj;
-	onSubmit: () => void;
+	onSubmit: ( data: object, dispatchers: SubmissionDispatchers ) => void;
 	isPreview: boolean;
 	formId?: number;
 }
@@ -21,6 +21,7 @@ const FormContext = createContext< FormContext >( {
 		settings: {
 			disableProgressBar: false,
 			disableWheelSwiping: false,
+			animationDirection: 'vertical',
 		},
 	},
 	onSubmit: noop,

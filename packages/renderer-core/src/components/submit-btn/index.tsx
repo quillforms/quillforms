@@ -29,19 +29,26 @@ const SubmitBtn: React.FC = () => {
 	} = __experimentalUseFieldRenderContext();
 	const theme = useBlockTheme( attributes.themeId );
 
-	const { goToBlock, setIsReviewing, setIsSubmitting } = useDispatch(
-		'quillForms/renderer-core'
-	);
+	const {
+		goToBlock,
+		setIsReviewing,
+		setIsSubmitting,
+		setIsFieldValid,
+		setFieldValidationErr,
+		completeForm,
+	} = useDispatch( 'quillForms/renderer-core' );
 	const { onSubmit } = useFormContext();
 	const [ isWaitingPending, setIsWaitingPending ] = useState( false );
 
 	const {
+		answers,
 		firstInvalidFieldId,
 		pendingMsg,
 		isSubmitting,
 		submissionErr,
 	} = useSelect( ( select ) => {
 		return {
+			answers: select( 'quillForms/renderer-core' ).getAnswers(),
 			pendingMsg: select( 'quillForms/renderer-core' ).getPendingMsg(),
 			isSubmitting: select( 'quillForms/renderer-core' ).isSubmitting(),
 			firstInvalidFieldId: select(
@@ -94,7 +101,14 @@ const SubmitBtn: React.FC = () => {
 			}, 100 );
 		} else {
 			setIsSubmitting( true );
-			onSubmit();
+			onSubmit( answers, {
+				setIsSubmitting,
+				setIsFieldValid,
+				setFieldValidationErr,
+				setIsReviewing,
+				goToBlock,
+				completeForm,
+			} );
 		}
 	};
 
