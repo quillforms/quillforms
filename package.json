@@ -67,6 +67,7 @@
 		"@quillforms/messages-editor": "file:packages/messages-editor",
 		"@quillforms/navigation": "file:packages/navigation",
 		"@quillforms/notifications-editor": "file:packages/notifications-editor",
+		"@quillforms/react-renderer": "file:packages/react-renderer",
 		"@quillforms/renderer-core": "file:packages/renderer-core",
 		"@quillforms/rest-fields": "file:packages/rest-fields",
 		"@quillforms/rich-text": "file:packages/rich-text",
