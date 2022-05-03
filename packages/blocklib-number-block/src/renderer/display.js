@@ -58,9 +58,7 @@ const NumberOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
-		console.log( value );
 		if ( isNaN( value ) ) {
-			console.log( 'd' );
 			blockWithError( 'Numbers only!' );
 			return;
 		}
@@ -147,7 +145,6 @@ const NumberOutput = ( props ) => {
 					color: ${ theme.answersColor };
 				`
 			) }
-			type="number"
 			id={ 'number-' + id }
 			placeholder={ messages[ 'block.number.placeholder' ] }
 			onChange={ changeHandler }
