@@ -48,6 +48,15 @@ export type BlockSupportedFeatures = {
 	theme?: boolean;
 };
 
+type logicalOperator =
+	| 'is'
+	| 'is_not'
+	| 'starts_with'
+	| 'greater_than'
+	| 'lower_than'
+	| 'ends_with'
+	| 'contains'
+	| 'not_contains';
 export interface BlockTypeSettings
 	extends BlockAdminSettings,
 		BlockRendererSettings {
@@ -60,16 +69,7 @@ export interface BlockTypeSettings
 		}
 	>;
 	supports: BlockSupportedFeatures;
-	logicalOperators?: (
-		| 'is'
-		| 'is_not'
-		| 'starts_with'
-		| 'greater_than'
-		| 'lower_than'
-		| 'ends_with'
-		| 'contains'
-		| 'not_contains'
-	 )[];
+	logicalOperators?: logicalOperator[];
 }
 
 export interface BlockTypeInterface extends BlockTypeSettings {
