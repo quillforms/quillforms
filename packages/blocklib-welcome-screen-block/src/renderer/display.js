@@ -82,10 +82,53 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 			} }
 		>
 			<div
-				className={ classNames( 'qf-welcome-screen-block__wrapper', {
-					'with-sticky-footer': stickyFooter,
-					active: isActive,
-				} ) }
+				className={ classNames(
+					'qf-welcome-screen-block__wrapper',
+					{
+						'with-sticky-footer': stickyFooter,
+						active: isActive,
+					},
+					css`
+						& {
+							position: absolute;
+							top: 0;
+							left: 0;
+							right: 0;
+							bottom: 0;
+							display: flex;
+							flex-wrap: wrap;
+							flex-direction: column;
+							justify-content: center;
+							width: 100%;
+							height: 100%;
+							overflow-y: auto;
+							opacity: 0;
+							visibility: hidden;
+							transition: all 0.4s ease-in-out;
+							-webkit-transition: all 0.4s ease-in-out;
+							-moz-transition: all 0.4s ease-in-out;
+						}
+
+						&.active {
+							opacity: 1;
+							visibility: visible;
+						}
+						// &.with-sticky-footer {
+						// 	display: block;
+						// 	.qf-welcome-screen-block__content-wrapper {
+						// 		height: calc(100% - 70px);
+
+						// 	}
+						// }
+						.qf-welcome-screen-block__content-wrapper {
+							max-width: 700px;
+							padding: 30px 30px 20px;
+							word-wrap: break-word;
+							text-align: center;
+							margin: auto;
+						}
+					`
+				) }
 			>
 				<div className={ 'qf-welcome-screen-block__content-wrapper' }>
 					<div
@@ -178,9 +221,35 @@ const ScreenAction = ( { isSticky, buttonText, next, theme } ) => {
 
 	return (
 		<div
-			className={ classNames( 'qf-welcome-screen-block__action-wrapper', {
-				'is-sticky': isSticky,
-			} ) }
+			className={ classNames(
+				'qf-welcome-screen-block__action-wrapper',
+				{
+					'is-sticky': isSticky,
+				},
+				css`
+					& {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						margin-top: 20px;
+					}
+					// &.is-sticky {
+					// 	position: absolute;
+					// 	bottom: 0;
+					// 	right: 0;
+					// 	left: 0;
+					// 	width: 100%;
+					// 	background-color: rgba(0, 0, 0, 0.05);
+					// 	box-shadow: rgba(0, 0, 0, 0.1) 0 -1px;
+					// 	height: 70px;
+					// 	display: flex;
+					// 	align-items: center;
+					// 	justify-content: center;
+
+					// 	.qf-welcome-screen-block__action {
+					// 		margin: 0 auto;
+				`
+			) }
 		>
 			<div className="qf-welcome-screen-block__action">
 				<Button theme={ theme } onClick={ next }>
