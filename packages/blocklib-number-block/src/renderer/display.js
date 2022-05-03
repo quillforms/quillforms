@@ -58,7 +58,9 @@ const NumberOutput = ( props ) => {
 
 	const changeHandler = ( e ) => {
 		const value = e.target.value;
+		console.log( value );
 		if ( isNaN( value ) ) {
+			console.log( 'd' );
 			blockWithError( 'Numbers only!' );
 			return;
 		}
