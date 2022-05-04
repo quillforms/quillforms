@@ -1,6 +1,6 @@
 {
-	"name": "@quillforms/react-renderer",
-	"version": "1.0.7",
+	"name": "@quillforms/react-renderer-utils",
+	"version": "1.0.0",
 	"description": "> TODO: description",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
 	"keywords": [
@@ -8,7 +8,7 @@
 		"react",
 		"renderer"
 	],
-	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/react-renderer/README.md",
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/react-renderer-utils/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/quillforms/quillforms.git",
@@ -30,9 +30,7 @@
 		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
 		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
 		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
-		"@quillforms/blocks": "file:../blocks",
-		"@quillforms/renderer-core": "file:../renderer-core",
-		"@wordpress/data": "^6.7.0"
+		"@quillforms/blocks": "file:../blocks"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",

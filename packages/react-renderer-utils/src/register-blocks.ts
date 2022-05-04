@@ -9,6 +9,8 @@ import registerLongTextBlock from './blocks/long-text';
 //@ts-ignore
 import registerMultipleChoiceBlock from './blocks/multiple-choice';
 //@ts-ignore
+import registerNumberBlock from './blocks/number';
+//@ts-ignore
 import registerShortTextBlock from './blocks/short-text';
 //@ts-ignore
 import registerStatementBlock from './blocks/statement';
@@ -23,6 +25,7 @@ const registerCoreBlocks = () => {
 	registerEmailBlock();
 	registerLongTextBlock();
 	registerMultipleChoiceBlock();
+	registerNumberBlock();
 	registerShortTextBlock();
 	registerStatementBlock();
 	registerWebsiteBlock();
