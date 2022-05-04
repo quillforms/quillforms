@@ -101,14 +101,17 @@ const SubmitBtn: React.FC = () => {
 			}, 100 );
 		} else {
 			setIsSubmitting( true );
-			onSubmit( answers, {
-				setIsSubmitting,
-				setIsFieldValid,
-				setFieldValidationErr,
-				setIsReviewing,
-				goToBlock,
-				completeForm,
-			} );
+			onSubmit(
+				{ answers },
+				{
+					setIsSubmitting,
+					setIsFieldValid,
+					setFieldValidationErr,
+					setIsReviewing,
+					goToBlock,
+					completeForm,
+				}
+			);
 		}
 	};
 
