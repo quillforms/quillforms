@@ -55,11 +55,10 @@ const App = () => {
               attributes: {
                 required: true,
                 label: "Great {{field:kdsfkdg}}, can you type your age?"
-              }
-            },
+			  }
+			}
 		  ]
 		}}
-
 		onSubmit={(data, { completeForm, setIsSubmitting }) => {
           setTimeout(() => {
             setIsSubmitting(false);
