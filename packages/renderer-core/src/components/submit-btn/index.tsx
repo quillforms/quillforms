@@ -35,6 +35,7 @@ const SubmitBtn: React.FC = () => {
 		setIsSubmitting,
 		setIsFieldValid,
 		setFieldValidationErr,
+		setSubmissionErr,
 		completeForm,
 	} = useDispatch( 'quillForms/renderer-core' );
 	const { onSubmit } = useFormContext();
@@ -110,6 +111,7 @@ const SubmitBtn: React.FC = () => {
 					setIsReviewing,
 					goToBlock,
 					completeForm,
+					setSubmissionErr,
 				}
 			);
 		}

@@ -33,4 +33,5 @@ export type SubmissionDispatchers = {
 	setIsFieldValid: ( id: string, flag: boolean ) => void;
 	setFieldValidationErr: ( id: string, err: string ) => void;
 	completeForm: () => void;
+	setSubmissionErr: ( value: string ) => void;
 };
