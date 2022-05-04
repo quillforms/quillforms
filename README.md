@@ -1,5 +1,5 @@
 <p align="center">
-  <img style="width:200px" src="https://quillforms.com/wp-content/uploads/2021/10/cropped-quillforms-png-loog-1.png" " />
+  <img style="width:200px" src="https://quillforms.com/wp-content/uploads/2021/10/cropped-quillforms-png-loog-1.png" />
 </p>
 <h1 align="center">Quill Forms</h1>
 <div align="center">

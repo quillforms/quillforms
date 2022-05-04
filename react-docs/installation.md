@@ -3,9 +3,6 @@
 1. Add the `@quillforms/renderer-core` package
 
 ```bash
-# yarn
-yarn add react-beautiful-dnd
-
 # npm
 npm install @quillforms/renderer-core --save
 ```
