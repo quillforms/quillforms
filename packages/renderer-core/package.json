@@ -20,7 +20,6 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
-	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/blocks": "file:../blocks",
