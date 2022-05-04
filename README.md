@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://quillforms.com/wp-content/uploads/2021/10/cropped-quillforms-png-loog-1.png" alt="react beautiful dnd logo" />
+  <img style="width:200px" src="https://quillforms.com/wp-content/uploads/2021/10/cropped-quillforms-png-loog-1.png" " />
 </p>
 <h1 align="center">Quill Forms</h1>
 <div align="center">
 **Open Source Typeform Alternative** WordPress Plugin based on `React` and `Typescript` 
-
+</div>
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/) 
 
