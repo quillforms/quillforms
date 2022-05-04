@@ -20,6 +20,7 @@ npm install @quillforms/react-renderer-utils --save
 import { Form } from "@quillforms/renderer-core";
 import "@quillforms/renderer-core/build-style/style.css";
 import { registerCoreBlocks } from "@quillforms/react-renderer-utils";
+registerCoreBlocks();
 const App = () => {
   return (
     <div style={{ width: "100%", height: "100vh" }}>
