@@ -19,6 +19,7 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
+	"sideEffects": false,
 	"dependencies": {
 		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
 		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",

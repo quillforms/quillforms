@@ -8,7 +8,7 @@
 		"quillforms",
 		"config"
 	],
-	"sideEffects": true,
+	"sideEffects": false,
 	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/config/README.md",
 	"repository": {
 		"type": "git",

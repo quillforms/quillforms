@@ -8,7 +8,6 @@
 		"quillforms",
 		"utils"
 	],
-	"sideEffects": true,
 	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/utils/README.md",
 	"repository": {
 		"type": "git",
@@ -20,7 +19,7 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
-	"quillforms:src": "src/index.ts",
+	"sideEffects": false,
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
