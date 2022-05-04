@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-email-block",
-	"version": "1.3.11",
+	"version": "1.3.12",
 	"description": "Email block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
