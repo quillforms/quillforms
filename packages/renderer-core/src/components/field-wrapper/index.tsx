@@ -255,13 +255,13 @@ const FieldWrapper: React.FC = () => {
 					input {
 						font-family: ${ theme.font };
 					}
-					${ attributes.themeId && backgroundImageCSS }
+					${ attributes?.themeId && backgroundImageCSS }
 				`
 			) }
 		>
 			<div
 				className={ css`
-					${ attributes.themeId &&
+					${ attributes?.themeId &&
 					`background: ${ theme.backgroundColor }` };
 					width: 100%;
 					height: 100%;

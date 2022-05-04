@@ -39,7 +39,6 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showNextBtn,
 		showErrMsg,
 	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes?.theme );
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
@@ -116,7 +115,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			doAction( 'QuillForms.RendererCore.FieldAnswered', {
 				formId,
 				id,
-				label: attributes.label,
+				label: attributes?.label,
 			} );
 		}
 	}, [ isAnswered, isActive ] );
@@ -151,7 +150,6 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		inputRef,
 		setFooterDisplay,
 		formId,
-		theme,
 	};
 
 	return (

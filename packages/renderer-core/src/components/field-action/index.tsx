@@ -21,7 +21,7 @@ const FieldAction = ( { clickHandler, show } ) => {
 		isSubmitBtnVisible,
 		attributes,
 	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes.themeId );
+	const theme = useBlockTheme( attributes?.themeId );
 
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];

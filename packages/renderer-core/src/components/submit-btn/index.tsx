@@ -27,7 +27,7 @@ const SubmitBtn: React.FC = () => {
 		isActive,
 		attributes,
 	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes.themeId );
+	const theme = useBlockTheme( attributes?.themeId );
 
 	const {
 		goToBlock,
@@ -138,6 +138,8 @@ const SubmitBtn: React.FC = () => {
 					value={
 						isWaitingPending
 							? pendingMsg
+								? pendingMsg
+								: ''
 							: messages[ 'label.submitBtn' ]
 					}
 				/>
