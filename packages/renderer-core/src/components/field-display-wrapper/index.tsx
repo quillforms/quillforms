@@ -39,10 +39,11 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showNextBtn,
 		showErrMsg,
 	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes.theme );
+	const theme = useBlockTheme( attributes?.theme );
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
+		// @ts-expect-error
 		navigator.msMaxTouchPoints > 0;
 
 	useHandleFocus( inputRef, isActive, isTouchScreen );
@@ -53,7 +54,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	const blockType = blockTypes[ blockName ];
 	const [ shakingErr, setShakingErr ] = useState( null );
 
-	const { isCurrentBlockEditable, isReviewing } = useSelect( ( select ) => {
+	const { isCurrentBlockEditable } = useSelect( ( select ) => {
 		return {
 			isCurrentBlockEditable: select(
 				'quillForms/blocks'
@@ -164,7 +165,10 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 						margin-top: 15px;
 					` }
 				>
-					<blockType.display { ...props } />{ ' ' }
+					{
+						/* @ts-expect-error */
+						<blockType.display { ...props } />
+					}
 				</div>
 			) }
 			<BlockFooter shakingErr={ shakingErr } />

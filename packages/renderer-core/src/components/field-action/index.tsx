@@ -28,6 +28,7 @@ const FieldAction = ( { clickHandler, show } ) => {
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
+		// @ts-expect-error
 		navigator.msMaxTouchPoints > 0;
 
 	return (
@@ -37,6 +38,7 @@ const FieldAction = ( { clickHandler, show } ) => {
 			} ) }
 		>
 			{ blockType?.nextBtn ? (
+				// @ts-expect-error
 				<blockType.nextBtn onClick={ clickHandler } />
 			) : (
 				<>

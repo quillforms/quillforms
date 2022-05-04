@@ -75,6 +75,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
+		// @ts-expect-error
 		navigator.msMaxTouchPoints > 0;
 	const getFieldsToRender = (): string[] => {
 		const fieldIds: string[] = [];
@@ -212,8 +213,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		}
 	}, [ applyLogic ] );
 
-	const isThereNextField =
-		fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
+	// const isThereNextField =
+	// 	fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
 	return (
 		<div

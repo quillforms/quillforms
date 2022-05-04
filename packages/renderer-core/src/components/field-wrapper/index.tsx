@@ -273,6 +273,7 @@ const FieldWrapper: React.FC = () => {
 							className="renderer-components-field-wrapper__content-wrapper"
 							ref={ ref }
 							tabIndex={ 0 }
+							// @ts-expect-error
 							onKeyDown={ ( e: KeyboardEvent ): void => {
 								const isShiftPressed = e.shiftKey;
 								if ( isAnimating ) {

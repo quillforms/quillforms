@@ -1,7 +1,7 @@
 /**
  * QuillForms dependencies
  */
-import { BlockAttributes } from '@quillforms/config';
+import type { BlockAttributes } from '@quillforms/types';
 
 /**
  * WordPress Dependencies

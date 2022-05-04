@@ -38,7 +38,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 
 	const { font } = currentTheme;
 
-	// @ts-expect-error
 	const fontType = fonts[ font ];
 	let fontUrl;
 	switch ( fontType ) {
@@ -51,7 +50,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 			break;
 
 		case 'earlyaccess':
-			//@ts-expect-error
 			const fontLowerString = font.replace( /\s+/g, '' ).toLowerCase();
 			fontUrl =
 				'https://fonts.googleapis.com/earlyaccess/' +
@@ -94,7 +92,8 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 		 * Alert if clicked on outside of element
 		 */
 		function handleClickOutside( event ) {
-			if ( ref.current && ! ref.current.contains( event.target ) ) {
+			// @ts-expect-error
+			if ( ref.current && ! ref?.current?.contains( event.target ) ) {
 				setIsFocused( false );
 			}
 		}

@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import type { FormMessages } from '@quillforms/config';
+import type { FormMessages } from '@quillforms/types';
 
 import useFormContext from './use-form-context';
 

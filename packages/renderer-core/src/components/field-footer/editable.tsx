@@ -35,10 +35,12 @@ const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
 		<>
 			{ shakingErr ||
 			( ! isValid && validationErr?.length > 0 && isErrMsgVisible ) ? (
+				// @ts-expect-error
 				<ErrMsg message={ shakingErr ? shakingErr : validationErr } />
 			) : isLastField ? (
 				<SubmitBtn />
 			) : (
+				// @ts-expect-error
 				<FieldAction
 					clickHandler={ () => {
 						if ( validationErr && ! isValid ) {

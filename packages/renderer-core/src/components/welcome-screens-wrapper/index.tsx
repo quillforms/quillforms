@@ -40,6 +40,7 @@ const WelcomeScreensWrapper = () => {
 				welcomeScreens.map( ( screen ) => {
 					const blockType = blockTypes[ 'welcome-screen' ];
 					return (
+						//@ts-expect-error
 						<blockType.display
 							next={ goNext }
 							isActive={ currentBlockId === screen.id }

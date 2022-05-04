@@ -25,7 +25,6 @@ const Button: React.FC< Props > = ( {
 	theme,
 	...props
 } ) => {
-	// @ts-expect-error
 	if ( ! theme ) theme = useTheme();
 	return (
 		<div
