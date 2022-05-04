@@ -3,6 +3,7 @@
 </p>
 <h1 align="center">Quill Forms</h1>
 <div align="center">
+
 **Open Source Typeform Alternative** WordPress Plugin based on `React` and `Typescript` 
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/) 
@@ -17,8 +18,7 @@
 No, it can work with any React app.
 # How to use in your React app?
 
-- [Installation](/react-docs/installation.md)
-- [Examples and samples](/react-docs/examples.md)
+- [Installation, usage and example](/react-docs/installation.md)
 - [Blocks concept](/react-docs/blocks-concept.md)
 - [Develop your own custom block](/react-docs/develop-your-own-custom-block.md)
 - [Form theme](/react-docs/form-theme.md)
