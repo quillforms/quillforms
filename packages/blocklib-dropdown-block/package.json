@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-dropdown-block",
-	"version": "1.4.13",
+	"version": "1.4.14",
 	"description": "Dropdown block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
