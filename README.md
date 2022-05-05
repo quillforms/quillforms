@@ -18,7 +18,7 @@
 No, it can work with any React app.
 # How to use in your React app?
 
-- [Getting Started](/react-docs/installation.md)
+- [Getting Started](/react-docs/get-started.md)
 
 
 # Installation as a WordPress plugin
