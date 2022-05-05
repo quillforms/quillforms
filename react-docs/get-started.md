@@ -94,7 +94,7 @@ const App = () => {
 
 [View full code on Codesandbox](https://codesandbox.io/s/quill-forms-example-20uuf)
 
-## <Form> Props
+## `<Form>` Props
 
 ```js
 //
@@ -263,8 +263,32 @@ registerBlockType("YOUR_BLOCK_UNIQUE_NAME", {
     },
 
     // Block display, this should be a react component.
-    "display": () => {
-      return <input type="number" /> // This is just an example. Please see the full example on Codesandbox in the link below.
+    "display": ({ id, next, attributes, setIsValid, setIsAnswered, setValidationErr, showNextBtn,blockWithError, val, setVal, showErrMsg
+	} }) => {
+      return <input type="number" value={val} onChange={e => {
+        const value = e.target.value;
+        const { required } = attributes
+        if ( isNaN( value ) ) {
+          blockWithError( 'Numbers only!' );
+          return;
+        }
+        setVal( parseInt( value ) );
+        showErrMsg( false );
+
+        if ( value ) {
+          setIsAnswered( true );
+          showNextBtn( true );
+          setIsValid(true);
+          setValidationErr( null );
+        } else {
+          setIsAnswered( false );
+          showNextBtn( false );
+          if( required ) {
+            setIsValid(false);
+            setValidationErr( "The field is required!" );
+          }
+        }
+      }} /> // This is just an example. Please see the full example on Codesandbox in the link below.
     }
 })
 
