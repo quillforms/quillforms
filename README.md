@@ -18,14 +18,7 @@
 No, it can work with any React app.
 # How to use in your React app?
 
-- [Installation, usage and example](/react-docs/installation.md)
-- [Blocks concept](/react-docs/blocks-concept.md)
-- [Develop your own custom block](/react-docs/develop-your-own-custom-block.md)
-- [Form theme](/react-docs/form-theme.md)
-- [Form messages](/react-docs/form-messages.md)
-- [Form settings](/react-docs/form-settings.md)
-- [Answers piping](/react-docs/answers-piping.md)
-- [Submission Handling](/react-docs/submission-handling.md)
+- [Getting Started](/react-docs/installation.md)
 
 
 # Installation as a WordPress plugin
