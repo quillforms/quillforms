@@ -240,6 +240,7 @@ function quillforms_register_packages_styles( $styles ) {
 			'quillforms-theme-editor',
 			'quillforms-notifications-editor',
 			'quillforms-messages-editor',
+			'quillforms-form-integrations',
 			'wp-components',
 			'common',
 		),
@@ -306,6 +307,16 @@ function quillforms_register_packages_styles( $styles ) {
 		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/messages-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-messages-editor', 'rtl', 'replace' );
+
+	// Form Integrations.
+	quillforms_override_style(
+		$styles,
+		'quillforms-form-integrations',
+		quillforms_url( 'build/form-integrations/style.css' ),
+		array(),
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/form-integrations/style.css' )
+	);
+	$styles->add_data( 'quillforms-form-integrations', 'rtl', 'replace' );
 
 	// Client style.
 	quillforms_override_style(
