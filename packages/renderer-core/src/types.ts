@@ -14,15 +14,15 @@ type Theme = {
 };
 export type FormObj = {
 	blocks: FormBlocks;
-	themesList: Theme[];
-	theme: Partial< FormTheme >;
+	themesList?: Theme[];
+	theme?: Partial< FormTheme >;
 	messages?: Partial< FormMessages >;
 	logic?: FormLogic;
-	settings: {
+	settings?: {
 		disableProgressBar?: boolean;
 		disableWheelSwiping?: boolean;
 		disableNavigationArrows?: boolean;
-		animationDirection: 'vertical' | 'horizontal';
+		animationDirection?: 'vertical' | 'horizontal';
 	};
 };
 

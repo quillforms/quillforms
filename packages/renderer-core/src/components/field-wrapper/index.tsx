@@ -198,7 +198,7 @@ const FieldWrapper: React.FC = () => {
 	const scrollHandler = ( e ) => {
 		if (
 			settings?.disableWheelSwiping ||
-			settings.animationDirection === 'horizontal'
+			settings?.animationDirection === 'horizontal'
 		) {
 			return;
 		}
@@ -246,7 +246,7 @@ const FieldWrapper: React.FC = () => {
 					active: isActive,
 					'is-animating': isAnimating,
 					'is-horizontal-animation':
-						settings.animationDirection === 'horizontal',
+						settings?.animationDirection === 'horizontal',
 				},
 				position ? position : '',
 				css`

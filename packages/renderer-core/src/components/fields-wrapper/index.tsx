@@ -132,7 +132,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	) => {
 		if ( settings?.disableWheelSwiping ) return;
 		let delta = e.deltaY;
-		if ( settings.animationDirection === 'horizontal' ) {
+		if ( settings?.animationDirection === 'horizontal' ) {
 			delta = e.deltaX;
 		}
 		if ( swiper.isAnimating ) return;
