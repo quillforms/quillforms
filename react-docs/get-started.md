@@ -279,37 +279,37 @@ Here is the list of the core blocks with the possible custom attributes that the
 ### 5- Dropdown
 ``` js
 {
-  name: "dropdown",
-  attributes: {
-   "choices": { 
-     "value":  string;
-     "label": string;
-		}[] , // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
-  }
+	name: "dropdown",
+	attributes: {
+		"choices": { 
+			"value":  string;
+			"label": string;
+		}[]; // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
+	}
 }
 ```
 ### 6- Long Text
 ``` js
 {
-  name: "long-text",
-  attributes: {
+	name: "long-text",
+	attributes: {
 		"setMaxCharacters": boolean; // Default: false
 		"maxCharacters": number;
-  }
+	}
 }
 ```
 ### 7- Multiple Choice
 ``` js
 {
-  name: "multiple-choice",
-  attributes: {
-   "choices": { 
-     "value":  string;
-     "label": string;
+	name: "multiple-choice",
+	attributes: {
+		"choices": { 
+			"value":  string;
+			"label": string;
 		}[];  // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
 		"verticalAlign": boolean; // Default : false
 		"multiple": boolean; // Default : false
-  }
+	}
 }
 ```
 ### 8- Number
