@@ -255,7 +255,7 @@ Here is the list of the core blocks with the possible custom attributes that the
   attributes: {
 		"setMaxCharacters": boolean; // Default: false
 		"maxCharacters": number;
-  }
+	}
 }
 ```
 ### 3- Date
