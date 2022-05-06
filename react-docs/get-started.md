@@ -306,7 +306,7 @@ Here is the list of the core blocks with the possible custom attributes that the
    "choices": { 
      "value":  string;
      "label": string;
-		}[]; // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
+		}[];  // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
 		"verticalAlign": boolean; // Default : false
 		"multiple": boolean; // Default : false
   }
@@ -340,24 +340,6 @@ Here is the list of the core blocks with the possible custom attributes that the
 		"buttonText": string; // Default: "Continue"
 		"quotationMarks": boolean; // Default: true
 	}
-}
-```
-### 2- Date
-``` js
-{
-  name: "date",
-  attributes: {
-    "format": {
-      "type": "string",
-      "enum":  ["MMDDYYYY", "DDMMYYYY", "YYYYMMDD" ],
-      "default": "MMDDYYYY"
-    },
-    "separator": {
-      "type": "string",
-      "enum": [ "/", "-", "." ],
-      "default": "/"
-    }
-  }
 }
 ```
 ## Create your own custom block
