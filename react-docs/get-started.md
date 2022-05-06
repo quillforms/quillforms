@@ -315,8 +315,8 @@ Here is the list of the core blocks with the possible custom attributes that the
 ### 8- Number
 ``` js
 {
-  name: "number",
-  attributes: {
+	name: "number",
+	attributes: {
 		"set_max": boolean; // Default: false
 		"max": number; // Default: 0
 		"set_max": boolean; // Default: false
@@ -333,10 +333,11 @@ Here is the list of the core blocks with the possible custom attributes that the
 ```
 
 ### 10- Statement
+
 ``` js
 {
-  name: "statement",
-  attributes: {
+	name: "statement",
+	attributes: {
 		"buttonText": string; // Default: "Continue"
 		"quotationMarks": boolean; // Default: true
 	}
@@ -380,8 +381,7 @@ registerBlockType("YOUR_BLOCK_UNIQUE_NAME", {
     },
 
     // Block display, this should be a react component.
-    "display": ({ id, next, attributes, setIsValid, setIsAnswered, setValidationErr, showNextBtn,blockWithError, val, setVal, showErrMsg
-	} }) => {
+    "display": ({ id, next, attributes, setIsValid, setIsAnswered, setValidationErr, showNextBtn,blockWithError, val, setVal, showErrMsg }) => {
       return <input type="number" value={val} onChange={e => {
         const value = e.target.value;
         const { required } = attributes
