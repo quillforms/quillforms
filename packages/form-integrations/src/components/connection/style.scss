@@ -1,0 +1,34 @@
+.integration-connection {
+	width: 90%;
+	border-radius: 8px;
+	background: #fff;
+	color: #262627;
+	margin-bottom: 0.75rem;
+	border: none;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
+	position: relative;
+	padding: 24px 16px;
+}
+
+.integration-connection__header {
+	position: relative;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid #ccc;
+}
+
+.integration-connection__header-delete {
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	border: 1px solid #e14a50;
+	padding: 5px 8px;
+	display: inline-flex;
+	border-radius: 5px;
+	align-items: center;
+	color: #e14a50;
+
+	svg {
+		margin-left: 7px;
+	}
+}
