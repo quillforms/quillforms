@@ -100,11 +100,6 @@ const App = () => {
 //
 // Types:
 // 
-// Block attachment
-type BlockAttachment = {
-	type: 'image';
-	url: string;
-};
 
 // Block default attributes
 type DefaultAttributes = {
@@ -115,9 +110,10 @@ type DefaultAttributes = {
   // The block required flag
 	required?: boolean;
   // The block attachment
-	attachment?: BlockAttachment;
-  // Theme id for the block
-	themeId?: number;
+	attachment?: {
+    type: 'image';
+    url: string;
+  };
 };
 
 // Each block can have custom attribtues as well as the default attributes
@@ -225,6 +221,145 @@ formObj: FormObj;
 onSubmit: ( data: SubmissionData, dispatchers: SubmissionDispatchers ) => void;
 }
 ```
+
+## Core blocks
+Quill Forms comes with some core blocks. You should make sure that you registered them via `registerCoreBlocks` imported from `@quillforms/react-renderer-utils`.
+Each block can have default attributes: 
+```js
+	label: string;
+  // The block description
+	description: string;
+  // The block required flag
+	required: boolean;
+  // The block attachment
+	attachment: {
+    type: 'image';
+    url: string;
+  };
+```
+and it can have some custom attributes.
+Here is the list of the core blocks with the possible custom attributes that the block can have:
+
+### 1- Welcome Screen
+```js
+{
+  name: "welcome-screen",
+  attributes: {
+    "buttonText": string; // Default: "Let's start"
+  }
+}
+```
+### 2- Short Text
+``` js
+{
+  name: "short-text",
+  attributes: {
+		"setMaxCharacters": boolean; // Default: false
+		"maxCharacters": number;
+  }
+}
+```
+### 3- Date
+``` js
+{
+  name: "date",
+  attributes: {
+    "format": "MMDDYYYY" | "DDMMYYYY" | "YYYYMMDD"; //"default": "MMDDYYYY"
+    "separator": "/" | "-" | "."; // default: "/"
+  }
+}
+```
+### 4- Email
+``` js
+{
+  name: "email",
+  attributes: {}
+}
+```
+### 5- Dropdown
+``` js
+{
+  name: "dropdown",
+  attributes: {
+   "choices": { 
+     "value":  string;
+     "label": string;
+		}[] , // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
+  }
+}
+```
+### 6- Long Text
+``` js
+{
+  name: "long-text",
+  attributes: {
+		"setMaxCharacters": boolean; // Default: false
+		"maxCharacters": number;
+  }
+}
+```
+### 7- Multiple Choice
+``` js
+{
+  name: "multiple-choice",
+  attributes: {
+   "choices": { 
+     "value":  string;
+     "label": string;
+		}[]; // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
+		"verticalAlign": boolean; // Default : false
+		"multiple": boolean; // Default : false
+  }
+}
+```
+### 8- Number
+``` js
+{
+  name: "number",
+  attributes: {
+		"set_max": boolean; // Default: false
+		"max": number; // Default: 0
+		"set_max": boolean; // Default: false
+		"max": number; 
+	}
+}
+```
+### 9- Website
+``` js
+{
+  name: "website",
+  attributes: {}
+}
+```
+
+### 10- Statement
+``` js
+{
+  name: "statement",
+  attributes: {
+		"buttonText": string; // Default: "Continue"
+		"quotationMarks": boolean; // Default: true
+	}
+}
+```
+### 2- Date
+``` js
+{
+  name: "date",
+  attributes: {
+    "format": {
+      "type": "string",
+      "enum":  ["MMDDYYYY", "DDMMYYYY", "YYYYMMDD" ],
+      "default": "MMDDYYYY"
+    },
+    "separator": {
+      "type": "string",
+      "enum": [ "/", "-", "." ],
+      "default": "/"
+    }
+  }
+}
+```
 ## Create your own custom block
 Blocks are an abstract unit for structuring and interacting with the form. Quill Forms `react-renderer-utils` package exports `registerCoreBlocks` method to register core blocks that you can use directly in your app but you can register custom blocks with custom display. 
 Quill Forms is flexible enough to create your own block very easily.
@@ -292,6 +427,39 @@ registerBlockType("YOUR_BLOCK_UNIQUE_NAME", {
     }
 })
 
-
 ```
 [View full example on Codesandbox](https://codesandbox.io/s/quill-forms-custom-block-registration-xmbyiy)
+
+
+## Available Hooks
+
+Here is a list  of the available hooks that you can export from `@quillforms/renderer-core` package
+
+### useFormAnswers
+
+Retrieves form answers
+```js
+const formAnswers = useFormAnswers();
+```
+
+### useFieldAnswer
+
+Retrieves the field answer
+```js
+const fieldAnswer = useFieldAnswer(fieldId);
+```
+
+### useTheme
+
+Retrieves the theme
+```js
+const theme = useTheme();
+```
+
+### useMessages
+
+Retrieves form messages
+```js
+const messages = useMessages();
+```
+
