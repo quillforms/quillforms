@@ -104,13 +104,16 @@ const App = () => {
 // Block default attributes
 type DefaultAttributes = {
   // The block label
-	label?: string;
+  label?: string;
+
   // The block description
-	description?: string;
+  description?: string;
+
   // The block required flag
-	required?: boolean;
+  required?: boolean;
+
   // The block attachment
-	attachment?: {
+  attachment?: {
     type: 'image';
     url: string;
   };
@@ -216,9 +219,9 @@ type SubmissionDispatchers = {
 // Props:
 //
 {
-formId?: number;
-formObj: FormObj;
-onSubmit: ( data: SubmissionData, dispatchers: SubmissionDispatchers ) => void;
+	formId?: number;
+	formObj: FormObj;
+	onSubmit: ( data: SubmissionData, dispatchers: SubmissionDispatchers ) => void;
 }
 ```
 
@@ -227,16 +230,16 @@ Quill Forms comes with some core blocks. You should make sure that you registere
 Each block can have default attributes: 
 ```js
 {
-	label: string;
-	description: string;
-	required: boolean;
-	attachment: {
-		type: 'image';
-		url: string;
-	};
+  label: string;
+  description: string;
+  required: boolean;
+  attachment: {
+    type: 'image';
+    url: string;
+  };
 }
 ```
-and it can have some custom attributes.
+And it can have some custom attributes.
 Here is the list of the core blocks with the possible custom attributes that the block can have:
 
 ### 1- Welcome Screen
@@ -253,8 +256,8 @@ Here is the list of the core blocks with the possible custom attributes that the
 {
  name: "short-text",
  attributes: {
-  "setMaxCharacters": boolean; // Default: false
-  "maxCharacters": number;
+   "setMaxCharacters": boolean; // Default: false
+   "maxCharacters": number;
  }
 }
 ```
@@ -278,49 +281,49 @@ Here is the list of the core blocks with the possible custom attributes that the
 ### 5- Dropdown
 ``` js
 {
-	name: "dropdown",
-	attributes: {
-		"choices": { 
-			"value":  string;
-			"label": string;
-		}[]; // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
-	}
+  name: "dropdown",
+  attributes: {
+    "choices": { 
+	    "value":  string;
+	    "label": string;
+    }[]; // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
+  }
 }
 ```
 ### 6- Long Text
 ``` js
 {
-	name: "long-text",
-	attributes: {
-		"setMaxCharacters": boolean; // Default: false
-		"maxCharacters": number;
-	}
+  name: "long-text",
+  attributes: {
+    "setMaxCharacters": boolean; // Default: false
+    "maxCharacters": number;
+  }
 }
 ```
 ### 7- Multiple Choice
 ``` js
 {
-	name: "multiple-choice",
-	attributes: {
-		"choices": { 
-			"value":  string;
-			"label": string;
-		}[];  // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
-		"verticalAlign": boolean; // Default : false
-		"multiple": boolean; // Default : false
-	}
+  name: "multiple-choice",
+  attributes: {
+    "choices": { 
+      "value":  string;
+      "label": string;
+    }[];  // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
+    "verticalAlign": boolean; // Default : false
+    "multiple": boolean; // Default : false
+  }
 }
 ```
 ### 8- Number
 ``` js
 {
-	name: "number",
-	attributes: {
-		"set_max": boolean; // Default: false
-		"max": number; // Default: 0
-		"set_max": boolean; // Default: false
-		"max": number; 
-	}
+  name: "number",
+  attributes: {
+    "set_max": boolean; // Default: false
+    "max": number; // Default: 0
+    "set_max": boolean; // Default: false
+    "max": number; 
+  }
 }
 ```
 ### 9- Website
@@ -335,11 +338,11 @@ Here is the list of the core blocks with the possible custom attributes that the
 
 ``` js
 {
-	name: "statement",
-	attributes: {
-		"buttonText": string; // Default: "Continue"
-		"quotationMarks": boolean; // Default: true
-	}
+  name: "statement",
+  attributes: {
+    "buttonText": string; // Default: "Continue"
+    "quotationMarks": boolean; // Default: true
+  }
 }
 ```
 ## Create your own custom block
@@ -364,48 +367,48 @@ import { registerBlockType } from '@quillforms/blocks';
 
 ```js
 registerBlockType("YOUR_BLOCK_UNIQUE_NAME", {
-  	"supports": {
-      "editable": true, // If the block has an answer or not.
-	  },
-    // The custom attributes for the block.
-	  "attributes": {
-      "min": {
-        "type": "number",
-        "default": 1
-      },
-      "max": {
-        "type": "number",
-        "default": 10
-      }
+  "supports": {
+    "editable": true, // If the block has an answer or not.
+  },
+  // The custom attributes for the block.
+  "attributes": {
+    "min": {
+      "type": "number",
+      "default": 1
     },
-
-    // Block display, this should be a react component.
-    "display": ({ id, next, attributes, setIsValid, setIsAnswered, setValidationErr, showNextBtn,blockWithError, val, setVal, showErrMsg }) => {
-      return <input type="number" value={val} onChange={e => {
-        const value = e.target.value;
-        const { required } = attributes
-        if ( isNaN( value ) ) {
-          blockWithError( 'Numbers only!' );
-          return;
-        }
-        setVal( parseInt( value ) );
-        showErrMsg( false );
-
-        if ( value ) {
-          setIsAnswered( true );
-          showNextBtn( true );
-          setIsValid(true);
-          setValidationErr( null );
-        } else {
-          setIsAnswered( false );
-          showNextBtn( false );
-          if( required ) {
-            setIsValid(false);
-            setValidationErr( "The field is required!" );
-          }
-        }
-      }} /> // This is just an example. Please see the full example on Codesandbox in the link below.
+    "max": {
+      "type": "number",
+      "default": 10 
     }
+  },
+
+    // Block display, this should be a react component. 
+  "display": ({ id, next, attributes, setIsValid, setIsAnswered, setValidationErr, showNextBtn,blockWithError, val, setVal, showErrMsg }) => {
+    return <input type="number" value={val} onChange={e => {
+      const value = e.target.value;
+      const { required } = attributes
+      if ( isNaN( value ) ) {
+        blockWithError( 'Numbers only!' );
+        return;
+      }
+      setVal( parseInt( value ) );
+      showErrMsg( false );
+
+      if ( value ) {
+        setIsAnswered( true );
+        showNextBtn( true );
+        setIsValid(true);
+        setValidationErr( null );
+      } else {
+        setIsAnswered( false );
+        showNextBtn( false );
+        if( required ) {
+          setIsValid(false);
+          setValidationErr( "The field is required!" );
+        }
+      }
+    }} /> // This is just an example. Please see the full example on Codesandbox in the link below.
+  }
 })
 
 ```
