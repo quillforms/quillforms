@@ -251,11 +251,11 @@ Here is the list of the core blocks with the possible custom attributes that the
 ### 2- Short Text
 ``` js
 {
-name: "short-text",
-attributes: {
-"setMaxCharacters": boolean; // Default: false
-"maxCharacters": number;
-}
+ name: "short-text",
+ attributes: {
+  "setMaxCharacters": boolean; // Default: false
+  "maxCharacters": number;
+ }
 }
 ```
 ### 3- Date
