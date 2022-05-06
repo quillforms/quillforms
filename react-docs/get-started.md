@@ -226,16 +226,13 @@ onSubmit: ( data: SubmissionData, dispatchers: SubmissionDispatchers ) => void;
 Quill Forms comes with some core blocks. You should make sure that you registered them via `registerCoreBlocks` imported from `@quillforms/react-renderer-utils`.
 Each block can have default attributes: 
 ```js
-	label: string;
-  // The block description
-	description: string;
-  // The block required flag
-	required: boolean;
-  // The block attachment
-	attachment: {
-    type: 'image';
-    url: string;
-  };
+label: string;
+description: string;
+required: boolean;
+attachment: {
+  type: 'image';
+  url: string;
+};
 ```
 and it can have some custom attributes.
 Here is the list of the core blocks with the possible custom attributes that the block can have:
