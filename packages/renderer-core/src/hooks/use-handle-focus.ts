@@ -1,8 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect } from 'react';
-import { findDOMNode } from 'react-dom';
+import { findDOMNode, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 let focusTimer;

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from '@wordpress/element';
 
 /**
  * useIsomorphicEffect

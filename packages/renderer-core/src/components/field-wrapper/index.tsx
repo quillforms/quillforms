@@ -7,7 +7,7 @@ import useBlockTheme from '../../hooks/use-block-theme';
 /**
  * WordPress Dependencies
  */
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
