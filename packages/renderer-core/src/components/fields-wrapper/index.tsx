@@ -12,6 +12,7 @@ import { doAction } from '@wordpress/hooks';
 import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { Lethargy } from 'lethargy';
+import React from 'react';
 
 /**
  * Internal Dependencies
@@ -21,7 +22,6 @@ import useLogic from '../../hooks/use-logic';
 import useBlocks from '../../hooks/use-blocks';
 import useBlockTypes from '../../hooks/use-block-types';
 import useFormSettings from '../../hooks/use-form-settings';
-import React from 'react';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
