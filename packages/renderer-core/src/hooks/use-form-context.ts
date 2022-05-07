@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useContext } from '@wordpress/element';
+import { useContext } from 'react';
 
 /**
  * Internal Dependencies
