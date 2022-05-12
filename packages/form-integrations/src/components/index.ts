@@ -1,1 +1,2 @@
-export { default as Connection } from './connection';
+export { default as Connect } from './connect';
+export { useConnectContext } from './connect/state/context';
