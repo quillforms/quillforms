@@ -19,7 +19,7 @@ import {
 } from './constants';
 export type Screen = {
 	id: string;
-	attributes: BlockAttributes;
+	attributes?: BlockAttributes;
 };
 
 export type SwiperState = {

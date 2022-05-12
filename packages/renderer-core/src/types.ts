@@ -24,6 +24,7 @@ export type FormObj = {
 		disableNavigationArrows?: boolean;
 		animationDirection?: 'vertical' | 'horizontal';
 	};
+	hiddenFields: Object;
 };
 
 export type SubmissionDispatchers = {

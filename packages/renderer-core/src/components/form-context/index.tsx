@@ -23,6 +23,7 @@ const FormContext = createContext< FormContext >( {
 			disableWheelSwiping: false,
 			animationDirection: 'vertical',
 		},
+		hiddenFields: {},
 	},
 	onSubmit: noop,
 	isPreview: false,
