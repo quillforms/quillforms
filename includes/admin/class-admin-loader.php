@@ -190,7 +190,7 @@ class Admin_Loader {
 		// Load client script and style. Client is main app entry.
 		wp_enqueue_script( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-client' );
-
+		wp_enqueue_script( 'quillforms-google-maps', 'https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places' );
 		// Load builder core package style.
 		wp_enqueue_style( 'quillforms-builder-core' );
 
