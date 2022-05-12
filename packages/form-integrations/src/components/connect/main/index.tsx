@@ -77,15 +77,7 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 				setTimeout( close );
 			} )
 			.catch( ( err ) => {
-				createErrorNotice(
-					'⛔ ' +
-						( err.message ??
-							__( 'Error on saving!', 'quillforms' ) ),
-					{
-						type: 'snackbar',
-						isDismissible: true,
-					}
-				);
+				error( err.message ?? __( 'Error on saving!', 'quillforms' ) );
 			} )
 			.finally( () => {
 				setIsSubmitting( false );
