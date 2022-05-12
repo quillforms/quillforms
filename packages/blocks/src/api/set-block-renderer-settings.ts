@@ -140,6 +140,14 @@ export const setBlockRendererSettings = (
 			return false;
 		};
 	}
+
+	if ( settings.getNumericVal && ! isFunction( settings.getNumericVal ) ) {
+		console.error( 'The "getNumericVal" must be a function' );
+		return;
+	}
+	settings.getNumericVal = ( val ) => {
+		return parseFloat( val );
+	};
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
 		pick( settings, [
 			'display',
@@ -147,6 +155,7 @@ export const setBlockRendererSettings = (
 			'nextBtn',
 			'counterIcon',
 			'isConditionFulfilled',
+			'getNumericVal',
 		] ),
 		name
 	);

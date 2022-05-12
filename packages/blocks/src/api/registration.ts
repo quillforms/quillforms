@@ -23,6 +23,7 @@ export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 		attachment: true,
 		description: true,
 		logic: true,
+		numeric: false,
 	};
 };
 

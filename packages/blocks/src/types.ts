@@ -33,6 +33,7 @@ export interface BlockRendererSettings {
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
 	nextBtn?: FC | Component | JSX.Element;
+	getNumericVal?: ( val: any ) => number;
 	isConditionFulfilled?(
 		conditionOperator: string,
 		conditionVal: unknown,
@@ -46,6 +47,7 @@ export type BlockSupportedFeatures = {
 	required?: boolean;
 	logic?: boolean;
 	theme?: boolean;
+	numeric?: boolean;
 };
 
 type logicalOperator =

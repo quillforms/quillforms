@@ -354,6 +354,19 @@ abstract class Block_Type extends stdClass {
 	}
 
 	/**
+	 * Get numeric value
+	 * If the block supports numeric value, this method will be called to get its numeric value.
+	 *
+	 * @since 1.10.6
+	 *
+	 * @param mixed $value       The value to validate.
+	 * @return number
+	 */
+	public function get_numeric_value( $value ) {
+		return (int) $value;
+	}
+
+	/**
 	 * Get readable value.
 	 * Supported context may be:
 	 * - html: may contains html
