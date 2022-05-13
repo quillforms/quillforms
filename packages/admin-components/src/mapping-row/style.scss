@@ -1,4 +1,4 @@
-.mapping-control {
+.mapping-row {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -11,19 +11,19 @@
 	}
 }
 
-.mapping-control {
+.mapping-row {
 	.mapping-key-control,
 	.combobox-control {
 		width: 44%;
 	}
 }
 
-.mapping-control-separator {
+.mapping-row-separator {
 	width: 22px;
 	height: 2px;
 	background: #e3e1e1;
 }
-.mapping-control-buttons {
+.mapping-row-buttons {
 	display: flex;
 	margin-left: 5px;
 
@@ -41,13 +41,13 @@
 			height: 100%;
 		}
 	}
-	.mapping-control-buttons-remove {
+	.mapping-row-buttons-remove {
 		background: #b65454;
 		svg {
 			fill: #fff;
 		}
 	}
-	.mapping-control-buttons-add {
+	.mapping-row-buttons-add {
 		background: #5fd995;
 		margin-left: 3px;
 	}

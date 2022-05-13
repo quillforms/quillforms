@@ -16,7 +16,7 @@ export { default as FontPicker } from './font-picker';
 export { default as FormAdminBar } from './form-admin-bar';
 export { default as FormAdminNav } from './form-admin-bar/admin-nav';
 export { default as ComboboxControl } from './combobox-control/';
-export { default as MappingControl } from './mapping-control/';
+export { default as MappingRow } from './mapping-row';
 export * from './rich-text';
 export { default as Logo } from './logo';
 export { default as ToggleControl } from './toggle-control';

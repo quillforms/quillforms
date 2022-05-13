@@ -23,25 +23,25 @@ interface Props {
 	onRemoveClick?: () => void;
 }
 
-const MappingControl: React.FC< Props > = ( {
+const MappingRow: React.FC< Props > = ( {
 	keyProps,
 	valueProps,
 	onAddClick,
 	onRemoveClick,
 } ) => {
 	return (
-		<div className="mapping-control">
+		<div className="mapping-row">
 			<MappingKeyControl { ...keyProps } />
-			<div className="mapping-control-separator"></div>
+			<div className="mapping-row-separator"></div>
 			<ComboboxControl { ...valueProps } />
-			<div className="mapping-control-buttons">
+			<div className="mapping-row-buttons">
 				{ !! onRemoveClick && (
-					<div className="mapping-control-buttons-remove">
+					<div className="mapping-row-buttons-remove">
 						<Icon icon={ closeSmall } onClick={ onRemoveClick } />
 					</div>
 				) }
 				{ !! onAddClick && (
-					<div className="mapping-control-buttons-add">
+					<div className="mapping-row-buttons-add">
 						<Icon icon={ plus } onClick={ onAddClick } />
 					</div>
 				) }
@@ -50,4 +50,4 @@ const MappingControl: React.FC< Props > = ( {
 	);
 };
 
-export default MappingControl;
+export default MappingRow;
