@@ -101,13 +101,15 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 				error( `${ connection.name } error: please select an account` );
 				return false;
 			}
-			const validate = main.connection.options.validate( connection );
-			if ( ! validate.valid ) {
-				error(
-					`${ connection.name } error: ` + validate.message ??
-						'invalid options'
-				);
-				return false;
+			if ( main.connection.options.validate ) {
+				const result = main.connection.options.validate( connection );
+				if ( ! result.valid ) {
+					error(
+						`${ connection.name } error: ` + result.message ??
+							'invalid options'
+					);
+					return false;
+				}
 			}
 		}
 		return true;
