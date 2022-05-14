@@ -95,9 +95,11 @@ const RichTextControl: React.FC< Props > = ( {
 				ReactEditor.focus( editor );
 			}, 0 );
 		}
-		setJsonVal( deserialize( autop( value ) ) );
 	}, [] );
 
+	useEffect( () => {
+		setJsonVal( deserialize( autop( value ) ) );
+	}, [ mergeTags?.length ] );
 	const TextEditor = useMemo(
 		() => (
 			<RichTextEditor
