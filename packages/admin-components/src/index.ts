@@ -17,6 +17,7 @@ export { default as FormAdminBar } from './form-admin-bar';
 export { default as FormAdminNav } from './form-admin-bar/admin-nav';
 export { default as ComboboxControl } from './combobox-control/';
 export { default as MappingRow } from './mapping-row';
+export { default as MappingList } from './mapping-list';
 export * from './rich-text';
 export { default as Logo } from './logo';
 export { default as ToggleControl } from './toggle-control';
