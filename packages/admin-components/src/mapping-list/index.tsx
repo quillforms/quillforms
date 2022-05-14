@@ -11,7 +11,7 @@ import { useState, useEffect, useMemo } from '@wordpress/element';
 import MappingRow from '../mapping-row';
 
 type Options = ( Option & {
-	isRequired?: boolean; // makes the option disabled and added by default.
+	required?: boolean; // makes the option disabled and added by default.
 	combobox?: {
 		customize?: CustomizeFunction;
 	};
@@ -55,7 +55,7 @@ const MappingList: React.FC< Props > = ( {
 		// then add the required options.
 		for ( const option of options ?? [] ) {
 			if (
-				option.isRequired &&
+				option.required &&
 				! result.find( ( item ) => item.key === option.value )
 			) {
 				result.push( {
@@ -111,7 +111,7 @@ const MappingList: React.FC< Props > = ( {
 									return newState;
 								} );
 							},
-							disabled: option?.isRequired,
+							disabled: option?.required,
 						} }
 						valueProps={ {
 							value: fieldRow.value,
@@ -135,7 +135,7 @@ const MappingList: React.FC< Props > = ( {
 							} );
 						} }
 						onRemoveClick={
-							option?.isRequired
+							option?.required
 								? undefined
 								: () => {
 										setMappingRows( ( state ) => {
