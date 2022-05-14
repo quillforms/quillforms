@@ -64,6 +64,13 @@ const MappingList: React.FC< Props > = ( {
 				} );
 			}
 		}
+		// add an empty option if there is no options added.
+		if ( result.length === 0 ) {
+			result.push( {
+				key: '',
+				value: {},
+			} );
+		}
 		return result;
 	}, [] );
 
@@ -135,7 +142,7 @@ const MappingList: React.FC< Props > = ( {
 							} );
 						} }
 						onRemoveClick={
-							option?.required
+							option?.required || mappingRows.length === 1
 								? undefined
 								: () => {
 										setMappingRows( ( state ) => {
