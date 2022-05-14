@@ -98,14 +98,16 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 				return false;
 			}
 			if ( main.connection.accounts && ! connection.account_id ) {
-				error( `${ connection.name } error: please select an account` );
+				error(
+					`"${ connection.name }" error: please select an account`
+				);
 				return false;
 			}
 			if ( main.connection.options.validate ) {
 				const result = main.connection.options.validate( connection );
 				if ( ! result.valid ) {
 					error(
-						`${ connection.name } error: ` + result.message ??
+						`"${ connection.name }" error: ` + result.message ??
 							'invalid options'
 					);
 					return false;
