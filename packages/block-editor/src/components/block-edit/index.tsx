@@ -2,18 +2,16 @@
  * QuillForms Dependencies
  */
 import {
-	Button,
 	__experimentalEditor as TextEditor,
 	__unstableHtmlSerialize as serialize,
 	__unstableReactEditor as ReactEditor,
-	getPlainText,
 } from '@quillforms/admin-components';
 import type { BlockAttributes } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
  */
-import { useState, useCallback, useMemo, useEffect } from '@wordpress/element';
+import { useCallback, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -23,8 +21,6 @@ import { applyFilters } from '@wordpress/hooks';
 import { debounce } from 'lodash';
 import { Node } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { css } from 'emotion';
-import classnames from 'classnames';
 
 /**
  * Internal Dependencies
