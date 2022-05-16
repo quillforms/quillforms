@@ -7,7 +7,7 @@ import { combineReducers } from '@wordpress/data';
  * External dependencies
  */
 import type { Reducer } from 'redux';
-import { merge, omit } from 'lodash';
+import { mergeWith, isArray, omit } from 'lodash';
 
 /**
  * Internal dependencies
@@ -133,7 +133,9 @@ const connections: Reducer< Connections, ConnectionsActionTypes > = (
 			}
 			let connection = { ...state[ action.id ] };
 			if ( action.recursive ) {
-				merge( connection, action.connection );
+				mergeWith( connection, action.connection, ( obj, src ) => {
+					if ( isArray( obj ) ) return src;
+				} );
 			} else {
 				connection = { ...connection, ...action.connection };
 			}
