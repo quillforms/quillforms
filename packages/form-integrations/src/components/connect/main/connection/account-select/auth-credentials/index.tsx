@@ -32,9 +32,9 @@ const AuthCredentials: React.FC< Props > = ( {
 	// context.
 	const { provider } = useConnectContext();
 	const main = useConnectMainContext();
-	const fields = main.connection.accounts?.auth.fields ?? [
-		{ key: 'api_key', type: 'text', label: provider.label + ' API Key' },
-	];
+	const fields = main.connection.accounts?.auth.fields ?? {
+		api_key: { label: provider.label + ' API Key', type: 'text' },
+	};
 
 	// state.
 	const [ inputs, setInputs ] = useState( {} );
