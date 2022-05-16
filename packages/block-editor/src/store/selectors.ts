@@ -179,6 +179,52 @@ export const getBlocksByCriteria = ( state: State, criteria ) => {
 };
 
 /**
+ * Get block with multiple criteria.
+ *
+ * @param {Object}                    state       Global application state.
+ * @param {QFBlocksSupportsCriteria}  criteria    Multiple criteria according to which the blocks are filtered.
+ *
+ * @return {Array} Filtered blocks according to criteria given
+ */
+export const getPreviousBlocksByCriteria = (
+	state: State,
+	criteria,
+	id: string,
+	includeCurrentBlock: boolean = false
+) => {
+	const blocks = getBlocks( state );
+	const filteredCriteria = pick( criteria, [
+		'logic',
+		'required',
+		'attachment',
+		'description',
+		'editable',
+		'numeric',
+	] );
+
+	const blockIndex = findIndex( blocks, ( block ) => block.id === id );
+	if ( blockIndex > 0 ) {
+		const prevFormBlocks = slice(
+			blocks,
+			0,
+			includeCurrentBlock ? blockIndex + 1 : blockIndex
+		);
+
+		return prevFormBlocks.filter( ( block ) => {
+			const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
+				block.name
+			];
+			return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+				typeof val === 'boolean'
+					? blockType.supports[ key ] === val
+					: true
+			);
+		} );
+	}
+	return [];
+};
+
+/**
  * Retruns the previous editable fields
  * Editable fields are the fields which have {editable} property equals true
  *
