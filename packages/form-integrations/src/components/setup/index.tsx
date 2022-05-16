@@ -55,18 +55,22 @@ const Setup: React.FC< Props > = ( {
 
 	return (
 		<div className="integration-setup">
-			<Instructions />
+			<div className="integration-setup__body">
+				<div className="integration-setup__instructions">
+					<Instructions />
+				</div>
 
-			{ Object.entries( fields ).map( ( [ key, field ] ) => (
-				<TextControl
-					key={ key }
-					label={ field.label }
-					value={ inputs[ key ] ?? '' }
-					onChange={ ( value ) =>
-						setInputs( { ...inputs, [ key ]: value } )
-					}
-				/>
-			) ) }
+				{ Object.entries( fields ).map( ( [ key, field ] ) => (
+					<TextControl
+						key={ key }
+						label={ field.label }
+						value={ inputs[ key ] ?? '' }
+						onChange={ ( value ) =>
+							setInputs( { ...inputs, [ key ]: value } )
+						}
+					/>
+				) ) }
+			</div>
 
 			<Controls submit={ submit } />
 		</div>
