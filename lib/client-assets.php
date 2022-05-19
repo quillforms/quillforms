@@ -8,6 +8,7 @@
  */
 
 defined( 'ABSPATH' ) || die( 'Silence is golden.' );
+use QuillForms\Settings;
 
 /**
  * Retrieves a URL to a file in the quillforms plugin.
@@ -214,6 +215,15 @@ function quillforms_register_packages_scripts( $scripts ) {
 		QUILLFORMS_PLUGIN_URL . '/lib/vendor/emotion.min.js',
 		array( 'react', 'wp-element' ),
 		'1.8.6',
+		true
+	);
+
+	quillforms_override_script(
+		$scripts,
+		'quillforms-google-maps-places',
+		'https://maps.googleapis.com/maps/api/js?key=' . Settings::get( 'google_maps_api_key' ) . '&libraries=places',
+		array(),
+		QUILLFORMS_VERSION,
 		true
 	);
 
