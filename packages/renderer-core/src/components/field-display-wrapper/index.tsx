@@ -60,19 +60,26 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
 		};
 	} );
-	const { answerValue, isAnswered, isValid } = useSelect( ( select ) => {
-		return {
-			answerValue: isCurrentBlockEditable
-				? select( 'quillForms/renderer-core' ).getFieldAnswerVal( id )
-				: null,
-			isAnswered: isCurrentBlockEditable
-				? select( 'quillForms/renderer-core' ).isAnsweredField( id )
-				: null,
-			isValid: isCurrentBlockEditable
-				? select( 'quillForms/renderer-core' ).isValidField( id )
-				: null,
-		};
-	} );
+	const { answerValue, isAnswered, isValid, isPending } = useSelect(
+		( select ) => {
+			return {
+				answerValue: isCurrentBlockEditable
+					? select( 'quillForms/renderer-core' ).getFieldAnswerVal(
+							id
+					  )
+					: null,
+				isAnswered: isCurrentBlockEditable
+					? select( 'quillForms/renderer-core' ).isAnsweredField( id )
+					: null,
+				isValid: isCurrentBlockEditable
+					? select( 'quillForms/renderer-core' ).isValidField( id )
+					: null,
+				isPending: select( 'quillForms/renderer-core' ).isFieldPending(
+					id
+				),
+			};
+		}
+	);
 
 	const clearTimers = () => {
 		clearTimeout( timer1 );
@@ -134,6 +141,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		next,
 		attributes,
 		isValid,
+		isPending,
 		val: answerValue,
 		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),
