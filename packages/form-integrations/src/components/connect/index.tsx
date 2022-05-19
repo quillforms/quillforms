@@ -12,11 +12,7 @@ import { useReducer, useRef } from '@wordpress/element';
 /**
  * Internal Dependencies
  */
-import type {
-	Main as MainType,
-	Provider,
-	SetupFields,
-} from '../types';
+import type { ConnectMain, Provider, SetupFields } from '../types';
 import reducer, { State } from './state/reducer';
 import actions from './state/actions';
 import { ConnectContextProvider } from './state/context';
@@ -30,7 +26,7 @@ interface Props {
 		Instructions: React.FC;
 		fields: SetupFields;
 	};
-	main: MainType;
+	main: ConnectMain;
 	close: () => void;
 }
 

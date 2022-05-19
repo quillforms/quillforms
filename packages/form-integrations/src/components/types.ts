@@ -21,7 +21,7 @@ export type AccountsAuth = {
 	};
 };
 
-export type Main = {
+export type ConnectMain = {
 	connection: {
 		accounts?: {
 			auth: AccountsAuth;
