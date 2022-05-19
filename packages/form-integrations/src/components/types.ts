@@ -29,8 +29,9 @@ export type Main = {
 		options: {
 			default: { [ x: string ]: any };
 			Component: React.FC< { connectionId: string } >;
-			validate?: ( options: {
-				[ x: string ]: any;
+			validate?: ( args: {
+				connection: any;
+				account?: any;
 			} ) => { valid: boolean; message?: string };
 		};
 	};

@@ -39,6 +39,7 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 	// context.
 	const {
 		provider,
+		accounts,
 		connections,
 		addConnection,
 		savePayload,
@@ -104,7 +105,12 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 				return false;
 			}
 			if ( main.connection.options.validate ) {
-				const result = main.connection.options.validate( connection );
+				const account =
+					accounts?.[ connection.account_id ?? 0 ] ?? undefined;
+				const result = main.connection.options.validate( {
+					connection,
+					account,
+				} );
 				if ( ! result.valid ) {
 					error(
 						`"${ connection.name }" error: ` + result.message ??
