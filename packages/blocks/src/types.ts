@@ -46,6 +46,7 @@ export type BlockSupportedFeatures = {
 	editable?: boolean;
 	required?: boolean;
 	logic?: boolean;
+	logicConditions?: boolean;
 	theme?: boolean;
 	numeric?: boolean;
 };

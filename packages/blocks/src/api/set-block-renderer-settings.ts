@@ -145,9 +145,11 @@ export const setBlockRendererSettings = (
 		console.error( 'The "getNumericVal" must be a function' );
 		return;
 	}
-	settings.getNumericVal = ( val ) => {
-		return parseFloat( val );
-	};
+	if ( ! settings.getNumericVal ) {
+		settings.getNumericVal = ( val ) => {
+			return parseFloat( val );
+		};
+	}
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
 		pick( settings, [
 			'display',
