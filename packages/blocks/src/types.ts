@@ -33,7 +33,7 @@ export interface BlockRendererSettings {
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
 	nextBtn?: FC | Component | JSX.Element;
-	getNumericVal?: ( val: any ) => number;
+	getNumericVal?: ( val: any, attributes: BlockAttributes ) => number;
 	isConditionFulfilled?(
 		conditionOperator: string,
 		conditionVal: unknown,

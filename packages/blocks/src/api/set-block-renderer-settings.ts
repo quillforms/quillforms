@@ -146,7 +146,7 @@ export const setBlockRendererSettings = (
 		return;
 	}
 	if ( ! settings.getNumericVal ) {
-		settings.getNumericVal = ( val ) => {
+		settings.getNumericVal = ( val, attributes ) => {
 			return parseFloat( val );
 		};
 	}
