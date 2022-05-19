@@ -183,6 +183,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	}, [ swiper ] );
 
 	useEffect( () => {
+		console.log( 'dkfkd' );
 		if ( applyLogic && isActive ) {
 			doAction(
 				'QuillForms.RendererCore.LogicApply',

@@ -176,7 +176,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 					}
 				</div>
 			) }
-			<BlockFooter shakingErr={ shakingErr } />
+			<BlockFooter shakingErr={ shakingErr } isPending={ isPending } />
 		</div>
 	);
 };
