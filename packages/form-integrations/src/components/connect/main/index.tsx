@@ -25,11 +25,11 @@ import { useConnectContext } from '../state/context';
 import Connection from './connection';
 import WarningIcon from './warning-icon';
 import Footer from '../footer';
-import type { Main as MainType } from '../../types';
+import type { ConnectMain } from '../../types';
 import { ConnectMainContextProvider } from './context';
 
 interface Props {
-	main: MainType;
+	main: ConnectMain;
 	close: () => void;
 }
 
