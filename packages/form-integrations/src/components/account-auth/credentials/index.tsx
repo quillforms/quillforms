@@ -18,7 +18,7 @@ import { AccountsAuthFields, Provider } from '../../types';
 
 interface Props {
 	provider: Provider;
-	onAdding: ( status: boolean ) => void;
+	onAdding?: ( status: boolean ) => void;
 	onAdded: ( id: string, account: { name: string } ) => void;
 	fields?: AccountsAuthFields;
 }
@@ -45,7 +45,7 @@ const Credentials: React.FC< Props > = ( {
 	// submit.
 	const submit = () => {
 		setSubmitting( true );
-		onAdding( true );
+		if ( onAdding ) onAdding( true );
 		apiFetch( {
 			path: `/qf/v1/addons/${ provider.slug }/accounts`,
 			method: 'POST',
@@ -79,7 +79,7 @@ const Credentials: React.FC< Props > = ( {
 			} )
 			.finally( () => {
 				setSubmitting( false );
-				onAdding( false );
+				if ( onAdding ) onAdding( false );
 			} );
 	};
 

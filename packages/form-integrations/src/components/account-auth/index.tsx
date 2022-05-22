@@ -13,7 +13,7 @@ import Oauth from './oauth';
 interface Props {
 	provider: Provider;
 	data: AccountsAuth;
-	onAdding: ( status: boolean ) => void;
+	onAdding?: ( status: boolean ) => void;
 	onAdded: ( id: string, account: { name: string } ) => void;
 }
 
