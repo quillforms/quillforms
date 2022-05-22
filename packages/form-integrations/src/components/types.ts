@@ -43,3 +43,11 @@ export type ConnectMain = {
 		};
 	};
 };
+
+export type SettingsMain = {
+	accounts: {
+		auth: AccountsAuth;
+		actions: React.FC< { account_id: string } >[];
+	};
+	helpers: React.FC[];
+};
