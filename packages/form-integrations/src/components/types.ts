@@ -49,5 +49,5 @@ export type SettingsMain = {
 		auth: AccountsAuth;
 		actions: React.FC< { account_id: string } >[];
 	};
-	helpers: React.FC[];
+	helpers?: React.FC[];
 };

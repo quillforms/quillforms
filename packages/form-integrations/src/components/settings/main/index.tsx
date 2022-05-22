@@ -31,6 +31,7 @@ const Main: React.FC< Props > = ( { main } ) => {
 		<div className="integration-settings-main">
 			{ setup && <App /> }
 			<AccountAuth data={ main.accounts.auth } />
+			{ main.helpers && main.helpers.map( ( Helper ) => <Helper /> ) }
 		</div>
 	);
 };
