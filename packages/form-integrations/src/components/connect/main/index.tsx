@@ -126,15 +126,15 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 	const randomId = () => Math.random().toString( 36 ).substr( 2, 9 );
 
 	return (
-		<div className="integration-main">
+		<div className="integration-connect-main">
 			<ConnectMainContextProvider value={ main }>
-				<div className="integration-main__body">
+				<div className="integration-connect-main__body">
 					{ Object.keys( connections ).length ? (
 						Object.keys( connections ).map( ( id ) => (
 							<Connection key={ id } id={ id } />
 						) )
 					) : (
-						<div className="integration-main__warning">
+						<div className="integration-connect-main__warning">
 							<WarningIcon />
 							<div>
 								{ __(
@@ -147,7 +147,7 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 
 					<div>
 						<Button
-							className="integration-main__add-connection"
+							className="integration-connect-main__add-connection"
 							isPrimary
 							onClick={ () =>
 								addConnection( randomId(), {

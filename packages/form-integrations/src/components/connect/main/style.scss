@@ -1,4 +1,4 @@
-.integration-main__body {
+.integration-connect-main__body {
 	display: flex;
 	flex-flow: column;
 	align-items: center;
@@ -8,7 +8,7 @@
 	padding: 20px;
 }
 
-.integration-main__warning {
+.integration-connect-main__warning {
 	width: 500px;
 	background: #e5b5fd;
 	font-weight: 500;
@@ -28,7 +28,7 @@
 	}
 }
 
-.integration-main__add-connection {
+.integration-connect-main__add-connection {
 	margin-bottom: 0.5rem;
 	background: #353938 !important;
 	display: inline-flex;
@@ -41,7 +41,7 @@
 	}
 }
 
-.integration-main__label {
+.integration-connect-main__label {
 	margin-bottom: 8px;
 }
 
