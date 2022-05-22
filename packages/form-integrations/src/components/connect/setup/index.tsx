@@ -9,13 +9,10 @@ import { __ } from '@wordpress/i18n';
 import { useConnectContext } from '../state/context';
 import { default as GenericSetup } from '../../setup';
 import Footer from '../footer';
-import type { SetupFields } from '../../types';
+import type { Setup as SetupType } from '../../types';
 
 interface Props {
-	setup: {
-		Instructions: React.FC;
-		fields: SetupFields;
-	};
+	setup: SetupType;
 	close: () => void;
 }
 

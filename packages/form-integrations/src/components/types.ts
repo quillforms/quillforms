@@ -11,6 +11,11 @@ export type SetupFields = {
 	};
 };
 
+export type Setup = {
+	Instructions: React.FC;
+	fields: SetupFields;
+};
+
 export type AccountsAuthFields = {
 	[ key: string ]: {
 		label: string;
