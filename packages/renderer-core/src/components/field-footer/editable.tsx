@@ -9,11 +9,11 @@ import { useSelect } from '@wordpress/data';
 import FieldAction from '../field-action';
 import ErrMsg from '../error-message';
 import { __experimentalUseFieldRenderContext } from '../field-render';
-import { BlockFooterProps } from './index';
 import SubmitBtn from '../submit-btn';
 
-interface Props extends BlockFooterProps {
+interface Props {
 	id: string | undefined;
+	shakingErr: string | null;
 }
 const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
 	if ( ! id ) return null;
