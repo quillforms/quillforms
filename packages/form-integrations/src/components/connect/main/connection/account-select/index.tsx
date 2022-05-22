@@ -21,7 +21,7 @@ import { cloneDeep } from 'lodash';
 import { useConnectContext } from '../../../state/context';
 import { useConnectMainContext } from '../../context';
 import { Account } from '../../../state/types';
-import AccountsAuth from '../../../../accounts-auth';
+import AccountAuth from '../../../../account-auth';
 
 interface Props {
 	connectionId: string;
@@ -119,7 +119,7 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 				disabled={ addingNewAccount }
 			/>
 			{ showingAddNewAccount && (
-				<AccountsAuth
+				<AccountAuth
 					provider={ provider }
 					data={ main.connection.accounts.auth }
 					onAdding={ setAddingNewAccount }

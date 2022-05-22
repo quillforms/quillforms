@@ -6,18 +6,18 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import type { Provider, AccountsAuth as AccountsAuthData } from '../types';
+import type { Provider, AccountsAuth } from '../types';
 import Credentials from './credentials';
 import Oauth from './oauth';
 
 interface Props {
 	provider: Provider;
-	data: AccountsAuthData;
+	data: AccountsAuth;
 	onAdding: ( status: boolean ) => void;
 	onAdded: ( id: string, account: { name: string } ) => void;
 }
 
-const AccountsAuth: React.FC< Props > = ( {
+const AccountAuth: React.FC< Props > = ( {
 	provider,
 	data,
 	onAdding,
@@ -39,4 +39,4 @@ const AccountsAuth: React.FC< Props > = ( {
 	);
 };
 
-export default AccountsAuth;
+export default AccountAuth;
