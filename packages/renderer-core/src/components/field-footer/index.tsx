@@ -50,6 +50,7 @@ const BlockFooter: React.FC< BlockFooterProps > = ( {
 				/>
 			) : (
 				<>
+					,
 					{ ! isEditable ? (
 						<NonEditableBlockFooter />
 					) : (
