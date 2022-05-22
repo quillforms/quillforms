@@ -11,14 +11,16 @@ export type SetupFields = {
 	};
 };
 
+export type AccountsAuthFields = {
+	[ key: string ]: {
+		label: string;
+		type: 'text';
+	};
+};
+
 export type AccountsAuth = {
 	type: 'credentials' | 'oauth';
-	fields?: {
-		[ key: string ]: {
-			label: string;
-			type: 'text';
-		};
-	};
+	fields?: AccountsAuthFields;
 };
 
 export type ConnectMain = {

@@ -18,11 +18,10 @@ import { cloneDeep } from 'lodash';
 /**
  * Internal Dependencies
  */
-import AuthCredentials from './auth-credentials';
-import AuthOauth from './auth-oauth';
 import { useConnectContext } from '../../../state/context';
 import { useConnectMainContext } from '../../context';
 import { Account } from '../../../state/types';
+import AccountsAuth from '../../../../accounts-auth';
 
 interface Props {
 	connectionId: string;
@@ -110,18 +109,6 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 		onChange( id );
 	};
 
-	// add new account element. credentials or oauth.
-	const AddNewAccount =
-		main.connection.accounts?.auth.type === 'oauth' ? (
-			<AuthOauth onAdded={ onAdded } />
-		) : (
-			<AuthCredentials
-				adding={ addingNewAccount }
-				onAdding={ setAddingNewAccount }
-				onAdded={ onAdded }
-			/>
-		);
-
 	return (
 		<div className="integration-account-selector">
 			<SelectControl
@@ -131,7 +118,14 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 				onChange={ ( { selectedItem: { key } } ) => onChange( key ) }
 				disabled={ addingNewAccount }
 			/>
-			{ showingAddNewAccount && AddNewAccount }
+			{ showingAddNewAccount && (
+				<AccountsAuth
+					provider={ provider }
+					data={ main.connection.accounts.auth }
+					onAdding={ setAddingNewAccount }
+					onAdded={ onAdded }
+				/>
+			) }
 		</div>
 	);
 };
