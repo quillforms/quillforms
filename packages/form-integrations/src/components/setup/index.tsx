@@ -33,7 +33,7 @@ const Setup: React.FC< Props > = ( {
 
 	const submit = () => {
 		apiFetch( {
-			path: `/qf/v1/addons/${ provider.slug }`,
+			path: `/qf/v1/addons/${ provider.slug }/settings`,
 			method: 'POST',
 			data: {
 				app: inputs,
