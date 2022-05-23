@@ -1,0 +1,56 @@
+.integration-settings-main-accounts__list {
+	padding: 5px;
+}
+
+.integration-settings-main-accounts__list-account {
+	display: flex;
+	align-items: center;
+	padding: 2px 0;
+
+	&:not( :last-child) {
+		border-bottom: 1px solid #ddd;
+	}
+}
+
+.integration-settings-main-accounts__list-account-actions {
+	margin-left: auto;
+
+	&>* {
+		margin-left: 5px;
+	}
+}
+
+.integration-settings-main-accounts__disconnect-modal {
+	border: none !important;
+	min-width: 420px !important;
+	max-width: 470px !important;
+	border-radius: 10px;
+	z-index: 1111111;
+
+	.components-modal__header {
+		background: #c5152b;
+
+		.components-modal__header-heading {
+			color: #fff;
+		}
+
+		.components-button.has-icon svg {
+			fill: #fff;
+		}
+	}
+}
+
+.integration-settings-main-accounts__disconnect-modal-buttons {
+	display: flex;
+	margin-top: 10px;
+	justify-content: flex-end;
+}
+
+.integration-settings-main-accounts__disconnect-modal-buttons-cancel {
+	margin-right: 10px !important;
+}
+
+.integration-settings-main-accounts__disconnect-modal-buttons-submit-loader {
+	padding-top: 4px;
+	padding-left: 4px;
+}

@@ -55,7 +55,7 @@ const Settings: React.FC< Props > = ( { provider, setup, main } ) => {
 					path: `/qf/v1/addons/${ provider.slug }/accounts/`,
 					method: 'GET',
 				} ) ) as Accounts;
-				if ( Array.isArray( res ) ) {
+				if ( !Array.isArray( res ) ) {
 					$actions.setupAccounts( res );
 				}
 
