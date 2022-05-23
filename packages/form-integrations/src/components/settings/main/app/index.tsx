@@ -61,6 +61,8 @@ const App: React.FC = () => {
 					type: 'snackbar',
 					isDismissible: true,
 				} );
+				setDisconnecting( false );
+				setDisconnectModal( false );
 				setupApp( {} );
 			} )
 			.catch( ( err ) => {
@@ -73,10 +75,7 @@ const App: React.FC = () => {
 						isDismissible: true,
 					}
 				);
-			} )
-			.finally( () => {
 				setDisconnecting( false );
-				setDisconnectModal( false );
 			} );
 	};
 
