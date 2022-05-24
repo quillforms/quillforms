@@ -8,6 +8,7 @@
 
 namespace QuillForms\Addon\Provider\REST\Traits;
 
+use QuillForms\Addon\Provider\Provider;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -17,6 +18,8 @@ use WP_REST_Server;
  * Account_Controller_Creatable trait.
  *
  * @since 1.6.0
+ *
+ * @property Provider $provider
  */
 trait Account_Controller_Creatable {
 
@@ -97,14 +100,14 @@ trait Account_Controller_Creatable {
 			return $account_info;
 		}
 
-		$account_id   = (string) $account_info['id'];
+		$account_id   = $account_info['id'];
 		$account_data = array(
 			'name'        => (string) $account_info['name'],
 			'credentials' => $request['credentials'],
 		);
 
 		// if account already exists.
-		$account_exists = in_array( $account_id, array_keys( $this->provider->accounts->get_accounts() ), true );
+		$account_exists = in_array( $account_id, array_keys( $this->provider->accounts->get_accounts() ) ); // phpcs:ignore
 		if ( $account_exists ) {
 			$result = $this->provider->accounts->update_account( $account_id, $account_data );
 		} else {
