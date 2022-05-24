@@ -62,6 +62,7 @@ const Credentials: React.FC< Props > = ( {
 					}
 				);
 				onAdded( res.id, { name: res.name } );
+				setInputs( {} );
 			} )
 			.catch( ( err ) => {
 				createErrorNotice(
@@ -97,7 +98,7 @@ const Credentials: React.FC< Props > = ( {
 				<TextControl
 					key={ key }
 					label={ field.label }
-					value={ inputs[ key ] }
+					value={ inputs[ key ] ?? '' }
 					onChange={ ( value ) =>
 						setInputs( { ...inputs, [ key ]: value } )
 					}
