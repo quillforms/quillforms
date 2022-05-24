@@ -33,7 +33,10 @@ const Main: React.FC< Props > = ( { main } ) => {
 			{ setup && <App /> }
 			<Accounts data={ main.accounts } />
 			<AccountAuth data={ main.accounts.auth } />
-			{ main.helpers && main.helpers.map( ( Helper ) => <Helper /> ) }
+			{ main.helpers &&
+				main.helpers.map( ( Helper, index ) => (
+					<Helper key={ index } />
+				) ) }
 		</div>
 	);
 };

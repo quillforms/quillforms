@@ -89,8 +89,11 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 								<div>{ account.name }</div>
 								<div className="integration-settings-main-accounts__list-account-actions">
 									{ data.actions &&
-										data.actions.map( ( Action ) => (
-											<Action account_id={ id } />
+										data.actions.map( ( Action, index ) => (
+											<Action
+												key={ index }
+												accountId={ id }
+											/>
 										) ) }
 									<Button
 										isDanger

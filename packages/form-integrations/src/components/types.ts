@@ -46,7 +46,7 @@ export type ConnectMain = {
 
 export type SettingsMainAccounts = {
 	auth: AccountsAuth;
-	actions?: React.FC< { account_id: string } >[];
+	actions?: React.FC< { accountId: string } >[];
 };
 
 export type SettingsMain = {
