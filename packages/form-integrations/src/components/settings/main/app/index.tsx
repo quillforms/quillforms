@@ -24,7 +24,13 @@ import { useSettingsContext } from '../../state/context';
 
 const App: React.FC = () => {
 	// context.
-	const { provider, setup, app, setupApp } = useSettingsContext();
+	const {
+		provider,
+		setup,
+		app,
+		setupApp,
+		setupAccounts,
+	} = useSettingsContext();
 
 	// state.
 	const [ disconnectModal, setDisconnectModal ] = useState( false );
@@ -64,6 +70,7 @@ const App: React.FC = () => {
 				setDisconnecting( false );
 				setDisconnectModal( false );
 				setupApp( {} );
+				setupAccounts( {} );
 			} )
 			.catch( ( err ) => {
 				createErrorNotice(

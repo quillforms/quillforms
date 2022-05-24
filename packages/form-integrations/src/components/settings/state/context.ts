@@ -15,6 +15,7 @@ const SettingsContext = createContext< {
 	app: App;
 	accounts: Accounts;
 	setupApp: ( app: any ) => void;
+	setupAccounts: ( accounts: Accounts ) => void;
 	addAccount: ( id: string, account: Account ) => void;
 	updateAccount: ( id: string, account: Partial< Account > ) => void;
 	deleteAccount: ( id: string ) => void;
@@ -27,6 +28,9 @@ const SettingsContext = createContext< {
 	accounts: {},
 	setupApp: ( _app: any ) => {
 		throw 'setupApp() not implemented.';
+	},
+	setupAccounts: ( _accounts: Accounts ) => {
+		throw 'setupAccounts() not implemented.';
 	},
 	addAccount: ( _id: string, _account: Account ) => {
 		throw 'addAccount() not implemented.';
