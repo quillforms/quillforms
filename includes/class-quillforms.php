@@ -130,6 +130,7 @@ final class QuillForms {
 		Admin::instance();
 		REST_API::instance();
 		Site::instance();
+		Shortcode::instance();
 	}
 
 	/**
