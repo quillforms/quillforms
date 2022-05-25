@@ -2,7 +2,7 @@
 /**
  * Class Shortcode
  *
- * @since next.version
+ * @since 1.10.7
  * @package QuillForms
  */
 
@@ -11,7 +11,7 @@ namespace QuillForms;
 /**
  * Shortcode Class
  *
- * @since next.version
+ * @since 1.10.7
  */
 class Shortcode {
 
@@ -37,7 +37,7 @@ class Shortcode {
 	/**
 	 * Constructor
 	 *
-	 * @since next.version
+	 * @since 1.10.7
 	 */
 	private function __construct() {
 		add_action( 'init', array( $this, 'register' ) );
@@ -46,7 +46,7 @@ class Shortcode {
 	/**
 	 * Register [quillforms] shortcode
 	 *
-	 * @since next.version
+	 * @since 1.10.7
 	 *
 	 * @return void
 	 */
@@ -57,7 +57,7 @@ class Shortcode {
 	/**
 	 * Handle shortcode render
 	 *
-	 * @since next.version
+	 * @since 1.10.7
 	 *
 	 * @param array $atts Shortcode attributes.
 	 * @return string
