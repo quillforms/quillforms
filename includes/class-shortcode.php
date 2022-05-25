@@ -82,6 +82,7 @@ class Shortcode {
 		}
 
 		$src = get_permalink( $id );
+		$src = add_query_arg( array( 'quillforms-redirection' => 'top' ), $src );
 		return "<iframe src='$src' width='$width' height='$height' style='border:0;' />";
 	}
 
