@@ -50,11 +50,29 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 
 	let link = permalink;
 	if ( hiddenFields.length > 0 ) {
+		const query = {};
 		const hash = {};
 		for ( const field of hiddenFields ) {
-			hash[ field.name ] = 'xxxxx';
+			if (
+				[
+					'utm_source',
+					'utm_medium',
+					'utm_campaign',
+					'utm_term',
+					'utm_content',
+				].includes( field.name )
+			) {
+				query[ field.name ] = 'xxxxx';
+			} else {
+				hash[ field.name ] = 'xxxxx';
+			}
 		}
-		link += '#' + buildQueryString( hash );
+		if ( Object.keys( query ).length ) {
+			link += '?' + buildQueryString( query );
+		}
+		if ( Object.keys( hash ).length ) {
+			link += '#' + buildQueryString( hash );
+		}
 	}
 
 	return (
