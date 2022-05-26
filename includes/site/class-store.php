@@ -448,7 +448,7 @@ class Store {
 			),
 			'hiddenfields'              => array(
 				'name'           => esc_html__( 'Hidden Fields', 'quillforms' ),
-				'description'    => esc_html__( 'Add customization to your form by hidden fields.', 'quillforms' ),
+				'description'    => esc_html__( 'Hidden fields are custom url parameters you can set up in your form and also it can track the UTM parameters that are useful for your campaigns tracking.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-hiddenfields/quillforms-hiddenfields.php',
 				'plan'           => 'basic',
 				'is_integration' => false,

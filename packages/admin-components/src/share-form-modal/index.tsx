@@ -125,6 +125,38 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 			</div>
 			<div
 				className={ classnames(
+					'admin-components-share-form-modal__shortcode',
+					css`
+						display: flex;
+						flex-direction: column;
+						margin-top: 10px;
+					`
+				) }
+			>
+				<div
+					className={ css`
+						margin-bottom: 6px;
+						font-weight: bold;
+					` }
+				>
+					Shortcode
+				</div>
+				{ isFetching ? (
+					<LinkPlaceholder />
+				) : (
+					<div
+						className={ css`
+							border-radius: 5px;
+							padding: 8px;
+							background: #eeeeee;
+						` }
+					>
+						{ `[quillforms id="${ formId }" width="100%" height="600px"]` }
+					</div>
+				) }
+			</div>
+			<div
+				className={ classnames(
 					'admin-components-share-form-modal__embed',
 					css`
 						display: flex;
@@ -151,7 +183,7 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 							background: #eeeeee;
 						` }
 					>
-						{ `<iframe src="${ link }" width="100%" height="600" frameBorder="0"></iframe>` }
+						{ `<iframe src="${ link }" width="100%" height="600" style="border:0;"></iframe>` }
 					</div>
 				) }
 			</div>
