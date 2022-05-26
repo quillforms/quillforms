@@ -96,7 +96,7 @@ abstract class Rest_Field_Controller {
 	 * @return boolean
 	 */
 	public function update_callback( $data, $object ) {
-		return $this->addon->form_data->update( $object->ID, $data );
+		return $this->addon->form_data->update( $object->ID, $data, false );
 	}
 
 	/**
