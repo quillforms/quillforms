@@ -2,7 +2,7 @@
 /**
  * Class Shortcode
  *
- * @since 1.10.7
+ * @since 1.11.0
  * @package QuillForms
  */
 
@@ -11,7 +11,7 @@ namespace QuillForms;
 /**
  * Shortcode Class
  *
- * @since 1.10.7
+ * @since 1.11.0
  */
 class Shortcode {
 
@@ -37,7 +37,7 @@ class Shortcode {
 	/**
 	 * Constructor
 	 *
-	 * @since 1.10.7
+	 * @since 1.11.0
 	 */
 	private function __construct() {
 		add_action( 'init', array( $this, 'register' ) );
@@ -46,7 +46,7 @@ class Shortcode {
 	/**
 	 * Register [quillforms] shortcode
 	 *
-	 * @since 1.10.7
+	 * @since 1.11.0
 	 *
 	 * @return void
 	 */
@@ -57,7 +57,7 @@ class Shortcode {
 	/**
 	 * Handle shortcode render
 	 *
-	 * @since 1.10.7
+	 * @since 1.11.0
 	 *
 	 * @param array $atts Shortcode attributes.
 	 * @return string
@@ -85,7 +85,7 @@ class Shortcode {
 		$src = add_query_arg(
 			array(
 				'quillforms-shortcode'   => true,
-				'quillforms-redirection' => 'top', // @deprecated 1.10.8
+				'quillforms-redirection' => 'top', // @deprecated 1.11.1
 			),
 			$src
 		);
