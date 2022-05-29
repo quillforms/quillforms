@@ -3,6 +3,10 @@
  */
 import { Button } from '@quillforms/admin-components';
 
+/**
+ * External Dependencies.
+ */
+import { css } from 'emotion';
 interface Props {
 	save: {
 		label: string;
@@ -18,21 +22,28 @@ interface Props {
 const Footer: React.FC< Props > = ( { save, close } ) => {
 	return (
 		<div className="integration-connect-footer">
-			<Button
-				isDanger
-				className="integration-connect-footer__cancel"
-				onClick={ close.onClick }
+			<div
+				className={ css`
+					max-width: 700px;
+					margin: auto;
+				` }
 			>
-				{ close.label }
-			</Button>
-			<Button
-				className="integration-connect-footer__save"
-				isPrimary
-				onClick={ save.onClick }
-				disabled={ save.disabled }
-			>
-				{ save.label }
-			</Button>
+				<Button
+					isDanger
+					className="integration-connect-footer__cancel"
+					onClick={ close.onClick }
+				>
+					{ close.label }
+				</Button>
+				<Button
+					className="integration-connect-footer__save"
+					isPrimary
+					onClick={ save.onClick }
+					disabled={ save.disabled }
+				>
+					{ save.label }
+				</Button>
+			</div>
 		</div>
 	);
 };

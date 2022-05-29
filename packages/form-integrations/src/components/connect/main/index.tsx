@@ -159,7 +159,7 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 							}
 						>
 							<Icon icon={ plusCircle } />
-							{ __( 'Add New Connection', 'quillforms' ) }
+							{ __( 'Add A New Connection', 'quillforms' ) }
 						</Button>
 					</div>
 				</div>

@@ -1,11 +1,13 @@
 .integration-connect-footer {
-	position: sticky;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	width: 100%;
 	z-index: 22234334344242;
 	height: 63px;
 	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 	justify-content: end;
 	padding-right: 10px;
 	background: #fff;

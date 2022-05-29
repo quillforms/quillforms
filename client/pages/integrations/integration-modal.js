@@ -40,14 +40,28 @@ const IntegrationModal = ( { slug, integration, onClose } ) => {
 			className={
 				`integration-modal integration-modal-${ slug } ` +
 				css`
-					width: 750px;
-					border-radius: 8px;
+					width: 100%;
+					height: 100%;
+					max-height: 100%;
+					max-width: 100%;
+					margin-right: 0;
+					margin-left: 0;
+					margin-top: 0;
+					margin-bottom: 0;
+					border-radius: 0;
 
 					.components-modal__content {
 						padding: 0;
-
+						background: #fafafa;
+						&:before {
+							display: none;
+						}
 						.components-modal__header {
 							margin: 0 0 45px;
+
+							div {
+								justify-content: center;
+							}
 						}
 					}
 					.components-modal__header

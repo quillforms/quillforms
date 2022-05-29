@@ -1,11 +1,19 @@
+.integration-connect {
+	height: 100%;
+}
+.integration-connect-main {
+	height: 100%;
+}
 .integration-connect-main__body {
 	display: flex;
 	flex-flow: column;
 	align-items: center;
 	overflow: auto;
 	width: 100%;
-	background: #fafafa;
 	padding: 20px;
+	max-width: 800px;
+	margin: auto;
+	background: transparent;
 }
 
 .integration-connect-main__warning {
@@ -29,7 +37,7 @@
 }
 
 .integration-connect-main__add-connection {
-	margin-bottom: 0.5rem;
+	margin-bottom: 120px;
 	background: #353938 !important;
 	display: inline-flex;
 	align-items: center;
