@@ -22,7 +22,6 @@ import type { SubPanelSettings } from '../types';
  * @param {SubPanelSettings} 	   settings  Subpanel settings.
  *
  */
-
 export const registerBuilderSubPanel = (
 	name: string,
 	settings: SubPanelSettings

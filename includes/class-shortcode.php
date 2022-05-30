@@ -89,7 +89,7 @@ class Shortcode {
 			),
 			$src
 		);
-		return "<iframe src='$src' width='$width' height='$height' style='border:0;' />";
+		return "<iframe src='$src' width='$width' height='$height' style='border:0;'></iframe>";
 	}
 
 }

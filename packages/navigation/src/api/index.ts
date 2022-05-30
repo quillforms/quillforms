@@ -90,7 +90,9 @@ export const registerAdminPage = ( id: string, settings: PageSettings ) => {
 	}
 
 	if ( typeof settings.requiresInitialPayload !== 'boolean' ) {
-		console.error( 'The "requiresInitialPayload" property must be a boolean!' );
+		console.error(
+			'The "requiresInitialPayload" property must be a boolean!'
+		);
 		return;
 	}
 
