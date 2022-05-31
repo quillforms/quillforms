@@ -1,4 +1,10 @@
 .integration-connect .integration-setup {
-	padding-left: 25px;
-	padding-right: 25px;
+	width: 100%;
+	max-width: 750px;
+	margin: 0 auto 0;
+	padding: 35px;
+}
+
+.integration-connect .integration-setup__instructions {
+	background-color: #fff;
 }

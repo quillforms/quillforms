@@ -6,13 +6,13 @@ import { createContext, useContext } from '@wordpress/element';
 /**
  * Internal Dependencies
  */
-import { Main } from '../../types';
+import { ConnectMain } from '../../types';
 
 const EmptyOptions: React.FC< { connectionId: string } > = ( {} ) => {
 	return <div></div>;
 };
 
-const ConnectMainContext = createContext< Main >( {
+const ConnectMainContext = createContext< ConnectMain >( {
 	connection: {
 		options: {
 			default: {},

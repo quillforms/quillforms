@@ -45,6 +45,11 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 	const [ showingAddNewAccount, setShowingAddNewAccount ] = useState( false );
 	const [ addingNewAccount, setAddingNewAccount ] = useState( false );
 
+	// for ts. won't be reached normally.
+	if ( ! main.connection.accounts?.auth ) {
+		return null;
+	}
+
 	// if there is no accounts, show add account.
 	if ( ! showingAddNewAccount ) {
 		if ( Object.entries( accounts ).length === 0 ) {
@@ -110,7 +115,7 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 	};
 
 	return (
-		<div className="integration-account-selector">
+		<div className="connection-section connection-account-selector">
 			<SelectControl
 				label={ provider.label + ' ' + __( 'Account', 'quillforms' ) }
 				options={ options }
