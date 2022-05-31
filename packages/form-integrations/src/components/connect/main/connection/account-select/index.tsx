@@ -21,7 +21,7 @@ import { cloneDeep } from 'lodash';
 import { useConnectContext } from '../../../state/context';
 import { useConnectMainContext } from '../../context';
 import { Account } from '../../../state/types';
-import AccountAuth from '../../../../account-auth';
+import AccountAuth from '../../../../shared/account-auth';
 
 interface Props {
 	connectionId: string;

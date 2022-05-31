@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import { Provider } from '../../types';
+import { Provider } from '../../../types';
 
 interface Props {
 	provider: Provider;
