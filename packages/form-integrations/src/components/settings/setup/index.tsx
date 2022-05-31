@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  * Internal Dependencies
  */
 import { useSettingsContext } from '../state/context';
-import { default as GenericSetup } from '../../setup';
+import { default as GenericSetup } from '../../shared/setup';
 
 const Setup: React.FC = () => {
 	const { provider, setup, setupApp } = useSettingsContext();
