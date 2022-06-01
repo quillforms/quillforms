@@ -117,6 +117,7 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 	return (
 		<div className="connection-section connection-account-selector">
 			<SelectControl
+				className="connection-primary-control"
 				label={ provider.label + ' ' + __( 'Account', 'quillforms' ) }
 				options={ options }
 				value={ selected }

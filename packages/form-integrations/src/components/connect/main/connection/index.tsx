@@ -32,21 +32,22 @@ const Connection: React.FC< Props > = ( { id } ) => {
 
 	return (
 		<div className="integration-connection">
+			<Button
+				className="connection-delete"
+				onClick={ () => deleteConnection( id ) }
+			>
+				{ __( 'Delete Connection', 'quillforms' ) }
+				<DeleteIcon />
+			</Button>
 			<div className="connection-header">
 				<TextControl
+					className="connection-primary-control"
 					label={ __( 'Connection Name', 'quillforms' ) }
 					value={ connection.name }
 					onChange={ ( value ) =>
 						updateConnection( id, { name: value } )
 					}
 				/>
-				<Button
-					className="connection-header-delete"
-					onClick={ () => deleteConnection( id ) }
-				>
-					{ __( 'Delete Connection', 'quillforms' ) }
-					<DeleteIcon />
-				</Button>
 			</div>
 			{ main.connection.accounts && (
 				<AccountSelect connectionId={ id } />

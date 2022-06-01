@@ -10,6 +10,41 @@
 	position: relative;
 	padding: 24px 16px;
 
+	.connection-delete {
+		position: absolute;
+		top: 12px;
+		right: 16px;
+		cursor: pointer;
+		border: 1px solid #e14a50;
+		padding: 5px 8px;
+		display: inline-flex;
+		border-radius: 5px;
+		align-items: center;
+		color: #e14a50;
+
+		svg {
+			margin-left: 7px;
+		}
+	}
+
+	.connection-section {
+		margin-top: 20px;
+
+		.connection-section-label {
+			display: block;
+			font-weight: 500;
+			margin-bottom: 6px;
+		}
+	}
+
+	.connection-primary-control {
+
+		.components-base-control__label,
+		.components-custom-select-control__label {
+			font-weight: 500;
+		}
+	}
+
 	.components-base-control__label,
 	.components-custom-select-control__label {
 		margin-bottom: 6px;
@@ -17,36 +52,5 @@
 
 	.components-text-control__input {
 		margin-top: 0;
-	}
-
-	.connection-header {
-		padding-bottom: 0.5rem;
-		border-bottom: 1px solid #ccc;
-
-		.connection-header-delete {
-			position: absolute;
-			top: 12px;
-			right: 16px;
-			cursor: pointer;
-			border: 1px solid #e14a50;
-			padding: 5px 8px;
-			display: inline-flex;
-			border-radius: 5px;
-			align-items: center;
-			color: #e14a50;
-
-			svg {
-				margin-left: 7px;
-			}
-		}
-	}
-
-	.connection-section {
-		margin-top: 16px;
-
-		.connection-section-label {
-			display: block;
-			margin-bottom: 6px;
-		}
 	}
 }
