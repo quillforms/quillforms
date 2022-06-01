@@ -6,6 +6,7 @@ import {
 	useCallback,
 	useEffect,
 	useState,
+	useRef,
 	Fragment,
 } from '@wordpress/element';
 import { autop } from '@wordpress/autop';
@@ -69,10 +70,20 @@ const RichTextControl: React.FC< Props > = ( {
 		[]
 	);
 
+	const isMounted = useRef( false );
+	useEffect( () => {
+		isMounted.current = true;
+		return () => {
+			isMounted.current = false;
+		};
+	}, [] );
+
 	// serializeVal is a debounced function that updates the store with serialized html value
 	const serializeVal = useCallback(
 		debounce( ( newVal ) => {
-			setValue( serialize( newVal ) );
+			if ( isMounted.current ) {
+				setValue( serialize( newVal ) );
+			}
 		}, 200 ),
 		[]
 	);

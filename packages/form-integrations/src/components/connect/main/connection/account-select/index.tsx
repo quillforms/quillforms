@@ -21,7 +21,7 @@ import { cloneDeep } from 'lodash';
 import { useConnectContext } from '../../../state/context';
 import { useConnectMainContext } from '../../context';
 import { Account } from '../../../state/types';
-import AccountAuth from '../../../../account-auth';
+import AccountAuth from '../../../../shared/account-auth';
 
 interface Props {
 	connectionId: string;
@@ -44,6 +44,11 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 	// state.
 	const [ showingAddNewAccount, setShowingAddNewAccount ] = useState( false );
 	const [ addingNewAccount, setAddingNewAccount ] = useState( false );
+
+	// for ts. won't be reached normally.
+	if ( ! main.connection.accounts?.auth ) {
+		return null;
+	}
 
 	// if there is no accounts, show add account.
 	if ( ! showingAddNewAccount ) {
@@ -110,8 +115,9 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 	};
 
 	return (
-		<div className="integration-account-selector">
+		<div className="connection-section connection-account-selector">
 			<SelectControl
+				className="connection-primary-control"
 				label={ provider.label + ' ' + __( 'Account', 'quillforms' ) }
 				options={ options }
 				value={ selected }

@@ -22,12 +22,7 @@ interface Props {
 const Footer: React.FC< Props > = ( { save, close } ) => {
 	return (
 		<div className="integration-connect-footer">
-			<div
-				className={ css`
-					max-width: 700px;
-					margin: auto;
-				` }
-			>
+			<div className="integration-connect-footer__wrapper">
 				<Button
 					isDanger
 					className="integration-connect-footer__cancel"

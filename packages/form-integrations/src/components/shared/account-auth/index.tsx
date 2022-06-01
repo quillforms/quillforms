@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import type { Provider, AccountsAuth } from '../types';
+import type { Provider, AccountsAuth } from '../../types';
 import Credentials from './credentials';
 import Oauth from './oauth';
 

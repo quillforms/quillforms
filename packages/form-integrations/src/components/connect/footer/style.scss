@@ -12,13 +12,19 @@
 	padding-right: 10px;
 	background: #fff;
 	align-items: center;
+	border-top: 1px solid #ddd;
 
-	button {
-		display: inline-block;
-		width: 170px;
-		margin-right: 20px;
-		height: 34px !important;
-		border-radius: 5px !important;
+	.integration-connect-footer__wrapper {
+		margin-left: auto;
+		margin-right: auto;
+
+		button {
+			display: inline-block;
+			width: 170px;
+			margin-right: 20px;
+			height: 34px !important;
+			border-radius: 5px !important;
+		}
 	}
 }
 

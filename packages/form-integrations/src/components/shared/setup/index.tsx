@@ -12,7 +12,7 @@ import apiFetch from '@wordpress/api-fetch';
 /**
  * Internal Dependencies
  */
-import type { Provider, SetupFields } from '../types';
+import type { Provider, SetupFields } from '../../types';
 
 interface Props {
 	provider: Provider;

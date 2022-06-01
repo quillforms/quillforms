@@ -165,12 +165,12 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 				</div>
 				<Footer
 					save={ {
-						label: __( 'Save Changes', 'quillforms' ),
+						label: __( 'Save', 'quillforms' ),
 						onClick: save,
 						disabled: isSubmitting,
 					} }
 					close={ {
-						label: __( 'Cancel Changes', 'quillforms' ),
+						label: __( 'Cancel', 'quillforms' ),
 						onClick: close,
 					} }
 				/>

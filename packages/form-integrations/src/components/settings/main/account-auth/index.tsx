@@ -15,7 +15,7 @@ import { __ } from '@wordpress/i18n';
  * Internal Dependencies
  */
 import { useSettingsContext } from '../../state/context';
-import { default as GenericAccountAuth } from '../../../account-auth';
+import { default as GenericAccountAuth } from '../../../shared/account-auth';
 import { AccountsAuth } from '../../../types';
 
 interface Props {

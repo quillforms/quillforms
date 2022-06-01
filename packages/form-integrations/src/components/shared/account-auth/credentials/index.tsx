@@ -14,7 +14,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import { AccountsAuthFields, Provider } from '../../types';
+import { AccountsAuthFields, Provider } from '../../../types';
 
 interface Props {
 	provider: Provider;
