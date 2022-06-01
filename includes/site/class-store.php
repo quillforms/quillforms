@@ -603,16 +603,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
 				),
 			),
-			// 'webhooks'                  => array(
-			// 'name'           => esc_html__( 'Webhooks', 'quillforms' ),
-			// 'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
-			// 'plugin_file'    => 'quillforms-webhooks/quillforms-webhooks.php',
-			// 'plan'           => 'plus',
-			// 'is_integration' => true,
-			// 'assets'         => array(
-			// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
-			// ),
-			// ),
+			'webhooks'                  => array(
+				'name'           => esc_html__( 'Webhooks', 'quillforms' ),
+				'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-webhooks/quillforms-webhooks.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
+				),
+			),
 			'zapier'                    => array(
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
