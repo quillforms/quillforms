@@ -9,10 +9,7 @@ import Button from '../../button';
  */
 import { Icon } from '@wordpress/components';
 import { arrowLeft } from '@wordpress/icons';
-
-/**
- * External Dependencies
- */
+import { useEffect, useRef } from '@wordpress/element';
 
 /**
  * Internal Dependencies
@@ -31,6 +28,8 @@ const RichText: React.FC< Props > = ( {} ) => {
 		placeholder,
 	} = useComboboxControlContext();
 
+	const isMounted = useRef( false );
+
 	let tags: MergeTags = [];
 	for ( const option of options ) {
 		if ( option.isMergeTag ) {
@@ -44,19 +43,34 @@ const RichText: React.FC< Props > = ( {} ) => {
 		}
 	}
 
+	useEffect( () => {
+		isMounted.current = true;
+		return () => {
+			isMounted.current = false;
+		};
+	}, [] );
+
 	return (
 		<div className="combobox-control-rich-text">
 			{ isToggleEnabled && (
 				<Button
 					className="combobox-control-rich-text-back"
-					onClick={ () => onChange( {} ) }
+					onClick={ () => {
+						if ( isMounted.current ) {
+							onChange( {} );
+						}
+					} }
 				>
 					<Icon icon={ arrowLeft } />
 				</Button>
 			) }
 			<RichTextControl
 				value={ value.value ?? '' }
-				setValue={ ( value ) => onChange( { type: 'text', value } ) }
+				setValue={ ( value ) => {
+					if ( isMounted.current ) {
+						onChange( { type: 'text', value } );
+					}
+				} }
 				mergeTags={ tags }
 				placeholder={ placeholder }
 			/>
