@@ -13,7 +13,6 @@ import { addAction } from '@wordpress/hooks';
  */
 import { registerPaymentGatewayModule } from '../../api';
 import CustomerRender from '../customer-render';
-import LabelNotice from '../label-notice';
 import Settings from '../settings';
 
 addAction(

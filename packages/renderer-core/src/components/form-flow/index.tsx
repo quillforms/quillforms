@@ -93,7 +93,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 		 * Alert if clicked on outside of element
 		 */
 		function handleClickOutside( event ) {
-			// @ts-expect-error
 			if ( ref.current && ! ref?.current?.contains( event.target ) ) {
 				setIsFocused( false );
 			}

@@ -3,10 +3,6 @@
  */
 import { Button } from '@quillforms/admin-components';
 
-/**
- * External Dependencies.
- */
-import { css } from 'emotion';
 interface Props {
 	save: {
 		label: string;
