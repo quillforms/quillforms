@@ -45,7 +45,11 @@ const HomeContent = () => {
 		};
 	}, [] );
 	useEffect( () => {
-		if ( hasFormsFinishedResolution ) setIsFetchingOnMount( false );
+		if ( hasFormsFinishedResolution ) {
+			setIsFetchingOnMount( false );
+		} else {
+			setIsFetchingOnMount( true );
+		}
 	}, [ hasFormsFinishedResolution ] );
 
 	const openModal = () => setIsModalOpen( true );

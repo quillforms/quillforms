@@ -1,7 +1,7 @@
- === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
+ === Quill Forms | Best Typeform Alternative | Conversational Forms Builder for WordPress ===
 Contributors: quillforms, mdmag
-Tested up to: 5.9
-Stable tag: 1.10.4
+Tested up to: 6.0
+Stable tag: 1.12.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -41,20 +41,23 @@ QuillForms free version comes with variety of blocks:
 
 = Features in Pro version =
 1- File upload block
-2- Entries saving and management
-3- Jump logic to jump between questions based on a set of conditions
-4- Calculator for quizzes and cost estimations
-5- Hidden fields and custom URL parameters
-6- Zapier integration to connect with 3000+ apps
-7- GoogleSheets integration
-8- MailChimp integration
-9- Constant Contact integration
-10- GetResponse integration
-11- Opinion scale block
-12- Custom thank you screen
-13- Hubspot integration
-14- SalesForce integration
-15- ActiveCampaign integration
+2- Phone block
+3- Entries saving and management
+4- Jump logic to jump between questions based on a set of conditions
+5- Calculator for quizzes and cost estimations
+6- Hidden fields and custom URL parameters
+7- Zapier integration to connect with 3000+ apps
+8- GoogleSheets integration
+9- MailChimp integration
+10- Constant Contact integration
+11- GetResponse integration
+12- Opinion scale block
+13- Custom thank you screen
+14- Hubspot integration
+15- SalesForce integration
+16- ActiveCampaign integration
+17- Analytics with Google Analytics
+18- Analytics with Facebook Pixel
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
@@ -103,6 +106,20 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.11.1 = 30 May 2022
+Fix: urgent update fix for the short code problem.
+
+= 1.11.0 = 26 May 2022
+Feature: Supporting Shortcode
+
+= 1.10.6 = 20 May 2022
+Feature: Major improvements in code
+
+= 1.10.5 = 25 Apr 2022
+Feature: Adding duplication feature for forms.
+Feature: Adding duplication feature for questions.
+Feature: Adding phone block addon.
 
 = 1.10.4 = 13 Apr 2022
 Fix: Fix the mobile keyboard for the number field.

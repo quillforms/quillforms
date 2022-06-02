@@ -33,6 +33,7 @@ export interface BlockRendererSettings {
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
 	nextBtn?: FC | Component | JSX.Element;
+	getNumericVal?: ( val: any, attributes: BlockAttributes ) => number;
 	isConditionFulfilled?(
 		conditionOperator: string,
 		conditionVal: unknown,
@@ -45,9 +46,20 @@ export type BlockSupportedFeatures = {
 	editable?: boolean;
 	required?: boolean;
 	logic?: boolean;
+	logicConditions?: boolean;
 	theme?: boolean;
+	numeric?: boolean;
 };
 
+type logicalOperator =
+	| 'is'
+	| 'is_not'
+	| 'starts_with'
+	| 'greater_than'
+	| 'lower_than'
+	| 'ends_with'
+	| 'contains'
+	| 'not_contains';
 export interface BlockTypeSettings
 	extends BlockAdminSettings,
 		BlockRendererSettings {
@@ -60,16 +72,7 @@ export interface BlockTypeSettings
 		}
 	>;
 	supports: BlockSupportedFeatures;
-	logicalOperators?: (
-		| 'is'
-		| 'is_not'
-		| 'starts_with'
-		| 'greater_than'
-		| 'lower_than'
-		| 'ends_with'
-		| 'contains'
-		| 'not_contains'
-	 )[];
+	logicalOperators?: logicalOperator[];
 }
 
 export interface BlockTypeInterface extends BlockTypeSettings {

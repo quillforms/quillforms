@@ -93,6 +93,10 @@ class REST_Settings_Controller extends REST_Controller {
 							'type'    => 'boolean',
 							'default' => false,
 						),
+						'google_maps_api_key'           => array(
+							'type'    => 'string',
+							'default' => '',
+						),
 					),
 				),
 			),

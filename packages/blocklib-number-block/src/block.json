@@ -6,7 +6,8 @@
 		"attachment": true,
 		"description": true,
 		"logic": true,
-		"theme": true
+		"theme": true,
+		"numeric": true
 	},
 	"attributes": {
 		"set_max": {

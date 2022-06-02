@@ -3,6 +3,7 @@ import type { Plans } from './types/plans';
 import type { License } from './types/license';
 import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
+import messages from './json/messages.json';
 import { InitialPayload } from './types/initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 import { StoreAddons } from './types/store-addons';
@@ -23,7 +24,7 @@ const configData: ConfigData = {
 	fonts,
 	structures: {
 		theme,
-		messages: {},
+		messages,
 	},
 	adminUrl: '',
 	pluginDirUrl: '',

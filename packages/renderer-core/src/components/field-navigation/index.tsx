@@ -33,7 +33,7 @@ const FieldNavigation = () => {
 				className={ classnames(
 					'renderer-core-field-navigation__up-icon',
 					{
-						rotate: settings.animationDirection === 'horizontal',
+						rotate: settings?.animationDirection === 'horizontal',
 					},
 					css`
 						background: ${ theme.buttonsBgColor };
@@ -49,7 +49,7 @@ const FieldNavigation = () => {
 				className={ classnames(
 					'renderer-core-field-navigation__down-icon',
 					{
-						rotate: settings.animationDirection === 'horizontal',
+						rotate: settings?.animationDirection === 'horizontal',
 					},
 					css`
 						background: ${ theme.buttonsBgColor };

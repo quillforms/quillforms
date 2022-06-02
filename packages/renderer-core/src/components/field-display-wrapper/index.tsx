@@ -17,7 +17,6 @@ import useBlockTypes from '../../hooks/use-block-types';
 import BlockFooter from '../field-footer';
 import useFormContext from '../../hooks/use-form-context';
 import useHandleFocus from '../../hooks/use-handle-focus';
-import useBlockTheme from '../../hooks/use-block-theme';
 interface Props {
 	setIsShaking: ( value: boolean ) => void;
 	isShaking: boolean;
@@ -39,10 +38,10 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showNextBtn,
 		showErrMsg,
 	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes.theme );
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
+		// @ts-expect-error
 		navigator.msMaxTouchPoints > 0;
 
 	useHandleFocus( inputRef, isActive, isTouchScreen );
@@ -53,7 +52,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	const blockType = blockTypes[ blockName ];
 	const [ shakingErr, setShakingErr ] = useState( null );
 
-	const { isCurrentBlockEditable, isReviewing } = useSelect( ( select ) => {
+	const { isCurrentBlockEditable } = useSelect( ( select ) => {
 		return {
 			isCurrentBlockEditable: select(
 				'quillForms/blocks'
@@ -61,19 +60,26 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
 		};
 	} );
-	const { answerValue, isAnswered, isValid } = useSelect( ( select ) => {
-		return {
-			answerValue: isCurrentBlockEditable
-				? select( 'quillForms/renderer-core' ).getFieldAnswerVal( id )
-				: null,
-			isAnswered: isCurrentBlockEditable
-				? select( 'quillForms/renderer-core' ).isAnsweredField( id )
-				: null,
-			isValid: isCurrentBlockEditable
-				? select( 'quillForms/renderer-core' ).isValidField( id )
-				: null,
-		};
-	} );
+	const { answerValue, isAnswered, isValid, isPending } = useSelect(
+		( select ) => {
+			return {
+				answerValue: isCurrentBlockEditable
+					? select( 'quillForms/renderer-core' ).getFieldAnswerVal(
+							id
+					  )
+					: null,
+				isAnswered: isCurrentBlockEditable
+					? select( 'quillForms/renderer-core' ).isAnsweredField( id )
+					: null,
+				isValid: isCurrentBlockEditable
+					? select( 'quillForms/renderer-core' ).isValidField( id )
+					: null,
+				isPending: select( 'quillForms/renderer-core' ).isFieldPending(
+					id
+				),
+			};
+		}
+	);
 
 	const clearTimers = () => {
 		clearTimeout( timer1 );
@@ -115,7 +121,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			doAction( 'QuillForms.RendererCore.FieldAnswered', {
 				formId,
 				id,
-				label: attributes.label,
+				label: attributes?.label,
 			} );
 		}
 	}, [ isAnswered, isActive ] );
@@ -135,6 +141,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		next,
 		attributes,
 		isValid,
+		isPending,
 		val: answerValue,
 		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),
@@ -150,7 +157,6 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		inputRef,
 		setFooterDisplay,
 		formId,
-		theme,
 	};
 
 	return (
@@ -164,10 +170,13 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 						margin-top: 15px;
 					` }
 				>
-					<blockType.display { ...props } />{ ' ' }
+					{
+						/* @ts-expect-error */
+						<blockType.display { ...props } />
+					}
 				</div>
 			) }
-			<BlockFooter shakingErr={ shakingErr } />
+			<BlockFooter shakingErr={ shakingErr } isPending={ isPending } />
 		</div>
 	);
 };

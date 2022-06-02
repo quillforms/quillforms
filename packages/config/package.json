@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/config",
-	"version": "1.1.0",
+	"version": "1.2.6",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -8,7 +8,7 @@
 		"quillforms",
 		"config"
 	],
-	"sideEffects": true,
+	"sideEffects": false,
 	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/config/README.md",
 	"repository": {
 		"type": "git",

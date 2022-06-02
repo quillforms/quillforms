@@ -13,6 +13,7 @@
 		{ "path": "../block-editor"},
 		{ "path": "../admin-components"},
 		{ "path": "../builder-panels"},
+		{ "path": "../renderer-core"},
 		{ "path": "../rest-fields" },
 		{ "path": "../types" }
 	],

@@ -91,12 +91,13 @@ abstract class Block_Type extends stdClass {
 	 */
 	public function __construct( $args = array() ) {
 		$default_supported_features  = array(
-			'editable'    => true,
-			'required'    => true,
-			'attachment'  => true,
-			'description' => true,
-			'logic'       => true,
-			'theme'       => false,
+			'editable'        => true,
+			'required'        => true,
+			'attachment'      => true,
+			'description'     => true,
+			'logic'           => true,
+			'logicConditions' => true,
+			'theme'           => false,
 		);
 		$this->name                  = $this->get_name();
 		$this->block_admin_assets    = $this->get_block_admin_assets();
@@ -351,6 +352,19 @@ abstract class Block_Type extends stdClass {
 	 */
 	public function format_field( $value, $form_data ) {
 		return $value;
+	}
+
+	/**
+	 * Get numeric value
+	 * If the block supports numeric value, this method will be called to get its numeric value.
+	 *
+	 * @since 1.10.6
+	 *
+	 * @param mixed $value       The value to validate.
+	 * @return number
+	 */
+	public function get_numeric_value( $value ) {
+		return (int) $value;
 	}
 
 	/**

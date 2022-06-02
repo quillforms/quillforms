@@ -9,11 +9,11 @@ import { useSelect } from '@wordpress/data';
 import FieldAction from '../field-action';
 import ErrMsg from '../error-message';
 import { __experimentalUseFieldRenderContext } from '../field-render';
-import { BlockFooterProps } from './index';
 import SubmitBtn from '../submit-btn';
 
-interface Props extends BlockFooterProps {
+interface Props {
 	id: string | undefined;
+	shakingErr: string | null;
 }
 const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
 	if ( ! id ) return null;
@@ -35,10 +35,12 @@ const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
 		<>
 			{ shakingErr ||
 			( ! isValid && validationErr?.length > 0 && isErrMsgVisible ) ? (
+				// @ts-expect-error
 				<ErrMsg message={ shakingErr ? shakingErr : validationErr } />
 			) : isLastField ? (
 				<SubmitBtn />
 			) : (
+				// @ts-expect-error
 				<FieldAction
 					clickHandler={ () => {
 						if ( validationErr && ! isValid ) {

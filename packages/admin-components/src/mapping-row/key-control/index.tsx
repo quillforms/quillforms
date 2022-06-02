@@ -6,13 +6,14 @@ import Text from './text';
 import Select from './select';
 
 export type Sections = { key: string; label: string }[];
-export type Options = {
+export type Option = {
 	value: string;
 	label: string;
 	// section must exist if defined.
 	section?: string;
 	isStarred?: boolean;
-}[];
+};
+export type Options = Option[];
 
 export type MappingKeyControlProps = {
 	sections?: Sections;

@@ -21,13 +21,14 @@ const FieldAction = ( { clickHandler, show } ) => {
 		isSubmitBtnVisible,
 		attributes,
 	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes.themeId );
+	const theme = useBlockTheme( attributes?.themeId );
 
 	if ( ! blockName ) return null;
 	const blockType = useBlockTypes()[ blockName ];
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
+		// @ts-expect-error
 		navigator.msMaxTouchPoints > 0;
 
 	return (
@@ -37,6 +38,7 @@ const FieldAction = ( { clickHandler, show } ) => {
 			} ) }
 		>
 			{ blockType?.nextBtn ? (
+				// @ts-expect-error
 				<blockType.nextBtn onClick={ clickHandler } />
 			) : (
 				<>

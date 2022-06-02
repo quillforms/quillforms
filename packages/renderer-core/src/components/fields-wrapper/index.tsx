@@ -12,6 +12,7 @@ import { doAction } from '@wordpress/hooks';
 import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { Lethargy } from 'lethargy';
+import React from 'react';
 
 /**
  * Internal Dependencies
@@ -21,7 +22,6 @@ import useLogic from '../../hooks/use-logic';
 import useBlocks from '../../hooks/use-blocks';
 import useBlockTypes from '../../hooks/use-block-types';
 import useFormSettings from '../../hooks/use-form-settings';
-import React from 'react';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -75,6 +75,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
+		// @ts-expect-error
 		navigator.msMaxTouchPoints > 0;
 	const getFieldsToRender = (): string[] => {
 		const fieldIds: string[] = [];
@@ -131,7 +132,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	) => {
 		if ( settings?.disableWheelSwiping ) return;
 		let delta = e.deltaY;
-		if ( settings.animationDirection === 'horizontal' ) {
+		if ( settings?.animationDirection === 'horizontal' ) {
 			delta = e.deltaX;
 		}
 		if ( swiper.isAnimating ) return;
@@ -212,8 +213,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		}
 	}, [ applyLogic ] );
 
-	const isThereNextField =
-		fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
+	// const isThereNextField =
+	// 	fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
 	return (
 		<div

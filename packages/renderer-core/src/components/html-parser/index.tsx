@@ -7,7 +7,6 @@ import { autop } from '@wordpress/autop';
  * External Dependencies
  */
 import parse from 'html-react-parser';
-import { Element } from 'domhandler/lib/node';
 
 /**
  * Internal Dependencies
@@ -32,9 +31,10 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 			{ parse( value, {
 				replace: ( domNode ): void | JSX.Element => {
 					if (
-						domNode instanceof Element &&
+						// @ts-expect-error
 						domNode?.name === 'mergetag'
 					) {
+						// @ts-expect-error
 						const { modifier, type } = domNode.attribs;
 						return <MergeTag type={ type } modifier={ modifier } />;
 					}

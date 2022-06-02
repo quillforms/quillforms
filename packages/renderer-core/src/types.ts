@@ -14,14 +14,25 @@ type Theme = {
 };
 export type FormObj = {
 	blocks: FormBlocks;
-	themesList: Theme[];
-	theme: Partial< FormTheme >;
+	themesList?: Theme[];
+	theme?: Partial< FormTheme >;
 	messages?: Partial< FormMessages >;
 	logic?: FormLogic;
-	settings: {
+	settings?: {
 		disableProgressBar?: boolean;
 		disableWheelSwiping?: boolean;
 		disableNavigationArrows?: boolean;
-		animationDirection: 'vertical' | 'horizontal';
+		animationDirection?: 'vertical' | 'horizontal';
 	};
+	hiddenFields: Object;
+};
+
+export type SubmissionDispatchers = {
+	setIsSubmitting: ( flag: boolean ) => void;
+	setIsReviewing: ( flag: boolean ) => void;
+	goToBlock: ( id: string ) => void;
+	setIsFieldValid: ( id: string, flag: boolean ) => void;
+	setFieldValidationErr: ( id: string, err: string ) => void;
+	completeForm: () => void;
+	setSubmissionErr: ( value: string ) => void;
 };
