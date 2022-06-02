@@ -47,17 +47,18 @@ QuillForms free version comes with variety of blocks:
 5- Calculator for quizzes and cost estimations
 6- Hidden fields and custom URL parameters
 7- Zapier integration to connect with 3000+ apps
-8- GoogleSheets integration
-9- MailChimp integration
-10- Constant Contact integration
-11- GetResponse integration
-12- Opinion scale block
-13- Custom thank you screen
-14- Hubspot integration
-15- SalesForce integration
-16- ActiveCampaign integration
-17- Analytics with Google Analytics
-18- Analytics with Facebook Pixel
+8- Webhooks
+9- GoogleSheets integration
+10- MailChimp integration
+11- Constant Contact integration
+12- GetResponse integration
+13- Opinion scale block
+14- Custom thank you screen
+15- Hubspot integration
+16- SalesForce integration
+17- ActiveCampaign integration
+18- Tracking with Google Analytics
+19- Tracking with Facebook Pixel
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
@@ -106,6 +107,9 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.12.0 = 1 Jun 2022
+Feature: Introducing webhooks feature at the pro version.
 
 = 1.11.1 = 30 May 2022
 Fix: urgent update fix for the short code problem.

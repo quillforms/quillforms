@@ -8,7 +8,7 @@ import Button from '../../button';
  * WordPress Dependencies
  */
 import { Icon } from '@wordpress/components';
-import { arrowLeft } from '@wordpress/icons';
+import { closeSmall } from '@wordpress/icons';
 
 /**
  * External Dependencies
@@ -51,7 +51,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 					className="combobox-control-rich-text-back"
 					onClick={ () => onChange( {} ) }
 				>
-					<Icon icon={ arrowLeft } />
+					<Icon icon={ closeSmall } />
 				</Button>
 			) }
 			<RichTextControl
