@@ -11,6 +11,7 @@ import {
 	__experimentalUseFieldRenderContext,
 } from './context';
 import FieldWrapper from '../field-wrapper';
+import { goPrev } from '../../store/actions';
 
 export { __experimentalUseFieldRenderContext };
 
@@ -28,13 +29,24 @@ const FieldRender: React.FC< Props > = memo(
 		);
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
 
-		const { isReviewing, isValid, block } = useSelect( ( select ) => {
+		const {
+			isReviewing,
+			isValid,
+			block,
+			firstInvalidFieldId,
+			lastFieldId,
+		} = useSelect( ( select ) => {
+			const walkPath = select( 'quillForms/renderer-core' ).getWalkPath();
 			return {
 				isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
 				isValid: select( 'quillForms/renderer-core' ).isValidField(
 					id
 				),
 				block: select( 'quillForms/renderer-core' ).getBlockById( id ),
+				firstInvalidFieldId: select(
+					'quillForms/renderer-core'
+				).getFirstInvalidFieldId(),
+				lastFieldId: walkPath[ walkPath.length - 1 ].id,
 			};
 		} );
 
@@ -44,7 +56,7 @@ const FieldRender: React.FC< Props > = memo(
 			}
 		}, [ isReviewing ] );
 
-		const { goNext } = useDispatch( 'quillForms/renderer-core' );
+		const { goNext, goToBlock } = useDispatch( 'quillForms/renderer-core' );
 		if ( ! block ) return null;
 		const { name, attributes } = block;
 
@@ -58,7 +70,17 @@ const FieldRender: React.FC< Props > = memo(
 			showErrMsg,
 			isSubmitBtnVisible,
 			showNextBtn,
-			next: goNext,
+			next: () => {
+				if ( ! isReviewing ) {
+					goNext();
+				} else {
+					if ( firstInvalidFieldId ) {
+						goToBlock( firstInvalidFieldId );
+					} else {
+						goToBlock( lastFieldId );
+					}
+				}
+			},
 			isLastField,
 		};
 		return (

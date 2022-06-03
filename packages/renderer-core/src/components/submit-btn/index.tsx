@@ -66,6 +66,7 @@ const SubmitBtn: React.FC = () => {
 	};
 	useEffect( () => {
 		if ( isLastField && isActive ) {
+			setIsReviewing( false );
 			window.addEventListener( 'keydown', handleKeyDown );
 		} else {
 			removeEventListener( 'keydown', handleKeyDown );
