@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/builder-core",
-	"version": "1.1.2",
+	"version": "1.2.31",
 	"description": "Builder Core for Quill Forms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -31,6 +31,10 @@
 		"framer-motion": "^4.1.17",
 		"react-confirm-alert": "^2.7.0",
 		"uuid": "^3.3.2"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

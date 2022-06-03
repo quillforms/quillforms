@@ -1,0 +1,44 @@
+{
+	"name": "@quillforms/react-renderer-utils",
+	"version": "1.0.24",
+	"description": "> TODO: description",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
+	"keywords": [
+		"quillforms",
+		"react",
+		"renderer"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/react-renderer-utils/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/renderer-core"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"sideEffects": false,
+	"dependencies": {
+		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
+		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",
+		"@quillforms/blocklib-email-block": "file:../blocklib-email-block",
+		"@quillforms/blocklib-long-text-block": "file:../blocklib-long-text-block",
+		"@quillforms/blocklib-multiple-choice-block": "file:../blocklib-multiple-choice-block",
+		"@quillforms/blocklib-number-block": "file:../blocklib-number-block",
+		"@quillforms/blocklib-short-text-block": "file:../blocklib-short-text-block",
+		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
+		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
+		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
+		"@quillforms/blocks": "file:../blocks"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
+	},
+	"license": "GPL-2.0-or-later",
+	"publishConfig": {
+		"access": "public"
+	}
+}

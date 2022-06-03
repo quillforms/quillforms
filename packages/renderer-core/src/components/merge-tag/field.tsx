@@ -24,6 +24,7 @@ const FieldMergeTag: React.FC< Props > = ( { modifier } ) => {
 		return {
 			fieldMergeTagValue: blockType ? (
 				blockType?.mergeTag && fieldVal ? (
+					// @ts-expect-error
 					<blockType.mergeTag
 						fieldId={ modifier }
 						val={ fieldVal }

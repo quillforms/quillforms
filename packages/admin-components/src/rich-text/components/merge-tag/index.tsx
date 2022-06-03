@@ -12,7 +12,7 @@ import { plus, close } from '@wordpress/icons';
 /**
  * External Dependencies
  */
-import { Editor, Path } from 'slate';
+import { Editor, Path, Transforms } from 'slate';
 import classnames from 'classnames';
 import { css } from 'emotion';
 import { ReactEditor, RenderElementProps } from 'slate-react';
@@ -57,8 +57,17 @@ const EditorMergeTag: React.FC< Props > = ( {
 	useEffect( () => {
 		if ( ! mergeTag ) {
 			editor.apply( { type: 'remove_node', path, node } );
+			Transforms.insertNodes(
+				editor,
+				{
+					text: `{{${ type }:${ modifier }}}`,
+				},
+				{
+					at: path,
+				}
+			);
 		}
-	}, [ mergeTags, mergeTag ] );
+	}, [] );
 	return (
 		<>
 			{ mergeTag && (

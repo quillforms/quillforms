@@ -50,11 +50,29 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 
 	let link = permalink;
 	if ( hiddenFields.length > 0 ) {
+		const query = {};
 		const hash = {};
 		for ( const field of hiddenFields ) {
-			hash[ field.name ] = 'xxxxx';
+			if (
+				[
+					'utm_source',
+					'utm_medium',
+					'utm_campaign',
+					'utm_term',
+					'utm_content',
+				].includes( field.name )
+			) {
+				query[ field.name ] = 'xxxxx';
+			} else {
+				hash[ field.name ] = 'xxxxx';
+			}
 		}
-		link += '#' + buildQueryString( hash );
+		if ( Object.keys( query ).length ) {
+			link += '?' + buildQueryString( query );
+		}
+		if ( Object.keys( hash ).length ) {
+			link += '#' + buildQueryString( hash );
+		}
 	}
 
 	return (
@@ -107,6 +125,38 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 			</div>
 			<div
 				className={ classnames(
+					'admin-components-share-form-modal__shortcode',
+					css`
+						display: flex;
+						flex-direction: column;
+						margin-top: 10px;
+					`
+				) }
+			>
+				<div
+					className={ css`
+						margin-bottom: 6px;
+						font-weight: bold;
+					` }
+				>
+					Shortcode
+				</div>
+				{ isFetching ? (
+					<LinkPlaceholder />
+				) : (
+					<div
+						className={ css`
+							border-radius: 5px;
+							padding: 8px;
+							background: #eeeeee;
+						` }
+					>
+						{ `[quillforms id="${ formId }" width="100%" height="600px"]` }
+					</div>
+				) }
+			</div>
+			<div
+				className={ classnames(
 					'admin-components-share-form-modal__embed',
 					css`
 						display: flex;
@@ -133,7 +183,7 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 							background: #eeeeee;
 						` }
 					>
-						{ `<iframe src="${ link }" width="500" height="600"></iframe>` }
+						{ `<iframe src="${ link }" width="100%" height="600" style="border:0;"></iframe>` }
 					</div>
 				) }
 			</div>

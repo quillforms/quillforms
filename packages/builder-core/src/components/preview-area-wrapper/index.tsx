@@ -1,7 +1,6 @@
 /**
  * QuillForms Dependencies
  */
-// @ts-expect-error.
 import { Form } from '@quillforms/renderer-core';
 //@ts-expect-error.
 import { useCurrentThemeId, useCurrentTheme } from '@quillforms/theme-editor';
@@ -15,7 +14,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { cloneDeep } from 'lodash';
+import { cloneDeep, omit, map } from 'lodash';
 import Loader from 'react-loader-spinner';
 import classnames from 'classnames';
 import { css } from 'emotion';
@@ -127,8 +126,9 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 					name: 'thankyou-screen',
 				} );
 
-			const $welcomeScreens = blocks.filter(
-				( block ) => block.name === 'welcome-screen'
+			const $welcomeScreens = map(
+				blocks.filter( ( block ) => block.name === 'welcome-screen' ),
+				( block ) => omit( block, [ 'name' ] )
 			);
 
 			const $currentPath = cloneDeep( formFields );
@@ -139,7 +139,8 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 			} );
 
 			$timer = setTimeout( () => {
-				goToBlock( currentBlockBeingEdited );
+				if ( currentBlockBeingEdited )
+					goToBlock( currentBlockBeingEdited );
 			}, 300 );
 		}
 	}, [

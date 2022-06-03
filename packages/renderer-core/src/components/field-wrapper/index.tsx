@@ -198,7 +198,7 @@ const FieldWrapper: React.FC = () => {
 	const scrollHandler = ( e ) => {
 		if (
 			settings?.disableWheelSwiping ||
-			settings.animationDirection === 'horizontal'
+			settings?.animationDirection === 'horizontal'
 		) {
 			return;
 		}
@@ -246,7 +246,7 @@ const FieldWrapper: React.FC = () => {
 					active: isActive,
 					'is-animating': isAnimating,
 					'is-horizontal-animation':
-						settings.animationDirection === 'horizontal',
+						settings?.animationDirection === 'horizontal',
 				},
 				position ? position : '',
 				css`
@@ -255,13 +255,13 @@ const FieldWrapper: React.FC = () => {
 					input {
 						font-family: ${ theme.font };
 					}
-					${ attributes.themeId && backgroundImageCSS }
+					${ attributes?.themeId && backgroundImageCSS }
 				`
 			) }
 		>
 			<div
 				className={ css`
-					${ attributes.themeId &&
+					${ attributes?.themeId &&
 					`background: ${ theme.backgroundColor }` };
 					width: 100%;
 					height: 100%;
@@ -273,6 +273,7 @@ const FieldWrapper: React.FC = () => {
 							className="renderer-components-field-wrapper__content-wrapper"
 							ref={ ref }
 							tabIndex={ 0 }
+							// @ts-expect-error
 							onKeyDown={ ( e: KeyboardEvent ): void => {
 								const isShiftPressed = e.shiftKey;
 								if ( isAnimating ) {

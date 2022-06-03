@@ -89,6 +89,7 @@ const EmailOutput = ( props ) => {
 						padding-bottom: 8px;
 						border-radius: 0 !important;
 						background: transparent;
+						background-color: transparent !important;
 						transition: box-shadow 0.1s ease-out 0s;
 						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
 							0px 1px !important;

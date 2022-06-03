@@ -12,7 +12,7 @@ import { select } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { forEach, map, findIndex, slice } from 'lodash';
+import { forEach, map, findIndex, slice, pick } from 'lodash';
 import createSelector from 'rememo';
 
 /**
@@ -149,42 +149,80 @@ export function getEditableFields( state: State ): FormBlock[] {
 	} );
 }
 
-// /**
-//  * @typedef {Object} QFBlocksSupportsCriteria
-//  *
-//  * @property {boolean} editable        Is block editable.
-//  * @property {boolean} logic 	       Does block support jump logic.
-//  * @property {boolean} required        Does block support required flag.
-//  * @property {boolean} attachment      Does block support attachment.
-//  * @property {boolean} description     Does block support description.
-//  */
-// /**
-//  * Get block with multiple criteria.
-//  *
-//  * @param {Object}                    state       Global application state.
-//  * @param {QFBlocksSupportsCriteria}  criteria    Multiple criteria according to which the blocks are filtered.
-//  *
-//  * @return {Array} Filtered blocks according to criteria given
-//  */
-// export const getBlocksByCriteria = ( state:, criteria ) => {
-// 	const blocks = select( 'quillForms/block-editor' ).getBlocks();
-// 	const filteredCriteria = pick( criteria, [
-// 		'logic',
-// 		'required',
-// 		'attachment',
-// 		'description',
-// 		'editable',
-// 	] );
+/**
+ * Get block with multiple criteria.
+ *
+ * @param {Object}                    state       Global application state.
+ * @param {QFBlocksSupportsCriteria}  criteria    Multiple criteria according to which the blocks are filtered.
+ *
+ * @return {Array} Filtered blocks according to criteria given
+ */
+export const getBlocksByCriteria = ( state: State, criteria ) => {
+	const blocks = getBlocks( state );
+	const filteredCriteria = pick( criteria, [
+		'logic',
+		'required',
+		'attachment',
+		'description',
+		'editable',
+		'numeric',
+	] );
 
-// 	return blocks.filter( ( block ) => {
-// 		const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-// 			block.name
-// 		];
-// 		return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
-// 			typeof val === 'boolean' ? blockType.supports[ key ] === val : true
-// 		);
-// 	} );
-// };
+	return blocks.filter( ( block ) => {
+		const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
+			block.name
+		];
+		return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+			typeof val === 'boolean' ? blockType.supports[ key ] === val : true
+		);
+	} );
+};
+
+/**
+ * Get block with multiple criteria.
+ *
+ * @param {Object}                    state       Global application state.
+ * @param {QFBlocksSupportsCriteria}  criteria    Multiple criteria according to which the blocks are filtered.
+ *
+ * @return {Array} Filtered blocks according to criteria given
+ */
+export const getPreviousBlocksByCriteria = (
+	state: State,
+	criteria,
+	id: string,
+	includeCurrentBlock: boolean = false
+) => {
+	const blocks = getBlocks( state );
+	const filteredCriteria = pick( criteria, [
+		'logic',
+		'required',
+		'attachment',
+		'description',
+		'editable',
+		'numeric',
+	] );
+
+	const blockIndex = findIndex( blocks, ( block ) => block.id === id );
+	if ( blockIndex > 0 ) {
+		const prevFormBlocks = slice(
+			blocks,
+			0,
+			includeCurrentBlock ? blockIndex + 1 : blockIndex
+		);
+
+		return prevFormBlocks.filter( ( block ) => {
+			const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
+				block.name
+			];
+			return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+				typeof val === 'boolean'
+					? blockType.supports[ key ] === val
+					: true
+			);
+		} );
+	}
+	return [];
+};
 
 /**
  * Retruns the previous editable fields

@@ -44,6 +44,7 @@ export type CustomizeObject = {
 	sections: Sections;
 	options: Options;
 };
+export type CustomizeFunction = ( value: CustomizeObject ) => CustomizeObject;
 
 export type ComboboxControlProps = {
 	// if type is text, the component will load rich text editor. else the component will load the select.
@@ -53,7 +54,7 @@ export type ComboboxControlProps = {
 	// and rich text editor will have back/exit button to loads select. (default true)
 	isToggleEnabled?: boolean;
 	// customize sections and options.
-	customize?: ( value: CustomizeObject ) => CustomizeObject;
+	customize?: CustomizeFunction;
 	// used for rich text editor only.
 	placeholder?: string;
 };

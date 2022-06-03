@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocks",
-	"version": "1.2.2",
+	"version": "1.3.12",
 	"description": "Block api for Quill forms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,7 +23,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/utils": "file:../utils"
+		"@quillforms/utils": "file:../utils",
+		"@wordpress/data": "^6.7.0"
 	},
 	"devDependencies": {
 		"@quillforms/types": "file:../types"

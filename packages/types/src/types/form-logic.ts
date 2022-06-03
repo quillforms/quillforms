@@ -33,7 +33,7 @@ export type LogicCondition = {
 export type LogicAction = {
 	type: LogicActionType;
 	target: string;
-	value?: number;
+	value?: number | { type: 'field' | 'variable'; value: string };
 	conditions: LogicCondition[][];
 };
 

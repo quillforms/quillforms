@@ -1,0 +1,37 @@
+.integration-connect-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: 22234334344242;
+	height: 63px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: end;
+	padding-right: 10px;
+	background: #fff;
+	align-items: center;
+	border-top: 1px solid #ddd;
+
+	.integration-connect-footer__wrapper {
+		margin-left: auto;
+		margin-right: auto;
+
+		button {
+			display: inline-block;
+			width: 170px;
+			margin-right: 20px;
+			height: 34px !important;
+			border-radius: 5px !important;
+		}
+	}
+}
+
+.integration-connect-footer__save {
+	&:disabled {
+		color: #000;
+		background: #ccc !important;
+		border-left: 1px solid #bbb;
+	}
+}

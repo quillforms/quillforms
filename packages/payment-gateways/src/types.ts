@@ -6,7 +6,7 @@ export type PaymentGatewayModule = {
 	icon: string | IconRenderer;
 	description: string;
 	active: boolean;
-	settings: React.FC< { slug: string } > | JSX.Element | React.Component;
+	settings: React.FC< { slug: string } >;
 	isPro?: boolean;
 	options?:
 		| React.FC< {
@@ -28,27 +28,21 @@ export type PaymentGatewayModule = {
 					icon: string | IconRenderer;
 					text: string;
 				};
-				options?:
-					| React.FC< {
-							slug: string /* gateway:method */;
-							settings: any /* form settings */;
-							onOptionsChange: ( options: any ) => void;
-					  } >
-					| JSX.Element
-					| React.Component;
+				options?: React.FC< {
+					slug: string /* gateway:method */;
+					settings: any /* form settings */;
+					onOptionsChange: ( options: any ) => void;
+				} >;
 			};
 			customer: {
 				label: {
 					text: string;
 				};
-				render:
-					| React.FC< {
-							slug: string /* gateway:method */;
-							data: any;
-							onComplete: () => void;
-					  } >
-					| JSX.Element
-					| React.Component;
+				render: React.FC< {
+					slug: string /* gateway:method */;
+					data: any;
+					onComplete: () => void;
+				} >;
 			};
 		};
 	};

@@ -448,7 +448,7 @@ class Store {
 			),
 			'hiddenfields'              => array(
 				'name'           => esc_html__( 'Hidden Fields', 'quillforms' ),
-				'description'    => esc_html__( 'Add customization to your form by hidden fields.', 'quillforms' ),
+				'description'    => esc_html__( 'Hidden fields are custom url parameters you can set up in your form and also it can track the UTM parameters that are useful for your campaigns tracking.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-hiddenfields/quillforms-hiddenfields.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -465,6 +465,16 @@ class Store {
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/banner.png',
+				),
+			),
+			'phoneblock'                => array(
+				'name'           => esc_html__( 'Phone Block', 'quillforms' ),
+				'description'    => esc_html__( 'Add phone question type to your form with international format.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-phoneblock/quillforms-phoneblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/phoneblock/icon.svg',
 				),
 			),
 			'opinionscaleblock'         => array(
@@ -613,16 +623,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
 				),
 			),
-			// 'webhooks'                  => array(
-			// 'name'           => esc_html__( 'Webhooks', 'quillforms' ),
-			// 'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
-			// 'plugin_file'    => 'quillforms-webhooks/quillforms-webhooks.php',
-			// 'plan'           => 'plus',
-			// 'is_integration' => true,
-			// 'assets'         => array(
-			// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
-			// ),
-			// ),
+			'webhooks'                  => array(
+				'name'           => esc_html__( 'Webhooks', 'quillforms' ),
+				'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-webhooks/quillforms-webhooks.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
+				),
+			),
 			'zapier'                    => array(
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),

@@ -95,6 +95,7 @@ const NumberOutput = ( props ) => {
 						padding-bottom: 8px;
 						border-radius: 0 !important;
 						background: transparent;
+						background-color: transparent !important;
 						transition: box-shadow 0.1s ease-out 0s;
 						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
 							0px 1px !important;
@@ -144,7 +145,6 @@ const NumberOutput = ( props ) => {
 					color: ${ theme.answersColor };
 				`
 			) }
-			type="number"
 			id={ 'number-' + id }
 			placeholder={ messages[ 'block.number.placeholder' ] }
 			onChange={ changeHandler }
@@ -154,6 +154,7 @@ const NumberOutput = ( props ) => {
 					setFooterDisplay( false );
 				}
 			} }
+			onWheel={ ( e ) => e.target.blur() }
 			onBlur={ () => {
 				if ( isTouchScreen ) {
 					setFooterDisplay( true );

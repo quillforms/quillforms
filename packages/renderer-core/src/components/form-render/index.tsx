@@ -15,12 +15,12 @@ import { doAction } from '@wordpress/hooks';
  */
 import { FormContextProvider } from '../form-context';
 import FormWrapper from '../form-wrapper';
-import type { FormObj } from '../../types';
+import type { FormObj, SubmissionDispatchers } from '../../types';
 
 interface Props {
 	formId: number;
 	formObj: FormObj;
-	onSubmit: () => void;
+	onSubmit: ( data: Object, dispatchers: SubmissionDispatchers ) => void;
 	applyLogic: boolean;
 	isPreview: boolean;
 }

@@ -2,19 +2,16 @@
  * QuillForms Dependencies
  */
 import {
-	Button,
 	__experimentalEditor as TextEditor,
 	__unstableHtmlSerialize as serialize,
 	__unstableReactEditor as ReactEditor,
-	getPlainText,
 } from '@quillforms/admin-components';
 import type { BlockAttributes } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
  */
-import { Modal } from '@wordpress/components';
-import { useState, useCallback, useMemo, useEffect } from '@wordpress/element';
+import { useCallback, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -24,8 +21,6 @@ import { applyFilters } from '@wordpress/hooks';
 import { debounce } from 'lodash';
 import { Node } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { css } from 'emotion';
-import classnames from 'classnames';
 
 /**
  * Internal Dependencies
@@ -100,11 +95,6 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		applyFilters( 'QuillForms.Builder.MergeTags', [] ) as any[]
 	);
 
-	// State for popup showed after Accessing merge tag {{xx:yyy}} explicitly from editor!
-	const [ mergeTagAlertPopup, setMergeTagAlertPopup ] = useState< boolean >(
-		false
-	);
-
 	let currentEditor = labelEditor;
 	if ( focusedEl === 'desc' ) {
 		currentEditor = descEditor;
@@ -138,19 +128,11 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		}
 	}, [ isSelected ] );
 
-	// Regex for variables
-	const mergeTagRegexMatch = ( val: string ) =>
-		new RegExp( /{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/ ).test( val );
-
 	// Title Change Handler
 	const labelChangeHandler = ( value: Node[] ) => {
 		if ( JSON.stringify( value ) !== JSON.stringify( label ) ) {
 			setLabelJsonVal( value );
-			if ( mergeTagRegexMatch( getPlainText( value ) ) ) {
-				setMergeTagAlertPopup( true );
-			} else {
-				serializeLabel( value );
-			}
+			serializeLabel( value );
 		}
 	};
 
@@ -158,11 +140,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 	const descChangeHandler = ( value ) => {
 		if ( JSON.stringify( value ) !== JSON.stringify( desc ) ) {
 			setDescJsonVal( value );
-			if ( mergeTagRegexMatch( getPlainText( value ) ) ) {
-				setMergeTagAlertPopup( true );
-			} else {
-				serializeDesc( value );
-			}
+			serializeDesc( value );
 		}
 	};
 
@@ -225,37 +203,6 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 			) }
 
 			<BlockToolbar id={ id } editor={ currentEditor } />
-			{ mergeTagAlertPopup && (
-				<Modal
-					className={ classnames(
-						'block-editor-block-edit__var-alert',
-						css`
-							border: none !important;
-						`
-					) }
-					title="Warning!"
-					onRequestClose={ () => {
-						setMergeTagAlertPopup( false );
-						currentEditor.undo();
-					} }
-				>
-					<div className="block-editor-block-edit__var-alert-body">
-						You should not call variables directly from the editor.
-					</div>
-					<div className="block-editor-block-edit__var-alert-actions">
-						<Button
-							isDanger
-							isLarge
-							onClick={ () => {
-								setMergeTagAlertPopup( false );
-								currentEditor.undo();
-							} }
-						>
-							Ok
-						</Button>
-					</div>
-				</Modal>
-			) }
 		</div>
 	);
 };
