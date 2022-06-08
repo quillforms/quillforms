@@ -19,16 +19,17 @@ import { closeSmall } from '@wordpress/icons';
  */
 import { useComboboxControlContext } from '../context';
 
-interface Props {}
+interface Props {
+	placeholder?: string;
+}
 
-const RichText: React.FC< Props > = ( {} ) => {
+const RichText: React.FC< Props > = ( { placeholder } ) => {
 	const {
 		// sections,
 		options,
 		value,
 		onChange,
 		isToggleEnabled,
-		placeholder,
 	} = useComboboxControlContext();
 
 	let tags: MergeTags = [];

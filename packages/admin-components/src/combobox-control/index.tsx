@@ -7,6 +7,7 @@ import { IconRenderer } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Internal Dependencies
@@ -55,8 +56,12 @@ export type ComboboxControlProps = {
 	isToggleEnabled?: boolean;
 	// customize sections and options.
 	customize?: CustomizeFunction;
-	// used for rich text editor only.
+	// rich text editor placeholder. (rich text)
 	placeholder?: string;
+	// hide "choose an option". (select)
+	hideChooseOption?: boolean;
+	// select first option on load if value is empty. calls onChange. (select)
+	selectFirstOption?: boolean;
 };
 
 const ComboboxControl: React.FC< ComboboxControlProps > = ( {
@@ -65,6 +70,8 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 	isToggleEnabled = true,
 	customize,
 	placeholder,
+	hideChooseOption,
+	selectFirstOption,
 } ) => {
 	const fields = useFields( { section: 'fields' } );
 	const variables = useVariables( { section: 'variables' } );
@@ -155,6 +162,13 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 		options = customized.options;
 	}
 
+	// select first option.
+	useEffect( () => {
+		if ( selectFirstOption && ! value.type && ! value.value ) {
+			onChange( { type: options[ 0 ].type, value: options[ 0 ].value } );
+		}
+	}, [] );
+
 	return (
 		<div className="combobox-control">
 			<ComboboxControlContextProvider
@@ -164,10 +178,13 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 					value,
 					onChange,
 					isToggleEnabled,
-					placeholder,
 				} }
 			>
-				{ value.type === 'text' ? <RichText /> : <Select /> }
+				{ value.type === 'text' ? (
+					<RichText placeholder={ placeholder } />
+				) : (
+					<Select hideChooseOption={ hideChooseOption } />
+				) }
 			</ComboboxControlContextProvider>
 		</div>
 	);
