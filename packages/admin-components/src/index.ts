@@ -15,6 +15,7 @@ export { default as __experimentalAddonFeatureAvailability } from './addon-featu
 export { default as FontPicker } from './font-picker';
 export { default as FormAdminBar } from './form-admin-bar';
 export { default as FormAdminNav } from './form-admin-bar/admin-nav';
+export { default as LogicConditions } from './logic-conditions/';
 export { default as ComboboxControl } from './combobox-control/';
 export { default as MappingRow } from './mapping-row';
 export { default as MappingList } from './mapping-list';
