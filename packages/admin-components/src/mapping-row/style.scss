@@ -36,20 +36,23 @@
 		border-radius: 50%;
 		color: #fff;
 		cursor: pointer;
-		svg {
-			width: 100%;
-			height: 100%;
-		}
 	}
 	.mapping-row-buttons-remove {
 		background: #b65454;
 		svg {
 			fill: #fff;
+			width: 90%;
+			height: 90%;
 		}
 	}
 	.mapping-row-buttons-add {
 		background: #5fd995;
 		margin-left: 3px;
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
 	}
 }
 
