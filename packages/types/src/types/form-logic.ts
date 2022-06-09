@@ -18,6 +18,19 @@ export type LogicConditionOperator =
 export type LogicCondition = {
 	vars: [
 		{
+			type: string;
+			value: string;
+		},
+		{
+			value: string;
+		}
+	];
+	op: LogicConditionOperator;
+};
+
+export type EditorLogicCondition = {
+	vars: [
+		{
 			type?: string;
 			value?: string;
 		},

@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { LogicCondition } from '@quillforms/types';
+import { EditorLogicCondition } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -22,8 +22,8 @@ import TextControl from '../text-control';
 import Button from '../button';
 
 export type LogicConditionsProps = {
-	value: LogicCondition[][];
-	onChange: ( value: LogicCondition[][] ) => void;
+	value: EditorLogicCondition[][];
+	onChange: ( value: EditorLogicCondition[][] ) => void;
 	combobox?: {
 		customize?: {
 			handler: CustomizeFunction;
