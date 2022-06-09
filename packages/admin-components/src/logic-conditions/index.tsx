@@ -25,7 +25,10 @@ export type LogicConditionsProps = {
 	value: LogicCondition[][];
 	onChange: ( value: LogicCondition[][] ) => void;
 	combobox?: {
-		customize?: CustomizeFunction;
+		customize?: {
+			handler: CustomizeFunction;
+			override?: boolean;
+		};
 	};
 };
 
@@ -43,35 +46,43 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 		};
 	} );
 
-	const customize = ( customizable: CustomizeObject ) => {
-		let { sections, options } = customizable;
-		sections = sections.filter( ( section ) =>
-			[ 'fields', 'variables', 'hidden_fields' ].includes( section.key )
-		);
-		options = options.filter( ( option ) => {
-			if ( option.type === 'field' ) {
-				const blockType = blockTypes[ option.other?.name ?? '' ];
-				return (
-					blockType?.supports?.logic &&
-					blockType?.supports?.logicConditions
+	const customize = combobox?.customize?.override
+		? combobox.customize.handler
+		: ( customizable: CustomizeObject ) => {
+				let { sections, options } = customizable;
+				sections = sections.filter( ( section ) =>
+					[ 'fields', 'variables', 'hidden_fields' ].includes(
+						section.key
+					)
 				);
-			} else if (
-				[ 'variable', 'hidden_field' ].includes( option.type )
-			) {
-				return true;
-			} else {
-				return false;
-			}
-		} );
+				options = options.filter( ( option ) => {
+					if ( option.type === 'field' ) {
+						const blockType =
+							blockTypes[ option.other?.name ?? '' ];
+						return (
+							blockType?.supports?.logic &&
+							blockType?.supports?.logicConditions
+						);
+					} else if (
+						[ 'variable', 'hidden_field' ].includes( option.type )
+					) {
+						return true;
+					} else {
+						return false;
+					}
+				} );
 
-		if ( combobox?.customize ) {
-			const customized = combobox.customize( { sections, options } );
-			sections = customized.sections;
-			options = customized.options;
-		}
+				if ( combobox?.customize ) {
+					const customized = combobox.customize.handler( {
+						sections,
+						options,
+					} );
+					sections = customized.sections;
+					options = customized.options;
+				}
 
-		return { sections, options };
-	};
+				return { sections, options };
+		  };
 
 	return (
 		<div className="logic-conditions">
