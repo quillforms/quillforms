@@ -18,10 +18,13 @@ import React from 'react';
  * Internal Dependencies
  */
 import FieldRender from '../field-render';
-import useLogic from '../../hooks/use-logic';
-import useBlocks from '../../hooks/use-blocks';
-import useBlockTypes from '../../hooks/use-block-types';
-import useFormSettings from '../../hooks/use-form-settings';
+import {
+	useBlocks,
+	useBlockTypes,
+	useFormSettings,
+	useLogic,
+	useHiddenFields,
+} from '../../hooks';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -35,6 +38,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
+	const hiddenFields = useHiddenFields();
 	const settings = useFormSettings();
 	const ref = useRef< HTMLDivElement | null >( null );
 	const { swiper } = useSelect( ( select ) => {
@@ -188,7 +192,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				'QuillForms.RendererCore.LogicApply',
 				blocks,
 				blockTypes,
-				logic
+				logic,
+				hiddenFields
 			);
 		}
 	}, [ currentBlockAnswer, currentBlockId ] );
@@ -205,7 +210,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				'QuillForms.RendererCore.LogicApply',
 				blocks,
 				blockTypes,
-				logic
+				logic,
+				hiddenFields
 			);
 		}
 		if ( ! applyLogic ) {
