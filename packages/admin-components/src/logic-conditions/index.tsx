@@ -1,7 +1,10 @@
 /**
  * QuillForms Dependencies
  */
-import { EditorLogicCondition } from '@quillforms/types';
+import {
+	EditorLogicCondition,
+	LogicConditionOperator,
+} from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -122,16 +125,31 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 							}
 
 							// possible operators list.
-							const operators =
-								var0Type === 'field' &&
-								blockType.logicalOperators
-									? blockType.logicalOperators
-									: [
-											'is',
-											'is_not',
-											'lower_than',
-											'greater_than',
-									  ];
+							let operators:
+								| LogicConditionOperator[]
+								| null = null;
+							if ( var0Type === 'field' ) {
+								if ( blockType.logicalOperators ) {
+									operators = blockType.logicalOperators;
+								}
+							} else if ( var0Type === 'variable' ) {
+								operators = [
+									'is',
+									'is_not',
+									'lower_than',
+									'greater_than',
+								];
+							}
+							if ( ! operators ) {
+								operators = [
+									'is',
+									'is_not',
+									'starts_with',
+									'ends_with',
+									'contains',
+									'not_contains',
+								];
+							}
 
 							let row1: any = null;
 							let row2: any = null;
