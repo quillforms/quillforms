@@ -39,7 +39,6 @@ const DropdownLogicControl = ( {
 			className={ css`
 				margin-top: 10px;
 				margin-bottom: 10px;
-				width: 200px;
 			` }
 			value={ options.find( ( option ) => option.key === value ) }
 			onChange={ ( selectedChoice ) => {
