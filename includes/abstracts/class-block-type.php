@@ -429,6 +429,9 @@ abstract class Block_Type extends stdClass {
 			case 'contains':
 				return strpos( $field_value, $condition_value ) !== false;
 
+			case 'not_contains':
+				return strpos( $field_value, $condition_value ) === false;
+
 			case 'starts_with':
 				if ( strlen( $condition_value ) > strlen( $field_value ) ) {
 					return false;
