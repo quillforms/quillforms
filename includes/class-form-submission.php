@@ -237,8 +237,6 @@ class Form_Submission {
 
 		// finally do entry processed action.
 		do_action( 'quillforms_entry_processed', $this->entry, $this->form_data );
-
-		echo 'Hello';
 	}
 
 	/**
