@@ -154,14 +154,7 @@ class Entry_Record_Types {
 		}
 
 		// get block data.
-		$block_data = array_values(
-			array_filter(
-				$form_data['blocks'],
-				function( $block ) use ( $field_id ) {
-					return $block['id'] === $field_id;
-				}
-			)
-		) [0] ?? null;
+		$block_data = quillforms_arrays_find( $form_data['blocks'], 'id', $field_id );
 		if ( ! $block_data ) {
 			return null;
 		}
