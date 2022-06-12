@@ -1,0 +1,3 @@
+sudo docker run --rm -it -v $PWD:/usr/src/app -w /usr/src/app node:14.18-alpine npm install
+sudo docker run --rm -it -v $PWD:/usr/src/app -w /usr/src/app node:14.18-alpine npm -g i @wordpress/env
+sudo docker run --rm -it -v $PWD:/usr/src/app -w /usr/src/app composer install --ignore-platform-reqs
