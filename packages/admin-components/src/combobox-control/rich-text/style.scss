@@ -1,9 +1,21 @@
 .combobox-control-rich-text {
+	position: relative;
 	display: flex;
 	align-items: center;
 
 	.combobox-control-rich-text-back {
-		border: 1px solid #ddd;
+		position: absolute;
+		top: -9px;
+		left: -9px;
+		width: 18px;
+		padding: 1px;
+		display: flex;
+		height: 18px;
+		align-items: center;
+		background: #bebebe;
+		cursor: pointer;
+		z-index: 2;
+		border-radius: 5px;
 	}
 
 	.rich-text-control {

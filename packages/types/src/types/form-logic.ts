@@ -15,19 +15,30 @@ export type LogicConditionOperator =
 	| 'contains'
 	| 'not_contains';
 
-export type LogicConditionVarType = 'field' | 'variable';
-
 export type LogicCondition = {
-	op: LogicConditionOperator;
 	vars: [
 		{
-			type: LogicConditionVarType;
+			type: string;
 			value: string;
 		},
 		{
 			value: string;
 		}
 	];
+	op: LogicConditionOperator;
+};
+
+export type EditorLogicCondition = {
+	vars: [
+		{
+			type?: string;
+			value?: string;
+		},
+		{
+			value?: string;
+		}
+	];
+	op?: LogicConditionOperator;
 };
 
 export type LogicAction = {

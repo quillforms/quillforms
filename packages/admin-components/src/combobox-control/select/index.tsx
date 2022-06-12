@@ -19,9 +19,11 @@ import { __ } from '@wordpress/i18n';
 import { useComboboxControlContext } from '../context';
 import Option from './option';
 
-interface Props {}
+interface Props {
+	hideChooseOption?: boolean;
+}
 
-const Select: React.FC< Props > = ( {} ) => {
+const Select: React.FC< Props > = ( { hideChooseOption } ) => {
 	const {
 		sections,
 		options,
@@ -34,6 +36,7 @@ const Select: React.FC< Props > = ( {} ) => {
 		{
 			key: 'select',
 			name: <Option label={ __( 'Choose an option', 'quillforms' ) } />,
+			style: hideChooseOption ? { display: 'none' } : {},
 		},
 	];
 	// add each section with related options.

@@ -117,6 +117,16 @@ export const setBlockRendererSettings = (
 					return fieldValue.indexOf( conditionVal ) !== -1;
 				}
 
+				case 'not_contains': {
+					if (
+						typeof fieldValue !== 'string' ||
+						typeof conditionVal !== 'string'
+					) {
+						return false;
+					}
+					return fieldValue.indexOf( conditionVal ) === -1;
+				}
+
 				case 'starts_with': {
 					if (
 						typeof fieldValue !== 'string' ||

@@ -8,7 +8,7 @@ import Button from '../../button';
  * WordPress Dependencies
  */
 import { Icon } from '@wordpress/components';
-import { arrowLeft } from '@wordpress/icons';
+import { closeSmall } from '@wordpress/icons';
 
 /**
  * External Dependencies
@@ -19,16 +19,17 @@ import { arrowLeft } from '@wordpress/icons';
  */
 import { useComboboxControlContext } from '../context';
 
-interface Props {}
+interface Props {
+	placeholder?: string;
+}
 
-const RichText: React.FC< Props > = ( {} ) => {
+const RichText: React.FC< Props > = ( { placeholder } ) => {
 	const {
 		// sections,
 		options,
 		value,
 		onChange,
 		isToggleEnabled,
-		placeholder,
 	} = useComboboxControlContext();
 
 	let tags: MergeTags = [];
@@ -51,7 +52,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 					className="combobox-control-rich-text-back"
 					onClick={ () => onChange( {} ) }
 				>
-					<Icon icon={ arrowLeft } />
+					<Icon icon={ closeSmall } />
 				</Button>
 			) }
 			<RichTextControl
