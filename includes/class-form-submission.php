@@ -372,14 +372,7 @@ class Form_Submission {
 					break;
 				case 'mapping':
 					$field_id   = $product['field'];
-					$block_data = array_values(
-						array_filter(
-							$this->form_data['blocks'],
-							function( $block ) use ( $field_id ) {
-								return $block['id'] === $field_id;
-							}
-						)
-					) [0] ?? null;
+					$block_data = quillforms_arrays_find( $this->form_data['blocks'], 'id', $field_id );
 					if ( ! $block_data ) {
 						break;
 					}
@@ -563,14 +556,7 @@ class Form_Submission {
 		$walkpath = $this->entry['meta']['walkpath']['value'];
 
 		$last_block_id = $walkpath[ count( $walkpath ) - 1 ];
-		$last_block    = array_values(
-			array_filter(
-				$this->form_data['blocks'],
-				function( $block ) use ( $last_block_id ) {
-					return $block['id'] === $last_block_id;
-				}
-			)
-		)[0];
+		$last_block    = quillforms_arrays_find( $this->form_data['blocks'], 'id', $last_block_id );
 
 		if ( 'thankyou-screen' === $last_block['name'] ) {
 			return $last_block['id'];
