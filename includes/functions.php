@@ -245,12 +245,10 @@ add_action( 'quillforms_cleanup_logs', 'quillforms_cleanup_logs' );
  * @return array|null
  */
 function quillforms_arrays_find( $arrays, $key, $value ) {
-	return array_values(
-		array_filter(
-			$arrays,
-			function( $item ) use ( $key, $value ) {
-				return isset( $item[ $key ] ) && $item[ $key ] === $value;
-			}
-		)
-	)[0] ?? null;
+	foreach ( $arrays as $array ) {
+		if ( $array[ $key ] === $value ) {
+			return $array;
+		}
+	}
+	return null;
 }
