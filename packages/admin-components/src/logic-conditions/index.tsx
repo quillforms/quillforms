@@ -40,7 +40,7 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 	onChange,
 	combobox,
 } ) => {
-	value = value ? value : [ [ { vars: [ {}, {} ] } ] ];
+	value = Array.isArray( value ) ? value : [ [ { vars: [ {}, {} ] } ] ];
 
 	const { blocks, blockTypes } = useSelect( ( select ) => {
 		return {
