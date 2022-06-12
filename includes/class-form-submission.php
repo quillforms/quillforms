@@ -207,19 +207,19 @@ class Form_Submission {
 		}
 
 		// add some entry meta.
-		$this->entry->records['meta']['user_id']  = array(
+		$this->entry->meta['user_id']  = array(
 			'value' => get_current_user_id(),
 		);
-		$this->entry->records['meta']['walkpath'] = array(
+		$this->entry->meta['walkpath'] = array(
 			'value' => $walkpath,
 		);
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->records['meta']['user_ip'] = array(
+			$this->entry->meta['user_ip'] = array(
 				'value' => $this->get_client_ip(),
 			);
 		}
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry->records['meta']['user_agent'] = array(
+			$this->entry->meta['user_agent'] = array(
 				'value' => $_SERVER['HTTP_USER_AGENT'] ?? '',
 			);
 		}
