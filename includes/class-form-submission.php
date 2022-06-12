@@ -475,7 +475,7 @@ class Form_Submission {
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
 			'payments'           => array_merge(
-				$this->entry['meta']['payments']['value'],
+				$this->entry->meta['payments']['value'],
 				array(
 					'methods' => $this->get_payment_methods(),
 				)
@@ -553,7 +553,7 @@ class Form_Submission {
 	 * @return string
 	 */
 	public function get_thankyou_screen_id() {
-		$walkpath = $this->entry['meta']['walkpath']['value'];
+		$walkpath = $this->entry->meta['walkpath']['value'];
 
 		$last_block_id = $walkpath[ count( $walkpath ) - 1 ];
 		$last_block    = quillforms_arrays_find( $this->form_data['blocks'], 'id', $last_block_id );
