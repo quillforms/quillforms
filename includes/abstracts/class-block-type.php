@@ -8,6 +8,7 @@
 
 namespace QuillForms\Abstracts;
 
+use QuillForms\Logic_Conditions;
 use stdClass;
 
 /**
@@ -314,7 +315,7 @@ abstract class Block_Type extends stdClass {
 	 *
 	 * @return mixed $value The formatted entry value.
 	 */
-	public function sanitize_field( $value, $form_data ) {
+	public function sanitize_field( $value, $form_data ) { // phpcs:ignore
 		if ( ! is_array( $value ) ) {
 			return sanitize_text_field( $value );
 		} else {
@@ -336,7 +337,7 @@ abstract class Block_Type extends stdClass {
 	 * @param mixed $value       The value to validate.
 	 * @param array $form_data   The form data.
 	 */
-	public function validate_field( $value, $form_data ) {
+	public function validate_field( $value, $form_data ) { // phpcs:ignore
 		// Here we do the validation.
 	}
 
@@ -350,7 +351,7 @@ abstract class Block_Type extends stdClass {
 	 * @param array $form_data   The form data.
 	 * @return mixed
 	 */
-	public function format_field( $value, $form_data ) {
+	public function format_field( $value, $form_data ) { // phpcs:ignore
 		return $value;
 	}
 
@@ -383,7 +384,7 @@ abstract class Block_Type extends stdClass {
 	 *
 	 * @return mixed $value The entry value.
 	 */
-	public function get_readable_value( $value, $form_data, $context = 'html' ) {
+	public function get_readable_value( $value, $form_data, $context = 'html' ) { // phpcs:ignore
 		return $value;
 	}
 
@@ -398,55 +399,7 @@ abstract class Block_Type extends stdClass {
 	 * @return bool
 	 */
 	public function is_condition_fulfilled( $field_value, $condition ) : bool {
-		$condition_value = $condition['value'];
-		switch ( $condition['operator'] ) {
-			case 'is':
-				if ( is_array( $field_value ) ) {
-					// possible input is "1" to be compared with 1.
-					return in_array( $condition_value, $field_value ); // phpcs:ignore
-				}
-				return ( $field_value == $condition_value ); // phpcs:ignore
-
-			case 'is_not':
-				if ( is_array( $field_value ) ) {
-					// possible input is "1" to be compared with 1.
-					return ! in_array( $condition_value, $field_value ); // phpcs:ignore
-				}
-				return ( $field_value != $condition_value ); // phpcs:ignore
-
-			case 'greater_than':
-				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
-					return false;
-				}
-				return (float) $field_value > (float) $condition_value;
-
-			case 'lower_than':
-				if ( ! is_numeric( $condition_value ) || ! is_numeric( $field_value ) ) {
-					return false;
-				}
-				return (float) $field_value < (float) $condition_value;
-
-			case 'contains':
-				return strpos( $field_value, $condition_value ) !== false;
-
-			case 'not_contains':
-				return strpos( $field_value, $condition_value ) === false;
-
-			case 'starts_with':
-				if ( strlen( $condition_value ) > strlen( $field_value ) ) {
-					return false;
-				}
-				return substr_compare( $field_value, $condition_value, 0, strlen( $condition_value ) ) === 0;
-
-			case 'ends_with':
-				if ( strlen( $condition_value ) > strlen( $field_value ) ) {
-					return false;
-				}
-				return substr_compare( $field_value, $condition_value, -strlen( $condition_value ) ) === 0;
-
-			default:
-				return false;
-		}
+		return Logic_Conditions::is_condition_fulfilled( $field_value, $condition );
 	}
 
 }
