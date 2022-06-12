@@ -137,6 +137,7 @@ const connections: Reducer< Connections, ConnectionsActionTypes > = (
 					if ( isArray( obj ) ) return src;
 				} );
 			} else {
+				// @ts-ignore
 				connection = { ...connection, ...action.connection };
 			}
 			return {

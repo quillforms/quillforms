@@ -58,8 +58,9 @@ class Entry_Record_Types {
 		$this->register(
 			'field',
 			array(
-				'section'            => 'fields',
-				'get_readable_value' => array( $this, 'get_field_readable_value' ),
+				'section'                => 'fields',
+				'get_readable_value'     => array( $this, 'get_field_readable_value' ),
+				'is_condition_fulfilled' => array( $this, 'is_field_condition_fulfilled' ),
 			)
 		);
 	}
@@ -74,6 +75,7 @@ class Entry_Record_Types {
 	 *     Record type args.
 	 *     @type string $section Section. Required.
 	 *     @type callable $get_readable_value Callable. Optional. Accepts $record_id, $entry, $form_data, $context.
+	 *     @type callable $is_condition_fulfilled Callable. Optional. Accepts $record_id, $condition, $entry, $form_data.
 	 * }
 	 * @return boolean
 	 */
@@ -92,6 +94,17 @@ class Entry_Record_Types {
 			array(
 				'process' => function( $record_id, $entry, $form_data, $context ) use ( $type ) {
 					return $entry->get_record_readable_value( $type, $record_id, $form_data, $context ) ?? '';
+				},
+			)
+		);
+
+		// register logic condition type.
+		Logic_Conditions::instance()->register(
+			$type,
+			array(
+				'check' => $args['is_condition_fulfilled'] ?? function( $record_id, $condition, $entry, $form_data ) use ( $args ) { // phpcs:ignore
+					$value = $entry->records[ $args['section'] ][ $record_id ]['value'] ?? '';
+					return Logic_Conditions::is_condition_fulfilled( $value, $condition );
 				},
 			)
 		);
@@ -141,14 +154,7 @@ class Entry_Record_Types {
 		}
 
 		// get block data.
-		$block_data = array_values(
-			array_filter(
-				$form_data['blocks'],
-				function( $block ) use ( $field_id ) {
-					return $block['id'] === $field_id;
-				}
-			)
-		) [0] ?? null;
+		$block_data = quillforms_arrays_find( $form_data['blocks'], 'id', $field_id );
 		if ( ! $block_data ) {
 			return null;
 		}
@@ -160,6 +166,38 @@ class Entry_Record_Types {
 		}
 
 		return $block_type->get_readable_value( $raw_value, $form_data, $context );
+	}
+
+	/**
+	 * Is field condition fulfilled
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string $field_id  Field id.
+	 * @param array  $condition {
+	 *     Condition args.
+	 *     @type string $operator Operator. Required.
+	 *     @type mixed  $value Value. Required.
+	 * }
+	 * @param Entry  $entry     Entry object.
+	 * @param array  $form_data Form data.
+	 * @return boolean
+	 */
+	public function is_field_condition_fulfilled( $field_id, $condition, $entry, $form_data ) {
+		// get block data.
+		$block_data = quillforms_arrays_find( $form_data['blocks'], 'id', $field_id );
+		if ( ! $block_data ) {
+			return false;
+		}
+
+		// get block type.
+		$block_type = Blocks_Manager::instance()->create( $block_data );
+		if ( ! $block_type ) {
+			return false;
+		}
+
+		$value = $entry->records['fields'][ $field_id ]['value'] ?? '';
+		return $block_type->is_condition_fulfilled( $value, $condition );
 	}
 
 }

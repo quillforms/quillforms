@@ -26,15 +26,18 @@ const Option: React.FC< Props > = ( { label, iconBox, hasSection } ) => {
 		<div
 			className={
 				'combobox-control-select-option' +
-				( hasSection ? ' combobox-control-select-option-has_section' : '' )
+				( hasSection
+					? ' combobox-control-select-option-has_section'
+					: '' )
 			}
 		>
 			{ !! iconBox && (
 				<BlockIconBox icon={ iconBox.icon } color={ iconBox.color } />
 			) }
-			<div className="combobox-control-select-option-label">
-				{ label }
-			</div>
+			<div
+				className="combobox-control-select-option-label"
+				dangerouslySetInnerHTML={ { __html: label } }
+			></div>
 		</div>
 	);
 };

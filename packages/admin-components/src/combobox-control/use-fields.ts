@@ -12,6 +12,7 @@ import { size } from 'lodash';
  * Internal Dependencies
  */
 import type { Options } from '.';
+import { getPlainExcerpt } from '../rich-text';
 
 const useFields = ( { section } ) => {
 	const { blockTypes, formBlocks } = useSelect( ( select ) => {
@@ -32,7 +33,9 @@ const useFields = ( { section } ) => {
 			fields.push( {
 				type: 'field',
 				value: block.id,
-				label: block.attributes?.label ?? '',
+				label: block.attributes?.label
+					? getPlainExcerpt( block.attributes.label )
+					: '',
 				iconBox: {
 					icon: blockType?.icon,
 					color: blockType?.color,

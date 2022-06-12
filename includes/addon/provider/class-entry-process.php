@@ -10,6 +10,7 @@ namespace QuillForms\Addon\Provider;
 
 use QuillForms\Abstracts\Log_Levels;
 use QuillForms\Entry;
+use QuillForms\Logic_Conditions;
 use QuillForms\Merge_Tags;
 use Throwable;
 
@@ -70,6 +71,24 @@ abstract class Entry_Process {
 	final public function execute() {
 		$connections = $this->provider->form_data->get( $this->entry->form_id, 'connections' ) ?? array();
 		foreach ( $connections as $connection_id => $connection ) {
+			// check conditions.
+			if ( $connection['conditions'] ?? null ) {
+				if ( ! Logic_Conditions::instance()->is_conditions_met( $connection['conditions'], $this->entry, $this->form_data ) ) {
+					$this->log_result(
+						$connection_id,
+						$connection,
+						array(
+							'status'  => self::SKIPPED,
+							'details' => array(
+								'reason' => "logic conditions aren't met",
+							),
+						)
+					);
+					continue;
+				}
+			}
+
+			// process connection.
 			try {
 				$result = $this->execute_connection( $connection_id, $connection );
 				$this->log_result( $connection_id, $connection, $result );

@@ -167,27 +167,51 @@ class Form_Submission {
 		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
 
 		// blocks walk path.
-		$walk_path = $this->form_data['blocks'];
-		// filter walk path and entry.
-		list( $walk_path, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walk_path, $this->entry ), $this->form_data );
+		$walkpath = array_map(
+			function( $block ) {
+				return $block['id'];
+			},
+			$this->form_data['blocks']
+		);
+
+		// for backward compatibility. 1.13.0.
+		$walkpath_filter_format = apply_filters( 'quillforms_entry_walkpath_format', 'blocks' );
+		if ( 'blocks' === $walkpath_filter_format ) {
+			$walkpath_blocks                       = array_map(
+				function( $block_id ) {
+					return quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+				},
+				$walkpath
+			);
+			list( $walkpath_blocks, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath_blocks, $this->entry ), $this->form_data );
+			$walkpath                              = array_map(
+				function( $block ) {
+					return $block['id'];
+				},
+				$walkpath_blocks
+			);
+		} else {
+			list( $walkpath, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
+		}
 
 		// Validate all fields at the walkpath.
-		foreach ( $walk_path as $field ) {
-			$block_type = Blocks_Manager::instance()->create( $field );
+		foreach ( $walkpath as $block_id ) {
+			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
 				continue;
 			}
 
 			$validation_message = null;
-			$field_answer       = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
+			$field_answer       = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
 			$block_type->validate_field( $field_answer, $this->form_data );
 			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
 				$validation_message = $block_type->validation_err;
 			}
 
-			$validation_message = apply_filters( 'quillforms_entry_field_validation', $validation_message, $field, $block_type, $field_answer, $this->entry, $this->form_data );
+			$validation_message = apply_filters( 'quillforms_entry_field_validation', $validation_message, $block, $block_type, $field_answer, $this->entry, $this->form_data );
 			if ( $validation_message ) {
-				$this->errors['fields'][ $field['id'] ] = $validation_message;
+				$this->errors['fields'][ $block_id ] = $validation_message;
 			}
 		}
 
@@ -197,44 +221,27 @@ class Form_Submission {
 		}
 
 		// Format the editable non-empty fields.
-		foreach ( $walk_path as $field ) {
-			$block_type = Blocks_Manager::instance()->create( $field );
+		foreach ( $walkpath as $block_id ) {
+			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
 				continue;
 			}
 
-			$field_answer = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
+			$field_answer = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$this->entry->records['fields'][ $field['id'] ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
+				$this->entry->records['fields'][ $block_id ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
 			}
 		}
 
-		// get walk path ids.
-		$walk_path_ids = array_values(
-			array_map(
-				function( $block ) {
-					return $block['id'];
-				},
-				$walk_path
-			)
-		);
-
-		// add entry meta.
-		$this->entry->records['meta']['user_id']   = array(
-			'value' => get_current_user_id(),
-		);
-		$this->entry->records['meta']['walk_path'] = array(
-			'value' => $walk_path_ids,
-		);
+		// add some entry meta.
+		$this->entry->meta['walkpath']['value'] = $walkpath;
+		$this->entry->meta['user_id']['value']  = get_current_user_id();
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->records['meta']['user_ip'] = array(
-				'value' => $this->get_client_ip(),
-			);
+			$this->entry->meta['user_ip']['value'] = $this->get_client_ip();
 		}
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry->records['meta']['user_agent'] = array(
-				'value' => $_SERVER['HTTP_USER_AGENT'] ?? '',
-			);
+			$this->entry->meta['user_agent']['value'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 		}
 
 		// check payment.
@@ -308,7 +315,7 @@ class Form_Submission {
 			$this->entry->records['meta']['submission_id']['value'] = $this->submission_id;
 		}
 
-		// this can add ID to the entry.
+		// this can set ID of the entry.
 		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
 
 		// do entry saved action.
@@ -357,14 +364,7 @@ class Form_Submission {
 					break;
 				case 'mapping':
 					$field_id   = $product['field'];
-					$block_data = array_values(
-						array_filter(
-							$this->form_data['blocks'],
-							function( $block ) use ( $field_id ) {
-								return $block['id'] === $field_id;
-							}
-						)
-					) [0] ?? null;
+					$block_data = quillforms_arrays_find( $this->form_data['blocks'], 'id', $field_id );
 					if ( ! $block_data ) {
 						break;
 					}
@@ -467,7 +467,7 @@ class Form_Submission {
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
 			'payments'           => array_merge(
-				$this->entry['meta']['payments']['value'],
+				$this->entry->meta['payments']['value'],
 				array(
 					'methods' => $this->get_payment_methods(),
 				)
@@ -545,17 +545,10 @@ class Form_Submission {
 	 * @return string
 	 */
 	public function get_thankyou_screen_id() {
-		$walk_path_ids = $this->entry['meta']['walk_path']['value'];
+		$walkpath = $this->entry->meta['walkpath']['value'];
 
-		$last_block_id = $walk_path_ids[ count( $walk_path_ids ) - 1 ];
-		$last_block    = array_values(
-			array_filter(
-				$this->form_data['blocks'],
-				function( $block ) use ( $last_block_id ) {
-					return $block['id'] === $last_block_id;
-				}
-			)
-		)[0];
+		$last_block_id = $walkpath[ count( $walkpath ) - 1 ];
+		$last_block    = quillforms_arrays_find( $this->form_data['blocks'], 'id', $last_block_id );
 
 		if ( 'thankyou-screen' === $last_block['name'] ) {
 			return $last_block['id'];

@@ -1,7 +1,12 @@
 /**
  * QuillForms Dependencies.
  */
-import { Button, TextControl } from '@quillforms/admin-components';
+import {
+	Button,
+	LogicConditions,
+	TextControl,
+	ToggleControl,
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -70,6 +75,56 @@ const Connection: React.FC< Props > = ( { id } ) => {
 			) : (
 				<main.connection.options.Component connectionId={ id } />
 			) }
+			<div className="connection-section connection-conditions">
+				<div className="connection-section-label">
+					Conditional Logic
+				</div>
+				<div>
+					<ToggleControl
+						checked={ !! connection.conditions }
+						onChange={ () => {
+							if ( connection.conditions ) {
+								updateConnection(
+									id,
+									{ conditions: undefined },
+									false
+								);
+							} else {
+								updateConnection(
+									id,
+									// @ts-ignore
+									{
+										conditions: [
+											[ { vars: [ {}, {} ] } ],
+										],
+									},
+									false
+								);
+							}
+						} }
+					/>{ ' ' }
+					Enable
+				</div>
+				{ !! connection.conditions && (
+					<div>
+						<div className="conditions-instructions">
+							Process this connection if the following conditions
+							are met:
+						</div>
+						<LogicConditions
+							value={ connection.conditions }
+							onChange={ ( value ) =>
+								updateConnection(
+									id,
+									// @ts-ignore
+									{ conditions: value },
+									false
+								)
+							}
+						/>
+					</div>
+				) }
+			</div>
 		</div>
 	);
 };

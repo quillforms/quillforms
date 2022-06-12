@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { plus, closeSmall } from '@wordpress/icons';
+import { plus, trash } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 
 /**
@@ -37,7 +37,7 @@ const MappingRow: React.FC< Props > = ( {
 			<div className="mapping-row-buttons">
 				{ !! onRemoveClick && (
 					<div className="mapping-row-buttons-remove">
-						<Icon icon={ closeSmall } onClick={ onRemoveClick } />
+						<Icon icon={ trash } onClick={ onRemoveClick } />
 					</div>
 				) }
 				{ !! onAddClick && (

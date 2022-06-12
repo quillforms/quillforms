@@ -14,7 +14,6 @@ const ComboboxControlContext = createContext< {
 	value: ComboboxControlValue;
 	onChange: ( value: ComboboxControlValue ) => void;
 	isToggleEnabled: boolean;
-	placeholder?: string;
 } >( {
 	sections: [],
 	options: [],
