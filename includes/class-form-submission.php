@@ -139,34 +139,51 @@ class Form_Submission {
 		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
 
 		// blocks walk path.
-		$walk_path = array_values(
-			array_filter(
-				$this->form_data['blocks'],
-				function ( $block ) {
-					return 'welcome-screen' !== $block['name'] && 'thankyou-screen' !== $block['name'];
-				}
-			)
+		$walkpath = array_map(
+			function( $block ) {
+				return $block['id'];
+			},
+			$this->form_data['blocks']
 		);
-		// filter walk path and entry.
-		list( $walk_path, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walk_path, $this->entry ), $this->form_data );
+
+		// for backward compatibility. 1.13.0.
+		$walkpath_filter_format = apply_filters( 'quillforms_entry_walkpath_format', 'blocks' );
+		if ( 'blocks' === $walkpath_filter_format ) {
+			$walkpath_blocks                       = array_map(
+				function( $block_id ) {
+					return quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+				},
+				$walkpath
+			);
+			list( $walkpath_blocks, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath_blocks, $this->entry ), $this->form_data );
+			$walkpath                              = array_map(
+				function( $block ) {
+					return $block['id'];
+				},
+				$walkpath_blocks
+			);
+		} else {
+			list( $walkpath, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
+		}
 
 		// Validate all fields at the walkpath.
-		foreach ( $walk_path as $field ) {
-			$block_type = Blocks_Manager::instance()->create( $field );
+		foreach ( $walkpath as $block_id ) {
+			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
 				continue;
 			}
 
 			$validation_message = null;
-			$field_answer       = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
+			$field_answer       = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
 			$block_type->validate_field( $field_answer, $this->form_data );
 			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
 				$validation_message = $block_type->validation_err;
 			}
 
-			$validation_message = apply_filters( 'quillforms_entry_field_validation', $validation_message, $field, $block_type, $field_answer, $this->entry, $this->form_data );
+			$validation_message = apply_filters( 'quillforms_entry_field_validation', $validation_message, $block, $block_type, $field_answer, $this->entry, $this->form_data );
 			if ( $validation_message ) {
-				$this->errors['fields'][ $field['id'] ] = $validation_message;
+				$this->errors['fields'][ $block_id ] = $validation_message;
 			}
 		}
 
@@ -176,21 +193,25 @@ class Form_Submission {
 		}
 
 		// Format the editable non-empty fields.
-		foreach ( $walk_path as $field ) {
-			$block_type = Blocks_Manager::instance()->create( $field );
+		foreach ( $walkpath as $block_id ) {
+			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
 				continue;
 			}
 
-			$field_answer = $this->entry->records['fields'][ $field['id'] ]['value'] ?? null;
+			$field_answer = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$this->entry->records['fields'][ $field['id'] ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
+				$this->entry->records['fields'][ $block_id ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
 			}
 		}
 
-		// add entry meta.
-		$this->entry->records['meta']['user_id'] = array(
+		// add some entry meta.
+		$this->entry->records['meta']['user_id']  = array(
 			'value' => get_current_user_id(),
+		);
+		$this->entry->records['meta']['walkpath'] = array(
+			'value' => $walkpath,
 		);
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
 			$this->entry->records['meta']['user_ip'] = array(
@@ -203,7 +224,7 @@ class Form_Submission {
 			);
 		}
 
-		// this can add 'id' to entry array.
+		// this can define ID of entry.
 		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
 
 		// do entry saved action.
@@ -216,6 +237,8 @@ class Form_Submission {
 
 		// finally do entry processed action.
 		do_action( 'quillforms_entry_processed', $this->entry, $this->form_data );
+
+		echo 'Hello';
 	}
 
 	/**
