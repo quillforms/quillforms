@@ -53,4 +53,19 @@
 	.components-text-control__input {
 		margin-top: 0;
 	}
+
+	.connection-conditions {
+		.admin-components-toggle-control {
+			display: inline-flex;
+		}
+
+		.conditions-instructions {
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+
+		.condition-row-1 {
+			margin-bottom: 5px;
+		}
+	}
 }
