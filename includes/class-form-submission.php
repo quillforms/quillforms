@@ -427,12 +427,9 @@ class Form_Submission {
 	 * @return array
 	 */
 	public function get_customer() {
-		$name_field  = $this->form_data['payments']['customer']['name']['value'] ?? null;
-		$email_field = $this->form_data['payments']['customer']['email']['value'] ?? null;
-
 		return array(
-			'name'  => $name_field ? ( $this->entry->records['fields'][ $name_field ]['value'] ?? null ) : null,
-			'email' => $email_field ? ( $this->entry->records['fields'][ $email_field ]['value'] ?? null ) : null,
+			'name'  => Merge_Tags::instance()->process( $this->form_data['payments']['customer']['name'] ?? null, $this->entry, $this->form_data, 'plain' ),
+			'email' => Merge_Tags::instance()->process( $this->form_data['payments']['email']['name'] ?? null, $this->entry, $this->form_data, 'plain' ),
 		);
 	}
 

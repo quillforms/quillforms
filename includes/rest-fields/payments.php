@@ -64,7 +64,6 @@ $payments_schema = array(
 					'properties' => array(
 						'type'  => array(
 							'type' => 'string',
-							'enum' => array( 'field' ),
 						),
 						'value' => array(
 							'type' => 'string',
@@ -76,7 +75,6 @@ $payments_schema = array(
 					'properties' => array(
 						'type'  => array(
 							'type' => 'string',
-							'enum' => array( 'field' ),
 						),
 						'value' => array(
 							'type' => 'string',
