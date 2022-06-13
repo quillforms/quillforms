@@ -2,7 +2,7 @@
 /**
  * Class: Payments
  *
- * @since 1.8.0
+ * @since next.version
  * @package QuillForms
  */
 
@@ -11,14 +11,14 @@ namespace QuillForms;
 /**
  * Payments Class
  *
- * @since 1.8.0
+ * @since next.version
  */
 class Payments {
 
 	/**
 	 * Class instance
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @var self instance
 	 */
@@ -27,7 +27,7 @@ class Payments {
 	/**
 	 * Get class instance
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return self
 	 */
@@ -41,14 +41,14 @@ class Payments {
 	/**
 	 * Constructor
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 */
 	private function __construct() {}
 
 	/**
 	 * Get currencies
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param string|array $properties Currencies properties to return. 'all' for all currencies.
 	 * @return array
@@ -82,7 +82,7 @@ class Payments {
 	/**
 	 * Format money
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param float  $value Value.
 	 * @param string $currency Currency symbol.
@@ -110,7 +110,7 @@ class Payments {
 	/**
 	 * Get default currencies
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array
 	 */

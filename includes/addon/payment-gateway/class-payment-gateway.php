@@ -2,7 +2,7 @@
 /**
  * Payment_Gateway class.
  *
- * @since 1.8.0
+ * @since next.version
  * @package QuillForms
  */
 
@@ -14,7 +14,7 @@ use WP_Error;
 /**
  * Abstract class for payment gateway plugin extensions.
  *
- * @since 1.8.0
+ * @since next.version
  */
 abstract class Payment_Gateway extends Addon {
 
@@ -28,20 +28,9 @@ abstract class Payment_Gateway extends Addon {
 	);
 
 	/**
-	 * Initialize
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return void
-	 */
-	protected function init() {
-		parent::init();
-	}
-
-	/**
 	 * Is gateway and method configured
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param string $method Method.
 	 * @return boolean
@@ -51,7 +40,7 @@ abstract class Payment_Gateway extends Addon {
 	/**
 	 * Is currency supported by the gateway
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param string $currency Currency.
 	 * @return boolean
@@ -61,7 +50,7 @@ abstract class Payment_Gateway extends Addon {
 	/**
 	 * Is recurring supported by method
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param string $method Method.
 	 * @return boolean
@@ -71,7 +60,7 @@ abstract class Payment_Gateway extends Addon {
 	/**
 	 * Is recurring interval supported
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param string  $unit Interval unit.
 	 * @param integer $count Interval count.
@@ -82,7 +71,7 @@ abstract class Payment_Gateway extends Addon {
 	/**
 	 * Is transaction status ok
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param string $status Transaction status.
 	 * @return boolean
@@ -92,7 +81,7 @@ abstract class Payment_Gateway extends Addon {
 	/**
 	 * Is subscription status ok
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param string $status Subscription status.
 	 * @return boolean
@@ -102,7 +91,7 @@ abstract class Payment_Gateway extends Addon {
 	/**
 	 * Check new form payments settings before update
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param integer $form_id Form id.
 	 * @param array   $new_settings New form payments settings.

@@ -2,11 +2,12 @@
 /**
  * REST Fields: payments
  *
- * @since 1.0.0
+ * @since next.version
  * @package QuillForms
  * @subpackage RESTFields
  */
 
+use QuillForms\Addon\Payment_Gateway\Payment_Gateway;
 use QuillForms\Managers\Addons_Manager;
 
 defined( 'ABSPATH' ) || exit;

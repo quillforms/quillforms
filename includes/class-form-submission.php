@@ -43,7 +43,7 @@ class Form_Submission {
 	 * Submission id
 	 * Defined if handling a pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @var integer
 	 */
@@ -53,7 +53,7 @@ class Form_Submission {
 	 * Step
 	 * Defined if handling a pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @var string
 	 */
@@ -270,7 +270,7 @@ class Form_Submission {
 	/**
 	 * Restore pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param integer $submission_id Submission id.
 	 * @return boolean
@@ -292,7 +292,7 @@ class Form_Submission {
 	/**
 	 * Continue pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return void
 	 */
@@ -340,7 +340,7 @@ class Form_Submission {
 			return null;
 		}
 		$items = array();
-		foreach ( $this->form_data['payments']['products'] ?? null as $product ) {
+		foreach ( ( $this->form_data['payments']['products'] ?? array() ) as $product ) {
 			switch ( $product['type'] ) {
 				case 'single':
 					$value = 0;
@@ -405,7 +405,7 @@ class Form_Submission {
 	/**
 	 * Get currency data
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array
 	 */
@@ -422,7 +422,7 @@ class Form_Submission {
 	/**
 	 * Get customer info
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array
 	 */
@@ -439,7 +439,7 @@ class Form_Submission {
 	/**
 	 * Get recurring
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array|null
 	 */
@@ -458,7 +458,7 @@ class Form_Submission {
 	/**
 	 * Get pending submission renderer data
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array
 	 */
@@ -479,7 +479,7 @@ class Form_Submission {
 	/**
 	 * Get payment methods
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array
 	 */
@@ -540,7 +540,7 @@ class Form_Submission {
 	/**
 	 * Get thank you screen id
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return string
 	 */
