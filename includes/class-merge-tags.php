@@ -185,11 +185,11 @@ class Merge_Tags {
 			case 'date_updated':
 				return $entry->date_updated;
 			case 'user_id':
-				return $entry->meta['user_id']['value'] ?? '';
+				return $entry->get_meta_value( 'user_id' ) ?? '';
 			case 'user_ip':
-				return $entry->meta['user_ip']['value'] ?? '';
+				return $entry->get_meta_value( 'user_ip' ) ?? '';
 			case 'user_agent':
-				return $entry->meta['user_agent']['value'] ?? '';
+				return $entry->get_meta_value( 'user_agent' ) ?? '';
 		}
 		return '';
 	}

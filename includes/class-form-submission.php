@@ -120,7 +120,6 @@ class Form_Submission {
 		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
 
 		// add sanitized fields.
-		$this->entry->records['fields'] = array();
 		foreach ( $this->form_data['blocks'] as $block ) {
 			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
@@ -129,13 +128,13 @@ class Form_Submission {
 
 			$field_answer = $unsanitized_entry['answers'][ $block['id'] ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$this->entry->records['fields'][ $block['id'] ] = array(
-					'value' => $block_type->sanitize_field( $field_answer, $this->form_data ),
-				);
+				$sanitize_value = $block_type->sanitize_field( $field_answer, $this->form_data );
+				$this->entry->set_record_value( 'field', $block['id'], $sanitize_value );
 			}
 		}
 
 		// filter for entry object init.
+		/** @var Entry */ // phpcs:ignore
 		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
 
 		// blocks walk path.
@@ -149,12 +148,13 @@ class Form_Submission {
 		// for backward compatibility. 1.13.0.
 		$walkpath_filter_format = apply_filters( 'quillforms_entry_walkpath_format', 'blocks' );
 		if ( 'blocks' === $walkpath_filter_format ) {
-			$walkpath_blocks                       = array_map(
+			$walkpath_blocks = array_map(
 				function( $block_id ) {
 					return quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
 				},
 				$walkpath
 			);
+			/** @var Entry "$this->entry" */ // phpcs:ignore
 			list( $walkpath_blocks, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath_blocks, $this->entry ), $this->form_data );
 			$walkpath                              = array_map(
 				function( $block ) {
@@ -163,6 +163,7 @@ class Form_Submission {
 				$walkpath_blocks
 			);
 		} else {
+			/** @var Entry "$this->entry" */ // phpcs:ignore
 			list( $walkpath, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
 		}
 
@@ -175,7 +176,7 @@ class Form_Submission {
 			}
 
 			$validation_message = null;
-			$field_answer       = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
+			$field_answer       = $this->entry->get_record_value( 'field', $block_id );
 			$block_type->validate_field( $field_answer, $this->form_data );
 			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
 				$validation_message = $block_type->validation_err;
@@ -200,20 +201,21 @@ class Form_Submission {
 				continue;
 			}
 
-			$field_answer = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
+			$field_answer = $this->entry->get_record_value( 'field', $block_id );
 			if ( null !== $field_answer ) {
-				$this->entry->records['fields'][ $block_id ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
+				$formatted_value = $block_type->format_field( $field_answer, $this->form_data );
+				$this->entry->set_record_value( 'field', $block_id, $formatted_value );
 			}
 		}
 
 		// add some entry meta.
-		$this->entry->meta['walkpath']['value'] = $walkpath;
-		$this->entry->meta['user_id']['value']  = get_current_user_id();
+		$this->entry->set_meta_value( 'walkpath', $walkpath );
+		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->meta['user_ip']['value'] = $this->get_client_ip();
+			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
 		}
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry->meta['user_agent']['value'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
+			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
 		}
 
 		// this can define ID of entry.
