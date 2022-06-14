@@ -88,18 +88,4 @@ abstract class Payment_Gateway extends Addon {
 	 */
 	abstract public function is_subscription_status_ok( $status );
 
-	/**
-	 * Check new form payments settings before update
-	 *
-	 * @since next.version
-	 *
-	 * @param integer $form_id Form id.
-	 * @param array   $new_settings New form payments settings.
-	 * @param array   $current_settings Current form payments settings.
-	 * @return true|WP_Error WP_Error if some settings are invalid.
-	 */
-	public function check_form_settings_update( $form_id, $new_settings, $current_settings ) { // phpcs:ignore
-		return true;
-	}
-
 }

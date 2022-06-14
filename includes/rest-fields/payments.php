@@ -172,11 +172,6 @@ register_rest_field(
 						return new WP_Error( 'quillforms_payments_update_failed', sprintf( esc_html__( 'Recurring is not supported by %s method.', 'quillforms' ), "$gateway:$method" ) );
 					}
 				}
-
-				// check gateway errors.
-				$gateway_check = $gateway_addon->check_form_settings_update( $form_id, $new_value, $current_value );
-				if ( is_wp_error( $gateway_check ) ) {
-					return $gateway_check;
 				}
 			}
 
