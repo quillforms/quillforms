@@ -247,7 +247,7 @@ class Form_Submission {
 		// check payment.
 		$products = $this->get_products();
 		if ( $products ) {
-			$this->entry->records['meta']['payments']['value'] = array(
+			$this->entry->meta['payments']['value'] = array(
 				'products'  => $products,
 				'currency'  => $this->get_currency(),
 				'customer'  => $this->get_customer(),
@@ -312,7 +312,7 @@ class Form_Submission {
 	 */
 	public function process_entry() {
 		if ( $this->submission_id ) {
-			$this->entry->records['meta']['submission_id']['value'] = $this->submission_id;
+			$this->entry->meta['submission_id']['value'] = $this->submission_id;
 		}
 
 		// this can set ID of the entry.
