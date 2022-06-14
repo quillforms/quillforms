@@ -85,6 +85,60 @@ class Entry implements ArrayAccess {
 	public $meta;
 
 	/**
+	 * Get record value
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string $type Record type.
+	 * @param string $id Record id.
+	 * @return mixed
+	 */
+	public function get_record_value( $type, $id ) {
+		$section = Entry_Record_Types::instance()->get( $type )['section'];
+		return $this->records[ $section ][ $id ]['value'] ?? null;
+	}
+
+	/**
+	 * Set record value
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string $type Record type.
+	 * @param string $id Record id.
+	 * @param mixed  $value Record value.
+	 * @return void
+	 */
+	public function set_record_value( $type, $id, $value ) {
+		$section                                   = Entry_Record_Types::instance()->get( $type )['section'];
+		$this->records[ $section ][ $id ]['value'] = $value;
+	}
+
+	/**
+	 * Get meta value
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string $id Meta id.
+	 * @return mixed
+	 */
+	public function get_meta_value( $id ) {
+		return $this->meta[ $id ]['value'] ?? null;
+	}
+
+	/**
+	 * Set meta value
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string $id Meta id.
+	 * @param mixed  $value Meta value.
+	 * @return void
+	 */
+	public function set_meta_value( $id, $value ) {
+		$this->meta[ $id ]['value'] = $value;
+	}
+
+	/**
 	 * Get readable records
 	 * Returns the same $this->records with 'readable_value' with each record
 	 *
@@ -120,8 +174,7 @@ class Entry implements ArrayAccess {
 		if ( $get_readable_value ) {
 			return $get_readable_value( $record_id, $this, $form_data, $context );
 		} else {
-			$section = Entry_Record_Types::instance()->get( $record_type )['section'] ?? null;
-			return $this->records[ $section ][ $record_id ]['value'] ?? null;
+			return $this->get_record_value( $record_type, $record_id );
 		}
 	}
 
