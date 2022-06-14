@@ -354,10 +354,10 @@ class Form_Submission {
 							$value = (float) $product['value'] ?? 0;
 							break;
 						case 'field':
-							$value = (float) $this->entry->records['fields'][ $product['value'] ]['value'] ?? 0;
+							$value = (float) $this->entry->get_record_value( 'field', $product['value'] ) ?? 0;
 							break;
 						case 'variable':
-							$value = (float) $this->entry->records['variables'][ $product['value'] ]['value'] ?? 0;
+							$value = (float) $this->entry->get_record_value( 'variable', $product['value'] ) ?? 0;
 							break;
 					}
 					if ( is_numeric( $value ) && $value > 0 ) {
@@ -379,7 +379,7 @@ class Form_Submission {
 						$choices_labels[ $choice['value'] ] = $choice['label'];
 					}
 
-					$selected_choices = (array) $this->entry->records['fields'][ $field_id ]['value'] ?? array();
+					$selected_choices = (array) $this->entry->get_record_value( 'field', $field_id ) ?? array();
 					foreach ( $product['values'] as $choice_id => $value ) {
 						if ( is_numeric( $value ) && (float) $value > 0 && in_array( $choice_id, $selected_choices, true ) ) {
 							$items[] = array(
