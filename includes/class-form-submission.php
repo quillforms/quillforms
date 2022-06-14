@@ -249,11 +249,14 @@ class Form_Submission {
 		// check payment.
 		$products = $this->get_products();
 		if ( $products ) {
-			$this->entry->meta['payments']['value'] = array(
-				'products'  => $products,
-				'currency'  => $this->get_currency(),
-				'customer'  => $this->get_customer(),
-				'recurring' => $this->get_recurring(),
+			$this->entry->set_meta_value(
+				'payments',
+				array(
+					'products'  => $products,
+					'currency'  => $this->get_currency(),
+					'customer'  => $this->get_customer(),
+					'recurring' => $this->get_recurring(),
+				)
 			);
 
 			$this->submission_id = $this->save_pending_submission( 'payment' );
@@ -314,7 +317,7 @@ class Form_Submission {
 	 */
 	public function process_entry() {
 		if ( $this->submission_id ) {
-			$this->entry->meta['submission_id']['value'] = $this->submission_id;
+			$this->entry->set_meta_value( 'submission_id', $this->submission_id );
 		}
 
 		// this can set ID of the entry.
@@ -466,7 +469,7 @@ class Form_Submission {
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
 			'payments'           => array_merge(
-				$this->entry->meta['payments']['value'],
+				$this->entry->get_meta_value( 'payments' ),
 				array(
 					'methods' => $this->get_payment_methods(),
 				)
@@ -544,7 +547,7 @@ class Form_Submission {
 	 * @return string
 	 */
 	public function get_thankyou_screen_id() {
-		$walkpath = $this->entry->meta['walkpath']['value'];
+		$walkpath = $this->entry->get_meta_value( 'walkpath' );
 
 		$last_block_id = $walkpath[ count( $walkpath ) - 1 ];
 		$last_block    = quillforms_arrays_find( $this->form_data['blocks'], 'id', $last_block_id );
