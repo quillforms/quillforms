@@ -539,6 +539,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
 				),
 			),
+			'aweber'            => array(
+				'name'           => esc_html__( 'AWeber', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your AWeber account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-aweber/quillforms-aweber.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/aweber/icon.svg',
+				),
+			),
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
