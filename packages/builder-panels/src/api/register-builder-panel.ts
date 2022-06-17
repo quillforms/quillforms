@@ -80,7 +80,8 @@ export const registerBuilderPanel = (
 	if (
 		settings.areaToShow &&
 		settings.areaToShow !== 'drop-area' &&
-		settings.areaToShow !== 'preview-area'
+		settings.areaToShow !== 'preview-area' &&
+		settings.areaToShow !== 'no-area'
 	) {
 		console.error(
 			'The "areaToShow" property must be either of "drop-area" or "preview-area" or undefined.'
