@@ -49,6 +49,9 @@ export type BlockSupportedFeatures = {
 	logicConditions?: boolean;
 	theme?: boolean;
 	numeric?: boolean;
+	choices?: boolean;
+	payments?: boolean;
+	points?: boolean;
 };
 
 type logicalOperator =

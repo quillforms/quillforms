@@ -25,6 +25,9 @@ export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 		logic: true,
 		logicConditions: true,
 		numeric: false,
+		choices: false,
+		payments: false,
+		points: false,
 	};
 };
 

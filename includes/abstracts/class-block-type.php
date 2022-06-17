@@ -99,6 +99,9 @@ abstract class Block_Type extends stdClass {
 			'logic'           => true,
 			'logicConditions' => true,
 			'theme'           => false,
+			'choices'		  => false,
+			'payments'		  => false,
+			'points'  		  => false
 		);
 		$this->name                  = $this->get_name();
 		$this->block_admin_assets    = $this->get_block_admin_assets();
