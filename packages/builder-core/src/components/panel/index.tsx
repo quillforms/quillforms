@@ -47,6 +47,8 @@ const Panel = () => {
 				width:
 					areaToShow === 'drop-area' || areaToShow == 'preview-area'
 						? '45%'
+						: areaToShow === 'no-area'
+						? '100%'
 						: '300px',
 			} }
 		>

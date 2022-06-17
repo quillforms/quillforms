@@ -26,7 +26,10 @@
 		"attachment": true,
 		"description": true,
 		"logic": true,
-		"theme": true
+		"theme": true,
+		"points": true,
+		"payments": true,
+		"choices": true
 	},
 	"logicalOperators" : ["is", "is_not"]
 }

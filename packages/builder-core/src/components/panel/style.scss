@@ -30,7 +30,6 @@
 		}
 
 		.builder-core-panel__header {
-
 			& {
 				display: flex;
 				flex-wrap: wrap;
@@ -43,12 +42,11 @@
 				font-size: 15px;
 				text-transform: uppercase;
 				letter-spacing: 1.5px;
-				word-spacing: 800px;
+				word-spacing: 10000px;
 				line-height: 20px;
 			}
 
 			.builder-core-panel__header-close-icon {
-
 				& {
 					cursor: pointer;
 					position: absolute;
@@ -64,7 +62,6 @@
 		}
 
 		.builder-core-panel__header-tabs-wrapper {
-
 			& {
 				margin-top: 30px;
 				background: #6844c1;
@@ -73,7 +70,6 @@
 			}
 
 			.builder-core-panel__header-tabs {
-
 				& {
 					display: flex;
 					flex-wrap: wrap;
@@ -82,12 +78,11 @@
 				}
 
 				.builder-core-panel__header-tab {
-
 					& {
 						display: inline-flex;
 						justify-content: center;
 						font-weight: 500;
-						padding:10px !important;
+						padding: 10px !important;
 						margin-right: 15px;
 						text-align: center;
 						cursor: pointer;
@@ -99,13 +94,10 @@
 					}
 
 					&.active {
-						background: #ab2cfb
-
+						background: #ab2cfb;
 					}
 				}
 			}
 		}
 	}
 }
-
-

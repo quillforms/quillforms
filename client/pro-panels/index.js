@@ -15,7 +15,7 @@ import HiddenFieldsRender from './hidden-fields-render';
 registerBuilderPanel( 'jump-logic', {
 	title: 'Jump Logic',
 	mode: 'single',
-	areaToShow: 'preview-area',
+	areaToShow: 'no-area',
 	icon: JumpLogicIcon,
 	render: JumpLogicRender,
 	position: 20,
