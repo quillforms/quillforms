@@ -30,12 +30,19 @@ const Select: React.FC< Props > = ( { hideChooseOption } ) => {
 		value,
 		onChange,
 		isToggleEnabled,
+		placeholder,
 	} = useComboboxControlContext();
 
 	const SelectOptions: CustomSelectControl.Option[] = [
 		{
 			key: 'select',
-			name: <Option label={ __( 'Choose an option', 'quillforms' ) } />,
+			name: (
+				<Option
+					label={
+						placeholder ?? __( 'Choose an option', 'quillforms' )
+					}
+				/>
+			),
 			style: hideChooseOption ? { display: 'none' } : {},
 		},
 	];
