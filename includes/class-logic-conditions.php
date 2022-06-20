@@ -123,12 +123,13 @@ class Logic_Conditions {
 	 *
 	 * @since 1.13.0
 	 *
+	 * @param boolean $required Required or not.
 	 * @return array
 	 */
-	public static function get_conditions_schema() {
+	public static function get_conditions_schema( $required = false ) {
 		return  array(
 			'type'     => 'array',
-			'required' => true,
+			'required' => $required,
 			'items'    => array(
 				'type'  => 'array',
 				'items' => array(
