@@ -1,5 +1,3 @@
-import { EditorLogicCondition } from '@quillforms/types';
-
 import {
 	SETUP_APP,
 	SETUP_ACCOUNTS,
@@ -38,7 +36,7 @@ export type Connection = {
 	name: string;
 	account_id?: string;
 	[ x: string ]: any;
-	conditions?: EditorLogicCondition[][];
+	conditions?:  any;
 };
 
 type DeepPartial< T > = {
