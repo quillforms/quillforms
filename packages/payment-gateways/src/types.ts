@@ -3,7 +3,10 @@ import type { IconRenderer } from '@quillforms/types';
 
 export type PaymentGatewayModule = {
 	name: string;
-	icon: string | IconRenderer;
+	icon: {
+		mini: string | IconRenderer;
+		full: string | IconRenderer;
+	};
 	description: string;
 	active: boolean;
 	settings: React.FC< { slug: string } >;
