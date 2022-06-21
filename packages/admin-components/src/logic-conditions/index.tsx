@@ -217,7 +217,7 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 										) : var0Type === 'variable' ? (
 											<TextControl
 												type="number"
-												value={ var1Value }
+												value={ var1Value ?? '' }
 												onChange={ ( var1 ) => {
 													const $value = [ ...value ];
 													$value[ gi ][
@@ -228,7 +228,7 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 											/>
 										) : (
 											<TextControl
-												value={ var1Value }
+												value={ var1Value ?? '' }
 												onChange={ ( var1 ) => {
 													const $value = [ ...value ];
 													$value[ gi ][
