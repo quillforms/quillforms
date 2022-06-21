@@ -10,6 +10,7 @@ import {
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 import { Icon } from '@wordpress/components';
 import { closeSmall } from '@wordpress/icons';
 
@@ -40,14 +41,19 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 	onChange,
 	combobox,
 } ) => {
-	value = Array.isArray( value ) ? value : [ [ { vars: [ {}, {} ] } ] ];
-
 	const { blocks, blockTypes } = useSelect( ( select ) => {
 		return {
 			blocks: select( 'quillForms/block-editor' ).getBlocks(),
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
+
+	// update value on mount if input isn't array.
+	useEffect( () => {
+		if ( ! Array.isArray( value ) ) {
+			onChange( [ [ { vars: [ {}, {} ] } ] ] );
+		}
+	}, [] );
 
 	const customize = combobox?.customize?.override
 		? combobox.customize.handler
@@ -86,6 +92,10 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 
 				return { sections, options };
 		  };
+
+	if ( ! Array.isArray( value ) ) {
+		return null;
+	}
 
 	return (
 		<div className="logic-conditions">
