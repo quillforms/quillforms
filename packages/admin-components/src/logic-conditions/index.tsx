@@ -48,9 +48,9 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 		};
 	} );
 
-	// update value on mount if input isn't array.
+	// update value on mount if input isn't array or is empty array.
 	useEffect( () => {
-		if ( ! Array.isArray( value ) ) {
+		if ( ! Array.isArray( value ) || value.length === 0 ) {
 			onChange( [ [ { vars: [ {}, {} ] } ] ] );
 		}
 	}, [] );
