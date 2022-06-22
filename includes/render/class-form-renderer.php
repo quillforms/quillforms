@@ -92,6 +92,9 @@ class Form_Renderer {
 		// Enqueuing assets to make the form render properly.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_render_script' ), 99999999 );
+
+		// Remove any defer/async before printing script tags.
+		add_filter( 'script_loader_tag', array( $this, 'remove_script_defer' ), PHP_INT_MAX, 3 );
 	}
 
 	/**
@@ -343,6 +346,24 @@ class Form_Renderer {
 		}
 
 		return $show_admin_bar;
+	}
+
+	/**
+	 * Remove any async/defer from scripts
+	 *
+	 * @since 1.13.1
+	 *
+	 * @param string $tag    The `<script>` tag for the enqueued script.
+	 * @param string $handle The script's registered handle.
+	 * @param string $src    The script's source URL.
+	 * @return string
+	 */
+	public function remove_script_defer( $tag, $handle, $src ) { // phpcs:ignore
+		if ( is_singular( 'quill_forms' ) ) {
+			$tag = preg_replace( '/(async|defer)=?[\'"\w]*/i', '', $tag );
+		}
+
+		return $tag;
 	}
 
 }

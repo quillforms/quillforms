@@ -93,8 +93,8 @@ const Connection: React.FC< Props > = ( { id } ) => {
 								updateConnection(
 									id,
 									{
-										// @ts-ignore, will be updated instantly with empty conditions.
-										conditions: true,
+										// @ts-ignore, will updated instantly to default empty conditions.
+										conditions: [],
 									},
 									false
 								);
