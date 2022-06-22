@@ -10,32 +10,23 @@ export type PaymentGatewayModule = {
 	description: string;
 	active: boolean;
 	settings: React.FC< { slug: string } >;
-	isPro?: boolean;
-	options?:
-		| React.FC< {
-				slug: string;
-				settings: any /* form settings */;
-				onOptionsChange: ( options: any ) => void;
-		  } >
-		| JSX.Element
-		| React.Component;
+	options?: {
+		component: React.FC< {
+			slug: string;
+			model: any;
+			onChange: ( value: any ) => void;
+		} >;
+		has: ( model: any ) => boolean;
+		validate: ( model: any ) => { valid: boolean; message?: string };
+	};
 	methods: {
 		[ key: string ]: {
 			isRecurringSupported: boolean;
-			isCustomerRequired?: {
-				onetime?: boolean;
-				recurring?: boolean;
-			};
 			admin: {
 				label: {
 					icon: string | IconRenderer;
 					text: string;
 				};
-				options?: React.FC< {
-					slug: string /* gateway:method */;
-					settings: any /* form settings */;
-					onOptionsChange: ( options: any ) => void;
-				} >;
 			};
 			customer: {
 				label: {

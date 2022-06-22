@@ -38,13 +38,9 @@ function register() {
 		},
 		active: false,
 		settings: Settings,
-		isPro: true,
 		methods: {
 			elements: {
 				isRecurringSupported: true,
-				isCustomerRequired: {
-					recurring: true,
-				},
 				admin: {
 					label: {
 						icon: `${ assetsDir }/icon-full.svg`,
@@ -60,9 +56,6 @@ function register() {
 			},
 			checkout: {
 				isRecurringSupported: true,
-				isCustomerRequired: {
-					recurring: true,
-				},
 				admin: {
 					label: {
 						icon: `${ assetsDir }/icon-full.svg`,

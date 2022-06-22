@@ -38,7 +38,6 @@ function register() {
 		},
 		active: false,
 		settings: Settings,
-		isPro: true,
 		methods: {
 			checkout: {
 				isRecurringSupported: true,

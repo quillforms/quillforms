@@ -1,9 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import { isValidIcon, normalizeIconObject } from '@quillforms/utils';
-
-/**
  * WordPress Dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
@@ -57,15 +52,6 @@ export const registerPaymentGatewayModule = (
 	if ( ! module.icon ) {
 		console.error( `The 'icon' property is mandatory!` );
 		return;
-	}
-
-	if ( typeof module.icon !== 'string' ) {
-		module.icon = normalizeIconObject( module.icon );
-
-		if ( ! isValidIcon( module.icon.src ) ) {
-			console.error( 'The "icon" property must be a valid function!' );
-			return;
-		}
 	}
 
 	if ( ! module.description ) {
