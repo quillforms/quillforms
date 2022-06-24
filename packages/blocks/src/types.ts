@@ -25,6 +25,10 @@ export interface BlockAdminSettings {
 	controls?: React.ComponentType< ControlsProps >;
 	logicControl?: FC | Component | JSX.Element;
 	order?: number;
+	getChoices?: ( args: {
+		id: string;
+		attributes: BlockAttributes;
+	} ) => { label: string; value: string }[];
 	entryDetails?: React.ComponentType< EntryDetailsProps >;
 }
 
