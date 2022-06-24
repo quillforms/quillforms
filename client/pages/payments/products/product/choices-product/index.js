@@ -19,14 +19,19 @@ const ChoicesProduct = ( { id } ) => {
 	const { products, updateProduct } = usePaymentsContext();
 	const product = products[ id ];
 
-	const { block } = useSelect( ( select ) => {
-		return {
-			block: select( 'quillForms/block-editor' ).getBlockById(
-				product.source.value
-			),
-		};
+	const { block, blockType } = useSelect( ( select ) => {
+		const block = select( 'quillForms/block-editor' ).getBlockById(
+			product.source.value
+		);
+		const blockType = select( 'quillForms/blocks' ).getBlockType(
+			block?.name
+		);
+		return { block, blockType };
 	} );
-	const choices = block?.attributes?.choices;
+	const choices = blockType.getChoices( {
+		id,
+		attributes: block?.attributes ?? {},
+	} );
 
 	return (
 		<div className="quillforms-payments-page-settings-product-choices">
