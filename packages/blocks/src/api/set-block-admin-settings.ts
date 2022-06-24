@@ -101,6 +101,7 @@ export const setBlockAdminSettings = (
 			'icon',
 			'title',
 			'order',
+			'getChoices',
 		] ),
 		name
 	);
