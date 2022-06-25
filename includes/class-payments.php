@@ -80,6 +80,18 @@ class Payments {
 	}
 
 	/**
+	 * Get currency symbol
+	 *
+	 * @since next.version
+	 *
+	 * @param string $code Currency code.
+	 * @return string|null
+	 */
+	public function get_currency_symbol( $code ) {
+		return $this->get_currencies()[ $code ]['symbol'] ?? null;
+	}
+
+	/**
 	 * Format money
 	 *
 	 * @since next.version
