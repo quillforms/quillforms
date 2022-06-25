@@ -16,7 +16,7 @@ const Info: React.FC< Props > = ( { data } ) => {
 			{ data.payments.products.items.map( ( item, index ) => {
 				return (
 					<div key={ index }>
-						{ item.name }: { formatMoney( item.value, cs, csp ) }
+						{ item.name }: { formatMoney( item.price, cs, csp ) }
 					</div>
 				);
 			} ) }

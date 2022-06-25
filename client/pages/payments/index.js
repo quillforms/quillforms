@@ -61,6 +61,8 @@ const PaymentsPage = ( { params } ) => {
 	}, [ blocksResolved ] );
 
 	const onSave = () => {
+		// TODO: validate at least one payment method.
+
 		// TODO: validate gateways options.
 
 		if ( Object.entries( products ).length === 0 ) {
