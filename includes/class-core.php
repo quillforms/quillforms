@@ -146,6 +146,7 @@ class Core {
 			'messages'      => self::get_messages( $form_id ),
 			'notifications' => self::get_notifications( $form_id ),
 			'payments'      => self::get_payments( $form_id ),
+			'products'      => self::get_products( $form_id ),
 		);
 
 		$form_data = apply_filters( 'quillforms_form_data', $form_data, $form_id );
@@ -199,15 +200,27 @@ class Core {
 	/**
 	 * Get payments for a specific form id.
 	 *
+	 * @since next.version
+	 *
 	 * @param integer $form_id   Form id.
-	 *
 	 * @return array|null The form payments
-	 *
-	 * @since 1.0.0
 	 */
 	public static function get_payments( $form_id ) {
 		$payments = get_post_meta( $form_id, 'payments', true );
 		return $payments;
+	}
+
+	/**
+	 * Get products for a specific form id.
+	 *
+	 * @since next.version
+	 *
+	 * @param integer $form_id   Form id.
+	 * @return array|null The form products
+	 */
+	public static function get_products( $form_id ) {
+		$products = get_post_meta( $form_id, 'products', true );
+		return $products;
 	}
 
 	/**
