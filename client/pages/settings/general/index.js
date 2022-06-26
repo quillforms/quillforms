@@ -10,6 +10,7 @@ import {
 	ToggleControl,
 	TextControl,
 } from '@quillforms/admin-components';
+import { setForceReload } from '@quillforms/navigation';
 
 /**
  * WordPress Dependencies
@@ -63,7 +64,7 @@ const General = () => {
 				} );
 				setIsSaving( false );
 				// To reinitialize google maps scripts
-				location.reload();
+				setForceReload( true );
 			} )
 			.catch( ( err ) => {
 				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
