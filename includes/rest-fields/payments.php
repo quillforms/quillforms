@@ -197,17 +197,6 @@ register_rest_field(
 									sprintf( esc_html__( 'Recurring interval is not supported by %s.', 'quillforms' ), $gateway )
 								);
 							}
-
-							// check methods.
-							foreach ( $methods as $method ) {
-								if ( $model['recurring'] && ! $gateway_addon->is_recurring_supported( $method ) ) {
-									return new WP_Error(
-										'quillforms_payments_validation_error',
-										/* translators: %s for gateway:method */
-										sprintf( esc_html__( 'Recurring is not supported by %s method.', 'quillforms' ), "$gateway:$method" )
-									);
-								}
-							}
 						}
 					}
 
