@@ -37,9 +37,9 @@ const GatewaysOptions = ( { id } ) => {
 						updateModel(
 							id,
 							{
-								gateways: {
-									[ gateway ]: {
-										options,
+								options: {
+									gateways: {
+										[ gateway ]: options,
 									},
 								},
 							},

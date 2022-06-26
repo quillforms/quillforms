@@ -28,8 +28,10 @@ const getModelDefaultState = ( name ) => {
 		name,
 		recurring: false,
 		currency: { code: 'USD', symbol_pos: 'left' },
-		gateways: {},
 		methods: {},
+		options: {
+			gateways: {},
+		},
 		conditions: false,
 	};
 };

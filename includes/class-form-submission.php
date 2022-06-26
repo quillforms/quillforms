@@ -9,9 +9,7 @@
 
 namespace QuillForms;
 
-use QuillForms\Addon\Payment_Gateway\Payment_Gateway;
 use QuillForms\Emails\Emails;
-use QuillForms\Managers\Addons_Manager;
 use QuillForms\Managers\Blocks_Manager;
 
 /**

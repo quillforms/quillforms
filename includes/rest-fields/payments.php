@@ -71,6 +71,17 @@ $payments_schema = array(
 							'type' => 'object',
 						),
 					),
+					'options'    => array(
+						'type'       => 'object',
+						'properties' => array(
+							'gateways' => array(
+								'type'                 => 'object',
+								'additionalProperties' => array(
+									'type' => 'object',
+								),
+							),
+						),
+					),
 					'conditions' => array(
 						'anyOf' => array(
 							array(
