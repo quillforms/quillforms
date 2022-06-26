@@ -61,10 +61,24 @@ const PaymentsPage = ( { params } ) => {
 	}, [ blocksResolved ] );
 
 	const onSave = () => {
-		// TODO: validate at least one payment method.
+		// validate selection of one method at least for each model.
+		const isSingleModel = Object.keys( models ).length === 1;
+		for ( const model of Object.values( models ) ) {
+			if ( Object.keys( model.methods ).length === 0 ) {
+				let message =
+					'Please select at least one payment method' +
+					( isSingleModel ? '' : ` for model "${ model.name }"` );
+				createErrorNotice( `⛔ ${ message }`, {
+					type: 'snackbar',
+					isDismissible: true,
+				} );
+				return;
+			}
+		}
 
 		// TODO: validate gateways options.
 
+		// validate adding of one product at least.
 		if ( Object.entries( products ).length === 0 ) {
 			createErrorNotice( `⛔ Please add at least one product`, {
 				type: 'snackbar',
