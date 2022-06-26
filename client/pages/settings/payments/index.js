@@ -15,42 +15,38 @@ import { Icon as IconComponent } from '@wordpress/components';
 import './style.scss';
 
 const Payments = () => {
-	const paymentGatewayModules = getPaymentGatewayModules();
+	const gateways = getPaymentGatewayModules();
 
 	return (
 		<div className="quillforms-settings-payments-tab">
 			<Panel>
-				{ Object.entries( paymentGatewayModules ).map(
-					( [ slug, paymentGateway ] ) => {
-						const icon = paymentGateway.icon;
-						const header = (
-							<div className="quillforms-settings-payments-tab-addon-header">
-								{ typeof icon === 'string' ? (
-									<img src={ icon } />
-								) : (
-									<IconComponent
-										icon={ icon?.src ? icon.src : icon }
-									/>
-								) }
-								<div>{ paymentGateway.name }</div>
+				{ Object.entries( gateways ).map( ( [ slug, gateway ] ) => {
+					const icon = gateway.icon.mini;
+					const header = (
+						<div className="quillforms-settings-payments-tab-addon-header">
+							{ typeof icon === 'string' ? (
+								<img src={ icon } />
+							) : (
+								<IconComponent
+									icon={ icon?.src ? icon.src : icon }
+								/>
+							) }
+							<div>{ gateway.name }</div>
+						</div>
+					);
+					return (
+						<PanelBody
+							key={ slug }
+							title={ header }
+							initialOpen={ false }
+							className="quillforms-settings-payments-tab-addon"
+						>
+							<div className="quillforms-settings-payments-tab-addon-body">
+								<gateway.settings slug={ slug } />
 							</div>
-						);
-						return (
-							<PanelBody
-								key={ slug }
-								title={ header }
-								initialOpen={ false }
-								className="quillforms-settings-payments-tab-addon"
-							>
-								<div className="quillforms-settings-payments-tab-addon-body">
-									<paymentGateway.settings
-										slug={ slug }
-									/>
-								</div>
-							</PanelBody>
-						);
-					}
-				) }
+						</PanelBody>
+					);
+				} ) }
 			</Panel>
 		</div>
 	);
