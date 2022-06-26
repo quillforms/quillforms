@@ -8,6 +8,7 @@ import {
 	ControlLabel,
 	ControlWrapper,
 } from '@quillforms/admin-components';
+import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 
 /**
  * WordPress Dependencies
@@ -31,6 +32,9 @@ import { PaymentsContextProvider } from './state/context';
 
 const PaymentsPage = ( { params } ) => {
 	const formId = params.id;
+
+	// constants.
+	const gateways = getPaymentGatewayModules();
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
@@ -61,9 +65,11 @@ const PaymentsPage = ( { params } ) => {
 	}, [ blocksResolved ] );
 
 	const onSave = () => {
-		// validate selection of one method at least for each model.
 		const isSingleModel = Object.keys( models ).length === 1;
+
+		// validate models.
 		for ( const model of Object.values( models ) ) {
+			// validate selection of one method at least for each model.
 			if ( Object.keys( model.methods ).length === 0 ) {
 				let message =
 					'Please select at least one payment method' +
@@ -74,9 +80,34 @@ const PaymentsPage = ( { params } ) => {
 				} );
 				return;
 			}
-		}
 
-		// TODO: validate gateways options.
+			// validate gateways options.
+			const enabled = [];
+			for ( const key of Object.keys( model.methods ) ) {
+				const gateway = key.split( ':' )[ 0 ];
+				if ( ! enabled.includes( gateway ) ) {
+					enabled.push( gateway );
+				}
+			}
+			for ( const gateway of enabled ) {
+				const options = gateways[ gateway ].options ?? null;
+				if ( options && options.has( model ) ) {
+					const validate = options.validate( model );
+					if ( ! validate.valid ) {
+						let message =
+							validate.message +
+							( isSingleModel
+								? ''
+								: ` for model "${ model.name }"` );
+						createErrorNotice( `⛔ ${ message }`, {
+							type: 'snackbar',
+							isDismissible: true,
+						} );
+						return;
+					}
+				}
+			}
+		}
 
 		// validate adding of one product at least.
 		if ( Object.entries( products ).length === 0 ) {
