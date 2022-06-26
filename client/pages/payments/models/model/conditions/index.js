@@ -18,8 +18,6 @@ const Conditions = ( { id } ) => {
 	const { models, updateModel } = usePaymentsContext();
 	const model = models[ id ];
 
-	console.log('conditions', model.conditions);
-
 	return (
 		<BaseControl>
 			<ControlWrapper orientation="horizontal">
