@@ -25,6 +25,7 @@ class Autoptimize_Compatibility {
 	 */
 	public static function hooks() {
 		add_filter( 'autoptimize_filter_js_exclude', array( __CLASS__, 'exclude_quillforms_pages' ) );
+		add_filter('autoptimize_filter_js_noptimize', array( __CLASS__, 'disable_autoptimize_in_quillforms_pages' ) );
 	}
 
 	/**
@@ -47,6 +48,13 @@ class Autoptimize_Compatibility {
 		} else {
 			return $in;
 		}
+	}
+
+	public static function disable_autoptimize_in_quillforms_pages( $nooptimize ) {
+		if ( is_singular( 'quill_forms' ) ) {
+			return true;
+		}
+		return $nooptimize;
 	}
 
 }
