@@ -37,6 +37,21 @@ const Methods = ( { id } ) => {
 		}
 	}
 
+	// disable recurring unsupported methods.
+	useEffect( () => {
+		if ( model.recurring ) {
+			let $methods = { ...model.methods };
+			for ( const key in model.methods ) {
+				const [ gateway, method ] = key.split( ':' );
+				const data = gateways[ gateway ]?.methods[ method ];
+				if ( model.recurring && ! data?.isRecurringSupported ) {
+					$methods = omit( $methods, key );
+				}
+			}
+			updateModel( id, { methods: $methods } );
+		}
+	}, [ model.recurring ] );
+
 	// disable inactive and not configured methods.
 	useEffect( () => {
 		let $methods = { ...model.methods };
@@ -52,21 +67,6 @@ const Methods = ( { id } ) => {
 		}
 		updateModel( id, { methods: $methods } );
 	}, [] );
-
-	// disable recurring unsupported methods.
-	useEffect( () => {
-		if ( model.recurring ) {
-			let $methods = { ...model.methods };
-			for ( const key in model.methods ) {
-				const [ gateway, method ] = key.split( ':' );
-				const data = gateways[ gateway ]?.methods[ method ];
-				if ( model.recurring && ! data?.isRecurringSupported ) {
-					$methods = omit( $methods, key );
-				}
-			}
-			updateModel( id, { methods: $methods } );
-		}
-	}, [ model.recurring ] );
 
 	// reorder enabled methods.
 	const reorder = ( index, action ) => {
