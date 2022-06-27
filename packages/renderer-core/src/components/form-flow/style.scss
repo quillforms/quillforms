@@ -20,19 +20,19 @@
 	}
 }
 .renderer-core-form-brand-logo {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    margin: 0px;
-    padding: 14px 16px 10px;
-    box-sizing: border-box;
-    background: transparent;
-    pointer-events: none;
-	z-index: 40;
-    opacity: 1;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	margin: 0px;
+	padding: 14px 16px 10px;
+	box-sizing: border-box;
+	background: transparent;
+	pointer-events: none;
+	z-index: 10000;
+	opacity: 1;
 }
 .renderer-core-form-brand-logo img {
-    max-height: 40px;
-    max-width: 96px;
+	max-height: 40px;
+	max-width: 96px;
 }

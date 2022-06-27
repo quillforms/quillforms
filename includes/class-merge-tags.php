@@ -89,6 +89,31 @@ class Merge_Tags {
 	}
 
 	/**
+	 * Process tag or text
+	 * If tag is unknown, it will be processed as text
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param array  $data Array contains 'type' and 'value'. type can be text or any registered merge tag.
+	 * @param Entry  $entry Entry.
+	 * @param array  $form_data Form data.
+	 * @param string $context Context.
+	 * @return string|null
+	 */
+	public function process( $data, $entry, $form_data, $context = 'html' ) {
+		if ( ! $data ) {
+			return null;
+		}
+		$type  = $data['type'] ?? null;
+		$value = $data['value'] ?? '';
+		if ( in_array( $type, $this->get_registered_types(), true ) ) {
+			return $this->process_tag( $type, $value, $entry, $form_data, $context );
+		} else {
+			return $this->process_text( $value, $entry, $form_data, $context );
+		}
+	}
+
+	/**
 	 * Process merge tags on text.
 	 * It is very important to mention that merge tags in this plugin are a bit different.
 	 * They have a consistent structure {{a:b}} where "a" is the merge tag type and "b" is the merge tag modifier.
@@ -160,11 +185,11 @@ class Merge_Tags {
 			case 'date_updated':
 				return $entry->date_updated;
 			case 'user_id':
-				return $entry->meta['user_id']['value'] ?? '';
+				return $entry->get_meta_value( 'user_id' ) ?? '';
 			case 'user_ip':
-				return $entry->meta['user_ip']['value'] ?? '';
+				return $entry->get_meta_value( 'user_ip' ) ?? '';
 			case 'user_agent':
-				return $entry->meta['user_agent']['value'] ?? '';
+				return $entry->get_meta_value( 'user_agent' ) ?? '';
 		}
 		return '';
 	}

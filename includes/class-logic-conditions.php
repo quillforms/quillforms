@@ -119,6 +119,37 @@ class Logic_Conditions {
 	}
 
 	/**
+	 * Get conditions schema
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param boolean $required Required or not.
+	 * @return array
+	 */
+	public static function get_conditions_schema( $required = false ) {
+		return  array(
+			'type'     => 'array',
+			'required' => $required,
+			'items'    => array(
+				'type'  => 'array',
+				'items' => array(
+					'type'       => 'object',
+					'properties' => array(
+						'op'   => array(
+							'type'     => 'string',
+							'required' => true,
+						),
+						'vars' => array(
+							'type'     => 'array',
+							'required' => true,
+						),
+					),
+				),
+			),
+		);
+	}
+
+	/**
 	 * Check if value fullfilled the condition
 	 *
 	 * @since 1.13.0

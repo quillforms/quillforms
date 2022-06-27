@@ -12,7 +12,7 @@ export type PanelSettings = {
 	title: string;
 	render?: FC | JSX.Element | Component;
 	mode: 'single' | 'parent';
-	areaToShow?: 'preview-area' | 'drop-area' | undefined;
+	areaToShow?: 'preview-area' | 'drop-area' | undefined | 'no-area';
 	isHidden?: boolean;
 	position?: number;
 };

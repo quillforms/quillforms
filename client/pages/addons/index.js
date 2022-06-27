@@ -6,6 +6,7 @@ import {
 	Button,
 	__experimentalAddonFeatureAvailability,
 } from '@quillforms/admin-components';
+import { setForceReload } from '@quillforms/navigation';
 
 /**
  * WordPress Dependencies
@@ -28,7 +29,6 @@ import './style.scss';
 const Addons = () => {
 	const [ addons, setAddons ] = useState( ConfigApi.getStoreAddons() );
 	const [ apiAction, setApiAction ] = useState( null );
-	const [ reloadRequired, setReloadRequired ] = useState( false );
 	const [ proModalAddon, setProModalAddon ] = useState( null );
 
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
@@ -40,14 +40,6 @@ const Addons = () => {
 			ConfigApi.setStoreAddons( addons );
 		}
 	}, [ addons ] );
-
-	useEffect( () => {
-		return () => {
-			if ( reloadRequired ) {
-				window.location.reload();
-			}
-		};
-	}, [ reloadRequired ] );
 
 	const api = ( action, addon ) => {
 		// prevent doing 2 actions at the same time.
@@ -82,9 +74,8 @@ const Addons = () => {
 									},
 								};
 							} );
-							// reload the page on leaving addons page
-							// to allow the new addons to register their scripts.
-							setReloadRequired( true );
+							// allow the new addons to register their scripts.
+							setForceReload( true );
 							break;
 						case 'install':
 							setAddons( ( addons ) => {

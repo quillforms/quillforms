@@ -9,9 +9,7 @@
 
 namespace QuillForms;
 
-use QuillForms\Addon\Payment_Gateway\Payment_Gateway;
 use QuillForms\Emails\Emails;
-use QuillForms\Managers\Addons_Manager;
 use QuillForms\Managers\Blocks_Manager;
 
 /**
@@ -43,7 +41,7 @@ class Form_Submission {
 	 * Submission id
 	 * Defined if handling a pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @var integer
 	 */
@@ -53,7 +51,7 @@ class Form_Submission {
 	 * Step
 	 * Defined if handling a pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @var string
 	 */
@@ -148,7 +146,6 @@ class Form_Submission {
 		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
 
 		// add sanitized fields.
-		$this->entry->records['fields'] = array();
 		foreach ( $this->form_data['blocks'] as $block ) {
 			$block_type = Blocks_Manager::instance()->create( $block );
 			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
@@ -157,13 +154,13 @@ class Form_Submission {
 
 			$field_answer = $unsanitized_entry['answers'][ $block['id'] ]['value'] ?? null;
 			if ( null !== $field_answer ) {
-				$this->entry->records['fields'][ $block['id'] ] = array(
-					'value' => $block_type->sanitize_field( $field_answer, $this->form_data ),
-				);
+				$sanitize_value = $block_type->sanitize_field( $field_answer, $this->form_data );
+				$this->entry->set_record_value( 'field', $block['id'], $sanitize_value );
 			}
 		}
 
 		// filter for entry object init.
+		/** @var Entry */ // phpcs:ignore
 		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
 
 		// blocks walk path.
@@ -177,12 +174,13 @@ class Form_Submission {
 		// for backward compatibility. 1.13.0.
 		$walkpath_filter_format = apply_filters( 'quillforms_entry_walkpath_format', 'blocks' );
 		if ( 'blocks' === $walkpath_filter_format ) {
-			$walkpath_blocks                       = array_map(
+			$walkpath_blocks = array_map(
 				function( $block_id ) {
 					return quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
 				},
 				$walkpath
 			);
+			/** @var Entry "$this->entry" */ // phpcs:ignore
 			list( $walkpath_blocks, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath_blocks, $this->entry ), $this->form_data );
 			$walkpath                              = array_map(
 				function( $block ) {
@@ -191,6 +189,7 @@ class Form_Submission {
 				$walkpath_blocks
 			);
 		} else {
+			/** @var Entry "$this->entry" */ // phpcs:ignore
 			list( $walkpath, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
 		}
 
@@ -203,7 +202,7 @@ class Form_Submission {
 			}
 
 			$validation_message = null;
-			$field_answer       = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
+			$field_answer       = $this->entry->get_record_value( 'field', $block_id );
 			$block_type->validate_field( $field_answer, $this->form_data );
 			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
 				$validation_message = $block_type->validation_err;
@@ -228,31 +227,27 @@ class Form_Submission {
 				continue;
 			}
 
-			$field_answer = $this->entry->records['fields'][ $block_id ]['value'] ?? null;
+			$field_answer = $this->entry->get_record_value( 'field', $block_id );
 			if ( null !== $field_answer ) {
-				$this->entry->records['fields'][ $block_id ]['value'] = $block_type->format_field( $field_answer, $this->form_data );
+				$formatted_value = $block_type->format_field( $field_answer, $this->form_data );
+				$this->entry->set_record_value( 'field', $block_id, $formatted_value );
 			}
 		}
 
 		// add some entry meta.
-		$this->entry->meta['walkpath']['value'] = $walkpath;
-		$this->entry->meta['user_id']['value']  = get_current_user_id();
+		$this->entry->set_meta_value( 'walkpath', $walkpath );
+		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->meta['user_ip']['value'] = $this->get_client_ip();
+			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
 		}
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry->meta['user_agent']['value'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
+			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
 		}
 
-		// check payment.
-		$products = $this->get_products();
-		if ( $products ) {
-			$this->entry->records['meta']['payments']['value'] = array(
-				'products'  => $products,
-				'currency'  => $this->get_currency(),
-				'customer'  => $this->get_customer(),
-				'recurring' => $this->get_recurring(),
-			);
+		// check payments.
+		$payments = $this->get_payments_meta();
+		if ( $payments ) {
+			$this->entry->set_meta_value( 'payments', $payments );
 
 			$this->submission_id = $this->save_pending_submission( 'payment' );
 			if ( ! $this->submission_id ) {
@@ -270,7 +265,7 @@ class Form_Submission {
 	/**
 	 * Restore pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @param integer $submission_id Submission id.
 	 * @return boolean
@@ -292,7 +287,7 @@ class Form_Submission {
 	/**
 	 * Continue pending submission
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return void
 	 */
@@ -312,7 +307,7 @@ class Form_Submission {
 	 */
 	public function process_entry() {
 		if ( $this->submission_id ) {
-			$this->entry->records['meta']['submission_id']['value'] = $this->submission_id;
+			$this->entry->set_meta_value( 'submission_id', $this->submission_id );
 		}
 
 		// this can set ID of the entry.
@@ -331,57 +326,122 @@ class Form_Submission {
 	}
 
 	/**
+	 * Get payments meta
+	 *
+	 * @since next.version
+	 *
+	 * @return array|null
+	 */
+	public function get_payments_meta() {
+		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
+			return null;
+		}
+
+		$model_id = $this->get_payment_model_id();
+		if ( ! $model_id ) {
+			return null;
+		}
+		$model = $this->form_data['payments']['models'][ $model_id ];
+
+		$products = $this->get_products();
+		if ( ! $products['items'] || ! $products['total'] ) {
+			return null;
+		}
+
+		return array(
+			'model_id'  => $model_id,
+			'recurring' => $model['recurring'],
+			'currency'  => $model['currency'],
+			'products'  => $products,
+		);
+	}
+
+	/**
+	 * Get payment model id
+	 *
+	 * @since next.version
+	 *
+	 * @return string|null
+	 */
+	public function get_payment_model_id() {
+		foreach ( ( $this->form_data['payments']['models'] ?? array() ) as $id => $model ) {
+			if ( $model['conditions'] ) {
+				if ( Logic_Conditions::instance()->is_conditions_met( $model['conditions'], $this->entry, $this->form_data ) ) {
+					return $id;
+				}
+			} else {
+				return $id;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Get products data
+	 *
+	 * @since next.version
 	 *
 	 * @return array|null
 	 */
 	public function get_products() {
-		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
-			return null;
-		}
 		$items = array();
-		foreach ( $this->form_data['payments']['products'] ?? null as $product ) {
-			switch ( $product['type'] ) {
-				case 'single':
-					$value = 0;
-					switch ( $product['value_type'] ) {
-						case 'specific':
-							$value = (float) $product['value'] ?? 0;
-							break;
-						case 'field':
-							$value = (float) $this->entry->records['fields'][ $product['value'] ]['value'] ?? 0;
-							break;
-						case 'variable':
-							$value = (float) $this->entry->records['variables'][ $product['value'] ]['value'] ?? 0;
-							break;
+		foreach ( ( $this->form_data['products'] ?? array() ) as $product ) {
+			switch ( $product['source']['type'] ) {
+				case 'field':
+					$block_id = $product['source']['value'];
+					if ( ! in_array( $block_id, $this->entry->get_meta_value( 'walkpath' ), true ) ) {
+						break;
 					}
-					if ( is_numeric( $value ) && $value > 0 ) {
-						$items[] = array(
-							'name'  => $product['name'],
-							'value' => $value,
-						);
+					$block = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+					if ( ! $block ) {
+						break;
 					}
-					break;
-				case 'mapping':
-					$field_id   = $product['field'];
-					$block_data = quillforms_arrays_find( $this->form_data['blocks'], 'id', $field_id );
-					if ( ! $block_data ) {
+					$block_type = Blocks_Manager::instance()->create( $block );
+					if ( ! $block_type ) {
 						break;
 					}
 
-					$choices_labels = array();
-					foreach ( $block_data['attributes']['choices'] as $choice ) {
-						$choices_labels[ $choice['value'] ] = $choice['label'];
-					}
-
-					$selected_choices = (array) $this->entry->records['fields'][ $field_id ]['value'] ?? array();
-					foreach ( $product['values'] as $choice_id => $value ) {
-						if ( is_numeric( $value ) && (float) $value > 0 && in_array( $choice_id, $selected_choices, true ) ) {
-							$items[] = array(
-								'name'  => $choices_labels[ $choice_id ],
-								'value' => (float) $value,
-							);
+					if ( $block_type->supported_features['numeric'] ) {
+						$items[] = array(
+							'name'     => $product['name'],
+							'price'    => (float) $this->entry->get_record_value( 'field', $block_id ),
+							'quantity' => 1,
+						);
+					} elseif ( $block_type->supported_features['choices'] ) {
+						$choices  = $block_type->get_choices();
+						$selected = $this->entry->get_record_value( 'field', $block_id ) ?? array();
+						if ( $choices && $selected ) {
+							foreach ( $choices as $choice ) {
+								if ( in_array( $choice['value'], $selected, true ) ) {
+									$value = $product['choices'][ $choice['value'] ]['price'] ?? null;
+									if ( is_numeric( $value ) ) {
+										$items[] = array(
+											'name'     => $choice['label'],
+											'price'    => (float) $value,
+											'quantity' => 1,
+										);
+									}
+								}
+							}
 						}
+					}
+					break;
+
+				case 'variable':
+					$items[] = array(
+						'name'     => $product['name'],
+						'price'    => (float) $this->entry->get_record_value( 'variable', $product['source']['value'] ),
+						'quantity' => 1,
+					);
+					break;
+
+				case 'other':
+					if ( $product['source']['value'] === 'defined' ) {
+						$items[] = array(
+							'name'     => $product['name'],
+							'price'    => (float) $product['price'],
+							'quantity' => 1,
+						);
 					}
 					break;
 			}
@@ -389,76 +449,19 @@ class Form_Submission {
 
 		$total = array_reduce(
 			$items,
-			function( $carry, $product ) {
-				return $carry + $product['value'];
+			function( $carry, $item ) {
+				return $carry + ( $item['price'] * $item['quantity'] );
 			},
 			0
 		);
-
-		if ( empty( $items ) || empty( $total ) ) {
-			return null;
-		}
 
 		return compact( 'items', 'total' );
 	}
 
 	/**
-	 * Get currency data
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return array
-	 */
-	public function get_currency() {
-		$currency = $this->form_data['payments']['currency'];
-		$symbol   = Payments::instance()->get_currencies()[ $currency['code'] ]['symbol'];
-		return array(
-			'code'       => $currency['code'],
-			'symbol'     => $symbol,
-			'symbol_pos' => $currency['symbol_pos'],
-		);
-	}
-
-	/**
-	 * Get customer info
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return array
-	 */
-	public function get_customer() {
-		$name_field  = $this->form_data['payments']['customer']['name']['value'] ?? null;
-		$email_field = $this->form_data['payments']['customer']['email']['value'] ?? null;
-
-		return array(
-			'name'  => $name_field ? ( $this->entry->records['fields'][ $name_field ]['value'] ?? null ) : null,
-			'email' => $email_field ? ( $this->entry->records['fields'][ $email_field ]['value'] ?? null ) : null,
-		);
-	}
-
-	/**
-	 * Get recurring
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return array|null
-	 */
-	public function get_recurring() {
-		$recurring = $this->form_data['payments']['recurring'] ?? null;
-		if ( $recurring['enabled'] ?? null ) {
-			return array(
-				'interval_count' => (int) $recurring['interval_count'],
-				'interval_unit'  => $recurring['interval_unit'],
-			);
-		} else {
-			return null;
-		}
-	}
-
-	/**
 	 * Get pending submission renderer data
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array
 	 */
@@ -466,86 +469,39 @@ class Form_Submission {
 		return array(
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
-			'payments'           => array_merge(
-				$this->entry->meta['payments']['value'],
-				array(
-					'methods' => $this->get_payment_methods(),
-				)
-			),
+			'payments'           => $this->get_payments_renderer_data(),
 			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
 		);
 	}
 
 	/**
-	 * Get payment methods
+	 * Get payments renderer data
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return array
 	 */
-	public function get_payment_methods() {
-		$result = array();
+	private function get_payments_renderer_data() {
+		$payments = $this->entry->get_meta_value( 'payments' );
 
-		// enabled gateways & methods.
-		$enabled_methods = array();
-		foreach ( $this->form_data['payments']['methods'] ?? array() as $key => $data ) {
-			if ( empty( $data['enabled'] ) ) {
-				continue;
-			}
-			list( $gateway, $method )      = explode( ':', $key );
-			$enabled_methods[ $gateway ][] = $method;
-		}
+		// add currency symbol.
+		$payments['currency']['symbol'] = Payments::instance()->get_currency_symbol( $payments['currency']['code'] );
 
-		// check support.
-		foreach ( $enabled_methods as $gateway => $methods ) {
-			/** @var Payment_Gateway */ // phpcs:ignore
-			$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
+		// add methods.
+		$payments['methods'] = $this->form_data['payments']['models'][ $payments['model_id'] ]['methods'];
 
-			// check if registered.
-			if ( ! $gateway_addon ) {
-				continue;
-			}
-
-			// check settings support.
-			// this is a double check. settings shouldn't be saved if not supported.
-			if ( ! $gateway_addon->is_currency_supported( $this->get_currency()['code'] ) ) {
-				continue;
-			}
-			$recurring = $this->get_recurring();
-			if ( $recurring && ! $gateway_addon->is_recurring_interval_supported( $recurring['interval_unit'], (int) $recurring['interval_count'] ) ) {
-				continue;
-			}
-
-			// methods check and adding.
-			foreach ( $methods as $method ) {
-				// check if configured.
-				if ( ! $gateway_addon->is_configured( $method ) ) {
-					continue;
-				}
-				// check recurring support.
-				if ( $recurring && ! $gateway_addon->is_recurring_supported( $method ) ) {
-					continue;
-				}
-
-				$key            = "$gateway:$method";
-				$result[ $key ] = array(
-					'options' => $this->form_data['payments']['methods'][ $key ]['options'] ?? array(),
-				);
-			}
-		}
-
-		return $result;
+		return $payments;
 	}
 
 	/**
 	 * Get thank you screen id
 	 *
-	 * @since 1.8.0
+	 * @since next.version
 	 *
 	 * @return string
 	 */
 	public function get_thankyou_screen_id() {
-		$walkpath = $this->entry->meta['walkpath']['value'];
+		$walkpath = $this->entry->get_meta_value( 'walkpath' );
 
 		$last_block_id = $walkpath[ count( $walkpath ) - 1 ];
 		$last_block    = quillforms_arrays_find( $this->form_data['blocks'], 'id', $last_block_id );
@@ -559,6 +515,8 @@ class Form_Submission {
 
 	/**
 	 * Save pending submission
+	 *
+	 * @since next.version
 	 *
 	 * @param string $step Step.
 	 * @return id
@@ -586,6 +544,8 @@ class Form_Submission {
 
 	/**
 	 * Get pending submission
+	 *
+	 * @since next.version
 	 *
 	 * @param integer $id Submission id.
 	 * @return array
@@ -621,6 +581,8 @@ class Form_Submission {
 
 	/**
 	 * Delete pending submission
+	 *
+	 * @since next.version
 	 *
 	 * @param integer $id Submission id.
 	 * @return boolean

@@ -131,16 +131,7 @@ abstract class Entry_Process {
 	 * @return mixed
 	 */
 	protected function get_connection_field_value( $field, $context = 'plain' ) {
-		if ( empty( $field ) ) {
-			return null;
-		}
-		$field_type  = $field['type'] ?? null;
-		$field_value = $field['value'] ?? '';
-		if ( in_array( $field_type, Merge_Tags::instance()->get_registered_types(), true ) ) {
-			return Merge_Tags::instance()->process_tag( $field_type, $field_value, $this->entry, $this->form_data, $context );
-		} else {
-			return Merge_Tags::instance()->process_text( $field_value, $this->entry, $this->form_data, $context );
-		}
+		return Merge_Tags::instance()->process( $field, $this->entry, $this->form_data, $context );
 	}
 
 	/**

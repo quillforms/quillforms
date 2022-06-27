@@ -85,6 +85,13 @@ export const setBlockAdminSettings = (
 		return;
 	}
 
+	if ( ! isFunction( settings.getChoices ) ) {
+		// @ts-ignore
+		settings.getChoices = ( { id, attributes } ) => {
+			return [];
+		};
+	}
+
 	dispatch( 'quillForms/blocks' ).setBlockAdminSettings(
 		pick( settings, [
 			'controls',
@@ -94,6 +101,7 @@ export const setBlockAdminSettings = (
 			'icon',
 			'title',
 			'order',
+			'getChoices',
 		] ),
 		name
 	);

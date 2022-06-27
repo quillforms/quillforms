@@ -1,30 +1,33 @@
 .quillforms-payments-page-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    max-width: 600px;
-    margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	max-width: 600px;
+	margin: auto;
 
 }
+
 .quillforms-payments-page-header svg {
-    width: 300px;
-    height: 300px;
+	width: 300px;
+	height: 300px;
 }
-.quillforms-payments-page-heading {
-    flex: 1;
-    margin-left: 50px;
-}
-.quillforms-payments-page-heading p:nth-child(1) {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 24px;
-    margin-bottom:0
 
-    /* line-break: anywhere; */
+.quillforms-payments-page-heading {
+	flex: 1;
+	margin-left: 50px;
 }
+
+.quillforms-payments-page-heading p:nth-child(1) {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 24px;
+	margin-bottom: 0
+		/* line-break: anywhere; */
+}
+
 .quillforms-payments-page-heading p:nth-child(2) {
-    font-size: 14px
+	font-size: 14px
 }
 
 
@@ -33,47 +36,175 @@
 	margin: 10px auto 10px;
 }
 
-.quillforms-payments-page-settings-row {
-	display: flex;
-	margin-bottom: 10px;
-}
-
-.quillforms-payments-page-settings-row-label {
-	width: 100px;
-}
-
 .quillforms-payments-page-settings-save {
 	position: absolute;
-    top: 15px;
-    right: 150px;
+	top: 15px;
+	right: 150px;
 }
 
 .quillforms-payments-page-settings__general,
-.quillforms-payments-page-settings__methods,
-.quillforms-payments-page-settings__products{
-    padding: 30px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 20%);
-    margin-top: 40px;
-    min-height: 250px;
+.quillforms-payments-page-settings__models,
+.quillforms-payments-page-settings__products {
+	padding: 30px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 20%);
+	margin-top: 40px;
 }
+
 .quillforms-payments-page-settings__general h3,
-.quillforms-payments-page-settings__methods h3,
-.quillforms-payments-page-settings__products h3{
+.quillforms-payments-page-settings__models h3,
+.quillforms-payments-page-settings__products h3 {
 	color: #6d78d8;
 }
+
 .quillforms-payments-page-settings__general .admin-components-base-control:last-child,
-.quillforms-payments-page-settings__methods .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__models .admin-components-base-control:last-child,
 .quillforms-payments-page-settings__products .admin-components-base-control:last-child {
-    border: none
+	border: none
 }
+
 .quillforms-payments-page-settings__products {
-	margin-bottom: 300px
+	margin-bottom: 200px;
+
+	.add-product {
+		background: #353938 !important;
+		display: flex;
+		align-items: center;
+		height: 36px !important;
+		margin: 20px auto 0;
+
+		svg {
+			fill: #fff;
+			margin-right: 7px;
+		}
+	}
 }
+
 .quillforms-payments-page-settings__products-hint {
-    background: #ECEEFD;
-    color: #3f3d3d;
-    padding: 20px;
-    border-radius: 10px
+	background: #ECEEFD;
+	color: #3f3d3d;
+	padding: 20px;
+	border-radius: 10px
+}
+
+.quillforms-payments-page-settings__models {
+
+	.payment-model {
+
+		&.payment-model-multiple {
+			position: relative;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 5px 20px;
+			margin-bottom: 20px;
+
+			.payment-model-remove-button {
+				position: absolute;
+				top: -7.5px;
+				right: -7.5px;
+				width: 15px;
+				height: 15px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				background: #b65454;
+				cursor: pointer;
+
+				svg {
+					width: 100%;
+					height: 100%;
+					fill: #fff;
+				}
+			}
+		}
+
+		.payment-model-name {
+
+			.components-base-control__field {
+				margin: 0 !important;
+			}
+
+			input {
+				margin: 0 !important;
+			}
+		}
+
+		.payment-model-recurring {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			padding: 0 15px;
+
+			.admin-components-text-control {
+				width: auto;
+			}
+
+			.components-custom-select-control label {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		}
+
+		.payment-model-methods {
+			padding: 0 15px;
+
+			.method-label {
+				display: inline-flex;
+				align-items: center;
+				height: 25px;
+
+				&>svg,
+				&>img {
+					max-width: 50px;
+					max-height: 25px;
+					margin-right: 10px;
+				}
+
+				.method-label-notice {
+					margin-left: 3px;
+				}
+			}
+
+		}
+
+		.payment-model-gateway-options {
+			padding: 0 15px;
+
+			.gateway-option-label {
+				display: flex;
+				align-items: center;
+				height: 25px;
+
+				&>svg,
+				&>img {
+					max-width: 50px;
+					max-height: 25px;
+					margin-right: 10px;
+				}
+			}
+		}
+
+		.payment-model-conditions {
+			padding: 0 15px;
+
+			.payment-model-conditions-instructions {
+				margin-bottom: 5px;
+			}
+		}
+	}
+
+	.add-model {
+		background: #353938 !important;
+		display: flex;
+		align-items: center;
+		height: 36px !important;
+		margin: 20px auto 0;
+
+		svg {
+			fill: #fff;
+			margin-right: 7px;
+		}
+	}
 }

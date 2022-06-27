@@ -8,6 +8,11 @@
 	<rule ref="PHPCompatibility"/>
 	<config name="testVersion" value="7.2-"/>
 
+	<rule ref="WordPress-Core">
+		<type>warning</type>
+		<exclude name="WordPress.PHP.YodaConditions"/>
+	</rule>
+
 	<rule ref="WordPress-Core"/>
 	<rule ref="WordPress-Docs"/>
 	<rule ref="WordPress.WP.I18n"/>

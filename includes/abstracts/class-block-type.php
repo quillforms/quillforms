@@ -99,6 +99,9 @@ abstract class Block_Type extends stdClass {
 			'logic'           => true,
 			'logicConditions' => true,
 			'theme'           => false,
+			'choices'         => false,
+			'payments'        => false,
+			'points'          => false,
 		);
 		$this->name                  = $this->get_name();
 		$this->block_admin_assets    = $this->get_block_admin_assets();
@@ -303,6 +306,18 @@ abstract class Block_Type extends stdClass {
 	 */
 	public function get_logical_operators() : iterable {
 		return array( 'is', 'is_not', 'greater_than', 'lower_than' );
+	}
+
+	/**
+	 * Get choices
+	 * For blocks that supports choices
+	 *
+	 * @since 1.13.2
+	 *
+	 * @return array
+	 */
+	public function get_choices() {
+		return array();
 	}
 
 	/**

@@ -1,0 +1,74 @@
+version: '3.9'
+
+services:
+  # NPM service
+  qf_npm:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    restart: always
+    ports:
+      - "${LISTEN_IP}:${HTTP_NPM_PORT}:35729"
+    volumes:
+      - ../:/usr/src/app:delegated
+    networks:
+      - network
+
+  # Wordpress service
+  qf_wordpress:
+    build:
+      context: .
+      dockerfile: wordpress.dockerfile
+    restart: always
+    ports:
+      - "${LISTEN_IP}:${HTTP_PORT}:80"
+    environment:
+      WORDPRESS_DB_HOST: qf_mysql
+      WORDPRESS_DB_USER: ${DB_USERNAME}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_DATABASE}
+    depends_on:
+      - qf_mysql
+    volumes:
+      - ../../../../../wordpress:/var/www/html
+      - ../../../../../wordpress/logs:/var/log/apache2
+    networks:
+      - network
+
+  # MySQL Database
+  qf_mysql:
+    image: mysql:5.7.32
+    restart: always
+    ports:
+      - "${LISTEN_IP}:3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./mysql/:/var/lib/mysql/
+    networks:
+      - network
+
+  # PHPMyAdmin
+  qf_pma:
+    image: phpmyadmin:5.1
+    restart: always
+    ports:
+      - "${LISTEN_IP}:${PHPMYADMIN_PORT}:80"
+    environment:
+      - PMA_HOST=qf_mysql
+      - PMA_USER=${DB_USERNAME}
+      - PMA_PASSWORD=${DB_PASSWORD}
+      - PMA_ARBITRARY=1
+    depends_on:
+      - qf_mysql
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "${LISTEN_IP}"

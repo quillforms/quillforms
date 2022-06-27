@@ -32,19 +32,18 @@ function register() {
 	registerPaymentGatewayModule( 'stripe', {
 		name: 'Stripe',
 		description: 'Accept payments through stripe gateway.',
-		icon: `${ assetsDir }/icon.png`,
+		icon: {
+			mini: `${ assetsDir }/icon.png`,
+			full: `${ assetsDir }/icon-full.svg`,
+		},
 		active: false,
 		settings: Settings,
-		isPro: true,
 		methods: {
 			elements: {
 				isRecurringSupported: true,
-				isCustomerRequired: {
-					recurring: true,
-				},
 				admin: {
 					label: {
-						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,
+						icon: `${ assetsDir }/icon-full.svg`,
 						text: 'Elements',
 					},
 				},
@@ -57,12 +56,9 @@ function register() {
 			},
 			checkout: {
 				isRecurringSupported: true,
-				isCustomerRequired: {
-					recurring: true,
-				},
 				admin: {
 					label: {
-						icon: `${ assetsDir }/stripe-wordmark-blurple.svg`,
+						icon: `${ assetsDir }/icon-full.svg`,
 						text: 'Checkout',
 					},
 				},

@@ -102,8 +102,8 @@ class Entry_Record_Types {
 		Logic_Conditions::instance()->register(
 			$type,
 			array(
-				'check' => $args['is_condition_fulfilled'] ?? function( $record_id, $condition, $entry, $form_data ) use ( $args ) { // phpcs:ignore
-					$value = $entry->records[ $args['section'] ][ $record_id ]['value'] ?? '';
+				'check' => $args['is_condition_fulfilled'] ?? function( $record_id, $condition, $entry, $form_data ) use ( $type ) { // phpcs:ignore
+					$value = $entry->get_record_value( $type, $record_id ) ?? '';
 					return Logic_Conditions::is_condition_fulfilled( $value, $condition );
 				},
 			)
@@ -148,7 +148,7 @@ class Entry_Record_Types {
 	 * @return mixed
 	 */
 	public function get_field_readable_value( $field_id, $entry, $form_data, $context ) {
-		$raw_value = $entry->records['fields'][ $field_id ]['value'] ?? null;
+		$raw_value = $entry->get_record_value( 'field', $field_id );
 		if ( null === $raw_value ) {
 			return null;
 		}
@@ -196,7 +196,7 @@ class Entry_Record_Types {
 			return false;
 		}
 
-		$value = $entry->records['fields'][ $field_id ]['value'] ?? '';
+		$value = $entry->get_record_value( 'field', $field_id ) ?? '';
 		return $block_type->is_condition_fulfilled( $value, $condition );
 	}
 

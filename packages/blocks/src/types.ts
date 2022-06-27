@@ -25,6 +25,10 @@ export interface BlockAdminSettings {
 	controls?: React.ComponentType< ControlsProps >;
 	logicControl?: FC | Component | JSX.Element;
 	order?: number;
+	getChoices?: ( args: {
+		id: string;
+		attributes: BlockAttributes;
+	} ) => { label: string; value: string }[];
 	entryDetails?: React.ComponentType< EntryDetailsProps >;
 }
 
@@ -49,6 +53,9 @@ export type BlockSupportedFeatures = {
 	logicConditions?: boolean;
 	theme?: boolean;
 	numeric?: boolean;
+	choices?: boolean;
+	payments?: boolean;
+	points?: boolean;
 };
 
 type logicalOperator =

@@ -32,16 +32,18 @@ function register() {
 	registerPaymentGatewayModule( 'paypal', {
 		name: 'PayPal',
 		description: 'Accept payments through paypal gateway.',
-		icon: `${ assetsDir }/icon.png`,
+		icon: {
+			mini: `${ assetsDir }/icon.png`,
+			full: `${ assetsDir }/icon-full.webp`,
+		},
 		active: false,
 		settings: Settings,
-		isPro: true,
 		methods: {
 			checkout: {
 				isRecurringSupported: true,
 				admin: {
 					label: {
-						icon: `${ assetsDir }/pp-logo-200px.webp`,
+						icon: `${ assetsDir }/icon-full.webp`,
 						text: 'Checkout',
 					},
 				},
@@ -56,7 +58,7 @@ function register() {
 				isRecurringSupported: false,
 				admin: {
 					label: {
-						icon: `${ assetsDir }/pp-logo-200px.webp`,
+						icon: `${ assetsDir }/icon-full.webp`,
 						text: 'Card',
 					},
 				},

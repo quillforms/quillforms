@@ -56,7 +56,7 @@ export type ComboboxControlProps = {
 	isToggleEnabled?: boolean;
 	// customize sections and options.
 	customize?: CustomizeFunction;
-	// rich text editor placeholder. (rich text)
+	// rich text editor placeholder or select "choose" option text.
 	placeholder?: string;
 	// hide "choose an option". (select)
 	hideChooseOption?: boolean;
@@ -178,10 +178,11 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 					value,
 					onChange,
 					isToggleEnabled,
+					placeholder,
 				} }
 			>
 				{ value.type === 'text' ? (
-					<RichText placeholder={ placeholder } />
+					<RichText />
 				) : (
 					<Select hideChooseOption={ hideChooseOption } />
 				) }

@@ -7,7 +7,8 @@
 		"description": true,
 		"logic": true,
 		"theme": true,
-		"numeric": true
+		"numeric": true,
+		"payments": true
 	},
 	"attributes": {
 		"set_max": {
