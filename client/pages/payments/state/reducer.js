@@ -73,8 +73,7 @@ const models = ( state = {}, action ) => {
 					break;
 				case 'normal':
 				default:
-					model = { ...state[ action.id ] };
-					model = { ...model, ...action.model };
+					model = { ...state[ action.id ], ...action.model };
 			}
 			return {
 				...state,

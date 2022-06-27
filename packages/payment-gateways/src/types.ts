@@ -21,6 +21,7 @@ export type PaymentGatewayModule = {
 	};
 	methods: {
 		[ key: string ]: {
+			configured: boolean;
 			isRecurringSupported: boolean;
 			admin: {
 				label: {
