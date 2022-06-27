@@ -37,13 +37,16 @@ const Methods = ( { id } ) => {
 		}
 	}
 
-	// disable inactive methods.
+	// disable inactive and not configured methods.
 	useEffect( () => {
 		let $methods = { ...model.methods };
 		for ( const key in model.methods ) {
-			const gateway = key.split( ':' )[ 0 ];
+			const [ gateway, method ] = key.split( ':' );
 			const active = gateways[ gateway ]?.active;
-			if ( ! active ) {
+			if (
+				! active ||
+				! gateways[ gateway ]?.methods[ method ]?.configured
+			) {
 				$methods = omit( $methods, key );
 			}
 		}
@@ -165,6 +168,7 @@ const Methods = ( { id } ) => {
 						const [ gateway, method ] = key.split( ':' );
 						const active = gateways[ gateway ].active;
 						const data = gateways[ gateway ].methods[ method ];
+						const configured = data?.configured ?? false;
 
 						let notice = null;
 						let available = true;
@@ -219,7 +223,20 @@ const Methods = ( { id } ) => {
 							}
 						}
 
-						// TODO: if gateway addon is not configured.
+						// if method is not configured.
+						if ( available && ! configured ) {
+							available = false;
+
+							notice = (
+								<i>
+									<NavLink
+										to={ `/admin.php?page=quillforms&path=settings` }
+									>
+										Configure it
+									</NavLink>
+								</i>
+							);
+						}
 
 						return (
 							<BaseControl key={ key }>

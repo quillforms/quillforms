@@ -40,6 +40,7 @@ function register() {
 		settings: Settings,
 		methods: {
 			checkout: {
+				configured: false,
 				isRecurringSupported: true,
 				admin: {
 					label: {
@@ -55,6 +56,7 @@ function register() {
 				},
 			},
 			card: {
+				configured: false,
 				isRecurringSupported: false,
 				admin: {
 					label: {
