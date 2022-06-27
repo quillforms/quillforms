@@ -11,7 +11,6 @@ import {
 	__experimentalUseFieldRenderContext,
 } from './context';
 import FieldWrapper from '../field-wrapper';
-import { goPrev } from '../../store/actions';
 
 export { __experimentalUseFieldRenderContext };
 
