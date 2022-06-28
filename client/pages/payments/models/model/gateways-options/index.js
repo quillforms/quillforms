@@ -33,19 +33,11 @@ const GatewaysOptions = ( { id } ) => {
 			elements[ gateway ] = (
 				<options.component
 					model={ model }
-					onChange={ ( options ) =>
-						updateModel(
-							id,
-							{
-								options: {
-									gateways: {
-										[ gateway ]: options,
-									},
-								},
-							},
-							'recursive'
-						)
-					}
+					onChange={ ( value ) => {
+						const options = { ...model.options };
+						options.gateways[ gateway ] = value;
+						updateModel( id, { options } );
+					} }
 				/>
 			);
 		}
