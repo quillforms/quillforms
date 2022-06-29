@@ -404,7 +404,7 @@ class Form_Submission {
 					if ( $block_type->supported_features['numeric'] ) {
 						$items[] = array(
 							'name'     => $product['name'],
-							'price'    => (float) $this->entry->get_record_value( 'field', $block_id ),
+							'price'    => (float) $block_type->get_numeric_value( $this->entry->get_record_value( 'field', $block_id ) ),
 							'quantity' => 1,
 						);
 					} elseif ( $block_type->supported_features['choices'] ) {
