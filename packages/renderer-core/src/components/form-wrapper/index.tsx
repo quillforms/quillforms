@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 
 /**
@@ -21,6 +21,7 @@ interface Props {
 	applyLogic: boolean;
 }
 const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
+	const [ isMounted, setIsMounted ] = useState( false );
 	const editableFields = useEditableFields();
 	const blocks = useBlocks();
 	const { insertEmptyFieldAnswer, goToBlock } = useDispatch(
@@ -33,7 +34,6 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 			editableFields.forEach( ( field ) =>
 				insertEmptyFieldAnswer( field.id, field.name )
 			);
-			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ] : undefined;
 			const welcomeScreens = map(
 				cloneDeep( blocks ).filter(
 					( block ) => block.name === 'welcome-screen'
@@ -65,13 +65,21 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 						: ( thankyouScreens as Screen[] ),
 			} );
 
+			setIsMounted( true );
+		}
+	}, [ JSON.stringify( blocks ) ] );
+
+	useEffect( () => {
+		if ( isMounted ) {
+			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ] : undefined;
+
 			setTimeout( () => {
 				if ( firstBlock?.id ) {
 					goToBlock( firstBlock.id );
 				}
 			}, 100 );
 		}
-	}, [ JSON.stringify( blocks ) ] );
+	}, [ isMounted ] );
 
 	return <FormFlow applyLogic={ applyLogic } />;
 };
