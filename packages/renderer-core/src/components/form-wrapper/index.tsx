@@ -71,7 +71,7 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 				}
 			}, 100 );
 		}
-	}, [] );
+	}, [ JSON.stringify( blocks ) ] );
 
 	return <FormFlow applyLogic={ applyLogic } />;
 };
