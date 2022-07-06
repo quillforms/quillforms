@@ -12,7 +12,7 @@ import { mergeWith, isArray, omit } from 'lodash';
  * Internal dependencies
  */
 import {
-	SET_ENABLED,
+	UPDATE_GENERAL,
 	ADD_MODEL,
 	UPDATE_MODEL,
 	DELETE_MODEL,
@@ -30,10 +30,22 @@ import {
  *
  * @return {Object} Updated state.
  */
-const enabled = ( state = false, action ) => {
+const general = ( state = false, action ) => {
 	switch ( action.type ) {
-		case SET_ENABLED: {
-			return action.value;
+		case UPDATE_GENERAL: {
+			switch ( action.mode ) {
+				case 'recursive':
+					let general = { ...state };
+					mergeWith( general, action.general, ( obj, src ) => {
+						if ( isArray( obj ) ) return src;
+					} );
+					return general;
+				case 'set':
+					return { ...action.general };
+				case 'normal':
+				default:
+					return { ...state, ...action.general };
+			}
 		}
 	}
 	return state;
@@ -155,7 +167,7 @@ const errors = ( state = {}, action ) => {
 };
 
 const CombinedReducer = combineReducers( {
-	enabled,
+	general,
 	models,
 	products,
 	errors,

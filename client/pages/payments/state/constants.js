@@ -1,4 +1,4 @@
-export const SET_ENABLED = 'SET_ENABLED';
+export const UPDATE_GENERAL = 'UPDATE_GENERAL';
 export const ADD_MODEL = 'ADD_MODEL';
 export const UPDATE_MODEL = 'UPDATE_MODEL';
 export const DELETE_MODEL = 'DELETE_MODEL';

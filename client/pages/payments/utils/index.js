@@ -2,7 +2,9 @@ import ConfigApi from '@quillforms/config';
 
 const getInitialState = () => {
 	let state = {
-		enabled: false,
+		general: {
+			enabled: false,
+		},
 		models: {
 			[ randomId() ]: getModelDefaultState( 'Payment Model #1' ),
 		},

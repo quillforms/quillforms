@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import {
-	SET_ENABLED,
+	UPDATE_GENERAL,
 	ADD_MODEL,
 	UPDATE_MODEL,
 	DELETE_MODEL,
@@ -14,10 +14,11 @@ import {
 
 export default ( dispatch ) => {
 	return {
-		setEnabled: ( value ) => {
+		updateGeneral: ( general, mode = 'normal' ) => {
 			dispatch( {
-				type: SET_ENABLED,
-				value,
+				type: UPDATE_GENERAL,
+				general,
+				mode,
 			} );
 		},
 		addModel: ( id, model ) => {

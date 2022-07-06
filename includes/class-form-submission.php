@@ -333,7 +333,7 @@ class Form_Submission {
 	 * @return array|null
 	 */
 	public function get_payments_meta() {
-		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
+		if ( ! ( $this->form_data['payments']['general']['enabled'] ?? null ) ) {
 			return null;
 		}
 

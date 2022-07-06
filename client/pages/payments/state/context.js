@@ -4,12 +4,12 @@
 import { createContext, useContext } from '@wordpress/element';
 
 const PaymentsContext = createContext( {
-	enabled: false,
+	general: {},
 	models: {},
 	products: {},
 	errors: {},
-	setEnabled: ( _value ) => {
-		throw 'setEnabled() not implemented.';
+	updateGeneral: ( _general, _mode = 'recursive' ) => {
+		throw 'updateGeneral() not implemented.';
 	},
 	addModel: ( _id, _model ) => {
 		throw 'addModel() not implemented.';

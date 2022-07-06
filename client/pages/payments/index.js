@@ -39,7 +39,7 @@ const PaymentsPage = ( { params } ) => {
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
-	const { enabled, models, products, errors } = state;
+	const { general, models, products, errors } = state;
 	const $actions = actions( dispatch );
 
 	// data selectors.
@@ -135,7 +135,7 @@ const PaymentsPage = ( { params } ) => {
 			method: 'POST',
 			data: {
 				payments: {
-					enabled,
+					general,
 					models,
 				},
 				products,
@@ -220,7 +220,7 @@ const PaymentsPage = ( { params } ) => {
 
 	return (
 		<PaymentsContextProvider
-			value={ { enabled, models, products, errors, ...$actions } }
+			value={ { general, models, products, errors, ...$actions } }
 		>
 			<div className="quillforms-payments-page">
 				<div className="quillforms-payments-page-header">

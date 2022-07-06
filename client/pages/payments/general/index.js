@@ -14,7 +14,7 @@ import {
 import { usePaymentsContext } from '../state/context';
 
 const General = () => {
-	const { enabled, setEnabled } = usePaymentsContext();
+	const { general, updateGeneral } = usePaymentsContext();
 
 	return (
 		<div className="quillforms-payments-page-settings__general">
@@ -23,8 +23,10 @@ const General = () => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Enable Payments"></ControlLabel>
 					<ToggleControl
-						checked={ enabled }
-						onChange={ () => setEnabled( ! enabled ) }
+						checked={ general.enabled }
+						onChange={ () =>
+							updateGeneral( { enabled: ! general.enabled } )
+						}
 					/>
 				</ControlWrapper>
 			</BaseControl>

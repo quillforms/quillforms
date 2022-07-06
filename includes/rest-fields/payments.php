@@ -16,9 +16,15 @@ defined( 'ABSPATH' ) || exit;
 $payments_schema = array(
 	'type'       => 'object',
 	'properties' => array(
-		'enabled' => array(
-			'type'     => 'boolean',
-			'required' => true,
+		'general' => array(
+			'type'       => 'object',
+			'required'   => true,
+			'properties' => array(
+				'enabled' => array(
+					'type'     => 'boolean',
+					'required' => true,
+				),
+			),
 		),
 		'models'  => array(
 			'type'                 => 'object',
