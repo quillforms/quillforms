@@ -4,6 +4,7 @@
 import { createContext, useContext } from '@wordpress/element';
 
 const PaymentsContext = createContext( {
+	state: {},
 	general: {},
 	models: {},
 	products: {},

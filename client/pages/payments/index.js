@@ -66,46 +66,33 @@ const PaymentsPage = ( { params } ) => {
 	}, [ blocksResolved ] );
 
 	const onSave = () => {
-		const isSingleModel = Object.keys( models ).length === 1;
+		// validate selection of one method at least.
+		if ( Object.keys( general.methods ).length === 0 ) {
+			createErrorNotice( `⛔ Please select at least one payment method`, {
+				type: 'snackbar',
+				isDismissible: true,
+			} );
+			return;
+		}
 
-		// validate models.
-		for ( const model of Object.values( models ) ) {
-			// validate selection of one method at least for each model.
-			if ( Object.keys( model.methods ).length === 0 ) {
-				let message =
-					'Please select at least one payment method' +
-					( isSingleModel ? '' : ` for model "${ model.name }"` );
-				createErrorNotice( `⛔ ${ message }`, {
-					type: 'snackbar',
-					isDismissible: true,
-				} );
-				return;
+		// validate gateways options.
+		const enabled = [];
+		for ( const key of Object.keys( general.methods ) ) {
+			const gateway = key.split( ':' )[ 0 ];
+			if ( ! enabled.includes( gateway ) ) {
+				enabled.push( gateway );
 			}
-
-			// validate gateways options.
-			const enabled = [];
-			for ( const key of Object.keys( model.methods ) ) {
-				const gateway = key.split( ':' )[ 0 ];
-				if ( ! enabled.includes( gateway ) ) {
-					enabled.push( gateway );
-				}
-			}
-			for ( const gateway of enabled ) {
-				const options = gateways[ gateway ].options ?? null;
-				if ( options && options.has( model ) ) {
-					const validate = options.validate( model );
-					if ( ! validate.valid ) {
-						let message =
-							validate.message +
-							( isSingleModel
-								? ''
-								: ` for model "${ model.name }"` );
-						createErrorNotice( `⛔ ${ message }`, {
-							type: 'snackbar',
-							isDismissible: true,
-						} );
-						return;
-					}
+		}
+		for ( const gateway of enabled ) {
+			const options = gateways[ gateway ].options ?? null;
+			if ( options && options.has( state ) ) {
+				const validate = options.validate( state );
+				if ( ! validate.valid ) {
+					createErrorNotice( `⛔ ${ validate.message }`, {
+						type: 'snackbar',
+						isDismissible: true,
+					} );
+					return;
 				}
 			}
 		}
@@ -220,7 +207,7 @@ const PaymentsPage = ( { params } ) => {
 
 	return (
 		<PaymentsContextProvider
-			value={ { general, models, products, errors, ...$actions } }
+			value={ { state, general, models, products, errors, ...$actions } }
 		>
 			<div className="quillforms-payments-page">
 				<div className="quillforms-payments-page-header">

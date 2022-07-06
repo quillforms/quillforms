@@ -38,6 +38,23 @@ $payments_schema = array(
 						),
 					),
 				),
+				'methods'  => array(
+					'type'                 => 'object',
+					'additionalProperties' => array(
+						'type' => 'object',
+					),
+				),
+				'options'  => array(
+					'type'       => 'object',
+					'properties' => array(
+						'gateways' => array(
+							'type'                 => 'object',
+							'additionalProperties' => array(
+								'type' => 'object',
+							),
+						),
+					),
+				),
 			),
 		),
 		'models'  => array(
@@ -67,23 +84,6 @@ $payments_schema = array(
 										'type' => 'string',
 										'enum' => array( 'day', 'week', 'month', 'year' ),
 									),
-								),
-							),
-						),
-					),
-					'methods'    => array(
-						'type'                 => 'object',
-						'additionalProperties' => array(
-							'type' => 'object',
-						),
-					),
-					'options'    => array(
-						'type'       => 'object',
-						'properties' => array(
-							'gateways' => array(
-								'type'                 => 'object',
-								'additionalProperties' => array(
-									'type' => 'object',
 								),
 							),
 						),
@@ -166,36 +166,38 @@ register_rest_field(
 						return $result;
 					}
 
-					foreach ( $payments['models'] as $model ) {
-						// get enabled gateways & methods.
-						$enabled_methods = array();
-						foreach ( array_keys( $model['methods'] )  as $key ) {
-							list( $gateway, $method ) = explode( ':', $key );
-							$enabled_methods[ $gateway ][] = $method;
+					// get enabled gateways & methods.
+					$enabled_methods = array();
+					foreach ( array_keys( $payments['general']['methods'] )  as $key ) {
+						list( $gateway, $method ) = explode( ':', $key );
+						$enabled_methods[ $gateway ][] = $method;
+					}
+
+					// check support.
+					foreach ( $enabled_methods as $gateway => $methods ) {
+						/** @var Payment_Gateway */ // phpcs:ignore
+						$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
+
+						// check if registered.
+						if ( ! $gateway_addon ) {
+							return new WP_Error(
+								'quillforms_payments_validation_error',
+								/* translators: %s for gateway:method */
+								sprintf( esc_html__( 'Gateway %s is not active.', 'quillforms' ), $gateway )
+							);
 						}
 
-						// check support.
-						foreach ( $enabled_methods as $gateway => $methods ) {
-							/** @var Payment_Gateway */ // phpcs:ignore
-							$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
+						// check settings support.
+						if ( ! $gateway_addon->is_currency_supported( $payments['general']['currency']['code'] ) ) {
+							return new WP_Error(
+								'quillforms_payments_validation_error',
+								/* translators: %s for gateway */
+								sprintf( esc_html__( 'Currency is not supported by %s.', 'quillforms' ), $gateway )
+							);
+						}
 
-							// check if registered.
-							if ( ! $gateway_addon ) {
-								return new WP_Error(
-									'quillforms_payments_validation_error',
-									/* translators: %s for gateway:method */
-									sprintf( esc_html__( 'Gateway %s is not active.', 'quillforms' ), $gateway )
-								);
-							}
-
-							// check settings support.
-							if ( ! $gateway_addon->is_currency_supported( $payments['general']['currency']['code'] ) ) {
-								return new WP_Error(
-									'quillforms_payments_validation_error',
-									/* translators: %s for gateway */
-									sprintf( esc_html__( 'Currency is not supported by %s.', 'quillforms' ), $gateway )
-								);
-							}
+						// check recurring support.
+						foreach ( $payments['models'] as $model ) {
 							if ( $model['recurring'] && ! $gateway_addon->is_recurring_interval_supported( $model['recurring']['interval_unit'], (int) $model['recurring']['interval_count'] ) ) {
 								return new WP_Error(
 									'quillforms_payments_validation_error',

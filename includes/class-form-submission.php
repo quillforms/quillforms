@@ -488,7 +488,7 @@ class Form_Submission {
 		$payments['currency']['symbol'] = Payments::instance()->get_currency_symbol( $payments['currency']['code'] );
 
 		// add methods.
-		$payments['methods'] = $this->form_data['payments']['models'][ $payments['model_id'] ]['methods'];
+		$payments['methods'] = $this->form_data['payments']['general']['methods'];
 
 		return $payments;
 	}

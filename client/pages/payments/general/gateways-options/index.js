@@ -11,15 +11,14 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 /**
  * Internal Dependencies
  */
-import { usePaymentsContext } from '../../../state/context';
+import { usePaymentsContext } from '../../state/context';
 
-const GatewaysOptions = ( { id } ) => {
-	const { models, updateModel } = usePaymentsContext();
-	const model = models[ id ];
+const GatewaysOptions = () => {
+	const { state, general, updateGeneral } = usePaymentsContext();
 
 	const gateways = getPaymentGatewayModules();
 	const enabled = [];
-	for ( const key of Object.keys( model.methods ) ) {
+	for ( const key of Object.keys( general.methods ) ) {
 		const gateway = key.split( ':' )[ 0 ];
 		if ( ! enabled.includes( gateway ) ) {
 			enabled.push( gateway );
@@ -29,14 +28,14 @@ const GatewaysOptions = ( { id } ) => {
 	const elements = {};
 	for ( const gateway of enabled ) {
 		const options = gateways[ gateway ].options ?? null;
-		if ( options && options.has( model ) ) {
+		if ( options && options.has( state ) ) {
 			elements[ gateway ] = (
 				<options.component
-					model={ model }
+					settings={ state }
 					onChange={ ( value ) => {
-						const options = { ...model.options };
+						const options = { ...general.options };
 						options.gateways[ gateway ] = value;
-						updateModel( id, { options } );
+						updateGeneral( { options } );
 					} }
 				/>
 			);
@@ -51,7 +50,7 @@ const GatewaysOptions = ( { id } ) => {
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
 				<ControlLabel label="Gateways Options" />
-				<div className="payment-model-gateway-options">
+				<div className="payments-general-gateway-options">
 					{ Object.entries( elements ).map(
 						( [ gateway, element ] ) => {
 							const icon = gateways[ gateway ].icon.full;

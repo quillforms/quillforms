@@ -9,15 +9,18 @@ export type PaymentGatewayModule = {
 	};
 	description: string;
 	active: boolean;
+	// settings component at settings->payments
 	settings: React.FC< { slug: string } >;
+	// gateway options at form->payments
 	options?: {
+		// settings: all settings at form->payments
 		component: React.FC< {
 			slug: string;
-			model: any;
+			settings: any;
 			onChange: ( value: any ) => void;
 		} >;
-		has: ( model: any ) => boolean;
-		validate: ( model: any ) => { valid: boolean; message?: string };
+		has: ( settings: any ) => boolean;
+		validate: ( settings: any ) => { valid: boolean; message?: string };
 	};
 	methods: {
 		[ key: string ]: {

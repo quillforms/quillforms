@@ -21,12 +21,16 @@ import { useEffect } from '@wordpress/element';
 /**
  * Internal Dependencies
  */
-import { usePaymentsContext } from '../../../state/context';
+import { usePaymentsContext } from '../../state/context';
 import { omit } from 'lodash';
 
-const Methods = ( { id } ) => {
-	const { models, updateModel } = usePaymentsContext();
-	const model = models[ id ];
+const Methods = () => {
+	const { general, models, updateGeneral } = usePaymentsContext();
+
+	// is any model recurring.
+	const recurring = !! Object.values( models ).find(
+		( model ) => model.recurring
+	);
 
 	// all registered gateways and methods.
 	const gateways = getPaymentGatewayModules();
@@ -39,23 +43,23 @@ const Methods = ( { id } ) => {
 
 	// disable recurring unsupported methods.
 	useEffect( () => {
-		if ( model.recurring ) {
-			let $methods = { ...model.methods };
-			for ( const key in model.methods ) {
+		if ( recurring ) {
+			let $methods = { ...general.methods };
+			for ( const key in general.methods ) {
 				const [ gateway, method ] = key.split( ':' );
 				const data = gateways[ gateway ]?.methods[ method ];
-				if ( model.recurring && ! data?.isRecurringSupported ) {
+				if ( ! data?.isRecurringSupported ) {
 					$methods = omit( $methods, key );
 				}
 			}
-			updateModel( id, { methods: $methods } );
+			updateGeneral( { methods: $methods } );
 		}
-	}, [ model.recurring ] );
+	}, [ models ] );
 
 	// disable inactive and not configured methods.
 	useEffect( () => {
-		let $methods = { ...model.methods };
-		for ( const key in model.methods ) {
+		let $methods = { ...general.methods };
+		for ( const key in general.methods ) {
 			const [ gateway, method ] = key.split( ':' );
 			const active = gateways[ gateway ]?.active;
 			if (
@@ -65,17 +69,17 @@ const Methods = ( { id } ) => {
 				$methods = omit( $methods, key );
 			}
 		}
-		updateModel( id, { methods: $methods } );
+		updateGeneral( { methods: $methods } );
 	}, [] );
 
 	// reorder enabled methods.
 	const reorder = ( index, action ) => {
 		const toIndex = index + ( action === 'up' ? -1 : 1 );
-		const $methods = Object.entries( model.methods );
+		const $methods = Object.entries( general.methods );
 		const item = $methods[ index ];
 		$methods[ index ] = $methods[ toIndex ];
 		$methods[ toIndex ] = item;
-		updateModel( id, { methods: Object.fromEntries( $methods ) } );
+		updateGeneral( { methods: Object.fromEntries( $methods ) } );
 	};
 
 	// loop over the enabled methods then other methods.
@@ -83,8 +87,8 @@ const Methods = ( { id } ) => {
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
 				<ControlLabel label="Methods" />
-				<div className="payment-model-methods">
-					{ Object.keys( model.methods ).map( ( key, index ) => {
+				<div className="payments-general-methods">
+					{ Object.keys( general.methods ).map( ( key, index ) => {
 						const [ gateway, method ] = key.split( ':' );
 						const data = gateways[ gateway ].methods[ method ];
 						return (
@@ -117,7 +121,7 @@ const Methods = ( { id } ) => {
 											</Button>
 										) }
 										{ index !==
-											Object.keys( model.methods )
+											Object.keys( general.methods )
 												.length -
 												1 && (
 											<Button
@@ -133,35 +137,18 @@ const Methods = ( { id } ) => {
 										checked={ true }
 										onChange={ () => {
 											const methods = omit(
-												{ ...model.methods },
+												{ ...general.methods },
 												key
 											);
-											updateModel( id, { methods } );
+											updateGeneral( { methods } );
 										} }
 									/>
 								</ControlWrapper>
-								{ data.admin.options && (
-									<data.admin.options
-										slug={ key }
-										model={ model }
-										onChange={ ( options ) => {
-											updateModel(
-												id,
-												{
-													methods: {
-														[ key ]: { options },
-													},
-												},
-												'recursive'
-											);
-										} }
-									/>
-								) }
 							</BaseControl>
 						);
 					} ) }
 					{ methods.map( ( key ) => {
-						if ( Object.keys( model.methods ).includes( key ) ) {
+						if ( Object.keys( general.methods ).includes( key ) ) {
 							return null;
 						}
 
@@ -174,7 +161,7 @@ const Methods = ( { id } ) => {
 						let available = true;
 
 						// if method doesn't support recurring.
-						if ( model.recurring && ! data?.isRecurringSupported ) {
+						if ( recurring && ! data?.isRecurringSupported ) {
 							available = false;
 							notice = <i>Doesn't support recurring</i>;
 						}
@@ -266,8 +253,7 @@ const Methods = ( { id } ) => {
 										checked={ false }
 										disabled={ ! available }
 										onChange={ () => {
-											updateModel(
-												id,
+											updateGeneral(
 												{
 													methods: { [ key ]: {} },
 												},

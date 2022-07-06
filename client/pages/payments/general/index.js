@@ -13,6 +13,8 @@ import {
  */
 import { usePaymentsContext } from '../state/context';
 import Currency from './currency';
+import Methods from './methods';
+import GatewaysOptions from './gateways-options';
 
 const General = () => {
 	const { general, updateGeneral } = usePaymentsContext();
@@ -20,6 +22,7 @@ const General = () => {
 	return (
 		<div className="quillforms-payments-page-settings__general">
 			<h3> General Settings </h3>
+
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Enable Payments"></ControlLabel>
@@ -33,6 +36,10 @@ const General = () => {
 			</BaseControl>
 
 			<Currency />
+
+			<Methods />
+
+			<GatewaysOptions />
 		</div>
 	);
 };
