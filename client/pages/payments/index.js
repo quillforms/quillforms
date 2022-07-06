@@ -25,6 +25,7 @@ import './style.scss';
 import reducer from './state/reducer';
 import actions from './state/actions';
 import Icon from './icon';
+import General from './general';
 import Models from './models';
 import Products from './products';
 import { getInitialState } from './utils';
@@ -219,7 +220,7 @@ const PaymentsPage = ( { params } ) => {
 
 	return (
 		<PaymentsContextProvider
-			value={ { models, products, errors, ...$actions } }
+			value={ { enabled, models, products, errors, ...$actions } }
 		>
 			<div className="quillforms-payments-page">
 				<div className="quillforms-payments-page-header">
@@ -234,20 +235,7 @@ const PaymentsPage = ( { params } ) => {
 					</div>
 				</div>
 				<div className="quillforms-payments-page-settings">
-					<div className="quillforms-payments-page-settings__general">
-						<h3> General Settings </h3>
-						<BaseControl>
-							<ControlWrapper orientation="horizontal">
-								<ControlLabel label="Enable Payments"></ControlLabel>
-								<ToggleControl
-									checked={ enabled }
-									onChange={ () =>
-										$actions.setEnabled( ! state.enabled )
-									}
-								/>
-							</ControlWrapper>
-						</BaseControl>
-					</div>
+					<General />
 
 					<Models />
 

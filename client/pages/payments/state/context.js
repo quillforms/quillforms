@@ -4,9 +4,13 @@
 import { createContext, useContext } from '@wordpress/element';
 
 const PaymentsContext = createContext( {
+	enabled: false,
 	models: {},
 	products: {},
 	errors: {},
+	setEnabled: ( _value ) => {
+		throw 'setEnabled() not implemented.';
+	},
 	addModel: ( _id, _model ) => {
 		throw 'addModel() not implemented.';
 	},
