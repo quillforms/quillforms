@@ -351,7 +351,7 @@ class Form_Submission {
 		return array(
 			'model_id'  => $model_id,
 			'recurring' => $model['recurring'],
-			'currency'  => $model['currency'],
+			'currency'  => $this->form_data['payments']['general']['currency'],
 			'products'  => $products,
 		);
 	}

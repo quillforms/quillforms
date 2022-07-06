@@ -4,6 +4,7 @@ const getInitialState = () => {
 	let state = {
 		general: {
 			enabled: false,
+			currency: { code: 'USD', symbol_pos: 'left' },
 		},
 		models: {
 			[ randomId() ]: getModelDefaultState( 'Payment Model #1' ),
@@ -29,7 +30,6 @@ const getModelDefaultState = ( name ) => {
 	return {
 		name,
 		recurring: false,
-		currency: { code: 'USD', symbol_pos: 'left' },
 		methods: {},
 		options: {
 			gateways: {},

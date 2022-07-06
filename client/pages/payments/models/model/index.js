@@ -5,7 +5,6 @@ import { usePaymentsContext } from '../../state/context';
 import RemoveButton from './remove-button';
 import Name from './name';
 import Recurring from './recurring';
-import Currency from './currency';
 import Methods from './methods';
 import Conditions from './conditions';
 import GatewaysOptions from './gateways-options';
@@ -24,7 +23,6 @@ const Model = ( { id } ) => {
 			{ multiple && <RemoveButton id={ id } /> }
 			{ multiple && <Name id={ id } /> }
 			<Recurring id={ id } />
-			<Currency id={ id } />
 			<Methods id={ id } />
 			<GatewaysOptions id={ id } />
 			<Conditions id={ id } />

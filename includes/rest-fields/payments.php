@@ -20,9 +20,23 @@ $payments_schema = array(
 			'type'       => 'object',
 			'required'   => true,
 			'properties' => array(
-				'enabled' => array(
+				'enabled'  => array(
 					'type'     => 'boolean',
 					'required' => true,
+				),
+				'currency' => array(
+					'type'       => 'object',
+					'required'   => true,
+					'properties' => array(
+						'code'       => array(
+							'type'     => 'string',
+							'required' => true,
+						),
+						'symbol_pos' => array(
+							'type'     => 'string',
+							'required' => true,
+						),
+					),
 				),
 			),
 		),
@@ -54,20 +68,6 @@ $payments_schema = array(
 										'enum' => array( 'day', 'week', 'month', 'year' ),
 									),
 								),
-							),
-						),
-					),
-					'currency'   => array(
-						'type'       => 'object',
-						'required'   => true,
-						'properties' => array(
-							'code'       => array(
-								'type'     => 'string',
-								'required' => true,
-							),
-							'symbol_pos' => array(
-								'type'     => 'string',
-								'required' => true,
 							),
 						),
 					),
@@ -189,7 +189,7 @@ register_rest_field(
 							}
 
 							// check settings support.
-							if ( ! $gateway_addon->is_currency_supported( $model['currency']['code'] ) ) {
+							if ( ! $gateway_addon->is_currency_supported( $payments['general']['currency']['code'] ) ) {
 								return new WP_Error(
 									'quillforms_payments_validation_error',
 									/* translators: %s for gateway */

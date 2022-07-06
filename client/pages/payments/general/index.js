@@ -12,6 +12,7 @@ import {
  * Internal Dependencies
  */
 import { usePaymentsContext } from '../state/context';
+import Currency from './currency';
 
 const General = () => {
 	const { general, updateGeneral } = usePaymentsContext();
@@ -30,6 +31,8 @@ const General = () => {
 					/>
 				</ControlWrapper>
 			</BaseControl>
+
+			<Currency />
 		</div>
 	);
 };

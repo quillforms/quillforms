@@ -18,11 +18,10 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { usePaymentsContext } from '../../../state/context';
+import { usePaymentsContext } from '../../state/context';
 
-const Currency = ( { id } ) => {
-	const { models, updateModel } = usePaymentsContext();
-	const model = models[ id ];
+const Currency = () => {
+	const { general, updateGeneral } = usePaymentsContext();
 
 	const Currencies = ConfigApi.getCurrencies();
 	const CurrencyOptions = [];
@@ -32,7 +31,7 @@ const Currency = ( { id } ) => {
 			name: currency.name,
 		} );
 	}
-	const CurrencySymbol = Currencies[ model.currency.code ].symbol;
+	const CurrencySymbol = Currencies[ general.currency.code ].symbol;
 	const CurrencySymbolPosOptions = [
 		{
 			key: 'left',
@@ -72,12 +71,11 @@ const Currency = ( { id } ) => {
 						` }
 						options={ CurrencyOptions }
 						value={ CurrencyOptions.find(
-							( option ) => option.key === model.currency.code
+							( option ) => option.key === general.currency.code
 						) }
 						onChange={ ( { selectedItem } ) => {
 							if ( selectedItem ) {
-								updateModel(
-									id,
+								updateGeneral(
 									{
 										currency: {
 											code: selectedItem.key,
@@ -113,13 +111,12 @@ const Currency = ( { id } ) => {
 						value={
 							CurrencySymbolPosOptions.find(
 								( option ) =>
-									option.key === model.currency.symbol_pos
+									option.key === general.currency.symbol_pos
 							) ?? CurrencySymbolPosOptions[ 0 ]
 						}
 						onChange={ ( { selectedItem } ) => {
 							if ( selectedItem ) {
-								updateModel(
-									id,
+								updateGeneral(
 									{
 										currency: {
 											symbol_pos: selectedItem.key,
