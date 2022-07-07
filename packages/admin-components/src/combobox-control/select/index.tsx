@@ -18,6 +18,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { useComboboxControlContext } from '../context';
 import Option from './option';
+import { getPlainExcerpt } from '../../rich-text';
 
 interface Props {
 	hideChooseOption?: boolean;
@@ -31,6 +32,7 @@ const Select: React.FC< Props > = ( { hideChooseOption } ) => {
 		onChange,
 		isToggleEnabled,
 		placeholder,
+		excerptLength,
 	} = useComboboxControlContext();
 
 	const SelectOptions: CustomSelectControl.Option[] = [
@@ -63,7 +65,10 @@ const Select: React.FC< Props > = ( { hideChooseOption } ) => {
 					key: index,
 					name: (
 						<Option
-							label={ option.label }
+							label={ getPlainExcerpt(
+								option.label,
+								excerptLength
+							) }
 							iconBox={ option.iconBox }
 							hasSection
 						/>
