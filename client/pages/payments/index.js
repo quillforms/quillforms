@@ -40,6 +40,10 @@ const PaymentsPage = ( { params } ) => {
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
 	const { general, models, products, errors } = state;
+	const settings = {
+		...general,
+		models,
+	};
 	const $actions = actions( dispatch );
 
 	// data selectors.
@@ -85,8 +89,8 @@ const PaymentsPage = ( { params } ) => {
 		}
 		for ( const gateway of enabled ) {
 			const options = gateways[ gateway ].options ?? null;
-			if ( options && options.has( state ) ) {
-				const validate = options.validate( state );
+			if ( options && options.has( settings ) ) {
+				const validate = options.validate( settings );
 				if ( ! validate.valid ) {
 					createErrorNotice( `⛔ ${ validate.message }`, {
 						type: 'snackbar',
@@ -122,7 +126,7 @@ const PaymentsPage = ( { params } ) => {
 			method: 'POST',
 			data: {
 				payments: {
-					general,
+					...general,
 					models,
 				},
 				products,
@@ -207,7 +211,14 @@ const PaymentsPage = ( { params } ) => {
 
 	return (
 		<PaymentsContextProvider
-			value={ { state, general, models, products, errors, ...$actions } }
+			value={ {
+				settings,
+				general,
+				models,
+				products,
+				errors,
+				...$actions,
+			} }
 		>
 			<div className="quillforms-payments-page">
 				<div className="quillforms-payments-page-header">

@@ -14,7 +14,7 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 import { usePaymentsContext } from '../../state/context';
 
 const GatewaysOptions = () => {
-	const { state, general, updateGeneral } = usePaymentsContext();
+	const { settings, general, updateGeneral } = usePaymentsContext();
 
 	const gateways = getPaymentGatewayModules();
 	const enabled = [];
@@ -28,10 +28,10 @@ const GatewaysOptions = () => {
 	const elements = {};
 	for ( const gateway of enabled ) {
 		const options = gateways[ gateway ].options ?? null;
-		if ( options && options.has( state ) ) {
+		if ( options && options.has( settings ) ) {
 			elements[ gateway ] = (
 				<options.component
-					settings={ state }
+					settings={ settings }
 					onChange={ ( value ) => {
 						const options = { ...general.options };
 						options.gateways[ gateway ] = value;

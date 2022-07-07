@@ -16,48 +16,42 @@ defined( 'ABSPATH' ) || exit;
 $payments_schema = array(
 	'type'       => 'object',
 	'properties' => array(
-		'general' => array(
+		'enabled'  => array(
+			'type'     => 'boolean',
+			'required' => true,
+		),
+		'currency' => array(
 			'type'       => 'object',
 			'required'   => true,
 			'properties' => array(
-				'enabled'  => array(
-					'type'     => 'boolean',
+				'code'       => array(
+					'type'     => 'string',
 					'required' => true,
 				),
-				'currency' => array(
-					'type'       => 'object',
-					'required'   => true,
-					'properties' => array(
-						'code'       => array(
-							'type'     => 'string',
-							'required' => true,
-						),
-						'symbol_pos' => array(
-							'type'     => 'string',
-							'required' => true,
-						),
-					),
+				'symbol_pos' => array(
+					'type'     => 'string',
+					'required' => true,
 				),
-				'methods'  => array(
+			),
+		),
+		'methods'  => array(
+			'type'                 => 'object',
+			'additionalProperties' => array(
+				'type' => 'object',
+			),
+		),
+		'options'  => array(
+			'type'       => 'object',
+			'properties' => array(
+				'gateways' => array(
 					'type'                 => 'object',
 					'additionalProperties' => array(
 						'type' => 'object',
 					),
 				),
-				'options'  => array(
-					'type'       => 'object',
-					'properties' => array(
-						'gateways' => array(
-							'type'                 => 'object',
-							'additionalProperties' => array(
-								'type' => 'object',
-							),
-						),
-					),
-				),
 			),
 		),
-		'models'  => array(
+		'models'   => array(
 			'type'                 => 'object',
 			'required'             => true,
 			'additionalProperties' => array(
@@ -168,7 +162,7 @@ register_rest_field(
 
 					// get enabled gateways & methods.
 					$enabled_methods = array();
-					foreach ( array_keys( $payments['general']['methods'] )  as $key ) {
+					foreach ( array_keys( $payments['methods'] )  as $key ) {
 						list( $gateway, $method ) = explode( ':', $key );
 						$enabled_methods[ $gateway ][] = $method;
 					}
@@ -188,7 +182,7 @@ register_rest_field(
 						}
 
 						// check settings support.
-						if ( ! $gateway_addon->is_currency_supported( $payments['general']['currency']['code'] ) ) {
+						if ( ! $gateway_addon->is_currency_supported( $payments['currency']['code'] ) ) {
 							return new WP_Error(
 								'quillforms_payments_validation_error',
 								/* translators: %s for gateway */

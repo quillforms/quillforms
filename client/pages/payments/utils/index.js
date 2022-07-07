@@ -20,7 +20,18 @@ const getInitialState = () => {
 	};
 
 	if ( isObject( ConfigApi.getInitialPayload().payments ) ) {
-		state = { ...state, ...ConfigApi.getInitialPayload().payments };
+		const payments = ConfigApi.getInitialPayload().payments;
+		const models = payments.models;
+		delete payments.models;
+
+		state = {
+			...state,
+			general: {
+				...state.general,
+				...payments,
+			},
+			models: models,
+		};
 	}
 
 	if ( isObject( ConfigApi.getInitialPayload().products ) ) {

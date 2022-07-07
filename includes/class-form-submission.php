@@ -333,7 +333,7 @@ class Form_Submission {
 	 * @return array|null
 	 */
 	public function get_payments_meta() {
-		if ( ! ( $this->form_data['payments']['general']['enabled'] ?? null ) ) {
+		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
 			return null;
 		}
 
@@ -351,7 +351,7 @@ class Form_Submission {
 		return array(
 			'model_id'  => $model_id,
 			'recurring' => $model['recurring'],
-			'currency'  => $this->form_data['payments']['general']['currency'],
+			'currency'  => $this->form_data['payments']['currency'],
 			'products'  => $products,
 		);
 	}
@@ -488,7 +488,7 @@ class Form_Submission {
 		$payments['currency']['symbol'] = Payments::instance()->get_currency_symbol( $payments['currency']['code'] );
 
 		// add methods.
-		$payments['methods'] = $this->form_data['payments']['general']['methods'];
+		$payments['methods'] = $this->form_data['payments']['methods'];
 
 		return $payments;
 	}
