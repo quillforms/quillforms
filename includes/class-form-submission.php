@@ -9,7 +9,9 @@
 
 namespace QuillForms;
 
+use QuillForms\Addon\Payment_Gateway\Payment_Gateway;
 use QuillForms\Emails\Emails;
+use QuillForms\Managers\Addons_Manager;
 use QuillForms\Managers\Blocks_Manager;
 
 /**
@@ -488,9 +490,33 @@ class Form_Submission {
 		$payments['currency']['symbol'] = Payments::instance()->get_currency_symbol( $payments['currency']['code'] );
 
 		// add methods.
-		$payments['methods'] = $this->form_data['payments']['methods'];
+		$payments['methods'] = $this->get_available_methods();
 
 		return $payments;
+	}
+
+	/**
+	 * Get available (active and configured) methods
+	 *
+	 * @since next.version
+	 *
+	 * @return array
+	 */
+	private function get_available_methods() {
+		$methods = $this->form_data['payments']['methods'];
+
+		foreach ( array_keys( $methods ) as $key ) {
+			list( $gateway, $method ) = explode( ':', $key );
+
+			/** @var Payment_Gateway */ // phpcs:ignore
+			$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
+
+			if ( ! $gateway_addon || ! $gateway_addon->is_configured( $method ) ) {
+				unset( $methods[ $key ] );
+			}
+		}
+
+		return $methods;
 	}
 
 	/**
