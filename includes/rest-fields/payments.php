@@ -167,7 +167,7 @@ register_rest_field(
 						/** @var Payment_Gateway */ // phpcs:ignore
 						$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
 
-						// check if registered.
+						// ensure registered.
 						if ( ! $gateway_addon ) {
 							return new WP_Error(
 								'quillforms_payments_validation_error',
@@ -176,7 +176,7 @@ register_rest_field(
 							);
 						}
 
-						// check settings support.
+						// check currency support.
 						if ( ! $gateway_addon->is_currency_supported( $payments['currency']['code'] ) ) {
 							return new WP_Error(
 								'quillforms_payments_validation_error',
@@ -185,7 +185,7 @@ register_rest_field(
 							);
 						}
 
-						// check recurring support.
+						// check recurring interval support.
 						foreach ( $payments['models'] as $model ) {
 							if ( $model['recurring'] && ! $gateway_addon->is_recurring_interval_supported( $model['recurring']['interval_unit'], (int) $model['recurring']['interval_count'] ) ) {
 								return new WP_Error(
