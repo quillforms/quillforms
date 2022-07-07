@@ -13,6 +13,7 @@ import { size } from 'lodash';
  */
 import type { Options } from '.';
 import { getPlainExcerpt } from '../rich-text';
+import { useComboboxControlContext } from './context';
 
 const useFields = ( { section } ) => {
 	const { blockTypes, formBlocks } = useSelect( ( select ) => {
@@ -26,7 +27,6 @@ const useFields = ( { section } ) => {
 	} );
 
 	const fields: Options = [];
-
 	if ( size( blocks ) > 0 ) {
 		for ( const block of blocks ) {
 			const blockType = blockTypes[ block.name ];

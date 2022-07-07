@@ -33,6 +33,7 @@ export type LogicConditionsProps = {
 			handler: CustomizeFunction;
 			override?: boolean;
 		};
+		excerptLength?: number;
 	};
 };
 
@@ -169,6 +170,9 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 								<div className="condition-row-1">
 									<div className="condition-var0">
 										<ComboboxControl
+											excerptLength={
+												combobox?.excerptLength ?? 30
+											}
 											value={ condition.vars[ 0 ] }
 											onChange={ ( var0 ) => {
 												const $value = [ ...value ];

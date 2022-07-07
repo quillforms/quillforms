@@ -62,6 +62,8 @@ export type ComboboxControlProps = {
 	hideChooseOption?: boolean;
 	// select first option on load if value is empty. calls onChange. (select)
 	selectFirstOption?: boolean;
+	// Excerpt length
+	excerptLength?: number;
 };
 
 const ComboboxControl: React.FC< ComboboxControlProps > = ( {
@@ -72,6 +74,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 	placeholder,
 	hideChooseOption,
 	selectFirstOption,
+	excerptLength = 30,
 } ) => {
 	const fields = useFields( { section: 'fields' } );
 	const variables = useVariables( { section: 'variables' } );
@@ -179,6 +182,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 					onChange,
 					isToggleEnabled,
 					placeholder,
+					excerptLength,
 				} }
 			>
 				{ value.type === 'text' ? (
