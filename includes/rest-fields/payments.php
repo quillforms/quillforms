@@ -16,11 +16,11 @@ defined( 'ABSPATH' ) || exit;
 $payments_schema = array(
 	'type'       => 'object',
 	'properties' => array(
-		'enabled'  => array(
+		'enabled'          => array(
 			'type'     => 'boolean',
 			'required' => true,
 		),
-		'currency' => array(
+		'currency'         => array(
 			'type'       => 'object',
 			'required'   => true,
 			'properties' => array(
@@ -34,24 +34,19 @@ $payments_schema = array(
 				),
 			),
 		),
-		'methods'  => array(
+		'methods'          => array(
 			'type'                 => 'object',
 			'additionalProperties' => array(
 				'type' => 'object',
 			),
 		),
-		'options'  => array(
-			'type'       => 'object',
-			'properties' => array(
-				'gateways' => array(
-					'type'                 => 'object',
-					'additionalProperties' => array(
-						'type' => 'object',
-					),
-				),
+		'gateways_options' => array(
+			'type'                 => 'object',
+			'additionalProperties' => array(
+				'type' => 'object',
 			),
 		),
-		'models'   => array(
+		'models'           => array(
 			'type'                 => 'object',
 			'required'             => true,
 			'additionalProperties' => array(

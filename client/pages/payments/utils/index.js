@@ -6,9 +6,7 @@ const getInitialState = () => {
 			enabled: false,
 			currency: { code: 'USD', symbol_pos: 'left' },
 			methods: {},
-			options: {
-				gateways: {},
-			},
+			gateways_options: {},
 		},
 		models: {
 			[ randomId() ]: getModelDefaultState( 'Payment Model #1' ),

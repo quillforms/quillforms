@@ -33,9 +33,11 @@ const GatewaysOptions = () => {
 				<options.component
 					settings={ settings }
 					onChange={ ( value ) => {
-						const options = { ...general.options };
-						options.gateways[ gateway ] = value;
-						updateGeneral( { options } );
+						const gateways_options = {
+							...general.gateways_options,
+							[ gateway ]: value,
+						};
+						updateGeneral( { gateways_options } );
 					} }
 				/>
 			);
