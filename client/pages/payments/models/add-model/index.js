@@ -1,9 +1,4 @@
 /**
- * QuillForms Dependencies
- */
-import { Button } from '@quillforms/admin-components';
-
-/**
  * WordPress Dependencies
  */
 import { Icon, plusCircle } from '@wordpress/icons';
@@ -19,9 +14,8 @@ const AddButton = () => {
 	const { addModel } = usePaymentsContext();
 
 	return (
-		<Button
-			className="add-model"
-			isPrimary
+		<div
+			className="add-payment-model"
 			onClick={ () =>
 				addModel(
 					randomId(),
@@ -29,9 +23,11 @@ const AddButton = () => {
 				)
 			}
 		>
-			<Icon icon={ plusCircle } />
-			{ __( 'Add Another Model', 'quillforms' ) }
-		</Button>
+			<div>
+				<Icon icon={ plusCircle } color="#fff" />
+			</div>
+			<div>{ __( 'Add Another Model', 'quillforms' ) }</div>
+		</div>
 	);
 };
 

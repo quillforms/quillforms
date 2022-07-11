@@ -28,7 +28,7 @@
 	}
 
 	.product-source-selector {
-		width: 200px;
+		width: 280px;
 	}
 
 	.product-name {
@@ -43,7 +43,7 @@
 		display: flex;
 		margin-left: auto;
 
-		>div {
+		> div {
 			width: 15px;
 			height: 15px;
 			display: inline-flex;
@@ -104,12 +104,21 @@
 	.product-choices-choice {
 		display: flex;
 		align-items: center;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		border-bottom: 1px solid #e4e2e2;
+		padding-top: 8px;
+		padding-bottom: 8px;
 
 		&:last-child {
 			border-bottom: 0;
+		}
+
+		.product-choices-choice-label-wrapper {
+			width: 400px;
+			display: flex;
+			height: 34px;
+			border-radius: 4px;
+			align-items: center;
+			border: 1px solid #e4e2e2;
+			padding: 3px 8px;
 		}
 	}
 }

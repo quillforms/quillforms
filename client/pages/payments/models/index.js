@@ -7,7 +7,7 @@ import { BaseControl, ControlWrapper } from '@quillforms/admin-components';
  * Internal Dependencies
  */
 import { usePaymentsContext } from '../state/context';
-import AddButton from './add-button';
+import AddModel from './add-model';
 import Model from './model';
 
 const Models = () => {
@@ -15,17 +15,13 @@ const Models = () => {
 
 	return (
 		<div className="quillforms-payments-page-settings__models">
-			<h3> Models </h3>
-			<BaseControl>
-				<ControlWrapper orientation="vertical">
-					<div>
-						{ Object.keys( models ).map( ( id ) => (
-							<Model key={ id } id={ id } />
-						) ) }
-					</div>
-					<AddButton />
-				</ControlWrapper>
-			</BaseControl>
+			<h3> Payment Model </h3>
+			<div className="quillforms-payments-page-settings__models-content">
+				{ Object.keys( models ).map( ( id ) => (
+					<Model key={ id } id={ id } />
+				) ) }
+				<AddModel />
+			</div>
 		</div>
 	);
 };

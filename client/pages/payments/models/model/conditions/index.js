@@ -43,6 +43,9 @@ const Conditions = ( { id } ) => {
 						onChange={ ( conditions ) =>
 							updateModel( id, { conditions } )
 						}
+						combobox={ {
+							excerptLength: 15,
+						} }
 					/>
 				</div>
 			) }

@@ -26,6 +26,8 @@ import reducer from './state/reducer';
 import actions from './state/actions';
 import Icon from './icon';
 import General from './general';
+import Methods from './general/methods';
+import GatewaysOptions from './general/gateways-options';
 import Models from './models';
 import Products from './products';
 import { getInitialState } from './utils';
@@ -234,10 +236,11 @@ const PaymentsPage = ( { params } ) => {
 				</div>
 				<div className="quillforms-payments-page-settings">
 					<General />
-
+					<Products />
 					<Models />
 
-					<Products />
+					<Methods />
+					<GatewaysOptions />
 
 					<Button
 						className="quillforms-payments-page-settings-save"

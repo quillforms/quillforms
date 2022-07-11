@@ -16,16 +16,18 @@ const Products = () => {
 	return (
 		<div className="quillforms-payments-page-settings__products">
 			<h3> Products </h3>
-			<BaseControl>
-				<ControlWrapper orientation="vertical">
-					<div>
-						{ Object.keys( products ).map( ( id ) => (
-							<Product key={ id } id={ id } />
-						) ) }
-					</div>
-					<AddButton />
-				</ControlWrapper>
-			</BaseControl>
+			<div className="quillforms-payments-page-settings__products-content">
+				<BaseControl>
+					<ControlWrapper orientation="vertical">
+						<div>
+							{ Object.keys( products ).map( ( id ) => (
+								<Product key={ id } id={ id } />
+							) ) }
+						</div>
+						<AddButton />
+					</ControlWrapper>
+				</BaseControl>
+			</div>
 		</div>
 	);
 };
