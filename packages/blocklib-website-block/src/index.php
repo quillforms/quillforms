@@ -147,7 +147,7 @@ class Website_Block_Type extends Block_Type {
 	public function validate_field( $value, $form_data ) {
 		$messages = $form_data['messages'];
 		if ( empty( $value ) ) {
-			if ( $this->required ) {
+			if ( $this->attributes['required'] ) {
 				$this->is_valid       = false;
 				$this->validation_err = $messages['label.errorAlert.required'];
 			}
