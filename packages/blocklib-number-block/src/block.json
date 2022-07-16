@@ -11,7 +11,7 @@
 		"payments": true
 	},
 	"attributes": {
-		"set_max": {
+		"setMax": {
 			"type": "boolean",
 			"default": false
 		},
@@ -19,7 +19,7 @@
 			"type": "number",
 			"default": 0
 		},
-		"set_min": {
+		"setMin": {
 			"type": "boolean",
 			"default": false
 		},
