@@ -67,6 +67,7 @@ export type ComboboxControlProps = {
 };
 
 const ComboboxControl: React.FC< ComboboxControlProps > = ( {
+	id,
 	value,
 	onChange,
 	isToggleEnabled = true,
@@ -176,6 +177,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 		<div className="combobox-control">
 			<ComboboxControlContextProvider
 				value={ {
+					id,
 					sections,
 					options,
 					value,
@@ -186,7 +188,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 				} }
 			>
 				{ value.type === 'text' ? (
-					<RichText />
+					<RichText id={ id } />
 				) : (
 					<Select hideChooseOption={ hideChooseOption } />
 				) }

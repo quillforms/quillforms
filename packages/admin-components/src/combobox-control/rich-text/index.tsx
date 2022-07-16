@@ -19,10 +19,13 @@ import { closeSmall } from '@wordpress/icons';
  */
 import { useComboboxControlContext } from '../context';
 
-interface Props {}
+interface Props {
+	id?: string;
+}
 
 const RichText: React.FC< Props > = ( {} ) => {
 	const {
+		id,
 		// sections,
 		options,
 		value,
@@ -55,6 +58,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 				</Button>
 			) }
 			<RichTextControl
+				id={ id }
 				value={ value.value ?? '' }
 				setValue={ ( value ) => onChange( { type: 'text', value } ) }
 				mergeTags={ tags }
