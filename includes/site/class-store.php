@@ -539,9 +539,9 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
 				),
 			),
-			'aweber'           => array(
+			'aweber'                    => array(
 				'name'           => esc_html__( 'AWeber', 'quillforms' ),
-				'description'    => esc_html__( 'Connect your contacts to AWeber email Marketing tool to manage your business and customers.', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your AWeber account.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-aweber/quillforms-aweber.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
