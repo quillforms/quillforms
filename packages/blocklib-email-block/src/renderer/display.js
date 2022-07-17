@@ -126,7 +126,7 @@ const EmailOutput = ( props ) => {
 						outline: none !important;
 					}
 
-					color: ${ theme.answersColor };
+					color: ${ theme.answersColor } !important;
 				`
 			) }
 			id={ 'email-' + id }
