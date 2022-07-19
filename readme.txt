@@ -1,7 +1,7 @@
  === Quill Forms | Best Typeform Alternative | Conversational Forms Builder for WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.0
-Stable tag: 1.13.0
+Stable tag: 1.14.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -56,9 +56,10 @@ QuillForms free version comes with variety of blocks:
 14- Custom thank you screen
 15- Hubspot integration
 16- SalesForce integration
-17- ActiveCampaign integration
-18- Tracking with Google Analytics
-19- Tracking with Facebook Pixel
+17- Aweber integration
+18- ActiveCampaign integration
+19- Tracking with Google Analytics
+20- Tracking with Facebook Pixel
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
@@ -108,8 +109,15 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.14.0 = 19 July 2022
+Feature: Aweber integration addon.
+Feature: Improving the code to prepare entries addon to have advanced charts.
+Feature: Improve email validation.
+Fix: Fix the rich text component issue that happens with custom thank you screen block.
+
+
 = 1.13.0 = 21 Jun 2022
-Feature: Adding compatibility with WP Rocket
+Feature: Adding compatibility with WP Rocket.
 Feature: Adding conditional logic for integrations.
 
 = 1.12.0 = 1 Jun 2022
@@ -119,10 +127,10 @@ Feature: Introducing webhooks feature at the pro version.
 Fix: urgent update fix for the short code problem.
 
 = 1.11.0 = 26 May 2022
-Feature: Supporting Shortcode
+Feature: Supporting Shortcode.
 
 = 1.10.6 = 20 May 2022
-Feature: Major improvements in code
+Feature: Major improvements in code.
 
 = 1.10.5 = 25 Apr 2022
 Feature: Adding duplication feature for forms.
