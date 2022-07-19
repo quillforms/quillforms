@@ -2,6 +2,7 @@
  * External Dependencies
  */
 import { Transforms, Editor, Range } from 'slate';
+import { CustomNode } from '../../types';
 
 /**
  * Inernal Dependencies
@@ -20,13 +21,15 @@ const Link: React.FC< Props > = ( { editor } ) => {
 	};
 	const isLinkActive = () => {
 		const [ link ] = Editor.nodes( editor, {
-			match: ( n ) => n.type === 'link',
+			match: ( n: CustomNode ) => n.type === 'link',
 		} );
 		return !! link;
 	};
 
 	const unwrapLink = () => {
-		Transforms.unwrapNodes( editor, { match: ( n ) => n.type === 'link' } );
+		Transforms.unwrapNodes( editor, {
+			match: ( n: CustomNode ) => n.type === 'link',
+		} );
 	};
 
 	const wrapLink = ( url ) => {

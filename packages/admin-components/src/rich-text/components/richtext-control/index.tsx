@@ -2,16 +2,12 @@
  * WordPress Dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { autop } from '@wordpress/autop';
-
-import { Node } from 'slate';
 
 /**
  * Internal dependencies
  */
 import RichTextControlRenderer from './renderer';
 import { allowedFormats, MergeTags } from '../../types';
-import deserialize from '../../html-deserialize';
 
 interface Props {
 	value: string;

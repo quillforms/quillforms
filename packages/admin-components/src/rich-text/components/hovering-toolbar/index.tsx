@@ -65,6 +65,7 @@ const HoveringToolbar = ( {
 
 		if (
 			! selection ||
+			// @ts-expect-error
 			! ReactEditor.isFocused( editor ) ||
 			Range.isCollapsed( selection ) ||
 			Editor.string( editor, selection ) === ''

@@ -29,7 +29,7 @@ import createEditor from '../../create-editor';
 import deserialize from '../../html-deserialize';
 import serialize from '../../html-serialize';
 import RichTextEditor from '../editor';
-import { allowedFormats, MergeTags } from '../../types';
+import { allowedFormats, CustomNode, MergeTags } from '../../types';
 
 interface Props {
 	value: string;
@@ -52,7 +52,7 @@ const RichTextControlRenderer: React.FC< Props > = ( {
 	placeholder,
 } ) => {
 	const [ isReady, setIsReady ] = useState( false );
-	const [ jsonVal, setJsonVal ] = useState< Node[] >( [
+	const [ jsonVal, setJsonVal ] = useState< CustomNode[] >( [
 		{
 			type: 'paragraph',
 			children: [
