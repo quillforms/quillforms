@@ -613,6 +613,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
 				),
 			),
+			'sendinblue'                => array(
+				'name'           => esc_html__( 'Sendinblue', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your Sendinblue account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-sendinblue/quillforms-sendinblue.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/sendinblue/icon.png',
+				),
+			),
 			'webhooks'                  => array(
 				'name'           => esc_html__( 'Webhooks', 'quillforms' ),
 				'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
