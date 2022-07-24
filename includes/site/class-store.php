@@ -603,6 +603,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
 				),
 			),
+			'klaviyo'                   => array(
+				'name'           => esc_html__( 'Klaviyo', 'quillforms' ),
+				'description'    => esc_html__( 'Send new profiles to your Klaviyo account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-klaviyo/quillforms-klaviyo.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.png',
+				),
+			),
 			'salesforce'                => array(
 				'name'           => esc_html__( 'Salesforce', 'quillforms' ),
 				'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
