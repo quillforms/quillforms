@@ -571,6 +571,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/banner.png',
 				),
 			),
+			'mailpoet'                  => array(
+				'name'           => esc_html__( 'MailPoet', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your MailPoet lists.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-mailpoet/quillforms-mailpoet.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
+				),
+			),
 			'getresponse'               => array(
 				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GetResponse lists.', 'quillforms' ),
