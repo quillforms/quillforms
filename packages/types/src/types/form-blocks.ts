@@ -3,6 +3,7 @@ type BlockAttachment = {
 	url: string;
 };
 type DefaultAttributes = {
+	customHTML?: string;
 	label?: string;
 	description?: string;
 	required?: boolean;

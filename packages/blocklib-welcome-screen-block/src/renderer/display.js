@@ -199,6 +199,19 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 										/>
 									</div>
 								) }
+							{ attributes.customHTML && (
+								<div
+									className={ classnames(
+										'renderer-components-block-custom-html',
+										css`
+											color: ${ theme.questionsColor };
+										`
+									) }
+									dangerouslySetInnerHTML={ {
+										__html: attributes?.customHTML,
+									} }
+								></div>
+							) }
 						</div>
 					</div>
 					<ScreenAction

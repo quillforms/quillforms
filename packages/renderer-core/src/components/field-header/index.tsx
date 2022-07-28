@@ -9,6 +9,7 @@ import BlockCounter from '../field-counter';
 import BlockTitle from '../field-label';
 import BlockDescription from '../field-description';
 import BlockAttachment from '../field-attachment';
+import BlockCustomHTML from '../field-custom-html';
 
 const QuestionHeader: React.FC = memo( () => {
 	return (
@@ -17,6 +18,7 @@ const QuestionHeader: React.FC = memo( () => {
 			<BlockTitle />
 			<BlockDescription />
 			<BlockAttachment />
+			<BlockCustomHTML />
 		</div>
 	);
 } );
