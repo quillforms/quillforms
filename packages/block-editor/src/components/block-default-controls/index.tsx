@@ -130,7 +130,7 @@ const DefaultControls: React.FC< Props > = ( {
 			) }
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
-					<ControlLabel label={ 'Custom HTML' } />
+					<ControlLabel label={ 'Custom HTML' } isNew={ true } />
 					<CustomHTML
 						value={ attributes?.customHTML }
 						onChange={ ( val ) => {

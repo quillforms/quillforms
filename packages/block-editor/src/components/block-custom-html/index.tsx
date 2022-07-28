@@ -2,41 +2,20 @@ import { ToolbarButton, Disabled, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useContext, useState } from '@wordpress/element';
 import TextareaAutosize from 'react-autosize-textarea';
+import { css } from 'emotion';
 
-import Preview from './preview';
 const CustomHTML = ( { value, onChange } ) => {
-	const [ isPreview, setIsPreview ] = useState( false );
-	const isDisabled = useContext( Disabled.Context );
-
-	function switchToPreview() {
-		setIsPreview( true );
-	}
-
-	function switchToHTML() {
-		setIsPreview( false );
-	}
-
 	return (
 		<>
-			<ToolbarGroup>
-				<ToolbarButton
-					className="components-tab-button"
-					isPressed={ ! isPreview }
-					onClick={ switchToHTML }
-				>
-					HTML
-				</ToolbarButton>
-				<ToolbarButton
-					className="components-tab-button"
-					isPressed={ isPreview }
-					onClick={ switchToPreview }
-				>
-					{ __( 'Preview' ) }
-				</ToolbarButton>
-			</ToolbarGroup>
-			{ isPreview || isDisabled ? (
-				<Preview content={ value } isSelected={ true } />
-			) : (
+			<div
+				className={ css`
+					textarea {
+						min-height: 100px;
+						width: 100%;
+						margin-top: 10px;
+					}
+				` }
+			>
 				<TextareaAutosize
 					value={ value }
 					// @ts-expect-error
@@ -44,7 +23,7 @@ const CustomHTML = ( { value, onChange } ) => {
 					placeholder={ __( 'Write HTML…' ) }
 					aria-label={ __( 'HTML' ) }
 				/>
-			) }
+			</div>
 		</>
 	);
 };

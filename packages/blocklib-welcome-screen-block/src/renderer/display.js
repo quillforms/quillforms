@@ -201,7 +201,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 								) }
 							{ attributes.customHTML && (
 								<div
-									className={ classnames(
+									className={ classNames(
 										'renderer-components-block-custom-html',
 										css`
 											color: ${ theme.questionsColor };
