@@ -15,12 +15,17 @@ import './style.scss';
 import General from './general';
 import Analytics from './analytics';
 import Integrations from './integrations';
+import Emails from './emails';
 
 const Settings = () => {
 	const Tabs = {
 		general: {
 			title: 'General',
 			render: <General />,
+		},
+		emails: {
+			title: 'Emails',
+			render: <Emails />,
 		},
 		integrations: {
 			title: 'Integrations',

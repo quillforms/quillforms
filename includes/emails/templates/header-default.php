@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$header_image     = Settings::get( 'email-header-image', false );
-$background_color = Settings::get( 'email-background-color', '#e9eaec' );
+$header_image     = Settings::get( 'emails_header_image', false );
+$background_color = Settings::get( 'emails_background_color', '#e9eaec' );
 $text_direction   = is_rtl() ? 'rtl' : 'ltr';
 ?>
 <!doctype html>
