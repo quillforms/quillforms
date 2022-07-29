@@ -3,13 +3,16 @@
 @import "../components/user-name-placeholder/style.scss";
 @import "../components/user-image-placeholder/style.scss";
 
+#screen-meta-links {
+	display: none !important;
+}
 .quillforms-layout__main {
-    display: flex;
+	display: flex;
 	height: calc(100vh - 55px);
 }
 .qf-page-component-wrapper {
 	width: 100%;
-	background: #F8F9FA;
+	background: #f8f9fa;
 	height: 100%;
 	overflow-y: auto;
 }
@@ -17,5 +20,4 @@
 	margin-top: 55px;
 	padding: 50px;
 	margin-left: 250px;
-
 }
