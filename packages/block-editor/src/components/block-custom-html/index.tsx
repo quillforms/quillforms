@@ -1,6 +1,4 @@
-import { ToolbarButton, Disabled, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useContext, useState } from '@wordpress/element';
 import TextareaAutosize from 'react-autosize-textarea';
 import { css } from 'emotion';
 
