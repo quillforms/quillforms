@@ -1,7 +1,7 @@
  === Quill Forms | Best Typeform Alternative | Conversational Forms Builder for WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.0
-Stable tag: 1.14.0
+Stable tag: 1.15.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -51,15 +51,19 @@ QuillForms free version comes with variety of blocks:
 9- GoogleSheets integration
 10- MailChimp integration
 11- Constant Contact integration
-12- GetResponse integration
-13- Opinion scale block
-14- Custom thank you screen
-15- Hubspot integration
-16- SalesForce integration
-17- Aweber integration
-18- ActiveCampaign integration
-19- Tracking with Google Analytics
-20- Tracking with Facebook Pixel
+12- Klaviyo integration
+13- Sendinblue integration
+14- MailPoet integration
+15- GetResponse integration
+16- Hubspot integration
+17- SalesForce integration
+18- Aweber integration
+19- ActiveCampaign integration
+20- Tracking with Google Analytics
+21- Tracking with Facebook Pixel
+22- Opinion scale block
+23- Custom thank you screen for redirect and custom buttons
+
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
@@ -108,6 +112,13 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.15.0 = 29 July 2022
+Feature: Klaviyo integration.
+Feature: MailPoet integration.
+Feature: Sendinblue integration.
+Feature: Adding custom html feature for all questions types.
+Feature: Adding options for custom email header logo and controlling the email background.
 
 = 1.14.0 = 19 July 2022
 Feature: Aweber integration addon.
