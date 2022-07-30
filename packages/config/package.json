@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/config",
-	"version": "1.2.7",
+	"version": "1.2.9",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -24,9 +24,10 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/types": "file:../types"
+		"@quillforms/types": "^1.2.8"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d6f1b20fa239ccd7edb5f55f9371d2b425dd03c"
 }

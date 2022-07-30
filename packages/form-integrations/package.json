@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/form-integrations",
-	"version": "1.2.8",
+	"version": "1.2.10",
 	"description": "Form integrations",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -25,5 +25,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d6f1b20fa239ccd7edb5f55f9371d2b425dd03c"
 }
