@@ -8,6 +8,7 @@ import {
 	__unstableHtmlDeserialize as deserialize,
 } from '@quillforms/admin-components';
 
+import type { CustomNode } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
@@ -72,7 +73,7 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 	const label = attributes?.label ? attributes.label : '';
 	const description = attributes?.label ? attributes.description : '';
 
-	const [ labelJsonVal, setLabelJsonVal ] = useState< Node[] >( [
+	const [ labelJsonVal, setLabelJsonVal ] = useState< CustomNode[] >( [
 		{
 			type: 'paragraph',
 			children: [
@@ -83,7 +84,7 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 		},
 	] );
 
-	const [ descJsonVal, setDescJsonVal ] = useState< Node[] >( [
+	const [ descJsonVal, setDescJsonVal ] = useState< CustomNode[] >( [
 		{
 			type: 'paragraph',
 			children: [
