@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/builder-core",
-	"version": "1.2.34",
+	"version": "1.2.35",
 	"description": "Builder Core for Quill Forms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,11 +23,11 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/block-editor": "^1.2.17",
-		"@quillforms/blocks": "^1.3.14",
-		"@quillforms/builder-panels": "^1.2.17",
-		"@quillforms/renderer-core": "^1.6.1",
-		"@quillforms/types": "^1.2.7",
+		"@quillforms/block-editor": "^1.2.18",
+		"@quillforms/blocks": "^1.3.15",
+		"@quillforms/builder-panels": "^1.2.18",
+		"@quillforms/renderer-core": "^1.6.2",
+		"@quillforms/types": "^1.2.8",
 		"framer-motion": "^4.1.17",
 		"react-confirm-alert": "^2.7.0",
 		"uuid": "^3.3.2"

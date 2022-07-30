@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-number-block",
-	"version": "1.3.35",
+	"version": "1.3.36",
 	"description": "Number block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,8 +23,8 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^1.3.16",
-		"@quillforms/renderer-core": "^1.6.1",
+		"@quillforms/admin-components": "^1.3.17",
+		"@quillforms/renderer-core": "^1.6.2",
 		"@wordpress/element": "^4.5.0",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
