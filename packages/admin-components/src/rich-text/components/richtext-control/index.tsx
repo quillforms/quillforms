@@ -1,38 +1,17 @@
 /**
  * WordPress Dependencies
  */
-import {
-	useMemo,
-	useCallback,
-	useEffect,
-	useState,
-	useRef,
-	Fragment,
-} from '@wordpress/element';
-import { autop } from '@wordpress/autop';
-import { plusCircle } from '@wordpress/icons';
-import { Icon } from '@wordpress/components';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
- * External Dependencies
+ * Internal dependencies
  */
-import { debounce } from 'lodash';
-import classnames from 'classnames';
-import { Transforms, Node } from 'slate';
-import { HistoryEditor } from 'slate-history';
-import { ReactEditor } from 'slate-react';
-
-/**
- * Internal Dependencies
- */
-import createEditor from '../../create-editor';
-import deserialize from '../../html-deserialize';
-import serialize from '../../html-serialize';
-import RichTextEditor from '../editor';
+import RichTextControlRenderer from './renderer';
 import { allowedFormats, MergeTags } from '../../types';
 
 interface Props {
 	value: string;
+	id?: string;
 	setValue: ( value: string ) => void;
 	mergeTags?: MergeTags;
 	className?: string;
@@ -40,132 +19,23 @@ interface Props {
 	focusOnMount?: boolean;
 	placeholder?: string;
 }
-const RichTextControl: React.FC< Props > = ( {
-	value,
-	setValue,
-	mergeTags,
-	className,
-	allowedFormats,
-	focusOnMount = false,
-	placeholder,
-} ) => {
-	const [ jsonVal, setJsonVal ] = useState< Node[] >( [
-		{
-			type: 'paragraph',
-			children: [
-				{
-					text: '',
-				},
-			],
-		},
-	] );
-
-	const [ currentSelection, setCurrentSelection ] = useState( {
-		path: [ 0, 0 ],
-		offset: 0,
-	} );
-
-	const editor: ReactEditor & HistoryEditor = useMemo(
-		() => createEditor(),
-		[]
-	);
-
-	const isMounted = useRef( false );
+const RichTextControl: React.FC< Props > = ( props ) => {
+	const { id } = props;
+	const [ idChanging, setIdChanging ] = useState( true );
 	useEffect( () => {
-		isMounted.current = true;
-		return () => {
-			isMounted.current = false;
-		};
-	}, [] );
-
-	// serializeVal is a debounced function that updates the store with serialized html value
-	const serializeVal = useCallback(
-		debounce( ( newVal ) => {
-			if ( isMounted.current ) {
-				setValue( serialize( newVal ) );
-			}
-		}, 200 ),
-		[]
-	);
-
-	const onChange = ( newVal: Node[] ) => {
-		if ( editor.selection ) {
-			setCurrentSelection( {
-				path: editor.selection.focus.path,
-				offset: editor.selection.focus.offset,
-			} );
-		}
-		setJsonVal( newVal );
-		serializeVal( newVal );
-	};
-
-	// Deserialize value on mount.
-	useEffect( () => {
-		if ( focusOnMount ) {
-			setTimeout( () => {
-				ReactEditor.focus( editor );
-			}, 0 );
-		}
-	}, [] );
+		setIdChanging( true );
+	}, [ id ] );
 
 	useEffect( () => {
-		setJsonVal( deserialize( autop( value ) ) );
-	}, [ mergeTags?.length ] );
-	const TextEditor = useMemo(
-		() => (
-			<RichTextEditor
-				value={ jsonVal }
-				editor={ editor }
-				onChange={ onChange }
-				mergeTags={ mergeTags }
-				onFocus={ () => {
-					if ( editor.selection ) {
-						setCurrentSelection( {
-							path: editor.selection.focus.path,
-							offset: editor.selection.focus.offset,
-						} );
-					}
-				} }
-				allowedFormats={ allowedFormats }
-				placeholder={ placeholder }
-			/>
-		),
-		[ JSON.stringify( jsonVal ), JSON.stringify( mergeTags ) ]
-	);
+		setTimeout( () => {
+			setIdChanging( false );
+		}, 200 );
+	}, [ idChanging ] );
 
-	return (
-		<div className={ classnames( 'rich-text-control', className ) }>
-			<Fragment>
-				{ TextEditor }
-				{ mergeTags && mergeTags.length > 0 && (
-					<Fragment>
-						<div className="rich-text-control__add-merge-tags">
-							<Icon
-								icon={ plusCircle }
-								onClick={ ( e: MouseEvent ) => {
-									e.stopPropagation();
-
-									Transforms.insertText( editor, '@', {
-										at: currentSelection,
-									} );
-									setTimeout( () => {
-										Transforms.select(
-											editor,
-											currentSelection
-										);
-										ReactEditor.focus( editor );
-										Transforms.move( editor, {
-											unit: 'character',
-										} );
-									}, 0 );
-								} }
-							/>
-						</div>
-					</Fragment>
-				) }
-			</Fragment>
-		</div>
-	);
+	if ( idChanging ) {
+		return null;
+	}
+	return <RichTextControlRenderer { ...props } />;
 };
 
 export default RichTextControl;

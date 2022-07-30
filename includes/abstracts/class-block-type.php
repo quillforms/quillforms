@@ -228,6 +228,11 @@ abstract class Block_Type extends stdClass {
 			'default' => '',
 		);
 
+		$attributes_schema['customHTML'] = array(
+			'type'    => 'string',
+			'default' => '',
+		);
+
 		return $attributes_schema;
 
 	}

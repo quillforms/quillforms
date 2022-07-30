@@ -21,13 +21,14 @@ import { ReactEditor, RenderElementProps } from 'slate-react';
  * Internal Dependencies
  */
 import getPlainExcerpt from '../../get-plain-excerpt';
-import type { MergeTags, MergeTag } from '../../types';
+import type { MergeTags, MergeTag, CustomElement } from '../../types';
 
 interface Props extends RenderElementProps {
 	path: Path;
 	mergeTags: MergeTags;
 	editor: ReactEditor;
 	children: React.ReactNode;
+	element: CustomElement;
 }
 const EditorMergeTag: React.FC< Props > = ( {
 	attributes,

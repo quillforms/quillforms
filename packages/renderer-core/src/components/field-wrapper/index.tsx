@@ -221,11 +221,9 @@ const FieldWrapper: React.FC = () => {
 			) <= 3.0
 		) {
 			scrollTimer = setTimeout( () => {
-				console.log( 'setting swipe next true' );
 				setCanSwipeNext( true );
 			}, 500 );
 		} else {
-			console.log( 'setting swipe next false' );
 			setCanSwipeNext( false );
 		}
 	};

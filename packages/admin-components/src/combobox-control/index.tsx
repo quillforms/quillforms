@@ -48,6 +48,7 @@ export type CustomizeObject = {
 export type CustomizeFunction = ( value: CustomizeObject ) => CustomizeObject;
 
 export type ComboboxControlProps = {
+	id?: string;
 	// if type is text, the component will load rich text editor. else the component will load the select.
 	value: ComboboxControlValue;
 	onChange: ( value: ComboboxControlValue ) => void;
@@ -67,6 +68,7 @@ export type ComboboxControlProps = {
 };
 
 const ComboboxControl: React.FC< ComboboxControlProps > = ( {
+	id,
 	value,
 	onChange,
 	isToggleEnabled = true,
@@ -176,6 +178,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 		<div className="combobox-control">
 			<ComboboxControlContextProvider
 				value={ {
+					id,
 					sections,
 					options,
 					value,
@@ -186,7 +189,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 				} }
 			>
 				{ value.type === 'text' ? (
-					<RichText />
+					<RichText id={ id } />
 				) : (
 					<Select hideChooseOption={ hideChooseOption } />
 				) }

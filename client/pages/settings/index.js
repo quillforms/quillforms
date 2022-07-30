@@ -16,6 +16,7 @@ import General from './general';
 import Payments from './payments';
 import Analytics from './analytics';
 import Integrations from './integrations';
+import Emails from './emails';
 
 const Settings = () => {
 	const Tabs = {
@@ -26,6 +27,10 @@ const Settings = () => {
 		payments: {
 			title: 'Payments',
 			render: <Payments />,
+		},
+		emails: {
+			title: 'Emails',
+			render: <Emails />,
 		},
 		integrations: {
 			title: 'Integrations',

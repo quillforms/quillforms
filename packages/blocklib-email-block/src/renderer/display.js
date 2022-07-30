@@ -14,6 +14,7 @@ import { useEffect } from '@wordpress/element';
 import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
 import classnames from 'classnames';
+import * as EmailValidator from 'email-validator';
 
 const EmailOutput = ( props ) => {
 	const {
@@ -36,12 +37,6 @@ const EmailOutput = ( props ) => {
 	const answersColor = tinyColor( theme.answersColor );
 	const { required } = attributes;
 
-	const validateEmail = ( email ) => {
-		const re = /^\S+@\S+$/;
-
-		return re.test( String( email ).toLowerCase() );
-	};
-
 	const checkFieldValidation = ( value ) => {
 		if (
 			required === true &&
@@ -49,7 +44,11 @@ const EmailOutput = ( props ) => {
 		) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
-		} else if ( ! validateEmail( value ) && value && value.length > 0 ) {
+		} else if (
+			value &&
+			! EmailValidator.validate( value ) &&
+			value.length > 0
+		) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.email' ] );
 		} else {
@@ -126,7 +125,7 @@ const EmailOutput = ( props ) => {
 						outline: none !important;
 					}
 
-					color: ${ theme.answersColor };
+					color: ${ theme.answersColor } !important;
 				`
 			) }
 			id={ 'email-' + id }

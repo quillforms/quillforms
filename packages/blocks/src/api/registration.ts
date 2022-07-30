@@ -100,7 +100,10 @@ export const registerBlockType = (
 		type: 'string',
 		default: '',
 	};
-
+	attributes.customHTML = {
+		type: 'string',
+		default: '',
+	};
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

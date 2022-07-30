@@ -559,6 +559,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
 				),
 			),
+			'aweber'                    => array(
+				'name'           => esc_html__( 'AWeber', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your AWeber account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-aweber/quillforms-aweber.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/aweber/icon.svg',
+				),
+			),
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
@@ -579,6 +589,16 @@ class Store {
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/banner.png',
+				),
+			),
+			'mailpoet'                  => array(
+				'name'           => esc_html__( 'MailPoet', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your MailPoet lists.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-mailpoet/quillforms-mailpoet.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
 				),
 			),
 			'getresponse'               => array(
@@ -613,6 +633,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
 				),
 			),
+			'klaviyo'                   => array(
+				'name'           => esc_html__( 'Klaviyo', 'quillforms' ),
+				'description'    => esc_html__( 'Send new profiles to your Klaviyo account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-klaviyo/quillforms-klaviyo.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.png',
+				),
+			),
 			'salesforce'                => array(
 				'name'           => esc_html__( 'Salesforce', 'quillforms' ),
 				'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
@@ -621,6 +651,16 @@ class Store {
 				'is_integration' => true,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
+				),
+			),
+			'sendinblue'                => array(
+				'name'           => esc_html__( 'Sendinblue', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your Sendinblue account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-sendinblue/quillforms-sendinblue.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/sendinblue/icon.png',
 				),
 			),
 			'webhooks'                  => array(

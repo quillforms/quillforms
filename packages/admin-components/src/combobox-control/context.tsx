@@ -9,6 +9,7 @@ import { createContext, useContext } from '@wordpress/element';
 import type { ComboboxControlValue, Options, Sections } from '.';
 
 const ComboboxControlContext = createContext< {
+	id?: string;
 	sections: Sections;
 	options: Options;
 	value: ComboboxControlValue;

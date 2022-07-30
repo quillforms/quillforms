@@ -141,6 +141,8 @@ const DateOutput = ( props ) => {
 						width: 100%;
 						border: none;
 						outline: none;
+						border: none !important;
+						border-radius: 0 !important;
 						font-size: 30px;
 						padding-bottom: 8px;
 						background: transparent;

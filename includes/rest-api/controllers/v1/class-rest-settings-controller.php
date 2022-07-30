@@ -99,6 +99,21 @@ class REST_Settings_Controller extends REST_Controller {
 						),
 					),
 				),
+
+				'emails' => array(
+					'type'                 => 'object',
+					'additionalProperties' => false,
+					'properties'           => array(
+						'emails_header_image'           => array(
+							'type'    => 'string',
+							'default' => '',
+						),
+						'emails_background_color' => array(
+							'type' => 'string',
+							'default' => "#e9eaec"
+						)
+					),
+				),
 			),
 		);
 		return $schema;
