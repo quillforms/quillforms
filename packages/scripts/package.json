@@ -1,6 +1,6 @@
 {
 	"name": "@wordpress/scripts",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Forked from Gutenberg, collection of reusable scripts for QuillForms development.",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -33,10 +33,10 @@
 	"dependencies": {
 		"@babel/core": "^7.16.0",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+		"@quillforms/dependency-extraction-webpack-plugin": "file:../dependency-extraction-webpack-plugin",
 		"@svgr/webpack": "^6.3.1",
 		"@wordpress/babel-preset-default": "^6.16.0",
 		"@wordpress/browserslist-config": "^4.1.2",
-		"@quillforms/dependency-extraction-webpack-plugin": "file:../dependency-extraction-webpack-plugin",
 		"@wordpress/eslint-plugin": "^12.8.0",
 		"@wordpress/jest-preset-default": "^8.5.0",
 		"@wordpress/npm-package-json-lint-config": "^4.1.2",
