@@ -26,7 +26,6 @@ import { useSelect, AsyncModeProvider } from '@wordpress/data';
  * External Dependencies
  */
 import { useInView } from 'react-intersection-observer';
-import { Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 
