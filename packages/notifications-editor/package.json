@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/config": "file:../config",
+		"@quillforms/admin-components": "^1.3.16",
+		"@quillforms/config": "^1.2.8",
 		"react-confirm-alert": "^2.7.0",
 		"react-multi-email": "^0.5.3"
 	},
@@ -33,5 +33,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d6f1b20fa239ccd7edb5f55f9371d2b425dd03c"
 }

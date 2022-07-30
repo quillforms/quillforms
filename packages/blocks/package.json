@@ -23,13 +23,14 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/utils": "file:../utils",
+		"@quillforms/utils": "^1.2.10",
 		"@wordpress/data": "^6.7.0"
 	},
 	"devDependencies": {
-		"@quillforms/types": "file:../types"
+		"@quillforms/types": "^1.2.7"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d6f1b20fa239ccd7edb5f55f9371d2b425dd03c"
 }
