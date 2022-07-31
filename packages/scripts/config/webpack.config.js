@@ -271,7 +271,7 @@ const config = {
 		// bundle content as a convenient interactive zoomable treemap.
 		process.env.WP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
-		new MiniCSSExtractPlugin( { filename: '[name].css' } ),
+		new MiniCSSExtractPlugin( { filename: 'style.css' } ),
 		new MiniCssExtractPluginWithRTL(),
 
 		// React Fast Refresh.
