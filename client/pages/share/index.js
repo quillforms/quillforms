@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 /**
  * External Dependencies
  */
-import Loader from 'react-loader-spinner';
+import { Bars as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 
 const Share = ( { params } ) => {
@@ -41,12 +41,7 @@ const Share = ( { params } ) => {
 						align-items: center;
 					` }
 				>
-					<Loader
-						type="Bars"
-						color="#00BFFF"
-						height={ 30 }
-						width={ 30 }
-					/>
+					<Loader color="#00BFFF" height={ 30 } width={ 30 } />
 				</div>
 			) : (
 				<did></did>

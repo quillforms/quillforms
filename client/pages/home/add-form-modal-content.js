@@ -13,7 +13,7 @@ import apiFetch from '@wordpress/api-fetch';
 /**
  * External Dependencies
  */
-import Loader from 'react-loader-spinner';
+import { Oval as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 
 const AddFormModalContent = ( { closeModal } ) => {
@@ -84,7 +84,6 @@ const AddFormModalContent = ( { closeModal } ) => {
 								justify-content: center;
 								align-items: center;
 							` }
-							type="Oval"
 							color="#fff"
 							height={ 15 }
 							width={ 15 }

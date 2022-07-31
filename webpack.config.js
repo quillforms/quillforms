@@ -23,7 +23,6 @@ function camelCaseDash( string ) {
 	);
 }
 
-const CustomTemplatedPathPlugin = require( '@wordpress/custom-templated-path-webpack-plugin' );
 const DependencyExtractionWebpackPlugin = require( '@quillforms/dependency-extraction-webpack-plugin' );
 
 /**

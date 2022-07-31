@@ -8,7 +8,7 @@ import apiFetch from '@wordpress/api-fetch';
 /**
  * External Dependencies
  */
-import Loader from 'react-loader-spinner';
+import { ThreeDots as Loader } from 'react-loader-spinner';
 
 /**
  * Internal Dependencies
@@ -55,7 +55,7 @@ const Settings: React.FC< Props > = ( { provider, setup, main } ) => {
 					path: `/qf/v1/addons/${ provider.slug }/accounts/`,
 					method: 'GET',
 				} ) ) as Accounts;
-				if ( !Array.isArray( res ) ) {
+				if ( ! Array.isArray( res ) ) {
 					$actions.setupAccounts( res );
 				}
 
@@ -72,12 +72,7 @@ const Settings: React.FC< Props > = ( { provider, setup, main } ) => {
 		return (
 			<div className="integration-settings">
 				<div className="integration-settings__loading">
-					<Loader
-						type="ThreeDots"
-						color="#8640e3"
-						height={ 50 }
-						width={ 50 }
-					/>
+					<Loader color="#8640e3" height={ 50 } width={ 50 } />
 				</div>
 			</div>
 		);

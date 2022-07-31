@@ -23,7 +23,7 @@ import apiFetch from '@wordpress/api-fetch';
  * External Dependencies
  */
 import { css } from 'emotion';
-import Loader from 'react-loader-spinner';
+import { ThreeDots as Loader } from 'react-loader-spinner';
 
 /**
  * Internal Dependencies
@@ -112,12 +112,7 @@ const General = () => {
 						align-items: center;
 					` }
 				>
-					<Loader
-						type="ThreeDots"
-						color="#8640e3"
-						height={ 50 }
-						width={ 50 }
-					/>
+					<Loader color="#8640e3" height={ 50 } width={ 50 } />
 				</div>
 			) : ! settings ? (
 				<div className="error">Cannot load settings</div>

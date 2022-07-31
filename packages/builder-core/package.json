@@ -28,7 +28,10 @@
 		"@quillforms/builder-panels": "^1.2.19",
 		"@quillforms/renderer-core": "^1.6.3",
 		"@quillforms/types": "^1.2.9",
+		"classnames": "^2.3.1",
+		"emotion": "^11.0.0",
 		"framer-motion": "^4.1.17",
+		"lodash": "^4.17.21",
 		"react-confirm-alert": "^2.7.0",
 		"uuid": "^3.3.2"
 	},

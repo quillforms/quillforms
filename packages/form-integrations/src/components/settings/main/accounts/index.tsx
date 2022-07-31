@@ -15,7 +15,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * External Dependencies
  */
-import Loader from 'react-loader-spinner';
+import { TailSpin as Loader } from 'react-loader-spinner';
 
 /**
  * Internal Dependencies
@@ -146,7 +146,7 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 									Disconnecting{ ' ' }
 									<Loader
 										className="integration-settings-main-accounts__disconnect-modal-buttons-submit-loader"
-										type="TailSpin"
+										s
 										color="#fff"
 										height={ 16 }
 										width={ 16 }

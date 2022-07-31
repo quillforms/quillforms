@@ -15,7 +15,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  * External Dependencies
  */
 import { cloneDeep, omit, map } from 'lodash';
-import Loader from 'react-loader-spinner';
+import { TailSpin as Loader } from 'react-loader-spinner';
 import classnames from 'classnames';
 import { css } from 'emotion';
 /**
@@ -166,12 +166,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 						`
 					) }
 				>
-					<Loader
-						type="TailSpin"
-						color="#333"
-						height={ 30 }
-						width={ 30 }
-					/>
+					<Loader color="#333" height={ 30 } width={ 30 } />
 				</div>
 			) : (
 				<>

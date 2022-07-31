@@ -23,7 +23,7 @@ import apiFetch from '@wordpress/api-fetch';
  * External dependencies
  */
 import { forEach, uniq } from 'lodash';
-import Loader from 'react-loader-spinner';
+import { ThreeDots as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 
 /**
@@ -114,7 +114,6 @@ export const Layout = ( props ) => {
 							` }
 						>
 							<Loader
-								type="ThreeDots"
 								color="#8640e3"
 								height={ 50 }
 								width={ 50 }
