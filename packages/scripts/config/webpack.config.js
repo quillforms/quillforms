@@ -10,6 +10,7 @@ const { basename, dirname, resolve } = require( 'path' );
 const ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const MiniCssExtractPluginWithRTL = require( './mini-css-extract-plugin-with-rtl' );
+const WebpackRTLPlugin = require( '@automattic/webpack-rtl-plugin' );
 
 /**
  * WordPress dependencies
@@ -93,7 +94,7 @@ const config = {
 	target,
 	entry: getWebpackEntryPoints,
 	output: {
-		filename: '[name].js',
+		filename: 'index.js',
 		path: resolve( process.cwd(), 'build' ),
 	},
 	resolve: {
@@ -271,9 +272,17 @@ const config = {
 		// bundle content as a convenient interactive zoomable treemap.
 		process.env.WP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
-		new MiniCSSExtractPlugin( { filename: 'style.css' } ),
+		new MiniCSSExtractPlugin( {
+			filename: 'style.css',
+			ignoreOrder: true, // suppress conflicting order warnings from mini-css-extract-plugin
+		} ),
 		new MiniCssExtractPluginWithRTL(),
-
+		new WebpackRTLPlugin( {
+			filename: './[name]/style-rtl.css',
+			minify: {
+				safe: true,
+			},
+		} ),
 		// React Fast Refresh.
 		hasReactFastRefresh && new ReactRefreshWebpackPlugin(),
 		// WP_NO_EXTERNALS global variable controls whether scripts' assets get
