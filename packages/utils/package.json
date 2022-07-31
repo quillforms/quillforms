@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/utils",
-	"version": "1.2.11",
+	"version": "1.2.12",
 	"description": "Utils package for defining some helpful functions",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,7 +23,7 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/config": "^1.2.9",
+		"@quillforms/config": "^1.2.10",
 		"@wordpress/element": "^4.5.0",
 		"tinycolor2": "^1.4.2"
 	},
