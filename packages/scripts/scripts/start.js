@@ -30,11 +30,12 @@ process.env.WP_SRC_DIRECTORY = hasArgInCLI( '--webpack-src-dir' )
 	? getArgFromCLI( '--webpack-src-dir' )
 	: 'src';
 
-const { status } = spawn(
+const { status, error } = spawn(
 	resolveBin( 'webpack' ),
 	[ hasArgInCLI( '--hot' ) ? 'serve' : 'watch', ...getWebpackArgs() ],
 	{
 		stdio: 'inherit',
 	}
 );
+console.log( error );
 process.exit( status === null ? EXIT_ERROR_CODE : status );

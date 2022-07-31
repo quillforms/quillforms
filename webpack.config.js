@@ -15,7 +15,7 @@ const { get, escapeRegExp, compact } = require( 'lodash' );
 const { basename, sep } = require( 'path' );
 const path = require( 'path' );
 
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const defaultConfig = require( './packages/scripts/config/webpack.config' );
 
 function camelCaseDash( string ) {
 	return string.replace( /-([a-z])/g, ( match, letter ) =>
@@ -24,7 +24,7 @@ function camelCaseDash( string ) {
 }
 
 const CustomTemplatedPathPlugin = require( '@wordpress/custom-templated-path-webpack-plugin' );
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@quillforms/dependency-extraction-webpack-plugin' );
 
 /**
  * Internal dependencies
@@ -368,29 +368,6 @@ module.exports = {
 		new DependencyExtractionWebpackPlugin( {
 			useDefaults: true,
 			injectPolyfill: false,
-			requestToExternal( request ) {
-				switch ( request ) {
-					case 'emotion': {
-						return 'emotion';
-					}
-				}
-				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
-					return [
-						'qf',
-						camelCaseDash(
-							request.substring( QUILLFORMS_NAMESPACE.length )
-						),
-					];
-				}
-			},
-			requestToHandle( request ) {
-				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
-					return (
-						'quillforms-' +
-						request.substring( QUILLFORMS_NAMESPACE.length )
-					);
-				}
-			},
 		} ),
 		new WebpackRTLPlugin( {
 			filename: './[name]/style-rtl.css',

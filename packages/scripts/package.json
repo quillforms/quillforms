@@ -28,12 +28,12 @@
 		"utils"
 	],
 	"bin": {
-		"wp-scripts": "./bin/wp-scripts.js"
+		"qf-scripts": "./bin/qf-scripts.js"
 	},
 	"dependencies": {
 		"@babel/core": "^7.16.0",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
-		"@quillforms/dependency-extraction-webpack-plugin": "^1.0.2",
+		"@quillforms/dependency-extraction-webpack-plugin": "file:../dependency-extraction-webpack-plugin",
 		"@svgr/webpack": "^6.3.1",
 		"@wordpress/babel-preset-default": "^6.16.0",
 		"@wordpress/browserslist-config": "^4.1.2",
@@ -93,6 +93,5 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"gitHead": "8d6f1b20fa239ccd7edb5f55f9371d2b425dd03c"
+	}
 }
