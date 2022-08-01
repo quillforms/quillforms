@@ -34,7 +34,7 @@
 		"@automattic/webpack-rtl-plugin": "^6.0.0",
 		"@babel/core": "^7.16.0",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
-		"@quillforms/dependency-extraction-webpack-plugin": "file:../dependency-extraction-webpack-plugin",
+		"@quillforms/dependency-extraction-webpack-plugin": "^1.0.3",
 		"@svgr/webpack": "^6.3.1",
 		"@wordpress/babel-preset-default": "^6.16.0",
 		"@wordpress/browserslist-config": "^4.1.2",
@@ -90,5 +90,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "579c6f1f8ac74ac499dec6aff5eae22f4dab729b"
 }
