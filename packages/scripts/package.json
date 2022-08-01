@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/scripts",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Forked from Gutenberg, collection of reusable scripts for QuillForms development.",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -81,8 +81,8 @@
 		"webpack": "^5.68.0",
 		"webpack-bundle-analyzer": "4.4.2",
 		"webpack-cli": "4.10.0",
-		"webpack-rtl-plugin": "^2.0.0",
-		"webpack-dev-server": "^4.4.0"
+		"webpack-dev-server": "^4.4.0",
+		"webpack-rtl-plugin": "^2.0.0"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",
