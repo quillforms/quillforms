@@ -231,43 +231,6 @@ const config = {
 			// multiple configurations returned in the webpack config.
 			cleanStaleWebpackAssets: false,
 		} ),
-		// new CopyWebpackPlugin( {
-		// 	patterns: [
-		// 		{
-		// 			from: copyWebpackPatterns,
-		// 			context: process.env.WP_SRC_DIRECTORY,
-		// 			noErrorOnMissing: true,
-		// 			transform( content, absoluteFrom ) {
-		// 				const convertExtension = ( path ) => {
-		// 					return path.replace( /\.(j|t)sx?$/, '.js' );
-		// 				};
-
-		// 				if ( basename( absoluteFrom ) === 'block.json' ) {
-		// 					const blockJson = JSON.parse( content.toString() );
-		// 					[ 'viewScript', 'script', 'editorScript' ].forEach(
-		// 						( key ) => {
-		// 							if ( Array.isArray( blockJson[ key ] ) ) {
-		// 								blockJson[ key ] = blockJson[ key ].map(
-		// 									convertExtension
-		// 								);
-		// 							} else if (
-		// 								typeof blockJson[ key ] === 'string'
-		// 							) {
-		// 								blockJson[ key ] = convertExtension(
-		// 									blockJson[ key ]
-		// 								);
-		// 							}
-		// 						}
-		// 					);
-
-		// 					return JSON.stringify( blockJson, null, 2 );
-		// 				}
-
-		// 				return content;
-		// 			},
-		// 		},
-		// 	],
-		// } ),
 		// The WP_BUNDLE_ANALYZER global variable enables a utility that represents
 		// bundle content as a convenient interactive zoomable treemap.
 		process.env.WP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
