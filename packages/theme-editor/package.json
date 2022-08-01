@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/theme-editor",
-	"version": "1.2.20",
+	"version": "1.2.21",
 	"description": "Quill Forms Theme Editor",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -22,7 +22,7 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^1.3.19"
+		"@quillforms/admin-components": "^1.3.20"
 	},
 	"publishConfig": {
 		"access": "public"
