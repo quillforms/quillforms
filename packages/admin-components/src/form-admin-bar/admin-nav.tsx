@@ -10,7 +10,10 @@ const FormAdminNavSlot = ( props ) => {
 	return <Slot { ...props } />;
 };
 
-const FormAdminNavFill: React.FC = ( { children } ) => {
+interface Props {
+	children?: React.ReactNode; // 👈️ added type for children
+}
+const FormAdminNavFill: React.FC< Props > = ( { children } ) => {
 	return <Fill>{ children }</Fill>;
 };
 

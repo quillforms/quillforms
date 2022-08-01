@@ -145,8 +145,7 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 								<>
 									Disconnecting{ ' ' }
 									<Loader
-										className="integration-settings-main-accounts__disconnect-modal-buttons-submit-loader"
-										s
+										wrapperClass="integration-settings-main-accounts__disconnect-modal-buttons-submit-loader"
 										color="#fff"
 										height={ 16 }
 										width={ 16 }
