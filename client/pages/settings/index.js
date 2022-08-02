@@ -19,6 +19,10 @@ import Integrations from './integrations';
 import Emails from './emails';
 
 const Settings = () => {
+	const params = new Proxy( new URLSearchParams( window.location.search ), {
+		get: ( searchParams, prop ) => searchParams.get( prop ),
+	} );
+
 	const Tabs = {
 		general: {
 			title: 'General',
@@ -63,6 +67,7 @@ const Settings = () => {
 							className: 'tab-' + name,
 						};
 					} ) }
+					initialTabName={ params?.tab }
 				>
 					{ ( tab ) => (
 						<div>

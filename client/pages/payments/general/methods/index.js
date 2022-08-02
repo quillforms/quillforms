@@ -201,6 +201,7 @@ const Methods = () => {
 											<a
 												href="https://quillforms.com"
 												target="_blank"
+												rel="noreferrer"
 											>
 												Upgrade your plan
 											</a>
@@ -217,7 +218,7 @@ const Methods = () => {
 							notice = (
 								<i>
 									<NavLink
-										to={ `/admin.php?page=quillforms&path=settings` }
+										to={ `/admin.php?page=quillforms&path=settings&tab=payments` }
 									>
 										Configure it
 									</NavLink>
