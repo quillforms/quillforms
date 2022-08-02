@@ -3,22 +3,21 @@
  */
 const { DefinePlugin } = require( 'webpack' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
-const MiniCssExtractPluginWithRTL = require( './mini-css-extract-plugin-with-rtl' );
-const WebpackRTLPlugin = require( '@automattic/webpack-rtl-plugin' );
+const RtlCssPlugin = require( 'rtlcss-webpack-plugin' );
 
 const TerserPlugin = require( 'terser-webpack-plugin' );
 
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 
 const postcss = require( 'postcss' );
-const { get, escapeRegExp, compact } = require( 'lodash' );
-const { basename, sep } = require( 'path' );
+const { compact } = require( 'lodash' );
+const { basename } = require( 'path' );
 const path = require( 'path' );
 
 const defaultConfig = require( './packages/scripts/config/webpack.config' );
 
 function camelCaseDash( string ) {
-	return string.replace( /-([a-z])/g, ( match, letter ) =>
+	return string.replace( /-([a-z])/g, ( _match, letter ) =>
 		letter.toUpperCase()
 	);
 }
@@ -368,17 +367,18 @@ module.exports = {
 			useDefaults: true,
 			injectPolyfill: false,
 		} ),
-		new WebpackRTLPlugin( {
-			filename: './[name]/style-rtl.css',
-			minify: {
-				safe: true,
-			},
-		} ),
+		// new WebpackRTLPlugin( {
+		// 	filename: './[name]/style-rtl.css',
+		// 	minify: {
+		// 		safe: true,
+		// 	},
+		// } ),
+
 		new MiniCssExtractPlugin( {
 			filename: './[name]/style.css',
 			chunkFilename: './client/chunks/[id].style.css',
 		} ),
-		new MiniCssExtractPluginWithRTL(),
+		new RtlCssPlugin( './[name]/style-rtl.css' ),
 	],
 	optimization: {
 		concatenateModules: mode === 'production',
