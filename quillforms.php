@@ -12,7 +12,6 @@
  *
  * @package QuillForms
  */
-
 defined( 'ABSPATH' ) || exit;
 
 // Plugin file.
