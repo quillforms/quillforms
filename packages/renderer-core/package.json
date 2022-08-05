@@ -23,8 +23,9 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/blocks": "^1.3.16",
-		"@quillforms/config": "^1.2.10",
+		"@quillforms/blocks": "file:packages/blocks",
+		"@quillforms/config": "file:packages/config",
+		"@quillforms/payment-gateways": "file:packages/payment-gateways",
 		"@quillforms/utils": "^1.2.12",
 		"@wordpress/autop": "^3.7.0",
 		"@wordpress/components": "^19.9.0",
