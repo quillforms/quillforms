@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/react-renderer-utils",
-	"version": "1.0.32",
+	"version": "1.0.33",
 	"description": "> TODO: description",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
 	"keywords": [
@@ -21,16 +21,16 @@
 	"module": "build-module/index.js",
 	"sideEffects": false,
 	"dependencies": {
-		"@quillforms/blocklib-date-block": "^1.3.40",
-		"@quillforms/blocklib-dropdown-block": "^1.4.40",
-		"@quillforms/blocklib-email-block": "^1.3.41",
-		"@quillforms/blocklib-long-text-block": "^1.3.40",
-		"@quillforms/blocklib-multiple-choice-block": "^1.2.40",
-		"@quillforms/blocklib-number-block": "^1.3.40",
-		"@quillforms/blocklib-short-text-block": "^1.3.40",
-		"@quillforms/blocklib-statement-block": "^1.2.40",
-		"@quillforms/blocklib-website-block": "^1.3.40",
-		"@quillforms/blocklib-welcome-screen-block": "^1.3.40",
+		"@quillforms/blocklib-date-block": "^1.3.41",
+		"@quillforms/blocklib-dropdown-block": "^1.4.41",
+		"@quillforms/blocklib-email-block": "^1.3.42",
+		"@quillforms/blocklib-long-text-block": "^1.3.41",
+		"@quillforms/blocklib-multiple-choice-block": "^1.2.41",
+		"@quillforms/blocklib-number-block": "^1.3.41",
+		"@quillforms/blocklib-short-text-block": "^1.3.41",
+		"@quillforms/blocklib-statement-block": "^1.2.41",
+		"@quillforms/blocklib-website-block": "^1.3.41",
+		"@quillforms/blocklib-welcome-screen-block": "^1.3.41",
 		"@quillforms/blocks": "^1.3.16"
 	},
 	"peerDependencies": {
