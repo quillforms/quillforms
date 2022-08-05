@@ -22,6 +22,9 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 
+		/* To prevent Typescript observe the libraries on node modules */
+		"skipLibCheck": true,
+
 		/* Module Resolution Options */
 		"moduleResolution": "node",
 
