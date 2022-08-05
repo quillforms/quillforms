@@ -1,4 +1,3 @@
-import React from 'react';
 import type { IconRenderer } from '@quillforms/types';
 
 export type PaymentGatewayModule = {
@@ -10,7 +9,7 @@ export type PaymentGatewayModule = {
 	description: string;
 	active: boolean;
 	// settings component at settings->payments
-	settings: React.FC< { slug: string } >;
+	settings?: React.FC< { slug: string } >;
 	// gateway options at form->payments
 	options?: {
 		// settings: all settings at form->payments

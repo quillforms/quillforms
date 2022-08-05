@@ -23,10 +23,10 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/block-editor": "^1.2.22",
-		"@quillforms/notifications-editor": "^1.2.22",
-		"@quillforms/types": "^1.2.9",
-		"@quillforms/utils": "^1.2.12"
+		"@quillforms/block-editor": "file:../block-editor",
+		"@quillforms/notifications-editor": "file:../notifications-editor",
+		"@quillforms/types": "file:../types",
+		"@quillforms/utils": "file:../utils"
 	},
 	"publishConfig": {
 		"access": "public"

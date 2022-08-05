@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^1.3.21",
-		"@quillforms/config": "^1.2.10"
+		"@quillforms/admin-components": "file:../admin-components",
+		"@quillforms/config": "file:../config"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",

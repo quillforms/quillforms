@@ -13,7 +13,6 @@ import { addAction } from '@wordpress/hooks';
  */
 import { registerPaymentGatewayModule } from '../../api';
 import CustomerRender from '../customer-render';
-import Settings from '../settings';
 
 addAction(
 	'QuillForms.Admin.PluginsLoaded',
@@ -37,7 +36,6 @@ function register() {
 			full: `${ assetsDir }/icon-full.svg`,
 		},
 		active: false,
-		settings: Settings,
 		methods: {
 			elements: {
 				configured: false,
