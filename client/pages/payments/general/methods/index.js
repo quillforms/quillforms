@@ -8,14 +8,14 @@ import {
 	ControlWrapper,
 	ControlLabel,
 	ToggleControl,
+	ProLabel,
 } from '@quillforms/admin-components';
 import { NavLink } from '@quillforms/navigation';
 
 /**
  * WordPress Dependencies
  */
-import { Button } from '@wordpress/components';
-import { Icon as IconComponent } from '@wordpress/components';
+import { Button, Icon as IconComponent } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 
 /**
@@ -84,151 +84,146 @@ const Methods = () => {
 
 	// loop over the enabled methods then other methods.
 	return (
-		<BaseControl>
-			<ControlWrapper orientation="vertical">
-				<ControlLabel label="Methods" />
-				<div className="payments-general-methods">
-					{ Object.keys( general.methods ).map( ( key, index ) => {
-						const [ gateway, method ] = key.split( ':' );
-						const data = gateways[ gateway ].methods[ method ];
-						return (
-							<BaseControl key={ key }>
-								<ControlWrapper orientation="horizontal">
-									<div className="method-label">
-										{ typeof data.admin.label.icon ===
-										'string' ? (
-											<img
-												src={ data.admin.label.icon }
-											/>
-										) : (
-											<IconComponent
-												icon={
-													data.admin.label.icon?.src
-														? data.admin.label.icon
-																.src
-														: data.admin.label.icon
-												}
-											/>
-										) }
-										{ data.admin.label.text }
-										{ index !== 0 && (
-											<Button
-												onClick={ () =>
-													reorder( index, 'up' )
-												}
-											>
-												↑
-											</Button>
-										) }
-										{ index !==
-											Object.keys( general.methods )
-												.length -
-												1 && (
-											<Button
-												onClick={ () =>
-													reorder( index, 'down' )
-												}
-											>
-												↓
-											</Button>
-										) }
-									</div>
-									<ToggleControl
-										checked={ true }
-										onChange={ () => {
-											const methods = omit(
-												{ ...general.methods },
-												key
-											);
-											updateGeneral( { methods } );
-										} }
-									/>
-								</ControlWrapper>
-							</BaseControl>
-						);
-					} ) }
-					{ methods.map( ( key ) => {
-						if ( Object.keys( general.methods ).includes( key ) ) {
-							return null;
-						}
+		<div className="quillforms-payments-page-settings__methods">
+			<h3>Methods</h3>
+			<div className="quillforms-payments-page-settings__methods-content">
+				{ Object.keys( general.methods ).map( ( key, index ) => {
+					const [ gateway, method ] = key.split( ':' );
+					const data = gateways[ gateway ].methods[ method ];
+					return (
+						<BaseControl key={ key }>
+							<ControlWrapper orientation="horizontal">
+								<div className="method-label">
+									{ typeof data.admin.label.icon ===
+									'string' ? (
+										<img src={ data.admin.label.icon } />
+									) : (
+										<IconComponent
+											icon={
+												data.admin.label.icon?.src
+													? data.admin.label.icon.src
+													: data.admin.label.icon
+											}
+										/>
+									) }
+									{ data.admin.label.text }
+									{ index !== 0 && (
+										<Button
+											onClick={ () =>
+												reorder( index, 'up' )
+											}
+										>
+											↑
+										</Button>
+									) }
+									{ index !==
+										Object.keys( general.methods ).length -
+											1 && (
+										<Button
+											onClick={ () =>
+												reorder( index, 'down' )
+											}
+										>
+											↓
+										</Button>
+									) }
+								</div>
+								<ToggleControl
+									checked={ true }
+									onChange={ () => {
+										const methods = omit(
+											{ ...general.methods },
+											key
+										);
+										updateGeneral( { methods } );
+									} }
+								/>
+							</ControlWrapper>
+						</BaseControl>
+					);
+				} ) }
+				{ methods.map( ( key ) => {
+					if ( Object.keys( general.methods ).includes( key ) ) {
+						return null;
+					}
 
-						const [ gateway, method ] = key.split( ':' );
-						const active = gateways[ gateway ].active;
-						const data = gateways[ gateway ].methods[ method ];
-						const configured = data?.configured ?? false;
+					const [ gateway, method ] = key.split( ':' );
+					const active = gateways[ gateway ].active;
+					const data = gateways[ gateway ].methods[ method ];
+					const configured = data?.configured ?? false;
 
-						let notice = null;
-						let available = true;
+					let notice = null;
+					let available = true;
 
-						// if method doesn't support recurring.
-						if ( recurring && ! data?.isRecurringSupported ) {
-							available = false;
-							notice = <i>Doesn't support recurring</i>;
-						}
+					// if method doesn't support recurring.
+					if ( recurring && ! data?.isRecurringSupported ) {
+						available = false;
+						notice = <i>Doesn't support recurring</i>;
+					}
 
-						// if gateway addon is not active.
-						if ( available && ! active ) {
-							available = false;
+					// if gateway addon is not active.
+					if ( available && ! active ) {
+						available = false;
 
-							const addon = ConfigApi.getStoreAddons()[ gateway ];
-							if ( addon.is_installed ) {
+						const addon = ConfigApi.getStoreAddons()[ gateway ];
+						if ( addon.is_installed ) {
+							notice = (
+								<i>
+									<NavLink
+										to={ `/admin.php?page=quillforms&path=addons` }
+									>
+										Activate it
+									</NavLink>
+								</i>
+							);
+						} else {
+							const isPlanAccessible = ConfigApi.isPlanAccessible(
+								addon.plan
+							);
+							if ( isPlanAccessible ) {
 								notice = (
 									<i>
 										<NavLink
 											to={ `/admin.php?page=quillforms&path=addons` }
 										>
-											Activate it
+											Install it
 										</NavLink>
 									</i>
 								);
 							} else {
-								const isPlanAccessible = ConfigApi.isPlanAccessible(
-									addon.plan
+								notice = (
+									<i>
+										<a
+											className="upgrade-plan"
+											href="https://quillforms.com"
+										>
+											Upgrade your plan
+										</a>
+									</i>
 								);
-								if ( isPlanAccessible ) {
-									notice = (
-										<i>
-											<NavLink
-												to={ `/admin.php?page=quillforms&path=addons` }
-											>
-												Install it
-											</NavLink>
-										</i>
-									);
-								} else {
-									notice = (
-										<i>
-											<a
-												href="https://quillforms.com"
-												target="_blank"
-												rel="noreferrer"
-											>
-												Upgrade your plan
-											</a>
-										</i>
-									);
-								}
 							}
 						}
+					}
 
-						// if method is not configured.
-						if ( available && ! configured ) {
-							available = false;
+					// if method is not configured.
+					if ( available && ! configured ) {
+						available = false;
 
-							notice = (
-								<i>
-									<NavLink
-										to={ `/admin.php?page=quillforms&path=settings&tab=payments` }
-									>
-										Configure it
-									</NavLink>
-								</i>
-							);
-						}
+						notice = (
+							<i>
+								<NavLink
+									to={ `/admin.php?page=quillforms&path=settings&tab=payments` }
+								>
+									Configure it
+								</NavLink>
+							</i>
+						);
+					}
 
-						return (
-							<BaseControl key={ key }>
-								<ControlWrapper orientation="horizontal">
+					return (
+						<div key={ key } className="payment-method">
+							<ControlWrapper orientation="horizontal">
+								<div className="method-label-wrapper">
 									<div className="method-label">
 										{ typeof data.admin.label.icon ===
 										'string' ? (
@@ -245,30 +240,32 @@ const Methods = () => {
 												}
 											/>
 										) }
-										{ data.admin.label.text }
-										<span className="method-label-notice">
-											{ notice }
-										</span>
+										<div className="method-label-text">
+											{ data.admin.label.text }
+										</div>
 									</div>
-									<ToggleControl
-										checked={ false }
-										disabled={ ! available }
-										onChange={ () => {
-											updateGeneral(
-												{
-													methods: { [ key ]: {} },
-												},
-												'recursive'
-											);
-										} }
-									/>
-								</ControlWrapper>
-							</BaseControl>
-						);
-					} ) }
-				</div>
-			</ControlWrapper>
-		</BaseControl>
+									<span className="method-label-notice">
+										{ notice }
+									</span>
+								</div>
+								<ToggleControl
+									checked={ false }
+									disabled={ ! available }
+									onClick={ () => {
+										updateGeneral(
+											{
+												methods: { [ key ]: {} },
+											},
+											'recursive'
+										);
+									} }
+								/>
+							</ControlWrapper>
+						</div>
+					);
+				} ) }
+			</div>
+		</div>
 	);
 };
 

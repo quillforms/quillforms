@@ -86,7 +86,8 @@
 }
 .quillforms-payments-page-settings__general h3,
 .quillforms-payments-page-settings__models h3,
-.quillforms-payments-page-settings__products h3 {
+.quillforms-payments-page-settings__products h3,
+.quillforms-payments-page-settings__methods h3 {
 	margin-top: 40px;
 	margin-bottom: 20px;
 	color: #6d78d8;
@@ -120,12 +121,55 @@
 	border-radius: 10px;
 }
 
-.payments-general-methods .method-label {
-	display: flex;
-	align-items: center;
-	img {
-		width: 73px;
-		margin-right: 6px;
+.quillforms-payments-page-settings__methods {
+	.payment-method {
+		box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
+		margin-bottom: 20px;
+		border-radius: 10px;
+		padding: 10px 20px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+	}
+
+	.method-label-wrapper {
+		display: flex;
+		align-items: center;
+		.method-label {
+			display: flex;
+			align-items: center;
+			width: 140px;
+			img {
+				width: 73px;
+			}
+			.method-label-text {
+				font-weight: bold;
+				margin-left: 10px;
+				color: #303030;
+			}
+		}
+		a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			color: #333;
+			border: 1px solid #333;
+			text-decoration: none;
+			border-radius: 5px;
+			padding: 5px;
+			font-size: 10px;
+			font-weight: bold;
+			margin-left: 20px;
+			width: 128px;
+			outline: none !important;
+			box-shadow: none !important;
+
+			&.upgrade-plan {
+				background: linear-gradient(42deg, #eb36dd, #ee8e16);
+				color: #fff;
+				border: 1px solid transparent;
+			}
+		}
 	}
 }
 .quillforms-payments-page-settings__models {
@@ -180,26 +224,26 @@
 			}
 		}
 
-		.payment-model-methods {
-			padding: 0 15px;
+		// .payment-model-methods {
+		// 	padding: 0 15px;
 
-			.method-label {
-				display: inline-flex;
-				align-items: center;
-				height: 25px;
+		// 	.method-label {
+		// 		display: inline-flex;
+		// 		align-items: center;
+		// 		height: 25px;
 
-				& > svg,
-				& > img {
-					max-width: 50px;
-					max-height: 25px;
-					margin-right: 10px;
-				}
+		// 		& > svg,
+		// 		& > img {
+		// 			max-width: 50px;
+		// 			max-height: 25px;
+		// 			margin-right: 10px;
+		// 		}
 
-				.method-label-notice {
-					margin-left: 3px;
-				}
-			}
-		}
+		// 		.method-label-notice {
+		// 			margin-left: 3px;
+		// 		}
+		// 	}
+		// }
 
 		.payment-model-gateway-options {
 			padding: 0 15px;

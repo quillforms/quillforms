@@ -1,13 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import {
-	ToggleControl,
-	Button,
-	BaseControl,
-	ControlLabel,
-	ControlWrapper,
-} from '@quillforms/admin-components';
+import { Button } from '@quillforms/admin-components';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 
 /**
