@@ -22,6 +22,7 @@ export { default as MappingList } from './mapping-list';
 export * from './rich-text';
 export * from './rich-text/types';
 export { default as Logo } from './logo';
+export { default as ProLabel } from './pro-label';
 export { default as ToggleControl } from './toggle-control';
 export { default as SelectControl } from './select-control';
 export { default as TextControl } from './text-control';
