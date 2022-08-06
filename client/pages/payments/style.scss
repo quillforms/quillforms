@@ -42,7 +42,8 @@
 
 .quillforms-payments-page-settings__general-content,
 .quillforms-payments-page-settings__models-content .payment-model,
-.quillforms-payments-page-settings__products-content {
+.quillforms-payments-page-settings__products-content,
+.quillforms-payments-page-settings__gateways-options-content {
 	padding: 30px;
 	background: #fff;
 	border-radius: 10px;
@@ -84,10 +85,25 @@
 		}
 	}
 }
+.quillforms-payments-page-settings__gateways-options-content {
+	.gateway-option-label {
+		display: flex;
+		align-items: center;
+		margin-bottom: 30px;
+
+		& > svg,
+		& > img {
+			max-width: 86px;
+			max-height: 34px;
+			margin-right: 10px;
+		}
+	}
+}
 .quillforms-payments-page-settings__general h3,
 .quillforms-payments-page-settings__models h3,
 .quillforms-payments-page-settings__products h3,
-.quillforms-payments-page-settings__methods h3 {
+.quillforms-payments-page-settings__methods h3,
+.quillforms-payments-page-settings__gateways-options h3 {
 	margin-top: 40px;
 	margin-bottom: 20px;
 	color: #6d78d8;
@@ -95,7 +111,8 @@
 
 .quillforms-payments-page-settings__general .admin-components-base-control:last-child,
 .quillforms-payments-page-settings__models .admin-components-base-control:last-child,
-.quillforms-payments-page-settings__products .admin-components-base-control:last-child {
+.quillforms-payments-page-settings__products .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__gateways-options .admin-components-base-control:last-child {
 	border: none;
 }
 
@@ -281,31 +298,6 @@
 		// 		}
 		// 	}
 		// }
-
-		.payment-model-gateway-options {
-			padding: 0 15px;
-
-			.gateway-option-label {
-				display: flex;
-				align-items: center;
-				height: 25px;
-
-				& > svg,
-				& > img {
-					max-width: 50px;
-					max-height: 25px;
-					margin-right: 10px;
-				}
-			}
-		}
-
-		.payment-model-conditions {
-			padding: 0 15px;
-
-			.payment-model-conditions-instructions {
-				margin-bottom: 5px;
-			}
-		}
 	}
 
 	.add-model {

@@ -49,38 +49,30 @@ const GatewaysOptions = () => {
 	}
 
 	return (
-		<BaseControl>
-			<ControlWrapper orientation="vertical">
-				<ControlLabel label="Gateways Options" />
-				<div className="payments-general-gateway-options">
-					{ Object.entries( elements ).map(
-						( [ gateway, element ] ) => {
-							const icon = gateways[ gateway ].icon.full;
-							return (
-								<BaseControl key={ gateway }>
-									<ControlWrapper orientation="vertical">
-										<div className="gateway-option-label">
-											{ typeof icon === 'string' ? (
-												<img src={ icon } />
-											) : (
-												<IconComponent
-													icon={
-														icon?.src
-															? icon.src
-															: icon
-													}
-												/>
-											) }
-										</div>
-										{ element }
-									</ControlWrapper>
-								</BaseControl>
-							);
-						}
-					) }
-				</div>
-			</ControlWrapper>
-		</BaseControl>
+		<div className="quillforms-payments-page-settings__gateways-options">
+			<h3>Gateways Options</h3>
+			<div className="quillforms-payments-page-settings__gateways-options-content">
+				{ Object.entries( elements ).map( ( [ gateway, element ] ) => {
+					const icon = gateways[ gateway ].icon.full;
+					return (
+						<BaseControl key={ gateway }>
+							<ControlWrapper orientation="vertical">
+								<div className="gateway-option-label">
+									{ typeof icon === 'string' ? (
+										<img src={ icon } />
+									) : (
+										<IconComponent
+											icon={ icon?.src ? icon.src : icon }
+										/>
+									) }
+								</div>
+								{ element }
+							</ControlWrapper>
+						</BaseControl>
+					);
+				} ) }
+			</div>
+		</div>
 	);
 };
 
