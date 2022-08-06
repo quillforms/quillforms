@@ -107,40 +107,18 @@ const Methods = () => {
 							transition={ spring }
 							className="payment-method"
 						>
-							<ControlWrapper orientation="horizontal">
-								<div className="method-label-wrapper">
-									<div className="method-label">
-										{ typeof data.admin.label.icon ===
-										'string' ? (
-											<img
-												src={ data.admin.label.icon }
-											/>
-										) : (
-											<IconComponent
-												icon={
-													data.admin.label.icon?.src
-														? data.admin.label.icon
-																.src
-														: data.admin.label.icon
-												}
-											/>
-										) }
-										<div className="method-label-text">
-											{ data.admin.label.text }
-										</div>
-									</div>
-								</div>
+							<MethodLabelWrapper data={ data }>
 								<ToggleControl
 									checked={ true }
 									onChange={ () => {
-										const methods = omit(
+										const $methods = omit(
 											{ ...general.methods },
 											key
 										);
-										updateGeneral( { methods } );
+										updateGeneral( { methods: $methods } );
 									} }
 								/>
-							</ControlWrapper>
+							</MethodLabelWrapper>
 							<div className="reordering-buttons">
 								<Button
 									className={ classnames( {
@@ -267,32 +245,7 @@ const Methods = () => {
 							transition={ spring }
 							className="payment-method"
 						>
-							<ControlWrapper orientation="horizontal">
-								<div className="method-label-wrapper">
-									<div className="method-label">
-										{ typeof data.admin.label.icon ===
-										'string' ? (
-											<img
-												src={ data.admin.label.icon }
-											/>
-										) : (
-											<IconComponent
-												icon={
-													data.admin.label.icon?.src
-														? data.admin.label.icon
-																.src
-														: data.admin.label.icon
-												}
-											/>
-										) }
-										<div className="method-label-text">
-											{ data.admin.label.text }
-										</div>
-									</div>
-									<span className="method-label-notice">
-										{ notice }
-									</span>
-								</div>
+							<MethodLabelWrapper data={ data } notice={ notice }>
 								<ToggleControl
 									checked={ false }
 									disabled={ ! available }
@@ -305,7 +258,7 @@ const Methods = () => {
 										);
 									} }
 								/>
-							</ControlWrapper>
+							</MethodLabelWrapper>
 						</motion.div>
 					);
 				} ) }
@@ -314,4 +267,32 @@ const Methods = () => {
 	);
 };
 
+const MethodLabelWrapper = ( { children, data, notice } ) => {
+	return (
+		<ControlWrapper orientation="horizontal">
+			<div className="method-label-wrapper">
+				<div className="method-label">
+					{ typeof data.admin.label.icon === 'string' ? (
+						<img src={ data.admin.label.icon } />
+					) : (
+						<IconComponent
+							icon={
+								data.admin.label.icon?.src
+									? data.admin.label.icon.src
+									: data.admin.label.icon
+							}
+						/>
+					) }
+					<div className="method-label-text">
+						{ data.admin.label.text }
+					</div>
+				</div>
+				{ notice && (
+					<span className="method-label-notice">{ notice }</span>
+				) }
+			</div>
+			{ children }
+		</ControlWrapper>
+	);
+};
 export default Methods;
