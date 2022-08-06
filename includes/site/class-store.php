@@ -663,6 +663,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/sendinblue/icon.png',
 				),
 			),
+			'slack'                     => array(
+				'name'           => esc_html__( 'Slack', 'quillforms' ),
+				'description'    => esc_html__( 'Send new entries to your Slack workspaces.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-slack/quillforms-slack.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/slack/icon.png',
+				),
+			),
 			'webhooks'                  => array(
 				'name'           => esc_html__( 'Webhooks', 'quillforms' ),
 				'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
