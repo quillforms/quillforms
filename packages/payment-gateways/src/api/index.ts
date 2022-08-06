@@ -59,12 +59,12 @@ export const registerPaymentGatewayModule = (
 		return;
 	}
 
-	if ( ! module.settings ) {
-		console.error( `The 'settings' property is mandatory!` );
-		return;
-	}
+	// if ( ! module.settings ) {
+	// 	console.error( `The 'settings' property is mandatory!` );
+	// 	return;
+	// }
 
-	if ( ! isFunction( module.settings ) ) {
+	if ( module.settings && ! isFunction( module.settings ) ) {
 		console.error( 'The "settings" property must be a valid function!' );
 		return;
 	}
