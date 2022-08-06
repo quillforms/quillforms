@@ -8,7 +8,6 @@
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/) 
 
-[GitHub Repo stars](https://img.shields.io/github/stars/quillforms/quillforms?style=social)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
 
 ![Screenshot of the QuillForms renderer](https://quillforms.com/wp-content/uploads/2021/10/frame_generic_light-3.png)
