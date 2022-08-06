@@ -130,6 +130,34 @@
 		height: 70px;
 		display: flex;
 		align-items: center;
+		position: relative;
+
+		.method-warning {
+			display: inline-flex;
+			align-items: center;
+			background: #fffacc;
+			padding: 5px 8px;
+			border-radius: 5px;
+			color: #8b7f0c;
+		}
+		.method-warning svg {
+			fill: #8b7f0c;
+		}
+	}
+
+	.reordering-buttons {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		left: -60px;
+		svg {
+			width: 30px;
+			height: 30px;
+			fill: #6b6b6b;
+		}
+		.components-button.disabled svg {
+			fill: #c5c5c5;
+		}
 	}
 
 	.method-label-wrapper {
@@ -170,6 +198,15 @@
 				border: 1px solid transparent;
 			}
 		}
+	}
+
+	.quillforms-payments-page-settings__methods-info {
+		background: #ebcaff;
+		color: #934cbf;
+		display: inline-flex;
+		padding: 5px 8px;
+		border-radius: 5px;
+		margin-bottom: 20px;
 	}
 }
 .quillforms-payments-page-settings__models {

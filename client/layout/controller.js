@@ -14,7 +14,7 @@ import { useEffect, useState } from '@wordpress/element';
  */
 import { parse } from 'qs';
 import classnames from 'classnames';
-
+import { motion } from 'framer-motion';
 /**
  * Internal Dependencies
  */
@@ -49,7 +49,8 @@ export const Controller = ( { page, match, location } ) => {
 	const query = getQuery( location.search );
 
 	return (
-		<div
+		<motion.div
+			layoutScroll
 			className={ classnames( 'qf-page-component-wrapper', {
 				'has-sidebar': ! page.template || page.template === 'default',
 			} ) }
@@ -61,7 +62,7 @@ export const Controller = ( { page, match, location } ) => {
 				query={ query }
 			/>
 			<AdminNotices />
-		</div>
+		</motion.div>
 	);
 };
 

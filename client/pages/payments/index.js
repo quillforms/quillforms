@@ -13,6 +13,10 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
+ * External Dependencies
+ */
+import { AnimateSharedLayout } from 'framer-motion';
+/**
  * Internal Dependencies
  */
 import './style.scss';
@@ -54,9 +58,8 @@ const PaymentsPage = ( { params } ) => {
 	} );
 
 	// notice dispatchers.
-	const { createErrorNotice, createSuccessNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createErrorNotice, createSuccessNotice } =
+		useDispatch( 'core/notices' );
 
 	// validate on mount.
 	useEffect( () => {
@@ -206,47 +209,50 @@ const PaymentsPage = ( { params } ) => {
 	};
 
 	return (
-		<PaymentsContextProvider
-			value={ {
-				settings,
-				general,
-				models,
-				products,
-				errors,
-				...$actions,
-			} }
-		>
-			<div className="quillforms-payments-page">
-				<div className="quillforms-payments-page-header">
-					<Icon />
-					<div className="quillforms-payments-page-heading">
-						<p>Accept payments via your forms easily!</p>
-						<p>
-							Create orders, accept donations or get any type of
-							payments with the most versatile form builder that
-							integrates with your favorite payment gateways!
-						</p>
+		<AnimateSharedLayout>
+			<PaymentsContextProvider
+				value={ {
+					settings,
+					general,
+					models,
+					products,
+					errors,
+					...$actions,
+				} }
+			>
+				<div className="quillforms-payments-page">
+					<div className="quillforms-payments-page-header">
+						<Icon />
+						<div className="quillforms-payments-page-heading">
+							<p>Accept payments via your forms easily!</p>
+							<p>
+								Create orders, accept donations or get any type
+								of payments with the most versatile form builder
+								that integrates with your favorite payment
+								gateways!
+							</p>
+						</div>
+					</div>
+					<div className="quillforms-payments-page-settings">
+						<General />
+						<Products />
+						<Models />
+
+						<Methods />
+						<GatewaysOptions />
+
+						<Button
+							className="quillforms-payments-page-settings-save"
+							isPrimary
+							isLarge
+							onClick={ onSave }
+						>
+							Save
+						</Button>
 					</div>
 				</div>
-				<div className="quillforms-payments-page-settings">
-					<General />
-					<Products />
-					<Models />
-
-					<Methods />
-					<GatewaysOptions />
-
-					<Button
-						className="quillforms-payments-page-settings-save"
-						isPrimary
-						isLarge
-						onClick={ onSave }
-					>
-						Save
-					</Button>
-				</div>
-			</div>
-		</PaymentsContextProvider>
+			</PaymentsContextProvider>
+		</AnimateSharedLayout>
 	);
 };
 

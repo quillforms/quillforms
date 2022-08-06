@@ -3,20 +3,21 @@
  */
 import ConfigApi from '@quillforms/config';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
-import {
-	BaseControl,
-	ControlWrapper,
-	ControlLabel,
-	ToggleControl,
-	ProLabel,
-} from '@quillforms/admin-components';
+import { ControlWrapper, ToggleControl } from '@quillforms/admin-components';
 import { NavLink } from '@quillforms/navigation';
 
 /**
  * WordPress Dependencies
  */
 import { Button, Icon as IconComponent } from '@wordpress/components';
+import { chevronUp, chevronDown, warning } from '@wordpress/icons';
 import { useEffect } from '@wordpress/element';
+
+/**
+ * External Dependencies
+ */
+import { motion, AnimateSharedLayout } from 'framer-motion';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
@@ -31,6 +32,12 @@ const Methods = () => {
 	const recurring = !! Object.values( models ).find(
 		( model ) => model.recurring
 	);
+
+	const spring = {
+		type: 'spring',
+		damping: 25,
+		stiffness: 120,
+	};
 
 	// all registered gateways and methods.
 	const gateways = getPaymentGatewayModules();
@@ -86,47 +93,42 @@ const Methods = () => {
 	return (
 		<div className="quillforms-payments-page-settings__methods">
 			<h3>Methods</h3>
+			<div className="quillforms-payments-page-settings__methods-info">
+				The default payment gateway is the first enabled payment gateway
+			</div>
 			<div className="quillforms-payments-page-settings__methods-content">
 				{ Object.keys( general.methods ).map( ( key, index ) => {
 					const [ gateway, method ] = key.split( ':' );
 					const data = gateways[ gateway ].methods[ method ];
 					return (
-						<BaseControl key={ key }>
+						<motion.div
+							key={ key }
+							layout
+							transition={ spring }
+							className="payment-method"
+						>
 							<ControlWrapper orientation="horizontal">
-								<div className="method-label">
-									{ typeof data.admin.label.icon ===
-									'string' ? (
-										<img src={ data.admin.label.icon } />
-									) : (
-										<IconComponent
-											icon={
-												data.admin.label.icon?.src
-													? data.admin.label.icon.src
-													: data.admin.label.icon
-											}
-										/>
-									) }
-									{ data.admin.label.text }
-									{ index !== 0 && (
-										<Button
-											onClick={ () =>
-												reorder( index, 'up' )
-											}
-										>
-											↑
-										</Button>
-									) }
-									{ index !==
-										Object.keys( general.methods ).length -
-											1 && (
-										<Button
-											onClick={ () =>
-												reorder( index, 'down' )
-											}
-										>
-											↓
-										</Button>
-									) }
+								<div className="method-label-wrapper">
+									<div className="method-label">
+										{ typeof data.admin.label.icon ===
+										'string' ? (
+											<img
+												src={ data.admin.label.icon }
+											/>
+										) : (
+											<IconComponent
+												icon={
+													data.admin.label.icon?.src
+														? data.admin.label.icon
+																.src
+														: data.admin.label.icon
+												}
+											/>
+										) }
+										<div className="method-label-text">
+											{ data.admin.label.text }
+										</div>
+									</div>
 								</div>
 								<ToggleControl
 									checked={ true }
@@ -139,7 +141,40 @@ const Methods = () => {
 									} }
 								/>
 							</ControlWrapper>
-						</BaseControl>
+							<div className="reordering-buttons">
+								<Button
+									className={ classnames( {
+										disabled: index === 0,
+									} ) }
+									onClick={ () => {
+										if ( index !== 0 )
+											reorder( index, 'up' );
+									} }
+								>
+									<IconComponent icon={ chevronUp } />
+								</Button>
+								<Button
+									className={ classnames( {
+										disabled:
+											index ===
+											Object.keys( general.methods )
+												.length -
+												1,
+									} ) }
+									onClick={ () => {
+										if (
+											index !==
+											Object.keys( general.methods )
+												.length -
+												1
+										)
+											reorder( index, 'down' );
+									} }
+								>
+									<IconComponent icon={ chevronDown } />
+								</Button>
+							</div>
+						</motion.div>
 					);
 				} ) }
 				{ methods.map( ( key ) => {
@@ -158,7 +193,12 @@ const Methods = () => {
 					// if method doesn't support recurring.
 					if ( recurring && ! data?.isRecurringSupported ) {
 						available = false;
-						notice = <i>Doesn't support recurring</i>;
+						notice = (
+							<div className="method-warning">
+								<IconComponent icon={ warning } />
+								<i>Doesn't support recurring payments</i>
+							</div>
+						);
 					}
 
 					// if gateway addon is not active.
@@ -221,7 +261,12 @@ const Methods = () => {
 					}
 
 					return (
-						<div key={ key } className="payment-method">
+						<motion.div
+							key={ key }
+							layout
+							transition={ spring }
+							className="payment-method"
+						>
 							<ControlWrapper orientation="horizontal">
 								<div className="method-label-wrapper">
 									<div className="method-label">
@@ -261,7 +306,7 @@ const Methods = () => {
 									} }
 								/>
 							</ControlWrapper>
-						</div>
+						</motion.div>
 					);
 				} ) }
 			</div>
