@@ -32,7 +32,7 @@ const Main: React.FC< Props > = ( { main } ) => {
 		<div className="integration-settings-main">
 			{ setup && <App /> }
 			<Accounts data={ main.accounts } />
-			<AccountAuth data={ main.accounts.auth } />
+			<AccountAuth data={ main.accounts } />
 			{ main.helpers &&
 				main.helpers.map( ( Helper, index ) => (
 					<Helper key={ index } />

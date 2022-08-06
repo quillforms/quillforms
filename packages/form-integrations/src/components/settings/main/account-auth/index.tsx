@@ -16,10 +16,10 @@ import { __ } from '@wordpress/i18n';
  */
 import { useSettingsContext } from '../../state/context';
 import { default as GenericAccountAuth } from '../../../shared/account-auth';
-import { AccountsAuth } from '../../../types';
+import { SettingsMainAccounts } from '../../../types';
 
 interface Props {
-	data: AccountsAuth;
+	data: SettingsMainAccounts;
 }
 
 const AccountAuth: React.FC< Props > = ( { data } ) => {
@@ -43,9 +43,10 @@ const AccountAuth: React.FC< Props > = ( { data } ) => {
 	return (
 		<div className="integration-settings-main-account-auth">
 			<b>
-				{ data.type === 'oauth'
-					? 'Authorize/Reauthorize account:'
-					: 'Add/Update account:' }
+				{ data.auth.type === 'oauth'
+					? 'Authorize/Reauthorize'
+					: 'Add/Update' }{ ' ' }
+				{ data.labels?.plural?.toLowerCase() ?? 'account' }:
 			</b>
 			<GenericAccountAuth
 				provider={ provider }

@@ -14,12 +14,13 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import { AccountsAuthFields, Provider } from '../../../types';
+import { AccountsAuthFields, AccountsLabels, Provider } from '../../../types';
 
 interface Props {
 	provider: Provider;
 	onAdding?: ( status: boolean ) => void;
 	onAdded: ( id: string, account: { name: string } ) => void;
+	labels?: AccountsLabels;
 	fields?: AccountsAuthFields;
 }
 
@@ -27,6 +28,7 @@ const Credentials: React.FC< Props > = ( {
 	provider,
 	onAdding,
 	onAdded,
+	labels,
 	fields,
 } ) => {
 	fields = fields ?? {
@@ -55,7 +57,9 @@ const Credentials: React.FC< Props > = ( {
 		} )
 			.then( ( res: any ) => {
 				createSuccessNotice(
-					'✅ ' + __( 'Account added successfully!', 'quillforms' ),
+					'✅ ' +
+						( labels?.singular ?? __( 'Account', 'quillforms' ) ) +
+						__( 'added successfully!', 'quillforms' ),
 					{
 						type: 'snackbar',
 						isDismissible: true,
@@ -68,10 +72,11 @@ const Credentials: React.FC< Props > = ( {
 				createErrorNotice(
 					'⛔ ' +
 						( err.message ??
-							__(
-								'Error in adding the account!',
-								'quillforms'
-							) ),
+							__( 'Error in adding the ', 'quillforms' ) +
+								(
+									labels?.singular ??
+									__( 'Account', 'quillforms' )
+								).toLowerCase() ),
 					{
 						type: 'snackbar',
 						isDismissible: true,

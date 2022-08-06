@@ -62,7 +62,12 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 	const options: CustomSelectControl.Option[] = [
 		{
 			key: 'select',
-			name: __( 'Select an account', 'quillforms' ),
+			name:
+				__( 'Select ', 'quillforms' ) +
+				(
+					main.connection.accounts.labels?.singular ??
+					__( 'account', 'quillforms' )
+				).toLowerCase(),
 			style: { display: 'none' },
 		},
 		...Object.entries( accounts ).map( ( [ id, account ] ) => {
@@ -70,7 +75,12 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 		} ),
 		{
 			key: 'add',
-			name: __( 'Add new account', 'quillforms' ),
+			name:
+				__( 'Add new ', 'quillforms' ) +
+				(
+					main.connection.accounts.labels?.singular ??
+					__( 'account', 'quillforms' )
+				).toLowerCase(),
 		},
 	];
 	let selected: CustomSelectControl.Option;
@@ -118,7 +128,12 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 		<div className="connection-section connection-account-selector">
 			<SelectControl
 				className="connection-primary-control"
-				label={ provider.label + ' ' + __( 'Account', 'quillforms' ) }
+				label={
+					provider.label +
+					' ' +
+					( main.connection.accounts.labels?.singular?.toLowerCase() ??
+						__( 'Account', 'quillforms' ) )
+				}
 				options={ options }
 				value={ selected }
 				onChange={ ( { selectedItem: { key } } ) => onChange( key ) }
@@ -127,7 +142,7 @@ const AccountSelector: React.FC< Props > = ( { connectionId } ) => {
 			{ showingAddNewAccount && (
 				<AccountAuth
 					provider={ provider }
-					data={ main.connection.accounts.auth }
+					data={ main.connection.accounts }
 					onAdding={ setAddingNewAccount }
 					onAdded={ onAdded }
 				/>

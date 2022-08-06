@@ -23,29 +23,38 @@ export type AccountsAuthFields = {
 	};
 };
 
+export type AccountsLabels = {
+	singular: string;
+	plural: string;
+};
+
 export type AccountsAuth = {
 	type: 'credentials' | 'oauth';
 	fields?: AccountsAuthFields;
 };
 
+export type ConnectMainAccounts = {
+	auth: AccountsAuth;
+	labels?: AccountsLabels;
+};
+
 export type ConnectMain = {
 	connection: {
-		accounts?: {
-			auth: AccountsAuth;
-		};
+		accounts?: ConnectMainAccounts;
 		options: {
 			default: { [ x: string ]: any };
 			Component: React.FC< { connectionId: string } >;
-			validate?: ( args: {
-				connection: any;
-				account?: any;
-			} ) => { valid: boolean; message?: string };
+			validate?: ( args: { connection: any; account?: any } ) => {
+				valid: boolean;
+				message?: string;
+			};
 		};
 	};
 };
 
 export type SettingsMainAccounts = {
 	auth: AccountsAuth;
+	labels?: AccountsLabels;
 	actions?: React.FC< { accountId: string } >[];
 };
 

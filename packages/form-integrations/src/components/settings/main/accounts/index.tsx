@@ -51,10 +51,15 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 			parse: false,
 		} )
 			.then( () => {
-				createSuccessNotice( '✅ Account deleted successfully!', {
-					type: 'snackbar',
-					isDismissible: true,
-				} );
+				createSuccessNotice(
+					'✅ ' +
+						( data.labels?.singular ?? 'Account' ) +
+						' deleted successfully!',
+					{
+						type: 'snackbar',
+						isDismissible: true,
+					}
+				);
 				setDisconnecting( false );
 				setDisconnectModal( null );
 				deleteAccount( id );
@@ -63,7 +68,9 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 				createErrorNotice(
 					err.message
 						? `⛔ ${ err.message }`
-						: '⛔ Error on delete the account!',
+						: '⛔ Error on delete the ' +
+								( data.labels?.singular?.toLowerCase() ??
+									'account' ),
 					{
 						type: 'snackbar',
 						isDismissible: true,
@@ -75,10 +82,13 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 
 	return (
 		<div className="integration-settings-main-accounts">
-			<b>Accounts:</b>
+			<b>{ data.labels?.plural ?? 'Accounts' }:</b>
 			<div className="integration-settings-main-accounts__list">
 				{ Object.keys( accounts ).length === 0 ? (
-					<div>No authenticated accounts yet</div>
+					<div>
+						No authenticated{ ' ' }
+						{ data.labels?.plural?.toLowerCase() ?? 'accounts' } yet
+					</div>
 				) : (
 					Object.entries( accounts ).map( ( [ id, account ] ) => {
 						return (
@@ -119,7 +129,8 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 					}
 				>
 					<div>
-						Are you sure you want to delete account{ ' ' }
+						Are you sure you want to delete{ ' ' }
+						{ data.labels?.singular?.toLowerCase() ?? 'account' }{ ' ' }
 						{ accounts[ disconnectModal ].name } ? All of related
 						connections on forms will be deleted also.
 					</div>

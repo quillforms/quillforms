@@ -6,13 +6,13 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import type { Provider, AccountsAuth } from '../../types';
+import type { Provider, ConnectMainAccounts } from '../../types';
 import Credentials from './credentials';
 import Oauth from './oauth';
 
 interface Props {
 	provider: Provider;
-	data: AccountsAuth;
+	data: ConnectMainAccounts;
 	onAdding?: ( status: boolean ) => void;
 	onAdded: ( id: string, account: { name: string } ) => void;
 }
@@ -25,12 +25,17 @@ const AccountAuth: React.FC< Props > = ( {
 } ) => {
 	return (
 		<div className="integration-auth">
-			{ data.type === 'oauth' ? (
-				<Oauth provider={ provider } onAdded={ onAdded } />
+			{ data.auth.type === 'oauth' ? (
+				<Oauth
+					provider={ provider }
+					labels={ data.labels }
+					onAdded={ onAdded }
+				/>
 			) : (
 				<Credentials
 					provider={ provider }
-					fields={ data.fields }
+					labels={ data.labels }
+					fields={ data.auth.fields }
 					onAdding={ onAdding }
 					onAdded={ onAdded }
 				/>

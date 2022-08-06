@@ -12,14 +12,15 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal Dependencies
  */
-import { Provider } from '../../../types';
+import { AccountsLabels, Provider } from '../../../types';
 
 interface Props {
 	provider: Provider;
+	labels?: AccountsLabels;
 	onAdded: ( id: string, account: { name: string } ) => void;
 }
 
-const Oauth: React.FC< Props > = ( { provider, onAdded } ) => {
+const Oauth: React.FC< Props > = ( { provider, labels, onAdded } ) => {
 	// dispatch notices.
 	const { createSuccessNotice } = useDispatch( 'core/notices' );
 
@@ -30,7 +31,10 @@ const Oauth: React.FC< Props > = ( { provider, onAdded } ) => {
 		) => {
 			createSuccessNotice(
 				'✅ ' +
-					__( 'Account added successfully!', 'quillforms-hubspot' ),
+					(
+						labels?.singular ?? __( 'Account', 'quillforms' )
+					).toLowerCase() +
+					__( 'added successfully!', 'quillforms' ),
 				{
 					type: 'snackbar',
 					isDismissible: true,
@@ -48,7 +52,7 @@ const Oauth: React.FC< Props > = ( { provider, onAdded } ) => {
 	return (
 		<div className="integration-auth-oauth">
 			<Button isPrimary onClick={ authorize }>
-				Authorize Your Account
+				Authorize Your { labels?.singular ?? 'Account' }
 			</Button>
 		</div>
 	);
