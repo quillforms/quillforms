@@ -6,7 +6,7 @@
 
 **Open Source Typeform Alternative** WordPress Plugin based on `React` and `Typescript` 
 
-[Watch Demo](https://quillforms.com/quillforms/my-first-form/) 
+[Watch Demo](https://quillforms.com/quillforms/my-first-form/) <br>
 [Join Our Discord Channel](https://discord.gg/UeeyD7Bv) 
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
