@@ -49,7 +49,7 @@ export const Controller = ( { page, match, location } ) => {
 	const query = getQuery( location.search );
 
 	return (
-		// Using motion div with layoutScroll to reevaluate positions when the user scrolls
+		// Using motion div with layoutScroll to reevaluate positions when the user scrolls.
 		<motion.div
 			layoutScroll
 			className={ classnames( 'qf-page-component-wrapper', {
