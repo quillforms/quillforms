@@ -12,7 +12,7 @@ import { Currencies } from './types/currencies';
 export type { InitialPayload };
 const configData: ConfigData = {
 	initialPayload: {
-		id: '',
+		id: 0,
 		blocks: [],
 		messages: {},
 		theme: undefined,
@@ -47,12 +47,14 @@ const configData: ConfigData = {
  * @param data Configurat data.
  * @returns A function that gets the value of property named by the key
  */
-const config = ( data: ConfigData ) => < T >( key: string ): T | undefined => {
-	if ( key in data ) {
-		return data[ key ] as T;
-	}
-	return undefined;
-};
+const config =
+	( data: ConfigData ) =>
+	< T >( key: string ): T | undefined => {
+		if ( key in data ) {
+			return data[ key ] as T;
+		}
+		return undefined;
+	};
 
 /**
  * Get theme structure
@@ -77,11 +79,10 @@ const getMessagesStructure = ( data: ConfigData ) => (): MessagesStructure => {
  *
  * @param data the json environment configuration to use for getting config values
  */
-const setMessagesStructure = ( data: ConfigData ) => (
-	value: MessagesStructure
-) => {
-	data.structures.messages = value;
-};
+const setMessagesStructure =
+	( data: ConfigData ) => ( value: MessagesStructure ) => {
+		data.structures.messages = value;
+	};
 
 /**
  * Get fonts
@@ -232,23 +233,23 @@ const setLicense = ( data: ConfigData ) => ( value: License ) => {
  * @param data the json environment configuration to use for getting config values
  * @returns {boolean}
  */
-const isPlanAccessible = ( data: ConfigData ) => (
-	featurePlanKey: string
-): boolean => {
-	if ( data.license?.status !== 'valid' ) {
-		return false;
-	}
+const isPlanAccessible =
+	( data: ConfigData ) =>
+	( featurePlanKey: string ): boolean => {
+		if ( data.license?.status !== 'valid' ) {
+			return false;
+		}
 
-	let plansKeys = Object.keys( data.plans );
-	let licensePlanIndex = plansKeys.indexOf( data.license.plan );
-	let featurePlanIndex = plansKeys.indexOf( featurePlanKey );
+		let plansKeys = Object.keys( data.plans );
+		let licensePlanIndex = plansKeys.indexOf( data.license.plan );
+		let featurePlanIndex = plansKeys.indexOf( featurePlanKey );
 
-	if ( licensePlanIndex === -1 || featurePlanIndex === -1 ) {
-		return false;
-	}
+		if ( licensePlanIndex === -1 || featurePlanIndex === -1 ) {
+			return false;
+		}
 
-	return licensePlanIndex >= featurePlanIndex;
-};
+		return licensePlanIndex >= featurePlanIndex;
+	};
 
 /**
  * Get store addons

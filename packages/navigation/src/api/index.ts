@@ -33,6 +33,7 @@ export const registerAdminPage = ( id: string, settings: PageSettings ) => {
 		id
 	) as PageSettings;
 
+	// Check if page is already registered.
 	if ( adminPages[ id ] ) {
 		console.error( 'This page id is already registered' );
 		return;
