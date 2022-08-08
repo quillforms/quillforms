@@ -7,7 +7,7 @@ import configApi from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
-import { Fragment, useEffect, useRef } from '@wordpress/element';
+import { Fragment, useEffect, useRef } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -75,18 +75,15 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
 	const ref = useRef< any >( null );
-	const {
-		isWelcomeScreenActive,
-		isThankyouScreenActive,
-		paymentData,
-	} = useSelect( ( select ) => {
-		const store = select( 'quillForms/renderer-core' );
-		return {
-			isThankyouScreenActive: store.isThankyouScreenActive(),
-			isWelcomeScreenActive: store.isWelcomeScreenActive(),
-			paymentData: store.getPaymentData(),
-		};
-	} );
+	const { isWelcomeScreenActive, isThankyouScreenActive, paymentData } =
+		useSelect( ( select ) => {
+			const store = select( 'quillForms/renderer-core' );
+			return {
+				isThankyouScreenActive: store.isThankyouScreenActive(),
+				isWelcomeScreenActive: store.isWelcomeScreenActive(),
+				paymentData: store.getPaymentData(),
+			};
+		} );
 
 	useEffect( () => {
 		/**

@@ -8,7 +8,7 @@ import { useCurrentThemeId, useCurrentTheme } from '@quillforms/theme-editor';
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -46,9 +46,8 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 		const { hasFinishedResolution } = select( 'quillForms/theme-editor' );
 
 		return {
-			hasThemesFinishedResolution: hasFinishedResolution(
-				'getThemesList'
-			),
+			hasThemesFinishedResolution:
+				hasFinishedResolution( 'getThemesList' ),
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
 			currentBlockBeingEdited: select(
 				'quillForms/block-editor'

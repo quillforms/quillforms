@@ -7,7 +7,7 @@ import type { CustomSelectControl } from '@wordpress/components';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 
 /**

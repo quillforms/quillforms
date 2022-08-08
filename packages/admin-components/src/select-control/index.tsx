@@ -10,7 +10,7 @@ import classnames from 'classnames';
  */
 import { Icon, check, chevronDown } from '@wordpress/icons';
 import { __, sprintf } from '@wordpress/i18n';
-import { useCallback, render } from '@wordpress/element';
+import { useCallback, render } from 'react';
 
 /**
  * Internal dependencies
@@ -173,7 +173,8 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 						className: classnames(
 							'components-custom-select-control__button',
 							{
-								'is-next-36px-default-size': __next36pxDefaultSize,
+								'is-next-36px-default-size':
+									__next36pxDefaultSize,
 							}
 						),
 						// @ts-expect-error
@@ -186,7 +187,8 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 						className={ classnames(
 							'components-custom-select-control__button-icon',
 							{
-								'is-next-36px-default-size': __next36pxDefaultSize,
+								'is-next-36px-default-size':
+									__next36pxDefaultSize,
 							}
 						) }
 						size={ 18 }
@@ -208,8 +210,10 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 										{
 											'is-highlighted':
 												index === highlightedIndex,
-											'has-hint': !! item.__experimentalHint,
-											'is-next-36px-default-size': __next36pxDefaultSize,
+											'has-hint':
+												!! item.__experimentalHint,
+											'is-next-36px-default-size':
+												__next36pxDefaultSize,
 										}
 									),
 									style: item.style,

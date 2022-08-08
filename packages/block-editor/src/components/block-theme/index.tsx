@@ -16,7 +16,7 @@ import { ThemeCard, ThemeListItem } from '@quillforms/theme-editor';
  * WordPress Dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 import { Modal } from '@wordpress/components';
 
 /**

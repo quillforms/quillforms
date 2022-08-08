@@ -12,7 +12,7 @@ import {
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 
 /**
  * External Dependencies
@@ -64,15 +64,8 @@ const NotificationEditorWrapper = ( {
 		}
 	}, [ activeSlide ] );
 
-	const {
-		active,
-		title,
-		toType,
-		recipients,
-		replyTo,
-		subject,
-		message,
-	} = properties;
+	const { active, title, toType, recipients, replyTo, subject, message } =
+		properties;
 
 	const { emailFields } = useSelect( ( select ) => {
 		return {

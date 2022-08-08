@@ -6,7 +6,7 @@ import { TextControl, Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { useDispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
@@ -40,9 +40,8 @@ const Credentials: React.FC< Props > = ( {
 	const [ submitting, setSubmitting ] = useState( false );
 
 	// dispatch notices.
-	const { createSuccessNotice, createErrorNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createSuccessNotice, createErrorNotice } =
+		useDispatch( 'core/notices' );
 
 	// submit.
 	const submit = () => {

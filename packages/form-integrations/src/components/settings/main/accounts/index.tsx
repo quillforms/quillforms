@@ -7,7 +7,7 @@ import { Button } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { Modal } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
@@ -38,9 +38,8 @@ const Accounts: React.FC< Props > = ( { data } ) => {
 	const [ disconnecting, setDisconnecting ] = useState( false );
 
 	// alerts dispatch.
-	const { createSuccessNotice, createErrorNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createSuccessNotice, createErrorNotice } =
+		useDispatch( 'core/notices' );
 
 	const disconnect = ( id: string ) => {
 		if ( disconnecting ) return;

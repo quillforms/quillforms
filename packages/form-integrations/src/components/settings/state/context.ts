@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { createContext, useContext } from '@wordpress/element';
+import { createContext, useContext } from 'react';
 import { Provider, Setup } from '../../types';
 
 /**

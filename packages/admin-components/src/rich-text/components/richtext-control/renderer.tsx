@@ -8,7 +8,7 @@ import {
 	useState,
 	useRef,
 	Fragment,
-} from '@wordpress/element';
+} from 'react';
 import { autop } from '@wordpress/autop';
 import { plusCircle } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
@@ -68,10 +68,10 @@ const RichTextControlRenderer: React.FC< Props > = ( {
 		offset: 0,
 	} );
 
-	const editor: ReactEditor & HistoryEditor = useMemo( () => createEditor(), [
-		id,
-		isReady,
-	] );
+	const editor: ReactEditor & HistoryEditor = useMemo(
+		() => createEditor(),
+		[ id, isReady ]
+	);
 
 	const isMounted = useRef( false );
 	useEffect( () => {

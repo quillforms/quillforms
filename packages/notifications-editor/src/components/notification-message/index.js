@@ -13,7 +13,7 @@ import {
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect, useMemo } from '@wordpress/element';
+import { useEffect, useMemo } from 'react';
 import { applyFilters } from '@wordpress/hooks';
 
 /**

@@ -7,7 +7,7 @@ import useBlockTheme from '../../hooks/use-block-theme';
 /**
  * WordPress Dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -28,14 +28,8 @@ let scrollTimer: ReturnType< typeof setTimeout >;
 let tabTimer: ReturnType< typeof setTimeout >;
 
 const FieldWrapper: React.FC = () => {
-	const {
-		id,
-		isActive,
-		shouldBeRendered,
-		showErrMsg,
-		next,
-		attributes,
-	} = __experimentalUseFieldRenderContext();
+	const { id, isActive, shouldBeRendered, showErrMsg, next, attributes } =
+		__experimentalUseFieldRenderContext();
 
 	const settings = useFormSettings();
 	if ( ! id ) return null;

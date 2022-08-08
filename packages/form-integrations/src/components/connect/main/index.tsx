@@ -7,7 +7,7 @@ import { Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { Icon, plusCircle } from '@wordpress/icons';
@@ -37,21 +37,15 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 	const formId = useParams().id;
 
 	// context.
-	const {
-		provider,
-		accounts,
-		connections,
-		addConnection,
-		savePayload,
-	} = useConnectContext();
+	const { provider, accounts, connections, addConnection, savePayload } =
+		useConnectContext();
 
 	// state.
 	const [ isSubmitting, setIsSubmitting ] = useState( false );
 
 	// dispatch notices.
-	const { createSuccessNotice, createErrorNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createSuccessNotice, createErrorNotice } =
+		useDispatch( 'core/notices' );
 
 	const save = () => {
 		// check validity.

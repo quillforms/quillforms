@@ -3,7 +3,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 
 /**
  * External Dependencies
@@ -22,11 +22,8 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 
 const SubmitBtn: React.FC = () => {
 	const messages = useMessages();
-	const {
-		isLastField,
-		isActive,
-		attributes,
-	} = __experimentalUseFieldRenderContext();
+	const { isLastField, isActive, attributes } =
+		__experimentalUseFieldRenderContext();
 	const theme = useBlockTheme( attributes?.themeId );
 
 	const {

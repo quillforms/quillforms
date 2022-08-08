@@ -6,7 +6,7 @@ import { TextControl } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import apiFetch from '@wordpress/api-fetch';
 
 /**

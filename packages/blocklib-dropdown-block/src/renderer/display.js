@@ -7,7 +7,7 @@ import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, useRef, useMemo } from '@wordpress/element';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { use, useSelect } from '@wordpress/data';
 
 /**
@@ -58,9 +58,8 @@ const DropdownDisplay = ( props ) => {
 	const [ clicked, setClicked ] = useState( false );
 	const [ showCloseIcon, setShowCloseIcon ] = useState( false );
 	const [ inputValue, setInputValue ] = useState( '' );
-	const [ showFixedDropdownInDom, setShowFixedDropdownInDom ] = useState(
-		false
-	);
+	const [ showFixedDropdownInDom, setShowFixedDropdownInDom ] =
+		useState( false );
 	const [ showFDrop, setShowFDrop ] = useState( false );
 	const wrapperRef = useRef();
 	const choicesWrappeerRef = useRef();
@@ -123,18 +122,14 @@ const DropdownDisplay = ( props ) => {
 					)
 					.classList.add( 'is-hidden' );
 			}
-		} else {
-			if (
-				document.querySelector(
-					`#block-${ id } .renderer-core-field-footer`
-				)
-			) {
-				document
-					.querySelector(
-						`#block-${ id } .renderer-core-field-footer`
-					)
-					.classList.remove( 'is-hidden' );
-			}
+		} else if (
+			document.querySelector(
+				`#block-${ id } .renderer-core-field-footer`
+			)
+		) {
+			document
+				.querySelector( `#block-${ id } .renderer-core-field-footer` )
+				.classList.remove( 'is-hidden' );
 		}
 		return () => {
 			// Unbind the event listener on clean up
@@ -196,12 +191,12 @@ const DropdownDisplay = ( props ) => {
 
 	function checkInView( container, element ) {
 		//Get container properties
-		let cTop = container.scrollTop;
-		let cBottom = cTop + container.clientHeight;
+		const cTop = container.scrollTop;
+		const cBottom = cTop + container.clientHeight;
 
 		//Get element properties
-		let eTop = element.offsetTop;
-		let eBottom = eTop + element.clientHeight;
+		const eTop = element.offsetTop;
+		const eBottom = eTop + element.clientHeight;
 
 		//Check if in view
 		return eTop >= cTop + 10 && eBottom <= cBottom - 50;
@@ -217,7 +212,7 @@ const DropdownDisplay = ( props ) => {
 		}
 
 		if ( e.keyCode === ARROW_UP_CODE || e.keyCode === ARROW_DOWN_CODE ) {
-			let block = document.querySelector(
+			const block = document.querySelector(
 				`#block-${ id }  .qf-block-dropdown-display__choices`
 			);
 			if (
@@ -255,7 +250,6 @@ const DropdownDisplay = ( props ) => {
 			// 	document
 			// 		.querySelector( '.qf-block-dropdown-display__choices' )
 			// 		.scrollTo( 0, ( selectedChoiceIndex - 3 ) * 49 );
-			return;
 		}
 	};
 
@@ -420,7 +414,6 @@ const DropdownDisplay = ( props ) => {
 								setShowDropdown( ! showDropdown );
 							! showDropdown && inputRef.current.focus();
 						} else {
-							return;
 						}
 					} }
 				/>

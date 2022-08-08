@@ -7,7 +7,7 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { createPortal, useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import { useDispatch, useSelect } from '@wordpress/data';
 
 /**

@@ -7,7 +7,7 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
  * WordPress Dependencies
  */
 import { RadioControl } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { useDispatch } from '@wordpress/data';
 
 interface Props {

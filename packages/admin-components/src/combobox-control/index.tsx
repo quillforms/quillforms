@@ -7,7 +7,7 @@ import { IconRenderer } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 
 /**
  * Internal Dependencies

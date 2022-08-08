@@ -3,7 +3,7 @@
  */
 import { Option, Sections } from '../mapping-row/key-control';
 import { CustomizeFunction } from '../combobox-control';
-import { useState, useEffect, useMemo } from '@wordpress/element';
+import { useState, useEffect, useMemo } from 'react';
 
 /**
  * Internal Dependencies
@@ -75,9 +75,8 @@ const MappingList: React.FC< Props > = ( {
 	}, [] );
 
 	// mapping rows state.
-	const [ mappingRows, setMappingRows ] = useState< MappingRowValue[] >(
-		initialMappingRows
-	);
+	const [ mappingRows, setMappingRows ] =
+		useState< MappingRowValue[] >( initialMappingRows );
 	const selectedKeys = mappingRows.map( ( row ) => row.key );
 
 	// call onChange

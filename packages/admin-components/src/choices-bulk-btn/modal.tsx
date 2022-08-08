@@ -2,7 +2,7 @@
  * WordPress Dependencies.
  */
 import { Modal } from '@wordpress/components';
-import { useRef, useState, useEffect } from '@wordpress/element';
+import { useRef, useState, useEffect } from 'react';
 /**
  * External Dependencies
  */

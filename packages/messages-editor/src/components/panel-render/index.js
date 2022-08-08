@@ -7,7 +7,7 @@ import configApi from '@quillforms/config';
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 
 /**
  * Internal Dependencies

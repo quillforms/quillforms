@@ -10,7 +10,7 @@ import {
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import { Icon } from '@wordpress/components';
 import { closeSmall } from '@wordpress/icons';
 
@@ -136,9 +136,8 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 							}
 
 							// possible operators list.
-							let operators:
-								| LogicConditionOperator[]
-								| null = null;
+							let operators: LogicConditionOperator[] | null =
+								null;
 							if ( var0Type === 'field' ) {
 								if ( blockType.logicalOperators ) {
 									operators = blockType.logicalOperators;

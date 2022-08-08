@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect, memo } from '@wordpress/element';
+import { useState, useEffect, memo } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
@@ -23,9 +23,8 @@ interface Props {
 
 const FieldRender: React.FC< Props > = memo(
 	( { id, isActive, isLastField, shouldBeRendered } ) => {
-		const [ isSubmitBtnVisible, showNextBtn ] = useState< boolean >(
-			false
-		);
+		const [ isSubmitBtnVisible, showNextBtn ] =
+			useState< boolean >( false );
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
 
 		const {

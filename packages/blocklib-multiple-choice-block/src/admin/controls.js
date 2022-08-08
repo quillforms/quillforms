@@ -13,7 +13,7 @@ import {
 /**
  * WordPress Dependencies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 
 const multipleChoiceControls = ( props ) => {
 	const {

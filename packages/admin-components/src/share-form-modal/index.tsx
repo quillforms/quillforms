@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 import { useSelect } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs, buildQueryString } from '@wordpress/url';

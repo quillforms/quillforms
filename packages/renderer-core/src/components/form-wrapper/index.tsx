@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 import { useDispatch } from '@wordpress/data';
 import { doAction } from '@wordpress/hooks';
 
@@ -27,12 +27,8 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const editableFields = useEditableFields();
 	const blocks = useBlocks();
 	const { isPreview } = useFormContext();
-	const {
-		setSwiper,
-		insertEmptyFieldAnswer,
-		goToBlock,
-		setPaymentData,
-	} = useDispatch( 'quillForms/renderer-core' );
+	const { setSwiper, insertEmptyFieldAnswer, goToBlock, setPaymentData } =
+		useDispatch( 'quillForms/renderer-core' );
 
 	useEffect( () => {
 		if ( ! isPreview ) {
@@ -44,14 +40,14 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					( block ) => block.name === 'welcome-screen'
 				),
 				( block ) => omit( block, [ 'name' ] )
-			) as [  ] | Screen[];
+			) as [] | Screen[];
 
 			const thankyouScreens = map(
 				cloneDeep( blocks ).filter(
 					( block ) => block.name === 'thankyou-screen'
 				),
 				( block ) => omit( block, [ 'name' ] )
-			) as [  ] | Screen[];
+			) as [] | Screen[];
 			setSwiper( {
 				walkPath: cloneDeep(
 					blocks.filter(

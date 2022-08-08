@@ -6,7 +6,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { createElement, forwardRef } from '@wordpress/element';
+import { createElement, forwardRef } from 'react';
 
 export function Button( props, ref ) {
 	const {

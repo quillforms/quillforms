@@ -12,13 +12,7 @@ import type { CustomNode } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import {
-	Fragment,
-	memo,
-	useEffect,
-	useState,
-	useMemo,
-} from '@wordpress/element';
+import { Fragment, memo, useEffect, useState, useMemo } from 'react';
 // @ts-expect-error
 import { useSelect, AsyncModeProvider } from '@wordpress/data';
 

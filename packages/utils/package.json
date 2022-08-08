@@ -24,7 +24,6 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/config": "file:../config",
-		"@wordpress/element": "^4.5.0",
 		"tinycolor2": "^1.4.2"
 	},
 	"peerDependencies": {

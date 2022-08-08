@@ -7,7 +7,7 @@ import ConfigAPI from '@quillforms/config';
  * WordPress Dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useReducer, useRef } from '@wordpress/element';
+import { useReducer, useRef } from 'react';
 
 /**
  * Internal Dependencies

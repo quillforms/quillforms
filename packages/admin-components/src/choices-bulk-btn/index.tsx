@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 
 /**
  * External Dependencies

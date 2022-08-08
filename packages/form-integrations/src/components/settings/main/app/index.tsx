@@ -7,7 +7,7 @@ import { Button } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { Modal } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
@@ -24,22 +24,16 @@ import { useSettingsContext } from '../../state/context';
 
 const App: React.FC = () => {
 	// context.
-	const {
-		provider,
-		setup,
-		app,
-		setupApp,
-		setupAccounts,
-	} = useSettingsContext();
+	const { provider, setup, app, setupApp, setupAccounts } =
+		useSettingsContext();
 
 	// state.
 	const [ disconnectModal, setDisconnectModal ] = useState( false );
 	const [ disconnecting, setDisconnecting ] = useState( false );
 
 	// alerts dispatch.
-	const { createSuccessNotice, createErrorNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createSuccessNotice, createErrorNotice } =
+		useDispatch( 'core/notices' );
 
 	// for ts. won't be reached normally.
 	if ( ! setup ) return null;

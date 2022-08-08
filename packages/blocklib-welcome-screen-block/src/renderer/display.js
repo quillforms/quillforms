@@ -11,12 +11,7 @@ import {
 /**
  * WordPress Dependencies
  */
-import {
-	useState,
-	useLayoutEffect,
-	useRef,
-	useEffect,
-} from '@wordpress/element';
+import { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**

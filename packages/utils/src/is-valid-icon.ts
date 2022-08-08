@@ -6,7 +6,7 @@ import { isFunction, isString } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { Component, isValidElement } from '@wordpress/element';
+import { Component, isValidElement } from 'react';
 
 /**
  * Function that checks if the parameter is a valid icon.

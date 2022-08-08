@@ -7,7 +7,7 @@ import { Button, RichTextControl } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 
 const MessageEdit = ( {
 	allowedFormats,
