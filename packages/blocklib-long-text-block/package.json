@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-long-text-block",
-	"version": "1.3.45",
+	"version": "1.3.46",
 	"description": "Long text block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
