@@ -10,7 +10,8 @@ import classnames from 'classnames';
  */
 import { Icon, check, chevronDown } from '@wordpress/icons';
 import { __, sprintf } from '@wordpress/i18n';
-import { useCallback, render } from 'react';
+import { useCallback } from 'react';
+import { render } from 'react-dom';
 
 /**
  * Internal dependencies
@@ -106,7 +107,7 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 			? { selectedItem: _selectedItem }
 			: undefined ),
 
-		// @ts-expect-error.
+		// @ts-ignore
 		stateReducer,
 	} );
 

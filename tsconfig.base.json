@@ -41,5 +41,6 @@
 		"**/build-*/**",
 		"packages/*/build-*/**",
 		"packages/*/build/**",
+		"node_modules/"
 	]
 }

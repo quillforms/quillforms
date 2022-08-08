@@ -12,7 +12,7 @@ import { Currencies } from './types/currencies';
 export type { InitialPayload };
 const configData: ConfigData = {
 	initialPayload: {
-		id: 0,
+		id: '',
 		blocks: [],
 		messages: {},
 		theme: undefined,
