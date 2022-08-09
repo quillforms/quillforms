@@ -83,12 +83,13 @@ class Logic_Conditions {
 	 * @return boolean
 	 */
 	public function is_conditions_met( $conditions, $entry, $form_data ) {
+		$res = false;
 		foreach ( $conditions as $conditions_group ) {
 			if ( $this->is_group_conditions_met( $conditions_group, $entry, $form_data ) ) {
-				return true;
+				$res = true;
 			}
 		}
-		return false;
+		return $res;
 	}
 
 	/**
@@ -102,6 +103,7 @@ class Logic_Conditions {
 	 * @return boolean
 	 */
 	private function is_group_conditions_met( $conditions_group, $entry, $form_data ) {
+		$res = true;
 		foreach ( $conditions_group as $condition ) {
 			$type       = $condition['vars'][0]['type'];
 			$modifier   = $condition['vars'][0]['value'];
@@ -110,12 +112,14 @@ class Logic_Conditions {
 				'value'    => $condition['vars'][1]['value'],
 			);
 			if ( isset( $this->types[ $type ] ) ) {
-				return $this->types[ $type ]['check']( $modifier, $_condition, $entry, $form_data );
+				if( ! $this->types[ $type ]['check']( $modifier, $_condition, $entry, $form_data ) ) {
+					$res = false;
+				}
 			} else {
-				return false;
+				$res = false;
 			}
 		}
-		return true;
+		return $res;
 	}
 
 	/**
