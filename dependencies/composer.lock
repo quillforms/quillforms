@@ -8,24 +8,24 @@
     "packages": [
         {
             "name": "automattic/jetpack-constants",
-            "version": "v1.6.5",
+            "version": "v1.6.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-constants.git",
-                "reference": "1e02eebb828c6701f3bf97fa8404e9fc85d3fb63"
+                "reference": "22fea671b3c621de63088cd0a2ff129683024023"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/1e02eebb828c6701f3bf97fa8404e9fc85d3fb63",
-                "reference": "1e02eebb828c6701f3bf97fa8404e9fc85d3fb63",
+                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/22fea671b3c621de63088cd0a2ff129683024023",
+                "reference": "22fea671b3c621de63088cd0a2ff129683024023",
                 "shasum": ""
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^1.2",
-                "brain/monkey": "2.6.0",
-                "yoast/phpunit-polyfills": "0.2.0"
+                "automattic/jetpack-changelogger": "^3.2",
+                "brain/monkey": "2.6.1",
+                "yoast/phpunit-polyfills": "1.0.3"
             },
-            "type": "library",
+            "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
                 "mirror-repo": "Automattic/jetpack-constants",
@@ -33,7 +33,7 @@
                     "link-template": "https://github.com/Automattic/jetpack-constants/compare/v${old}...v${new}"
                 },
                 "branch-alias": {
-                    "dev-master": "1.6.x-dev"
+                    "dev-trunk": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -47,9 +47,9 @@
             ],
             "description": "A wrapper for defining constants in a more testable way.",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-constants/tree/v1.6.5"
+                "source": "https://github.com/Automattic/jetpack-constants/tree/v1.6.18"
             },
-            "time": "2021-05-25T16:35:30+00:00"
+            "time": "2022-07-26T13:41:20+00:00"
         }
     ],
     "packages-dev": [],
@@ -65,5 +65,5 @@
     "platform-overrides": {
         "php": "7.1"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
