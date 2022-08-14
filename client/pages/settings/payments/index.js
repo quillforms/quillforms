@@ -2,6 +2,8 @@
  * QuillForms Dependencies.
  */
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
+import ConfigApi from '@quillforms/config';
+import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -34,6 +36,10 @@ const Payments = () => {
 							<div>{ gateway.name }</div>
 						</div>
 					);
+					const addon = ConfigApi.getStoreAddons()[ slug ];
+					console.log( gateway );
+					console.log( ConfigApi.getStoreAddons() );
+					console.log( addon );
 					return (
 						<PanelBody
 							key={ slug }
@@ -41,9 +47,19 @@ const Payments = () => {
 							initialOpen={ false }
 							className="quillforms-settings-payments-tab-addon"
 						>
-							<div className="quillforms-settings-payments-tab-addon-body">
-								<gateway.settings slug={ slug } />
-							</div>
+							{ ! gateway.settings ? (
+								<__experimentalAddonFeatureAvailability
+									featureName={
+										addon.name + ' Payment Gateway'
+									}
+									addonSlug={ slug }
+									showLockIcon={ true }
+								/>
+							) : (
+								<div className="quillforms-settings-payments-tab-addon-body">
+									<gateway.settings slug={ slug } />
+								</div>
+							) }
 						</PanelBody>
 					);
 				} ) }

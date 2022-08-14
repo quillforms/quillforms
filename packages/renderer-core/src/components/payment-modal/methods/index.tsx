@@ -6,10 +6,15 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 /**
  * WordPress Dependencies
  */
-import { RadioControl } from '@wordpress/components';
+import RadioControl from './radio-control';
 import { useState } from 'react';
 import { useDispatch } from '@wordpress/data';
+import useGeneralTheme from '../../../hooks/use-general-theme';
 
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
 interface Props {
 	data: any;
 }
@@ -18,6 +23,7 @@ const Methods: React.FC< Props > = ( { data } ) => {
 	const { setPaymentData, completeForm } = useDispatch(
 		'quillForms/renderer-core'
 	);
+	const generalTheme = useGeneralTheme();
 
 	const gateways = getPaymentGatewayModules();
 	const methodsKeys = Object.keys( data.payments.methods );
@@ -47,12 +53,22 @@ const Methods: React.FC< Props > = ( { data } ) => {
 
 	return (
 		<div className="renderer-core-payment-modal-methods">
-			<RadioControl
-				label="Select payment method"
-				selected={ selected }
-				options={ options }
-				onChange={ setSelected }
-			/>
+			<p
+				className={ css`
+					color: ${ generalTheme.questionsColor };
+					font-size: 20px;
+				` }
+			>
+				Select a payment method
+			</p>
+			<div className="renderer-components-radio-control__options-group">
+				<RadioControl
+					id="payment-methods"
+					selected={ selected }
+					options={ options }
+					onChange={ setSelected }
+				/>
+			</div>
 			<CustomerRender
 				slug={ selected }
 				data={ data }

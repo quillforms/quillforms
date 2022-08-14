@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
  * External Dependencies
  */
 import classNames from 'classnames';
-import Loader from 'react-loader-spinner';
+import { TailSpin as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 
 /**
@@ -148,8 +148,7 @@ const SubmitBtn: React.FC = () => {
 				/>
 				{ ( isWaitingPending || isSubmitting ) && (
 					<Loader
-						className="renderer-core-submit-btn__loader"
-						type="TailSpin"
+						wrapperClass="renderer-core-submit-btn__loader"
 						color="#fff"
 						height={ 20 }
 						width={ 20 }

@@ -8,7 +8,7 @@ import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { use, useSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -16,7 +16,7 @@ import { use, useSelect } from '@wordpress/data';
 import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
 import classnames from 'classnames';
-import { cloneDeep, some } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -160,7 +160,7 @@ const DropdownDisplay = ( props ) => {
 		// show close icon of there is any string
 		setShowCloseIcon( e.target.value !== '' );
 		setInputValue( e.target.value );
-		! isTouchScreen && setShowDropdown( true );
+		if ( ! isTouchScreen ) setShowDropdown( true );
 		if ( val ) {
 			setVal( null );
 			setSearchKeyword( '' );
@@ -171,8 +171,8 @@ const DropdownDisplay = ( props ) => {
 
 	useEffect( () => {
 		if ( ! isActive ) {
-			clearTimeout( timer );
-			timer2 && clearTimeout( timer2 );
+			//clearTimeout( timer );
+			if ( timer2 ) clearTimeout( timer2 );
 		}
 	}, [ isActive ] );
 
@@ -184,7 +184,7 @@ const DropdownDisplay = ( props ) => {
 			setSearchKeyword( selectedChoice ? selectedChoice.label : '' );
 		}
 		return () => {
-			clearTimeout( timer );
+			// clearTimeout( timer );
 			timer2 && clearTimeout( timer2 );
 		};
 	}, [] );
@@ -263,7 +263,7 @@ const DropdownDisplay = ( props ) => {
 		setShowCloseIcon( false );
 		showErrMsg( false );
 		clearTimeout( timer );
-		timer2 && clearTimeout( timer2 );
+		if ( timer2 ) clearTimeout( timer2 );
 		if ( val && val === choice.value ) {
 			setVal( null );
 			setIsAnswered( false );

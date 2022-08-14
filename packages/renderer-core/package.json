@@ -36,7 +36,7 @@
 		"html-react-parser": "^3.0.1",
 		"lethargy": "^1.0.9",
 		"lodash": "4.17.21",
-		"react-loader-spinner": "3.1.14",
+		"react-loader-spinner": "^5.1.7-beta.1",
 		"react-swipeable": "^6.1.2",
 		"rememo": "^3.0.0",
 		"tinycolor2": "^1.4.2"

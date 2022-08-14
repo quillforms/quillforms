@@ -165,20 +165,22 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				{ blocks.length > 0 && (
 					<Fragment>
 						{ isWelcomeScreenActive && <WelcomeScreensWrapper /> }
-						<FieldsWrapper
-							isActive={
-								! isWelcomeScreenActive &&
-								! isThankyouScreenActive
-							}
-							applyLogic={ applyLogic }
-						/>
+						{ ! paymentData && (
+							<FieldsWrapper
+								isActive={
+									! isWelcomeScreenActive &&
+									! isThankyouScreenActive
+								}
+								applyLogic={ applyLogic }
+							/>
+						) }
 
 						{ isThankyouScreenActive && <ThankyouScreensWrapper /> }
 					</Fragment>
 				) }
-				<FormFooter />
+				{ ! paymentData && <FormFooter /> }
+				{ !! paymentData && <PaymentModal data={ paymentData } /> }
 			</div>
-			{ !! paymentData && <PaymentModal data={ paymentData } /> }
 		</div>
 	);
 };

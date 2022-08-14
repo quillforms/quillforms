@@ -13,7 +13,7 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 /**
  * External Dependencies
  */
-import Loader from 'react-loader-spinner';
+import { TailSpin as Loader } from 'react-loader-spinner';
 import { useBlockTheme } from '../../hooks';
 import { css } from 'emotion';
 
@@ -39,15 +39,17 @@ const BlockFooter: React.FC< BlockFooterProps > = ( {
 	return (
 		<div className="renderer-core-field-footer">
 			{ isPending ? (
-				<Loader
+				<div
 					className={ css`
 						margin: 10px;
 					` }
-					type="TailSpin"
-					color={ blockTheme.answersColor }
-					height={ 30 }
-					width={ 30 }
-				/>
+				>
+					<Loader
+						color={ blockTheme.answersColor }
+						height={ 30 }
+						width={ 30 }
+					/>
+				</div>
 			) : (
 				<>
 					{ ! isEditable ? (
