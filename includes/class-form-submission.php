@@ -647,7 +647,9 @@ class Form_Submission {
 			$process_email = apply_filters( 'quillforms_entry_email_process', true, $this->entry, $this->form_data, $notification_id );
 
 			// if process email = false or notifcation isn't active, continue.
-			if ( ! $process_email || ! $notification_properties['active'] ) {
+			if ( ! $process_email
+				|| ! $notification_properties['active']
+				|| ( ! empty( $notification_properties['conditions'] ) && ! Logic_Conditions::instance()->is_conditions_met( $notification_properties['conditions'], $this->entry, $this->form_data ) ) ) {
 				continue;
 			}
 
