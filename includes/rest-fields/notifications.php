@@ -7,6 +7,8 @@
  * @subpackage RESTFields
  */
 
+use QuillForms\Logic_Conditions;
+
 defined( 'ABSPATH' ) || exit;
 
 register_rest_field(
@@ -123,6 +125,7 @@ register_rest_field(
 											'message'    => array(
 												'type' => 'string',
 											),
+											'conditions' => Logic_Conditions::get_conditions_schema(),
 										),
 									),
 

@@ -6,6 +6,7 @@ import {
 	ControlWrapper,
 	ControlLabel,
 	ToggleControl,
+	LogicConditions,
 } from '@quillforms/admin-components';
 
 /**
@@ -64,8 +65,16 @@ const NotificationEditorWrapper = ( {
 		}
 	}, [ activeSlide ] );
 
-	const { active, title, toType, recipients, replyTo, subject, message } =
-		properties;
+	const {
+		active,
+		title,
+		toType,
+		recipients,
+		replyTo,
+		subject,
+		message,
+		conditions,
+	} = properties;
 
 	const { emailFields } = useSelect( ( select ) => {
 		return {
@@ -182,6 +191,37 @@ const NotificationEditorWrapper = ( {
 						isReviewing={ isReviewing }
 					/>
 				) }
+				<BaseControl>
+					<ControlWrapper>
+						<ControlLabel label="Conditional Logic" />
+						<ToggleControl
+							checked={ !! conditions }
+							onChange={ () => {
+								setProperties( ( prevProperties ) => ( {
+									...prevProperties,
+									conditions: conditions ? undefined : [],
+								} ) );
+							} }
+						/>
+					</ControlWrapper>
+					{ !! conditions && (
+						<div>
+							<div>
+								Process this notification if the following
+								conditions are met:
+							</div>
+							<LogicConditions
+								value={ conditions }
+								onChange={ ( value ) =>
+									setProperties( ( prevProperties ) => ( {
+										...prevProperties,
+										conditions: value,
+									} ) )
+								}
+							/>
+						</div>
+					) }
+				</BaseControl>
 				{ isActive && (
 					<NotificationEditorFooter
 						isReviewing={ isReviewing }
