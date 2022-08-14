@@ -13,7 +13,7 @@ import { FormTheme } from '@quillforms/types/src';
 /**
  * External Dependencies
  */
-import { size } from "lodash";
+import { size } from 'lodash';
 
 const useCurrentTheme = () => {
 	const {
@@ -21,7 +21,11 @@ const useCurrentTheme = () => {
 	} = useFormContext();
 	const currentBlock = useCurrentBlock();
 	let appliedTheme = theme;
-	if ( currentBlock?.attributes?.themeId && themesList !== undefined && size(themesList) > 0 ) {
+	if (
+		currentBlock?.attributes?.themeId &&
+		themesList !== undefined &&
+		size( themesList ) > 0
+	) {
 		appliedTheme = themesList.find(
 			( $theme ) => $theme.id === currentBlock?.attributes?.themeId
 		)?.properties as FormTheme;

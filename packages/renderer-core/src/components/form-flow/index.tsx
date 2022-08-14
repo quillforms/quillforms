@@ -26,7 +26,7 @@ import FormFooter from '../form-footer';
 import useGeneralTheme from '../../hooks/use-general-theme';
 import useBlocks from '../../hooks/use-blocks';
 import PaymentModal from '../payment-modal';
-import { useCurrentTheme } from '../..';
+import useCurrentTheme from '../../hooks/use-current-theme';
 
 interface Props {
 	applyLogic: boolean;
