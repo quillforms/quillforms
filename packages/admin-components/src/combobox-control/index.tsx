@@ -169,7 +169,12 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 
 	// select first option.
 	useEffect( () => {
-		if ( selectFirstOption && ! value.type && ! value.value ) {
+		if (
+			selectFirstOption &&
+			! value.type &&
+			! value.value &&
+			options[ 0 ]
+		) {
 			onChange( { type: options[ 0 ].type, value: options[ 0 ].value } );
 		}
 	}, [] );
