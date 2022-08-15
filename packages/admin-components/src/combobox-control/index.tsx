@@ -8,6 +8,7 @@ import { IconRenderer } from '@quillforms/types';
  */
 import { applyFilters } from '@wordpress/hooks';
 import { useEffect } from 'react';
+import { allowedFormats } from '../rich-text';
 
 /**
  * Internal Dependencies
@@ -65,6 +66,8 @@ export type ComboboxControlProps = {
 	selectFirstOption?: boolean;
 	// Excerpt length
 	excerptLength?: number;
+	// allowed formats (rich text).
+	allowedFormats?: allowedFormats;
 };
 
 const ComboboxControl: React.FC< ComboboxControlProps > = ( {
@@ -77,6 +80,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 	hideChooseOption,
 	selectFirstOption,
 	excerptLength = 30,
+	allowedFormats,
 } ) => {
 	const fields = useFields( { section: 'fields' } );
 	const variables = useVariables( { section: 'variables' } );
@@ -194,7 +198,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 				} }
 			>
 				{ value.type === 'text' ? (
-					<RichText id={ id } />
+					<RichText allowedFormats={ allowedFormats } />
 				) : (
 					<Select hideChooseOption={ hideChooseOption } />
 				) }
