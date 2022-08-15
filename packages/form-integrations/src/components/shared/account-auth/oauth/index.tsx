@@ -34,6 +34,7 @@ const Oauth: React.FC< Props > = ( { provider, labels, onAdded } ) => {
 					(
 						labels?.singular ?? __( 'Account', 'quillforms' )
 					).toLowerCase() +
+					' ' +
 					__( 'added successfully!', 'quillforms' ),
 				{
 					type: 'snackbar',

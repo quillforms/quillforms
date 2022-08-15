@@ -58,6 +58,7 @@ const Credentials: React.FC< Props > = ( {
 				createSuccessNotice(
 					'✅ ' +
 						( labels?.singular ?? __( 'Account', 'quillforms' ) ) +
+						' ' +
 						__( 'added successfully!', 'quillforms' ),
 					{
 						type: 'snackbar',
