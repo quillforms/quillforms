@@ -48,21 +48,24 @@ QuillForms free version comes with variety of blocks:
 6- Hidden fields and custom URL parameters
 7- Zapier integration to connect with 3000+ apps
 8- Webhooks
-9- GoogleSheets integration
-10- MailChimp integration
-11- Constant Contact integration
-12- Klaviyo integration
-13- Sendinblue integration
-14- MailPoet integration
-15- GetResponse integration
-16- Hubspot integration
-17- SalesForce integration
-18- Aweber integration
-19- ActiveCampaign integration
-20- Tracking with Google Analytics
-21- Tracking with Facebook Pixel
-22- Opinion scale block
-23- Custom thank you screen for redirect and custom buttons
+9- One time payment and subscriptions with Stripe checkout and Stripe elements.
+10- One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal.
+11- GoogleSheets integration
+12- MailChimp integration
+13- Constant Contact integration
+14- Klaviyo integration
+15- Sendinblue integration
+16- Slack integration
+17- MailPoet integration
+18- GetResponse integration
+19- Hubspot integration
+20- SalesForce integration
+21- Aweber integration
+22- ActiveCampaign integration
+23- Tracking with Google Analytics
+24- Tracking with Facebook Pixel
+25- Opinion scale block
+26- Custom thank you screen for redirect and custom buttons
 
 [Purchase The Pro Version](https://quillforms.com)
 
@@ -112,6 +115,14 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.16.0 = 16 Aug 2022
+Feature: Adding payments feature.
+Feature: Adding Stripe addon.
+Feature: Adding Paypal addon.
+Feature: Adding Slack addon.
+Fix: Fix backend validation for fields and displaying backend errors on front end.
+Fix: Fix dropdown block on mobile when it is the last question.
 
 = 1.15.0 = 29 July 2022
 Feature: Klaviyo integration.
