@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Form Submission: class Form_Submission
  *
@@ -19,7 +20,8 @@ use QuillForms\Managers\Blocks_Manager;
  *
  * @since 1.0.0
  */
-class Form_Submission {
+class Form_Submission
+{
 
 	/**
 	 * Form data
@@ -84,8 +86,9 @@ class Form_Submission {
 	 *
 	 * @return self
 	 */
-	public static function instance() {
-		if ( ! self::$instance ) {
+	public static function instance()
+	{
+		if (!self::$instance) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -96,9 +99,10 @@ class Form_Submission {
 	 *
 	 * @since 1.0.0
 	 */
-	private function __construct() {
-		add_action( 'wp_ajax_quillforms_form_submit', array( $this, 'submit' ) );
-		add_action( 'wp_ajax_nopriv_quillforms_form_submit', array( $this, 'submit' ) );
+	private function __construct()
+	{
+		add_action('wp_ajax_quillforms_form_submit', array($this, 'submit'));
+		add_action('wp_ajax_nopriv_quillforms_form_submit', array($this, 'submit'));
 	}
 
 	/**
@@ -106,7 +110,8 @@ class Form_Submission {
 	 *
 	 * @since 1.0.0
 	 */
-	public function submit() {
+	public function submit()
+	{
 		$this->process_submission();
 		$this->respond();
 	}
@@ -116,148 +121,151 @@ class Form_Submission {
 	 *
 	 * @since 1.0.0
 	 */
-	public function process_submission() {
-		$unsanitized_entry = json_decode( stripslashes( $_POST['formData'] ), true );
+	public function process_submission()
+	{
+		$unsanitized_entry = json_decode(stripslashes($_POST['formData']), true);
 
 		// Check if form id is valid.
-		if ( ! isset( $unsanitized_entry ) || ! isset( $unsanitized_entry['formId'] ) ) {
+		if (!isset($unsanitized_entry) || !isset($unsanitized_entry['formId'])) {
 			$this->errors['form'] = 'Form Id missing!';
 			return;
 		}
 
 		// Check if answers is array.
-		if ( ! isset( $unsanitized_entry['answers'] ) || ! is_array( $unsanitized_entry['answers'] ) ) {
+		if (!isset($unsanitized_entry['answers']) || !is_array($unsanitized_entry['answers'])) {
 			$this->errors['form'] = "Answers aren't sent or invalid";
 			return;
 		}
 
-		$form_id = sanitize_text_field( $unsanitized_entry['formId'] );
+		$form_id = sanitize_text_field($unsanitized_entry['formId']);
 
 		// Check if post type is quill_forms and its status is publish.
-		if ( 'quill_forms' !== get_post_type( $form_id ) || 'publish' !== get_post_status( $form_id ) ) {
+		if ('quill_forms' !== get_post_type($form_id) || 'publish' !== get_post_status($form_id)) {
 			$this->errors['form'] = 'Invalid form id!';
 			return;
 		}
 
-		$this->form_data = Core::get_form_data( $form_id );
+		$this->form_data = Core::get_form_data($form_id);
 
 		// initialize entry object.
 		$this->entry               = new Entry();
 		$this->entry->form_id      = $form_id;
-		$this->entry->date_created = gmdate( 'Y-m-d H:i:s' );
-		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
+		$this->entry->date_created = gmdate('Y-m-d H:i:s');
+		$this->entry->date_updated = gmdate('Y-m-d H:i:s');
 
 		// add sanitized fields.
-		foreach ( $this->form_data['blocks'] as $block ) {
-			$block_type = Blocks_Manager::instance()->create( $block );
-			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
+		foreach ($this->form_data['blocks'] as $block) {
+			$block_type = Blocks_Manager::instance()->create($block);
+			if (!$block_type || !$block_type->supported_features['editable']) {
 				continue;
 			}
 
-			$field_answer = $unsanitized_entry['answers'][ $block['id'] ]['value'] ?? null;
-			if ( null !== $field_answer ) {
-				$sanitize_value = $block_type->sanitize_field( $field_answer, $this->form_data );
-				$this->entry->set_record_value( 'field', $block['id'], $sanitize_value );
+			$field_answer = $unsanitized_entry['answers'][$block['id']]['value'] ?? null;
+			if (null !== $field_answer) {
+				$sanitize_value = $block_type->sanitize_field($field_answer, $this->form_data);
+				$this->entry->set_record_value('field', $block['id'], $sanitize_value);
 			}
 		}
 
 		// filter for entry object init.
 		/** @var Entry */ // phpcs:ignore
-		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
+		$this->entry = apply_filters('quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry);
 
 		// blocks walk path.
 		$walkpath = array_map(
-			function( $block ) {
+			function ($block) {
 				return $block['id'];
 			},
 			$this->form_data['blocks']
 		);
 
 		// for backward compatibility. 1.13.0.
-		$walkpath_filter_format = apply_filters( 'quillforms_entry_walkpath_format', 'blocks' );
-		if ( 'blocks' === $walkpath_filter_format ) {
+		$walkpath_filter_format = apply_filters('quillforms_entry_walkpath_format', 'blocks');
+		if ('blocks' === $walkpath_filter_format) {
 			$walkpath_blocks = array_map(
-				function( $block_id ) {
-					return quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
+				function ($block_id) {
+					return quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
 				},
 				$walkpath
 			);
 			/** @var Entry "$this->entry" */ // phpcs:ignore
-			list( $walkpath_blocks, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath_blocks, $this->entry ), $this->form_data );
+			list($walkpath_blocks, $this->entry) = apply_filters('quillforms_entry_walkpath', array($walkpath_blocks, $this->entry), $this->form_data);
 			$walkpath                              = array_map(
-				function( $block ) {
+				function ($block) {
 					return $block['id'];
 				},
 				$walkpath_blocks
 			);
 		} else {
 			/** @var Entry "$this->entry" */ // phpcs:ignore
-			list( $walkpath, $this->entry ) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
+			list($walkpath, $this->entry) = apply_filters('quillforms_entry_walkpath', array($walkpath, $this->entry), $this->form_data);
 		}
 
 		// Validate all fields at the walkpath.
-		foreach ( $walkpath as $block_id ) {
-			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
-			$block_type = Blocks_Manager::instance()->create( $block );
-			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
+		foreach ($walkpath as $block_id) {
+			$block      = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
+			$block_type = Blocks_Manager::instance()->create($block);
+			if (!$block_type || !$block_type->supported_features['editable']) {
 				continue;
 			}
 
 			$validation_message = null;
-			$field_answer       = $this->entry->get_record_value( 'field', $block_id );
-			$block_type->validate_field( $field_answer, $this->form_data );
-			if ( ! $block_type->is_valid && ! empty( $block_type->validation_err ) ) {
+			$field_answer       = $this->entry->get_record_value('field', $block_id);
+			$block_type->validate_field($field_answer, $this->form_data);
+			if (!$block_type->is_valid && !empty($block_type->validation_err)) {
 				$validation_message = $block_type->validation_err;
 			}
 
-			$validation_message = apply_filters( 'quillforms_entry_field_validation', $validation_message, $block, $block_type, $field_answer, $this->entry, $this->form_data );
-			if ( $validation_message ) {
-				$this->errors['fields'][ $block_id ] = $validation_message;
+			$validation_message = apply_filters('quillforms_entry_field_validation', $validation_message, $block, $block_type, $field_answer, $this->entry, $this->form_data);
+			if ($validation_message) {
+				if (!$this->errors['fields']) {
+					$this->errors['fields'] = array();
+				}
+				$this->errors['fields'][$block_id] = $validation_message;
 			}
 		}
-
 		// Stop if there are validation errors.
-		if ( ! empty( $this->errors ) ) {
+		if (!empty($this->errors)) {
 			return;
 		}
 
 		// Format the editable non-empty fields.
-		foreach ( $walkpath as $block_id ) {
-			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
-			$block_type = Blocks_Manager::instance()->create( $block );
-			if ( ! $block_type || ! $block_type->supported_features['editable'] ) {
+		foreach ($walkpath as $block_id) {
+			$block      = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
+			$block_type = Blocks_Manager::instance()->create($block);
+			if (!$block_type || !$block_type->supported_features['editable']) {
 				continue;
 			}
 
-			$field_answer = $this->entry->get_record_value( 'field', $block_id );
-			if ( null !== $field_answer ) {
-				$formatted_value = $block_type->format_field( $field_answer, $this->form_data );
-				$this->entry->set_record_value( 'field', $block_id, $formatted_value );
+			$field_answer = $this->entry->get_record_value('field', $block_id);
+			if (null !== $field_answer) {
+				$formatted_value = $block_type->format_field($field_answer, $this->form_data);
+				$this->entry->set_record_value('field', $block_id, $formatted_value);
 			}
 		}
 
 		// add some entry meta.
-		$this->entry->set_meta_value( 'walkpath', $walkpath );
-		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
-		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
+		$this->entry->set_meta_value('walkpath', $walkpath);
+		$this->entry->set_meta_value('user_id', get_current_user_id());
+		if (!Settings::get('disable_collecting_user_ip', false)) {
+			$this->entry->set_meta_value('user_ip', $this->get_client_ip());
 		}
-		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
+		if (!Settings::get('disable_collecting_user_agent', false)) {
+			$this->entry->set_meta_value('user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '');
 		}
 
 		// check payments.
 		$payments = $this->get_payments_meta();
-		if ( $payments ) {
-			$this->entry->set_meta_value( 'payments', $payments );
+		if ($payments) {
+			$this->entry->set_meta_value('payments', $payments);
 
-			$this->submission_id = $this->save_pending_submission( 'payment' );
-			if ( ! $this->submission_id ) {
-				wp_send_json_error( array( 'message' => 'Cannot save the pending submission' ), 500 );
+			$this->submission_id = $this->save_pending_submission('payment');
+			if (!$this->submission_id) {
+				wp_send_json_error(array('message' => 'Cannot save the pending submission'), 500);
 				exit;
 			}
 
-			wp_send_json_success( $this->get_pending_submission_renderer_data(), 200 );
+			wp_send_json_success($this->get_pending_submission_renderer_data(), 200);
 			exit;
 		}
 
@@ -272,9 +280,10 @@ class Form_Submission {
 	 * @param integer $submission_id Submission id.
 	 * @return boolean
 	 */
-	public function restore_pending_submission( $submission_id ) {
-		$pending_submission = $this->get_pending_submission( $submission_id );
-		if ( ! $pending_submission ) {
+	public function restore_pending_submission($submission_id)
+	{
+		$pending_submission = $this->get_pending_submission($submission_id);
+		if (!$pending_submission) {
 			return false;
 		}
 
@@ -293,11 +302,12 @@ class Form_Submission {
 	 *
 	 * @return void
 	 */
-	public function continue_pending_submission() {
-		switch ( $this->step ) {
+	public function continue_pending_submission()
+	{
+		switch ($this->step) {
 			case 'payment':
 				$this->process_entry();
-				$this->delete_pending_submission( $this->submission_id );
+				$this->delete_pending_submission($this->submission_id);
 				break;
 		}
 	}
@@ -307,24 +317,25 @@ class Form_Submission {
 	 *
 	 * @return void
 	 */
-	public function process_entry() {
-		if ( $this->submission_id ) {
-			$this->entry->set_meta_value( 'submission_id', $this->submission_id );
+	public function process_entry()
+	{
+		if ($this->submission_id) {
+			$this->entry->set_meta_value('submission_id', $this->submission_id);
 		}
 
 		// this can set ID of the entry.
-		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
+		$this->entry = apply_filters('quillforms_entry_save', $this->entry, $this->form_data);
 
 		// do entry saved action.
-		if ( $this->entry->ID ) {
-			do_action( 'quillforms_entry_saved', $this->entry, $this->form_data );
+		if ($this->entry->ID) {
+			do_action('quillforms_entry_saved', $this->entry, $this->form_data);
 		}
 
 		// process email notifications.
 		$this->entry_email();
 
 		// finally do entry processed action.
-		do_action( 'quillforms_entry_processed', $this->entry, $this->form_data );
+		do_action('quillforms_entry_processed', $this->entry, $this->form_data);
 	}
 
 	/**
@@ -334,19 +345,20 @@ class Form_Submission {
 	 *
 	 * @return array|null
 	 */
-	public function get_payments_meta() {
-		if ( ! ( $this->form_data['payments']['enabled'] ?? null ) ) {
+	public function get_payments_meta()
+	{
+		if (!($this->form_data['payments']['enabled'] ?? null)) {
 			return null;
 		}
 
 		$model_id = $this->get_payment_model_id();
-		if ( ! $model_id ) {
+		if (!$model_id) {
 			return null;
 		}
-		$model = $this->form_data['payments']['models'][ $model_id ];
+		$model = $this->form_data['payments']['models'][$model_id];
 
 		$products = $this->get_products();
-		if ( ! $products['items'] || ! $products['total'] ) {
+		if (!$products['items'] || !$products['total']) {
 			return null;
 		}
 
@@ -365,10 +377,11 @@ class Form_Submission {
 	 *
 	 * @return string|null
 	 */
-	public function get_payment_model_id() {
-		foreach ( ( $this->form_data['payments']['models'] ?? array() ) as $id => $model ) {
-			if ( $model['conditions'] ) {
-				if ( Logic_Conditions::instance()->is_conditions_met( $model['conditions'], $this->entry, $this->form_data ) ) {
+	public function get_payment_model_id()
+	{
+		foreach (($this->form_data['payments']['models'] ?? array()) as $id => $model) {
+			if ($model['conditions']) {
+				if (Logic_Conditions::instance()->is_conditions_met($model['conditions'], $this->entry, $this->form_data)) {
 					return $id;
 				}
 			} else {
@@ -385,38 +398,39 @@ class Form_Submission {
 	 *
 	 * @return array|null
 	 */
-	public function get_products() {
+	public function get_products()
+	{
 		$items = array();
-		foreach ( ( $this->form_data['products'] ?? array() ) as $product ) {
-			switch ( $product['source']['type'] ) {
+		foreach (($this->form_data['products'] ?? array()) as $product) {
+			switch ($product['source']['type']) {
 				case 'field':
 					$block_id = $product['source']['value'];
-					if ( ! in_array( $block_id, $this->entry->get_meta_value( 'walkpath' ), true ) ) {
+					if (!in_array($block_id, $this->entry->get_meta_value('walkpath'), true)) {
 						break;
 					}
-					$block = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
-					if ( ! $block ) {
+					$block = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
+					if (!$block) {
 						break;
 					}
-					$block_type = Blocks_Manager::instance()->create( $block );
-					if ( ! $block_type ) {
+					$block_type = Blocks_Manager::instance()->create($block);
+					if (!$block_type) {
 						break;
 					}
 
-					if ( $block_type->supported_features['numeric'] ) {
+					if ($block_type->supported_features['numeric']) {
 						$items[] = array(
 							'name'     => $product['name'],
-							'price'    => (float) $block_type->get_numeric_value( $this->entry->get_record_value( 'field', $block_id ) ),
+							'price'    => (float) $block_type->get_numeric_value($this->entry->get_record_value('field', $block_id)),
 							'quantity' => 1,
 						);
-					} elseif ( $block_type->supported_features['choices'] ) {
+					} elseif ($block_type->supported_features['choices']) {
 						$choices  = $block_type->get_choices();
-						$selected = $this->entry->get_record_value( 'field', $block_id ) ?? array();
-						if ( $choices && $selected ) {
-							foreach ( $choices as $choice ) {
-								if ( in_array( $choice['value'], $selected, true ) ) {
-									$value = $product['choices'][ $choice['value'] ]['price'] ?? null;
-									if ( is_numeric( $value ) ) {
+						$selected = $this->entry->get_record_value('field', $block_id) ?? array();
+						if ($choices && $selected) {
+							foreach ($choices as $choice) {
+								if (in_array($choice['value'], $selected, true)) {
+									$value = $product['choices'][$choice['value']]['price'] ?? null;
+									if (is_numeric($value)) {
 										$items[] = array(
 											'name'     => $choice['label'],
 											'price'    => (float) $value,
@@ -432,13 +446,13 @@ class Form_Submission {
 				case 'variable':
 					$items[] = array(
 						'name'     => $product['name'],
-						'price'    => (float) $this->entry->get_record_value( 'variable', $product['source']['value'] ),
+						'price'    => (float) $this->entry->get_record_value('variable', $product['source']['value']),
 						'quantity' => 1,
 					);
 					break;
 
 				case 'other':
-					if ( $product['source']['value'] === 'defined' ) {
+					if ($product['source']['value'] === 'defined') {
 						$items[] = array(
 							'name'     => $product['name'],
 							'price'    => (float) $product['price'],
@@ -451,13 +465,13 @@ class Form_Submission {
 
 		$total = array_reduce(
 			$items,
-			function( $carry, $item ) {
-				return $carry + ( $item['price'] * $item['quantity'] );
+			function ($carry, $item) {
+				return $carry + ($item['price'] * $item['quantity']);
 			},
 			0
 		);
 
-		return compact( 'items', 'total' );
+		return compact('items', 'total');
 	}
 
 	/**
@@ -467,7 +481,8 @@ class Form_Submission {
 	 *
 	 * @return array
 	 */
-	public function get_pending_submission_renderer_data() {
+	public function get_pending_submission_renderer_data()
+	{
 		return array(
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
@@ -483,11 +498,12 @@ class Form_Submission {
 	 *
 	 * @return array
 	 */
-	private function get_payments_renderer_data() {
-		$payments = $this->entry->get_meta_value( 'payments' );
+	private function get_payments_renderer_data()
+	{
+		$payments = $this->entry->get_meta_value('payments');
 
 		// add currency symbol.
-		$payments['currency']['symbol'] = Payments::instance()->get_currency_symbol( $payments['currency']['code'] );
+		$payments['currency']['symbol'] = Payments::instance()->get_currency_symbol($payments['currency']['code']);
 
 		// add methods.
 		$payments['methods'] = $this->get_available_methods();
@@ -502,17 +518,18 @@ class Form_Submission {
 	 *
 	 * @return array
 	 */
-	private function get_available_methods() {
+	private function get_available_methods()
+	{
 		$methods = $this->form_data['payments']['methods'];
 
-		foreach ( array_keys( $methods ) as $key ) {
-			list( $gateway, $method ) = explode( ':', $key );
+		foreach (array_keys($methods) as $key) {
+			list($gateway, $method) = explode(':', $key);
 
 			/** @var Payment_Gateway */ // phpcs:ignore
-			$gateway_addon = Addons_Manager::instance()->get_registered( $gateway );
+			$gateway_addon = Addons_Manager::instance()->get_registered($gateway);
 
-			if ( ! $gateway_addon || ! $gateway_addon->is_configured( $method ) ) {
-				unset( $methods[ $key ] );
+			if (!$gateway_addon || !$gateway_addon->is_configured($method)) {
+				unset($methods[$key]);
 			}
 		}
 
@@ -526,13 +543,14 @@ class Form_Submission {
 	 *
 	 * @return string
 	 */
-	public function get_thankyou_screen_id() {
-		$walkpath = $this->entry->get_meta_value( 'walkpath' );
+	public function get_thankyou_screen_id()
+	{
+		$walkpath = $this->entry->get_meta_value('walkpath');
 
-		$last_block_id = $walkpath[ count( $walkpath ) - 1 ];
-		$last_block    = quillforms_arrays_find( $this->form_data['blocks'], 'id', $last_block_id );
+		$last_block_id = $walkpath[count($walkpath) - 1];
+		$last_block    = quillforms_arrays_find($this->form_data['blocks'], 'id', $last_block_id);
 
-		if ( 'thankyou-screen' === $last_block['name'] ) {
+		if ('thankyou-screen' === $last_block['name']) {
 			return $last_block['id'];
 		} else {
 			return 'default_thankyou_screen';
@@ -547,7 +565,8 @@ class Form_Submission {
 	 * @param string $step Step.
 	 * @return id
 	 */
-	private function save_pending_submission( $step ) {
+	private function save_pending_submission($step)
+	{
 		global $wpdb;
 
 		$insert = $wpdb->insert(
@@ -555,13 +574,13 @@ class Form_Submission {
 			array(
 				'form_id'      => $this->entry->form_id,
 				'step'         => $step,
-				'entry'        => maybe_serialize( $this->entry ),
-				'form_data'    => maybe_serialize( $this->form_data ),
-				'date_created' => gmdate( 'Y-m-d H:i:s' ),
+				'entry'        => maybe_serialize($this->entry),
+				'form_data'    => maybe_serialize($this->form_data),
+				'date_created' => gmdate('Y-m-d H:i:s'),
 			)
 		);
 
-		if ( ! $insert ) {
+		if (!$insert) {
 			return false;
 		}
 
@@ -576,7 +595,8 @@ class Form_Submission {
 	 * @param integer $id Submission id.
 	 * @return array
 	 */
-	private function get_pending_submission( $id ) {
+	private function get_pending_submission($id)
+	{
 		global $wpdb;
 
 		$result = $wpdb->get_row(
@@ -591,15 +611,15 @@ class Form_Submission {
 			ARRAY_A
 		);
 
-		if ( ! $result ) {
+		if (!$result) {
 			return null;
 		}
 
-		if ( isset( $result['entry'] ) ) {
-			$result['entry'] = maybe_unserialize( $result['entry'] );
+		if (isset($result['entry'])) {
+			$result['entry'] = maybe_unserialize($result['entry']);
 		}
-		if ( isset( $result['form_data'] ) ) {
-			$result['form_data'] = maybe_unserialize( $result['form_data'] );
+		if (isset($result['form_data'])) {
+			$result['form_data'] = maybe_unserialize($result['form_data']);
 		}
 
 		return $result;
@@ -613,13 +633,14 @@ class Form_Submission {
 	 * @param integer $id Submission id.
 	 * @return boolean
 	 */
-	private function delete_pending_submission( $id ) {
+	private function delete_pending_submission($id)
+	{
 		global $wpdb;
 
 		return (bool) $wpdb->delete(
 			"{$wpdb->prefix}quillforms_pending_submissions",
-			array( 'ID' => $id ),
-			array( '%d' )
+			array('ID' => $id),
+			array('%d')
 		);
 	}
 
@@ -630,7 +651,8 @@ class Form_Submission {
 	 *
 	 * @return void
 	 */
-	public function entry_email() {
+	public function entry_email()
+	{
 		quillforms_get_logger()->debug(
 			'Start processing notifications',
 			array(
@@ -639,17 +661,19 @@ class Form_Submission {
 			)
 		);
 
-		foreach ( $this->form_data['notifications'] as $notification ) {
+		foreach ($this->form_data['notifications'] as $notification) {
 
 			$notification_id         = $notification['id'];
 			$notification_properties = $notification['properties'];
 
-			$process_email = apply_filters( 'quillforms_entry_email_process', true, $this->entry, $this->form_data, $notification_id );
+			$process_email = apply_filters('quillforms_entry_email_process', true, $this->entry, $this->form_data, $notification_id);
 
 			// if process email = false or notifcation isn't active, continue.
-			if ( ! $process_email
-				|| ! $notification_properties['active']
-				|| ( ! empty( $notification_properties['conditions'] ) && ! Logic_Conditions::instance()->is_conditions_met( $notification_properties['conditions'], $this->entry, $this->form_data ) ) ) {
+			if (
+				!$process_email
+				|| !$notification_properties['active']
+				|| (!empty($notification_properties['conditions']) && !Logic_Conditions::instance()->is_conditions_met($notification_properties['conditions'], $this->entry, $this->form_data))
+			) {
 				continue;
 			}
 
@@ -657,35 +681,35 @@ class Form_Submission {
 
 			// Setup email properties.
 			/* translators: %s - form name. */
-			$email['subject'] = ! empty( $notification_properties['subject'] ) ? $notification_properties['subject'] : sprintf( esc_html__( 'New %s Entry', 'quillforms' ), $this->form_data['title'] );
+			$email['subject'] = !empty($notification_properties['subject']) ? $notification_properties['subject'] : sprintf(esc_html__('New %s Entry', 'quillforms'), $this->form_data['title']);
 			$email['address'] = $notification_properties['recipients'];
-			if ( 'field' === $notification_properties['toType'] ) {
+			if ('field' === $notification_properties['toType']) {
 				$email['address'] = array_map(
-					function( $address ) {
-						return Merge_Tags::instance()->process_text( $address, $this->entry, $this->form_data );
+					function ($address) {
+						return Merge_Tags::instance()->process_text($address, $this->entry, $this->form_data);
 					},
 					$email['address']
 				);
 			}
 
-			$email['address'] = array_map( 'sanitize_email', $email['address'] );
+			$email['address'] = array_map('sanitize_email', $email['address']);
 			$email['address'] = array_filter(
 				$email['address'],
-				function( $email ) {
-					return ! ! $email;
+				function ($email) {
+					return !!$email;
 				}
 			);
 
-			if ( empty( $email['address'] ) ) {
+			if (empty($email['address'])) {
 				continue;
 			}
-			$email['sender_address'] = get_option( 'admin_email' );
-			$email['sender_name']    = get_bloginfo( 'name' );
-			$email['replyto']        = ! empty( $notification['properties']['replyTo'] ) ? $notification['properties']['replyTo'] : false;
-			$email['message']        = ! empty( $notification_properties['message'] ) ? $notification_properties['message'] : '{{form:all_answers}}';
-			$email                   = apply_filters( 'quillforms_entry_email_atts', $email, $this->entry, $this->form_data, $notification_id );
+			$email['sender_address'] = get_option('admin_email');
+			$email['sender_name']    = get_bloginfo('name');
+			$email['replyto']        = !empty($notification['properties']['replyTo']) ? $notification['properties']['replyTo'] : false;
+			$email['message']        = !empty($notification_properties['message']) ? $notification_properties['message'] : '{{form:all_answers}}';
+			$email                   = apply_filters('quillforms_entry_email_atts', $email, $this->entry, $this->form_data, $notification_id);
 
-			quillforms_get_logger()->debug( 'Initial email data', compact( 'email' ) );
+			quillforms_get_logger()->debug('Initial email data', compact('email'));
 
 			// Create new email.
 			$emails                  = new Emails();
@@ -697,17 +721,17 @@ class Form_Submission {
 			$emails->reply_to        = $email['replyto'];
 
 			// Maybe include CC.
-			if ( ! empty( $notification['carboncopy'] ) && Settings::get( 'email-carbon-copy' ) ) {
+			if (!empty($notification['carboncopy']) && Settings::get('email-carbon-copy')) {
 				$emails->cc = $notification['carboncopy'];
 			}
 
-			$emails = apply_filters( 'quillforms_entry_email_before_send', $emails );
+			$emails = apply_filters('quillforms_entry_email_before_send', $emails);
 
-			quillforms_get_logger()->debug( 'Emails object', compact( 'emails' ) );
+			quillforms_get_logger()->debug('Emails object', compact('emails'));
 
 			// Go.
-			foreach ( $email['address'] as $address ) {
-				$emails->send( trim( $address ), $email['subject'], $email['message'] );
+			foreach ($email['address'] as $address) {
+				$emails->send(trim($address), $email['subject'], $email['message']);
 			}
 		}
 	}
@@ -717,12 +741,13 @@ class Form_Submission {
 	 *
 	 * @since 1.0.0
 	 */
-	protected function respond() {
+	protected function respond()
+	{
 		// Restore form instance ID.
-		if ( ! empty( $this->errors ) ) {
-			wp_send_json_error( $this->errors, 400 );
+		if (!empty($this->errors)) {
+			wp_send_json_error($this->errors, 200);
 		} else {
-			wp_send_json_success( array( 'status' => 'completed' ), 200 );
+			wp_send_json_success(array('status' => 'completed'), 200);
 		}
 	}
 
@@ -734,32 +759,32 @@ class Form_Submission {
 	 *
 	 * @return string
 	 */
-	private function get_client_ip() {
+	private function get_client_ip()
+	{
 		$ip = false;
 
-		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 			// Check ip from share internet.
-			$ip = filter_var( wp_unslash( $_SERVER['HTTP_CLIENT_IP'] ), FILTER_VALIDATE_IP );
-		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+			$ip = filter_var(wp_unslash($_SERVER['HTTP_CLIENT_IP']), FILTER_VALIDATE_IP);
+		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			// To check ip is pass from proxy.
 			// Can include more than 1 ip, first is the public one.
 			// WPCS: sanitization ok.
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$ips = explode( ',', wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
-			if ( is_array( $ips ) ) {
-				$ip = filter_var( $ips[0], FILTER_VALIDATE_IP );
+			$ips = explode(',', wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR']));
+			if (is_array($ips)) {
+				$ip = filter_var($ips[0], FILTER_VALIDATE_IP);
 			}
-		} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
-			$ip = filter_var( wp_unslash( $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP );
+		} elseif (!empty($_SERVER['REMOTE_ADDR'])) {
+			$ip = filter_var(wp_unslash($_SERVER['REMOTE_ADDR']), FILTER_VALIDATE_IP);
 		}
 
 		$ip = false !== $ip ? $ip : '127.0.0.1';
 
 		// Fix potential CSV returned from $_SERVER variables.
-		$ip_array = explode( ',', $ip );
-		$ip_array = array_map( 'trim', $ip_array );
+		$ip_array = explode(',', $ip);
+		$ip_array = array_map('trim', $ip_array);
 
-		return apply_filters( 'quillforms_entry_meta_ip', $ip_array[0] );
+		return apply_filters('quillforms_entry_meta_ip', $ip_array[0]);
 	}
-
 }

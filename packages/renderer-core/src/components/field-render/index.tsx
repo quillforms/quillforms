@@ -52,7 +52,7 @@ const FieldRender: React.FC< Props > = memo(
 			if ( isReviewing && ! isValid ) {
 				showErrMsg( true );
 			}
-		}, [ isReviewing ] );
+		}, [ isReviewing, isValid ] );
 
 		const { goNext, goToBlock } = useDispatch( 'quillForms/renderer-core' );
 		if ( ! block ) return null;
