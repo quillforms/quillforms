@@ -216,15 +216,15 @@
 			}
 		}
 	}
-
-	.quillforms-payments-page-settings__methods-info {
-		background: #ebcaff;
-		color: #934cbf;
-		display: inline-flex;
-		padding: 5px 8px;
-		border-radius: 5px;
-		margin-bottom: 20px;
-	}
+}
+.quillforms-payments-page-settings__methods-info,
+.quillforms-payments-page-settings__model-info {
+	background: #ebcaff;
+	color: #934cbf;
+	display: inline-flex;
+	padding: 5px 8px;
+	border-radius: 5px;
+	margin-bottom: 20px;
 }
 .quillforms-payments-page-settings__models {
 	.payment-model {

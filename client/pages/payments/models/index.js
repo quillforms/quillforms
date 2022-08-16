@@ -15,7 +15,10 @@ const Models = () => {
 
 	return (
 		<div className="quillforms-payments-page-settings__models">
-			<h3> Payment Model </h3>
+			<h3> Payment Model(s) </h3>
+			<p className="quillforms-payments-page-settings__model-info">
+				The price of the model is the total price of products
+			</p>
 			<div className="quillforms-payments-page-settings__models-content">
 				{ Object.keys( models ).map( ( id ) => (
 					<Model key={ id } id={ id } />
