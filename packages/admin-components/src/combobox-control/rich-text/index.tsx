@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { MergeTags, RichTextControl } from '../../rich-text';
+import { allowedFormats, MergeTags, RichTextControl } from '../../rich-text';
 import Button from '../../button';
 
 /**
@@ -20,10 +20,10 @@ import { closeSmall } from '@wordpress/icons';
 import { useComboboxControlContext } from '../context';
 
 interface Props {
-	id?: string;
+	allowedFormats?: allowedFormats;
 }
 
-const RichText: React.FC< Props > = ( {} ) => {
+const RichText: React.FC< Props > = ( { allowedFormats } ) => {
 	const {
 		id,
 		// sections,
@@ -62,6 +62,7 @@ const RichText: React.FC< Props > = ( {} ) => {
 				value={ value.value ?? '' }
 				setValue={ ( value ) => onChange( { type: 'text', value } ) }
 				mergeTags={ tags }
+				allowedFormats={ allowedFormats }
 				placeholder={ placeholder }
 			/>
 		</div>
