@@ -281,7 +281,7 @@
 		"link",
 		"italic"
 	  ],
-	  "default": "Can\"t connect to the server right now!",
+	  "default": "Can't connect to the server right now!",
 	  "category": "alerts"
 	},
 	"label.errorAlert.serverError": {
