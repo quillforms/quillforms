@@ -1,13 +1,15 @@
 .admin-components-form-admin-bar {
 	position: relative;
-    height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ffffff;
+	height: 55px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #ffffff;
 
-	a{
+	a {
 		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
 		cursor: pointer;
 		margin: 10px;
 		padding: 10px;

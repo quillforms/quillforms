@@ -66,21 +66,7 @@ const FormAdminBar = ( { formId } ) => {
 						>
 							Results
 						</NavLink>
-						<NavLink
-							isActive={ ( _match, location ): boolean | void => {
-								if (
-									location.pathname.startsWith(
-										`/forms/${ formId }/payments`
-									)
-								) {
-									return true;
-								}
-							} }
-							activeClassName="selected"
-							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/payments` }
-						>
-							Payments
-						</NavLink>
+
 						<NavLink
 							isActive={ ( _match, location ): boolean | void => {
 								if (
@@ -95,6 +81,24 @@ const FormAdminBar = ( { formId } ) => {
 							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/integrations` }
 						>
 							Integrations
+						</NavLink>
+						<NavLink
+							isActive={ ( _match, location ): boolean | void => {
+								if (
+									location.pathname.startsWith(
+										`/forms/${ formId }/payments`
+									)
+								) {
+									return true;
+								}
+							} }
+							activeClassName="selected"
+							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/payments` }
+						>
+							Payments
+							<div className="admin-components-control-label__new-feature">
+								NEW
+							</div>
 						</NavLink>
 
 						{ fills }
