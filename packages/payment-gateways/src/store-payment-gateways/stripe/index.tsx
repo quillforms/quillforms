@@ -48,7 +48,7 @@ function register() {
 				},
 				customer: {
 					label: {
-						text: 'Elements !!!!',
+						text: 'Stripe Elements',
 					},
 					render: CustomerRender,
 				},
@@ -64,7 +64,7 @@ function register() {
 				},
 				customer: {
 					label: {
-						text: 'Checkout !!!!',
+						text: 'Stripe Checkout',
 					},
 					render: CustomerRender,
 				},

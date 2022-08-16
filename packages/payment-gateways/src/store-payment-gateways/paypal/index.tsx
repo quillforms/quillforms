@@ -48,7 +48,7 @@ function register() {
 				},
 				customer: {
 					label: {
-						text: 'Checkout !!!!',
+						text: 'Paypal Checkout',
 					},
 					render: CustomerRender,
 				},
@@ -64,7 +64,7 @@ function register() {
 				},
 				customer: {
 					label: {
-						text: 'Card !!!!',
+						text: 'Visa Card',
 					},
 					render: CustomerRender,
 				},
