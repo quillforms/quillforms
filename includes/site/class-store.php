@@ -601,6 +601,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
 				),
 			),
+			'notion'                    => array(
+				'name'           => esc_html__( 'Notion', 'quillforms' ),
+				'description'    => esc_html__( 'Send new entry data to your Notion databases.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-notion/quillforms-notion.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/notion/icon.png',
+				),
+			),
 			'getresponse'               => array(
 				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GetResponse lists.', 'quillforms' ),
