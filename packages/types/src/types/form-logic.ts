@@ -45,7 +45,8 @@ export type LogicAction = {
 	type: LogicActionType;
 	target: string;
 	value?: number | { type: 'field' | 'variable'; value: string };
-	conditions: LogicCondition[][];
+	points?: Boolean;
+	conditions: LogicCondition[][] | true;
 };
 
 export type FormLogicActions = {
