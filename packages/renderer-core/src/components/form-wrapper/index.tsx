@@ -77,13 +77,13 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 			const urlParams = new URLSearchParams( window.location.search );
 			const isPaymentStep = urlParams.get( 'step' ) === 'payment';
 
-			let completed = false;
+			let formCompleted = false;
 			if ( isPaymentStep ) {
 				doAction(
 					'QuillForms.RendererCore.PaymentStep',
 					urlParams,
 					() => {
-						completed = true;
+						formCompleted = true;
 						goToBlock(
 							window[ 'pending_submission' ]
 								?.thankyou_screen_id ??
@@ -97,7 +97,7 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 				);
 			}
 
-			if ( ! completed ) {
+			if ( ! formCompleted ) {
 				setTimeout( () => {
 					if ( firstBlock?.id ) {
 						goToBlock( firstBlock.id );
