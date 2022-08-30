@@ -73,8 +73,8 @@ const Methods: React.FC< Props > = ( { data } ) => {
 				slug={ selected }
 				data={ data }
 				onComplete={ () => {
-					setPaymentData( null );
 					completeForm();
+					setPaymentData( null );
 				} }
 			/>
 		</div>
