@@ -15,7 +15,6 @@ const RadioControl = ( {
 	onChange,
 	...additionalProps
 } ) => {
-	console.log( selected );
 	const generalTheme = useGeneralTheme();
 	const onChangeValue = ( optionValue ) => onChange( optionValue );
 

@@ -37,9 +37,6 @@ const Payments = () => {
 						</div>
 					);
 					const addon = ConfigApi.getStoreAddons()[ slug ];
-					console.log( gateway );
-					console.log( ConfigApi.getStoreAddons() );
-					console.log( addon );
 					return (
 						<PanelBody
 							key={ slug }
