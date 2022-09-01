@@ -693,6 +693,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
 				),
 			),
+			'make'                      => array(
+				'name'           => esc_html__( 'Make', 'quillforms' ),
+				'description'    => esc_html__( 'Send your submission to Make (formerly integromat) scenarios.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-make/quillforms-make.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/make/icon.png',
+				),
+			),
 			'zapier'                    => array(
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
