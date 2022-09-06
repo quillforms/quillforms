@@ -8,7 +8,8 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
  * WordPress Dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
-import { useEffect, useReducer } from '@wordpress/element';
+import { useEffect, useReducer, useState } from '@wordpress/element';
+import { Modal } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
@@ -16,6 +17,8 @@ import { __ } from '@wordpress/i18n';
  * External Dependencies
  */
 import { AnimateSharedLayout } from 'framer-motion';
+import { css } from 'emotion';
+
 /**
  * Internal Dependencies
  */
@@ -32,6 +35,17 @@ import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
 
 const PaymentsPage = ( { params } ) => {
+	const [ showReleaseModal, setShowReleaseModal ] = useState( false );
+
+	useEffect( () => {
+		setTimeout( () => {
+			localStorage.setItem( 'qf_payments_modal_viewed', true );
+		}, 100 );
+	}, [ showReleaseModal ] );
+
+	useEffect( () => {
+		setShowReleaseModal( true );
+	}, [] );
 	const formId = params.id;
 
 	// constants.
@@ -252,6 +266,48 @@ const PaymentsPage = ( { params } ) => {
 					</div>
 				</div>
 			</PaymentsContextProvider>
+			{ showReleaseModal &&
+				! localStorage.getItem( 'qf_payments_modal_viewed' ) && (
+					<Modal
+						shouldCloseOnEsc={ false }
+						shouldCloseOnClickOutside={ false }
+						className={ css`
+							border: none !important;
+							border-radius: 9px;
+
+							.components-modal__header {
+								background: linear-gradient(
+									42deg,
+									rgb( 235 54 221 ),
+									rgb( 238 142 22 )
+								);
+								h1 {
+									color: #fff;
+								}
+								svg {
+									fill: #fff;
+								}
+							}
+							.components-modal__content {
+								text-align: center;
+							}
+						` }
+						title={ 'How to accept payments with Quill Forms?' }
+						onRequestClose={ () => {
+							setShowReleaseModal( false );
+						} }
+					>
+						<iframe
+							width="560"
+							height="315"
+							src="https://www.youtube.com/embed/r2Qu3ElzYoI"
+							title="How to accept payments with Quill Forms?"
+							frameBorder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+						></iframe>
+					</Modal>
+				) }
 		</AnimateSharedLayout>
 	);
 };

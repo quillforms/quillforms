@@ -129,17 +129,6 @@ export const Layout = ( props ) => {
 };
 
 const _PageLayout = () => {
-	const [ showReleaseModal, setShowReleaseModal ] = useState( false );
-
-	useEffect( () => {
-		setTimeout( () => {
-			localStorage.setItem( 'qf_1.8_release_modal_viewed', true );
-		}, 100 );
-	}, [ showReleaseModal ] );
-
-	useEffect( () => {
-		setShowReleaseModal( true );
-	}, [] );
 	return (
 		<>
 			<Router history={ getHistory() }>
@@ -158,48 +147,6 @@ const _PageLayout = () => {
 					} ) }
 				</Switch>
 			</Router>
-			{ showReleaseModal &&
-				! localStorage.getItem( 'qf_1.8_release_modal_viewed' ) && (
-					<Modal
-						shouldCloseOnEsc={ false }
-						shouldCloseOnClickOutside={ false }
-						className={ css`
-							border: none !important;
-							border-radius: 9px;
-
-							.components-modal__header {
-								background: linear-gradient(
-									42deg,
-									rgb( 235 54 221 ),
-									rgb( 238 142 22 )
-								);
-								h1 {
-									color: #fff;
-								}
-								svg {
-									fill: #fff;
-								}
-							}
-							.components-modal__content {
-								text-align: center;
-							}
-						` }
-						title={ 'Introducing Block Themes' }
-						onRequestClose={ () => {
-							setShowReleaseModal( false );
-						} }
-					>
-						<iframe
-							width="560"
-							height="315"
-							src="https://www.youtube.com/embed/nv_YucsnSEY"
-							title="YouTube video player"
-							frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen
-						></iframe>
-					</Modal>
-				) }
 		</>
 	);
 };
