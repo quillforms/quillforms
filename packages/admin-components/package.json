@@ -35,6 +35,7 @@
 		"escape-html": "^1.0.3",
 		"gradient-parser": "^0.1.5",
 		"is-url": "^1.2.4",
+		"lodash": "^4.17.21",
 		"react-beautiful-dnd": "^13.1.0",
 		"react-loader-spinner": "^5.1.7-beta.1",
 		"react-window": "^1.8.6",
