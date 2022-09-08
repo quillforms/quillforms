@@ -14,7 +14,10 @@ https://www.youtube.com/watch?v=GjmLUTDIdFc
 
 A new revolution in WordPress forms and surveys with focus on UI/UX to generate more leads on your WordPress site.
 Quill Forms is more than just a form. You can build forms, surveys, quizzes and cost estimation forms easily with Quill Forms.
-[watch the demo](https://quillforms.com/quillforms/my-first-form)
+
+=== Demos ===
+[Simple Form](https://quillforms.com/quillforms/my-first-form)
+[Payment Form](https://quillforms.com/quillforms/payment-demo)
 
 Quill Forms is the best free Typeform alternative for WordPress.
 With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
