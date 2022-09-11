@@ -37,7 +37,7 @@ export default function SmallResponsiveControl( {
 			itemClass: 'qf-mobile-tab',
 		},
 	];
-	const output = {};
+	const output: any = {};
 	output.Mobile = mobileChildren;
 	output.Tablet = tabletChildren;
 	output.Desktop = desktopChildren;
