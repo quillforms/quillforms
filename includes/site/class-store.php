@@ -508,6 +508,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
 				),
 			),
+			'signatureblock'            => array(
+				'name'           => esc_html__( 'Signature Block', 'quillforms' ),
+				'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
+				),
+			),
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
