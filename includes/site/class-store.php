@@ -456,6 +456,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
 				),
 			),
+			'calendlyblock'             => array(
+				'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
+				'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-calendlyblock/quillforms-calendlyblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
+				),
+			),
 			'fileblock'                 => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
 				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions.', 'quillforms' ),
