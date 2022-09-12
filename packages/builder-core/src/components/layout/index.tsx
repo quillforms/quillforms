@@ -8,7 +8,7 @@ import { FormBlock } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
-import { useState, useMemo, useEffect } from '@wordpress/element';
+import { useState, useMemo, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { doAction, applyFilters } from '@wordpress/hooks';
 
@@ -37,9 +37,8 @@ interface Props {
 }
 const Layout: React.FC< Props > = ( { formId } ) => {
 	const [ targetIndex, setTargetIndex ] = useState< number >();
-	const [ isDraggingContent, setIsDraggingContent ] = useState< boolean >(
-		false
-	);
+	const [ isDraggingContent, setIsDraggingContent ] =
+		useState< boolean >( false );
 	const [ sourceContentIndex, setSourceContentIndex ] = useState< number >();
 	const [ isDragging, setIsDragging ] = useState< boolean >( false );
 
@@ -150,8 +149,12 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 
 		const { source, destination } = result;
 
-		// dropped outside the list
-		if ( ! destination ) {
+		// dropped outside the list or source and destination are the same
+		if (
+			! destination ||
+			( source.index === destination.index &&
+				source.droppableId === 'DROP_AREA' )
+		) {
 			return;
 		}
 
@@ -173,7 +176,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 				) {
 					dragAlerts.push(
 						'This block recalls information from previous fields.\
-						This info will be lost if you proceed with this block movement.'
+						 This info will be lost if you proceed with this block movement.'
 					);
 				}
 				dragAlerts = dragAlerts.concat(

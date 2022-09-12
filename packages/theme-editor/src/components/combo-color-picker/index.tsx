@@ -6,7 +6,7 @@ import { Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, Fragment } from '@wordpress/element';
+import { useState, useEffect, Fragment } from 'react';
 
 /**
  * Internal Dependencies

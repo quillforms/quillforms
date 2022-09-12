@@ -6,7 +6,7 @@ import { NavLink, withRouter } from '@quillforms/navigation';
 /**
  * WordPress Dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { Icon } from '@wordpress/components';
 import { arrowLeft } from '@wordpress/icons';
 
@@ -66,6 +66,7 @@ const FormAdminBar = ( { formId } ) => {
 						>
 							Results
 						</NavLink>
+
 						<NavLink
 							isActive={ ( _match, location ): boolean | void => {
 								if (
@@ -80,6 +81,24 @@ const FormAdminBar = ( { formId } ) => {
 							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/integrations` }
 						>
 							Integrations
+						</NavLink>
+						<NavLink
+							isActive={ ( _match, location ): boolean | void => {
+								if (
+									location.pathname.startsWith(
+										`/forms/${ formId }/payments`
+									)
+								) {
+									return true;
+								}
+							} }
+							activeClassName="selected"
+							to={ `/admin.php?page=quillforms&path=/forms/${ formId }/payments` }
+						>
+							Payments
+							<div className="admin-components-control-label__new-feature">
+								NEW
+							</div>
 						</NavLink>
 
 						{ fills }

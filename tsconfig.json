@@ -6,9 +6,10 @@
 		{"path" : "packages/builder-panels"},
 		{"path" : "packages/block-editor"},
 		{"path" : "packages/admin-components"},
-		{"path" : "packages/builder-core"},
 		{"path" : "packages/navigation"},
-		{"path" : "packages/types"}
+		{"path" : "packages/types"},
+		{"path" : "packages/form-integrations"},
+		{"path" : "packages/payment-gateways"}
 	],
 	"files": []
 

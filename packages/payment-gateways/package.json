@@ -1,0 +1,35 @@
+{
+	"name": "@quillforms/payment-gateways",
+	"version": "1.1.2",
+	"description": "Payment Gateways",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"payment gateways"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/payment-gateways/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/shared-data"
+	},
+	"types": "build-types",
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"dependencies": {
+		"@babel/runtime": "^7.9.2",
+		"@quillforms/config": "file:../config",
+		"@wordpress/hooks": "^3.14.0"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

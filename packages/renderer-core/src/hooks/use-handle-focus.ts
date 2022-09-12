@@ -1,7 +1,8 @@
 /**
  * WordPress Dependencies
  */
-import { findDOMNode, useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
+import { findDOMNode } from 'react-dom';
 import { useSelect } from '@wordpress/data';
 
 let focusTimer;
@@ -30,9 +31,9 @@ const useHandleFocus = (
 		const current = ref?.current?.inputElement
 			? ref.current.inputElement
 			: ref.current;
-		var rect = ( findDOMNode(
-			current
-		) as Element )?.getBoundingClientRect();
+		var rect = (
+			findDOMNode( current ) as Element
+		 )?.getBoundingClientRect();
 
 		return (
 			rect.top >= 0 &&
@@ -66,9 +67,11 @@ const useHandleFocus = (
 					)
 				) {
 					focusTimer = setTimeout( () => {
-						( document.querySelector(
-							`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
-						) as HTMLElement ).focus();
+						(
+							document.querySelector(
+								`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
+							) as HTMLElement
+						 ).focus();
 					} );
 				}
 			}

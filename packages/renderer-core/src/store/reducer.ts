@@ -35,6 +35,7 @@ import {
 	RESET_ANSWERS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
+	SET_PAYMENT_DATA,
 	SET_IS_FOCUSED,
 	SET_FOOTER_DISPLAY,
 } from './constants';
@@ -437,6 +438,7 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 		isSubmitting: false,
 		isReviewing: false,
 		submissionErr: '',
+		paymentData: null,
 	},
 	action
 ) => {
@@ -446,8 +448,10 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 				isSubmitting: false,
 				isReviewing: false,
 				submissionErr: '',
+				paymentData: null,
 			};
 		}
+
 		case SET_IS_REVIEWING: {
 			const { val } = action;
 			return {
@@ -473,6 +477,13 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 				...state,
 				isSubmitting: false,
 				submissionErr: val,
+			};
+		}
+
+		case SET_PAYMENT_DATA: {
+			return {
+				...state,
+				paymentData: action.data,
 			};
 		}
 	}

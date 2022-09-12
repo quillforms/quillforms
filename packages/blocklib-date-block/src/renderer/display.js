@@ -6,7 +6,7 @@ import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -141,6 +141,8 @@ const DateOutput = ( props ) => {
 						width: 100%;
 						border: none;
 						outline: none;
+						border: none !important;
+						border-radius: 0 !important;
 						font-size: 30px;
 						padding-bottom: 8px;
 						background: transparent;

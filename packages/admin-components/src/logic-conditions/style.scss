@@ -1,0 +1,91 @@
+.logic-conditions__group {
+	position: relative;
+	border: 1px solid #ccc;
+	border-radius: 7px;
+	padding: 0 7px;
+
+	.group-remove {
+		position: absolute;
+		top: -7.5px;
+		right: -7.5px;
+		width: 15px;
+		height: 15px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background: #b65454;
+		cursor: pointer;
+
+		svg {
+			width: 100%;
+			height: 100%;
+			fill: #fff;
+		}
+	}
+}
+
+.logic-conditions__add-condition {
+	margin-bottom: 10px;
+}
+
+.logic-conditions__or {
+	margin: 5px 0;
+	text-align: center;
+}
+
+.logic-conditions__add-group {
+	margin-top: 10px;
+	text-align: center;
+
+	button {
+		display: inline-block;
+		width: 75px;
+		text-align: center;
+	}
+}
+
+.logic-conditions__condition {
+	display: flex;
+	align-items: center;
+	border: 1px dashed #ccc;
+	border-radius: 5px;
+	margin: 10px 0;
+	padding: 0 5px;
+
+	.condition-rows {
+		flex-grow: 1;
+
+		.condition-row-1 {
+			display: flex;
+			flex-wrap: wrap;
+
+			.condition-var0 {
+				flex-grow: 1;
+			}
+
+			.condition-op {
+				min-width: 130px;
+				margin-left: 8px;
+			}
+		}
+	}
+
+	.condition-remove {
+		width: 15px;
+		height: 15px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background: #b65454;
+		cursor: pointer;
+		margin-left: 10px;
+
+		svg {
+			width: 100%;
+			height: 100%;
+			fill: #fff;
+		}
+	}
+}

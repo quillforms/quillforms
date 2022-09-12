@@ -1,7 +1,6 @@
 /**
  * QuillForms Dependencies
  */
-// @ts-expect-error.
 import { Form } from '@quillforms/renderer-core';
 //@ts-expect-error.
 import { useCurrentThemeId, useCurrentTheme } from '@quillforms/theme-editor';
@@ -9,14 +8,14 @@ import { useCurrentThemeId, useCurrentTheme } from '@quillforms/theme-editor';
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
  */
-import { cloneDeep } from 'lodash';
-import Loader from 'react-loader-spinner';
+import { cloneDeep, omit, map } from 'lodash';
+import { TailSpin as Loader } from 'react-loader-spinner';
 import classnames from 'classnames';
 import { css } from 'emotion';
 /**
@@ -40,15 +39,15 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 		blocks,
 		messages,
 		logic,
+		hiddenFields,
 		settings,
 	} = useSelect( ( select ) => {
 		// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
 		const { hasFinishedResolution } = select( 'quillForms/theme-editor' );
 
 		return {
-			hasThemesFinishedResolution: hasFinishedResolution(
-				'getThemesList'
-			),
+			hasThemesFinishedResolution:
+				hasFinishedResolution( 'getThemesList' ),
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
 			currentBlockBeingEdited: select(
 				'quillForms/block-editor'
@@ -56,6 +55,9 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 			blocks: select( 'quillForms/block-editor' ).getBlocks(),
 			messages: select( 'quillForms/messages-editor' ).getMessages(),
 			logic: select( 'quillForms/logic-editor' )?.getLogic(),
+			hiddenFields: select(
+				'quillForms/hidden-fields-editor'
+			)?.getHiddenFields(),
 			settings: select( 'quillForms/settings-editor' ).getSettings(),
 		};
 	} );
@@ -68,6 +70,14 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 			id: themeId,
 			...currentTheme,
 		};
+	}
+	let $hiddenFields = {};
+	if ( hiddenFields ) {
+		for ( const field of hiddenFields ) {
+			if ( $hiddenFields[ field.name ] === undefined ) {
+				$hiddenFields[ field.name ] = field.test;
+			}
+		}
 	}
 
 	const [ applyJumpLogic, setApplyJumpLogic ] = useState( false );
@@ -115,8 +125,9 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 					name: 'thankyou-screen',
 				} );
 
-			const $welcomeScreens = blocks.filter(
-				( block ) => block.name === 'welcome-screen'
+			const $welcomeScreens = map(
+				blocks.filter( ( block ) => block.name === 'welcome-screen' ),
+				( block ) => omit( block, [ 'name' ] )
 			);
 
 			const $currentPath = cloneDeep( formFields );
@@ -127,7 +138,8 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 			} );
 
 			$timer = setTimeout( () => {
-				goToBlock( currentBlockBeingEdited );
+				if ( currentBlockBeingEdited )
+					goToBlock( currentBlockBeingEdited );
 			}, 300 );
 		}
 	}, [
@@ -153,12 +165,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 						`
 					) }
 				>
-					<Loader
-						type="TailSpin"
-						color="#333"
-						height={ 30 }
-						width={ 30 }
-					/>
+					<Loader color="#333" height={ 30 } width={ 30 } />
 				</div>
 			) : (
 				<>
@@ -177,6 +184,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 												theme: currentTheme?.properties,
 												messages,
 												logic,
+												hiddenFields: $hiddenFields,
 												themesList: $themesList,
 												settings,
 											} }

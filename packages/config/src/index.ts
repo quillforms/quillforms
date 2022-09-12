@@ -3,9 +3,11 @@ import type { Plans } from './types/plans';
 import type { License } from './types/license';
 import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
+import messages from './json/messages.json';
 import { InitialPayload } from './types/initial-payload';
 import { MessagesStructure, ThemeStructure } from '@quillforms/types';
 import { StoreAddons } from './types/store-addons';
+import { Currencies } from './types/currencies';
 
 export type { InitialPayload };
 const configData: ConfigData = {
@@ -22,13 +24,17 @@ const configData: ConfigData = {
 	fonts,
 	structures: {
 		theme,
-		messages: {},
+		messages,
 	},
+	adminUrl: '',
+	pluginDirUrl: '',
+	formUrl: '',
 	maxUploadSize: 8,
 	isWPEnv: false,
 	plans: {},
 	license: null,
 	storeAddons: {},
+	currencies: {},
 };
 
 /**
@@ -41,12 +47,14 @@ const configData: ConfigData = {
  * @param data Configurat data.
  * @returns A function that gets the value of property named by the key
  */
-const config = ( data: ConfigData ) => < T >( key: string ): T | undefined => {
-	if ( key in data ) {
-		return data[ key ] as T;
-	}
-	return undefined;
-};
+const config =
+	( data: ConfigData ) =>
+	< T >( key: string ): T | undefined => {
+		if ( key in data ) {
+			return data[ key ] as T;
+		}
+		return undefined;
+	};
 
 /**
  * Get theme structure
@@ -71,11 +79,10 @@ const getMessagesStructure = ( data: ConfigData ) => (): MessagesStructure => {
  *
  * @param data the json environment configuration to use for getting config values
  */
-const setMessagesStructure = ( data: ConfigData ) => (
-	value: MessagesStructure
-) => {
-	data.structures.messages = value;
-};
+const setMessagesStructure =
+	( data: ConfigData ) => ( value: MessagesStructure ) => {
+		data.structures.messages = value;
+	};
 
 /**
  * Get fonts
@@ -119,6 +126,60 @@ const setInitialPayload = ( data: ConfigData ) => ( value: InitialPayload ) => {
  */
 const getInitialPayload = ( data: ConfigData ) => (): InitialPayload => {
 	return data.initialPayload;
+};
+
+/**
+ * Get admin url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getAdminUrl = ( data: ConfigData ) => (): string => {
+	return data.adminUrl;
+};
+
+/**
+ * Set admin url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setAdminUrl = ( data: ConfigData ) => ( value: string ) => {
+	data.adminUrl = value;
+};
+
+/**
+ * Get plugin dir url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getPluginDirUrl = ( data: ConfigData ) => (): string => {
+	return data.pluginDirUrl;
+};
+
+/**
+ * Set plugin dir url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setPluginDirUrl = ( data: ConfigData ) => ( value: string ) => {
+	data.pluginDirUrl = value;
+};
+
+/**
+ * Get form url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getFormUrl = ( data: ConfigData ) => (): string => {
+	return data.formUrl;
+};
+
+/**
+ * Set form url
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setFormUrl = ( data: ConfigData ) => ( value: string ) => {
+	data.formUrl = value;
 };
 
 /**
@@ -172,23 +233,23 @@ const setLicense = ( data: ConfigData ) => ( value: License ) => {
  * @param data the json environment configuration to use for getting config values
  * @returns {boolean}
  */
-const isPlanAccessible = ( data: ConfigData ) => (
-	featurePlanKey: string
-): boolean => {
-	if ( data.license?.status !== 'valid' ) {
-		return false;
-	}
+const isPlanAccessible =
+	( data: ConfigData ) =>
+	( featurePlanKey: string ): boolean => {
+		if ( data.license?.status !== 'valid' ) {
+			return false;
+		}
 
-	let plansKeys = Object.keys( data.plans );
-	let licensePlanIndex = plansKeys.indexOf( data.license.plan );
-	let featurePlanIndex = plansKeys.indexOf( featurePlanKey );
+		let plansKeys = Object.keys( data.plans );
+		let licensePlanIndex = plansKeys.indexOf( data.license.plan );
+		let featurePlanIndex = plansKeys.indexOf( featurePlanKey );
 
-	if ( licensePlanIndex === -1 || featurePlanIndex === -1 ) {
-		return false;
-	}
+		if ( licensePlanIndex === -1 || featurePlanIndex === -1 ) {
+			return false;
+		}
 
-	return licensePlanIndex >= featurePlanIndex;
-};
+		return licensePlanIndex >= featurePlanIndex;
+	};
 
 /**
  * Get store addons
@@ -206,6 +267,24 @@ const getStoreAddons = ( data: ConfigData ) => (): StoreAddons => {
  */
 const setStoreAddons = ( data: ConfigData ) => ( value: StoreAddons ) => {
 	data.storeAddons = value;
+};
+
+/**
+ * Get currencies
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getCurrencies = ( data: ConfigData ) => (): Currencies => {
+	return data.currencies;
+};
+
+/**
+ * Set currencies
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setCurrencies = ( data: ConfigData ) => ( value: Currencies ) => {
+	data.currencies = value;
 };
 
 /**
@@ -227,6 +306,12 @@ export interface ConfigApi {
 	getFonts: () => Record< string, string >;
 	isWPEnv: () => boolean;
 	setWPEnv: ( value: boolean ) => void;
+	getAdminUrl: () => string;
+	setAdminUrl: ( value: string ) => void;
+	getPluginDirUrl: () => string;
+	setPluginDirUrl: ( value: string ) => void;
+	getFormUrl: () => string;
+	setFormUrl: ( value: string ) => void;
 	getMaxUploadSize: () => number;
 	setMaxUploadSize: ( value: number ) => void;
 	getPlans: () => Plans;
@@ -236,6 +321,8 @@ export interface ConfigApi {
 	isPlanAccessible: ( featurePlanKey: string ) => boolean;
 	getStoreAddons: () => StoreAddons;
 	setStoreAddons: ( value: StoreAddons ) => void;
+	getCurrencies: () => Currencies;
+	setCurrencies: ( value: Currencies ) => void;
 	isLicenseValid: () => boolean;
 	setIsLicenseValid: ( value: boolean ) => void;
 }
@@ -250,6 +337,12 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.getFonts = getFonts( data );
 	configApi.isWPEnv = isWPEnv( data );
 	configApi.setWPEnv = setWPEnv( data );
+	configApi.getAdminUrl = getAdminUrl( data );
+	configApi.setAdminUrl = setAdminUrl( data );
+	configApi.getPluginDirUrl = getPluginDirUrl( data );
+	configApi.setPluginDirUrl = setPluginDirUrl( data );
+	configApi.getFormUrl = getFormUrl( data );
+	configApi.setFormUrl = setFormUrl( data );
 	configApi.getMaxUploadSize = getMaxUploadSize( data );
 	configApi.setMaxUploadSize = setMaxUploadSize( data );
 	configApi.getPlans = getPlans( data );
@@ -259,6 +352,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.isPlanAccessible = isPlanAccessible( data );
 	configApi.getStoreAddons = getStoreAddons( data );
 	configApi.setStoreAddons = setStoreAddons( data );
+	configApi.getCurrencies = getCurrencies( data );
+	configApi.setCurrencies = setCurrencies( data );
 	return configApi;
 };
 

@@ -9,6 +9,11 @@ import { Icon, plusCircle } from '@wordpress/icons';
 import { useState, useEffect } from '@wordpress/element';
 
 /**
+ * External Dependencies
+ */
+import { size } from 'lodash';
+
+/**
  * Internal Dependencies
  */
 import './style.scss';
@@ -45,7 +50,11 @@ const HomeContent = () => {
 		};
 	}, [] );
 	useEffect( () => {
-		if ( hasFormsFinishedResolution ) setIsFetchingOnMount( false );
+		if ( hasFormsFinishedResolution ) {
+			setIsFetchingOnMount( false );
+		} else {
+			setIsFetchingOnMount( true );
+		}
 	}, [ hasFormsFinishedResolution ] );
 
 	const openModal = () => setIsModalOpen( true );
@@ -84,9 +93,10 @@ const HomeContent = () => {
 							</Card>
 						);
 					} )
-				) : forms.length === 0 ? (
+				) : ! forms ? (
 					<Card className="quillforms-home__empty-form-card"></Card>
 				) : (
+					size( forms ) > 0 &&
 					forms.map( ( form ) => {
 						return <FormCard key={ form.id } form={ form } />;
 					} )

@@ -2,13 +2,16 @@
  * External Dependencies
  */
 import { css } from 'emotion';
-
+import classnames from 'classnames';
 const ArrowIcon = ( { theme } ) => {
 	return (
 		<svg
-			className={ css`
-				fill: ${ theme.buttonsFontColor };
-			` }
+			className={ classnames(
+				'renderer-core-arrow-icon',
+				css`
+					fill: ${ theme.buttonsFontColor };
+				`
+			) }
 			focusable="false"
 			viewBox="0 0 24 24"
 			aria-hidden="true"

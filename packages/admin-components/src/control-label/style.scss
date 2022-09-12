@@ -1,4 +1,10 @@
-.admin-components-control-label {
-	margin-right: 15px;
-	flex: 0 0 50%;
+.admin-components-control-label__new-feature {
+	padding: 2px 5px;
+	background: linear-gradient(45deg, #8c55e1, #e937ad);
+	color: #fff;
+	text-transform: uppercase;
+	display: inline-block;
+	border-radius: 5px;
+	font-size: 10px;
+	margin-left: 6px;
 }

@@ -17,4 +17,5 @@ yarn.lock
 
 .cache
 *.tsbuildinfo
+.docker/mysql/*
 

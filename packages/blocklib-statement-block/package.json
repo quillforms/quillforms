@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-statement-block",
-	"version": "1.1.2",
+	"version": "1.2.50",
 	"description": "Statement block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -20,12 +20,21 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
+	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/renderer-core": "file:../renderer-core"
+		"@quillforms/renderer-core": "file:../renderer-core",
+		"classnames": "^2.3.1",
+		"emotion": "10.0.27",
+		"tinycolor2": "^1.4.2"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "579c6f1f8ac74ac499dec6aff5eae22f4dab729b"
 }

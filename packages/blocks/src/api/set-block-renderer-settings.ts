@@ -117,6 +117,16 @@ export const setBlockRendererSettings = (
 					return fieldValue.indexOf( conditionVal ) !== -1;
 				}
 
+				case 'not_contains': {
+					if (
+						typeof fieldValue !== 'string' ||
+						typeof conditionVal !== 'string'
+					) {
+						return false;
+					}
+					return fieldValue.indexOf( conditionVal ) === -1;
+				}
+
 				case 'starts_with': {
 					if (
 						typeof fieldValue !== 'string' ||
@@ -140,6 +150,16 @@ export const setBlockRendererSettings = (
 			return false;
 		};
 	}
+
+	if ( settings.getNumericVal && ! isFunction( settings.getNumericVal ) ) {
+		console.error( 'The "getNumericVal" must be a function' );
+		return;
+	}
+	if ( ! settings.getNumericVal ) {
+		settings.getNumericVal = ( val, _attributes ) => {
+			return parseFloat( val );
+		};
+	}
 	dispatch( 'quillForms/blocks' ).setBlockRendererSettings(
 		pick( settings, [
 			'display',
@@ -147,6 +167,7 @@ export const setBlockRendererSettings = (
 			'nextBtn',
 			'counterIcon',
 			'isConditionFulfilled',
+			'getNumericVal',
 		] ),
 		name
 	);

@@ -1,0 +1,34 @@
+.combobox-control-select {
+	.components-custom-select-control__item {
+		padding: 2px 4px;
+	}
+}
+
+.combobox-control-select-section {
+	cursor: default !important;
+	font-weight: bold;
+	text-decoration: underline;
+
+	&:hover {
+		background: #fff !important;
+	}
+}
+
+.combobox-control-select-option {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+
+	.admin-components-block-icon-box {
+		width: 28px;
+		display: flex;
+		justify-content: center;
+	}
+}
+.combobox-control-select-option-label {
+	margin-left: 8px;
+}
+
+.components-custom-select-control__menu .combobox-control-select-option-has_section {
+	padding-left: 15px;
+}

@@ -1,0 +1,56 @@
+.integration-connect {
+	height: 100%;
+}
+.integration-connect-main {
+	height: 100%;
+}
+.integration-connect-main__body {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	overflow: auto;
+	width: 100%;
+	padding: 20px;
+	max-width: 750px;
+	margin: auto;
+	background: transparent;
+}
+
+.integration-connect-main__warning {
+	width: 500px;
+	background: #e5b5fd;
+	font-weight: 500;
+	color: #830c98;
+	padding: 30px 20px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 30px;
+
+	svg {
+		width: 40px;
+		height: 40px;
+		margin-bottom: 15px;
+	}
+}
+
+.integration-connect-main__add-connection {
+	margin-bottom: 120px;
+	background: #353938 !important;
+	display: inline-flex;
+	align-items: center;
+	height: 36px !important;
+
+	svg {
+		fill: #fff;
+		margin-right: 7px;
+	}
+}
+
+.integration-connect-main__label {
+	margin-bottom: 8px;
+}
+
+@import "./connection/style.scss";

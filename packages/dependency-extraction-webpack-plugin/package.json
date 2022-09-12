@@ -1,0 +1,33 @@
+{
+	"name": "@quillforms/dependency-extraction-webpack-plugin",
+	"version": "1.0.3",
+	"description": "This package is forked from Gutenberg project to just add Quill Forms namespace for dependency extraction",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"dependency"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/dependency-extraction-webpack-plugin/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/config"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "lib/index.js",
+	"types": "lib/types.d.ts",
+	"dependencies": {
+		"json2php": "^0.0.4",
+		"webpack-sources": "^3.2.2"
+	},
+	"peerDependencies": {
+		"webpack": "^4.8.3 || ^5.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"gitHead": "8d6f1b20fa239ccd7edb5f55f9371d2b425dd03c"
+}

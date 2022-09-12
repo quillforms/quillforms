@@ -2,13 +2,13 @@
  * WordPress Dependencies.
  */
 import { Modal } from '@wordpress/components';
-import { useRef, useState, useEffect } from '@wordpress/element';
+import { useRef, useState, useEffect } from 'react';
 /**
  * External Dependencies
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-import Loader from 'react-loader-spinner';
+import { Oval as Loader } from 'react-loader-spinner';
 
 /**
  * Internal Dependencies
@@ -99,18 +99,20 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 					Done
 					<>
 						{ isInserting && (
-							<Loader
+							<div
 								className={ css`
 									display: flex;
 									justify-content: center;
 									align-items: center;
 									margin: 0px 10px;
 								` }
-								type="Oval"
-								color="#00BFFF"
-								height={ 15 }
-								width={ 15 }
-							/>
+							>
+								<Loader
+									color="#00BFFF"
+									height={ 15 }
+									width={ 15 }
+								/>
+							</div>
 						) }
 					</>
 				</Button>

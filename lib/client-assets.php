@@ -8,6 +8,7 @@
  */
 
 defined( 'ABSPATH' ) || die( 'Silence is golden.' );
+use QuillForms\Settings;
 
 /**
  * Retrieves a URL to a file in the quillforms plugin.
@@ -217,6 +218,15 @@ function quillforms_register_packages_scripts( $scripts ) {
 		true
 	);
 
+	quillforms_override_script(
+		$scripts,
+		'quillforms-google-maps-places',
+		'https://maps.googleapis.com/maps/api/js?key=' . Settings::get( 'google_maps_api_key' ) . '&libraries=places',
+		array(),
+		QUILLFORMS_VERSION,
+		true
+	);
+
 }
 
 /**
@@ -240,6 +250,7 @@ function quillforms_register_packages_styles( $styles ) {
 			'quillforms-theme-editor',
 			'quillforms-notifications-editor',
 			'quillforms-messages-editor',
+			'quillforms-form-integrations',
 			'wp-components',
 			'common',
 		),
@@ -306,6 +317,16 @@ function quillforms_register_packages_styles( $styles ) {
 		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/messages-editor/style.css' )
 	);
 	$styles->add_data( 'quillforms-messages-editor', 'rtl', 'replace' );
+
+	// Form Integrations.
+	quillforms_override_style(
+		$styles,
+		'quillforms-form-integrations',
+		quillforms_url( 'build/form-integrations/style.css' ),
+		array(),
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/form-integrations/style.css' )
+	);
+	$styles->add_data( 'quillforms-form-integrations', 'rtl', 'replace' );
 
 	// Client style.
 	quillforms_override_style(

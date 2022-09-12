@@ -5,8 +5,9 @@ import { css } from 'emotion';
 interface Props {
 	label: string;
 	showAsterisk?: boolean;
+	isNew?: boolean;
 }
-const ControlLabel: React.FC< Props > = ( { label, showAsterisk } ) => {
+const ControlLabel: React.FC< Props > = ( { label, showAsterisk, isNew } ) => {
 	return (
 		<div className="admin-components-control-label">
 			{ label }
@@ -20,6 +21,11 @@ const ControlLabel: React.FC< Props > = ( { label, showAsterisk } ) => {
 				>
 					*
 				</span>
+			) }
+			{ isNew && (
+				<div className="admin-components-control-label__new-feature">
+					NEW
+				</div>
 			) }
 		</div>
 	);

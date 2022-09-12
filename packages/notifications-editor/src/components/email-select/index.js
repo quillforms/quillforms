@@ -12,7 +12,7 @@ import {
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -28,9 +28,8 @@ const EmailSelect = ( { isRequired, value, setValue, emailFields, label } ) => {
 	value = value.replace( '}}', '' );
 	const { emailBlockType } = useSelect( ( select ) => {
 		return {
-			emailBlockType: select( 'quillForms/blocks' ).getBlockType(
-				'email'
-			),
+			emailBlockType:
+				select( 'quillForms/blocks' ).getBlockType( 'email' ),
 		};
 	} );
 	useEffect( () => {

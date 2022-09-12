@@ -2,28 +2,27 @@
  * External dependencies
  */
 const { DefinePlugin } = require( 'webpack' );
-const MiniCssExtractPlugin = require( '@automattic/mini-css-extract-plugin-with-rtl' );
-const WebpackRTLPlugin = require( 'webpack-rtl-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+const RtlCssPlugin = require( 'rtlcss-webpack-plugin' );
 
 const TerserPlugin = require( 'terser-webpack-plugin' );
 
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 
 const postcss = require( 'postcss' );
-const { get, escapeRegExp, compact } = require( 'lodash' );
-const { basename, sep } = require( 'path' );
+const { compact } = require( 'lodash' );
+const { basename } = require( 'path' );
 const path = require( 'path' );
 
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const defaultConfig = require( './packages/scripts/config/webpack.config' );
 
 function camelCaseDash( string ) {
-	return string.replace( /-([a-z])/g, ( match, letter ) =>
+	return string.replace( /-([a-z])/g, ( _match, letter ) =>
 		letter.toUpperCase()
 	);
 }
 
-const CustomTemplatedPathPlugin = require( '@wordpress/custom-templated-path-webpack-plugin' );
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@quillforms/dependency-extraction-webpack-plugin' );
 
 /**
  * Internal dependencies
@@ -54,14 +53,21 @@ const quillFormsBlocklibPackages = quillFormsBlocklibPackagesNames.map(
 	( name ) => `@quillforms/blocklib-${ name }-block`
 );
 const quillformsPackages = Object.keys( dependencies )
-	.filter( ( packageName ) => packageName.startsWith( QUILLFORMS_NAMESPACE ) )
+	.filter(
+		( packageName ) =>
+			packageName.startsWith( QUILLFORMS_NAMESPACE ) &&
+			packageName !== '@quillforms/scripts' &&
+			packageName !== '@quillforms/dependency-extraction-webpack-plugin'
+	)
 	.map( ( packageName ) => packageName.replace( QUILLFORMS_NAMESPACE, '' ) );
 
 const quillformsPackagesWithoutBlocklib = Object.keys( dependencies )
 	.filter(
 		( packageName ) =>
 			packageName.startsWith( QUILLFORMS_NAMESPACE ) &&
-			! quillFormsBlocklibPackages.includes( packageName )
+			! quillFormsBlocklibPackages.includes( packageName ) &&
+			packageName !== '@quillforms/scripts' &&
+			packageName !== '@quillforms/dependency-extraction-webpack-plugin'
 	)
 	.map( ( packageName ) => packageName.replace( QUILLFORMS_NAMESPACE, '' ) );
 
@@ -217,41 +223,43 @@ module.exports = {
 			},
 			{
 				test: /\.jsx?$/,
-				use: {
-					loader: 'babel-loader?cacheDirectory',
-					options: {
-						presets: [
-							[
-								'@babel/preset-env',
-								{
-									modules: false,
-									targets: {
-										browsers: [
-											'extends @wordpress/browserslist-config',
-										],
+				use: [
+					{
+						loader: 'babel-loader?cacheDirectory',
+						options: {
+							presets: [
+								[
+									'@babel/preset-env',
+									{
+										modules: false,
+										targets: {
+											browsers: [
+												'extends @wordpress/browserslist-config',
+											],
+										},
 									},
-								},
+								],
 							],
-						],
-						plugins: [
-							require.resolve(
-								'@babel/plugin-proposal-object-rest-spread'
-							),
-							require.resolve(
-								'@babel/plugin-transform-react-jsx'
-							),
-							require.resolve(
-								'@babel/plugin-proposal-async-generator-functions'
-							),
-							require.resolve(
-								'@babel/plugin-transform-runtime'
-							),
-							require.resolve(
-								'@babel/plugin-proposal-class-properties'
-							),
-						].filter( Boolean ),
+							plugins: [
+								require.resolve(
+									'@babel/plugin-proposal-object-rest-spread'
+								),
+								require.resolve(
+									'@babel/plugin-transform-react-jsx'
+								),
+								require.resolve(
+									'@babel/plugin-proposal-async-generator-functions'
+								),
+								require.resolve(
+									'@babel/plugin-transform-runtime'
+								),
+								require.resolve(
+									'@babel/plugin-proposal-class-properties'
+								),
+							].filter( Boolean ),
+						},
 					},
-				},
+				],
 				include: [
 					path.resolve( __dirname, 'client' ),
 					path.resolve( __dirname, 'packages/blocklib-date-block' ),
@@ -358,41 +366,19 @@ module.exports = {
 		new DependencyExtractionWebpackPlugin( {
 			useDefaults: true,
 			injectPolyfill: false,
-			requestToExternal( request ) {
-				switch ( request ) {
-					case 'emotion': {
-						return 'emotion';
-					}
-				}
-				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
-					return [
-						'qf',
-						camelCaseDash(
-							request.substring( QUILLFORMS_NAMESPACE.length )
-						),
-					];
-				}
-			},
-			requestToHandle( request ) {
-				if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
-					return (
-						'quillforms-' +
-						request.substring( QUILLFORMS_NAMESPACE.length )
-					);
-				}
-			},
 		} ),
-		new WebpackRTLPlugin( {
-			filename: './[name]/style-rtl.css',
-			minify: {
-				safe: true,
-			},
-		} ),
+		// new WebpackRTLPlugin( {
+		// 	filename: './[name]/style-rtl.css',
+		// 	minify: {
+		// 		safe: true,
+		// 	},
+		// } ),
+
 		new MiniCssExtractPlugin( {
 			filename: './[name]/style.css',
 			chunkFilename: './client/chunks/[id].style.css',
-			rtlEnabled: true,
 		} ),
+		new RtlCssPlugin( './[name]/style-rtl.css' ),
 	],
 	optimization: {
 		concatenateModules: mode === 'production',
@@ -400,9 +386,7 @@ module.exports = {
 		minimize: mode !== 'development',
 		minimizer: [
 			new TerserPlugin( {
-				cache: true,
 				parallel: true,
-				sourceMap: mode !== 'production',
 				terserOptions: {
 					output: {
 						comments: /translators:/i,

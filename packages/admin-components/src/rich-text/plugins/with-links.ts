@@ -1,15 +1,18 @@
 import { Transforms, Editor, Range } from 'slate';
 import isUrl from 'is-url';
+import { CustomEditor, CustomNode } from '../types';
 
 const isLinkActive = ( editor ) => {
 	const [ link ] = Editor.nodes( editor, {
-		match: ( n ) => n.type === 'link',
+		match: ( n: CustomNode ) => n.type === 'link',
 	} );
 	return !! link;
 };
 
-const unwrapLink = ( editor ) => {
-	Transforms.unwrapNodes( editor, { match: ( n ) => n.type === 'link' } );
+const unwrapLink = ( editor: CustomEditor ) => {
+	Transforms.unwrapNodes( editor, {
+		match: ( n: CustomNode ) => n.type === 'link',
+	} );
 };
 
 const wrapLink = ( editor, url: string ) => {

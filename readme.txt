@@ -1,7 +1,7 @@
- === Quill Forms | Typeform alternative for WordPress | Best WordPress Form Plugin ===
+ === Quill Forms | Best Typeform Alternative | Conversational Forms Builder for WordPress ===
 Contributors: quillforms, mdmag
-Tested up to: 5.9
-Stable tag: 1.9.0
+Tested up to: 6.0
+Stable tag: 1.16.1
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -14,7 +14,10 @@ https://www.youtube.com/watch?v=GjmLUTDIdFc
 
 A new revolution in WordPress forms and surveys with focus on UI/UX to generate more leads on your WordPress site.
 Quill Forms is more than just a form. You can build forms, surveys, quizzes and cost estimation forms easily with Quill Forms.
-[watch the demo](https://quillforms.com/quillforms/my-first-form)
+
+=== Demos ===
+[Simple Form](https://quillforms.com/quillforms/my-first-form)
+[Payment Form](https://quillforms.com/quillforms/payment-demo)
 
 Quill Forms is the best free Typeform alternative for WordPress.
 With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
@@ -41,19 +44,34 @@ QuillForms free version comes with variety of blocks:
 
 = Features in Pro version =
 1- File upload block
-2- Entries saving and management
-3- Jump logic to jump between questions based on a set of conditions
-4- Calculator for quizzes and cost estimations
-5- Zapier integration to connect with 3000+ apps
-6- GoogleSheets integration
-7- MailChimp integration
-8- Constant Contact integration
-9- GetResponse integration
-10- Opinion scale block
-11- Custom thank you screen
-12- Hubspot integration
-13- SalesForce integration
-14- ActiveCampaign integration
+2- Phone block
+3- Entries saving and management
+4- Jump logic to jump between questions based on a set of conditions
+5- Calculator for quizzes and cost estimations
+6- Hidden fields and custom URL parameters
+7- Zapier integration to connect with 3000+ apps
+8- Webhooks
+9- One time payment and subscriptions with Stripe checkout and Stripe elements.
+10- One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal.
+11- GoogleSheets integration
+12- MailChimp integration
+13- Constant Contact integration
+14- Klaviyo integration
+15- Sendinblue integration
+16- Slack integration
+17- MailPoet integration
+18- GetResponse integration
+19- Hubspot integration
+20- SalesForce integration
+21- Aweber integration
+22- ActiveCampaign integration
+23- Notion integration
+24- Make integration
+25- Tracking with Google Analytics
+26- Tracking with Facebook Pixel
+27- Opinion scale block
+28- Custom thank you screen for redirect and custom buttons
+
 [Purchase The Pro Version](https://quillforms.com)
 
 = Introducing Block Themes =
@@ -103,11 +121,75 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.16.1 = 6 Sep 2022
+Feature: Adding Make addon.
+Feature: Adding Notion addon.
+Fix: Fixing an issue with payments.
+
+= 1.16.0 = 16 Aug 2022
+Feature: Adding payments feature.
+Feature: Adding Stripe addon.
+Feature: Adding Paypal addon.
+Feature: Adding Slack addon.
+Fix: Fix backend validation for fields and displaying backend errors on front end.
+Fix: Fix dropdown block on mobile when it is the last question.
+
+= 1.15.0 = 29 July 2022
+Feature: Klaviyo integration.
+Feature: MailPoet integration.
+Feature: Sendinblue integration.
+Feature: Adding custom html feature for all questions types.
+Feature: Adding options for custom email header logo and controlling the email background.
+
+= 1.14.0 = 19 July 2022
+Feature: Aweber integration addon.
+Feature: Improving the code to prepare entries addon to have advanced charts.
+Feature: Improve email validation.
+Fix: Fix the rich text component issue that happens with custom thank you screen block.
+
+
+= 1.13.0 = 21 Jun 2022
+Feature: Adding compatibility with WP Rocket.
+Feature: Adding conditional logic for integrations.
+
+= 1.12.0 = 1 Jun 2022
+Feature: Introducing webhooks feature at the pro version.
+
+= 1.11.1 = 30 May 2022
+Fix: urgent update fix for the short code problem.
+
+= 1.11.0 = 26 May 2022
+Feature: Supporting Shortcode.
+
+= 1.10.6 = 20 May 2022
+Feature: Major improvements in code.
+
+= 1.10.5 = 25 Apr 2022
+Feature: Adding duplication feature for forms.
+Feature: Adding duplication feature for questions.
+Feature: Adding phone block addon.
+
+= 1.10.4 = 13 Apr 2022
+Fix: Fix the mobile keyboard for the number field.
+Fix: Fix the drag and drop for the welcome screen.
+
+= 1.10.3 = 13 Apr 2022
+Fix: Fix an issue for the new combo control.
+
+= 1.10.2 = 13 Apr 2022
+Fix: Urgent fix for entry process offset error.
+
+= 1.10.1 = 12 Apr 2022
+Fix: Urgent fix for updating addons.
+= 1.10.0 = 12 Apr 2022
+Feauture: Adding hidden fields as a pro addon.
+Feature: Improving the code.
+
 = 1.9.0  = 7 Apr 2022
 Feature: Adding Facbook pixel integration as pro addon.
 Feature: Adding Google analytics integration as a pro addon.
 Feature: Adding picture choice question type as a pro addon.
-Fix: fixing some minor issues regarding styling and mobile keyboard issues in email block.
+Fix: Fixing some minor issues regarding styling and mobile keyboard issues in email block.
 
 = 1.8.11 = 29 Mar 2022
 Feature: Adding horizontal animation option.

@@ -1,0 +1,297 @@
+{
+	"label.button.ok": {
+	  "title": "Button to confirm answer",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "OK",
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.hintText.enter": {
+	  "title": "Keyboard hint text for navigating to next question",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "press <strong>Enter ↵</strong>",
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.hintText.multipleSelection": {
+	  "title": "Hint for multiple selection",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Choose as many as you like",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.dropdown.placeholder": {
+	  "title": "Placeholder for dropdown",
+	  "default": "Type or select an option",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.dropdown.noSuggestions": {
+	  "title": "No suggestions hint for dropdown",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "No Suggestions!",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.shortText.placeholder": {
+	  "title": "Placeholder for short text input",
+	  "default": "Type your answer here",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.longText.placeholder": {
+	  "title": "Placeholder for long text input",
+	  "default": "Type your answer here",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.longText.hint": {
+	  "title": "Hint for line break in Long Text fields",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "<strong>Shift ⇧ + Enter ↵</strong> to make a line break",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.number.placeholder": {
+	  "title": "Placeholder for number input",
+	  "default": "Type your answer here",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.email.placeholder": {
+	  "title": "Placeholder for email input",
+	  "default": "Type your email here",
+	  "category": "buttons-hints-placeholders"
+	},
+	"block.defaultThankYouScreen.label": {
+	  "title": "Default Thank you screen label",
+	  "default": "Thanks for filling this in.\n\n We will contact you soon",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.hintText.key": {
+	  "title": "Keyboard hint after hovering over options",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Key",
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.yes.default": {
+	  "title": "Button to say 'Yes'",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Yes",
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.no.default": {
+	  "title": "Button to say 'No'",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "No",
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.progress.percent": {
+	  "title": "Percentage of form completed",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "mergeTags": [
+		{
+		  "label": "percent",
+		  "type": "progress",
+		  "modifier": "percent"
+		}
+	  ],
+	  "default": "{{progress:percent}}% completed",
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.errorAlert.required": {
+	  "title": "If field is required",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "This field is required!",
+	  "category": "alerts"
+	},
+	"label.errorAlert.date": {
+	  "title": "If date is invalid",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Invalid date!",
+	  "category": "alerts"
+	},
+	"label.errorAlert.number": {
+	  "title": "If non numeric value is passed",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Numbers only!",
+	  "category": "alerts"
+	},
+	"label.errorAlert.selectionRequired": {
+	  "title": "If answer needs at least one selection",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Please make at least one selection!",
+	  "category": "alerts"
+	},
+	"label.errorAlert.email": {
+	  "title": "If email address is wrong",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Invalid email!",
+	  "category": "alerts"
+	},
+	"label.errorAlert.url": {
+	  "title": "If url is wrong",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Invalid url!",
+	  "category": "alerts"
+	},
+	"label.errorAlert.range": {
+	  "title": "If number is out of range",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "mergeTags": [
+		{
+		  "label": "min",
+		  "type": "attribute",
+		  "modifier": "min"
+		},
+		{
+		  "label": "max",
+		  "type": "attribute",
+		  "modifier": "max"
+		}
+	  ],
+	  "default": "Please enter a number between {{attribute:min}} and {{attribute:max}}",
+	  "category": "alerts"
+	},
+	"label.errorAlert.minNum": {
+	  "title": "If number is lower than minimum value",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "mergeTags": [
+		{
+		  "label": "min",
+		  "type": "attribute",
+		  "modifier": "min"
+		}
+	  ],
+	  "default": "Please enter a number greater than {{attribute:min}}",
+	  "category": "alerts"
+	},
+	"label.errorAlert.maxNum": {
+	  "title": "If number is higher than maximum value",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "mergeTags": [
+		{
+		  "label": "max",
+		  "type": "attribute",
+		  "modifier": "max"
+		}
+	  ],
+	  "default": "Please enter a number lower than {{attribute:max}}",
+	  "category": "alerts"
+	},
+	"label.errorAlert.maxCharacters": {
+	  "title": "If characters number is higher than maximum value",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "mergeTags": [
+		{
+		  "label": "maxCharacters",
+		  "type": "attribute",
+		  "modifier": "maxCharacters"
+		}
+	  ],
+	  "default": "Maximum characters reached!",
+	  "category": "alerts"
+	},
+	"label.submitBtn": {
+	  "title": "Submit button label",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Submit",
+	  "category": "buttons-hints-placeholders"
+	},
+	"label.errorAlert.noConnection": {
+	  "title": "Error for no connection with server",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Can't connect to the server right now!",
+	  "category": "alerts"
+	},
+	"label.errorAlert.serverError": {
+	  "title": "Error for a problem with server",
+	  "allowedFormats": [
+		"bold",
+		"link",
+		"italic"
+	  ],
+	  "default": "Server error!",
+	  "category": "alerts"
+	}
+  }

@@ -233,3 +233,22 @@ function quillforms_cleanup_logs() {
 	}
 }
 add_action( 'quillforms_cleanup_logs', 'quillforms_cleanup_logs' );
+
+/**
+ * Find array in arrays has specific key and value
+ *
+ * @since 1.13.0
+ *
+ * @param array[] $arrays Array of arrays.
+ * @param string  $key    Key.
+ * @param mixed   $value  Value.
+ * @return array|null
+ */
+function quillforms_arrays_find( $arrays, $key, $value ) {
+	foreach ( $arrays as $array ) {
+		if ( $array[ $key ] === $value ) {
+			return $array;
+		}
+	}
+	return null;
+}

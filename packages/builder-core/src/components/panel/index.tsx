@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -47,6 +47,8 @@ const Panel = () => {
 				width:
 					areaToShow === 'drop-area' || areaToShow == 'preview-area'
 						? '45%'
+						: areaToShow === 'no-area'
+						? '100%'
 						: '300px',
 			} }
 		>

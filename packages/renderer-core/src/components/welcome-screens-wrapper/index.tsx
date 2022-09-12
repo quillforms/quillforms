@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -40,6 +40,7 @@ const WelcomeScreensWrapper = () => {
 				welcomeScreens.map( ( screen ) => {
 					const blockType = blockTypes[ 'welcome-screen' ];
 					return (
+						//@ts-expect-error
 						<blockType.display
 							next={ goNext }
 							isActive={ currentBlockId === screen.id }

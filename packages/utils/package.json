@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/utils",
-	"version": "1.1.0",
+	"version": "1.2.16",
 	"description": "Utils package for defining some helpful functions",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -8,7 +8,6 @@
 		"quillforms",
 		"utils"
 	],
-	"sideEffects": true,
 	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/utils/README.md",
 	"repository": {
 		"type": "git",
@@ -20,13 +19,19 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
-	"quillforms:src": "src/index.ts",
+	"sideEffects": false,
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
+		"@quillforms/config": "file:../config",
 		"tinycolor2": "^1.4.2"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d6f1b20fa239ccd7edb5f55f9371d2b425dd03c"
 }

@@ -27,7 +27,7 @@
 }
 .quillforms-addons-page_addon-icon  img {
 	width: 50px;
-	height: 60px;
+	height: 50px;
 }
 
 .quillforms-addons-page_addon__title {
@@ -44,10 +44,9 @@
 	align-items: center;
 	height: 33px;
 	padding: 0;
-    background: #1585ef !important;
 
 	&:hover:not(:disabled) {
-		background: #004b92 !important;
+		background: #493791 !important;
 	}
 }
 .quillforms-addons-page__body-addon-footer .quillforms-addons-active {

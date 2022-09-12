@@ -1,12 +1,8 @@
 /**
  * WordPress Dependencies
  */
-import {
-	useRef,
-	useEffect,
-	createPortal,
-	forwardRef,
-} from '@wordpress/element';
+import { useRef, useEffect, forwardRef } from 'react';
+import { createPortal } from 'react-dom';
 
 /**
  * External Dependencies
@@ -65,6 +61,7 @@ const HoveringToolbar = ( {
 
 		if (
 			! selection ||
+			// @ts-expect-error
 			! ReactEditor.isFocused( editor ) ||
 			Range.isCollapsed( selection ) ||
 			Editor.string( editor, selection ) === ''

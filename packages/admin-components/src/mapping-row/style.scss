@@ -1,0 +1,59 @@
+.mapping-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 7px;
+	.components-custom-select-control {
+		width: 100% !important;
+		.components-custom-select-control__label {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.mapping-row {
+	.mapping-key-control,
+	.combobox-control {
+		width: 44%;
+	}
+}
+
+.mapping-row-separator {
+	width: 22px;
+	height: 2px;
+	background: #e3e1e1;
+}
+.mapping-row-buttons {
+	display: flex;
+	margin-left: 5px;
+
+	> div {
+		width: 15px;
+		height: 15px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		color: #fff;
+		cursor: pointer;
+	}
+	.mapping-row-buttons-remove {
+		background: #b65454;
+		svg {
+			fill: #fff;
+			width: 90%;
+			height: 90%;
+		}
+	}
+	.mapping-row-buttons-add {
+		background: #5fd995;
+		margin-left: 3px;
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+@import './key-control/style.scss';

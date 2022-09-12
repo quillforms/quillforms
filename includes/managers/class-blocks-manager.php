@@ -106,7 +106,8 @@ final class Blocks_Manager {
 		$block_name = isset( $properties['name'] ) ? $properties['name'] : '';
 
 		if ( empty( $block_name ) || ! isset( $this->registered_block_types[ $block_name ] ) ) {
-			$message = __( 'Block type is not defined.', 'quillforms' );
+			/* translators: %s for block type */
+			$message = sprintf( esc_html__( 'Block type %s is not defined.', 'quillforms' ), $block_name );
 			_doing_it_wrong( __METHOD__, $message, '1.0.0' );
 
 			return false;

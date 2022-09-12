@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from 'react';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -35,9 +35,8 @@ const PanelRender = () => {
 		return () => clearTimeout( timer );
 	}, [ isAnimating, activeSlide ] );
 
-	const [ currentNotificationId, setCurrentNotificationId ] = useState(
-		null
-	);
+	const [ currentNotificationId, setCurrentNotificationId ] =
+		useState( null );
 
 	const { currentNotificationProperties } = useSelect( ( select ) => {
 		if ( currentNotificationId ) {

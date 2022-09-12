@@ -13,14 +13,28 @@ import { css } from 'emotion';
  */
 import './style.scss';
 import General from './general';
+import Payments from './payments';
 import Analytics from './analytics';
 import Integrations from './integrations';
+import Emails from './emails';
 
 const Settings = () => {
+	const params = new Proxy( new URLSearchParams( window.location.search ), {
+		get: ( searchParams, prop ) => searchParams.get( prop ),
+	} );
+
 	const Tabs = {
 		general: {
 			title: 'General',
 			render: <General />,
+		},
+		payments: {
+			title: 'Payments',
+			render: <Payments />,
+		},
+		emails: {
+			title: 'Emails',
+			render: <Emails />,
 		},
 		integrations: {
 			title: 'Integrations',
@@ -53,6 +67,7 @@ const Settings = () => {
 							className: 'tab-' + name,
 						};
 					} ) }
+					initialTabName={ params?.tab }
 				>
 					{ ( tab ) => (
 						<div>

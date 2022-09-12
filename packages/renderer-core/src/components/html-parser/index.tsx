@@ -7,9 +7,6 @@ import { autop } from '@wordpress/autop';
  * External Dependencies
  */
 import parse from 'html-react-parser';
-import { Element } from 'domhandler/lib/node';
-
-import { uniqueId } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -22,21 +19,22 @@ interface Props {
 const HtmlParser: React.FC< Props > = ( { value } ) => {
 	if ( ! value ) return null;
 	value = value.replace(
-		/{{([a-zA-Z0-9]+):([a-zA-Z0-9-_]+)}}/g,
+		/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
 		( _match, p1, p2 ) => {
 			return `<mergetag type='${ p1 }' modifier='${ p2 }'></mergetag>`;
 		}
 	);
 
-	value = autop( value );
+	value = autop( value, false );
 	return (
 		<div className="renderer-core-html-parser">
 			{ parse( value, {
 				replace: ( domNode ): void | JSX.Element => {
 					if (
-						domNode instanceof Element &&
+						// @ts-expect-error
 						domNode?.name === 'mergetag'
 					) {
+						// @ts-expect-error
 						const { modifier, type } = domNode.attribs;
 						return <MergeTag type={ type } modifier={ modifier } />;
 					}

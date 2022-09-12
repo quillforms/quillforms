@@ -14,7 +14,7 @@ import { useEffect, useState } from '@wordpress/element';
  */
 import { parse } from 'qs';
 import classnames from 'classnames';
-
+import { motion } from 'framer-motion';
 /**
  * Internal Dependencies
  */
@@ -23,6 +23,7 @@ import Home from '../pages/home';
 import Builder from '../pages/builder';
 import Share from '../pages/share';
 import ResultsPage from '../pages/results';
+import PaymentsPage from '../pages/payments';
 import IntegrationsPage from '../pages/integrations';
 import Addons from '../pages/addons';
 import Settings from '../pages/settings';
@@ -48,7 +49,9 @@ export const Controller = ( { page, match, location } ) => {
 	const query = getQuery( location.search );
 
 	return (
-		<div
+		// Using motion div with layoutScroll to reevaluate positions when the user scrolls.
+		<motion.div
+			layoutScroll
 			className={ classnames( 'qf-page-component-wrapper', {
 				'has-sidebar': ! page.template || page.template === 'default',
 			} ) }
@@ -60,7 +63,7 @@ export const Controller = ( { page, match, location } ) => {
 				query={ query }
 			/>
 			<AdminNotices />
-		</div>
+		</motion.div>
 	);
 };
 
@@ -105,6 +108,17 @@ registerAdminPage( 'results', {
 		const { params } = match;
 		return <FormAdminBar formId={ params.id } />;
 	},
+} );
+
+registerAdminPage( 'payments', {
+	component: PaymentsPage,
+	path: '/forms/:id/payments',
+	template: 'full-screen',
+	header: ( { match } ) => {
+		const { params } = match;
+		return <FormAdminBar formId={ params.id } />;
+	},
+	requiresInitialPayload: true,
 } );
 
 registerAdminPage( 'integrations', {

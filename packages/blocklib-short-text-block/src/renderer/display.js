@@ -6,7 +6,7 @@ import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from 'react';
 
 /**
  * External Dependencies
@@ -86,7 +86,8 @@ const ShortTextOutput = ( props ) => {
 				css`
 					& {
 						width: 100%;
-						border: none;
+						border: none !important;
+						border-radius: 0 !important;
 						outline: none;
 						font-size: 30px;
 						padding-bottom: 8px;
@@ -125,7 +126,7 @@ const ShortTextOutput = ( props ) => {
 							0px 2px;
 					}
 
-					color: ${ theme.answersColor };
+					color: ${ theme.answersColor } !important;
 				`
 			) }
 			id={ 'short-text-' + id }

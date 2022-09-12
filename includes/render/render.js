@@ -1,22 +1,30 @@
 ( function () {
+	const formObject = wp.hooks.applyFilters(
+		'QuillForms.Renderer.FormObject',
+		qfRender.formObject
+	);
+
 	ReactDOM.render(
 		React.createElement( qf.rendererCore.Form, {
-			formObj: qfRender.formObject,
+			formObj: formObject,
 			formId: qfRender.formId,
 			applyLogic: true,
-			onSubmit: function () {
-				var ajaxurl = qfRender.ajaxurl;
-				var data = new FormData();
-				data.append( 'action', 'quillforms_form_submit' );
-				data.append(
-					'formData',
-					JSON.stringify( {
-						answers: wp.data
-							.select( 'quillForms/renderer-core' )
-							.getAnswers(),
-						formId: qfRender.formId,
-					} )
+			onSubmit() {
+				const ajaxurl = qfRender.ajaxurl;
+				let formData = {
+					answers: wp.data
+						.select( 'quillForms/renderer-core' )
+						.getAnswers(),
+					formId: qfRender.formId,
+				};
+				formData = wp.hooks.applyFilters(
+					'QuillForms.Renderer.SubmissionFormData',
+					formData,
+					{ formObject }
 				);
+				const data = new FormData();
+				data.append( 'action', 'quillforms_form_submit' );
+				data.append( 'formData', JSON.stringify( formData ) );
 				fetch( ajaxurl, {
 					method: 'POST',
 					credentials: 'same-origin',
@@ -31,54 +39,46 @@
 					.then( function ( res ) {
 						if ( res && res.success ) {
 							// In case of successful submission, complete the form.
-							wp.data
-								.dispatch( 'quillForms/renderer-core' )
-								.completeForm();
-							wp.hooks.doAction(
-								'QuillForms.Render.FormSubmitted',
-								{ formId: qfRender.formId }
-							);
-						} else {
-							if ( res && res.data ) {
-								if ( res.data.fields ) {
-									// In case of fields error from server side, set their valid flag with false and set their validation error.
-									Object.keys( res.data.fields ).forEach(
-										function ( fieldId, index ) {
-											wp.data
-												.dispatch(
-													'quillForms/renderer-core'
-												)
-												.setIsFieldValid(
-													fieldId,
-													false
-												);
-											wp.data
-												.dispatch(
-													'quillForms/renderer-core'
-												)
-												.setFieldValidationErr(
-													fieldId,
-													res.data.fields[ fieldId ]
-												);
-										}
+							if ( res.data.status === 'completed' ) {
+								wp.data
+									.dispatch( 'quillForms/renderer-core' )
+									.completeForm();
+								wp.hooks.doAction(
+									'QuillForms.Render.FormSubmitted',
+									{ formId: qfRender.formId }
+								);
+							} else if (
+								res.data.status === 'pending_payment'
+							) {
+								wp.data
+									.dispatch( 'quillForms/renderer-core' )
+									.setPaymentData( res.data );
+							} else {
+								throw 'Server error; unkown status!';
+							}
+						} else if ( res && res.data ) {
+							if ( res.data.fields ) {
+								// In case of fields error from server side, set their valid flag with false and set their validation error.
+
+								const walkPath = wp.data
+									.select( 'quillForms/renderer-core' )
+									.getWalkPath();
+								const firstFieldIndex = walkPath.findIndex(
+									function ( o ) {
+										return Object.keys(
+											res.data.fields
+										).includes( o.id );
+									}
+								);
+								wp.data
+									.dispatch( 'quillForms/renderer-core' )
+									.goToBlock(
+										walkPath[ firstFieldIndex ].id
 									);
-									var walkPath = wp.data
-										.select( 'quillForms/renderer-core' )
-										.getWalkPath();
-									var firstFieldIndex = walkPath.findIndex(
-										function ( o ) {
-											return Object.keys(
-												res.data.fields
-											).includes( o.id );
-										}
-									);
-									// Get the first invalid field and go back to it.
-									if ( firstFieldIndex !== -1 ) {
-										wp.data
-											.dispatch(
-												'quillForms/renderer-core'
-											)
-											.setIsReviewing( true );
+
+								// Get the first invalid field and go back to it.
+								if ( firstFieldIndex !== -1 ) {
+									setTimeout( function () {
 										wp.data
 											.dispatch(
 												'quillForms/renderer-core'
@@ -88,10 +88,30 @@
 											.dispatch(
 												'quillForms/renderer-core'
 											)
-											.goToBlock(
-												walkPath[ firstFieldIndex ].id
-											);
-									}
+											.setIsReviewing( true );
+										Object.keys( res.data.fields ).forEach(
+											function ( fieldId, index ) {
+												wp.data
+													.dispatch(
+														'quillForms/renderer-core'
+													)
+													.setIsFieldValid(
+														fieldId,
+														false
+													);
+												wp.data
+													.dispatch(
+														'quillForms/renderer-core'
+													)
+													.setFieldValidationErr(
+														fieldId,
+														res.data.fields[
+															fieldId
+														]
+													);
+											}
+										);
+									}, 500 );
 								}
 							}
 						}
@@ -102,7 +122,7 @@
 							wp.data
 								.dispatch( 'quillForms/renderer-core' )
 								.setSubmissionErr(
-									qfRender.formObj[ 'messages' ][
+									qfRender.formObj.messages[
 										'label.errorAlert.serverError'
 									]
 								);
@@ -114,7 +134,7 @@
 							wp.data
 								.dispatch( 'quillForms/renderer-core' )
 								.setSubmissionErr(
-									qfRender.formObject[ 'messages' ][
+									formObject.messages[
 										'label.errorAlert.noConnection'
 									]
 								);

@@ -10,7 +10,7 @@ import {
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from 'react';
 
 /**
  * External Dependencies
@@ -107,9 +107,9 @@ const LongTextOutput = ( props ) => {
 						& {
 							width: 100%;
 							padding: 0;
-							border: none;
+							border: none !important;
 							outline: none;
-							border-radius: 0;
+							border-radius: 0 !important;
 							font-size: 30px;
 							padding-bottom: 8px;
 							background: transparent;
@@ -153,7 +153,7 @@ const LongTextOutput = ( props ) => {
 								0px 2px;
 						}
 
-						color: ${ theme.answersColor };
+						color: ${ theme.answersColor } !important;
 					`
 				) }
 				id={ 'longText-' + id }

@@ -9,6 +9,8 @@
 namespace QuillForms\Addon\Provider;
 
 use QuillForms\Abstracts\Log_Levels;
+use QuillForms\Entry;
+use QuillForms\Logic_Conditions;
 use QuillForms\Merge_Tags;
 use Throwable;
 
@@ -33,7 +35,7 @@ abstract class Entry_Process {
 	/**
 	 * Entry
 	 *
-	 * @var array
+	 * @var Entry
 	 */
 	protected $entry;
 
@@ -50,7 +52,7 @@ abstract class Entry_Process {
 	 * @since 1.3.0
 	 *
 	 * @param Provider $provider Provider.
-	 * @param array    $entry Entry.
+	 * @param Entry    $entry Entry.
 	 * @param array    $form_data Form data.
 	 */
 	public function __construct( $provider, $entry, $form_data ) {
@@ -62,13 +64,31 @@ abstract class Entry_Process {
 	/**
 	 * Start entry process
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @return void
 	 */
 	final public function execute() {
-		$connections = $this->provider->form_data->get( $this->entry['form_id'], 'connections' ) ?? array();
+		$connections = $this->provider->form_data->get( $this->entry->form_id, 'connections' ) ?? array();
 		foreach ( $connections as $connection_id => $connection ) {
+			// check conditions.
+			if ( $connection['conditions'] ?? null ) {
+				if ( ! Logic_Conditions::instance()->is_conditions_met( $connection['conditions'], $this->entry, $this->form_data ) ) {
+					$this->log_result(
+						$connection_id,
+						$connection,
+						array(
+							'status'  => self::SKIPPED,
+							'details' => array(
+								'reason' => "logic conditions aren't met",
+							),
+						)
+					);
+					continue;
+				}
+			}
+
+			// process connection.
 			try {
 				$result = $this->execute_connection( $connection_id, $connection );
 				$this->log_result( $connection_id, $connection, $result );
@@ -92,7 +112,7 @@ abstract class Entry_Process {
 	 * Process connection
 	 * This function will be abstract in the future. All addons must use it and remove process().
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $connection_id Connection id.
 	 * @param array  $connection Connection data.
@@ -111,16 +131,7 @@ abstract class Entry_Process {
 	 * @return mixed
 	 */
 	protected function get_connection_field_value( $field, $context = 'plain' ) {
-		if ( empty( $field ) ) {
-			return null;
-		}
-		$field_type  = $field['type'] ?? null;
-		$field_value = $field['value'] ?? '';
-		if ( in_array( $field_type, Merge_Tags::instance()->get_registered_types(), true ) ) {
-			return Merge_Tags::instance()->process_tag( $field_type, $field_value, $this->entry, $this->form_data, $context );
-		} else {
-			return Merge_Tags::instance()->process_text( $field_value, $this->entry, $this->form_data, $context );
-		}
+		return Merge_Tags::instance()->process( $field, $this->entry, $this->form_data, $context );
 	}
 
 	/**
@@ -138,7 +149,7 @@ abstract class Entry_Process {
 	/**
 	 * Log connection process result
 	 *
-	 * @since next.version
+	 * @since 1.10.0
 	 *
 	 * @param string $connection_id Connection id.
 	 * @param array  $connection Connection data.

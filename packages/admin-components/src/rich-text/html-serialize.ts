@@ -7,16 +7,16 @@ import { removep } from '@wordpress/autop';
  * External Dependencies
  */
 import escapeHtml from 'escape-html';
-import { Text, Node, Editor, Element } from 'slate';
+import { Text, Node } from 'slate';
 
 /**
  * Internal Dependencies
  */
-import type { MergeTag } from './types';
+import type { CustomNode, MergeTag } from './types';
 const htmlSerialize = ( value: Node ): string => {
 	return removep( serialize( value ) );
 };
-const serialize = ( node: Node ) => {
+const serialize = ( node: CustomNode ) => {
 	let nodeText = escapeHtml( node.text );
 	if ( Text.isText( node ) ) {
 		if ( node.bold ) {
@@ -37,7 +37,7 @@ const serialize = ( node: Node ) => {
 	return serializeNode( node );
 };
 
-const serializeNode = ( node: Editor | Element ) => {
+const serializeNode = ( node: CustomNode ) => {
 	const children = node.children.map( ( n ) => serialize( n ) ).join( '' );
 	switch ( node.type ) {
 		case 'link':

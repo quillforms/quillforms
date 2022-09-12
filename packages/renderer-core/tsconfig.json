@@ -9,11 +9,12 @@
 		"strictNullChecks": true
 	},
 	"references": [
+		{ "path": "../payment-gateways"},
 		{ "path": "../types"},
 	],
 	"include": [
 		"src/**/*",
 		"src/*",
-		"../../typings/rememo/index.d.ts"
+		"../../typings/rememo/index.d.ts",
 	]
 }

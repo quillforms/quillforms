@@ -43,20 +43,38 @@ class Core {
 	}
 
 	/**
-	 * Set config
+	 * Set admin config
 	 *
-	 * @since 1.1.5
+	 * @since 1.8.0
 	 *
 	 * @return void
 	 */
-	public static function set_config() {
+	public static function set_admin_config() {
 		wp_add_inline_script(
 			'quillforms-config',
+			'qf.config.default.setAdminUrl("' . admin_url() . '");' .
+			'qf.config.default.setPluginDirUrl("' . QUILLFORMS_PLUGIN_URL . '");' .
 			'qf.config.default.setLicense(' . json_encode( License::instance()->get_license_info() ) . ');' .
 			'qf.config.default.setStoreAddons(' . json_encode( Store::instance()->get_all_addons() ) . ');' .
+			'qf.config.default.setCurrencies(' . json_encode( Payments::instance()->get_currencies( array( 'name', 'symbol', 'symbol_pos' ) ) ) . ');' .
 			'qf.config.default.setPlans(' . json_encode( License::instance()->get_plans() ) . ');' .
 			'qf.config.default.setMessagesStructure(' . json_encode( Client_Messages::instance()->get_messages() ) . ');' .
 			'qf.config.default.setMaxUploadSize(' . wp_max_upload_size() / ( 1024 * 1024 ) . ');'
+		);
+	}
+
+	/**
+	 * Set renderer config
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	public static function set_renderer_config() {
+		wp_add_inline_script(
+			'quillforms-config',
+			'qf.config.default.setAdminUrl("' . admin_url() . '");' .
+			'qf.config.default.setFormUrl("' . get_post_permalink() . '");'
 		);
 	}
 
@@ -124,9 +142,11 @@ class Core {
 		$form_data = array(
 			'id'            => $form_id,
 			'title'         => get_the_title( $form_id ),
-			'blocks'        => Core::get_blocks( $form_id ),
-			'messages'      => Core::get_messages( $form_id ),
-			'notifications' => Core::get_notifications( $form_id ),
+			'blocks'        => self::get_blocks( $form_id ),
+			'messages'      => self::get_messages( $form_id ),
+			'notifications' => self::get_notifications( $form_id ),
+			'payments'      => self::get_payments( $form_id ),
+			'products'      => self::get_products( $form_id ),
 		);
 
 		$form_data = apply_filters( 'quillforms_form_data', $form_data, $form_id );
@@ -175,6 +195,32 @@ class Core {
 	public static function get_notifications( $form_id ) {
 		$notifications = get_post_meta( $form_id, 'notifications', true );
 		return $notifications;
+	}
+
+	/**
+	 * Get payments for a specific form id.
+	 *
+	 * @since next.version
+	 *
+	 * @param integer $form_id   Form id.
+	 * @return array|null The form payments
+	 */
+	public static function get_payments( $form_id ) {
+		$payments = get_post_meta( $form_id, 'payments', true );
+		return $payments;
+	}
+
+	/**
+	 * Get products for a specific form id.
+	 *
+	 * @since next.version
+	 *
+	 * @param integer $form_id   Form id.
+	 * @return array|null The form products
+	 */
+	public static function get_products( $form_id ) {
+		$products = get_post_meta( $form_id, 'products', true );
+		return $products;
 	}
 
 	/**

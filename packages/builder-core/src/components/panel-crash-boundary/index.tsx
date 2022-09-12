@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from 'react';
 
 interface Props {
 	children: React.ReactNode;

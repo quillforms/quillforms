@@ -2,7 +2,7 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment, useCallback, useState, useRef } from '@wordpress/element';
+import { Fragment, useCallback, useState, useRef } from 'react';
 import { Popover } from '@wordpress/components';
 
 /**

@@ -95,6 +95,16 @@ class Install {
 				PRIMARY KEY  (ID),
 				KEY action_id (action_id)
 			) $charset_collate;
+			CREATE TABLE {$wpdb->prefix}quillforms_pending_submissions (
+				ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				form_id BIGINT UNSIGNED,
+				step varchar(255) NOT NULL,
+				entry longtext NOT NULL,
+				form_data longtext NOT NULL,
+				date_created datetime NOT NULL,
+				PRIMARY KEY  (ID),
+				KEY form_id (form_id)
+			) $charset_collate;
 			CREATE TABLE {$wpdb->prefix}quillforms_log (
 				log_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				timestamp datetime NOT NULL,

@@ -6,7 +6,7 @@ import type { IconDescriptor, Icon as IconType } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
-import { memo, useState, useEffect } from '@wordpress/element';
+import { memo, useState, useEffect } from 'react';
 import { Icon, Dashicon } from '@wordpress/components';
 import { blockDefault, plus } from '@wordpress/icons';
 import { useSelect } from '@wordpress/data';
@@ -39,9 +39,8 @@ const BlockTypesListItem: FC< Props > = memo(
 		}, [] );
 		const { blockType } = useSelect( ( select ) => {
 			return {
-				blockType: select( 'quillForms/blocks' ).getBlockType(
-					blockName
-				),
+				blockType:
+					select( 'quillForms/blocks' ).getBlockType( blockName ),
 			};
 		} );
 

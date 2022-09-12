@@ -1,0 +1,315 @@
+.quillforms-payments-page-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	max-width: 600px;
+	margin: auto;
+}
+
+.quillforms-payments-page-header svg {
+	width: 300px;
+	height: 300px;
+}
+
+.quillforms-payments-page-heading {
+	flex: 1;
+	margin-left: 50px;
+}
+
+.quillforms-payments-page-heading p:nth-child(1) {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-size: 24px;
+	margin-bottom: 0;
+	/* line-break: anywhere; */
+}
+
+.quillforms-payments-page-heading p:nth-child(2) {
+	font-size: 14px;
+}
+
+.quillforms-payments-page-settings {
+	max-width: 900px;
+	margin: 10px auto 10px;
+}
+
+.quillforms-payments-page-settings-save {
+	position: absolute;
+	top: 15px;
+	right: 150px;
+}
+
+.quillforms-payments-page-settings__general-content,
+.quillforms-payments-page-settings__models-content .payment-model,
+.quillforms-payments-page-settings__products-content,
+.quillforms-payments-page-settings__gateways-options-content {
+	padding: 30px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 20%);
+}
+.quillforms-payments-page-settings__models-content {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	.payment-model,
+	.add-payment-model {
+		width: 286px;
+		height: 400px;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.payment-model {
+		.payment-model-conditions {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+		.condition-op {
+			margin-left: 0 !important;
+			width: 100%;
+		}
+	}
+	.add-payment-model {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		background: #6d78d8;
+		color: #fff;
+		font-size: 16px;
+		border-radius: 10px;
+		cursor: pointer;
+		svg {
+			fill: #fff;
+		}
+	}
+}
+.quillforms-payments-page-settings__gateways-options-content {
+	.gateway-option-label {
+		display: flex;
+		align-items: center;
+		margin-bottom: 30px;
+
+		& > svg,
+		& > img {
+			max-width: 86px;
+			max-height: 34px;
+			margin-right: 10px;
+		}
+	}
+}
+.quillforms-payments-page-settings__general h3,
+.quillforms-payments-page-settings__models h3,
+.quillforms-payments-page-settings__products h3,
+.quillforms-payments-page-settings__methods h3,
+.quillforms-payments-page-settings__gateways-options h3 {
+	margin-top: 40px;
+	margin-bottom: 20px;
+	color: #6d78d8;
+}
+
+.quillforms-payments-page-settings__general .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__models .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__products .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__gateways-options .admin-components-base-control:last-child {
+	border: none;
+}
+
+.quillforms-payments-page-settings__products {
+	.add-product {
+		background: #353938 !important;
+		display: flex;
+		align-items: center;
+		height: 36px !important;
+		margin: 20px auto 0;
+
+		svg {
+			fill: #fff;
+			margin-right: 7px;
+		}
+	}
+}
+
+.quillforms-payments-page-settings__products-hint {
+	background: #eceefd;
+	color: #3f3d3d;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.quillforms-payments-page-settings__methods {
+	.payment-method {
+		box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
+		margin-bottom: 20px;
+		border-radius: 10px;
+		padding: 10px 20px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		position: relative;
+
+		.method-warning {
+			display: inline-flex;
+			align-items: center;
+			background: #fffacc;
+			padding: 5px 8px;
+			border-radius: 5px;
+			color: #8b7f0c;
+		}
+		.method-warning svg {
+			fill: #8b7f0c;
+		}
+	}
+
+	.reordering-buttons {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		left: -60px;
+		svg {
+			width: 30px;
+			height: 30px;
+			fill: #6b6b6b;
+		}
+		.components-button.disabled svg {
+			fill: #c5c5c5;
+		}
+	}
+
+	.method-label-wrapper {
+		display: flex;
+		align-items: center;
+		.method-label {
+			display: flex;
+			align-items: center;
+			width: 140px;
+			img {
+				width: 73px;
+			}
+			.method-label-text {
+				font-weight: bold;
+				margin-left: 10px;
+				color: #303030;
+			}
+		}
+		a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			color: #333;
+			border: 1px solid #333;
+			text-decoration: none;
+			border-radius: 5px;
+			padding: 5px;
+			font-size: 10px;
+			font-weight: bold;
+			margin-left: 20px;
+			width: 128px;
+			outline: none !important;
+			box-shadow: none !important;
+
+			&.upgrade-plan {
+				background: linear-gradient(42deg, #eb36dd, #ee8e16);
+				color: #fff;
+				border: 1px solid transparent;
+			}
+		}
+	}
+}
+.quillforms-payments-page-settings__methods-info,
+.quillforms-payments-page-settings__model-info {
+	background: #ebcaff;
+	color: #934cbf;
+	display: inline-flex;
+	padding: 5px 8px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.quillforms-payments-page-settings__models {
+	.payment-model {
+		&.payment-model-multiple {
+			position: relative;
+
+			.payment-model-remove-button {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				width: 15px;
+				height: 15px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				background: #b65454;
+				cursor: pointer;
+
+				svg {
+					width: 100%;
+					height: 100%;
+					fill: #fff;
+				}
+			}
+		}
+
+		.payment-model-name {
+			.components-base-control__field {
+				margin: 0 !important;
+			}
+
+			input {
+				margin: 0 !important;
+			}
+		}
+
+		.payment-model-recurring {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			padding: 0 15px;
+
+			.admin-components-text-control {
+				width: auto;
+			}
+
+			.components-custom-select-control label {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		}
+
+		// .payment-model-methods {
+		// 	padding: 0 15px;
+
+		// 	.method-label {
+		// 		display: inline-flex;
+		// 		align-items: center;
+		// 		height: 25px;
+
+		// 		& > svg,
+		// 		& > img {
+		// 			max-width: 50px;
+		// 			max-height: 25px;
+		// 			margin-right: 10px;
+		// 		}
+
+		// 		.method-label-notice {
+		// 			margin-left: 3px;
+		// 		}
+		// 	}
+		// }
+	}
+
+	.add-model {
+		background: #353938 !important;
+		display: flex;
+		align-items: center;
+		height: 36px !important;
+		margin: 20px auto 0;
+
+		svg {
+			fill: #fff;
+			margin-right: 7px;
+		}
+	}
+}

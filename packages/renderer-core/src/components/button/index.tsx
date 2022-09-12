@@ -25,10 +25,9 @@ const Button: React.FC< Props > = ( {
 	theme,
 	...props
 } ) => {
-	// @ts-expect-error
 	if ( ! theme ) theme = useTheme();
 	return (
-		<div
+		<button
 			tabIndex={ 0 }
 			className={ classnames(
 				'renderer-core-button',
@@ -37,6 +36,8 @@ const Button: React.FC< Props > = ( {
 					position: relative;
 					background: ${ theme.buttonsBgColor };
 					color: ${ theme.buttonsFontColor };
+					box-shadow: none !important;
+					outline: none !important;
 					z-index: 1;
 					border-radius: ${ theme.buttonsBorderRadius }px;
 					&:before {
@@ -86,7 +87,7 @@ const Button: React.FC< Props > = ( {
 		>
 			{ children }
 			<ArrowIcon theme={ theme } />
-		</div>
+		</button>
 	);
 };
 

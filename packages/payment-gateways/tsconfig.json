@@ -1,0 +1,18 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"declarationDir": "build-types",
+		// Some errors in Reakit types with TypeScript 4.3
+		// Remove the following line when they've been addressed.
+		"skipLibCheck": true,
+		"strictNullChecks": true
+	},
+	// NOTE: This package is being progressively typed. You are encouraged to
+	// expand this array with files which can be type-checked. At some point in
+	// the future, this can be simplified to an `includes` of `src/**/*`.
+	"include": [
+		"src/**/*",
+		"src/*"
+	]
+}

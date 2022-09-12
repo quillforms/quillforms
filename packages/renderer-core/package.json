@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/renderer-core",
-	"version": "1.2.2",
+	"version": "1.10.5",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -20,17 +20,33 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
+	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/blocks": "file:../blocks",
+		"@quillforms/config": "file:../config",
+		"@quillforms/payment-gateways": "file:../payment-gateways",
 		"@quillforms/utils": "file:../utils",
-		"html-react-parser": "1.2.6",
+		"@wordpress/autop": "^3.7.0",
+		"@wordpress/components": "^19.9.0",
+		"@wordpress/data": "^6.7.0",
+		"@wordpress/hooks": "^3.8.0",
+		"classnames": "^2.3.1",
+		"emotion": "10.0.27",
+		"html-react-parser": "^1.4.12",
 		"lethargy": "^1.0.9",
+		"lodash": "4.17.21",
+		"react-loader-spinner": "^5.1.7-beta.1",
 		"react-swipeable": "^6.1.2",
 		"rememo": "^3.0.0",
-		"use-focus-visible": "^1.0.0"
+		"tinycolor2": "^1.4.2"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "579c6f1f8ac74ac499dec6aff5eae22f4dab729b"
 }

@@ -148,6 +148,18 @@ class Multiple_Choice_Block_Type extends Block_Type {
 	}
 
 	/**
+	 * Get choices
+	 * For blocks that supports choices
+	 *
+	 * @since 1.13.2
+	 *
+	 * @return array
+	 */
+	public function get_choices() {
+		return $this->attributes['choices'] ?? array();
+	}
+
+	/**
 	 * Validate Field.
 	 *
 	 * @since 1.0.0

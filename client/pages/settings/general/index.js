@@ -8,12 +8,13 @@ import {
 	ControlLabel,
 	ControlWrapper,
 	ToggleControl,
+	TextControl,
 } from '@quillforms/admin-components';
+import { setForceReload } from '@quillforms/navigation';
 
 /**
  * WordPress Dependencies
  */
-import { CheckboxControl } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
@@ -22,7 +23,7 @@ import apiFetch from '@wordpress/api-fetch';
  * External Dependencies
  */
 import { css } from 'emotion';
-import Loader from 'react-loader-spinner';
+import { ThreeDots as Loader } from 'react-loader-spinner';
 
 /**
  * Internal Dependencies
@@ -31,6 +32,7 @@ import './style.scss';
 
 const General = () => {
 	const [ settings, setSettings ] = useState( null );
+	const [ isSaving, setIsSaving ] = useState( false );
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
 	);
@@ -49,6 +51,7 @@ const General = () => {
 	}, [] );
 
 	const save = () => {
+		setIsSaving( true );
 		apiFetch( {
 			path: `/qf/v1/settings`,
 			method: 'POST',
@@ -59,12 +62,16 @@ const General = () => {
 					type: 'snackbar',
 					isDismissible: true,
 				} );
+				setIsSaving( false );
+				// To reinitialize google maps scripts
+				setForceReload( true );
 			} )
 			.catch( ( err ) => {
 				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
 					type: 'snackbar',
 					isDismissible: true,
 				} );
+				setIsSaving( false );
 			} );
 	};
 
@@ -105,12 +112,7 @@ const General = () => {
 						align-items: center;
 					` }
 				>
-					<Loader
-						type="ThreeDots"
-						color="#8640e3"
-						height={ 50 }
-						width={ 50 }
-					/>
+					<Loader color="#8640e3" height={ 50 } width={ 50 } />
 				</div>
 			) : ! settings ? (
 				<div className="error">Cannot load settings</div>
@@ -191,6 +193,39 @@ const General = () => {
 							/>
 						</ControlWrapper>
 					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<ControlLabel label="Google Maps api key"></ControlLabel>
+							<TextControl
+								value={ settings.google_maps_api_key }
+								onChange={ ( value ) => {
+									setSettingField(
+										'google_maps_api_key',
+										value
+									);
+								} }
+							/>
+							<p
+								className={ css`
+									background: rgb( 246 246 246 );
+									padding: 12px;
+									border-radius: 10px;
+								` }
+							>
+								To get your API key <br />
+								1-{ ' ' }
+								<a href="https://developers.google.com/maps/documentation/javascript/places#enable_apis">
+									Enable GoogleMaps Places API.
+								</a>
+								<br />
+								2-{ ' ' }
+								<a href="https://developers.google.com/maps/documentation/javascript/get-api-key">
+									Get an API key.
+								</a>
+								<br />
+							</p>
+						</ControlWrapper>
+					</BaseControl>
 
 					<div
 						className={ css`
@@ -198,9 +233,15 @@ const General = () => {
 							margin-top: 20px;
 						` }
 					>
-						<Button isLarge isPrimary onClick={ save }>
-							Save
-						</Button>
+						{ isSaving ? (
+							<Button isLarge isSecondary>
+								Saving
+							</Button>
+						) : (
+							<Button isLarge isPrimary onClick={ save }>
+								Save
+							</Button>
+						) }
 					</div>
 				</div>
 			) }

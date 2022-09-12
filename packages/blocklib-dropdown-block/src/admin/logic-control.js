@@ -6,7 +6,7 @@ import { SelectControl } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 
 /**
  * External Dependencies
@@ -39,7 +39,6 @@ const DropdownLogicControl = ( {
 			className={ css`
 				margin-top: 10px;
 				margin-bottom: 10px;
-				width: 200px;
 			` }
 			value={ options.find( ( option ) => option.key === value ) }
 			onChange={ ( selectedChoice ) => {

@@ -128,7 +128,7 @@ class Admin_Loader {
 	 */
 	public static function add_inline_scripts() {
 		Core::register_block_types_by_js();
-		Core::set_config();
+		Core::set_admin_config();
 	}
 
 	/**
@@ -190,7 +190,6 @@ class Admin_Loader {
 		// Load client script and style. Client is main app entry.
 		wp_enqueue_script( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-client' );
-
 		// Load builder core package style.
 		wp_enqueue_style( 'quillforms-builder-core' );
 

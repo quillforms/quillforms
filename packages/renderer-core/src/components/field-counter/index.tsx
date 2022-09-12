@@ -18,7 +18,7 @@ const BlockCounter: React.FC = () => {
 	if ( ! blockName || ! id ) return null;
 	const blockTypes = useBlockTypes();
 	const blockType = blockTypes[ blockName ];
-	const theme = useBlockTheme( attributes.themeId );
+	const theme = useBlockTheme( attributes?.themeId );
 
 	const { counter } = useSelect( ( select ) => {
 		return {
@@ -43,6 +43,7 @@ const BlockCounter: React.FC = () => {
 			) }
 			<span className="renderer-components-block-counter__content">
 				{ blockType?.counterIcon ? (
+					// @ts-expect-error
 					<blockType.counterIcon />
 				) : (
 					<ArrowIcon theme={ theme } />

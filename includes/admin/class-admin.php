@@ -72,19 +72,19 @@ class Admin {
 	 *
 	 * @since 1.7.4
 	 *
-	 * @param integer $form_id Form id to be duplicated.
 	 * @return integer|WP_Error|false
 	 */
-	public function duplicate_form( $form_id ) {
-		$form = get_post( $form_id );
+	public function duplicate_form() {
+		$form_id = (int) $_POST['form_id'];
+		$form    = get_post( $form_id );
 		if ( ! $form ) {
 			return false;
 		}
 
 		$new_form_id = wp_insert_post(
 			array(
-				'post_title'  => $form->post_title,
-				'post_status' => $form->post_status,
+				'post_title'  => $form->post_title . ' copy',
+				'post_status' => 'draft',
 				'post_type'   => $form->post_type,
 				'post_author' => $form->post_author,
 			)
@@ -92,15 +92,14 @@ class Admin {
 		if ( is_wp_error( $new_form_id ) ) {
 			return $new_form_id;
 		}
-
 		$form_meta = get_post_meta( $form_id );
 		foreach ( $form_meta as $key => $values ) {
 			foreach ( $values as $value ) {
-				add_post_meta( $new_form_id, $key, $value );
+				add_post_meta( $new_form_id, $key, maybe_unserialize( $value ) );
 			}
 		}
 
-		return $new_form_id;
+		wp_send_json_success( $new_form_id );
 	}
 
 	/**

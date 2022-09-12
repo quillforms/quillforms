@@ -7,7 +7,7 @@ import configApi from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
-import { Fragment, useEffect, useRef } from '@wordpress/element';
+import { Fragment, useEffect, useRef } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -25,7 +25,8 @@ import FieldsWrapper from '../fields-wrapper';
 import FormFooter from '../form-footer';
 import useGeneralTheme from '../../hooks/use-general-theme';
 import useBlocks from '../../hooks/use-blocks';
-import { useCurrentTheme } from '../..';
+import PaymentModal from '../payment-modal';
+import useCurrentTheme from '../../hooks/use-current-theme';
 
 interface Props {
 	applyLogic: boolean;
@@ -38,7 +39,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 
 	const { font } = currentTheme;
 
-	// @ts-expect-error
 	const fontType = fonts[ font ];
 	let fontUrl;
 	switch ( fontType ) {
@@ -51,7 +51,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 			break;
 
 		case 'earlyaccess':
-			//@ts-expect-error
 			const fontLowerString = font.replace( /\s+/g, '' ).toLowerCase();
 			fontUrl =
 				'https://fonts.googleapis.com/earlyaccess/' +
@@ -75,26 +74,23 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	}, [ font ] );
 
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
-	const ref = useRef( null );
-	const { isWelcomeScreenActive, isThankyouScreenActive } = useSelect(
-		( select ) => {
+	const ref = useRef< any >( null );
+	const { isWelcomeScreenActive, isThankyouScreenActive, paymentData } =
+		useSelect( ( select ) => {
+			const store = select( 'quillForms/renderer-core' );
 			return {
-				isThankyouScreenActive: select(
-					'quillForms/renderer-core'
-				).isThankyouScreenActive(),
-				isWelcomeScreenActive: select(
-					'quillForms/renderer-core'
-				).isWelcomeScreenActive(),
+				isThankyouScreenActive: store.isThankyouScreenActive(),
+				isWelcomeScreenActive: store.isWelcomeScreenActive(),
+				paymentData: store.getPaymentData(),
 			};
-		}
-	);
+		} );
 
 	useEffect( () => {
 		/**
 		 * Alert if clicked on outside of element
 		 */
 		function handleClickOutside( event ) {
-			if ( ref.current && ! ref.current.contains( event.target ) ) {
+			if ( ref.current && ! ref?.current?.contains( event.target ) ) {
 				setIsFocused( false );
 			}
 		}
@@ -169,18 +165,21 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				{ blocks.length > 0 && (
 					<Fragment>
 						{ isWelcomeScreenActive && <WelcomeScreensWrapper /> }
-						<FieldsWrapper
-							isActive={
-								! isWelcomeScreenActive &&
-								! isThankyouScreenActive
-							}
-							applyLogic={ applyLogic }
-						/>
+						{ ! paymentData && (
+							<FieldsWrapper
+								isActive={
+									! isWelcomeScreenActive &&
+									! isThankyouScreenActive
+								}
+								applyLogic={ applyLogic }
+							/>
+						) }
 
 						{ isThankyouScreenActive && <ThankyouScreensWrapper /> }
 					</Fragment>
 				) }
-				<FormFooter />
+				{ ! paymentData && <FormFooter /> }
+				{ !! paymentData && <PaymentModal data={ paymentData } /> }
 			</div>
 		</div>
 	);

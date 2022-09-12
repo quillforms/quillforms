@@ -1,38 +1,46 @@
-.fixed-dropdown{
+.fixed-dropdown {
 	position: fixed;
 	inset: 0;
 	background-color: #fff;
 	height: 100% !important;
-	display: flex; 
+	display: flex;
 	flex-direction: column;
 	padding: 20px 10px;
-	
-	&.show{
+	z-index: 11;
+
+	&.show {
 		transform: translateY(100%);
-		animation: moveUp 0.5s ease-in-out  1 forwards ;
+		animation: moveUp 0.5s ease-in-out 1 forwards;
 	}
 
-	&.hide{
+	&.hide {
 		transform: translateY(0%);
-		animation: moveDown 0.5s ease-in-out  1 forwards ;
+		animation: moveDown 0.5s ease-in-out 1 forwards;
 	}
 
-	.back-icon{
+	.back-icon {
 		width: 20px;
 		height: 20px;
 		margin-right: 5px;
 	}
 }
 
-
 @keyframes moveUp {
-	0%{transform: translateY(100%);}
-	100%{transform: translateY(0%);}
+	0% {
+		transform: translateY(100%);
+	}
+	100% {
+		transform: translateY(0%);
+	}
 }
 
 @keyframes moveDown {
-	0%{transform: translateY(0%);}
-	100%{transform: translateY(100%);}
+	0% {
+		transform: translateY(0%);
+	}
+	100% {
+		transform: translateY(100%);
+	}
 }
 
 .qf-block-dropdown-display__choices {
@@ -59,10 +67,10 @@
 		transform: none;
 	}
 
-	&.fixed-choices{
+	&.fixed-choices {
 		position: static;
 		height: auto !important;
-		padding: 10px 20px; 
+		padding: 10px 20px;
 	}
 
 	.dropdown__choiceWrapper {
@@ -86,8 +94,6 @@
 		}
 	}
 
-
-
 	.block-dropdown-renderer-expand-icon,
 	.block-dropdown-renderer-close-icon {
 		& {
@@ -96,13 +102,11 @@
 			top: 40%;
 			cursor: pointer;
 		}
-
-
 	}
 }
 
 .block-dropdown-renderer-expand-icon,
-.block-dropdown-renderer-close-icon  {
+.block-dropdown-renderer-close-icon {
 	position: absolute;
 	right: 0;
 	bottom: 4px;
@@ -113,7 +117,6 @@
 		height: 26px;
 	}
 }
-
 
 @keyframes qf-dropdown-vibrate {
 	0% {

@@ -8,7 +8,7 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 
 /**
  * External Dependencies
@@ -28,7 +28,7 @@ import ThemeActions from '../theme-actions';
  *
  * @property {string} backgroundColor      The background color.
  * @property {string} backgroundImage      The background image.
- * @property {string} font 			       The selected font.
+ * @property {string} font                 The selected font.
  * @property {string} questionsColor       The questions color.
  * @property {string} answersColor         The answers color.
  * @property {string} buttonsFontColor     The buttons font color.

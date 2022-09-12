@@ -6,13 +6,14 @@ import {
 	ControlWrapper,
 	ControlLabel,
 	ToggleControl,
+	LogicConditions,
 } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 
 /**
  * External Dependencies
@@ -72,6 +73,7 @@ const NotificationEditorWrapper = ( {
 		replyTo,
 		subject,
 		message,
+		conditions,
 	} = properties;
 
 	const { emailFields } = useSelect( ( select ) => {
@@ -189,6 +191,37 @@ const NotificationEditorWrapper = ( {
 						isReviewing={ isReviewing }
 					/>
 				) }
+				<BaseControl>
+					<ControlWrapper>
+						<ControlLabel label="Conditional Logic" />
+						<ToggleControl
+							checked={ !! conditions }
+							onChange={ () => {
+								setProperties( ( prevProperties ) => ( {
+									...prevProperties,
+									conditions: conditions ? undefined : [],
+								} ) );
+							} }
+						/>
+					</ControlWrapper>
+					{ !! conditions && (
+						<div>
+							<div>
+								Process this notification if the following
+								conditions are met:
+							</div>
+							<LogicConditions
+								value={ conditions }
+								onChange={ ( value ) =>
+									setProperties( ( prevProperties ) => ( {
+										...prevProperties,
+										conditions: value,
+									} ) )
+								}
+							/>
+						</div>
+					) }
+				</BaseControl>
 				{ isActive && (
 					<NotificationEditorFooter
 						isReviewing={ isReviewing }

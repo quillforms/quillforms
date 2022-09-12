@@ -13,7 +13,7 @@ import classnames from 'classnames';
 import FormActions from './form-actions';
 
 const FormCard = memo( ( { form } ) => {
-	const [ isDeleting, setIsDeleting ] = useState( false );
+	const [ isLoading, setIsLoading ] = useState( false );
 
 	const theme = form?.theme?.theme_data?.properties
 		? form.theme.theme_data.properties
@@ -28,7 +28,7 @@ const FormCard = memo( ( { form } ) => {
 	}
 	return (
 		<>
-			{ ! isDeleting ? (
+			{ ! isLoading ? (
 				<Card
 					className="quillforms-home__form-card"
 					onClick={ () => {
@@ -91,7 +91,7 @@ const FormCard = memo( ( { form } ) => {
 						<FormActions
 							form={ form }
 							formId={ form.id }
-							setIsDeleting={ setIsDeleting }
+							setIsLoading={ setIsLoading }
 						/>
 					</CardHeader>
 				</Card>

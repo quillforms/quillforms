@@ -16,7 +16,7 @@ import type { BlockAttributes } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 import { MediaUpload } from '@wordpress/media-utils';
 
 /**
@@ -28,7 +28,7 @@ import { isEmpty } from 'lodash';
  * Internal Dependencies
  */
 import BlockThemeControl from '../block-theme';
-
+import CustomHTML from '../block-custom-html';
 interface Props {
 	blockName: string;
 	attributes?: BlockAttributes;
@@ -87,6 +87,7 @@ const DefaultControls: React.FC< Props > = ( {
 					</ControlWrapper>
 				</BaseControl>
 			) }
+
 			{ attachmentSupport && (
 				<BaseControl>
 					<ControlWrapper>
@@ -127,6 +128,17 @@ const DefaultControls: React.FC< Props > = ( {
 					</ControlWrapper>
 				</BaseControl>
 			) }
+			<BaseControl>
+				<ControlWrapper orientation="vertical">
+					<ControlLabel label={ 'Custom HTML' } isNew={ true } />
+					<CustomHTML
+						value={ attributes?.customHTML }
+						onChange={ ( val ) => {
+							setAttributes( { customHTML: val } );
+						} }
+					/>
+				</ControlWrapper>
+			</BaseControl>
 			{ themeSupport && (
 				<BlockThemeControl
 					blockTheme={ blockTheme }

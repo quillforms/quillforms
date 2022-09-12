@@ -14,7 +14,6 @@ use QuillForms\Log_Handlers\Log_Handler_DB;
 use QuillForms\Render\Form_Renderer;
 use QuillForms\REST_API\REST_API;
 use QuillForms\Site\Site;
-use QuillForms\System_Status\System_Status;
 
 /**
  * QuillForms Main Class.
@@ -111,7 +110,7 @@ final class QuillForms {
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/autoptimize/class-autoptimize-compatibility.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/wpoptimize/class-wpoptimize-compatibility.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/sg-optimize/class-sg-optimize-compatibility.php';
-
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/wp-rocket/class-wp-rocket-compatibility.php';
 	}
 
 	/**
@@ -125,11 +124,13 @@ final class QuillForms {
 		Admin_Loader::instance();
 		Install::init();
 		Merge_Tags::instance();
+		Entry_Record_Types::instance();
 		Form_Renderer::instance();
 		Form_Submission::instance();
 		Admin::instance();
 		REST_API::instance();
 		Site::instance();
+		Shortcode::instance();
 	}
 
 	/**
@@ -164,6 +165,8 @@ final class QuillForms {
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/blocks.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/messages.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/notifications.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/payments.php';
+		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/products.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 		require_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/settings.php';
 	}

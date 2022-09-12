@@ -11,6 +11,7 @@ namespace QuillForms\Render;
 use QuillForms\Client_Messages;
 use QuillForms\Core;
 use QuillForms\Fonts;
+use QuillForms\Form_Submission;
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Models\Form_Theme_Model;
 
@@ -82,7 +83,6 @@ class Form_Renderer {
 	 * @since 1.0.0
 	 */
 	public function init() {
-
 		// Overriding single post page with custom template.
 		add_action( 'init', array( $this, 'template_include' ) );
 
@@ -90,6 +90,10 @@ class Form_Renderer {
 
 		// Enqueuing assets to make the form render properly.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_render_script' ), 99999999 );
+
+		// Remove any defer/async before printing script tags.
+		add_filter( 'script_loader_tag', array( $this, 'remove_script_defer' ), PHP_INT_MAX, 3 );
 	}
 
 	/**
@@ -111,7 +115,6 @@ class Form_Renderer {
 	 * @access public
 	 */
 	public function do_not_cache() {
-
 		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 			define( 'DONOTCACHEPAGE', true );
 		}
@@ -194,7 +197,7 @@ class Form_Renderer {
 					'blocks'     => Core::get_blocks( $this->form_id ),
 					'messages'   => array_merge(
 						array_map(
-							function( $value ) {
+							function ( $value ) {
 								return $value['default'];
 							},
 							Client_Messages::instance()->get_messages()
@@ -222,6 +225,7 @@ class Form_Renderer {
 			global $wp_styles;
 			global $post;
 			Core::register_block_types_by_js();
+			Core::set_renderer_config();
 
 			$form_id           = $post->ID;
 			$wp_scripts->queue = array( 'quillforms-renderer-core' );
@@ -256,16 +260,16 @@ class Form_Renderer {
 				switch ( $font_type ) {
 					case 'googlefonts':
 						$font_url =
-						'https://fonts.googleapis.com/css?family=' .
-						$font .
-						':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+							'https://fonts.googleapis.com/css?family=' .
+							$font .
+							':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
 
 						break;
 
 					case 'earlyaccess':
 						$font_lower_case = strtolower( $font );
 						$font_url        =
-						'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
+							'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
 						break;
 				}
 				if ( $font_url ) {
@@ -274,6 +278,22 @@ class Form_Renderer {
 					wp_enqueue_style( 'quillforms-renderer-load-font', esc_url( $font_url ), array(), uniqid() );
 				}
 			}
+
+		endif;
+	}
+
+	/**
+	 * Enqueue render.js script
+	 *
+	 * @since 1.10.0
+	 *
+	 * @return void
+	 */
+	public function enqueue_render_script() {
+		if ( is_singular( 'quill_forms' ) ) :
+			global $post;
+			$form_id     = $post->ID;
+			$form_object = $this->prepare_form_object();
 
 			wp_enqueue_script(
 				'quillforms-react-renderer-script',
@@ -293,6 +313,20 @@ class Form_Renderer {
 				)
 			);
 
+			$submission_id = $_GET['submission_id'] ?? null;
+			$step          = $_GET['step'] ?? null;
+			if ( $submission_id && 'payment' === $step ) {
+				$form_submission = Form_Submission::instance();
+				$restore         = $form_submission->restore_pending_submission( $submission_id );
+				if ( $restore ) {
+					wp_localize_script(
+						'quillforms-react-renderer-script',
+						'pending_submission',
+						$form_submission->get_pending_submission_renderer_data()
+					);
+				}
+			}
+
 		endif;
 	}
 
@@ -310,6 +344,24 @@ class Form_Renderer {
 		}
 
 		return $show_admin_bar;
+	}
+
+	/**
+	 * Remove any async/defer from scripts
+	 *
+	 * @since 1.13.1
+	 *
+	 * @param string $tag    The `<script>` tag for the enqueued script.
+	 * @param string $handle The script's registered handle.
+	 * @param string $src    The script's source URL.
+	 * @return string
+	 */
+	public function remove_script_defer( $tag, $handle, $src ) 	{ // phpcs:ignore
+		if ( is_singular( 'quill_forms' ) ) {
+			$tag = preg_replace( '/(async|defer)=?[\'"\w]*/i', '', $tag );
+		}
+
+		return $tag;
 	}
 
 }

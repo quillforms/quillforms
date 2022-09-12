@@ -11,7 +11,7 @@ import BlockTypesListItem from '../block-types-list-item';
 /**
  * WordPress Dependencies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -66,9 +66,10 @@ const BlockTypesList: FC = () => {
 													className={ classnames(
 														'admin-components-blocks-list__item-wrapper',
 														{
-															'is-dragging': snapshot.isDragging
-																? true
-																: false,
+															'is-dragging':
+																snapshot.isDragging
+																	? true
+																	: false,
 														}
 													) }
 													{ ...provided.draggableProps }

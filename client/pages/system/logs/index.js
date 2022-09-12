@@ -15,7 +15,7 @@ import { __ } from '@wordpress/i18n';
  * External Dependencies
  */
 import { css } from 'emotion';
-import Loader from 'react-loader-spinner';
+import { ThreeDots as Loader } from 'react-loader-spinner';
 
 /**
  * Internal Dependencies
@@ -170,7 +170,6 @@ const Logs = () => {
 							` }
 						>
 							<Loader
-								type="ThreeDots"
 								color="#8640e3"
 								height={ 50 }
 								width={ 50 }

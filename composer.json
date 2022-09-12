@@ -17,18 +17,25 @@
 		"phpcompatibility/php-compatibility": "^9.3",
 		"wp-coding-standards/wpcs": "^2.2",
 		"sirbrillig/phpcs-variable-analysis": "^2.8",
-		"wp-phpunit/wp-phpunit": "^5.4",
-		"phpunit/phpunit": "^8.5",
+		"phpunit/phpunit": "^6.5",
 		"spatie/phpunit-watcher": "^1.23",
-		"coenjacobs/mozart": "^0.7.1"
+		"yoast/phpunit-polyfills": "^1.0"
 	},
 	"require": {
 		"composer/installers": "~1.0",
 		"woocommerce/action-scheduler": "^3.2"
 	},
 	"config": {
+		"process-timeout": 0,
+		"platform": {
+			"php": "7.4"
+		},
 		"preferred-install": {
 			"woocommerce/action-scheduler": "dist"
+		},
+		"allow-plugins": {
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	},
 	"scripts": {

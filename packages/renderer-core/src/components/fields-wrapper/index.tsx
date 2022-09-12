@@ -3,7 +3,7 @@
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef } from 'react';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -12,16 +12,19 @@ import { doAction } from '@wordpress/hooks';
 import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { Lethargy } from 'lethargy';
+import React from 'react';
 
 /**
  * Internal Dependencies
  */
 import FieldRender from '../field-render';
-import useLogic from '../../hooks/use-logic';
-import useBlocks from '../../hooks/use-blocks';
-import useBlockTypes from '../../hooks/use-block-types';
-import useFormSettings from '../../hooks/use-form-settings';
-import React from 'react';
+import {
+	useBlocks,
+	useBlockTypes,
+	useFormSettings,
+	useLogic,
+	useHiddenFields,
+} from '../../hooks';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -35,6 +38,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
+	const hiddenFields = useHiddenFields();
 	const settings = useFormSettings();
 	const ref = useRef< HTMLDivElement | null >( null );
 	const { swiper } = useSelect( ( select ) => {
@@ -75,6 +79,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const isTouchScreen =
 		'ontouchstart' in window ||
 		navigator.maxTouchPoints > 0 ||
+		// @ts-expect-error
 		navigator.msMaxTouchPoints > 0;
 	const getFieldsToRender = (): string[] => {
 		const fieldIds: string[] = [];
@@ -131,7 +136,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	) => {
 		if ( settings?.disableWheelSwiping ) return;
 		let delta = e.deltaY;
-		if ( settings.animationDirection === 'horizontal' ) {
+		if ( settings?.animationDirection === 'horizontal' ) {
 			delta = e.deltaX;
 		}
 		if ( swiper.isAnimating ) return;
@@ -187,7 +192,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				'QuillForms.RendererCore.LogicApply',
 				blocks,
 				blockTypes,
-				logic
+				logic,
+				hiddenFields
 			);
 		}
 	}, [ currentBlockAnswer, currentBlockId ] );
@@ -204,7 +210,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				'QuillForms.RendererCore.LogicApply',
 				blocks,
 				blockTypes,
-				logic
+				logic,
+				hiddenFields
 			);
 		}
 		if ( ! applyLogic ) {
@@ -212,8 +219,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		}
 	}, [ applyLogic ] );
 
-	const isThereNextField =
-		fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
+	// const isThereNextField =
+	// 	fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
 	return (
 		<div

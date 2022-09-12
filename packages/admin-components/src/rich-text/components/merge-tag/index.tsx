@@ -5,14 +5,14 @@ import type { IconDescriptor, Icon as IconType } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import { Icon, Dashicon } from '@wordpress/components';
 import { plus, close } from '@wordpress/icons';
 
 /**
  * External Dependencies
  */
-import { Editor, Path } from 'slate';
+import { Editor, Path, Transforms } from 'slate';
 import classnames from 'classnames';
 import { css } from 'emotion';
 import { ReactEditor, RenderElementProps } from 'slate-react';
@@ -21,13 +21,14 @@ import { ReactEditor, RenderElementProps } from 'slate-react';
  * Internal Dependencies
  */
 import getPlainExcerpt from '../../get-plain-excerpt';
-import type { MergeTags, MergeTag } from '../../types';
+import type { MergeTags, MergeTag, CustomElement } from '../../types';
 
 interface Props extends RenderElementProps {
 	path: Path;
 	mergeTags: MergeTags;
 	editor: ReactEditor;
 	children: React.ReactNode;
+	element: CustomElement;
 }
 const EditorMergeTag: React.FC< Props > = ( {
 	attributes,
@@ -57,8 +58,17 @@ const EditorMergeTag: React.FC< Props > = ( {
 	useEffect( () => {
 		if ( ! mergeTag ) {
 			editor.apply( { type: 'remove_node', path, node } );
+			Transforms.insertNodes(
+				editor,
+				{
+					text: `{{${ type }:${ modifier }}}`,
+				},
+				{
+					at: path,
+				}
+			);
 		}
-	}, [ mergeTags, mergeTag ] );
+	}, [] );
 	return (
 		<>
 			{ mergeTag && (

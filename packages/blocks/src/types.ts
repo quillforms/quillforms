@@ -1,4 +1,4 @@
-import { Component } from '@wordpress/element';
+import { Component } from 'react';
 import React, { FC } from 'react';
 import {
 	SET_BLOCK_ADMIN_SETTINGS,
@@ -25,6 +25,10 @@ export interface BlockAdminSettings {
 	controls?: React.ComponentType< ControlsProps >;
 	logicControl?: FC | Component | JSX.Element;
 	order?: number;
+	getChoices?: ( args: {
+		id: string;
+		attributes: BlockAttributes;
+	} ) => { label: string; value: string }[];
 	entryDetails?: React.ComponentType< EntryDetailsProps >;
 }
 
@@ -33,6 +37,7 @@ export interface BlockRendererSettings {
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
 	nextBtn?: FC | Component | JSX.Element;
+	getNumericVal?: ( val: any, attributes: BlockAttributes ) => number;
 	isConditionFulfilled?(
 		conditionOperator: string,
 		conditionVal: unknown,
@@ -45,9 +50,23 @@ export type BlockSupportedFeatures = {
 	editable?: boolean;
 	required?: boolean;
 	logic?: boolean;
+	logicConditions?: boolean;
 	theme?: boolean;
+	numeric?: boolean;
+	choices?: boolean;
+	payments?: boolean;
+	points?: boolean;
 };
 
+type logicalOperator =
+	| 'is'
+	| 'is_not'
+	| 'starts_with'
+	| 'greater_than'
+	| 'lower_than'
+	| 'ends_with'
+	| 'contains'
+	| 'not_contains';
 export interface BlockTypeSettings
 	extends BlockAdminSettings,
 		BlockRendererSettings {
@@ -60,16 +79,7 @@ export interface BlockTypeSettings
 		}
 	>;
 	supports: BlockSupportedFeatures;
-	logicalOperators?: (
-		| 'is'
-		| 'is_not'
-		| 'starts_with'
-		| 'greater_than'
-		| 'lower_than'
-		| 'ends_with'
-		| 'contains'
-		| 'not_contains'
-	 )[];
+	logicalOperators?: logicalOperator[];
 }
 
 export interface BlockTypeInterface extends BlockTypeSettings {

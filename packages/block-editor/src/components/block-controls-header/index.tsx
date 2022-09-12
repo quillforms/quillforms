@@ -7,7 +7,7 @@ import { BlockIconBox } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { memo } from '@wordpress/element';
+import { memo } from 'react';
 
 interface Props {
 	id: string;

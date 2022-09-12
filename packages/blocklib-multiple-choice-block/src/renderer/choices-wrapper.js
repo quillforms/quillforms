@@ -5,7 +5,7 @@ import { useBlockTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { memo } from '@wordpress/element';
+import { memo } from 'react';
 
 /**
  * External Dependencies

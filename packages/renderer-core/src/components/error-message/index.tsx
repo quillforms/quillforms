@@ -16,7 +16,7 @@ interface Props {
 }
 const ErrorMsgWrapper: React.FC< Props > = ( { message } ) => {
 	const { attributes } = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes.themeId );
+	const theme = useBlockTheme( attributes?.themeId );
 	return (
 		<div
 			className={ classnames(

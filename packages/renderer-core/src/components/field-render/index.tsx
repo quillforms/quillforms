@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect, memo } from '@wordpress/element';
+import { useState, useEffect, memo } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
@@ -23,18 +23,28 @@ interface Props {
 
 const FieldRender: React.FC< Props > = memo(
 	( { id, isActive, isLastField, shouldBeRendered } ) => {
-		const [ isSubmitBtnVisible, showNextBtn ] = useState< boolean >(
-			false
-		);
+		const [ isSubmitBtnVisible, showNextBtn ] =
+			useState< boolean >( false );
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
 
-		const { isReviewing, isValid, block } = useSelect( ( select ) => {
+		const {
+			isReviewing,
+			isValid,
+			block,
+			firstInvalidFieldId,
+			lastFieldId,
+		} = useSelect( ( select ) => {
+			const walkPath = select( 'quillForms/renderer-core' ).getWalkPath();
 			return {
 				isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
 				isValid: select( 'quillForms/renderer-core' ).isValidField(
 					id
 				),
 				block: select( 'quillForms/renderer-core' ).getBlockById( id ),
+				firstInvalidFieldId: select(
+					'quillForms/renderer-core'
+				).getFirstInvalidFieldId(),
+				lastFieldId: walkPath[ walkPath.length - 1 ].id,
 			};
 		} );
 
@@ -42,9 +52,9 @@ const FieldRender: React.FC< Props > = memo(
 			if ( isReviewing && ! isValid ) {
 				showErrMsg( true );
 			}
-		}, [ isReviewing ] );
+		}, [ isReviewing, isValid ] );
 
-		const { goNext } = useDispatch( 'quillForms/renderer-core' );
+		const { goNext, goToBlock } = useDispatch( 'quillForms/renderer-core' );
 		if ( ! block ) return null;
 		const { name, attributes } = block;
 
@@ -58,7 +68,17 @@ const FieldRender: React.FC< Props > = memo(
 			showErrMsg,
 			isSubmitBtnVisible,
 			showNextBtn,
-			next: goNext,
+			next: () => {
+				if ( ! isReviewing ) {
+					goNext();
+				} else {
+					if ( firstInvalidFieldId ) {
+						goToBlock( firstInvalidFieldId );
+					} else {
+						goToBlock( lastFieldId );
+					}
+				}
+			},
 			isLastField,
 		};
 		return (

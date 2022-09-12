@@ -1,0 +1,2 @@
+import './stripe';
+import './paypal';

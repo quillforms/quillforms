@@ -426,6 +426,7 @@ class Store {
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
+				'min_version'    => '1.2.0',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -437,12 +438,22 @@ class Store {
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
-				'min_version'    => '1.1.2',
+				'min_version'    => '1.2.0',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/banner.png',
+				),
+			),
+			'hiddenfields'              => array(
+				'name'           => esc_html__( 'Hidden Fields', 'quillforms' ),
+				'description'    => esc_html__( 'Hidden fields are custom url parameters you can set up in your form and also it can track the UTM parameters that are useful for your campaigns tracking.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-hiddenfields/quillforms-hiddenfields.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
 				),
 			),
 			'fileblock'                 => array(
@@ -454,6 +465,16 @@ class Store {
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/banner.png',
+				),
+			),
+			'phoneblock'                => array(
+				'name'           => esc_html__( 'Phone Block', 'quillforms' ),
+				'description'    => esc_html__( 'Add phone question type to your form with international format.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-phoneblock/quillforms-phoneblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/phoneblock/icon.svg',
 				),
 			),
 			'opinionscaleblock'         => array(
@@ -488,6 +509,26 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
 				),
 			),
+			'stripe'                    => array(
+				'name'               => esc_html__( 'Stripe', 'quillforms' ),
+				'description'        => esc_html__( 'Accept payments through stripe gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-stripe/quillforms-stripe.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/stripe/icon.png',
+				),
+			),
+			'paypal'                    => array(
+				'name'               => esc_html__( 'PayPal', 'quillforms' ),
+				'description'        => esc_html__( 'Accept payments through paypal gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-paypal/quillforms-paypal.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/paypal/icon.png',
+				),
+			),
 			'googleanalytics'           => array(
 				'name'           => esc_html__( 'Google Analytics', 'quillforms' ),
 				'description'    => esc_html__( 'Track your users activity and behavior by google analytics.', 'quillforms' ),
@@ -518,6 +559,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
 				),
 			),
+			'aweber'                    => array(
+				'name'           => esc_html__( 'AWeber', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your AWeber account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-aweber/quillforms-aweber.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/aweber/icon.svg',
+				),
+			),
 			'constantcontact'           => array(
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
@@ -538,6 +589,26 @@ class Store {
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/banner.png',
+				),
+			),
+			'mailpoet'                  => array(
+				'name'           => esc_html__( 'MailPoet', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your MailPoet lists.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-mailpoet/quillforms-mailpoet.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
+				),
+			),
+			'notion'                    => array(
+				'name'           => esc_html__( 'Notion', 'quillforms' ),
+				'description'    => esc_html__( 'Send new entry data to your Notion databases.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-notion/quillforms-notion.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/notion/icon.png',
 				),
 			),
 			'getresponse'               => array(
@@ -572,6 +643,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
 				),
 			),
+			'klaviyo'                   => array(
+				'name'           => esc_html__( 'Klaviyo', 'quillforms' ),
+				'description'    => esc_html__( 'Send new profiles to your Klaviyo account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-klaviyo/quillforms-klaviyo.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.png',
+				),
+			),
 			'salesforce'                => array(
 				'name'           => esc_html__( 'Salesforce', 'quillforms' ),
 				'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
@@ -582,7 +663,26 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
 				),
 			),
-			/*
+			'sendinblue'                => array(
+				'name'           => esc_html__( 'Sendinblue', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your Sendinblue account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-sendinblue/quillforms-sendinblue.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/sendinblue/icon.png',
+				),
+			),
+			'slack'                     => array(
+				'name'           => esc_html__( 'Slack', 'quillforms' ),
+				'description'    => esc_html__( 'Send new entries to your Slack workspaces.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-slack/quillforms-slack.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/slack/icon.png',
+				),
+			),
 			'webhooks'                  => array(
 				'name'           => esc_html__( 'Webhooks', 'quillforms' ),
 				'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
@@ -593,11 +693,21 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
 				),
 			),
-			*/
+			'make'                      => array(
+				'name'           => esc_html__( 'Make', 'quillforms' ),
+				'description'    => esc_html__( 'Send your submission to Make (formerly integromat) scenarios.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-make/quillforms-make.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/make/icon.png',
+				),
+			),
 			'zapier'                    => array(
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-zapier/quillforms-zapier.php',
+				'min_version'    => '1.2.0',
 				'plan'           => 'plus',
 				'is_integration' => true,
 				'assets'         => array(

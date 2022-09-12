@@ -22,6 +22,9 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 
+		/* To prevent Typescript observe the libraries on node modules */
+		"skipLibCheck": true,
+
 		/* Module Resolution Options */
 		"moduleResolution": "node",
 
@@ -38,5 +41,6 @@
 		"**/build-*/**",
 		"packages/*/build-*/**",
 		"packages/*/build/**",
+		"node_modules/"
 	]
 }

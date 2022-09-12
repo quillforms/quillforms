@@ -23,6 +23,11 @@ export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 		attachment: true,
 		description: true,
 		logic: true,
+		logicConditions: true,
+		numeric: false,
+		choices: false,
+		payments: false,
+		points: false,
 	};
 };
 
@@ -95,7 +100,10 @@ export const registerBlockType = (
 		type: 'string',
 		default: '',
 	};
-
+	attributes.customHTML = {
+		type: 'string',
+		default: '',
+	};
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

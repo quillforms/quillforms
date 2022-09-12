@@ -6,7 +6,7 @@ import type { IconDescriptor, Icon as IconType } from '@quillforms/types';
 /**
  * Internal Dependencies
  */
-import { getPlainExcerpt } from '@quillforms/admin-components';
+import { getPlainExcerpt } from '@quillforms/rich-text';
 
 /**
  * WordPress Dependencies

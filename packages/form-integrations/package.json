@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/form-integrations",
-	"version": "1.1.0",
+	"version": "1.2.16",
 	"description": "Form integrations",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -21,9 +21,14 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2"
+		"@babel/runtime": "^7.9.2",
+		"@wordpress/api-fetch": "^6.11.0",
+		"@wordpress/components": "^19.16.0",
+		"@wordpress/data": "^6.14.0",
+		"@wordpress/i18n": "^4.14.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "579c6f1f8ac74ac499dec6aff5eae22f4dab729b"
 }

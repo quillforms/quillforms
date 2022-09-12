@@ -123,6 +123,73 @@ abstract class Accounts {
 	}
 
 	/**
+	 * Remove account connections.
+	 *
+	 * @param string $account_id Account id.
+	 * @return void
+	 */
+	protected function remove_account_connections( $account_id ) {
+		$forms = get_posts(
+			array(
+				'post_type'   => 'quill_forms',
+				'fields'      => 'ids',
+				'numberposts' => -1,
+			)
+		);
+		foreach ( $forms as $form_id ) {
+			$connections     = $this->provider->form_data->get( $form_id, 'connections' );
+			$new_connections = array_filter(
+				$connections,
+				function( $connection ) use ( $account_id ) {
+					return $connection['account_id'] !== $account_id;
+				}
+			);
+			if ( $connections !== $new_connections ) {
+				$this->provider->form_data->update( $form_id, array( 'connections' => $new_connections ) );
+				quillforms_get_logger()->notice(
+					esc_html__( 'Some integration connections are deleted due to deleting the related account.', 'quillforms' ),
+					array(
+						'code'    => 'account_connections_deleted',
+						'form_id' => $form_id,
+						'deleted' => array_diff_key( $connections, $new_connections ),
+					)
+				);
+			}
+		}
+	}
+
+	/**
+	 * Establish account api object.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @param string $account_id Account id.
+	 * @return Account_API|WP_Error
+	 */
+	public function connect( $account_id ) {
+		if ( ! isset( $this->account_apis[ $account_id ] ) ) {
+			$accounts_data = $this->get_accounts_data();
+			// get account data.
+			if ( ! isset( $accounts_data[ $account_id ] ) ) {
+				return new WP_Error(
+					"quillforms_{$this->provider->slug}_cannot_find_account_data",
+					esc_html__( 'Cannot find account data', 'quillforms' )
+				);
+			}
+			// init account api.
+			try {
+				$this->account_apis[ $account_id ] = $this->init_account_api( $account_id, $accounts_data[ $account_id ] );
+			} catch ( Exception $e ) {
+				return new WP_Error(
+					"quillforms_{$this->provider->slug}_cannot_init_account_api",
+					esc_html__( 'Cannot connect to account api', 'quillforms' )
+				);
+			}
+		}
+		return $this->account_apis[ $account_id ];
+	}
+
+	/**
 	 * Get stored accounts data.
 	 *
 	 * @return array
@@ -207,73 +274,6 @@ abstract class Accounts {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Remove account connections.
-	 *
-	 * @param string $account_id Account id.
-	 * @return void
-	 */
-	protected function remove_account_connections( $account_id ) {
-		$forms = get_posts(
-			array(
-				'post_type'   => 'quill_forms',
-				'fields'      => 'ids',
-				'numberposts' => -1,
-			)
-		);
-		foreach ( $forms as $form_id ) {
-			$connections     = $this->provider->form_data->get( $form_id, 'connections' );
-			$new_connections = array_filter(
-				$connections,
-				function( $connection ) use ( $account_id ) {
-					return $connection['account_id'] !== $account_id;
-				}
-			);
-			if ( $connections !== $new_connections ) {
-				$this->provider->form_data->update( $form_id, array( 'connections' => $new_connections ) );
-				quillforms_get_logger()->notice(
-					esc_html__( 'Some integration connections are deleted due to deleting the related account.', 'quillforms' ),
-					array(
-						'code'    => 'account_connections_deleted',
-						'form_id' => $form_id,
-						'deleted' => array_diff_key( $connections, $new_connections ),
-					)
-				);
-			}
-		}
-	}
-
-	/**
-	 * Establish account api object.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param string $account_id Account id.
-	 * @return Account_API|WP_Error
-	 */
-	public function connect( $account_id ) {
-		if ( ! isset( $this->account_apis[ $account_id ] ) ) {
-			$accounts_data = $this->get_accounts_data();
-			// get account data.
-			if ( ! isset( $accounts_data[ $account_id ] ) ) {
-				return new WP_Error(
-					"quillforms_{$this->provider->slug}_cannot_find_account_data",
-					esc_html__( 'Cannot find account data', 'quillforms' )
-				);
-			}
-			// init account api.
-			try {
-				$this->account_apis[ $account_id ] = $this->init_account_api( $account_id, $accounts_data[ $account_id ] );
-			} catch ( Exception $e ) {
-				return new WP_Error(
-					"quillforms_{$this->provider->slug}_cannot_init_account_api",
-					esc_html__( 'Cannot connect to account api', 'quillforms' )
-				);
-			}
-		}
-		return $this->account_apis[ $account_id ];
 	}
 
 }

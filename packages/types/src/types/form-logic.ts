@@ -15,26 +15,38 @@ export type LogicConditionOperator =
 	| 'contains'
 	| 'not_contains';
 
-export type LogicConditionVarType = 'field' | 'variable';
-
 export type LogicCondition = {
-	op: LogicConditionOperator;
 	vars: [
 		{
-			type: LogicConditionVarType;
+			type: string;
 			value: string;
 		},
 		{
 			value: string;
 		}
 	];
+	op: LogicConditionOperator;
+};
+
+export type EditorLogicCondition = {
+	vars: [
+		{
+			type?: string;
+			value?: string;
+		},
+		{
+			value?: string;
+		}
+	];
+	op?: LogicConditionOperator;
 };
 
 export type LogicAction = {
 	type: LogicActionType;
 	target: string;
-	value?: number;
-	conditions: LogicCondition[][];
+	value?: number | { type: 'field' | 'variable'; value: string };
+	points?: Boolean;
+	conditions: LogicCondition[][] | true;
 };
 
 export type FormLogicActions = {

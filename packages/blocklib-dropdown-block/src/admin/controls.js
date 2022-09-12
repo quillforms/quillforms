@@ -12,7 +12,7 @@ import {
 /**
  * WordPress Dependecies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 
 const DropdownControls = ( props ) => {
 	const {

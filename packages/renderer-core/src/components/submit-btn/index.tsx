@@ -3,13 +3,13 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from 'react';
 
 /**
  * External Dependencies
  */
 import classNames from 'classnames';
-import Loader from 'react-loader-spinner';
+import { TailSpin as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 
 /**
@@ -22,26 +22,31 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 
 const SubmitBtn: React.FC = () => {
 	const messages = useMessages();
-	const {
-		isLastField,
-		isActive,
-		attributes,
-	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes.themeId );
+	const { isLastField, isActive, attributes } =
+		__experimentalUseFieldRenderContext();
+	const theme = useBlockTheme( attributes?.themeId );
 
-	const { goToBlock, setIsReviewing, setIsSubmitting } = useDispatch(
-		'quillForms/renderer-core'
-	);
+	const {
+		goToBlock,
+		setIsReviewing,
+		setIsSubmitting,
+		setIsFieldValid,
+		setFieldValidationErr,
+		setSubmissionErr,
+		completeForm,
+	} = useDispatch( 'quillForms/renderer-core' );
 	const { onSubmit } = useFormContext();
 	const [ isWaitingPending, setIsWaitingPending ] = useState( false );
 
 	const {
+		answers,
 		firstInvalidFieldId,
 		pendingMsg,
 		isSubmitting,
 		submissionErr,
 	} = useSelect( ( select ) => {
 		return {
+			answers: select( 'quillForms/renderer-core' ).getAnswers(),
 			pendingMsg: select( 'quillForms/renderer-core' ).getPendingMsg(),
 			isSubmitting: select( 'quillForms/renderer-core' ).isSubmitting(),
 			firstInvalidFieldId: select(
@@ -66,6 +71,7 @@ const SubmitBtn: React.FC = () => {
 	};
 	useEffect( () => {
 		if ( isLastField && isActive ) {
+			setIsReviewing( false );
 			window.addEventListener( 'keydown', handleKeyDown );
 		} else {
 			removeEventListener( 'keydown', handleKeyDown );
@@ -94,7 +100,18 @@ const SubmitBtn: React.FC = () => {
 			}, 100 );
 		} else {
 			setIsSubmitting( true );
-			onSubmit();
+			onSubmit(
+				{ answers },
+				{
+					setIsSubmitting,
+					setIsFieldValid,
+					setFieldValidationErr,
+					setIsReviewing,
+					goToBlock,
+					completeForm,
+					setSubmissionErr,
+				}
+			);
 		}
 	};
 
@@ -124,13 +141,14 @@ const SubmitBtn: React.FC = () => {
 					value={
 						isWaitingPending
 							? pendingMsg
+								? pendingMsg
+								: ''
 							: messages[ 'label.submitBtn' ]
 					}
 				/>
 				{ ( isWaitingPending || isSubmitting ) && (
 					<Loader
-						className="renderer-core-submit-btn__loader"
-						type="TailSpin"
+						wrapperClass="renderer-core-submit-btn__loader"
 						color="#fff"
 						height={ 20 }
 						width={ 20 }

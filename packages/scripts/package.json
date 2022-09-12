@@ -1,0 +1,95 @@
+{
+	"name": "@quillforms/scripts",
+	"version": "1.0.10",
+	"description": "Forked from Gutenberg, collection of reusable scripts for QuillForms development.",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"scripts"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/HEAD/packages/scripts/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/scripts"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"engines": {
+		"node": ">=12.13",
+		"npm": ">=6.9"
+	},
+	"files": [
+		"bin",
+		"config",
+		"scripts",
+		"utils"
+	],
+	"bin": {
+		"qf-scripts": "./bin/qf-scripts.js"
+	},
+	"dependencies": {
+		"@automattic/webpack-rtl-plugin": "^6.0.0",
+		"@babel/core": "^7.16.0",
+		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+		"@quillforms/dependency-extraction-webpack-plugin": "file:../dependency-extraction-webpack-plugin",
+		"@svgr/webpack": "^6.3.1",
+		"@wordpress/babel-preset-default": "^6.16.0",
+		"@wordpress/browserslist-config": "^4.1.2",
+		"@wordpress/eslint-plugin": "^12.8.0",
+		"@wordpress/jest-preset-default": "^8.5.0",
+		"@wordpress/npm-package-json-lint-config": "^4.1.2",
+		"@wordpress/postcss-plugins-preset": "^3.10.0",
+		"@wordpress/prettier-config": "^1.4.0",
+		"@wordpress/stylelint-config": "^20.0.2",
+		"adm-zip": "^0.5.9",
+		"async": "^2.0.0",
+		"babel-loader": "^8.2.3",
+		"browserslist": "^4.17.6",
+		"chalk": "^4.0.0",
+		"check-node-version": "^4.1.0",
+		"clean-webpack-plugin": "^3.0.0",
+		"copy-webpack-plugin": "^10.2.0",
+		"cross-spawn": "^5.1.0",
+		"css-loader": "^6.2.0",
+		"cwd": "^0.10.0",
+		"dir-glob": "^3.0.1",
+		"eslint": "^8.3.0",
+		"expect-puppeteer": "^4.4.0",
+		"fast-glob": "^3.2.7",
+		"filenamify": "^4.2.0",
+		"markdownlint-cli": "^0.31.1",
+		"merge-deep": "^3.0.3",
+		"mini-css-extract-plugin": "^2.6.1",
+		"minimist": "^1.2.0",
+		"npm-package-json-lint": "^5.0.0",
+		"npm-packlist": "^3.0.0",
+		"postcss": "^8.4.5",
+		"postcss-loader": "^6.2.1",
+		"prettier": "npm:wp-prettier@2.6.2",
+		"react-refresh": "^0.10.0",
+		"read-pkg-up": "^7.0.1",
+		"resolve-bin": "^0.4.0",
+		"rtlcss-webpack-plugin": "^4.0.7",
+		"sass": "^1.35.2",
+		"sass-loader": "^12.1.0",
+		"source-map-loader": "^3.0.0",
+		"stylelint": "^14.2.0",
+		"terser-webpack-plugin": "^5.1.4",
+		"url-loader": "^4.1.1",
+		"webpack": "^5.68.0",
+		"webpack-bundle-analyzer": "4.4.2",
+		"webpack-cli": "4.10.0",
+		"webpack-dev-server": "^4.4.0"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"gitHead": "579c6f1f8ac74ac499dec6aff5eae22f4dab729b"
+}

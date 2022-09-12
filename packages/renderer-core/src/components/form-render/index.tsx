@@ -3,17 +3,24 @@
  */
 import { sanitizeBlocks } from '@quillforms/blocks';
 import { getDefaultMessages } from '@quillforms/utils';
+
+/**
+ * WordPress Dependencies
+ */
+import { useEffect } from 'react';
+import { doAction } from '@wordpress/hooks';
+
 /**
  * Internal Dependencies
  */
 import { FormContextProvider } from '../form-context';
 import FormWrapper from '../form-wrapper';
-import type { FormObj } from '../../types';
+import type { FormObj, SubmissionDispatchers } from '../../types';
 
 interface Props {
 	formId: number;
 	formObj: FormObj;
-	onSubmit: () => void;
+	onSubmit: ( data: Object, dispatchers: SubmissionDispatchers ) => void;
 	applyLogic: boolean;
 	isPreview: boolean;
 }
@@ -38,6 +45,13 @@ const Form: React.FC< Props > = ( {
 		};
 		return formObj;
 	};
+
+	useEffect( () => {
+		if ( ! isPreview ) {
+			doAction( 'QuillForms.RendererCore.Loaded' );
+		}
+	}, [] );
+
 	return (
 		<FormContextProvider
 			value={ {

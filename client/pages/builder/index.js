@@ -14,7 +14,7 @@ import { useEffect, useState } from '@wordpress/element';
  * External Dependencies
  */
 import { map, uniq } from 'lodash';
-import Loader from 'react-loader-spinner';
+import { ThreeDots as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 
 /**
@@ -86,12 +86,7 @@ const Builder = ( { params } ) => {
 						align-items: center;
 					` }
 				>
-					<Loader
-						type="ThreeDots"
-						color="#8640e3"
-						height={ 50 }
-						width={ 50 }
-					/>
+					<Loader color="#8640e3" height={ 50 } width={ 50 } />
 				</div>
 			) : (
 				<>
