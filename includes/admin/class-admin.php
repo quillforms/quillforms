@@ -10,6 +10,7 @@
 namespace QuillForms\Admin;
 
 use QuillForms\Capabilities;
+use QuillForms\Settings;
 
 /**
  * QuillForms Admin
@@ -65,7 +66,25 @@ class Admin {
 	public function admin_hooks() {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
+		add_filter('register_post_type_args', array($this, 'rewrite_post_type_slug'), 100, 2);
 	}
+
+
+	/**
+	 * Rewrite post type slug
+	 *
+	 * @since 1.17.0
+	 */
+	function rewrite_post_type_slug($args, $post_type) {
+		if ('quill_forms' === $post_type) {
+
+			if(Settings::get('override_quillforms_slug') ) {
+				$args['rewrite']['slug'] = '/' . Settings::get('quillforms_slug');
+			}
+		}
+		return $args;
+	}
+
 
 	/**
 	 * Duplicate form

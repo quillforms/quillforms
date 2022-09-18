@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /**
  * QuillForms Dependencies.
  */
@@ -9,20 +10,24 @@ import {
 	ControlWrapper,
 	ToggleControl,
 	TextControl,
+	__experimentalFeatureAvailability,
 } from '@quillforms/admin-components';
 import { setForceReload } from '@quillforms/navigation';
+import ConfigAPI from '@quillforms/config';
 
 /**
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
+import { Modal } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
  * External Dependencies
  */
 import { css } from 'emotion';
+import classnames from 'classnames';
 import { ThreeDots as Loader } from 'react-loader-spinner';
 
 /**
@@ -32,10 +37,12 @@ import './style.scss';
 
 const General = () => {
 	const [ settings, setSettings ] = useState( null );
+	const [ displayProModal, setDisplayProModal ] = useState( false );
 	const [ isSaving, setIsSaving ] = useState( false );
-	const { createErrorNotice, createSuccessNotice } = useDispatch(
-		'core/notices'
-	);
+	const license = ConfigAPI.getLicense();
+
+	const { createErrorNotice, createSuccessNotice } =
+		useDispatch( 'core/notices' );
 
 	useEffect( () => {
 		apiFetch( {
@@ -146,6 +153,56 @@ const General = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label="Override 'quillforms' slug in the url"
+								isNew={ true }
+							/>
+							<ToggleControl
+								checked={
+									settings?.override_quillforms_slug &&
+									license?.status === 'valid'
+								}
+								onChange={ () => {
+									if ( license?.status !== 'valid' ) {
+										setDisplayProModal( true );
+									} else {
+										setSettingField(
+											'override_quillforms_slug',
+											! settings?.override_quillforms_slug
+										);
+									}
+								} }
+							/>
+						</ControlWrapper>
+						{ settings?.override_quillforms_slug &&
+							license?.status === 'valid' && (
+								<>
+									<ControlWrapper orientation="vertical">
+										<ControlLabel label="Your New Slug:"></ControlLabel>
+										<TextControl
+											value={ settings?.quillforms_slug }
+											onChange={ ( val ) => {
+												setSettingField(
+													'quillforms_slug',
+													val.trim()
+												);
+											} }
+										/>
+									</ControlWrapper>
+									<p
+										className={ css`
+											color: #8e8989;
+											margin-top: 0;
+										` }
+									>
+										You can leave it empty to remove the
+										'quillforms' slug from url.
+									</p>
+								</>
+							) }
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
 							<ControlLabel label="Process form entry for integrations synchronously" />
 
 							<ToggleControl
@@ -243,6 +300,45 @@ const General = () => {
 							</Button>
 						) }
 					</div>
+					<>
+						{ displayProModal && (
+							<Modal
+								className={ classnames(
+									css`
+										border: none !important;
+										border-radius: 9px;
+
+										.components-modal__header {
+											background: linear-gradient(
+												42deg,
+												rgb( 235 54 221 ),
+												rgb( 238 142 22 )
+											);
+											h1 {
+												color: #fff;
+											}
+											svg {
+												fill: #fff;
+											}
+										}
+										.components-modal__content {
+											text-align: center;
+										}
+									`
+								) }
+								title="Overwrite quillforms slug is a pro feature"
+								onRequestClose={ () => {
+									setDisplayProModal( false );
+								} }
+							>
+								<__experimentalFeatureAvailability
+									featureName="Override quillforms slug"
+									planKey="basic"
+									showLockIcon={ true }
+								/>
+							</Modal>
+						) }
+					</>
 				</div>
 			) }
 		</div>
