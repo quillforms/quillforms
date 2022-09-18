@@ -508,11 +508,21 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
 				),
 			),
+			'qrscannerblock'            => array(
+				'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
+				'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
+				'plan'           => 'plus',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
+				),
+			),
 			'signatureblock'            => array(
 				'name'           => esc_html__( 'Signature Block', 'quillforms' ),
 				'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
-				'plan'           => 'basic',
+				'plan'           => 'plus',
 				'is_integration' => false,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
