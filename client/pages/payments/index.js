@@ -31,6 +31,7 @@ import Methods from './general/methods';
 import GatewaysOptions from './general/gateways-options';
 import Models from './models';
 import Products from './products';
+import Labels from './labels';
 import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
 
@@ -53,7 +54,7 @@ const PaymentsPage = ( { params } ) => {
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
-	const { general, models, products, errors } = state;
+	const { general, models, products, errors, labels } = state;
 	const settings = {
 		...general,
 		models,
@@ -141,6 +142,7 @@ const PaymentsPage = ( { params } ) => {
 				payments: {
 					...general,
 					models,
+					labels,
 				},
 				products,
 			},
@@ -231,6 +233,7 @@ const PaymentsPage = ( { params } ) => {
 					models,
 					products,
 					errors,
+					labels,
 					...$actions,
 				} }
 			>
@@ -254,6 +257,7 @@ const PaymentsPage = ( { params } ) => {
 
 						<Methods />
 						<GatewaysOptions />
+						<Labels />
 
 						<Button
 							className="quillforms-payments-page-settings-save"

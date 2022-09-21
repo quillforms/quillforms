@@ -20,6 +20,7 @@ import {
 	UPDATE_PRODUCT,
 	DELETE_PRODUCT,
 	SET_ERRORS,
+	UPDATE_LABEL,
 } from './constants';
 
 /**
@@ -35,11 +36,11 @@ const general = ( state = false, action ) => {
 		case UPDATE_GENERAL: {
 			switch ( action.mode ) {
 				case 'recursive':
-					let general = { ...state };
-					mergeWith( general, action.general, ( obj, src ) => {
+					const $general = { ...state };
+					mergeWith( $general, action.general, ( obj, src ) => {
 						if ( isArray( obj ) ) return src;
 					} );
-					return general;
+					return $general;
 				case 'set':
 					return { ...action.general };
 				case 'normal':
@@ -157,6 +158,26 @@ const products = ( state = {}, action ) => {
  *
  * @return {Object} Updated state.
  */
+
+const labels = ( state = {}, action ) => {
+	switch ( action.type ) {
+		case UPDATE_LABEL: {
+			return {
+				...state,
+				[ action.key ]: action.value,
+			};
+		}
+	}
+};
+
+/**
+ * Reducer returning the state.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
 const errors = ( state = {}, action ) => {
 	switch ( action.type ) {
 		case SET_ERRORS: {
@@ -171,5 +192,6 @@ const CombinedReducer = combineReducers( {
 	models,
 	products,
 	errors,
+	labels,
 } );
 export default CombinedReducer;

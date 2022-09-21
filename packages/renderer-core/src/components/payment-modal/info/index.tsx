@@ -39,7 +39,7 @@ const Info: React.FC< Props > = ( { data } ) => {
 					`
 				) }
 			>
-				Your Order
+				{ data.payments.labels?.order_details_heading ?? 'Your Order' }
 			</div>
 			{ data.payments.products.items.map( ( item, index ) => {
 				return (
@@ -74,7 +74,7 @@ const Info: React.FC< Props > = ( { data } ) => {
 					`
 				) }
 			>
-				<div>Total </div>
+				<div>{ data.payments.labels?.order_total ?? 'Total' } </div>
 				<div>
 					{ formatMoney( data.payments.products.total, cs, csp ) }{ ' ' }
 					{ data.payments.recurring &&

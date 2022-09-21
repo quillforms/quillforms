@@ -43,7 +43,8 @@
 .quillforms-payments-page-settings__general-content,
 .quillforms-payments-page-settings__models-content .payment-model,
 .quillforms-payments-page-settings__products-content,
-.quillforms-payments-page-settings__gateways-options-content {
+.quillforms-payments-page-settings__gateways-options-content,
+.quillforms-payments-page-settings__labels-content {
 	padding: 30px;
 	background: #fff;
 	border-radius: 10px;
@@ -103,7 +104,8 @@
 .quillforms-payments-page-settings__models h3,
 .quillforms-payments-page-settings__products h3,
 .quillforms-payments-page-settings__methods h3,
-.quillforms-payments-page-settings__gateways-options h3 {
+.quillforms-payments-page-settings__gateways-options h3,
+.quillforms-payments-page-settings__labels h3 {
 	margin-top: 40px;
 	margin-bottom: 20px;
 	color: #6d78d8;
@@ -112,7 +114,8 @@
 .quillforms-payments-page-settings__general .admin-components-base-control:last-child,
 .quillforms-payments-page-settings__models .admin-components-base-control:last-child,
 .quillforms-payments-page-settings__products .admin-components-base-control:last-child,
-.quillforms-payments-page-settings__gateways-options .admin-components-base-control:last-child {
+.quillforms-payments-page-settings__gateways-options .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__labels .admin-components-base-control:last-child {
 	border: none;
 }
 

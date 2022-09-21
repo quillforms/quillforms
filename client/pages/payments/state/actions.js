@@ -10,6 +10,7 @@ import {
 	UPDATE_PRODUCT,
 	DELETE_PRODUCT,
 	SET_ERRORS,
+	UPDATE_LABEL,
 } from './constants';
 
 export default ( dispatch ) => {
@@ -66,6 +67,13 @@ export default ( dispatch ) => {
 		setErrors: ( value ) => {
 			dispatch( {
 				type: SET_ERRORS,
+				value,
+			} );
+		},
+		updateLabel: ( key, value ) => {
+			dispatch( {
+				type: UPDATE_LABEL,
+				key,
 				value,
 			} );
 		},
