@@ -357,6 +357,7 @@ class Form_Submission {
 			'recurring' => $model['recurring'],
 			'currency'  => $this->form_data['payments']['currency'],
 			'products'  => $products,
+			'labels'	=> $this->form_data['payments']['labels']
 		);
 	}
 

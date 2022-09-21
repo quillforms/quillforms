@@ -46,6 +46,27 @@ $payments_schema = array(
 				'type' => 'object',
 			),
 		),
+		'labels' => 	array(
+			'type' => 'object',
+			'properties' => array(
+				'select_payment_method' => array(
+					'type' => 'string',
+					'default' => 'Select a payment method'
+				),
+				'pay' => array(
+					'type' => 'string',
+					'default' => 'Pay now'
+				),
+				'order_details_heading' => array(
+					'type' => 'string',
+					'default' => 'Order Details'
+				),
+				'order_total' => array(
+					'type' => 'string',
+					'default' => 'Total'
+				)
+			)
+		),
 		'models'           => array(
 			'type'                 => 'object',
 			'required'             => true,
