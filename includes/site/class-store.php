@@ -631,6 +631,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
 				),
 			),
+			'mondaycom'                 => array(
+				'name'           => esc_html__( 'monday.com', 'quillforms' ),
+				'description'    => esc_html__( 'Send new items to your monday.com boards.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-mondaycom/quillforms-mondaycom.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mondaycom/icon.png',
+				),
+			),
 			'notion'                    => array(
 				'name'           => esc_html__( 'Notion', 'quillforms' ),
 				'description'    => esc_html__( 'Send new entry data to your Notion databases.', 'quillforms' ),
