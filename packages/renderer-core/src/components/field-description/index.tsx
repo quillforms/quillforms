@@ -28,6 +28,7 @@ const BlockDesc: React.FC = () => {
 						'renderer-components-block-description',
 						css`
 							color: ${ theme.questionsColor };
+							font-family: ${ theme.questionsFont };
 						`
 					) }
 				>

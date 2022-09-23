@@ -129,38 +129,36 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 						className="qf-welcome-screen-block__content"
 						ref={ screenContentRef }
 					>
-						<Fragment>
-							<div className="renderer-core-block-attachment">
-								{ attributes.attachment &&
-								attributes.attachment.url ? (
-									<img
-										alt={ '' }
-										src={ attributes.attachment.url }
-										className="renderer-core-block-attachment__image"
-									/>
-								) : (
-									<>
-										{ isPreview && (
-											<div className="renderer-core-block-attachment__placeholder">
-												<svg
-													className="renderer-core-block-attachment__placeholder-icon"
-													focusable="false"
-													viewBox="0 0 24 24"
-													role="presentation"
-												>
-													<circle
-														cx="12"
-														cy="12"
-														r="3.2"
-													/>
-													<path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
-												</svg>
-											</div>
-										) }
-									</>
-								) }
-							</div>
-						</Fragment>
+						<div className="renderer-core-block-attachment">
+							{ attributes.attachment &&
+							attributes.attachment.url ? (
+								<img
+									alt={ '' }
+									src={ attributes.attachment.url }
+									className="renderer-core-block-attachment__image"
+								/>
+							) : (
+								<>
+									{ isPreview && (
+										<div className="renderer-core-block-attachment__placeholder">
+											<svg
+												className="renderer-core-block-attachment__placeholder-icon"
+												focusable="false"
+												viewBox="0 0 24 24"
+												role="presentation"
+											>
+												<circle
+													cx="12"
+													cy="12"
+													r="3.2"
+												/>
+												<path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
+											</svg>
+										</div>
+									) }
+								</>
+							) }
+						</div>
 						<div
 							className={ css`
 								margin-top: 25px;
@@ -171,6 +169,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 									'renderer-components-block-label',
 									css`
 										color: ${ theme.questionsColor };
+										font-family: ${ theme.questionsFont };
 									`
 								) }
 							>
@@ -183,6 +182,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 											'renderer-components-block-description',
 											css`
 												color: ${ theme.questionsColor };
+												font-family: ${ theme.questionsFont };
 											`
 										) }
 									>

@@ -60,7 +60,9 @@ const CustomizeThemePanel = () => {
 		backgroundImage,
 		logo,
 		font,
+		questionsFont,
 		questionsColor,
+		answersFont,
 		answersColor,
 		buttonsFontColor,
 		buttonsBgColor,
@@ -84,7 +86,7 @@ const CustomizeThemePanel = () => {
 						/>
 					</ControlWrapper>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Font" />
+						<ControlLabel label="General Font" />
 						<FontPicker
 							fonts={ configApi.getFonts() }
 							selectedFont={ font }
@@ -182,7 +184,24 @@ const CustomizeThemePanel = () => {
 			<PanelBody title="Questions Settings" initialOpen={ false }>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Color" />
+						<ControlLabel label="Questions Font" isNew={ true } />
+						<FontPicker
+							fonts={ {
+								Inherit: 'inherit',
+								...configApi.getFonts(),
+							} }
+							selectedFont={ questionsFont }
+							setFont={ ( value ) => {
+								setCurrentThemeProperties( {
+									questionsFont: value,
+								} );
+							} }
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Questions Color" />
 						<ColorPreview color={ questionsColor } />
 					</ControlWrapper>
 					<ColorPicker
@@ -198,7 +217,7 @@ const CustomizeThemePanel = () => {
 			<PanelBody title="Answers Settings" initialOpen={ false }>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Color" />
+						<ControlLabel label="Answers Color" />
 						<ColorPreview color={ answersColor } />
 					</ControlWrapper>
 					<ColorPicker

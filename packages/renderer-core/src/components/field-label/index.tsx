@@ -24,6 +24,7 @@ const BlockLabel: React.FC = () => {
 				'renderer-components-block-label',
 				css`
 					color: ${ theme.questionsColor };
+					font-family: ${ theme.questionsFont };
 				`
 			) }
 		>

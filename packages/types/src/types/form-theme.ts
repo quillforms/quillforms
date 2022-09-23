@@ -7,6 +7,7 @@ export type FormTheme = {
 		src?: string;
 	};
 	questionsColor: string;
+	questionsFont: string;
 	answersColor: string;
 	buttonsFontColor: string;
 	buttonsBgColor: string;

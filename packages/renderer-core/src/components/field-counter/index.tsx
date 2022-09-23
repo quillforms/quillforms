@@ -33,6 +33,7 @@ const BlockCounter: React.FC = () => {
 				'renderer-components-block-counter',
 				css`
 					color: ${ theme.questionsColor };
+					font-family: ${ theme.questionsFont };
 				`
 			) }
 		>
