@@ -99,7 +99,7 @@ abstract class Entry_Process {
 					array(
 						'status'  => self::FAILED,
 						'details' => array(
-							'exception' => $e,
+							'exception' => (string) $e,
 						),
 					)
 				);
