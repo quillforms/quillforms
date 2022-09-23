@@ -99,7 +99,11 @@ abstract class Entry_Process {
 					array(
 						'status'  => self::FAILED,
 						'details' => array(
-							'exception' => (string) $e,
+							'exception' => array(
+								'code'    => $e->getCode(),
+								'message' => $e->getMessage(),
+								'trace'   => $e->getTraceAsString(),
+							),
 						),
 					)
 				);
