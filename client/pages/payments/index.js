@@ -54,10 +54,11 @@ const PaymentsPage = ( { params } ) => {
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
-	const { general, models, products, errors, labels } = state;
+	const { general, models, products, labels, errors } = state;
 	const settings = {
 		...general,
 		models,
+		labels,
 	};
 	const $actions = actions( dispatch );
 
@@ -85,7 +86,7 @@ const PaymentsPage = ( { params } ) => {
 
 	const onSave = () => {
 		// validate selection of one method at least.
-		if ( Object.keys( general.methods ).length === 0 ) {
+		if ( general.enabled && Object.keys( general.methods ).length === 0 ) {
 			createErrorNotice( `⛔ Please select at least one payment method`, {
 				type: 'snackbar',
 				isDismissible: true,
@@ -116,7 +117,7 @@ const PaymentsPage = ( { params } ) => {
 		}
 
 		// validate adding of one product at least.
-		if ( Object.entries( products ).length === 0 ) {
+		if ( general.enabled && Object.entries( products ).length === 0 ) {
 			createErrorNotice( `⛔ Please add at least one product`, {
 				type: 'snackbar',
 				isDismissible: true,
@@ -232,8 +233,8 @@ const PaymentsPage = ( { params } ) => {
 					general,
 					models,
 					products,
-					errors,
 					labels,
+					errors,
 					...$actions,
 				} }
 			>

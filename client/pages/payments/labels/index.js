@@ -8,7 +8,8 @@ import {
 import { usePaymentsContext } from '../state/context';
 
 const Labels = () => {
-	const { labels, updateLabel } = usePaymentsContext();
+	const { labels, setLabel } = usePaymentsContext();
+
 	return (
 		<div className="quillforms-payments-page-settings__labels">
 			<h3> Labels </h3>
@@ -17,11 +18,9 @@ const Labels = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Order details heading"></ControlLabel>
 						<TextControl
-							value={
-								labels?.order_details_heading ?? 'Order Details'
-							}
-							onChange={ ( val ) => {
-								updateLabel( 'order_details_heading', val );
+							value={ labels.order_details_heading }
+							onChange={ ( value ) => {
+								setLabel( 'order_details_heading', value );
 							} }
 						></TextControl>
 					</ControlWrapper>
@@ -30,12 +29,9 @@ const Labels = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Payment method selection"></ControlLabel>
 						<TextControl
-							value={
-								labels?.select_payment_method ??
-								'Select a payment method'
-							}
-							onChange={ ( val ) => {
-								updateLabel( 'select_payment_method', val );
+							value={ labels.select_payment_method }
+							onChange={ ( value ) => {
+								setLabel( 'select_payment_method', value );
 							} }
 						></TextControl>
 					</ControlWrapper>
@@ -44,9 +40,9 @@ const Labels = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Order total"></ControlLabel>
 						<TextControl
-							value={ labels?.order_total ?? 'Total' }
-							onChange={ ( val ) => {
-								updateLabel( 'order_total', val );
+							value={ labels.order_total }
+							onChange={ ( value ) => {
+								setLabel( 'order_total', value );
 							} }
 						></TextControl>
 					</ControlWrapper>
@@ -55,9 +51,9 @@ const Labels = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Pay button label"></ControlLabel>
 						<TextControl
-							value={ labels?.pay ?? 'Pay Now' }
-							onChange={ ( val ) => {
-								updateLabel( 'pay', val );
+							value={ labels.pay }
+							onChange={ ( value ) => {
+								setLabel( 'pay', value );
 							} }
 						></TextControl>
 					</ControlWrapper>

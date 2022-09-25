@@ -9,8 +9,8 @@ import {
 	ADD_PRODUCT,
 	UPDATE_PRODUCT,
 	DELETE_PRODUCT,
+	SET_LABEL,
 	SET_ERRORS,
-	UPDATE_LABEL,
 } from './constants';
 
 export default ( dispatch ) => {
@@ -64,16 +64,16 @@ export default ( dispatch ) => {
 				id,
 			} );
 		},
-		setErrors: ( value ) => {
+		setLabel: ( key, value ) => {
 			dispatch( {
-				type: SET_ERRORS,
+				type: SET_LABEL,
+				key,
 				value,
 			} );
 		},
-		updateLabel: ( key, value ) => {
+		setErrors: ( value ) => {
 			dispatch( {
-				type: UPDATE_LABEL,
-				key,
+				type: SET_ERRORS,
 				value,
 			} );
 		},

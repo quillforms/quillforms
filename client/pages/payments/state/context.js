@@ -13,9 +13,6 @@ const PaymentsContext = createContext( {
 	updateGeneral: ( _general, _mode = 'recursive' ) => {
 		throw 'updateGeneral() not implemented.';
 	},
-	updateLabel: ( key, value ) => {
-		throw 'updateLabel() not implemented.';
-	},
 	addModel: ( _id, _model ) => {
 		throw 'addModel() not implemented.';
 	},
@@ -33,6 +30,9 @@ const PaymentsContext = createContext( {
 	},
 	deleteProduct: ( _id ) => {
 		throw 'deleteProduct() not implemented.';
+	},
+	setLabel: ( _key, _value ) => {
+		throw 'setLabel() not implemented.';
 	},
 } );
 
