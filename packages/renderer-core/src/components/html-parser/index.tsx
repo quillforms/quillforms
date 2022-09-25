@@ -26,8 +26,9 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 	);
 
 	value = autop( value, false );
-	return (
-		<div className="renderer-core-html-parser">
+
+	const res = (
+		<>
 			{ parse( value, {
 				replace: ( domNode ): void | JSX.Element => {
 					if (
@@ -40,7 +41,8 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 					}
 				},
 			} ) }
-		</div>
+		</>
 	);
+	return <div className="renderer-core-html-parser">{ res } </div>;
 };
 export default HtmlParser;
