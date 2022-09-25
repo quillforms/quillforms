@@ -20,7 +20,7 @@ import {
 	UPDATE_PRODUCT,
 	DELETE_PRODUCT,
 	SET_ERRORS,
-	UPDATE_LABEL,
+	SET_LABEL,
 } from './constants';
 
 /**
@@ -161,13 +161,14 @@ const products = ( state = {}, action ) => {
 
 const labels = ( state = {}, action ) => {
 	switch ( action.type ) {
-		case UPDATE_LABEL: {
+		case SET_LABEL: {
 			return {
 				...state,
 				[ action.key ]: action.value,
 			};
 		}
 	}
+	return state;
 };
 
 /**
@@ -191,7 +192,7 @@ const CombinedReducer = combineReducers( {
 	general,
 	models,
 	products,
-	errors,
 	labels,
+	errors,
 } );
 export default CombinedReducer;

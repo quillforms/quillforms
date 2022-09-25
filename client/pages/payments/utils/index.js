@@ -1,6 +1,8 @@
 import ConfigApi from '@quillforms/config';
 
 const getInitialState = () => {
+	// general is "payments" rest field except "models" & "labels".
+	// products is "products" rest field.
 	let state = {
 		general: {
 			enabled: false,
@@ -11,6 +13,12 @@ const getInitialState = () => {
 		models: {
 			[ randomId() ]: getModelDefaultState( 'Payment Model #1' ),
 		},
+		labels: {
+			order_details_heading: 'Order Details',
+			select_payment_method: 'Select a payment method',
+			order_total: 'Total',
+			pay: 'Pay Now',
+		},
 		products: {},
 		errors: {
 			products: {},
@@ -19,8 +27,14 @@ const getInitialState = () => {
 
 	if ( isObject( ConfigApi.getInitialPayload().payments ) ) {
 		const payments = ConfigApi.getInitialPayload().payments;
+
+		// separate models.
 		const models = payments.models;
 		delete payments.models;
+
+		// separate labels.
+		const labels = payments.labels;
+		delete payments.labels;
 
 		state = {
 			...state,
@@ -29,6 +43,10 @@ const getInitialState = () => {
 				...payments,
 			},
 			models: models,
+			labels: {
+				...state.labels,
+				...labels,
+			},
 		};
 	}
 

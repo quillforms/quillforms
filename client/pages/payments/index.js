@@ -54,10 +54,11 @@ const PaymentsPage = ( { params } ) => {
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
-	const { general, models, products, errors, labels } = state;
+	const { general, models, products, labels, errors } = state;
 	const settings = {
 		...general,
 		models,
+		labels,
 	};
 	const $actions = actions( dispatch );
 
@@ -232,8 +233,8 @@ const PaymentsPage = ( { params } ) => {
 					general,
 					models,
 					products,
-					errors,
 					labels,
+					errors,
 					...$actions,
 				} }
 			>
