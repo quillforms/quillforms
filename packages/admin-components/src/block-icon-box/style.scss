@@ -12,6 +12,10 @@
 
 	.admin-components-block-icon-box__order {
 		color: #fff;
+
+		&.black-color {
+			color: #333;
+		}
 	}
 
 	svg {
