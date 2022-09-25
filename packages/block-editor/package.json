@@ -26,6 +26,7 @@
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config",
 		"@quillforms/types": "file:../types",
+		"@quillforms/rich-text": "file:../rich-text",
 		"@wordpress/icons": "^8.3.0",
 		"classnames": "^2.3.1",
 		"emoji-mart": "^3.0.1",
