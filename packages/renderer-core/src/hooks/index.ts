@@ -11,3 +11,4 @@ export { default as useFormSettings } from './use-form-settings';
 export { default as useFormContext } from './use-form-context';
 export { default as useFormAnswers } from './use-form-answers';
 export { default as useFieldAnswer } from './use-field-answer';
+export { default as useStripTags } from './use-strip-tags';
