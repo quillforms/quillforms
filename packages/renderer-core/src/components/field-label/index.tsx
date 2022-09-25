@@ -3,7 +3,7 @@
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-
+import { renderToString } from '@wordpress/element';
 /**
  * Internal Dependencies
  */
@@ -17,7 +17,6 @@ const BlockLabel: React.FC = () => {
 	if ( attributes?.label ) label = attributes.label;
 	if ( attributes?.required ) label = label + ' *';
 	const theme = useBlockTheme( attributes?.themeId );
-
 	return (
 		<div
 			className={ classnames(

@@ -1,3 +1,4 @@
+/* eslint-disable @wordpress/no-unused-vars-before-return */
 /* eslint-disable no-nested-ternary */
 import { useSelect } from '@wordpress/data';
 
@@ -37,11 +38,7 @@ const FieldMergeTag: React.FC< Props > = ( { modifier } ) => {
 		};
 	} );
 
-	return (
-		<span className="renderer-core-field-merge-tag">
-			{ fieldMergeTagValue }
-		</span>
-	);
+	return <>{ fieldMergeTagValue }</>;
 };
 
 export default FieldMergeTag;
