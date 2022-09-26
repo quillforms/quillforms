@@ -690,7 +690,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.png',
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.svg',
 				),
 			),
 			'salesforce'                => array(
