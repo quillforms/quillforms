@@ -8,6 +8,7 @@ import {
 	Button,
 	FontPicker,
 	TextControl,
+	ResponsiveControl,
 } from '@quillforms/admin-components';
 import configApi from '@quillforms/config';
 import { getDefaultThemeProperties } from '@quillforms/utils';
@@ -16,7 +17,7 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { PanelBody, RangeControl, FontSizePicker } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 
 /**
@@ -32,6 +33,7 @@ import ColorPicker from '../color-picker';
 import ComboColorPicker from '../combo-color-picker';
 import ColorPreview from '../color-preview';
 import CustomizeFooter from '../customize-footer';
+import MeasureControl from '../measure-control';
 
 const CustomizeThemePanel = () => {
 	const { setCurrentThemeProperties, setCurrentThemeTitle } = useDispatch(
@@ -55,14 +57,19 @@ const CustomizeThemePanel = () => {
 		...getDefaultThemeProperties(),
 		...properties,
 	};
+
 	const {
 		backgroundColor,
 		backgroundImage,
 		logo,
 		font,
-		questionsFont,
+		questionsLabelFont,
+		questionsLabelFontSize,
+		questionsLabelLineHeight,
+		questionsDescriptionFont,
+		questionsDescriptionFontSize,
+		questionsDescriptionLineHeight,
 		questionsColor,
-		answersFont,
 		answersColor,
 		buttonsFontColor,
 		buttonsBgColor,
@@ -184,21 +191,301 @@ const CustomizeThemePanel = () => {
 			<PanelBody title="Questions Settings" initialOpen={ false }>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Questions Font" isNew={ true } />
+						<ControlLabel
+							label="Questions Label Font"
+							isNew={ true }
+						/>
 						<FontPicker
 							fonts={ {
 								Inherit: 'inherit',
 								...configApi.getFonts(),
 							} }
-							selectedFont={ questionsFont }
+							selectedFont={ questionsLabelFont }
 							setFont={ ( value ) => {
 								setCurrentThemeProperties( {
-									questionsFont: value,
+									questionsLabelFont: value,
 								} );
 							} }
 						/>
 					</ControlWrapper>
 				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel
+							label="Questions Label Font Size(px)"
+							isNew={ true }
+						/>
+						<ResponsiveControl
+							desktopChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsLabelFontSize.lg.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsLabelFontSize: {
+												...questionsLabelFontSize,
+												lg: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							tabletChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsLabelFontSize.md.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsLabelFontSize: {
+												...questionsLabelFontSize,
+												md: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							mobileChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsLabelFontSize.sm.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsLabelFontSize: {
+												...questionsLabelFontSize,
+												sm: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel
+							label="Questions Label Line Height(px)"
+							isNew={ true }
+						/>
+						<ResponsiveControl
+							desktopChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsLabelLineHeight.lg.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsLabelLineHeight: {
+												...questionsLabelLineHeight,
+												lg: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							tabletChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsLabelLineHeight.md.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsLabelLineHeight: {
+												...questionsLabelLineHeight,
+												md: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							mobileChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsLabelLineHeight.sm.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsLabelLineHeight: {
+												...questionsLabelLineHeight,
+												sm: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel
+							label="Questions Description Font"
+							isNew={ true }
+						/>
+						<FontPicker
+							fonts={ {
+								Inherit: 'inherit',
+								...configApi.getFonts(),
+							} }
+							selectedFont={ questionsDescriptionFont }
+							setFont={ ( value ) => {
+								setCurrentThemeProperties( {
+									questionsDescriptionFont: value,
+								} );
+							} }
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel
+							label="Questions Description Font Size(px)"
+							isNew={ true }
+						/>
+						<ResponsiveControl
+							desktopChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsDescriptionFontSize.lg.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsDescriptionFontSize: {
+												...questionsDescriptionFontSize,
+												lg: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							tabletChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsDescriptionFontSize.md.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsDescriptionFontSize: {
+												...questionsDescriptionFontSize,
+												md: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							mobileChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsDescriptionFontSize.sm.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsDescriptionFontSize: {
+												...questionsDescriptionFontSize,
+												sm: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel
+							label="Questions Description Line Height(px)"
+							isNew={ true }
+						/>
+						<ResponsiveControl
+							desktopChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsDescriptionLineHeight.lg.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsDescriptionLineHeight: {
+												...questionsDescriptionLineHeight,
+												lg: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							tabletChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsDescriptionLineHeight.md.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsDescriptionLineHeight: {
+												...questionsDescriptionLineHeight,
+												md: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							mobileChildren={
+								<MeasureControl
+									val={ parseInt(
+										questionsDescriptionLineHeight.sm.replace(
+											'px',
+											''
+										)
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											questionsDescriptionLineHeight: {
+												...questionsDescriptionLineHeight,
+												sm: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+						/>
+					</ControlWrapper>
+				</BaseControl>
+
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Questions Color" />

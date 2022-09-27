@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-nested-ternary */
 /**
@@ -39,9 +40,13 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const currentTheme = useCurrentTheme();
 	const fonts = configApi.getFonts();
 
-	const { font, questionsFont } = currentTheme;
+	const { font, questionsLabelFont, questionsDescriptionFont } = currentTheme;
 
-	const fontTypes = [ fonts[ font ], fonts[ questionsFont ] ];
+	const fontTypes = [
+		fonts[ font ],
+		fonts[ questionsLabelFont ],
+		fonts[ questionsDescriptionFont ],
+	];
 	const fontUrls: string[] = [];
 	forEach( fontTypes, ( fontType ) => {
 		switch ( fontType ) {
@@ -81,7 +86,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				if ( ! existingLinkEl ) head.appendChild( link );
 			} );
 		}
-	}, [ font, questionsFont ] );
+	}, [ font, questionsLabelFont, questionsDescriptionFont ] );
 
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
 	const ref = useRef< any >( null );
@@ -161,6 +166,50 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 						overflow: hidden;
 						background: ${ generalTheme.backgroundColor };
 						font-family: ${ generalTheme.font };
+						.renderer-components-block-label {
+							color: ${ generalTheme.questionsColor };
+							font-family: ${ generalTheme.questionsLabelFont };
+							@media ( min-width: 1025px ) {
+								font-size: ${ generalTheme
+									.questionsLabelFontSize.lg };
+								line-height: ${ generalTheme
+									.questionsLabelLineHeight.lg };
+							}
+							@media ( max-width: 1024px ) {
+								font-size: ${ generalTheme
+									.questionsLabelFontSize.md };
+								line-height: ${ generalTheme
+									.questionsLabelLineHeight.md };
+							}
+							@media ( max-width: 767px ) {
+								font-size: ${ generalTheme
+									.questionsLabelFontSize.sm };
+								line-height: ${ generalTheme
+									.questionsLabelLineHeight.sm };
+							}
+						}
+						.renderer-components-block-description {
+							font-family: ${ generalTheme.questionsDescriptionFont };
+
+							@media ( min-width: 1025px ) {
+								font-size: ${ generalTheme
+									.questionsDescriptionFontSize.lg };
+								line-height: ${ generalTheme
+									.questionsDescriptionLineHeight.lg };
+							}
+							@media ( max-width: 1024px ) {
+								font-size: ${ generalTheme
+									.questionsDescriptionFontSize.md };
+								line-height: ${ generalTheme
+									.questionsDescriptionLineHeight.md };
+							}
+							@media ( max-width: 767px ) {
+								font-size: ${ generalTheme
+									.questionsDescriptionFontSize.sm };
+								line-height: ${ generalTheme
+									.questionsDescriptionLineHeight.sm };
+							}
+						}
 					`
 				) }
 				onClick={ () => {

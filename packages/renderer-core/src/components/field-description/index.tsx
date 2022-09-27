@@ -28,7 +28,28 @@ const BlockDesc: React.FC = () => {
 						'renderer-components-block-description',
 						css`
 							color: ${ theme.questionsColor };
-							font-family: ${ theme.questionsFont };
+							font-family: ${ theme.questionsDescriptionFont };
+							@media ( min-width: 1025px ) {
+								font-size: ${ theme.questionsDescriptionFontSize
+									.lg } !important;
+								line-height: ${ theme
+									.questionsDescriptionLineHeight
+									.lg } !important;
+							}
+							@media ( max-width: 1024px ) {
+								font-size: ${ theme.questionsDescriptionFontSize
+									.md } !important;
+								line-height: ${ theme
+									.questionsDescriptionLineHeight
+									.md } !important;
+							}
+							@media ( max-width: 767px ) {
+								font-size: ${ theme.questionsDescriptionFontSize
+									.sm } !important;
+								line-height: ${ theme
+									.questionsDescriptionLineHeight
+									.sm } !important;
+							}
 						`
 					) }
 				>

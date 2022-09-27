@@ -11,7 +11,7 @@ import { Dashicon, Button, ButtonGroup } from '@wordpress/components';
  */
 import ControlWrapper from '../control-wrapper';
 import ControlLabel from '../control-label';
-export default function SmallResponsiveControl( {
+export default function ResponsiveControl( {
 	label,
 	desktopChildren,
 	tabletChildren,

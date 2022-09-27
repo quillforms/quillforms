@@ -33,7 +33,19 @@ const BlockCounter: React.FC = () => {
 				'renderer-components-block-counter',
 				css`
 					color: ${ theme.questionsColor };
-					font-family: ${ theme.questionsFont };
+					font-family: ${ theme.questionsLabelFont };
+					@media ( min-width: 1025px ) {
+						line-height: ${ theme.questionsLabelLineHeight
+							.lg } !important;
+					}
+					@media ( max-width: 1024px ) {
+						line-height: ${ theme.questionsLabelLineHeight
+							.md } !important;
+					}
+					@media ( max-width: 767px ) {
+						line-height: ${ theme.questionsLabelLineHeight
+							.sm } !important;
+					}
 				`
 			) }
 		>

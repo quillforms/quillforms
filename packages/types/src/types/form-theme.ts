@@ -1,3 +1,8 @@
+type MediaDevices = {
+	lg: string;
+	md: string;
+	sm: string;
+};
 export type FormTheme = {
 	font: string;
 	backgroundColor: string;
@@ -7,7 +12,12 @@ export type FormTheme = {
 		src?: string;
 	};
 	questionsColor: string;
-	questionsFont: string;
+	questionsLabelFont: string;
+	questionsLabelFontSize: MediaDevices;
+	questionsLabelLineHeight: MediaDevices;
+	questionsDescriptionFont: string;
+	questionsDescriptionFontSize: MediaDevices;
+	questionsDescriptionLineHeight: MediaDevices;
 	answersColor: string;
 	buttonsFontColor: string;
 	buttonsBgColor: string;

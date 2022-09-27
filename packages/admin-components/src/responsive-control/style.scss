@@ -1,25 +1,28 @@
-.admin-components-responsive-control .responsive-options {
-	margin-bottom: 0px;
-	.responsive-btn {
-		background: transparent;
-		border: 0;
-		height: auto;
-		border-bottom: 0;
-		padding: 2px 4px;
-		margin-bottom: 0;
-		outline: 0;
-		color: #a0aec0;
-		width: auto;
-		font-size: 10px;
-		box-shadow: none;
-		&.is-active {
-			color: #007cba;
+.admin-components-responsive-control {
+	width: 200px;
+	.responsive-options {
+		margin-bottom: 0px;
+		.responsive-btn {
 			background: transparent;
-		}
-		.dashicon {
-			width: 15px;
-			height: 15px;
-			font-size: 15px;
+			border: 0;
+			height: auto;
+			border-bottom: 0;
+			padding: 2px 4px;
+			margin-bottom: 0;
+			outline: 0;
+			color: #a0aec0;
+			width: auto;
+			font-size: 10px;
+			box-shadow: none;
+			&.is-active {
+				color: #007cba;
+				background: transparent;
+			}
+			.dashicon {
+				width: 15px;
+				height: 15px;
+				font-size: 15px;
+			}
 		}
 	}
 }

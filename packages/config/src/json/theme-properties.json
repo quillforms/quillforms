@@ -14,9 +14,45 @@
 		"type": "object",
 		"default": {}
 	},
-	"questionsFont": {
+	"questionsLabelFont": {
 		"type": "string",
 		"default": "Inherit"
+	},
+	"questionsLabelFontSize": {
+		"type": "object",
+		"default": {
+			"lg": "24px",
+			"md": "24px",
+			"sm": "20px"
+		}
+	},
+	"questionsLabelLineHeight": {
+		"type": "object",
+		"default": {
+			"lg": "31px",
+			"md": "31px",
+			"sm": "27px"
+		}
+	},
+	"questionsDescriptionFont": {
+		"type": "string",
+		"default": "Inherit"
+	},
+	"questionsDescriptionFontSize": {
+		"type": "object",
+		"default": {
+			"lg": "20px",
+			"md": "20px",
+			"sm": "18px"
+		}
+	},
+	"questionsDescriptionLineHeight": {
+		"type": "object",
+		"default": {
+			"lg": "30px",
+			"md": "30px",
+			"sm": "28px"
+		}
 	},
 	"questionsColor": {
 		"type": "string",
