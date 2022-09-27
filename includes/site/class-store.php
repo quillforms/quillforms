@@ -528,7 +528,7 @@ class Store {
 			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
 			// 	),
 			// ),
-			// 'customthankyouscreenblock' => array(
+			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-customthankyouscreenblock/quillforms-customthankyouscreenblock.php',
