@@ -143,6 +143,9 @@ const ThemesListItem = ( { theme, onClick } ) => {
 							css`
 								color: ${ themeData.buttonsFontColor };
 								background: ${ themeData.buttonsBgColor };
+								border-width: ${ themeData.buttonsBorderWidth }px;
+								border-color: ${ themeData.buttonsBorderColor };
+								border-style: solid;
 							`
 						) }
 					></div>
