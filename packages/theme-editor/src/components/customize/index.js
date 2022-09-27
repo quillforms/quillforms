@@ -74,6 +74,8 @@ const CustomizeThemePanel = () => {
 		buttonsFontColor,
 		buttonsBgColor,
 		buttonsBorderRadius,
+		buttonsBorderWidth,
+		buttonsBorderColor,
 		errorsFontColor,
 		errorsBgColor,
 		progressBarBgColor,
@@ -561,6 +563,37 @@ const CustomizeThemePanel = () => {
 							}
 							min={ 1 }
 							max={ 30 }
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Border Width(px)" isNew={ true } />
+						<RangeControl
+							className={ css`
+								width: 30%;
+							` }
+							value={ buttonsBorderWidth }
+							onChange={ ( value ) =>
+								setCurrentThemeProperties( {
+									buttonsBorderWidth: value,
+								} )
+							}
+							min={ 0 }
+							max={ 10 }
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel label="Border Color" isNew={ true } />
+						<ColorPicker
+							value={ buttonsBorderColor }
+							onChange={ ( value ) => {
+								setCurrentThemeProperties( {
+									buttonsBorderColor: value,
+								} );
+							} }
 						/>
 					</ControlWrapper>
 				</BaseControl>

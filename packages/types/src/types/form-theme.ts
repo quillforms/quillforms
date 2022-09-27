@@ -22,6 +22,8 @@ export type FormTheme = {
 	buttonsFontColor: string;
 	buttonsBgColor: string;
 	buttonsBorderRadius: number;
+	buttonsBorderWidth: number;
+	buttonsBorderColor: string;
 	errorsFontColor: string;
 	errorsBgColor: string;
 	progressBarFillColor: string;

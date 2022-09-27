@@ -74,6 +74,14 @@
 		"type": "number",
 		"default": 25
 	},
+	"buttonsBorderWidth": {
+		"type": "number",
+		"default": 0
+	},
+	"buttonsBorderColor": {
+		"type": "string",
+		"default": "#000"
+	},
 	"errorsFontColor": {
 		"type": "string",
 		"default": "#fff"

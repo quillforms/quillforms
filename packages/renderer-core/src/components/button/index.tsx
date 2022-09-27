@@ -40,6 +40,9 @@ const Button: React.FC< Props > = ( {
 					outline: none !important;
 					z-index: 1;
 					border-radius: ${ theme.buttonsBorderRadius }px;
+					border-width: ${ theme.buttonsBorderWidth }px;
+					border-color: ${ theme.buttonsBorderColor };
+					border-style: solid;
 					&:before {
 						position: absolute;
 						top: -2.5px;

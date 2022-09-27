@@ -1,13 +1,12 @@
 .renderer-core-button {
 	display: inline-flex;
-    align-items: center;
+	align-items: center;
 	margin-right: 10px;
-    padding: 9px 20px 9px 23px;
-    line-height: 1.5;
-    border: none;
-    font-size: 20px;
-    outline: none;
-    cursor: pointer;
+	padding: 9px 20px 9px 23px;
+	line-height: 1.5;
+	font-size: 20px;
+	outline: none;
+	cursor: pointer;
 
 	svg {
 		margin-left: 14px;
@@ -21,13 +20,11 @@
 }
 
 html[dir="rtl"] .renderer-core-button {
-
- 	svg {
+	svg {
 		transform: rotate(180deg);
 	}
 
 	&:hover svg {
-		transform: rotate(180deg) translateX( -3px );
-
+		transform: rotate(180deg) translateX(-3px);
 	}
 }
