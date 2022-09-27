@@ -67,10 +67,11 @@ QuillForms free version comes with variety of blocks:
 22- ActiveCampaign integration
 23- Notion integration
 24- Make integration
-25- Tracking with Google Analytics
-26- Tracking with Facebook Pixel
-27- Opinion scale block
-28- Custom thank you screen for redirect and custom buttons
+25- Monday.com integration
+26- Tracking with Google Analytics
+27- Tracking with Facebook Pixel
+28- Opinion scale block
+29- Custom thank you screen for redirect and custom buttons
 
 [Purchase The Pro Version](https://quillforms.com)
 
