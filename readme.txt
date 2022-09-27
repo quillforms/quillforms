@@ -1,9 +1,9 @@
  === Quill Forms | Typeform WordPress Plugin | Create Conversational Forms like Typeform on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.0
-Stable tag: 1.16.1
+Stable tag: 1.17.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
+Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,6 +120,19 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.17.0 = 27 Sep 2022
+Feature: Controlling questions label font family, font size and line height.
+Feature: Controlling questions description font family, font size and line height.
+Feature: Controlling buttons border width and and color.
+Feature: Adding Monday.com integration.
+Feature: Adding live preview mode in the builder.
+Feature: Adding duplicate theme feature.
+Feature: Adding payments labels feature to control the labels at the payment screen.
+Feature: Controlling 'quillforms' slug in the url.
+Fix: Fix a bug with emails.
+Fix: Fix a bug with the dropdown block when it is enabled for payments as a product.
+Fix: Fix a bug with number field validation in backend.
 
 = 1.16.1 = 6 Sep 2022
 Feature: Adding Make addon.
