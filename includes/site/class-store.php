@@ -456,16 +456,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
 				),
 			),
-			'calendlyblock'             => array(
-				'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
-				'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-calendlyblock/quillforms-calendlyblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
-				),
-			),
+			// 'calendlyblock'             => array(
+			// 	'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
+			// 	'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
+			// 	'plugin_file'    => 'quillforms-calendlyblock/quillforms-calendlyblock.php',
+			// 	'plan'           => 'basic',
+			// 	'is_integration' => false,
+			// 	'assets'         => array(
+			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
+			// 	),
+			// ),
 			'fileblock'                 => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
 				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions.', 'quillforms' ),
@@ -508,27 +508,27 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
 				),
 			),
-			'qrscannerblock'            => array(
-				'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
-				'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
-				'plan'           => 'plus',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
-				),
-			),
-			'signatureblock'            => array(
-				'name'           => esc_html__( 'Signature Block', 'quillforms' ),
-				'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
-				'plan'           => 'plus',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
-				),
-			),
-			'customthankyouscreenblock' => array(
+			// 'qrscannerblock'            => array(
+			// 	'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
+			// 	'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
+			// 	'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
+			// 	'plan'           => 'plus',
+			// 	'is_integration' => false,
+			// 	'assets'         => array(
+			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
+			// 	),
+			// ),
+			// 'signatureblock'            => array(
+			// 	'name'           => esc_html__( 'Signature Block', 'quillforms' ),
+			// 	'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
+			// 	'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
+			// 	'plan'           => 'plus',
+			// 	'is_integration' => false,
+			// 	'assets'         => array(
+			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
+			// 	),
+			// ),
+			// 'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-customthankyouscreenblock/quillforms-customthankyouscreenblock.php',
