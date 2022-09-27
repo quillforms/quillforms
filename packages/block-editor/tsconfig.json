@@ -10,7 +10,7 @@
 	},
 	"references": [
 		{"path": "../types" },
-		{"path": "../blocks"}
+		{"path": "../blocks"},
 		{"path": "../admin-components"},
 		{"path": "../builder-panels"},
 		{"path": "../rich-text"}
