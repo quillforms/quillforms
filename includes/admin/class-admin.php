@@ -66,25 +66,8 @@ class Admin {
 	public function admin_hooks() {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
-		add_filter('register_post_type_args', array($this, 'rewrite_post_type_slug'), 100, 2);
+        add_action('pre_get_posts', array($this, 'include_quill_forms_post_type_in_query') );
 	}
-
-
-	/**
-	 * Rewrite post type slug
-	 *
-	 * @since 1.17.0
-	 */
-	function rewrite_post_type_slug($args, $post_type) {
-		if ('quill_forms' === $post_type) {
-
-			if(Settings::get('override_quillforms_slug') ) {
-				$args['rewrite']['slug'] = '/' . Settings::get('quillforms_slug');
-			}
-		}
-		return $args;
-	}
-
 
 	/**
 	 * Duplicate form
@@ -167,6 +150,33 @@ class Admin {
 
 		// Add support page as a submenu page.
 		add_submenu_page( 'quillforms', __( 'Support', 'quillforms' ), __( 'Support', 'quillforms' ), 'manage_quillforms', 'quillforms&path=support', array( Admin_Loader::class, 'page_wrapper' ) );
+	}
+
+	/**
+	 * Include quill_forms in post type query if the slug is empty.
+	 *
+	 * @since 1.17.1
+	 */
+
+    public function include_quill_forms_post_type_in_query($query) {
+		if(Settings::get('override_quillforms_slug') && empty( Settings::get('quillforms_slug') ) ) {
+
+         	// Only noop the main query
+			if (!$query->is_main_query())
+				return;
+
+			// Only noop our very specific rewrite rule match
+			if (
+				2 != count($query->query)
+				|| !isset($query->query['page'])
+			)
+				return;
+
+			// Include my post type in the query
+			if (!empty($query->query['name']))
+				$query->set('post_type', array('post', 'page', 'quill_forms'));
+		}
+
 	}
 
 }
