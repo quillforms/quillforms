@@ -15,6 +15,7 @@ import type { BlockAttributes } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
+import { FocalPointPicker } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { Fragment } from 'react';
 import { MediaUpload } from '@wordpress/media-utils';
@@ -23,7 +24,7 @@ import { MediaUpload } from '@wordpress/media-utils';
  * External Dependencies
  */
 import { isEmpty } from 'lodash';
-
+import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
@@ -71,6 +72,7 @@ const DefaultControls: React.FC< Props > = ( {
 		attachment = attributes.attachment;
 		blockTheme = attributes.themeId;
 	}
+	console.log( attributes );
 	return (
 		<Fragment>
 			{ editableSupport && requiredSupport && (
@@ -138,6 +140,42 @@ const DefaultControls: React.FC< Props > = ( {
 							/>
 						</ControlWrapper>
 					</BaseControl>
+
+					{ attributes?.layout === 'split-left' ||
+						( attributes?.layout === 'split-right' && (
+							<BaseControl>
+								<ControlWrapper orientation="vertical">
+									<ControlLabel label="Focal Point Picker"></ControlLabel>
+									<div
+										className={ css`
+											max-width: 300px;
+										` }
+									>
+										<FocalPointPicker
+											url={ attributes?.attachment?.url }
+											value={
+												attributes?.attachmentFocalPoint
+											}
+											onDragStart={ ( val ) => {
+												setAttributes( {
+													attachmentFocalPoint: val,
+												} );
+											} }
+											onDrag={ ( val ) => {
+												setAttributes( {
+													attachmentFocalPoint: val,
+												} );
+											} }
+											onChange={ ( val ) => {
+												setAttributes( {
+													attachmentFocalPoint: val,
+												} );
+											} }
+										/>
+									</div>
+								</ControlWrapper>
+							</BaseControl>
+						) ) }
 				</>
 			) }
 			<BaseControl>

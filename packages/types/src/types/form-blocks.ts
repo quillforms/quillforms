@@ -8,6 +8,10 @@ type DefaultAttributes = {
 	description?: string;
 	required?: boolean;
 	attachment?: BlockAttachment;
+	attachmentFocalPoint?: {
+		x: number;
+		y: number;
+	};
 	themeId?: number;
 	layout?:
 		| 'stack'

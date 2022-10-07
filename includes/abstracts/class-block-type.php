@@ -207,6 +207,19 @@ abstract class Block_Type extends stdClass {
 				),
 				'default'    => array(),
 			);
+
+			$attributes_schema['layout'] = array(
+				'type'    => 'string',
+				'default' => 'stack'
+			);
+
+			$attributes_schema['attachmentFocalPoint'] = array(
+				'type' => 'object',
+				'default' => array(
+					'x' => 0.5,
+					'y' => 0.5
+				),
+			);
 		}
 
 		if ( $this->supported_features['description'] ) {

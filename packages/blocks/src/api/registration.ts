@@ -108,6 +108,13 @@ export const registerBlockType = (
 		type: 'string',
 		default: 'stack',
 	};
+	attributes.attachmentFocalPoint = {
+		type: 'object',
+		default: {
+			x: 0.5,
+			y: 0.5,
+		},
+	};
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

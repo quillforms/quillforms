@@ -320,7 +320,27 @@ const FieldWrapper: React.FC = () => {
 						</div>
 						{ layout !== 'stack' &&
 							blockType?.supports?.attachment && (
-								<div className="renderer-core-block-attachment-wrapper">
+								<div
+									className={ classnames(
+										'renderer-core-block-attachment-wrapper',
+										css`
+											img {
+												object-position: ${
+														// @ts-expect-error
+														attributes
+															?.attachmentFocalPoint
+															?.x * 100
+													 }%
+													${
+														// @ts-expect-error
+														attributes
+															?.attachmentFocalPoint
+															?.y * 100
+													 }%;
+											}
+										`
+									) }
+								>
 									<BlockAttachment />
 								</div>
 							) }
