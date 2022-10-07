@@ -23,21 +23,30 @@ import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import FieldContent from '../field-content';
 import { filter, findIndex } from 'lodash';
 import useFormSettings from '../../hooks/use-form-settings';
+import BlockAttachment from '../field-attachment';
 
 let scrollTimer: ReturnType< typeof setTimeout >;
 let tabTimer: ReturnType< typeof setTimeout >;
 
 const FieldWrapper: React.FC = () => {
-	const { id, isActive, shouldBeRendered, showErrMsg, next, attributes } =
-		__experimentalUseFieldRenderContext();
+	const {
+		id,
+		isActive,
+		shouldBeRendered,
+		showErrMsg,
+		next,
+		attributes,
+		blockName,
+	} = __experimentalUseFieldRenderContext();
 
 	const settings = useFormSettings();
-	if ( ! id ) return null;
-	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
+	if ( ! id || ! blockName ) return null;
+	const { swiper, isValid, isFocused, blockType } = useSelect( ( select ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 			isValid: select( 'quillForms/renderer-core' ).isValidField( id ),
 			isFocused: select( 'quillForms/renderer-core' ).isFocused(),
+			blockType: select( 'quillForms/blocks' ).getBlockType( blockName ),
 		};
 	} );
 
@@ -221,6 +230,10 @@ const FieldWrapper: React.FC = () => {
 			setCanSwipeNext( false );
 		}
 	};
+	const layout =
+		blockType?.displayLayout && blockType?.displayLayout !== 'default'
+			? blockType.displayLayout
+			: attributes?.layout ?? 'stack';
 	const theme = useBlockTheme( attributes?.themeId );
 	let backgroundImageCSS = '';
 	if ( theme.backgroundImage && theme.backgroundImage ) {
@@ -260,10 +273,19 @@ const FieldWrapper: React.FC = () => {
 				` }
 			>
 				{ shouldBeRendered && (
-					<section id={ 'block-' + id }>
+					<section
+						id={ 'block-' + id }
+						className={ classnames(
+							`blocktype-${ blockName }-block`,
+							`renderer-core-block-${ layout }-layout`,
+							{
+								'with-attachment':
+									blockType?.supports.attachment,
+							}
+						) }
+					>
 						<div
 							className="renderer-components-field-wrapper__content-wrapper"
-							ref={ ref }
 							tabIndex={ 0 }
 							// @ts-expect-error
 							onKeyDown={ ( e: KeyboardEvent ): void => {
@@ -287,10 +309,21 @@ const FieldWrapper: React.FC = () => {
 									}
 								}
 							} }
-							onScroll={ ( e ) => scrollHandler( e ) }
 						>
-							<FieldContent />
+							<div
+								ref={ ref }
+								className="renderer-core-block-scroller"
+								onScroll={ ( e ) => scrollHandler( e ) }
+							>
+								<FieldContent />
+							</div>
 						</div>
+						{ layout !== 'stack' &&
+							blockType?.supports?.attachment && (
+								<div className="renderer-core-block-attachment-wrapper">
+									<BlockAttachment />
+								</div>
+							) }
 					</section>
 				) }
 			</div>

@@ -35,8 +35,23 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 				'admin-components-choices-bulk-modal',
 				css`
 					border: none !important;
-					min-width: 420px !important;
+					min-width: 350px !important;
 					border-radius: 10px;
+					z-index: 1111111;
+
+					.components-modal__content {
+						background: #eee;
+					}
+
+					.components-modal__header {
+						background: #313e57;
+						.components-modal__header-heading {
+							color: #fff;
+						}
+						.components-button.has-icon svg {
+							fill: #fff;
+						}
+					}
 				`
 			) }
 			title="Bulk Choices"

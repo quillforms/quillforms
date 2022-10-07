@@ -142,7 +142,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		if ( swiper.isAnimating ) return;
 		const lethargyCheck = lethargy.check( e );
 		const now = new Date().getTime();
-		let timeDelay = 750;
+		let timeDelay = 900;
 		if ( touch ) timeDelay = 500;
 		if (
 			lethargyCheck === false ||

@@ -9,20 +9,26 @@ import {
 /**
  * WordPress Dependencies
  */
-import { Tooltip } from '@wordpress/components';
-import { useDispatch } from '@wordpress/data';
-import { Icon } from '@wordpress/components';
 
+import { Tooltip, Icon, Modal } from '@wordpress/components';
+import { createPortal, useState } from '@wordpress/element';
+
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
+import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
 import BlockActions from '../block-actions';
+import BlockControls from '../block-controls';
 import ControlsIcon from './controls-icon';
 
 // import { EmojiPicker } from '@quillforms/admin-components';
 
 const BlockToolbar = ( { id, editor } ) => {
-	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
+	const [ showBlockControls, setShowBlockControls ] = useState( false );
 	// // Insert Emoji
 	// const insertEmoji = ( emoji ) => {
 	// 	insertText( editor, emoji.native );
@@ -34,7 +40,7 @@ const BlockToolbar = ( { id, editor } ) => {
 					role="presentation"
 					className="block-editor-block-toolbar__controls-icon-wrapper"
 					onClick={ () => {
-						setCurrentPanel( 'blockControls' );
+						setShowBlockControls( true );
 					} }
 				>
 					<Icon
@@ -61,6 +67,57 @@ const BlockToolbar = ( { id, editor } ) => {
 			{ /* <EmojiPicker emojiSelect={ ( emoji ) => insertEmoji( emoji ) } /> */ }
 
 			<BlockActions id={ id } />
+			{ showBlockControls && (
+				<>
+					<>
+						{ createPortal(
+							<div
+								className={ classnames(
+									'my-div',
+									css`
+										& ~ .components-modal__screen-overlay {
+											background-color: transparent !important;
+											z-index: 5;
+										}
+									`
+								) }
+							/>,
+							document.body
+						) }
+					</>
+					<Modal
+						className={ css`
+							border: none !important;
+							min-width: 350px !important;
+							margin-left: 0;
+							min-height: calc( 100% - 54px );
+							margin-bottom: 0;
+
+							.components-modal__content {
+								background: #eee;
+							}
+
+							.components-modal__header {
+								background: #a120f1;
+								.components-modal__header-heading {
+									color: #fff;
+								}
+								.components-button.has-icon svg {
+									fill: #fff;
+								}
+							}
+						` }
+						// Because focus on editor is causing the click handler to be triggered
+						title="Block Controls"
+						shouldCloseOnClickOutside={ false }
+						onRequestClose={ () => {
+							setShowBlockControls( false );
+						} }
+					>
+						<BlockControls />
+					</Modal>
+				</>
+			) }
 		</div>
 	);
 };

@@ -34,6 +34,7 @@ export interface BlockAdminSettings {
 
 export interface BlockRendererSettings {
 	display?: FC | Component | JSX.Element;
+	displayLayout?: 'default' | 'split-right' | 'split-left';
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
 	nextBtn?: FC | Component | JSX.Element;

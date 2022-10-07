@@ -104,6 +104,10 @@ export const registerBlockType = (
 		type: 'string',
 		default: '',
 	};
+	attributes.layout = {
+		type: 'string',
+		default: 'stack',
+	};
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

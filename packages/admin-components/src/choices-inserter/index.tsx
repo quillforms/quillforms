@@ -111,6 +111,7 @@ const ChoicesInserter: React.FC< Props > = ( {
 								ref={ provided.innerRef }
 								style={ {
 									...provided.draggableProps.style,
+									zIndex: 111111111,
 								} }
 							>
 								<ChoiceRow

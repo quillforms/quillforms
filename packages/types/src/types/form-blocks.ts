@@ -9,6 +9,12 @@ type DefaultAttributes = {
 	required?: boolean;
 	attachment?: BlockAttachment;
 	themeId?: number;
+	layout?:
+		| 'stack'
+		| 'float-left'
+		| 'float-right'
+		| 'split-left'
+		| 'split-right';
 };
 export interface BlockAttributes extends DefaultAttributes {
 	[ x: string ]: unknown;

@@ -36,11 +36,7 @@ const DropArea = ( props ) => {
 		<div
 			className="builder-core-drop-area"
 			style={ {
-				maxWidth: areaToShow
-					? '60%'
-					: currentPanel
-					? 'calc(55% - 300px)'
-					: '55%',
+				maxWidth: areaToShow ? '60%' : '42%',
 			} }
 		>
 			<Droppable

@@ -1,0 +1,10 @@
+.block-editor-block-layouts {
+	display: flex;
+
+	> div {
+		margin-right: 10px;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}

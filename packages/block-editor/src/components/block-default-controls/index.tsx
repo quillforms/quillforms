@@ -29,6 +29,7 @@ import { isEmpty } from 'lodash';
  */
 import BlockThemeControl from '../block-theme';
 import CustomHTML from '../block-custom-html';
+import BlockLayout from '../block-layout';
 interface Props {
 	blockName: string;
 	attributes?: BlockAttributes;
@@ -89,44 +90,55 @@ const DefaultControls: React.FC< Props > = ( {
 			) }
 
 			{ attachmentSupport && (
-				<BaseControl>
-					<ControlWrapper>
-						<ControlLabel label={ 'Image' } />
-						{ isEmpty( attachment ) ? (
-							<MediaUpload
-								onSelect={ ( media ) =>
-									setAttributes( {
-										attachment: {
-											type: 'image',
-											url: media.url,
-										},
-									} )
-								}
-								allowedTypes={ [ 'image' ] }
-								render={ ( { open } ) => (
-									<button
-										className="media-upload-btn"
-										onClick={ open }
-									>
-										Add
-									</button>
-								) }
+				<>
+					<BaseControl>
+						<ControlWrapper>
+							<ControlLabel label={ 'Image' } />
+							{ isEmpty( attachment ) ? (
+								<MediaUpload
+									onSelect={ ( media ) =>
+										setAttributes( {
+											attachment: {
+												type: 'image',
+												url: media.url,
+											},
+										} )
+									}
+									allowedTypes={ [ 'image' ] }
+									render={ ( { open } ) => (
+										<button
+											className="media-upload-btn"
+											onClick={ open }
+										>
+											Add
+										</button>
+									) }
+								/>
+							) : (
+								<button
+									className="remove-media-btn"
+									onClick={ () =>
+										setAttributes( {
+											attachment: {},
+										} )
+									}
+									color="secondary"
+								>
+									Remove
+								</button>
+							) }
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<ControlLabel label="Layout"></ControlLabel>
+							<BlockLayout
+								layout={ attributes?.layout }
+								setAttributes={ setAttributes }
 							/>
-						) : (
-							<button
-								className="remove-media-btn"
-								onClick={ () =>
-									setAttributes( {
-										attachment: {},
-									} )
-								}
-								color="secondary"
-							>
-								Remove
-							</button>
-						) }
-					</ControlWrapper>
-				</BaseControl>
+						</ControlWrapper>
+					</BaseControl>
+				</>
 			) }
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
