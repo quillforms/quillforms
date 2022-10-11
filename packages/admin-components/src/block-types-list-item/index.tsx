@@ -103,8 +103,9 @@ const BlockTypesListItem: FC< Props > = memo(
 
 		return (
 			<div
-				onClick={ () => {
+				onClick={ ( e ) => {
 					if ( disabled ) return;
+					e.stopPropagation();
 					const blockToInsert = createBlock( blockName );
 					if ( blockToInsert ) {
 						// blockToInsert.id = generateBlockId();
@@ -119,17 +120,18 @@ const BlockTypesListItem: FC< Props > = memo(
 							destinationIndex
 						);
 						setTimeout( () => {
-							setCurrentBlock( blockToInsert.id );
 							if (
 								! document.querySelector(
 									`#block-editor-box-wrapper-${ blockToInsert.id } .block-editor-block-edit`
 								)
-							)
+							) {
+								setCurrentBlock( blockToInsert.id );
 								document
 									?.getElementById(
 										`block-editor-box-wrapper-${ blockToInsert.id }`
 									)
 									?.scrollIntoView( { behavior: 'smooth' } );
+							}
 						}, 80 );
 					}
 				} }

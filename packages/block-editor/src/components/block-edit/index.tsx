@@ -44,6 +44,7 @@ interface Props {
 	setDescJsonVal: ( value: Node[] ) => void;
 }
 const BlockEdit: React.FC< Props > = ( props ) => {
+	console.log( props );
 	const { setBlockAttributes, setCurrentBlock } = useDispatch(
 		'quillForms/block-editor'
 	);
@@ -126,7 +127,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 				ReactEditor.focus( descEditor );
 			}
 		}
-	}, [ isSelected ] );
+	}, [] );
 
 	// Title Change Handler
 	const labelChangeHandler = ( value: Node[] ) => {
