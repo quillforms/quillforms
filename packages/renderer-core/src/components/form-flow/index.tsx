@@ -135,13 +135,26 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	}, [] );
 
 	let backgroundImageCSS = '';
+	console.log( generalTheme );
 	if ( generalTheme.backgroundImage && generalTheme.backgroundImage ) {
-		backgroundImageCSS = `background: url('${ generalTheme.backgroundImage }') no-repeat;
+		backgroundImageCSS = `background-image: url('${
+			generalTheme.backgroundImage
+		}');
 			background-size: cover;
-			background-position: center;
+			background-position: ${
+				// @ts-expect-error
+				parseFloat( generalTheme.backgroundImageFocalPoint?.x ) * 100
+			}%
+			${
+				// @ts-expect-error
+				parseFloat( generalTheme.backgroundImageFocalPoint?.y ) * 100
+			}%;
+
+			background-repeat: no-repeat;
 		`;
 	}
 
+	console.log( backgroundImageCSS );
 	return (
 		<div
 			ref={ ref }

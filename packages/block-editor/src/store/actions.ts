@@ -7,11 +7,7 @@ import {
 	REORDER_BLOCKS,
 } from './constants';
 
-import type {
-	BlockEditorActionTypes,
-	InitialPayload,
-	DraggedBlockDestination,
-} from './types';
+import type { BlockEditorActionTypes, InitialPayload } from './types';
 import type { FormBlock } from '@quillforms/types';
 
 /**
@@ -33,8 +29,8 @@ export function setupStore(
 /**
  * Set block attributes
  *
- * @param {string} blockId  	 Block Id
- * @param {Object} attributes    Block attributes
+ * @param {string} blockId    Block Id
+ * @param {Object} attributes Block attributes
  *
  * @return {BlockEditorActionTypes} Action object.
  */
@@ -52,8 +48,8 @@ export const setBlockAttributes = (
 /**
  * Reorder form blocks
  *
- * @param {number} 	sourceIndex       Source index in the array
- * @param {number} 	destinationIndex  Destination index in the array
+ * @param {number} sourceIndex      Source index in the array
+ * @param {number} destinationIndex Destination index in the array
  *
  * @return {BlockEditorActionTypes} Action object.
  */
@@ -71,26 +67,26 @@ export const __experimentalReorderBlocks = (
 /**
  * Insert new form block
  *
- * @param {FormBlock}               block         Block object which holds the block definition
- * @param {DraggedBlockDestination} destination   Destination object
+ * @param {FormBlock} block            Block object which holds the block definition
+ * @param {number}    destinationIndex Destination object
  *
  * @return {BlockEditorActionTypes} Action object.
  */
 export const __experimentalInsertBlock = (
 	block: FormBlock,
-	destination: DraggedBlockDestination
+	destinationIndex: number
 ): BlockEditorActionTypes => {
 	return {
 		type: INSERT_BLOCK,
 		block,
-		destination,
+		destinationIndex,
 	};
 };
 
 /**
  * Set current block
  *
- * @param {string} blockId        Block uuid
+ * @param {string} blockId Block uuid
  *
  * @return {BlockEditorActionTypes} Action object.
  */
@@ -104,7 +100,7 @@ export const setCurrentBlock = ( blockId: string ): BlockEditorActionTypes => {
 /**
  * Delete current block
  *
- * @param {string} blockId   Block uuid
+ * @param {string} blockId Block uuid
  *
  * @return {BlockEditorActionTypes} Action object.
  */

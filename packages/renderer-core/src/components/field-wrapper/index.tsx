@@ -237,9 +237,18 @@ const FieldWrapper: React.FC = () => {
 	const theme = useBlockTheme( attributes?.themeId );
 	let backgroundImageCSS = '';
 	if ( theme.backgroundImage && theme.backgroundImage ) {
-		backgroundImageCSS = `background: url('${ theme.backgroundImage }') no-repeat;
+		backgroundImageCSS = `background-image: url('${
+			theme.backgroundImage
+		}') no-repeat;
 			background-size: cover;
-			background-position: center;
+			background-position: ${
+				// @ts-expect-error
+				parseFloat( theme.backgroundImageFocalPoint?.x ) * 100
+			}%
+			${
+				// @ts-expect-error
+				parseFloat( theme.backgroundImageFocalPoint?.y ) * 100
+			}%;
 		`;
 	}
 

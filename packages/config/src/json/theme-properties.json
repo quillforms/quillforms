@@ -10,6 +10,13 @@
 	"backgroundImage": {
 		"type": "string"
 	},
+	"backgroundImageFocalPoint": {
+		"type": "object",
+		"default": {
+			"x": 0.5,
+			"y": 0.5
+		}
+	},
 	"logo": {
 		"type": "object",
 		"default": {}

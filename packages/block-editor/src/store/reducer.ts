@@ -83,76 +83,77 @@ const fillKeysWithEmptyObject = (
  *
  * @return {Function} Enhanced reducer function.
  */
-const withBlockCache = < T extends Reducer >(
-	reducer: T
-): Reducer< BlockEditorState, BlockEditorActionTypes > => (
-	state = initialState,
-	action
-): BlockEditorState => {
-	const newState: BlockEditorState = reducer( state, action );
+const withBlockCache =
+	< T extends Reducer >(
+		reducer: T
+	): Reducer< BlockEditorState, BlockEditorActionTypes > =>
+	( state = initialState, action ): BlockEditorState => {
+		const newState: BlockEditorState = reducer( state, action );
 
-	if ( newState === state ) {
-		return state;
-	}
-	newState.cache = state.cache ? state.cache : {};
+		if ( newState === state ) {
+			return state;
+		}
+		newState.cache = state.cache ? state.cache : {};
 
-	switch ( action.type ) {
-		case SETUP_STORE: {
-			if ( action?.initialPayload?.length ) {
-				const blockIds = map(
-					action.initialPayload,
-					( block ) => block.id
-				);
+		switch ( action.type ) {
+			case SETUP_STORE: {
+				if ( action?.initialPayload?.length ) {
+					const blockIds = map(
+						action.initialPayload,
+						( block ) => block.id
+					);
+					newState.cache = {
+						...fillKeysWithEmptyObject( blockIds ),
+					};
+				}
+				break;
+			}
+			case INSERT_BLOCK: {
+				const updatedBlockIds: string[] = [];
+				if ( action?.block?.id ) {
+					updatedBlockIds.push( action.block.id );
+				}
 				newState.cache = {
-					...fillKeysWithEmptyObject( blockIds ),
+					...newState.cache,
+					...fillKeysWithEmptyObject( updatedBlockIds ),
 				};
+				break;
 			}
-			break;
-		}
-		case INSERT_BLOCK: {
-			const updatedBlockIds: string[] = [];
-			if ( action?.block?.id ) {
-				updatedBlockIds.push( action.block.id );
-			}
-			newState.cache = {
-				...newState.cache,
-				...fillKeysWithEmptyObject( updatedBlockIds ),
-			};
-			break;
-		}
 
-		case DELETE_BLOCK: {
-			newState.cache = {
-				...omit( state.cache, action.blockId ),
-			};
-			break;
-		}
-		case SET_BLOCK_ATTRIBUTES:
-			newState.cache = {
-				...newState.cache,
-				...fillKeysWithEmptyObject( [ action.blockId ] ),
-			};
-			break;
+			case DELETE_BLOCK: {
+				newState.cache = {
+					...omit( state.cache, action.blockId ),
+				};
+				break;
+			}
+			case SET_BLOCK_ATTRIBUTES:
+				newState.cache = {
+					...newState.cache,
+					...fillKeysWithEmptyObject( [ action.blockId ] ),
+				};
+				break;
 
-		case REORDER_BLOCKS: {
-			const updatedBlockUids: string[] = [];
-			if ( action.sourceIndex ) {
-				updatedBlockUids.push( state.blocks[ action.sourceIndex ].id );
+			case REORDER_BLOCKS: {
+				const updatedBlockUids: string[] = [];
+				if ( action.sourceIndex ) {
+					updatedBlockUids.push(
+						state.blocks[ action.sourceIndex ].id
+					);
+				}
+				if ( action.destinationIndex ) {
+					updatedBlockUids.push(
+						state.blocks[ action.destinationIndex ].id
+					);
+				}
+				newState.cache = {
+					...newState.cache,
+					...fillKeysWithEmptyObject( updatedBlockUids ),
+				};
+				break;
 			}
-			if ( action.destinationIndex ) {
-				updatedBlockUids.push(
-					state.blocks[ action.destinationIndex ].id
-				);
-			}
-			newState.cache = {
-				...newState.cache,
-				...fillKeysWithEmptyObject( updatedBlockUids ),
-			};
-			break;
 		}
-	}
-	return newState;
-};
+		return newState;
+	};
 
 /**
  * Reducer returning the form object.
@@ -252,9 +253,9 @@ const BlockEditorReducer: Reducer<
 
 		// INSERT NEW FORM BLOCK
 		case INSERT_BLOCK: {
-			const { block, destination } = action;
+			const { block, destinationIndex } = action;
 			const blocks = [ ...state.blocks ];
-			const { index } = destination;
+			const index = destinationIndex;
 
 			if ( index === undefined || index < 0 ) {
 				return state;

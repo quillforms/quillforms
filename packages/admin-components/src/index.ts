@@ -2,6 +2,7 @@ export { default as AdminNotices } from './admin-notices';
 export { default as BaseControl } from './base-control';
 export { default as BlockIconBox } from './block-icon-box';
 export { default as BlockIconWrapper } from './block-icon-box/wrapper';
+export { default as BlockTypesListDropdown } from './block-types-list-dropdown';
 export { default as Button } from './button';
 export { default as ChoicesBulkBtn } from './choices-bulk-btn';
 export { default as ChoicesInserter } from './choices-inserter';

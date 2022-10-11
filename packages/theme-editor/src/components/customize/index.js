@@ -17,7 +17,11 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { PanelBody, RangeControl, FontSizePicker } from '@wordpress/components';
+import {
+	PanelBody,
+	RangeControl,
+	FocalPointPicker,
+} from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 
 /**
@@ -61,6 +65,7 @@ const CustomizeThemePanel = () => {
 	const {
 		backgroundColor,
 		backgroundImage,
+		backgroundImageFocalPoint,
 		logo,
 		font,
 		questionsLabelFont,
@@ -154,6 +159,44 @@ const CustomizeThemePanel = () => {
 						) }
 					</ControlWrapper>
 				</BaseControl>
+				{ ! isEmpty( backgroundImage ) && (
+					<div
+						className={ css`
+							max-width: 300px;
+						` }
+					>
+						<BaseControl>
+							<ControlWrapper orientation="vertical">
+								<ControlLabel label="Focal Point Picker"></ControlLabel>
+								<div
+									className={ css`
+										max-width: 300px;
+									` }
+								>
+									<FocalPointPicker
+										url={ backgroundImage }
+										value={ backgroundImageFocalPoint }
+										onDragStart={ ( val ) => {
+											setCurrentThemeProperties( {
+												backgroundImageFocalPoint: val,
+											} );
+										} }
+										onDrag={ ( val ) => {
+											setCurrentThemeProperties( {
+												backgroundImageFocalPoint: val,
+											} );
+										} }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												backgroundImageFocalPoint: val,
+											} );
+										} }
+									/>
+								</div>
+							</ControlWrapper>
+						</BaseControl>
+					</div>
+				) }
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="logo" />

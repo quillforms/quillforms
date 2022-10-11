@@ -1,0 +1,15 @@
+.admin-components-block-types-list {
+	overflow-y: auto;
+	max-height: 300px;
+	.admin-components-blocks-list__item-wrapper {
+		& {
+			outline: none;
+			user-select: none;
+			overflow: visible;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}

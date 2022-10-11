@@ -7,6 +7,10 @@ export type FormTheme = {
 	font: string;
 	backgroundColor: string;
 	backgroundImage: string;
+	backgroundImageFocalPoint: {
+		x: number;
+		y: number;
+	};
 	logo: {
 		type?: string;
 		src?: string;
