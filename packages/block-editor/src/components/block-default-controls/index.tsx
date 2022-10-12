@@ -31,6 +31,7 @@ import { css } from 'emotion';
 import BlockThemeControl from '../block-theme';
 import CustomHTML from '../block-custom-html';
 import BlockLayout from '../block-layout';
+import BorderRadiusTemplates from '../border-radius-templates';
 interface Props {
 	blockName: string;
 	attributes?: BlockAttributes;
@@ -72,7 +73,6 @@ const DefaultControls: React.FC< Props > = ( {
 		attachment = attributes.attachment;
 		blockTheme = attributes.themeId;
 	}
-	console.log( attributes );
 	return (
 		<Fragment>
 			{ editableSupport && requiredSupport && (
@@ -133,7 +133,10 @@ const DefaultControls: React.FC< Props > = ( {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label="Layout"></ControlLabel>
+							<ControlLabel
+								label="Layout"
+								isNew={ true }
+							></ControlLabel>
 							<BlockLayout
 								layout={ attributes?.layout }
 								setAttributes={ setAttributes }
@@ -142,40 +145,89 @@ const DefaultControls: React.FC< Props > = ( {
 					</BaseControl>
 
 					{ ( attributes?.layout === 'split-left' ||
-						attributes?.layout === 'split-right' ) && (
-						<BaseControl>
-							<ControlWrapper orientation="vertical">
-								<ControlLabel label="Focal Point Picker"></ControlLabel>
-								<div
-									className={ css`
-										max-width: 300px;
-									` }
-								>
-									<FocalPointPicker
-										url={ attributes?.attachment?.url }
-										value={
-											attributes?.attachmentFocalPoint
+						attributes?.layout === 'split-right' ) &&
+						attributes?.attachment?.url && (
+							<BaseControl>
+								<ControlWrapper orientation="vertical">
+									<ControlLabel
+										label="Focal Point Picker"
+										isNew={ true }
+									></ControlLabel>
+									<div
+										className={ css`
+											max-width: 300px;
+										` }
+									>
+										<FocalPointPicker
+											url={ attributes?.attachment?.url }
+											value={
+												attributes?.attachmentFocalPoint
+											}
+											onDragStart={ ( val ) => {
+												setAttributes( {
+													attachmentFocalPoint: val,
+												} );
+											} }
+											onDrag={ ( val ) => {
+												setAttributes( {
+													attachmentFocalPoint: val,
+												} );
+											} }
+											onChange={ ( val ) => {
+												setAttributes( {
+													attachmentFocalPoint: val,
+												} );
+											} }
+										/>
+									</div>
+								</ControlWrapper>
+							</BaseControl>
+						) }
+
+					{ ( attributes?.layout === 'float-left' ||
+						attributes?.layout === 'float-right' ||
+						attributes?.layout === 'stack' ) &&
+						attributes?.attachment?.url && (
+							<BaseControl>
+								<ControlWrapper orientation="horizontal">
+									<ControlLabel label="Use Fancy Border Radius"></ControlLabel>
+									<ToggleControl
+										checked={
+											attributes?.attachmentFancyBorderRadius
 										}
-										onDragStart={ ( val ) => {
+										onChange={ () => {
+											if (
+												attributes.attachmentFancyBorderRadius
+											) {
+												setAttributes( {
+													attachmentBorderRadius:
+														'0px',
+												} );
+											}
 											setAttributes( {
-												attachmentFocalPoint: val,
-											} );
-										} }
-										onDrag={ ( val ) => {
-											setAttributes( {
-												attachmentFocalPoint: val,
-											} );
-										} }
-										onChange={ ( val ) => {
-											setAttributes( {
-												attachmentFocalPoint: val,
+												attachmentFancyBorderRadius:
+													! attributes.attachmentFancyBorderRadius,
 											} );
 										} }
 									/>
-								</div>
-							</ControlWrapper>
-						</BaseControl>
-					) }
+								</ControlWrapper>
+								{ attributes.attachmentFancyBorderRadius && (
+									<ControlWrapper orientation="vertical">
+										<ControlLabel label="Choose your favorite fancy border radius"></ControlLabel>
+										<BorderRadiusTemplates
+											onChange={ ( val ) => {
+												setAttributes( {
+													attachmentBorderRadius: val,
+												} );
+											} }
+											attachmentBorderRadius={
+												attributes.attachmentBorderRadius
+											}
+										/>
+									</ControlWrapper>
+								) }
+							</BaseControl>
+						) }
 				</>
 			) }
 			<BaseControl>

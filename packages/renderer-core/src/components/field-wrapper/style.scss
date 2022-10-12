@@ -184,6 +184,14 @@
 .renderer-core-block-float-left-layout,
 .renderer-core-block-float-right-layout {
 	align-items: center;
+
+	.renderer-core-block-attachment {
+		justify-items: center;
+
+		img {
+			margin: 0 auto;
+		}
+	}
 }
 .renderer-core-block-split-left-layout,
 .renderer-core-block-split-right-layout {

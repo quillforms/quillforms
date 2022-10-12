@@ -115,6 +115,16 @@ export const registerBlockType = (
 			y: 0.5,
 		},
 	};
+
+	attributes.attachmentFancyBorderRadius = {
+		type: 'boolean',
+		default: false,
+	};
+
+	attributes.attachmentBorderRadius = {
+		type: 'boolean',
+		default: '0px',
+	};
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

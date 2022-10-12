@@ -12,6 +12,8 @@ type DefaultAttributes = {
 		x: number;
 		y: number;
 	};
+	attachmentFancyBorderRadius: boolean;
+	attachmentBorderRadius: string;
 	themeId?: number;
 	layout?:
 		| 'stack'

@@ -220,6 +220,16 @@ abstract class Block_Type extends stdClass {
 					'y' => 0.5
 				),
 			);
+
+			$attributes_schema['attachmentFancyBorderRadius'] = array(
+				'type' => 'boolean',
+				'default' => false
+			);
+
+			$attributes_schema['attachmentBorderRadius'] = array(
+				'type' => 'string',
+				'default' => '0px'
+			);
 		}
 
 		if ( $this->supported_features['description'] ) {
