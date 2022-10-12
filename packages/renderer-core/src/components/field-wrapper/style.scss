@@ -161,12 +161,13 @@
 		}
 	}
 	@media (max-width: 767px) {
-		flex-direction: column-reverse !important;
-		overflow-y: auto;
+		flex-direction: column !important;
+	}
+}
 
-		.renderer-components-field-wrapper__content-wrapper {
-			overflow-y: hidden;
-		}
+.renderer-core-block-split-right-layout {
+	@media (max-width: 767px) {
+		flex-direction: column-reverse !important;
 	}
 }
 @media (min-width: 768px) {
@@ -193,6 +194,12 @@
 			width: 100% !important;
 			height: 100% !important;
 			object-fit: cover;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.renderer-core-block-attachment-wrapper {
+			height: 192px;
 		}
 	}
 }
