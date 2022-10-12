@@ -164,6 +164,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 			if (
 				PopoverRef.current &&
 				ref.current &&
+				// @ts-expect-error
 				! PopoverRef.current.contains( event.target as Node ) &&
 				! ref.current.contains( event.target as Node )
 			) {

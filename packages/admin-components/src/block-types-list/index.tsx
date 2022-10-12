@@ -7,7 +7,6 @@ import BlockTypesListItem from '../block-types-list-item';
 /**
  * WordPress Dependencies
  */
-import { Fragment } from 'react';
 import { useSelect } from '@wordpress/data';
 
 /**
