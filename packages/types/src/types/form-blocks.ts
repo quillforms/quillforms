@@ -8,13 +8,13 @@ type DefaultAttributes = {
 	description?: string;
 	required?: boolean;
 	attachment?: BlockAttachment;
-	attachmentMaxWidth: 'none';
+	attachmentMaxWidth?: 'none';
 	attachmentFocalPoint?: {
 		x: number;
 		y: number;
 	};
-	attachmentFancyBorderRadius: boolean;
-	attachmentBorderRadius: string;
+	attachmentFancyBorderRadius?: boolean;
+	attachmentBorderRadius?: string;
 	themeId?: number;
 	layout?:
 		| 'stack'
