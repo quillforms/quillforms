@@ -141,41 +141,41 @@ const DefaultControls: React.FC< Props > = ( {
 						</ControlWrapper>
 					</BaseControl>
 
-					{ attributes?.layout === 'split-left' ||
-						( attributes?.layout === 'split-right' && (
-							<BaseControl>
-								<ControlWrapper orientation="vertical">
-									<ControlLabel label="Focal Point Picker"></ControlLabel>
-									<div
-										className={ css`
-											max-width: 300px;
-										` }
-									>
-										<FocalPointPicker
-											url={ attributes?.attachment?.url }
-											value={
-												attributes?.attachmentFocalPoint
-											}
-											onDragStart={ ( val ) => {
-												setAttributes( {
-													attachmentFocalPoint: val,
-												} );
-											} }
-											onDrag={ ( val ) => {
-												setAttributes( {
-													attachmentFocalPoint: val,
-												} );
-											} }
-											onChange={ ( val ) => {
-												setAttributes( {
-													attachmentFocalPoint: val,
-												} );
-											} }
-										/>
-									</div>
-								</ControlWrapper>
-							</BaseControl>
-						) ) }
+					{ ( attributes?.layout === 'split-left' ||
+						attributes?.layout === 'split-right' ) && (
+						<BaseControl>
+							<ControlWrapper orientation="vertical">
+								<ControlLabel label="Focal Point Picker"></ControlLabel>
+								<div
+									className={ css`
+										max-width: 300px;
+									` }
+								>
+									<FocalPointPicker
+										url={ attributes?.attachment?.url }
+										value={
+											attributes?.attachmentFocalPoint
+										}
+										onDragStart={ ( val ) => {
+											setAttributes( {
+												attachmentFocalPoint: val,
+											} );
+										} }
+										onDrag={ ( val ) => {
+											setAttributes( {
+												attachmentFocalPoint: val,
+											} );
+										} }
+										onChange={ ( val ) => {
+											setAttributes( {
+												attachmentFocalPoint: val,
+											} );
+										} }
+									/>
+								</div>
+							</ControlWrapper>
+						</BaseControl>
+					) }
 				</>
 			) }
 			<BaseControl>
