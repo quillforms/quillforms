@@ -651,6 +651,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/notion/icon.png',
 				),
 			),
+			'pipedrive'                 => array(
+				'name'           => esc_html__( 'Pipedrive', 'quillforms' ),
+				'description'    => esc_html__( 'Create Pipedrive leads on form submission.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-pipedrive/quillforms-pipedrive.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pipedrive/icon.svg',
+				),
+			),
 			'getresponse'               => array(
 				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GetResponse lists.', 'quillforms' ),
