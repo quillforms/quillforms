@@ -27,7 +27,7 @@
 	}
 	&.isSelected .block-editor-block-edit-box__content > .components-dropdown {
 		visibility: visible;
-		z-index: 2;
+		z-index: 3;
 	}
 	&.isSelected .block-editor-block-edit-box__content-wrapper > div {
 		background: #efeeeee6 !important;
