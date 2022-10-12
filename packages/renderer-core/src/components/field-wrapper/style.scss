@@ -99,13 +99,6 @@
 			box-shadow: none !important;
 			outline: none !important;
 		}
-		@media (max-width: $break-small) {
-			padding: 30px 45px;
-		}
-
-		@media (max-width: $break-small) {
-			padding-bottom: 60px;
-		}
 
 		.renderer-core-block-scroller {
 			padding: 40px 70px;
@@ -141,7 +134,9 @@
 	transition: none;
 }
 
-.renderer-components-field-wrapper.active:not(.is-animating) .renderer-core-block-attachment-wrapper {
+.renderer-components-field-wrapper.active:not(.is-animating) .renderer-core-block-attachment-wrapper,
+.qf-welcome-screen-block__wrapper.active .renderer-core-block-attachment-wrapper,
+.qf-thankyou-screen-block__wrapper.active .renderer-core-block-attachment-wrapper {
 	opacity: 1;
 	transform: none;
 }

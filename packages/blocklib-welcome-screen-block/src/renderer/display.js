@@ -20,6 +20,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { noop } from 'lodash';
 import { css } from 'emotion';
 import classNames from 'classnames';
+import Attachment from './attachment';
 
 const WelcomeScreenOutput = ( { attributes } ) => {
 	const { isPreview } = useFormContext();
@@ -78,6 +79,8 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 			<div
 				className={ classNames(
 					'qf-welcome-screen-block__wrapper',
+					`blocktype-welcome-screen-block`,
+					`renderer-core-block-${ attributes?.layout }-layout`,
 					{
 						'with-sticky-footer': stickyFooter,
 						active: isActive,
@@ -89,9 +92,10 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 							left: 0;
 							right: 0;
 							bottom: 0;
+							z-index: 6;
 							display: flex;
-							flex-wrap: wrap;
-							flex-direction: column;
+							${ attributes.layout === 'stack' &&
+							`flex-direction: column;` }
 							justify-content: center;
 							width: 100%;
 							height: 100%;
@@ -129,36 +133,12 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 						className="qf-welcome-screen-block__content"
 						ref={ screenContentRef }
 					>
-						<div className="renderer-core-block-attachment">
-							{ attributes.attachment &&
-							attributes.attachment.url ? (
-								<img
-									alt={ '' }
-									src={ attributes.attachment.url }
-									className="renderer-core-block-attachment__image"
-								/>
-							) : (
-								<>
-									{ isPreview && (
-										<div className="renderer-core-block-attachment__placeholder">
-											<svg
-												className="renderer-core-block-attachment__placeholder-icon"
-												focusable="false"
-												viewBox="0 0 24 24"
-												role="presentation"
-											>
-												<circle
-													cx="12"
-													cy="12"
-													r="3.2"
-												/>
-												<path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
-											</svg>
-										</div>
-									) }
-								</>
-							) }
-						</div>
+						{ attributes.layout === 'stack' && (
+							<Attachment
+								isPreview={ isPreview }
+								attributes={ attributes }
+							/>
+						) }
 						<div
 							className={ css`
 								margin-top: 25px;
@@ -261,6 +241,32 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 						buttonText={ attributes.buttonText }
 					/>
 				</div>
+				{ attributes.layout !== 'stack' && (
+					<div
+						className={ classNames(
+							'renderer-core-block-attachment-wrapper',
+							css`
+								img {
+									object-position: ${
+											// @ts-expect-error
+											attributes?.attachmentFocalPoint
+												?.x * 100
+										 }%
+										${
+											// @ts-expect-error
+											attributes?.attachmentFocalPoint
+												?.y * 100
+										 }%;
+								}
+							`
+						) }
+					>
+						<Attachment
+							isPreview={ isPreview }
+							attributes={ attributes }
+						/>
+					</div>
+				) }
 			</div>
 		</div>
 	);

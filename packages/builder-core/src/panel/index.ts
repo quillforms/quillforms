@@ -6,7 +6,7 @@ import { registerBuilderPanel } from '@quillforms/builder-panels';
 /**
  * Internal Dependencies
  */
-import render from '../components/block-types-list';
+import render from '@quillforms/admin-components/src/block-types-list';
 import Icon from './icon';
 
 registerBuilderPanel( 'blocks', {

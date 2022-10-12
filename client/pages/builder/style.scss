@@ -4,7 +4,9 @@
 	top: 15px;
 	right: 150px;
 }
-
+.qf-builder-save-button {
+	z-index: 6;
+}
 .qf-builder-full-preview-button {
 	position: absolute;
 	display: inline-flex;
@@ -15,6 +17,7 @@
 	height: 30px;
 	width: 30px;
 	border: none;
+	z-index: 6;
 	border-radius: 4px;
 	background: #d9d9d9;
 	cursor: pointer;
