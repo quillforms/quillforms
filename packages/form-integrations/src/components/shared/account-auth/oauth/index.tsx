@@ -18,9 +18,15 @@ interface Props {
 	provider: Provider;
 	labels?: AccountsLabels;
 	onAdded: ( id: string, account: { name: string } ) => void;
+	Instructions?: React.FC;
 }
 
-const Oauth: React.FC< Props > = ( { provider, labels, onAdded } ) => {
+const Oauth: React.FC< Props > = ( {
+	provider,
+	labels,
+	onAdded,
+	Instructions,
+} ) => {
 	// dispatch notices.
 	const { createSuccessNotice } = useDispatch( 'core/notices' );
 
@@ -52,6 +58,11 @@ const Oauth: React.FC< Props > = ( { provider, labels, onAdded } ) => {
 
 	return (
 		<div className="integration-auth-oauth">
+			{ Instructions && (
+				<div className="integration-auth-instructions">
+					<Instructions />
+				</div>
+			) }
 			<Button isPrimary onClick={ authorize }>
 				Authorize Your { labels?.singular ?? 'Account' }
 			</Button>
