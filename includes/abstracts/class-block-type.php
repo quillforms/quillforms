@@ -230,6 +230,11 @@ abstract class Block_Type extends stdClass {
 				'type' => 'string',
 				'default' => '0px'
 			);
+
+			$attribute_schema['attachmentMaxWidth'] = array(
+				'type' => 'string',
+				'default' => 'none'
+			);
 		}
 
 		if ( $this->supported_features['description'] ) {
