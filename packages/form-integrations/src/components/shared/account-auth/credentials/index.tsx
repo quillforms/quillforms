@@ -112,11 +112,6 @@ const Credentials: React.FC< Props > = ( {
 					disabled={ submitting }
 				/>
 			) ) }
-			{ Instructions && (
-				<div className="integration-auth-instructions">
-					<Instructions />
-				</div>
-			) }
 			<Button
 				isPrimary
 				onClick={ submit }
@@ -124,6 +119,11 @@ const Credentials: React.FC< Props > = ( {
 			>
 				{ __( 'Add', 'quillforms-hubspot' ) }
 			</Button>
+			{ Instructions && (
+				<div className="integration-auth-instructions">
+					<Instructions />
+				</div>
+			) }
 		</div>
 	);
 };

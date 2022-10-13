@@ -58,14 +58,14 @@ const Oauth: React.FC< Props > = ( {
 
 	return (
 		<div className="integration-auth-oauth">
+			<Button isPrimary onClick={ authorize }>
+				Authorize Your { labels?.singular ?? 'Account' }
+			</Button>
 			{ Instructions && (
 				<div className="integration-auth-instructions">
 					<Instructions />
 				</div>
 			) }
-			<Button isPrimary onClick={ authorize }>
-				Authorize Your { labels?.singular ?? 'Account' }
-			</Button>
 		</div>
 	);
 };
