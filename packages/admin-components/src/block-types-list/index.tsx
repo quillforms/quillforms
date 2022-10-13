@@ -15,6 +15,7 @@ import { useSelect } from '@wordpress/data';
 import classnames from 'classnames';
 import { keys, map } from 'lodash';
 import {
+	CaledlyIcon,
 	FileIcon,
 	OpinionScaleIcon,
 	PhoneIcon,
@@ -109,6 +110,27 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex } ) => {
 					</div>
 				</div>
 			) }
+
+			{ ! blockTypes.calendly && (
+				<div className={ 'admin-components-blocks-list__item-wrapper' }>
+					<div className="admin-components-blocks-list-item disabled">
+						<span
+							className="admin-components-blocks-list-item__icon-wrapper"
+							style={ {
+								backgroundColor: '#fff',
+							} }
+						>
+							<span className="admin-components-blocks-list-item__icon">
+								<CaledlyIcon />
+							</span>
+						</span>
+						<span className="admin-components-blocks-list-item__block-name">
+							Calendly
+						</span>
+						<ProLabel />
+					</div>
+				</div>
+			) }
 			{ ! blockTypes[ 'opinion-scale' ] && (
 				<div className={ 'admin-components-blocks-list__item-wrapper' }>
 					<div className="admin-components-blocks-list-item disabled">
@@ -149,6 +171,7 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex } ) => {
 					</div>
 				</div>
 			) }
+			{ ! blockTypes }
 			{ ! blockTypes[ 'thankyou-screen' ] && (
 				<div className={ 'admin-components-blocks-list__item-wrapper' }>
 					<div className="admin-components-blocks-list-item disabled">
