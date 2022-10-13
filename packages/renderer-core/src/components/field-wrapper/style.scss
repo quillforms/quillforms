@@ -181,8 +181,7 @@
 	align-items: center;
 
 	.renderer-core-block-attachment {
-		justify-items: center;
-
+		&,
 		img {
 			margin: 0 auto;
 		}

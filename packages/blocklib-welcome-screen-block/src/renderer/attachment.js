@@ -8,7 +8,10 @@ const Attachment = ( { attributes, isPreview } ) => {
 				css`
 					${ attributes.layout !== 'split-right' &&
 					attributes.layout !== 'split-left' &&
-					`border-radius: ${ attributes.attachmentBorderRadius };` }
+					`
+					max-width: ${ attributes?.attachmentMaxWidth };
+					margin: auto;
+					` }
 					overflow: hidden;
 				`
 			) }
@@ -18,7 +21,12 @@ const Attachment = ( { attributes, isPreview } ) => {
 					alt={ '' }
 					src={ attributes.attachment.url }
 					className={ classnames(
-						'renderer-core-block-attachment__image'
+						'renderer-core-block-attachment__image',
+						css`
+							${ attributes.layout !== 'split-right' &&
+							attributes.layout !== 'split-left' &&
+							`border-radius: ${ attributes.attachmentBorderRadius };` }
+						`
 					) }
 				/>
 			) : (

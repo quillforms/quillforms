@@ -125,6 +125,11 @@ export const registerBlockType = (
 		type: 'boolean',
 		default: '0px',
 	};
+
+	attributes.attachmentMaxWidth = {
+		type: 'string',
+		default: 'none',
+	};
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

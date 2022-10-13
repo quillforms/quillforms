@@ -9,7 +9,16 @@ const BlockAttachment: React.FC = () => {
 	return (
 		<Fragment>
 			{ attachment && Object.keys( attachment ).length > 0 ? (
-				<div className="renderer-core-block-attachment">
+				<div
+					className={ classnames(
+						'renderer-core-block-attachment',
+						css`
+							${ attributes.layout !== 'split-right' &&
+							attributes.layout !== 'split-left' &&
+							`max-width: ${ attributes?.attachmentMaxWidth };` }
+						`
+					) }
+				>
 					{ attachment && attachment.url ? (
 						<img
 							alt={ '' }

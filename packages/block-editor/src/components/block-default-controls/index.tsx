@@ -15,7 +15,7 @@ import type { BlockAttributes } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
-import { FocalPointPicker } from '@wordpress/components';
+import { FocalPointPicker, RangeControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { Fragment } from 'react';
 import { MediaUpload } from '@wordpress/media-utils';
@@ -188,45 +188,105 @@ const DefaultControls: React.FC< Props > = ( {
 						attributes?.layout === 'float-right' ||
 						attributes?.layout === 'stack' ) &&
 						attributes?.attachment?.url && (
-							<BaseControl>
-								<ControlWrapper orientation="horizontal">
-									<ControlLabel label="Use Fancy Border Radius"></ControlLabel>
-									<ToggleControl
-										checked={
-											attributes?.attachmentFancyBorderRadius
-										}
-										onChange={ () => {
-											if (
-												attributes.attachmentFancyBorderRadius
-											) {
-												setAttributes( {
-													attachmentBorderRadius:
-														'0px',
-												} );
+							<>
+								<BaseControl>
+									<ControlWrapper orientation="horizontal">
+										<ControlLabel
+											label="Set Maximum Width for attachment"
+											isNew={ true }
+										/>
+										<ToggleControl
+											checked={
+												attributes?.attachmentMaxWidth !==
+												'none'
 											}
-											setAttributes( {
-												attachmentFancyBorderRadius:
-													! attributes.attachmentFancyBorderRadius,
-											} );
-										} }
-									/>
-								</ControlWrapper>
-								{ attributes.attachmentFancyBorderRadius && (
-									<ControlWrapper orientation="vertical">
-										<ControlLabel label="Choose your favorite fancy border radius"></ControlLabel>
-										<BorderRadiusTemplates
-											onChange={ ( val ) => {
-												setAttributes( {
-													attachmentBorderRadius: val,
-												} );
+											onChange={ () => {
+												if (
+													attributes?.attachmentMaxWidth ===
+													'none'
+												) {
+													setAttributes( {
+														attachmentMaxWidth:
+															'200px',
+													} );
+												} else {
+													setAttributes( {
+														attachmentMaxWidth:
+															'none',
+													} );
+												}
 											} }
-											attachmentBorderRadius={
-												attributes.attachmentBorderRadius
-											}
 										/>
 									</ControlWrapper>
-								) }
-							</BaseControl>
+									<>
+										{ attributes.attachmentMaxWidth !==
+											'none' && (
+											<ControlWrapper orientation="vertical">
+												<ControlLabel label="Maximum Width(px)" />
+												<RangeControl
+													value={ parseInt(
+														attributes?.attachmentMaxWidth?.replace(
+															'px',
+															''
+														)
+													) }
+													onChange={ ( value ) =>
+														setAttributes( {
+															attachmentMaxWidth:
+																value + 'px',
+														} )
+													}
+													min={ 50 }
+													max={ 900 }
+												/>
+											</ControlWrapper>
+										) }
+									</>
+								</BaseControl>
+								<BaseControl>
+									<ControlWrapper orientation="horizontal">
+										<ControlLabel
+											label="Use Fancy Border Radius"
+											isNew={ true }
+										></ControlLabel>
+										<ToggleControl
+											checked={
+												attributes?.attachmentFancyBorderRadius
+											}
+											onChange={ () => {
+												if (
+													attributes.attachmentFancyBorderRadius
+												) {
+													setAttributes( {
+														attachmentBorderRadius:
+															'0px',
+													} );
+												}
+												setAttributes( {
+													attachmentFancyBorderRadius:
+														! attributes.attachmentFancyBorderRadius,
+												} );
+											} }
+										/>
+									</ControlWrapper>
+									{ attributes.attachmentFancyBorderRadius && (
+										<ControlWrapper orientation="vertical">
+											<ControlLabel label="Choose your favorite fancy border radius"></ControlLabel>
+											<BorderRadiusTemplates
+												onChange={ ( val ) => {
+													setAttributes( {
+														attachmentBorderRadius:
+															val,
+													} );
+												} }
+												attachmentBorderRadius={
+													attributes.attachmentBorderRadius
+												}
+											/>
+										</ControlWrapper>
+									) }
+								</BaseControl>
+							</>
 						) }
 				</>
 			) }
