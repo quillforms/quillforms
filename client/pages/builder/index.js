@@ -64,7 +64,7 @@ const Builder = ( { params } ) => {
 		}
 
 		return () => {
-			setCurrentPanel( 'blocks' );
+			setCurrentPanel( '' );
 			resetAnswers();
 		};
 	}, [] );

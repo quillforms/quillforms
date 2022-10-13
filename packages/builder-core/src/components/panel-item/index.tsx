@@ -12,8 +12,8 @@ import { plus } from '@wordpress/icons';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
- External Dependencies
-  */
+  External Dependencies
+ */
 import classnames from 'classnames';
 import { css } from 'emotion';
 
@@ -60,7 +60,7 @@ const PanelNavItem: React.FC< Props > = memo(
 						transform: scale( 0 );
 						opacity: 0;
 						transition: all 0.2s ease;
-						transition-delay: ${ index * 0.1 }s;
+						transition-delay: ${ ( index + 1 ) * 0.1 }s;
 
 						&.mounted {
 							transform: scale( 1 );
