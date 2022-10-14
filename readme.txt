@@ -124,6 +124,9 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.18.2 = 14 Oct 2022
+- Fix: Fixing the block controls modal css conflicts
+
 = 1.18.1 = 14 Oct 2022
 - Fix: Background image wasn't working after overriding the theme from block controls.
 - Fix: Z-index issues at the builder.
