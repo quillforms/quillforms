@@ -1,7 +1,7 @@
- === Quill Forms | Typeform WordPress Plugin | Create Conversational Forms like Typeform on WordPress ===
+ === Quill Forms | Typeform Alternative WordPress Plugin | Create Conversational Forms like Typeform on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.0
-Stable tag: 1.17.1
+Stable tag: 1.18.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -28,7 +28,7 @@ What’s more, QuillForms offers loads of hip features that make creating forms 
 ·  Personalize your themes
 ·  Change font, colors and backgrounds with a single click
 
-Quill Forms is definitely the best WordPress form plugin.
+If you are looking for Typeform WordPress plugin, then Quill Forms should be your choice without any doubt!
 QuillForms free version comes with variety of blocks:
 1- Welcome screen block
 2- Date block
@@ -68,10 +68,12 @@ QuillForms free version comes with variety of blocks:
 23- Notion integration
 24- Make integration
 25- Monday.com integration
-26- Tracking with Google Analytics
-27- Tracking with Facebook Pixel
-28- Opinion scale block
-29- Custom thank you screen for redirect and custom buttons
+26- Calendly integration
+27- Pipedrive integration
+28- Tracking with Google Analytics
+29- Tracking with Facebook Pixel
+30- Opinion scale block
+31- Custom thank you screen for redirect and custom buttons
 
 [Purchase The Pro Version](https://quillforms.com)
 
@@ -121,6 +123,15 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.18.0 = 13 Oct 2022
+Feature: Adding layout options for each block(stack, float right, float left, split right, split left).
+Feature: Adding control for attachment maximum width.
+Feature: Adding fancy border radius feature for attachment.
+Feature: Adding focal point picker feature for background and attachment.
+Feature: Adding Calendly addon.
+Feature: Adding Pipedrive addon.
+Fix: Fix wrong attribute type in number block.
 
 = 1.17.1 = 28 Sep 2022
 Fix: Fixing a bug with overriding quillforms slug.
