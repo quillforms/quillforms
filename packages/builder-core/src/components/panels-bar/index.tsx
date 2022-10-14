@@ -27,8 +27,6 @@ const BuilderPanelsBar = () => {
 		};
 	} );
 
-	console.log( currentPanelName );
-
 	return (
 		<div className="builder-core-builder-panels-bar">
 			<div

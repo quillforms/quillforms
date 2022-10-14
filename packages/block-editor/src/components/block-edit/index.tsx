@@ -44,7 +44,6 @@ interface Props {
 	setDescJsonVal: ( value: Node[] ) => void;
 }
 const BlockEdit: React.FC< Props > = ( props ) => {
-	console.log( props );
 	const { setBlockAttributes, setCurrentBlock } = useDispatch(
 		'quillForms/block-editor'
 	);

@@ -135,7 +135,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	}, [] );
 
 	let backgroundImageCSS = '';
-	console.log( generalTheme );
 	if ( generalTheme.backgroundImage && generalTheme.backgroundImage ) {
 		backgroundImageCSS = `background-image: url('${
 			generalTheme.backgroundImage
@@ -154,7 +153,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 		`;
 	}
 
-	console.log( backgroundImageCSS );
 	return (
 		<div
 			ref={ ref }
