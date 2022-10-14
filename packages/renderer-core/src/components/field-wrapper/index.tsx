@@ -239,7 +239,7 @@ const FieldWrapper: React.FC = () => {
 	if ( theme.backgroundImage && theme.backgroundImage ) {
 		backgroundImageCSS = `background-image: url('${
 			theme.backgroundImage
-		}') no-repeat;
+		}');
 			background-size: cover;
 			background-position: ${
 				// @ts-expect-error

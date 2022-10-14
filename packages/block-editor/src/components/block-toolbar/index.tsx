@@ -75,7 +75,7 @@ const BlockToolbar = ( { id, editor } ) => {
 								className={ classnames(
 									'my-div',
 									css`
-										& ~ .components-modal__screen-overlay {
+										& ~ .qf-custom-modal {
 											background-color: transparent !important;
 											z-index: 5;
 										}
@@ -86,6 +86,7 @@ const BlockToolbar = ( { id, editor } ) => {
 						) }
 					</>
 					<Modal
+						overlayClassName={ 'qf-custom-modal' }
 						className={ css`
 							border: none !important;
 							min-width: 350px !important;
