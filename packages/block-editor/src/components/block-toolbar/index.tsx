@@ -90,12 +90,12 @@ const BlockToolbar = ( { id, editor } ) => {
 						className={ css`
 							border: none !important;
 							min-width: 350px !important;
-							margin-left: 0;
-							min-height: calc( 100% - 54px );
-							margin-bottom: 0;
+							margin-left: 0 !important;
+							min-height: calc( 100% - 54px ) !important;
+							margin-bottom: 0 !important;
 
 							.components-modal__content {
-								background: #eee;
+								background: #eee !important;
 							}
 
 							.components-modal__header {
