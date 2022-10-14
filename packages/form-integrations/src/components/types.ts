@@ -31,6 +31,7 @@ export type AccountsLabels = {
 export type AccountsAuth = {
 	type: 'credentials' | 'oauth';
 	fields?: AccountsAuthFields;
+	Instructions?: React.FC;
 };
 
 export type ConnectMainAccounts = {

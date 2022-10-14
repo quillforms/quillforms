@@ -228,7 +228,7 @@ const DefaultControls: React.FC< Props > = ( {
 														attributes?.attachmentMaxWidth?.replace(
 															'px',
 															''
-														)
+														) ?? '0'
 													) }
 													onChange={ ( value ) =>
 														setAttributes( {
