@@ -357,7 +357,7 @@ class Form_Submission {
 			'recurring' => $model['recurring'],
 			'currency'  => $this->form_data['payments']['currency'],
 			'products'  => $products,
-			'labels'	=> $this->form_data['payments']['labels']
+			'labels'    => $this->form_data['payments']['labels'],
 		);
 	}
 
@@ -412,7 +412,7 @@ class Form_Submission {
 							'price'    => (float) $block_type->get_numeric_value( $this->entry->get_record_value( 'field', $block_id ) ),
 							'quantity' => 1,
 						);
-	 				} elseif ( $block_type->supported_features['choices'] ) {
+					} elseif ( $block_type->supported_features['choices'] ) {
 						$choices  = $block_type->get_choices();
 						$selected = $this->entry->get_record_value( 'field', $block_id ) ?? array();
 						$selected = (array) $selected;
