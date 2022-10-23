@@ -147,6 +147,15 @@ class Form_Submission {
 		$this->entry->date_created = gmdate( 'Y-m-d H:i:s' );
 		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
 
+		// add some basic entry meta.
+		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
+		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
+			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
+		}
+		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
+			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
+		}
+
 		// add sanitized fields.
 		foreach ( $this->form_data['blocks'] as $block ) {
 			$block_type = Blocks_Manager::instance()->create( $block );
@@ -195,6 +204,9 @@ class Form_Submission {
 			list($walkpath, $this->entry) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
 		}
 
+		// Set walkpath meta.
+		$this->entry->set_meta_value( 'walkpath', $walkpath );
+
 		// Validate all fields at the walkpath.
 		foreach ( $walkpath as $block_id ) {
 			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
@@ -236,16 +248,6 @@ class Form_Submission {
 				$formatted_value = $block_type->format_field( $field_answer, $this->form_data );
 				$this->entry->set_record_value( 'field', $block_id, $formatted_value );
 			}
-		}
-
-		// add some entry meta.
-		$this->entry->set_meta_value( 'walkpath', $walkpath );
-		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
-		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
-		}
-		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
 		}
 
 		// check payments.
