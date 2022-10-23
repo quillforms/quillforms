@@ -183,27 +183,9 @@ class Form_Submission {
 			$this->form_data['blocks']
 		);
 
-		// for backward compatibility. 1.13.0.
-		$walkpath_filter_format = apply_filters( 'quillforms_entry_walkpath_format', 'blocks' );
-		if ( 'blocks' === $walkpath_filter_format ) {
-			$walkpath_blocks = array_map(
-				function ( $block_id ) {
-					return quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
-				},
-				$walkpath
-			);
-			/** @var Entry "$this->entry" */ // phpcs:ignore
-			list($walkpath_blocks, $this->entry) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath_blocks, $this->entry ), $this->form_data );
-			$walkpath                            = array_map(
-				function ( $block ) {
-					return $block['id'];
-				},
-				$walkpath_blocks
-			);
-		} else {
-			/** @var Entry "$this->entry" */ // phpcs:ignore
-			list($walkpath, $this->entry) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
-		}
+		// filter walkpath with entry.
+		/** @var Entry "$this->entry" */ // phpcs:ignore
+		list($walkpath, $this->entry) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
 
 		// Set walkpath meta.
 		$this->entry->set_meta_value( 'walkpath', $walkpath );
