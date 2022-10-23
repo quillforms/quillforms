@@ -152,6 +152,7 @@ class Form_Submission {
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
 			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
 		}
+		$this->entry->set_meta_value( 'user_ip_hash', sha1( 'quillforms-' . $this->get_client_ip() ) );
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
 			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
 		}
