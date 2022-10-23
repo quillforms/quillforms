@@ -213,8 +213,9 @@ class Form_Submission {
 				$this->errors['fields'][ $block_id ] = $validation_message;
 			}
 		}
-		// Stop if there are validation errors.
-		if ( ! empty( $this->errors ) ) {
+
+		// stop if there are validation errors.
+		if ( $this->errors ) {
 			return;
 		}
 
