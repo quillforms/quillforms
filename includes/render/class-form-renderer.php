@@ -74,7 +74,7 @@ class Form_Renderer {
 	 * @access private
 	 */
 	private function __construct() {
-		add_action( 'wp', array( $this, 'init' ) );
+		$this->init();
 	}
 
 	/**
@@ -83,35 +83,28 @@ class Form_Renderer {
 	 * @since 1.0.0
 	 */
 	public function init() {
-		// run for quill_forms post type only.
-		if ( ! is_singular( 'quill_forms' ) ) {
-			return;
-		}
-
-		// run filter.
-		$should_run = apply_filters( 'quillforms_form_renderer_run', true );
-		if ( ! $should_run ) {
-			return;
-		}
-
-		// define form_id.
-		$this->form_id = get_the_ID();
-
-		// disable cache.
-		$this->do_not_cache();
-
 		// Overriding single post page with custom template.
-		add_filter( 'template_include', array( $this, 'template_loader' ), 999999 );
+		add_action( 'init', array( $this, 'template_include' ) );
 
 		add_filter( 'show_admin_bar', array( $this, 'hide_admin_bar' ) );
 
 		// Enqueuing assets to make the form render properly.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 999999 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_render_script' ), 999999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_render_script' ), 99999999 );
 
 		// Remove any defer/async before printing script tags.
 		add_filter( 'script_loader_tag', array( $this, 'remove_script_defer' ), PHP_INT_MAX, 3 );
 	}
+
+	/**
+	 * Our custom template to override single post page.
+	 *
+	 * @since 1.0.0
+	 */
+	public function template_include() {
+		add_filter( 'template_include', array( $this, 'template_loader' ), 999999 );
+	}
+
 
 	/**
 	 * Do not cache.
@@ -159,10 +152,30 @@ class Form_Renderer {
 	 * @since 1.0.0
 	 *
 	 * @param string $template The template path.
+	 *
 	 * @return string The modified template
 	 */
-	public function template_loader( $template ) { // phpcs:ignore
-		return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';
+	public function template_loader( $template ) {
+		if ( is_singular( 'quill_forms' ) ) {
+			$this->do_not_cache();
+			$this->set_form_id( get_the_ID() );
+			return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';
+		}
+		return $template;
+	}
+
+
+	/**
+	 * Set form id.
+	 * private function because it shouldn't be public.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @param int $form_id The form id.
+	 */
+	private function set_form_id( int $form_id ) {
+		$this->form_id = $form_id;
 	}
 
 	/**
@@ -207,63 +220,66 @@ class Form_Renderer {
 	 * @since 1.0.0
 	 */
 	public function enqueue_assets() {
-		global $wp_scripts;
-		global $wp_styles;
-		global $post;
-		Core::register_block_types_by_js();
-		Core::set_renderer_config();
+		if ( is_singular( 'quill_forms' ) ) :
+			global $wp_scripts;
+			global $wp_styles;
+			global $post;
+			Core::register_block_types_by_js();
+			Core::set_renderer_config();
 
-		$form_id           = $post->ID;
-		$wp_scripts->queue = array( 'quillforms-renderer-core' );
-		$wp_styles->queue  = array( 'quillforms-renderer-core' );
+			$form_id           = $post->ID;
+			$wp_scripts->queue = array( 'quillforms-renderer-core' );
+			$wp_styles->queue  = array( 'quillforms-renderer-core' );
 
-		$blocks = Core::get_blocks( $form_id );
+			$blocks = Core::get_blocks( $form_id );
 
-		// Render styles for used blocks only.
-		foreach ( $blocks as $block ) {
-			$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
-			if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['style'] ) ) {
-				$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
+			// Render styles for used blocks only.
+			foreach ( $blocks as $block ) {
+				$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
+				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['style'] ) ) {
+					$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
+				}
 			}
-		}
 
-		// Render scripts for used blocks only.
-		foreach ( $blocks as $block ) {
-			$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
-			if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['script'] ) ) {
-				$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
+			// Render scripts for used blocks only.
+			foreach ( $blocks as $block ) {
+				$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
+				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['script'] ) ) {
+					$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];
+				}
 			}
-		}
 
-		// Loading font.
-		$form_object = $this->prepare_form_object();
-		if ( $form_object ) {
-			$theme = $form_object['theme'];
+			// Loading font.
+			$form_object = $this->prepare_form_object();
+			if ( $form_object ) {
+				$theme = $form_object['theme'];
 
-			$font      = esc_attr( $theme['font'] );
-			$font_type = Fonts::get_font_type( $font );
-			$font_url  = null;
-			switch ( $font_type ) {
-				case 'googlefonts':
-					$font_url =
-						'https://fonts.googleapis.com/css?family=' .
-						$font .
-						':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+				$font      = esc_attr( $theme['font'] );
+				$font_type = Fonts::get_font_type( $font );
+				$font_url  = null;
+				switch ( $font_type ) {
+					case 'googlefonts':
+						$font_url =
+							'https://fonts.googleapis.com/css?family=' .
+							$font .
+							':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
 
-					break;
+						break;
 
-				case 'earlyaccess':
-					$font_lower_case = strtolower( $font );
-					$font_url        =
-						'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
-					break;
+					case 'earlyaccess':
+						$font_lower_case = strtolower( $font );
+						$font_url        =
+							'https://fonts.googleapis.com/earlyaccess/' + $font_lower_case + '.css';
+						break;
+				}
+				if ( $font_url ) {
+					// Enqueue font url, it is important to generate a random id every time this font enqueud because it is dynamic
+					// and we don't want it to be cached by any way.
+					wp_enqueue_style( 'quillforms-renderer-load-font', esc_url( $font_url ), array(), uniqid() );
+				}
 			}
-			if ( $font_url ) {
-				// Enqueue font url, it is important to generate a random id every time this font enqueud because it is dynamic
-				// and we don't want it to be cached by any way.
-				wp_enqueue_style( 'quillforms-renderer-load-font', esc_url( $font_url ), array(), uniqid() );
-			}
-		}
+
+		endif;
 	}
 
 	/**
@@ -274,41 +290,44 @@ class Form_Renderer {
 	 * @return void
 	 */
 	public function enqueue_render_script() {
-		global $post;
-		$form_id     = $post->ID;
-		$form_object = $this->prepare_form_object();
+		if ( is_singular( 'quill_forms' ) ) :
+			global $post;
+			$form_id     = $post->ID;
+			$form_object = $this->prepare_form_object();
 
-		wp_enqueue_script(
-			'quillforms-react-renderer-script',
-			QUILLFORMS_PLUGIN_URL . 'includes/render/render.js',
-			array( 'quillforms-renderer-core' ),
-			QUILLFORMS_VERSION,
-			true
-		);
+			wp_enqueue_script(
+				'quillforms-react-renderer-script',
+				QUILLFORMS_PLUGIN_URL . 'includes/render/render.js',
+				array( 'quillforms-renderer-core' ),
+				QUILLFORMS_VERSION,
+				true
+			);
 
-		wp_localize_script(
-			'quillforms-react-renderer-script',
-			'qfRender',
-			array(
-				'ajaxurl'    => admin_url( 'admin-ajax.php' ),
-				'formObject' => $form_object,
-				'formId'     => $form_id,
-			)
-		);
+			wp_localize_script(
+				'quillforms-react-renderer-script',
+				'qfRender',
+				array(
+					'ajaxurl'    => admin_url( 'admin-ajax.php' ),
+					'formObject' => $form_object,
+					'formId'     => $form_id,
+				)
+			);
 
-		$submission_id = $_GET['submission_id'] ?? null;
-		$step          = $_GET['step'] ?? null;
-		if ( $submission_id && 'payment' === $step ) {
-			$form_submission = Form_Submission::instance();
-			$restore         = $form_submission->restore_pending_submission( $submission_id );
-			if ( $restore ) {
-				wp_localize_script(
-					'quillforms-react-renderer-script',
-					'pending_submission',
-					$form_submission->get_pending_submission_renderer_data()
-				);
+			$submission_id = $_GET['submission_id'] ?? null;
+			$step          = $_GET['step'] ?? null;
+			if ( $submission_id && 'payment' === $step ) {
+				$form_submission = Form_Submission::instance();
+				$restore         = $form_submission->restore_pending_submission( $submission_id );
+				if ( $restore ) {
+					wp_localize_script(
+						'quillforms-react-renderer-script',
+						'pending_submission',
+						$form_submission->get_pending_submission_renderer_data()
+					);
+				}
 			}
-		}
+
+		endif;
 	}
 
 	/**
@@ -319,8 +338,12 @@ class Form_Renderer {
 	 * @param boolean $show_admin_bar Whether the admin bar should be shown.
 	 * @return boolean
 	 */
-	public function hide_admin_bar( $show_admin_bar ) { // phpcs:ignore
-		return false;
+	public function hide_admin_bar( $show_admin_bar ) {
+		if ( is_singular( 'quill_forms' ) ) {
+			return false;
+		}
+
+		return $show_admin_bar;
 	}
 
 	/**
@@ -334,7 +357,11 @@ class Form_Renderer {
 	 * @return string
 	 */
 	public function remove_script_defer( $tag, $handle, $src ) 	{ // phpcs:ignore
-		return preg_replace( '/(async|defer)=?[\'"\w]*/i', '', $tag );
+		if ( is_singular( 'quill_forms' ) ) {
+			$tag = preg_replace( '/(async|defer)=?[\'"\w]*/i', '', $tag );
+		}
+
+		return $tag;
 	}
 
 }
