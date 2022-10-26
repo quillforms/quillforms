@@ -106,8 +106,8 @@ class Form_Renderer {
 		add_filter( 'show_admin_bar', array( $this, 'hide_admin_bar' ) );
 
 		// Enqueuing assets to make the form render properly.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 9999999 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_render_script' ), 99999999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 999999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_render_script' ), 999999 );
 
 		// Remove any defer/async before printing script tags.
 		add_filter( 'script_loader_tag', array( $this, 'remove_script_defer' ), PHP_INT_MAX, 3 );
