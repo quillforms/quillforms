@@ -193,6 +193,12 @@ class Form_Submission {
 		// Set walkpath meta.
 		$this->entry->set_meta_value( 'walkpath', $walkpath );
 
+		// pre-validation errors check.
+		$this->errors = apply_filters( 'quillforms_entry_pre_validation_errors', $this->errors, $this->entry, $this->form_data );
+		if ( $this->errors ) {
+			return;
+		}
+
 		// Validate all fields at the walkpath.
 		foreach ( $walkpath as $block_id ) {
 			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
