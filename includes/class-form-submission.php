@@ -148,11 +148,14 @@ class Form_Submission {
 		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
 
 		// add some basic entry meta.
+		// user id.
 		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
+		// user ip & its hash.
 		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
+			$this->entry->set_meta_value( 'user_ip', quillforms_get_client_ip() );
 		}
-		$this->entry->set_meta_value( 'user_ip_hash', sha1( 'quillforms-' . $this->get_client_ip() ) );
+		$this->entry->set_meta_value( 'user_ip_hash', quillforms_get_client_ip_hash() );
+		// user agent.
 		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
 			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
 		}
@@ -716,42 +719,6 @@ class Form_Submission {
 		} else {
 			wp_send_json_success( array( 'status' => 'completed' ), 200 );
 		}
-	}
-
-	/**
-	 * Get client ip address
-	 * https://github.com/easydigitaldownloads/easy-digital-downloads/blob/master/includes/misc-functions.php
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return string
-	 */
-	private function get_client_ip() {
-		$ip = false;
-
-		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-			// Check ip from share internet.
-			$ip = filter_var( wp_unslash( $_SERVER['HTTP_CLIENT_IP'] ), FILTER_VALIDATE_IP );
-		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-			// To check ip is pass from proxy.
-			// Can include more than 1 ip, first is the public one.
-			// WPCS: sanitization ok.
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$ips = explode( ',', wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
-			if ( is_array( $ips ) ) {
-				$ip = filter_var( $ips[0], FILTER_VALIDATE_IP );
-			}
-		} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
-			$ip = filter_var( wp_unslash( $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP );
-		}
-
-		$ip = false !== $ip ? $ip : '127.0.0.1';
-
-		// Fix potential CSV returned from $_SERVER variables.
-		$ip_array = explode( ',', $ip );
-		$ip_array = array_map( 'trim', $ip_array );
-
-		return apply_filters( 'quillforms_entry_meta_ip', $ip_array[0] );
 	}
 
 }
