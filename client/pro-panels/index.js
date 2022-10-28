@@ -8,9 +8,11 @@ import { registerBuilderPanel } from '@quillforms/builder-panels';
 import JumpLogicIcon from './logic-icon';
 import CalculatorIcon from './calculator-icon';
 import HiddenFieldsIcon from './hidden-fields-icon';
+import FormLockerIcon from './form-locker-icon';
 import JumpLogicRender from './jump-logic-render';
 import CalculatorRender from './calculator-render';
 import HiddenFieldsRender from './hidden-fields-render';
+import FormLockerRender from './form-locker-render';
 
 registerBuilderPanel( 'jump-logic', {
 	title: 'Jump Logic',
@@ -37,4 +39,13 @@ registerBuilderPanel( 'hidden-fields', {
 	icon: HiddenFieldsIcon,
 	render: HiddenFieldsRender,
 	position: 21,
+} );
+
+registerBuilderPanel( 'form-locker', {
+	title: 'Form Locker',
+	mode: 'single',
+	areaToShow: 'preview-area',
+	icon: FormLockerIcon,
+	render: FormLockerRender,
+	position: 23,
 } );
