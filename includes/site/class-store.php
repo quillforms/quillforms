@@ -456,6 +456,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
 				),
 			),
+			'formlocker'                => array(
+				'name'           => esc_html__( 'Form Locker', 'quillforms' ),
+				'description'    => esc_html__( 'Form Locker enables you to lock your forms with password, members and more.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-formlocker/quillforms-formlocker.php',
+				'plan'           => 'plus',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/formlocker/icon.svg',
+				),
+			),
 			'calendlyblock'             => array(
 				'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
 				'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
@@ -509,24 +519,24 @@ class Store {
 				),
 			),
 			// 'qrscannerblock'            => array(
-			// 	'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
-			// 	'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
-			// 	'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
-			// 	'plan'           => 'plus',
-			// 	'is_integration' => false,
-			// 	'assets'         => array(
-			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
-			// 	),
+			// 'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
+			// 'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
+			// 'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
+			// 'plan'           => 'plus',
+			// 'is_integration' => false,
+			// 'assets'         => array(
+			// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
+			// ),
 			// ),
 			// 'signatureblock'            => array(
-			// 	'name'           => esc_html__( 'Signature Block', 'quillforms' ),
-			// 	'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
-			// 	'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
-			// 	'plan'           => 'plus',
-			// 	'is_integration' => false,
-			// 	'assets'         => array(
-			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
-			// 	),
+			// 'name'           => esc_html__( 'Signature Block', 'quillforms' ),
+			// 'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
+			// 'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
+			// 'plan'           => 'plus',
+			// 'is_integration' => false,
+			// 'assets'         => array(
+			// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
+			// ),
 			// ),
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
