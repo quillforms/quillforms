@@ -31,6 +31,7 @@ import Methods from './general/methods';
 import GatewaysOptions from './general/gateways-options';
 import Models from './models';
 import Products from './products';
+import Labels from './labels';
 import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
 
@@ -53,10 +54,11 @@ const PaymentsPage = ( { params } ) => {
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
-	const { general, models, products, errors } = state;
+	const { general, models, products, labels, errors } = state;
 	const settings = {
 		...general,
 		models,
+		labels,
 	};
 	const $actions = actions( dispatch );
 
@@ -84,7 +86,7 @@ const PaymentsPage = ( { params } ) => {
 
 	const onSave = () => {
 		// validate selection of one method at least.
-		if ( Object.keys( general.methods ).length === 0 ) {
+		if ( general.enabled && Object.keys( general.methods ).length === 0 ) {
 			createErrorNotice( `⛔ Please select at least one payment method`, {
 				type: 'snackbar',
 				isDismissible: true,
@@ -115,7 +117,7 @@ const PaymentsPage = ( { params } ) => {
 		}
 
 		// validate adding of one product at least.
-		if ( Object.entries( products ).length === 0 ) {
+		if ( general.enabled && Object.entries( products ).length === 0 ) {
 			createErrorNotice( `⛔ Please add at least one product`, {
 				type: 'snackbar',
 				isDismissible: true,
@@ -141,6 +143,7 @@ const PaymentsPage = ( { params } ) => {
 				payments: {
 					...general,
 					models,
+					labels,
 				},
 				products,
 			},
@@ -230,6 +233,7 @@ const PaymentsPage = ( { params } ) => {
 					general,
 					models,
 					products,
+					labels,
 					errors,
 					...$actions,
 				} }
@@ -254,6 +258,7 @@ const PaymentsPage = ( { params } ) => {
 
 						<Methods />
 						<GatewaysOptions />
+						<Labels />
 
 						<Button
 							className="quillforms-payments-page-settings-save"

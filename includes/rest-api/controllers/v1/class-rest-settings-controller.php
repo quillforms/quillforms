@@ -85,6 +85,14 @@ class REST_Settings_Controller extends REST_Controller {
 							'type'    => 'string',
 							'default' => 'info',
 						),
+						'override_quillforms_slug' => array(
+							'type' => 'boolean',
+							'default' => false
+						),
+						'quillforms_slug' => array(
+							'type' => 'string',
+							'default' => ''
+						),
 						'disable_collecting_user_ip'    => array(
 							'type'    => 'boolean',
 							'default' => false,

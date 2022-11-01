@@ -55,7 +55,7 @@ export type DraggedBlockDestination = {
 interface __experimentalInsertBlockAction {
 	type: typeof INSERT_BLOCK;
 	block: FormBlock;
-	destination: DraggedBlockDestination;
+	destinationIndex: number;
 }
 
 interface setCurrentBlockAction {

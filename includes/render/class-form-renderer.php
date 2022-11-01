@@ -40,6 +40,14 @@ class Form_Renderer {
 	 */
 	private $form_object = null;
 
+	/**
+	 * Is renderer overrided
+	 *
+	 * @since 1.19.0
+	 *
+	 * @var boolean
+	 */
+	private $overrided = false;
 
 	/**
 	 * Container for the main instance of the class.
@@ -83,6 +91,8 @@ class Form_Renderer {
 	 * @since 1.0.0
 	 */
 	public function init() {
+		add_action( 'wp', array( $this, 'check_override' ) );
+
 		// Overriding single post page with custom template.
 		add_action( 'init', array( $this, 'template_include' ) );
 
@@ -94,6 +104,17 @@ class Form_Renderer {
 
 		// Remove any defer/async before printing script tags.
 		add_filter( 'script_loader_tag', array( $this, 'remove_script_defer' ), PHP_INT_MAX, 3 );
+	}
+
+	/**
+	 * Check if renderer class overrided.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @return void
+	 */
+	public function check_override() {
+		$this->overrided = apply_filters( 'quillforms_form_renderer_overrided', false );
 	}
 
 	/**
@@ -156,7 +177,7 @@ class Form_Renderer {
 	 * @return string The modified template
 	 */
 	public function template_loader( $template ) {
-		if ( is_singular( 'quill_forms' ) ) {
+		if ( is_singular( 'quill_forms' ) && ! $this->overrided ) {
 			$this->do_not_cache();
 			$this->set_form_id( get_the_ID() );
 			return QUILLFORMS_PLUGIN_DIR . '/includes/render/renderer-template.php';
@@ -220,7 +241,7 @@ class Form_Renderer {
 	 * @since 1.0.0
 	 */
 	public function enqueue_assets() {
-		if ( is_singular( 'quill_forms' ) ) :
+		if ( is_singular( 'quill_forms' ) && ! $this->overrided ) :
 			global $wp_scripts;
 			global $wp_styles;
 			global $post;
@@ -290,7 +311,7 @@ class Form_Renderer {
 	 * @return void
 	 */
 	public function enqueue_render_script() {
-		if ( is_singular( 'quill_forms' ) ) :
+		if ( is_singular( 'quill_forms' ) && ! $this->overrided ) :
 			global $post;
 			$form_id     = $post->ID;
 			$form_object = $this->prepare_form_object();

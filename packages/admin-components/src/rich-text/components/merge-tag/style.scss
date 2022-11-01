@@ -12,7 +12,7 @@
 	}
 
 	span {
-		z-index: 2;
+		z-index: 1;
 	}
 
 	.rich-text-merge-tag__background {
@@ -42,7 +42,6 @@
 			height: 18px;
 			fill: inherit;
 		}
-
 	}
 
 	.rich-text-merge-tag__delete {
@@ -55,7 +54,7 @@
 			box-shadow: none;
 			background: transparent;
 			color: inherit;
-			z-index: z-index('.rich-text-merge-tag__delete');
+			z-index: 1;
 		}
 
 		svg {

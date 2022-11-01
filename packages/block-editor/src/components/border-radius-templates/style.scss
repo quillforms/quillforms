@@ -1,0 +1,25 @@
+.block-editor-border-radius-templates {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 300px;
+}
+.block-editor-border-radius-templates > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+	border: 1px solid #7c7c7c;
+	margin: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+	&.selected,
+	&.selected div {
+		border-color: #a120f1;
+	}
+}
+.block-editor-border-radius-templates > div > div {
+	border: 1px solid;
+	width: 30px;
+	height: 30px;
+}

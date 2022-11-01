@@ -438,7 +438,7 @@ class Store {
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
-				'min_version'    => '1.2.0',
+				'min_version'    => '1.5.0',
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
@@ -454,6 +454,16 @@ class Store {
 				'is_integration' => false,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
+				),
+			),
+			'calendlyblock'             => array(
+				'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
+				'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-calendlyblock/quillforms-calendlyblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
 				),
 			),
 			'fileblock'                 => array(
@@ -498,6 +508,26 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
 				),
 			),
+			// 'qrscannerblock'            => array(
+			// 	'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
+			// 	'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
+			// 	'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
+			// 	'plan'           => 'plus',
+			// 	'is_integration' => false,
+			// 	'assets'         => array(
+			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
+			// 	),
+			// ),
+			// 'signatureblock'            => array(
+			// 	'name'           => esc_html__( 'Signature Block', 'quillforms' ),
+			// 	'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
+			// 	'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
+			// 	'plan'           => 'plus',
+			// 	'is_integration' => false,
+			// 	'assets'         => array(
+			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
+			// 	),
+			// ),
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
@@ -601,6 +631,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
 				),
 			),
+			'mondaycom'                 => array(
+				'name'           => esc_html__( 'monday.com', 'quillforms' ),
+				'description'    => esc_html__( 'Send new items to your monday.com boards.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-mondaycom/quillforms-mondaycom.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mondaycom/icon.png',
+				),
+			),
 			'notion'                    => array(
 				'name'           => esc_html__( 'Notion', 'quillforms' ),
 				'description'    => esc_html__( 'Send new entry data to your Notion databases.', 'quillforms' ),
@@ -609,6 +649,16 @@ class Store {
 				'is_integration' => true,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/notion/icon.png',
+				),
+			),
+			'pipedrive'                 => array(
+				'name'           => esc_html__( 'Pipedrive', 'quillforms' ),
+				'description'    => esc_html__( 'Create Pipedrive leads on form submission.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-pipedrive/quillforms-pipedrive.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pipedrive/icon.svg',
 				),
 			),
 			'getresponse'               => array(
@@ -650,7 +700,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.png',
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.svg',
 				),
 			),
 			'salesforce'                => array(

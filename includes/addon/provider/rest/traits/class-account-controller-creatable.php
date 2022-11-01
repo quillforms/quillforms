@@ -103,7 +103,7 @@ trait Account_Controller_Creatable {
 		$account_id   = $account_info['id'];
 		$account_data = array(
 			'name'        => (string) $account_info['name'],
-			'credentials' => $request['credentials'],
+			'credentials' => $account_info['credentials'] ?? $request['credentials'],
 		);
 
 		// if account already exists.

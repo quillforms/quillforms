@@ -147,6 +147,19 @@ class Form_Submission {
 		$this->entry->date_created = gmdate( 'Y-m-d H:i:s' );
 		$this->entry->date_updated = gmdate( 'Y-m-d H:i:s' );
 
+		// add some basic entry meta.
+		// user id.
+		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
+		// user ip & its hash.
+		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
+			$this->entry->set_meta_value( 'user_ip', quillforms_get_client_ip() );
+		}
+		$this->entry->set_meta_value( 'user_ip_hash', quillforms_get_client_ip_hash() );
+		// user agent.
+		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
+			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
+		}
+
 		// add sanitized fields.
 		foreach ( $this->form_data['blocks'] as $block ) {
 			$block_type = Blocks_Manager::instance()->create( $block );
@@ -173,26 +186,17 @@ class Form_Submission {
 			$this->form_data['blocks']
 		);
 
-		// for backward compatibility. 1.13.0.
-		$walkpath_filter_format = apply_filters( 'quillforms_entry_walkpath_format', 'blocks' );
-		if ( 'blocks' === $walkpath_filter_format ) {
-			$walkpath_blocks = array_map(
-				function ( $block_id ) {
-					return quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
-				},
-				$walkpath
-			);
-			/** @var Entry "$this->entry" */ // phpcs:ignore
-			list($walkpath_blocks, $this->entry) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath_blocks, $this->entry ), $this->form_data );
-			$walkpath                            = array_map(
-				function ( $block ) {
-					return $block['id'];
-				},
-				$walkpath_blocks
-			);
-		} else {
-			/** @var Entry "$this->entry" */ // phpcs:ignore
-			list($walkpath, $this->entry) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
+		// filter walkpath with entry.
+		/** @var Entry "$this->entry" */ // phpcs:ignore
+		list($walkpath, $this->entry) = apply_filters( 'quillforms_entry_walkpath', array( $walkpath, $this->entry ), $this->form_data );
+
+		// Set walkpath meta.
+		$this->entry->set_meta_value( 'walkpath', $walkpath );
+
+		// pre-validation errors check.
+		$this->errors = apply_filters( 'quillforms_entry_pre_validation_errors', $this->errors, $this->entry, $this->form_data );
+		if ( $this->errors ) {
+			return;
 		}
 
 		// Validate all fields at the walkpath.
@@ -218,8 +222,9 @@ class Form_Submission {
 				$this->errors['fields'][ $block_id ] = $validation_message;
 			}
 		}
-		// Stop if there are validation errors.
-		if ( ! empty( $this->errors ) ) {
+
+		// stop if there are validation errors.
+		if ( $this->errors ) {
 			return;
 		}
 
@@ -236,16 +241,6 @@ class Form_Submission {
 				$formatted_value = $block_type->format_field( $field_answer, $this->form_data );
 				$this->entry->set_record_value( 'field', $block_id, $formatted_value );
 			}
-		}
-
-		// add some entry meta.
-		$this->entry->set_meta_value( 'walkpath', $walkpath );
-		$this->entry->set_meta_value( 'user_id', get_current_user_id() );
-		if ( ! Settings::get( 'disable_collecting_user_ip', false ) ) {
-			$this->entry->set_meta_value( 'user_ip', $this->get_client_ip() );
-		}
-		if ( ! Settings::get( 'disable_collecting_user_agent', false ) ) {
-			$this->entry->set_meta_value( 'user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '' );
 		}
 
 		// check payments.
@@ -357,6 +352,7 @@ class Form_Submission {
 			'recurring' => $model['recurring'],
 			'currency'  => $this->form_data['payments']['currency'],
 			'products'  => $products,
+			'labels'    => $this->form_data['payments']['labels'],
 		);
 	}
 
@@ -414,6 +410,7 @@ class Form_Submission {
 					} elseif ( $block_type->supported_features['choices'] ) {
 						$choices  = $block_type->get_choices();
 						$selected = $this->entry->get_record_value( 'field', $block_id ) ?? array();
+						$selected = (array) $selected;
 						if ( $choices && $selected ) {
 							foreach ( $choices as $choice ) {
 								if ( in_array( $choice['value'], $selected, true ) ) {
@@ -728,42 +725,6 @@ class Form_Submission {
 		} else {
 			wp_send_json_success( array( 'status' => 'completed' ), 200 );
 		}
-	}
-
-	/**
-	 * Get client ip address
-	 * https://github.com/easydigitaldownloads/easy-digital-downloads/blob/master/includes/misc-functions.php
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return string
-	 */
-	private function get_client_ip() {
-		$ip = false;
-
-		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-			// Check ip from share internet.
-			$ip = filter_var( wp_unslash( $_SERVER['HTTP_CLIENT_IP'] ), FILTER_VALIDATE_IP );
-		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-			// To check ip is pass from proxy.
-			// Can include more than 1 ip, first is the public one.
-			// WPCS: sanitization ok.
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$ips = explode( ',', wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
-			if ( is_array( $ips ) ) {
-				$ip = filter_var( $ips[0], FILTER_VALIDATE_IP );
-			}
-		} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
-			$ip = filter_var( wp_unslash( $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP );
-		}
-
-		$ip = false !== $ip ? $ip : '127.0.0.1';
-
-		// Fix potential CSV returned from $_SERVER variables.
-		$ip_array = explode( ',', $ip );
-		$ip_array = array_map( 'trim', $ip_array );
-
-		return apply_filters( 'quillforms_entry_meta_ip', $ip_array[0] );
 	}
 
 }

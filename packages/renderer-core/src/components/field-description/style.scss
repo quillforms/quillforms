@@ -1,17 +1,8 @@
 .renderer-components-block-description {
-	line-height: 30px;
 	opacity: 0.7;
 	margin-bottom: 15px;
-	@media (max-width: $break-small) {
-		line-height: 28px;
-	}
-	font-size: 20px;
-	@media (max-width: $break-small) {
-		 font-size: 18px;
-	}
 }
 .renderer-components-block-description p {
 	margin-top: 0;
-	margin-bottom:0;
-
+	margin-bottom: 0;
 }

@@ -22,6 +22,7 @@ interface Props {
 	onAdded: ( id: string, account: { name: string } ) => void;
 	labels?: AccountsLabels;
 	fields?: AccountsAuthFields;
+	Instructions?: React.FC;
 }
 
 const Credentials: React.FC< Props > = ( {
@@ -30,6 +31,7 @@ const Credentials: React.FC< Props > = ( {
 	onAdded,
 	labels,
 	fields,
+	Instructions,
 } ) => {
 	fields = fields ?? {
 		api_key: { label: provider.label + ' API Key', type: 'text' },
@@ -117,6 +119,11 @@ const Credentials: React.FC< Props > = ( {
 			>
 				{ __( 'Add', 'quillforms-hubspot' ) }
 			</Button>
+			{ Instructions && (
+				<div className="integration-auth-instructions">
+					<Instructions />
+				</div>
+			) }
 		</div>
 	);
 };

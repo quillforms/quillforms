@@ -50,6 +50,9 @@ const Panel = () => {
 						: areaToShow === 'no-area'
 						? '100%'
 						: '300px',
+
+				// position: areaToShow ? 'relative' : 'absolute',
+				// zIndex: areaToShow ? 'inherit' : 111111111111111111,
 			} }
 		>
 			<PanelHeader />

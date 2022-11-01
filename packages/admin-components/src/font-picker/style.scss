@@ -2,11 +2,9 @@
 	& {
 		position: relative;
 		width: 190px;
-		z-index: 1111;
 	}
 
 	.admin-components-font-picker__select {
-
 		& {
 			position: relative;
 			display: flex;
@@ -38,10 +36,10 @@
 		border-radius: 5px;
 		overflow: hidden;
 		box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+		z-index: 99999999;
 	}
 
 	.admin-components-font-picker__search {
-
 		& {
 			position: relative;
 		}
@@ -61,7 +59,6 @@
 		}
 	}
 	.admin-components-font-picker__fonts-list {
-
 		& {
 			background: #fff;
 		}
@@ -86,8 +83,6 @@
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
-
 		}
-
 	}
 }

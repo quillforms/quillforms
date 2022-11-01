@@ -6,6 +6,7 @@ import {
 	BlockIconWrapper,
 	__unstableCreateEditor as createEditor,
 	__unstableHtmlDeserialize as deserialize,
+	BlockTypesListDropdown,
 } from '@quillforms/admin-components';
 
 import type { CustomNode } from '@quillforms/admin-components';
@@ -179,6 +180,12 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 													) =>
 														setDescJsonVal( value )
 													}
+												/>
+												<BlockTypesListDropdown
+													destinationIndex={
+														index + 1
+													}
+													color="secodary"
 												/>
 											</Fragment>
 										) : (

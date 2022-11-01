@@ -1,21 +1,19 @@
 .admin-components-choices-inserter__choices-wrapper {
 	padding: 12px 0;
-    border: 1px solid #d6d6d6;
-    border-radius: 5px;
-
-
+	border: 1px solid #d6d6d6;
+	border-radius: 5px;
 }
 
 .admin-components-choices-inserter__choice-row {
 	display: flex;
 	align-items: center;
 	padding: 0 12px;
+	z-index: 111111111111;
 
 	.admin-components-choices-inserter__choice-actions {
 		display: flex;
 		flex-direction: column;
 		margin-left: 5px;
-
 
 		> div {
 			width: 15px;
@@ -36,7 +34,7 @@
 			margin-bottom: 3px;
 		}
 		.admin-components-choices-inserter__choice-remove {
-			background: #b65454
+			background: #b65454;
 		}
 	}
 }

@@ -3,7 +3,7 @@
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-
+import { renderToString } from '@wordpress/element';
 /**
  * Internal Dependencies
  */
@@ -17,13 +17,31 @@ const BlockLabel: React.FC = () => {
 	if ( attributes?.label ) label = attributes.label;
 	if ( attributes?.required ) label = label + ' *';
 	const theme = useBlockTheme( attributes?.themeId );
-
 	return (
 		<div
 			className={ classnames(
 				'renderer-components-block-label',
 				css`
-					color: ${ theme.questionsColor };
+					color: ${ theme.questionsColor } !important;
+					font-family: ${ theme.questionsLabelFont } !important;
+					@media ( min-width: 1025px ) {
+						font-size: ${ theme.questionsLabelFontSize
+							.lg } !important;
+						line-height: ${ theme.questionsLabelLineHeight
+							.lg } !important;
+					}
+					@media ( max-width: 1024px ) {
+						font-size: ${ theme.questionsLabelFontSize
+							.md } !important;
+						line-height: ${ theme.questionsLabelLineHeight
+							.md } !important;
+					}
+					@media ( max-width: 767px ) {
+						font-size: ${ theme.questionsLabelFontSize
+							.sm } !important;
+						line-height: ${ theme.questionsLabelLineHeight
+							.sm } !important;
+					}
 				`
 			) }
 		>

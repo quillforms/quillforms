@@ -9,6 +9,7 @@ import {
 	ADD_PRODUCT,
 	UPDATE_PRODUCT,
 	DELETE_PRODUCT,
+	SET_LABEL,
 	SET_ERRORS,
 } from './constants';
 
@@ -61,6 +62,13 @@ export default ( dispatch ) => {
 			dispatch( {
 				type: DELETE_PRODUCT,
 				id,
+			} );
+		},
+		setLabel: ( key, value ) => {
+			dispatch( {
+				type: SET_LABEL,
+				key,
+				value,
 			} );
 		},
 		setErrors: ( value ) => {

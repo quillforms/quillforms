@@ -1,18 +1,21 @@
 .qf-admin-header {
 	display: flex;
 	position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
+	z-index: 6;
+	top: 0;
+	right: 0;
+	left: 0;
+	width: 100%;
 	justify-content: space-between;
-	align-items:center;
+	align-items: center;
 	height: 55px;
 	padding: 0 10px;
 	background: #f5f5f5;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 
-	.qf-admin-header__right, .qf-admin-header__left, .qf-admin-header__dashboard-link{
+	.qf-admin-header__right,
+	.qf-admin-header__left,
+	.qf-admin-header__dashboard-link {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;

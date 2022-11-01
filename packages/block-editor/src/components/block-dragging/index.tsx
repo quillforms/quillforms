@@ -56,6 +56,10 @@ const DraggedBlock: React.FC< Props > = ( { name, id } ) => {
 						background: blockType?.color
 							? blockType.color
 							: '#bb426f',
+						border:
+							blockType?.color === '#fff'
+								? '1px solid #e3e3e3'
+								: 'none',
 					} }
 				>
 					{ renderedIcon }

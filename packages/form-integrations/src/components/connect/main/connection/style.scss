@@ -54,11 +54,25 @@
 		margin-top: 0;
 	}
 
-	.connection-conditions {
-		.admin-components-toggle-control {
-			display: inline-flex;
-		}
+	.admin-components-toggle-control {
+		display: inline-flex;
+	}
 
+	.components-form-token-field__label {
+		display: none;
+	}
+
+	.components-form-token-field__input-container {
+		margin-bottom: 0;
+		border-color: #e3e3e3;
+	}
+
+	.components-form-token-field__help {
+		margin-top: 0;
+		margin-left: 2px;
+	}
+
+	.connection-conditions {
 		.conditions-instructions {
 			margin-top: 5px;
 			margin-bottom: 5px;

@@ -2,9 +2,6 @@
  * QuillForms Dependencies
  */
 import { __experimentalDragDropContext as DragDropContext } from '@quillforms/admin-components';
-import { sanitizeBlockAttributes } from '@quillforms/blocks';
-import { FormBlock } from '@quillforms/types';
-
 /**
  * WordPress Dependencies
  */
@@ -59,11 +56,9 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		}
 	);
 
-	const {
-		__experimentalInsertBlock,
-		__experimentalReorderBlocks,
-		setCurrentBlock,
-	} = useDispatch( 'quillForms/block-editor' );
+	const { __experimentalReorderBlocks, setCurrentBlock } = useDispatch(
+		'quillForms/block-editor'
+	);
 	const { insertEmptyFieldAnswer } = useDispatch(
 		'quillForms/renderer-core'
 	);
@@ -90,31 +85,6 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		return false;
 	};
 
-	const generateBlockId = (): string => {
-		return Math.random().toString( 36 ).substr( 2, 9 );
-	};
-
-	/**
-	 * Returns a block object given its type and attributes.
-	 *
-	 * @param {string} name        Block name.
-	 * @param {Object} attributes  Block attributes.
-	 *
-	 * @throws {Error} If the block type isn't registered.
-	 * @return {Object?} Block object.
-	 */
-	const createBlock = (
-		name: string,
-		attributes: Record< string, unknown > = {}
-	): FormBlock | void => {
-		// Blocks are stored with a unique ID, the assigned type name, the block
-		// attributes.
-		return {
-			id: generateBlockId(),
-			name,
-			attributes: sanitizeBlockAttributes( name, attributes ),
-		};
-	};
 	const onDragStart: OnDragStartResponder = ( {
 		source,
 	}: {
@@ -175,6 +145,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 					)
 				) {
 					dragAlerts.push(
+						// eslint-disable-next-line no-multi-str
 						'This block recalls information from previous fields.\
 						 This info will be lost if you proceed with this block movement.'
 					);
@@ -220,24 +191,6 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 					);
 				}
 				break;
-			case 'BLOCKS_LIST': {
-				if ( destination.droppableId === 'DROP_AREA' ) {
-					// Get block type
-					const blockName = Object.keys( blockTypes )[ source.index ];
-					const blockType = blockTypes[ blockName ];
-					const blockToInsert = createBlock( blockName );
-					if ( blockToInsert ) {
-						// blockToInsert.id = generateBlockId();
-						if ( blockType.supports.editable )
-							insertEmptyFieldAnswer(
-								blockToInsert.id,
-								blockName
-							);
-
-						__experimentalInsertBlock( blockToInsert, destination );
-					}
-				}
-			}
 		}
 	};
 

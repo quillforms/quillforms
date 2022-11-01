@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-nested-ternary */
 /**
  * Quill Forms Dependencies
@@ -27,6 +29,7 @@ import useGeneralTheme from '../../hooks/use-general-theme';
 import useBlocks from '../../hooks/use-blocks';
 import PaymentModal from '../payment-modal';
 import useCurrentTheme from '../../hooks/use-current-theme';
+import { forEach, size } from 'lodash';
 
 interface Props {
 	applyLogic: boolean;
@@ -37,41 +40,53 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const currentTheme = useCurrentTheme();
 	const fonts = configApi.getFonts();
 
-	const { font } = currentTheme;
+	const { font, questionsLabelFont, questionsDescriptionFont } = currentTheme;
 
-	const fontType = fonts[ font ];
-	let fontUrl;
-	switch ( fontType ) {
-		case 'googlefonts':
-			fontUrl =
-				'https://fonts.googleapis.com/css?family=' +
-				font +
-				':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+	const fontTypes = [
+		fonts[ font ],
+		fonts[ questionsLabelFont ],
+		fonts[ questionsDescriptionFont ],
+	];
+	const fontUrls: string[] = [];
+	forEach( fontTypes, ( fontType ) => {
+		switch ( fontType ) {
+			case 'googlefonts':
+				fontUrls.push(
+					'https://fonts.googleapis.com/css?family=' +
+						font +
+						':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic'
+				);
+				break;
 
-			break;
+			case 'earlyaccess':
+				const fontLowerString = font
+					.replace( /\s+/g, '' )
+					.toLowerCase();
+				fontUrls.push(
+					'https://fonts.googleapis.com/earlyaccess/' +
+						fontLowerString +
+						'.css'
+				);
+				break;
+		}
+	} );
 
-		case 'earlyaccess':
-			const fontLowerString = font.replace( /\s+/g, '' ).toLowerCase();
-			fontUrl =
-				'https://fonts.googleapis.com/earlyaccess/' +
-				fontLowerString +
-				'.css';
-			break;
-	}
 	useEffect( () => {
 		const head = document.head;
 		const link = document.createElement( 'link' );
 
 		link.type = 'text/css';
 		link.rel = 'stylesheet';
-		if ( font ) {
-			link.href = fontUrl;
-			const existingLinkEl = document.querySelector(
-				`link[href='${ link.href }']`
-			);
-			if ( ! existingLinkEl ) head.appendChild( link );
+		if ( size( fontUrls ) > 0 ) {
+			forEach( fontUrls, ( fontUrl ) => {
+				link.href = fontUrl;
+				const existingLinkEl = document.querySelector(
+					`link[href='${ link.href }']`
+				);
+				if ( ! existingLinkEl ) head.appendChild( link );
+			} );
 		}
-	}, [ font ] );
+	}, [ font, questionsLabelFont, questionsDescriptionFont ] );
 
 	const { setIsFocused } = useDispatch( 'quillForms/renderer-core' );
 	const ref = useRef< any >( null );
@@ -121,9 +136,20 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 
 	let backgroundImageCSS = '';
 	if ( generalTheme.backgroundImage && generalTheme.backgroundImage ) {
-		backgroundImageCSS = `background: url('${ generalTheme.backgroundImage }') no-repeat;
+		backgroundImageCSS = `background-image: url('${
+			generalTheme.backgroundImage
+		}');
 			background-size: cover;
-			background-position: center;
+			background-position: ${
+				// @ts-expect-error
+				parseFloat( generalTheme.backgroundImageFocalPoint?.x ) * 100
+			}%
+			${
+				// @ts-expect-error
+				parseFloat( generalTheme.backgroundImageFocalPoint?.y ) * 100
+			}%;
+
+			background-repeat: no-repeat;
 		`;
 	}
 
@@ -151,6 +177,50 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 						overflow: hidden;
 						background: ${ generalTheme.backgroundColor };
 						font-family: ${ generalTheme.font };
+						.renderer-components-block-label {
+							color: ${ generalTheme.questionsColor };
+							font-family: ${ generalTheme.questionsLabelFont };
+							@media ( min-width: 1025px ) {
+								font-size: ${ generalTheme
+									.questionsLabelFontSize.lg };
+								line-height: ${ generalTheme
+									.questionsLabelLineHeight.lg };
+							}
+							@media ( max-width: 1024px ) {
+								font-size: ${ generalTheme
+									.questionsLabelFontSize.md };
+								line-height: ${ generalTheme
+									.questionsLabelLineHeight.md };
+							}
+							@media ( max-width: 767px ) {
+								font-size: ${ generalTheme
+									.questionsLabelFontSize.sm };
+								line-height: ${ generalTheme
+									.questionsLabelLineHeight.sm };
+							}
+						}
+						.renderer-components-block-description {
+							font-family: ${ generalTheme.questionsDescriptionFont };
+
+							@media ( min-width: 1025px ) {
+								font-size: ${ generalTheme
+									.questionsDescriptionFontSize.lg };
+								line-height: ${ generalTheme
+									.questionsDescriptionLineHeight.lg };
+							}
+							@media ( max-width: 1024px ) {
+								font-size: ${ generalTheme
+									.questionsDescriptionFontSize.md };
+								line-height: ${ generalTheme
+									.questionsDescriptionLineHeight.md };
+							}
+							@media ( max-width: 767px ) {
+								font-size: ${ generalTheme
+									.questionsDescriptionFontSize.sm };
+								line-height: ${ generalTheme
+									.questionsDescriptionLineHeight.sm };
+							}
+						}
 					`
 				) }
 				onClick={ () => {

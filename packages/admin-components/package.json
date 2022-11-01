@@ -27,6 +27,7 @@
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/config": "file:../config",
 		"@quillforms/navigation": "file:../navigation",
+		"@quillforms/types": "file:../types",
 		"@wordpress/icons": "^8.3.0",
 		"@wordpress/media-utils": "^3.5.0",
 		"classnames": "^2.3.1",

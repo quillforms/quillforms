@@ -2,7 +2,7 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment, useCallback, useState, useRef } from 'react';
+import { Fragment, useCallback, useEffect, useState, useRef } from 'react';
 import { Popover } from '@wordpress/components';
 
 /**
@@ -43,7 +43,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 	} = props;
 
 	const wrapperRef = useRef< HTMLDivElement >( null );
-
+	const PopoverRef = useRef( null );
 	const ref = useRef< HTMLDivElement >( null );
 	const [ target, setTarget ] = useState< Range | undefined >();
 	const [ index, setIndex ] = useState( 0 );
@@ -154,33 +154,34 @@ const TextEditor: React.FC< Props > = ( props ) => {
 	// 	}
 	// }, [ $mergeTags.length, editor, index, search, target ] );
 
-	// useEffect( () => {
-	// 	/**
-	// 	 * Alert if clicked on outside of element
-	// 	 *
-	// 	 * @param event
-	// 	 */
-	// 	function handleClickOutsidePortal( event: MouseEvent ): void {
-	// 		if (
-	// 			wrapperRef.current &&
-	// 			ref.current &&
-	// 			! wrapperRef.current.contains( event.target as Node ) &&
-	// 			! ref.current.contains( event.target as Node )
-	// 		) {
-	// 			setTarget( undefined );
-	// 		}
-	// 	}
+	useEffect( () => {
+		/**
+		 * Alert if clicked on outside of element
+		 *
+		 * @param  event
+		 */
+		function handleClickOutsidePortal( event: MouseEvent ): void {
+			if (
+				PopoverRef.current &&
+				ref.current &&
+				// @ts-expect-error
+				! PopoverRef.current.contains( event.target as Node ) &&
+				! ref.current.contains( event.target as Node )
+			) {
+				setTarget( undefined );
+			}
+		}
 
-	// 	// Bind the event listener
-	// 	document.addEventListener( 'mousedown', handleClickOutsidePortal );
-	// 	return () => {
-	// 		// Unbind the event listener on clean up
-	// 		document.removeEventListener(
-	// 			'mousedown',
-	// 			handleClickOutsidePortal
-	// 		);
-	// 	};
-	// }, [ ref ] );
+		// Bind the event listener
+		document.addEventListener( 'mousedown', handleClickOutsidePortal );
+		return () => {
+			// Unbind the event listener on clean up
+			document.removeEventListener(
+				'mousedown',
+				handleClickOutsidePortal
+			);
+		};
+	}, [ PopoverRef ] );
 
 	return (
 		<Fragment>
@@ -261,6 +262,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 					/>
 					{ target && $mergeTags.length > 0 && (
 						<Popover
+							ref={ PopoverRef }
 							position={ 'bottom center' }
 							className={ css`
 								z-index: 1111111111111111111;

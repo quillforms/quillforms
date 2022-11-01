@@ -5,11 +5,10 @@ import { useDispatch } from '@wordpress/data';
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { moreHorizontal } from '@wordpress/icons';
 
-const ThemeActions = ( { id } ) => {
+const ThemeActions = ( { id, themeTitle, themeProperties } ) => {
 	const { setCurrentSubPanel } = useDispatch( 'quillForms/builder-panels' );
-	const { deleteTheme, setCurrentThemeId, setShouldBeSaved } = useDispatch(
-		'quillForms/theme-editor'
-	);
+	const { deleteTheme, addNewTheme, setCurrentThemeId, setShouldBeSaved } =
+		useDispatch( 'quillForms/theme-editor' );
 
 	return (
 		<div
@@ -35,6 +34,18 @@ const ThemeActions = ( { id } ) => {
 							} }
 						>
 							Customize
+						</MenuItem>
+						<MenuItem
+							className="theme-editor-theme-actions__menu-item"
+							onClick={ () => {
+								addNewTheme(
+									themeTitle + '-copy',
+									themeProperties
+								);
+								onClose();
+							} }
+						>
+							Duplicate
 						</MenuItem>
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item theme-editor-theme-actions__delete-theme"

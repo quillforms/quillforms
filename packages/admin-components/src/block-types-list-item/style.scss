@@ -1,16 +1,17 @@
 .admin-components-blocks-list-item {
 	& {
 		display: flex;
-		padding: 10px;
-		box-shadow: 0 0 0 1px #dcdbdb;
-		border-radius: 7px;
+		padding: 10px 15px;
 		align-items: center;
 		justify-content: center;
-		background: #e5e5e5;
 		width: 100%;
 		outline: none;
 	}
 
+	&:hover {
+		background: #eee;
+		cursor: pointer;
+	}
 	&.disabled {
 		opacity: 0.4 !important;
 	}
@@ -18,7 +19,7 @@
 	.admin-components-blocks-list-item__icon-wrapper {
 		& {
 			border-radius: 4px;
-			margin-right: 10px;
+			margin-right: 5px;
 		}
 
 		.admin-components-blocks-list-item__icon {

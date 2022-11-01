@@ -104,6 +104,32 @@ export const registerBlockType = (
 		type: 'string',
 		default: '',
 	};
+	attributes.layout = {
+		type: 'string',
+		default: 'stack',
+	};
+	attributes.attachmentFocalPoint = {
+		type: 'object',
+		default: {
+			x: 0.5,
+			y: 0.5,
+		},
+	};
+
+	attributes.attachmentFancyBorderRadius = {
+		type: 'boolean',
+		default: false,
+	};
+
+	attributes.attachmentBorderRadius = {
+		type: 'boolean',
+		default: '0px',
+	};
+
+	attributes.attachmentMaxWidth = {
+		type: 'string',
+		default: 'none',
+	};
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {

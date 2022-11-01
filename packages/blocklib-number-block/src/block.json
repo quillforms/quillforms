@@ -24,8 +24,8 @@
 			"default": false
 		},
 		"min": {
-			"type": "boolean",
-			"default": false
+			"type": "number",
+			"default": 0
 		}
 	},
 	"logicalOperators": ["is", "is_not", "greater_than", "lower_than"]

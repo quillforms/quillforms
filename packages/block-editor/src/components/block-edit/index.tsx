@@ -126,7 +126,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 				ReactEditor.focus( descEditor );
 			}
 		}
-	}, [ isSelected ] );
+	}, [] );
 
 	// Title Change Handler
 	const labelChangeHandler = ( value: Node[] ) => {

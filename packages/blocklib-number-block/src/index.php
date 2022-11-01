@@ -169,7 +169,7 @@ class Number_Block_Type extends Block_Type {
 					$this->validation_err = $messages['label.errorAlert.minNum'];
 					return;
 				}
-				if ( $set_max && $max && $value < $max ) {
+				if ( $set_max && $max && $value > $max ) {
 					$this->is_valid       = false;
 					$this->validation_err = $messages['label.errorAlert.maxNum'];
 					return;

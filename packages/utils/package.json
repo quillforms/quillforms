@@ -24,7 +24,9 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/config": "file:../config",
-		"tinycolor2": "^1.4.2"
+		"@quillforms/types": "file:../types",
+		"tinycolor2": "^1.4.2",
+		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",

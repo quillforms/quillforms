@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { BuilderLayout } from '@quillforms/builder-core';
+import { BuilderLayout, FullPreviewLayout } from '@quillforms/builder-core';
 import configApi from '@quillforms/config';
 
 /**
@@ -22,8 +22,10 @@ import { css } from 'emotion';
  */
 import SaveButton from './save-button';
 import './style.scss';
+import FullPreviewIcon from './full-preview';
 
 const Builder = ( { params } ) => {
+	const [ fullPreviewMode, setFullPreviewMode ] = useState( false );
 	const { id } = params;
 
 	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
@@ -62,7 +64,7 @@ const Builder = ( { params } ) => {
 		}
 
 		return () => {
-			setCurrentPanel( 'blocks' );
+			setCurrentPanel( '' );
 			resetAnswers();
 		};
 	}, [] );
@@ -113,11 +115,22 @@ const Builder = ( { params } ) => {
 							</ul>
 						</div>
 					) : (
-						<BuilderLayout formId={ id } />
+						<>
+							{ fullPreviewMode ? (
+								<FullPreviewLayout
+									setFullPreviewMode={ setFullPreviewMode }
+								/>
+							) : (
+								<BuilderLayout formId={ id } />
+							) }
+						</>
 					) }
 				</>
 			) }
-
+			<FullPreviewIcon
+				isResolving={ isResolving }
+				setFullPreviewMode={ setFullPreviewMode }
+			/>
 			<SaveButton formId={ id } isResolving={ isResolving } />
 		</div>
 	);

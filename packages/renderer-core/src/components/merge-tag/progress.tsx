@@ -9,11 +9,7 @@ interface Props {
 const ProgressMergeTag: React.FC< Props > = ( { modifier } ) => {
 	const percent = useProgressPerecent();
 	if ( modifier === 'percent' ) {
-		return (
-			<span className="renderer-core-progress-merge-tag">
-				{ percent }
-			</span>
-		);
+		return <>{ percent }</>;
 	}
 	return null;
 };

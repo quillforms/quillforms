@@ -125,6 +125,11 @@ class Core {
 			'menu_position'      => 30,
 			'show_in_rest'       => true,
 		);
+		if(Settings::get('override_quillforms_slug') === true ) {
+
+			$args['rewrite']['slug'] = '/'. Settings::get('quillforms_slug');
+			flush_rewrite_rules();
+		}
 		register_post_type( 'quill_forms', $args );
 		flush_rewrite_rules();
 	}

@@ -17,6 +17,7 @@ import { plus } from '@wordpress/icons';
  * External Dependencies
  */
 import { FC } from 'react';
+import classnames from 'classnames';
 
 /**
  * Internal Dependencies
@@ -45,7 +46,14 @@ const BlockIconBox: FC< props > = ( { icon, order, color } ) => {
 		<BlockIconWrapper color={ color }>
 			{ renderedIcon }
 			{ order && (
-				<span className="admin-components-block-icon-box__order">
+				<span
+					className={ classnames(
+						'admin-components-block-icon-box__order',
+						{
+							'black-color': color === '#fff',
+						}
+					) }
+				>
 					{ order }
 				</span>
 			) }

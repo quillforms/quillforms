@@ -101,7 +101,7 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 											.toString( 36 )
 											.substr( 2, 9 ),
 									},
-									{ index: currentBlockIndex + 1 }
+									currentBlockIndex + 1
 								);
 							} }
 						>

@@ -15,6 +15,8 @@ import useGeneralTheme from '../../../hooks/use-general-theme';
  * External Dependencies
  */
 import { css } from 'emotion';
+import { size } from 'lodash';
+
 interface Props {
 	data: any;
 }
@@ -53,22 +55,29 @@ const Methods: React.FC< Props > = ( { data } ) => {
 
 	return (
 		<div className="renderer-core-payment-modal-methods">
-			<p
-				className={ css`
-					color: ${ generalTheme.questionsColor };
-					font-size: 20px;
-				` }
-			>
-				Select a payment method
-			</p>
-			<div className="renderer-components-radio-control__options-group">
-				<RadioControl
-					id="payment-methods"
-					selected={ selected }
-					options={ options }
-					onChange={ setSelected }
-				/>
-			</div>
+			<>
+				{ size( methodsKeys ) > 1 && (
+					<>
+						<p
+							className={ css`
+								color: ${ generalTheme.questionsColor };
+								font-size: 20px;
+							` }
+						>
+							{ data.payments.labels?.select_payment_method ??
+								'Select a payment method' }
+						</p>
+						<div className="renderer-components-radio-control__options-group">
+							<RadioControl
+								id="payment-methods"
+								selected={ selected }
+								options={ options }
+								onChange={ setSelected }
+							/>
+						</div>
+					</>
+				) }
+			</>
 			<CustomerRender
 				slug={ selected }
 				data={ data }

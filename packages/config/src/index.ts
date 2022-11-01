@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-line-alignment */
 import type { ConfigData } from './types/config-data';
 import type { Plans } from './types/plans';
 import type { License } from './types/license';
@@ -5,7 +6,7 @@ import fonts from './json/fonts.json';
 import theme from './json/theme-properties.json';
 import messages from './json/messages.json';
 import { InitialPayload } from './types/initial-payload';
-import { MessagesStructure, ThemeStructure } from '@quillforms/types';
+import type { MessagesStructure, ThemeStructure } from '@quillforms/types';
 import { StoreAddons } from './types/store-addons';
 import { Currencies } from './types/currencies';
 
@@ -116,7 +117,7 @@ const setWPEnv = ( data: ConfigData ) => ( value: boolean ) => {
  * @param data the json environment configuration to use for getting config values
  */
 const setInitialPayload = ( data: ConfigData ) => ( value: InitialPayload ) => {
-	data[ 'initialPayload' ] = value;
+	data.initialPayload = value;
 };
 
 /**

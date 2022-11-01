@@ -168,6 +168,7 @@ export const setBlockRendererSettings = (
 			'counterIcon',
 			'isConditionFulfilled',
 			'getNumericVal',
+			'displayLayout',
 		] ),
 		name
 	);

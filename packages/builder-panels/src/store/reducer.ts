@@ -14,7 +14,7 @@ import {
 
 const initialState: PanelsState = {
 	panels: [],
-	currentPanel: 'blocks',
+	currentPanel: '',
 	currentSubPanel: undefined,
 	areaToShow: undefined,
 };

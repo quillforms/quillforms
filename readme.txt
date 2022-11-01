@@ -1,9 +1,9 @@
- === Quill Forms | Best Typeform Alternative | Conversational Forms Builder for WordPress ===
+ === Quill Forms | Typeform Alternative WordPress Plugin | Create Conversational Forms like Typeform on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.0
-Stable tag: 1.16.1
+Stable tag: 1.18.2
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
+Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,7 +28,7 @@ What’s more, QuillForms offers loads of hip features that make creating forms 
 ·  Personalize your themes
 ·  Change font, colors and backgrounds with a single click
 
-Quill Forms is definitely the best WordPress form plugin.
+If you are looking for Typeform WordPress plugin, then Quill Forms should be your choice without any doubt!
 QuillForms free version comes with variety of blocks:
 1- Welcome screen block
 2- Date block
@@ -67,10 +67,13 @@ QuillForms free version comes with variety of blocks:
 22- ActiveCampaign integration
 23- Notion integration
 24- Make integration
-25- Tracking with Google Analytics
-26- Tracking with Facebook Pixel
-27- Opinion scale block
-28- Custom thank you screen for redirect and custom buttons
+25- Monday.com integration
+26- Calendly integration
+27- Pipedrive integration
+28- Tracking with Google Analytics
+29- Tracking with Facebook Pixel
+30- Opinion scale block
+31- Custom thank you screen for redirect and custom buttons
 
 [Purchase The Pro Version](https://quillforms.com)
 
@@ -120,6 +123,38 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 1.18.2 = 14 Oct 2022
+- Fix: Fixing the block controls modal css conflicts
+
+= 1.18.1 = 14 Oct 2022
+- Fix: Background image wasn't working after overriding the theme from block controls.
+- Fix: Z-index issues at the builder.
+
+= 1.18.0 = 13 Oct 2022
+Feature: Adding layout options for each block(stack, float right, float left, split right, split left).
+Feature: Adding control for attachment maximum width.
+Feature: Adding fancy border radius feature for attachment.
+Feature: Adding focal point picker feature for background and attachment.
+Feature: Adding Calendly addon.
+Feature: Adding Pipedrive addon.
+Fix: Fix wrong attribute type in number block.
+
+= 1.17.1 = 28 Sep 2022
+Fix: Fixing a bug with overriding quillforms slug.
+
+= 1.17.0 = 27 Sep 2022
+Feature: Controlling questions label font family, font size and line height.
+Feature: Controlling questions description font family, font size and line height.
+Feature: Controlling buttons border width and and color.
+Feature: Adding Monday.com integration.
+Feature: Adding live preview mode in the builder.
+Feature: Adding duplicate theme feature.
+Feature: Adding payments labels feature to control the labels at the payment screen.
+Feature: Controlling 'quillforms' slug in the url.
+Fix: Fix a bug with emails.
+Fix: Fix a bug with the dropdown block when it is enabled for payments as a product.
+Fix: Fix a bug with number field validation in backend.
 
 = 1.16.1 = 6 Sep 2022
 Feature: Adding Make addon.

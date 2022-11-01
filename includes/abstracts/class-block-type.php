@@ -207,6 +207,34 @@ abstract class Block_Type extends stdClass {
 				),
 				'default'    => array(),
 			);
+
+			$attributes_schema['layout'] = array(
+				'type'    => 'string',
+				'default' => 'stack'
+			);
+
+			$attributes_schema['attachmentFocalPoint'] = array(
+				'type' => 'object',
+				'default' => array(
+					'x' => 0.5,
+					'y' => 0.5
+				),
+			);
+
+			$attributes_schema['attachmentFancyBorderRadius'] = array(
+				'type' => 'boolean',
+				'default' => false
+			);
+
+			$attributes_schema['attachmentBorderRadius'] = array(
+				'type' => 'string',
+				'default' => '0px'
+			);
+
+			$attribute_schema['attachmentMaxWidth'] = array(
+				'type' => 'string',
+				'default' => 'none'
+			);
 		}
 
 		if ( $this->supported_features['description'] ) {

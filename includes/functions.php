@@ -235,6 +235,53 @@ function quillforms_cleanup_logs() {
 add_action( 'quillforms_cleanup_logs', 'quillforms_cleanup_logs' );
 
 /**
+ * Get client ip address
+ * https://github.com/easydigitaldownloads/easy-digital-downloads/blob/master/includes/misc-functions.php
+ *
+ * @since 1.19.0
+ *
+ * @return string
+ */
+function quillforms_get_client_ip() {
+	$ip = false;
+
+	if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+		// Check ip from share internet.
+		$ip = filter_var( wp_unslash( $_SERVER['HTTP_CLIENT_IP'] ), FILTER_VALIDATE_IP );
+	} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+		// To check ip is pass from proxy.
+		// Can include more than 1 ip, first is the public one.
+		// WPCS: sanitization ok.
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$ips = explode( ',', wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
+		if ( is_array( $ips ) ) {
+			$ip = filter_var( $ips[0], FILTER_VALIDATE_IP );
+		}
+	} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
+		$ip = filter_var( wp_unslash( $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP );
+	}
+
+	$ip = false !== $ip ? $ip : '127.0.0.1';
+
+	// Fix potential CSV returned from $_SERVER variables.
+	$ip_array = explode( ',', $ip );
+	$ip_array = array_map( 'trim', $ip_array );
+
+	return apply_filters( 'quillforms_entry_meta_ip', $ip_array[0] );
+}
+
+/**
+ * Get client ip address hash
+ *
+ * @since 1.19.0
+ *
+ * @return string
+ */
+function quillforms_get_client_ip_hash() {
+	return sha1( 'quillforms-' . quillforms_get_client_ip() );
+}
+
+/**
  * Find array in arrays has specific key and value
  *
  * @since 1.13.0

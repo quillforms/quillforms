@@ -1,7 +1,26 @@
-.qf-builder-save-button, .qf-builder-placeholder-button {
-    position: absolute;
-    top: 15px;
-    right: 150px;
+.qf-builder-save-button,
+.qf-builder-placeholder-button {
+	position: absolute;
+	top: 15px;
+	right: 150px;
+}
+.qf-builder-save-button {
+	z-index: 6;
+}
+.qf-builder-full-preview-button {
+	position: absolute;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	top: 15px;
+	right: 227px;
+	height: 30px;
+	width: 30px;
+	border: none;
+	z-index: 6;
+	border-radius: 4px;
+	background: #d9d9d9;
+	cursor: pointer;
 }
 
 .qf-builder-save-button.disabled {
@@ -9,7 +28,7 @@
 	cursor: no-drop;
 }
 
-.qf-builder-placeholder-button{
+.qf-builder-placeholder-button {
 	background: #e8e6e6;
 	width: 62.5px;
 	height: 30px;
@@ -22,6 +41,3 @@
 	flex-basis: auto;
 	height: 100%;
 }
-
-
-

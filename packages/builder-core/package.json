@@ -23,16 +23,19 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
+		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/block-editor": "file:../block-editor",
 		"@quillforms/blocks": "file:../blocks",
 		"@quillforms/builder-panels": "file:../builder-panels",
 		"@quillforms/renderer-core": "file:../renderer-core",
+		"@quillforms/theme-editor": "file:../theme-editor",
 		"@quillforms/types": "file:../types",
 		"classnames": "^2.3.1",
 		"emotion": "^11.0.0",
 		"framer-motion": "^4.1.17",
 		"lodash": "^4.17.21",
 		"react-confirm-alert": "^2.7.0",
+		"react-loader-spinner": "^5.3.4",
 		"uuid": "^3.3.2"
 	},
 	"peerDependencies": {

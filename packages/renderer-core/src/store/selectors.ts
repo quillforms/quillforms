@@ -344,10 +344,7 @@ export function getPendingMsg( state: State ): string | false {
  *
  * @return {string} Field validation error message
  */
-export function getFieldValidationErr(
-	state: State,
-	id: string
-): string | [  ] {
+export function getFieldValidationErr( state: State, id: string ): string | [] {
 	const validationErr = state.answers[ id ]?.validationErr;
 	return validationErr ? validationErr : [];
 }

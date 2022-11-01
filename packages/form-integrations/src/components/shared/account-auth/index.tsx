@@ -29,6 +29,7 @@ const AccountAuth: React.FC< Props > = ( {
 				<Oauth
 					provider={ provider }
 					labels={ data.labels }
+					Instructions={ data.auth.Instructions }
 					onAdded={ onAdded }
 				/>
 			) : (
@@ -36,6 +37,7 @@ const AccountAuth: React.FC< Props > = ( {
 					provider={ provider }
 					labels={ data.labels }
 					fields={ data.auth.fields }
+					Instructions={ data.auth.Instructions }
 					onAdding={ onAdding }
 					onAdded={ onAdded }
 				/>

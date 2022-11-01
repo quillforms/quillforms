@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 import { __experimentalUseFieldRenderContext } from '../field-render';
+import classnames from 'classnames';
+import { css } from 'emotion';
 const BlockAttachment: React.FC = () => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	if ( ! attributes ) return null;
@@ -7,12 +9,28 @@ const BlockAttachment: React.FC = () => {
 	return (
 		<Fragment>
 			{ attachment && Object.keys( attachment ).length > 0 ? (
-				<div className="renderer-core-block-attachment">
+				<div
+					className={ classnames(
+						'renderer-core-block-attachment',
+						css`
+							${ attributes.layout !== 'split-right' &&
+							attributes.layout !== 'split-left' &&
+							`max-width: ${ attributes?.attachmentMaxWidth };` }
+						`
+					) }
+				>
 					{ attachment && attachment.url ? (
 						<img
 							alt={ '' }
 							src={ attachment.url }
-							className="renderer-core-block-attachment__image"
+							className={ classnames(
+								'renderer-core-block-attachment__image',
+								css`
+									${ attributes.layout !== 'split-right' &&
+									attributes.layout !== 'split-left' &&
+									`border-radius: ${ attributes.attachmentBorderRadius }` }
+								`
+							) }
 						/>
 					) : (
 						<div className="renderer-core-block-attachment__placeholder">

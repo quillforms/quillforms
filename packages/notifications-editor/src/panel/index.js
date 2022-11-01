@@ -11,7 +11,7 @@ import render from '../components/panel-render';
 import Icon from './icon';
 
 registerBuilderPanel( 'notifications', {
-	title: 'Notifications',
+	title: 'Email Notifications',
 	icon: Icon,
 	mode: 'single',
 	areaToShow: 'drop-area',

@@ -143,6 +143,9 @@ const ThemesListItem = ( { theme, onClick } ) => {
 							css`
 								color: ${ themeData.buttonsFontColor };
 								background: ${ themeData.buttonsBgColor };
+								border-width: ${ themeData.buttonsBorderWidth }px;
+								border-color: ${ themeData.buttonsBorderColor };
+								border-style: solid;
 							`
 						) }
 					></div>
@@ -152,7 +155,11 @@ const ThemesListItem = ( { theme, onClick } ) => {
 				<div className="theme-editor-themes-list-item__footer-title">
 					{ theme.title ? theme.title : 'Untitled' }
 				</div>
-				<ThemeActions id={ theme.id } />
+				<ThemeActions
+					id={ theme.id }
+					themeTitle={ theme.title ? theme.title : 'Untitled' }
+					themeProperties={ theme?.properties }
+				/>
 			</div>
 		</div>
 	);

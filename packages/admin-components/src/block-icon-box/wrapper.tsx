@@ -11,6 +11,7 @@ const BlockIconWrapper: FC< Props > = ( { color, children } ) => {
 			className="admin-components-block-icon-box"
 			style={ {
 				background: color ? color : '#333',
+				border: color === '#fff' ? '1px solid #e3e3e3' : 'none',
 			} }
 		>
 			{ children }
