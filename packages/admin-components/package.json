@@ -40,10 +40,10 @@
 		"react-beautiful-dnd": "^13.1.0",
 		"react-loader-spinner": "^5.1.7-beta.1",
 		"react-window": "^1.8.6",
-		"slate": "^0.81.1",
+		"slate": "^0.84.0",
 		"slate-history": "^0.66.0",
 		"slate-hyperscript": "^0.77.0",
-		"slate-react": "^0.81.0",
+		"slate-react": "^0.83.2",
 		"tinycolor2": "^1.4.1"
 	},
 	"peerDependencies": {
