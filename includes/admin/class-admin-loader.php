@@ -53,17 +53,27 @@ class Admin_Loader {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localize_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'remove_all_scripts' ), 999 );
 
-		add_action( 'admin_head', array( __CLASS__, 'remove_notices' ) );
-		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
-		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
-		add_filter( 'admin_body_class', array( __CLASS__, 'add_admin_body_class' ), PHP_INT_MAX );
 
 		/*
 		* Remove the emoji script.
 		* We have faced an issue when using emojis with Slate React rich text editor; they were converted to images.
 		* Now after removing this action, they are working correctly.
 		*/
-		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_action( 'wp_head', 'print_emoji_detection_script', 20 );
+		add_action( 'admin_init', [ $this, 'disable_admin_emojis' ] );
+		// Remove DNS prefetch s.w.org (used for emojis, since WP 4.7)
+
+
+
+
+
+		add_action( 'admin_head', array( __CLASS__, 'remove_notices' ) );
+		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
+		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
+		add_filter( 'admin_body_class', array( __CLASS__, 'add_admin_body_class' ), PHP_INT_MAX );
+
+
+
 	}
 
 	/**
@@ -187,6 +197,12 @@ class Admin_Loader {
 	 * Set up a div for the app to render into.
 	 */
 	public static function page_wrapper() {
+
+		add_filter( 'emoji_svg_url', '__return_false' );
+		if ( get_site_option( 'initial_db_version' ) >= 32453 )
+			remove_action( 'init', 'smilies_init', 5 ); // This re
+
+
 		// Load client script and style. Client is main app entry.
 		wp_enqueue_script( 'quillforms-client' );
 		wp_enqueue_style( 'quillforms-client' );
@@ -432,4 +448,16 @@ class Admin_Loader {
 		</div>
 		<?php
 	}
+
+	public function disable_emojis_tinymce( $plugins ) {
+		return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
+	}
+
+	public function disable_admin_emojis() {
+		// if(self::is_admin_page()) {
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); // Admin browser support detection script
+		remove_action( 'admin_print_styles', 'print_emoji_styles' ); // Admin emoji styles
+
+	}
+
 }
