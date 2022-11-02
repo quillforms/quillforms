@@ -85,6 +85,7 @@
 		"@quillforms/utils": "file:packages/utils",
 		"@wordpress/api-fetch": "^6.0.1",
 		"@wordpress/autop": "^3.3.1",
+		"@wordpress/babel-preset-default": "7.4.0",
 		"@wordpress/components": "^19.16.0",
 		"@wordpress/data": "^6.3.0",
 		"@wordpress/element": "^4.1.1",
