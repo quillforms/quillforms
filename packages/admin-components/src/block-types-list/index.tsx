@@ -20,6 +20,7 @@ import {
 	OpinionScaleIcon,
 	PhoneIcon,
 	PictureChoiceIcon,
+	SignatureIcon,
 	ThankYouIcon,
 } from './pro-blocks-icons';
 import ProLabel from '../pro-label';
@@ -171,7 +172,28 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex } ) => {
 					</div>
 				</div>
 			) }
-			{ ! blockTypes }
+
+			{ ! blockTypes.signature && (
+				<div className={ 'admin-components-blocks-list__item-wrapper' }>
+					<div className="admin-components-blocks-list-item disabled">
+						<span
+							className="admin-components-blocks-list-item__icon-wrapper"
+							style={ {
+								backgroundColor: '#2eaf8b',
+							} }
+						>
+							<span className="admin-components-blocks-list-item__icon">
+								<SignatureIcon />
+							</span>
+						</span>
+						<span className="admin-components-blocks-list-item__block-name">
+							Signature
+						</span>
+						<ProLabel />
+					</div>
+				</div>
+			) }
+
 			{ ! blockTypes[ 'thankyou-screen' ] && (
 				<div className={ 'admin-components-blocks-list__item-wrapper' }>
 					<div className="admin-components-blocks-list-item disabled">
