@@ -458,7 +458,7 @@ class Store {
 			),
 			'formlocker'                => array(
 				'name'           => esc_html__( 'Form Locker', 'quillforms' ),
-				'description'    => esc_html__( 'Form Locker enables you to lock your forms with password, members and more.', 'quillforms' ),
+				'description'    => esc_html__( 'Form Locker enables you to lock your forms with password, restrict access to logged in users or specific user roles, form accessability between start date and end date and restriction on the submission with the same email, phone, user id or with entries limit', 'quillforms' ),
 				'plugin_file'    => 'quillforms-formlocker/quillforms-formlocker.php',
 				'plan'           => 'plus',
 				'is_integration' => false,
@@ -528,16 +528,17 @@ class Store {
 			// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
 			// ),
 			// ),
-			// 'signatureblock'            => array(
-			// 'name'           => esc_html__( 'Signature Block', 'quillforms' ),
-			// 'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
-			// 'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
-			// 'plan'           => 'plus',
-			// 'is_integration' => false,
-			// 'assets'         => array(
-			// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
-			// ),
-			// ),
+			'signatureblock'            => array(
+				'name'           => esc_html__( 'Signature Block', 'quillforms' ),
+				'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
+				'plan'           => 'plus',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
+				),
+			),
+
 			'customthankyouscreenblock' => array(
 				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
 				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
