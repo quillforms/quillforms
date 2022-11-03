@@ -73,6 +73,40 @@
 		"type": "string",
 		"default": "#fff"
 	},
+	"buttonsFontSize": {
+		"type": "object",
+		"default": {
+			"lg": "20px",
+			"md": "20px",
+			"sm": "16px"
+		}
+	},
+
+	"buttonsPadding": {
+		"type": "object",
+		"default": {
+			"top": {
+				"lg": "9px",
+				"md": "9px",
+				"sm": "9px"
+			},
+			"bottom": {
+				"lg": "9px",
+				"md": "9px",
+				"sm": "9px"
+			},
+			"left": {
+				"lg": "23px",
+				"md": "23px",
+				"sm": "23px"
+			},
+			"right": {
+				"lg": "20px",
+				"md": "20px",
+				"sm": "20px"
+			}
+		}
+	},
 	"buttonsBgColor": {
 		"type": "string",
 		"default": "#22bcaa"

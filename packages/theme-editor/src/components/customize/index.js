@@ -77,6 +77,8 @@ const CustomizeThemePanel = () => {
 		questionsColor,
 		answersColor,
 		buttonsFontColor,
+		buttonsFontSize,
+		buttonsPadding,
 		buttonsBgColor,
 		buttonsBorderRadius,
 		buttonsBorderWidth,
@@ -590,6 +592,368 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="horizontal">
+						<ControlLabel
+							label="Buttons Font Size(px)"
+							isNew={ true }
+						/>
+						<ResponsiveControl
+							desktopChildren={
+								<MeasureControl
+									val={ parseInt(
+										buttonsFontSize.lg.replace( 'px', '' )
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											buttonsFontSize: {
+												...buttonsFontSize,
+												lg: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							tabletChildren={
+								<MeasureControl
+									val={ parseInt(
+										buttonsFontSize.md.replace( 'px', '' )
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											buttonsFontSize: {
+												...buttonsFontSize,
+												md: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+							mobileChildren={
+								<MeasureControl
+									val={ parseInt(
+										buttonsFontSize.sm.replace( 'px', '' )
+									) }
+									onChange={ ( val ) => {
+										setCurrentThemeProperties( {
+											buttonsFontSize: {
+												...buttonsFontSize,
+												sm: `${ val }px`,
+											},
+										} );
+									} }
+								/>
+							}
+						/>
+					</ControlWrapper>
+				</BaseControl>
+				<BaseControl>
+					<ControlWrapper orientation="vertical">
+						<ControlLabel
+							label="Buttons Padding(px)"
+							isNew={ true }
+						/>
+						<ResponsiveControl
+							desktopChildren={
+								<div
+									className={ css`
+										display: flex;
+										align-items: center;
+										div {
+											text-align: center;
+										}
+										input {
+											width: 60px !important;
+										}
+									` }
+								>
+									<TextControl
+										label={ 'Top' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.top.lg.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													top: {
+														...buttonsPadding.top,
+														lg: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Right' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.right.lg.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													right: {
+														...buttonsPadding.right,
+														lg: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Bottom' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.bottom.lg.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													bottom: {
+														...buttonsPadding.bottom,
+														lg: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Left' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.left.lg.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													left: {
+														...buttonsPadding.left,
+														lg: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+								</div>
+							}
+							tabletChildren={
+								<div
+									className={ css`
+										display: flex;
+										align-items: center;
+										div {
+											text-align: center;
+										}
+										input {
+											width: 60px !important;
+										}
+									` }
+								>
+									<TextControl
+										label={ 'Top' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.top.md.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													top: {
+														...buttonsPadding.top,
+														md: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Right' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.right.md.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													right: {
+														...buttonsPadding.right,
+														md: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Bottom' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.bottom.md.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													bottom: {
+														...buttonsPadding.bottom,
+														md: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Left' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.left.md.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													left: {
+														...buttonsPadding.left,
+														md: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+								</div>
+							}
+							mobileChildren={
+								<div
+									className={ css`
+										display: flex;
+										align-items: center;
+										div {
+											text-align: center;
+										}
+										input {
+											width: 60px !important;
+										}
+									` }
+								>
+									<TextControl
+										label={ 'Top' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.top.sm.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													top: {
+														...buttonsPadding.top,
+														sm: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Right' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.right.sm.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													right: {
+														...buttonsPadding.right,
+														sm: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Bottom' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.bottom.sm.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													bottom: {
+														...buttonsPadding.bottom,
+														sm: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+									<TextControl
+										label={ 'Left' }
+										type="number"
+										value={ parseInt(
+											buttonsPadding.left.sm.replace(
+												'px',
+												''
+											)
+										) }
+										onChange={ ( val ) => {
+											setCurrentThemeProperties( {
+												buttonsPadding: {
+													...buttonsPadding,
+													left: {
+														...buttonsPadding.left,
+														sm: `${ val }px`,
+													},
+												},
+											} );
+										} }
+									/>
+								</div>
+							}
+						/>
+					</ControlWrapper>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">

@@ -2,9 +2,7 @@
 	display: inline-flex;
 	align-items: center;
 	margin-right: 10px;
-	padding: 9px 20px 9px 23px;
 	line-height: 1.5;
-	font-size: 20px;
 	outline: none;
 	cursor: pointer;
 
@@ -12,10 +10,6 @@
 		margin-left: 14px;
 		width: 16px;
 		height: 16px;
-	}
-
-	@media (max-width: $break-small) {
-		font-size: 16px;
 	}
 }
 

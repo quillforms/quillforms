@@ -24,6 +24,13 @@ export type FormTheme = {
 	questionsDescriptionLineHeight: MediaDevices;
 	answersColor: string;
 	buttonsFontColor: string;
+	buttonsFontSize: MediaDevices;
+	buttonsPadding: {
+		top: MediaDevices;
+		bottom: MediaDevices;
+		left: MediaDevices;
+		right: MediaDevices;
+	};
 	buttonsBgColor: string;
 	buttonsBorderRadius: number;
 	buttonsBorderWidth: number;
