@@ -28,6 +28,8 @@ abstract class Entry_Process {
 	/**
 	 * Provider
 	 *
+	 * @since 1.10.0
+	 *
 	 * @var Provider
 	 */
 	protected $provider;
@@ -35,12 +37,16 @@ abstract class Entry_Process {
 	/**
 	 * Entry
 	 *
+	 * @since 1.10.0
+	 *
 	 * @var Entry
 	 */
 	protected $entry;
 
 	/**
 	 * Form data
+	 *
+	 * @since 1.10.0
 	 *
 	 * @var array
 	 */
@@ -72,31 +78,11 @@ abstract class Entry_Process {
 		$connections = $this->provider->form_data->get( $this->entry->form_id, 'connections' ) ?? array();
 		foreach ( $connections as $connection_id => $connection ) {
 			// check conditions.
-			if ( $connection['conditions'] ?? null ) {
-				if ( ! Logic_Conditions::instance()->is_conditions_met( $connection['conditions'], $this->entry, $this->form_data ) ) {
-					$this->log_result(
-						$connection_id,
-						$connection,
-						array(
-							'status'  => self::SKIPPED,
-							'details' => array(
-								'reason' => "logic conditions aren't met",
-							),
-						)
-					);
-					continue;
-				}
-			}
-
-			// process connection.
-			try {
-				$result = $this->execute_connection( $connection_id, $connection );
-				$this->log_result( $connection_id, $connection, $result );
-			} catch ( Throwable $e ) {
-				$this->log_result(
-					$connection_id,
-					$connection,
-					array(
+			if ( empty( $connection['conditions'] ) || Logic_Conditions::instance()->is_conditions_met( $connection['conditions'], $this->entry, $this->form_data ) ) {
+				try {
+					$result = $this->execute_connection( $connection_id, $connection );
+				} catch ( Throwable $e ) {
+					$result = array(
 						'status'  => self::FAILED,
 						'details' => array(
 							'exception' => array(
@@ -105,9 +91,22 @@ abstract class Entry_Process {
 								'trace'   => $e->getTraceAsString(),
 							),
 						),
-					)
+					);
+				}
+			} else {
+				$result = array(
+					'status'  => self::SKIPPED,
+					'details' => array(
+						'reason' => "logic conditions aren't met",
+					),
 				);
 			}
+
+			// log result.
+			$this->log_result( $connection_id, $connection, $result );
+
+			// do action.
+			do_action( 'quillforms_provider_connection_processed', $this->form_data['id'], $this->provider->slug, $connection_id, $this->entry->ID, $result );
 		}
 	}
 
