@@ -28,6 +28,8 @@ abstract class Entry_Process {
 	/**
 	 * Provider
 	 *
+	 * @since 1.10.0
+	 *
 	 * @var Provider
 	 */
 	protected $provider;
@@ -35,12 +37,16 @@ abstract class Entry_Process {
 	/**
 	 * Entry
 	 *
+	 * @since 1.10.0
+	 *
 	 * @var Entry
 	 */
 	protected $entry;
 
 	/**
 	 * Form data
+	 *
+	 * @since 1.10.0
 	 *
 	 * @var array
 	 */
