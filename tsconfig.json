@@ -4,7 +4,6 @@
 		{"path" : "packages/rest-fields"},
 		{"path" : "packages/blocks"},
 		{"path" : "packages/builder-panels"},
-		{"path" : "packages/block-editor"},
 		{"path" : "packages/admin-components"},
 		{"path" : "packages/navigation"},
 		{"path" : "packages/types"},

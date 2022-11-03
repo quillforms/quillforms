@@ -10,7 +10,8 @@
 		visibility: hidden;
 	}
 
-	> div, .block-editor-block-toolbar__merge-tag-icon {
+	> div,
+	.block-editor-block-toolbar__merge-tag-icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -24,7 +25,7 @@
 		color: #545856;
 
 		svg {
-			fill : #545856;
+			fill: #545856;
 		}
 	}
 
@@ -43,4 +44,9 @@
 		width: 20px;
 		height: 20px;
 	}
+}
+.qf-custom-modal {
+	margin-left: 0 !important;
+	background-color: transparent !important;
+	z-index: 5;
 }

@@ -68,56 +68,37 @@ const BlockToolbar = ( { id, editor } ) => {
 
 			<BlockActions id={ id } />
 			{ showBlockControls && (
-				<>
-					<>
-						{ createPortal(
-							<div
-								className={ classnames(
-									'my-div',
-									css`
-										& ~ .qf-custom-modal {
-											background-color: transparent !important;
-											z-index: 5;
-										}
-									`
-								) }
-							/>,
-							document.body
-						) }
-					</>
-					<Modal
-						overlayClassName={ 'qf-custom-modal' }
-						className={ css`
-							border: none !important;
-							min-width: 350px !important;
-							margin-left: 0 !important;
-							min-height: calc( 100% - 54px ) !important;
-							margin-bottom: 0 !important;
+				<Modal
+					overlayClassName={ 'qf-custom-modal' }
+					className={ css`
+						border: none !important;
+						min-width: 350px !important;
+						min-height: calc( 100% - 54px ) !important;
+						margin-bottom: 0 !important;
 
-							.components-modal__content {
-								background: #eee !important;
-							}
+						.components-modal__content {
+							background: #eee !important;
+						}
 
-							.components-modal__header {
-								background: #a120f1;
-								.components-modal__header-heading {
-									color: #fff;
-								}
-								.components-button.has-icon svg {
-									fill: #fff;
-								}
+						.components-modal__header {
+							background: #a120f1;
+							.components-modal__header-heading {
+								color: #fff;
 							}
-						` }
-						// Because focus on editor is causing the click handler to be triggered
-						title="Block Controls"
-						shouldCloseOnClickOutside={ false }
-						onRequestClose={ () => {
-							setShowBlockControls( false );
-						} }
-					>
-						<BlockControls />
-					</Modal>
-				</>
+							.components-button.has-icon svg {
+								fill: #fff;
+							}
+						}
+					` }
+					// Because focus on editor is causing the click handler to be triggered
+					title="Block Controls"
+					shouldCloseOnClickOutside={ false }
+					onRequestClose={ () => {
+						setShowBlockControls( false );
+					} }
+				>
+					<BlockControls />
+				</Modal>
 			) }
 		</div>
 	);
