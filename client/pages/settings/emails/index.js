@@ -28,9 +28,8 @@ import { isEmpty } from 'lodash';
 const Emails = () => {
 	const [ settings, setSettings ] = useState( null );
 	const [ isSaving, setIsSaving ] = useState( false );
-	const { createErrorNotice, createSuccessNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createErrorNotice, createSuccessNotice } =
+		useDispatch( 'core/notices' );
 
 	const setSettingField = ( key, value ) => {
 		setSettings( ( settings ) => {
@@ -155,6 +154,7 @@ const Emails = () => {
 						<ControlWrapper orientation="vertical">
 							<ControlLabel label="Background Color" />
 							<ColorPalette
+								colors={ [] }
 								value={ settings.emails_background_color }
 								onChange={ ( val ) => {
 									setSettingField(

@@ -126,6 +126,9 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.19.1 = 3 Nov 2022
+Urgent Fix: Block controls modal positioning issue.
+
 = 1.19.0 = 3 Nov 2022
 Feature: Controlling buttons font sizes with responsive control.
 Feature: Controlling buttons padding with responsive control.
