@@ -8,6 +8,7 @@ const createEditor = (): ReactEditor & HistoryEditor => {
 	const editor: CustomEditor = createSlateEditor() as CustomEditor;
 
 	return withMergeTags(
+		// @ts-ignore
 		withHistory( withLinks( withReact( editor ) ) )
 	) as ReactEditor & HistoryEditor;
 };
