@@ -126,7 +126,7 @@ final class Addons_Manager {
 			} elseif ( substr( $key, -6 ) === '_addon' ) {
 				$dependency_addon_slug = substr( $key, 0, -6 );
 				$dependency_addon      = $this->registered[ $dependency_addon_slug ] ?? null;
-				if ( ( ! $dependency_addon && $value['required'] )
+				if ( ( ! $dependency_addon && ( $value['required'] ?? false ) )
 					|| ( $dependency_addon && version_compare( $dependency_addon->version, $value['version'], '<' ) ) ) {
 						throw new Exception(
 							sprintf( '%s addon requires at least %s addon version %s. please update it.', $addon->slug, $dependency_addon_slug, $value['version'] ),
