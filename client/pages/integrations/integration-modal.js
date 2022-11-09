@@ -51,7 +51,8 @@ const IntegrationModal = ( { slug, integration, onClose } ) => {
 					border-radius: 0;
 
 					.components-modal__content {
-						padding: 0;
+						padding: 20px 0 0;
+						margin-top: 60px;
 						background: #fafafa;
 						&:before {
 							display: none;

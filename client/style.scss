@@ -72,7 +72,7 @@ body.js.is-fullscreen-mode {
 	border-color: #6d78d83d !important;
 }
 .components-popover .components-popover__content {
-	position: absolute;
+	//position: absolute;
 	height: auto;
 	overflow-y: auto;
 	background-color: rgb(255, 255, 255);
@@ -90,4 +90,8 @@ body.js.is-fullscreen-mode {
 .components-popover .components-popover__content .components-menu-item__button:hover {
 	background: #eee;
 	color: inherit;
+}
+
+.components-modal__header {
+	height: 54px !important;
 }

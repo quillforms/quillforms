@@ -17,10 +17,10 @@ const ThemeActions = ( { id, themeTitle, themeProperties } ) => {
 			onClick={ ( e ) => e.stopPropagation() }
 		>
 			<DropdownMenu
-				icon={ moreHorizontal }
 				popoverProps={ {
-					position: 'bottom left',
+					placement: 'bottom-start',
 				} }
+				icon={ moreHorizontal }
 				className="theme-editor-theme-actions__dropdown"
 			>
 				{ ( { onClose } ) => (

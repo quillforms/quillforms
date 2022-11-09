@@ -76,9 +76,6 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 		<DropdownMenu
 			label=""
 			icon={ 'ellipsis' }
-			popoverProps={ {
-				position: 'bottom left',
-			} }
 			className={ classnames(
 				'block-editor-block-actions__dropdown',
 				css`

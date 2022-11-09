@@ -67,9 +67,6 @@ const FormActions = ( { form, formId, setIsLoading } ) => {
 		>
 			<DropdownMenu
 				icon={ moreHorizontal }
-				popoverProps={ {
-					position: 'bottom left',
-				} }
 				className="quillforms-home-form-actions__dropdown"
 			>
 				{ ( { onClose } ) => (

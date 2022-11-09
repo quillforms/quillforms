@@ -263,7 +263,6 @@ const TextEditor: React.FC< Props > = ( props ) => {
 					{ target && $mergeTags.length > 0 && (
 						<Popover
 							ref={ PopoverRef }
-							position={ 'bottom center' }
 							className={ css`
 								z-index: 1111111111111111111;
 								.components-popover__content {

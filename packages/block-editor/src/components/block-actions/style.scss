@@ -16,14 +16,16 @@
 	}
 
 	.components-dropdown-menu__popover {
-		.components-popover__content  {
+		.components-popover__content {
 			min-width: auto;
 			width: 120px;
+			overflow-x: hidden !important;
 			border-radius: 7px;
 			padding: 10px 0;
 		}
 
-		&:after, &:before {
+		&:after,
+		&:before {
 			display: none;
 		}
 	}
@@ -48,5 +50,3 @@
 		}
 	}
 }
-
-
