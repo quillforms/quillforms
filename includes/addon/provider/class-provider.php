@@ -118,7 +118,7 @@ abstract class Provider extends Addon {
 		if ( method_exists( $entry_process, 'process' ) ) {
 			$entry_process->process();
 		} else {
-			$entry_process->execute();
+			$entry_process->run();
 		}
 	}
 
@@ -152,8 +152,21 @@ abstract class Provider extends Addon {
 		if ( method_exists( $entry_process, 'process' ) ) {
 			$entry_process->process();
 		} else {
-			$entry_process->execute();
+			$entry_process->run();
 		}
+	}
+
+	/**
+	 * Get entry process instance
+	 *
+	 * @since 1.20.0
+	 *
+	 * @param Entry $entry Entry.
+	 * @param array $form_data Form data.
+	 * @return Entry_Process
+	 */
+	public function get_entry_process( $entry, $form_data ) {
+		return new static::$classes['entry_process']( $this, $entry, $form_data );
 	}
 
 	/**

@@ -27,7 +27,8 @@ class REST extends Abstract_REST {
 	 */
 	protected static $classes = array(
 		// + classes from parent.
-		// 'account_controller' => Account_Controller::class,
+		// 'account_controller'        => Account_Controller::class,
+		// 'run_connection_controller' => Run_Connection_Controller::class,
 	);
 
 	/**
@@ -43,6 +44,8 @@ class REST extends Abstract_REST {
 		if ( ! empty( static::$classes['account_controller'] ) ) {
 			new static::$classes['account_controller']( $this->addon );
 		}
+		$run_connection_controller = static::$classes['run_connection_controller'] ?? Run_Connection_Controller::class;
+		new $run_connection_controller( $this->addon );
 
 		add_filter( 'rest_prepare_quill_forms', array( $this, 'add_rest_data' ), 10, 3 );
 	}

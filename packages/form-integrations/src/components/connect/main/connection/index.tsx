@@ -1,6 +1,7 @@
 /**
  * QuillForms Dependencies.
  */
+import ConfigApi from '@quillforms/config';
 import {
 	Button,
 	LogicConditions,
@@ -17,33 +18,44 @@ import { __ } from '@wordpress/i18n';
  * Internal Dependencies
  */
 import AccountSelect from './account-select';
+import RunIcon from './run-icon';
 import DeleteIcon from './delete-icon';
 import { useConnectContext } from '../../state/context';
 import { useConnectMainContext } from '../context';
 
 interface Props {
 	id: string;
+	run: () => void;
 }
 
-const Connection: React.FC< Props > = ( { id } ) => {
-	const {
-		accounts,
-		connections,
-		updateConnection,
-		deleteConnection,
-	} = useConnectContext();
+const Connection: React.FC< Props > = ( { id, run } ) => {
+	const { accounts, connections, updateConnection, deleteConnection } =
+		useConnectContext();
 	const connection = connections[ id ];
 	const main = useConnectMainContext();
+	const entriesAddon = ConfigApi.getStoreAddons()[ 'entries' ];
+	// check if active & version is >= 1.4.0.
+	const isEntriesCompatible =
+		entriesAddon.is_active &&
+		parseInt( entriesAddon?.version?.split( '.' )?.[ 1 ] ?? '0', 10 ) >= 4;
 
 	return (
 		<div className="integration-connection">
-			<Button
-				className="connection-delete"
-				onClick={ () => deleteConnection( id ) }
-			>
-				{ __( 'Delete Connection', 'quillforms' ) }
-				<DeleteIcon />
-			</Button>
+			<div className="connection-header-buttons">
+				{ isEntriesCompatible && (
+					<Button className="connection-run" onClick={ run }>
+						<span>{ __( 'Run Connection', 'quillforms' ) }</span>
+						<RunIcon />
+					</Button>
+				) }
+				<Button
+					className="connection-delete"
+					onClick={ () => deleteConnection( id ) }
+				>
+					<span>{ __( 'Delete Connection', 'quillforms' ) }</span>
+					<DeleteIcon />
+				</Button>
+			</div>
 			<div className="connection-header">
 				<TextControl
 					className="connection-primary-control"

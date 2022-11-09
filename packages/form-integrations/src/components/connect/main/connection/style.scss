@@ -10,20 +10,33 @@
 	position: relative;
 	padding: 24px 16px;
 
-	.connection-delete {
+	.connection-header-buttons {
 		position: absolute;
 		top: 12px;
 		right: 16px;
-		cursor: pointer;
-		border: 1px solid #e14a50;
-		padding: 5px 8px;
-		display: inline-flex;
-		border-radius: 5px;
-		align-items: center;
-		color: #e14a50;
+		display: flex;
 
-		svg {
-			margin-left: 7px;
+		button {
+			cursor: pointer;
+			padding: 5px 8px;
+			display: inline-flex;
+			border-radius: 5px;
+			align-items: center;
+			margin-left: 5px;
+
+			svg {
+				margin-left: 7px;
+			}
+
+			&.connection-run {
+				color: #177a1f;
+				border: 1px solid #177a1f;
+			}
+
+			&.connection-delete {
+				color: #e14a50;
+				border: 1px solid #e14a50;
+			}
 		}
 	}
 
@@ -38,7 +51,6 @@
 	}
 
 	.connection-primary-control {
-
 		.components-base-control__label,
 		.components-custom-select-control__label {
 			font-weight: 500;

@@ -68,46 +68,67 @@ abstract class Entry_Process {
 	}
 
 	/**
-	 * Start entry process
+	 * Run all connections
 	 *
 	 * @since 1.10.0
 	 *
+	 * @param array|null $connections Connections.
 	 * @return void
 	 */
-	final public function execute() {
-		$connections = $this->provider->form_data->get( $this->entry->form_id, 'connections' ) ?? array();
+	final public function run( $connections = null ) {
+		$connections = $connections ?? $this->provider->form_data->get( $this->entry->form_id, 'connections' ) ?? array();
 		foreach ( $connections as $connection_id => $connection ) {
-			// check conditions.
-			if ( empty( $connection['conditions'] ) || Logic_Conditions::instance()->is_conditions_met( $connection['conditions'], $this->entry, $this->form_data ) ) {
-				try {
-					$result = $this->execute_connection( $connection_id, $connection );
-				} catch ( Throwable $e ) {
-					$result = array(
-						'status'  => self::FAILED,
-						'details' => array(
-							'exception' => array(
-								'code'    => $e->getCode(),
-								'message' => $e->getMessage(),
-								'trace'   => $e->getTraceAsString(),
-							),
-						),
-					);
-				}
-			} else {
+			$this->run_connection( $connection_id, $connection );
+		}
+	}
+
+	/**
+	 * Run connection
+	 *
+	 * @since 1.20.0
+	 *
+	 * @param string     $connection_id Connection id.
+	 * @param array|null $connection    Connection.
+	 * @return array|null
+	 */
+	final public function run_connection( $connection_id, $connection = null ) {
+		$connection = $connection ?? $this->provider->form_data->get( $this->entry->form_id, 'connections' )[ $connection_id ] ?? null;
+		if ( ! $connection ) {
+			return;
+		}
+
+		// check conditions.
+		if ( empty( $connection['conditions'] ) || Logic_Conditions::instance()->is_conditions_met( $connection['conditions'], $this->entry, $this->form_data ) ) {
+			try {
+				$result = $this->execute_connection( $connection_id, $connection );
+			} catch ( Throwable $e ) {
 				$result = array(
-					'status'  => self::SKIPPED,
+					'status'  => self::FAILED,
 					'details' => array(
-						'reason' => "logic conditions aren't met",
+						'exception' => array(
+							'code'    => $e->getCode(),
+							'message' => $e->getMessage(),
+							'trace'   => $e->getTraceAsString(),
+						),
 					),
 				);
 			}
-
-			// log result.
-			$this->log_result( $connection_id, $connection, $result );
-
-			// do action.
-			do_action( 'quillforms_provider_connection_processed', $this->form_data['id'], $this->provider->slug, $connection_id, $this->entry->ID, $result );
+		} else {
+			$result = array(
+				'status'  => self::SKIPPED,
+				'details' => array(
+					'reason' => "logic conditions aren't met",
+				),
+			);
 		}
+
+		// log result.
+		$this->log_result( $connection_id, $connection, $result );
+
+		// do action.
+		do_action( 'quillforms_provider_connection_processed', $this->form_data['id'], $this->provider->slug, $connection_id, $this->entry->ID, $result );
+
+		return $result;
 	}
 
 	// @codingStandardsIgnoreStart

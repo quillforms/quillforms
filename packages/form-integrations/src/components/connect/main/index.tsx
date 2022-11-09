@@ -27,6 +27,7 @@ import WarningIcon from './warning-icon';
 import Footer from '../footer';
 import type { ConnectMain } from '../../types';
 import { ConnectMainContextProvider } from './context';
+import RunModal from './run-modal';
 
 interface Props {
 	main: ConnectMain;
@@ -42,6 +43,7 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 
 	// state.
 	const [ isSubmitting, setIsSubmitting ] = useState( false );
+	const [ runModal, setRunModal ] = useState< string | null >( null );
 
 	// dispatch notices.
 	const { createSuccessNotice, createErrorNotice } =
@@ -86,8 +88,11 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 		} );
 	};
 
-	const validate = () => {
-		for ( const connection of Object.values( connections ) ) {
+	const validate = ( connectionId: string | null = null ) => {
+		for ( const [ id, connection ] of Object.entries( connections ) ) {
+			if ( connectionId && connectionId !== id ) {
+				continue;
+			}
 			if ( ! connection.name ) {
 				error( 'Connection name cannot be empty' );
 				return false;
@@ -117,6 +122,16 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 		return true;
 	};
 
+	const run = ( id ) => {
+		// validate.
+		if ( ! validate( id ) ) {
+			return;
+		}
+
+		// open modal.
+		setRunModal( id );
+	};
+
 	const randomId = () => Math.random().toString( 36 ).substr( 2, 9 );
 
 	return (
@@ -125,7 +140,11 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 				<div className="integration-connect-main__body">
 					{ Object.keys( connections ).length ? (
 						Object.keys( connections ).map( ( id ) => (
-							<Connection key={ id } id={ id } />
+							<Connection
+								key={ id }
+								id={ id }
+								run={ () => run( id ) }
+							/>
 						) )
 					) : (
 						<div className="integration-connect-main__warning">
@@ -169,6 +188,13 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 					} }
 				/>
 			</ConnectMainContextProvider>
+			{ runModal && (
+				<RunModal
+					id={ runModal }
+					name={ connections[ runModal ]?.name ?? 'unnamed' }
+					close={ () => setRunModal( null ) }
+				/>
+			) }
 		</div>
 	);
 };

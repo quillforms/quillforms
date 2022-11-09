@@ -1,0 +1,81 @@
+.integration-run-connection-modal {
+	border: none !important;
+	min-width: 420px !important;
+	max-width: 470px !important;
+	border-radius: 10px;
+	z-index: 1111111;
+
+	.components-modal__header {
+		background: #36c3a9;
+
+		.components-modal__header-heading {
+			color: #fff;
+		}
+
+		.components-button.has-icon svg {
+			fill: #fff;
+		}
+	}
+
+	.run-connection-modal-loading {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		height: 100px;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.run-connection-modal-list {
+		overflow-y: auto;
+		max-height: 300px;
+		margin-top: 20px;
+
+		.list-header,
+		.list-item {
+			display: flex;
+			height: 50px;
+			align-items: center;
+			border-bottom: 1px solid #e3e3e3;
+			margin-top: 0;
+			margin-bottom: 0;
+			padding: 0 20px;
+		}
+		.list-item {
+			cursor: pointer;
+		}
+		.list-item-id {
+			text-overflow: ellipsis;
+			width: 180px;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		.list-item-date {
+			margin-left: auto;
+		}
+	}
+
+	.run-connection-modal-footer {
+		display: flex;
+		margin-top: 10px;
+		justify-content: flex-end;
+
+		.save-button {
+			margin-right: 10px !important;
+
+			.save-spinner {
+				padding-top: 4px;
+				padding-left: 4px;
+			}
+		}
+
+		.cancel-button {
+			width: 70px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+@import "./custom-checkbox-control/style.scss";
