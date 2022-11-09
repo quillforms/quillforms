@@ -115,11 +115,7 @@ abstract class Provider extends Addon {
 	 */
 	public function handle_entry_process_action( $entry, $form_data ) {
 		$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
-		if ( method_exists( $entry_process, 'process' ) ) {
-			$entry_process->process();
-		} else {
-			$entry_process->run();
-		}
+		$entry_process->run();
 	}
 
 	/**
@@ -149,11 +145,7 @@ abstract class Provider extends Addon {
 	 */
 	public function handle_entry_process_task( $entry, $form_data ) {
 		$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
-		if ( method_exists( $entry_process, 'process' ) ) {
-			$entry_process->process();
-		} else {
-			$entry_process->run();
-		}
+		$entry_process->run();
 	}
 
 	/**
@@ -167,34 +159,6 @@ abstract class Provider extends Addon {
 	 */
 	public function get_entry_process( $entry, $form_data ) {
 		return new static::$classes['entry_process']( $this, $entry, $form_data );
-	}
-
-	/**
-	 * Filter connections
-	 *
-	 * @since 1.6.0
-	 * @deprecated 1.10.0
-	 *
-	 * @param integer $form_id Form id.
-	 * @param array   $connections Connections.
-	 * @return array
-	 */
-	public function filter_connections( $form_id, $connections ) {
-		return $connections;
-	}
-
-	/**
-	 * Filter connection fields
-	 *
-	 * @since 1.6.0
-	 * @deprecated 1.10.0
-	 *
-	 * @param array $fields Fields.
-	 * @param array $valid_blocks_ids Valid blocks ids.
-	 * @return array
-	 */
-	protected function filter_connection_fields( $fields, $valid_blocks_ids ) { // phpcs:ignore
-		return $fields;
 	}
 
 }
