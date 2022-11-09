@@ -594,6 +594,7 @@ class Store {
 				'name'           => esc_html__( 'ActiveCampaign', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your ActiveCampaign account.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-activecampaign/quillforms-activecampaign.php',
+				'min_version'    => '1.1.0',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -614,6 +615,7 @@ class Store {
 				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-constantcontact/quillforms-constantcontact.php',
+				'min_version'    => '1.1.0',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -625,6 +627,7 @@ class Store {
 				'name'           => esc_html__( 'MailChimp', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your MailChimp lists.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-mailchimp/quillforms-mailchimp.php',
+				'min_version'    => '1.1.0',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -676,6 +679,7 @@ class Store {
 				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your GetResponse lists.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-getresponse/quillforms-getresponse.php',
+				'min_version'    => '1.1.0',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -687,6 +691,7 @@ class Store {
 				'name'           => esc_html__( 'Google Sheets', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Google Sheets. Syncs automatically when a new form is submitted!', 'quillforms' ),
 				'plugin_file'    => 'quillforms-googlesheets/quillforms-googlesheets.php',
+				'min_version'    => '1.2.0',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -698,6 +703,7 @@ class Store {
 				'name'           => esc_html__( 'HubSpot', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your HubSpot account.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-hubspot/quillforms-hubspot.php',
+				'min_version'    => '1.1.0',
 				'plan'           => 'basic',
 				'is_integration' => true,
 				'assets'         => array(
@@ -718,6 +724,7 @@ class Store {
 				'name'           => esc_html__( 'Salesforce', 'quillforms' ),
 				'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-salesforce/quillforms-salesforce.php',
+				'min_version'    => '1.1.0',
 				'plan'           => 'plus',
 				'is_integration' => true,
 				'assets'         => array(
@@ -768,7 +775,7 @@ class Store {
 				'name'           => esc_html__( 'Zapier', 'quillforms' ),
 				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-zapier/quillforms-zapier.php',
-				'min_version'    => '1.2.0',
+				'min_version'    => '1.2.1',
 				'plan'           => 'plus',
 				'is_integration' => true,
 				'assets'         => array(
