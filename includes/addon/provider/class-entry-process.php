@@ -131,10 +131,8 @@ abstract class Entry_Process {
 		return $result;
 	}
 
-	// @codingStandardsIgnoreStart
 	/**
 	 * Process connection
-	 * This function will be abstract in the future. All addons must use it and remove process().
 	 *
 	 * @since 1.10.0
 	 *
@@ -142,8 +140,7 @@ abstract class Entry_Process {
 	 * @param array  $connection Connection data.
 	 * @return array includes 'status' (one of status constants) and 'details'
 	 */
-	protected function execute_connection( $connection_id, $connection ) {}
-	// @codingStandardsIgnoreEnd
+	abstract protected function execute_connection( $connection_id, $connection );
 
 	/**
 	 * Get connection field value
