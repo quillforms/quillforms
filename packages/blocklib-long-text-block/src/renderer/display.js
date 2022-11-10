@@ -118,7 +118,7 @@ const LongTextOutput = ( props ) => {
 							box-shadow: ${ answersColor
 									.setAlpha( 0.3 )
 									.toString() }
-								0px 1px;
+								0px 1px !important;
 							@media ( max-width: 600px ) {
 								font-size: 24px;
 							}
@@ -150,7 +150,7 @@ const LongTextOutput = ( props ) => {
 							box-shadow: ${ answersColor
 									.setAlpha( 1 )
 									.toString() }
-								0px 2px;
+								0px 2px !important;
 						}
 
 						color: ${ theme.answersColor } !important;
