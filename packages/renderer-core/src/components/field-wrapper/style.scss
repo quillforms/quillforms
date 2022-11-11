@@ -101,10 +101,14 @@
 		}
 
 		.renderer-core-block-scroller {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
 			padding: 40px 70px;
+			width: 100%;
 			overflow-y: auto;
 			max-height: 100%;
-			flex: 1;
+			min-height: 100%;
 		}
 	}
 }

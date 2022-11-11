@@ -15,7 +15,7 @@ import { useEffect, useState } from '@wordpress/element';
  * External Dependencies
  */
 import { ThreeDots, TailSpin } from 'react-loader-spinner';
-
+import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
@@ -97,7 +97,7 @@ const RunModal: React.FC< Props > = ( { id, name, close } ) => {
 			);
 			setResult( {
 				status: 'done',
-				message: message,
+				message,
 			} );
 		} );
 	};
@@ -110,6 +110,18 @@ const RunModal: React.FC< Props > = ( { id, name, close } ) => {
 			shouldCloseOnClickOutside={ false }
 		>
 			<div>
+				<div
+					className={ css`
+						padding: 10px;
+						border-radius: 5px;
+						display: inline-flex;
+						background: #fbc3ff;
+						margin: 16px 0;
+					` }
+				>
+					Use this option if you would like to test your connection or
+					to run the connection for some entries manually.
+				</div>
 				{ entries === null || result.status === 'running' ? (
 					<div className="run-connection-modal-loading">
 						<ThreeDots color="#8640e3" height={ 50 } width={ 50 } />

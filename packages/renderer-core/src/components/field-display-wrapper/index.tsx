@@ -167,7 +167,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			{ blockType?.display && (
 				<div
 					className={ css`
-						margin-top: 15px;
+						margin-top: 40px;
 					` }
 				>
 					{

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /**
  * QuillForms Dependencies.
  */
@@ -13,6 +14,12 @@ import {
  * WordPress Dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { Tooltip } from '@wordpress/components';
+
+/**
+ * External Dependencies
+ */
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -43,10 +50,19 @@ const Connection: React.FC< Props > = ( { id, run } ) => {
 		<div className="integration-connection">
 			<div className="connection-header-buttons">
 				{ isEntriesCompatible && (
-					<Button className="connection-run" onClick={ run }>
-						<span>{ __( 'Run Connection', 'quillforms' ) }</span>
-						<RunIcon />
-					</Button>
+					<Tooltip
+						text={
+							'Use this option if you would like to test your connection or to run the connection for some entries manually.'
+						}
+						position="bottom center"
+					>
+						<Button className="connection-run" onClick={ run }>
+							<span>
+								{ __( 'Run Connection', 'quillforms' ) }
+							</span>
+							<RunIcon />
+						</Button>
+					</Tooltip>
 				) }
 				<Button
 					className="connection-delete"
@@ -57,6 +73,18 @@ const Connection: React.FC< Props > = ( { id, run } ) => {
 				</Button>
 			</div>
 			<div className="connection-header">
+				<div
+					className={ css`
+						padding: 10px;
+						border-radius: 5px;
+						display: inline-flex;
+						background: #fbc3ff;
+						margin-bottom: 16px;
+					` }
+				>
+					This connection will run automatically after each form
+					submission
+				</div>
 				<TextControl
 					className="connection-primary-control"
 					label={ __( 'Connection Name', 'quillforms' ) }
@@ -70,6 +98,7 @@ const Connection: React.FC< Props > = ( { id, run } ) => {
 				<AccountSelect connectionId={ id } />
 			) }
 			{ main.connection.accounts ? (
+				// eslint-disable-next-line no-nested-ternary
 				connection.account_id ? (
 					accounts[ connection.account_id ] ? (
 						<main.connection.options.Component

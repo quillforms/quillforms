@@ -50,14 +50,14 @@
 		"default": {
 			"lg": "20px",
 			"md": "20px",
-			"sm": "18px"
+			"sm": "16px"
 		}
 	},
 	"questionsDescriptionLineHeight": {
 		"type": "object",
 		"default": {
-			"lg": "30px",
-			"md": "30px",
+			"lg": "28px",
+			"md": "28px",
 			"sm": "28px"
 		}
 	},

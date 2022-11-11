@@ -57,7 +57,7 @@ const FormFooter: React.FC = memo( () => {
 				},
 				css`
 					@media ( max-width: 600px ) {
-						background: ${ tinyColor( theme.buttonsBgColor )
+						background: ${ tinyColor( theme.backgroundColor )
 							.setAlpha( 0.75 )
 							.toString() };
 					}

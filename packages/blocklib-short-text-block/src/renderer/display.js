@@ -29,6 +29,7 @@ const ShortTextOutput = ( props ) => {
 		showErrMsg,
 		inputRef,
 		isTouchScreen,
+		setFooterDisplay,
 	} = props;
 	const messages = useMessages();
 	const theme = useBlockTheme( attributes.themeId );
