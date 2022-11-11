@@ -57,16 +57,13 @@ const FormFooter: React.FC = memo( () => {
 				},
 				css`
 					@media ( min-width: 1025px ) {
-						background-color: ${ theme.formFooterBgColor
-							.lg } !important;
+						background: ${ theme.formFooterBgColor.lg } !important;
 					}
 					@media ( max-width: 1024px ) {
-						background-color: ${ theme.formFooterBgColor
-							.md } !important;
+						background: ${ theme.formFooterBgColor.md } !important;
 					}
 					@media ( max-width: 767px ) {
-						background-color: ${ theme.formFooterBgColor
-							.sm } !important;
+						background: ${ theme.formFooterBgColor.sm } !important;
 					}
 				`
 			) }
