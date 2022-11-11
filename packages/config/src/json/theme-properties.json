@@ -138,5 +138,13 @@
 	"progressBarBgColor": {
 		"type": "string",
 		"default": "#ccc"
+	},
+	"formFooterBgColor": {
+		"type": "object",
+		"default": {
+			"lg": "transparent",
+			"md": "transparent",
+			"sm": "transparent"
+		}
 	}
 }

@@ -39,4 +39,5 @@ export type FormTheme = {
 	errorsBgColor: string;
 	progressBarFillColor: string;
 	progressBarBgColor: string;
+	formFooterBgColor: MediaDevices;
 };

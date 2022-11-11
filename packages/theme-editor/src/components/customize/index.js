@@ -83,6 +83,7 @@ const CustomizeThemePanel = () => {
 		buttonsBorderRadius,
 		buttonsBorderWidth,
 		buttonsBorderColor,
+		formFooterBgColor,
 		errorsFontColor,
 		errorsBgColor,
 		progressBarBgColor,
@@ -1033,6 +1034,57 @@ const CustomizeThemePanel = () => {
 							} );
 						} }
 					/>
+				</BaseControl>
+			</PanelBody>
+			<PanelBody title="Form Footer Settings" initialOpen={ false }>
+				<BaseControl>
+					<ControlWrapper orientation="vertical">
+						<ControlLabel
+							label="Form Footer Background Color"
+							isNew={ true }
+						/>
+						<ResponsiveControl
+							desktopChildren={
+								<ComboColorPicker
+									color={ formFooterBgColor.lg }
+									setColor={ ( value ) => {
+										setCurrentThemeProperties( {
+											formFooterBgColor: {
+												...formFooterBgColor,
+												lg: value,
+											},
+										} );
+									} }
+								/>
+							}
+							tabletChildren={
+								<ComboColorPicker
+									color={ formFooterBgColor.md }
+									setColor={ ( value ) => {
+										setCurrentThemeProperties( {
+											formFooterBgColor: {
+												...formFooterBgColor,
+												md: value,
+											},
+										} );
+									} }
+								/>
+							}
+							mobileChildren={
+								<ComboColorPicker
+									color={ formFooterBgColor.sm }
+									setColor={ ( value ) => {
+										setCurrentThemeProperties( {
+											formFooterBgColor: {
+												...formFooterBgColor,
+												sm: value,
+											},
+										} );
+									} }
+								/>
+							}
+						/>
+					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
 			<PanelBody title="Progress Bar Settings" initialOpen={ false }>
