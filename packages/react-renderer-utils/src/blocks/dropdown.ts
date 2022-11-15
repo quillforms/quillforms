@@ -4,7 +4,6 @@ import {
 	metadata,
 	rendererSettings,
 } from '@quillforms/blocklib-dropdown-block';
-import '@quillforms/blocklib-dropdown-block/build-style/renderer.css';
 
 const register = () => {
 	registerBlockType( name, {
