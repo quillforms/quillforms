@@ -95,15 +95,15 @@ class Site {
 	 *
 	 * @return array
 	 */
-	public function get_api_versions_params() {
+	public function get_api_versions_param() {
 		$params = array(
-			'php_version'        => phpversion(),
-			'wp_version'         => get_bloginfo( 'version' ),
-			'quillforms_version' => QUILLFORMS_VERSION,
+			'php'        => phpversion(),
+			'wp'         => get_bloginfo( 'version' ),
+			'quillforms' => QUILLFORMS_VERSION,
 		);
 		foreach ( Store::instance()->get_all_addons() as $addon_slug => $plugin ) {
 			if ( $plugin['is_installed'] ) {
-				$params[ "{$addon_slug}_addon_version" ] = $plugin['version'];
+				$params[ "{$addon_slug}_addon" ] = $plugin['version'];
 			}
 		}
 		return $params;

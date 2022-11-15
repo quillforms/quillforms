@@ -136,13 +136,11 @@ class Store {
 
 		// get plugin data from the api.
 		$plugin_data = Site::instance()->api_request(
-			array_merge(
-				array(
-					'edd_action' => 'get_version',
-					'license'    => $license['key'],
-					'item_id'    => "{$addon_slug}_addon",
-				),
-				Site::instance()->get_api_versions_params()
+			array(
+				'edd_action' => 'get_version',
+				'license'    => $license['key'],
+				'item_id'    => "{$addon_slug}_addon",
+				'versions'   => Site::instance()->get_api_versions_param(),
 			)
 		);
 
