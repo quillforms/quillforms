@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/utils",
-	"version": "1.2.16",
+	"version": "2.0.0",
 	"description": "Utils package for defining some helpful functions",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,14 +23,14 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
+		"@emotion/css": "^11.10.5",
 		"@emotion/react": "^11.10.5",
 		"@emotion/serialize": "^1.1.1",
 		"@emotion/utils": "^1.2.0",
-		"@emotion/css": "^11.10.5",
 		"@quillforms/config": "file:../config",
 		"@quillforms/types": "file:../types",
-		"tinycolor2": "^1.4.2",
-		"lodash": "^4.17.21"
+		"lodash": "^4.17.21",
+		"tinycolor2": "^1.4.2"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",
