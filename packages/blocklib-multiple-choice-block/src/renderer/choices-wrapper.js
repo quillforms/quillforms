@@ -2,6 +2,8 @@
  * QuillForms Dependencies
  */
 import { useBlockTheme } from '@quillforms/renderer-core';
+import { useCx } from '@quillforms/utils';
+
 /**
  * WordPress Dependencies
  */
@@ -17,6 +19,7 @@ import { cloneDeep } from 'lodash';
  * Internal Dependencies
  */
 import ChoiceItem from './choice-item';
+import * as styles from './styles';
 
 const areEqual = ( prevProps, nextProps ) => {
 	if (
@@ -31,6 +34,7 @@ const areEqual = ( prevProps, nextProps ) => {
 const ChoicesWrapper = memo(
 	( { id, attributes, val, setVal, setChoiceClicked } ) => {
 		const { verticalAlign, multiple, choices, themeId } = attributes;
+		const cx = useCx();
 
 		const theme = useBlockTheme( themeId );
 		const charCode = 'a'.charCodeAt( 0 );
@@ -99,9 +103,13 @@ const ChoicesWrapper = memo(
 		return (
 			<div className="qf-multiple-choice-block">
 				<div
-					className={ classnames( 'multiplechoice__options', {
-						valigned: $verticalAlign,
-					} ) }
+					className={ cx(
+						'multiplechoice__options',
+						{
+							valigned: $verticalAlign,
+						},
+						styles.MultipleChoiceOptions
+					) }
 				>
 					{ $choices &&
 						$choices.length > 0 &&
