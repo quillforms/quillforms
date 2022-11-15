@@ -42,24 +42,32 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 
 	const { font, questionsLabelFont, questionsDescriptionFont } = currentTheme;
 
+	const fontFamilies = [ font ];
+	if ( questionsLabelFont !== 'inherit' ) {
+		fontFamilies.push( questionsLabelFont );
+	}
+	if ( questionsDescriptionFont !== 'inherit' ) {
+		fontFamilies.push( questionsDescriptionFont );
+	}
 	const fontTypes = [
 		fonts[ font ],
 		fonts[ questionsLabelFont ],
 		fonts[ questionsDescriptionFont ],
 	];
 	const fontUrls: string[] = [];
-	forEach( fontTypes, ( fontType ) => {
+	forEach( fontFamilies, ( fontFamily, fontIndex ) => {
+		const fontType = fontTypes[ fontIndex ];
 		switch ( fontType ) {
 			case 'googlefonts':
 				fontUrls.push(
 					'https://fonts.googleapis.com/css?family=' +
-						font +
+						fontFamily +
 						':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic'
 				);
 				break;
 
 			case 'earlyaccess':
-				const fontLowerString = font
+				const fontLowerString = fontFamily
 					.replace( /\s+/g, '' )
 					.toLowerCase();
 				fontUrls.push(

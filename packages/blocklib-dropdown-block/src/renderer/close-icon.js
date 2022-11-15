@@ -2,23 +2,29 @@
  * QuillForms Dependencies
  */
 import { useTheme } from '@quillforms/renderer-core';
-
+import { useCx, css } from '@quillforms/utils';
 /**
- * External Dependencies
+ * InternaL Dependencies
  */
-import { css } from 'emotion';
-
+import * as styles from './styles';
 const CloseIcon = ( props ) => {
 	const theme = useTheme();
+	const cx = useCx();
 	return (
-		<div { ...props } className="block-dropdown-renderer-close-icon">
+		<div
+			{ ...props }
+			className={ cx(
+				'block-dropdown-renderer-close-icon',
+				styles.iconStyles
+			) }
+		>
 			<svg
 				height="32"
 				width="32"
 				viewBox="0 0 512 512"
-				className={ css`
+				className={ cx( css`
 					fill: ${ theme.answersColor };
-				` }
+				` ) }
 			>
 				<g>
 					<g>

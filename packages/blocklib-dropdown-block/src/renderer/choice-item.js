@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { useTheme } from '@quillforms/renderer-core';
+import { css, useCx } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -13,7 +14,6 @@ import { useState, useEffect, useRef } from 'react';
  */
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
-import { css } from 'emotion';
 
 let selectionTimer;
 
@@ -29,7 +29,7 @@ const ChoiceItem = ( {
 } ) => {
 	const [ isBeingSelected, setIsBeingSelected ] = useState( false );
 	const item = useRef();
-
+	const cx = useCx();
 	useEffect( () => {
 		if ( ! showDropdown ) setIsBeingSelected( false );
 	}, [ showDropdown ] );
@@ -46,7 +46,7 @@ const ChoiceItem = ( {
 		<div
 			ref={ item }
 			id={ `block-${ blockId }-option-${ choiceIndex }` }
-			className={ classnames(
+			className={ cx(
 				'dropdown__choiceWrapper',
 				{
 					selected: isSelected,

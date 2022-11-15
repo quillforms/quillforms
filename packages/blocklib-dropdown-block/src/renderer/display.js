@@ -3,6 +3,7 @@
  * QuillForms Dependencies
  */
 import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
+import { useCx, css } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -14,7 +15,6 @@ import { useSelect } from '@wordpress/data';
  * External Dependencies
  */
 import tinyColor from 'tinycolor2';
-import { css } from 'emotion';
 import classnames from 'classnames';
 import { cloneDeep } from 'lodash';
 
@@ -24,6 +24,7 @@ import { cloneDeep } from 'lodash';
 import DropdownIcon from './expand-icon';
 import CloseIcon from './close-icon';
 import ChoiceItem from './choice-item';
+import * as styles from './styles';
 
 const ENTER_CODE = 13;
 const ESC_CODE = 27;
@@ -51,6 +52,7 @@ const DropdownDisplay = ( props ) => {
 		isPreview,
 	} = props;
 	const { choices, required } = attributes;
+	const cx = useCx();
 	const theme = useBlockTheme( attributes.themeId );
 	const [ showDropdown, setShowDropdown ] = useState( false );
 	const [ searchKeyword, setSearchKeyword ] = useState( '' );
@@ -295,7 +297,7 @@ const DropdownDisplay = ( props ) => {
 		<div ref={ wrapperRef } style={ { position: 'relative' } }>
 			<input
 				ref={ inputRef }
-				className={ classnames(
+				className={ cx(
 					css`
 						& {
 							width: 100%;
@@ -421,11 +423,12 @@ const DropdownDisplay = ( props ) => {
 
 			{ showDropdown && (
 				<div
-					className={ classnames(
+					className={ cx(
 						'qf-block-dropdown-display__choices',
 						{
 							visible: showDropdown,
-						}
+						},
+						styles.DropdownChoices
 					) }
 					ref={ choicesWrappeerRef }
 					onWheel={ ( e ) => {
@@ -457,13 +460,13 @@ const DropdownDisplay = ( props ) => {
 						} )
 					) : (
 						<div
-							className={ css`
+							className={ cx( css`
 								background: ${ theme.errorsBgColor };
 								color: ${ theme.errorsFontColor };
 								display: inline-block;
 								padding: 5px 10px;
 								border-radius: 5px;
-							` }
+							` ) }
 						>
 							{ messages[ 'block.dropdown.noSuggestions' ] }
 						</div>
@@ -473,10 +476,14 @@ const DropdownDisplay = ( props ) => {
 
 			{ showFixedDropdownInDom && (
 				<div
-					className={ classnames( 'fixed-dropdown', {
-						show: showFDrop,
-						hide: ! showFDrop,
-					} ) }
+					className={ cx(
+						'fixed-dropdown',
+						{
+							show: showFDrop,
+							hide: ! showFDrop,
+						},
+						styles.FixedDropdown
+					) }
 				>
 					<div
 						className={ classnames(
