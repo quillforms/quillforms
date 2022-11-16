@@ -29,6 +29,7 @@
 		"@quillforms/theme-editor": "file:../theme-editor",
 		"@quillforms/types": "file:../types",
 		"@wordpress/icons": "^8.3.0",
+		"@wordpress/data": "^7.6.0",
 		"classnames": "^2.3.1",
 		"emoji-mart": "^3.0.1",
 		"is-url": "^1.2.4",

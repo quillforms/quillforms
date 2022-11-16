@@ -24,7 +24,7 @@
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/config": "file:../config",
 		"@quillforms/types": "file:../types",
-		"@wordpress/hooks": "^3.14.0"
+		"@wordpress/hooks": "^3.22.0"
 	},
 	"peerDependencies": {
 		"react": ">=17.0 <= 18",
