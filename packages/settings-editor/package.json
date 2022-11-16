@@ -25,6 +25,10 @@
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config"
 	},
+	"peerDependencies": {
+		"react": ">=17.0 <= 18",
+		"react-dom": ">=17.0 <= 18"
+	},
 	"publishConfig": {
 		"access": "public"
 	},
