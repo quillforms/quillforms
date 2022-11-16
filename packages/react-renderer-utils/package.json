@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/react-renderer-utils",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"description": "> TODO: description",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
 	"keywords": [
@@ -21,6 +21,7 @@
 	"module": "build-module/index.js",
 	"sideEffects": false,
 	"dependencies": {
+		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
 		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",
 		"@quillforms/blocklib-email-block": "file:../blocklib-email-block",
@@ -31,8 +32,7 @@
 		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
 		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
 		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
-		"@quillforms/blocks": "file:../blocks",
-		"@quillforms/admin-components": "file:../admin-components"
+		"@quillforms/blocks": "file:../blocks"
 	},
 	"peerDependencies": {
 		"react": ">=17.0 <= 18",
