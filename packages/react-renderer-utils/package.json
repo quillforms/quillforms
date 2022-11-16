@@ -31,7 +31,8 @@
 		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
 		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
 		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
-		"@quillforms/blocks": "file:../blocks"
+		"@quillforms/blocks": "file:../blocks",
+		"@quillforms/admin-components": "file:../admin-components"
 	},
 	"peerDependencies": {
 		"react": ">=17.0 <= 18",
