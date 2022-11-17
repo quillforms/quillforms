@@ -8,7 +8,7 @@ module.exports = function( environment = '', file ) {
 	 */
 	const callerOpts = {
 		caller: {
-			name: `QUILLFORMS_BUILD_${ environment.toUpperCase() }`,
+			name: `WP_BUILD_${ environment.toUpperCase() }`,
 		},
 	};
 	switch ( environment ) {
