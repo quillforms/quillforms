@@ -39,10 +39,10 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showErrMsg,
 	} = __experimentalUseFieldRenderContext();
 	const isTouchScreen =
-		'ontouchstart' in window ||
-		navigator.maxTouchPoints > 0 ||
+		( typeof window !== undefined && 'ontouchstart' in window ) ||
+		( typeof navigator !== undefined && navigator.maxTouchPoints > 0 ) ||
 		// @ts-expect-error
-		navigator.msMaxTouchPoints > 0;
+		( typeof navigator !== undefined && navigator.msMaxTouchPoints > 0 );
 
 	useHandleFocus( inputRef, isActive, isTouchScreen );
 	const { isPreview, formId } = useFormContext();

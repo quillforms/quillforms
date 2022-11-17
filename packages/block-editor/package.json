@@ -42,11 +42,10 @@
 		"slate-react": "^0.81.0"
 	},
 	"peerDependencies": {
-		"react": ">=17.0 <= 18",
-		"react-dom": ">=17.0 <= 18"
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"gitHead": "579c6f1f8ac74ac499dec6aff5eae22f4dab729b"
+	}
 }
