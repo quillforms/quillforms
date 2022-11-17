@@ -21,7 +21,6 @@
 	"module": "build-module/index.js",
 	"sideEffects": false,
 	"dependencies": {
-		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
 		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",
 		"@quillforms/blocklib-email-block": "file:../blocklib-email-block",
