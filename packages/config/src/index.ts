@@ -45,7 +45,7 @@ const configData: ConfigData = {
  * data then this will report the failure with either an
  * error or a console warning.
 
- * @param data Configurat data.
+ * @param {ConfigData} data Configurat data.
  * @returns A function that gets the value of property named by the key
  */
 const config =
