@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-short-text-block",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Short text block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
