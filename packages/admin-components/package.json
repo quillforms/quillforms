@@ -32,6 +32,7 @@
 		"@quillforms/navigation": "file:../navigation",
 		"@quillforms/types": "file:../types",
 		"@wordpress/icons": "^8.3.0",
+		"@wordpress/element": "file:../element",
 		"@wordpress/media-utils": "^4.13.0",
 		"classnames": "^2.3.1",
 		"downshift": "^6.1.7",
@@ -55,5 +56,10 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"overrides": {
+		"@wordpress/components": {
+			"@wordpress/element": "file:../element"
+		}
 	}
 }

@@ -1,0 +1,41 @@
+{
+	"name": "@quillforms/element",
+	"version": "1.0.0",
+	"description": "Temporary Package forked from @wordpress/element to support React 18.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"element"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/HEAD/packages/element/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/element"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/element/issues"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"react-native": "src/index",
+	"types": "build-types",
+	"sideEffects": false,
+	"dependencies": {
+		"@babel/runtime": "^7.16.0",
+		"@types/react": "^18.0.25",
+		"@types/react-dom": "^18.0.9",
+		"@wordpress/escape-html": "^2.22.0",
+		"change-case": "^4.1.2",
+		"is-plain-object": "^5.0.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

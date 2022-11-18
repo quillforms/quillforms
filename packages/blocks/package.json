@@ -27,6 +27,11 @@
 		"@wordpress/data": "^7.6.0",
 		"lodash": "^4.17.21"
 	},
+	"overrides": {
+		"@wordpress/data": {
+			"@wordpress/element": "file:../element"
+		}
+	},
 	"devDependencies": {
 		"@quillforms/types": "file:../types"
 	},

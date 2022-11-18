@@ -11,7 +11,7 @@ import {
  */
 
 import { Tooltip, Icon, Modal } from '@wordpress/components';
-import { createPortal, useState } from '@wordpress/element';
+import {  useState } from 'react';
 
 /**
  * External Dependencies

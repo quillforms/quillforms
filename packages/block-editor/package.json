@@ -30,6 +30,7 @@
 		"@quillforms/types": "file:../types",
 		"@wordpress/data": "^7.6.0",
 		"@wordpress/icons": "^8.3.0",
+		"@wordpress/element": "file:../element",
 		"classnames": "^2.3.1",
 		"emoji-mart": "^3.0.1",
 		"is-url": "^1.2.4",

@@ -31,6 +31,7 @@
 		"@wordpress/components": "^19.9.0",
 		"@wordpress/data": "^7.6.0",
 		"@wordpress/hooks": "^3.8.0",
+		"@wordpress/element": "file:../element",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
 		"html-react-parser": "^1.4.12",
@@ -40,6 +41,11 @@
 		"react-swipeable": "^6.1.2",
 		"rememo": "^3.0.0",
 		"tinycolor2": "^1.4.2"
+	},
+	"overrides": {
+		"@wordpress/data": {
+			"@wordpress/element": "file:../element"
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",

@@ -27,6 +27,7 @@
 		"@emotion/react": "^11.10.5",
 		"@emotion/serialize": "^1.1.1",
 		"@emotion/utils": "^1.2.0",
+		"@wordpress/element": "file:../element",
 		"@quillforms/config": "file:../config",
 		"@quillforms/types": "file:../types",
 		"lodash": "^4.17.21",

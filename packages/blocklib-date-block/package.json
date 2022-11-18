@@ -29,7 +29,8 @@
 		"dayjs": "^1.10.5",
 		"emotion": "10.0.27",
 		"react-text-mask": "^5.4.3",
-		"tinycolor2": "^1.4.2"
+		"tinycolor2": "^1.4.2",
+		"@wordpress/element": "file:../element"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",
