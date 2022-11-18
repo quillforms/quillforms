@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-dropdown-block",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "Dropdown block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -31,9 +31,9 @@
 		"tinycolor2": "^1.4.2"
 	},
 	"peerDependencies": {
-    "react": "^16.8.5 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
-  },
+		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+		"react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+	},
 	"publishConfig": {
 		"access": "public"
 	},

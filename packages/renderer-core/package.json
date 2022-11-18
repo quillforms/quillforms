@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/renderer-core",
-	"version": "2.2.1",
+	"version": "2.3.0",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -76,7 +76,7 @@
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
 		"react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
- 	},
+	},
 	"publishConfig": {
 		"access": "public"
 	},

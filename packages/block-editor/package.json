@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/block-editor",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "Quill forms block editor",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -42,9 +42,9 @@
 		"slate-react": "^0.81.0"
 	},
 	"peerDependencies": {
-    "react": "^16.8.5 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
-  },
+		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+		"react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+	},
 	"overrides": {
 		"@wordpress/data": {
 			"@wordpress/element": {

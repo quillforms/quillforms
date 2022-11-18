@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/notifications-editor",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "Notifications editor package",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -28,9 +28,9 @@
 		"react-multi-email": "^0.5.3"
 	},
 	"peerDependencies": {
-    "react": "^16.8.5 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
-  },
+		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+		"react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+	},
 	"publishConfig": {
 		"access": "public"
 	},
