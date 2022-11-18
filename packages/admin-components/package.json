@@ -60,6 +60,15 @@
 	"overrides": {
 		"@wordpress/components": {
 			"@wordpress/element": "file:../element"
+		},
+		"@wordpress/data": {
+			"@wordpress/element": "file:../element"
+		},
+		"@wordpress/compose": {
+			"@wordpress/element": "file:../element"
+		},
+		"@wordpress/media-utils": {
+			"@wordpress/element": "file:../element"
 		}
 	}
 }

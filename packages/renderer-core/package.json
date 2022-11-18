@@ -45,6 +45,9 @@
 	"overrides": {
 		"@wordpress/data": {
 			"@wordpress/element": "file:../element"
+		},
+		"@wordpress/compose": {
+			"@wordpress/element": "file:../element"
 		}
 	},
 	"peerDependencies": {
