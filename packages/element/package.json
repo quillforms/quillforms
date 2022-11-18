@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/element",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Temporary Package forked from @wordpress/element to support React 18.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",

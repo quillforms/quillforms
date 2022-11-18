@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/payment-gateways",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "Payment Gateways",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -24,8 +24,8 @@
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/config": "file:../config",
 		"@quillforms/types": "file:../types",
-		"@wordpress/hooks": "^3.22.0",
-		"@wordpress/element": "file:../element"
+		"@wordpress/element": "file:../element",
+		"@wordpress/hooks": "^3.22.0"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",

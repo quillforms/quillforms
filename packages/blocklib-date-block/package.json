@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-date-block",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "Date block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -25,12 +25,12 @@
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/renderer-core": "file:../renderer-core",
+		"@wordpress/element": "file:../element",
 		"classnames": "^2.3.1",
 		"dayjs": "^1.10.5",
 		"emotion": "10.0.27",
 		"react-text-mask": "^5.4.3",
-		"tinycolor2": "^1.4.2",
-		"@wordpress/element": "file:../element"
+		"tinycolor2": "^1.4.2"
 	},
 	"peerDependencies": {
 		"react": "^17.0.0",
