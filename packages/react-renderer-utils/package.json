@@ -34,9 +34,9 @@
 		"@quillforms/blocks": "file:../blocks"
 	},
 	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
-	},
+    "react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+  },
 	"license": "GPL-2.0-or-later",
 	"publishConfig": {
 		"access": "public"

@@ -42,8 +42,40 @@
 		"slate-react": "^0.81.0"
 	},
 	"peerDependencies": {
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0"
+    "react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+  },
+	"overrides": {
+		"@wordpress/data": {
+			"@wordpress/element": {
+				"react": "^18.2.0",
+				"react-dom": "^18.2.0"
+			}
+		},
+		"@wordpress/compose": {
+			"@wordpress/element": {
+				"react": "^18.2.0",
+				"react-dom": "^18.2.0"
+			}
+		},
+		"@wordpress/icons": {
+			"@wordpress/element": {
+				"react": "^18.2.0",
+				"react-dom": "^18.2.0"
+			}
+		},
+		"@wordpress/components": {
+			"@wordpress/element": {
+				"react": "^18.2.0",
+				"react-dom": "^18.2.0"
+			}
+		},
+		"@wordpress/media-utils": {
+			"@wordpress/element": {
+				"react": "^18.2.0",
+				"react-dom": "^18.2.0"
+			}
+		}
 	},
 	"publishConfig": {
 		"access": "public"
