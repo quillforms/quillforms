@@ -53,24 +53,6 @@
 				"react": "^18.2.0",
 				"react-dom": "^18.2.0"
 			}
-		},
-		"@wordpress/icons": {
-			"@wordpress/element": {
-				"react": "^18.2.0",
-				"react-dom": "^18.2.0"
-			}
-		},
-		"@wordpress/components": {
-			"@wordpress/element": {
-				"react": "^18.2.0",
-				"react-dom": "^18.2.0"
-			}
-		},
-		"@wordpress/media-utils": {
-			"@wordpress/element": {
-				"react": "^18.2.0",
-				"react-dom": "^18.2.0"
-			}
 		}
 	},
 	"peerDependencies": {
@@ -79,6 +61,5 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"gitHead": "a9dcd96dd59a8774ddfb52838ac1a88ab3dae142"
+	}
 }
