@@ -76,11 +76,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		( block ) => block.id === lastActiveBlockId
 	);
 
-	const isTouchScreen =
-		'ontouchstart' in window ||
-		navigator.maxTouchPoints > 0 ||
-		// @ts-expect-error
-		navigator.msMaxTouchPoints > 0;
+	const isTouchScreen = (typeof window !== "undefined" && 'ontouchstart' in window)
+	||  typeof navigator !== "undefined" && navigator.maxTouchPoints > 0 || // @ts-expect-error
+		( typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0 );
+
 	const getFieldsToRender = (): string[] => {
 		const fieldIds: string[] = [];
 		const filteredBlocks = walkPath.filter(
