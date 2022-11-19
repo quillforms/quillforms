@@ -1,9 +1,7 @@
 import { registerBlockType } from '@quillforms/blocks';
-import {
-	name,
-	metadata,
-	rendererSettings,
-} from '@quillforms/blocklib-statement-block';
+import { name, metadata } from '@quillforms/blocklib-statement-block';
+// eslint-disable-next-line no-restricted-syntax
+import rendererSettings from '@quillforms/blocklib-statement-block/build/renderer/settings';
 
 const register = () => {
 	registerBlockType( name, {
