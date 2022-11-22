@@ -36,7 +36,7 @@ const FieldMergeTag: React.FC< Props > = ( { modifier } ) => {
 				)
 			) : null,
 		};
-	}, [] );
+	} );
 
 	return <>{ fieldMergeTagValue }</>;
 };

@@ -45,7 +45,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 		};
-	}, [] );
+	} );
 
 	const {
 		walkPath,
@@ -67,7 +67,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				  )
 				: null,
 		};
-	}, [] );
+	} );
 
 	const currentBlockIndex = walkPath.findIndex(
 		( block ) => block.id === currentBlockId

@@ -48,7 +48,7 @@ const FieldWrapper: React.FC = () => {
 			isFocused: select( 'quillForms/renderer-core' ).isFocused(),
 			blockType: select( 'quillForms/blocks' ).getBlockType( blockName ),
 		};
-	}, [] );
+	} );
 
 	const { setSwiper, goNext, goPrev } = useDispatch(
 		'quillForms/renderer-core'

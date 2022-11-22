@@ -41,7 +41,7 @@ const FormFooter: React.FC = memo( () => {
 				'quillForms/renderer-core'
 			).shouldFooterBeDisplayed(),
 		};
-	}, [] );
+	} );
 
 	if ( ! currentBlockId ) return null;
 	return (

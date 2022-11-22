@@ -106,7 +106,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				isWelcomeScreenActive: store.isWelcomeScreenActive(),
 				paymentData: store.getPaymentData(),
 			};
-		}, [] );
+		} );
 
 	useEffect( () => {
 		/**
