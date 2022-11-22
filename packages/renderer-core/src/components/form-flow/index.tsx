@@ -106,11 +106,13 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				isWelcomeScreenActive: store.isWelcomeScreenActive(),
 				paymentData: store.getPaymentData(),
 			};
-		} );
+		}, [] );
 
 	useEffect( () => {
 		/**
 		 * Alert if clicked on outside of element
+		 *
+		 * @param  event
 		 */
 		function handleClickOutside( event ) {
 			if ( ref.current && ! ref?.current?.contains( event.target ) ) {
@@ -130,7 +132,6 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 		// Prevent any keyboard event by default in case of any tab event in general.
 		if ( e.key === 'Tab' ) {
 			e.preventDefault();
-			return;
 		}
 	};
 
@@ -237,7 +238,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 			>
 				{ generalTheme?.logo?.src && (
 					<div className="renderer-core-form-brand-logo">
-						<img src={ generalTheme.logo.src } />
+						<img src={ generalTheme.logo.src } alt="" />
 					</div>
 				) }
 				{ blocks.length > 0 && (

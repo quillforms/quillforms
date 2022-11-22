@@ -77,6 +77,7 @@ const BlockToolbar = ( { id, editor } ) => {
 						margin-bottom: 0 !important;
 
 						.components-modal__content {
+							margin-top: 54px;
 							background: #eee !important;
 						}
 

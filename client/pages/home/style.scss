@@ -15,12 +15,22 @@
 		.quillforms-home__empty-form-card,
 		.quillforms-home__card-loader {
 			width: 175px;
-			border-radius: 8px;
 			margin-right: 40px;
 			margin-bottom: 30px;
+			border-radius: 8px;
+		}
+
+		.quillforms-home__add-form-card,
+		.quillforms-home__empty-form-card,
+		.quillforms-home__card-loader  {
 			overflow: hidden;
 		}
 
+		.quillforms-home__form-card-body-header {
+			overflow: hidden;
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+		}
 		.quillforms-home__form-card:hover {
 			box-shadow: 0 0.25em 1em rgba(0,0,0,.15);
 		}

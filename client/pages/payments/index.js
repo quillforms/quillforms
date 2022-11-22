@@ -274,6 +274,7 @@ const PaymentsPage = ( { params } ) => {
 			{ showReleaseModal &&
 				! localStorage.getItem( 'qf_payments_modal_viewed' ) && (
 					<Modal
+						focusOnMount={ true }
 						shouldCloseOnEsc={ false }
 						shouldCloseOnClickOutside={ false }
 						className={ css`

@@ -114,9 +114,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 												typeof item.name !==
 													'string' ) &&
 											! some(
-												newSwiperState[
-													'thankyouScreens'
-												],
+												newSwiperState.thankyouScreens,
 												( block ) =>
 													block.id === item.id
 											) &&
@@ -124,12 +122,10 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 												'default_thankyou_screen'
 										) {
 											validBlocksStructure = false;
-											return;
 										}
 									}
 								} else {
 									validBlocksStructure = false;
-									return;
 								}
 							} );
 						}
@@ -176,7 +172,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					)
 				) {
 					checkCorrectIds = false;
-					return;
 				}
 			} );
 
@@ -197,7 +192,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					typeof newSwiperState[ prop ] !== 'boolean'
 				) {
 					correctBooleans = false;
-					return;
 				}
 			} );
 

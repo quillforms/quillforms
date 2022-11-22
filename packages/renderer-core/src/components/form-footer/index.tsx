@@ -11,7 +11,6 @@ import { memo } from 'react';
 import classnames from 'classnames';
 import FieldNavigation from '../field-navigation';
 import { css } from 'emotion';
-import tinyColor from 'tinycolor2';
 
 /**
  * Internal Dependencies
@@ -42,7 +41,7 @@ const FormFooter: React.FC = memo( () => {
 				'quillForms/renderer-core'
 			).shouldFooterBeDisplayed(),
 		};
-	} );
+	}, [] );
 
 	if ( ! currentBlockId ) return null;
 	return (

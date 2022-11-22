@@ -48,7 +48,7 @@ const FieldWrapper: React.FC = () => {
 			isFocused: select( 'quillForms/renderer-core' ).isFocused(),
 			blockType: select( 'quillForms/blocks' ).getBlockType( blockName ),
 		};
-	} );
+	}, [] );
 
 	const { setSwiper, goNext, goPrev } = useDispatch(
 		'quillForms/renderer-core'
@@ -106,6 +106,8 @@ const FieldWrapper: React.FC = () => {
 
 	/**
 	 * Gets all the focusable elements inside the passed element.
+	 *
+	 * @param  el
 	 */
 	function getFocusables( el ) {
 		return filter(
@@ -129,7 +131,7 @@ const FieldWrapper: React.FC = () => {
 		if ( isAnimating ) {
 			return;
 		}
-		let activeElement = document.activeElement;
+		const activeElement = document.activeElement;
 		const focusableElements = getFocusables( `#block-${ id }` );
 		//outside the block? Let's not hijack the tab!
 		if ( ! isFocused ) {
@@ -152,42 +154,37 @@ const FieldWrapper: React.FC = () => {
 				focusableElements[ focusableElements.length - 1 ]
 			) {
 				goNext();
+			} else if (
+				focusableElements[ activeElementIndex + 1 ].offsetParent !==
+					null &&
+				// If document element is still in dom
+				// One example for this case is  the next button in each block if the block isn't valid and the error message
+				// appear instead of the button. The button is focusable but it is no longer in dom.
+				document.contains( focusableElements[ activeElementIndex + 1 ] )
+			) {
+				focusableElements[ activeElementIndex + 1 ].focus();
 			} else {
-				if (
-					focusableElements[ activeElementIndex + 1 ].offsetParent !==
-						null &&
-					// If document element is still in dom
-					// One example for this case is  the next button in each block if the block isn't valid and the error message
-					// appear instead of the button. The button is focusable but it is no longer in dom.
-					document.contains(
-						focusableElements[ activeElementIndex + 1 ]
-					)
-				) {
-					focusableElements[ activeElementIndex + 1 ].focus();
-				} else {
-					//when reached the last focusable element of the block, go next
-					goNext();
-				}
+				//when reached the last focusable element of the block, go next
+				goNext();
 			}
 		} else {
 			//when reached the first  focusable element of the block, go prev if shift is pressed
 			if ( activeElementIndex === 0 ) {
 				goPrev();
+			} else if ( activeElementIndex === -1 ) {
+				document.body.focus();
 			} else {
-				if ( activeElementIndex === -1 ) {
-					document.body.focus();
-				} else {
-					focusableElements[ activeElementIndex - 1 ].focus();
-				}
+				focusableElements[ activeElementIndex - 1 ].focus();
 			}
 		}
-
-		return;
 	}
 
 	/**
 	 * Makes sure the tab key will only focus elements within the current block  preventing this way from breaking the page.
 	 * Otherwise, go next or prev.
+	 *
+	 * @param  e
+	 * @param  isShiftPressed
 	 */
 	function onTab( e, isShiftPressed ) {
 		clearTimeout( tabTimer );

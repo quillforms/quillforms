@@ -32,7 +32,7 @@ const Form: React.FC< Props > = ( {
 	isPreview = false,
 } ) => {
 	// This
-	const formatFormObj = ( formObj: FormObj ): FormObj => {
+	const formatFormObj = (): FormObj => {
 		// If not in preview mode, sanitize blocks.
 		// In preview mode, sanitizing is already done in block editor resolvers.
 		if ( ! isPreview ) {
@@ -55,7 +55,7 @@ const Form: React.FC< Props > = ( {
 	return (
 		<FormContextProvider
 			value={ {
-				formObj: formatFormObj( formObj ),
+				formObj: formatFormObj(),
 				onSubmit,
 				isPreview,
 				formId,

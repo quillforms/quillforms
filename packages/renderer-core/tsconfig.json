@@ -16,5 +16,9 @@
 		"src/**/*",
 		"src/*",
 		"../../typings/rememo/index.d.ts",
+	],
+	"exclude": [
+		"node_modules/@wordpress/**/*",
+		"typings"
 	]
 }

@@ -41,6 +41,7 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 
 					.components-modal__content {
 						background: #eee;
+						margin-top: 0;
 					}
 
 					.components-modal__header {

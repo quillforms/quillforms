@@ -45,7 +45,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 		};
-	} );
+	}, [] );
 
 	const {
 		walkPath,
@@ -67,7 +67,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				  )
 				: null,
 		};
-	} );
+	}, [] );
 
 	const currentBlockIndex = walkPath.findIndex(
 		( block ) => block.id === currentBlockId
@@ -76,8 +76,9 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		( block ) => block.id === lastActiveBlockId
 	);
 
-	const isTouchScreen = (typeof window !== "undefined" && 'ontouchstart' in window)
-	||  typeof navigator !== "undefined" && navigator.maxTouchPoints > 0 || // @ts-expect-error
+	const isTouchScreen =
+		( typeof window !== 'undefined' && 'ontouchstart' in window ) ||
+		( typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0 ) || // @ts-expect-error
 		( typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0 );
 
 	const getFieldsToRender = (): string[] => {

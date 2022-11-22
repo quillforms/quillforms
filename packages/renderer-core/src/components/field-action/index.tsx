@@ -16,11 +16,8 @@ import useBlockTheme from '../../hooks/use-block-theme';
 
 const FieldAction = ( { clickHandler, show } ) => {
 	const messages = useMessages();
-	const {
-		blockName,
-		isSubmitBtnVisible,
-		attributes,
-	} = __experimentalUseFieldRenderContext();
+	const { blockName, isSubmitBtnVisible, attributes } =
+		__experimentalUseFieldRenderContext();
 	const theme = useBlockTheme( attributes?.themeId );
 
 	if ( ! blockName ) return null;

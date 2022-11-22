@@ -85,14 +85,15 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					() => {
 						formCompleted = true;
 						goToBlock(
-							window[ 'pending_submission' ]
-								?.thankyou_screen_id ??
+							// @ts-expect-error
+							window?.pending_submission?.thankyou_screen_id ??
 								urlParams.get( 'thankyou_screen_id' ) ??
 								'default_thankyou_screen'
 						);
 					},
 					() => {
-						setPaymentData( window[ 'pending_submission' ] );
+						// @ts-expect-error.
+						setPaymentData( window?.pending_submission );
 					}
 				);
 			}

@@ -18,9 +18,8 @@ import { css } from 'emotion';
 
 const FormActions = ( { form, formId, setIsLoading } ) => {
 	const { deleteEntityRecord } = useDispatch( 'core' );
-	const { createErrorNotice, createSuccessNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createErrorNotice, createSuccessNotice } =
+		useDispatch( 'core/notices' );
 	const { invalidateResolution } = useDispatch( 'core/data' );
 
 	const duplicate = async () => {
@@ -28,7 +27,7 @@ const FormActions = ( { form, formId, setIsLoading } ) => {
 		data.append( 'action', 'quillforms_duplicate_form' );
 		data.append( 'form_id', formId );
 
-		await fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
+		await fetch( `${ window.qfAdmin.adminUrl }admin-ajax.php`, {
 			method: 'POST',
 			credentials: 'same-origin',
 			body: data,
