@@ -1,5 +1,5 @@
 # Getting Started
-
+Currently the project works with React version 17 but we will support React version 18 soon.
 ## Installation and usage
 
 1. Add the `@quillforms/renderer-core` package
