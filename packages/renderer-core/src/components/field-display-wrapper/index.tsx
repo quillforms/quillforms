@@ -117,14 +117,27 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	};
 
 	useEffect( () => {
-		if ( isAnswered && ! isActive ) {
-			doAction( 'QuillForms.RendererCore.FieldAnswered', {
+		if ( isAnswered ) {
+			const action = isActive
+				? 'QuillForms.RendererCore.FieldAnsweredActive'
+				: 'QuillForms.RendererCore.FieldAnswered';
+			doAction( action, {
 				formId,
 				id,
 				label: attributes?.label,
 			} );
 		}
 	}, [ isAnswered, isActive ] );
+
+	useEffect( () => {
+		if ( isActive ) {
+			doAction( 'QuillForms.RendererCore.FieldActive', {
+				formId,
+				id,
+				label: attributes?.label,
+			} );
+		}
+	}, [ isActive ] );
 
 	const {
 		setIsFieldValid,

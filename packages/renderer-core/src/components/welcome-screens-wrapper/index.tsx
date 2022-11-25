@@ -29,6 +29,7 @@ const WelcomeScreensWrapper = () => {
 		return () => {
 			doAction( 'QuillForms.RendererCore.WelcomeScreenPassed', {
 				formId,
+				id: currentBlockId,
 			} );
 		};
 	}, [] );
