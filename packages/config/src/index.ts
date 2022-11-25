@@ -29,6 +29,7 @@ const configData: ConfigData = {
 	},
 	adminUrl: '',
 	pluginDirUrl: '',
+	formId: 0,
 	formUrl: '',
 	maxUploadSize: 8,
 	isWPEnv: false,
@@ -163,6 +164,24 @@ const getPluginDirUrl = ( data: ConfigData ) => (): string => {
  */
 const setPluginDirUrl = ( data: ConfigData ) => ( value: string ) => {
 	data.pluginDirUrl = value;
+};
+
+/**
+ * Get form id
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getFormId = ( data: ConfigData ) => (): number => {
+	return data.formId;
+};
+
+/**
+ * Set form id
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setFormId = ( data: ConfigData ) => ( value: number ) => {
+	data.formId = value;
 };
 
 /**
@@ -311,6 +330,8 @@ export interface ConfigApi {
 	setAdminUrl: ( value: string ) => void;
 	getPluginDirUrl: () => string;
 	setPluginDirUrl: ( value: string ) => void;
+	getFormId: () => number;
+	setFormId: ( value: number ) => void;
 	getFormUrl: () => string;
 	setFormUrl: ( value: string ) => void;
 	getMaxUploadSize: () => number;
@@ -342,6 +363,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.setAdminUrl = setAdminUrl( data );
 	configApi.getPluginDirUrl = getPluginDirUrl( data );
 	configApi.setPluginDirUrl = setPluginDirUrl( data );
+	configApi.getFormId = getFormId( data );
+	configApi.setFormId = setFormId( data );
 	configApi.getFormUrl = getFormUrl( data );
 	configApi.setFormUrl = setFormUrl( data );
 	configApi.getMaxUploadSize = getMaxUploadSize( data );

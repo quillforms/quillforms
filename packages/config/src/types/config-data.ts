@@ -16,6 +16,7 @@ export type ConfigData = Record< string, unknown > & {
 	fonts: Record< string, string >;
 	adminUrl: string;
 	pluginDirUrl: string;
+	formId: number;
 	formUrl: string;
 	plans: Plans;
 	license: License;
