@@ -197,7 +197,8 @@ class Admin_Loader {
 	 * Set up a div for the app to render into.
 	 */
 	public static function page_wrapper() {
-
+		?>
+		<?php
 		add_filter( 'emoji_svg_url', '__return_false' );
 		if ( get_site_option( 'initial_db_version' ) >= 32453 )
 			remove_action( 'init', 'smilies_init', 5 ); // This re

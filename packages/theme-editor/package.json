@@ -23,7 +23,9 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/config": "file:../config"
+		"@quillforms/config": "file:../config",
+		"tinycolor2": "^1.4.2",
+		"gradient-parser": "^1.0.2"
 	},
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",

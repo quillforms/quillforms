@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
@@ -71,12 +71,10 @@ const FieldRender: React.FC< Props > = memo(
 			next: () => {
 				if ( ! isReviewing ) {
 					goNext();
+				} else if ( firstInvalidFieldId ) {
+					goToBlock( firstInvalidFieldId );
 				} else {
-					if ( firstInvalidFieldId ) {
-						goToBlock( firstInvalidFieldId );
-					} else {
-						goToBlock( lastFieldId );
-					}
+					goToBlock( lastFieldId );
 				}
 			},
 			isLastField,

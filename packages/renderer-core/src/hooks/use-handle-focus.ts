@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { findDOMNode } from 'react-dom';
 import { useSelect } from '@wordpress/data';
 
@@ -31,7 +31,7 @@ const useHandleFocus = (
 		const current = ref?.current?.inputElement
 			? ref.current.inputElement
 			: ref.current;
-		var rect = (
+		const rect = (
 			findDOMNode( current ) as Element
 		 )?.getBoundingClientRect();
 
@@ -59,21 +59,19 @@ const useHandleFocus = (
 						inputRef.current.inputElement.focus();
 					}
 				} );
-			} else {
-				if (
-					currentBlockId &&
-					document?.querySelector(
-						`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
-					)
-				) {
-					focusTimer = setTimeout( () => {
-						(
-							document.querySelector(
-								`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
-							) as HTMLElement
-						 ).focus();
-					} );
-				}
+			} else if (
+				currentBlockId &&
+				document?.querySelector(
+					`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
+				)
+			) {
+				focusTimer = setTimeout( () => {
+					(
+						document.querySelector(
+							`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
+						) as HTMLElement
+					 ).focus();
+				} );
 			}
 		}
 	}, [ isFocused, isActive, isAnimating ] );

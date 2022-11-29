@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import type { ChangeEvent } from 'react';
 
 import classnames from 'classnames';
 import { css } from 'emotion';

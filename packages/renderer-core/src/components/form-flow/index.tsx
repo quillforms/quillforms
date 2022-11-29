@@ -9,7 +9,7 @@ import configApi from '@quillforms/config';
 /**
  * WordPress Dependencies
  */
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**

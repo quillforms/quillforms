@@ -26,7 +26,8 @@
 		"@quillforms/block-editor": "file:../block-editor",
 		"@quillforms/notifications-editor": "file:../notifications-editor",
 		"@quillforms/types": "file:../types",
-		"@quillforms/utils": "file:../utils"
+		"@quillforms/utils": "file:../utils",
+		"rememo": "^4.0.2"
 	},
 	"publishConfig": {
 		"access": "public"

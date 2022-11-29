@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { createContext, useMemo } from 'react';
+import { createContext, useMemo } from '@wordpress/element';
 import { noop } from 'lodash';
 import { FormObj, SubmissionDispatchers } from '../../types';
 

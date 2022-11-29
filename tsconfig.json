@@ -8,8 +8,7 @@
 		{"path" : "packages/navigation"},
 		{"path" : "packages/types"},
 		{"path" : "packages/form-integrations"},
-		{"path" : "packages/payment-gateways"},
-		{"path" : "packages/renderer-core"}
+		{"path" : "packages/payment-gateways"}
 	],
 	"files": []
 

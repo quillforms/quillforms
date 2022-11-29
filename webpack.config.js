@@ -176,7 +176,7 @@ module.exports = {
 		},
 		path: path.join( __dirname, 'build' ),
 		library: [ 'qf', '[name]' ],
-		libraryTarget: 'this',
+		libraryTarget: 'window',
 		chunkFilename: `chunks/[name].js`,
 	},
 	module: {
