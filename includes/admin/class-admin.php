@@ -66,7 +66,7 @@ class Admin {
 	public function admin_hooks() {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
-        add_action('pre_get_posts', array($this, 'include_quill_forms_post_type_in_query') );
+		add_action( 'pre_get_posts', array( $this, 'include_quill_forms_post_type_in_query' ) );
 	}
 
 	/**
@@ -156,25 +156,30 @@ class Admin {
 	 * Include quill_forms in post type query if the slug is empty.
 	 *
 	 * @since 1.17.1
+	 *
+	 * @param object $query Query object.
+	 * @return void
 	 */
+	public function include_quill_forms_post_type_in_query( $query ) {
+		if ( Settings::get( 'override_quillforms_slug' ) && empty( Settings::get( 'quillforms_slug' ) ) ) {
 
-    public function include_quill_forms_post_type_in_query($query) {
-		if(Settings::get('override_quillforms_slug') && empty( Settings::get('quillforms_slug') ) ) {
-
-         	// Only noop the main query
-			if (!$query->is_main_query())
+			// Only noop the main query.
+			if ( ! $query->is_main_query() ) {
 				return;
+			}
 
-			// Only noop our very specific rewrite rule match
+			// Only noop our very specific rewrite rule match.
 			if (
-				2 != count($query->query)
-				|| !isset($query->query['page'])
-			)
+				2 !== count( $query->query )
+				|| ! isset( $query->query['page'] )
+			) {
 				return;
+			}
 
-			// Include my post type in the query
-			if (!empty($query->query['name']))
-				$query->set('post_type', array('post', 'page', 'quill_forms'));
+			// Include my post type in the query.
+			if ( ! empty( $query->query['name'] ) ) {
+				$query->set( 'post_type', array( 'post', 'page', 'quill_forms' ) );
+			}
 		}
 
 	}
