@@ -7,7 +7,7 @@
 	"license": "GPL-2.0-or-later",
 	"engines": {
 		"node": ">=14.0.0",
-		"npm": ">=6.9.0 <7"
+		"npm": ">=6.9.0"
 	},
 	"config": {
 		"IS_QUILLFORMS_PLUGIN": true
