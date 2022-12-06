@@ -1,4 +1,9 @@
 /**
+ * WordPress Dependencies
+ */
+import { isRTL } from '@wordpress/i18n';
+
+/**
  * External dependencies
  */
 import { css, keyframes } from '@quillforms/utils';
@@ -62,9 +67,8 @@ export const MultipleChoiceOptions = css`
 			border-style: solid;
 			border-width: 1px;
 			appearance: none;
-			text-align: left;
+			text-align: ${ isRTL() ? 'right' : 'left' };
 			user-select: none;
-			font-size: 14px;
 			backface-visibility: hidden;
 			-webkit-backface-visibility: hidden;
 
@@ -72,7 +76,6 @@ export const MultipleChoiceOptions = css`
 				margin: 0 16px 10px 0;
 				padding: 8px 10px;
 				border-radius: 4px;
-				font-size: 14px;
 			}
 		}
 

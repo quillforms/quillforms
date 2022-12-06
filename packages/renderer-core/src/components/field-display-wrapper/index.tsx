@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /**
  * WordPress Dependencies
  */
@@ -17,6 +18,7 @@ import useBlockTypes from '../../hooks/use-block-types';
 import BlockFooter from '../field-footer';
 import useFormContext from '../../hooks/use-form-context';
 import useHandleFocus from '../../hooks/use-handle-focus';
+import useBlockTheme from '../../hooks/use-block-theme';
 interface Props {
 	setIsShaking: ( value: boolean ) => void;
 	isShaking: boolean;
@@ -38,6 +40,8 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showNextBtn,
 		showErrMsg,
 	} = __experimentalUseFieldRenderContext();
+	const theme = useBlockTheme( attributes?.themeId );
+
 	const isTouchScreen =
 		( typeof window !== undefined && 'ontouchstart' in window ) ||
 		( typeof navigator !== undefined && navigator.maxTouchPoints > 0 ) ||
@@ -180,7 +184,19 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			{ blockType?.display && (
 				<div
 					className={ css`
-						margin-top: 30px;
+						@media ( max-width: 767px ) {
+							margin-top: ${ theme.typographyPreset === 'sm'
+								? `24px`
+								: `32px` };
+						}
+
+						@media ( min-width: 768px ) {
+							margin-top: ${ theme.typographyPreset === 'sm'
+								? `24px`
+								: theme.typographyPreset === 'lg'
+								? `40px`
+								: `32px` };
+						}
 					` }
 				>
 					{

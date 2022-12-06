@@ -185,21 +185,23 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 						height: 100%;
 						overflow: hidden;
 						background: ${ generalTheme.backgroundColor };
+						@media ( min-width: 768px ) {
+							font-size: ${ generalTheme.fontSize.lg };
+							line-height: ${ generalTheme.fontLineHeight.lg };
+						}
+						@media ( max-width: 767px ) {
+							font-size: ${ generalTheme.fontSize.sm };
+							line-height: ${ generalTheme.fontLineHeight.sm };
+						}
 						font-family: ${ generalTheme.font };
 						.renderer-components-block-label {
 							color: ${ generalTheme.questionsColor };
 							font-family: ${ generalTheme.questionsLabelFont };
-							@media ( min-width: 1025px ) {
+							@media ( min-width: 768 ) {
 								font-size: ${ generalTheme
 									.questionsLabelFontSize.lg };
 								line-height: ${ generalTheme
 									.questionsLabelLineHeight.lg };
-							}
-							@media ( max-width: 1024px ) {
-								font-size: ${ generalTheme
-									.questionsLabelFontSize.md };
-								line-height: ${ generalTheme
-									.questionsLabelLineHeight.md };
 							}
 							@media ( max-width: 767px ) {
 								font-size: ${ generalTheme
@@ -211,23 +213,33 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 						.renderer-components-block-description {
 							font-family: ${ generalTheme.questionsDescriptionFont };
 
-							@media ( min-width: 1025px ) {
+							@media ( min-width: 768px ) {
 								font-size: ${ generalTheme
 									.questionsDescriptionFontSize.lg };
 								line-height: ${ generalTheme
 									.questionsDescriptionLineHeight.lg };
-							}
-							@media ( max-width: 1024px ) {
-								font-size: ${ generalTheme
-									.questionsDescriptionFontSize.md };
-								line-height: ${ generalTheme
-									.questionsDescriptionLineHeight.md };
 							}
 							@media ( max-width: 767px ) {
 								font-size: ${ generalTheme
 									.questionsDescriptionFontSize.sm };
 								line-height: ${ generalTheme
 									.questionsDescriptionLineHeight.sm };
+							}
+						}
+
+						input,
+						textarea {
+							@media ( min-width: 768px ) {
+								font-size: ${ generalTheme.textInputAnswers
+									.lg };
+								line-height: ${ generalTheme.textInputAnswers
+									.lg };
+							}
+							@media ( max-width: 767px ) {
+								font-size: ${ generalTheme.textInputAnswers
+									.sm };
+								line-height: ${ generalTheme.textInputAnswers
+									.sm };
 							}
 						}
 					`

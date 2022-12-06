@@ -259,12 +259,22 @@ const FieldWrapper: React.FC = () => {
 					'is-horizontal-animation':
 						settings?.animationDirection === 'horizontal',
 				},
+				`${ theme.typographyPreset }-typography-preset`,
 				position ? position : '',
 				css`
 					font-family: ${ theme.font };
+					@media ( min-width: 768px ) {
+						font-size: ${ theme.fontSize.lg };
+						line-height: ${ theme.fontLineHeight.lg };
+					}
+					@media ( max-width: 767px ) {
+						font-size: ${ theme.fontSize.sm };
+						line-height: ${ theme.fontLineHeight.sm };
+					}
 					textarea,
 					input {
 						font-family: ${ theme.font };
+						font-size: ${ theme.textInputAnswers }
 					}
 					${ attributes?.themeId && backgroundImageCSS }
 				`

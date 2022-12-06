@@ -150,21 +150,13 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 									css`
 										color: ${ theme.questionsColor };
 										font-family: ${ theme.questionsLabelFont };
-										@media ( min-width: 1025px ) {
+										@media ( min-width: 768px ) {
 											font-size: ${ theme
 												.questionsLabelFontSize
 												.lg } !important;
 											line-height: ${ theme
 												.questionsLabelLineHeight
 												.lg } !important;
-										}
-										@media ( max-width: 1024px ) {
-											font-size: ${ theme
-												.questionsLabelFontSize
-												.md } !important;
-											line-height: ${ theme
-												.questionsLabelLineHeight
-												.md } !important;
 										}
 										@media ( max-width: 767px ) {
 											font-size: ${ theme
@@ -187,21 +179,13 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 											css`
 												color: ${ theme.questionsColor };
 												font-family: ${ theme.questionsDescriptionFont };
-												@media ( min-width: 1025px ) {
+												@media ( min-width: 768px ) {
 													font-size: ${ theme
 														.questionsDescriptionFontSize
 														.lg } !important;
 													line-height: ${ theme
 														.questionsDescriptionLineHeight
 														.lg } !important;
-												}
-												@media ( max-width: 1024px ) {
-													font-size: ${ theme
-														.questionsDescriptionFontSize
-														.md } !important;
-													line-height: ${ theme
-														.questionsDescriptionLineHeight
-														.md } !important;
 												}
 												@media ( max-width: 767px ) {
 													font-size: ${ theme
@@ -321,6 +305,7 @@ const ScreenAction = ( { isSticky, buttonText, next, theme } ) => {
 					'qf-welcome-screen-block__action-helper-text',
 					css`
 						color: ${ theme.questionsColor };
+						font-size: 12px;
 					`
 				) }
 			>

@@ -1,10 +1,11 @@
 type MediaDevices = {
 	lg: string;
-	md: string;
 	sm: string;
 };
 export type FormTheme = {
 	font: string;
+	fontSize: MediaDevices;
+	fontLineHeight: MediaDevices;
 	backgroundColor: string;
 	backgroundImage: string;
 	backgroundImageFocalPoint: {
@@ -25,6 +26,10 @@ export type FormTheme = {
 	answersColor: string;
 	buttonsFontColor: string;
 	buttonsFontSize: MediaDevices;
+	questionsDescriptionMargin: MediaDevices;
+	textInputAnswers: MediaDevices;
+	typographyPreset: 'md' | 'lg' | 'sm';
+	answersMargin: MediaDevices;
 	buttonsPadding: {
 		top: MediaDevices;
 		bottom: MediaDevices;

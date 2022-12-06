@@ -91,7 +91,6 @@ const NumberOutput = ( props ) => {
 						width: 100%;
 						border: none !important;
 						outline: none;
-						font-size: 30px;
 						padding-bottom: 8px;
 						border-radius: 0 !important;
 						background: transparent;
@@ -101,15 +100,6 @@ const NumberOutput = ( props ) => {
 							0px 1px !important;
 
 						-moz-appearance: textfield;
-
-						@media ( max-width: 600px ) {
-							font-size: 24px;
-						}
-
-						@media ( max-width: 400px ) {
-							font-size: 20px;
-						}
-
 						&::-webkit-outer-spin-button,
 						&::-webkit-inner-spin-button {
 							-webkit-appearance: none;

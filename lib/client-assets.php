@@ -332,9 +332,9 @@ function quillforms_register_packages_styles( $styles ) {
 	quillforms_override_style(
 		$styles,
 		'quillforms-client',
-		quillforms_url( 'build/client/style.css' ),
+		quillforms_url( 'build/style.css' ),
 		array( 'quillforms-admin-components', 'wp-components' ),
-		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/client/style.css' )
+		filemtime( QUILLFORMS_PLUGIN_DIR . 'build/style.css' )
 	);
 	$styles->add_data( 'quillforms-client', 'rtl', 'replace' );
 

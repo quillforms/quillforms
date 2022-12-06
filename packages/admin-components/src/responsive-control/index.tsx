@@ -22,18 +22,13 @@ export default function ResponsiveControl( {
 	const devices = [
 		{
 			name: 'Desktop',
-			title: <Dashicon icon="desktop" />,
+			title: "Desktop",
 			itemClass: 'qf-desk-tab',
-		},
-		{
-			name: 'Tablet',
-			title: <Dashicon icon="tablet" />,
-			itemClass: 'qf-tablet-tab',
 		},
 		{
 			name: 'Mobile',
 			key: 'mobile',
-			title: <Dashicon icon="smartphone" />,
+			title: 'Mobile',
 			itemClass: 'qf-mobile-tab',
 		},
 	];

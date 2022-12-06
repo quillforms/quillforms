@@ -1,7 +1,21 @@
 {
 	"font": {
 		"type": "string",
-		"default": "Viga"
+		"default": "Roboto"
+	},
+	"fontSize": {
+		"type": "object",
+		"default": {
+			"lg": "20px",
+			"sm": "16px"
+		}
+	},
+	"fontLineHeight": {
+		"type": "object",
+		"default": {
+			"lg": "28px",
+			"sm": "24px"
+		}
 	},
 	"backgroundColor": {
 		"type": "string",
@@ -21,6 +35,10 @@
 		"type": "object",
 		"default": {}
 	},
+	"typographyPreset": {
+		"type": "string",
+		"default": "md"
+	},
 	"questionsLabelFont": {
 		"type": "string",
 		"default": "Inherit"
@@ -29,16 +47,14 @@
 		"type": "object",
 		"default": {
 			"lg": "24px",
-			"md": "24px",
 			"sm": "20px"
 		}
 	},
 	"questionsLabelLineHeight": {
 		"type": "object",
 		"default": {
-			"lg": "31px",
-			"md": "31px",
-			"sm": "27px"
+			"lg": "32px",
+			"sm": "28px"
 		}
 	},
 	"questionsDescriptionFont": {
@@ -49,7 +65,6 @@
 		"type": "object",
 		"default": {
 			"lg": "20px",
-			"md": "20px",
 			"sm": "16px"
 		}
 	},
@@ -57,8 +72,7 @@
 		"type": "object",
 		"default": {
 			"lg": "28px",
-			"md": "28px",
-			"sm": "28px"
+			"sm": "24px"
 		}
 	},
 	"questionsColor": {
@@ -69,6 +83,13 @@
 		"type": "string",
 		"default": "#0aa7c2"
 	},
+	"textInputAnswers": {
+		"type": "object",
+		"default": {
+			"lg": "30px",
+        	"sm": "24px"
+		}
+	},
 	"buttonsFontColor": {
 		"type": "string",
 		"default": "#fff"
@@ -77,33 +98,27 @@
 		"type": "object",
 		"default": {
 			"lg": "20px",
-			"md": "20px",
 			"sm": "16px"
 		}
 	},
-
 	"buttonsPadding": {
 		"type": "object",
 		"default": {
 			"top": {
 				"lg": "9px",
-				"md": "9px",
 				"sm": "9px"
 			},
 			"bottom": {
 				"lg": "9px",
-				"md": "9px",
 				"sm": "9px"
 			},
 			"left": {
 				"lg": "23px",
-				"md": "23px",
 				"sm": "23px"
 			},
 			"right": {
 				"lg": "20px",
-				"md": "20px",
-				"sm": "20px"
+					"sm": "20px"
 			}
 		}
 	},
@@ -143,7 +158,6 @@
 		"type": "object",
 		"default": {
 			"lg": "transparent",
-			"md": "transparent",
 			"sm": "transparent"
 		}
 	}

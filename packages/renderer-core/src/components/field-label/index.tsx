@@ -24,17 +24,11 @@ const BlockLabel: React.FC = () => {
 				css`
 					color: ${ theme.questionsColor } !important;
 					font-family: ${ theme.questionsLabelFont } !important;
-					@media ( min-width: 1025px ) {
+					@media ( min-width: 768px ) {
 						font-size: ${ theme.questionsLabelFontSize
 							.lg } !important;
 						line-height: ${ theme.questionsLabelLineHeight
 							.lg } !important;
-					}
-					@media ( max-width: 1024px ) {
-						font-size: ${ theme.questionsLabelFontSize
-							.md } !important;
-						line-height: ${ theme.questionsLabelLineHeight
-							.md } !important;
 					}
 					@media ( max-width: 767px ) {
 						font-size: ${ theme.questionsLabelFontSize

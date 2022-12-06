@@ -1,4 +1,9 @@
 /**
+ * WordPress Dependencies
+ */
+import { isRTL } from '@wordpress/i18n';
+
+/**
  * External dependencies
  */
 import { css, keyframes } from '@quillforms/utils';
@@ -107,7 +112,6 @@ export const DropdownChoices = css`
 			border-width: 1px;
 			border-style: solid;
 			border-radius: 5px;
-			font-size: 14px;
 			cursor: pointer;
 			backface-visibility: hidden;
 			-webkit-backface-visibility: hidden;
@@ -121,7 +125,7 @@ export const DropdownChoices = css`
 
 export const iconStyles = css`
 	position: absolute;
-	right: 0;
+	${ isRTL() ? `left: 0` : `right: 0` };
 	bottom: 4px;
 	cursor: pointer;
 

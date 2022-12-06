@@ -6,6 +6,7 @@ import {
 	Button,
 	useBlockTheme,
 } from '@quillforms/renderer-core';
+import { isRTL } from '@wordpress/i18n';
 
 const NextBtnComponent = ( { onClick } ) => {
 	const { attributes } = __experimentalUseFieldRenderContext();
@@ -30,17 +31,23 @@ const CounterIconComponent = () => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	const { quotationMarks } = attributes;
 	const theme = useBlockTheme( attributes.themeId );
+	let style = {
+		position: 'absolute',
+		left: '-20px',
+		top: '-8px',
+	};
+
+	if ( isRTL() ) {
+		style = {
+			position: 'absolute',
+			right: '-20px',
+			top: '-8px',
+		};
+	}
 	return (
 		<>
 			{ quotationMarks && (
-				<div
-					className="quote-icon"
-					style={ {
-						position: 'absolute',
-						left: '-20px',
-						top: '-8px',
-					} }
-				>
+				<div className="quote-icon" style={ { ...style } }>
 					<svg
 						strokeWidth="0"
 						viewBox="0 0 14 16"

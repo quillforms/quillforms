@@ -2,6 +2,17 @@
 	opacity: 0.7;
 	margin-top: 12px;
 }
+
+.renderer-components-field-wrapper.lg-typography-preset .renderer-components-block-description {
+	margin-top: 12px;
+}
+.renderer-components-field-wrapper.md-typography-preset .renderer-components-block-description{
+	margin-top: 8px;
+}
+.renderer-components-field-wrapper.sm-typography-preset .renderer-components-block-description {
+	margin-top: 8px;
+}
+
 .renderer-components-block-description p {
 	margin-top: 0;
 	margin-bottom: 0;

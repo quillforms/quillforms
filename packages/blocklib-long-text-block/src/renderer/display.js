@@ -110,7 +110,6 @@ const LongTextOutput = ( props ) => {
 							border: none !important;
 							outline: none;
 							border-radius: 0 !important;
-							font-size: 30px;
 							padding-bottom: 8px;
 							background: transparent;
 							transition: box-shadow 0.1s ease-out 0s;
@@ -119,13 +118,6 @@ const LongTextOutput = ( props ) => {
 									.setAlpha( 0.3 )
 									.toString() }
 								0px 1px !important;
-							@media ( max-width: 600px ) {
-								font-size: 24px;
-							}
-
-							@media ( max-width: 400px ) {
-								font-size: 20px;
-							}
 						}
 
 						&::placeholder {

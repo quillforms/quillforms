@@ -1,10 +1,20 @@
 .renderer-core-field-footer {
 	height: 60px;
-	margin-top: 24px;
+	margin-top: 16px;
 
 	&.is-hidden {
 		opacity: 0;
 		visibility: hidden;
 		z-index: -555;
 	}
+}
+
+.renderer-core-field-wrapper.lg-typography-preset.renderer-core-field-footer {
+	margin-top: 18px;
+}
+.renderer-core-field-wrapper.md-typography-preset.renderer-core-field-footer {
+	margin-top: 16px;
+}
+.renderer-core-field-wrapper.sm-typography-preset.renderer-core-field-footer {
+	margin-top: 14px;
 }
