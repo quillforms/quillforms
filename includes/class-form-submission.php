@@ -139,6 +139,12 @@ class Form_Submission {
 			return;
 		}
 
+		// init errors check.
+		$this->errors = apply_filters( 'quillforms_submission_init_errors', $this->errors, $unsanitized_entry );
+		if ( $this->errors ) {
+			return;
+		}
+
 		$this->form_data = Core::get_form_data( $form_id );
 
 		// initialize entry object.
