@@ -27,9 +27,9 @@
 		"@quillforms/config": "file:../config",
 		"@quillforms/payment-gateways": "file:../payment-gateways",
 		"@quillforms/utils": "file:../utils",
-		"@wordpress/autop": "^3.7.0",
-		"@wordpress/components": "^19.9.0",
-		"@wordpress/data": "^7.6.0",
+		"@wordpress/autop": "^3.23.0",
+		"@wordpress/data": "^8.0.0",
+		"@wordpress/element": "^5.0.0",
 		"@wordpress/hooks": "^3.8.0",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
@@ -38,7 +38,7 @@
 		"lodash": "4.17.21",
 		"react-loader-spinner": "^5.1.7-beta.1",
 		"react-swipeable": "^6.1.2",
-		"rememo": "^3.0.0",
+		"rememo": "^4.0.2",
 		"tinycolor2": "^1.4.2"
 	},
 	"peerDependencies": {
