@@ -17,6 +17,7 @@ import Payments from './payments';
 import Analytics from './analytics';
 import Integrations from './integrations';
 import Emails from './emails';
+import ReCAPTCHA from './recaptcha';
 
 const Settings = () => {
 	const params = new Proxy( new URLSearchParams( window.location.search ), {
@@ -39,6 +40,10 @@ const Settings = () => {
 		integrations: {
 			title: 'Integrations',
 			render: <Integrations />,
+		},
+		recaptcha: {
+			title: 'reCAPTCHA',
+			render: <ReCAPTCHA />,
 		},
 		analytics: {
 			title: 'Tracking & Analytics',
