@@ -76,7 +76,6 @@ const ShortTextOutput = ( props ) => {
 			showNextBtn( true );
 		} else {
 			setIsAnswered( false );
-			showNextBtn( false );
 		}
 	};
 

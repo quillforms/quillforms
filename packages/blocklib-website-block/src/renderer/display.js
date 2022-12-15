@@ -74,7 +74,6 @@ const WebsiteOutput = ( props ) => {
 			showNextBtn( true );
 			setIsAnswered( true );
 		} else {
-			showNextBtn( false );
 			setIsAnswered( false );
 		}
 	};

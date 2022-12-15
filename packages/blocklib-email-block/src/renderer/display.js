@@ -68,7 +68,6 @@ const EmailOutput = ( props ) => {
 		showErrMsg( false );
 		if ( ! value ) {
 			setIsAnswered( false );
-			showNextBtn( false );
 		} else {
 			setIsAnswered( true );
 			showNextBtn( true );

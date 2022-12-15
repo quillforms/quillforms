@@ -38,7 +38,6 @@ const DateOutput = ( props ) => {
 		setVal,
 		setFooterDisplay,
 		isTouchScreen,
-		isActive,
 		inputRef,
 	} = props;
 	const { format, separator, required } = attributes;
@@ -94,12 +93,11 @@ const DateOutput = ( props ) => {
 			showNextBtn( true );
 		} else {
 			setIsAnswered( false );
-			showNextBtn( false );
 		}
 	};
 
 	const autoCorrectedDatePipe = createAutoCorrectedDatePipe(
-		getPlaceholder().toLowerCase()
+		getPlaceholder()?.toLowerCase()
 	);
 
 	const getMask = () => {

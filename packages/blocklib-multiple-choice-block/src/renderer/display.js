@@ -78,11 +78,7 @@ const MultipleChoiceOutput = ( props ) => {
 		if ( multiple ) {
 			if ( val?.length > 0 ) {
 				showNextBtn( true );
-			} else {
-				showNextBtn( false );
 			}
-		} else {
-			showNextBtn( false );
 		}
 	}, [ val, attributes ] );
 
