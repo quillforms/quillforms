@@ -63,6 +63,20 @@ class Core {
 		);
 	}
 
+
+	/**
+	 * Add gallery themes
+	 *
+	 * @since 1.23.0
+	 *
+	 * @return void
+	 */
+	public static function add_gallery_themes() {
+		wp_add_inline_script(
+			'quillforms-theme-editor',
+			'wp.data.dispatch("quillForms/theme-editor").addGalleryThemes(' . json_encode( Gallery_Themes::get_themes() ) . ');'
+		);
+	}
 	/**
 	 * Set renderer config
 	 *
