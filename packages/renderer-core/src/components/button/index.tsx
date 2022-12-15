@@ -82,22 +82,13 @@ const Button: React.FC< Props > = ( {
 						transform: translateX( 3px );
 					}
 
-					@media ( min-width: 1025px ) {
+					@media ( min-width: 768px ) {
 						& {
 							font-size: ${ theme.buttonsFontSize.lg };
 							padding: ${ theme.buttonsPadding.top.lg }
 								${ theme.buttonsPadding.right.lg }
 								${ theme.buttonsPadding.bottom.lg }
 								${ theme.buttonsPadding.left.lg };
-						}
-					}
-					@media ( max-width: 1024px ) {
-						& {
-							font-size: ${ theme.buttonsFontSize.md };
-							padding: ${ theme.buttonsPadding.top.md }
-								${ theme.buttonsPadding.right.md }
-								${ theme.buttonsPadding.bottom.md }
-								${ theme.buttonsPadding.left.md };
 						}
 					}
 

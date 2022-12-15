@@ -4,6 +4,13 @@
 		width: 220px;
 		overflow: hidden;
 		border-radius: 3px;
+
+		@media(max-width: 767px) {
+			background-color: transparent !important;
+			.renderer-core-progress-bar__label {
+				display: none !important;
+			}
+		}
 	}
 
 	.renderer-core-progress-bar__track {
@@ -11,6 +18,13 @@
 		height: 5px;
 		width: 100%;
 		margin-top: 5px;
+		@media(max-width: 767px) {
+			position: fixed;
+			top: 0;
+			margin-top: 0;
+			right:0;
+			left:0;
+		}
 	}
 
 	.renderer-core-progress-bar__fill {
@@ -24,13 +38,4 @@
 		-o-transition: width 0.3s;
 	}
 }
-@media(max-width: 550px) {
-	.renderer-core-progress-bar {
-		width: 200px;
-	}
-}
-@media(max-width: 400px) {
-	.renderer-core-progress-bar {
-		width: 160px
-	}
-}
+

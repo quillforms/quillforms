@@ -34,13 +34,9 @@ const BlockCounter: React.FC = () => {
 				css`
 					color: ${ theme.questionsColor };
 					font-family: ${ theme.questionsLabelFont };
-					@media ( min-width: 1025px ) {
+					@media ( min-width: 768 ) {
 						line-height: ${ theme.questionsLabelLineHeight
 							.lg } !important;
-					}
-					@media ( max-width: 1024px ) {
-						line-height: ${ theme.questionsLabelLineHeight
-							.md } !important;
 					}
 					@media ( max-width: 767px ) {
 						line-height: ${ theme.questionsLabelLineHeight

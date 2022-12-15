@@ -24,7 +24,7 @@ interface Props {
 const FieldRender: React.FC< Props > = memo(
 	( { id, isActive, isLastField, shouldBeRendered } ) => {
 		const [ isSubmitBtnVisible, showNextBtn ] =
-			useState< boolean >( false );
+			useState< boolean >( true );
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
 
 		const {

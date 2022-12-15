@@ -140,11 +140,11 @@
 	},
 	"errorsFontColor": {
 		"type": "string",
-		"default": "#fff"
+		"default": "#af0404"
 	},
 	"errorsBgColor": {
 		"type": "string",
-		"default": "#f00"
+		"default": "#f7e6e6"
 	},
 	"progressBarFillColor": {
 		"type": "string",

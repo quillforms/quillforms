@@ -49,17 +49,11 @@ const FormFooter: React.FC = memo( () => {
 			className={ classnames(
 				'renderer-components-form-footer',
 				{
-					hidden:
-						isWelcomeScreenActive ||
-						isThankyouScreenActive ||
-						! shouldFooterBeDisplayed,
+					hidden: isWelcomeScreenActive || isThankyouScreenActive,
 				},
 				css`
-					@media ( min-width: 1025px ) {
+					@media ( min-width: 768px ) {
 						background: ${ theme.formFooterBgColor.lg } !important;
-					}
-					@media ( max-width: 1024px ) {
-						background: ${ theme.formFooterBgColor.md } !important;
 					}
 					@media ( max-width: 767px ) {
 						background: ${ theme.formFooterBgColor.sm } !important;
@@ -69,9 +63,8 @@ const FormFooter: React.FC = memo( () => {
 			tabIndex={ -1 }
 		>
 			{ ! formObj?.settings?.disableProgressBar && <ProgressBar /> }
-			{ ! formObj?.settings?.disableNavigationArrows && (
-				<FieldNavigation />
-			) }
+			{ ! formObj?.settings?.disableNavigationArrows &&
+			shouldFooterBeDisplayed && <FieldNavigation /> }
 		</div>
 	);
 } );
