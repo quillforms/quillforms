@@ -1,5 +1,6 @@
 import './store';
 import './panels';
+import './panels/subpanels/gallery';
 import './panels/subpanels/customize';
 import './panels/subpanels/my-themes';
 

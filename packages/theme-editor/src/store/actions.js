@@ -14,6 +14,7 @@ import {
 	DELETE_THEME_SUCCESS,
 	SET_IS_SAVING,
 	SETUP_THEMES,
+	ADD_GALLERY_THEMES,
 } from './constants';
 
 /**
@@ -33,7 +34,6 @@ export const setCurrentThemeProperties = ( properties ) => {
 
 /**
  * Set current theme title
- *
  *
  * @param {string} title  Theme title.
  *
@@ -58,6 +58,20 @@ export const setShouldBeSaved = ( shouldBeSaved ) => {
 	return {
 		type: SET_SHOULD_BE_SAVED,
 		payload: { shouldBeSaved },
+	};
+};
+
+/**
+ * Add Gallery Themes.
+ *
+ * @param {Array} themes Gallery themes.
+ *
+ * @return {Object} Action object.
+ */
+export const addGalleryThemes = ( themes ) => {
+	return {
+		type: ADD_GALLERY_THEMES,
+		themes,
 	};
 };
 

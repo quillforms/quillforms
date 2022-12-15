@@ -139,6 +139,7 @@ class Admin_Loader {
 	public static function add_inline_scripts() {
 		Core::register_block_types_by_js();
 		Core::set_admin_config();
+		Core::add_gallery_themes();
 	}
 
 	/**

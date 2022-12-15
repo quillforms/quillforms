@@ -9,9 +9,12 @@ import {
 	SET_IS_SAVING,
 	SET_CURRENT_THEME_TITLE,
 	SETUP_THEMES,
+	ADD_GALLERY_THEMES,
 } from './constants';
 
 const initialState = {
+	currentThemeType: 'default',
+	galleryThemes: [],
 	currentThemeId: null,
 	currentTheme: {},
 	shouldBeSaved: false,
@@ -69,6 +72,15 @@ const ThemeReducer = ( state = initialState, action ) => {
 					title: action.title,
 				},
 				shouldBeSaved: true,
+			};
+		}
+
+		// ADD GALLERY THEMES
+		case ADD_GALLERY_THEMES: {
+			const { themes } = action;
+			return {
+				...state,
+				galleryThemes: themes,
 			};
 		}
 

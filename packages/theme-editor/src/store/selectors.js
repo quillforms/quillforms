@@ -1,7 +1,7 @@
 /**
  * Get current theme
  *
- * @param {Object} state     Global application state.
+ * @param {Object} state Global application state.
  *
  * @return {Object} Default theme
  */
@@ -15,7 +15,7 @@ export function getCurrentTheme( state ) {
 }
 
 /**
- * Get current theme id
+ * Get current theme id.
  *
  * @param {Object} state    Global application state.
  *
@@ -25,6 +25,9 @@ export function getCurrentThemeId( state ) {
 	return state.currentThemeId;
 }
 
+export function getGalleryThemes( state ) {
+	return state.galleryThemes;
+}
 /**
  * Get themes list
  *
@@ -37,7 +40,7 @@ export function getThemesList( state ) {
 }
 
 /**
- * Should theme be saved
+ * Should theme be saved.
  *
  * @param {Object} state     Global application state.
  *
@@ -48,7 +51,7 @@ export function shouldThemeBeSaved( state ) {
 }
 
 /**
- * Is theme being saved
+ * Is theme being saved.
  *
  * @param {Object} state     Global application state.
  *
