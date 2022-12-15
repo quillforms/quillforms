@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/theme-editor",
-	"version": "2.4.2",
+	"version": "3.0.0",
 	"description": "Quill Forms Theme Editor",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -24,8 +24,8 @@
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config",
-		"tinycolor2": "^1.4.2",
-		"gradient-parser": "^1.0.2"
+		"gradient-parser": "^1.0.2",
+		"tinycolor2": "^1.4.2"
 	},
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
