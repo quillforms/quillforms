@@ -71,7 +71,7 @@ class Fonts {
 	}
 
 	/**
-	 * Get Elementor native fonts.
+	 * Get Quill Forms native fonts.
 	 *
 	 * Retrieve the list of supported fonts.
 	 *
