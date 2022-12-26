@@ -643,6 +643,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/banner.png',
 				),
 			),
+			'mailerlite'                => array(
+				'name'           => esc_html__( 'MailerLite', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your MailerLite account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-mailerlite/quillforms-mailerlite.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailerlite/icon.png',
+				),
+			),
 			'mailpoet'                  => array(
 				'name'           => esc_html__( 'MailPoet', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your MailPoet lists.', 'quillforms' ),
