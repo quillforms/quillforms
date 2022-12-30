@@ -486,7 +486,7 @@ const DropdownDisplay = ( props ) => {
 					) }
 				>
 					<div
-						className={ classnames(
+						className={ cx(
 							css`
 								display: flex;
 								align-items: center;
@@ -506,13 +506,12 @@ const DropdownDisplay = ( props ) => {
 							<path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
 						</svg>
 						<input
-							className={ classnames(
+							className={ cx(
 								css`
 									& {
 										width: 100%;
 										border: none;
 										outline: none;
-										font-size: 30px;
 										padding-bottom: 8px;
 										background: transparent;
 										margin-bottom: 10px;
@@ -521,13 +520,6 @@ const DropdownDisplay = ( props ) => {
 												.setAlpha( 0.3 )
 												.toString() }
 											0px 1px;
-										@media ( max-width: 600px ) {
-											font-size: 24px;
-										}
-
-										@media ( max-width: 480px ) {
-											font-size: 20px;
-										}
 									}
 
 									&::placeholder {
@@ -608,13 +600,13 @@ const DropdownDisplay = ( props ) => {
 							} )
 						) : (
 							<div
-								className={ css`
+								className={ cx( css`
 									background: ${ theme.errorsBgColor };
 									color: ${ theme.errorsFontColor };
 									display: inline-block;
 									padding: 5px 10px;
 									border-radius: 5px;
-								` }
+								` ) }
 							>
 								{ messages[ 'block.dropdown.noSuggestions' ] }
 							</div>

@@ -14,6 +14,7 @@ import { useState, useEffect, useRef } from 'react';
  */
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
+import * as styles from './styles';
 
 let selectionTimer;
 
@@ -53,23 +54,24 @@ const ChoiceItem = ( {
 					isBeingSelected,
 				},
 				css`
-					background: ${
-						hovered
-							? answersColor.setAlpha( 0.2 ).toString()
-							: answersColor.setAlpha( 0.1 ).toString()
-					};
+						background: ${
+							hovered
+								? answersColor.setAlpha( 0.2 ).toString()
+								: answersColor.setAlpha( 0.1 ).toString()
+						};
 
-					border-color: ${ theme.answersColor };
-					color: ${ theme.answersColor };
+						border-color: ${ theme.answersColor };
+						color: ${ theme.answersColor };
 
-					&:hover {
-						background: ${ answersColor.setAlpha( 0.2 ).toString() };
-					}
+						&:hover {
+							background: ${ answersColor.setAlpha( 0.2 ).toString() };
+						}
 
-					&.selected {
-						background: ${ tinyColor( theme.answersColor ).setAlpha( 0.75 ).toString() };
-						color: ${ tinyColor( theme.answersColor ).isDark() ? '#fff' : '#333' }
-				`
+						&.selected {
+							background: ${ tinyColor( theme.answersColor ).setAlpha( 0.75 ).toString() };
+							color: ${ tinyColor( theme.answersColor ).isDark() ? '#fff' : '#333' }
+					`,
+				styles.DropdownChoiceWrapper
 			) }
 			role="presentation"
 			onClick={ () => {

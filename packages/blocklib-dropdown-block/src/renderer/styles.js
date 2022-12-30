@@ -105,24 +105,25 @@ export const DropdownChoices = css`
 		padding: 10px 20px;
 	}
 
-	.dropdown__choiceWrapper {
-		& {
-			padding: 10px;
-			margin-bottom: 8px;
-			border-width: 1px;
-			border-style: solid;
-			border-radius: 5px;
-			cursor: pointer;
-			backface-visibility: hidden;
-			-webkit-backface-visibility: hidden;
-		}
 
-		&.isBeingSelected {
-			animation: ${ vibrate } 0.4s linear forwards;
-		}
-	}
 }`;
 
+export const DropdownChoiceWrapper = css`
+	& {
+		padding: 10px;
+		margin-bottom: 8px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 5px;
+		cursor: pointer;
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+	}
+
+	&.isBeingSelected {
+		animation: ${ vibrate } 0.4s linear forwards;
+	}
+}`;
 export const iconStyles = css`
 	position: absolute;
 	${ isRTL() ? `left: 0` : `right: 0` };
