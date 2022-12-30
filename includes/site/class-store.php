@@ -464,16 +464,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/formlocker/icon.svg',
 				),
 			),
-			'recaptcha'                 => array(
-				'name'           => esc_html__( 'reCAPTCHA', 'quillforms' ),
-				'description'    => esc_html__( 'Google reCAPTCHA protects your website from fraud and abuse.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-recaptcha/quillforms-recaptcha.php',
-				'plan'           => 'plus',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
-				),
-			),
+			// 'recaptcha'                 => array(
+			// 	'name'           => esc_html__( 'reCAPTCHA', 'quillforms' ),
+			// 	'description'    => esc_html__( 'Google reCAPTCHA protects your website from fraud and abuse.', 'quillforms' ),
+			// 	'plugin_file'    => 'quillforms-recaptcha/quillforms-recaptcha.php',
+			// 	'plan'           => 'plus',
+			// 	'is_integration' => false,
+			// 	'assets'         => array(
+			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
+			// 	),
+			// ),
 			'calendlyblock'             => array(
 				'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
 				'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
