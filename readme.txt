@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Forms like Typeform on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
-Stable tag: 1.22.0
+Stable tag: 1.23.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -68,14 +68,15 @@ QuillForms free version comes with variety of blocks:
 23- Notion integration
 24- Make integration
 25- Monday.com integration
-26- Calendly integration
-27- Pipedrive integration
-28- Tracking with Google Analytics
-29- Tracking with Facebook Pixel
-30- Opinion scale block
-31- Signature block
-32- Form locker to restrict access to your form with a lot of options.
-33- Custom thank you screen for redirect and custom buttons
+26- MailerLite integration
+27- Calendly integration
+28- Pipedrive integration
+29- Tracking with Google Analytics
+30- Tracking with Facebook Pixel
+31- Opinion scale block
+32- Signature block
+33- Form locker to restrict access to your form with a lot of options.
+34- Custom thank you screen for redirect and custom buttons
 
 [Purchase The Pro Version](https://quillforms.com)
 
@@ -126,8 +127,14 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 1.23.0 = 30 Dec 2022
+Feature: Adding Mailerlite addon.
+Feature: Improving theme options with presets.
+Feature: Supporting RTL in admin panel.
+
+
 = 1.22.0 = 22 Nov 2022
-= Fix: Fixing critical issue that breaks jump logic.
+Fix: Fixing critical issue that breaks jump logic.
 
 = 1.21.0 = 22 Nov 2022
 Fix: Fixing fonts issue at renderer.
