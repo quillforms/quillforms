@@ -11,6 +11,7 @@ const Attachment = ( { attributes, isPreview } ) => {
 					`
 					max-width: ${ attributes?.attachmentMaxWidth };
 					margin: auto;
+					text-align: center;
 					` }
 					overflow: hidden;
 				`
@@ -25,7 +26,9 @@ const Attachment = ( { attributes, isPreview } ) => {
 						css`
 							${ attributes.layout !== 'split-right' &&
 							attributes.layout !== 'split-left' &&
-							`border-radius: ${ attributes.attachmentBorderRadius };` }
+							`border-radius: ${ attributes.attachmentBorderRadius };
+							 margin: auto;
+							` }
 						`
 					) }
 				/>
