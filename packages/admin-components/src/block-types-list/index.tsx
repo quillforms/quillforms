@@ -20,6 +20,7 @@ import {
 	OpinionScaleIcon,
 	PhoneIcon,
 	PictureChoiceIcon,
+	RatingIcon,
 	SignatureIcon,
 	ThankYouIcon,
 } from './pro-blocks-icons';
@@ -111,7 +112,26 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex } ) => {
 					</div>
 				</div>
 			) }
-
+			{ ! blockTypes.rating && (
+				<div className={ 'admin-components-blocks-list__item-wrapper' }>
+					<div className="admin-components-blocks-list-item disabled">
+						<span
+							className="admin-components-blocks-list-item__icon-wrapper"
+							style={ {
+								backgroundColor: '#ffd010',
+							} }
+						>
+							<span className="admin-components-blocks-list-item__icon">
+								<RatingIcon />
+							</span>
+						</span>
+						<span className="admin-components-blocks-list-item__block-name">
+							Rating
+						</span>
+						<ProLabel />
+					</div>
+				</div>
+			) }
 			{ ! blockTypes.calendly && (
 				<div className={ 'admin-components-blocks-list__item-wrapper' }>
 					<div className="admin-components-blocks-list-item disabled">

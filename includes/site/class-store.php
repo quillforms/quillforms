@@ -464,16 +464,26 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/formlocker/icon.svg',
 				),
 			),
-			// 'recaptcha'                 => array(
-			// 	'name'           => esc_html__( 'reCAPTCHA', 'quillforms' ),
-			// 	'description'    => esc_html__( 'Google reCAPTCHA protects your website from fraud and abuse.', 'quillforms' ),
-			// 	'plugin_file'    => 'quillforms-recaptcha/quillforms-recaptcha.php',
-			// 	'plan'           => 'plus',
-			// 	'is_integration' => false,
-			// 	'assets'         => array(
-			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
-			// 	),
-			// ),
+			'ratingblock'                 => array(
+				'name'           => esc_html__( 'Rating Block', 'quillforms' ),
+				'description'    => esc_html__( 'Add rating question type to your form. You can use stars, hearts, thumbs, thunderbolts, trophies, circles, ...etc in this rating question', 'quillforms' ),
+				'plugin_file'    => 'quillforms-ratingblock/quillforms-ratingblock.php',
+				'plan'           => 'plus',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/ratingblock/icon.svg',
+				),
+			),
+			'recaptcha'                 => array(
+				'name'           => esc_html__( 'reCAPTCHA', 'quillforms' ),
+				'description'    => esc_html__( 'Google reCAPTCHA protects your website from fraud and abuse.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-recaptcha/quillforms-recaptcha.php',
+				'plan'           => 'plus',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
+				),
+			),
 			'calendlyblock'             => array(
 				'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
 				'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
