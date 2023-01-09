@@ -42,7 +42,7 @@ $form_object = Form_Renderer::instance()->prepare_form_object(get_the_ID());
 				width: 100%;
 				height: 100%;
 			}
-			#quillforms-renderer ~ * {
+			#quillforms-renderer ~ *:not(#qf-recaptcha) {
 				display: none !important;
 			}
 			* {
