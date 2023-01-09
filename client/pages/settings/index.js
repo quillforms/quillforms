@@ -41,10 +41,10 @@ const Settings = () => {
 			title: 'Integrations',
 			render: <Integrations />,
 		},
-		// recaptcha: {
-		// 	title: 'reCAPTCHA',
-		// 	render: <ReCAPTCHA />,
-		// },
+		recaptcha: {
+			title: 'reCAPTCHA',
+			render: <ReCAPTCHA />,
+		},
 		analytics: {
 			title: 'Tracking & Analytics',
 			render: <Analytics />,
