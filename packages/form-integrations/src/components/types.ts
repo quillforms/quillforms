@@ -41,6 +41,7 @@ export type ConnectMainAccounts = {
 
 export type ConnectMain = {
 	connection: {
+		runable?: boolean;
 		accounts?: ConnectMainAccounts;
 		options: {
 			default: { [ x: string ]: any };

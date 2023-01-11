@@ -45,11 +45,12 @@ const Connection: React.FC< Props > = ( { id, run } ) => {
 	const isEntriesCompatible =
 		entriesAddon.is_active &&
 		parseInt( entriesAddon?.version?.split( '.' )?.[ 1 ] ?? '0', 10 ) >= 4;
+	const runable = main.connection.runable ?? true;
 
 	return (
 		<div className="integration-connection">
 			<div className="connection-header-buttons">
-				{ isEntriesCompatible && (
+				{ isEntriesCompatible && runable && (
 					<Tooltip
 						text={
 							'Use this option if you would like to test your connection or to run the connection for some entries manually.'
