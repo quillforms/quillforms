@@ -140,7 +140,7 @@ class Core {
 			'menu_position'      => 30,
 			'show_in_rest'       => true,
 		);
-		if(Settings::get('override_quillforms_slug') === true ) {
+		if( Settings::get( 'override_quillforms_slug' ) === true && ! empty( Settings::get( 'quillforms_slug' )) ) {
 
 			$args['rewrite']['slug'] = '/'. Settings::get('quillforms_slug');
 			flush_rewrite_rules();

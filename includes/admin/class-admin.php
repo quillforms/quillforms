@@ -66,7 +66,8 @@ class Admin {
 	public function admin_hooks() {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
-		add_action( 'pre_get_posts', array( $this, 'include_quill_forms_post_type_in_query' ) );
+		add_action( 'pre_get_posts', array( $this, 'include_quill_forms_post_type_in_query' ), 11 );
+		add_filter( 'post_type_link', array( $this, 'remove_cpt_slug'), 10, 3 );
 	}
 
 	/**
@@ -182,6 +183,23 @@ class Admin {
 			}
 		}
 
+	}
+
+	/**
+	 * Remove CPT Slug
+	 *
+	 * @since 1.25.0
+	 */
+	public function remove_cpt_slug( $post_link, $post, $leavename ) {
+
+		if ( 'quill_forms' !== $post->post_type || 'publish' !== $post->post_status || ! Settings::get( 'override_quillforms_slug' ) || ! empty( Settings::get( 'quillforms_slug' ) ) ) {
+
+			return $post_link;
+		}
+
+		$post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
+
+		return $post_link;
 	}
 
 }
