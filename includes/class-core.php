@@ -132,18 +132,14 @@ class Core {
 			'query_var'          => true,
 			'capability_type'    => 'quillform',
 			'rewrite'            => array(
-				'slug'       => 'quillforms',
-				'feeds'      => true,
-				'with_front' => false,
+				'slug' => 'quillforms',
 			),
 			'has_archive'        => true,
 			'menu_position'      => 30,
 			'show_in_rest'       => true,
 		);
 		if( Settings::get( 'override_quillforms_slug' ) === true && ! empty( Settings::get( 'quillforms_slug' )) ) {
-
-			$args['rewrite']['slug'] = '/'. Settings::get('quillforms_slug');
-			flush_rewrite_rules();
+			$args['rewrite']['slug'] = Settings::get( 'quillforms_slug' );
 		}
 		register_post_type( 'quill_forms', $args );
 		flush_rewrite_rules();
