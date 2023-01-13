@@ -22,7 +22,7 @@ const useFields = ( { section } ) => {
 		};
 	} );
 	const blocks = ( formBlocks ?? [] ).filter( ( block ) => {
-		return blockTypes[ block.name ].supports.editable === true;
+		return blockTypes[ block.name ]?.supports?.editable === true;
 	} );
 
 	const fields: Options = [];
