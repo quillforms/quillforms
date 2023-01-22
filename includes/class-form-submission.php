@@ -234,6 +234,12 @@ class Form_Submission {
 			return;
 		}
 
+		// post-validation errors check.
+		$this->errors = apply_filters( 'quillforms_entry_post_validation_errors', $this->errors, $this->entry, $this->form_data );
+		if ( $this->errors ) {
+			return;
+		}
+
 		// Format the editable non-empty fields.
 		foreach ( $walkpath as $block_id ) {
 			$block      = quillforms_arrays_find( $this->form_data['blocks'], 'id', $block_id );
