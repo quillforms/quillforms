@@ -464,7 +464,7 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/formlocker/icon.svg',
 				),
 			),
-			'ratingblock'                 => array(
+			'ratingblock'               => array(
 				'name'           => esc_html__( 'Rating Block', 'quillforms' ),
 				'description'    => esc_html__( 'Add rating question type to your form. You can use stars, hearts, thumbs, thunderbolts, trophies, circles, ...etc in this rating question', 'quillforms' ),
 				'plugin_file'    => 'quillforms-ratingblock/quillforms-ratingblock.php',
@@ -809,6 +809,16 @@ class Store {
 				'assets'         => array(
 					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/icon.svg',
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/banner.png',
+				),
+			),
+			'wpuserregistration'        => array(
+				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
+				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-wpuserregistration/quillforms-wpuserregistration.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/wpuserregistration/icon.svg',
 				),
 			),
 		);
