@@ -319,9 +319,9 @@ Here is the list of the core blocks with the possible custom attributes that the
 {
   name: "number",
   attributes: {
-    "set_max": boolean; // Default: false
-    "max": number; // Default: 0
-    "set_max": boolean; // Default: false
+    "setMin": boolean; // Default: false
+    "min": number; // Default: 0
+    "setMax": boolean; // Default: false
     "max": number; 
   }
 }
