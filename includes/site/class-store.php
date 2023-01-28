@@ -468,7 +468,7 @@ class Store {
 				'name'           => esc_html__( 'Rating Block', 'quillforms' ),
 				'description'    => esc_html__( 'Add rating question type to your form. You can use stars, hearts, thumbs, thunderbolts, trophies, circles, ...etc in this rating question', 'quillforms' ),
 				'plugin_file'    => 'quillforms-ratingblock/quillforms-ratingblock.php',
-				'plan'           => 'plus',
+				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/ratingblock/icon.svg',
