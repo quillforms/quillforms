@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /**
  * QuillForms Depndencies
  */
@@ -31,13 +32,13 @@ const NumberOutput = ( props ) => {
 		isTouchScreen,
 		setFooterDisplay,
 	} = props;
-	const { setMax, max, setMin, min, required } = attributes;
+	const { setMax, max, setMin, min, required, allowDecimals } = attributes;
 	const messages = useMessages();
 	const theme = useBlockTheme( attributes.themeId );
 	const answersColor = tinyColor( theme.answersColor );
 
 	const checkfieldValidation = ( value ) => {
-		if ( required === true && ( ! value || value === '' ) ) {
+		if ( required === true && value !== 0 && ( ! value || value === '' ) ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else if ( setMax && max > 0 && value > max ) {
@@ -57,19 +58,23 @@ const NumberOutput = ( props ) => {
 	}, [ attributes ] );
 
 	const changeHandler = ( e ) => {
+		e.preventDefault();
+
 		const value = e.target.value;
 		if ( isNaN( value ) ) {
 			blockWithError( 'Numbers only!' );
 			return;
 		}
-		setVal( parseInt( value ) );
-		showErrMsg( false );
-		checkfieldValidation( parseInt( value ) );
-
-		if ( value ) {
+		if ( value !== 0 && ! value ) {
+			setVal( '' );
+			checkfieldValidation( '' );
 			setIsAnswered( true );
 			showNextBtn( true );
 		} else {
+			const newVal = value == 0 ? 0 : parseInt( value );
+			setVal( newVal );
+			showErrMsg( false );
+			checkfieldValidation( newVal );
 			setIsAnswered( false );
 		}
 	};
@@ -137,7 +142,7 @@ const NumberOutput = ( props ) => {
 			id={ 'number-' + id }
 			placeholder={ messages[ 'block.number.placeholder' ] }
 			onChange={ changeHandler }
-			value={ val ? val : '' }
+			value={ val || val === 0 ? val : '' }
 			onFocus={ () => {
 				if ( isTouchScreen ) {
 					setFooterDisplay( false );

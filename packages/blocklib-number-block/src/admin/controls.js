@@ -19,7 +19,7 @@ const NumberControls = ( props ) => {
 		attributes: { setMin, min, setMax, max },
 		setAttributes,
 	} = props;
-	const MAX_NUMBER = 999999999;
+	const MAX_NUMBER = 99999999999999;
 
 	const setMinHandler = ( val ) => {
 		let assignedValue = val;
