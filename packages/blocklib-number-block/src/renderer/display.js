@@ -68,14 +68,13 @@ const NumberOutput = ( props ) => {
 		if ( value !== 0 && ! value ) {
 			setVal( '' );
 			checkfieldValidation( '' );
-			setIsAnswered( true );
-			showNextBtn( true );
+			setIsAnswered( false );
 		} else {
 			const newVal = value == 0 ? 0 : parseInt( value );
 			setVal( newVal );
 			showErrMsg( false );
 			checkfieldValidation( newVal );
-			setIsAnswered( false );
+			setIsAnswered( true );
 		}
 	};
 
