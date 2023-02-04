@@ -428,7 +428,12 @@ const DropdownDisplay = ( props ) => {
 						{
 							visible: showDropdown,
 						},
-						styles.DropdownChoices
+						styles.DropdownChoices,
+						css`
+							background: ${ theme.backgroundColor };
+							padding: 15px;
+							border: 1px dashed ${ theme.answersColor };
+						`
 					) }
 					ref={ choicesWrappeerRef }
 					onWheel={ ( e ) => {

@@ -78,12 +78,12 @@ const vibrate = keyframes( {
 export const DropdownChoices = css`
 	& {
 		position: absolute;
-		top: 100%;
+		top: 112%;
 		right: 0;
 		left: 0;
 		padding-top: 15px;
+		border-radius: 5px;
 		width: 100%;
-		height: 0;
 		overflow-y: auto;
 		transition: transform, opacity 0.3s linear;
 		z-index: 11111;
@@ -93,7 +93,7 @@ export const DropdownChoices = css`
 	}
 
 	&.visible {
-		height: 300px;
+		max-height: 300px;
 		visibility: visible;
 		opacity: 1;
 		transform: none;
@@ -118,6 +118,9 @@ export const DropdownChoiceWrapper = css`
 		cursor: pointer;
 		backface-visibility: hidden;
 		-webkit-backface-visibility: hidden;
+	}
+	&:last-child {
+		margin-bottom: 0;
 	}
 
 	&.isBeingSelected {
