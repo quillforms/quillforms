@@ -28,7 +28,7 @@
 		"@quillforms/rich-text": "file:../rich-text",
 		"@quillforms/theme-editor": "file:../theme-editor",
 		"@quillforms/types": "file:../types",
-		"@wordpress/data": "^7.6.0",
+		"@wordpress/data": "^8.2.0",
 		"@wordpress/element": "^4.20.0",
 		"@wordpress/icons": "^8.3.0",
 		"classnames": "^2.3.1",

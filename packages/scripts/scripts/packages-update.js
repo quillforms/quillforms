@@ -60,7 +60,7 @@ function updatePackagesToLatestVersion( packages ) {
 }
 
 function outputPackageDiffReport( packageDiff ) {
-	console.log(
+	//console.log(
 		[
 			'The following package versions were changed:',
 			...packageDiff.map( ( { dependency, initial, final } ) => {

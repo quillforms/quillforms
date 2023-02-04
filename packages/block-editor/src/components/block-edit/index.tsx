@@ -11,14 +11,14 @@ import type { BlockAttributes } from '@quillforms/types';
 /**
  * WordPress Dependencies
  */
-import { useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useMemo, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
  */
-import { debounce } from 'lodash';
+import { debounce, size } from 'lodash';
 import { Node } from 'slate';
 import { HistoryEditor } from 'slate-history';
 
@@ -28,11 +28,16 @@ import { HistoryEditor } from 'slate-history';
 import BlockToolbar from '../block-toolbar';
 import BlockAttachment from '../block-attachment';
 import type { FocusedEl } from '../block-list-item';
+import BlockChildrenContainer from '../block-children-container';
 
 interface Props {
 	attributes?: BlockAttributes;
+	name: string;
 	id: string;
 	blockColor?: string;
+	index: number;
+	parentIndex?: number;
+	parentId?: string;
 	label: Node[];
 	desc: Node[];
 	labelEditor: ReactEditor & HistoryEditor;
@@ -44,9 +49,8 @@ interface Props {
 	setDescJsonVal: ( value: Node[] ) => void;
 }
 const BlockEdit: React.FC< Props > = ( props ) => {
-	const { setBlockAttributes, setCurrentBlock } = useDispatch(
-		'quillForms/block-editor'
-	);
+	const { setBlockAttributes, setCurrentBlock, setCurrentChildBlock } =
+		useDispatch( 'quillForms/block-editor' );
 
 	const {
 		attributes,
@@ -54,19 +58,27 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		blockColor,
 		label,
 		desc,
+		index,
+		name,
 		setLabelJsonVal,
 		setDescJsonVal,
+		parentIndex,
+		parentId,
 		labelEditor,
+		isContainer,
+		innerBlocks,
 		descEditor,
 		focusedEl,
 		setFocusedEl,
 		isSelected,
 	} = props;
+
 	let attachment;
 
 	if ( attributes?.attachment ) {
 		attachment = attributes.attachment;
 	}
+
 	const { blockTypes } = useSelect( ( select ) => {
 		return {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
@@ -102,7 +114,11 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 	// Serialize label is a debounced function that updates the store with serialized html value
 	const serializeLabel = useCallback(
 		debounce( ( value ) => {
-			setBlockAttributes( id, { label: serialize( value ) } );
+			setBlockAttributes(
+				id,
+				{ label: serialize( value ) },
+				parentIndex
+			);
 		}, 200 ),
 		[]
 	);
@@ -110,7 +126,11 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 	// Serialize description is a debounced function that updates the store with serialized html value
 	const serializeDesc = useCallback(
 		debounce( ( value ) => {
-			setBlockAttributes( id, { description: serialize( value ) } );
+			setBlockAttributes(
+				id,
+				{ description: serialize( value ) },
+				parentIndex
+			);
 		}, 200 ),
 		[]
 	);
@@ -156,14 +176,19 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 					value={ label }
 					onChange={ ( value ) => labelChangeHandler( value ) }
 					onFocus={ () => {
-						setCurrentBlock( id );
+						if ( parentId ) {
+							setCurrentBlock( parentId );
+							setCurrentChildBlock( id );
+						} else {
+							setCurrentBlock( id );
+						}
 						setFocusedEl( 'label' );
 					} }
 					allowedFormats={ [ 'bold', 'italic', 'link' ] }
 				/>
 			</div>
 		),
-		[ JSON.stringify( label ), JSON.stringify( mergeTags ) ]
+		[ JSON.stringify( label ), JSON.stringify( mergeTags ), index ]
 	);
 
 	// Description Rich Text Editor
@@ -178,31 +203,52 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 					mergeTags={ mergeTags }
 					onChange={ ( value ) => descChangeHandler( value ) }
 					onFocus={ () => {
-						setCurrentBlock( id );
+						if ( parentId ) {
+							setCurrentBlock( parentId );
+							setCurrentChildBlock( id );
+						} else {
+							setCurrentBlock( id );
+						}
 						setFocusedEl( 'desc' );
 					} }
 					allowedFormats={ [ 'bold', 'italic', 'link' ] }
 				/>
 			</div>
 		),
-		[ JSON.stringify( desc ), JSON.stringify( mergeTags ) ]
+		[ JSON.stringify( desc ), JSON.stringify( mergeTags ), index ]
 	);
 
 	return (
 		<div className="block-editor-block-edit">
 			<div className="block-editor-block-edit__text-editor">
 				{ LabelEditor }
-				{ DescEditor }
+				{ ! parentId && DescEditor }
 			</div>
 			{ attachment && attachment.type === 'image' && (
 				<BlockAttachment
 					id={ id }
+					parentIndex={ parentIndex }
 					blockColor={ blockColor }
 					attachment={ attachment }
 				/>
 			) }
-
-			<BlockToolbar id={ id } editor={ currentEditor } />
+			<BlockToolbar
+				parentIndex={ parentIndex }
+				parentId={ parentId }
+				id={ id }
+				index={ index }
+				editor={ currentEditor }
+			/>
+			<>
+				{ isContainer && (
+					<BlockChildrenContainer
+						innerBlocks={ innerBlocks }
+						index={ index }
+						id={ id }
+						parentColor={ blockTypes[ name ].color }
+					/>
+				) }
+			</>
 		</div>
 	);
 };

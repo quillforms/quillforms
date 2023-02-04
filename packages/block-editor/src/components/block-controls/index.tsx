@@ -9,29 +9,40 @@ import BlockControlsHeader from '../block-controls-header';
  */
 import DefaultControls from '../block-default-controls';
 
-const BlockControls = () => {
+const BlockControls = ( { parentIndex } ) => {
 	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
 
-	const { currentBlockId, currentFormBlock } = useSelect( ( select ) => {
-		const { getCurrentBlockId, getCurrentBlock } = select(
-			'quillForms/block-editor'
-		);
+	let {
+		currentBlockId,
+		currentChildBlockIndex,
+		currentChildBlockId,
+		currentFormBlock,
+		blockTypes,
+	} = useSelect( ( select ) => {
+		const {
+			getCurrentBlockId,
+			getCurrentChildBlockId,
+			getCurrentChildBlockIndex,
+			getCurrentBlock,
+		} = select( 'quillForms/block-editor' );
 		return {
 			currentBlockId: getCurrentBlockId(),
+			currentChildBlockIndex: getCurrentChildBlockIndex(),
+			currentChildBlockId: getCurrentChildBlockId(),
 			currentFormBlock: getCurrentBlock(),
+			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
 
-	const { blockType } = useSelect( ( select ) => {
-		return {
-			blockType: currentFormBlock
-				? select( 'quillForms/blocks' ).getBlockTypes()[
-						currentFormBlock.name
-				  ]
-				: null,
-		};
-	} );
+	//console.log( currentBlockId, currentChildBlockId );
 	if ( ! currentBlockId || ! currentFormBlock ) return null;
+	if ( currentChildBlockId ) {
+		currentFormBlock =
+			currentFormBlock.innerBlocks[ currentChildBlockIndex ];
+		currentBlockId = currentChildBlockId;
+	}
+	const blockType = blockTypes[ currentFormBlock.name ];
+
 	const { name } = currentFormBlock;
 
 	return (
@@ -44,7 +55,7 @@ const BlockControls = () => {
 				blockName={ name }
 				attributes={ currentFormBlock.attributes }
 				setAttributes={ ( val ) => {
-					setBlockAttributes( currentBlockId, val );
+					setBlockAttributes( currentBlockId, val, parentIndex );
 				} }
 			/>
 			{ blockType?.controls && (
@@ -52,7 +63,7 @@ const BlockControls = () => {
 					id={ currentBlockId }
 					attributes={ currentFormBlock.attributes }
 					setAttributes={ ( val ) => {
-						setBlockAttributes( currentBlockId, val );
+						setBlockAttributes( currentBlockId, val, parentIndex );
 					} }
 				/>
 			) }

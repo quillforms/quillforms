@@ -23,8 +23,7 @@ interface Props {
 
 const FieldRender: React.FC< Props > = memo(
 	( { id, isActive, isLastField, shouldBeRendered } ) => {
-		const [ isSubmitBtnVisible, showNextBtn ] =
-			useState< boolean >( true );
+		const [ isSubmitBtnVisible, showNextBtn ] = useState< boolean >( true );
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
 
 		const {
@@ -56,12 +55,14 @@ const FieldRender: React.FC< Props > = memo(
 
 		const { goNext, goToBlock } = useDispatch( 'quillForms/renderer-core' );
 		if ( ! block ) return null;
-		const { name, attributes } = block;
+		//console.log( block );
+		const { name, attributes, innerBlocks } = block;
 
 		const context = {
 			id,
 			blockName: name,
 			attributes,
+			innerBlocks,
 			isActive,
 			shouldBeRendered,
 			isErrMsgVisible,

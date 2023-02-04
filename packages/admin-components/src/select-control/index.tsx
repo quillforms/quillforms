@@ -26,17 +26,16 @@ const itemToString = ( item ) => {
 	if ( item?.name ) {
 		if ( typeof item.name === 'string' ) {
 			return item.name;
-		} else {
-			const span = document.createElement( 'span' );
-			render( item.name, span );
-			var tmp = document.createElement( 'div' );
-			tmp.appendChild( span );
-			// @ts-expect-error
-			return tmp.children[ 0 ]?.innerText;
-			// var div = document.createElement( 'div' );
-			// div.innerHTML = reactToHtmlString;
-			// return div.textContent || div.innerText || '';
 		}
+		const span = document.createElement( 'span' );
+		render( item.name, span );
+		const tmp = document.createElement( 'div' );
+		tmp.appendChild( span );
+		// @ts-expect-error
+		return tmp.children[ 0 ]?.innerText;
+		// var div = document.createElement( 'div' );
+		// div.innerHTML = reactToHtmlString;
+		// return div.textContent || div.innerText || '';
 	}
 	return undefined;
 };
@@ -143,6 +142,7 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 	) {
 		delete menuProps[ 'aria-activedescendant' ];
 	}
+
 	return (
 		<div className="admin-components-select-control">
 			<div
@@ -182,7 +182,7 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 						describedBy: getDescribedBy(),
 					} ) }
 				>
-					{ selectedItem.name }
+					{ selectedItem?.name }
 					<Icon
 						icon={ chevronDown }
 						className={ classnames(
@@ -198,42 +198,45 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 				{ /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */ }
 				<ul { ...menuProps } onKeyDown={ onKeyDownHandler }>
 					{ isOpen &&
-						items.map( ( item, index ) => (
-							// eslint-disable-next-line react/jsx-key
-							<li
-								{ ...getItemProps( {
-									item,
-									index,
-									key: item.key,
-									className: classnames(
-										item.className,
-										'components-custom-select-control__item',
-										{
-											'is-highlighted':
-												index === highlightedIndex,
-											'has-hint':
-												!! item.__experimentalHint,
-											'is-next-36px-default-size':
-												__next36pxDefaultSize,
-										}
-									),
-									style: item.style,
-								} ) }
-							>
-								{ item.name }
-								{ item.__experimentalHint && (
-									<span className="components-custom-select-control__item-hint">
-										{ item.__experimentalHint }
-									</span>
-								) }
-								{ item === selectedItem && (
-									<Icon
-										icon={ check }
-										className="components-custom-select-control__item-icon"
-									/>
-								) }
-							</li>
-						) ) }
+						items.map( ( item, index ) => {
+							//console.log( item );
+							return (
+								// eslint-disable-next-line react/jsx-key
+								<li
+									{ ...getItemProps( {
+										item,
+										index,
+										key: item.key,
+										className: classnames(
+											item.className,
+											'components-custom-select-control__item',
+											{
+												'is-highlighted':
+													index === highlightedIndex,
+												'has-hint':
+													!! item.__experimentalHint,
+												'is-next-36px-default-size':
+													__next36pxDefaultSize,
+											}
+										),
+										style: item.style,
+									} ) }
+								>
+									{ item.name }
+									{ item.__experimentalHint && (
+										<span className="components-custom-select-control__item-hint">
+											{ item.__experimentalHint }
+										</span>
+									) }
+									{ item === selectedItem && (
+										<Icon
+											icon={ check }
+											className="components-custom-select-control__item-icon"
+										/>
+									) }
+								</li>
+							);
+						} ) }
 				</ul>
 			</div>
 		</div>

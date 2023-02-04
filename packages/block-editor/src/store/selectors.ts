@@ -19,7 +19,7 @@ import createSelector from 'rememo';
  * Internal Dependencies
  */
 import type { FormBlockWithOrder, BlockOrder } from './types';
-import type { State } from './reducer';
+import { flattenBlocks, State } from './reducer';
 /**
  * Returns all block objects.
  *
@@ -27,22 +27,18 @@ import type { State } from './reducer';
  * for each top-level block of the given block id. This way, the selector only refreshes
  * on changes to blocks associated with the given entity
  *
- * @param {State}  state        Editor state.
+ * @param {State} state Editor state.
  *
  * @return {FormBlocks} Form blocks.
  */
-export const getBlocks = createSelector(
-	( state: State ): FormBlocks => {
-		return state.blocks;
-	},
-	( state: State ) =>
-		map( state.blocks, ( block ) => state?.cache?.[ block.id ] )
-);
+export const getBlocks = ( state: State ): FormBlocks => {
+	return state.blocks;
+};
 
 /**
  * Get welcome screens length.
  *
- * @param {State}   state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {number} Welcome screens length
  */
@@ -54,44 +50,65 @@ export function getWelcomeScreensLength( state: State ): number {
 /**
  * Get block by id
  *
- * @param {State} 	state      Global application state.
- * @param {string}  id		   Block id
+ * @param {State}  state       Global application state.
+ * @param {string} id          Block id
  *
+ * @param          blockId
+ * @param          parentIndex
  * @return {FormBlock} Block object
  */
-export const getBlockById = createSelector(
-	( state: State, blockId: string ): FormBlock | undefined => {
+export const getBlockById = (
+	state: State,
+	blockId: string,
+	parentIndex = undefined
+): FormBlock | undefined => {
+	//console.log( state.blocks );
+	if ( typeof parentIndex === 'undefined' ) {
 		const block = state.blocks.find( ( $block ) => $block.id === blockId );
+		//console.log( block );
 		if ( ! block ) return undefined;
 		return block;
-	},
-	( state: State, blockId: string ) => [
-		// Normally, we'd have both `getBlockAttributes` dependencies and
-		// `getBlocks` (children) dependancies here but for performance reasons
-		// we use a denormalized cache key computed in the reducer that takes both
-		// the attributes and inner blocks into account. The value of the cache key
-		// is being changed whenever one of these dependencies is out of date.
-		state?.cache?.[ blockId ],
-	]
-);
+	}
+
+	if (
+		! state.blocks ||
+		! state.blocks[ parentIndex ] ||
+		! state.blocks[ parentIndex ].innerBlocks
+	) {
+		return undefined;
+	}
+	const block = state.blocks[ parentIndex ].innerBlocks?.find(
+		( $block ) => $block.id === blockId
+	);
+	if ( ! block ) return undefined;
+	return block;
+};
 
 /**
  * Get block order by id
  *
- * @param {State} 	state      Global application state.
- * @param {string}  id		   Block id
+ * @param {State}  state Global application state.
+ * @param {string} id    Block id
  *
  * @return {BlockOrder} Block order
  */
 export const getBlockOrderById = ( state: State, id: string ): BlockOrder => {
+	//console.log( id );
+	//console.log( state.blocks );
 	const formBlock = getBlockById( state, id );
+	//console.log( formBlock );
 	if ( ! formBlock ) return undefined;
-	const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-		formBlock.name
-	];
-	const editableFields = select(
+	const blockType =
+		select( 'quillForms/blocks' ).getBlockTypes()[ formBlock.name ];
+	const orderableFields = select(
 		'quillForms/block-editor'
-	).getEditableFields();
+	).getBlocksByCriteria(
+		{
+			editable: true,
+			innerBlocks: true,
+		},
+		'or'
+	);
 	const charCode = 'a'.charCodeAt( 0 );
 
 	// Simple algorithm to generate alphabatical idented order
@@ -118,8 +135,11 @@ export const getBlockOrderById = ( state: State, id: string ): BlockOrder => {
 	};
 
 	let itemOrder: BlockOrder;
-	if ( blockType.supports.editable === true ) {
-		const fieldIndex = editableFields.findIndex(
+	if (
+		blockType.supports.editable === true ||
+		blockType.supports.innerBlocks === true
+	) {
+		const fieldIndex = orderableFields.findIndex(
 			( field ) => field.id === id
 		);
 		itemOrder = fieldIndex + 1;
@@ -135,16 +155,15 @@ export const getBlockOrderById = ( state: State, id: string ): BlockOrder => {
 /**
  * Retruns the editable blocks -- Editable blocks are the blocks who have {editable} setting equals true
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {FormBlock[]} Editable fields
  */
 export function getEditableFields( state: State ): FormBlock[] {
 	const blocks = getBlocks( state );
 	return blocks.filter( ( block ) => {
-		const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-			block.name
-		];
+		const blockType =
+			select( 'quillForms/blocks' ).getBlockTypes()[ block.name ];
 		return blockType.supports.editable === true;
 	} );
 }
@@ -152,12 +171,17 @@ export function getEditableFields( state: State ): FormBlock[] {
 /**
  * Get block with multiple criteria.
  *
- * @param {Object}                    state       Global application state.
- * @param {QFBlocksSupportsCriteria}  criteria    Multiple criteria according to which the blocks are filtered.
+ * @param {Object}                   state    Global application state.
+ * @param {QFBlocksSupportsCriteria} criteria Multiple criteria according to which the blocks are filtered.
  *
+ * @param                            operator
  * @return {Array} Filtered blocks according to criteria given
  */
-export const getBlocksByCriteria = ( state: State, criteria ) => {
+export const getBlocksByCriteria = (
+	state: State,
+	criteria,
+	operator = 'and'
+) => {
 	const blocks = getBlocks( state );
 	const filteredCriteria = pick( criteria, [
 		'logic',
@@ -166,13 +190,20 @@ export const getBlocksByCriteria = ( state: State, criteria ) => {
 		'description',
 		'editable',
 		'numeric',
+		'innerBlocks',
 	] );
 
 	return blocks.filter( ( block ) => {
-		const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-			block.name
-		];
-		return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+		const blockType =
+			select( 'quillForms/blocks' ).getBlockTypes()[ block.name ];
+		if ( operator === 'and' )
+			return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+				typeof val === 'boolean'
+					? blockType.supports[ key ] === val
+					: true
+			);
+
+		return Object.entries( filteredCriteria ).some( ( [ key, val ] ) =>
 			typeof val === 'boolean' ? blockType.supports[ key ] === val : true
 		);
 	} );
@@ -181,9 +212,11 @@ export const getBlocksByCriteria = ( state: State, criteria ) => {
 /**
  * Get block with multiple criteria.
  *
- * @param {Object}                    state       Global application state.
- * @param {QFBlocksSupportsCriteria}  criteria    Multiple criteria according to which the blocks are filtered.
+ * @param {Object}                   state               Global application state.
+ * @param {QFBlocksSupportsCriteria} criteria            Multiple criteria according to which the blocks are filtered.
  *
+ * @param                            id
+ * @param                            includeCurrentBlock
  * @return {Array} Filtered blocks according to criteria given
  */
 export const getPreviousBlocksByCriteria = (
@@ -211,9 +244,8 @@ export const getPreviousBlocksByCriteria = (
 		);
 
 		return prevFormBlocks.filter( ( block ) => {
-			const blockType = select( 'quillForms/blocks' ).getBlockTypes()[
-				block.name
-			];
+			const blockType =
+				select( 'quillForms/blocks' ).getBlockTypes()[ block.name ];
 			return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
 				typeof val === 'boolean'
 					? blockType.supports[ key ] === val
@@ -228,40 +260,39 @@ export const getPreviousBlocksByCriteria = (
  * Retruns the previous editable fields
  * Editable fields are the fields which have {editable} property equals true
  *
- * @param {State} state    Global application state.
- * @param {string} 			 id       The block id.
+ * @param {State}  state Global application state.
+ * @param {string} id    The block id.
  *
  * @return {FormBlockWithOrder[]} Previous editable fields
  */
-export const getPreviousEditableFieldsWithOrder = createSelector(
-	( state: State, id: string ): FormBlockWithOrder[] => {
-		const prevEditableFields: FormBlockWithOrder[] = [];
+export const getPreviousEditableFieldsWithOrder = (
+	state: State,
+	id: string
+): FormBlockWithOrder[] => {
+	const prevEditableFields: FormBlockWithOrder[] = [];
 
-		const blocks = getBlocks( state );
+	const blocks = getBlocks( state );
 
-		const blockIndex = findIndex( blocks, ( block ) => block.id === id );
-		if ( blockIndex > 0 ) {
-			const prevFormBlocks = slice( blocks, 0, blockIndex );
-			forEach( prevFormBlocks, ( block ) => {
-				const blockType = getBlockType( block.name );
-				if ( blockType?.supports?.editable ) {
-					prevEditableFields.push( {
-						...block,
-						order: getBlockOrderById( state, block.id ),
-					} );
-				}
-			} );
-		}
-		return prevEditableFields;
-	},
-	( state: State ) =>
-		map( state.blocks, ( block ) => state?.cache?.[ block.id ] )
-);
+	const blockIndex = findIndex( blocks, ( block ) => block.id === id );
+	if ( blockIndex > 0 ) {
+		const prevFormBlocks = slice( blocks, 0, blockIndex );
+		forEach( prevFormBlocks, ( block ) => {
+			const blockType = getBlockType( block.name );
+			if ( blockType?.supports?.editable ) {
+				prevEditableFields.push( {
+					...block,
+					order: getBlockOrderById( state, block.id ),
+				} );
+			}
+		} );
+	}
+	return prevEditableFields;
+};
 
 /**
  * Retruns the editable fields length
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {number} Editable fields length
  */
@@ -272,8 +303,9 @@ export function getEditableFieldsLength( state: State ): number {
 /**
  * Returns the current block id
  *
- * @param {State} state       Global application state.
+ * @param {State} state  Global application state.
  *
+ * @param         parent
  * @return {?string} Current block id
  */
 export function getCurrentBlockId( state: State ): string | undefined {
@@ -281,9 +313,20 @@ export function getCurrentBlockId( state: State ): string | undefined {
 }
 
 /**
+ * Returns the current child block id
+ *
+ * @param {State} state Global application state.
+ *
+ * @return {?string} Current child block id
+ */
+export function getCurrentChildBlockId( state: State ): string | undefined {
+	return state.currentChildBlockId;
+}
+
+/**
  * Returns the current block index
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {number} Current block index
  */
@@ -294,9 +337,31 @@ export function getCurrentBlockIndex( state: State ): number {
 }
 
 /**
+ * Returns the current child block index
+ *
+ * @param {State} state Global application state.
+ *
+ * @return {number | undefined } Current block index
+ */
+export function getCurrentChildBlockIndex( state: State ): number | undefined {
+	const parentBlockIndex = getCurrentBlockIndex( state );
+	if (
+		! state.blocks ||
+		state.blocks.length === 0 ||
+		typeof parentBlockIndex === 'undefined' ||
+		! state.blocks[ parentBlockIndex ]
+	) {
+		return undefined;
+	}
+	return state.blocks[ parentBlockIndex ]?.innerBlocks?.findIndex(
+		( item ) => item.id === state.currentChildBlockId
+	);
+}
+
+/**
  * Returns the current form item
  *
- * @param {State} state     Global application state.
+ * @param {State} state Global application state.
  *
  * @return {FormBlock} Current block item
  */

@@ -11,7 +11,7 @@ import { select } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { mapValues, pickBy, size, findIndex } from 'lodash';
+import { mapValues, pickBy, find, size, forEach } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -19,10 +19,23 @@ import { mapValues, pickBy, size, findIndex } from 'lodash';
 import type { State } from './reducer';
 import type { RendererAnswersState, Screen, SwiperState } from './types';
 
+export const getBlocksRecursively = ( walkPath ) => {
+	const allBlocks = [];
+	forEach( walkPath, ( block ) => {
+		allBlocks.push( block );
+
+		if ( block.name === 'group' && size( block.innerBlocks ) > 0 ) {
+			forEach( block.innerBlocks, ( childBlock ) => {
+				allBlocks.push( childBlock );
+			} );
+		}
+	} );
+	return allBlocks;
+};
 /**
  * Get swiper state.
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {Object} The swiper state
  */
@@ -33,7 +46,7 @@ export function getSwiperState( state: State ): SwiperState {
 /**
  * Get walk path.
  *
- * @param {State} state      Global application state.
+ * @param {State} state Global application state.
  *
  * @return {Array} Walk path
  */
@@ -44,7 +57,7 @@ export function getWalkPath( state: State ): FormBlocks {
 /**
  * Is animating
  *
- * @param {State} state      Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} Is animating
  */
@@ -54,7 +67,7 @@ export function isAnimating( state: State ): boolean {
 /**
  * Get current block id.
  *
- * @param {State} state      Global application state.
+ * @param {State} state Global application state.
  *
  * @return {string}  Current block id
  */
@@ -65,7 +78,7 @@ export function getCurrentBlockId( state: State ): string | undefined {
 /**
  * Get welcome screens.
  *
- * @param {State} state     Global application state.
+ * @param {State} state Global application state.
  *
  * @return {Screen[]} Welcome screens
  */
@@ -76,7 +89,7 @@ export function getWelcomeScreens( state: State ): Screen[] {
 /**
  * Get thank you screens.
  *
- * @param {State} state     Global application state.
+ * @param {State} state Global application state.
  *
  * @return {Screen[]} Thank you screens
  */
@@ -87,8 +100,8 @@ export function getThankYouScreens( state: State ): Screen[] {
 /**
  * Get block by id
  *
- * @param {State}  state        Global application state.
- * @param {string} id           The block id.
+ * @param {State}  state Global application state.
+ * @param {string} id    The block id.
  *
  * @return {FormBlock } The block
  */
@@ -102,7 +115,7 @@ export function getBlockById(
 /**
  * Is thankyou screen active.
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} Is thankyou screen active
  */
@@ -113,7 +126,7 @@ export function isThankyouScreenActive( state: State ): boolean {
 /**
  * Is welcome screen active.
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} Is welcome screen active
  */
@@ -124,7 +137,7 @@ export function isWelcomeScreenActive( state: State ): boolean {
 /**
  * Is reviewing
  *
- * @param {State} state     Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} Is reviewing
  */
@@ -135,7 +148,7 @@ export function isReviewing( state: State ): boolean {
 /**
  * Is submitting
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} Is submitting
  */
@@ -146,7 +159,7 @@ export function isSubmitting( state: State ): boolean {
 /**
  * Get payment data.
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} Is payment modal active
  */
@@ -157,8 +170,8 @@ export function getPaymentData( state: State ): boolean {
 /**
  * Get block counter value
  *
- * @param {State}  state   Global application state.
- * @param {string} id      Block id.
+ * @param {State}  state Global application state.
+ * @param {string} id    Block id.
  *
  * @return {?number} The block counter value.
  */
@@ -166,8 +179,11 @@ export function getBlockCounterValue(
 	state: State,
 	id: string
 ): number | undefined {
-	const editableFields = getEditableFieldsInCurrentPath( state );
-	const counterValue = editableFields.findIndex(
+	const blocksWithCounter = getFieldsBySupportCriteria( state, [
+		'editable',
+		'innerBlocks',
+	] );
+	const counterValue = blocksWithCounter.findIndex(
 		( editableField ) => editableField.id === id
 	);
 	if ( counterValue === -1 ) return undefined;
@@ -176,7 +192,7 @@ export function getBlockCounterValue(
 /**
  * Get current path editable fields
  *
- * @param {State} state	  Global application state.
+ * @param {State} state Global application state.
  *
  * @return {Array} The editable fields in current path
  */
@@ -190,9 +206,35 @@ export const getEditableFieldsInCurrentPath = ( state: State ) => {
 };
 
 /**
+ *
+ * Get Fields by support criteria
+ *
+ * @param {State} state           Global application state.
+ * @param {Array} supportCriteria The block type support criteria.
+ *
+ * @return {Array} The  fields in current path with the support criteria passed.
+ */
+export const getFieldsBySupportCriteria = ( state: State, supportCriteria ) => {
+	const blockTypesSelector = select( 'quillForms/blocks' );
+	return state.swiper.walkPath.filter( ( block ) => {
+		let matched = false;
+		supportCriteria.forEach( ( feature ) => {
+			if (
+				blockTypesSelector.hasBlockSupport( block.name, feature ) ===
+				true
+			) {
+				matched = true;
+			}
+		} );
+
+		return matched;
+	} );
+};
+
+/**
  * Get all answers.
  *
- * @param {State} state       Global application state.
+ * @param {State} state Global application state.
  *
  * @return {RendererAnswersState} Answers
  */
@@ -203,7 +245,7 @@ export function getAnswers( state: State ): RendererAnswersState {
 /**
  * Get answers values.
  *
- * @param {RendererAnswersState} state      Global application state.
+ * @param {RendererAnswersState} state Global application state.
  *
  * @return {Object} Answers values
  *
@@ -232,8 +274,8 @@ export function getAnsweredFieldsLength( state: State ): number {
 /**
  * Get field answer value.
  *
- * @param {State} state   Global application state.
- * @param {string} id 	   Field id.
+ * @param {State}  state Global application state.
+ * @param {string} id    Field id.
  *
  * @return {unknown} Field answer value
  */
@@ -278,11 +320,11 @@ export const getFirstInvalidFieldId = ( state: State ): string | undefined => {
 	const invalidFields = getInvalidAnswers( state );
 	if ( size( invalidFields ) > 0 ) {
 		const invalidFieldsIds = Object.keys( invalidFields );
-		const walkPath = getWalkPath( state );
-		const firstFieldIndex = findIndex( walkPath, ( o ) =>
+		const walkPath = getBlocksRecursively( getWalkPath( state ) );
+		const firstField = find( walkPath, ( o ) =>
 			invalidFieldsIds.includes( o.id )
 		);
-		if ( firstFieldIndex !== -1 ) return walkPath[ firstFieldIndex ].id;
+		if ( firstField ) return firstField.id;
 	}
 	return undefined;
 };
@@ -290,8 +332,8 @@ export const getFirstInvalidFieldId = ( state: State ): string | undefined => {
 /**
  * Is answered field.
  *
- * @param {State} state   Global application state.
- * @param {string} id     Field id.
+ * @param {State}  state Global application state.
+ * @param {string} id    Field id.
  *
  * @return {boolean} showErr flag
  */
@@ -302,8 +344,8 @@ export function isAnsweredField( state: State, id: string ): boolean {
 /**
  * Is valid field.
  *
- * @param {State} state   Global application state.
- * @param {string} id     Field id.
+ * @param {State}  state Global application state.
+ * @param {string} id    Field id.
  *
  * @return {boolean} showErr flag
  */
@@ -313,8 +355,9 @@ export function isValidField( state: State, id: string ): boolean {
 
 /**
  * Is field pending.
- * @param  {State} state   Global application state.
- * @param {string} id      Field id.
+ *
+ * @param {State}  state Global application state.
+ * @param {string} id    Field id.
  *
  * @return {boolean} isPending flag.
  */
@@ -324,8 +367,9 @@ export function isFieldPending( state: State, id: string ): boolean {
 
 /**
  * Get pending message if pending.
- * @param  {State} state   Global application state.
- * @param {string} id      Field id.
+ *
+ * @param {State}  state Global application state.
+ * @param {string} id    Field id.
  *
  * @return {string|false} Pending message if pending, or false.
  */
@@ -339,8 +383,8 @@ export function getPendingMsg( state: State ): string | false {
 /**
  * Get field validation error message.
  *
- * @param {State} state   Global application state.
- * @param {string} id      Field id.
+ * @param {State}  state Global application state.
+ * @param {string} id    Field id.
  *
  * @return {string} Field validation error message
  */
@@ -352,7 +396,7 @@ export function getFieldValidationErr( state: State, id: string ): string | [] {
 /**
  * Get is focused flag
  *
- * @param {State}  state    Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} isFocused flag
  */
@@ -363,7 +407,7 @@ export function isFocused( state: State ): boolean {
 /**
  * Should footer be displayed flag
  *
- * @param {State}  state    Global application state.
+ * @param {State} state Global application state.
  *
  * @return {boolean} isFocused flag
  */
@@ -374,7 +418,7 @@ export function shouldFooterBeDisplayed( state: State ): boolean {
 /**
  * Get submission error message
  *
- * @param {State}   state    Global application state.
+ * @param {State} state Global application state.
  *
  * @return {string} submission error message
  */

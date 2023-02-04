@@ -1,7 +1,7 @@
 /**
  * QuillForms dependencies
  */
-import type { BlockAttributes } from '@quillforms/types';
+import type { BlockAttributes, FormBlocks } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -19,6 +19,7 @@ interface FieldRenderContext {
 	attributes: BlockAttributes | undefined;
 	shouldBeRendered: boolean;
 	isActive: boolean;
+	innerBlocks?: FormBlocks;
 	isSubmitBtnVisible: boolean;
 	isErrMsgVisible: boolean;
 	showNextBtn: ( x: boolean ) => void;

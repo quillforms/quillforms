@@ -35,9 +35,17 @@ interface Props {
 	index: number;
 	disableAnimation?: boolean;
 	destinationIndex: number;
+	parent?: string;
 }
 const BlockTypesListItem: FC< Props > = memo(
-	( { disabled, blockName, index, disableAnimation, destinationIndex } ) => {
+	( {
+		disabled,
+		blockName,
+		index,
+		disableAnimation,
+		destinationIndex,
+		parent,
+	} ) => {
 		const [ isMounted, setIsMounted ] = useState( false );
 
 		useEffect( () => {
@@ -114,10 +122,10 @@ const BlockTypesListItem: FC< Props > = memo(
 								blockToInsert.id,
 								blockName
 							);
-
 						__experimentalInsertBlock(
 							blockToInsert,
-							destinationIndex
+							destinationIndex,
+							parent
 						);
 						setTimeout( () => {
 							if (

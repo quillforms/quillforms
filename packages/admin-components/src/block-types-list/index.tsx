@@ -28,8 +28,9 @@ import ProLabel from '../pro-label';
 
 interface Props {
 	destinationIndex: number;
+	parent?: string;
 }
-const BlockTypesList: React.FC< Props > = ( { destinationIndex } ) => {
+const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 	const { blockTypes, welcomeScreensLength } = useSelect( ( select ) => {
 		return {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
@@ -63,6 +64,7 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex } ) => {
 						>
 							<BlockTypesListItem
 								destinationIndex={ destinationIndex }
+								parent={ parent }
 								index={ index }
 								blockName={ blockName }
 								disabled={ isDragDisabled }

@@ -4,6 +4,7 @@ import {
 	INSERT_BLOCK,
 	DELETE_BLOCK,
 	SET_CURRENT_BLOCK,
+	SET_CURRENT_CHILD_BLOCK,
 	REORDER_BLOCKS,
 } from './constants';
 
@@ -29,38 +30,49 @@ export function setupStore(
 /**
  * Set block attributes
  *
- * @param {string} blockId    Block Id
- * @param {Object} attributes Block attributes
+ * @param {string} blockId     Block Id
+ * @param {Object} attributes  Block attributes
  *
+ * @param          parentIndex
  * @return {BlockEditorActionTypes} Action object.
  */
 export const setBlockAttributes = (
 	blockId: string,
-	attributes: Record< string, unknown >
+	attributes: Record< string, unknown >,
+	parentIndex = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: SET_BLOCK_ATTRIBUTES,
 		blockId,
 		attributes,
+		parentIndex,
 	};
 };
 
 /**
  * Reorder form blocks
  *
- * @param {number} sourceIndex      Source index in the array
- * @param {number} destinationIndex Destination index in the array
+ * @param {number} sourceIndex       Source index in the array
+ * @param {number} destinationIndex  Destination index in the array
  *
+ * @param          sourceId
+ * @param          destinationId
+ * @param          parentSourceIndex
+ * @param          parentDestIndex
  * @return {BlockEditorActionTypes} Action object.
  */
 export const __experimentalReorderBlocks = (
 	sourceIndex: number,
-	destinationIndex: number
+	destinationIndex: number,
+	parentSourceIndex = undefined,
+	parentDestIndex = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: REORDER_BLOCKS,
 		sourceIndex,
 		destinationIndex,
+		parentSourceIndex,
+		parentDestIndex,
 	};
 };
 
@@ -70,16 +82,19 @@ export const __experimentalReorderBlocks = (
  * @param {FormBlock} block            Block object which holds the block definition
  * @param {number}    destinationIndex Destination object
  *
+ * @param             parent
  * @return {BlockEditorActionTypes} Action object.
  */
 export const __experimentalInsertBlock = (
 	block: FormBlock,
-	destinationIndex: number
+	destinationIndex: number,
+	parent = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: INSERT_BLOCK,
 		block,
 		destinationIndex,
+		parent,
 	};
 };
 
@@ -98,15 +113,36 @@ export const setCurrentBlock = ( blockId: string ): BlockEditorActionTypes => {
 };
 
 /**
- * Delete current block
+ * Set current block
  *
  * @param {string} blockId Block uuid
  *
  * @return {BlockEditorActionTypes} Action object.
  */
-export const deleteBlock = ( blockId: string ): BlockEditorActionTypes => {
+export const setCurrentChildBlock = (
+	blockId: string
+): BlockEditorActionTypes => {
+	return {
+		type: SET_CURRENT_CHILD_BLOCK,
+		blockId,
+	};
+};
+
+/**
+ * Delete current block
+ *
+ * @param {string} blockId     Block uuid
+ *
+ * @param          parentIndex
+ * @return {BlockEditorActionTypes} Action object.
+ */
+export const deleteBlock = (
+	blockId: string,
+	parentIndex = undefined
+): BlockEditorActionTypes => {
 	return {
 		type: DELETE_BLOCK,
 		blockId,
+		parentIndex,
 	};
 };

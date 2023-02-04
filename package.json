@@ -59,6 +59,7 @@
 		"@quillforms/blocklib-date-block": "file:packages/blocklib-date-block",
 		"@quillforms/blocklib-dropdown-block": "file:packages/blocklib-dropdown-block",
 		"@quillforms/blocklib-email-block": "file:packages/blocklib-email-block",
+		"@quillforms/blocklib-group-block": "file:packages/blocklib-group-block",
 		"@quillforms/blocklib-long-text-block": "file:packages/blocklib-long-text-block",
 		"@quillforms/blocklib-multiple-choice-block": "file:packages/blocklib-multiple-choice-block",
 		"@quillforms/blocklib-number-block": "file:packages/blocklib-number-block",

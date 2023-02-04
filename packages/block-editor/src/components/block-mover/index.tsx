@@ -16,6 +16,7 @@ interface Props {
 	handleProps: DraggableProvidedDragHandleProps | undefined;
 }
 const BlockMover: React.FC< Props > = ( { blockType, id, handleProps } ) => {
+	//console.log( 'Dfdff' );
 	const { blockOrder } = useSelect( ( select ) => {
 		return {
 			blockOrder: select( 'quillForms/block-editor' ).getBlockOrderById(
@@ -23,6 +24,8 @@ const BlockMover: React.FC< Props > = ( { blockType, id, handleProps } ) => {
 			),
 		};
 	} );
+
+	//console.log( blockOrder );
 
 	return (
 		<div className="block-editor-block-mover" { ...handleProps }>

@@ -27,7 +27,7 @@ import ControlsIcon from './controls-icon';
 
 // import { EmojiPicker } from '@quillforms/admin-components';
 
-const BlockToolbar = ( { id, editor } ) => {
+const BlockToolbar = ( { id, index, editor, parentId, parentIndex } ) => {
 	const [ showBlockControls, setShowBlockControls ] = useState( false );
 	// // Insert Emoji
 	// const insertEmoji = ( emoji ) => {
@@ -66,7 +66,12 @@ const BlockToolbar = ( { id, editor } ) => {
 
 			{ /* <EmojiPicker emojiSelect={ ( emoji ) => insertEmoji( emoji ) } /> */ }
 
-			<BlockActions id={ id } />
+			<BlockActions
+				id={ id }
+				index={ index }
+				parentIndex={ parentIndex }
+				parentId={ parentId }
+			/>
 			{ showBlockControls && (
 				<Modal
 					overlayClassName={ 'qf-custom-modal' }
@@ -98,7 +103,7 @@ const BlockToolbar = ( { id, editor } ) => {
 						setShowBlockControls( false );
 					} }
 				>
-					<BlockControls />
+					<BlockControls parentIndex={ parentIndex } />
 				</Modal>
 			) }
 		</div>

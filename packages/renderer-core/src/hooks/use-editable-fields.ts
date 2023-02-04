@@ -7,14 +7,19 @@ import { useSelect } from '@wordpress/data';
  * Internal Dependencies
  */
 import useBlocks from './use-blocks';
+import useFlattenedBlocks from './use-flattened-blocks';
 
-const useEditableFields = () => {
+const useEditableFields = ( flatten = false ) => {
 	const { blockTypes } = useSelect( ( select ) => {
 		return {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
-	const formBlocks = useBlocks();
+	let formBlocks = useBlocks();
+	const flattenedBlocks = useFlattenedBlocks();
+	if ( flatten ) {
+		formBlocks = Object.values( flattenedBlocks );
+	}
 
 	const editableFields = formBlocks.filter( ( block ) => {
 		const blockType = blockTypes[ block.name ];

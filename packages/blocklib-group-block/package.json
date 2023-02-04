@@ -1,44 +1,34 @@
 {
-	"name": "@quillforms/renderer-core",
+	"name": "@quillforms/blocklib-group-block",
 	"version": "3.0.1",
-	"description": "",
+	"description": "Group block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
-		"renderer",
-		"core"
+		"group",
+		"block"
 	],
-	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/renderer-core/README.md",
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocklib-group-block/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/quillforms/quillforms.git",
-		"directory": "packages/renderer-core"
+		"directory": "packages/blocklib-group-block"
 	},
 	"bugs": {
 		"url": "https://github.com/quillforms/quillforms/issues"
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
-	"types": "build-types",
+	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
+		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/blocks": "file:../blocks",
-		"@quillforms/config": "file:../config",
-		"@quillforms/payment-gateways": "file:../payment-gateways",
-		"@quillforms/utils": "file:../utils",
-		"@wordpress/autop": "^3.23.0",
-		"@wordpress/data": "^8.2.0",
-		"@wordpress/element": "^5.0.0",
-		"@wordpress/hooks": "^3.8.0",
+		"@quillforms/renderer-core": "file:../renderer-core",
 		"classnames": "^2.3.1",
+		"email-validator": "^2.0.4",
 		"emotion": "10.0.27",
-		"html-react-parser": "^1.4.12",
-		"lethargy": "^1.0.9",
-		"lodash": "4.17.21",
-		"react-loader-spinner": "^5.1.7-beta.1",
-		"react-swipeable": "^6.1.2",
-		"rememo": "^4.0.2",
 		"tinycolor2": "^1.4.2"
 	},
 	"peerDependencies": {
@@ -47,5 +37,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "a9dcd96dd59a8774ddfb52838ac1a88ab3dae142"
 }

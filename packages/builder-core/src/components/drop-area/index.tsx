@@ -25,7 +25,7 @@ const BlockDragIndexLine = () => {
 };
 
 const DropArea = ( props ) => {
-	const { areaToShow, currentPanel, targetIndex, isDragging } = props;
+	const { areaToShow, targetIndex, isDragging } = props;
 	const { formBlocks } = useSelect( ( select ) => {
 		return {
 			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
@@ -40,6 +40,7 @@ const DropArea = ( props ) => {
 			} }
 		>
 			<Droppable
+				type="main"
 				droppableId="DROP_AREA"
 				renderClone={ ( provided, _snapshot, rubric ) => {
 					const item = formBlocks[ rubric.source.index ];
@@ -83,11 +84,15 @@ const DropArea = ( props ) => {
 											{ index === targetIndex && (
 												<BlockDragIndexLine />
 											) }
-											<BlockListItem
-												index={ index }
-												id={ item.id }
-												name={ item.name }
-											/>
+											<div
+												id={ `block-editor-block-${ item.id }` }
+											>
+												<BlockListItem
+													index={ index }
+													id={ item.id }
+													name={ item.name }
+												/>
+											</div>
 										</Fragment>
 									);
 								} ) }

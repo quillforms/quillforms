@@ -31,6 +31,7 @@ export type FormBlock = {
 	id: string;
 	name: string;
 	attributes?: BlockAttributes;
+	innerBlocks?: FormBlock[];
 };
 
 export type FormBlocks = FormBlock[];

@@ -1,0 +1,14 @@
+{
+	"name": "group",
+	"supports": {
+		"innerBlocks": true,
+		"editable": false,
+		"required": false,
+		"attachment": false,
+		"description": true,
+		"logic": true,
+		"logicConditions": false,
+		"theme": true
+	},
+	"attributes": {}
+}

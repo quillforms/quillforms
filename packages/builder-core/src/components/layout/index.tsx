@@ -120,77 +120,84 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		const { source, destination } = result;
 
 		// dropped outside the list or source and destination are the same
-		if (
-			! destination ||
-			( source.index === destination.index &&
-				source.droppableId === 'DROP_AREA' )
-		) {
+		if ( ! destination || source.index === destination.index ) {
 			return;
 		}
 
-		switch ( source.droppableId ) {
-			case destination.droppableId:
-				if ( destination.droppableId === 'BLOCKS_LIST' ) {
-					return;
-				}
-				let dragAlerts: string[] = [];
-				if (
-					hasIncorrectFieldMergeTags(
-						source.index,
-						destination.index
-					) ||
-					hasIncorrectFieldMergeTags(
-						destination.index,
-						source.index
-					)
-				) {
-					dragAlerts.push(
-						// eslint-disable-next-line no-multi-str
-						'This block recalls information from previous fields.\
-						 This info will be lost if you proceed with this block movement.'
+		if ( source.droppableId && destination.droppableId ) {
+			let dragAlerts: string[] = [];
+			// if (
+			// 	hasIncorrectFieldMergeTags(
+			// 		source.index,
+			// 		destination.index
+			// 	) ||
+			// 	hasIncorrectFieldMergeTags(
+			// 		destination.index,
+			// 		source.index
+			// 	)
+			// ) {
+			// 	dragAlerts.push(
+			// 		// eslint-disable-next-line no-multi-str
+			// 		'This block recalls information from previous fields.\
+			// 		 This info will be lost if you proceed with this block movement.'
+			// 	);
+			// }
+			dragAlerts = dragAlerts.concat(
+				applyFilters(
+					'QuillForms.BuilderCore.BlockReorderAlerts',
+					[],
+					source.index,
+					destination.index
+				) as string[]
+			);
+			if ( dragAlerts.length > 0 ) {
+				confirmAlert( {
+					customUI: ( { onClose } ) => {
+						return (
+							<DragAlert
+								messages={ dragAlerts }
+								approve={ () => {
+									doAction(
+										'QuillForms.BuilderCore.BlockReorder',
+										source.index,
+										destination.index
+									);
+									__experimentalReorderBlocks(
+										source.index,
+										destination.index
+									);
+									onClose();
+								} }
+								reject={ () => {
+									onClose();
+								} }
+								closeModal={ onClose }
+							/>
+						);
+					},
+				} );
+			} else {
+				let parentSourceIndex;
+				let parentDestIndex;
+
+				if ( source.droppableId !== 'DROP_AREA' ) {
+					parentSourceIndex = source.droppableId.substr(
+						source.droppableId.lastIndexOf( '_' ) + 1
 					);
 				}
-				dragAlerts = dragAlerts.concat(
-					applyFilters(
-						'QuillForms.BuilderCore.BlockReorderAlerts',
-						[],
-						source.index,
-						destination.index
-					) as string[]
+
+				if ( destination.droppableId !== 'DROP_AREA' ) {
+					parentDestIndex = destination.droppableId.substr(
+						destination.droppableId.lastIndexOf( '_' ) + 1
+					);
+				}
+				__experimentalReorderBlocks(
+					source.index,
+					destination.index,
+					parentSourceIndex,
+					parentDestIndex
 				);
-				if ( dragAlerts.length > 0 ) {
-					confirmAlert( {
-						customUI: ( { onClose } ) => {
-							return (
-								<DragAlert
-									messages={ dragAlerts }
-									approve={ () => {
-										doAction(
-											'QuillForms.BuilderCore.BlockReorder',
-											source.index,
-											destination.index
-										);
-										__experimentalReorderBlocks(
-											source.index,
-											destination.index
-										);
-										onClose();
-									} }
-									reject={ () => {
-										onClose();
-									} }
-									closeModal={ onClose }
-								/>
-							);
-						},
-					} );
-				} else {
-					__experimentalReorderBlocks(
-						source.index,
-						destination.index
-					);
-				}
-				break;
+			}
 		}
 	};
 
@@ -230,9 +237,20 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		if ( formBlocks?.length > 0 ) {
 			setCurrentBlock( formBlocks[ 0 ].id );
 			formBlocks.forEach( ( block ) => {
-				const blockType = blockTypes[ block.name ];
+				let blockType = blockTypes[ block.name ];
 				if ( blockType.supports.editable )
 					insertEmptyFieldAnswer( block.id, block.name );
+
+				if ( blockType.supports.innerBlocks ) {
+					block?.innerBlocks.forEach( ( childBlock ) => {
+						blockType = blockTypes[ childBlock.name ];
+						if ( blockType.supports.editable )
+							insertEmptyFieldAnswer(
+								childBlock.id,
+								childBlock.name
+							);
+					} );
+				}
 			} );
 		}
 	}, [] );

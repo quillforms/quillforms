@@ -19,18 +19,26 @@ import DeleteAlert from '../delete-alert';
 
 interface Props {
 	id: string;
+	index: number;
+	parentIndex?: number;
+	parentId?: string;
 }
-const BlockActions: React.FC< Props > = ( { id } ) => {
+const BlockActions: React.FC< Props > = ( {
+	id,
+	index,
+	parentId,
+	parentIndex,
+} ) => {
 	const { deleteBlock, __experimentalInsertBlock } = useDispatch(
 		'quillForms/block-editor'
 	);
 
-	const { block, currentBlockIndex } = useSelect( ( select ) => {
+	const { block } = useSelect( ( select ) => {
 		return {
-			block: select( 'quillForms/block-editor' ).getBlockById( id ),
-			currentBlockIndex: select(
-				'quillForms/block-editor'
-			).getCurrentBlockIndex(),
+			block: select( 'quillForms/block-editor' ).getBlockById(
+				id,
+				parentIndex
+			),
 		};
 	} );
 
@@ -59,7 +67,7 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 								'QuillForms.BlockEditor.BlockDelete',
 								id
 							);
-							deleteBlock( id );
+							deleteBlock( id, parentIndex );
 							onClose();
 						} }
 						reject={ () => {
@@ -98,7 +106,8 @@ const BlockActions: React.FC< Props > = ( { id } ) => {
 											.toString( 36 )
 											.substr( 2, 9 ),
 									},
-									currentBlockIndex + 1
+									index + 1,
+									parentId
 								);
 							} }
 						>

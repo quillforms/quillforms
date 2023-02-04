@@ -45,24 +45,38 @@ interface Props {
 	id: string;
 	index: number;
 	name: string;
+	parentId?: string;
+	parentIndex?: number;
 }
 
-const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
+const BlockListItem: React.FC< Props > = ( {
+	id,
+	index,
+	name,
+	parentId,
+	parentIndex,
+} ) => {
 	const [ ref, inView ] = useInView( {
 		/* Optional options */
 		threshold: 0,
 	} );
 	const { isSelected, block, blockType } = useSelect( ( select ) => {
 		return {
-			block: select( 'quillForms/block-editor' ).getBlockById( id ),
+			block: select( 'quillForms/block-editor' ).getBlockById(
+				id,
+				parentIndex
+			),
 			blockType: select( 'quillForms/blocks' ).getBlockType( name ),
-			isSelected:
-				select( 'quillForms/block-editor' ).getCurrentBlockId() === id,
+			isSelected: ! parentId
+				? select( 'quillForms/block-editor' ).getCurrentBlockId() === id
+				: select(
+						'quillForms/block-editor'
+				  ).getCurrentChildBlockId() === id,
 		};
 	} );
 
 	if ( ! block || ! blockType ) return null;
-	const { attributes } = block;
+	const { attributes, innerBlocks } = block;
 
 	const label = attributes?.label ? attributes.label : '';
 	const description = attributes?.label ? attributes.description : '';
@@ -134,7 +148,11 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 						index={ index }
 					>
 						{ ( provided, _snapshot ) => (
-							<BoxWrapper id={ id }>
+							<BoxWrapper
+								id={ id }
+								parentId={ parentId }
+								isSelected={ isSelected }
+							>
 								<div className="block-editor-block-edit-box__content-wrapper">
 									<div
 										className="block-editor-block-edit-box__content"
@@ -157,12 +175,21 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 												/>
 												<BlockEditor
 													isSelected={ isSelected }
+													name={ name }
 													attributes={ attributes }
 													focusedEl={ focusedEl }
 													setFocusedEl={ ( val ) =>
 														setFocusedEl( val )
 													}
+													isContainer={
+														blockType?.supports
+															?.innerBlocks
+													}
+													parentIndex={ parentIndex }
+													parentId={ parentId }
+													innerBlocks={ innerBlocks }
 													id={ id }
+													index={ index }
 													blockColor={
 														blockType?.color
 													}
@@ -185,6 +212,7 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 													destinationIndex={
 														index + 1
 													}
+													parent={ parentId }
 													color="secodary"
 												/>
 											</Fragment>
@@ -205,6 +233,6 @@ const BlockListItem: React.FC< Props > = memo( ( { id, index, name } ) => {
 			</div>
 		</AsyncModeProvider>
 	);
-} );
+};
 
 export default BlockListItem;

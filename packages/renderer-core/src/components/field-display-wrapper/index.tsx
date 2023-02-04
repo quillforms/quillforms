@@ -39,6 +39,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		attributes,
 		showNextBtn,
 		showErrMsg,
+		innerBlocks,
 	} = __experimentalUseFieldRenderContext();
 	const theme = useBlockTheme( attributes?.themeId );
 
@@ -159,6 +160,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		attributes,
 		isValid,
 		isPending,
+		innerBlocks,
 		val: answerValue,
 		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),

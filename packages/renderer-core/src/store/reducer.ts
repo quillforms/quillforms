@@ -319,7 +319,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		}
 
 		case GO_TO_BLOCK: {
-			const { id } = action;
+			let { id } = action;
 			if ( currentBlockId === id ) return state;
 			const isTheBlockWelcomeScreenBlock = state.welcomeScreens.some(
 				( screen ) => screen.id === id
@@ -345,22 +345,42 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					isThankyouScreenActive: isTheBlockThankyouScreenBlock,
 				};
 			}
-			const isTheBlockFieldBlock = state.walkPath.some(
+			let fieldIndex = state.walkPath.findIndex(
 				( field ) => field.id === id
 			);
 
-			// If invalid block
+			// If invalid parent block, try to search for inner blocks.
 			if (
-				! isTheBlockFieldBlock &&
+				fieldIndex === -1 &&
 				! isTheBlockWelcomeScreenBlock &&
 				! isTheBlockThankyouScreenBlock
 			) {
-				return state;
+				const groupBlocks = state.walkPath.filter(
+					( field ) => field.name === 'group'
+				);
+
+				let parentId;
+				forEach( groupBlocks, ( groupBlock ) => {
+					if ( groupBlock.innerBlocks ) {
+						const childIndex = groupBlock.innerBlocks.findIndex(
+							( childBlock ) => childBlock.id === id
+						);
+
+						if ( childIndex !== -1 ) {
+							parentId = groupBlock.id;
+						}
+					}
+				} );
+
+				if ( ! parentId ) {
+					return state;
+				}
+				id = parentId;
+				fieldIndex = state.walkPath.findIndex(
+					( field ) => field.id === id
+				);
 			}
 
-			const fieldIndex = walkPath.findIndex(
-				( field ) => field.id === id
-			);
 			return {
 				...state,
 				currentBlockId: id,
@@ -512,6 +532,7 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		// SET FIELD ANSWER
 		case SET_FIELD_ANSWER: {
 			const { id, val } = action;
+			console.log( state, action );
 			// If the field id is incorrect or the value passed is the same value, return same state.
 			if ( val === state[ id ]?.value ) {
 				return state;

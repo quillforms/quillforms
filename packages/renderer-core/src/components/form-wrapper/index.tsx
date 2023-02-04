@@ -24,7 +24,7 @@ interface Props {
 }
 const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const [ isMounted, setIsMounted ] = useState( false );
-	const editableFields = useEditableFields();
+	const editableFields = useEditableFields( true );
 	const blocks = useBlocks();
 	const { isPreview } = useFormContext();
 	const { setSwiper, insertEmptyFieldAnswer, goToBlock, setPaymentData } =

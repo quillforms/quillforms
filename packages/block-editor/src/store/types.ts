@@ -6,6 +6,7 @@ import {
 	INSERT_BLOCK,
 	DELETE_BLOCK,
 	SET_CURRENT_BLOCK,
+	SET_CURRENT_CHILD_BLOCK,
 	REORDER_BLOCKS,
 } from './constants';
 
@@ -19,6 +20,7 @@ export type BlocksCache = {
 export type BlockEditorPureState = {
 	blocks: FormBlocks;
 	currentBlockId: string | undefined;
+	currentChildBlockId: string | undefined;
 };
 export interface BlockEditorState extends BlockEditorPureState {
 	cache?: BlocksCache;
@@ -40,12 +42,15 @@ interface setBlockAttributesAction {
 	type: typeof SET_BLOCK_ATTRIBUTES;
 	attributes: Record< string, unknown >;
 	blockId: string;
+	parentIndex?: number;
 }
 
 interface __experimentalReorderBlocksAction {
 	type: typeof REORDER_BLOCKS;
 	sourceIndex: number;
 	destinationIndex: number;
+	parentSourceIndex?: string;
+	parentDestIndex?: string;
 }
 
 export type DraggedBlockDestination = {
@@ -56,6 +61,7 @@ interface __experimentalInsertBlockAction {
 	type: typeof INSERT_BLOCK;
 	block: FormBlock;
 	destinationIndex: number;
+	parent?: string;
 }
 
 interface setCurrentBlockAction {
@@ -63,9 +69,15 @@ interface setCurrentBlockAction {
 	blockId: string;
 }
 
+interface setCurrentChildBlockAction {
+	type: typeof SET_CURRENT_CHILD_BLOCK;
+	blockId: string;
+}
+
 interface deleteBlockAction {
 	type: typeof DELETE_BLOCK;
 	blockId: string;
+	parentIndex?: number;
 }
 
 export type BlockEditorActionTypes =
@@ -74,5 +86,6 @@ export type BlockEditorActionTypes =
 	| __experimentalReorderBlocksAction
 	| __experimentalInsertBlockAction
 	| setCurrentBlockAction
+	| setCurrentChildBlockAction
 	| deleteBlockAction
 	| ReturnType< () => { type: 'NOOP' } >;

@@ -3,30 +3,40 @@
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 
+/**
+ * External Dependencies
+ */
+import classnames from 'classnames';
 interface Props {
 	id: string;
+	parentId?: string;
+	isSelected: boolean;
 }
-const BoxWrapper: React.FC< Props > = ( { id, children } ) => {
-	const { currentBlockId } = useSelect( ( select ) => {
-		return {
-			currentBlockId: select(
-				'quillForms/block-editor'
-			).getCurrentBlockId(),
-		};
-	} );
-
-	const { setCurrentBlock } = useDispatch( 'quillForms/block-editor' );
+const BoxWrapper: React.FC< Props > = ( {
+	id,
+	parentId,
+	children,
+	isSelected,
+} ) => {
+	const { setCurrentBlock, setCurrentChildBlock } = useDispatch(
+		'quillForms/block-editor'
+	);
 	return (
 		<div
 			role="presentation"
-			onClick={ () => {
-				setCurrentBlock( id );
+			onClick={ ( e ) => {
+				e.stopPropagation();
+				if ( parentId ) {
+					setCurrentBlock( parentId );
+					setCurrentChildBlock( id );
+				} else {
+					setCurrentBlock( id );
+				}
 			} }
 			id={ `block-editor-box-wrapper-${ id }` }
-			className={
-				'block-editor-box-wrapper' +
-				( id === currentBlockId ? ' isSelected' : '' )
-			}
+			className={ classnames( 'block-editor-box-wrapper', {
+				isSelected,
+			} ) }
 		>
 			{ children }
 		</div>

@@ -18,11 +18,14 @@ import BlockTypesList from '../block-types-list';
 interface Props {
 	destinationIndex: number;
 	color: string;
+	parent?: string;
 }
 const BlockTypesListDropdown: React.FC< Props > = ( {
 	destinationIndex,
 	color = 'primary',
+	parent,
 } ) => {
+	//console.log( parent );
 	return (
 		<Dropdown
 			position="bottom right"
@@ -76,7 +79,10 @@ const BlockTypesListDropdown: React.FC< Props > = ( {
 						Choose a question type
 					</p>
 
-					<BlockTypesList destinationIndex={ destinationIndex } />
+					<BlockTypesList
+						parent={ parent }
+						destinationIndex={ destinationIndex }
+					/>
 				</>
 			) }
 		/>

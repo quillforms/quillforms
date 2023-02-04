@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { omit, cloneDeep, map } from 'lodash';
+import { omit, cloneDeep, identity, forEach, size, remove } from 'lodash';
 import type { Reducer } from 'redux';
 
 /**
@@ -14,6 +14,7 @@ import {
 	REORDER_BLOCKS,
 	DELETE_BLOCK,
 	SET_CURRENT_BLOCK,
+	SET_CURRENT_CHILD_BLOCK,
 	SETUP_STORE,
 } from './constants';
 import type {
@@ -21,7 +22,7 @@ import type {
 	BlockEditorState,
 	BlockEditorPureState,
 } from './types';
-import type { FormBlocks } from '@quillforms/types';
+import type { FormBlocks, FormBlock } from '@quillforms/types';
 
 /**
  * Sort blocks. We should have welcome screens at first then others then thankyou screens.
@@ -54,6 +55,7 @@ function sortBlocks( blocks: FormBlocks ): FormBlocks {
 // Initial State
 const initialState: BlockEditorPureState = {
 	currentBlockId: undefined,
+	currentChildBlockId: undefined,
 	blocks: [],
 };
 
@@ -73,92 +75,43 @@ const fillKeysWithEmptyObject = (
 };
 
 /**
+ * Helper method to iterate through all blocks, recursing into inner blocks,
+ * applying a transformation function to each one.
+ * Returns a flattened object with the transformed blocks.
  *
-/**
- * Higher-order reducer intended to compute a cache key for each block in the post.
- * A new instance of the cache key (empty object) is created each time the block object
- * needs to be refreshed (for any change in the block or its children).
+ * @param {FormBlocks} blocks    Blocks to flatten.
  *
- * @param {Function} reducer Original reducer function.
- *
- * @return {Function} Enhanced reducer function.
+ * @param              transform
+ * @return {Array} Flattened object.
  */
-const withBlockCache =
-	< T extends Reducer >(
-		reducer: T
-	): Reducer< BlockEditorState, BlockEditorActionTypes > =>
-	( state = initialState, action ): BlockEditorState => {
-		const newState: BlockEditorState = reducer( state, action );
+export function flattenBlocks(
+	blocks: FormBlocks,
+	transform = identity
+): FormBlocks {
+	const result = [];
 
-		if ( newState === state ) {
-			return state;
+	const stack = [ ...blocks ];
+	while ( stack.length ) {
+		const { innerBlocks, ...block } = stack.shift();
+		if ( innerBlocks ) {
+			forEach( innerBlocks, ( $block, index ) => {
+				innerBlocks[ index ] = {
+					...$block,
+					parentId: block.id,
+				};
+			} );
+			stack.push( ...innerBlocks );
 		}
-		newState.cache = state.cache ? state.cache : {};
+		result[ block.id ] = transform( block );
+	}
 
-		switch ( action.type ) {
-			case SETUP_STORE: {
-				if ( action?.initialPayload?.length ) {
-					const blockIds = map(
-						action.initialPayload,
-						( block ) => block.id
-					);
-					newState.cache = {
-						...fillKeysWithEmptyObject( blockIds ),
-					};
-				}
-				break;
-			}
-			case INSERT_BLOCK: {
-				const updatedBlockIds: string[] = [];
-				if ( action?.block?.id ) {
-					updatedBlockIds.push( action.block.id );
-				}
-				newState.cache = {
-					...newState.cache,
-					...fillKeysWithEmptyObject( updatedBlockIds ),
-				};
-				break;
-			}
-
-			case DELETE_BLOCK: {
-				newState.cache = {
-					...omit( state.cache, action.blockId ),
-				};
-				break;
-			}
-			case SET_BLOCK_ATTRIBUTES:
-				newState.cache = {
-					...newState.cache,
-					...fillKeysWithEmptyObject( [ action.blockId ] ),
-				};
-				break;
-
-			case REORDER_BLOCKS: {
-				const updatedBlockUids: string[] = [];
-				if ( action.sourceIndex ) {
-					updatedBlockUids.push(
-						state.blocks[ action.sourceIndex ].id
-					);
-				}
-				if ( action.destinationIndex ) {
-					updatedBlockUids.push(
-						state.blocks[ action.destinationIndex ].id
-					);
-				}
-				newState.cache = {
-					...newState.cache,
-					...fillKeysWithEmptyObject( updatedBlockUids ),
-				};
-				break;
-			}
-		}
-		return newState;
-	};
+	return result;
+}
 
 /**
  * Reducer returning the form object.
  *
- * @param {	BlockEditorPureState} state  Current state.
+ * @param {	BlockEditorPureState}  state  Current state.
  * @param {BlockEditorActionTypes} action Dispatched action.
  *
  * @return {BlockEditorPureState} Updated state.
@@ -175,6 +128,7 @@ const BlockEditorReducer: Reducer<
 				return {
 					blocks: initialPayload,
 					currentBlockId: initialPayload[ 0 ].id,
+					currentChildBlockId: undefined,
 				};
 			}
 			return {
@@ -185,10 +139,18 @@ const BlockEditorReducer: Reducer<
 
 		// SET BLOCK ATTRIBUTES
 		case SET_BLOCK_ATTRIBUTES: {
-			const { blockId, attributes } = action;
+			console.log( action );
+			const { blockId, attributes, parentIndex } = action;
 
 			// Get block index within its category.
-			const blockIndex = state.blocks.findIndex( ( block ) => {
+			let $blocks = [ ...state.blocks ] as FormBlocks | undefined;
+			if ( typeof parentIndex !== 'undefined' ) {
+				$blocks = [ ...state.blocks ][ parentIndex ]?.innerBlocks;
+			}
+			if ( ! $blocks ) {
+				return state;
+			}
+			const blockIndex = $blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
 
@@ -213,89 +175,149 @@ const BlockEditorReducer: Reducer<
 			// 	},
 			// 	state.blocks[ blockIndex ].attributes
 			// );
-
 			const nextAttributes = {
-				...cloneDeep( state.blocks[ blockIndex ].attributes ),
+				...cloneDeep( $blocks[ blockIndex ].attributes ),
 				...cloneDeep( attributes ),
 			};
-
 			// // Skip update if nothing has been changed. The reference will
 			// // match the original block if `reduce` had no changed values.
 			// if ( nextAttributes === state.blocks[ blockIndex ].attributes ) {
 			// 	return state;
 			// }
+			$blocks[ blockIndex ].attributes = nextAttributes;
 
-			// Otherwise replace attributes in state
 			const blocks = [ ...state.blocks ];
-			blocks[ blockIndex ] = {
-				...blocks[ blockIndex ],
-				attributes: { ...nextAttributes },
-			};
+			if ( typeof parentIndex !== 'undefined' ) {
+				blocks[ parentIndex ].innerBlocks = $blocks;
+				$blocks = blocks;
+			}
 			return {
 				...state,
-				blocks,
+				blocks: $blocks,
 			};
 		}
 
 		// REORDER FORM BLOCKS
 		case REORDER_BLOCKS: {
-			const { sourceIndex, destinationIndex } = action;
-
+			const {
+				sourceIndex,
+				destinationIndex,
+				parentSourceIndex,
+				parentDestIndex,
+			} = action;
 			const blocks = [ ...state.blocks ];
 			const result = Array.from( blocks );
-			const [ removed ] = result.splice( sourceIndex, 1 );
-			result.splice( destinationIndex, 0, removed );
-			return {
+			let sourceBlock;
+
+			if ( typeof parentSourceIndex === 'undefined' ) {
+				sourceBlock = blocks[ sourceIndex ];
+				result.splice( sourceIndex, 1 );
+			} else {
+				const innerBlocks = blocks[ parentSourceIndex ].innerBlocks;
+				sourceBlock =
+					blocks[ parentSourceIndex ].innerBlocks[ sourceIndex ];
+				innerBlocks.splice( sourceIndex, 1 );
+				result[ parentSourceIndex ].innerBlocks = innerBlocks;
+			}
+
+			if (
+				typeof parentDestIndex === 'undefined' ||
+				sourceBlock.name === 'group'
+			) {
+				result.splice( destinationIndex, 0, sourceBlock );
+			} else {
+				const innerBlocks = blocks[ parentDestIndex ].innerBlocks;
+				innerBlocks.splice( destinationIndex, 0, sourceBlock );
+				result[ parentDestIndex ].innerBlocks = innerBlocks;
+			}
+			const newState = {
 				...state,
 				blocks: sortBlocks( result ),
 			};
+			return newState;
 		}
 
 		// INSERT NEW FORM BLOCK
 		case INSERT_BLOCK: {
-			const { block, destinationIndex } = action;
+			const { block, destinationIndex, parent } = action;
 			const blocks = [ ...state.blocks ];
 			const index = destinationIndex;
+			let parentBlock = undefined as FormBlock | undefined;
 
 			if ( index === undefined || index < 0 ) {
 				return state;
 			}
-			blocks.splice( index, 0, {
-				...block,
-			} );
+			if ( ! parent ) {
+				blocks.splice( index, 0, {
+					...block,
+				} );
+			} else {
+				const parentIndex = blocks.findIndex(
+					( $block ) => $block.id === parent
+				);
+				parentBlock = blocks[ parentIndex ];
+				if ( ! blocks[ parentIndex ].innerBlocks ) {
+					blocks[ parentIndex ].innerBlocks = [];
+				}
+				blocks[ parentIndex ]?.innerBlocks?.splice( index, 0, {
+					...block,
+				} );
+			}
 			return {
 				blocks: sortBlocks( blocks ),
-				currentBlockId: block.id,
+				currentBlockId: parentBlock ? parentBlock.id : block.id,
+				currentChildBlockId: parentBlock ? block.id : undefined,
 			};
 		}
 
 		// DELETE FORM BLOCK
 		case DELETE_BLOCK: {
-			const { blockId } = action;
-
+			const { blockId, parentIndex } = action;
+			const originalBlocks = [ ...state.blocks ];
+			let blocks = originalBlocks;
+			if ( typeof parentIndex !== 'undefined' ) {
+				blocks = blocks[ parentIndex ].innerBlocks;
+			}
 			// Get block index.
-			const blockIndex = state.blocks.findIndex(
+			const blockIndex = blocks.findIndex(
 				( item ) => item.id === blockId
 			);
 			// If block isn't found.
 			if ( blockIndex === -1 ) {
 				return state;
 			}
-			const blocks = [ ...state.blocks ];
 
 			const nextBlock = blocks[ blockIndex + 1 ];
 			const prevBlock = blocks[ blockIndex - 1 ];
 			blocks.splice( blockIndex, 1 );
-			const currentBlockId = nextBlock
+			const newCurrentBlockId = nextBlock
 				? nextBlock.id
 				: prevBlock
 				? prevBlock.id
 				: undefined;
-			return {
+
+			if ( typeof parentIndex !== 'undefined' ) {
+				const $blocks = originalBlocks;
+				$blocks[ parentIndex ].innerBlocks = blocks;
+
+				blocks = $blocks;
+			}
+
+			//console.log( blocks );
+			const newState = {
 				...state,
-				currentBlockId,
+				currentBlockId:
+					typeof parentIndex === 'undefined'
+						? newCurrentBlockId
+						: state.currentBlockId,
+				currentChildBlockId:
+					typeof parentIndex === 'undefined'
+						? undefined
+						: newCurrentBlockId,
 				blocks,
 			};
+			//console.log( newState );
+			return newState;
 		}
 
 		// SET CURRENT BLOCK
@@ -305,19 +327,50 @@ const BlockEditorReducer: Reducer<
 				( item ) => item.id === blockId
 			);
 			// If block isn't found.
-			if ( blockIndex === -1 || blockId === state.currentBlockId ) {
+			if ( blockIndex === -1 ) {
 				return state;
 			}
 			return {
 				...state,
 				currentBlockId: blockId,
+				currentChildBlockId: undefined,
+			};
+		}
+
+		// SET CURRENT CHILD BLOCK
+		case SET_CURRENT_CHILD_BLOCK: {
+			const { blockId } = action;
+			// const parentblockIndex = state.blocks.findIndex(
+			// 	( item ) => item.id === state.currentBlockId
+			// );
+			// // If block isn't found.
+			// if (
+			// 	parentblockIndex === -1 ||
+			// 	typeof parentblockIndex === 'undefined' ||
+			// 	state.blocks.length === 0 ||
+			// 	! state.blocks[ parentblockIndex ]
+			// ) {
+			// 	return state;
+			// }
+			// const childBlockIndex = state.blocks[
+			// 	parentblockIndex
+			// ]?.innerBlocks?.findIndex(
+			// 	( item ) => item.id === state.currentBlockId
+			// );
+
+			// if ( childBlockIndex === -1 ) {
+			// 	return state;
+			// }
+			return {
+				...state,
+				currentChildBlockId: blockId,
 			};
 		}
 	}
 	return state;
 };
 
-const BlockEditorReducerWithHigherOrder = withBlockCache( BlockEditorReducer );
+const BlockEditorReducerWithHigherOrder = BlockEditorReducer;
 
 export type State = ReturnType< typeof BlockEditorReducerWithHigherOrder >;
 

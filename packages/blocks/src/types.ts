@@ -46,6 +46,8 @@ export interface BlockRendererSettings {
 	): boolean;
 }
 export type BlockSupportedFeatures = {
+	innerBlocks?: boolean;
+	controls?: boolean;
 	attachment?: boolean;
 	description?: boolean;
 	editable?: boolean;

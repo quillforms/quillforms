@@ -9,10 +9,6 @@ const useProgressPerecent = () => {
 			answered: select(
 				'quillForms/renderer-core'
 			).getAnsweredFieldsLength(),
-			isAnimating: select( 'quillForms/renderer-core' ).isAnimating(),
-			totalQuestions: select(
-				'quillForms/renderer-core'
-			).getEditableFieldsInCurrentPath()?.length,
 		};
 	} );
 	const getPercent = () => {
