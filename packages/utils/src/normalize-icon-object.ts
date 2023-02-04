@@ -6,7 +6,7 @@ import type { IconDescriptor, IconRenderer, Icon } from '@quillforms/types';
 /**
  * External dependencies
  */
-import { default as tinycolor, mostReadable } from 'tinycolor2';
+import tinycolor from 'tinycolor2';
 import { has } from 'lodash';
 
 /**
@@ -40,7 +40,7 @@ export function normalizeIconObject( icon: IconRenderer ): IconDescriptor {
 			...icon,
 			foreground: icon.foreground
 				? icon.foreground
-				: mostReadable( tinyBgColor, ICON_COLORS, {
+				: tinycolor.mostReadable( tinyBgColor, ICON_COLORS, {
 						includeFallbackColors: true,
 						level: 'AA',
 						size: 'large',
