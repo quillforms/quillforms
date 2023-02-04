@@ -52,7 +52,7 @@ const RunModal: React.FC< Props > = ( { id, name, close } ) => {
 				setEntries( res?.items );
 			} )
 			.catch( ( err ) => {
-				console.log( 'Error: ', err );
+				//console.log( 'Error: ', err );
 				setEntries( false );
 			} );
 	}, [] );
@@ -165,9 +165,9 @@ const RunModal: React.FC< Props > = ( { id, name, close } ) => {
 									]?.value ?? null;
 								const statusStyles = {};
 								if ( status === 'succeeded' ) {
-									statusStyles[ 'color' ] = '#36c3a9';
+									statusStyles.color = '#36c3a9';
 								} else if ( status === 'failed' ) {
-									statusStyles[ 'color' ] = '#d40000';
+									statusStyles.color = '#d40000';
 								}
 								return (
 									<div

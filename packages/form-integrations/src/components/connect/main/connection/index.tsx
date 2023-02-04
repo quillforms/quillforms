@@ -40,11 +40,14 @@ const Connection: React.FC< Props > = ( { id, run } ) => {
 		useConnectContext();
 	const connection = connections[ id ];
 	const main = useConnectMainContext();
-	const entriesAddon = ConfigApi.getStoreAddons()[ 'entries' ];
+	const entriesAddon = ConfigApi.getStoreAddons().entries;
 	// check if active & version is >= 1.4.0.
 	const isEntriesCompatible =
 		entriesAddon.is_active &&
-		parseInt( entriesAddon?.version?.split( '.' )?.[ 1 ] ?? '0', 10 ) >= 4;
+		( parseInt( entriesAddon?.version?.split( '.' )?.[ 1 ] ?? '0', 10 ) >=
+			4 ||
+			parseInt( entriesAddon?.version?.split( '.' )?.[ 0 ] ?? '0', 10 ) >=
+				2 );
 	const runable = main.connection.runable ?? true;
 
 	return (
