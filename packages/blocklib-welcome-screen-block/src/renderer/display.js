@@ -95,7 +95,14 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 							z-index: 6;
 							display: flex;
 							${ attributes.layout === 'stack' &&
-							`flex-direction: column;` }
+							`flex-direction: column;
+							.qf-welcome-screen-block__content-wrapper {
+
+								position: absolute;
+								top: 0;
+								right: 0;
+								left: 0;
+							}` }
 							justify-content: center;
 							width: 100%;
 							height: 100%;
@@ -119,11 +126,16 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 						// 	}
 						// }
 						.qf-welcome-screen-block__content-wrapper {
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
 							max-width: 700px;
 							padding: 30px 30px 20px;
 							word-wrap: break-word;
 							text-align: center;
-							margin: auto;
+							margin-right: auto;
+							margin-left: auto;
+							min-height: 100%;
 						}
 					`
 				) }
