@@ -254,8 +254,9 @@ class Form_Renderer {
 
 			$blocks = Core::get_blocks( $form_id );
 
+			$all_blocks = Core::get_blocks_recursively($blocks);
 			// Render styles for used blocks only.
-			foreach ( $blocks as $block ) {
+			foreach ( $all_blocks as $block ) {
 				$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['style'] ) ) {
 					$wp_styles->queue[] = $block_type->block_renderer_assets['style'];
@@ -263,7 +264,7 @@ class Form_Renderer {
 			}
 
 			// Render scripts for used blocks only.
-			foreach ( $blocks as $block ) {
+			foreach ( $all_blocks as $block ) {
 				$block_type = Blocks_Manager::instance()->get_registered( $block['name'] );
 				if ( ! empty( $block_type ) && ! empty( $block_type->block_renderer_assets['script'] ) ) {
 					$wp_scripts->queue[] = $block_type->block_renderer_assets['script'];

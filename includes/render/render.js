@@ -76,8 +76,9 @@
 												'quillForms/renderer-core'
 											)
 											.getWalkPath();
-										const firstFieldIndex =
-											walkPath.findIndex( function ( o ) {
+										const firstField = qf.rendererCore
+											.getBlocksRecursively( walkPath )
+											.find( function ( o ) {
 												return Object.keys(
 													res.data.fields
 												).includes( o.id );
@@ -86,12 +87,10 @@
 											.dispatch(
 												'quillForms/renderer-core'
 											)
-											.goToBlock(
-												walkPath[ firstFieldIndex ].id
-											);
+											.goToBlock( firstField.id );
 
 										// Get the first invalid field and go back to it.
-										if ( firstFieldIndex !== -1 ) {
+										if ( ! firstField ) {
 											setTimeout( function () {
 												wp.data
 													.dispatch(

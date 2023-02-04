@@ -478,7 +478,7 @@ class Store {
 				'name'           => esc_html__( 'reCAPTCHA', 'quillforms' ),
 				'description'    => esc_html__( 'Google reCAPTCHA protects your website from fraud and abuse.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-recaptcha/quillforms-recaptcha.php',
-				'plan'           => 'plus',
+				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',

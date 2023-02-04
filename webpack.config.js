@@ -40,6 +40,7 @@ const entryPoints = {};
 const quillFormsBlocklibPackagesNames = [
 	'date',
 	'dropdown',
+	'group',
 	'email',
 	'long-text',
 	'multiple-choice',
@@ -196,6 +197,7 @@ module.exports = {
 						__dirname,
 						'packages/blocklib-long-text-block'
 					),
+					path.resolve( __dirname, 'packages/blocklib-group-block' ),
 					path.resolve(
 						__dirname,
 						'packages/blocklib-multiple-choice-block'
@@ -272,6 +274,7 @@ module.exports = {
 						__dirname,
 						'packages/blocklib-long-text-block'
 					),
+					path.resolve( __dirname, 'packages/blocklib-group-block' ),
 					path.resolve(
 						__dirname,
 						'packages/blocklib-multiple-choice-block'
