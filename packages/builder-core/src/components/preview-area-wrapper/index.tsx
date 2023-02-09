@@ -41,6 +41,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 		logic,
 		hiddenFields,
 		settings,
+		customCSS,
 	} = useSelect( ( select ) => {
 		// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
 		const { hasFinishedResolution } = select( 'quillForms/theme-editor' );
@@ -59,10 +60,11 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 				'quillForms/hidden-fields-editor'
 			)?.getHiddenFields(),
 			settings: select( 'quillForms/settings-editor' ).getSettings(),
+			customCSS: select( 'quillForms/code-editor' ).getCustomCSS(),
 		};
 	} );
 
-	let $themesList = cloneDeep( themesList );
+	const $themesList = cloneDeep( themesList );
 	if ( themeId ) {
 		$themesList[
 			$themesList.findIndex( ( theme ) => theme.id === themeId )
@@ -71,7 +73,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 			...currentTheme,
 		};
 	}
-	let $hiddenFields = {};
+	const $hiddenFields = {};
 	if ( hiddenFields ) {
 		for ( const field of hiddenFields ) {
 			if ( $hiddenFields[ field.name ] === undefined ) {
@@ -187,6 +189,7 @@ const FormPreview: React.FC< Props > = ( { formId } ) => {
 												hiddenFields: $hiddenFields,
 												themesList: $themesList,
 												settings,
+												customCSS,
 											} }
 											applyLogic={ applyJumpLogic }
 											onSubmit={ completeForm }
