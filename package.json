@@ -70,6 +70,7 @@
 		"@quillforms/blocks": "file:packages/blocks",
 		"@quillforms/builder-core": "file:packages/builder-core",
 		"@quillforms/builder-panels": "file:packages/builder-panels",
+		"@quillforms/code-editor": "file:packages/code-editor",
 		"@quillforms/config": "file:packages/config",
 		"@quillforms/document-editor": "file:packages/document-editor",
 		"@quillforms/form-integrations": "file:packages/form-integrations",

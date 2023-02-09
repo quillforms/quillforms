@@ -228,6 +228,7 @@ class Form_Renderer {
 					'theme'      => Core::get_theme( $this->form_id ),
 					'themesList' => Form_Theme_Model::get_all_registered_themes(),
 					'settings'   => Core::get_form_settings( $this->form_id ),
+					'customCSS'  => get_post_meta( $this->form_id, 'customCSS', true ) ?? "",
 				),
 				$this->form_id
 			);
