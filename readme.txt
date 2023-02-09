@@ -1,4 +1,4 @@
- === Quill Forms | The Best Typeform Alternative | Create Conversational multi step Forms on WordPress ===
+ === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
 Stable tag: 2.0.0
@@ -12,7 +12,7 @@ A new revolution for WordPress forms and surveys that enables you to create form
 == Description ==
 https://www.youtube.com/watch?v=GjmLUTDIdFc
 
-A new revolution in WordPress forms and surveys with focus on UI/UX to generate more leads on your WordPress site.
+A new revolution in WordPress forms, surveys and quizzes with focus on UI/UX to generate more leads on your WordPress site.
 Quill Forms is more than just a form. You can build forms, surveys, quizzes and cost estimation forms easily with Quill Forms.
 
 === Demos ===
@@ -27,8 +27,9 @@ What’s more, QuillForms offers loads of hip features that make creating forms 
 ·  Humanize your conversation
 ·  Personalize your themes
 ·  Change font, colors and backgrounds with a single click
+.  Custom css to add your own css code
 
-If you are looking for Typeform WordPress plugin, then Quill Forms should be your choice without any doubt!
+If you are looking for conversational and interactive forms, surveys or quizzes, then Quill Forms should be your choice without any doubt!
 QuillForms free version comes with variety of blocks:
 1- Welcome screen block
 2- Date block
@@ -40,6 +41,13 @@ QuillForms free version comes with variety of blocks:
 8- Short text block
 9- Long text block
 10- Default thank you screen
+11- Group block to gather different questions at same page
+
+= How to get results in the free version? =
+
+By set up email notifications, you can get an email after each submission with the submission data. For
+
+
 
 
 = Features in Pro version =
@@ -132,6 +140,7 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 = 2.0.0  = 9 Feb 2023
 Feature: Introducing the group block to group questions at the same page.
+Feature: Add custom css feature to allow designers to add their own css.
 Fix: Fixing some issues related to validation.
 Fix: Fixing various CSS issues and improving some designs.
 
