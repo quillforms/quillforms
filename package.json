@@ -178,7 +178,7 @@
 		"husky": "7.0.0",
 		"inquirer": "7.1.0",
 		"jsdom": "16.7.0",
-		"lerna": "3.22.1",
+		"lerna": "6.4.1",
 		"lint-staged": "10.0.1",
 		"lodash": "4.17.21",
 		"make-dir": "3.0.0",
