@@ -34,8 +34,8 @@ const MultipleChoiceOutput = ( props ) => {
 	const { multiple, required } = attributes;
 	const messages = useMessages();
 	const [ choiceClicked, setChoiceClicked ] = useState( null );
-	const checkfieldValidation = () => {
-		if ( required === true && ( ! val || val.length === 0 ) ) {
+	const checkfieldValidation = ( $val ) => {
+		if ( required === true && ( ! $val || $val.length === 0 ) ) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.required' ] );
 		} else {
