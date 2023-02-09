@@ -13,7 +13,7 @@ import { select } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { forEach, map, findIndex, slice, pick } from 'lodash';
+import { forEach, map, findIndex, slice, pick, size } from 'lodash';
 import createSelector from 'rememo';
 
 /**
@@ -22,7 +22,7 @@ import createSelector from 'rememo';
 import type { FormBlockWithOrder, BlockOrder } from './types';
 import { flattenBlocks, State } from './reducer';
 /**
- * Returns all block objects.
+ * Returns form blocks objects.
  *
  * Note: it's important to memoize this selector to avoid return a new instance on each call. We use the block cache state
  * for each top-level block of the given block id. This way, the selector only refreshes
@@ -34,6 +34,31 @@ import { flattenBlocks, State } from './reducer';
  */
 export const getBlocks = ( state: State ): FormBlocks => {
 	return state.blocks;
+};
+
+/**
+ * Returns all form blocks including inner blocks.
+ *
+ *
+ * @param {State} state Editor state.
+ *
+ * @return {FormBlocks} Form blocks.
+ */
+export const getAllBlocks = ( state: State ): FormBlocks => {
+	const blocks = state.blocks;
+	const allBlocks: FormBlocks = [];
+	if ( size( blocks ) > 0 ) {
+		forEach( blocks, ( block ) => {
+			allBlocks.push( block );
+			if ( size( block?.innerBlocks ) > 0 ) {
+				forEach( block.innerBlocks, ( innerBlock ) => {
+					allBlocks.push( innerBlock );
+				} );
+			}
+		} );
+	}
+
+	return allBlocks;
 };
 
 /**
