@@ -30,12 +30,14 @@ import useBlocks from '../../hooks/use-blocks';
 import PaymentModal from '../payment-modal';
 import useCurrentTheme from '../../hooks/use-current-theme';
 import { forEach, size } from 'lodash';
+import { useFormContext } from '../../hooks';
 
 interface Props {
 	applyLogic: boolean;
 }
 const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const blocks = useBlocks();
+	const { formObj } = useFormContext();
 	const generalTheme = useGeneralTheme();
 	const currentTheme = useCurrentTheme();
 	const fonts = configApi.getFonts();
@@ -171,6 +173,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 					width: 100%;
 					-webkit-font-smoothing: antialiased;
 					${ backgroundImageCSS }
+					${ formObj?.customCSS }
 				`,
 				'renderer-core-form-flow__wrapper'
 			) }
