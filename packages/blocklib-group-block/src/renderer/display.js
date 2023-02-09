@@ -96,7 +96,7 @@ const GroupDisplay = ( { id, innerBlocks, isTouchScreen, ...props } ) => {
 				) {
 					setTimeout( () => {
 						props?.inputRef?.current?.focus();
-					}, 100 );
+					}, 0 );
 				}
 			}
 		}
@@ -134,20 +134,7 @@ const GroupDisplay = ( { id, innerBlocks, isTouchScreen, ...props } ) => {
 						showErrMsg: noop,
 					};
 
-					if (
-						[
-							'short-text',
-							'long-text',
-							'email',
-							'phone',
-							'dropdown',
-							'number',
-							'date',
-							'website',
-						].includes( block.name )
-					) {
-						refAssigned = true;
-					}
+					refAssigned = true;
 
 					return (
 						<div
