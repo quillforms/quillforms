@@ -28,6 +28,8 @@ const MultipleChoiceOutput = ( props ) => {
 		isActive,
 		isAnimating,
 		showErrMsg,
+		isPreview,
+		isReviewing,
 	} = props;
 	const { multiple, required } = attributes;
 	const messages = useMessages();
@@ -65,11 +67,10 @@ const MultipleChoiceOutput = ( props ) => {
 	}, [ choiceClicked ] );
 
 	useEffect( () => {
-		checkfieldValidation( val );
+		if ( isPreview || ! isReviewing ) checkfieldValidation( val );
 	}, [ attributes ] );
 
 	useEffect( () => {
-		checkfieldValidation( val );
 		if ( val?.length > 0 ) {
 			setIsAnswered( true );
 		} else {
@@ -88,6 +89,7 @@ const MultipleChoiceOutput = ( props ) => {
 				attributes={ attributes }
 				id={ id }
 				val={ val }
+				checkfieldValidation={ checkfieldValidation }
 				setVal={ setVal }
 				setChoiceClicked={ ( val ) => {
 					showErrMsg( false );

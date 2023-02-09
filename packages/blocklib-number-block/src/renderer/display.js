@@ -31,6 +31,8 @@ const NumberOutput = ( props ) => {
 		inputRef,
 		isTouchScreen,
 		setFooterDisplay,
+		isPreview,
+		isReviewing,
 	} = props;
 	const { setMax, max, setMin, min, required, allowDecimals } = attributes;
 	const messages = useMessages();
@@ -54,7 +56,7 @@ const NumberOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		checkfieldValidation( val );
+		if ( isPreview || ! isReviewing ) checkfieldValidation( val );
 	}, [ attributes ] );
 
 	const changeHandler = ( e ) => {

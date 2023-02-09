@@ -36,6 +36,8 @@ const LongTextOutput = ( props ) => {
 		inputRef,
 		isTouchScreen,
 		setFooterDisplay,
+		isReviewing,
+		isPreview,
 	} = props;
 	const { setMaxCharacters, maxCharacters, required } = attributes;
 	const theme = useBlockTheme( attributes.themeId );
@@ -60,7 +62,7 @@ const LongTextOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		checkfieldValidation( val );
+		if ( isPreview || ! isReviewing ) checkfieldValidation( val );
 	}, [ attributes ] );
 
 	const keyDownHandler = ( e ) => {

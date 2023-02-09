@@ -30,6 +30,8 @@ const ShortTextOutput = ( props ) => {
 		inputRef,
 		isTouchScreen,
 		setFooterDisplay,
+		isPreview,
+		isReviewing,
 	} = props;
 	const messages = useMessages();
 	const theme = useBlockTheme( attributes.themeId );
@@ -55,7 +57,7 @@ const ShortTextOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		checkfieldValidation( val );
+		if ( isPreview || ! isReviewing ) checkfieldValidation( val );
 	}, [ attributes ] );
 
 	const changeHandler = ( e ) => {

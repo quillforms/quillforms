@@ -39,14 +39,11 @@ const DateOutput = ( props ) => {
 		setFooterDisplay,
 		isTouchScreen,
 		inputRef,
+		isReviewing,
 	} = props;
 	const { format, separator, required } = attributes;
 	const theme = useBlockTheme( attributes.themeId );
-	const { isReviewing } = useSelect( ( select ) => {
-		return {
-			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
-		};
-	} );
+
 	const messages = useMessages();
 	const answersColor = tinyColor( theme.answersColor );
 

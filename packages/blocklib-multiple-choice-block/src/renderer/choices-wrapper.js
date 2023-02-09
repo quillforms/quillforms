@@ -32,7 +32,14 @@ const areEqual = ( prevProps, nextProps ) => {
 	return false;
 };
 const ChoicesWrapper = memo(
-	( { id, attributes, val, setVal, setChoiceClicked } ) => {
+	( {
+		id,
+		attributes,
+		val,
+		setVal,
+		setChoiceClicked,
+		checkfieldValidation,
+	} ) => {
 		const { verticalAlign, multiple, choices, themeId } = attributes;
 		const cx = useCx();
 
@@ -99,6 +106,7 @@ const ChoicesWrapper = memo(
 					setChoiceClicked( true );
 				}, 0 );
 			}
+			checkfieldValidation( $val );
 		};
 		return (
 			<div className="qf-multiple-choice-block">

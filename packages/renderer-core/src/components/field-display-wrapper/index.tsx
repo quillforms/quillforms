@@ -57,7 +57,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	const blockType = blockTypes[ blockName ];
 	const [ shakingErr, setShakingErr ] = useState( null );
 
-	const { isCurrentBlockEditable } = useSelect( ( select ) => {
+	const { isCurrentBlockEditable, isReviewing } = useSelect( ( select ) => {
 		return {
 			isCurrentBlockEditable: select(
 				'quillForms/blocks'
@@ -161,6 +161,7 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		isValid,
 		isPending,
 		innerBlocks,
+		isReviewing,
 		val: answerValue,
 		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
 		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),

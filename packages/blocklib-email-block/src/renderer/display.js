@@ -6,6 +6,7 @@ import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
+import { useSelect } from '@wordpress/data';
 import { useEffect } from 'react';
 
 /**
@@ -31,6 +32,8 @@ const EmailOutput = ( props ) => {
 		inputRef,
 		isTouchScreen,
 		setFooterDisplay,
+		isPreview,
+		isReviewing,
 	} = props;
 	const theme = useBlockTheme( attributes.themeId );
 	const messages = useMessages();
@@ -58,7 +61,7 @@ const EmailOutput = ( props ) => {
 	};
 
 	useEffect( () => {
-		checkFieldValidation( val );
+		if ( isPreview || ! isReviewing ) checkFieldValidation( val );
 	}, [ required ] );
 
 	const changeHandler = ( e ) => {

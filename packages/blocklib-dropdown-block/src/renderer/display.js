@@ -50,6 +50,7 @@ const DropdownDisplay = ( props ) => {
 		setFooterDisplay,
 		inputRef,
 		isPreview,
+		isReviewing,
 	} = props;
 	const { choices, required } = attributes;
 	const cx = useCx();
@@ -93,12 +94,6 @@ const DropdownDisplay = ( props ) => {
 			setValidationErr( null );
 		}
 	};
-
-	const { isReviewing } = useSelect( ( select ) => {
-		return {
-			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
-		};
-	} );
 
 	// Handle click outside the countries dropdown
 	const handleClickOutside = ( e ) => {
