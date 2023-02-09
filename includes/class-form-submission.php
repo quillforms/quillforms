@@ -211,7 +211,7 @@ class Form_Submission
 
         // Validate all fields at the walkpath.
         foreach ( $walkpath as $block_id ) {
-            $block      = quillforms_arrays_find(Core::get_blocks_recursively($this->form_data['blocks']), 'id', $block_id);
+            $block      = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
             $this->validate_field_answer($block);
         }
 
@@ -228,7 +228,7 @@ class Form_Submission
 
         // Format the editable non-empty fields.
         foreach ( $walkpath as $block_id ) {
-            $block      = quillforms_arrays_find(Core::get_blocks_recursively($this->form_data['blocks']), 'id', $block_id);
+            $block      = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
             $this->format_field_value($block);
         }
 
@@ -258,7 +258,17 @@ class Form_Submission
     public function validate_field_answer($block)
     {
         $block_type = Blocks_Manager::instance()->create($block);
-        if(!$block_type || ! $block_type->supported_features['editable'] ) {
+        if(!$block_type ) {
+            return;
+        }
+        if($block_type->supported_features['innerBlocks']) {
+            if(isset($block['innerBlocks']) && !empty($block['innerBlocks'])) {
+                foreach($block['innerBlocks'] as $child_block) {
+                    $this->validate_field_answer($child_block);
+                }
+            }
+        }
+        if (! $block_type->supported_features['editable']) {
             return;
         }
 
@@ -284,9 +294,19 @@ class Form_Submission
      */
     public function format_field_value($block)
     {
-        $block_type = Blocks_Manager::instance()->create($block);
 
-        if (! $block_type || ! $block_type->supported_features['editable'] ) {
+        $block_type = Blocks_Manager::instance()->create($block);
+        if(!$block_type ) {
+            return;
+        }
+        if($block_type->supported_features['innerBlocks']) {
+            if(isset($block['innerBlocks']) && !empty($block['innerBlocks'])) {
+                foreach($block['innerBlocks'] as $child_block) {
+                    $this->format_field_value($child_block);
+                }
+            }
+        }
+        if (! $block_type->supported_features['editable']) {
             return;
         }
 

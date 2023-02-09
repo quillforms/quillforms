@@ -44,6 +44,7 @@
 								return response.json();
 							} )
 							.then( function ( res ) {
+								console.log( res );
 								if ( res && res.success ) {
 									// In case of successful submission, complete the form.
 									if ( res.data.status === 'completed' ) {
@@ -83,6 +84,8 @@
 													res.data.fields
 												).includes( o.id );
 											} );
+
+										console.log( firstField );
 										wp.data
 											.dispatch(
 												'quillForms/renderer-core'
@@ -90,7 +93,7 @@
 											.goToBlock( firstField.id );
 
 										// Get the first invalid field and go back to it.
-										if ( ! firstField ) {
+										if ( firstField ) {
 											setTimeout( function () {
 												wp.data
 													.dispatch(
