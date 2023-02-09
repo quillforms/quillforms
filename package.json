@@ -98,7 +98,7 @@
 		"classnames": "^2.3.1",
 		"emotion": "11.0.0",
 		"framer-motion": "^7.0.0",
-		"qs": "6.9.4",
+		"qs": "6.9.7",
 		"react-loader-spinner": "5.1.7-beta.1",
 		"react-confirm-alert": "^2.7.0",
 		"utility-types": "3.10.0"
