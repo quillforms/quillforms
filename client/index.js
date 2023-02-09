@@ -5,6 +5,7 @@ import '@quillforms/blocks';
 import '@quillforms/rich-text';
 import '@quillforms/form-integrations';
 import '@quillforms/payment-gateways';
+import '@quillforms/code-editor';
 import PageLayout from './layout';
 import './style.scss';
 import './pro-panels';
