@@ -104,7 +104,7 @@
 		"utility-types": "3.10.0"
 	},
 	"devDependencies": {
-		"@actions/core": "1.2.6",
+		"@actions/core": "1.9.1",
 		"@actions/github": "1.0.0",
 		"@automattic/webpack-rtl-plugin": "^6.0.0",
 		"@babel/core": "7.16.0",
