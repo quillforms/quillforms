@@ -67,7 +67,7 @@ const BlockActions: React.FC< Props > = ( {
 								'QuillForms.BlockEditor.BlockDelete',
 								id
 							);
-							deleteBlock( id, parentIndex );
+							deleteBlock( id, parentId );
 							onClose();
 						} }
 						reject={ () => {

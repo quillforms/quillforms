@@ -163,6 +163,7 @@ const BlockListItem: React.FC< Props > = ( {
 										{ inView ? (
 											<Fragment>
 												<BlockMover
+													parentIndex={ parentIndex }
 													handleProps={
 														provided?.dragHandleProps
 															? {

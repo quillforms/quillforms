@@ -25,16 +25,16 @@
 			}
 		}
 	}
-	&.isSelected .block-editor-block-edit-box__content > .components-dropdown {
+	&.isSelected > .block-editor-block-edit-box__content-wrapper > .block-editor-block-edit-box__content > .components-dropdown {
 		visibility: visible;
 		z-index: 3;
 	}
 	&.isSelected .block-editor-block-edit-box__content-wrapper > div {
-		background: #efeeeee6 !important;
+		background: #efeeeee6;
 	}
 
-	&:hover .block-editor-block-edit .block-editor-block-toolbar,
-	&.isSelected .block-editor-block-edit .block-editor-block-toolbar {
+	&:hover > .block-editor-block-edit-box__content-wrapper > .block-editor-block-edit-box__content > .block-editor-block-edit > .block-editor-block-toolbar,
+	&.isSelected > .block-editor-block-edit-box__content-wrapper > .block-editor-block-edit-box__content > .block-editor-block-edit > .block-editor-block-toolbar {
 		visibility: visible;
 	}
 
@@ -70,5 +70,6 @@
 	.block-editor-box-wrapper:hover
 	.block-editor-block-edit-box__content-wrapper
 	> div {
-	background: #efeeeee6 !important;
+	background: #efeeeee6;
 }
+

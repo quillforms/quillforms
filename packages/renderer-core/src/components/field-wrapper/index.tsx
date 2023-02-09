@@ -41,12 +41,18 @@ const FieldWrapper: React.FC = () => {
 
 	const settings = useFormSettings();
 	if ( ! id || ! blockName ) return null;
-	const { swiper, isValid, isFocused, blockType } = useSelect( ( select ) => {
+	const { blockType } = useSelect( ( select ) => {
+		return {
+			blockType: select( 'quillForms/blocks' ).getBlockType( blockName ),
+		};
+	} );
+	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
-			isValid: select( 'quillForms/renderer-core' ).isValidField( id ),
+			isValid: blockType?.supports?.innerBlocks
+				? select( 'quillForms/renderer-core' ).hasValidFields( id )
+				: select( 'quillForms/renderer-core' ).isValidField( id ),
 			isFocused: select( 'quillForms/renderer-core' ).isFocused(),
-			blockType: select( 'quillForms/blocks' ).getBlockType( blockName ),
 		};
 	} );
 
@@ -274,7 +280,7 @@ const FieldWrapper: React.FC = () => {
 					textarea,
 					input {
 						font-family: ${ theme.font };
-						font-size: ${ theme.textInputAnswers }
+						font-size: ${ theme.textInputAnswers };
 					}
 					${ attributes?.themeId && backgroundImageCSS }
 				`

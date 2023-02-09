@@ -154,7 +154,7 @@ class Entry_Record_Types {
 		}
 
 		// get block data.
-		$block_data = quillforms_arrays_find( $form_data['blocks'], 'id', $field_id );
+		$block_data = quillforms_arrays_find( Core::get_blocks_recursively( $form_data['blocks'] ), 'id', $field_id );
 		if ( ! $block_data ) {
 			return null;
 		}
@@ -185,7 +185,7 @@ class Entry_Record_Types {
 	 */
 	public function is_field_condition_fulfilled( $field_id, $condition, $entry, $form_data ) {
 		// get block data.
-		$block_data = quillforms_arrays_find( $form_data['blocks'], 'id', $field_id );
+		$block_data = quillforms_arrays_find( Core::get_blocks_recursively( $form_data['blocks'] ), 'id', $field_id );
 		if ( ! $block_data ) {
 			return false;
 		}

@@ -161,9 +161,7 @@ class Number_Block_Type extends Block_Type
     {
         $messages = $form_data['messages'];
         if (empty($value) ) {
-            var_dump("dfdaf");
             if ($this->attributes['required'] ) {
-                var_dump('qleewq');
                 $this->is_valid       = false;
                 $this->validation_err = $messages['label.errorAlert.required'];
             }

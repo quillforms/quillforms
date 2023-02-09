@@ -114,11 +114,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 	// Serialize label is a debounced function that updates the store with serialized html value
 	const serializeLabel = useCallback(
 		debounce( ( value ) => {
-			setBlockAttributes(
-				id,
-				{ label: serialize( value ) },
-				parentIndex
-			);
+			setBlockAttributes( id, { label: serialize( value ) }, parentId );
 		}, 200 ),
 		[]
 	);
@@ -129,7 +125,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 			setBlockAttributes(
 				id,
 				{ description: serialize( value ) },
-				parentIndex
+				parentId
 			);
 		}, 200 ),
 		[]
@@ -227,7 +223,7 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 			{ attachment && attachment.type === 'image' && (
 				<BlockAttachment
 					id={ id }
-					parentIndex={ parentIndex }
+					parentId={ parentId }
 					blockColor={ blockColor }
 					attachment={ attachment }
 				/>

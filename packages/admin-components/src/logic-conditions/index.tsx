@@ -15,6 +15,11 @@ import { Icon } from '@wordpress/components';
 import { closeSmall } from '@wordpress/icons';
 
 /**
+ * External Dependencies
+ */
+import { forEach, size } from 'lodash';
+
+/**
  * Internal Dependencies
  */
 import ComboboxControl, {
@@ -42,13 +47,31 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 	onChange,
 	combobox,
 } ) => {
-	const { blocks, blockTypes } = useSelect( ( select ) => {
+	const { formBlocks, blockTypes } = useSelect( ( select ) => {
 		return {
-			blocks: select( 'quillForms/block-editor' ).getBlocks(),
+			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
 
+	const blocks = [];
+
+	if ( size( formBlocks ) > 0 ) {
+		forEach( formBlocks, ( block, index ) => {
+			if ( blockTypes[ block.name ]?.supports?.editable ) {
+				blocks.push( { ...block } );
+			}
+			if ( blockTypes[ block.name ]?.supports?.innerBlocks ) {
+				if ( size( block?.innerBlocks ) > 0 ) {
+					forEach( block.innerBlocks, ( childBlock, childIndex ) => {
+						blocks.push( {
+							...childBlock,
+						} );
+					} );
+				}
+			}
+		} );
+	}
 	// update value on mount if input isn't array or is empty array.
 	useEffect( () => {
 		if ( ! Array.isArray( value ) || value.length === 0 ) {
@@ -77,9 +100,8 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 						[ 'variable', 'hidden_field' ].includes( option.type )
 					) {
 						return true;
-					} else {
-						return false;
 					}
+					return false;
 				} );
 
 				if ( combobox?.customize ) {

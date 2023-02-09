@@ -123,7 +123,6 @@ class Form_Submission
     public function process_submission()
     {
         $unsanitized_entry = json_decode(stripslashes($_POST['formData']), true);
-
         // Check if form id is valid.
         if (! isset($unsanitized_entry) || ! isset($unsanitized_entry['formId']) ) {
             $this->errors['form'] = 'Form Id missing!';
@@ -212,7 +211,7 @@ class Form_Submission
 
         // Validate all fields at the walkpath.
         foreach ( $walkpath as $block_id ) {
-            $block      = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
+            $block      = quillforms_arrays_find(Core::get_blocks_recursively($this->form_data['blocks']), 'id', $block_id);
             $this->validate_field_answer($block);
         }
 
@@ -229,7 +228,7 @@ class Form_Submission
 
         // Format the editable non-empty fields.
         foreach ( $walkpath as $block_id ) {
-            $block      = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
+            $block      = quillforms_arrays_find(Core::get_blocks_recursively($this->form_data['blocks']), 'id', $block_id);
             $this->format_field_value($block);
         }
 
@@ -259,15 +258,7 @@ class Form_Submission
     public function validate_field_answer($block)
     {
         $block_type = Blocks_Manager::instance()->create($block);
-        if(!$block_type ) {
-            return;
-        }
-        if($block_type->supported_features['innerBlocks'] && !empty($block['innerBlocks'])) {
-            foreach($block['innerBlocks'] as $child_block) {
-                $this->validate_field_answer($child_block);
-            }
-        }
-        if (! $block_type->supported_features['editable'] ) {
+        if(!$block_type || ! $block_type->supported_features['editable'] ) {
             return;
         }
 
@@ -294,14 +285,7 @@ class Form_Submission
     public function format_field_value($block)
     {
         $block_type = Blocks_Manager::instance()->create($block);
-        if(!$block_type ) {
-            return;
-        }
-        if($block_type->supported_features['innerBlocks'] && !empty($block['innerBlocks'])) {
-            foreach($block['innerBlocks'] as $child_block) {
-                $this->format_field_value($child_block);
-            }
-        }
+
         if (! $block_type || ! $block_type->supported_features['editable'] ) {
             return;
         }
@@ -449,7 +433,7 @@ class Form_Submission
                 if (! in_array($block_id, $this->entry->get_meta_value('walkpath'), true) ) {
                         break;
                 }
-                $block = quillforms_arrays_find($this->form_data['blocks'], 'id', $block_id);
+                $block = quillforms_arrays_find(Core::get_blocks_recursively($this->form_data['blocks']), 'id', $block_id);
                 if (! $block ) {
                       break;
                 }

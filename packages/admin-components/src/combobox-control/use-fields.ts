@@ -1,4 +1,10 @@
 /**
+ * Quill Forms Dependencies
+ */
+
+import { identAlphabetically } from '@quillforms/utils';
+
+/**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
@@ -6,7 +12,7 @@ import { useSelect } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { size } from 'lodash';
+import { forEach, size } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -21,10 +27,25 @@ const useFields = ( { section } ) => {
 			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
 		};
 	} );
-	const blocks = ( formBlocks ?? [] ).filter( ( block ) => {
-		return blockTypes[ block.name ]?.supports?.editable === true;
-	} );
+	const blocks = [];
 
+	if ( size( formBlocks ) > 0 ) {
+		forEach( formBlocks, ( block, index ) => {
+			if ( blockTypes[ block.name ]?.supports?.editable ) {
+				blocks.push( { ...block, order: index } );
+			}
+			if ( blockTypes[ block.name ]?.supports?.innerBlocks ) {
+				if ( size( block?.innerBlocks ) > 0 ) {
+					forEach( block.innerBlocks, ( childBlock, childIndex ) => {
+						blocks.push( {
+							...childBlock,
+							order: index + identAlphabetically( childIndex ),
+						} );
+					} );
+				}
+			}
+		} );
+	}
 	const fields: Options = [];
 	if ( size( blocks ) > 0 ) {
 		for ( const block of blocks ) {

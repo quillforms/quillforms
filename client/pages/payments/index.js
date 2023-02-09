@@ -34,6 +34,7 @@ import Products from './products';
 import Labels from './labels';
 import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
+import { forEach, size } from 'lodash';
 
 const PaymentsPage = ( { params } ) => {
 	const [ showReleaseModal, setShowReleaseModal ] = useState( false );
@@ -63,15 +64,37 @@ const PaymentsPage = ( { params } ) => {
 	const $actions = actions( dispatch );
 
 	// data selectors.
-	const { blocks, blocksResolved, blockTypes } = useSelect( ( select ) => {
-		return {
-			blocks: select( 'quillForms/block-editor' ).getBlocks() ?? [],
-			blocksResolved: select(
-				'quillForms/block-editor'
-			).hasFinishedResolution( 'getBlocks' ),
-			blockTypes: select( 'quillForms/blocks' ).getBlockTypes() ?? {},
-		};
-	} );
+	const { formBlocks, blocksResolved, blockTypes } = useSelect(
+		( select ) => {
+			return {
+				formBlocks:
+					select( 'quillForms/block-editor' ).getBlocks() ?? [],
+				blocksResolved: select(
+					'quillForms/block-editor'
+				).hasFinishedResolution( 'getBlocks' ),
+				blockTypes: select( 'quillForms/blocks' ).getBlockTypes() ?? {},
+			};
+		}
+	);
+
+	const blocks = [];
+
+	if ( size( formBlocks ) > 0 ) {
+		forEach( formBlocks, ( block ) => {
+			const blockType = blockTypes[ block.name ];
+			if ( blockType ) {
+				blocks.push( block );
+				if (
+					blockType?.supports?.innerBlocks &&
+					size( block?.innerBlocks ) > 0
+				) {
+					forEach( block.innerBlocks, ( childBlock ) => {
+						blocks.push( childBlock );
+					} );
+				}
+			}
+		} );
+	}
 
 	// notice dispatchers.
 	const { createErrorNotice, createSuccessNotice } =

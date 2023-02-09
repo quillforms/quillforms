@@ -169,6 +169,7 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 				css`
 					height: 100%;
 					width: 100%;
+					-webkit-font-smoothing: antialiased;
 					${ backgroundImageCSS }
 				`,
 				'renderer-core-form-flow__wrapper'

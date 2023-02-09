@@ -9,7 +9,7 @@ const blockAdminSettings = {
 	icon: Icon,
 	controls,
 	title: 'Long text',
-	order: 2,
+	order: 2.5,
 };
 
 export default blockAdminSettings;

@@ -13,7 +13,7 @@ import { useSelect } from '@wordpress/data';
  * External Dependencies
  */
 import classnames from 'classnames';
-import { keys, map } from 'lodash';
+import { keys, map, pickBy } from 'lodash';
 import {
 	CaledlyIcon,
 	FileIcon,
@@ -31,7 +31,7 @@ interface Props {
 	parent?: string;
 }
 const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
-	const { blockTypes, welcomeScreensLength } = useSelect( ( select ) => {
+	let { blockTypes, welcomeScreensLength } = useSelect( ( select ) => {
 		return {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 			welcomeScreensLength: select(
@@ -39,6 +39,14 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 			).getWelcomeScreensLength(),
 		};
 	} );
+	if ( parent ) {
+		blockTypes = pickBy( blockTypes, ( blockType ) => {
+			return (
+				blockType.supports.editable === true &&
+				! blockType.supports.innerBlocks
+			);
+		} );
+	}
 	return (
 		<div className="admin-components-block-types-list">
 			{ map( keys( blockTypes ), ( blockName, index ) => {

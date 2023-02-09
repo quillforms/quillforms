@@ -354,6 +354,30 @@ export function isValidField( state: State, id: string ): boolean {
 }
 
 /**
+ * Has valid fields.
+ * This for blocks that support inner blocks like group.
+ *
+ * @param {State}  state Global application state.
+ * @param {string} id    Field id.
+ *
+ * @return {boolean} showErr flag
+ */
+export function hasValidFields( state: State, id: string ): boolean {
+	const block = getBlockById( state, id );
+	if ( ! block ) return false;
+	let isValid = true;
+	if ( size( block?.innerBlocks ) > 0 ) {
+		forEach( block.innerBlocks, ( $block ) => {
+			const $blockId = $block.id;
+			if ( ! state.answers[ $blockId ].isValid ) {
+				isValid = false;
+			}
+		} );
+	}
+	return isValid;
+}
+
+/**
  * Is field pending.
  *
  * @param {State}  state Global application state.

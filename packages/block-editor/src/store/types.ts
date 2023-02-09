@@ -42,7 +42,7 @@ interface setBlockAttributesAction {
 	type: typeof SET_BLOCK_ATTRIBUTES;
 	attributes: Record< string, unknown >;
 	blockId: string;
-	parentIndex?: number;
+	parentId?: string;
 }
 
 interface __experimentalReorderBlocksAction {
@@ -77,7 +77,7 @@ interface setCurrentChildBlockAction {
 interface deleteBlockAction {
 	type: typeof DELETE_BLOCK;
 	blockId: string;
-	parentIndex?: number;
+	parentId?: string;
 }
 
 export type BlockEditorActionTypes =

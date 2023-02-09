@@ -3,6 +3,7 @@
  */
 import { getBlockType } from '@quillforms/blocks';
 import type { FormBlocks, FormBlock } from '@quillforms/types';
+import { identAlphabetically } from '@quillforms/utils';
 
 /**
  * WordPress Dependencies
@@ -87,15 +88,20 @@ export const getBlockById = (
 /**
  * Get block order by id
  *
- * @param {State}  state Global application state.
- * @param {string} id    Block id
+ * @param {State}  state       Global application state.
+ * @param {string} id          Block id
  *
+ * @param          parentIndex
  * @return {BlockOrder} Block order
  */
-export const getBlockOrderById = ( state: State, id: string ): BlockOrder => {
+export const getBlockOrderById = (
+	state: State,
+	id: string,
+	parentIndex = undefined
+): BlockOrder => {
 	//console.log( id );
 	//console.log( state.blocks );
-	const formBlock = getBlockById( state, id );
+	const formBlock = getBlockById( state, id, parentIndex );
 	//console.log( formBlock );
 	if ( ! formBlock ) return undefined;
 	const blockType =
@@ -109,45 +115,28 @@ export const getBlockOrderById = ( state: State, id: string ): BlockOrder => {
 		},
 		'or'
 	);
-	const charCode = 'a'.charCodeAt( 0 );
-
-	// Simple algorithm to generate alphabatical idented order
-	const identName = ( a: number ): string => {
-		const b = [ a ];
-		let sp, out, i, div;
-
-		sp = 0;
-		while ( sp < b.length ) {
-			if ( b[ sp ] > 25 ) {
-				div = Math.floor( b[ sp ] / 26 );
-				b[ sp + 1 ] = div - 1;
-				b[ sp ] %= 26;
-			}
-			sp += 1;
-		}
-
-		out = '';
-		for ( i = 0; i < b.length; i += 1 ) {
-			out = String.fromCharCode( charCode + b[ i ] ) + out;
-		}
-
-		return out.toUpperCase();
-	};
 
 	let itemOrder: BlockOrder;
-	if (
-		blockType.supports.editable === true ||
-		blockType.supports.innerBlocks === true
-	) {
-		const fieldIndex = orderableFields.findIndex(
-			( field ) => field.id === id
-		);
-		itemOrder = fieldIndex + 1;
+	if ( typeof parentIndex === 'undefined' ) {
+		if (
+			blockType.supports.editable === true ||
+			blockType.supports.innerBlocks === true
+		) {
+			const fieldIndex = orderableFields.findIndex(
+				( field ) => field.id === id
+			);
+			itemOrder = fieldIndex + 1;
+		} else {
+			const fieldIndex = state.blocks
+				.filter( ( block ) => block.name === formBlock.name )
+				.findIndex( ( block ) => block.id === id );
+			itemOrder = identAlphabetically( fieldIndex );
+		}
 	} else {
-		const fieldIndex = state.blocks
-			.filter( ( block ) => block.name === formBlock.name )
-			.findIndex( ( block ) => block.id === id );
-		itemOrder = identName( fieldIndex );
+		const fieldIndex = state.blocks[ parentIndex ].innerBlocks.findIndex(
+			( block ) => block.id === id
+		);
+		itemOrder = parentIndex + 1 + identAlphabetically( fieldIndex );
 	}
 	return itemOrder;
 };

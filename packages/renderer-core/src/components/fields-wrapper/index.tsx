@@ -58,14 +58,9 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		isAnimating,
 	} = swiper;
 
-	const { answers, currentBlockAnswer } = useSelect( ( select ) => {
+	const { answers } = useSelect( ( select ) => {
 		return {
 			answers: select( 'quillForms/renderer-core' ).getAnswers(),
-			currentBlockAnswer: currentBlockId
-				? select( 'quillForms/renderer-core' ).getFieldAnswerVal(
-						currentBlockId
-				  )
-				: null,
 		};
 	} );
 
@@ -196,7 +191,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				hiddenFields
 			);
 		}
-	}, [ currentBlockAnswer, currentBlockId ] );
+	}, [ answers, currentBlockId ] );
 
 	useEffect( () => {
 		if ( applyLogic && isActive ) {

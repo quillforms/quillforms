@@ -4,11 +4,8 @@
     margin-top: 30px;
     min-height: 200px !important;
     height: auto !important;
-
 	.block-editor-child-wrapper {
-		padding-left: 70px;
 		position: relative;
-
 		.block-editor-child-connection-point {
 			position: absolute;
 			width: 10px;
@@ -17,6 +14,14 @@
 			top: 40px;
 			left: 55.5px
 		}
+	}
+	.block-editor-child-wrapper .block-editor-block-edit-box__content-wrapper > div {
+		padding-left: 90px;
+
+	}
+	.block-editor-child-wrapper:hover .block-editor-block-edit-box__content-wrapper > div,
+	.block-editor-child-wrapper.isSelected .block-editor-block-edit-box__content-wrapper > div {
+		background: #D8EEEF !important;
 	}
 	.block-editor-block-edit-box__content-wrapper {
 		position: relative !important;

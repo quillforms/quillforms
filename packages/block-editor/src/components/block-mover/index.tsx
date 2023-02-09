@@ -14,13 +14,20 @@ interface Props {
 	id: string;
 	blockType: BlockTypeSettings;
 	handleProps: DraggableProvidedDragHandleProps | undefined;
+	parentIndex?: number;
 }
-const BlockMover: React.FC< Props > = ( { blockType, id, handleProps } ) => {
+const BlockMover: React.FC< Props > = ( {
+	blockType,
+	id,
+	parentIndex,
+	handleProps,
+} ) => {
 	//console.log( 'Dfdff' );
 	const { blockOrder } = useSelect( ( select ) => {
 		return {
 			blockOrder: select( 'quillForms/block-editor' ).getBlockOrderById(
-				id
+				id,
+				parentIndex
 			),
 		};
 	} );

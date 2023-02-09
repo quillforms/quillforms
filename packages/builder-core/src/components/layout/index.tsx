@@ -126,30 +126,33 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 
 		if ( source.droppableId && destination.droppableId ) {
 			let dragAlerts: string[] = [];
-			// if (
-			// 	hasIncorrectFieldMergeTags(
-			// 		source.index,
-			// 		destination.index
-			// 	) ||
-			// 	hasIncorrectFieldMergeTags(
-			// 		destination.index,
-			// 		source.index
-			// 	)
-			// ) {
-			// 	dragAlerts.push(
-			// 		// eslint-disable-next-line no-multi-str
-			// 		'This block recalls information from previous fields.\
-			// 		 This info will be lost if you proceed with this block movement.'
-			// 	);
-			// }
-			dragAlerts = dragAlerts.concat(
-				applyFilters(
-					'QuillForms.BuilderCore.BlockReorderAlerts',
-					[],
-					source.index,
-					destination.index
-				) as string[]
-			);
+
+			if ( source.droppableId === 'DROP_AREA' ) {
+				if (
+					hasIncorrectFieldMergeTags(
+						source.index,
+						destination.index
+					) ||
+					hasIncorrectFieldMergeTags(
+						destination.index,
+						source.index
+					)
+				) {
+					dragAlerts.push(
+						// eslint-disable-next-line no-multi-str
+						'This block recalls information from previous fields.\
+					 This info will be lost if you proceed with this block movement.'
+					);
+				}
+				dragAlerts = dragAlerts.concat(
+					applyFilters(
+						'QuillForms.BuilderCore.BlockReorderAlerts',
+						[],
+						source.index,
+						destination.index
+					) as string[]
+				);
+			}
 			if ( dragAlerts.length > 0 ) {
 				confirmAlert( {
 					customUI: ( { onClose } ) => {

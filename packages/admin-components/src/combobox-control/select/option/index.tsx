@@ -19,9 +19,10 @@ interface Props {
 		color?: string;
 	};
 	hasSection?: boolean;
+	order?: string;
 }
 
-const Option: React.FC< Props > = ( { label, iconBox, hasSection } ) => {
+const Option: React.FC< Props > = ( { label, iconBox, hasSection, order } ) => {
 	return (
 		<div
 			className={
@@ -32,7 +33,11 @@ const Option: React.FC< Props > = ( { label, iconBox, hasSection } ) => {
 			}
 		>
 			{ !! iconBox && (
-				<BlockIconBox icon={ iconBox.icon } color={ iconBox.color } />
+				<BlockIconBox
+					order={ order }
+					icon={ iconBox.icon }
+					color={ iconBox.color }
+				/>
 			) }
 			<div
 				className="combobox-control-select-option-label"

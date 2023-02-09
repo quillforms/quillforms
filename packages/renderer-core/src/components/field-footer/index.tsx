@@ -16,6 +16,7 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 import { TailSpin as Loader } from 'react-loader-spinner';
 import { useBlockTheme } from '../../hooks';
 import { css } from 'emotion';
+import ParentBlockFooter from './parent';
 
 export interface BlockFooterProps {
 	shakingErr: string | null;
@@ -28,11 +29,15 @@ const BlockFooter: React.FC< BlockFooterProps > = ( {
 	const { id, blockName, attributes } = __experimentalUseFieldRenderContext();
 	const blockTheme = useBlockTheme( attributes?.themeId );
 	if ( ! blockName ) return null;
-	const { isEditable } = useSelect( ( select ) => {
+	const { isEditable, isParent } = useSelect( ( select ) => {
 		return {
 			isEditable: select( 'quillForms/blocks' ).hasBlockSupport(
 				blockName,
 				'editable'
+			),
+			isParent: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'innerBlocks'
 			),
 		};
 	} );
@@ -52,13 +57,19 @@ const BlockFooter: React.FC< BlockFooterProps > = ( {
 				</div>
 			) : (
 				<>
-					{ ! isEditable ? (
-						<NonEditableBlockFooter />
+					{ isParent ? (
+						<ParentBlockFooter />
 					) : (
-						<EditableBlockFooter
-							id={ id }
-							shakingErr={ shakingErr }
-						/>
+						<>
+							{ ! isEditable ? (
+								<NonEditableBlockFooter />
+							) : (
+								<EditableBlockFooter
+									id={ id }
+									shakingErr={ shakingErr }
+								/>
+							) }
+						</>
 					) }
 				</>
 			) }

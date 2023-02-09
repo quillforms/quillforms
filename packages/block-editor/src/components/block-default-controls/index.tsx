@@ -36,9 +36,11 @@ interface Props {
 	blockName: string;
 	attributes?: BlockAttributes;
 	setAttributes: ( x: Record< string, unknown > ) => void;
+	parentId?: String;
 }
 const DefaultControls: React.FC< Props > = ( {
 	blockName,
+	parentId,
 	attributes,
 	setAttributes,
 } ) => {
@@ -91,7 +93,7 @@ const DefaultControls: React.FC< Props > = ( {
 				</BaseControl>
 			) }
 
-			{ attachmentSupport && (
+			{ attachmentSupport && ! parentId && (
 				<>
 					<BaseControl>
 						<ControlWrapper>
@@ -290,22 +292,29 @@ const DefaultControls: React.FC< Props > = ( {
 						) }
 				</>
 			) }
-			<BaseControl>
-				<ControlWrapper orientation="vertical">
-					<ControlLabel label={ 'Custom HTML' } isNew={ true } />
-					<CustomHTML
-						value={ attributes?.customHTML }
-						onChange={ ( val ) => {
-							setAttributes( { customHTML: val } );
-						} }
-					/>
-				</ControlWrapper>
-			</BaseControl>
-			{ themeSupport && (
-				<BlockThemeControl
-					blockTheme={ blockTheme }
-					setAttributes={ setAttributes }
-				/>
+			{ ! parentId && (
+				<>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<ControlLabel
+								label={ 'Custom HTML' }
+								isNew={ true }
+							/>
+							<CustomHTML
+								value={ attributes?.customHTML }
+								onChange={ ( val ) => {
+									setAttributes( { customHTML: val } );
+								} }
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					{ themeSupport && (
+						<BlockThemeControl
+							blockTheme={ blockTheme }
+							setAttributes={ setAttributes }
+						/>
+					) }
+				</>
 			) }
 		</Fragment>
 	);

@@ -4,14 +4,11 @@
 		padding: 10px 15px;
 		align-items: center;
 		justify-content: center;
+		border-radius: 5px;
 		width: 100%;
 		outline: none;
 	}
 
-	&:hover {
-		background: #eee;
-		cursor: pointer;
-	}
 	&.disabled {
 		opacity: 0.4 !important;
 	}

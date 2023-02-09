@@ -2,17 +2,29 @@
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
+import useFlattenedBlocks from './use-flattened-blocks';
 
 const useProgressPerecent = () => {
-	const { answered, totalQuestions } = useSelect( ( select ) => {
+	const { answers, walkPath, blockTypes } = useSelect( ( select ) => {
 		return {
-			answered: select(
-				'quillForms/renderer-core'
-			).getAnsweredFieldsLength(),
+			walkPath: select( 'quillForms/renderer-core' ).getWalkPath(),
+			answers: select( 'quillForms/renderer-core' ).getAnswers(),
+			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
+	const allBlocks = useFlattenedBlocks( walkPath );
+	let editableBlocksLength = 0;
+	let answered = 0;
+	allBlocks.forEach( ( field ) => {
+		if ( blockTypes[ field.name ]?.supports.editable ) {
+			editableBlocksLength++;
+			if ( answers[ field.id ]?.value ) {
+				answered++;
+			}
+		}
+	} );
 	const getPercent = () => {
-		const percent = Math.round( ( answered * 100 ) / totalQuestions );
+		const percent = Math.round( ( answered * 100 ) / editableBlocksLength );
 		if ( isNaN( percent ) ) return 0;
 		return percent;
 	};

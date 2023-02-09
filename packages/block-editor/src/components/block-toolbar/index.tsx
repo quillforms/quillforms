@@ -103,7 +103,7 @@ const BlockToolbar = ( { id, index, editor, parentId, parentIndex } ) => {
 						setShowBlockControls( false );
 					} }
 				>
-					<BlockControls parentIndex={ parentIndex } />
+					<BlockControls parentId={ parentId } />
 				</Modal>
 			) }
 		</div>

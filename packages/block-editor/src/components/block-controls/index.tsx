@@ -9,7 +9,7 @@ import BlockControlsHeader from '../block-controls-header';
  */
 import DefaultControls from '../block-default-controls';
 
-const BlockControls = ( { parentIndex } ) => {
+const BlockControls = ( { parentId } ) => {
 	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
 
 	let {
@@ -53,17 +53,19 @@ const BlockControls = ( { parentIndex } ) => {
 			/>
 			<DefaultControls
 				blockName={ name }
+				parentId={ parentId }
 				attributes={ currentFormBlock.attributes }
 				setAttributes={ ( val ) => {
-					setBlockAttributes( currentBlockId, val, parentIndex );
+					setBlockAttributes( currentBlockId, val, parentId );
 				} }
 			/>
 			{ blockType?.controls && (
 				<blockType.controls
 					id={ currentBlockId }
+					parentId={ parentId }
 					attributes={ currentFormBlock.attributes }
 					setAttributes={ ( val ) => {
-						setBlockAttributes( currentBlockId, val, parentIndex );
+						setBlockAttributes( currentBlockId, val, parentId );
 					} }
 				/>
 			) }

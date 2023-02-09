@@ -166,7 +166,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 
 	// apply local customize filter to sections and options.
 	if ( customize ) {
-		let customized = customize( { sections, options } );
+		const customized = customize( { sections, options } );
 		sections = customized.sections;
 		options = customized.options;
 	}

@@ -16,7 +16,7 @@ const useEditableFields = ( flatten = false ) => {
 		};
 	} );
 	let formBlocks = useBlocks();
-	const flattenedBlocks = useFlattenedBlocks();
+	const flattenedBlocks = useFlattenedBlocks( formBlocks );
 	if ( flatten ) {
 		formBlocks = Object.values( flattenedBlocks );
 	}

@@ -18,9 +18,12 @@ const BlockDragIndexLine = () => {
 };
 
 const BlockChildrenContainer = ( { id, index, innerBlocks, parentColor } ) => {
-	const { formBlocks } = useSelect( ( select ) => {
+	const { formBlocks, currentChildBlockId } = useSelect( ( select ) => {
 		return {
 			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
+			currentChildBlockId: select(
+				'quillForms/block-editor'
+			).getCurrentChildBlockId(),
 		};
 	} );
 	return (
@@ -81,7 +84,14 @@ const BlockChildrenContainer = ( { id, index, innerBlocks, parentColor } ) => {
 							{ innerBlocks.map( ( block, $index ) => {
 								return (
 									<div
-										className="block-editor-child-wrapper"
+										className={ classNames(
+											'block-editor-child-wrapper',
+											{
+												isSelected:
+													block.id ===
+													currentChildBlockId,
+											}
+										) }
 										key={ block.id }
 									>
 										<BlockListItem

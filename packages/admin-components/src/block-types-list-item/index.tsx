@@ -24,6 +24,7 @@ import { FC } from 'react';
  */
 import classNames from 'classnames';
 import { css } from 'emotion';
+import tinycolor from 'tinycolor2';
 
 const areEqual = ( prevProps: Props, nextProps: Props ): boolean => {
 	if ( prevProps.disabled === nextProps.disabled ) return true;
@@ -157,6 +158,12 @@ const BlockTypesListItem: FC< Props > = memo(
 								transform: scale( 1 );
 							}
 						}
+						&:hover {
+							background: ${ tinycolor( blockType?.color )
+								.setAlpha( 0.1 )
+								.toString() };
+							cursor: pointer;
+						}
 					`,
 					{
 						disabled: disabled ? true : false,
@@ -180,6 +187,11 @@ const BlockTypesListItem: FC< Props > = memo(
 				<span className="admin-components-blocks-list-item__block-name">
 					{ blockType?.title }
 				</span>
+				{ blockType.name === 'group' && (
+					<div className="admin-components-control-label__new-feature">
+						NEW
+					</div>
+				) }
 			</div>
 		);
 	},

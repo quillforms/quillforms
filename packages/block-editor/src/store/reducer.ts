@@ -140,16 +140,20 @@ const BlockEditorReducer: Reducer<
 		// SET BLOCK ATTRIBUTES
 		case SET_BLOCK_ATTRIBUTES: {
 			console.log( action );
-			const { blockId, attributes, parentIndex } = action;
-
+			const { blockId, attributes, parentId } = action;
+			let parentIndex;
 			// Get block index within its category.
 			let $blocks = [ ...state.blocks ] as FormBlocks | undefined;
-			if ( typeof parentIndex !== 'undefined' ) {
-				$blocks = [ ...state.blocks ][ parentIndex ]?.innerBlocks;
-			}
 			if ( ! $blocks ) {
 				return state;
 			}
+			if ( typeof parentId !== 'undefined' ) {
+				parentIndex = $blocks.findIndex( ( block ) => {
+					return block.id === parentId;
+				} );
+				$blocks = [ ...state.blocks ][ parentIndex ]?.innerBlocks;
+			}
+
 			const blockIndex = $blocks.findIndex( ( block ) => {
 				return block.id === blockId;
 			} );
@@ -272,10 +276,17 @@ const BlockEditorReducer: Reducer<
 
 		// DELETE FORM BLOCK
 		case DELETE_BLOCK: {
-			const { blockId, parentIndex } = action;
+			const { blockId, parentId } = action;
 			const originalBlocks = [ ...state.blocks ];
+			let parentIndex;
 			let blocks = originalBlocks;
-			if ( typeof parentIndex !== 'undefined' ) {
+			if ( ! blocks ) {
+				return state;
+			}
+			if ( typeof parentId !== 'undefined' ) {
+				parentIndex = blocks.findIndex(
+					( item ) => item.id === parentId
+				);
 				blocks = blocks[ parentIndex ].innerBlocks;
 			}
 			// Get block index.

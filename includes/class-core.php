@@ -195,13 +195,13 @@ class Core
     }
 
     /**
-     * Get all blocks recursively (including innerBlocks ) for a specific form id.
+     * Get all blocks recursively (including innerBlocks).
      *
      * @param array $blocks
      *
      * @return array|null The form blocks recursively
      *
-     * @since 1.0.0
+     * @since 2.0.0
      */
     public static function get_blocks_recursively( $blocks )
     {

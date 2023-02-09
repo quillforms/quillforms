@@ -34,18 +34,19 @@ export function setupStore(
  * @param {Object} attributes  Block attributes
  *
  * @param          parentIndex
+ * @param          parentId
  * @return {BlockEditorActionTypes} Action object.
  */
 export const setBlockAttributes = (
 	blockId: string,
 	attributes: Record< string, unknown >,
-	parentIndex = undefined
+	parentId = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: SET_BLOCK_ATTRIBUTES,
 		blockId,
 		attributes,
-		parentIndex,
+		parentId,
 	};
 };
 
@@ -131,18 +132,18 @@ export const setCurrentChildBlock = (
 /**
  * Delete current block
  *
- * @param {string} blockId     Block uuid
+ * @param {string} blockId  Block uuid
  *
- * @param          parentIndex
+ * @param          parentId
  * @return {BlockEditorActionTypes} Action object.
  */
 export const deleteBlock = (
 	blockId: string,
-	parentIndex = undefined
+	parentId = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: DELETE_BLOCK,
 		blockId,
-		parentIndex,
+		parentId,
 	};
 };

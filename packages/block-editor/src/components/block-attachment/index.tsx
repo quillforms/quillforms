@@ -16,13 +16,13 @@ interface Props {
 		url: string;
 	};
 	id: string;
-	parentIndex?: number;
+	parentId?: string;
 }
 const BlockAttachment: React.FC< Props > = ( {
 	blockColor,
 	attachment,
 	id,
-	parentIndex,
+	parentId,
 } ) => {
 	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
 
@@ -41,7 +41,7 @@ const BlockAttachment: React.FC< Props > = ( {
 				className="block-editor-block-attachment__delete"
 				onClick={
 					( () => setBlockAttributes( id, { attachment: {} } ),
-					parentIndex )
+					parentId )
 				}
 			>
 				<div
