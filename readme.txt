@@ -138,6 +138,10 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 2.1.0  = 9 Feb 2023
+Fix: Fixing the group block issue with emails.
+Feature: Add attachment option to the group block.
+
 = 2.0.0  = 9 Feb 2023
 Feature: Introducing the group block to group questions at the same page.
 Feature: Add custom css feature to allow designers to add their own css.
