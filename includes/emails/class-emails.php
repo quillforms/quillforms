@@ -10,6 +10,7 @@
 namespace QuillForms\Emails;
 
 use QuillForms\Entry;
+use QuillForms\Core;
 use QuillForms\Managers\Blocks_Manager;
 use QuillForms\Merge_Tags;
 use QuillForms\Settings;
@@ -511,7 +512,7 @@ class Emails {
 
 			$x = 1;
 
-			foreach ( $this->form_data['blocks'] as $block ) {
+			foreach ( Core::get_blocks_recursively( $this->form_data['blocks'] ) as $block ) {
 
 				$block_type  = Blocks_Manager::instance()->create( $block );
 				$field_label = '';
@@ -551,7 +552,7 @@ class Emails {
 			/*
 			 * Plain Text emails.
 			 */
-			foreach ( $this->form_data['blocks'] as $block ) {
+			foreach ( Core::get_blocks_recursively( $this->form_data['blocks'] ) as $block ) {
 
 				$block_type  = Blocks_Manager::instance()->create( $block );
 				$field_label = '';

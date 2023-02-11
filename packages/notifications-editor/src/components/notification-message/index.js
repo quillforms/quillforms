@@ -43,7 +43,11 @@ const EmailMessage = ( {
 		const blockTypes = select( 'quillForms/blocks' ).getBlockTypes();
 		return {
 			fields: select( 'quillForms/block-editor' )
-				.getEditableFields()
+				.getAllBlocks()
+				.filter( ( $block ) => {
+					const blockType = blockTypes[ $block.name ];
+					return blockType?.supports?.editable === true;
+				} )
 				.map( ( field ) => {
 					return {
 						type: 'field',
