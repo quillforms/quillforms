@@ -95,6 +95,7 @@ abstract class Block_Type extends stdClass {
 			'editable'        => true,
 			'required'        => true,
 			'attachment'      => true,
+			'defaultValue'	  => false,
 			'description'     => true,
 			'logic'           => true,
 			'logicConditions' => true,
