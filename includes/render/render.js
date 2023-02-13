@@ -44,7 +44,6 @@
 								return response.json();
 							} )
 							.then( function ( res ) {
-								console.log( res );
 								if ( res && res.success ) {
 									// In case of successful submission, complete the form.
 									if ( res.data.status === 'completed' ) {
@@ -85,7 +84,6 @@
 												).includes( o.id );
 											} );
 
-										console.log( firstField );
 										wp.data
 											.dispatch(
 												'quillForms/renderer-core'
