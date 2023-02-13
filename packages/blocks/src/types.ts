@@ -51,6 +51,7 @@ export type BlockSupportedFeatures = {
 	attachment?: boolean;
 	description?: boolean;
 	editable?: boolean;
+	defaultValue?: boolean;
 	required?: boolean;
 	logic?: boolean;
 	logicConditions?: boolean;

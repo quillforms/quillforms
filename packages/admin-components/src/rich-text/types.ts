@@ -23,6 +23,8 @@ declare module 'slate' {
 	}
 }
 
+export type MergeTagsSections = { key: string; label: string }[];
+
 export type MergeTag = {
 	type: string;
 	modifier: string;

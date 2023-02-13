@@ -26,7 +26,7 @@ interface Props {
 const RichText: React.FC< Props > = ( { allowedFormats } ) => {
 	const {
 		id,
-		// sections,
+		sections,
 		options,
 		value,
 		onChange,
@@ -34,7 +34,7 @@ const RichText: React.FC< Props > = ( { allowedFormats } ) => {
 		placeholder,
 	} = useComboboxControlContext();
 
-	let tags: MergeTags = [];
+	const tags: MergeTags = [];
 	for ( const option of options ) {
 		if ( option.isMergeTag ) {
 			tags.push( {
@@ -62,6 +62,7 @@ const RichText: React.FC< Props > = ( { allowedFormats } ) => {
 				value={ value.value ?? '' }
 				setValue={ ( value ) => onChange( { type: 'text', value } ) }
 				mergeTags={ tags }
+				mergeTagSections={ sections }
 				allowedFormats={ allowedFormats }
 				placeholder={ placeholder }
 			/>

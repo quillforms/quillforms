@@ -4,6 +4,7 @@
 import {
 	ToggleControl,
 	BaseControl,
+	ComboboxControl,
 	ControlWrapper,
 	ControlLabel,
 } from '@quillforms/admin-components';
@@ -49,6 +50,7 @@ const DefaultControls: React.FC< Props > = ( {
 		requiredSupport,
 		attachmentSupport,
 		themeSupport,
+		defaultValueSupport,
 	} = useSelect( ( select ) => {
 		return {
 			editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
@@ -67,13 +69,18 @@ const DefaultControls: React.FC< Props > = ( {
 				blockName,
 				'theme'
 			),
+			defaultValueSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'defaultValue'
+			),
 		};
 	} );
-	let required, attachment, blockTheme;
+	let required, attachment, blockTheme, defaultValue;
 	if ( attributes ) {
 		required = attributes.required;
 		attachment = attributes.attachment;
 		blockTheme = attributes.themeId;
+		defaultValue = attributes.defaultValue ?? '';
 	}
 	return (
 		<Fragment>
@@ -291,6 +298,44 @@ const DefaultControls: React.FC< Props > = ( {
 							</>
 						) }
 				</>
+			) }
+			{ defaultValueSupport && (
+				<BaseControl>
+					<ControlWrapper orientation="vertical">
+						<ControlLabel label="Default Value" />
+						<ComboboxControl
+							value={ { type: 'text', value: defaultValue } }
+							onChange={ ( val ) => {
+								setAttributes( { defaultValue: val } );
+							} }
+							hideChooseOption={ true }
+							customize={ ( value ) => {
+								let { sections, options } = value;
+
+								sections = sections.filter( ( section ) =>
+									[ 'hidden_fields', 'variables' ].includes(
+										section.key
+									)
+								);
+
+								options = options.filter( ( option ) => {
+									if ( option.type === 'field' ) {
+										return false;
+									} else if (
+										[ 'variable', 'hidden_field' ].includes(
+											option.type
+										)
+									) {
+										return true;
+									}
+									return false;
+								} );
+
+								return { sections, options };
+							} }
+						/>
+					</ControlWrapper>
+				</BaseControl>
 			) }
 			{ ! parentId && (
 				<>

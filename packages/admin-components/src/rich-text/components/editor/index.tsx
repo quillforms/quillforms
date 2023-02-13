@@ -19,7 +19,12 @@ import { css } from 'emotion';
 import Element from '../element';
 import HoveringToolbar from '../hovering-toolbar';
 import MergeTagListItem from '../merge-tag-list-item';
-import type { MergeTags, MergeTag, allowedFormats } from '../../types';
+import type {
+	MergeTags,
+	MergeTagsSections,
+	MergeTag,
+	allowedFormats,
+} from '../../types';
 interface Props {
 	editor: ReactEditor & HistoryEditor;
 	placeholder?: string;
@@ -28,6 +33,7 @@ interface Props {
 	onChange: ( value: SlateNode[] ) => void;
 	onFocus: React.FocusEventHandler;
 	mergeTags?: MergeTags;
+	mergeTagsSections?: MergeTagsSections;
 	allowedFormats?: allowedFormats;
 }
 const TextEditor: React.FC< Props > = ( props ) => {
@@ -39,6 +45,7 @@ const TextEditor: React.FC< Props > = ( props ) => {
 		value,
 		onFocus,
 		mergeTags = [],
+		mergeTagsSections = [],
 		allowedFormats = [],
 	} = props;
 

@@ -5,11 +5,12 @@
 		"required": true,
 		"attachment": true,
 		"description": true,
+		"defaultValue": true,
 		"logic": true,
 		"theme": true
 	},
 	"attributes": {
-		"setMaxCharacters":  {
+		"setMaxCharacters": {
 			"type": "boolean",
 			"default": false
 		},
@@ -18,5 +19,12 @@
 			"multipleOf": 1
 		}
 	},
-	"logicalOperators": ["is", "is_not", "starts_with", "ends_with", "contains", "not_contains"]
+	"logicalOperators": [
+		"is",
+		"is_not",
+		"starts_with",
+		"ends_with",
+		"contains",
+		"not_contains"
+	]
 }

@@ -6,6 +6,7 @@
 		"attachment": true,
 		"description": true,
 		"logic": true,
+		"defaultValue": true,
 		"theme": true,
 		"numeric": true,
 		"payments": true
@@ -28,5 +29,5 @@
 			"default": 0
 		}
 	},
-	"logicalOperators": ["is", "is_not", "greater_than", "lower_than"]
+	"logicalOperators": [ "is", "is_not", "greater_than", "lower_than" ]
 }
