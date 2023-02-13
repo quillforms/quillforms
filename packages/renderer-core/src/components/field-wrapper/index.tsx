@@ -46,6 +46,8 @@ const FieldWrapper: React.FC = () => {
 			blockType: select( 'quillForms/blocks' ).getBlockType( blockName ),
 		};
 	} );
+
+	if ( ! blockType ) return null;
 	const { swiper, isValid, isFocused } = useSelect( ( select ) => {
 		return {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),

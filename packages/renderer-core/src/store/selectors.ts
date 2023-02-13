@@ -369,7 +369,7 @@ export function hasValidFields( state: State, id: string ): boolean {
 	if ( size( block?.innerBlocks ) > 0 ) {
 		forEach( block.innerBlocks, ( $block ) => {
 			const $blockId = $block.id;
-			if ( ! state.answers[ $blockId ].isValid ) {
+			if ( ! state.answers?.[ $blockId ]?.isValid ) {
 				isValid = false;
 			}
 		} );

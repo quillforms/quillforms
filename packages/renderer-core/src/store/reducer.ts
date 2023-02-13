@@ -319,8 +319,8 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		}
 
 		case GO_TO_BLOCK: {
-			let { id } = action;
-			if ( currentBlockId === id ) return state;
+			let { id, forceUpdateState } = action;
+			if ( currentBlockId === id && ! forceUpdateState ) return state;
 			const isTheBlockWelcomeScreenBlock = state.welcomeScreens.some(
 				( screen ) => screen.id === id
 			);

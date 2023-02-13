@@ -65,6 +65,7 @@ type goPrevAction = {
 type goTonextBtn = {
 	type: typeof GO_TO_BLOCK;
 	id: string;
+	forceUpdateState?: boolean;
 };
 
 type completeFormAction = {
@@ -158,7 +159,7 @@ type setPaymentDataAction = {
 		methods: {
 			[
 				key: string
-			 ]: {} /* stripe:checkout, stripe:form, paypal:checkout, paypal:card */;
+			]: {} /* stripe:checkout, stripe:form, paypal:checkout, paypal:card */;
 		};
 	};
 };

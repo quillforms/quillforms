@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -25,6 +25,13 @@ interface Props {
 const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const [ isMounted, setIsMounted ] = useState( false );
 	const editableFields = useEditableFields( true );
+	const { currentBlockId } = useSelect( ( select ) => {
+		return {
+			currentBlockId: select(
+				'quillForms/renderer-core'
+			).getCurrentBlockId(),
+		};
+	} );
 	const blocks = useBlocks();
 	const { isPreview } = useFormContext();
 	const { setSwiper, insertEmptyFieldAnswer, goToBlock, setPaymentData } =
@@ -65,7 +72,9 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 						? []
 						: ( thankyouScreens as Screen[] ),
 			} );
-
+			if ( ! applyLogic && ! isPreview ) {
+				goToBlock( currentBlockId, true );
+			}
 			setIsMounted( true );
 		}
 	}, [ JSON.stringify( blocks ) ] );

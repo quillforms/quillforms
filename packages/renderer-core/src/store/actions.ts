@@ -28,7 +28,7 @@ import type {
 } from './types';
 
 /**
-
+ 
  * Returns an action object used in setting swiper state
  *
  * @param {SwiperState} swiperState New swiper state.
@@ -47,7 +47,7 @@ export const setSwiper = (
 /**
  * Go to next block
  *
- * @param {boolean} isSwiping  Is swiping
+ * @param {boolean} isSwiping Is swiping
  *
  * @return {SwiperActionTypes} Action object.
  */
@@ -72,14 +72,19 @@ export const goPrev = (): SwiperActionTypes => {
 /**
  * Go to a specific field
  *
- * @param {string} id       The field id.
+ * @param {string} id               The field id.
  *
+ * @param          forceUpdateState
  * @return {SwiperActionTypes} Action object.
  */
-export const goToBlock = ( id: string ): SwiperActionTypes => {
+export const goToBlock = (
+	id: string,
+	forceUpdateState = false
+): SwiperActionTypes => {
 	return {
 		type: GO_TO_BLOCK,
 		id,
+		forceUpdateState,
 	};
 };
 
@@ -107,9 +112,10 @@ export const resetAnswers = (): RendererAnswersActionTypes => {
 /**
  * Returns an action object used in inserting empty field answer.
  *
- * @param {string} id 		Field uuid.
- * @param {string} type		Field type
+ * @param {string} id        Field uuid.
+ * @param {string} type      Field type
  *
+ * @param          blockName
  * @return {RendererAnswersActionTypes} Action object.
  */
 export const insertEmptyFieldAnswer = (
@@ -126,8 +132,8 @@ export const insertEmptyFieldAnswer = (
 /**
  * Returns an action object used in setting field answer.
  *
- * @param {string}     id   Field uuid.
- * @param {unknown}    val  Field value could be string, array, number or any type.
+ * @param {string}  id  Field uuid.
+ * @param {unknown} val Field value could be string, array, number or any type.
  *
  * @return {Object} Action object.
  */
@@ -145,8 +151,8 @@ export const setFieldAnswer = (
 /**
  * Returns an action object used in setting field valid flag.
  *
- * @param {string}  id   Field uuid.
- * @param {boolean} val  Field isValid flag.
+ * @param {string}  id  Field uuid.
+ * @param {boolean} val Field isValid flag.
  *
  * @return {Object} Action object.
  */
@@ -164,8 +170,8 @@ export const setIsFieldValid = (
 /**
  * Returns an action object used in setting fields answered flag.
  *
- * @param {string}  id   Field uuid.
- * @param {boolean} val  Field isAnswered flag.
+ * @param {string}  id  Field uuid.
+ * @param {boolean} val Field isAnswered flag.
  *
  * @return {RendererAnswersActionTypes} Action object.
  */
@@ -183,8 +189,8 @@ export const setIsFieldAnswered = (
 /**
  * Returns an action object used in setting fields pending flag.
  *
- * @param {string}  id   Field uuid.
- * @param {boolean} val  Field isPending flag.
+ * @param {string}  id  Field uuid.
+ * @param {boolean} val Field isPending flag.
  *
  * @return {RendererAnswersActionTypes} Action object.
  */
@@ -202,8 +208,8 @@ export const setIsFieldPending = (
 /**
  * Returns and object used in setting pending message key
  *
- * @param {string}  id   Field uuid.
- * @param {string}  val  Field pendingMsg flag.
+ * @param {string} id  Field uuid.
+ * @param {string} val Field pendingMsg flag.
  *
  * @return {Object} Action object.
  */
@@ -221,8 +227,8 @@ export const setFieldPendingMsg = (
 /**
  * Returns and object used in setting error message key
  *
- * @param {string}  id   Field uuid.
- * @param {string}  val  Field isAnswered flag.
+ * @param {string} id  Field uuid.
+ * @param {string} val Field isAnswered flag.
  *
  * @return {Object} Action object.
  */
@@ -240,7 +246,7 @@ export const setFieldValidationErr = (
 /**
  * Set is reviewing flag
  *
- * @param {boolean} val  The new flag value.
+ * @param {boolean} val The new flag value.
  *
  * @return {Object} Action object
  */
@@ -254,7 +260,7 @@ export const setIsReviewing = ( val: boolean ): SubmitActionTypes => {
 /**
  * Set is submitting flag.
  *
- * @param {boolean} val  The new flag value.
+ * @param {boolean} val The new flag value.
  *
  * @return {Object} Action object
  */
@@ -268,7 +274,7 @@ export const setIsSubmitting = ( val: boolean ): SubmitActionTypes => {
 /**
  * Set submission errors.
  *
- * @param {String} val  The new submission errors.
+ * @param {string} val The new submission errors.
  *
  * @return {Object} Action object
  */
@@ -282,6 +288,7 @@ export const setSubmissionErr = ( val: string ): SubmitActionTypes => {
 /**
  * Set payment data
  *
+ * @param  data
  * @return {SwiperActionTypes} Action object
  */
 export const setPaymentData = ( data: any ): SubmitActionTypes => {
@@ -294,7 +301,7 @@ export const setPaymentData = ( data: any ): SubmitActionTypes => {
 /**
  * Set isFocused flag
  *
- * @param {Boolean} val   The new flag value.
+ * @param {boolean} val The new flag value.
  *
  * @return {Object} Action object
  */
@@ -309,7 +316,7 @@ export const setIsFocused = ( val: boolean ) => {
  * Set footerDisplay flag
  * This flag will alomst be needed to control in touch screens.
  *
- * @param {Boolean} val   The new flag value.
+ * @param {boolean} val The new flag value.
  *
  * @return {Object} Action object
  */
