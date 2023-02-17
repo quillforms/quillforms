@@ -86,6 +86,13 @@ export const registerBlockType = (
 		};
 	}
 
+	if ( supports.defaultValue ) {
+		attributes.defaultValue = {
+			type: 'string',
+			default: '',
+		};
+	}
+
 	if ( supports.description ) {
 		attributes.description = {
 			type: 'string',
@@ -131,6 +138,7 @@ export const registerBlockType = (
 		type: 'string',
 		default: 'none',
 	};
+
 	settings.attributes = attributes;
 
 	dispatch( 'quillForms/blocks' ).addBlockTypes( {
