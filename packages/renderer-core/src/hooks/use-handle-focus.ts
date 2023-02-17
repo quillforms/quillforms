@@ -27,9 +27,6 @@ const useHandleFocus = (
 	} );
 
 	const isVisible = ( ref ) => {
-		console.log( '#####' );
-		console.log( ref );
-		console.log( ref.current );
 		if ( ! ref?.current ) return false;
 		const current = ref?.current?.inputElement
 			? ref.current.inputElement
