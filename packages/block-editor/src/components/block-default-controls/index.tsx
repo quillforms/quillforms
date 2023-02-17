@@ -308,62 +308,72 @@ const DefaultControls: React.FC< Props > = ( {
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
 						<ControlLabel label="Default Value" />
-						<ComboboxControl
-							value={ { type: 'text', value: defaultValue } }
-							onChange={ ( val ) => {
-								setAttributes( {
-									defaultValue: val?.value ?? '',
-								} );
-							} }
-							hideChooseOption={ true }
-							customize={ ( value ) => {
-								let { sections, options } = value;
-
-								sections = sections.filter( ( section ) =>
-									[ 'hidden_fields', 'variables' ].includes(
-										section.key
-									)
-								);
-
-								options = options.filter( ( option ) => {
-									if ( option.type === 'field' ) {
-										return false;
-									} else if (
-										[ 'variable', 'hidden_field' ].includes(
-											option.type
-										)
-									) {
-										return true;
-									}
-									return false;
-								} );
-								if ( ! numericSupport ) {
-									sections.push( {
-										key: 'user',
-										label: 'Logged In User',
-									} );
-									options.push( {
-										type: 'user',
-										value: 'username',
-										label: 'User username',
-										isMergeTag: true,
-									} );
-									options.push( {
-										type: 'user',
-										value: 'email',
-										label: 'User email',
-										isMergeTag: true,
-									} );
-									options.push( {
-										type: 'user',
-										value: 'display_name',
-										label: 'User display name',
-										isMergeTag: true,
-									} );
+						<div
+							className={ css`
+								.combobox-control-rich-text-back {
+									display: none;
 								}
-								return { sections, options };
-							} }
-						/>
+							` }
+						>
+							<ComboboxControl
+								value={ { type: 'text', value: defaultValue } }
+								onChange={ ( val ) => {
+									setAttributes( {
+										defaultValue: val?.value ?? '',
+									} );
+								} }
+								hideChooseOption={ true }
+								customize={ ( value ) => {
+									let { sections, options } = value;
+
+									sections = sections.filter( ( section ) =>
+										[
+											'hidden_fields',
+											'variables',
+										].includes( section.key )
+									);
+
+									options = options.filter( ( option ) => {
+										if ( option.type === 'field' ) {
+											return false;
+										} else if (
+											[
+												'variable',
+												'hidden_field',
+											].includes( option.type )
+										) {
+											return true;
+										}
+										return false;
+									} );
+									if ( ! numericSupport ) {
+										sections.push( {
+											key: 'user',
+											label: 'Logged In User',
+										} );
+										options.push( {
+											type: 'user',
+											value: 'username',
+											label: 'User username',
+											isMergeTag: true,
+										} );
+										options.push( {
+											type: 'user',
+											value: 'email',
+											label: 'User email',
+											isMergeTag: true,
+										} );
+										options.push( {
+											type: 'user',
+											value: 'display_name',
+											label: 'User display name',
+											isMergeTag: true,
+										} );
+									}
+									return { sections, options };
+								} }
+							/>
+						</div>
 					</ControlWrapper>
 				</BaseControl>
 			) }
