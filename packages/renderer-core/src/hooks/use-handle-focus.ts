@@ -27,6 +27,9 @@ const useHandleFocus = (
 	} );
 
 	const isVisible = ( ref ) => {
+		console.log( '#####' );
+		console.log( ref );
+		console.log( ref.current );
 		if ( ! ref?.current ) return false;
 		const current = ref?.current?.inputElement
 			? ref.current.inputElement
@@ -59,19 +62,14 @@ const useHandleFocus = (
 						inputRef.current.inputElement.focus();
 					}
 				} );
-			} else if (
-				currentBlockId &&
-				document?.querySelector(
+			} else if ( currentBlockId ) {
+				const el = document?.querySelector(
 					`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
-				)
-			) {
+				) as HTMLElement;
+
 				focusTimer = setTimeout( () => {
-					(
-						document.querySelector(
-							`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
-						) as HTMLElement
-					 ).focus();
-				} );
+					if ( document.activeElement !== el ) el.focus();
+				}, 50 );
 			}
 		}
 	}, [ isFocused, isActive, isAnimating ] );
