@@ -51,6 +51,7 @@ const DefaultControls: React.FC< Props > = ( {
 		attachmentSupport,
 		themeSupport,
 		defaultValueSupport,
+		numericSupport,
 	} = useSelect( ( select ) => {
 		return {
 			editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
@@ -72,6 +73,10 @@ const DefaultControls: React.FC< Props > = ( {
 			defaultValueSupport: select( 'quillForms/blocks' ).hasBlockSupport(
 				blockName,
 				'defaultValue'
+			),
+			numericSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'numeric'
 			),
 		};
 	} );
@@ -306,7 +311,9 @@ const DefaultControls: React.FC< Props > = ( {
 						<ComboboxControl
 							value={ { type: 'text', value: defaultValue } }
 							onChange={ ( val ) => {
-								setAttributes( { defaultValue: val } );
+								setAttributes( {
+									defaultValue: val?.value ?? '',
+								} );
 							} }
 							hideChooseOption={ true }
 							customize={ ( value ) => {
@@ -330,7 +337,30 @@ const DefaultControls: React.FC< Props > = ( {
 									}
 									return false;
 								} );
-
+								if ( ! numericSupport ) {
+									sections.push( {
+										key: 'user',
+										label: 'Logged In User',
+									} );
+									options.push( {
+										type: 'user',
+										value: 'username',
+										label: 'User username',
+										isMergeTag: true,
+									} );
+									options.push( {
+										type: 'user',
+										value: 'email',
+										label: 'User email',
+										isMergeTag: true,
+									} );
+									options.push( {
+										type: 'user',
+										value: 'display_name',
+										label: 'User display name',
+										isMergeTag: true,
+									} );
+								}
 								return { sections, options };
 							} }
 						/>

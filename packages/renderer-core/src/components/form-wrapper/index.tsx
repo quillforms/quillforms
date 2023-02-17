@@ -25,23 +25,64 @@ interface Props {
 const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const [ isMounted, setIsMounted ] = useState( false );
 	const editableFields = useEditableFields( true );
-	const { currentBlockId } = useSelect( ( select ) => {
+	const { currentBlockId, blockTypes } = useSelect( ( select ) => {
 		return {
 			currentBlockId: select(
 				'quillForms/renderer-core'
 			).getCurrentBlockId(),
+			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
 	const blocks = useBlocks();
-	const { isPreview } = useFormContext();
-	const { setSwiper, insertEmptyFieldAnswer, goToBlock, setPaymentData } =
-		useDispatch( 'quillForms/renderer-core' );
+	const {
+		isPreview,
+		formObj: { hiddenFields },
+	} = useFormContext();
+	const {
+		setSwiper,
+		insertEmptyFieldAnswer,
+		goToBlock,
+		setPaymentData,
+		setFieldAnswer,
+	} = useDispatch( 'quillForms/renderer-core' );
 
+	const replaceHiddenFields = ( val ) => {
+		const newVal = val.replace(
+			/{{hidden_field:([a-zA-Z0-9-_]+)}}/g,
+			( _match, p1, p2 ) => {
+				if ( size( hiddenFields ) > 0 && hiddenFields?.[ p1 ] ) {
+					return hiddenFields[ p1 ];
+				}
+				return '';
+			}
+		);
+
+		return newVal;
+	};
 	useEffect( () => {
 		if ( ! isPreview ) {
-			editableFields.forEach( ( field ) =>
-				insertEmptyFieldAnswer( field.id, field.name )
-			);
+			editableFields.forEach( ( field ) => {
+				if ( field?.attributes?.defaultValue ) {
+					const blockType = blockTypes[ field.name ];
+					if ( blockType?.supports?.numeric ) {
+						setFieldAnswer(
+							field.id,
+							blockType.getNumericVal(
+								replaceHiddenFields(
+									field.attributes.defaultValue
+								)
+							)
+						);
+					} else {
+						setFieldAnswer(
+							field.id,
+							replaceHiddenFields( field.attributes.defaultValue )
+						);
+					}
+				} else {
+					insertEmptyFieldAnswer( field.id, field.name );
+				}
+			} );
 			const welcomeScreens = map(
 				cloneDeep( blocks ).filter(
 					( block ) => block.name === 'welcome-screen'

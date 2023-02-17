@@ -212,7 +212,7 @@ const FieldWrapper: React.FC = () => {
 		}
 		e.preventDefault();
 		if ( ! ref.current ) return;
-		if ( ref.current.scrollTop === 0 ) {
+		if ( ref.current.scrollTop <= 0 ) {
 			scrollTimer = setTimeout( () => {
 				setCanSwipePrev( true );
 			}, 500 );
