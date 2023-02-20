@@ -111,6 +111,7 @@ const GroupDisplay = ( { id, innerBlocks, isTouchScreen, ...props } ) => {
 						blockLabel = blockLabel + ' *';
 					const blockProps = {
 						...props,
+						isTouchScreen,
 						inputRef:
 							refAssigned && refIndex !== index
 								? null
