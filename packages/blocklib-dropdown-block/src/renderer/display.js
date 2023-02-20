@@ -8,7 +8,13 @@ import { useCx, css } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, useRef, useMemo } from 'react';
+import {
+	useState,
+	useEffect,
+	useRef,
+	useMemo,
+	createPortal,
+} from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -144,6 +150,7 @@ const DropdownDisplay = ( props ) => {
 	useEffect( () => {
 		if ( showFDrop ) {
 			setShowFixedDropdownInDom( showFDrop );
+			setFooterDisplay( false );
 		} else {
 			timer3 = setTimeout( () => {
 				setShowFixedDropdownInDom( showFDrop );
@@ -276,6 +283,7 @@ const DropdownDisplay = ( props ) => {
 				setSelectedChoiceIndex( -1 );
 				if ( isTouchScreen ) {
 					setShowFDrop( false );
+					setFooterDisplay( true );
 					// timer2 for showing the input after choosing value
 					timer2 = setTimeout( () => {
 						next();
@@ -398,18 +406,23 @@ const DropdownDisplay = ( props ) => {
 					} }
 					onClick={ () => {
 						showDropdown && setSelectedChoiceIndex( -1 );
-						isTouchScreen && setShowFDrop( ! showFDrop );
-						! isTouchScreen && setShowDropdown( ! showDropdown );
-						inputRef.current.focus();
+						if ( isTouchScreen ) {
+							setShowFDrop( ! showFDrop );
+						} else {
+							setShowDropdown( ! showDropdown );
+							inputRef.current.focus();
+						}
 					} }
 					onKeyDown={ ( e ) => {
 						if ( e.keyCode === ENTER_CODE ) {
 							e.stopPropagation();
 							showDropdown && setSelectedChoiceIndex( -1 );
-							isTouchScreen && setShowFDrop( ! showFDrop );
-							! isTouchScreen &&
+							if ( isTouchScreen ) {
+								setShowFDrop( ! showFDrop );
+							} else {
 								setShowDropdown( ! showDropdown );
-							! showDropdown && inputRef.current.focus();
+								inputRef.current.focus();
+							}
 						} else {
 						}
 					} }
@@ -475,144 +488,169 @@ const DropdownDisplay = ( props ) => {
 			) }
 
 			{ showFixedDropdownInDom && (
-				<div
-					className={ cx(
-						'fixed-dropdown',
-						{
-							show: showFDrop,
-							hide: ! showFDrop,
-						},
-						styles.FixedDropdown
-					) }
-				>
-					<div
-						className={ cx(
-							css`
-								display: flex;
-								align-items: center;
-							`
-						) }
-					>
-						<svg
-							onClick={ () => {
-								setShowFDrop( false );
-							} }
-							className="back-icon"
-							focusable="false"
-							viewBox="0 0 16 16"
-							aria-hidden="true"
-							role="presentation"
-						>
-							<path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
-						</svg>
-						<input
+				<>
+					{ createPortal(
+						<div
 							className={ cx(
-								css`
-									& {
-										width: 100%;
-										border: none;
-										outline: none;
-										padding-bottom: 8px;
-										background: transparent;
-										margin-bottom: 10px;
-										transition: box-shadow 0.1s ease-out 0s;
-										box-shadow: ${ answersColor
-												.setAlpha( 0.3 )
-												.toString() }
-											0px 1px;
-									}
-
-									&::placeholder {
-										opacity: 0.3;
-										/* Chrome, Firefox, Opera, Safari 10.1+ */
-										color: ${ theme.answersColor };
-									}
-
-									&:-ms-input-placeholder {
-										opacity: 0.3;
-										/* Internet Explorer 10-11 */
-										color: ${ theme.answersColor };
-									}
-
-									&::-ms-input-placeholder {
-										opacity: 0.3;
-										/* Microsoft Edge */
-										color: ${ theme.answersColor };
-									}
-
-									&:focus {
-										box-shadow: ${ answersColor
-												.setAlpha( 1 )
-												.toString() }
-											0px 2px;
-									}
-
-									color: ${ theme.answersColor };
-								`
+								'fixed-dropdown',
+								{
+									show: showFDrop,
+									hide: ! showFDrop,
+								},
+								styles.FixedDropdown( theme )
 							) }
-							placeholder={
-								messages[ 'block.dropdown.placeholder' ]
-							}
-							onChange={ changeHandler }
-							value={ searchKeyword }
-							onFocus={ () => {
-								setFooterDisplay( false );
-							} }
-							onBlur={ () => {
-								setFooterDisplay( true );
-							} }
-							onKeyDown={ handleChoiceKeyDown }
-							autoComplete="off"
-						/>
-					</div>
-					<div
-						className="qf-block-dropdown-display__choices visible fixed-choices"
-						ref={ choicesWrappeerRef }
-						onWheel={ ( e ) => {
-							if ( showFixedDropdownInDom ) {
-								e.stopPropagation();
-							}
-						} }
-					>
-						{ $choices?.length > 0 ? (
-							$choices.map( ( choice, index ) => {
-								return (
-									<ChoiceItem
-										hovered={
-											index === selectedChoiceIndex
-										}
-										choiceIndex={ index }
-										blockId={ id }
-										clicked={
-											index === selectedChoiceIndex &&
-											clicked
-										}
-										role="presentation"
-										key={ `block-dropdown-${ id }-choice-${ choice.value }` }
-										clickHandler={ () =>
-											clickHandler( choice )
-										}
-										choice={ choice }
-										val={ val }
-										showDropdown={ showDropdown }
-									/>
-								);
-							} )
-						) : (
+							onWheel={ ( e ) => e.stopPropagation() }
+						>
 							<div
-								className={ cx( css`
-									background: ${ theme.errorsBgColor };
-									color: ${ theme.errorsFontColor };
-									display: inline-block;
-									padding: 5px 10px;
-									border-radius: 5px;
-								` ) }
+								className="fixed-dropdown-content"
+								onWheel={ ( e ) => {
+									e.stopPropagation();
+								} }
 							>
-								{ messages[ 'block.dropdown.noSuggestions' ] }
+								<div
+									className={ cx(
+										css`
+											display: flex;
+											align-items: center;
+										`
+									) }
+								>
+									<svg
+										onClick={ () => {
+											setShowFDrop( false );
+										} }
+										className="back-icon"
+										focusable="false"
+										viewBox="0 0 16 16"
+										aria-hidden="true"
+										role="presentation"
+									>
+										<path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
+									</svg>
+									<input
+										autoFocus={ false }
+										className={ cx(
+											css`
+												& {
+													width: 100%;
+													border: none;
+													outline: none;
+													padding-bottom: 8px;
+													background: transparent;
+													margin-bottom: 10px;
+													transition: box-shadow 0.1s
+														ease-out 0s;
+													box-shadow: ${ answersColor
+															.setAlpha( 0.3 )
+															.toString() }
+														0px 1px;
+												}
+
+												&::placeholder {
+													opacity: 0.3;
+													/* Chrome, Firefox, Opera, Safari 10.1+ */
+													color: ${ theme.answersColor };
+												}
+
+												&:-ms-input-placeholder {
+													opacity: 0.3;
+													/* Internet Explorer 10-11 */
+													color: ${ theme.answersColor };
+												}
+
+												&::-ms-input-placeholder {
+													opacity: 0.3;
+													/* Microsoft Edge */
+													color: ${ theme.answersColor };
+												}
+
+												&:focus {
+													box-shadow: ${ answersColor
+															.setAlpha( 1 )
+															.toString() }
+														0px 2px;
+												}
+
+												color: ${ theme.answersColor };
+											`
+										) }
+										placeholder={
+											messages[
+												'block.dropdown.placeholder'
+											]
+										}
+										onChange={ changeHandler }
+										value={ searchKeyword }
+										onFocus={ () => {
+											setFooterDisplay( false );
+										} }
+										onBlur={ () => {
+											setFooterDisplay( true );
+										} }
+										onKeyDown={ handleChoiceKeyDown }
+										autoComplete="off"
+									/>
+								</div>
+								<div
+									className="qf-block-dropdown-display__choices visible fixed-choices"
+									ref={ choicesWrappeerRef }
+									onWheel={ ( e ) => {
+										if ( showFixedDropdownInDom ) {
+											e.stopPropagation();
+										}
+									} }
+								>
+									{ $choices?.length > 0 ? (
+										$choices.map( ( choice, index ) => {
+											return (
+												<ChoiceItem
+													hovered={
+														index ===
+														selectedChoiceIndex
+													}
+													choiceIndex={ index }
+													blockId={ id }
+													clicked={
+														index ===
+															selectedChoiceIndex &&
+														clicked
+													}
+													role="presentation"
+													key={ `block-dropdown-${ id }-choice-${ choice.value }` }
+													clickHandler={ () =>
+														clickHandler( choice )
+													}
+													choice={ choice }
+													val={ val }
+													showDropdown={
+														showDropdown
+													}
+												/>
+											);
+										} )
+									) : (
+										<div
+											className={ cx( css`
+												background: ${ theme.errorsBgColor };
+												color: ${ theme.errorsFontColor };
+												display: inline-block;
+												padding: 5px 10px;
+												border-radius: 5px;
+											` ) }
+										>
+											{
+												messages[
+													'block.dropdown.noSuggestions'
+												]
+											}
+										</div>
+									) }
+								</div>
 							</div>
-						) }
-					</div>
-				</div>
+						</div>,
+						document.querySelector( '.renderer-core-form-flow' )
+					) }
+				</>
 			) }
 		</div>
 	);

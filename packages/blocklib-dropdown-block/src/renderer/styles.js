@@ -26,15 +26,36 @@ const moveDown = keyframes( {
 	},
 } );
 
-export const FixedDropdown = css`
+const getBackgroundImageCSS = ( theme ) => {
+	let backgroundImageCSS = '';
+	if ( theme.backgroundImage && theme.backgroundImage ) {
+		backgroundImageCSS = `background-image: url('${
+			theme.backgroundImage
+		}');
+			background-size: cover;
+			background-position: ${
+				// @ts-expect-error
+				parseFloat( theme.backgroundImageFocalPoint?.x ) * 100
+			}%
+			${
+				// @ts-expect-error
+				parseFloat( theme.backgroundImageFocalPoint?.y ) * 100
+			}%;
+
+			background-repeat: no-repeat;
+		`;
+	}
+	return backgroundImageCSS;
+};
+
+export const FixedDropdown = ( theme ) => css`
 	position: fixed;
 	inset: 0;
-	background-color: #fff;
 	height: 100% !important;
 	display: flex;
+	background-color: #fff;
 	flex-direction: column;
-	padding: 20px 10px;
-	z-index: 11;
+	z-index: 111111111;
 
 	&.show {
 		transform: translateY(100%);
@@ -45,11 +66,18 @@ export const FixedDropdown = css`
 		transform: translateY(0%);
 		animation: ${ moveDown } 0.5s ease-in-out 1 forwards;
 	}
-
+	> div {
+		background: ${ theme.backgroundColor };
+		${ getBackgroundImageCSS( theme ) };
+		padding: 20px 10px;
+		overflow-y: auto;
+		height: 100% !important;
+	}
 	.back-icon {
 		width: 20px;
 		height: 20px;
 		margin-right: 5px;
+		fill: ${ theme.questionsColor } !important
 	}
 }`;
 
