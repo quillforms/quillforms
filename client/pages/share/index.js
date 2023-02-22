@@ -44,7 +44,7 @@ const Share = ( { params } ) => {
 					<Loader color="#00BFFF" height={ 30 } width={ 30 } />
 				</div>
 			) : (
-				<did></did>
+				<></>
 			) }
 		</div>
 	);
