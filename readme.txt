@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
-Stable tag: 2.2.1
+Stable tag: 2.3.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -137,6 +137,11 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 2.3.0 = 22 Feb 2023
+Feature: Let the form height be auto resized when the form used as a shortcode to prevent the scrollbars.
+Fix: Fixing an issue with the group block duplication.
+Fix: Some tweaks and improvements for the mobile version.
 
 = 2.2.1 = 20 Feb 2023
 Fix: Fixing the mobile design issue with dropdown block.
