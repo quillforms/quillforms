@@ -117,7 +117,7 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 							background: #eeeeee;
 						` }
 					>
-						<a href={ link } target="_blank">
+						<a href={ link } target="_blank" rel="noreferrer">
 							{ link }
 						</a>
 					</div>
@@ -151,7 +151,7 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 							background: #eeeeee;
 						` }
 					>
-						{ `[quillforms id="${ formId }" width="100%" height="600px"]` }
+						{ `[quillforms id="${ formId }" width="100%"]` }
 					</div>
 				) }
 			</div>
