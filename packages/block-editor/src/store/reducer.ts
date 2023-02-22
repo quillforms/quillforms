@@ -139,7 +139,6 @@ const BlockEditorReducer: Reducer<
 
 		// SET BLOCK ATTRIBUTES
 		case SET_BLOCK_ATTRIBUTES: {
-			console.log( action );
 			const { blockId, attributes, parentId } = action;
 			let parentIndex;
 			// Get block index within its category.
