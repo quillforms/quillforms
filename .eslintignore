@@ -3,4 +3,5 @@ build
 build-module
 node_modules
 vendor
+includes/render
 !.*.js
