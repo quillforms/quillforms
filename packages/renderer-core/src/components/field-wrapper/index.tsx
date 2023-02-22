@@ -257,6 +257,12 @@ const FieldWrapper: React.FC = () => {
 		`;
 	}
 
+	let specialProps = {};
+	if ( isActive ) {
+		specialProps = {
+			'data-iframe-height': true,
+		};
+	}
 	return (
 		<div
 			className={ classnames(
@@ -309,7 +315,7 @@ const FieldWrapper: React.FC = () => {
 						) }
 					>
 						<div
-							className="renderer-components-field-wrapper__content-wrapper"
+							className="renderer-components-field-wrapper__content-wrapper renderer-components-block__content-wrapper"
 							tabIndex={ 0 }
 							// @ts-expect-error
 							onKeyDown={ ( e: KeyboardEvent ): void => {
@@ -336,6 +342,7 @@ const FieldWrapper: React.FC = () => {
 						>
 							<div
 								ref={ ref }
+								{ ...specialProps }
 								className="renderer-core-block-scroller"
 								onScroll={ ( e ) => scrollHandler( e ) }
 							>

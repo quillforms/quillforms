@@ -130,7 +130,7 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 							flex-direction: column;
 							justify-content: center;
 							max-width: 700px;
-							padding: 30px 30px 20px;
+							padding: 30px;
 							word-wrap: break-word;
 							text-align: center;
 							margin-right: auto;
@@ -229,13 +229,13 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 								></div>
 							) }
 						</div>
+						<ScreenAction
+							theme={ theme }
+							next={ next }
+							isSticky={ stickyFooter }
+							buttonText={ attributes.buttonText }
+						/>
 					</div>
-					<ScreenAction
-						theme={ theme }
-						next={ next }
-						isSticky={ stickyFooter }
-						buttonText={ attributes.buttonText }
-					/>
 				</div>
 				{ attributes.layout !== 'stack' && (
 					<div

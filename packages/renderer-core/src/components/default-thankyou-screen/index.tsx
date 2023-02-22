@@ -35,9 +35,11 @@ const DefaultThankYouScreen: React.FC = () => {
 				`
 			) }
 		>
-			<HTMLParser
-				value={ messages[ 'block.defaultThankYouScreen.label' ] }
-			/>
+			<div className="qf-thankyou-screen-block__content-wrapper">
+				<HTMLParser
+					value={ messages[ 'block.defaultThankYouScreen.label' ] }
+				/>
+			</div>
 		</div>
 	);
 };
