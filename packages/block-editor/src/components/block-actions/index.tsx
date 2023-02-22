@@ -16,6 +16,7 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import DeleteAlert from '../delete-alert';
+import { map, size } from 'lodash';
 
 interface Props {
 	id: string;
@@ -99,13 +100,30 @@ const BlockActions: React.FC< Props > = ( {
 						<MenuItem
 							onClick={ () => {
 								onClose();
+
+								const newBlock = {
+									...block,
+									id: Math.random()
+										.toString( 36 )
+										.substr( 2, 9 ),
+								};
+
+								if ( size( newBlock?.innerBlocks ) > 0 ) {
+									newBlock.innerBlocks = map(
+										newBlock.innerBlocks,
+										( childBlock ) => {
+											return {
+												...childBlock,
+												id: Math.random()
+													.toString( 36 )
+													.substr( 2, 9 ),
+											};
+										}
+									);
+								}
+
 								__experimentalInsertBlock(
-									{
-										...block,
-										id: Math.random()
-											.toString( 36 )
-											.substr( 2, 9 ),
-									},
+									{ ...newBlock },
 									index + 1,
 									parentId
 								);
