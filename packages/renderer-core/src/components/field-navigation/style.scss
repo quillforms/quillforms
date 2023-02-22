@@ -1,6 +1,11 @@
 .renderer-core-field-navigation {
     display: inline-flex;
 	margin-left: 8px;
+	&.hidden {
+		z-index: -1;
+		opacity: 0;
+		visibility: hidden;
+	}
 	> div {
 		display: inline-flex;
 		justify-content: center;

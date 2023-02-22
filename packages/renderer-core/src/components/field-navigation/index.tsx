@@ -15,7 +15,7 @@ import { useCurrentTheme, useFormSettings } from '../../hooks';
 import DownIcon from './down-icon';
 import UpIcon from './up-icon';
 
-const FieldNavigation = () => {
+const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 	const { goNext, goPrev } = useDispatch( 'quillForms/renderer-core' );
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
@@ -28,7 +28,11 @@ const FieldNavigation = () => {
 		};
 	} );
 	return (
-		<div className="renderer-core-field-navigation">
+		<div
+			className={ classnames( 'renderer-core-field-navigation', {
+				hidden: ! shouldFooterBeDisplayed,
+			} ) }
+		>
 			<div
 				className={ classnames(
 					'renderer-core-field-navigation__up-icon',
