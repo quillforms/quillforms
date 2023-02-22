@@ -63,8 +63,11 @@ const FormFooter: React.FC = memo( () => {
 			tabIndex={ -1 }
 		>
 			{ ! formObj?.settings?.disableProgressBar && <ProgressBar /> }
-			{ ! formObj?.settings?.disableNavigationArrows &&
-			shouldFooterBeDisplayed && <FieldNavigation /> }
+			{ ! formObj?.settings?.disableNavigationArrows && (
+				<FieldNavigation
+					shouldFooterBeDisplayed={ shouldFooterBeDisplayed }
+				/>
+			) }
 		</div>
 	);
 } );
