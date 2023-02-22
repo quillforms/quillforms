@@ -366,6 +366,14 @@ class Form_Renderer
                 true
             );
 
+			wp_enqueue_script(
+                'quillforms-iframe-resizer-content-window-script',
+                QUILLFORMS_PLUGIN_URL . 'includes/render/iframe-resizer-content-window-min.js',
+                array( 'wp-dom-ready' ),
+                QUILLFORMS_VERSION,
+                true
+            );
+
             wp_localize_script(
                 'quillforms-react-renderer-script',
                 'qfRender',
