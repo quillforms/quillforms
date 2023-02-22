@@ -43,6 +43,14 @@ const Form: React.FC< Props > = ( {
 			...getDefaultMessages(),
 			...formObj.messages,
 		};
+		const ParsedUrlSearch = new URLSearchParams(
+			window.location.search.substring( 1 )
+		);
+		// 'quillforms-redirection' is deprecated and will be removed.
+		if ( ParsedUrlSearch.get( 'quillforms-shortcode' ) ) {
+			if ( ! formObj.settings ) formObj.settings = {};
+			formObj.settings.disableWheelSwiping = true;
+		}
 		return formObj;
 	};
 
