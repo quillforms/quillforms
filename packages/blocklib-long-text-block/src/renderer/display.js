@@ -39,7 +39,13 @@ const LongTextOutput = ( props ) => {
 		isReviewing,
 		isPreview,
 	} = props;
-	const { setMaxCharacters, maxCharacters, required } = attributes;
+	const {
+		minCharacters,
+		setMaxCharacters,
+		maxCharacters,
+		required,
+		placeholder,
+	} = attributes;
 	const theme = useBlockTheme( attributes.themeId );
 	const messages = useMessages();
 	const answersColor = tinyColor( theme.answersColor );
@@ -55,6 +61,13 @@ const LongTextOutput = ( props ) => {
 		) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.maxCharacters' ] );
+		} else if (
+			minCharacters !== false &&
+			minCharacters > 0 &&
+			value?.length < minCharacters
+		) {
+			setIsValid( false );
+			setValidationErr( messages[ 'label.errorAlert.minCharacters' ] );
 		} else {
 			setIsValid( true );
 			setValidationErr( null );
@@ -150,7 +163,11 @@ const LongTextOutput = ( props ) => {
 					`
 				) }
 				id={ 'longText-' + id }
-				placeholder={ messages[ 'block.longText.placeholder' ] }
+				placeholder={
+					placeholder === false
+						? messages[ 'block.longText.placeholder' ]
+						: placeholder
+				}
 				onChange={ changeHandler }
 				value={ val && val.length > 0 ? val : '' }
 				onFocus={ () => {

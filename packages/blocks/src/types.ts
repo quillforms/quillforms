@@ -52,6 +52,7 @@ export type BlockSupportedFeatures = {
 	description?: boolean;
 	editable?: boolean;
 	defaultValue?: boolean;
+	placeholder: boolean | string;
 	required?: boolean;
 	logic?: boolean;
 	logicConditions?: boolean;
@@ -77,7 +78,7 @@ export interface BlockTypeSettings
 	attributes?: Record<
 		string,
 		{
-			type: string;
+			type: string | string[];
 			default?: unknown;
 			[ x: string ]: unknown;
 		}

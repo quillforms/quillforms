@@ -23,6 +23,7 @@ export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 		attachment: true,
 		description: true,
 		defaultValue: false,
+		placeholder: false,
 		logic: true,
 		logicConditions: true,
 		numeric: false,
@@ -75,6 +76,12 @@ export const registerBlockType = (
 		};
 	}
 
+	if ( supports.placeholder ) {
+		attributes.placeholder = {
+			type: [ 'string', 'boolean' ],
+			default: false,
+		};
+	}
 	if ( supports.attachment ) {
 		attributes.attachment = {
 			type: 'object',

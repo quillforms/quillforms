@@ -9,6 +9,7 @@ type DefaultAttributes = {
 	required?: boolean;
 	attachment?: BlockAttachment;
 	attachmentMaxWidth?: string;
+	placeholder?: string | boolean;
 	attachmentFocalPoint?: {
 		x: number;
 		y: number;

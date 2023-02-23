@@ -7,6 +7,7 @@ import {
 	ComboboxControl,
 	ControlWrapper,
 	ControlLabel,
+	TextControl,
 } from '@quillforms/admin-components';
 
 // @ts-expect-error
@@ -52,6 +53,7 @@ const DefaultControls: React.FC< Props > = ( {
 		themeSupport,
 		defaultValueSupport,
 		numericSupport,
+		placeholderSupport,
 	} = useSelect( ( select ) => {
 		return {
 			editableSupport: select( 'quillForms/blocks' ).hasBlockSupport(
@@ -73,6 +75,10 @@ const DefaultControls: React.FC< Props > = ( {
 			defaultValueSupport: select( 'quillForms/blocks' ).hasBlockSupport(
 				blockName,
 				'defaultValue'
+			),
+			placeholderSupport: select( 'quillForms/blocks' ).hasBlockSupport(
+				blockName,
+				'placeholder'
 			),
 			numericSupport: select( 'quillForms/blocks' ).hasBlockSupport(
 				blockName,
@@ -147,10 +153,7 @@ const DefaultControls: React.FC< Props > = ( {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel
-								label="Layout"
-								isNew={ true }
-							></ControlLabel>
+							<ControlLabel label="Layout"></ControlLabel>
 							<BlockLayout
 								layout={ attributes?.layout }
 								setAttributes={ setAttributes }
@@ -163,10 +166,7 @@ const DefaultControls: React.FC< Props > = ( {
 						attributes?.attachment?.url && (
 							<BaseControl>
 								<ControlWrapper orientation="vertical">
-									<ControlLabel
-										label="Focal Point Picker"
-										isNew={ true }
-									></ControlLabel>
+									<ControlLabel label="Focal Point Picker"></ControlLabel>
 									<div
 										className={ css`
 											max-width: 300px;
@@ -205,10 +205,7 @@ const DefaultControls: React.FC< Props > = ( {
 							<>
 								<BaseControl>
 									<ControlWrapper orientation="horizontal">
-										<ControlLabel
-											label="Set Maximum Width for attachment"
-											isNew={ true }
-										/>
+										<ControlLabel label="Set Maximum Width for attachment" />
 										<ToggleControl
 											checked={
 												attributes?.attachmentMaxWidth !==
@@ -259,10 +256,7 @@ const DefaultControls: React.FC< Props > = ( {
 								</BaseControl>
 								<BaseControl>
 									<ControlWrapper orientation="horizontal">
-										<ControlLabel
-											label="Use Fancy Border Radius"
-											isNew={ true }
-										></ControlLabel>
+										<ControlLabel label="Use Fancy Border Radius"></ControlLabel>
 										<ToggleControl
 											checked={
 												attributes?.attachmentFancyBorderRadius
@@ -307,7 +301,7 @@ const DefaultControls: React.FC< Props > = ( {
 			{ defaultValueSupport && (
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
-						<ControlLabel label="Default Value" />
+						<ControlLabel label="Default Value" isNew />
 						<div
 							className={ css`
 								.combobox-control-rich-text-back {
@@ -377,14 +371,44 @@ const DefaultControls: React.FC< Props > = ( {
 					</ControlWrapper>
 				</BaseControl>
 			) }
+			{ placeholderSupport && (
+				<BaseControl>
+					<ControlWrapper>
+						<ControlLabel
+							label={ 'Override default placeholder' }
+							isNew
+						/>
+						<ToggleControl
+							checked={ attributes?.placeholder !== false }
+							onChange={ () =>
+								setAttributes( {
+									placeholder:
+										attributes?.placeholder === false
+											? ''
+											: false,
+								} )
+							}
+						/>
+					</ControlWrapper>
+					<>
+						{ attributes?.placeholder !== false && (
+							<TextControl
+								value={ attributes?.placeholder }
+								onChange={ ( val ) => {
+									setAttributes( {
+										placeholder: val,
+									} );
+								} }
+							/>
+						) }
+					</>
+				</BaseControl>
+			) }
 			{ ! parentId && (
 				<>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel
-								label={ 'Custom HTML' }
-								isNew={ true }
-							/>
+							<ControlLabel label={ 'Custom HTML' } />
 							<CustomHTML
 								value={ attributes?.customHTML }
 								onChange={ ( val ) => {

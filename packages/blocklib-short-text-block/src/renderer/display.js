@@ -37,7 +37,13 @@ const ShortTextOutput = ( props ) => {
 	const theme = useBlockTheme( attributes.themeId );
 	const answersColor = tinyColor( theme.answersColor );
 
-	const { maxCharacters, setMaxCharacters, required } = attributes;
+	const {
+		minCharacters,
+		maxCharacters,
+		setMaxCharacters,
+		required,
+		placeholder,
+	} = attributes;
 
 	const checkfieldValidation = ( value ) => {
 		if ( required === true && ( ! value || value === '' ) ) {
@@ -50,6 +56,13 @@ const ShortTextOutput = ( props ) => {
 		) {
 			setIsValid( false );
 			setValidationErr( messages[ 'label.errorAlert.maxCharacters' ] );
+		} else if (
+			minCharacters !== false &&
+			minCharacters > 0 &&
+			value?.length < minCharacters
+		) {
+			setIsValid( false );
+			setValidationErr( messages[ 'label.errorAlert.minCharacters' ] );
 		} else {
 			setIsValid( true );
 			setValidationErr( null );
@@ -125,7 +138,11 @@ const ShortTextOutput = ( props ) => {
 				`
 			) }
 			id={ 'short-text-' + id }
-			placeholder={ messages[ 'block.shortText.placeholder' ] }
+			placeholder={
+				placeholder === false
+					? messages[ 'block.shortText.placeholder' ]
+					: placeholder
+			}
 			onChange={ changeHandler }
 			value={ val ? val.toString() : '' }
 			onFocus={ () => {

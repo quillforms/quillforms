@@ -5,11 +5,16 @@
 		"required": true,
 		"attachment": true,
 		"description": true,
+		"placeholder": true,
 		"defaultValue": true,
 		"logic": true,
 		"theme": true
 	},
 	"attributes": {
+		"minCharacters": {
+			"type": [ "boolean", "number" ],
+			"default": false
+		},
 		"setMaxCharacters": {
 			"type": "boolean",
 			"default": false

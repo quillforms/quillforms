@@ -38,7 +38,7 @@ const EmailOutput = ( props ) => {
 	const theme = useBlockTheme( attributes.themeId );
 	const messages = useMessages();
 	const answersColor = tinyColor( theme.answersColor );
-	const { required } = attributes;
+	const { required, placeholder } = attributes;
 
 	const checkFieldValidation = ( value ) => {
 		if (
@@ -127,7 +127,11 @@ const EmailOutput = ( props ) => {
 			) }
 			id={ 'email-' + id }
 			type="email"
-			placeholder={ messages[ 'block.email.placeholder' ] }
+			placeholder={
+				placeholder === false
+					? messages[ 'block.email.placeholder' ]
+					: placeholder
+			}
 			onChange={ changeHandler }
 			value={ val && val.length > 0 ? val : '' }
 			onFocus={ () => {

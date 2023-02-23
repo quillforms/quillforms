@@ -34,7 +34,7 @@ const NumberOutput = ( props ) => {
 		isPreview,
 		isReviewing,
 	} = props;
-	const { setMax, max, setMin, min, required, allowDecimals } = attributes;
+	const { setMax, max, setMin, min, required, placeholder } = attributes;
 	const messages = useMessages();
 	const theme = useBlockTheme( attributes.themeId );
 	const answersColor = tinyColor( theme.answersColor );
@@ -141,7 +141,11 @@ const NumberOutput = ( props ) => {
 				`
 			) }
 			id={ 'number-' + id }
-			placeholder={ messages[ 'block.number.placeholder' ] }
+			placeholder={
+				placeholder === false
+					? messages[ 'block.number.placeholder' ]
+					: placeholder
+			}
 			onChange={ changeHandler }
 			value={ val || val === 0 ? val : '' }
 			onFocus={ () => {

@@ -5,6 +5,7 @@
 		"required": true,
 		"attachment": true,
 		"description": true,
+		"placeholder": true,
 		"defaultValue": true,
 		"logic": true,
 		"theme": true

@@ -15,10 +15,34 @@ import {
 import { Fragment } from 'react';
 
 const LongTextControl = ( { attributes, setAttributes } ) => {
-	const { setMaxCharacters, maxCharacters } = attributes;
+	const { setMaxCharacters, maxCharacters, minCharacters } = attributes;
 
 	return (
 		<Fragment>
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label="Min Characters" isNew />
+					<ToggleControl
+						checked={ minCharacters !== false }
+						onChange={ () => {
+							setAttributes( {
+								minCharacters:
+									minCharacters !== false ? false : 0,
+							} );
+						} }
+					/>
+				</ControlWrapper>
+				{ minCharacters !== false && (
+					<TextControl
+						type="number"
+						onChange={ ( val ) => {
+							setAttributes( {
+								minCharacters: val,
+							} );
+						} }
+					/>
+				) }
+			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Max Characters" />
@@ -34,7 +58,6 @@ const LongTextControl = ( { attributes, setAttributes } ) => {
 				{ setMaxCharacters && (
 					<TextControl
 						type="number"
-						placeholder="1-1000000"
 						value={ maxCharacters }
 						onChange={ ( val ) =>
 							setAttributes( {

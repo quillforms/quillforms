@@ -35,7 +35,7 @@ const WebsiteOutput = ( props ) => {
 	const messages = useMessages();
 	const theme = useBlockTheme( attributes.themeId );
 	const answersColor = tinyColor( theme.answersColor );
-	const { required } = attributes;
+	const { required, placeholder } = attributes;
 
 	const validateUrl = ( url ) => {
 		const pattern = new RegExp(
@@ -123,7 +123,7 @@ const WebsiteOutput = ( props ) => {
 				`
 			) }
 			id={ 'website-' + id }
-			placeholder="https://"
+			placeholder={ placeholder === false ? 'https://' : placeholder }
 			onChange={ changeHandler }
 			value={ val && val.length > 0 ? val : '' }
 			onFocus={ () => {
