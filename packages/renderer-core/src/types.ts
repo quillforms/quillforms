@@ -23,6 +23,8 @@ export type FormObj = {
 		disableWheelSwiping?: boolean;
 		disableNavigationArrows?: boolean;
 		animationDirection?: 'vertical' | 'horizontal';
+		showQuestionsNumbers?: boolean;
+		showLettersOnAnswers?: boolean;
 	};
 	hiddenFields: Object;
 };

@@ -30,7 +30,7 @@ import useBlocks from '../../hooks/use-blocks';
 import PaymentModal from '../payment-modal';
 import useCurrentTheme from '../../hooks/use-current-theme';
 import { forEach, size } from 'lodash';
-import { useFormContext } from '../../hooks';
+import { useFormContext, useFormSettings } from '../../hooks';
 
 interface Props {
 	applyLogic: boolean;
@@ -41,6 +41,8 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 	const generalTheme = useGeneralTheme();
 	const currentTheme = useCurrentTheme();
 	const fonts = configApi.getFonts();
+	const showLettersOnAnswers =
+		useFormSettings()?.showLettersOnAnswers ?? true;
 
 	const { font, questionsLabelFont, questionsDescriptionFont } = currentTheme;
 
@@ -246,6 +248,13 @@ const FormFlow: React.FC< Props > = ( { applyLogic } ) => {
 									.sm };
 							}
 						}
+
+						${ ! showLettersOnAnswers &&
+						`
+							.pictureChoice__optionKey, .multipleChoice__optionKey {
+								display: none !important;
+							}
+						` }
 					`
 				) }
 				onClick={ () => {

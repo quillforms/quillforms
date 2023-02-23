@@ -3,6 +3,8 @@ import {
 	DISABLE_NAVIGATION_ARROWS,
 	DISABLE_WHEEL_SWIPING,
 	CHANGE_ANIMATION_DIRECTION,
+	SHOW_QUESTIONS_NUMBERS,
+	SHOW_LETTERS_ON_ANSWERS,
 	SETUP_STORE,
 } from './constants';
 
@@ -80,6 +82,52 @@ export function disableNavigationArrows( state = false, action ) {
 }
 
 /**
+ * Show letters on answers.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function showLettersOnAnswers( state = true, action ) {
+	switch ( action.type ) {
+		case SHOW_LETTERS_ON_ANSWERS:
+			return action.flag;
+
+		case SETUP_STORE: {
+			return action.initialPayload?.showLettersOnAnswers
+				? action.initialPayload?.showLettersOnAnswers
+				: true;
+		}
+	}
+
+	return state;
+}
+
+/**
+ * Show questions numbers.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function showQuestionsNumbers( state = true, action ) {
+	switch ( action.type ) {
+		case SHOW_QUESTIONS_NUMBERS:
+			return action.flag;
+
+		case SETUP_STORE: {
+			return action.initialPayload?.showQuestionsNumbers
+				? action.initialPayload?.showQuestionsNumbers
+				: true;
+		}
+	}
+
+	return state;
+}
+
+/**
  * Change animation direction.
  *
  * @param {Object} state  Current state.
@@ -107,4 +155,6 @@ export default combineReducers( {
 	disableWheelSwiping,
 	disableNavigationArrows,
 	animationDirection,
+	showLettersOnAnswers,
+	showQuestionsNumbers,
 } );

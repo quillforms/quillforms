@@ -25,12 +25,16 @@ const PanelRender = () => {
 		disableWheelSwiping,
 		disableNavigationArrows,
 		changeAnimationDirection,
+		showLettersOnAnswers,
+		showQuestionsNumbers,
 	} = useDispatch( 'quillForms/settings-editor' );
 
 	const {
 		isProgressBarDisabled,
 		isWheelSwipingDisabled,
 		isNavigationArrowsDisabled,
+		shouldLettersOnAnswersBeDisplayed,
+		shouldQuestionsNumbersBeDisplayed,
 		animationDirection,
 	} = useSelect( ( select ) => {
 		return {
@@ -46,8 +50,15 @@ const PanelRender = () => {
 			animationDirection: select(
 				'quillForms/settings-editor'
 			).getAnimationDirection(),
+			shouldLettersOnAnswersBeDisplayed: select(
+				'quillForms/settings-editor'
+			).shouldLettersOnAnswersBeDisplayed(),
+			shouldQuestionsNumbersBeDisplayed: select(
+				'quillForms/settings-editor'
+			).shouldQuestionsNumbersBeDisplayed(),
 		};
 	} );
+
 	const animationOptions = [
 		{
 			key: 'horizontal',
@@ -84,6 +95,32 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
+					<ControlLabel label={ 'Letters on answers' } isNew />
+					<ToggleControl
+						checked={ shouldLettersOnAnswersBeDisplayed }
+						onChange={ () =>
+							showLettersOnAnswers(
+								! shouldLettersOnAnswersBeDisplayed
+							)
+						}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel label={ 'Questions numbers' } isNew />
+					<ToggleControl
+						checked={ shouldQuestionsNumbersBeDisplayed }
+						onChange={ () =>
+							showQuestionsNumbers(
+								! shouldQuestionsNumbersBeDisplayed
+							)
+						}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper>
 					<ControlLabel label={ 'Hide navigation arrows' } />
 					<ToggleControl
 						checked={ isNavigationArrowsDisabled }
@@ -97,7 +134,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={ 'Animation Direction' } />
+					<ControlLabel label={ 'Animation direction' } />
 					<SelectControl
 						className={ css`
 							margin-top: 5px;

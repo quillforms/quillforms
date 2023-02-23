@@ -14,3 +14,11 @@ export function isNavigationArrowsDisabled( state ) {
 export function getAnimationDirection( state ) {
 	return state.animationDirection;
 }
+
+export function shouldLettersOnAnswersBeDisplayed( state ) {
+	return state.showLettersOnAnswers;
+}
+
+export function shouldQuestionsNumbersBeDisplayed( state ) {
+	return state.showQuestionsNumbers;
+}
