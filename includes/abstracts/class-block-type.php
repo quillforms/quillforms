@@ -96,6 +96,7 @@ abstract class Block_Type extends stdClass {
 			'required'        => true,
 			'attachment'      => true,
 			'defaultValue'	  => false,
+			'placeholder'	  => false,
 			'description'     => true,
 			'logic'           => true,
 			'logicConditions' => true,
@@ -196,6 +197,13 @@ abstract class Block_Type extends stdClass {
 			$attributes_schema['required'] = array(
 				'type'    => 'boolean',
 				'default' => false,
+			);
+		}
+
+		if( $this->supported_features['placeholder'] ) {
+			$attributes_schema['placeholder'] = array(
+				'type'       => [ 'string', 'boolean' ],
+				'default'    =>  false
 			);
 		}
 
