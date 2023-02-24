@@ -2,7 +2,7 @@ jQuery( document ).ready( function () {
 
 	iFrameResize(
 		{
-			log: true,
+			log: false,
 			heightCalculationMethod: 'quillForms',
 		},
 		'.quillforms-iframe'
