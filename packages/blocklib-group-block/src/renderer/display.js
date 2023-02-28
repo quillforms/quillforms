@@ -5,6 +5,7 @@ import {
 	useBlockTheme,
 	HTMLParser,
 	__experimentalUseFieldRenderContext,
+	FieldRenderContextProvider,
 	ErrMsg,
 } from '@quillforms/renderer-core';
 
@@ -134,65 +135,76 @@ const GroupDisplay = ( { id, innerBlocks, isTouchScreen, ...props } ) => {
 						showNextBtn: noop,
 						showErrMsg: noop,
 					};
+					const context = {
+						id,
+						blockName: block.name,
+						attributes: block.attributes,
+					};
 
 					refAssigned = true;
 
 					return (
-						<div
+						<FieldRenderContextProvider
 							key={ block.id }
-							className={ css`
-								margin-bottom: 48px;
-								&:last-child {
-									margin-bottom: 0;
-								}
-							` }
-							id={ `renderer-components-child-block-${ block?.id }` }
+							value={ context }
 						>
 							<div
-								className={ classnames(
-									'renderer-components-child-block-label',
-									css`
-										color: ${ theme.questionsColor } !important;
-										font-family: ${ theme.questionsLabelFont } !important;
-										@media ( min-width: 768px ) {
-											font-size: ${ theme.fontSize
-												.lg } !important;
-											line-height: ${ theme.fontLineHeight
-												.lg } !important;
-										}
-										@media ( max-width: 767px ) {
-											font-size: ${ theme.fontSize
-												.sm } !important;
-											line-height: ${ theme.fontLineHeight
-												.sm } !important;
-										}
-
-										margin-bottom: 12px !important;
-									`
-								) }
+								className={ css`
+									margin-bottom: 48px;
+									&:last-child {
+										margin-bottom: 0;
+									}
+								` }
+								id={ `renderer-components-child-block-${ block?.id }` }
 							>
-								<HTMLParser value={ blockLabel } />
-							</div>
-							{
-								/* @ts-expect-error */
-								<blockType.display { ...blockProps } />
-							}
-							{ isErrMsgVisible &&
-								answers[ block.id ].validationErr && (
-									<div
-										className={ css`
-											margin-top: 20px;
-										` }
-									>
-										<ErrMsg
-											message={
-												answers[ block.id ]
-													.validationErr
+								<div
+									className={ classnames(
+										'renderer-components-child-block-label',
+										css`
+											color: ${ theme.questionsColor } !important;
+											font-family: ${ theme.questionsLabelFont } !important;
+											@media ( min-width: 768px ) {
+												font-size: ${ theme.fontSize
+													.lg } !important;
+												line-height: ${ theme
+													.fontLineHeight
+													.lg } !important;
 											}
-										/>
-									</div>
-								) }
-						</div>
+											@media ( max-width: 767px ) {
+												font-size: ${ theme.fontSize
+													.sm } !important;
+												line-height: ${ theme
+													.fontLineHeight
+													.sm } !important;
+											}
+
+											margin-bottom: 12px !important;
+										`
+									) }
+								>
+									<HTMLParser value={ blockLabel } />
+								</div>
+								{
+									/* @ts-expect-error */
+									<blockType.display { ...blockProps } />
+								}
+								{ isErrMsgVisible &&
+									answers[ block.id ].validationErr && (
+										<div
+											className={ css`
+												margin-top: 20px;
+											` }
+										>
+											<ErrMsg
+												message={
+													answers[ block.id ]
+														.validationErr
+												}
+											/>
+										</div>
+									) }
+							</div>
+						</FieldRenderContextProvider>
 					);
 				} ) }
 		</>
