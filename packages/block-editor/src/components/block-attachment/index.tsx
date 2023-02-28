@@ -39,10 +39,9 @@ const BlockAttachment: React.FC< Props > = ( {
 			<div
 				role="presentation"
 				className="block-editor-block-attachment__delete"
-				onClick={
-					( () => setBlockAttributes( id, { attachment: {} } ),
-					parentId )
-				}
+				onClick={ () => {
+					setBlockAttributes( id, { attachment: {} }, parentId );
+				} }
 			>
 				<div
 					className="block-editor-block-attachment__background-wrapper"
