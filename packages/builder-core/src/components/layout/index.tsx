@@ -28,6 +28,7 @@ import type {
 	OnBeforeCaptureResponder,
 	OnDragStartResponder,
 } from 'react-beautiful-dnd';
+import { size } from 'lodash';
 
 interface Props {
 	formId: number;
@@ -244,7 +245,10 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 				if ( blockType.supports.editable )
 					insertEmptyFieldAnswer( block.id, block.name );
 
-				if ( blockType.supports.innerBlocks ) {
+				if (
+					blockType.supports.innerBlocks &&
+					size( block?.innerBlocks ) > 0
+				) {
 					block?.innerBlocks.forEach( ( childBlock ) => {
 						blockType = blockTypes[ childBlock.name ];
 						if ( blockType.supports.editable )
