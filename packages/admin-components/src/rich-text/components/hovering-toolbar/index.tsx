@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
  * External Dependencies
  */
 import { cx, css } from 'emotion';
-import { ReactEditor, useSlate } from 'slate-react';
+import { ReactEditor, useSlate, useFocused } from 'slate-react';
 import { Editor, Range } from 'slate';
 
 /**
@@ -50,7 +50,7 @@ const HoveringToolbar = ( {
 } ) => {
 	const ref = useRef< HTMLDivElement | null >( null );
 	const editor = useSlate();
-
+	const inFocus = useFocused();
 	useEffect( () => {
 		const el = ref.current;
 		const { selection } = editor;
@@ -61,8 +61,7 @@ const HoveringToolbar = ( {
 
 		if (
 			! selection ||
-			// @ts-expect-error
-			! ReactEditor.isFocused( editor ) ||
+			! inFocus ||
 			Range.isCollapsed( selection ) ||
 			Editor.string( editor, selection ) === ''
 		) {

@@ -82,10 +82,10 @@ const TextEditor: React.FC< Props > = ( props ) => {
 	);
 
 	const toggleFormat = ( editor: Editor, format ) => {
-		const isActive = isFormatActive( format );
+		const active = isFormatActive( format );
 		Transforms.setNodes(
 			editor,
-			{ [ format ]: isActive ? null : true },
+			{ [ format ]: active ? null : true },
 			{ match: Text.isText, split: true }
 		);
 	};
