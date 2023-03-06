@@ -16,4 +16,4 @@ Retrieves the field answer
 const fieldAnswer = useFieldAnswer(fieldId);
 ```
 
-Please view this [codesandbox example](https://codesandbox.io/s/quill-forms-conditional-blocks-rendering-0r9x2e) for more details:
+Please view this [codesandbox example](https://codesandbox.io/s/quill-forms-conditional-blocks-rendering-0r9x2e) for more details.
