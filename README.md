@@ -19,6 +19,7 @@ No, it can work with any React app.
 # How to use in your React app?
 
 - [Getting Started](/react-docs/get-started.md)
+- [Group Block(New)](/react-docs/group-block.md)
 - [Conditional Blocks Rendering](/react-docs/conditional-blocks-rendering.md)
 
 
