@@ -20,6 +20,7 @@ No, it can work with any React app.
 
 - [Getting Started](/react-docs/get-started.md)
 - [Create Your Own Custom Block Type](/react-docs/create-your-own-custom-block-type.md)
+- [Available Hooks](/react-docs/available-hooks.md)
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
 - [Conditional Blocks Rendering](/react-docs/conditional-blocks-rendering.md)
 
