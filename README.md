@@ -22,7 +22,7 @@
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
 - [Conditional Blocks Rendering](/react-docs/conditional-blocks-rendering.md)
 - [Recall Information](/react-docs/recall-information.md)
-- [Available actions and filters](/react-docs/available-actions-and-filters.md)
+- [Available Actions and Filters](/react-docs/available-actions-and-filters.md)
 
 # Installation as a WordPress plugin
 This plugin is available on the [WordPress.org plugin repository](https://wordpress.org/plugins/quillforms), and can be installed either directly from there or from the admin dashboard within your website.
