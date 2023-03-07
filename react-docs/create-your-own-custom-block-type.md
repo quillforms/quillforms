@@ -65,5 +65,6 @@ registerBlockType("YOUR_BLOCK_UNIQUE_NAME", {
 })
 
 ```
+## Example 
 For more details, please view this [full example on Codesandbox](https://codesandbox.io/s/quill-forms-custom-block-registration-xmbyiy)
 
