@@ -865,7 +865,7 @@ class Store {
 			),
 			'postcreation'              => array(
 				'name'           => esc_html__( 'Post Creation', 'quillforms' ),
-				'description'    => esc_html__( 'Create wordpress post.', 'quillforms' ),
+				'description'    => esc_html__( 'Create a new WordPress post on form submission.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-postcreation/quillforms-postcreation.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
