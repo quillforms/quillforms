@@ -21,6 +21,7 @@
 - [Available Hooks](/react-docs/available-hooks.md)
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
 - [Conditional Blocks Rendering](/react-docs/conditional-blocks-rendering.md)
+- [Recall Information](/react-docs/recall-information.md)
 
 
 # Installation as a WordPress plugin
