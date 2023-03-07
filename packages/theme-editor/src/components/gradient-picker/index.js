@@ -84,6 +84,12 @@ const GradientPicker = ( { value, onChange } ) => {
 				slug: 'custom-bg-gradient-3',
 			},
 			{
+				name: __( 'Custom gradient' ),
+				gradient:
+					'linear-gradient(225deg, rgb(89, 17, 77) 0%, rgb(0, 59, 54) 41%)',
+				slug: 'custom-bg-gradient324',
+			},
+			{
 				name: __( 'custom gradient' ),
 				gradient: 'linear-gradient(135deg,#F8C390 0%, #D279EE 100%)',
 				slug: 'custom-bg-gradient-4',
