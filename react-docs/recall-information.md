@@ -5,5 +5,5 @@ This can be achieved easily with having this following question label like this:
 ```
 "Great {{field:field_id}}, please type your email"
 ```
-* For sure, you should replace field_id with the actual field id *
+**For sure, you should replace field_id with the actual field id 
   
