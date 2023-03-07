@@ -4,7 +4,7 @@
 <h1 align="center">Quill Forms</h1>
 <div align="center">
 
-**Open Source Typeform Alternative** WordPress Plugin based on `React` and `Typescript` 
+**Open Source Typeform Alternative**  based on `React` and `Typescript` 
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/) <br>
 [Join Our Discord Channel](https://discord.gg/a5PDrzu8dE) 
@@ -14,11 +14,14 @@
 ![Screenshot of the QuillForms renderer](https://quillforms.com/wp-content/uploads/2021/10/frame_generic_light-3.png)
 </div>
 
-# Does it work for WordPress only?
-No, it can work with any React app.
 # How to use in your React app?
 
 - [Getting Started](/react-docs/get-started.md)
+- [Create Your Own Custom Block Type](/react-docs/create-your-own-custom-block-type.md)
+- [Available Hooks](/react-docs/available-hooks.md)
+- [Group Block(New)🚀🚀](/react-docs/group-block.md)
+- [Conditional Blocks Rendering](/react-docs/conditional-blocks-rendering.md)
+- [Recall Information](/react-docs/recall-information.md)
 
 
 # Installation as a WordPress plugin
