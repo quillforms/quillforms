@@ -58,7 +58,7 @@ addAction('QuillForms.RendererCore.FieldAnswered', 'myOwnAction', function({ id,
 ```
 
 ### QuillForms.RendererCore.FieldAnsweredActive
-This action is called after a specific field is answered and the user has already swiped it to the next question.
+This action is called after a specific field is answered while it is still active.
 To add your own action after the form is loaded, you should do something like this:
 
 ```js
