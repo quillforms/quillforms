@@ -117,6 +117,9 @@ type DefaultAttributes = {
     type: 'image';
     url: string;
   };
+  
+  // The block default value
+  defaultValue?: any // The default value for your question
 };
 
 // Each block can have custom attribtues as well as the default attributes
