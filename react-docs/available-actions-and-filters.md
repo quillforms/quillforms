@@ -29,7 +29,7 @@ addAction('QuillForms.RendererCore.Loaded', 'myOwnAction', function() {
 
 ### QuillForms.RendererCore.FieldActive
 This action is called after a specific field becomes active.
-To add your own action after the form is loaded, you should do something like this:
+To add your own action after the field has been active, you should do something like this:
 
 ```js
 import { addAction } from "@wordpress/hooks";
@@ -44,7 +44,7 @@ addAction('QuillForms.RendererCore.FieldActive', 'myOwnAction', function({ id, l
 
 ### QuillForms.RendererCore.FieldAnswered
 This action is called after a specific field is answered and the user has already swiped it to the next question.
-To add your own action after the form is loaded, you should do something like this:
+To add your own action after the field is answered and swiped, you should do something like this:
 
 ```js
 import { addAction } from "@wordpress/hooks";
@@ -59,7 +59,7 @@ addAction('QuillForms.RendererCore.FieldAnswered', 'myOwnAction', function({ id,
 
 ### QuillForms.RendererCore.FieldAnsweredActive
 This action is called after a specific field is answered while it is still active.
-To add your own action after the form is loaded, you should do something like this:
+To add your own action after the field is answered while it is active, you should do something like this:
 
 ```js
 import { addAction } from "@wordpress/hooks";
