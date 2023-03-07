@@ -91,7 +91,7 @@ const App = () => {
     </div>
 
 ```
-
+### Example
 [View full code on Codesandbox](https://codesandbox.io/s/quill-forms-example-20uuf)
 
 ## `<Form>` Props
