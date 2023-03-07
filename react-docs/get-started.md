@@ -105,6 +105,11 @@ const App = () => {
 type DefaultAttributes = {
   // The block label
   label?: string;
+   
+  // The question placeholder if the question has a text input
+  // By default the placeholder is false because it takes its value from the form messages but you can override it easily if you pass a string value to this prop.
+
+   placeholder?: string | boolean; 
 
   // The block description
   description?: string;
