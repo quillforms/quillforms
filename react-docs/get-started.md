@@ -120,6 +120,14 @@ type DefaultAttributes = {
   
   // The block default value
   defaultValue?: any // The default value for your question
+
+  // The block layout - This will control the image attachment position
+  layout?:
+		| 'stack'
+		| 'float-left'
+		| 'float-right'
+		| 'split-left'
+		| 'split-right';
 };
 
 // Each block can have custom attribtues as well as the default attributes
@@ -198,10 +206,13 @@ type FormObj = {
 	theme: Partial< FormTheme >;
 	messages?: Partial< FormMessages >;
 	settings?: {
-		disableProgressBar?: boolean;
-		disableWheelSwiping?: boolean;
-		disableNavigationArrows?: boolean;
-		animationDirection: 'vertical' | 'horizontal';
+		disableProgressBar?: boolean; // Default: false
+		disableWheelSwiping?: boolean; // Default: false
+		disableNavigationArrows?: boolean; // Default: false
+		animationDirection: 'vertical' | 'horizontal'; // Default: 'vertical'
+		showQuestionsNumbers?: boolean; // Default: true
+		showLettersOnAnswers?: boolean; // Default: true
+
 	};
 };
 
