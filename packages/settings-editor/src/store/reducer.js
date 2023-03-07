@@ -95,7 +95,8 @@ export function showLettersOnAnswers( state = true, action ) {
 			return action.flag;
 
 		case SETUP_STORE: {
-			return action.initialPayload?.showLettersOnAnswers
+			return typeof action.initialPayload?.showLettersOnAnswers !==
+				'undefined'
 				? action.initialPayload?.showLettersOnAnswers
 				: true;
 		}
@@ -118,7 +119,8 @@ export function showQuestionsNumbers( state = true, action ) {
 			return action.flag;
 
 		case SETUP_STORE: {
-			return action.initialPayload?.showQuestionsNumbers
+			return typeof action.initialPayload?.showQuestionsNumbers !==
+				'undefined'
 				? action.initialPayload?.showQuestionsNumbers
 				: true;
 		}
