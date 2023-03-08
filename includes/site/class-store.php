@@ -864,8 +864,8 @@ class Store {
 				),
 			),
 			'postcreation'              => array(
-				'name'           => esc_html__( 'Post Creation', 'quillforms' ),
-				'description'    => esc_html__( 'Create a new WordPress post on form submission.', 'quillforms' ),
+				'name'           => esc_html__( 'Advanced Post Creation', 'quillforms' ),
+				'description'    => esc_html__( 'Create a new WordPress page, post or any available custom post type on form submission.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-postcreation/quillforms-postcreation.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
