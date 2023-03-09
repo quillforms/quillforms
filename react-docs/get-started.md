@@ -366,4 +366,4 @@ Here is the list of the core blocks with the possible custom attributes that the
 ```
 
 ### 11- Group Block
-[Please Read This Doc](https://github.com/quillforms/quillforms/edit/master/react-docs/group-block.md)
+[Please Read This Doc](https://github.com/quillforms/quillforms/blob/master/react-docs/group-block.md)
