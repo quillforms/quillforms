@@ -823,6 +823,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/banner.png',
 				),
 			),
+			'bitrix24'                  => array(
+				'name'           => esc_html__( 'Bitrix24', 'quillforms' ),
+				'description'    => esc_html__( 'Send new accounts, contacts, leads or any other crm to your Bitrix24 account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-bitrix24/quillforms-bitrix24.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/bitrix24/icon.svg',
+				),
+			),
 			'asana'                     => array(
 				'name'           => esc_html__( 'Asana', 'quillforms' ),
 				'description'    => esc_html__( 'Add Tasks to your Asana account.', 'quillforms' ),
@@ -845,7 +855,7 @@ class Store {
 			),
 			'zohocrm'                   => array(
 				'name'           => esc_html__( 'ZohoCRM', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your ZohoCRM account.', 'quillforms' ),
+				'description'    => esc_html__( 'Send new accounts, contacts, leads or any other module to your ZohoCRM account.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-zohocrm/quillforms-zohocrm.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
