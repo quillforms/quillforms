@@ -497,16 +497,16 @@ class Store
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
 				),
 			),
-			'customfonts'               => array(
-				'name'           => esc_html__('Custom Fonts', 'quillforms'),
-				'description'    => esc_html__('Upload your own custom fonts to use them in Quill Forms!', 'quillforms'),
-				'plugin_file'    => 'quillforms-customfonts/quillforms-customfonts.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
-				),
-			),
+			// 'customfonts'               => array(
+			// 	'name'           => esc_html__('Custom Fonts', 'quillforms'),
+			// 	'description'    => esc_html__('Upload your own custom fonts to use them in Quill Forms!', 'quillforms'),
+			// 	'plugin_file'    => 'quillforms-customfonts/quillforms-customfonts.php',
+			// 	'plan'           => 'basic',
+			// 	'is_integration' => false,
+			// 	'assets'         => array(
+			// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
+			// 	),
+			// ),
 			'calendlyblock'             => array(
 				'name'           => esc_html__('Calendly Block', 'quillforms'),
 				'description'    => esc_html__('Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms'),
