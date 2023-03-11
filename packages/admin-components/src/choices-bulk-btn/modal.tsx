@@ -40,8 +40,12 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 					z-index: 1111111;
 
 					.components-modal__content {
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
 						background: #eee;
-						margin-top: 0;
+						margin-top: 54px;
+						min-height: 300px;
 					}
 
 					.components-modal__header {
