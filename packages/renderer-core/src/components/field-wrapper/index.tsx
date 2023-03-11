@@ -58,7 +58,7 @@ const FieldWrapper: React.FC = () => {
 		};
 	} );
 
-	const { setSwiper, goNext, goPrev } = useDispatch(
+	const { setSwiper, goPrev, setIsCurrentBlockSafeToSwipe } = useDispatch(
 		'quillForms/renderer-core'
 	);
 
@@ -74,6 +74,7 @@ const FieldWrapper: React.FC = () => {
 			canSwipePrev: val,
 		} );
 	};
+
 	const fieldIndex = walkPath.findIndex( ( field ) => field.id === id );
 
 	const currentFieldIndex = walkPath.findIndex(
@@ -95,7 +96,9 @@ const FieldWrapper: React.FC = () => {
 					if ( ref?.current ) {
 						ref.current.scrollTo( 0, 0 );
 					}
+					setCanSwipePrev( true );
 				}, 0 );
+				setIsCurrentBlockSafeToSwipe( true );
 			}
 		} else {
 			clearTimeout( tabTimer );
@@ -161,7 +164,7 @@ const FieldWrapper: React.FC = () => {
 				activeElement ==
 				focusableElements[ focusableElements.length - 1 ]
 			) {
-				goNext();
+				next();
 			} else if (
 				focusableElements[ activeElementIndex + 1 ].offsetParent !==
 					null &&
@@ -173,7 +176,7 @@ const FieldWrapper: React.FC = () => {
 				focusableElements[ activeElementIndex + 1 ].focus();
 			} else {
 				//when reached the last focusable element of the block, go next
-				goNext();
+				next();
 			}
 		} else {
 			//when reached the first  focusable element of the block, go prev if shift is pressed
@@ -288,7 +291,15 @@ const FieldWrapper: React.FC = () => {
 					textarea,
 					input {
 						font-family: ${ theme.font };
-						font-size: ${ theme.textInputAnswers };
+
+						@media ( min-width: 768px ) {
+							font-size: ${ theme.textInputAnswers.lg };
+							line-height: ${ theme.textInputAnswers.lg };
+						}
+						@media ( max-width: 767px ) {
+							font-size: ${ theme.textInputAnswers.sm };
+							line-height: ${ theme.textInputAnswers.sm };
+						}
 					}
 					${ attributes?.themeId && backgroundImageCSS }
 				`

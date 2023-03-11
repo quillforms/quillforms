@@ -3,7 +3,7 @@
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -56,6 +56,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		canSwipeNext,
 		canSwipePrev,
 		isAnimating,
+		isCurrentBlockSafeToSwipe,
 	} = swiper;
 
 	const { answers } = useSelect( ( select ) => {
@@ -67,6 +68,11 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const currentBlockIndex = walkPath.findIndex(
 		( block ) => block.id === currentBlockId
 	);
+
+	const currentBlockName = walkPath[ currentBlockIndex ]?.name;
+
+	const currentBlockType = blockTypes?.[ currentBlockName ];
+
 	const lastActiveBlockIndex = walkPath.findIndex(
 		( block ) => block.id === lastActiveBlockId
 	);
@@ -103,10 +109,24 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			block.name !== 'welcome-screen' && block.name !== 'thankyou-screen'
 	);
 
-	const { setSwiper, goNext, goPrev } = useDispatch(
-		'quillForms/renderer-core'
-	);
+	const { setSwiper, goNext, goPrev, setIsCurrentBlockSafeToSwipe } =
+		useDispatch( 'quillForms/renderer-core' );
 
+	const { isCurrentBlockValid } = useSelect( ( select ) => {
+		return {
+			isCurrentBlockValid: currentBlockType?.supports?.innerBlocks
+				? select( 'quillForms/renderer-core' )?.hasValidFields(
+						currentBlockId
+				  )
+				: select( 'quillForms/renderer-core' )?.isValidField(
+						currentBlockId
+				  ),
+		};
+	} );
+
+	useEffect( () => {
+		if ( isCurrentBlockSafeToSwipe ) setIsCurrentBlockSafeToSwipe( true );
+	}, [ isCurrentBlockValid ] );
 	const isFirstField =
 		walkPath?.length > 0 && walkPath[ 0 ].id === currentBlockId;
 
@@ -166,7 +186,11 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		) {
 			lastScrollDate = new Date().getTime();
 			// Scroll down
-			goNext();
+			if ( isCurrentBlockValid ) {
+				goNext();
+			} else {
+				setIsCurrentBlockSafeToSwipe( false );
+			}
 		}
 	};
 
@@ -241,10 +265,20 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 								field.id
 							) }
 							isActive={ isActive }
+							isCurrentBlockSafeToSwipe={
+								isActive ? isCurrentBlockSafeToSwipe : true
+							}
 							isLastField={
 								// isThereNextField &&
 								index === fields.length - 1
 							}
+							next={ () => {
+								if ( isCurrentBlockValid ) {
+									goNext();
+								} else {
+									setIsCurrentBlockSafeToSwipe( false );
+								}
+							} }
 						/>
 					);
 				} ) }

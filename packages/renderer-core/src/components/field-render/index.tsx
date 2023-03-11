@@ -19,10 +19,19 @@ interface Props {
 	isActive: boolean;
 	shouldBeRendered: boolean;
 	isLastField: boolean;
+	isCurrentBlockSafeToSwipe: boolean;
+	next: Function;
 }
 
 const FieldRender: React.FC< Props > = memo(
-	( { id, isActive, isLastField, shouldBeRendered } ) => {
+	( {
+		id,
+		isActive,
+		isLastField,
+		shouldBeRendered,
+		isCurrentBlockSafeToSwipe,
+		next,
+	} ) => {
 		const [ isSubmitBtnVisible, showNextBtn ] = useState< boolean >( true );
 		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
 
@@ -48,6 +57,11 @@ const FieldRender: React.FC< Props > = memo(
 		} );
 
 		useEffect( () => {
+			if ( ! isCurrentBlockSafeToSwipe ) {
+				showErrMsg( true );
+			}
+		}, [ isCurrentBlockSafeToSwipe ] );
+		useEffect( () => {
 			if ( isReviewing && ! isValid ) {
 				showErrMsg( true );
 			}
@@ -71,7 +85,7 @@ const FieldRender: React.FC< Props > = memo(
 			showNextBtn,
 			next: () => {
 				if ( ! isReviewing ) {
-					goNext();
+					next();
 				} else if ( firstInvalidFieldId ) {
 					goToBlock( firstInvalidFieldId );
 				} else {

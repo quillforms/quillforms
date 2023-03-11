@@ -18,6 +18,7 @@ import {
 	RESET_ANSWERS,
 	SET_IS_FOCUSED,
 	SET_FOOTER_DISPLAY,
+	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 } from './constants';
 
 import type {
@@ -323,6 +324,21 @@ export const setIsFocused = ( val: boolean ) => {
 export const setFooterDisplay = ( val: boolean ) => {
 	return {
 		type: SET_FOOTER_DISPLAY,
+		val,
+	};
+};
+
+/**
+ * Set isCurrentBlockSafeToSwipe flag
+ * This flag should control going to the next block.
+ *
+ * @param {boolean} val The new flag value.
+ *
+ * @return {Object} Action object
+ */
+export const setIsCurrentBlockSafeToSwipe = ( val: boolean ) => {
+	return {
+		type: SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 		val,
 	};
 };

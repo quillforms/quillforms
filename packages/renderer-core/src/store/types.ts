@@ -17,6 +17,7 @@ import {
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
 	SET_PAYMENT_DATA,
+	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 } from './constants';
 export type Screen = {
 	id: string;
@@ -34,6 +35,7 @@ export type SwiperState = {
 	canSwipeNext: boolean;
 	canSwipePrev: boolean;
 	isAnimating: boolean;
+	isCurrentBlockSafeToSwipe: boolean;
 	isThankyouScreenActive: boolean;
 	isWelcomeScreenActive: boolean;
 };
@@ -117,6 +119,10 @@ type setIsFieldPendingAction = {
 	val: boolean;
 };
 
+type setIsCurrentBlockSafeToSwipeAction = {
+	type: typeof SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE;
+	val: boolean;
+};
 type setFieldPendingMsg = {
 	type: typeof SET_FIELD_PENDING_MSG;
 	id: string;
@@ -180,6 +186,7 @@ export type SwiperActionTypes =
 	| goNextAction
 	| goPrevAction
 	| goTonextBtn
+	| setIsCurrentBlockSafeToSwipeAction
 	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;
 

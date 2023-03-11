@@ -135,6 +135,17 @@ export function isWelcomeScreenActive( state: State ): boolean {
 }
 
 /**
+ * Is Current Block Safe to Swipe
+ *
+ * @param {State} state Global application state.
+ *
+ * @return {boolean} Is submitting
+ */
+export function isCurrentBlockSafeToSwipe( state: State ): boolean {
+	return state.swiper.isCurrentBlockSafeToSwipe;
+}
+
+/**
  * Is reviewing
  *
  * @param {State} state Global application state.

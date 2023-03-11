@@ -16,17 +16,40 @@ import DownIcon from './down-icon';
 import UpIcon from './up-icon';
 
 const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
-	const { goNext, goPrev } = useDispatch( 'quillForms/renderer-core' );
+	const { goNext, goPrev, setIsCurrentBlockSafeToSwipe } = useDispatch(
+		'quillForms/renderer-core'
+	);
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
-	const { currentBlockId, walkPath } = useSelect( ( select ) => {
+	const { currentBlockId, walkPath, blockTypes } = useSelect( ( select ) => {
 		return {
 			currentBlockId: select(
 				'quillForms/renderer-core'
 			).getCurrentBlockId(),
 			walkPath: select( 'quillForms/renderer-core' ).getWalkPath(),
+			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
+	const currentBlockIndex = walkPath.findIndex(
+		( block ) => block.id === currentBlockId
+	);
+
+	const currentBlockName = walkPath[ currentBlockIndex ]?.name;
+
+	const currentBlockType = blockTypes?.[ currentBlockName ];
+
+	const { isCurrentBlockValid } = useSelect( ( select ) => {
+		return {
+			isCurrentBlockValid: currentBlockType?.supports?.innerBlocks
+				? select( 'quillForms/renderer-core' )?.hasValidFields(
+						currentBlockId
+				  )
+				: select( 'quillForms/renderer-core' )?.isValidField(
+						currentBlockId
+				  ),
+		};
+	} );
+
 	return (
 		<div
 			className={ classnames( 'renderer-core-field-navigation', {
@@ -63,7 +86,11 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 					if (
 						walkPath[ walkPath.length - 1 ].id !== currentBlockId
 					) {
-						goNext();
+						if ( isCurrentBlockValid ) {
+							goNext();
+						} else {
+							setIsCurrentBlockSafeToSwipe( false );
+						}
 					}
 				} }
 			>

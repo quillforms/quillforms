@@ -58,7 +58,7 @@ const useHandleFocus = (
 					} else if ( inputRef?.current?.inputElement?.focus ) {
 						inputRef.current.inputElement.focus();
 					}
-				} );
+				}, 30 );
 			} else if ( currentBlockId ) {
 				const el = document?.querySelector(
 					`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`

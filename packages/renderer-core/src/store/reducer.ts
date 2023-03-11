@@ -38,6 +38,7 @@ import {
 	SET_PAYMENT_DATA,
 	SET_IS_FOCUSED,
 	SET_FOOTER_DISPLAY,
+	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 } from './constants';
 import type {
 	SwiperState,
@@ -59,6 +60,7 @@ const initialState: SwiperState = {
 	prevBlockId: undefined,
 	canSwipeNext: false,
 	canSwipePrev: false,
+	isCurrentBlockSafeToSwipe: true,
 	isAnimating: true,
 	isThankyouScreenActive: false,
 	isWelcomeScreenActive: false,
@@ -318,6 +320,13 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			};
 		}
 
+		case SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE: {
+			const { val } = action;
+			return {
+				...state,
+				isCurrentBlockSafeToSwipe: val,
+			};
+		}
 		case GO_TO_BLOCK: {
 			let { id, forceUpdateState } = action;
 			if ( currentBlockId === id && ! forceUpdateState ) return state;
