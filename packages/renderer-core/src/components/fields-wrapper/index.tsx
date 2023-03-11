@@ -118,9 +118,11 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				? select( 'quillForms/renderer-core' )?.hasValidFields(
 						currentBlockId
 				  )
-				: select( 'quillForms/renderer-core' )?.isValidField(
+				: currentBlockType?.supports?.editable
+				? select( 'quillForms/renderer-core' )?.isValidField(
 						currentBlockId
-				  ),
+				  )
+				: true,
 		};
 	} );
 

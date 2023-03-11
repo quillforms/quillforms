@@ -44,9 +44,11 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 				? select( 'quillForms/renderer-core' )?.hasValidFields(
 						currentBlockId
 				  )
-				: select( 'quillForms/renderer-core' )?.isValidField(
+				: currentBlockType?.supports?.editable
+				? select( 'quillForms/renderer-core' )?.isValidField(
 						currentBlockId
-				  ),
+				  )
+				: true,
 		};
 	} );
 

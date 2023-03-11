@@ -53,7 +53,9 @@ const FieldWrapper: React.FC = () => {
 			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 			isValid: blockType?.supports?.innerBlocks
 				? select( 'quillForms/renderer-core' ).hasValidFields( id )
-				: select( 'quillForms/renderer-core' ).isValidField( id ),
+				: blockType?.supports?.editable
+				? select( 'quillForms/renderer-core' ).isValidField( id )
+				: true,
 			isFocused: select( 'quillForms/renderer-core' ).isFocused(),
 		};
 	} );
