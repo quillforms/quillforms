@@ -26,7 +26,7 @@ const QuestionHeader: React.FC = memo( () => {
 	const layout = attributes?.layout ?? 'stack';
 	return (
 		<div className="renderer-components-question-header">
-			{ showQuestionsNumbers && ! blockType?.counterIcon && (
+			{ ( showQuestionsNumbers || blockType?.counterIcon ) && (
 				<BlockCounter
 					id={ id }
 					attributes={ attributes }
