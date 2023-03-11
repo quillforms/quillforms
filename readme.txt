@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
-Stable tag: 2.5.0
+Stable tag: 2.6.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -51,43 +51,48 @@ By set up email notifications, you can get an email after each submission with t
 
 
 = Features in Pro version =
-1- File upload block
-2- Phone block
-3- Entries saving and management
-4- Jump logic to jump between questions based on a set of conditions
-5- Calculator for quizzes and cost estimations
-6- Hidden fields and custom URL parameters
-7- Zapier integration to connect with 3000+ apps
-8- Webhooks
-9- One time payment and subscriptions with Stripe checkout and Stripe elements.
-10- One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal.
-11- GoogleSheets integration
-12- MailChimp integration
-13- Constant Contact integration
-14- Klaviyo integration
-15- Sendinblue integration
-16- Slack integration
-17- MailPoet integration
-18- GetResponse integration
-19- Hubspot integration
-20- SalesForce integration
-21- Aweber integration
-22- ActiveCampaign integration
-23- Notion integration
-24- Make integration
-25- Monday.com integration
-26- MailerLite integration
-27- Calendly integration
-28- Pipedrive integration
-29- Tracking with Google Analytics
-30- Tracking with Facebook Pixel
-31- Opinion scale block
-32- Signature block
-33- Form locker to restrict access to your form with a lot of options.
-34- Custom thank you screen with auto redirect and custom buttons
-35- Google Recaptcha
-36- Rating block
-37- WP User Registration
+- File upload block
+- Phone block
+- Entries saving and management
+- Jump logic to jump between questions based on a set of conditions
+- Calculator for quizzes and cost estimations
+- Hidden fields and custom URL parameters
+- Zapier integration to connect with 3000+ apps
+- Webhooks
+- One time payment and subscriptions with Stripe checkout and Stripe elements.
+- One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal.
+- GoogleSheets integration
+- MailChimp integration
+- Constant Contact integration
+- Klaviyo integration
+- Sendinblue integration
+- Slack integration
+- MailPoet integration
+- GetResponse integration
+- Hubspot integration
+- SalesForce integration
+- Aweber integration
+- ActiveCampaign integration
+- Notion integration
+- Make integration
+- Monday.com integration
+- Zoho CRM integration
+- Asana integration
+- Mautic integration
+- Bitrix24 integration
+- MailerLite integration
+- Calendly integration
+- Pipedrive integration
+- Tracking with Google Analytics
+- Tracking with Facebook Pixel
+- Opinion scale block
+- Signature block
+- Form locker to restrict access to your form with a lot of options.
+- Custom thank you screen with auto redirect and custom buttons
+- Google Recaptcha
+- Rating block
+- WP User Registration
+- Advanced Post Creation to create any page, post or any custom post type after form submission
 
 [Purchase The Pro Version](https://quillforms.com)
 
@@ -137,6 +142,16 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 2.6.0 = 11 Mar 2023
+Feature: Adding advanced post creation addon.
+Feature: Adding Zoho CRM integration.
+Feature: Adding Asana integration.
+Feature: Adding Bitrix24 integration.
+Feature: Adding Mautic integration.
+Feature: Preventing the user from proceeding to the next question if the current question isn't valid.
+Fix: Fixing the statement block quotes issue.
+Fix: Some CSS tweaks.
 
 = 2.5.0 = 28 Feb 2023
 Fix: Fixing the builder error when the group block is empty.
