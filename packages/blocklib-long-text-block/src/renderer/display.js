@@ -182,20 +182,24 @@ const LongTextOutput = ( props ) => {
 				} }
 				autoComplete="off"
 			/>
-			{ ! isTouchScreen && (
-				<div
-					className={ classnames(
-						'qf-blocklib-long-text-block-renderer__hint-text',
-						css`
-							margin-top: 12px;
-							color: ${ theme.questionsColor };
-							font-size: 14px;
-						`
-					) }
-				>
-					<HTMLParser value={ messages[ 'block.longText.hint' ] } />
-				</div>
-			) }
+			<div
+				className={ classnames(
+					'qf-blocklib-long-text-block-renderer__hint-text',
+					css`
+						margin-top: 12px;
+						color: ${ theme.questionsColor };
+						font-size: 14px;
+					`
+				) }
+			>
+				<HTMLParser
+					value={
+						isTouchScreen
+							? messages[ 'block.longText.touchHint' ]
+							: messages[ 'block.longText.hint' ]
+					}
+				/>
+			</div>
 		</>
 	);
 };

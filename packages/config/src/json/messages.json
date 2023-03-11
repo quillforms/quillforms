@@ -44,6 +44,12 @@
 		"default": "<strong>Shift ⇧ + Enter ↵</strong> to make a line break",
 		"category": "buttons-hints-placeholders"
 	},
+	"block.longText.touchHint": {
+		"title": "Hint for line break in Long Text fields for touch screens",
+		"allowedFormats": [ "bold", "link", "italic" ],
+		"default": "<strong> Enter ↵</strong> to make a line break",
+		"category": "buttons-hints-placeholders"
+	},
 	"block.number.placeholder": {
 		"title": "Placeholder for number input",
 		"default": "Type your answer here",
