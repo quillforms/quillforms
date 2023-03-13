@@ -100,8 +100,8 @@ const FieldWrapper: React.FC = () => {
 					}
 					setCanSwipePrev( true );
 				}, 0 );
-				setIsCurrentBlockSafeToSwipe( true );
 			}
+			setIsCurrentBlockSafeToSwipe( true );
 		} else {
 			clearTimeout( tabTimer );
 			clearTimeout( scrollTimer );
