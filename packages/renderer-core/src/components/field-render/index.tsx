@@ -56,6 +56,17 @@ const FieldRender: React.FC< Props > = memo(
 			};
 		} );
 
+		const { goToBlock, setIsCurrentBlockSafeToSwipe } = useDispatch(
+			'quillForms/renderer-core'
+		);
+
+		useEffect( () => {
+			if ( isActive && ! isReviewing && ! isErrMsgVisible ) {
+				showErrMsg( false );
+				setIsCurrentBlockSafeToSwipe( true );
+			}
+		}, [ isActive, isErrMsgVisible, isReviewing ] );
+
 		useEffect( () => {
 			if ( ! isCurrentBlockSafeToSwipe ) {
 				showErrMsg( true );
@@ -67,7 +78,6 @@ const FieldRender: React.FC< Props > = memo(
 			}
 		}, [ isReviewing, isValid ] );
 
-		const { goNext, goToBlock } = useDispatch( 'quillForms/renderer-core' );
 		if ( ! block ) return null;
 		//console.log( block );
 		const { name, attributes, innerBlocks } = block;

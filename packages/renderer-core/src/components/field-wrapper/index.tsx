@@ -64,7 +64,7 @@ const FieldWrapper: React.FC = () => {
 		'quillForms/renderer-core'
 	);
 
-	const { walkPath, currentBlockId, isAnimating } = swiper;
+	const { walkPath, currentBlockId, isAnimating, isReviewing } = swiper;
 	const setCanSwipeNext = ( val: boolean ) => {
 		// if ( walkPath[ walkPath.length - 1 ].id === id ) val = false;
 		setSwiper( {
@@ -92,6 +92,13 @@ const FieldWrapper: React.FC = () => {
 	const ref = useRef< HTMLDivElement | null >( null );
 
 	useEffect( () => {
+		if ( isActive && ! isReviewing ) {
+			setTimeout( () => {
+				setIsCurrentBlockSafeToSwipe( true );
+			}, 40 );
+		}
+	}, [ isActive, isReviewing ] );
+	useEffect( () => {
 		if ( isActive ) {
 			if ( ref?.current ) {
 				setTimeout( () => {
@@ -101,7 +108,6 @@ const FieldWrapper: React.FC = () => {
 					setCanSwipePrev( true );
 				}, 0 );
 			}
-			setIsCurrentBlockSafeToSwipe( true );
 		} else {
 			clearTimeout( tabTimer );
 			clearTimeout( scrollTimer );
