@@ -44,7 +44,9 @@ const Form: React.FC< Props > = ( {
 			...formObj.messages,
 		};
 		const ParsedUrlSearch = new URLSearchParams(
-			window.location.search.substring( 1 )
+			typeof window !== undefined
+				? window?.location?.search?.substring( 1 )
+				: ''
 		);
 		if ( ! formObj.settings ) formObj.settings = {};
 		formObj.settings = {
