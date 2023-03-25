@@ -1,5 +1,11 @@
 /* eslint-disable no-shadow */
 /**
+ * QuillForms Dependencies
+ */
+import { NavLink } from '@quillforms/navigation';
+import ConfigApi from '@quillforms/config';
+
+/**
  * Internal Dependencies
  */
 import BlockTypesListItem from '../block-types-list-item';
@@ -14,6 +20,7 @@ import { useSelect } from '@wordpress/data';
  */
 import classnames from 'classnames';
 import { keys, map, pickBy } from 'lodash';
+import { css } from 'emotion';
 import {
 	CaledlyIcon,
 	FileIcon,
@@ -23,8 +30,10 @@ import {
 	RatingIcon,
 	SignatureIcon,
 	ThankYouIcon,
+	CalendarPickerIcon,
 } from './pro-blocks-icons';
 import ProLabel from '../pro-label';
+import { Button } from '../button';
 
 interface Props {
 	destinationIndex: number;
@@ -39,6 +48,8 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 			).getWelcomeScreensLength(),
 		};
 	} );
+	const license = ConfigApi.getLicense();
+
 	if ( parent ) {
 		blockTypes = pickBy( blockTypes, ( blockType ) => {
 			return (
@@ -47,6 +58,52 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 			);
 		} );
 	}
+	const proBlocks = {
+		file: {
+			title: 'File',
+			color: '#ff9381',
+			icon: <FileIcon />,
+		},
+		'calendar-picker': {
+			title: 'Calendar Picker',
+			color: '#28354c',
+			icon: <CalendarPickerIcon />,
+		},
+		phone: {
+			title: 'Phone',
+			color: '#2cc31a',
+			icon: <PhoneIcon />,
+		},
+		'picture-choice': {
+			title: 'Picture Choice',
+			color: '#0d775f',
+			icon: <PictureChoiceIcon />,
+		},
+		signature: {
+			title: 'Signature',
+			color: '#2eaf8b',
+			icon: <SignatureIcon />,
+		},
+		'thankyou-screen': {
+			color: '#bf5c73',
+			icon: <ThankYouIcon />,
+		},
+		'opinion-scale': {
+			title: 'Opinion Scale',
+			color: '#5d4096',
+			icon: <OpinionScaleIcon />,
+		},
+		rating: {
+			title: 'Rating',
+			color: '#ffd010',
+			icon: <RatingIcon />,
+		},
+		calendly: {
+			title: 'Calendly',
+			color: '#fff',
+			icon: <CaledlyIcon />,
+		},
+	};
 	return (
 		<div className="admin-components-block-types-list">
 			{ map( keys( blockTypes ), ( blockName, index ) => {
@@ -81,169 +138,63 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 					</div>
 				);
 			} ) }
+			<>
+				{ Object.keys( proBlocks ).map( ( blockName ) => {
+					if ( ! blockTypes[ blockName ] ) {
+						return (
+							<div
+								key={ blockName }
+								className={
+									'admin-components-blocks-list__item-wrapper'
+								}
+							>
+								<div className="admin-components-blocks-list-item disabled">
+									<span
+										className="admin-components-blocks-list-item__icon-wrapper"
+										style={ {
+											backgroundColor:
+												proBlocks[ blockName ].color,
+										} }
+									>
+										<span className="admin-components-blocks-list-item__icon">
+											{ proBlocks[ blockName ].icon }
+										</span>
+									</span>
+									<span className="admin-components-blocks-list-item__block-name">
+										{ proBlocks[ blockName ].title }
+									</span>
+									{ license?.status !== 'valid' ? (
+										<ProLabel />
+									) : (
+										<Button
+											isPrimary
+											isButton
+											className={ css`
+												padding: 0 !important;
+												background-color: #1e87f0;
 
-			{ ! blockTypes.file && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#ff9381',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<FileIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							File Upload
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
-			{ ! blockTypes.phone && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#2cc31a',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<PhoneIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							Phone
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
-			{ ! blockTypes.rating && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#ffd010',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<RatingIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							Rating
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
-			{ ! blockTypes.calendly && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#fff',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<CaledlyIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							Calendly
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
-			{ ! blockTypes[ 'opinion-scale' ] && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#5d4096',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<OpinionScaleIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							Opinion Scale
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
-			{ ! blockTypes[ 'picture-choice' ] && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#0d775f',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<PictureChoiceIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							Picture Choice
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
-
-			{ ! blockTypes.signature && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#2eaf8b',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<SignatureIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							Signature
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
-
-			{ ! blockTypes[ 'thankyou-screen' ] && (
-				<div className={ 'admin-components-blocks-list__item-wrapper' }>
-					<div className="admin-components-blocks-list-item disabled">
-						<span
-							className="admin-components-blocks-list-item__icon-wrapper"
-							style={ {
-								backgroundColor: '#bf5c73',
-							} }
-						>
-							<span className="admin-components-blocks-list-item__icon">
-								<ThankYouIcon />
-							</span>
-						</span>
-						<span className="admin-components-blocks-list-item__block-name">
-							Thank You Screen
-						</span>
-						<ProLabel />
-					</div>
-				</div>
-			) }
+												a {
+													text-decoration: none;
+													color: #fff;
+													padding: 2px 8px;
+													background-color: #1e87f0;
+												}
+											` }
+										>
+											<NavLink
+												to={ `/admin.php?page=quillforms&path=addons` }
+											>
+												Install
+											</NavLink>
+										</Button>
+									) }
+								</div>
+							</div>
+						);
+					}
+					return null;
+				} ) }
+			</>
 		</div>
 	);
 };
