@@ -299,6 +299,8 @@ const FieldWrapper: React.FC = () => {
 					textarea,
 					input {
 						font-family: ${ theme.font };
+						background: transparent;
+						background-color: transparent;
 
 						@media ( min-width: 768px ) {
 							font-size: ${ theme.textInputAnswers.lg };
