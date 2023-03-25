@@ -43,11 +43,12 @@ const Form: React.FC< Props > = ( {
 			...getDefaultMessages(),
 			...formObj.messages,
 		};
-		const ParsedUrlSearch = new URLSearchParams(
+		const ParsedUrlSearch =
 			typeof window !== undefined
-				? window?.location?.search?.substring( 1 )
-				: ''
-		);
+				? new URLSearchParams(
+						window?.location?.search?.substring( 1 )
+				  )
+				: '';
 		if ( ! formObj.settings ) formObj.settings = {};
 		formObj.settings = {
 			disableProgressBar: false,
