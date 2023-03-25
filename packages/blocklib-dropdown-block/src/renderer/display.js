@@ -299,6 +299,7 @@ const DropdownDisplay = ( props ) => {
 	return (
 		<div ref={ wrapperRef } style={ { position: 'relative' } }>
 			<input
+				autoComplete="off"
 				ref={ inputRef }
 				className={ cx(
 					css`
