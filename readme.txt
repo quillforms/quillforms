@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
-Stable tag: 2.6.1
+Stable tag: 2.7.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -86,6 +86,7 @@ By set up email notifications, you can get an email after each submission with t
 - Tracking with Google Analytics
 - Tracking with Facebook Pixel
 - Opinion scale block
+- Date Calendar Picker
 - Signature block
 - Form locker to restrict access to your form with a lot of options.
 - Custom thank you screen with auto redirect and custom buttons
@@ -142,6 +143,10 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 2.7.0 = 24 Mar 2023
+Feature: Adding date calendar picker addon.
+Fix: Fixing block pro label that's displayed for valid licenses.
 
 = 2.6.1 = 15 Mar 2023
 Fix: Fixing custom fonts panel issue.
