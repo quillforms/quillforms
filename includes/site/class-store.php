@@ -528,7 +528,7 @@ class Store
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/banner.png',
 				),
 			),
-			'datetimepicker'                 => array(
+			'datetimepickerblock'                 => array(
 				'name'           => esc_html__('Date Calendar Picker Block', 'quillforms'),
 				'description'    => esc_html__('Date Calendar picker with advanced feature to set minimum date, maximum date and disable some dates', 'quillforms'),
 				'plugin_file'    => 'quillforms-datetimepickerblock/quillforms-datetimepickerblock.php',
