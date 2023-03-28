@@ -40,7 +40,13 @@ const FieldAction = ( { clickHandler, show } ) => {
 			) : (
 				<>
 					<Button theme={ theme } onClick={ clickHandler }>
-						<HTMLParser value={ messages[ 'label.button.ok' ] } />
+						<HTMLParser
+							value={
+								typeof attributes?.nextBtnLabel === 'string'
+									? attributes.nextBtnLabel
+									: messages[ 'label.button.ok' ]
+							}
+						/>
 					</Button>
 					{ ! isTouchScreen && (
 						<div

@@ -284,6 +284,7 @@ const FieldWrapper: React.FC = () => {
 					'is-horizontal-animation':
 						settings?.animationDirection === 'horizontal',
 				},
+				`${ attributes?.classnames ?? '' }`,
 				`${ theme.typographyPreset }-typography-preset`,
 				position ? position : '',
 				css`
