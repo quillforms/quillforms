@@ -58,10 +58,10 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 		};
 	} );
 
-	const goNextReally = () => {
+	const goNextReally = async () => {
 		if ( answers[ currentBlockIndex ]?.isPending ) return;
 		if ( walkPath?.[ currentBlockIndex ]?.beforeGoingNext ) {
-			walkPath[ currentBlockIndex ].beforeGoingNext( {
+			await walkPath[ currentBlockIndex ].beforeGoingNext( {
 				answers,
 				currentBlockId,
 				setIsFieldValid,

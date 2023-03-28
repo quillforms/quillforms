@@ -120,10 +120,10 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		setFieldValidationErr,
 	} = useDispatch( 'quillForms/renderer-core' );
 
-	const goNextReally = () => {
+	const goNextReally = async () => {
 		if ( answers[ currentBlockIndex ]?.isPending ) return;
 		if ( blocks?.[ currentBlockIndex ]?.beforeGoingNext ) {
-			blocks[ currentBlockIndex ].beforeGoingNext( {
+			await blocks[ currentBlockIndex ].beforeGoingNext( {
 				answers,
 				currentBlockId,
 				setIsFieldValid,
