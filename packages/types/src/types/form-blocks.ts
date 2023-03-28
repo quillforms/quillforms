@@ -42,12 +42,14 @@ export type FormBlock = {
 		answers,
 		setFieldValidationErr,
 		setIsCurrentBlockSafeToSwipe,
+		goToField,
 		goNext,
 	}: {
 		setIsFieldValid: ( id: string, flag: boolean ) => void;
 		setFieldValidationErr: ( id: string, err: string ) => void;
 		setIsPending: ( flag: boolean ) => void;
 		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
+		goToField: ( id: string ) => void;
 		goNext: () => void;
 		currentBlockId: string;
 		answers: Record< string, unknown >;
