@@ -1,5 +1,5 @@
-# Conditional Blocks Rendering
-You can easily show/hide questions based on form answers. 
+# Dynamic Blocks Rendering
+You can easily show, hide, add or remove questions based on form answers. 
 You have 2 useful hooks that you can use for that:
 
 ### useFormAnswers
