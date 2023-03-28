@@ -76,6 +76,16 @@ export const registerBlockType = (
 		};
 	}
 
+	attributes.nextBtnLabel = {
+		type: [ 'string', 'boolean' ],
+		default: false,
+	};
+
+	attributes.classnames = {
+		type: 'string',
+		default: '',
+	};
+
 	if ( supports.placeholder ) {
 		attributes.placeholder = {
 			type: [ 'string', 'boolean' ],
