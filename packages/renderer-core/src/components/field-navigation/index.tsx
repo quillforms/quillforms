@@ -23,6 +23,7 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 		setIsFieldValid,
 		setIsFieldPending,
 		setFieldValidationErr,
+		goToField,
 	} = useDispatch( 'quillForms/renderer-core' );
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
@@ -67,6 +68,7 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 				setIsFieldValid,
 				setFieldValidationErr,
 				setIsCurrentBlockSafeToSwipe,
+				goToField,
 				goNext,
 				setIsPending: ( val ) =>
 					setIsFieldPending( currentBlockId, val ),

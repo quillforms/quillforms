@@ -114,6 +114,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		setSwiper,
 		goNext,
 		goPrev,
+		goToField,
 		setIsCurrentBlockSafeToSwipe,
 		setIsFieldValid,
 		setIsFieldPending,
@@ -129,6 +130,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				setIsFieldValid,
 				setFieldValidationErr,
 				setIsCurrentBlockSafeToSwipe,
+				goToField,
 				goNext,
 				setIsPending: ( val ) =>
 					setIsFieldPending( currentBlockId, val ),
