@@ -25,6 +25,7 @@ import {
 	useLogic,
 	useHiddenFields,
 } from '../../hooks';
+import { isFunction } from 'lodash';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -109,8 +110,33 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			block.name !== 'welcome-screen' && block.name !== 'thankyou-screen'
 	);
 
-	const { setSwiper, goNext, goPrev, setIsCurrentBlockSafeToSwipe } =
-		useDispatch( 'quillForms/renderer-core' );
+	const {
+		setSwiper,
+		goNext,
+		goPrev,
+		setIsCurrentBlockSafeToSwipe,
+		setIsFieldValid,
+		setIsFieldPending,
+		setFieldValidationErr,
+	} = useDispatch( 'quillForms/renderer-core' );
+
+	const goNextReally = () => {
+		if ( answers[ currentBlockIndex ]?.isPending ) return;
+		if ( blocks?.[ currentBlockIndex ]?.beforeGoingNext ) {
+			blocks[ currentBlockIndex ].beforeGoingNext( {
+				answers,
+				currentBlockId,
+				setIsFieldValid,
+				setFieldValidationErr,
+				setIsCurrentBlockSafeToSwipe,
+				goNext,
+				setIsPending: ( val ) =>
+					setIsFieldPending( currentBlockId, val ),
+			} );
+		} else {
+			goNext();
+		}
+	};
 
 	const { isCurrentBlockValid } = useSelect( ( select ) => {
 		return {
@@ -189,7 +215,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 			lastScrollDate = new Date().getTime();
 			// Scroll down
 			if ( isCurrentBlockValid ) {
-				goNext();
+				goNextReally();
 			} else {
 				setIsCurrentBlockSafeToSwipe( false );
 			}
@@ -276,7 +302,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 							}
 							next={ () => {
 								if ( isCurrentBlockValid ) {
-									goNext();
+									goNextReally();
 								} else {
 									setIsCurrentBlockSafeToSwipe( false );
 								}

@@ -16,9 +16,14 @@ import DownIcon from './down-icon';
 import UpIcon from './up-icon';
 
 const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
-	const { goNext, goPrev, setIsCurrentBlockSafeToSwipe } = useDispatch(
-		'quillForms/renderer-core'
-	);
+	const {
+		goNext,
+		goPrev,
+		setIsCurrentBlockSafeToSwipe,
+		setIsFieldValid,
+		setIsFieldPending,
+		setFieldValidationErr,
+	} = useDispatch( 'quillForms/renderer-core' );
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
 	const { currentBlockId, walkPath, blockTypes } = useSelect( ( select ) => {
@@ -38,8 +43,9 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 
 	const currentBlockType = blockTypes?.[ currentBlockName ];
 
-	const { isCurrentBlockValid } = useSelect( ( select ) => {
+	const { isCurrentBlockValid, answers } = useSelect( ( select ) => {
 		return {
+			answers: select( 'quillForms/renderer-core' ).getAnswers(),
 			isCurrentBlockValid: currentBlockType?.supports?.innerBlocks
 				? select( 'quillForms/renderer-core' )?.hasValidFields(
 						currentBlockId
@@ -51,6 +57,24 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 				: true,
 		};
 	} );
+
+	const goNextReally = () => {
+		if ( answers[ currentBlockIndex ]?.isPending ) return;
+		if ( walkPath?.[ currentBlockIndex ]?.beforeGoingNext ) {
+			walkPath[ currentBlockIndex ].beforeGoingNext( {
+				answers,
+				currentBlockId,
+				setIsFieldValid,
+				setFieldValidationErr,
+				setIsCurrentBlockSafeToSwipe,
+				goNext,
+				setIsPending: ( val ) =>
+					setIsFieldPending( currentBlockId, val ),
+			} );
+		} else {
+			goNext();
+		}
+	};
 
 	return (
 		<div
@@ -89,7 +113,7 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 						walkPath[ walkPath.length - 1 ].id !== currentBlockId
 					) {
 						if ( isCurrentBlockValid ) {
-							goNext();
+							goNextReally();
 						} else {
 							setIsCurrentBlockSafeToSwipe( false );
 						}

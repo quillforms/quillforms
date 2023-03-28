@@ -10,6 +10,8 @@ type DefaultAttributes = {
 	attachment?: BlockAttachment;
 	attachmentMaxWidth?: string;
 	placeholder?: string | boolean;
+	nextBtnLabel?: string | boolean;
+	classnames?: string;
 	attachmentFocalPoint?: {
 		x: number;
 		y: number;
@@ -33,6 +35,23 @@ export type FormBlock = {
 	name: string;
 	attributes?: BlockAttributes;
 	innerBlocks?: FormBlock[];
+	beforeGoingNext?: ( {
+		setIsFieldValid,
+		setIsPending,
+		currentBlockId,
+		answers,
+		setFieldValidationErr,
+		setIsCurrentBlockSafeToSwipe,
+		goNext,
+	}: {
+		setIsFieldValid: ( id: string, flag: boolean ) => void;
+		setFieldValidationErr: ( id: string, err: string ) => void;
+		setIsPending: ( flag: boolean ) => void;
+		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
+		goNext: () => void;
+		currentBlockId: string;
+		answers: Record< string, unknown >;
+	} ) => void;
 };
 
 export type FormBlocks = FormBlock[];
