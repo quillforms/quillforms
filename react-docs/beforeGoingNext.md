@@ -52,7 +52,7 @@ When you pass your array of blocks in the `formObj` prop, you can define beforeG
           ]
        }}
 />
-```js
+```
 Ok, cool, but what is the benifit of this function?
 
 Actually, with this handy function, you can do a lot of things. You have a full control on the block before going to next blocks.
