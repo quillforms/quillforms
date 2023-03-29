@@ -56,4 +56,4 @@ Example:
 ```
 
 ## CodeSandbox
-Please view this example in action at (this CodeSandbox)[https://codesandbox.io/s/quill-forms-example-extra-validation-ri1mhi]
+Please view this example in action at [this CodeSandbox](https://codesandbox.io/s/quill-forms-example-extra-validation-ri1mhi)
