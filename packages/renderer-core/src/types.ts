@@ -37,4 +37,7 @@ export type SubmissionDispatchers = {
 	setFieldValidationErr: ( id: string, err: string ) => void;
 	completeForm: () => void;
 	setSubmissionErr: ( value: string ) => void;
+	blocks: FormBlocks;
+	setBlocks: ( blocks: FormBlocks ) => void;
+	setIsPending: ( flag: boolean ) => void;
 };

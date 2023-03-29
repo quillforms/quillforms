@@ -10,6 +10,7 @@ interface FormContext {
 	onSubmit: ( data: object, dispatchers: SubmissionDispatchers ) => void;
 	isPreview: boolean;
 	formId?: number;
+	setBlocks: ( blocks: FormObj[ 'blocks' ] ) => void;
 }
 const FormContext = createContext< FormContext >( {
 	formObj: {
@@ -27,6 +28,7 @@ const FormContext = createContext< FormContext >( {
 	},
 	onSubmit: noop,
 	isPreview: false,
+	setBlocks: noop,
 } );
 
 const FormContextProvider = ( { children, value } ) => {

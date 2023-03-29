@@ -11,6 +11,7 @@ import { useEffect, useState } from '@wordpress/element';
 import classNames from 'classnames';
 import { TailSpin as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
+import { cloneDeep, map, omit, size } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -34,8 +35,9 @@ const SubmitBtn: React.FC = () => {
 		setFieldValidationErr,
 		setSubmissionErr,
 		completeForm,
+		setIsFieldPending,
 	} = useDispatch( 'quillForms/renderer-core' );
-	const { onSubmit } = useFormContext();
+	const { onSubmit, formObj, setBlocks } = useFormContext();
 	const [ isWaitingPending, setIsWaitingPending ] = useState( false );
 
 	const {
@@ -44,8 +46,12 @@ const SubmitBtn: React.FC = () => {
 		pendingMsg,
 		isSubmitting,
 		submissionErr,
+		currentBlockId,
 	} = useSelect( ( select ) => {
 		return {
+			currentBlockId: select(
+				'quillForms/renderer-core'
+			).getCurrentBlockId(),
 			answers: select( 'quillForms/renderer-core' ).getAnswers(),
 			pendingMsg: select( 'quillForms/renderer-core' ).getPendingMsg(),
 			isSubmitting: select( 'quillForms/renderer-core' ).isSubmitting(),
@@ -110,6 +116,10 @@ const SubmitBtn: React.FC = () => {
 					goToBlock,
 					completeForm,
 					setSubmissionErr,
+					blocks: [ ...formObj.blocks ],
+					setBlocks,
+					setIsPending: ( val ) =>
+						setIsFieldPending( currentBlockId, val ),
 				}
 			);
 		}

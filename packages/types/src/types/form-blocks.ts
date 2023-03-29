@@ -44,6 +44,8 @@ export type FormBlock = {
 		setIsCurrentBlockSafeToSwipe,
 		goToField,
 		goNext,
+		blocks,
+		setBlocks,
 	}: {
 		setIsFieldValid: ( id: string, flag: boolean ) => void;
 		setFieldValidationErr: ( id: string, err: string ) => void;
@@ -53,6 +55,8 @@ export type FormBlock = {
 		goNext: () => void;
 		currentBlockId: string;
 		answers: Record< string, unknown >;
+		blocks: FormBlocks;
+		setBlocks: ( blocks: FormBlocks ) => void;
 	} ) => void;
 };
 

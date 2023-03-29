@@ -8,10 +8,12 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
+import { cloneDeep, map, omit, size } from 'lodash';
+
 /**
  * Internal Dependencies
  */
-import { useCurrentTheme, useFormSettings } from '../../hooks';
+import { useCurrentTheme, useFormContext, useFormSettings } from '../../hooks';
 import DownIcon from './down-icon';
 import UpIcon from './up-icon';
 
@@ -25,6 +27,7 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 		setFieldValidationErr,
 		goToField,
 	} = useDispatch( 'quillForms/renderer-core' );
+	const { formObj, setBlocks } = useFormContext();
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
 	const { currentBlockId, walkPath, blockTypes } = useSelect( ( select ) => {
@@ -70,6 +73,8 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 				setIsCurrentBlockSafeToSwipe,
 				goToField,
 				goNext,
+				blocks: formObj.blocks,
+				setBlocks,
 				setIsPending: ( val ) =>
 					setIsFieldPending( currentBlockId, val ),
 			} );

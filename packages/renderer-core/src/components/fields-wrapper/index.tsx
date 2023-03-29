@@ -24,8 +24,9 @@ import {
 	useFormSettings,
 	useLogic,
 	useHiddenFields,
+	useFormContext,
 } from '../../hooks';
-import { isFunction } from 'lodash';
+import { cloneDeep, map, omit, size } from 'lodash';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -36,6 +37,7 @@ interface Props {
 }
 
 const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
+	const { formObj, setBlocks } = useFormContext();
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
@@ -132,6 +134,8 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 				setIsCurrentBlockSafeToSwipe,
 				goToField,
 				goNext,
+				blocks: formObj.blocks,
+				setBlocks,
 				setIsPending: ( val ) =>
 					setIsFieldPending( currentBlockId, val ),
 			} );

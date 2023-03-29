@@ -7,7 +7,7 @@ import { getDefaultMessages } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -31,12 +31,17 @@ const Form: React.FC< Props > = ( {
 	applyLogic,
 	isPreview = false,
 } ) => {
+	const [ blocks, setBlocks ] = useState( formObj?.blocks );
+	useEffect( () => {
+		setBlocks( formObj?.blocks ?? [] );
+	}, [ JSON.stringify( formObj.blocks ) ] );
+
 	// This
 	const formatFormObj = (): FormObj => {
 		// If not in preview mode, sanitize blocks.
 		// In preview mode, sanitizing is already done in block editor resolvers.
 		if ( ! isPreview ) {
-			formObj.blocks = sanitizeBlocks( formObj.blocks );
+			formObj.blocks = sanitizeBlocks( blocks );
 		}
 
 		formObj.messages = {
@@ -79,6 +84,7 @@ const Form: React.FC< Props > = ( {
 				onSubmit,
 				isPreview,
 				formId,
+				setBlocks,
 			} }
 		>
 			<FormWrapper applyLogic={ applyLogic } />
