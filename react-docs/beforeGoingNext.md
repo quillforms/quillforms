@@ -57,7 +57,7 @@ This function will be called before going to next block and you can completely o
        }}
 />
 ```
-Ok, cool, but what is the benifit of this function?
+Ok, cool, but what is the benefit of this function?
 
 Actually, with this handy function, you can do a lot of things. You have a full control on the block before going to next blocks.
 You can add more validation, send API request, conditionally rendering some blocks synchronously or based on third part api.
