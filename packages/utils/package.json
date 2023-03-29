@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/utils",
-	"version": "3.0.6",
+	"version": "3.0.7",
 	"description": "Utils package for defining some helpful functions",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
