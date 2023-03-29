@@ -20,9 +20,22 @@
 - [Create Your Own Custom Block Type](/react-docs/create-your-own-custom-block-type.md)
 - [Available React Hooks](/react-docs/available-react-hooks.md)
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
-- [Dynamic Blocks Rendering](/react-docs/conditional-blocks-rendering.md)
+- [Understanding the magic beforeGoingNext(New)🚀🚀🚀, How And When To Use It?](/react-docs/beforeGoingNext.md)
+- [Dynamic Blocks Rendering(show, hide, add or remove blocks based on conditions)](/react-docs/conditional-blocks-rendering.md)
+- [Asynchronous Dynamic Blocks Rendering( Same like the previous but asynchronously with API Request)](/react-docs/asynchronous-dynamic-blocks-rendering.md)
+- [More Validation For Core Blocks ](/react-docs/core-blocks-validation.md)
+- [Asynchronous Request or Asynchronous Validation Before Going To Next Block (API Request)](/react-docs/async-validation.md)
 - [Recall Information](/react-docs/recall-information.md)
+- [Controlling Messages, Error Alerts Placeholders, Next Button Labels](/react-docs/messages.md)
+
 - [Available Actions and Filters](/react-docs/available-actions-and-filters.md)
+
+## More examples for custom blocks
+- [Picture Choice Block](/react-docs/blocks/picture-choice.md)
+- [File Upload Block](/react-docs/blocks/file-upload.md)
+- [Calendly Block](/react-docs/blocks/calendly.md)
+- [Rating Block](/react-docs/blocks/rating.md)
+- [Calendar Picker Block](/react-docs/calendar-picker.md)
 
 # Installation as a WordPress plugin
 This plugin is available on the [WordPress.org plugin repository](https://wordpress.org/plugins/quillforms), and can be installed either directly from there or from the admin dashboard within your website.

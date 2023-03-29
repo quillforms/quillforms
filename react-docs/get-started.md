@@ -47,6 +47,7 @@ const App = () => {
               name: "short-text",
               id: "kd12edg",
               attributes: {
+	        classnames: "first-block"
                 required: true,
                 label: "Let's start with your name"
               }
@@ -110,24 +111,32 @@ type DefaultAttributes = {
   // By default the placeholder is false because it takes its value from the form messages but you can override it easily if you pass a string value to this prop.
 
    placeholder?: string | boolean; 
+   
+   // Class names assigned to the block
+   classnames?: string;
+   
+   // Next Button Label
+   // Override the next button label for this question.
+   // By default the next button label is false because it takes its value from the form messages but you can override it easily if you pass a string value to this prop
+   nextBtnLabel?: string | boolean;
+   
+   // The block description
+   description?: string;
 
-  // The block description
-  description?: string;
+   // The block required flag
+   required?: boolean;
 
-  // The block required flag
-  required?: boolean;
-
-  // The block attachment
-  attachment?: {
-    type: 'image';
-    url: string;
-  };
+   // The block attachment
+   attachment?: {
+     type: 'image';
+     url: string;
+   };
   
-  // The block default value
-  defaultValue?: any // The default value for your question
+   // The block default value
+   defaultValue?: any // The default value for your question
 
-  // The block layout - This will control the image attachment position
-  layout?:
+   // The block layout - This will control the image attachment position
+   layout?:
 		| 'stack'
 		| 'float-left'
 		| 'float-right'
@@ -154,6 +163,27 @@ type FormBlock = {
 
   // The attributes for the block.
 	attributes?: BlockAttributes;
+	
+  // beforeGoingNext is handy since it lets you have full control on the block before going next.
+       beforeGoingNext?: ( {
+		setIsFieldValid,
+		setIsPending,
+		currentBlockId,
+		answers,
+		setFieldValidationErr,
+		setIsCurrentBlockSafeToSwipe,
+		goToField,
+		goNext,
+	}: {
+		setIsFieldValid: ( id: string, flag: boolean ) => void;
+		setFieldValidationErr: ( id: string, err: string ) => void;
+		setIsPending: ( flag: boolean ) => void;
+		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
+		goToField: ( id: string ) => void;
+		goNext: () => void;
+		currentBlockId: string;
+		answers: Record< string, unknown >;
+	} ) => void;
 };
 
 // Form messages
