@@ -63,23 +63,23 @@ You can add more validation, send API request, conditionally rendering some bloc
 
 Let's discuss its possible use cases one by one:
 
-## More Validation for Core Blocks
+## 1- More Validation for Core Blocks
 
 When you use the core blocks, there might be a need to add more validation for any block. No worries, `beforeGoingNext` will handle this.
 
 Please read this [doc](./core-blocks-validation.md) for more details.
 
 
-## Synchronously Render Blocks Dynamically Based on Conditions
+## 2- Synchronously Render Blocks Dynamically Based on Conditions
 
 For more details, please read this [doc](./dynamic-blocks-rendering.md).
 
 
-## Asynchronously Render Blocks Dynamically Based on Conditions (API Requests)
+## 3- Asynchronously Render Blocks Dynamically Based on Conditions (API Requests)
 
 Fore more details, please read thid [doc](./async-dynamic-block-rendering.md)
 
 
-## Sending Some Data to Third Party or Asynchronous Validation for Any Block Based on API Request 
+## 4- Sending Some Data to Third Party or Asynchronous Validation for Any Block Based on API Request 
 
 For more details, please read this [doc](./async-request.md).
