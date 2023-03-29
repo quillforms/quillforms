@@ -57,6 +57,7 @@ Example:
        }}
 />
 ```
+In this example, we throw error if the answer of the first question is 'aaa'
 
 ## CodeSandbox
 Please view this example in action at [this CodeSandbox](https://codesandbox.io/s/quill-forms-example-extra-validation-ri1mhi)
