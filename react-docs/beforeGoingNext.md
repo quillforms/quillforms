@@ -2,7 +2,9 @@
 
 When you pass your array of blocks in the `formObj` prop, you can define beforeGoingNext function in each block.
 This function will be called before going to next block and you can completely override the default behaviour instead of going to the next block by default.
+
 **Please note that this function won't be called if the block is the last block. You should use `onSubmit` instead in this case.**
+
 ``` js
  <Form
         formId="1"
@@ -12,7 +14,7 @@ This function will be called before going to next block and you can completely o
               name: "short-text",
               id: "kd12edg",
               attributes: {
-                classnames: "asdsa",
+                classnames: "my-first-block",
                 nextBtnLabel: "Great",
                 attachment: {
                   type: "image",
