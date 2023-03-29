@@ -21,10 +21,10 @@
 - [Available React Hooks](/react-docs/available-react-hooks.md)
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
 - [Understanding the magic beforeGoingNext(New)🚀🚀🚀, How And When To Use It?](/react-docs/beforeGoingNext.md)
-- [Dynamic Blocks Rendering(show, hide, add or remove blocks based on conditions](/react-docs/conditional-blocks-rendering.md)
-- [Asynchronous Dynamic Blocks Rendering( Same like the previous but asynchronously with API Request) )](/react-docs/asynchronous-dynamic-blocks-rendering.md)
+- [Dynamic Blocks Rendering(show, hide, add or remove blocks based on conditions)](/react-docs/conditional-blocks-rendering.md)
+- [Asynchronous Dynamic Blocks Rendering( Same like the previous but asynchronously with API Request)](/react-docs/asynchronous-dynamic-blocks-rendering.md)
 - [More Validation For Core Blocks ](/react-docs/core-blocks-validation.md)
-- [Asynchronous Request or Asynchronous Validation Before Going To Next Block (API Request) ](/react-docs/async-validation.md)
+- [Asynchronous Request or Asynchronous Validation Before Going To Next Block (API Request)](/react-docs/async-validation.md)
 - [Recall Information](/react-docs/recall-information.md)
 - [Controlling Messages, Error Alerts Placeholders, Next Button Labels](/react-docs/messages.md)
 
