@@ -119,23 +119,24 @@ type DefaultAttributes = {
    // Override the next button label for this question.
    // By default the next button label is false because it takes its value from the form messages but you can override it easily if you pass a string value to this prop
    nextBtnLabel?: string | boolean;
-  // The block description
-  description?: string;
+   
+   // The block description
+   description?: string;
 
-  // The block required flag
-  required?: boolean;
+   // The block required flag
+   required?: boolean;
 
-  // The block attachment
-  attachment?: {
-    type: 'image';
-    url: string;
-  };
+   // The block attachment
+   attachment?: {
+     type: 'image';
+     url: string;
+   };
   
-  // The block default value
-  defaultValue?: any // The default value for your question
+   // The block default value
+   defaultValue?: any // The default value for your question
 
-  // The block layout - This will control the image attachment position
-  layout?:
+   // The block layout - This will control the image attachment position
+   layout?:
 		| 'stack'
 		| 'float-left'
 		| 'float-right'
