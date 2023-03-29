@@ -37,6 +37,9 @@ Example:
                   setFieldValidationErr(currentBlockId, "This is a test");
                   setIsCurrentBlockSafeToSwipe(false);
                 } else {
+																	 setIsFieldValid(currentBlockId, true);
+                  setFieldValidationErr(currentBlockId, '');
+                  setIsCurrentBlockSafeToSwipe(true);
                   goNext();
                 }
               }
