@@ -22,7 +22,7 @@
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
 - [Understanding the magic beforeGoingNext(New)🚀🚀🚀, How And When To Use It](/react-docs/beforeGoingNext.md)
 - [Dynamic Blocks Rendering](/react-docs/conditional-blocks-rendering.md)
-- [Asynchronous Dynamic Blocks Rendering( API Request) )(/react-docs/asynchronous-dynamic-blocks-rendering.md)
+- [Asynchronous Dynamic Blocks Rendering( API Request) )](/react-docs/asynchronous-dynamic-blocks-rendering.md)
 - [More Validation For Core Blocks ](/react-docs/core-blocks-validation.md)
 - [Asynchronous Request or Asynchronous Validation Before Going To Next Block (API Request) ](/react-docs/async-validation.md)
 - [Recall Information](/react-docs/recall-information.md)
