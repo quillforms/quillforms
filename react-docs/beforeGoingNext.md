@@ -7,7 +7,7 @@ This function will be called before going to next block and you can completely o
 ``` js
  <Form
         formId="1"
-								beforeGoingNext: ({
+	 beforeGoingNext: ({
            setIsFieldValid,
            setIsPending,
            currentBlockId,
