@@ -5,6 +5,7 @@ Here is a list  of the available React hooks that you can export from `@quillfor
 ### useCurrentBlock
 Gets the current block
 ```js
+import { useCurrentBlock } from "@quillforms/renderer-core";
 const currentBlock = useCurrentBlock();
 ```
 
@@ -12,6 +13,7 @@ const currentBlock = useCurrentBlock();
 
 Retrieves form answers
 ```js
+import { useFormAnswers } from "@quillforms/renderer-core";
 const formAnswers = useFormAnswers();
 ```
 
@@ -19,6 +21,7 @@ const formAnswers = useFormAnswers();
 
 Retrieves the field answer
 ```js
+import { useFieldAnswer } from "@quillforms/renderer-core";
 const fieldAnswer = useFieldAnswer(fieldId);
 ```
 
@@ -26,6 +29,7 @@ const fieldAnswer = useFieldAnswer(fieldId);
 
 Retrieves the theme
 ```js
+import { useTheme } from "@quillforms/renderer-core";
 const theme = useTheme();
 ```
 
@@ -33,5 +37,6 @@ const theme = useTheme();
 
 Retrieves form messages
 ```js
+import { useMessages } from "@quillforms/renderer-core";
 const messages = useMessages();
 ```
