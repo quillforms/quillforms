@@ -21,6 +21,7 @@
 - [Available React Hooks](/react-docs/available-react-hooks.md)
 - [Understanding beforeGoingNext prop](/react-docs/beforeGoingNext.md)
 - [More Validation for core blocks](/react-docs/core-blocks-validation.md)
+- [Asynchronous API reqeuest or validations](/react-docs/async-requests.md)
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
 - [Dynamic Blocks Rendering(show, hide, add or remove blocks based on conditions)](/react-docs/conditional-blocks-rendering.md)
 - [Recall Information](/react-docs/recall-information.md)
