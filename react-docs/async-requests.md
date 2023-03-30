@@ -27,8 +27,9 @@ In the following example, we are validating a specific field based on API reques
            if (
             currentBlockId === "first-question" 
           ) {
-            setIsPending(true) // Very important to let Quill Forms blocks the user form going to the next question and showing a spinner to him.
+            setIsPending(true); // Very important to let Quill Forms blocks the user form going to the next question and showing a spinner to him.
             const res = await MY_API_REQUEST_FUNCTION(); 
+	    setIsPending(false);
             if(res === 'something') {
                 setIsFieldValid(currentBlockId, false);
                 setFieldValidationErr(currentBlockId, "This is a test");
@@ -40,6 +41,7 @@ In the following example, we are validating a specific field based on API reques
               setIsCurrentBlockSafeToSwipe(true);
               goNext();
             }
+	    
           } 
         }
         formObj={{
