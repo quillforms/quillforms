@@ -1,9 +1,9 @@
-## Asynchronous Requests Handling
+## Asynchronous Requests Handling before submission
 
 Quill Forms gives you the ability to handle the asynchronous requests easily.
 By saying "Asynchronous Requests", we almost refer to api requests or any other promise based callbacks.
 
-**Please note we are not talking here about asynchronous request after the submission since it can be handled easily with onSubmit prop**
+**Please note we are talking here about asynchronous request BEFORE the submission since AFTER the submission Async requests can be handled easily with onSubmit prop**
 
 Let's divide these asynchronous requests to two categories:
 
