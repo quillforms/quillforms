@@ -17,6 +17,11 @@ import { FormContextProvider } from '../form-context';
 import FormWrapper from '../form-wrapper';
 import type { FormObj, SubmissionDispatchers } from '../../types';
 
+/**
+ * External Dependencies
+ */
+import { size } from 'lodash';
+
 interface Props {
 	formId: number;
 	formObj: FormObj;
@@ -80,7 +85,10 @@ const Form: React.FC< Props > = ( {
 			...formObj.settings,
 		};
 		// 'quillforms-redirection' is deprecated and will be removed.
-		if ( ParsedUrlSearch.get( 'quillforms-shortcode' ) ) {
+		if (
+			size( ParsedUrlSearch ) > 0 &&
+			ParsedUrlSearch?.get( 'quillforms-shortcode' )
+		) {
 			formObj.settings.disableWheelSwiping = true;
 		}
 		return formObj;
