@@ -24,7 +24,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/utils": "file:../utils",
-		"@wordpress/data": "^8.2.0",
+		"@wordpress/data": "^9.0.0",
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {

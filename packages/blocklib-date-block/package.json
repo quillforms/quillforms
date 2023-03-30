@@ -25,7 +25,7 @@
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/renderer-core": "file:../renderer-core",
-		"@wordpress/data": "^8.1.0",
+		"@wordpress/data": "^9.0.0",
 		"classnames": "^2.3.1",
 		"dayjs": "^1.10.5",
 		"emotion": "10.0.27",
