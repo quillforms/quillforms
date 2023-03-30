@@ -94,6 +94,6 @@ useEffect( () => {
    if(currentBlock?.id === 'THE_FIELD_ID_I_NEED') {
      // send your api request here
    }
-}, [currentBlock)
+}, [currentBlock] )
 ```
 
