@@ -57,7 +57,7 @@ This function will be called before going to next block and you can completely o
        }}
 />
 ```
-Ok, cool, but what is the benifit of this function?
+Ok, cool, but what is the benefit of this function?
 
 Actually, with this handy function, you can do a lot of things. You have a full control on the block before going to next blocks.
 You can add more validation, send API request, conditionally rendering some blocks synchronously or based on third part api.
@@ -72,16 +72,11 @@ When you use the core blocks, there might be a need to add more validation for a
 Please read this [doc](./core-blocks-validation.md) for more details.
 
 
-## 2- Synchronously Render Blocks Dynamically Based on Conditions
-
-For more details, please read this [doc](./dynamic-blocks-rendering.md).
-
-
-## 3- Asynchronously Render Blocks Dynamically Based on Conditions (API Requests)
+## 2- Asynchronously Render Blocks Dynamically Based on Conditions (API Requests)
 
 Fore more details, please read thid [doc](./async-dynamic-block-rendering.md)
 
 
-## 4- Sending Some Data to Third Party or Asynchronous Validation for Any Block Based on API Request 
+## 3- Sending Some Data to Third Party or Asynchronous Validation for Any Block Based on API Request 
 
 For more details, please read this [doc](./async-request.md).
