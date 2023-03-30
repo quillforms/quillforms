@@ -79,4 +79,5 @@ Please read this [doc](./core-blocks-validation.md) for more details.
 
 ## 2- Sending Some Data to Third Party or Asynchronous Validation for Any Block Based on API Request 
 
-For more details, please read this [doc](./async-request.md).
+You should use async await concept here.
+Docs will be provided soon.
