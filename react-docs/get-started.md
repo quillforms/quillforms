@@ -164,26 +164,6 @@ type FormBlock = {
   // The attributes for the block.
 	attributes?: BlockAttributes;
 	
-  // beforeGoingNext is handy since it lets you have full control on the block before going next.
-       beforeGoingNext?: ( {
-		setIsFieldValid,
-		setIsPending,
-		currentBlockId,
-		answers,
-		setFieldValidationErr,
-		setIsCurrentBlockSafeToSwipe,
-		goToField,
-		goNext,
-	}: {
-		setIsFieldValid: ( id: string, flag: boolean ) => void;
-		setFieldValidationErr: ( id: string, err: string ) => void;
-		setIsPending: ( flag: boolean ) => void;
-		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
-		goToField: ( id: string ) => void;
-		goNext: () => void;
-		currentBlockId: string;
-		answers: Record< string, unknown >;
-	} ) => void;
 };
 
 // Form messages
@@ -271,6 +251,27 @@ type SubmissionDispatchers = {
 	formId?: number;
 	formObj: FormObj;
 	onSubmit: ( data: SubmissionData, dispatchers: SubmissionDispatchers ) => void;
+	// beforeGoingNext is handy since it lets you have full control on the block before going to next block.
+       beforeGoingNext?: ( {
+		setIsFieldValid,
+		setIsPending,
+		currentBlockId,
+		answers,
+		setFieldValidationErr,
+		setIsCurrentBlockSafeToSwipe,
+		goToField,
+		goNext,
+	}: {
+		setIsFieldValid: ( id: string, flag: boolean ) => void;
+		setFieldValidationErr: ( id: string, err: string ) => void;
+		setIsPending: ( flag: boolean ) => void;
+		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
+		goToField: ( id: string ) => void;
+		goNext: () => void;
+		currentBlockId: string;
+		answers: Record< string, unknown >;
+	} ) => void;
+
 }
 ```
 
