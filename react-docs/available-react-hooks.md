@@ -2,6 +2,12 @@
 
 Here is a list  of the available React hooks that you can export from `@quillforms/renderer-core` package
 
+### useCurrentBlock
+Gets the current block
+```js
+const currentBlock = useCurrentBlock();
+```
+
 ### useFormAnswers
 
 Retrieves form answers
