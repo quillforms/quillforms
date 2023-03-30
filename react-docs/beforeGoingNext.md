@@ -17,19 +17,25 @@ This function will be called before going to next block and you can completely o
            goToField,
            goNext
          }) => {
-           if (answers[currentBlockId].value === "aaa") {
-              setIsFieldValid(currentBlockId, false);
-              setFieldValidationErr(currentBlockId, "This is a test");
-               setIsCurrentBlockSafeToSwipe(false);
-            } else {
-               goNext();
-            }
+           if (
+            currentBlockId === "first-question" &&
+            answers[currentBlockId].value === "aaa"
+          ) {
+            setIsFieldValid(currentBlockId, false);
+            setFieldValidationErr(currentBlockId, "This is a test");
+            setIsCurrentBlockSafeToSwipe(false);
+          } else {
+            setIsFieldValid(currentBlockId, true);
+            setFieldValidationErr(currentBlockId, "");
+            setIsCurrentBlockSafeToSwipe(true);
+            goNext();
+          }
         }
         formObj={{
           blocks: [
             {
               name: "short-text",
-              id: "kd12edg",
+              id: "first-question",
               attributes: {
                 classnames: "my-first-block",
                 nextBtnLabel: "Great",
