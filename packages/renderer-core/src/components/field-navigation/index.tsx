@@ -25,9 +25,9 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 		setIsFieldValid,
 		setIsFieldPending,
 		setFieldValidationErr,
-		goToField,
+		goToBlock,
 	} = useDispatch( 'quillForms/renderer-core' );
-	const { formObj, setBlocks } = useFormContext();
+	const { beforeGoingNext } = useFormContext();
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
 	const { currentBlockId, walkPath, blockTypes } = useSelect( ( select ) => {
@@ -64,17 +64,15 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 
 	const goNextReally = async () => {
 		if ( answers[ currentBlockIndex ]?.isPending ) return;
-		if ( walkPath?.[ currentBlockIndex ]?.beforeGoingNext ) {
-			await walkPath[ currentBlockIndex ].beforeGoingNext( {
+		if ( beforeGoingNext ) {
+			await beforeGoingNext( {
 				answers,
 				currentBlockId,
 				setIsFieldValid,
 				setFieldValidationErr,
 				setIsCurrentBlockSafeToSwipe,
-				goToField,
+				goToBlock,
 				goNext,
-				blocks: formObj.blocks,
-				setBlocks,
 				setIsPending: ( val ) =>
 					setIsFieldPending( currentBlockId, val ),
 			} );

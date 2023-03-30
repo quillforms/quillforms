@@ -11,7 +11,6 @@ import { useEffect, useState } from '@wordpress/element';
 import classNames from 'classnames';
 import { TailSpin as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
-import { cloneDeep, map, omit, size } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -29,15 +28,17 @@ const SubmitBtn: React.FC = () => {
 
 	const {
 		goToBlock,
+		goNext,
 		setIsReviewing,
 		setIsSubmitting,
 		setIsFieldValid,
 		setFieldValidationErr,
 		setSubmissionErr,
 		completeForm,
+		setIsCurrentBlockSafeToSwipe,
 		setIsFieldPending,
 	} = useDispatch( 'quillForms/renderer-core' );
-	const { onSubmit, formObj, setBlocks } = useFormContext();
+	const { onSubmit, beforeGoingNext } = useFormContext();
 	const [ isWaitingPending, setIsWaitingPending ] = useState( false );
 
 	const {
@@ -86,7 +87,20 @@ const SubmitBtn: React.FC = () => {
 		return () => removeEventListener( 'keydown', handleKeyDown );
 	}, [ isLastField, isActive ] );
 
-	const submitHandler = () => {
+	const submitHandler = async () => {
+		if ( beforeGoingNext ) {
+			await beforeGoingNext( {
+				answers,
+				setIsFieldValid,
+				setFieldValidationErr,
+				goToBlock,
+				currentBlockId,
+				goNext,
+				setIsCurrentBlockSafeToSwipe,
+				setIsPending: ( val ) =>
+					setIsFieldPending( currentBlockId, val ),
+			} );
+		}
 		if ( pendingMsg === false ) {
 			reviewAndSubmit();
 		} else {
@@ -116,8 +130,6 @@ const SubmitBtn: React.FC = () => {
 					goToBlock,
 					completeForm,
 					setSubmissionErr,
-					blocks: [ ...formObj.blocks ],
-					setBlocks,
 					setIsPending: ( val ) =>
 						setIsFieldPending( currentBlockId, val ),
 				}

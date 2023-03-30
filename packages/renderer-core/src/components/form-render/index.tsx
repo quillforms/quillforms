@@ -21,6 +21,25 @@ interface Props {
 	formId: number;
 	formObj: FormObj;
 	onSubmit: ( data: Object, dispatchers: SubmissionDispatchers ) => void;
+	beforeGoingNext?: ( {
+		setIsFieldValid,
+		setIsPending,
+		currentBlockId,
+		answers,
+		setFieldValidationErr,
+		setIsCurrentBlockSafeToSwipe,
+		goToBlock,
+		goNext,
+	}: {
+		setIsFieldValid: ( id: string, flag: boolean ) => void;
+		setFieldValidationErr: ( id: string, err: string ) => void;
+		setIsPending: ( flag: boolean ) => void;
+		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
+		goToBlock: ( id: string ) => void;
+		goNext: () => void;
+		currentBlockId: string;
+		answers: Record< string, unknown >;
+	} ) => void;
 	applyLogic: boolean;
 	isPreview: boolean;
 }
@@ -29,19 +48,15 @@ const Form: React.FC< Props > = ( {
 	formId,
 	onSubmit,
 	applyLogic,
+	beforeGoingNext,
 	isPreview = false,
 } ) => {
-	const [ blocks, setBlocks ] = useState( formObj?.blocks );
-	useEffect( () => {
-		setBlocks( formObj?.blocks ?? [] );
-	}, [ JSON.stringify( formObj.blocks ) ] );
-
 	// This
 	const formatFormObj = (): FormObj => {
 		// If not in preview mode, sanitize blocks.
 		// In preview mode, sanitizing is already done in block editor resolvers.
 		if ( ! isPreview ) {
-			formObj.blocks = sanitizeBlocks( blocks );
+			formObj.blocks = sanitizeBlocks( formObj.blocks );
 		}
 
 		formObj.messages = {
@@ -84,7 +99,7 @@ const Form: React.FC< Props > = ( {
 				onSubmit,
 				isPreview,
 				formId,
-				setBlocks,
+				beforeGoingNext,
 			} }
 		>
 			<FormWrapper applyLogic={ applyLogic } />

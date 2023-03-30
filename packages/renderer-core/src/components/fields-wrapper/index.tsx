@@ -37,7 +37,7 @@ interface Props {
 }
 
 const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
-	const { formObj, setBlocks } = useFormContext();
+	const { beforeGoingNext } = useFormContext();
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
@@ -116,7 +116,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		setSwiper,
 		goNext,
 		goPrev,
-		goToField,
+		goToBlock,
 		setIsCurrentBlockSafeToSwipe,
 		setIsFieldValid,
 		setIsFieldPending,
@@ -125,17 +125,15 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 
 	const goNextReally = async () => {
 		if ( answers[ currentBlockIndex ]?.isPending ) return;
-		if ( blocks?.[ currentBlockIndex ]?.beforeGoingNext ) {
-			await blocks[ currentBlockIndex ].beforeGoingNext( {
+		if ( beforeGoingNext ) {
+			await beforeGoingNext( {
 				answers,
 				currentBlockId,
 				setIsFieldValid,
 				setFieldValidationErr,
 				setIsCurrentBlockSafeToSwipe,
-				goToField,
+				goToBlock,
 				goNext,
-				blocks: formObj.blocks,
-				setBlocks,
 				setIsPending: ( val ) =>
 					setIsFieldPending( currentBlockId, val ),
 			} );

@@ -10,7 +10,25 @@ interface FormContext {
 	onSubmit: ( data: object, dispatchers: SubmissionDispatchers ) => void;
 	isPreview: boolean;
 	formId?: number;
-	setBlocks: ( blocks: FormObj[ 'blocks' ] ) => void;
+	beforeGoingNext?: ( {
+		setIsFieldValid,
+		setIsPending,
+		currentBlockId,
+		answers,
+		setFieldValidationErr,
+		setIsCurrentBlockSafeToSwipe,
+		goToBlock,
+		goNext,
+	}: {
+		setIsFieldValid: ( id: string, flag: boolean ) => void;
+		setFieldValidationErr: ( id: string, err: string ) => void;
+		setIsPending: ( flag: boolean ) => void;
+		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
+		goToBlock: ( id: string ) => void;
+		goNext: () => void;
+		currentBlockId: string;
+		answers: Record< string, unknown >;
+	} ) => void;
 }
 const FormContext = createContext< FormContext >( {
 	formObj: {
@@ -28,7 +46,6 @@ const FormContext = createContext< FormContext >( {
 	},
 	onSubmit: noop,
 	isPreview: false,
-	setBlocks: noop,
 } );
 
 const FormContextProvider = ( { children, value } ) => {

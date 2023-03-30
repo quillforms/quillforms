@@ -35,29 +35,6 @@ export type FormBlock = {
 	name: string;
 	attributes?: BlockAttributes;
 	innerBlocks?: FormBlock[];
-	beforeGoingNext?: ( {
-		setIsFieldValid,
-		setIsPending,
-		currentBlockId,
-		answers,
-		setFieldValidationErr,
-		setIsCurrentBlockSafeToSwipe,
-		goToField,
-		goNext,
-		blocks,
-		setBlocks,
-	}: {
-		setIsFieldValid: ( id: string, flag: boolean ) => void;
-		setFieldValidationErr: ( id: string, err: string ) => void;
-		setIsPending: ( flag: boolean ) => void;
-		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
-		goToField: ( id: string ) => void;
-		goNext: () => void;
-		currentBlockId: string;
-		answers: Record< string, unknown >;
-		blocks: FormBlocks;
-		setBlocks: ( blocks: FormBlocks ) => void;
-	} ) => void;
 };
 
 export type FormBlocks = FormBlock[];
