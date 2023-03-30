@@ -77,7 +77,7 @@ In the following example, we are validating a specific field based on API reques
 />
 ```
 
-### Non Blocking Asynchronous Requests
+### 2- Non Blocking Asynchronous Requests
 In this case, you need to implement asynchronous request but without blocking the user from swiping the form.
 You can still use `beforeGoingNext` like before but also, you can use the following approach if your case is simple.
 In this example, we send an API request when the user reaches a specific question:
