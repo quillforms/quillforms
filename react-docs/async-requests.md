@@ -76,3 +76,19 @@ In the following example, we are validating a specific field based on API reques
        }}
 />
 ```
+
+### Non Blocking Asynchronous Requests
+In this case, you need to implement asynchronous request but without blocking the user from swiping the form.
+In this example, we send an API request when the user reaches a specific question:
+
+```js 
+import { useCurrentBlock, useFormAnswers } from "@quillforms/renderer-core";
+
+const currentBlock = useCurrentBlock();
+const formAnswers = useFormAnswers();
+
+useEffect( () => {
+   if(currentBlock?.id === 'THE_FIELD_ID_I_NEED') {
+     // send your api request here
+   }
+}, [currentBlock)
