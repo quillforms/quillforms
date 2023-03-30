@@ -8,6 +8,24 @@ This function will be called before going to next block and you can completely o
 ``` js
  <Form
         formId="1"
+								beforeGoingNext: ({
+           setIsFieldValid,
+           setIsPending,
+           currentBlockId,
+           answers,
+           setFieldValidationErr,
+           setIsCurrentBlockSafeToSwipe,
+           goToField,
+           goNext
+         }) => {
+           if (answers[currentBlockId].value === "aaa") {
+              setIsFieldValid(currentBlockId, false);
+              setFieldValidationErr(currentBlockId, "This is a test");
+               setIsCurrentBlockSafeToSwipe(false);
+            } else {
+               goNext();
+            }
+        }
         formObj={{
           blocks: [
             {
@@ -25,24 +43,7 @@ This function will be called before going to next block and you can completely o
                 required: true,
                 label: "Let's start with your name"
               },
-              beforeGoingNext: ({
-                setIsFieldValid,
-                setIsPending,
-                currentBlockId,
-                answers,
-                setFieldValidationErr,
-                setIsCurrentBlockSafeToSwipe,
-                goToField,
-                goNext
-              }) => {
-                if (answers[currentBlockId].value === "aaa") {
-                  setIsFieldValid(currentBlockId, false);
-                  setFieldValidationErr(currentBlockId, "This is a test");
-                  setIsCurrentBlockSafeToSwipe(false);
-                } else {
-                  goNext();
-                }
-              }
+              
             },
             {
               name: "long-text",
