@@ -2,7 +2,7 @@
 	"name": "@quillforms/types",
 	"version": "3.0.6",
 	"description": "Types package is to define some certain shared types between packages",
-	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"author": "Mohamed Magdy <mohamed@quillforms.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"quillforms",
