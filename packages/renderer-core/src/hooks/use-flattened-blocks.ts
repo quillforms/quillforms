@@ -1,4 +1,4 @@
-import { FormBlock, FormBlocks } from '@quillforms/types';
+import { FormBlocks } from '@quillforms/types';
 
 const useFlattenedBlocks = ( blocks ) => {
 	const result: FormBlocks = [];
