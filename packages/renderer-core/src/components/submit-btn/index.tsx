@@ -65,6 +65,9 @@ const SubmitBtn: React.FC = () => {
 		};
 	} );
 
+
+	if ( ! currentBlockId ) return null;
+
 	const handleKeyDown = ( e ) => {
 		if ( e.key === 'Enter' ) {
 			if ( e.metaKey ) {
@@ -88,7 +91,7 @@ const SubmitBtn: React.FC = () => {
 	}, [ isLastField, isActive ] );
 
 	const submitHandler = async () => {
-		if ( beforeGoingNext ) {
+		if ( beforeGoingNext && currentBlockId ) {
 			await beforeGoingNext( {
 				answers,
 				setIsFieldValid,

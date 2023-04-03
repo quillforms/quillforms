@@ -69,6 +69,7 @@ const Select: React.FC< Props > = ( { hideChooseOption } ) => {
 								option.label,
 								excerptLength
 							) }
+							// @ts-ignore
 							order={ option?.order }
 							iconBox={ option.iconBox }
 							hasSection

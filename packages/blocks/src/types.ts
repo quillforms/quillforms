@@ -38,7 +38,7 @@ export interface BlockRendererSettings {
 	mergeTag?: FC | Component | JSX.Element;
 	counterIcon?: FC | Component | JSX.Element;
 	nextBtn?: FC | Component | JSX.Element;
-	getNumericVal?: ( val: any, attributes: BlockAttributes ) => number;
+	getNumericVal?: ( val: any, attributes?: BlockAttributes ) => number;
 	isConditionFulfilled?(
 		conditionOperator: string,
 		conditionVal: unknown,
@@ -72,9 +72,7 @@ type logicalOperator =
 	| 'ends_with'
 	| 'contains'
 	| 'not_contains';
-export interface BlockTypeSettings
-	extends BlockAdminSettings,
-		BlockRendererSettings {
+export interface BlockTypeSettings extends BlockAdminSettings, BlockRendererSettings {
 	attributes?: Record<
 		string,
 		{
@@ -83,6 +81,7 @@ export interface BlockTypeSettings
 			[ x: string ]: unknown;
 		}
 	>;
+	name?: string;
 	supports: BlockSupportedFeatures;
 	logicalOperators?: logicalOperator[];
 }

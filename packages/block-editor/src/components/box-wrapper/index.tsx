@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies

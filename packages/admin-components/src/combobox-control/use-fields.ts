@@ -19,15 +19,17 @@ import { forEach, size } from 'lodash';
  */
 import type { Options } from '.';
 import { getPlainExcerpt } from '../rich-text';
+import { FormBlocks } from '@quillforms/types/src';
 
 const useFields = ( { section } ) => {
 	const { blockTypes, formBlocks } = useSelect( ( select ) => {
 		return {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			// @ts-expect-error
 			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
 		};
 	} );
-	const blocks = [];
+	const blocks: FormBlocks = [];
 
 	if ( size( formBlocks ) > 0 ) {
 		forEach( formBlocks, ( block, index ) => {
@@ -39,7 +41,9 @@ const useFields = ( { section } ) => {
 					forEach( block.innerBlocks, ( childBlock, childIndex ) => {
 						blocks.push( {
 							...childBlock,
-							order: index + identAlphabetically( childIndex ),
+							order:
+								index +
+								identAlphabetically( parseInt( childIndex ) ),
 						} );
 					} );
 				}

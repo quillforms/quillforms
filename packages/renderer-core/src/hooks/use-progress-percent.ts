@@ -3,6 +3,7 @@
  */
 import { useSelect } from '@wordpress/data';
 import useFlattenedBlocks from './use-flattened-blocks';
+import { FormBlocks } from '@quillforms/types/src';
 
 const useProgressPerecent = () => {
 	const { answers, walkPath, blockTypes } = useSelect( ( select ) => {
@@ -12,13 +13,13 @@ const useProgressPerecent = () => {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
-	const allBlocks = useFlattenedBlocks( walkPath );
+	const allBlocks: FormBlocks = useFlattenedBlocks( walkPath );
 	let editableBlocksLength = 0;
 	let answered = 0;
 	allBlocks.forEach( ( field ) => {
-		if ( blockTypes[ field.name ]?.supports.editable ) {
+		if ( blockTypes[ field?.name ]?.supports.editable ) {
 			editableBlocksLength++;
-			if ( answers[ field.id ]?.value ) {
+			if ( answers[ field?.id ]?.value ) {
 				answered++;
 			}
 		}

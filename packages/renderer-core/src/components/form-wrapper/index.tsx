@@ -49,7 +49,7 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 	const replaceHiddenFields = ( val ) => {
 		const newVal = val.replace(
 			/{{hidden_field:([a-zA-Z0-9-_]+)}}/g,
-			( _match, p1, p2 ) => {
+			( _match, p1 ) => {
 				if ( size( hiddenFields ) > 0 && hiddenFields?.[ p1 ] ) {
 					return hiddenFields[ p1 ];
 				}
@@ -67,7 +67,8 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					if ( blockType?.supports?.numeric ) {
 						setFieldAnswer(
 							field.id,
-							blockType.getNumericVal(
+							// @ts-expect-error
+							blockType?.getNumericVal(
 								replaceHiddenFields(
 									field.attributes.defaultValue
 								)
@@ -114,7 +115,7 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 						: ( thankyouScreens as Screen[] ),
 			} );
 			if ( ! applyLogic && ! isPreview ) {
-				goToBlock( currentBlockId, true );
+				if ( currentBlockId ) goToBlock( currentBlockId, true );
 			}
 			setIsMounted( true );
 		}

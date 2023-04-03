@@ -8,7 +8,6 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
-import { cloneDeep, map, omit, size } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -39,6 +38,7 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
+	if ( ! currentBlockId ) return null;
 	const currentBlockIndex = walkPath.findIndex(
 		( block ) => block.id === currentBlockId
 	);
@@ -64,7 +64,7 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 
 	const goNextReally = async () => {
 		if ( answers[ currentBlockIndex ]?.isPending ) return;
-		if ( beforeGoingNext ) {
+		if ( beforeGoingNext && currentBlockId ) {
 			await beforeGoingNext( {
 				answers,
 				currentBlockId,

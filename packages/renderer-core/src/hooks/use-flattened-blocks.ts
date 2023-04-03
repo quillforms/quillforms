@@ -1,7 +1,7 @@
-import { forEach } from 'lodash';
+import { FormBlock, FormBlocks } from '@quillforms/types/src';
 
 const useFlattenedBlocks = ( blocks ) => {
-	const result = [];
+	const result: FormBlocks = [];
 
 	const stack = [ ...blocks ];
 	while ( stack.length ) {
@@ -9,7 +9,7 @@ const useFlattenedBlocks = ( blocks ) => {
 		if ( innerBlocks ) {
 			stack.push( ...innerBlocks );
 		}
-		result.push( block );
+		result.push( <FormBlock>block );
 	}
 
 	return result;

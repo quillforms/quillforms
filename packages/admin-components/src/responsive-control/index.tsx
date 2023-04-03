@@ -4,7 +4,7 @@
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { map } from 'lodash';
-import { Dashicon, Button, ButtonGroup } from '@wordpress/components';
+import { Button, ButtonGroup } from '@wordpress/components';
 
 /**
  * Internal Dependencies

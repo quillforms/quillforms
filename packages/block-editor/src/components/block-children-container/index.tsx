@@ -13,9 +13,9 @@ import BlockDragging from '../block-dragging';
 import BlockListItem from '../block-list-item';
 import { useSelect } from '@wordpress/data';
 import classNames from 'classnames';
-const BlockDragIndexLine = () => {
-	return <div className="block-drag-index-line"></div>;
-};
+// const BlockDragIndexLine = () => {
+// 	return <div className="block-drag-index-line"></div>;
+// };
 
 const BlockChildrenContainer = ( { id, index, innerBlocks, parentColor } ) => {
 	const { formBlocks, currentChildBlockId } = useSelect( ( select ) => {
@@ -33,21 +33,27 @@ const BlockChildrenContainer = ( { id, index, innerBlocks, parentColor } ) => {
 			renderClone={ ( provided, _snapshot, rubric ) => {
 				const item =
 					formBlocks[ index ]?.innerBlocks?.[ rubric.source.index ];
-
-				return (
-					<div
-						{ ...provided.draggableProps }
-						{ ...provided.dragHandleProps }
-						ref={ provided.innerRef }
-						style={ {
-							...provided.draggableProps.style,
-							height: undefined,
-							padding: 12,
-						} }
-					>
-						<BlockDragging id={ item?.id } name={ item?.name } />
-					</div>
-				);
+				if ( item?.id && item?.name ) {
+					return (
+						<div
+							{ ...provided.draggableProps }
+							{ ...provided.dragHandleProps }
+							ref={ provided.innerRef }
+							style={ {
+								...provided.draggableProps.style,
+								height: undefined,
+								padding: 12,
+							} }
+						>
+							<BlockDragging
+								id={ item?.id }
+								name={ item?.name }
+							/>
+						</div>
+					);
+				} else {
+					return <></>;
+				}
 			} }
 		>
 			{ ( provided, snapshot ) => (
@@ -68,6 +74,7 @@ const BlockChildrenContainer = ( { id, index, innerBlocks, parentColor } ) => {
 						>
 							<BlockTypesListDropdown
 								destinationIndex={ 0 }
+								//@ts-ignore
 								parent={ id }
 								color="primary"
 							/>

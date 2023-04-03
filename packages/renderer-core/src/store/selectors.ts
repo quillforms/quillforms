@@ -19,8 +19,8 @@ import { mapValues, pickBy, find, size, forEach } from 'lodash';
 import type { State } from './reducer';
 import type { RendererAnswersState, Screen, SwiperState } from './types';
 
-export const getBlocksRecursively = ( walkPath ) => {
-	const allBlocks = [];
+export const getBlocksRecursively = ( walkPath: FormBlocks ): FormBlocks => {
+	const allBlocks: FormBlocks = [];
 	forEach( walkPath, ( block ) => {
 		allBlocks.push( block );
 

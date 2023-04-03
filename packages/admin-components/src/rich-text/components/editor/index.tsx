@@ -45,11 +45,11 @@ const TextEditor: React.FC< Props > = ( props ) => {
 		value,
 		onFocus,
 		mergeTags = [],
-		mergeTagsSections = [
-			{ key: 'field', label: 'Fields' },
-			{ key: 'variable', label: 'Variables' },
-			{ key: 'hidden_field', label: 'Hidden Fields' },
-		],
+		// mergeTagsSections = [
+		// 	{ key: 'field', label: 'Fields' },
+		// 	{ key: 'variable', label: 'Variables' },
+		// 	{ key: 'hidden_field', label: 'Hidden Fields' },
+		// ],
 		allowedFormats = [],
 	} = props;
 

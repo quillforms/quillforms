@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 const AdminNotices = () => {
 	const { notices } = useSelect( ( select ) => {
 		return {
+			// @ts-expect-error
 			notices: select( 'core/notices' ).getNotices(),
 		};
 	} );

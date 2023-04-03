@@ -11,13 +11,12 @@ import {
  */
 
 import { Tooltip, Icon, Modal } from '@wordpress/components';
-import { createPortal, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 /**
  * External Dependencies
  */
 import { css } from 'emotion';
-import classnames from 'classnames';
 /**
  * Internal Dependencies
  */

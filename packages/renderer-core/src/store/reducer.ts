@@ -64,6 +64,7 @@ const initialState: SwiperState = {
 	isAnimating: true,
 	isThankyouScreenActive: false,
 	isWelcomeScreenActive: false,
+	isReviewing: false,
 };
 
 const swiper: Reducer< SwiperState, SwiperActionTypes > = (
@@ -643,7 +644,17 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 	return state;
 };
 
-const RendererCoreReducer = combineReducers( {
+// @ts-ignore
+const RendererCoreReducer: Reducer<
+	{
+		answers: RendererAnswersState;
+		footerDisplay: boolean;
+		isFocused: boolean;
+		submit: SubmissionState;
+		swiper: SwiperState;
+	},
+	any
+> = combineReducers( {
 	answers,
 	footerDisplay,
 	isFocused,

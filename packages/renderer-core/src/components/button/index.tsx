@@ -16,6 +16,7 @@ interface Props {
 	onClick: React.MouseEventHandler< HTMLDivElement >;
 	onKeyDown?: React.KeyboardEventHandler< HTMLDivElement >;
 	theme?: FormTheme;
+	children: React.ReactNode;
 }
 const Button: React.FC< Props > = ( {
 	className,
@@ -104,7 +105,9 @@ const Button: React.FC< Props > = ( {
 				`
 			) }
 			role="presentation"
+			// @ts-ignore
 			onClick={ onClick }
+			// @ts-ignore
 			onKeyDown={ onKeyDown }
 			{ ...props }
 		>

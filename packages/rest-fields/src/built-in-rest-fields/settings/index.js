@@ -10,6 +10,7 @@ import { registerRestField } from '../../api';
 
 registerRestField( 'settings', {
 	selectValue: () => {
+		// @ts-expect-error
 		return select( 'quillForms/settings-editor' ).getSettings();
 	},
 } );

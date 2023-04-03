@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
  * External Dependencies
  */
 import { cx, css } from 'emotion';
-import { ReactEditor, useSlate, useFocused } from 'slate-react';
+import { useSlate, useFocused } from 'slate-react';
 import { Editor, Range } from 'slate';
 
 /**

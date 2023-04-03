@@ -7,7 +7,7 @@ import { getDefaultMessages } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -87,6 +87,7 @@ const Form: React.FC< Props > = ( {
 		// 'quillforms-redirection' is deprecated and will be removed.
 		if (
 			size( ParsedUrlSearch ) > 0 &&
+			// @ts-expect-error
 			ParsedUrlSearch?.get( 'quillforms-shortcode' )
 		) {
 			formObj.settings.disableWheelSwiping = true;

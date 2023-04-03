@@ -6,7 +6,7 @@ import {
 	__unstableHtmlSerialize as serialize,
 	__unstableReactEditor as ReactEditor,
 } from '@quillforms/admin-components';
-import type { BlockAttributes } from '@quillforms/types';
+import type { BlockAttributes, FormBlocks } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -18,7 +18,7 @@ import { applyFilters } from '@wordpress/hooks';
 /**
  * External Dependencies
  */
-import { debounce, size } from 'lodash';
+import { debounce } from 'lodash';
 import { Node } from 'slate';
 import { HistoryEditor } from 'slate-history';
 
@@ -37,11 +37,13 @@ interface Props {
 	blockColor?: string;
 	index: number;
 	parentIndex?: number;
+	isContainer?: boolean;
+	innerBlocks?: FormBlocks;
+	labelEditor: ReactEditor & HistoryEditor;
+	descEditor: ReactEditor & HistoryEditor;
 	parentId?: string;
 	label: Node[];
 	desc: Node[];
-	labelEditor: ReactEditor & HistoryEditor;
-	descEditor: ReactEditor & HistoryEditor;
 	isSelected: boolean;
 	focusedEl: FocusedEl;
 	setFocusedEl: ( value: FocusedEl ) => void;

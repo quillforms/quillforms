@@ -3,6 +3,7 @@
  */
 import {
 	EditorLogicCondition,
+	FormBlocks,
 	LogicConditionOperator,
 } from '@quillforms/types';
 
@@ -49,21 +50,22 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 } ) => {
 	const { formBlocks, blockTypes } = useSelect( ( select ) => {
 		return {
+			// @ts-ignore
 			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 		};
 	} );
 
-	const blocks = [];
+	const blocks: FormBlocks = [];
 
 	if ( size( formBlocks ) > 0 ) {
-		forEach( formBlocks, ( block, index ) => {
+		forEach( formBlocks, ( block ) => {
 			if ( blockTypes[ block.name ]?.supports?.editable ) {
 				blocks.push( { ...block } );
 			}
 			if ( blockTypes[ block.name ]?.supports?.innerBlocks ) {
 				if ( size( block?.innerBlocks ) > 0 ) {
-					forEach( block.innerBlocks, ( childBlock, childIndex ) => {
+					forEach( block.innerBlocks, ( childBlock ) => {
 						blocks.push( {
 							...childBlock,
 						} );
@@ -148,8 +150,8 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 							let blockType;
 							if ( var0Type === 'field' ) {
 								block = blocks.find(
-									( block ) =>
-										block.id === condition.vars[ 0 ].value
+									( $block ) =>
+										$block.id === condition.vars[ 0 ].value
 								);
 								blockType = blockTypes[ block?.name ];
 								if ( ! blockType ) {

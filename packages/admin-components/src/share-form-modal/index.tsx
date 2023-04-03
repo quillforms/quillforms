@@ -31,6 +31,7 @@ const ShareFormModal: React.FC< Props > = ( { formId, closeModal } ) => {
 			hiddenFields:
 				select(
 					'quillForms/hidden-fields-editor'
+					//@ts-expect-error
 				)?.getHiddenFields() ?? [],
 		};
 	} );

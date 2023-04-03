@@ -187,7 +187,7 @@ const BlockTypesListItem: FC< Props > = memo(
 				<span className="admin-components-blocks-list-item__block-name">
 					{ blockType?.title }
 				</span>
-				{ blockType.name === 'group' && (
+				{ blockType?.name === 'group' && (
 					<div className="admin-components-control-label__new-feature">
 						NEW
 					</div>

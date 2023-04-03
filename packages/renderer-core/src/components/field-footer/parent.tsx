@@ -3,7 +3,6 @@
  */
 import { useSelect } from '@wordpress/data';
 import { useEffect } from 'react';
-import { forEach, size } from 'lodash';
 /**
  * Internal Dependencies
  */
@@ -15,6 +14,7 @@ const ParentBlockFooter = () => {
 	const { id, next, isLastField, showErrMsg, isErrMsgVisible } =
 		__experimentalUseFieldRenderContext();
 
+	if ( ! id ) return null;
 	const { isValid, isReviewing } = useSelect( ( select ) => {
 		return {
 			isValid: select( 'quillForms/renderer-core' ).hasValidFields( id ),

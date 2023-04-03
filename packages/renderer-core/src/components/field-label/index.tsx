@@ -3,7 +3,6 @@
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-import { renderToString } from '@wordpress/element';
 /**
  * Internal Dependencies
  */

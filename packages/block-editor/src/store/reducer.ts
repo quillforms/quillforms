@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { omit, cloneDeep, identity, forEach, size, remove } from 'lodash';
+import { cloneDeep, identity, forEach } from 'lodash';
 import type { Reducer } from 'redux';
 
 /**
@@ -17,11 +17,7 @@ import {
 	SET_CURRENT_CHILD_BLOCK,
 	SETUP_STORE,
 } from './constants';
-import type {
-	BlockEditorActionTypes,
-	BlockEditorState,
-	BlockEditorPureState,
-} from './types';
+import type { BlockEditorActionTypes, BlockEditorPureState } from './types';
 import type { FormBlocks, FormBlock } from '@quillforms/types';
 
 /**
@@ -59,20 +55,20 @@ const initialState: BlockEditorPureState = {
 	blocks: [],
 };
 
-/**
- * Utility returning an object with an empty object value for each key.
- *
- * @param {string[]} objectKeys Keys to fill.
- * @return {Object} Object filled with empty object as values for each clientId.
- */
-const fillKeysWithEmptyObject = (
-	objectKeys: string[]
-): Record< string, {} > => {
-	return objectKeys.reduce( ( result, key ) => {
-		result[ key ] = {};
-		return result;
-	}, {} );
-};
+// /**
+//  * Utility returning an object with an empty object value for each key.
+//  *
+//  * @param {string[]} objectKeys Keys to fill.
+//  * @return {Object} Object filled with empty object as values for each clientId.
+//  */
+// const fillKeysWithEmptyObject = (
+// 	objectKeys: string[]
+// ): Record< string, {} > => {
+// 	return objectKeys.reduce( ( result, key ) => {
+// 		result[ key ] = {};
+// 		return result;
+// 	}, {} );
+// };
 
 /**
  * Helper method to iterate through all blocks, recursing into inner blocks,
@@ -92,6 +88,7 @@ export function flattenBlocks(
 
 	const stack = [ ...blocks ];
 	while ( stack.length ) {
+		// @ts-expect-error
 		const { innerBlocks, ...block } = stack.shift();
 		if ( innerBlocks ) {
 			forEach( innerBlocks, ( $block, index ) => {
@@ -151,6 +148,9 @@ const BlockEditorReducer: Reducer<
 					return block.id === parentId;
 				} );
 				$blocks = [ ...state.blocks ][ parentIndex ]?.innerBlocks;
+			}
+			if ( ! $blocks ) {
+				return state;
 			}
 
 			const blockIndex = $blocks.findIndex( ( block ) => {
@@ -216,9 +216,10 @@ const BlockEditorReducer: Reducer<
 				sourceBlock = blocks[ sourceIndex ];
 				result.splice( sourceIndex, 1 );
 			} else {
-				const innerBlocks = blocks[ parentSourceIndex ].innerBlocks;
+				const innerBlocks =
+					blocks?.[ parentSourceIndex ]?.innerBlocks ?? [];
 				sourceBlock =
-					blocks[ parentSourceIndex ].innerBlocks[ sourceIndex ];
+					blocks?.[ parentSourceIndex ]?.innerBlocks?.[ sourceIndex ];
 				innerBlocks.splice( sourceIndex, 1 );
 				result[ parentSourceIndex ].innerBlocks = innerBlocks;
 			}
@@ -229,7 +230,8 @@ const BlockEditorReducer: Reducer<
 			) {
 				result.splice( destinationIndex, 0, sourceBlock );
 			} else {
-				const innerBlocks = blocks[ parentDestIndex ].innerBlocks;
+				const innerBlocks =
+					blocks?.[ parentDestIndex ]?.innerBlocks ?? [];
 				innerBlocks.splice( destinationIndex, 0, sourceBlock );
 				result[ parentDestIndex ].innerBlocks = innerBlocks;
 			}
@@ -286,7 +288,8 @@ const BlockEditorReducer: Reducer<
 				parentIndex = blocks.findIndex(
 					( item ) => item.id === parentId
 				);
-				blocks = blocks[ parentIndex ].innerBlocks;
+				if ( blocks )
+					blocks = blocks?.[ parentIndex ]?.innerBlocks ?? [];
 			}
 			// Get block index.
 			const blockIndex = blocks.findIndex(

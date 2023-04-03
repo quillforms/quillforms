@@ -1,10 +1,10 @@
 {
 	"references": [
+		{"path": "packages/block-editor"},
+		{"path": "packages/utils"},
 		{"path" : "packages/config"},
-		{"path" : "packages/rest-fields"},
 		{"path" : "packages/blocks"},
 		{"path" : "packages/builder-panels"},
-		{"path" : "packages/admin-components"},
 		{"path" : "packages/navigation"},
 		{"path" : "packages/types"},
 		{"path" : "packages/form-integrations"},

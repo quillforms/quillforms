@@ -3,7 +3,7 @@
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -26,7 +26,6 @@ import {
 	useHiddenFields,
 	useFormContext,
 } from '../../hooks';
-import { cloneDeep, map, omit, size } from 'lodash';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -62,6 +61,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		isCurrentBlockSafeToSwipe,
 	} = swiper;
 
+	if ( ! currentBlockId ) return null;
 	const { answers } = useSelect( ( select ) => {
 		return {
 			answers: select( 'quillForms/renderer-core' ).getAnswers(),

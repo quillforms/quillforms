@@ -10,6 +10,7 @@ import { registerRestField } from '../../api';
 
 registerRestField( 'slug', {
 	selectValue: () => {
+		// @ts-expect-error
 		return select( 'quillForms/document-editor' ).getPostSlug();
 	},
 } );

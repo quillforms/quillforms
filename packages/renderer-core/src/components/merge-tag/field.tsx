@@ -10,6 +10,7 @@ interface Props {
 	modifier: string;
 }
 const FieldMergeTag: React.FC< Props > = ( { modifier } ) => {
+
 	const { fieldMergeTagValue } = useSelect( ( select ) => {
 		const fieldVal = select( 'quillForms/renderer-core' ).getFieldAnswerVal(
 			modifier

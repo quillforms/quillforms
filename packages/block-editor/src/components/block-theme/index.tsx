@@ -38,6 +38,7 @@ const BlockThemeControl = ( { blockTheme, setAttributes } ) => {
 	}, [ blockTheme ] );
 	const { themesList } = useSelect( ( select ) => {
 		return {
+			// @ts-expect-error
 			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
 		};
 	} );

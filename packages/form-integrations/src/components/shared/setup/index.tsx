@@ -48,7 +48,7 @@ const Setup: React.FC< Props > = ( {
 				}
 				onFinish( app );
 			} )
-			.catch( ( err ) => {
+			.catch( () => {
 				//console.log( 'Error: ', err );
 			} );
 	};

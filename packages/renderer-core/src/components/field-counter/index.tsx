@@ -49,7 +49,6 @@ const BlockCounter = ( { blockType, attributes, id } ) => {
 			) }
 			<span className="renderer-components-block-counter__content">
 				{ blockType?.counterIcon ? (
-					// @ts-expect-error
 					<blockType.counterIcon />
 				) : (
 					<ArrowIcon theme={ theme } />

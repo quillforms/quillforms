@@ -40,7 +40,7 @@ export function setupStore(
 export const setBlockAttributes = (
 	blockId: string,
 	attributes: Record< string, unknown >,
-	parentId = undefined
+	parentId: string | undefined = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: SET_BLOCK_ATTRIBUTES,
@@ -65,8 +65,8 @@ export const setBlockAttributes = (
 export const __experimentalReorderBlocks = (
 	sourceIndex: number,
 	destinationIndex: number,
-	parentSourceIndex = undefined,
-	parentDestIndex = undefined
+	parentSourceIndex: number | undefined = undefined,
+	parentDestIndex: number | undefined = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: REORDER_BLOCKS,
@@ -89,7 +89,7 @@ export const __experimentalReorderBlocks = (
 export const __experimentalInsertBlock = (
 	block: FormBlock,
 	destinationIndex: number,
-	parent = undefined
+	parent: string | undefined = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: INSERT_BLOCK,
@@ -139,7 +139,7 @@ export const setCurrentChildBlock = (
  */
 export const deleteBlock = (
 	blockId: string,
-	parentId = undefined
+	parentId: string | undefined = undefined
 ): BlockEditorActionTypes => {
 	return {
 		type: DELETE_BLOCK,

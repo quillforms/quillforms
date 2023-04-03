@@ -45,6 +45,7 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
 			welcomeScreensLength: select(
 				'quillForms/block-editor'
+				// @ts-expect-error
 			).getWelcomeScreensLength(),
 		};
 	} );

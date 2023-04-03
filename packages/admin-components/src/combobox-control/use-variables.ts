@@ -19,11 +19,13 @@ import { size } from 'lodash';
 import type { Options } from '.';
 
 const useVariables = ( { section } ) => {
+
 	const { variables } = useSelect( ( select ) => {
 		return {
 			variables:
 				( select(
 					'quillForms/logic-editor'
+					// @ts-ignore.
 				)?.getLogicVariables() as FormLogicVariables ) ?? {},
 		};
 	} );
@@ -34,7 +36,7 @@ const useVariables = ( { section } ) => {
 			fields.push( {
 				type: 'variable',
 				value: id,
-				label: variable.label,
+				label: variable?.label,
 				iconBox: {},
 				section,
 				isMergeTag: true,

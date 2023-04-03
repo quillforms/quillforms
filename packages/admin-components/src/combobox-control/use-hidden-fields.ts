@@ -20,6 +20,7 @@ const useHiddenFields = ( { section } ) => {
 			hiddenFields:
 				select(
 					'quillForms/hidden-fields-editor'
+					//@ts-ignore
 				)?.getHiddenFields() ?? {},
 		};
 	} );

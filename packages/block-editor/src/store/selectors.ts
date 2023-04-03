@@ -13,14 +13,13 @@ import { select } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import { forEach, map, findIndex, slice, pick, size } from 'lodash';
-import createSelector from 'rememo';
+import { forEach, findIndex, slice, pick, size } from 'lodash';
 
 /**
  * Internal Dependencies
  */
 import type { FormBlockWithOrder, BlockOrder } from './types';
-import { flattenBlocks, State } from './reducer';
+import { State } from './reducer';
 /**
  * Returns form blocks objects.
  *
@@ -86,7 +85,7 @@ export function getWelcomeScreensLength( state: State ): number {
 export const getBlockById = (
 	state: State,
 	blockId: string,
-	parentIndex = undefined
+	parentIndex: number | undefined = undefined
 ): FormBlock | undefined => {
 	//console.log( state.blocks );
 	if ( typeof parentIndex === 'undefined' ) {
@@ -122,7 +121,7 @@ export const getBlockById = (
 export const getBlockOrderById = (
 	state: State,
 	id: string,
-	parentIndex = undefined
+	parentIndex: number | undefined = undefined
 ): BlockOrder => {
 	//console.log( id );
 	//console.log( state.blocks );
@@ -158,10 +157,11 @@ export const getBlockOrderById = (
 			itemOrder = identAlphabetically( fieldIndex );
 		}
 	} else {
-		const fieldIndex = state.blocks[ parentIndex ].innerBlocks.findIndex(
-			( block ) => block.id === id
-		);
-		itemOrder = parentIndex + 1 + identAlphabetically( fieldIndex );
+		const fieldIndex = state.blocks?.[
+			parentIndex
+		]?.innerBlocks?.findIndex( ( block ) => block.id === id );
+		if ( typeof fieldIndex !== 'undefined' && fieldIndex > -1 )
+			itemOrder = parentIndex + 1 + identAlphabetically( fieldIndex );
 	}
 	return itemOrder;
 };

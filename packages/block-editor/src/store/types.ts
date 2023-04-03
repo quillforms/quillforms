@@ -49,8 +49,8 @@ interface __experimentalReorderBlocksAction {
 	type: typeof REORDER_BLOCKS;
 	sourceIndex: number;
 	destinationIndex: number;
-	parentSourceIndex?: string;
-	parentDestIndex?: string;
+	parentSourceIndex?: number;
+	parentDestIndex?: number;
 }
 
 export type DraggedBlockDestination = {

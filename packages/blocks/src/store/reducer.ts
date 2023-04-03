@@ -23,6 +23,7 @@ const initialState: BlocksState = {
 			attachment: true,
 			required: false,
 			logic: true,
+			placeholder: false,
 		},
 		logicalOperators: [
 			'is',

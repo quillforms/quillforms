@@ -9,6 +9,7 @@
 		"strictNullChecks": true
 	},
 	"references": [
+		{ "path": "../blocks" },
 		{ "path": "../payment-gateways"},
 		{ "path": "../types"},
 	],

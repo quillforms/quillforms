@@ -36,11 +36,16 @@ const BlockControls = ( { parentId } ) => {
 
 	//console.log( currentBlockId, currentChildBlockId );
 	if ( ! currentBlockId || ! currentFormBlock ) return null;
-	if ( currentChildBlockId ) {
+	if (
+		currentChildBlockId &&
+		typeof currentChildBlockIndex !== 'undefined'
+	) {
 		currentFormBlock =
-			currentFormBlock.innerBlocks[ currentChildBlockIndex ];
+			currentFormBlock?.innerBlocks?.[ currentChildBlockIndex ];
 		currentBlockId = currentChildBlockId;
 	}
+	if ( ! currentBlockId || ! currentFormBlock ) return null;
+
 	const blockType = blockTypes[ currentFormBlock.name ];
 
 	const { name } = currentFormBlock;
@@ -56,16 +61,19 @@ const BlockControls = ( { parentId } ) => {
 				parentId={ parentId }
 				attributes={ currentFormBlock.attributes }
 				setAttributes={ ( val ) => {
-					setBlockAttributes( currentBlockId, val, parentId );
+					if ( currentBlockId )
+						setBlockAttributes( currentBlockId, val, parentId );
 				} }
 			/>
 			{ blockType?.controls && (
 				<blockType.controls
 					id={ currentBlockId }
+					// @ts-expect-error
 					parentId={ parentId }
 					attributes={ currentFormBlock.attributes }
 					setAttributes={ ( val ) => {
-						setBlockAttributes( currentBlockId, val, parentId );
+						if ( currentBlockId )
+							setBlockAttributes( currentBlockId, val, parentId );
 					} }
 				/>
 			) }

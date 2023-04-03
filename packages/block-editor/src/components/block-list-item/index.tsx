@@ -13,8 +13,7 @@ import type { CustomNode } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { Fragment, memo, useEffect, useState, useMemo } from 'react';
-// @ts-expect-error
+import { Fragment, useEffect, useState, useMemo } from 'react';
 import { useSelect, AsyncModeProvider } from '@wordpress/data';
 
 /**
@@ -118,11 +117,13 @@ const BlockListItem: React.FC< Props > = ( {
 			setDescJsonVal( getDeserializedValue( description ) );
 	}, [] );
 
+	// @ts-expect-error
 	const labelEditor: ReactEditor & HistoryEditor = useMemo(
 		() => createEditor(),
 		[]
 	);
 
+	//@ts-expect-error
 	const descEditor: ReactEditor & HistoryEditor = useMemo(
 		() => createEditor(),
 		[]
@@ -136,6 +137,7 @@ const BlockListItem: React.FC< Props > = ( {
 	return (
 		<AsyncModeProvider value={ ! isSelected }>
 			<div ref={ ref }>
+				{ /* @ts-expect-error */ }
 				<BlockEditCrashBoundary onError={ () => setErrorState( true ) }>
 					<__experimentalDraggable
 						isDragDisabled={
@@ -196,12 +198,14 @@ const BlockListItem: React.FC< Props > = ( {
 													}
 													label={ labelJsonVal }
 													desc={ descJsonVal }
+													// @ts-expect-error
 													labelEditor={ labelEditor }
 													setLabelJsonVal={ (
 														value
 													) =>
 														setLabelJsonVal( value )
 													}
+													// @ts-expect-error
 													descEditor={ descEditor }
 													setDescJsonVal={ (
 														value
@@ -213,6 +217,7 @@ const BlockListItem: React.FC< Props > = ( {
 													destinationIndex={
 														index + 1
 													}
+													// @ts-ignore
 													parent={ parentId }
 													color="secodary"
 												/>

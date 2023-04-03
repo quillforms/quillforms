@@ -27,6 +27,7 @@ export type FormObj = {
 		showLettersOnAnswers?: boolean;
 	};
 	hiddenFields: Object;
+	customCSS?: string;
 };
 
 export type SubmissionDispatchers = {

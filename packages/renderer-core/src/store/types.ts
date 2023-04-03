@@ -35,6 +35,7 @@ export type SwiperState = {
 	canSwipeNext: boolean;
 	canSwipePrev: boolean;
 	isAnimating: boolean;
+	isReviewing: boolean;
 	isCurrentBlockSafeToSwipe: boolean;
 	isThankyouScreenActive: boolean;
 	isWelcomeScreenActive: boolean;
@@ -197,3 +198,10 @@ export type SubmitActionTypes =
 	| setPaymentDataAction
 	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;
+
+export interface CustomStoreDescriptor {
+	name: string;
+	actions: any;
+	selectors: any;
+	reducer: any;
+}

@@ -7,7 +7,6 @@ import type { IconDescriptor, IconRenderer, Icon } from '@quillforms/types';
  */
 import { isValidIcon } from './is-valid-icon';
 
-const ICON_COLORS = [ '#191e23', '#f8f9f9' ];
 
 /**
  * Function that receives an icon during the registration

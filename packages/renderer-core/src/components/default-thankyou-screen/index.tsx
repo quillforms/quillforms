@@ -31,7 +31,7 @@ const DefaultThankYouScreen: React.FC = () => {
 				},
 				css`
 					color: ${ theme.questionsColor };
-					font-family: ${ theme.questionsFont };
+					font-family: ${ theme.questionsLabelFont };
 				`
 			) }
 		>
