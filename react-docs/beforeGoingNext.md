@@ -1,18 +1,41 @@
-# beforeGoingNext
+# beforeGoingNext prop
 
-When you pass your array of blocks in the `formObj` prop, you can define beforeGoingNext function in each block.
+When you create your Form component, you can define beforeGoingNext prop same like onSubmit.
 This function will be called before going to next block and you can completely override the default behaviour instead of going to the next block by default.
 
-**Please note that this function won't be called if the block is the last block. You should use `onSubmit` instead in this case.**
 
 ``` js
  <Form
         formId="1"
+	 beforeGoingNext: ({
+           setIsFieldValid,
+           setIsPending,
+           currentBlockId,
+           answers,
+           setFieldValidationErr,
+           setIsCurrentBlockSafeToSwipe,
+           goToField,
+           goNext
+         }) => {
+           if (
+            currentBlockId === "first-question" &&
+            answers[currentBlockId].value === "aaa"
+          ) {
+            setIsFieldValid(currentBlockId, false);
+            setFieldValidationErr(currentBlockId, "This is a test");
+            setIsCurrentBlockSafeToSwipe(false);
+          } else {
+            setIsFieldValid(currentBlockId, true);
+            setFieldValidationErr(currentBlockId, "");
+            setIsCurrentBlockSafeToSwipe(true);
+            goNext();
+          }
+        }
         formObj={{
           blocks: [
             {
               name: "short-text",
-              id: "kd12edg",
+              id: "first-question",
               attributes: {
                 classnames: "my-first-block",
                 nextBtnLabel: "Great",
@@ -25,24 +48,7 @@ This function will be called before going to next block and you can completely o
                 required: true,
                 label: "Let's start with your name"
               },
-              beforeGoingNext: ({
-                setIsFieldValid,
-                setIsPending,
-                currentBlockId,
-                answers,
-                setFieldValidationErr,
-                setIsCurrentBlockSafeToSwipe,
-                goToField,
-                goNext
-              }) => {
-                if (answers[currentBlockId].value === "aaa") {
-                  setIsFieldValid(currentBlockId, false);
-                  setFieldValidationErr(currentBlockId, "This is a test");
-                  setIsCurrentBlockSafeToSwipe(false);
-                } else {
-                  goNext();
-                }
-              }
+              
             },
             {
               name: "long-text",
@@ -71,12 +77,7 @@ When you use the core blocks, there might be a need to add more validation for a
 
 Please read this [doc](./core-blocks-validation.md) for more details.
 
+## 2- Sending Some Data to Third Party or Asynchronous Validation for Any Block Based on API Request 
 
-## 2- Asynchronously Render Blocks Dynamically Based on Conditions (API Requests)
-
-Fore more details, please read thid [doc](./async-dynamic-block-rendering.md)
-
-
-## 3- Sending Some Data to Third Party or Asynchronous Validation for Any Block Based on API Request 
-
-For more details, please read this [doc](./async-request.md).
+You should use async await concept here.
+Please read this [doc](./async-requests.md).

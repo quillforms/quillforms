@@ -5,11 +5,35 @@ Example:
 ``` js
  <Form
         formId="1"
+	 beforeGoingNext: ({
+           setIsFieldValid,
+           setIsPending,
+           currentBlockId,
+           answers,
+           setFieldValidationErr,
+           setIsCurrentBlockSafeToSwipe,
+           goToField,
+           goNext
+         }) => {
+           if (
+            currentBlockId === "first-question" &&
+            answers[currentBlockId].value === "aaa"
+          ) {
+            setIsFieldValid(currentBlockId, false);
+            setFieldValidationErr(currentBlockId, "This is a test");
+            setIsCurrentBlockSafeToSwipe(false);
+          } else {
+            setIsFieldValid(currentBlockId, true);
+            setFieldValidationErr(currentBlockId, "");
+            setIsCurrentBlockSafeToSwipe(true);
+            goNext();
+          }
+        }
         formObj={{
           blocks: [
             {
               name: "short-text",
-              id: "kd12edg",
+              id: "first-question",
               attributes: {
                 classnames: "my-first-block",
                 nextBtnLabel: "Great",
@@ -22,27 +46,7 @@ Example:
                 required: true,
                 label: "Let's start with your name"
               },
-              beforeGoingNext: ({
-                setIsFieldValid,
-                setIsPending,
-                currentBlockId,
-                answers,
-                setFieldValidationErr,
-                setIsCurrentBlockSafeToSwipe,
-                goToField,
-                goNext
-              }) => {
-                if (answers[currentBlockId].value === "aaa") {
-                  setIsFieldValid(currentBlockId, false);
-                  setFieldValidationErr(currentBlockId, "This is a test");
-                  setIsCurrentBlockSafeToSwipe(false);
-                } else {												
-		  setIsFieldValid(currentBlockId, true);
-                  setFieldValidationErr(currentBlockId, '');
-                  setIsCurrentBlockSafeToSwipe(true);
-                  goNext();
-                }
-              }
+              
             },
             {
               name: "long-text",

@@ -43,21 +43,6 @@ addAction('QuillForms.RendererCore.FieldActive', 'myOwnAction', function({ id, l
 });
 ```
 
-### QuillForms.RendererCore.FieldAnswered
-This action is called after a specific field is answered and the user has already swiped it to the next question.
-To add your own action after the field is answered and swiped, you should do something like this:
-
-```js
-import { addAction } from "@wordpress/hooks";
-
-addAction('QuillForms.RendererCore.FieldAnswered', 'myOwnAction', function({ id, label} ) {
-  console.log(`field ${id} with label ${label} is answered and swiped`);
-  // your code should go here!
-  // id is the field id
-  // label is the field label
-});
-```
-
 ### QuillForms.RendererCore.FieldAnsweredActive
 This action is called after a specific field is answered while it is still active.
 To add your own action after the field is answered while it is active, you should do something like this:
