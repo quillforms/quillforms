@@ -1,4 +1,4 @@
-import { FormBlock, FormBlocks } from '@quillforms/types/src';
+import { FormBlock, FormBlocks } from '@quillforms/types';
 
 const useFlattenedBlocks = ( blocks ) => {
 	const result: FormBlocks = [];
@@ -9,7 +9,7 @@ const useFlattenedBlocks = ( blocks ) => {
 		if ( innerBlocks ) {
 			stack.push( ...innerBlocks );
 		}
-		result.push( <FormBlock>block );
+		result.push( block );
 	}
 
 	return result;

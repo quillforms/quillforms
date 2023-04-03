@@ -61,13 +61,11 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		isCurrentBlockSafeToSwipe,
 	} = swiper;
 
-	if ( ! currentBlockId ) return null;
 	const { answers } = useSelect( ( select ) => {
 		return {
 			answers: select( 'quillForms/renderer-core' ).getAnswers(),
 		};
 	} );
-
 	const currentBlockIndex = walkPath.findIndex(
 		( block ) => block.id === currentBlockId
 	);
@@ -125,7 +123,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 
 	const goNextReally = async () => {
 		if ( answers[ currentBlockIndex ]?.isPending ) return;
-		if ( beforeGoingNext ) {
+		if ( beforeGoingNext && currentBlockId ) {
 			await beforeGoingNext( {
 				answers,
 				currentBlockId,
@@ -146,10 +144,12 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 		return {
 			isCurrentBlockValid: currentBlockType?.supports?.innerBlocks
 				? select( 'quillForms/renderer-core' )?.hasValidFields(
+						// @ts-expect-error
 						currentBlockId
 				  )
 				: currentBlockType?.supports?.editable
 				? select( 'quillForms/renderer-core' )?.isValidField(
+						// @ts-expect-error
 						currentBlockId
 				  )
 				: true,
