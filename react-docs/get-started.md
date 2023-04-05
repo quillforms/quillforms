@@ -47,7 +47,7 @@ const App = () => {
               name: "short-text",
               id: "kd12edg",
               attributes: {
-	        classnames: "first-block"
+	        classnames: "first-block",
                 required: true,
                 label: "Let's start with your name"
               }
