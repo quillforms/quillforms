@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 
 /**
  * External Dependencies

@@ -1,4 +1,4 @@
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 import { __experimentalUseFieldRenderContext } from '../field-render';
 import classnames from 'classnames';
 import { css } from 'emotion';

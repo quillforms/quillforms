@@ -7,7 +7,7 @@ import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
  * WordPress Dependencies
  */
 import RadioControl from './radio-control';
-import { useState } from '@wordpress/element';
+import { useState } from 'react';
 import { useDispatch } from '@wordpress/data';
 import useGeneralTheme from '../../../hooks/use-general-theme';
 
