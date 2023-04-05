@@ -22,10 +22,15 @@ import type { FunctionKeys } from 'utility-types';
  *
  * @template S Selector map, usually from `import * as selectors from './my-store/selectors';`
  */
-export type SelectFromMap< S extends Record<string, unknown> > = {
-	[ selector in FunctionKeys< S > ]: (
-		...args: TailParameters< S[ selector ] >
-	) => ReturnType< S[ selector ] >;
+
+export type SelectFromMap< S extends Record< string, unknown > > = {
+	[ selector in FunctionKeys< S > ]: S[ selector ] extends (
+		...args: any[]
+	) => any
+		? (
+				...args: TailParameters< S[ selector ] >
+		  ) => ReturnType< S[ selector ] >
+		: never;
 };
 
 /**
@@ -33,7 +38,9 @@ export type SelectFromMap< S extends Record<string, unknown> > = {
  *
  * @template A Selector map, usually from `import * as actions from './my-store/actions';`
  */
-export type DispatchFromMap< A extends Record< string, ( ...args: any[] ) => any > > = {
+export type DispatchFromMap<
+	A extends Record< string, ( ...args: any[] ) => any >
+> = {
 	[ actionCreator in keyof A ]: (
 		...args: Parameters< A[ actionCreator ] >
 	) => A[ actionCreator ] extends ( ...args: any[] ) => Generator
@@ -48,15 +55,15 @@ export type DispatchFromMap< A extends Record< string, ( ...args: any[] ) => any
  * `state` argument implicit.
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export type TailParameters< F extends Function > = F extends ( head: any, ...tail: infer T ) => any
+export type TailParameters< F extends Function > = F extends (
+	head: any,
+	...tail: infer T
+) => any
 	? T
 	: never;
 
 /**
  * Obtain the type finally returned by the generator when it's done iterating.
  */
-export type GeneratorReturnType< T extends ( ...args: any[] ) => Generator > = T extends (
-	...args: any
-) => Generator< any, infer R, any >
-	? R
-	: never;
+export type GeneratorReturnType< T extends ( ...args: any[] ) => Generator > =
+	T extends ( ...args: any ) => Generator< any, infer R, any > ? R : never;
