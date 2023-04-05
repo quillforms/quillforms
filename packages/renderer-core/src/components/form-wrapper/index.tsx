@@ -125,8 +125,11 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 		if ( isMounted ) {
 			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ] : undefined;
 
-			const urlParams = new URLSearchParams( window.location.search );
-			const isPaymentStep = urlParams.get( 'step' ) === 'payment';
+			const urlParams =
+				typeof window !== 'undefined'
+					? new URLSearchParams( window.location.search )
+					: undefined;
+			const isPaymentStep = urlParams?.get( 'step' ) === 'payment';
 
 			let formCompleted = false;
 			if ( isPaymentStep ) {

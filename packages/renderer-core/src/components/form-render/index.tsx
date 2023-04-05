@@ -69,7 +69,7 @@ const Form: React.FC< Props > = ( {
 			...formObj.messages,
 		};
 		const ParsedUrlSearch =
-			typeof window !== undefined
+			typeof window !== 'undefined'
 				? new URLSearchParams(
 						window?.location?.search?.substring( 1 )
 				  )

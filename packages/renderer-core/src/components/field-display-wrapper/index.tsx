@@ -44,10 +44,10 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 	const theme = useBlockTheme( attributes?.themeId );
 
 	const isTouchScreen =
-		( typeof window !== undefined && 'ontouchstart' in window ) ||
-		( typeof navigator !== undefined && navigator.maxTouchPoints > 0 ) ||
+		( typeof window !== 'undefined' && 'ontouchstart' in window ) ||
+		( typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0 ) ||
 		// @ts-expect-error
-		( typeof navigator !== undefined && navigator.msMaxTouchPoints > 0 );
+		( typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0 );
 
 	useHandleFocus( inputRef, isActive, isTouchScreen );
 	const { isPreview, formId } = useFormContext();
