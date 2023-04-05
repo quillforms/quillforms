@@ -4,7 +4,7 @@
 <h1 align="center">Quill Forms</h1>
 <div align="center">
 
-**Open Source Typeform Alternative**  based on `React` and `Typescript` 
+**Open Source Typeform Alternative**  based on `React` and `Typescript` \n
 **Now supports Next JS**
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/) <br>
