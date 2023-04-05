@@ -5,6 +5,7 @@
 <div align="center">
 
 **Open Source Typeform Alternative**  based on `React` and `Typescript` 
+**Now supports Next JS**
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/) <br>
 [Join Our Discord Channel](https://discord.gg/a5PDrzu8dE) 
@@ -13,8 +14,6 @@
 
 ![Screenshot of the QuillForms renderer](https://quillforms.com/wp-content/uploads/2021/10/frame_generic_light-3.png)
 </div>
-
-## Now supports Next JS!
 
 # How to use in your React app?
 
