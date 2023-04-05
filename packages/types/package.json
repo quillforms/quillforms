@@ -22,7 +22,8 @@
 	"sideEffects": false,
 	"types": "build-types",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2"
+		"@babel/runtime": "^7.9.2",
+		"utility-types": "^3.10.0"
 	},
 	"publishConfig": {
 		"access": "public"
