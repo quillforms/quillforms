@@ -423,6 +423,16 @@ class Store {
 	 */
 	private function define_addons() {
 		$addons = array(
+			'square'              => array(
+				'name'               => esc_html__( 'Square', 'quillforms' ),
+				'description'        => esc_html__( 'Accept payments through square gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-square/quillforms-square.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/square/icon.png',
+				),
+			),
 			'entries'                   => array(
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
