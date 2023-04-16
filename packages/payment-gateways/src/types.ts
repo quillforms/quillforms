@@ -30,6 +30,11 @@ export type PaymentGatewayModule = {
 					icon: string | IconRenderer;
 					text: string;
 				};
+				hint?: React.FC< {
+					general: Object;
+					modeles: [];
+					updateGeneral: Function /* gateway:method */;
+				} >;
 			};
 			customer: {
 				label: {

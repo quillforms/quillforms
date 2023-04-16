@@ -268,30 +268,48 @@ const Methods = () => {
 };
 
 const MethodLabelWrapper = ( { children, data, notice } ) => {
+	const { general, models, updateGeneral } = usePaymentsContext();
 	return (
 		<ControlWrapper orientation="horizontal">
-			<div className="method-label-wrapper">
-				<div className="method-label">
-					{ typeof data.admin.label.icon === 'string' ? (
-						<img src={ data.admin.label.icon } />
-					) : (
-						<IconComponent
-							icon={
-								data.admin.label.icon?.src
-									? data.admin.label.icon.src
-									: data.admin.label.icon
-							}
-						/>
-					) }
-					<div className="method-label-text">
-						{ data.admin.label.text }
+			<div>
+				<ControlWrapper orientation="vertical">
+					<div className="method-label-wrapper">
+						<div className="method-label">
+							{ typeof data.admin.label.icon === 'string' ? (
+								<img src={ data.admin.label.icon } />
+							) : (
+								<IconComponent
+									icon={
+										data.admin.label.icon?.src
+											? data.admin.label.icon.src
+											: data.admin.label.icon
+									}
+								/>
+							) }
+							<div className="method-label-text">
+								{ data.admin.label.text }
+							</div>
+						</div>
+						{ notice && (
+							<span className="method-label-notice">
+								{ notice }
+							</span>
+						) }
 					</div>
-				</div>
-				{ notice && (
-					<span className="method-label-notice">{ notice }</span>
-				) }
+					{ data?.admin?.hint ? (
+						<div className="method-label-hint">
+							{
+								<data.admin.hint
+									general={ general }
+									models={ models }
+									updateGeneral={ updateGeneral }
+								/>
+							}
+						</div>
+					) : null }
+				</ControlWrapper>
 			</div>
-			{ children }
+			<>{ children }</>
 		</ControlWrapper>
 	);
 };

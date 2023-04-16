@@ -13,6 +13,7 @@ import { addAction } from '@wordpress/hooks';
  */
 import { registerPaymentGatewayModule } from '../../api';
 import CustomerRender from '../customer-render';
+import hint from './hint';
 
 addAction(
 	'QuillForms.Admin.PluginsLoaded',
@@ -45,6 +46,8 @@ function register() {
 						icon: `${ assetsDir }/icon-full.webp`,
 						text: 'Checkout',
 					},
+					//@ts-ignore
+					// hint,
 				},
 				customer: {
 					label: {
