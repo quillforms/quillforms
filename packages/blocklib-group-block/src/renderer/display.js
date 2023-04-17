@@ -184,12 +184,14 @@ const GroupDisplay = ( { id, innerBlocks, isTouchScreen, ...props } ) => {
 								>
 									<HTMLParser value={ blockLabel } />
 								</div>
-								{
-									/* @ts-expect-error */
-									<blockType.display { ...blockProps } />
-								}
+								<>
+									{ blockType?.display && (
+										/* @ts-expect-error */
+										<blockType.display { ...props } />
+									) }
+								</>
 								{ isErrMsgVisible &&
-									answers[ block.id ].validationErr && (
+									answers?.[ block?.id ]?.validationErr && (
 										<div
 											className={ css`
 												margin-top: 20px;

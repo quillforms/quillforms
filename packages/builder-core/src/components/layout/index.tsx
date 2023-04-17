@@ -251,7 +251,7 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 				) {
 					block?.innerBlocks.forEach( ( childBlock ) => {
 						blockType = blockTypes[ childBlock.name ];
-						if ( blockType.supports.editable )
+						if ( blockType?.supports?.editable )
 							insertEmptyFieldAnswer(
 								childBlock.id,
 								childBlock.name
