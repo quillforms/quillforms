@@ -13,7 +13,7 @@ import { addAction } from '@wordpress/hooks';
  */
 import { registerPaymentGatewayModule } from '../../api';
 import CustomerRender from '../customer-render';
-import hint from './hint';
+// import hint from './hint';
 
 addAction(
 	'QuillForms.Admin.PluginsLoaded',
