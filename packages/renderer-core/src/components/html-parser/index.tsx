@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { autop } from '@wordpress/autop';
+// import { autop } from '@wordpress/autop';
 
 /**
  * External Dependencies
@@ -25,8 +25,7 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 		}
 	);
 
-	value = autop( value, false );
-
+	value = '<p>' + value.replaceAll( '\n\n', '<br>' ) + '</p>';
 	const res = (
 		<>
 			{ parse( value, {

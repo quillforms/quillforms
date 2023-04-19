@@ -3,7 +3,7 @@
  */
 import { jsx } from 'slate-hyperscript';
 import { Editor, Node as SlateNode, Descendant, Text } from 'slate';
-import { autop, removep } from '@wordpress/autop';
+import { autop } from '@wordpress/autop';
 
 /**
  * Internal Dependencies
@@ -15,7 +15,7 @@ const deserializeHTML = ( htmlString: string ): SlateNode[] => {
 	return normalize(
 		deserialize(
 			new DOMParser().parseFromString(
-				formatBeforeDeserializing( autop( removep( htmlString ) ) ),
+				formatBeforeDeserializing( autop( htmlString ) ),
 				'text/html'
 			).body
 		)
@@ -85,7 +85,9 @@ const deserialize = ( el: HTMLElement | ChildNode ) => {
 	};
 
 	if ( el.nodeType === Node.TEXT_NODE ) {
-		return el.textContent === '\n' ? undefined : el.textContent;
+		if ( el.textContent !== '\n' ) {
+			return el.textContent;
+		}
 	}
 	if ( el.nodeType !== 1 ) {
 		return undefined;
