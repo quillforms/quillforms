@@ -7,7 +7,7 @@ import { getDefaultMessages } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -56,7 +56,23 @@ const Form: React.FC< Props > = ( {
 	beforeGoingNext,
 	isPreview = false,
 } ) => {
-	// This
+	const [ deviceWidth, setDeviceWidth ] = useState( '' );
+
+	useEffect( () => {
+		function handleResize() {
+			if ( window.innerWidth < 600 ) {
+				setDeviceWidth( 'mobile' );
+			} else {
+				setDeviceWidth( 'desktop' );
+			}
+		}
+
+		window.addEventListener( 'resize', handleResize );
+		handleResize();
+
+		return () => window.removeEventListener( 'resize', handleResize );
+	}, [] );
+
 	const formatFormObj = (): FormObj => {
 		// If not in preview mode, sanitize blocks.
 		// In preview mode, sanitizing is already done in block editor resolvers.
@@ -109,6 +125,7 @@ const Form: React.FC< Props > = ( {
 				isPreview,
 				formId,
 				beforeGoingNext,
+				deviceWidth,
 			} }
 		>
 			<FormWrapper applyLogic={ applyLogic } />

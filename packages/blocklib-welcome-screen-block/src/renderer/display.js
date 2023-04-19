@@ -23,7 +23,7 @@ import classNames from 'classnames';
 import Attachment from './attachment';
 
 const WelcomeScreenOutput = ( { attributes } ) => {
-	const { isPreview } = useFormContext();
+	const { isPreview, deviceWidth } = useFormContext();
 	const [ isActive, setIsActive ] = useState( false );
 	const [ stickyFooter, setStickyFooter ] = useState( false );
 	let label = '...';
@@ -94,7 +94,11 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 							bottom: 0;
 							z-index: 6;
 							display: flex;
-							${ attributes.layout === 'stack' &&
+							${ ( attributes.layout === 'stack' ||
+								( deviceWidth === 'mobile' &&
+									( attributes.layout === 'float-left' ||
+										attributes.layout ===
+											'float-right' ) ) ) &&
 							`flex-direction: column;
 							.qf-welcome-screen-block__content-wrapper {
 
@@ -145,7 +149,11 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 						className="qf-welcome-screen-block__content"
 						ref={ screenContentRef }
 					>
-						{ attributes.layout === 'stack' && (
+						{ ( attributes.layout === 'stack' ||
+							( deviceWidth === 'mobile' &&
+								( attributes.layout === 'float-left' ||
+									attributes.layout ===
+										'float-right' ) ) ) && (
 							<Attachment
 								isPreview={ isPreview }
 								attributes={ attributes }
@@ -237,7 +245,11 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 						/>
 					</div>
 				</div>
-				{ attributes.layout !== 'stack' && (
+				{ ( ( attributes.layout !== 'stack' &&
+					deviceWidth !== 'mobile' ) ||
+					( deviceWidth === 'mobile' &&
+						( attributes.layout === 'split-left' ||
+							attributes.layout === 'split-right' ) ) ) && (
 					<div
 						className={ classNames(
 							'renderer-core-block-attachment-wrapper',

@@ -24,6 +24,7 @@ import FieldContent from '../field-content';
 import { filter, findIndex } from 'lodash';
 import useFormSettings from '../../hooks/use-form-settings';
 import BlockAttachment from '../field-attachment';
+import { useFormContext } from '../../hooks';
 
 let scrollTimer: ReturnType< typeof setTimeout >;
 let tabTimer: ReturnType< typeof setTimeout >;
@@ -38,6 +39,7 @@ const FieldWrapper: React.FC = () => {
 		attributes,
 		blockName,
 	} = __experimentalUseFieldRenderContext();
+	const { deviceWidth } = useFormContext();
 
 	const settings = useFormSettings();
 	if ( ! id || ! blockName ) return null;
@@ -371,7 +373,11 @@ const FieldWrapper: React.FC = () => {
 								<FieldContent />
 							</div>
 						</div>
-						{ layout !== 'stack' &&
+						{ ( ( layout !== 'stack' &&
+							deviceWidth !== 'mobile' ) ||
+							( deviceWidth === 'mobile' &&
+								( layout === 'split-left' ||
+									layout === 'split-right' ) ) ) &&
 							blockType?.supports?.attachment && (
 								<div
 									className={ classnames(

@@ -11,10 +11,11 @@ import BlockDescription from '../field-description';
 import BlockAttachment from '../field-attachment';
 import BlockCustomHTML from '../field-custom-html';
 import { __experimentalUseFieldRenderContext } from '../field-render';
-import { useBlockTypes, useFormSettings } from '../../hooks';
+import { useBlockTypes, useFormContext, useFormSettings } from '../../hooks';
 
 const QuestionHeader: React.FC = memo( () => {
 	const { blockName, id, attributes } = __experimentalUseFieldRenderContext();
+	const { deviceWidth } = useFormContext();
 	const blockTypes = useBlockTypes();
 	const showQuestionsNumbers =
 		useFormSettings()?.showQuestionsNumbers ?? true;
@@ -35,7 +36,10 @@ const QuestionHeader: React.FC = memo( () => {
 			) }
 			<BlockTitle />
 			<BlockDescription />
-			{ layout === 'stack' && <BlockAttachment /> }
+			{ ( layout === 'stack' ||
+				( deviceWidth === 'mobile' &&
+					( layout === 'float-left' ||
+						layout === 'float-right' ) ) ) && <BlockAttachment /> }
 			<BlockCustomHTML />
 		</div>
 	);

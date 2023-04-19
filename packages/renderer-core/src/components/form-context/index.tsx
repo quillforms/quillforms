@@ -9,6 +9,7 @@ interface FormContext {
 	formObj: FormObj;
 	onSubmit: ( data: object, dispatchers: SubmissionDispatchers ) => void;
 	isPreview: boolean;
+	deviceWidth?: string;
 	formId?: number;
 	beforeGoingNext?: ( {
 		setIsFieldValid,
