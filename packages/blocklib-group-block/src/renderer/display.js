@@ -187,7 +187,7 @@ const GroupDisplay = ( { id, innerBlocks, isTouchScreen, ...props } ) => {
 								<>
 									{ blockType?.display && (
 										/* @ts-expect-error */
-										<blockType.display { ...props } />
+										<blockType.display { ...blockProps } />
 									) }
 								</>
 								{ isErrMsgVisible &&
