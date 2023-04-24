@@ -631,6 +631,26 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/square/icon.png',
 				),
 			),
+			'razorpay'                  => array(
+				'name'               => esc_html__( 'Razorpay', 'quillforms' ),
+				'description'        => esc_html__( 'Accept payments through razorpay gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-razorpay/quillforms-razorpay.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/razorpay/icon.png',
+				),
+			),
+			'mollie'                    => array(
+				'name'               => esc_html__( 'Mollie', 'quillforms' ),
+				'description'        => esc_html__( 'Accept payments through mollie gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-mollie/quillforms-mollie.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mollie/icon.png',
+				),
+			),
 			'googleanalytics'           => array(
 				'name'           => esc_html__( 'Google Analytics', 'quillforms' ),
 				'description'    => esc_html__( 'Track your users activity and behavior by google analytics.', 'quillforms' ),

@@ -258,6 +258,16 @@ class Payments {
 				'decimal_sep'  => ',',
 				'thousand_sep' => ' ',
 			),
+			'INR' => array(
+				'name'         => 'Indian rupee',
+				'singular'     => 'Indian rupee',
+				'plural'       => 'Indian rupees',
+				'symbol'       => '₹',
+				'symbol_pos'   => 'left',
+				'num_decimals' => 2,
+				'decimal_sep'  => '.',
+				'thousand_sep' => ',',
+			),
 			'ILS' => array(
 				'name'         => 'Israeli new shekel',
 				'singular'     => 'Israeli new shekel',
