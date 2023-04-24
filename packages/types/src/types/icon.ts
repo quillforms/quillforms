@@ -1,6 +1,5 @@
-import { Dashicon } from '@wordpress/components';
 import type { ComponentType } from 'react';
-export type Icon = JSX.Element | ComponentType | Dashicon.Icon;
+export type Icon = JSX.Element | ComponentType | string;
 
 export type IconDescriptor = {
 	src: Icon;

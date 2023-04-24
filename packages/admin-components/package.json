@@ -31,6 +31,7 @@
 		"@quillforms/config": "file:../config",
 		"@quillforms/navigation": "file:../navigation",
 		"@quillforms/types": "file:../types",
+		"@wordpress/components": "^23.8.0",
 		"@wordpress/icons": "^8.3.0",
 		"@wordpress/media-utils": "^4.13.0",
 		"classnames": "^2.3.1",

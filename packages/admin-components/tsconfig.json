@@ -12,7 +12,7 @@
 		{"path": "../types" },
 		{"path": "../blocks"},
 		{"path": "../navigation"},
-		{"path": "../renderer-core"}
+		{"path": "../renderer-core"},
 	],
 	// NOTE: This package is being progressively typed. You are encouraged to
 	// expand this array with files which can be type-checked. At some point in

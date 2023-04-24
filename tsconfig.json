@@ -1,6 +1,5 @@
 {
 	"references": [
-		{"path": "packages/block-editor"},
 		{"path": "packages/utils"},
 		{"path" : "packages/config"},
 		{"path" : "packages/blocks"},
