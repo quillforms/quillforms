@@ -15,6 +15,7 @@ const BlockLabel: React.FC = () => {
 	let label = '...';
 	if ( attributes?.label ) label = attributes.label;
 	if ( attributes?.required ) label = label + ' *';
+	label = label.replace("</p> *", " * </p>")
 	const theme = useBlockTheme( attributes?.themeId );
 	return (
 		<div

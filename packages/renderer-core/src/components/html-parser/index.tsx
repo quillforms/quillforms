@@ -25,7 +25,7 @@ const HtmlParser: React.FC< Props > = ( { value } ) => {
 		}
 	);
 
-	value = '<p>' + value.replaceAll( '\n\n', '<br>' ) + '</p>';
+	value = '<p>' + value.replaceAll( '\n\n', '<br />' ) + '</p>';
 	const res = (
 		<>
 			{ parse( value, {

@@ -13,8 +13,9 @@ import { Text, Node } from 'slate';
  * Internal Dependencies
  */
 import type { CustomNode, MergeTag } from './types';
+import { size } from 'lodash';
 const htmlSerialize = ( value: Node ): string => {
-	return serialize( value );
+	return serialize( value ).replaceAll("<br />{{}}, ");
 };
 const serialize = ( node: CustomNode ) => {
 	let nodeText = escapeHtml( node.text );
@@ -27,20 +28,30 @@ const serialize = ( node: CustomNode ) => {
 			nodeText = `<em>` + nodeText + `</em>`;
 		}
 
-		if ( nodeText === '' ) return '<br />';
+		if ( nodeText === '' ) {
+			return '<br />';
+		}
 
 		return nodeText;
 	}
 
 	if ( Array.isArray( node ) ) {
-		return node.map( ( subNode ) => serializeNode( subNode ) ).join( '' );
+		return node.map( ( subNode, i ) => {
+			return serializeNode( subNode ) 
+		} ).join( '' );
+		
 	}
 
 	return serializeNode( node );
 };
 
 const serializeNode = ( node: CustomNode ) => {
-	const children = node.children.map( ( n ) => serialize( n ) ).join( '' );
+	const children = node.children.map( ( n, i ) => { 
+		if(size(node.children) > 1 && node.children[1]?.type === 'mergeTag' && i !== 1) {
+			return "";
+		}
+		return serialize( n ) 
+	}).join( '' );
 	switch ( node.type ) {
 		case 'link':
 			return `<a target="_blank" href="${ escapeHtml(
