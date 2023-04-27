@@ -6,18 +6,19 @@ import { useSelect } from '@wordpress/data';
  * Internal Dependencies
  */
 import DefaultMergeTag from './default-merge-tag';
+import { useEditableFields } from '../../hooks';
 interface Props {
 	modifier: string;
 }
 const FieldMergeTag: React.FC< Props > = ( { modifier } ) => {
+	const editableFields = useEditableFields(true);
 
 	const { fieldMergeTagValue } = useSelect( ( select ) => {
 		const fieldVal = select( 'quillForms/renderer-core' ).getFieldAnswerVal(
 			modifier
 		);
 		const blockTypes = select( 'quillForms/blocks' ).getBlockTypes();
-		const walkPath = select( 'quillForms/renderer-core' ).getWalkPath();
-		const block = walkPath.find( ( a ) => a.id === modifier );
+		const block = editableFields.find( ( a ) => a.id === modifier );
 		if ( ! block )
 			return {
 				fieldMergeTagValue: null,
