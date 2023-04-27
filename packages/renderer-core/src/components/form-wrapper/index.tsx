@@ -4,8 +4,9 @@
 import { useEffect, useState } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { doAction } from '@wordpress/hooks';
+import { removep } from "@wordpress/autop";
 
-/**
+/** 
  * External Dependencies
  */
 import { cloneDeep, map, omit, size } from 'lodash';
@@ -70,14 +71,14 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 							// @ts-expect-error
 							blockType?.getNumericVal(
 								replaceHiddenFields(
-									field.attributes.defaultValue
+									removep(field.attributes.defaultValue)
 								)
 							)
 						);
 					} else {
 						setFieldAnswer(
 							field.id,
-							replaceHiddenFields( field.attributes.defaultValue )
+							replaceHiddenFields( removep(field.attributes.defaultValue) )
 						);
 					}
 				} else {
