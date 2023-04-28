@@ -90,6 +90,8 @@ const App = () => {
         }}
       />
     </div>
+      )
+}
 
 ```
 ### Example
