@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-// import { removep } from '@wordpress/autop';
+import { removep } from '@wordpress/autop';
 
 /**
  * External Dependencies
@@ -15,7 +15,7 @@ import { Text, Node } from 'slate';
 import type { CustomNode, MergeTag } from './types';
 import { size } from 'lodash';
 const htmlSerialize = ( value: Node ): string => {
-	return serialize( value );
+	return removep( serialize( value ) );
 };
 const serialize = ( node: CustomNode ) => {
 	let nodeText = escapeHtml( node.text );

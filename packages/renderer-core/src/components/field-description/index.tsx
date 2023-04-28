@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { Fragment } from 'react';
+import { removep } from '@wordpress/autop';
 
 /**
  * External Dependencies
@@ -19,7 +20,7 @@ const BlockDesc: React.FC = () => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	if ( ! attributes || ! attributes.description ) return null;
 	const theme = useBlockTheme( attributes.themeId );
-	const { description } = attributes;
+	const description = removep( attributes?.description );
 	return (
 		<Fragment>
 			{ description && description !== '' && (
