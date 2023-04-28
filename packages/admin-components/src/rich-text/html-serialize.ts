@@ -15,7 +15,7 @@ import { Text, Node } from 'slate';
 import type { CustomNode, MergeTag } from './types';
 import { size } from 'lodash';
 const htmlSerialize = ( value: Node ): string => {
-	return serialize( value ).replaceAll("<br />{{}}, ");
+	return serialize( value );
 };
 const serialize = ( node: CustomNode ) => {
 	let nodeText = escapeHtml( node.text );
