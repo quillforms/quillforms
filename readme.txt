@@ -63,6 +63,8 @@ By set up email notifications, you can get an email after each submission with t
 - One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal.
 - One time payment and subscriptions with authorize.net.
 - One time payment and subscriptions with Square.
+- One time payment and subscriptions with Mollie.
+- One time payment and subscriptions with Razorpay.
 - GoogleSheets integration
 - MailChimp integration
 - Constant Contact integration
