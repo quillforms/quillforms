@@ -914,6 +914,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zohocrm/icon.svg',
 				),
 			),
+			'convertkit'                => array(
+				'name'           => esc_html__( 'Convertkit', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your Convertkit account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-convertkit/quillforms-convertkit.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/convertkit/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
