@@ -26,6 +26,7 @@ export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 		placeholder: false,
 		logic: true,
 		logicConditions: true,
+		innerBlocks: false,
 		numeric: false,
 		choices: false,
 		payments: false,

@@ -2,7 +2,7 @@ type BlockAttachment = {
 	type: 'image';
 	url: string;
 };
-type DefaultAttributes = {
+export type DefaultAttributes = {
 	customHTML?: string;
 	label?: string;
 	description?: string;
