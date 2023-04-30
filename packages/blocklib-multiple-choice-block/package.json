@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-multiple-choice-block",
-	"version": "3.0.23",
+	"version": "3.0.24",
 	"description": "Multiple choice block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
