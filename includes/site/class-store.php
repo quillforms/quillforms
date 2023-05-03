@@ -894,6 +894,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/asana/icon.svg',
 				),
 			),
+			'clickup'                   => array(
+				'name'           => esc_html__( 'ClickUp', 'quillforms' ),
+				'description'    => esc_html__( 'Add Tasks to your ClickUp account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-clickup/quillforms-clickup.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/clickup/icon.svg',
+				),
+			),
 			'mautic'                    => array(
 				'name'           => esc_html__( 'Mautic', 'quillforms' ),
 				'description'    => esc_html__( 'Send new contacts to your Mautic account.', 'quillforms' ),
