@@ -50,10 +50,13 @@ const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 		document
 			.querySelector( '.builder-core-panel__content-wrapper' )
 			.classList.add( 'has-sticky-footer' );
-		return () =>
+		return () => {
+			if( document.querySelector( '.builder-core-panel__content-wrapper' ) ) {
 			document
 				.querySelector( '.builder-core-panel__content-wrapper' )
 				.classList.remove( 'has-sticky-footer' );
+			}
+		}
 	}, [] );
 
 	return (
