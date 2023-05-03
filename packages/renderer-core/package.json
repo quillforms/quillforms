@@ -27,7 +27,7 @@
 		"@quillforms/config": "file:../config",
 		"@quillforms/payment-gateways": "file:../payment-gateways",
 		"@quillforms/utils": "file:../utils",
-		"@wordpress/autop": "^3.23.0",
+		"@wordpress/autop": "^3.32.0",
 		"@wordpress/data": "^9.2.0",
 		"@wordpress/element": "^5.9.0",
 		"@wordpress/hooks": "^3.32.0",
