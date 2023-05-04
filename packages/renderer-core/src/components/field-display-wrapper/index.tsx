@@ -3,7 +3,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**

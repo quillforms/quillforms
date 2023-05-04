@@ -3,7 +3,7 @@
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -12,7 +12,7 @@ import { doAction } from '@wordpress/hooks';
 import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { Lethargy } from 'lethargy';
-import type React from 'react';
+import type React from '@wordpress/element';
 
 /**
  * Internal Dependencies

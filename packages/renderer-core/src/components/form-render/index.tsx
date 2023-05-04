@@ -7,7 +7,7 @@ import { getDefaultMessages } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
