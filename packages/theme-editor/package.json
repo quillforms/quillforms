@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/config": "file:../config",
+		"@quillforms/admin-components": "^3.0.23",
+		"@quillforms/config": "^3.0.13",
 		"gradient-parser": "^1.0.2",
 		"tinycolor2": "^1.4.2"
 	},
@@ -34,5 +34,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"gitHead": "a9dcd96dd59a8774ddfb52838ac1a88ab3dae142"
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }

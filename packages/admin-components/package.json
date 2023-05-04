@@ -27,10 +27,10 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/blocks": "file:../blocks",
-		"@quillforms/config": "file:../config",
-		"@quillforms/navigation": "file:../navigation",
-		"@quillforms/types": "file:../types",
+		"@quillforms/blocks": "^4.0.9",
+		"@quillforms/config": "^3.0.13",
+		"@quillforms/navigation": "^1.4.1",
+		"@quillforms/types": "^3.0.12",
 		"@wordpress/components": "^23.8.0",
 		"@wordpress/icons": "^8.3.0",
 		"@wordpress/media-utils": "^4.13.0",
@@ -56,5 +56,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }

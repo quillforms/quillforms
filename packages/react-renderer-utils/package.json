@@ -21,18 +21,18 @@
 	"module": "build-module/index.js",
 	"sideEffects": false,
 	"dependencies": {
-		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
-		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",
-		"@quillforms/blocklib-email-block": "file:../blocklib-email-block",
-		"@quillforms/blocklib-group-block": "file:../blocklib-group-block",
-		"@quillforms/blocklib-long-text-block": "file:../blocklib-long-text-block",
-		"@quillforms/blocklib-multiple-choice-block": "file:../blocklib-multiple-choice-block",
-		"@quillforms/blocklib-number-block": "file:../blocklib-number-block",
-		"@quillforms/blocklib-short-text-block": "file:../blocklib-short-text-block",
-		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
-		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
-		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
-		"@quillforms/blocks": "file:../blocks"
+		"@quillforms/blocklib-date-block": "^3.0.30",
+		"@quillforms/blocklib-dropdown-block": "^3.0.30",
+		"@quillforms/blocklib-email-block": "^3.0.30",
+		"@quillforms/blocklib-group-block": "^3.0.30",
+		"@quillforms/blocklib-long-text-block": "^3.0.30",
+		"@quillforms/blocklib-multiple-choice-block": "^3.0.30",
+		"@quillforms/blocklib-number-block": "^3.0.30",
+		"@quillforms/blocklib-short-text-block": "^3.0.30",
+		"@quillforms/blocklib-statement-block": "^3.0.30",
+		"@quillforms/blocklib-website-block": "^3.0.30",
+		"@quillforms/blocklib-welcome-screen-block": "^3.0.30",
+		"@quillforms/blocks": "^4.0.9"
 	},
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
@@ -41,5 +41,6 @@
 	"license": "GPL-2.0-or-later",
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }

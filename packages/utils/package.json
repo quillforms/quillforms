@@ -27,8 +27,8 @@
 		"@emotion/react": "^11.10.5",
 		"@emotion/serialize": "^1.1.1",
 		"@emotion/utils": "^1.2.0",
-		"@quillforms/config": "file:../config",
-		"@quillforms/types": "file:../types",
+		"@quillforms/config": "^3.0.13",
+		"@quillforms/types": "^3.0.12",
 		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
@@ -37,5 +37,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }

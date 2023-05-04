@@ -23,13 +23,14 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/block-editor": "file:../block-editor",
-		"@quillforms/notifications-editor": "file:../notifications-editor",
-		"@quillforms/types": "file:../types",
-		"@quillforms/utils": "file:../utils",
+		"@quillforms/block-editor": "^3.0.24",
+		"@quillforms/notifications-editor": "^4.0.10",
+		"@quillforms/types": "^3.0.12",
+		"@quillforms/utils": "^3.0.16",
 		"rememo": "^4.0.2"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }

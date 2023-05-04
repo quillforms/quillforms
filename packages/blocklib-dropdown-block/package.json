@@ -23,9 +23,9 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/renderer-core": "file:../renderer-core",
-		"@quillforms/utils": "file:../utils",
+		"@quillforms/admin-components": "^3.0.23",
+		"@quillforms/renderer-core": "^5.2.12",
+		"@quillforms/utils": "^3.0.16",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
 		"tinycolor2": "^1.4.2"
@@ -37,5 +37,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"gitHead": "a9dcd96dd59a8774ddfb52838ac1a88ab3dae142"
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }
