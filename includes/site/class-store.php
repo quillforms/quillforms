@@ -934,6 +934,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/convertkit/icon.svg',
 				),
 			),
+			'freshsales'                => array(
+				'name'           => esc_html__( 'Freshsales', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts to your Freshsales account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-freshsales/quillforms-freshsales.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/freshsales/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
