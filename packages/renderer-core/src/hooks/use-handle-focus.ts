@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from 'react';
 import { findDOMNode } from 'react-dom';
 import { useSelect } from '@wordpress/data';
 
