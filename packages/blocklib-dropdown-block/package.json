@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-dropdown-block",
-	"version": "3.0.34",
+	"version": "3.0.35",
 	"description": "Dropdown block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,8 +23,8 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^3.0.24",
-		"@quillforms/renderer-core": "^5.2.16",
+		"@quillforms/admin-components": "^3.0.25",
+		"@quillforms/renderer-core": "^5.2.17",
 		"@quillforms/utils": "^3.0.17",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
