@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/builder-panels",
-	"version": "4.0.18",
+	"version": "4.0.19",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,8 +23,8 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/block-editor": "^3.0.31",
-		"@quillforms/notifications-editor": "^4.0.15",
+		"@quillforms/block-editor": "^3.0.32",
+		"@quillforms/notifications-editor": "^4.0.16",
 		"@quillforms/types": "^3.0.13",
 		"@quillforms/utils": "^3.0.17",
 		"rememo": "^4.0.2"
