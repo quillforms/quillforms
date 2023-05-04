@@ -33,5 +33,8 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"peerDependencies": {
+		"react": "^18.0.0"
+	},
 	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }
