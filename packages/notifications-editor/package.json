@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/notifications-editor",
-	"version": "4.0.12",
+	"version": "4.0.13",
 	"description": "Notifications editor package",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -22,7 +22,7 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^3.0.25",
+		"@quillforms/admin-components": "^3.0.26",
 		"@quillforms/config": "^3.0.14",
 		"react-confirm-alert": "^2.7.0",
 		"react-multi-email": "^0.5.3"

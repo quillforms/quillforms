@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/admin-components",
-	"version": "3.0.25",
+	"version": "3.0.26",
 	"description": "Quill forms admin components",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -27,7 +27,7 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/blocks": "^4.0.10",
+		"@quillforms/blocks": "^4.0.11",
 		"@quillforms/config": "^3.0.14",
 		"@quillforms/navigation": "^1.4.1",
 		"@quillforms/types": "^3.0.13",
