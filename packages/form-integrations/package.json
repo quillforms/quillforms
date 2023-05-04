@@ -23,10 +23,10 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/navigation": "file:../navigation",
-		"@wordpress/api-fetch": "^6.11.0",
-		"@wordpress/components": "^19.16.0",
+		"@wordpress/api-fetch": "^6.29.0",
+		"@wordpress/components": "^23.9.0",
 		"@wordpress/data": "^9.2.0",
-		"@wordpress/i18n": "^4.14.0"
+		"@wordpress/i18n": "^4.32.0"
 	},
 	"publishConfig": {
 		"access": "public"

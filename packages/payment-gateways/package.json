@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
-		"@quillforms/config": "^3.0.14",
-		"@quillforms/types": "^3.0.13",
+		"@quillforms/config": "file:../config",
+		"@quillforms/types": "file:../types",
 		"@wordpress/hooks": "^3.32.0"
 	},
 	"peerDependencies": {
