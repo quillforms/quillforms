@@ -30,7 +30,7 @@
 		"@quillforms/renderer-core": "^5.2.13",
 		"@quillforms/theme-editor": "^3.0.25",
 		"@quillforms/types": "^3.0.13",
-		"@wordpress/data": "^9.0.0",
+		"@wordpress/data": "^9.2.0",
 		"classnames": "^2.3.1",
 		"emotion": "^11.0.0",
 		"framer-motion": "^4.1.17",
