@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-group-block",
-	"version": "3.0.30",
+	"version": "3.0.31",
 	"description": "Group block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,9 +23,9 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^3.0.23",
-		"@quillforms/blocks": "^4.0.9",
-		"@quillforms/renderer-core": "^5.2.12",
+		"@quillforms/admin-components": "^3.0.24",
+		"@quillforms/blocks": "^4.0.10",
+		"@quillforms/renderer-core": "^5.2.13",
 		"classnames": "^2.3.1",
 		"email-validator": "^2.0.4",
 		"emotion": "10.0.27",

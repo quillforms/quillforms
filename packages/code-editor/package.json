@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/code-editor",
-	"version": "4.0.10",
+	"version": "4.0.11",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^3.0.23",
-		"@quillforms/config": "^3.0.13",
+		"@quillforms/admin-components": "^3.0.24",
+		"@quillforms/config": "^3.0.14",
 		"react-ace": "^10.1.0"
 	},
 	"peerDependencies": {
