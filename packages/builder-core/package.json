@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/builder-core",
-	"version": "4.0.18",
+	"version": "4.0.19",
 	"description": "Builder Core for Quill Forms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -27,7 +27,7 @@
 		"@quillforms/block-editor": "^3.0.26",
 		"@quillforms/blocks": "^4.0.10",
 		"@quillforms/builder-panels": "^4.0.13",
-		"@quillforms/renderer-core": "^5.2.14",
+		"@quillforms/renderer-core": "^5.2.15",
 		"@quillforms/theme-editor": "^3.0.25",
 		"@quillforms/types": "^3.0.13",
 		"@wordpress/data": "^9.2.0",
