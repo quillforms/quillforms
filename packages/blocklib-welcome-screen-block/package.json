@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-welcome-screen-block",
-	"version": "3.0.36",
+	"version": "3.0.37",
 	"description": "Welcome screen block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -24,7 +24,7 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^3.0.26",
+		"@quillforms/admin-components": "^3.0.27",
 		"@quillforms/renderer-core": "^5.2.18",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",

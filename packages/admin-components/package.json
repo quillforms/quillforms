@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/admin-components",
-	"version": "3.0.26",
+	"version": "3.0.27",
 	"description": "Quill forms admin components",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -29,7 +29,7 @@
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/blocks": "^4.0.11",
 		"@quillforms/config": "^3.0.14",
-		"@quillforms/navigation": "^1.4.1",
+		"@quillforms/navigation": "^1.4.2",
 		"@quillforms/types": "^3.0.13",
 		"@wordpress/components": "^23.9.0",
 		"@wordpress/icons": "^8.3.0",
