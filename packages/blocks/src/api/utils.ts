@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { reduce, isEmpty, map } from 'lodash';
+import { reduce, size, isEmpty, map } from 'lodash';
 import type { BlockAttributes, FormBlocks } from '@quillforms/types';
 
 /**
@@ -52,7 +52,17 @@ export const sanitizeBlocks = ( blocks: FormBlocks ): FormBlocks => {
 	}
 
 	return map( blocks, ( block ) => {
-		if ( getBlockType( block.name ) )
+		if ( getBlockType( block.name ) ) {
+			if( typeof( block?.innerBlocks ) !== 'undefined' && size( block?.innerBlocks ) > 0 ) { 
+				return {
+					...block,
+					attributes: sanitizeBlockAttributes(
+						block.name,
+						block.attributes ? block.attributes : {}
+					),
+					innerBlocks: sanitizeBlocks( block.innerBlocks )
+				}
+			}
 			return {
 				...block,
 				attributes: sanitizeBlockAttributes(
@@ -60,6 +70,7 @@ export const sanitizeBlocks = ( blocks: FormBlocks ): FormBlocks => {
 					block.attributes ? block.attributes : {}
 				),
 			};
+		}
 		return {
 			...block,
 			name: 'unknown',
