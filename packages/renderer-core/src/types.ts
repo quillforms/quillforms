@@ -26,7 +26,7 @@ export type FormObj = {
 		showQuestionsNumbers?: boolean;
 		showLettersOnAnswers?: boolean;
 	};
-	hiddenFields: Object;
+	hiddenFields?: Object;
 	customCSS?: string;
 };
 
