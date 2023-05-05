@@ -8,6 +8,7 @@ export type DefaultAttributes = {
 	description?: string;
 	required?: boolean;
 	attachment?: BlockAttachment;
+	defaultValue?: any;
 	attachmentMaxWidth?: string;
 	placeholder?: string | boolean;
 	nextBtnLabel?: string | boolean;

@@ -1,6 +1,7 @@
 export type {
 	FormBlocks,
-	FormBlock
+	FormBlock,
+	BlockAttributes,
 } from './types/form-blocks';
 
 export type { FormMessages } from './types/form-messages';
