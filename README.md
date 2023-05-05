@@ -30,6 +30,7 @@
 
 # More examples
 - [Picture Choice Question](https://codesandbox.io/s/quill-forms-picture-choice-question-gxlmqy)
+- [File Upload Question](https://codesandbox.io/s/quill-forms-file-block-question-xr1onh)
 
 More examples will be coming soon.
 
