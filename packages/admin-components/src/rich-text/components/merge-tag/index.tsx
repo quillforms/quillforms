@@ -6,6 +6,7 @@ import type { IconDescriptor, Icon as IconType } from '@quillforms/types';
  * WordPress Dependencies
  */
 import { useEffect } from 'react';
+// @ts-expect-error
 import { Icon, Dashicon } from '@wordpress/components';
 import { plus, close } from '@wordpress/icons';
 
@@ -50,6 +51,7 @@ const EditorMergeTag: React.FC< Props > = ( {
 			icon={
 				( ( mergeTagIcon as IconDescriptor )?.src as IconType )
 					? ( ( mergeTagIcon as IconDescriptor )?.src as IconType )
+					// @ts-expect-error
 					: ( mergeTagIcon as Dashicon.Icon )
 			}
 		/>

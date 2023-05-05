@@ -12,7 +12,7 @@ import { doAction } from '@wordpress/hooks';
 import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { Lethargy } from 'lethargy';
-import type React from '@wordpress/element';
+import type React from 'react';
 
 /**
  * Internal Dependencies

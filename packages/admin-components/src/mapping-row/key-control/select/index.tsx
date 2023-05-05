@@ -6,6 +6,7 @@ import SelectControl from '../../../select-control';
 /**
  * WordPress Dependencies
  */
+// @ts-expect-error
 import type { CustomSelectControl } from '@wordpress/components';
 import { Disabled } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -25,6 +26,7 @@ interface Props {
 const Select: React.FC< Props > = ( { sections, options } ) => {
 	const { value, onChange, disabled } = useMappingKeyControlContext();
 
+	// @ts-expect-error
 	const SelectOptions: CustomSelectControl.Option[] = [
 		{
 			key: 'select',

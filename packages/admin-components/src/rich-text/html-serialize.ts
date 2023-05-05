@@ -37,7 +37,7 @@ const serialize = ( node: CustomNode ) => {
 
 	if ( Array.isArray( node ) ) {
 		return node
-			.map( ( subNode, i ) => {
+			.map( ( subNode ) => {
 				return serializeNode( subNode );
 			} )
 			.join( '' );
