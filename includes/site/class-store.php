@@ -488,8 +488,8 @@ class Store {
 				),
 			),
 			'customfonts'               => array(
-				'name'           => esc_html__('Custom Fonts', 'quillforms'),
-				'description'    => esc_html__('Upload your own custom fonts to use them in Quill Forms!', 'quillforms'),
+				'name'           => esc_html__( 'Custom Fonts', 'quillforms' ),
+				'description'    => esc_html__( 'Upload your own custom fonts to use them in Quill Forms!', 'quillforms' ),
 				'plugin_file'    => 'quillforms-customfonts/quillforms-customfonts.php',
 				'plan'           => 'basic',
 				'is_integration' => false,
@@ -942,6 +942,16 @@ class Store {
 				'is_integration' => true,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/freshsales/icon.svg',
+				),
+			),
+			'airtable'                  => array(
+				'name'           => esc_html__( 'Airtable', 'quillforms' ),
+				'description'    => esc_html__( 'Send new records to your Airtable account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-airtable/quillforms-airtable.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/airtable/icon.svg',
 				),
 			),
 			'wpuserregistration'        => array(
