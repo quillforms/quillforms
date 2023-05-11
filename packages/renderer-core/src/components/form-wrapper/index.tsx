@@ -23,17 +23,17 @@ import useFormContext from '../../hooks/use-form-context';
 interface Props {
 	applyLogic: boolean;
 }
-const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
-	const [ isMounted, setIsMounted ] = useState( false );
-	const editableFields = useEditableFields( true );
-	const { currentBlockId, blockTypes } = useSelect( ( select ) => {
+const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
+	const [isMounted, setIsMounted] = useState(false);
+	const editableFields = useEditableFields(true);
+	const { currentBlockId, blockTypes } = useSelect((select) => {
 		return {
 			currentBlockId: select(
 				'quillForms/renderer-core'
 			).getCurrentBlockId(),
-			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			blockTypes: select('quillForms/blocks').getBlockTypes(),
 		};
-	} );
+	});
 	const blocks = useBlocks();
 	const {
 		isPreview,
@@ -45,14 +45,14 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 		goToBlock,
 		setPaymentData,
 		setFieldAnswer,
-	} = useDispatch( 'quillForms/renderer-core' );
+	} = useDispatch('quillForms/renderer-core');
 
-	const replaceHiddenFields = ( val ) => {
+	const replaceHiddenFields = (val) => {
 		const newVal = val.replace(
 			/{{hidden_field:([a-zA-Z0-9-_]+)}}/g,
-			( _match, p1 ) => {
-				if ( size( hiddenFields ) > 0 && hiddenFields?.[ p1 ] ) {
-					return hiddenFields[ p1 ];
+			(_match, p1) => {
+				if (size(hiddenFields) > 0 && hiddenFields?.[p1]) {
+					return hiddenFields[p1];
 				}
 				return '';
 			}
@@ -60,12 +60,12 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 
 		return newVal;
 	};
-	useEffect( () => {
-		if ( ! isPreview ) {
-			editableFields.forEach( ( field ) => {
-				if ( field?.attributes?.defaultValue ) {
-					const blockType = blockTypes[ field.name ];
-					if ( blockType?.supports?.numeric ) {
+	useEffect(() => {
+		if (!isPreview) {
+			editableFields.forEach((field) => {
+				if (field?.attributes?.defaultValue) {
+					const blockType = blockTypes[field.name];
+					if (blockType?.supports?.numeric) {
 						setFieldAnswer(
 							field.id,
 							// @ts-expect-error
@@ -78,62 +78,62 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 					} else {
 						setFieldAnswer(
 							field.id,
-							replaceHiddenFields( removep(field.attributes.defaultValue) )
+							replaceHiddenFields(removep(field.attributes.defaultValue))
 						);
 					}
 				} else {
-					insertEmptyFieldAnswer( field.id, field.name );
+					insertEmptyFieldAnswer(field.id, field.name);
 				}
-			} );
+			});
 			const welcomeScreens = map(
-				cloneDeep( blocks ).filter(
-					( block ) => block.name === 'welcome-screen'
+				cloneDeep(blocks).filter(
+					(block) => block.name === 'welcome-screen'
 				),
-				( block ) => omit( block, [ 'name' ] )
+				(block) => omit(block, ['name'])
 			) as [] | Screen[];
 
 			const thankyouScreens = map(
-				cloneDeep( blocks ).filter(
-					( block ) => block.name === 'thankyou-screen'
+				cloneDeep(blocks).filter(
+					(block) => block.name === 'thankyou-screen'
 				),
-				( block ) => omit( block, [ 'name' ] )
+				(block) => omit(block, ['name'])
 			) as [] | Screen[];
-			setSwiper( {
+			setSwiper({
 				walkPath: cloneDeep(
 					blocks.filter(
-						( block ) =>
+						(block) =>
 							block.name !== 'thankyou-screen' &&
 							block.name !== 'welcome-screen'
 					)
 				),
 				welcomeScreens:
-					size( welcomeScreens ) === 0
+					size(welcomeScreens) === 0
 						? []
-						: ( welcomeScreens as Screen[] ),
+						: (welcomeScreens as Screen[]),
 				thankyouScreens:
-					size( thankyouScreens ) === 0
+					size(thankyouScreens) === 0
 						? []
-						: ( thankyouScreens as Screen[] ),
-			} );
-			if ( ! applyLogic && ! isPreview ) {
-				if ( currentBlockId ) goToBlock( currentBlockId, true );
+						: (thankyouScreens as Screen[]),
+			});
+			if (!applyLogic && !isPreview) {
+				if (currentBlockId) goToBlock(currentBlockId, true);
 			}
-			setIsMounted( true );
+			setIsMounted(true);
 		}
-	}, [ JSON.stringify( blocks ) ] );
+	}, [JSON.stringify(blocks)]);
 
-	useEffect( () => {
-		if ( isMounted ) {
-			const firstBlock = blocks && blocks[ 0 ] ? blocks[ 0 ] : undefined;
+	useEffect(() => {
+		if (isMounted) {
+			const firstBlock = blocks && blocks[0] ? blocks[0] : undefined;
 
 			const urlParams =
 				typeof window !== 'undefined'
-					? new URLSearchParams( window.location.search )
+					? new URLSearchParams(window.location.search)
 					: undefined;
-			const isPaymentStep = urlParams?.get( 'step' ) === 'payment';
+			const isPaymentStep = urlParams?.get('step') === 'payment';
 
 			let formCompleted = false;
-			if ( isPaymentStep ) {
+			if (isPaymentStep) {
 				doAction(
 					'QuillForms.RendererCore.PaymentStep',
 					urlParams,
@@ -142,28 +142,28 @@ const FormWrapper: React.FC< Props > = ( { applyLogic } ) => {
 						goToBlock(
 							// @ts-expect-error
 							window?.pending_submission?.thankyou_screen_id ??
-								urlParams.get( 'thankyou_screen_id' ) ??
-								'default_thankyou_screen'
+							urlParams.get('thankyou_screen_id') ??
+							'default_thankyou_screen'
 						);
 					},
 					() => {
 						// @ts-expect-error.
-						setPaymentData( window?.pending_submission );
+						setPaymentData(window?.pending_submission);
 					}
 				);
 			}
 
-			if ( ! formCompleted ) {
-				setTimeout( () => {
-					if ( firstBlock?.id ) {
-						goToBlock( firstBlock.id );
+			if (!formCompleted) {
+				setTimeout(() => {
+					if (firstBlock?.id) {
+						goToBlock(firstBlock.id);
 					}
-				}, 100 );
+				}, 100);
 			}
 		}
-	}, [ isMounted ] );
+	}, [isMounted]);
 
-	return <FormFlow applyLogic={ applyLogic } />;
+	return <FormFlow applyLogic={applyLogic} />;
 };
 
 export default FormWrapper;

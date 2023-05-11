@@ -27,7 +27,7 @@ import { MediaUpload } from '@wordpress/media-utils';
 /**
  * External Dependencies
  */
-import { isEmpty } from 'lodash';
+import { forEach, isEmpty, size } from 'lodash';
 import { css } from 'emotion';
 
 /**
@@ -43,7 +43,7 @@ const CustomizeThemePanel = () => {
 	const { setCurrentThemeProperties, setCurrentThemeTitle } = useDispatch(
 		'quillForms/theme-editor'
 	);
-	const { theme, shouldBeSaved, currentThemeId } = useSelect( ( select ) => {
+	const { theme, shouldBeSaved, currentThemeId, customFontsList } = useSelect( ( select ) => {
 		return {
 			shouldBeSaved: select(
 				'quillForms/theme-editor'
@@ -52,9 +52,18 @@ const CustomizeThemePanel = () => {
 				'quillForms/theme-editor'
 			).getCurrentThemeId(),
 			theme: select( 'quillForms/theme-editor' ).getCurrentTheme(),
+			customFontsList: select( 'quillForms/custom-fonts' )?.getFontsList() ?? [],
 		};
 	} );
 
+	let customFonts = {};
+	console.log(customFontsList);
+	if(size(customFontsList) > 0) {
+		forEach(customFontsList, (font) => {
+			customFonts[font.title] = 'custom';
+		});
+	}
+	const allFonts = {...customFonts, ...configApi.getFonts() };
 	const { title, properties } = { ...theme };
 
 	const $properties = {
@@ -222,11 +231,19 @@ const CustomizeThemePanel = () => {
 			</PanelBody>
 
 			<PanelBody title="Font Families" initialOpen={ false }>
+				<div className="fonts-hint">
+					<div className="admin-components-control-label__new-feature">
+						NEW
+					</div>
+					<p>
+					 Now, you can add your custom font from the custom fonts panel at the top.
+					</p>
+				</div>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Base Font" />
 						<FontPicker
-							fonts={ configApi.getFonts() }
+							fonts={ allFonts }
 							selectedFont={ font }
 							setFont={ ( value ) => {
 								setCurrentThemeProperties( {
@@ -245,6 +262,7 @@ const CustomizeThemePanel = () => {
 						<FontPicker
 							fonts={ {
 								Inherit: 'inherit',
+								...customFonts,
 								...configApi.getFonts(),
 							} }
 							selectedFont={ questionsLabelFont }
@@ -265,6 +283,7 @@ const CustomizeThemePanel = () => {
 						<FontPicker
 							fonts={ {
 								Inherit: 'inherit',
+								...customFonts,
 								...configApi.getFonts(),
 							} }
 							selectedFont={ questionsDescriptionFont }

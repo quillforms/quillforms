@@ -39,25 +39,25 @@ interface Props {
 	destinationIndex: number;
 	parent?: string;
 }
-const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
-	let { blockTypes, welcomeScreensLength } = useSelect( ( select ) => {
+const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
+	let { blockTypes, welcomeScreensLength } = useSelect((select) => {
 		return {
-			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			blockTypes: select('quillForms/blocks').getBlockTypes(),
 			welcomeScreensLength: select(
 				'quillForms/block-editor'
 				// @ts-expect-error
 			).getWelcomeScreensLength(),
 		};
-	} );
+	});
 	const license = ConfigApi.getLicense();
 
-	if ( parent ) {
-		blockTypes = pickBy( blockTypes, ( blockType ) => {
+	if (parent) {
+		blockTypes = pickBy(blockTypes, (blockType) => {
 			return (
 				blockType.supports.editable === true &&
-				! blockType.supports.innerBlocks
+				!blockType.supports.innerBlocks
 			);
-		} );
+		});
 	}
 	const proBlocks = {
 		file: {
@@ -86,6 +86,7 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 			icon: <SignatureIcon />,
 		},
 		'thankyou-screen': {
+			title: 'Custom Thank You Screen & Redirect',
 			color: '#bf5c73',
 			icon: <ThankYouIcon />,
 		},
@@ -107,7 +108,7 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 	};
 	return (
 		<div className="admin-components-block-types-list">
-			{ map( keys( blockTypes ), ( blockName, index ) => {
+			{map(keys(blockTypes), (blockName, index) => {
 				let isDragDisabled = false;
 				if (
 					blockName === 'welcome-screen' &&
@@ -118,33 +119,33 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 
 				return (
 					<div
-						key={ blockName }
-						style={ {
+						key={blockName}
+						style={{
 							overflow: 'auto',
-						} }
+						}}
 					>
 						<div
-							className={ classnames(
+							className={classnames(
 								'admin-components-blocks-list__item-wrapper'
-							) }
+							)}
 						>
 							<BlockTypesListItem
-								destinationIndex={ destinationIndex }
-								parent={ parent }
-								index={ index }
-								blockName={ blockName }
-								disabled={ isDragDisabled }
+								destinationIndex={destinationIndex}
+								parent={parent}
+								index={index}
+								blockName={blockName}
+								disabled={isDragDisabled}
 							/>
 						</div>
 					</div>
 				);
-			} ) }
+			})}
 			<>
-				{ Object.keys( proBlocks ).map( ( blockName ) => {
-					if ( ! blockTypes[ blockName ] ) {
+				{Object.keys(proBlocks).map((blockName) => {
+					if (!blockTypes[blockName]) {
 						return (
 							<div
-								key={ blockName }
+								key={blockName}
 								className={
 									'admin-components-blocks-list__item-wrapper'
 								}
@@ -152,25 +153,25 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 								<div className="admin-components-blocks-list-item disabled">
 									<span
 										className="admin-components-blocks-list-item__icon-wrapper"
-										style={ {
+										style={{
 											backgroundColor:
-												proBlocks[ blockName ].color,
-										} }
+												proBlocks[blockName].color,
+										}}
 									>
 										<span className="admin-components-blocks-list-item__icon">
-											{ proBlocks[ blockName ].icon }
+											{proBlocks[blockName].icon}
 										</span>
 									</span>
 									<span className="admin-components-blocks-list-item__block-name">
-										{ proBlocks[ blockName ].title }
+										{proBlocks[blockName].title}
 									</span>
-									{ license?.status !== 'valid' ? (
+									{license?.status !== 'valid' ? (
 										<ProLabel />
 									) : (
 										<Button
 											isPrimary
 											isButton
-											className={ css`
+											className={css`
 												padding: 0 !important;
 												background-color: #1e87f0;
 
@@ -183,18 +184,18 @@ const BlockTypesList: React.FC< Props > = ( { destinationIndex, parent } ) => {
 											` }
 										>
 											<NavLink
-												to={ `/admin.php?page=quillforms&path=addons` }
+												to={`/admin.php?page=quillforms&path=addons`}
 											>
 												Install
 											</NavLink>
 										</Button>
-									) }
+									)}
 								</div>
 							</div>
 						);
 					}
 					return null;
-				} ) }
+				})}
 			</>
 		</div>
 	);
