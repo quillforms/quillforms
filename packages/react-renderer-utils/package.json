@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/react-renderer-utils",
-	"version": "5.2.11",
+	"version": "5.4.1",
 	"description": "> TODO: description",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
 	"keywords": [
@@ -17,29 +17,33 @@
 	"bugs": {
 		"url": "https://github.com/quillforms/quillforms/issues"
 	},
+	"engines": {
+		"node": ">=12"
+	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"sideEffects": false,
 	"dependencies": {
-		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
-		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",
-		"@quillforms/blocklib-email-block": "file:../blocklib-email-block",
-		"@quillforms/blocklib-group-block": "file:../blocklib-group-block",
-		"@quillforms/blocklib-long-text-block": "file:../blocklib-long-text-block",
-		"@quillforms/blocklib-multiple-choice-block": "file:../blocklib-multiple-choice-block",
-		"@quillforms/blocklib-number-block": "file:../blocklib-number-block",
-		"@quillforms/blocklib-short-text-block": "file:../blocklib-short-text-block",
-		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
-		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
-		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
-		"@quillforms/blocks": "file:../blocks"
+		"@quillforms/blocklib-date-block": "^3.0.41",
+		"@quillforms/blocklib-dropdown-block": "^3.0.41",
+		"@quillforms/blocklib-email-block": "^3.0.41",
+		"@quillforms/blocklib-group-block": "^3.0.41",
+		"@quillforms/blocklib-long-text-block": "^3.0.41",
+		"@quillforms/blocklib-multiple-choice-block": "^3.0.41",
+		"@quillforms/blocklib-number-block": "^3.0.41",
+		"@quillforms/blocklib-short-text-block": "^3.0.41",
+		"@quillforms/blocklib-statement-block": "^3.0.41",
+		"@quillforms/blocklib-website-block": "^3.0.41",
+		"@quillforms/blocklib-welcome-screen-block": "^3.0.41",
+		"@quillforms/blocks": "^4.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
-		"react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
 	},
 	"license": "GPL-2.0-or-later",
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }

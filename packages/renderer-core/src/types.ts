@@ -26,7 +26,7 @@ export type FormObj = {
 		showQuestionsNumbers?: boolean;
 		showLettersOnAnswers?: boolean;
 	};
-	hiddenFields: Object;
+	hiddenFields?: Object;
 	customCSS?: string;
 };
 
@@ -40,3 +40,21 @@ export type SubmissionDispatchers = {
 	setSubmissionErr: ( value: string ) => void;
 	setIsPending: ( flag: boolean ) => void;
 };
+
+type FontVariation = {
+	weight: number;
+	style: string;
+	files?: {
+		woff?: string;
+		woff2?: string;
+		eot?: string;
+		ttf?: string;
+		svg?: string;
+	}
+}
+export type CustomFont = {
+	title: string;
+	properties?: {
+		variations?: FontVariation[];
+	}
+}

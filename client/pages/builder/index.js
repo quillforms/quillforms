@@ -44,7 +44,7 @@ const Builder = ( { params } ) => {
 				hasBlockEditorFinishedResolution: select(
 					'quillForms/block-editor'
 				).hasFinishedResolution( 'getBlocks' ),
-				blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+				blockTypes: select( 'quillForms/blocks' ).getBlockTypes()
 			};
 		}
 	);

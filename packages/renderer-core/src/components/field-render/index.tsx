@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies

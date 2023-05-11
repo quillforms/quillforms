@@ -19,7 +19,6 @@ import { render } from 'react-dom';
 import {
 	Button,
 	VisuallyHidden,
-	CustomSelectControl,
 } from '@wordpress/components';
 
 const itemToString = ( item ) => {
@@ -78,12 +77,22 @@ const stateReducer = (
 	}
 };
 
-const SelectControl: React.FC< CustomSelectControl.Props > = ( {
+interface Props {
+	className?: string;
+	label?: string;
+	options?: object;
+	onChange: (item: any) => void;
+	value: any;
+}
+const SelectControl:React.FC<Props> = ( {
 	/** Start opting into the larger default height that will become the default size in a future version. */
+	// @ts-expect-error
 	__next36pxDefaultSize = false,
 	className,
+	// @ts-expect-error
 	hideLabelFromVision,
 	label,
+	// @ts-expect-error
 	describedBy,
 	options: items,
 	onChange: onSelectedItemChange,
@@ -98,7 +107,9 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 		highlightedIndex,
 		selectedItem,
 	} = useSelect( {
+		// @ts-expect-error
 		initialSelectedItem: items[ 0 ],
+		// @ts-expect-error
 		items,
 		itemToString,
 		onSelectedItemChange,
@@ -198,6 +209,7 @@ const SelectControl: React.FC< CustomSelectControl.Props > = ( {
 				{ /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */ }
 				<ul { ...menuProps } onKeyDown={ onKeyDownHandler }>
 					{ isOpen &&
+					    // @ts-expect-error
 						items.map( ( item, index ) => {
 							//console.log( item );
 							return (

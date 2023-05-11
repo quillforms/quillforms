@@ -6,7 +6,6 @@ import { useSelect } from '@wordpress/data';
  * Internal Dependencies
  */
 import DefaultMergeTag from './default-merge-tag';
-import { useEditableFields } from '../../hooks';
 import { FormBlocks } from '@quillforms/types/src';
 interface Props {
 	modifier: string;

@@ -494,7 +494,7 @@ class Store {
 				'plan'           => 'basic',
 				'is_integration' => false,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customfonts/icon.svg',
 				),
 			),
 			'calendlyblock'             => array(

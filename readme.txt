@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
-Stable tag: 2.9.1
+Stable tag: 2.10.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -81,6 +81,10 @@ By set up email notifications, you can get an email after each submission with t
 - Make integration
 - Monday.com integration
 - Zoho CRM integration
+- Freshsales CRM integration
+- ClickUp integration
+- custom fonts
+- Convertkit integration
 - Asana integration
 - Mautic integration
 - Bitrix24 integration
@@ -147,6 +151,12 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 2.10.0 = 11 May 2023
+Feature: Adding custom fonts addon.
+Feature: Adding Freshsales CRM integration.
+Feature: Adding ClickUp integration.
+Feature: Adding Convertkit integration.
 
 = 2.9.1 = 28 Apr 2023
 Fix: Fix merge tags issue with the redirect url.

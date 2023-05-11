@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/settings-editor",
-	"version": "3.0.22",
+	"version": "3.0.30",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/config": "file:../config"
+		"@quillforms/admin-components": "^3.0.30",
+		"@quillforms/config": "^3.0.15"
 	},
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
@@ -32,5 +32,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"gitHead": "a9dcd96dd59a8774ddfb52838ac1a88ab3dae142"
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
 }

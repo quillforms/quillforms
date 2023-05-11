@@ -150,6 +150,7 @@ const RichTextControlRenderer: React.FC< Props > = ( {
 						<div className="rich-text-control__add-merge-tags">
 							<Icon
 								icon={ plusCircle }
+								// @ts-expect-error
 								onClick={ ( e: MouseEvent ) => {
 									e.stopPropagation();
 

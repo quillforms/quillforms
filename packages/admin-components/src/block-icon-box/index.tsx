@@ -10,6 +10,7 @@ import type {
 /**
  * WordPress Dependencies
  */
+// @ts-expect-error
 import { Icon, Dashicon } from '@wordpress/components';
 import { plus } from '@wordpress/icons';
 
@@ -37,6 +38,7 @@ const BlockIconBox: FC< props > = ( { icon, order, color } ) => {
 			icon={
 				( ( icon as IconDescriptor )?.src as IconType )
 					? ( ( icon as IconDescriptor ).src as IconType )
+					// @ts-expect-error
 					: ( icon as Dashicon.Icon )
 			}
 		/>

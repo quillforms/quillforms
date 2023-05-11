@@ -78,6 +78,10 @@ class Admin {
 	 * @return integer|WP_Error|false
 	 */
 	public function duplicate_form() {
+		if(!current_user_can('manage_quillforms')) {
+			wp_send_json_error('Unauthorized');
+			return;
+		} 
 		$form_id = (int) $_POST['form_id'];
 		$form    = get_post( $form_id );
 		if ( ! $form ) {

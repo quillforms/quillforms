@@ -17,131 +17,132 @@ import classNames from 'classnames';
 import FontItem from './font-item';
 
 interface Props {
-	fonts: Record< string, string >;
+	fonts: Record<string, string>;
 	selectedFont: string;
-	setFont: ( font: string ) => void;
+	setFont: (font: string) => void;
 }
-const FontPicker: React.FC< Props > = ( { fonts, selectedFont, setFont } ) => {
-	const [ showList, setShowList ] = useState< boolean >( false );
-	const [ searchKeyword, setSearchKeyword ] = useState< string >( '' );
+const FontPicker: React.FC<Props> = ({ fonts, selectedFont, setFont }) => {
+	const [showList, setShowList] = useState<boolean>(false);
+	const [searchKeyword, setSearchKeyword] = useState<string>('');
 	const filteredFonts = pick(
 		fonts,
-		Object.keys( fonts ).filter( ( key ) =>
-			key.toLowerCase().includes( searchKeyword.toLowerCase() )
+		Object.keys(fonts).filter((key) =>
+			key.toLowerCase().includes(searchKeyword.toLowerCase())
 		)
 	);
-	const selectedFontIndex = Object.keys( fonts ).findIndex(
-		( fontKey ) => fontKey === selectedFont
+	const selectedFontIndex = Object.keys(fonts).findIndex(
+		(fontKey) => fontKey === selectedFont
 	);
-	const filteredFontsKeys = Object.keys( filteredFonts );
-	const wrapperRef = useRef< HTMLDivElement | null >( null );
-	const searchRef = useRef< HTMLInputElement | null >( null );
-	const listRef = useRef< List | null >( null );
+	const filteredFontsKeys = Object.keys(filteredFonts);
+	const wrapperRef = useRef<HTMLDivElement | null>(null);
+	const searchRef = useRef<HTMLInputElement | null>(null);
+	const listRef = useRef<List | null>(null);
 
-	const handleClickOutside = ( e: MouseEvent ) => {
+	const handleClickOutside = (e: MouseEvent) => {
 		if (
 			e.target &&
 			wrapperRef.current &&
-			! wrapperRef.current.contains( e.target as Node )
+			!wrapperRef.current.contains(e.target as Node)
 		) {
-			setShowList( false );
+			setShowList(false);
 		}
 	};
 
 	// Attaching the previous event with UseEffect hook
-	useEffect( () => {
+	useEffect(() => {
 		// Bind the event listener
-		document.addEventListener( 'mousedown', handleClickOutside );
+		document.addEventListener('mousedown', handleClickOutside);
 		return () => {
 			// Unbind the event listener on clean up
-			document.removeEventListener( 'mousedown', handleClickOutside );
+			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	} );
+	});
 
-	useEffect( () => {
-		if ( showList ) {
+	useEffect(() => {
+		if (showList) {
 			searchRef?.current?.focus();
-			setSearchKeyword( '' );
-			listRef?.current?.scrollToItem( selectedFontIndex, 'center' );
+			setSearchKeyword('');
+			if (selectedFontIndex > -1)
+				listRef?.current?.scrollToItem(selectedFontIndex, 'center');
 		} else {
-			setSearchKeyword( '' );
+			setSearchKeyword('');
 		}
-	}, [ showList ] );
+	}, [showList]);
 
 	return (
 		<div className="admin-components-font-picker">
 			<div
 				role="presentation"
-				className={ classNames(
+				className={classNames(
 					'admin-components-font-picker__select',
 					{ hidden: showList }
-				) }
-				onClick={ () => setShowList( true ) }
+				)}
+				onClick={() => setShowList(true)}
 			>
 				<div className="admin-components-font-picker__selected-font">
-					{ selectedFont }
+					{selectedFont}
 				</div>
-				<Icon icon={ chevronDown } />
+				<Icon icon={chevronDown} />
 			</div>
-			{ showList && (
+			{showList && (
 				<div
 					className="admin-components-font-picker__fonts-search-wrapper"
-					ref={ wrapperRef }
+					ref={wrapperRef}
 				>
 					<div className="admin-components-font-picker__search">
-						<Icon icon={ search } />
+						<Icon icon={search} />
 						<input
-							ref={ searchRef }
+							ref={searchRef}
 							className="admin-components-font-picker__input"
 							type="text"
-							value={ searchKeyword }
-							onChange={ ( e ) =>
-								setSearchKeyword( e.target.value )
+							value={searchKeyword}
+							onChange={(e) =>
+								setSearchKeyword(e.target.value)
 							}
 						/>
 					</div>
 					<List
-						width={ '100%' }
-						ref={ listRef }
-						overscanCount={ 12 }
+						width={'100%'}
+						ref={listRef}
+						overscanCount={12}
 						className="admin-components-font-picker__fonts-list"
-						height={ filteredFontsKeys.length > 0 ? 250 : 20 }
-						itemCount={ filteredFontsKeys.length }
-						itemSize={ 35 }
+						height={filteredFontsKeys.length > 0 ? 250 : 20}
+						itemCount={filteredFontsKeys.length}
+						itemSize={35}
 					>
-						{ ( { index, style } ) => {
+						{({ index, style }) => {
 							return (
 								<div
 									role="presentation"
 									className={
 										'admin-components-font-picker__fonts-list-item' +
-										( filteredFontsKeys[ index ] ===
-										selectedFont
+										(filteredFontsKeys[index] ===
+											selectedFont
 											? ' selected'
-											: '' )
+											: '')
 									}
-									style={ style }
-									onClick={ () => {
-										setFont( filteredFontsKeys[ index ] );
-										setTimeout( () => {
-											setShowList( false );
-										}, 100 );
-									} }
+									style={style}
+									onClick={() => {
+										setFont(filteredFontsKeys[index]);
+										setTimeout(() => {
+											setShowList(false);
+										}, 100);
+									}}
 								>
 									<FontItem
-										font={ filteredFontsKeys[ index ] }
+										font={filteredFontsKeys[index]}
 										fontType={
 											filteredFonts[
-												filteredFontsKeys[ index ]
+											filteredFontsKeys[index]
 											]
 										}
 									/>
 								</div>
 							);
-						} }
+						}}
 					</List>
 				</div>
-			) }
+			)}
 		</div>
 	);
 };

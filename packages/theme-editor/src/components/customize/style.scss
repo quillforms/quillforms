@@ -13,4 +13,17 @@
 		outline: none;
 		outline-offset: 0;
 	}
+
+	.fonts-hint {
+		background: #ebcaff;
+		color: #934cbf;
+		margin: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 5px
+	}
+	.fonts-hint div {
+		margin: 0 8px;
+	}
 }

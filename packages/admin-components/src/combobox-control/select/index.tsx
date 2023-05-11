@@ -6,6 +6,7 @@ import SelectControl from '../../select-control';
 /**
  * WordPress Dependencies
  */
+// @ts-expect-error
 import type { CustomSelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -35,6 +36,7 @@ const Select: React.FC< Props > = ( { hideChooseOption } ) => {
 		excerptLength,
 	} = useComboboxControlContext();
 
+	// @ts-expect-error
 	const SelectOptions: CustomSelectControl.Option[] = [
 		{
 			key: 'select',

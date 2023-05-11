@@ -14,6 +14,7 @@ import { sanitizeBlockAttributes } from '@quillforms/blocks';
  * WordPress Dependencies
  */
 import { memo, useState, useEffect } from 'react';
+// @ts-expect-error
 import { Icon, Dashicon } from '@wordpress/components';
 import { blockDefault, plus } from '@wordpress/icons';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -74,6 +75,7 @@ const BlockTypesListItem: FC< Props > = memo(
 				icon={
 					( ( icon as IconDescriptor ).src as IconType )
 						? ( ( icon as IconDescriptor ).src as IconType )
+						// @ts-expect-error
 						: ( icon as Dashicon.Icon )
 				}
 			/>

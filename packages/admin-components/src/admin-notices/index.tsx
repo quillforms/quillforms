@@ -6,6 +6,7 @@ import { filter } from 'lodash';
 /**
  * WordPress dependencies
  */
+// @ts-expect-error
 import { SnackbarList, NoticeList } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect } from 'react';
@@ -22,6 +23,7 @@ const AdminNotices = () => {
 
 	const snackbarNotices = filter( notices, {
 		type: 'snackbar',
+		// @ts-expect-error
 	} ) as Readonly< NoticeList.Notice[] >;
 
 	useEffect( () => {

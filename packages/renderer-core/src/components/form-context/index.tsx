@@ -1,17 +1,18 @@
 /**
  * WordPress Dependencies
  */
-import { createContext, useMemo } from 'react';
+import { createContext, useMemo } from '@wordpress/element';
 import { noop } from 'lodash';
-import { FormObj, SubmissionDispatchers } from '../../types';
+import { FormObj, CustomFont, SubmissionDispatchers } from '../../types';
 
 interface FormContext {
 	formObj: FormObj;
-	onSubmit: ( data: object, dispatchers: SubmissionDispatchers ) => void;
+	onSubmit: (data: object, dispatchers: SubmissionDispatchers) => void;
 	isPreview: boolean;
 	deviceWidth?: string;
+	customFonts?: CustomFont[];
 	formId?: number;
-	beforeGoingNext?: ( {
+	beforeGoingNext?: ({
 		setIsFieldValid,
 		setIsPending,
 		currentBlockId,
@@ -21,17 +22,17 @@ interface FormContext {
 		goToBlock,
 		goNext,
 	}: {
-		setIsFieldValid: ( id: string, flag: boolean ) => void;
-		setFieldValidationErr: ( id: string, err: string ) => void;
-		setIsPending: ( flag: boolean ) => void;
-		setIsCurrentBlockSafeToSwipe: ( flag: boolean ) => void;
-		goToBlock: ( id: string ) => void;
+		setIsFieldValid: (id: string, flag: boolean) => void;
+		setFieldValidationErr: (id: string, err: string) => void;
+		setIsPending: (flag: boolean) => void;
+		setIsCurrentBlockSafeToSwipe: (flag: boolean) => void;
+		goToBlock: (id: string) => void;
 		goNext: () => void;
 		currentBlockId: string;
-		answers: Record< string, unknown >;
-	} ) => void;
+		answers: Record<string, unknown>;
+	}) => void;
 }
-const FormContext = createContext< FormContext >( {
+const FormContext = createContext<FormContext>({
 	formObj: {
 		blocks: [],
 		messages: {},
@@ -47,14 +48,14 @@ const FormContext = createContext< FormContext >( {
 	},
 	onSubmit: noop,
 	isPreview: false,
-} );
+});
 
-const FormContextProvider = ( { children, value } ) => {
-	const memoizedValue = useMemo( () => value, Object.values( value ) );
+const FormContextProvider = ({ children, value }) => {
+	const memoizedValue = useMemo(() => value, Object.values(value));
 
 	return (
-		<FormContext.Provider value={ memoizedValue }>
-			{ children }
+		<FormContext.Provider value={memoizedValue}>
+			{children}
 		</FormContext.Provider>
 	);
 };

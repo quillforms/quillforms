@@ -3,7 +3,16 @@
  */
 import { TextControl } from '@wordpress/components';
 
-const CustomTextControl: React.FC< TextControl.Props > = ( props ) => {
+interface Props {
+	type?: string;
+	value?: string;
+	autoComplete?: string;
+	onChange: (val:string) => void;
+	placeholder?: string;
+	className?: string;
+}
+// @ts-ignore
+const CustomTextControl: React.FC<Props> = ( props ) => {
 	if ( props.autoComplete === undefined ) {
 		props = {
 			...props,
@@ -12,6 +21,7 @@ const CustomTextControl: React.FC< TextControl.Props > = ( props ) => {
 	}
 	return (
 		<div className={ 'admin-components-text-control' }>
+			{ /* @ts-expect-error */ }
 			<TextControl { ...props } />
 		</div>
 	);
