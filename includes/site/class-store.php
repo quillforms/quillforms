@@ -954,6 +954,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/airtable/icon.svg',
 				),
 			),
+			'trello'                    => array(
+				'name'           => esc_html__( 'Trello', 'quillforms' ),
+				'description'    => esc_html__( 'Trello addon allows you to send your form submissions to your Trello boards and lists.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-trello/quillforms-trello.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/trello/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
