@@ -369,6 +369,27 @@ function quillforms_register_packages_styles( $styles )
 
     quillforms_override_style(
         $styles,
+        'quillforms-blocklib-slider-block-admin-style',
+        quillforms_url('build/blocklib-slider-block/admin.css'),
+        array(),
+        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/blocklib-slider-block/admin.css')
+    );
+
+    $styles->add_data('quillforms-blocklib-slider-block-admin-style', 'rtl', 'replace');
+
+    quillforms_override_style(
+        $styles,
+        'quillforms-blocklib-slider-block-renderer-style',
+        quillforms_url('build/blocklib-slider-block/renderer.css'),
+        array(),
+        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/blocklib-slider-block/renderer.css')
+    );
+    $styles->add_data('quillforms-blocklib-slider-block-renderer-style', 'rtl', 'replace');
+
+
+
+    quillforms_override_style(
+        $styles,
         'quillforms-blocklib-date-block-renderer-style',
         quillforms_url('build/blocklib-date-block/renderer.css'),
         array(),

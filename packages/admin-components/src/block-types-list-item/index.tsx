@@ -27,8 +27,8 @@ import classNames from 'classnames';
 import { css } from 'emotion';
 import tinycolor from 'tinycolor2';
 
-const areEqual = ( prevProps: Props, nextProps: Props ): boolean => {
-	if ( prevProps.disabled === nextProps.disabled ) return true;
+const areEqual = (prevProps: Props, nextProps: Props): boolean => {
+	if (prevProps.disabled === nextProps.disabled) return true;
 	return false;
 };
 interface Props {
@@ -39,44 +39,44 @@ interface Props {
 	destinationIndex: number;
 	parent?: string;
 }
-const BlockTypesListItem: FC< Props > = memo(
-	( {
+const BlockTypesListItem: FC<Props> = memo(
+	({
 		disabled,
 		blockName,
 		index,
 		disableAnimation,
 		destinationIndex,
 		parent,
-	} ) => {
-		const [ isMounted, setIsMounted ] = useState( false );
+	}) => {
+		const [isMounted, setIsMounted] = useState(false);
 
-		useEffect( () => {
-			setTimeout( () => {
-				setIsMounted( true );
-			}, 50 );
-		}, [] );
-		const { blockType } = useSelect( ( select ) => {
+		useEffect(() => {
+			setTimeout(() => {
+				setIsMounted(true);
+			}, 50);
+		}, []);
+		const { blockType } = useSelect((select) => {
 			return {
 				blockType:
-					select( 'quillForms/blocks' ).getBlockType( blockName ),
+					select('quillForms/blocks').getBlockType(blockName),
 			};
-		} );
+		});
 
-		if ( ! blockType ) return null;
+		if (!blockType) return null;
 		let { icon } = blockType;
-		if ( ( icon as IconDescriptor )?.src === 'block-default' ) {
+		if ((icon as IconDescriptor)?.src === 'block-default') {
 			icon = {
 				src: blockDefault,
 			};
 		}
-		if ( ! icon ) icon = plus;
+		if (!icon) icon = plus;
 		const renderedIcon = (
 			<Icon
 				icon={
-					( ( icon as IconDescriptor ).src as IconType )
-						? ( ( icon as IconDescriptor ).src as IconType )
+					((icon as IconDescriptor).src as IconType)
+						? ((icon as IconDescriptor).src as IconType)
 						// @ts-expect-error
-						: ( icon as Dashicon.Icon )
+						: (icon as Dashicon.Icon)
 				}
 			/>
 		);
@@ -87,7 +87,7 @@ const BlockTypesListItem: FC< Props > = memo(
 			'quillForms/block-editor'
 		);
 		const generateBlockId = (): string => {
-			return Math.random().toString( 36 ).substr( 2, 9 );
+			return Math.random().toString(36).substr(2, 9);
 		};
 
 		/**
@@ -101,26 +101,26 @@ const BlockTypesListItem: FC< Props > = memo(
 		 */
 		const createBlock = (
 			name: string,
-			attributes: Record< string, unknown > = {}
+			attributes: Record<string, unknown> = {}
 		): FormBlock | void => {
 			// Blocks are stored with a unique ID, the assigned type name, the block
 			// attributes.
 			return {
 				id: generateBlockId(),
 				name,
-				attributes: sanitizeBlockAttributes( name, attributes ),
+				attributes: sanitizeBlockAttributes(name, attributes),
 			};
 		};
 
 		return (
 			<div
-				onClick={ ( e ) => {
-					if ( disabled ) return;
+				onClick={(e) => {
+					if (disabled) return;
 					e.stopPropagation();
-					const blockToInsert = createBlock( blockName );
-					if ( blockToInsert ) {
+					const blockToInsert = createBlock(blockName);
+					if (blockToInsert) {
 						// blockToInsert.id = generateBlockId();
-						if ( blockType.supports.editable )
+						if (blockType.supports.editable)
 							insertEmptyFieldAnswer(
 								blockToInsert.id,
 								blockName
@@ -130,30 +130,30 @@ const BlockTypesListItem: FC< Props > = memo(
 							destinationIndex,
 							parent
 						);
-						setTimeout( () => {
+						setTimeout(() => {
 							if (
-								! document.querySelector(
-									`#block-editor-box-wrapper-${ blockToInsert.id } .block-editor-block-edit`
+								!document.querySelector(
+									`#block-editor-box-wrapper-${blockToInsert.id} .block-editor-block-edit`
 								)
 							) {
-								setCurrentBlock( blockToInsert.id );
+								setCurrentBlock(blockToInsert.id);
 								document
 									?.getElementById(
-										`block-editor-box-wrapper-${ blockToInsert.id }`
+										`block-editor-box-wrapper-${blockToInsert.id}`
 									)
-									?.scrollIntoView( { behavior: 'smooth' } );
+									?.scrollIntoView({ behavior: 'smooth' });
 							}
-						}, 80 );
+						}, 80);
 					}
-				} }
-				className={ classNames(
+				}}
+				className={classNames(
 					'admin-components-blocks-list-item',
 					css`
 						&:not( .animation-disabled ) {
 							opacity: 0;
 							transform: translateX( -15px );
-							transition: transform 0.3s ease ${ index * 0.1 }s,
-								opacity 0.3s ease ${ index * 0.1 }s;
+							transition: transform 0.3s ease ${index * 0.1}s,
+								opacity 0.3s ease ${index * 0.1}s;
 
 							&.mounted {
 								opacity: 1;
@@ -161,9 +161,9 @@ const BlockTypesListItem: FC< Props > = memo(
 							}
 						}
 						&:hover {
-							background: ${ tinycolor( blockType?.color )
-								.setAlpha( 0.1 )
-								.toString() };
+							background: ${tinycolor(blockType?.color)
+							.setAlpha(0.1)
+							.toString()};
 							cursor: pointer;
 						}
 					`,
@@ -172,28 +172,28 @@ const BlockTypesListItem: FC< Props > = memo(
 						mounted: isMounted,
 						'animation-disabled': disableAnimation,
 					}
-				) }
+				)}
 			>
 				<span
 					className="admin-components-blocks-list-item__icon-wrapper"
-					style={ {
+					style={{
 						backgroundColor: blockType?.color
 							? blockType.color
 							: '#bb426f',
-					} }
+					}}
 				>
 					<span className="admin-components-blocks-list-item__icon">
-						{ renderedIcon }
+						{renderedIcon}
 					</span>
 				</span>
 				<span className="admin-components-blocks-list-item__block-name">
-					{ blockType?.title }
+					{blockType?.title}
 				</span>
-				{ blockType?.name === 'group' && (
+				{(blockType?.name === 'group' || blockType?.name === 'slider') && (
 					<div className="admin-components-control-label__new-feature">
 						NEW
 					</div>
-				) }
+				)}
 			</div>
 		);
 	},

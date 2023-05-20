@@ -1,0 +1,44 @@
+{
+	"name": "@quillforms/blocklib-slider-block",
+	"version": "1.0.0",
+	"description": "Single range slider block for quillforms",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"range",
+		"slider",
+		"block"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocklib-short-text-block/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/blocklib-short-text-block"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"sideEffects": false,
+	"dependencies": {
+		"@babel/runtime": "^7.16.0",
+		"@mui/material": "^5.13.1",
+		"@quillforms/admin-components": "file:../admin-components",
+		"@quillforms/renderer-core": "file:../renderer-core",
+		"classnames": "^2.3.1",
+		"emotion": "10.0.27",
+		"react-range-slider-input": "^3.0.7",
+		"rsuite": "^5.33.1",
+		"tinycolor2": "^1.4.2"
+	},
+	"peerDependencies": {
+		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+		"react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
+}

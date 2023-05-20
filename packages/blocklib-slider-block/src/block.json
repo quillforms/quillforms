@@ -1,0 +1,54 @@
+{
+	"name": "slider",
+	"supports": {
+		"editable": true,
+		"required": true,
+		"attachment": true,
+		"description": true,
+		"logic": true,
+		"defaultValue": true,
+		"theme": true,
+		"numeric": true,
+		"payments": true
+	},
+	"attributes": {
+		"min": {
+			"type": "number",
+			"default": 0
+		},
+		"max": {
+			"type": "number",
+			"default": 100
+		},
+		"step": {
+			"type": "number",
+			"default": 10
+		},
+		"prefix": {
+			"type": "string",
+			"default": ""
+		},
+		"suffix": {
+			"type": "string",
+			"default": ""
+		},
+		"marks": {
+			"type": "string",
+			"default": "no"
+		},
+		"customMarks": {
+			"type": "array",
+			"default": [{
+				"label": "",
+				"value": ""
+			}]
+		}
+
+	},
+	"logicalOperators": [
+		"is",
+		"is_not",
+		"greater_than",
+		"lower_than"
+	]
+}
