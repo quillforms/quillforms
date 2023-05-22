@@ -83,7 +83,8 @@ By set up email notifications, you can get an email after each submission with t
 - Zoho CRM integration
 - Freshsales CRM integration
 - ClickUp integration
-- custom fonts
+- Airtable integration
+- Custom fonts
 - Convertkit integration
 - Asana integration
 - Mautic integration
@@ -155,6 +156,7 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 = 2.10.0 = 11 May 2023
 Feature: Adding custom fonts addon.
 Feature: Adding Freshsales CRM integration.
+Feature: Adding Airtable integration.
 Feature: Adding ClickUp integration.
 Feature: Adding Convertkit integration.
 
