@@ -964,6 +964,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/trello/icon.svg',
 				),
 			),
+			'agilecrm'                  => array(
+				'name'           => esc_html__( 'AgileCRM', 'quillforms' ),
+				'description'    => esc_html__( 'Send new contacts, tasks to your AgileCRM account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-agilecrm/quillforms-agilecrm.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/agilecrm/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
