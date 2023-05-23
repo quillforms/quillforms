@@ -20,7 +20,7 @@ import type { FormObj, SubmissionDispatchers, CustomFont } from '../../types';
 /**
  * External Dependencies
  */
-import { size } from 'lodash';
+import { map, shuffle, size } from 'lodash';
 
 interface Props {
 	formId?: number;
@@ -102,6 +102,31 @@ const Form: React.FC<Props> = ({
 			showLettersOnAnswers: true,
 			...formObj.settings,
 		};
+
+		console.log(formObj);
+		formObj.blocks = map(formObj.blocks, ($block) => {
+			if (
+				(
+					$block.name === 'multiple-choice' ||
+					$block.name === 'dropdown' ||
+					$block.name === 'picture-choice'
+				) &&
+				$block?.attributes?.randomize
+				&& !isPreview
+			) {
+				return {
+					...$block,
+					attributes: {
+						...$block.attributes,
+						// @ts-expect-error
+						choices: shuffle($block?.attributes?.choices ?? [])
+					}
+				}
+			}
+
+			return $block;
+		})
+
 		// 'quillforms-redirection' is deprecated and will be removed.
 		if (
 			size(ParsedUrlSearch) > 0 &&

@@ -17,6 +17,7 @@ import { setBlockRendererSettings } from './set-block-renderer-settings';
 import type { BlockTypeSettings, BlockSupportedFeatures } from '../types';
 
 export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
+
 	return {
 		editable: true,
 		required: true,
@@ -121,6 +122,16 @@ export const registerBlockType = (
 		attributes.themeId = {
 			type: 'number',
 		};
+	}
+
+	if ( name === 'dropdown' ||
+		 name === 'multiple-choice' ||
+		 name === 'picture-choice' 
+	) {
+		attributes.randomize = {
+			type: 'boolean',
+			default: false
+		}
 	}
 	attributes.label = {
 		type: 'string',

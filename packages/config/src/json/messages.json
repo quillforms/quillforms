@@ -203,6 +203,32 @@
 		"default": "Please insert more than {{attribute:minCharacters}} characters!",
 		"category": "alerts"
 	},
+	"label.errorAlert.minChoices": {
+		"title": "If number of choices is lower than minimum value",
+		"allowedFormats": [ "bold", "link", "italic" ],
+		"mergeTags": [
+			{
+				"label": "min",
+				"type": "attribute",
+				"modifier": "min"
+			}
+		],
+		"default": "Please select at least {{attribute:min}} choices!",
+		"category": "alerts"
+	},
+	"label.errorAlert.maxChoices": {
+		"title": "If number of choices is higher than maximum value",
+		"allowedFormats": [ "bold", "link", "italic" ],
+		"mergeTags": [
+			{
+				"label": "max",
+				"type": "attribute",
+				"modifier": "max"
+			}
+		],
+		"default": "Maximum choices to select is {{attribute:max}}!",
+		"category": "alerts"
+	},
 	"label.submitBtn": {
 		"title": "Submit button label",
 		"allowedFormats": [ "bold", "link", "italic" ],

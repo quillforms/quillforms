@@ -20,6 +20,7 @@ export type DefaultAttributes = {
 	attachmentFancyBorderRadius?: boolean;
 	attachmentBorderRadius?: string;
 	themeId?: number;
+	radomize?: boolean;
 	layout?:
 		| 'stack'
 		| 'float-left'

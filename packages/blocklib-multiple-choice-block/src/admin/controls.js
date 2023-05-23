@@ -8,6 +8,7 @@ import {
 	ToggleControl,
 	ChoicesBulkBtn,
 	ChoicesInserter,
+	TextControl
 } from '@quillforms/admin-components';
 
 /**
@@ -15,9 +16,9 @@ import {
  */
 import { Fragment } from 'react';
 
-const multipleChoiceControls = ( props ) => {
+const multipleChoiceControls = (props) => {
 	const {
-		attributes: { multiple, verticalAlign, choices },
+		attributes: { multiple, verticalAlign, choices, min, max },
 		setAttributes,
 	} = props;
 	return (
@@ -26,20 +27,60 @@ const multipleChoiceControls = ( props ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Multiple" />
 					<ToggleControl
-						checked={ multiple }
-						onChange={ () =>
-							setAttributes( { multiple: ! multiple } )
+						checked={multiple}
+						onChange={() =>
+							setAttributes({ multiple: !multiple })
 						}
 					/>
 				</ControlWrapper>
 			</BaseControl>
+			{multiple && (
+				<>
+					<BaseControl>
+						<ControlWrapper orientation='horizontal'>
+							<ControlLabel label="Minimum limit for choices" isNew />
+							<ToggleControl checked={min} onChange={() => {
+								setAttributes({ min: min === false ? 1 : false });
+							}} />
+						</ControlWrapper>
+						{min !== false &&
+							<TextControl
+								type="number"
+								value={min}
+								onChange={(val) => {
+									setAttributes({ min: val });
+								}
+								}
+							/>
+						}
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation='horizontal'>
+							<ControlLabel label="Maximum limit for choices" isNew />
+							<ToggleControl checked={max} onChange={() => {
+								setAttributes({ max: max === false ? 5 : false });
+							}} />
+						</ControlWrapper>
+						{max !== false &&
+							<TextControl
+								type="number"
+								value={max}
+								onChange={(val) => {
+									setAttributes({ max: val });
+								}
+								}
+							/>
+						}
+					</BaseControl>
+				</>
+			)}
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Vertical Align" />
 					<ToggleControl
-						checked={ verticalAlign }
-						onChange={ () =>
-							setAttributes( { verticalAlign: ! verticalAlign } )
+						checked={verticalAlign}
+						onChange={() =>
+							setAttributes({ verticalAlign: !verticalAlign })
 						}
 					/>
 				</ControlWrapper>
@@ -48,18 +89,18 @@ const multipleChoiceControls = ( props ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Choices" />
 					<ChoicesBulkBtn
-						choices={ choices }
-						setChoices={ ( val ) => {
-							setAttributes( { choices: val } );
-						} }
+						choices={choices}
+						setChoices={(val) => {
+							setAttributes({ choices: val });
+						}}
 					/>
 				</ControlWrapper>
 				<ControlWrapper orientation="vertical">
 					<ChoicesInserter
-						choices={ choices }
-						setChoices={ ( val ) => {
-							setAttributes( { choices: val } );
-						} }
+						choices={choices}
+						setChoices={(val) => {
+							setAttributes({ choices: val });
+						}}
 					/>
 				</ControlWrapper>
 			</BaseControl>

@@ -32,6 +32,14 @@
 			}
 		  ]
 		},
+		"max": {
+			"type": ["number", "boolean"],
+			"default": false
+		  },
+		  "min": {
+			"type": ["number", "boolean"],
+			"default": false
+		  },
 		"verticalAlign": {
 			"type": "boolean",
 			"default": false

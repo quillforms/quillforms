@@ -24,6 +24,8 @@ export type FormMessages = {
 	'label.errorAlert.minNum'?: string;
 	'label.errorAlert.maxNum'?: string;
 	'label.errorAlert.maxCharacters'?: string;
+	'label.errorAlert.minChoices'?: string;
+	'label.errorAlert.maxChoices'?: string;
 	'label.submitBtn'?: string;
 	'label.errorAlert.noConnection'?: string;
 	'label.errorAlert.serverError'?: string;

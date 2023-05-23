@@ -46,13 +46,13 @@ interface Props {
 	desc: Node[];
 	isSelected: boolean;
 	focusedEl: FocusedEl;
-	setFocusedEl: ( value: FocusedEl ) => void;
-	setLabelJsonVal: ( value: Node[] ) => void;
-	setDescJsonVal: ( value: Node[] ) => void;
+	setFocusedEl: (value: FocusedEl) => void;
+	setLabelJsonVal: (value: Node[]) => void;
+	setDescJsonVal: (value: Node[]) => void;
 }
-const BlockEdit: React.FC< Props > = ( props ) => {
+const BlockEdit: React.FC<Props> = (props) => {
 	const { setBlockAttributes, setCurrentBlock, setCurrentChildBlock } =
-		useDispatch( 'quillForms/block-editor' );
+		useDispatch('quillForms/block-editor');
 
 	const {
 		attributes,
@@ -77,88 +77,88 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 
 	let attachment;
 
-	if ( attributes?.attachment ) {
+	if (attributes?.attachment) {
 		attachment = attributes.attachment;
 	}
 
-	const { blockTypes } = useSelect( ( select ) => {
+	const { blockTypes } = useSelect((select) => {
 		return {
-			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			blockTypes: select('quillForms/blocks').getBlockTypes(),
 		};
-	} );
+	});
 
-	const { prevFields } = useSelect( ( select ) => {
+	const { prevFields } = useSelect((select) => {
 		return {
 			prevFields: select(
 				'quillForms/block-editor'
-			).getPreviousEditableFieldsWithOrder( id ),
+			).getPreviousEditableFieldsWithOrder(id),
 		};
-	} );
+	});
 
-	let mergeTags = prevFields.map( ( field ) => {
+	let mergeTags = prevFields.map((field) => {
 		return {
 			type: 'field',
 			label: field?.attributes?.label,
 			modifier: field.id,
-			icon: blockTypes[ field.name ]?.icon,
-			color: blockTypes[ field.name ]?.color,
+			icon: blockTypes[field.name]?.icon,
+			color: blockTypes[field.name]?.color,
 			order: field.order,
 		};
-	} );
+	});
 	mergeTags = mergeTags.concat(
-		applyFilters( 'QuillForms.Builder.MergeTags', [] ) as any[]
+		applyFilters('QuillForms.Builder.MergeTags', []) as any[]
 	);
 
 	let currentEditor = labelEditor;
-	if ( focusedEl === 'desc' ) {
+	if (focusedEl === 'desc') {
 		currentEditor = descEditor;
 	}
 	// Serialize label is a debounced function that updates the store with serialized html value
 	const serializeLabel = useCallback(
-		debounce( ( value ) => {
-			setBlockAttributes( id, { label: serialize( value ) }, parentId );
-		}, 200 ),
+		debounce((value) => {
+			setBlockAttributes(id, { label: serialize(value) }, parentId);
+		}, 200),
 		[]
 	);
 
 	// Serialize description is a debounced function that updates the store with serialized html value
 	const serializeDesc = useCallback(
-		debounce( ( value ) => {
+		debounce((value) => {
 			setBlockAttributes(
 				id,
-				{ description: serialize( value ) },
+				{ description: serialize(value) },
 				parentId
 			);
-		}, 200 ),
+		}, 200),
 		[]
 	);
 
 	// Calling use Effect on mount to set the focus
 	// Because we use Intersection observer to determine the component should render on the scren or not,
 	// we keep the focusOn as an internal state so when the component mounts again, the focus can still work.
-	useEffect( () => {
-		if ( isSelected ) {
-			if ( focusedEl === 'label' || ! focusedEl ) {
-				ReactEditor.focus( labelEditor );
-			} else if ( focusedEl === 'desc' ) {
-				ReactEditor.focus( descEditor );
+	useEffect(() => {
+		if (isSelected) {
+			if (focusedEl === 'label' || !focusedEl) {
+				ReactEditor.focus(labelEditor);
+			} else if (focusedEl === 'desc') {
+				ReactEditor.focus(descEditor);
 			}
 		}
-	}, [] );
+	}, []);
 
 	// Title Change Handler
-	const labelChangeHandler = ( value: Node[] ) => {
-		if ( JSON.stringify( value ) !== JSON.stringify( label ) ) {
-			setLabelJsonVal( value );
-			serializeLabel( value );
+	const labelChangeHandler = (value: Node[]) => {
+		if (JSON.stringify(value) !== JSON.stringify(label)) {
+			setLabelJsonVal(value);
+			serializeLabel(value);
 		}
 	};
 
 	// Description Change Handler
-	const descChangeHandler = ( value ) => {
-		if ( JSON.stringify( value ) !== JSON.stringify( desc ) ) {
-			setDescJsonVal( value );
-			serializeDesc( value );
+	const descChangeHandler = (value) => {
+		if (JSON.stringify(value) !== JSON.stringify(desc)) {
+			setDescJsonVal(value);
+			serializeDesc(value);
 		}
 	};
 
@@ -167,26 +167,26 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		() => (
 			<div className="block-editor-block-edit__title-editor">
 				<TextEditor
-					editor={ labelEditor }
+					editor={labelEditor}
 					placeholder="Type question here..."
 					color="#262627"
-					mergeTags={ mergeTags }
-					value={ label }
-					onChange={ ( value ) => labelChangeHandler( value ) }
-					onFocus={ () => {
-						if ( parentId ) {
-							setCurrentBlock( parentId );
-							setCurrentChildBlock( id );
+					mergeTags={mergeTags}
+					value={label}
+					onChange={(value) => labelChangeHandler(value)}
+					onFocus={() => {
+						if (parentId) {
+							setCurrentBlock(parentId);
+							setCurrentChildBlock(id);
 						} else {
-							setCurrentBlock( id );
+							setCurrentBlock(id);
 						}
-						setFocusedEl( 'label' );
-					} }
-					allowedFormats={ [ 'bold', 'italic', 'link' ] }
+						setFocusedEl('label');
+					}}
+					allowedFormats={['bold', 'italic', 'link']}
 				/>
 			</div>
 		),
-		[ JSON.stringify( label ), JSON.stringify( mergeTags ), index ]
+		[JSON.stringify(label), JSON.stringify(mergeTags), index]
 	);
 
 	// Description Rich Text Editor
@@ -194,58 +194,58 @@ const BlockEdit: React.FC< Props > = ( props ) => {
 		() => (
 			<div className="block-editor-block-edit__desc-editor">
 				<TextEditor
-					editor={ descEditor }
+					editor={descEditor}
 					placeholder="Write your description here"
 					color="#898989"
-					value={ desc }
-					mergeTags={ mergeTags }
-					onChange={ ( value ) => descChangeHandler( value ) }
-					onFocus={ () => {
-						if ( parentId ) {
-							setCurrentBlock( parentId );
-							setCurrentChildBlock( id );
+					value={desc}
+					mergeTags={mergeTags}
+					onChange={(value) => descChangeHandler(value)}
+					onFocus={() => {
+						if (parentId) {
+							setCurrentBlock(parentId);
+							setCurrentChildBlock(id);
 						} else {
-							setCurrentBlock( id );
+							setCurrentBlock(id);
 						}
-						setFocusedEl( 'desc' );
-					} }
-					allowedFormats={ [ 'bold', 'italic', 'link' ] }
+						setFocusedEl('desc');
+					}}
+					allowedFormats={['bold', 'italic', 'link']}
 				/>
 			</div>
 		),
-		[ JSON.stringify( desc ), JSON.stringify( mergeTags ), index ]
+		[JSON.stringify(desc), JSON.stringify(mergeTags), index]
 	);
 
 	return (
 		<div className="block-editor-block-edit">
 			<div className="block-editor-block-edit__text-editor">
-				{ LabelEditor }
-				{ ! parentId && DescEditor }
+				{LabelEditor}
+				{!parentId && DescEditor}
 			</div>
-			{ attachment && attachment.type === 'image' && (
+			{attachment && attachment.type === 'image' && (
 				<BlockAttachment
-					id={ id }
-					parentId={ parentId }
-					blockColor={ blockColor }
-					attachment={ attachment }
+					id={id}
+					parentId={parentId}
+					blockColor={blockColor}
+					attachment={attachment}
 				/>
-			) }
+			)}
 			<BlockToolbar
-				parentIndex={ parentIndex }
-				parentId={ parentId }
-				id={ id }
-				index={ index }
-				editor={ currentEditor }
+				parentIndex={parentIndex}
+				parentId={parentId}
+				id={id}
+				index={index}
+				editor={currentEditor}
 			/>
 			<>
-				{ isContainer && (
+				{isContainer && (
 					<BlockChildrenContainer
-						innerBlocks={ innerBlocks }
-						index={ index }
-						id={ id }
-						parentColor={ blockTypes[ name ].color }
+						innerBlocks={innerBlocks}
+						index={index}
+						id={id}
+						parentColor={blockTypes[name].color}
 					/>
-				) }
+				)}
 			</>
 		</div>
 	);

@@ -261,6 +261,16 @@ abstract class Block_Type extends stdClass {
 			);
 		}
 
+		if ($this->name === 'dropdown' ||
+			$this->name === 'multiple-choice' ||
+			$this->name === 'picture-choice'
+		) {
+			$attributes_schema['randmize'] = array(
+				'type'    => 'boolean',
+				'default' => false,
+			);
+		}
+
 		$attributes_schema['label'] = array(
 			'type'    => 'string',
 			'default' => '',

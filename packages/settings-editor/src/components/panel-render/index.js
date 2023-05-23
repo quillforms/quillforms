@@ -27,7 +27,7 @@ const PanelRender = () => {
 		changeAnimationDirection,
 		showLettersOnAnswers,
 		showQuestionsNumbers,
-	} = useDispatch( 'quillForms/settings-editor' );
+	} = useDispatch('quillForms/settings-editor');
 
 	const {
 		isProgressBarDisabled,
@@ -36,7 +36,7 @@ const PanelRender = () => {
 		shouldLettersOnAnswersBeDisplayed,
 		shouldQuestionsNumbersBeDisplayed,
 		animationDirection,
-	} = useSelect( ( select ) => {
+	} = useSelect((select) => {
 		return {
 			isProgressBarDisabled: select(
 				'quillForms/settings-editor'
@@ -55,9 +55,9 @@ const PanelRender = () => {
 			).shouldLettersOnAnswersBeDisplayed(),
 			shouldQuestionsNumbersBeDisplayed: select(
 				'quillForms/settings-editor'
-			).shouldQuestionsNumbersBeDisplayed(),
+			).shouldQuestionsNumbersBeDisplayed()
 		};
-	} );
+	});
 
 	const animationOptions = [
 		{
@@ -73,34 +73,34 @@ const PanelRender = () => {
 		<div className="settings-editor-panel-render">
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={ 'Hide progress bar' } />
+					<ControlLabel label={'Hide progress bar'} />
 					<ToggleControl
-						checked={ isProgressBarDisabled }
-						onChange={ () =>
-							disableProgressBar( ! isProgressBarDisabled )
+						checked={isProgressBarDisabled}
+						onChange={() =>
+							disableProgressBar(!isProgressBarDisabled)
 						}
 					/>
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={ 'Disable swiping by wheel' } />
+					<ControlLabel label={'Disable swiping by wheel'} />
 					<ToggleControl
-						checked={ isWheelSwipingDisabled }
-						onChange={ () =>
-							disableWheelSwiping( ! isWheelSwipingDisabled )
+						checked={isWheelSwipingDisabled}
+						onChange={() =>
+							disableWheelSwiping(!isWheelSwipingDisabled)
 						}
 					/>
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={ 'Letters on answers' } isNew />
+					<ControlLabel label={'Letters on answers'} isNew />
 					<ToggleControl
-						checked={ shouldLettersOnAnswersBeDisplayed }
-						onChange={ () =>
+						checked={shouldLettersOnAnswersBeDisplayed}
+						onChange={() =>
 							showLettersOnAnswers(
-								! shouldLettersOnAnswersBeDisplayed
+								!shouldLettersOnAnswersBeDisplayed
 							)
 						}
 					/>
@@ -108,12 +108,12 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={ 'Questions numbers' } isNew />
+					<ControlLabel label={'Questions numbers'} isNew />
 					<ToggleControl
-						checked={ shouldQuestionsNumbersBeDisplayed }
-						onChange={ () =>
+						checked={shouldQuestionsNumbersBeDisplayed}
+						onChange={() =>
 							showQuestionsNumbers(
-								! shouldQuestionsNumbersBeDisplayed
+								!shouldQuestionsNumbersBeDisplayed
 							)
 						}
 					/>
@@ -121,12 +121,12 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={ 'Hide navigation arrows' } />
+					<ControlLabel label={'Hide navigation arrows'} />
 					<ToggleControl
-						checked={ isNavigationArrowsDisabled }
-						onChange={ () =>
+						checked={isNavigationArrowsDisabled}
+						onChange={() =>
 							disableNavigationArrows(
-								! isNavigationArrowsDisabled
+								!isNavigationArrowsDisabled
 							)
 						}
 					/>
@@ -134,18 +134,18 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={ 'Animation direction' } />
+					<ControlLabel label={'Animation direction'} />
 					<SelectControl
-						className={ css`
+						className={css`
 							margin-top: 5px;
 						` }
-						onChange={ ( { selectedItem } ) => {
-							changeAnimationDirection( selectedItem.key );
-						} }
-						options={ animationOptions }
-						value={ animationOptions.find(
-							( option ) => option.key === animationDirection
-						) }
+						onChange={({ selectedItem }) => {
+							changeAnimationDirection(selectedItem.key);
+						}}
+						options={animationOptions}
+						value={animationOptions.find(
+							(option) => option.key === animationDirection
+						)}
 					/>
 				</ControlWrapper>
 			</BaseControl>

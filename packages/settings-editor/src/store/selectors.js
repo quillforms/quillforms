@@ -1,24 +1,24 @@
-export function getSettings( state ) {
+export function getSettings(state) {
 	return state;
 }
-export function isProgressBarDisabled( state ) {
+export function isProgressBarDisabled(state) {
 	return state.disableProgressBar;
 }
-export function isWheelSwipingDisabled( state ) {
+export function isWheelSwipingDisabled(state) {
 	return state.disableWheelSwiping;
 }
-export function isNavigationArrowsDisabled( state ) {
+export function isNavigationArrowsDisabled(state) {
 	return state.disableNavigationArrows;
 }
 
-export function getAnimationDirection( state ) {
+export function getAnimationDirection(state) {
 	return state.animationDirection;
 }
 
-export function shouldLettersOnAnswersBeDisplayed( state ) {
+export function shouldLettersOnAnswersBeDisplayed(state) {
 	return state.showLettersOnAnswers;
 }
 
-export function shouldQuestionsNumbersBeDisplayed( state ) {
+export function shouldQuestionsNumbersBeDisplayed(state) {
 	return state.showQuestionsNumbers;
 }

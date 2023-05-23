@@ -57,6 +57,7 @@ const singleRangeSliderDisplay = (props) => {
 		}
 	};
 
+
 	useEffect(() => {
 		if (isPreview || !isReviewing) checkfieldValidation(val);
 	}, [attributes]);
@@ -98,8 +99,9 @@ const singleRangeSliderDisplay = (props) => {
 				renderTooltip={mark => {
 					return prefix + mark + suffix;
 				}}
-				value={typeof val === 'undefined' ? 0 : parseInt(val)}
+				value={typeof val === 'undefined' ? 0 : parseFloat(val)}
 				onChange={e => {
+					checkfieldValidation(e.target.value);
 					setVal(e.target.value);
 				}}
 			/>

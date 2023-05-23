@@ -7,48 +7,48 @@ import {
 	SHOW_LETTERS_ON_ANSWERS,
 	SHOW_QUESTIONS_NUMBERS,
 } from './constants';
-export const setUpStore = ( initialPayload ) => {
+export const setUpStore = (initialPayload) => {
 	return {
 		type: SETUP_STORE,
 		initialPayload,
 	};
 };
-export const disableProgressBar = ( flag ) => {
+export const disableProgressBar = (flag) => {
 	return {
 		type: DISABLE_PROGRESS_BAR,
 		flag,
 	};
 };
-export const disableWheelSwiping = ( flag ) => {
+export const disableWheelSwiping = (flag) => {
 	return {
 		type: DISABLE_WHEEL_SWIPING,
 		flag,
 	};
 };
 
-export const disableNavigationArrows = ( flag ) => {
+export const disableNavigationArrows = (flag) => {
 	return {
 		type: DISABLE_NAVIGATION_ARROWS,
 		flag,
 	};
 };
 
-export const changeAnimationDirection = ( direction ) => {
+export const changeAnimationDirection = (direction) => {
 	return {
 		type: CHANGE_ANIMATION_DIRECTION,
 		direction,
 	};
 };
 
-export const showLettersOnAnswers = ( flag ) => {
-	console.log( flag );
+export const showLettersOnAnswers = (flag) => {
+	console.log(flag);
 	return {
 		type: SHOW_LETTERS_ON_ANSWERS,
 		flag,
 	};
 };
 
-export const showQuestionsNumbers = ( flag ) => {
+export const showQuestionsNumbers = (flag) => {
 	return {
 		type: SHOW_QUESTIONS_NUMBERS,
 		flag,

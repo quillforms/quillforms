@@ -21,8 +21,8 @@ import { combineReducers } from '@wordpress/data';
  *
  * @return {Object} Updated state.
  */
-export function disableProgressBar( state = false, action ) {
-	switch ( action.type ) {
+export function disableProgressBar(state = false, action) {
+	switch (action.type) {
 		case DISABLE_PROGRESS_BAR:
 			return action.flag;
 
@@ -43,8 +43,8 @@ export function disableProgressBar( state = false, action ) {
  *
  * @return {Object} Updated state.
  */
-export function disableWheelSwiping( state = false, action ) {
-	switch ( action.type ) {
+export function disableWheelSwiping(state = false, action) {
+	switch (action.type) {
 		case DISABLE_WHEEL_SWIPING:
 			return action.flag;
 
@@ -66,8 +66,8 @@ export function disableWheelSwiping( state = false, action ) {
  *
  * @return {Object} Updated state.
  */
-export function disableNavigationArrows( state = false, action ) {
-	switch ( action.type ) {
+export function disableNavigationArrows(state = false, action) {
+	switch (action.type) {
 		case DISABLE_NAVIGATION_ARROWS:
 			return action.flag;
 
@@ -89,8 +89,8 @@ export function disableNavigationArrows( state = false, action ) {
  *
  * @return {Object} Updated state.
  */
-export function showLettersOnAnswers( state = true, action ) {
-	switch ( action.type ) {
+export function showLettersOnAnswers(state = true, action) {
+	switch (action.type) {
 		case SHOW_LETTERS_ON_ANSWERS:
 			return action.flag;
 
@@ -113,8 +113,8 @@ export function showLettersOnAnswers( state = true, action ) {
  *
  * @return {Object} Updated state.
  */
-export function showQuestionsNumbers( state = true, action ) {
-	switch ( action.type ) {
+export function showQuestionsNumbers(state = true, action) {
+	switch (action.type) {
 		case SHOW_QUESTIONS_NUMBERS:
 			return action.flag;
 
@@ -137,8 +137,8 @@ export function showQuestionsNumbers( state = true, action ) {
  *
  * @return {Object} Updated state.
  */
-export function animationDirection( state = false, action ) {
-	switch ( action.type ) {
+export function animationDirection(state = false, action) {
+	switch (action.type) {
 		case CHANGE_ANIMATION_DIRECTION:
 			return action.direction;
 
@@ -152,11 +152,11 @@ export function animationDirection( state = false, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducers({
 	disableProgressBar,
 	disableWheelSwiping,
 	disableNavigationArrows,
 	animationDirection,
 	showLettersOnAnswers,
 	showQuestionsNumbers,
-} );
+});
