@@ -156,6 +156,7 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 == Changelog ==
 
 = 2.11.0 = 23 May 2023
+Feature: Adding new slider question type.
 Feature: Adding AgileCRM addon.
 Feature: Adding Trello addon.
 Feature: Adding min and max for multiple choice question.
