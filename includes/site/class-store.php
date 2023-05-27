@@ -978,10 +978,20 @@ class Store {
 				'name'           => esc_html__( 'Capsule CRM', 'quillforms' ),
 				'description'    => esc_html__( 'Capsule CRM addon allows you to automatically create contacts and tasks in your Capsule CRM account when a form is submitted.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-capsulecrm/quillforms-capsulecrm.php',
-				'plan'           => 'basic',
+				'plan'           => 'plus',
 				'is_integration' => true,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/capsulecrm/icon.svg',
+				),
+			),
+			'drip'                      => array(
+				'name'           => esc_html__( 'Drip', 'quillforms' ),
+				'description'    => esc_html__( 'Drip addon allows you to connect your forms with Drip email marketing service. It allows you to add subscribers to your Drip account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-drip/quillforms-drip.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/drip/icon.svg',
 				),
 			),
 			'wpuserregistration'        => array(
