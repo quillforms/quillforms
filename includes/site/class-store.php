@@ -974,6 +974,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/agilecrm/icon.svg',
 				),
 			),
+			'capsulecrm'                => array(
+				'name'           => esc_html__( 'Capsule CRM', 'quillforms' ),
+				'description'    => esc_html__( 'Capsule CRM addon allows you to automatically create contacts and tasks in your Capsule CRM account when a form is submitted.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-capsulecrm/quillforms-capsulecrm.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/capsulecrm/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
