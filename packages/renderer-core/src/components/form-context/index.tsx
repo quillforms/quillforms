@@ -32,6 +32,7 @@ interface FormContext {
 		answers: Record<string, unknown>;
 	}) => void;
 }
+// @ts-expect-error
 const FormContext = createContext<FormContext>({
 	formObj: {
 		blocks: [],
@@ -48,7 +49,7 @@ const FormContext = createContext<FormContext>({
 	},
 	onSubmit: noop,
 	isPreview: false,
-});
+}) as Form;
 
 const FormContextProvider = ({ children, value }) => {
 	const memoizedValue = useMemo(() => value, Object.values(value));
