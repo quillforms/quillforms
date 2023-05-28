@@ -49,7 +49,7 @@ const FormContext = createContext<FormContext>({
 	},
 	onSubmit: noop,
 	isPreview: false,
-}) as Form;
+});
 
 const FormContextProvider = ({ children, value }) => {
 	const memoizedValue = useMemo(() => value, Object.values(value));
