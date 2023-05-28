@@ -7,6 +7,7 @@ export { default as useMessages } from './use-messages';
 export { default as useTheme } from './use-theme';
 export { default as useCurrentTheme } from './use-current-theme';
 export { default as useBlockTheme } from './use-block-theme';
+export { default as useRendererStoreActions } from './use-renderer-store-actions';
 export { default as useFormSettings } from './use-form-settings';
 export { default as useFormContext } from './use-form-context';
 export { default as useFormAnswers } from './use-form-answers';
