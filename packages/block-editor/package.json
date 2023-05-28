@@ -25,7 +25,6 @@
 		"@babel/runtime": "^7.9.6",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/config": "file:../config",
-		"@quillforms/rich-text": "file:../rich-text",
 		"@quillforms/theme-editor": "file:../theme-editor",
 		"@quillforms/types": "file:../types",
 		"@wordpress/data": "^9.2.0",
