@@ -32,8 +32,7 @@ interface FormContext {
 		answers: Record<string, unknown>;
 	}) => void;
 }
-// @ts-expect-error
-const FormContext = createContext<FormContext>({
+const FormContext: React.Context<FormContext> = createContext<FormContext>({
 	formObj: {
 		blocks: [],
 		messages: {},
