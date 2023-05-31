@@ -994,6 +994,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/drip/icon.svg',
 				),
 			),
+			'salesflare'                => array(
+				'name'           => esc_html__( 'Salesflare', 'quillforms' ),
+				'description'    => esc_html__( 'Salesflare addon makes it easy for you to connect your forms with your Salesflare account. With it, you can create contacts, companies and deals from your form submissions.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-salesflare/quillforms-salesflare.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesflare/icon.png',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
