@@ -996,7 +996,7 @@ class Store {
 			),
 			'salesflare'                => array(
 				'name'           => esc_html__( 'Salesflare', 'quillforms' ),
-				'description'    => esc_html__( 'Salesflare addon makes it easy for you to connect your forms with your Salesflare account. With it, you can create contacts, companies and deals from your form submissions.', 'quillforms' ),
+				'description'    => esc_html__( 'Salesflare addon makes it easy for you to connect your forms with your Salesflare account. With it, you can create contacts and tasks from your form submissions.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-salesflare/quillforms-salesflare.php',
 				'plan'           => 'basic',
 				'is_integration' => true,
