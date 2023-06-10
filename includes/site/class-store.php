@@ -423,6 +423,17 @@ class Store {
 	 */
 	private function define_addons() {
 		$addons = array(
+			'tco'                       => array(
+				'name'               => esc_html__( '2Checkout', 'quillforms' ),
+				'description'        => esc_html__( '2Checkout addon allows you to accept payments through 2Checkout payment gateway.', 'quillforms' ),
+				'plugin_file'        => 'quillforms-2checkout/quillforms-2checkout.php',
+				'plan'               => 'plus',
+				'is_payment_gateway' => true,
+				'assets'             => array(
+					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/2checkout/icon.png',
+					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/2checkout/icon-full.png',
+				),
+			),
 			'entries'                   => array(
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
