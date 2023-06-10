@@ -1015,6 +1015,19 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesflare/icon.png',
 				),
 			),
+			'emailoctopus'              => array(
+				'name'           => esc_html__( 'EmailOctopus', 'quillforms' ),
+				'description'    => esc_html__(
+					'EmailOctopus addon allows you to connect your forms with EmailOctopus to create subscribers.',
+					'quillforms'
+				),
+				'plugin_file'    => 'quillforms-emailoctopus/quillforms-emailoctopus.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/emailoctopus/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
