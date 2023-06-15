@@ -126,28 +126,28 @@ class Shortcode
         $atts = shortcode_atts(
             array(
                 'id' => null,
-                'buttonTitle' => 'Open Form',
-                'buttonBackgroundColor' => '#000000',
-                'buttonTextColor' => '#ffffff',
-                'buttonBorderRadius' => '24',
-                'buttonBorderWidth' => '0',
-                'buttonBorderColor' => '#000000',
-                'buttonFontSize' => '16',
-                'buttonPadding' => '10px 20px',
+                'buttontitle' => 'Open Form',
+                'buttonbackgroundcolor' => '#000000',
+                'buttontextColor' => '#ffffff',
+                'buttonborderradius' => '24',
+                'buttonborderwidth' => '0',
+                'buttonbordercolor' => '#000000',
+                'buttonfontsize' => '16',
+                'buttonpadding' => '10px 20px',
             ),
             $atts,
             'quillforms-popup'
         );
 
         $id     = (int) $atts['id'];
-        $buttonTitle = isset($atts['buttonTitle']) ? $atts['buttonTitle'] : 'Open Form';
-        $buttonBackgroundColor = isset($atts['buttonBackgroundColor']) ? $atts['buttonBackgroundColor'] : '#000000';
-        $buttonTextColor = isset($atts['buttonTextColor']) ? $atts['buttonTextColor'] : '#ffffff';
-        $buttonBorderRadius = isset($atts['buttonBorderRadius']) ? $atts['buttonBorderRadius'] : '24';
-        $buttonBorderWidth = isset($atts['buttonBorderWidth']) ? $atts['buttonBorderWidth'] : '0';
-        $buttonBorderColor = isset($atts['buttonBorderColor']) ? $atts['buttonBorderColor'] : '#000000';
-        $buttonFontSize = isset($atts['buttonFontSize']) ? $atts['buttonFontSize'] : '16';
-        $buttonPadding = isset($atts['buttonPadding']) ? $atts['buttonPadding'] : '10px 20px';
+        $buttonTitle = isset($atts['buttontitle']) ? $atts['buttontitle'] : 'Open Form';
+        $buttonBackgroundColor = isset($atts['buttonbackgroundcolor']) ? $atts['buttonbackgroundcolor'] : '#000000';
+        $buttonTextColor = isset($atts['buttontextcolor']) ? $atts['buttontextcolor'] : '#ffffff';
+        $buttonBorderRadius = isset($atts['buttonborderradius']) ? $atts['buttonborderradius'] : '24';
+        $buttonBorderWidth = isset($atts['buttonborderwidth']) ? $atts['buttonborderwidth'] : '0';
+        $buttonBorderColor = isset($atts['buttonbordercolor']) ? $atts['buttonbordercolor'] : '#000000';
+        $buttonFontSize = isset($atts['buttonfontsize']) ? $atts['buttonfontsize'] : '16';
+        $buttonPadding = isset($atts['buttonpadding']) ? $atts['buttonpadding'] : '10px 20px';
         $permalink = get_permalink($id);
         if ('quill_forms' !== get_post_type($id) ) {
             return 'Invalid form id';
@@ -172,6 +172,8 @@ class Shortcode
                 border-color: ' . $buttonBorderColor . ';
                 font-size: ' . $buttonFontSize . 'px;
                 padding: ' . $buttonPadding . ';
+                text-deocration: none;
+                cursor:pointer;
             "
                 data-url="' . $src . '"
                 data-formId="' . $id . '"
