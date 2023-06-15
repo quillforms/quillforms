@@ -1,4 +1,4 @@
- === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms, surveys, quizzes and cost estimations on WordPress ===
+ === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
 Stable tag: 2.12.0
@@ -57,15 +57,16 @@ By set up email notifications, you can get an email after each submission with t
 - Jump logic to jump between questions based on a set of conditions
 - Calculator for quizzes and cost estimations
 - Hidden fields and custom URL parameters
+- Track UTM Parameters
 - Zapier integration to connect with 3000+ apps
 - Webhooks
-- One time payment and subscriptions with Stripe checkout and Stripe elements.
-- One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal.
-- One time payment and subscriptions with authorize.net.
-- One time payment and subscriptions with Square.
-- One time payment and subscriptions with Mollie.
-- One time payment and subscriptions with Razorpay.
-- one time payments and subscriptions with 2checkout.
+- One time payment and subscriptions with Stripe checkout and Stripe elements
+- One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal
+- One time payment and subscriptions with authorize.net
+- One time payment and subscriptions with Square
+- One time payment and subscriptions with Mollie
+- One time payment and subscriptions with Razorpay
+- one time payments and subscriptions with 2checkout
 - GoogleSheets integration
 - MailChimp integration
 - Constant Contact integration
@@ -159,6 +160,9 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 2.12.1 = 15 June 2023
+Fix: Urgent Fix for pop up shortcode to be working properly.
 
 = 2.12.0 = 15 June 2023
 Feature: Adding new option for sharing the form in a popup and redesigning the share page.
