@@ -56,6 +56,7 @@ class Shortcode
     public function register()
     {
         add_shortcode('quillforms', array( $this, 'handler' ));
+        add_shortcode('quillforms-popup', array( $this, 'popup_handler' ));
     }
 
     /**
@@ -111,6 +112,84 @@ class Shortcode
 
         return "<iframe  data-max-height='$max_height' class='quillforms-iframe' scrolling='no' src='$src' width='$width' style='border:0;min-height:$min_height; max-height: $max_height'></iframe>";
 
+    }
+
+    /**
+     * Handle popup shortcode render
+     *
+     * @since 2.12.0
+     *
+     * @param  array $atts Shortcode attributes.
+     * @return string
+     */
+    public function popup_handler( $atts ) {
+        $atts = shortcode_atts(
+            array(
+                'id' => null,
+                'buttonTitle' => 'Open Form',
+                'buttonBackgroundColor' => '#000000',
+                'buttonTextColor' => '#ffffff',
+                'buttonBorderRadius' => '24',
+                'buttonBorderWidth' => '0',
+                'buttonBorderColor' => '#000000',
+                'buttonFontSize' => '16',
+                'buttonPadding' => '10px 20px',
+            ),
+            $atts,
+            'quillforms-popup'
+        );
+
+        $id     = (int) $atts['id'];
+        $buttonTitle = isset($atts['buttonTitle']) ? $atts['buttonTitle'] : 'Open Form';
+        $buttonBackgroundColor = isset($atts['buttonBackgroundColor']) ? $atts['buttonBackgroundColor'] : '#000000';
+        $buttonTextColor = isset($atts['buttonTextColor']) ? $atts['buttonTextColor'] : '#ffffff';
+        $buttonBorderRadius = isset($atts['buttonBorderRadius']) ? $atts['buttonBorderRadius'] : '24';
+        $buttonBorderWidth = isset($atts['buttonBorderWidth']) ? $atts['buttonBorderWidth'] : '0';
+        $buttonBorderColor = isset($atts['buttonBorderColor']) ? $atts['buttonBorderColor'] : '#000000';
+        $buttonFontSize = isset($atts['buttonFontSize']) ? $atts['buttonFontSize'] : '16';
+        $buttonPadding = isset($atts['buttonPadding']) ? $atts['buttonPadding'] : '10px 20px';
+        $permalink = get_permalink($id);
+        if ('quill_forms' !== get_post_type($id) ) {
+            return 'Invalid form id';
+        }
+
+        $src = add_query_arg(
+            array(
+                'quillforms-shortcode'   => true,
+                'quillforms-redirection' => 'top', // @deprecated 1.11.1
+            ),
+            $permalink
+        );
+
+        wp_enqueue_script('quillforms-popup');
+        wp_enqueue_style('quillforms-popup-style');
+        return '<div class="quillforms-popup-button-wrapper">
+            <a class="quillforms-popup-button" style="
+                background-color: ' . $buttonBackgroundColor . ';
+                color: ' . $buttonTextColor . ';
+                border-radius: ' . $buttonBorderRadius . 'px;
+                border-width: ' . $buttonBorderWidth . 'px;
+                border-color: ' . $buttonBorderColor . ';
+                font-size: ' . $buttonFontSize . 'px;
+                padding: ' . $buttonPadding . ';
+            "
+                data-url="' . $src . '"
+                data-formId="' . $id . '"
+            >
+                ' . $buttonTitle . '
+            </a>
+            <div class="quillforms-popup-overlay" data-formId="' . $id . '">
+                <div class="quillforms-popup-container">
+                    <div class="quillforms-popup-close">
+                        <svg fill="currentColor" height="32" width="32" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+                    </div>
+                    <div class="quillforms-popup-iframe-wrapper">
+                        <iframe src="' . $src . '" width="100%" height="100%" style="border:0;max-height: auto !important; max-width: auto !important;"></iframe>
+                        <div class="quillforms-popup-loader"><div class="quillforms-loading-circle"></div></div>
+                    </div>
+                </div>
+            </div>
+            </div>';
     }
 
 }

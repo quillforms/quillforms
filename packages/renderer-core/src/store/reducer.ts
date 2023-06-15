@@ -414,7 +414,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				canSwipeNext: false,
 				canSwipePrev: false,
 				isThankyouScreenActive: true,
-				currentBlockId: nextBlockId
+				currentBlockId: nextBlockId && state.thankyouScreens.find(screen => screen.id === nextBlockId)
 					? nextBlockId
 					: thankyouScreens[ 0 ]?.id
 					? thankyouScreens[ 0 ].id

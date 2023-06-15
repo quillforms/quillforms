@@ -1,0 +1,42 @@
+.quillforms-share-card {
+    cursor: pointer;
+}
+.quillforms-share-card:hover {
+    background:#f1f1f1;
+    
+}
+
+.quillforms-share-modal-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    width: 450px;
+}
+.quillforms-share-popup-settings-row {
+    padding: 20px 0;
+    border-bottom: 1px solid #d4d2d2;
+    max-width: 200px;
+}
+.quillforms-share-popup-settings-row label {
+    display: block;
+    margin-bottom: 10px;
+}
+.quillforms-share-popup-settings-row-padding-group span {
+    width: 50px;
+    display: inline-block;
+    margin: 10px 0;
+}
+.quillforms-share-popup-settings-row-padding-group input {
+    width: 50px;
+}
+.quillforms-share-popup-preview {
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    overflow: hidden;
+    border: 2px dashed #b4b2b2;
+}

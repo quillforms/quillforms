@@ -1,21 +1,23 @@
-.quillforms-integrations-page-header {
+.quillforms-integrations-page-header,
+.quillforms-share-page-header {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     max-width: 600px;
     margin: auto;
-
+    svg {
+        width: 300px;
+        height: 300px;
+    }
 }
-.quillforms-integrations-page-header svg {
-    width: 300px;
-    height: 300px;
-}
-.quillforms-integrations-page-heading {
+.quillforms-integrations-page-heading,
+.quillforms-share-page-heading {
     flex: 1;
     margin-left: 50px;
 }
-.quillforms-integrations-page-heading p:nth-child(1) {
+.quillforms-integrations-page-heading p:nth-child(1),
+.quillforms-share-page-heading p:nth-child(1) {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     font-size: 24px;
@@ -23,6 +25,7 @@
 
     /* line-break: anywhere; */
 }
+.quillforms-integrations-page-heading p:nth-child(2),
 .quillforms-integrations-page-heading p:nth-child(2) {
     font-size: 14px
 }
@@ -46,13 +49,15 @@
     height: 26px;
     fill: #b1acac;
 }
-.quillforms-integrations-page__integrations-list {
+.quillforms-integrations-page__integrations-list,
+.quillforms-share-page-body {
     max-width: 900px;
     margin: auto;
     display:flex;
     flex-wrap: wrap;
 }
-.quillforms-integrations-page__integration-list-item {
+.quillforms-integrations-page__integration-list-item,
+.quillforms-share-card {
     background: #fff;
     display: flex;
     flex-flow: column;

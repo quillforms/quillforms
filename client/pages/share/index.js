@@ -9,44 +9,24 @@ import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from 'react';
 
 /**
+ * QuillForms Dependencies
+ */
+import configApi from '@quillforms/config';
+
+/**
  * External Dependencies
  */
 import { Bars as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
+import ShareBody from './body';
+import './style.scss';
 
-const Share = ( { params } ) => {
-	const { id } = params;
-	const [ isLoading, setIsLoading ] = useState( true );
-	const [ payload, setPayload ] = useState( null );
-
-	useEffect( () => {
-		apiFetch( {
-			path: `/wp/v2/quill_forms/${ id }`,
-			method: 'GET',
-		} ).then( ( res ) => {
-			setIsLoading( false );
-			setPayload( res );
-		} );
-	}, [] );
+const Share = ({ params }) => {
+	const initialPayload = configApi.getInitialPayload();
 	return (
-		<div className="">
-			{ isLoading ? (
-				<div
-					className={ css`
-						display: flex;
-						flex-wrap: wrap;
-						width: 100%;
-						min-height: 100vh;
-						justify-content: center;
-						align-items: center;
-					` }
-				>
-					<Loader color="#00BFFF" height={ 30 } width={ 30 } />
-				</div>
-			) : (
-				<></>
-			) }
-		</div>
+
+		<ShareBody payload={initialPayload} />
+
 	);
 };
 
