@@ -1,7 +1,7 @@
- === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms on WordPress ===
+ === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Forms, surveys, quizzes and cost estimations on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
-Stable tag: 2.11.0
+Stable tag: 2.12.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -65,6 +65,7 @@ By set up email notifications, you can get an email after each submission with t
 - One time payment and subscriptions with Square.
 - One time payment and subscriptions with Mollie.
 - One time payment and subscriptions with Razorpay.
+- one time payments and subscriptions with 2checkout.
 - GoogleSheets integration
 - MailChimp integration
 - Constant Contact integration
@@ -87,6 +88,10 @@ By set up email notifications, you can get an email after each submission with t
 - Custom fonts
 - Convertkit integration
 - Asana integration
+- SalesFlare integration
+- Capsule CRM integration
+- EmailOctopus integration
+- Drip integration
 - Mautic integration
 - AgileCRM integration
 - Trello integration
@@ -104,7 +109,7 @@ By set up email notifications, you can get an email after each submission with t
 - Google Recaptcha
 - Rating block
 - WP User Registration
-- Advanced Post Creation to create any page, post or any custom post type after form submission
+- Advanced Post Creation to create any page, post or any custom post type after form submission with integration with ACF
 
 [Purchase The Pro Version](https://quillforms.com)
 
@@ -154,6 +159,15 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 2.12.0 = 15 June 2023
+Feature: Adding new option for sharing the form in a popup and redesigning the share page.
+Feature: Adding 2checkout payment addon.
+Feature: Adding Drip integration.
+Feature: Adding EmailOctopus integration.
+Feature: Adding SalesFlare inegration.
+Feature: Adding Capsule CRM integration.
+Fix: Fix an issue in submite button with the jump logic when the jump is backwards.
 
 = 2.11.0 = 23 May 2023
 Feature: Adding new slider question type.
