@@ -392,7 +392,7 @@ class Payments {
 				'name'         => 'Swiss franc',
 				'singular'     => 'Swiss franc',
 				'plural'       => 'Swiss francs',
-				'symbol'       => null,
+				'symbol'       => 'CHf',
 				'symbol_pos'   => 'left_space',
 				'num_decimals' => 2,
 				'decimal_sep'  => '.',
