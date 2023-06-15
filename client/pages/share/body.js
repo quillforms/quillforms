@@ -28,7 +28,6 @@ const ShareBody = ({ payload }) => {
         },
     });
 
-    console.log(popupSettings)
     const popupShortcode = `[quillforms-popup id="${payload?.id}" ${Object.keys(popupSettings).map(($key) => {
         if ($key === "buttonPadding") {
             return `buttonPadding="${Object.keys(popupSettings[$key]).map(($paddingKey) => {
