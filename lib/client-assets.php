@@ -237,6 +237,13 @@ function quillforms_register_packages_scripts( $scripts )
     );
 
     quillforms_override_script(
+        $scripts, 'quillforms-popup', QUILLFORMS_PLUGIN_URL . '/includes/render/popup.js',
+        array('jquery'),
+        QUILLFORMS_VERSION,
+        true
+    );
+
+    quillforms_override_script(
         $scripts,
         'quillforms-google-maps-places',
         'https://maps.googleapis.com/maps/api/js?key=' . Settings::get('google_maps_api_key') . '&libraries=places',
@@ -575,6 +582,15 @@ function quillforms_register_packages_styles( $styles )
     );
 
     $styles->add_data('quillforms-blocklib-welcome-screen-block-renderer-style', 'rtl', 'replace');
+
+    // Block Editor.
+    quillforms_override_style(
+        $styles,
+        'quillforms-popup-style',
+        quillforms_url('includes/render/popup.css'),
+        array(),
+        filemtime(QUILLFORMS_PLUGIN_DIR . 'includes/render/popup.css')
+    );
 
 }
 add_action('wp_default_scripts', 'quillforms_register_packages_scripts');

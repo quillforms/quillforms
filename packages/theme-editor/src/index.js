@@ -11,3 +11,5 @@ export { default as useCurrentTheme } from './hooks/use-current-theme';
 export { default as useCurrentThemeId } from './hooks/use-current-theme-id';
 export { default as ThemeCard } from './components/theme-card';
 export { default as ThemeListItem } from './components/themes-list-item';
+export { default as ComboColorPicker } from './components/combo-color-picker';
+export { default as ColorPicker } from './components/color-picker';

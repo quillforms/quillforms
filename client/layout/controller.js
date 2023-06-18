@@ -31,54 +31,54 @@ import License from '../pages/license';
 import System from '../pages/system';
 import Support from '../pages/support';
 
-export const Controller = ( { page, match, location } ) => {
-	useEffect( () => {
+export const Controller = ({ page, match, location }) => {
+	useEffect(() => {
 		window.document.documentElement.scrollTop = 0;
-	}, [] );
+	}, []);
 
-	const getQuery = ( searchString ) => {
-		if ( ! searchString ) {
+	const getQuery = (searchString) => {
+		if (!searchString) {
 			return {};
 		}
 
-		const search = searchString.substring( 1 );
-		return parse( search );
+		const search = searchString.substring(1);
+		return parse(search);
 	};
 
 	const { url, params } = match;
-	const query = getQuery( location.search );
+	const query = getQuery(location.search);
 
 	return (
 		// Using motion div with layoutScroll to reevaluate positions when the user scrolls.
 		<motion.div
 			layoutScroll
-			className={ classnames( 'qf-page-component-wrapper', {
-				'has-sidebar': ! page.template || page.template === 'default',
-			} ) }
+			className={classnames('qf-page-component-wrapper', {
+				'has-sidebar': !page.template || page.template === 'default',
+			})}
 		>
 			<page.component
-				params={ params }
-				path={ url }
-				pathMatch={ page.path }
-				query={ query }
+				params={params}
+				path={url}
+				pathMatch={page.path}
+				query={query}
 			/>
 			<AdminNotices />
 		</motion.div>
 	);
 };
 
-registerAdminPage( 'home', {
+registerAdminPage('home', {
 	component: Home,
 	path: '/',
-} );
+});
 
-registerAdminPage( 'builder', {
+registerAdminPage('builder', {
 	component: Builder,
 	path: '/forms/:id/builder/',
 	template: 'full-screen',
-	header: ( { match } ) => {
+	header: ({ match }) => {
 		const { params } = match;
-		return <FormAdminBar formId={ params.id } />;
+		return <FormAdminBar formId={params.id} />;
 	},
 	requiresInitialPayload: true,
 	connectedStores: [
@@ -88,76 +88,76 @@ registerAdminPage( 'builder', {
 		'quillForms/theme-editor',
 		'quillForms/document-editor',
 	],
-} );
+});
 
-registerAdminPage( 'share', {
-	component: Share,
-	path: '/forms/:id/share',
-	template: 'full-screen',
-	header: ( { match } ) => {
-		const { params } = match;
-		return <FormAdminBar formId={ params.id } />;
-	},
-} );
-
-registerAdminPage( 'results', {
+registerAdminPage('results', {
 	component: ResultsPage,
 	path: '/forms/:id/results',
 	template: 'full-screen',
-	header: ( { match } ) => {
+	header: ({ match }) => {
 		const { params } = match;
-		return <FormAdminBar formId={ params.id } />;
+		return <FormAdminBar formId={params.id} />;
 	},
-} );
+});
 
-registerAdminPage( 'payments', {
+registerAdminPage('payments', {
 	component: PaymentsPage,
 	path: '/forms/:id/payments',
 	template: 'full-screen',
-	header: ( { match } ) => {
+	header: ({ match }) => {
 		const { params } = match;
-		return <FormAdminBar formId={ params.id } />;
+		return <FormAdminBar formId={params.id} />;
 	},
 	requiresInitialPayload: true,
-} );
+});
 
-registerAdminPage( 'integrations', {
+registerAdminPage('integrations', {
 	component: IntegrationsPage,
 	path: '/forms/:id/integrations',
 	template: 'full-screen',
-	header: ( { match } ) => {
+	header: ({ match }) => {
 		const { params } = match;
-		return <FormAdminBar formId={ params.id } />;
+		return <FormAdminBar formId={params.id} />;
 	},
 	requiresInitialPayload: true,
-} );
+});
 
-registerAdminPage( 'addons', {
+registerAdminPage('share', {
+	component: Share,
+	path: '/forms/:id/share',
+	template: 'full-screen',
+	header: ({ match }) => {
+		const { params } = match;
+		return <FormAdminBar formId={params.id} />;
+	},
+	requiresInitialPayload: true,
+});
+registerAdminPage('addons', {
 	component: Addons,
 	path: 'addons',
-} );
+});
 
-registerAdminPage( 'settings', {
+registerAdminPage('settings', {
 	component: Settings,
 	path: 'settings',
-} );
+});
 
-registerAdminPage( 'license', {
+registerAdminPage('license', {
 	component: License,
 	path: 'license',
-} );
+});
 
-registerAdminPage( 'system', {
+registerAdminPage('system', {
 	component: System,
 	path: 'system',
-} );
+});
 
-registerAdminPage( 'support', {
+registerAdminPage('support', {
 	component: Support,
 	path: 'support',
-} );
+});
 
-registerAdminPage( 'not_found', {
+registerAdminPage('not_found', {
 	component: NotFoundPage,
 	path: '*',
-} );
+});

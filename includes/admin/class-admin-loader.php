@@ -59,8 +59,8 @@ class Admin_Loader {
 		* We have faced an issue when using emojis with Slate React rich text editor; they were converted to images.
 		* Now after removing this action, they are working correctly.
 		*/
-		remove_action( 'wp_head', 'print_emoji_detection_script', 20 );
-		add_action( 'admin_init', [ $this, 'disable_admin_emojis' ] );
+		//remove_action( 'wp_head', 'print_emoji_detection_script', 20 );
+		//add_action( 'admin_init', [ $this, 'disable_admin_emojis' ] );
 		// Remove DNS prefetch s.w.org (used for emojis, since WP 4.7)
 
 
@@ -200,9 +200,9 @@ class Admin_Loader {
 	public static function page_wrapper() {
 		?>
 		<?php
-		add_filter( 'emoji_svg_url', '__return_false' );
-		if ( get_site_option( 'initial_db_version' ) >= 32453 )
-			remove_action( 'init', 'smilies_init', 5 ); // This re
+		// add_filter( 'emoji_svg_url', '__return_false' );
+		// if ( get_site_option( 'initial_db_version' ) >= 32453 )
+		// 	remove_action( 'init', 'smilies_init', 5 ); // This re
 
 
 		// Load client script and style. Client is main app entry.

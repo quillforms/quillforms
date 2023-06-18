@@ -1,0 +1,92 @@
+body.quillforms-popup-active {
+    overflow: hidden;
+}
+.quillforms-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba( 0, 0, 0, 0.8 );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    visibility: hidden;
+}
+.quillforms-popup-overlay.active {
+    display: flex;
+    z-index: 999;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+}
+.quillforms-popup-overlay .quillforms-popup-close {
+    cursor: pointer;
+    padding: 8px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+.quillforms-popup-overlay .quillforms-popup-close svg {
+    width: 30px;
+    height: 30px;
+    fill: #fff;
+}
+
+.quillforms-popup-overlay .quillforms-popup-container {
+    position: relative;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.quillforms-popup-iframe-wrapper {
+    flex: 1;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+.quillforms-popup-iframe-wrapper:not(.active) iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+}
+.quillforms-popup-iframe-wrapper.active iframe {
+    display: block;
+    max-width: none !important;
+    max-height: none !important;
+}
+.quillforms-popup-iframe-wrapper.active .quillforms-popup-loader {
+    display: none;
+}
+
+.quillforms-popup-iframe-wrapper .quillforms-popup-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.quillforms-popup-iframe-wrapper .quillforms-popup-loader .quillforms-loading-circle {
+    width: 40px;
+    height: 40px;
+    border: 4px rgba(0,0,0,0) solid;
+    border-top: 4px #fff solid;
+    border-radius: 50%;
+    animation: spin-circle .8s infinite linear;
+}
+
+@-webkit-keyframes spin-circle {
+    from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+}
+
+@keyframes spin-circle {
+    from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+}
