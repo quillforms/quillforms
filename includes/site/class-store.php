@@ -1028,6 +1028,26 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/emailoctopus/icon.svg',
 				),
 			),
+			'moosend'                   => array(
+				'name'           => esc_html__( 'Moosend', 'quillforms' ),
+				'description'    => esc_html__( 'Moosend addon allows you to connect your forms with Moosend to grow your email list.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-moosend/quillforms-moosend.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/moosend/icon.svg',
+				),
+			),
+			'fluentcrm'                 => array(
+				'name'           => esc_html__( 'FluentCRM', 'quillforms' ),
+				'description'    => esc_html__( 'FluentCRM addon allows you to add contacts to your FluentCRM lists when a form is submitted.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-fluentcrm/quillforms-fluentcrm.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentcrm/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
