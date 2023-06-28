@@ -32,6 +32,7 @@ export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 		choices: false,
 		payments: false,
 		points: false,
+		correctAnswers: false
 	};
 };
 
