@@ -28,6 +28,10 @@
 			svg {
 				fill: #fff;
 			}
+
+			span {
+				color: #fff;
+			}
 		}
 
 		&:not(.active) .builder-core-builder-panel-nav-item__icon:hover {
@@ -51,6 +55,10 @@
 				height: 25px;
 				fill: #b7b6b5;
 				font-size: 24px;
+			}
+			
+			span {
+				color: #b7b6b5
 			}
 		}
 

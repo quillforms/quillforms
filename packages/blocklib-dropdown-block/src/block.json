@@ -1,5 +1,5 @@
 {
-	"name":"dropdown",
+	"name": "dropdown",
 	"attributes": {
 		"choices": {
 			"type": "array",
@@ -14,10 +14,12 @@
 					}
 				}
 			},
-			"default": [ {
-				"value": "123e45z7o89b",
-				"label": "Choice 1"
-			}]
+			"default": [
+				{
+					"value": "123e45z7o89b",
+					"label": "Choice 1"
+				}
+			]
 		}
 	},
 	"supports": {
@@ -29,7 +31,11 @@
 		"theme": true,
 		"points": true,
 		"payments": true,
-		"choices": true
+		"choices": true,
+		"correctAnswers": true
 	},
-	"logicalOperators" : ["is", "is_not"]
+	"logicalOperators": [
+		"is",
+		"is_not"
+	]
 }

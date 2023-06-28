@@ -9,44 +9,54 @@
 		"theme": true,
 		"points": true,
 		"payments": true,
-		"choices": true
+		"choices": true,
+		"correctAnswers": true
 	},
 	"attributes": {
 		"choices": {
-		  "type": "array",
-		  "items": {
-			"type": "object",
-			"properties": {
-			  "value": {
-				"type": "string"
-			  },
-			  "label": {
-				"type": "string"
-			  }
-			}
-		  },
-		  "default": [
-			{
-			  "value": "124e4567e89b",
-			  "label": "Choice 1"
-			}
-		  ]
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"value": {
+						"type": "string"
+					},
+					"label": {
+						"type": "string"
+					}
+				}
+			},
+			"default": [
+				{
+					"value": "124e4567e89b",
+					"label": "Choice 1"
+				}
+			]
 		},
 		"max": {
-			"type": ["number", "boolean"],
+			"type": [
+				"number",
+				"boolean"
+			],
 			"default": false
-		  },
-		  "min": {
-			"type": ["number", "boolean"],
+		},
+		"min": {
+			"type": [
+				"number",
+				"boolean"
+			],
 			"default": false
-		  },
+		},
 		"verticalAlign": {
 			"type": "boolean",
 			"default": false
 		},
 		"multiple": {
-		  "type": "boolean"
+			"type": "boolean"
 		}
 	},
-	"logicalOperators" : ["is", "is_not"]
+	"logicalOperators": [
+		"is",
+		"is_not"
+	]
 }
