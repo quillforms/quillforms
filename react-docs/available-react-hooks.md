@@ -2,6 +2,9 @@
 
 Here is a list  of the available React hooks that you can export from `@quillforms/renderer-core` package
 
+### useRendererStoreActions Hook
+For full documentation of this hook click [here](https://github.com/quillforms/quillforms/edit/master/react-docs/use-renderer-store-actions.md
+
 ### useCurrentBlock
 Gets the current block
 ```js
