@@ -8,7 +8,7 @@
 **Now supports Next JS**
 
 [Watch Demo](https://quillforms.com/quillforms/my-first-form/) <br>
-[Join Our Discord Channel](https://discord.gg/a5PDrzu8dE) 
+[Join Our Discord Channel](https://discord.gg/a5PDrzu8dE)  <br>
 [Join Our New Facebook Group](https://facebook.com/groups/quillforms/) 
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
