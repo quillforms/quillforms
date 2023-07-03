@@ -64,4 +64,11 @@ import { useRendererStoreActions } from "@quillforms/renderer-core";
 const { setFieldValidationErr } = useRendererStoreActions();
 ```
 
+### completeForm()
+This action is used to show the thank you screen and complete the form
+```js
+import { useRendererStoreActions } from "@quillforms/renderer-core";
+
+const { completeForm } = useRendererStoreActions();
+```
 
