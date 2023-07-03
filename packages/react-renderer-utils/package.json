@@ -32,7 +32,7 @@
 		"@quillforms/blocklib-multiple-choice-block": "file:../blocklib-multiple-choice-block",
 		"@quillforms/blocklib-number-block": "file:../blocklib-number-block",
 		"@quillforms/blocklib-short-text-block": "file:../blocklib-short-text-block",
-		"@quillforms/blocklib-slier-block": "file:../blocklib-slider-block",
+		"@quillforms/blocklib-slider-block": "file:../blocklib-slider-block",
 		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
 		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
 		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",

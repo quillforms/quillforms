@@ -10,11 +10,11 @@
 		"slider",
 		"block"
 	],
-	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocklib-short-text-block/README.md",
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocklib-slider-block/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/quillforms/quillforms.git",
-		"directory": "packages/blocklib-short-text-block"
+		"directory": "packages/blocklib-slider-block"
 	},
 	"bugs": {
 		"url": "https://github.com/quillforms/quillforms/issues"
