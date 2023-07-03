@@ -1,0 +1,11 @@
+import { registerBlockType } from '@quillforms/blocks';
+import { name, metadata } from '@quillforms/blocklib-slider-block';
+// eslint-disable-next-line no-restricted-syntax
+import rendererSettings from '@quillforms/blocklib-slider-block/build/renderer/settings';
+const register = () => {
+	registerBlockType( name, {
+		...metadata,
+		...rendererSettings,
+	} );
+};
+export default register;
