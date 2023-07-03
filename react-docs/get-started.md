@@ -362,7 +362,9 @@ Here is the list of the core blocks with the possible custom attributes that the
       "label": string;
     }[];  // Default:  [ { "value": "123e45z7o89b",	"label": "Choice 1" }]
     "verticalAlign": boolean; // Default : false
-    "multiple": boolean; // Default : false
+    "multiple": boolean; // Default : false,
+    "max": number | boolean // Default: false,
+    "min": number | boolean // Default: false
   }
 }
 ```
@@ -407,6 +409,7 @@ Here is the list of the core blocks with the possible custom attributes that the
     "step": number; // Default: 10
     "prefix": string; // Default: ""
     "suffix": string; // Default: ""
+  }
 }	
 ```
 ### 12- Group Block
