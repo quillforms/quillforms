@@ -397,6 +397,17 @@ Here is the list of the core blocks with the possible custom attributes that the
   }
 }
 ```
-
-### 11- Group Block
+### 11- Slider (New) 🚀🚀
+```js
+{
+  name: "slider",
+  attributes: {
+    "min":  number; // Default: 0
+    "max":  number; // Default: 100
+    "step": number; // Default: 10
+    "prefix": string; // Default: ""
+    "suffix": string; // Default: ""
+}	
+```
+### 12- Group Block
 [Please Read This Doc](https://github.com/quillforms/quillforms/blob/master/react-docs/group-block.md)
