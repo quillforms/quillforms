@@ -435,6 +435,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
 				),
 			),
+			'pdf'                       => array(
+				'name'           => esc_html__( 'PDF Entries Export', 'quillforms' ),
+				'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-pdf/quillforms-pdf.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/ratingblock/icon.svg',
+				),
+			),
 			'logic'                     => array(
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
