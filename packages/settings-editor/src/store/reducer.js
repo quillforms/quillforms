@@ -5,6 +5,7 @@ import {
 	CHANGE_ANIMATION_DIRECTION,
 	SHOW_QUESTIONS_NUMBERS,
 	SHOW_LETTERS_ON_ANSWERS,
+	SAVE_ANSWERS_IN_BROWSER,
 	SETUP_STORE,
 } from './constants';
 
@@ -106,6 +107,28 @@ export function showLettersOnAnswers(state = true, action) {
 }
 
 /**
+ * Save answers in browser.
+ * 
+ * @param { Object } state current state.
+ * @param { Object } action Dispatched action.
+ * 
+ * @return { Object } updated state.
+ */
+export function saveAnswersInBrowser(state = false, action) {
+	switch (action.type) {
+		case SAVE_ANSWERS_IN_BROWSER:
+			return action.flag;
+
+		case SETUP_STORE: {
+			return action.initialPayload?.saveAnswersInBrowser
+				? action.initialPayload?.saveAnswersInBrowser
+				: false;
+		}
+	}
+
+	return state;
+}
+/**
  * Show questions numbers.
  *
  * @param {Object} state  Current state.
@@ -159,4 +182,5 @@ export default combineReducers({
 	animationDirection,
 	showLettersOnAnswers,
 	showQuestionsNumbers,
+	saveAnswersInBrowser,
 });

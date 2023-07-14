@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/react-renderer-utils",
-	"version": "5.5.0",
+	"version": "5.7.2",
 	"description": "> TODO: description",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
 	"keywords": [
@@ -12,7 +12,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/quillforms/quillforms.git",
-		"directory": "packages/renderer-core"
+		"directory": "packages/react-renderer"
 	},
 	"bugs": {
 		"url": "https://github.com/quillforms/quillforms/issues"
@@ -24,18 +24,19 @@
 	"module": "build-module/index.js",
 	"sideEffects": false,
 	"dependencies": {
-		"@quillforms/blocklib-date-block": "^3.0.42",
-		"@quillforms/blocklib-dropdown-block": "^3.0.42",
-		"@quillforms/blocklib-email-block": "^3.0.42",
-		"@quillforms/blocklib-group-block": "^3.0.42",
-		"@quillforms/blocklib-long-text-block": "^3.0.42",
-		"@quillforms/blocklib-multiple-choice-block": "^3.0.42",
-		"@quillforms/blocklib-number-block": "^3.0.42",
-		"@quillforms/blocklib-short-text-block": "^3.0.42",
-		"@quillforms/blocklib-statement-block": "^3.0.42",
-		"@quillforms/blocklib-website-block": "^3.0.42",
-		"@quillforms/blocklib-welcome-screen-block": "^3.0.42",
-		"@quillforms/blocks": "^4.1.1"
+		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
+		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",
+		"@quillforms/blocklib-email-block": "file:../blocklib-email-block",
+		"@quillforms/blocklib-group-block": "file:../blocklib-group-block",
+		"@quillforms/blocklib-long-text-block": "file:../blocklib-long-text-block",
+		"@quillforms/blocklib-multiple-choice-block": "file:../blocklib-multiple-choice-block",
+		"@quillforms/blocklib-number-block": "file:../blocklib-number-block",
+		"@quillforms/blocklib-short-text-block": "file:../blocklib-short-text-block",
+		"@quillforms/blocklib-slider-block": "file:../blocklib-slider-block",
+		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
+		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
+		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
+		"@quillforms/blocks": "file:../blocks"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0",

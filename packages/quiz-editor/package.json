@@ -1,0 +1,43 @@
+{
+	"name": "@quillforms/quiz-editor",
+	"version": "5.4.1",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"quiz",
+		"editor"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/quiz-editor/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/renderer-core"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"types": "build-types",
+	"engines": {
+		"node": ">=12"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.16.0",
+		"@quillforms/blocks": "file:../blocks",
+		"@quillforms/config": "file:../config",
+		"@wordpress/data": "^9.2.0",
+		"@wordpress/element": "^5.9.0",
+		"@wordpress/hooks": "^3.32.0"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
+}

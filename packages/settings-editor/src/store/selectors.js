@@ -22,3 +22,7 @@ export function shouldLettersOnAnswersBeDisplayed(state) {
 export function shouldQuestionsNumbersBeDisplayed(state) {
 	return state.showQuestionsNumbers;
 }
+
+export function shouldAnswersBeSavedInBrowser(state) {
+	return state.saveAnswersInBrowser;
+}

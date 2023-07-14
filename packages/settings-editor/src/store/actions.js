@@ -6,6 +6,7 @@ import {
 	SETUP_STORE,
 	SHOW_LETTERS_ON_ANSWERS,
 	SHOW_QUESTIONS_NUMBERS,
+	SAVE_ANSWERS_IN_BROWSER
 } from './constants';
 export const setUpStore = (initialPayload) => {
 	return {
@@ -54,3 +55,10 @@ export const showQuestionsNumbers = (flag) => {
 		flag,
 	};
 };
+
+export const saveAnswersInBrowser = (flag) => {
+	return {
+		type: SAVE_ANSWERS_IN_BROWSER,
+		flag
+	}
+}

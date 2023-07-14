@@ -61,6 +61,7 @@ export type BlockSupportedFeatures = {
 	choices?: boolean;
 	payments?: boolean;
 	points?: boolean;
+	correctAnswers?: boolean;
 };
 
 type logicalOperator =

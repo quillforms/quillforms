@@ -13,6 +13,8 @@ import registerNumberBlock from './blocks/number';
 //@ts-ignore
 import registerShortTextBlock from './blocks/short-text';
 //@ts-ignore
+import registerSliderBlock from './blocks/slider';
+//@ts-ignore
 import registerStatementBlock from './blocks/statement';
 //@ts-ignore
 import registerWebsiteBlock from './blocks/website';
@@ -33,6 +35,7 @@ const registerCoreBlocks = () => {
 	registerWebsiteBlock();
 	registerWelcomeScreenBlock();
 	registerGroupBlock();
+	registerSliderBlock();
 };
 
 export default registerCoreBlocks;

@@ -27,6 +27,7 @@ const PanelRender = () => {
 		changeAnimationDirection,
 		showLettersOnAnswers,
 		showQuestionsNumbers,
+		saveAnswersInBrowser
 	} = useDispatch('quillForms/settings-editor');
 
 	const {
@@ -35,6 +36,7 @@ const PanelRender = () => {
 		isNavigationArrowsDisabled,
 		shouldLettersOnAnswersBeDisplayed,
 		shouldQuestionsNumbersBeDisplayed,
+		shouldAnswersBeSavedInBrowser,
 		animationDirection,
 	} = useSelect((select) => {
 		return {
@@ -55,7 +57,10 @@ const PanelRender = () => {
 			).shouldLettersOnAnswersBeDisplayed(),
 			shouldQuestionsNumbersBeDisplayed: select(
 				'quillForms/settings-editor'
-			).shouldQuestionsNumbersBeDisplayed()
+			).shouldQuestionsNumbersBeDisplayed(),
+			shouldAnswersBeSavedInBrowser: select(
+				'quillForms/settings-editor'
+			).shouldAnswersBeSavedInBrowser()
 		};
 	});
 
@@ -71,6 +76,17 @@ const PanelRender = () => {
 	];
 	return (
 		<div className="settings-editor-panel-render">
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel label={'Save Answers In User Browser'} isNew />
+					<ToggleControl
+						checked={shouldAnswersBeSavedInBrowser}
+						onChange={() =>
+							saveAnswersInBrowser(!shouldAnswersBeSavedInBrowser)
+						}
+					/>
+				</ControlWrapper>
+			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
 					<ControlLabel label={'Hide progress bar'} />

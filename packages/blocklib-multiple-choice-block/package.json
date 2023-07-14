@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-multiple-choice-block",
-	"version": "3.0.42",
+	"version": "3.0.43",
 	"description": "Multiple choice block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -27,8 +27,8 @@
 		"@emotion/css": "^11.10.5",
 		"@emotion/react": "^11.10.5",
 		"@emotion/styled": "^11.10.5",
-		"@quillforms/admin-components": "^3.0.31",
-		"@quillforms/renderer-core": "^5.4.0",
+		"@quillforms/admin-components": "^3.0.32",
+		"@quillforms/renderer-core": "^5.5.0",
 		"classnames": "^2.3.1",
 		"tinycolor2": "^1.4.2"
 	},
