@@ -442,7 +442,7 @@ class Store {
 				'plan'           => 'plus',
 				'is_integration' => true,
 				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/ratingblock/icon.svg',
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pdf/icon.svg',
 				),
 			),
 			'logic'                     => array(
