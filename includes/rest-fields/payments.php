@@ -111,6 +111,48 @@ $payments_schema = array(
 				),
 			),
 		),
+		'coupons'          => array(
+			'type'                 => 'object',
+			'required'             => false,
+			'additionalProperties' => array(
+				'type'       => 'object',
+				'properties' => array(
+					'name'            => array(
+						'type'     => 'string',
+						'required' => true,
+					),
+					'code'            => array(
+						'type'     => 'string',
+						'required' => true,
+					),
+					'discount_type'   => array(
+						'type'     => 'string',
+						'enum'     => array( 'percent', 'fixed' ),
+						'required' => true,
+					),
+					'discount_amount' => array(
+						'type'     => 'string',
+						'required' => true,
+					),
+					'start_date'      => array(
+						'type'     => 'string',
+						'required' => false,
+					),
+					'end_date'        => array(
+						'type'     => 'string',
+						'required' => false,
+					),
+					'usage_limit'     => array(
+						'type'     => 'string',
+						'required' => false,
+					),
+					'individual_use'  => array(
+						'type'     => 'boolean',
+						'required' => false,
+					),
+				),
+			),
+		),
 	),
 );
 

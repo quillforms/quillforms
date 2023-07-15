@@ -7,3 +7,5 @@ export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const SET_LABEL = 'SET_LABEL';
 export const SET_ERRORS = 'SET_ERRORS';
+export const ADD_COUPON = 'ADD_COUPON';
+export const UPDATE_COUPON = 'UPDATE_COUPON';
