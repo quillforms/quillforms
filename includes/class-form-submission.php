@@ -515,11 +515,13 @@ class Form_Submission {
 	 * @return array
 	 */
 	public function get_pending_submission_renderer_data() {
+		$hashed_submission_id = wp_hash( "quillforms_submission_{$this->submission_id}" );
 		return array(
-			'status'             => 'pending_payment',
-			'submission_id'      => $this->submission_id,
-			'payments'           => $this->get_payments_renderer_data(),
-			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
+			'status'               => 'pending_payment',
+			'submission_id'        => $this->submission_id,
+			'hashed_submission_id' => $hashed_submission_id,
+			'payments'             => $this->get_payments_renderer_data(),
+			'thankyou_screen_id'   => $this->get_thankyou_screen_id(),
 		);
 	}
 
@@ -650,6 +652,29 @@ class Form_Submission {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Update pending submission
+	 *
+	 * @since next.version
+	 *
+	 * @return boolean
+	 */
+	public function update_pending_submission() {
+		global $wpdb;
+
+		return (bool) $wpdb->update(
+			"{$wpdb->prefix}quillforms_pending_submissions",
+			array(
+				'entry'        => maybe_serialize( $this->entry ),
+				'form_data'    => maybe_serialize( $this->form_data ),
+				'date_created' => gmdate( 'Y-m-d H:i:s' ),
+			),
+			array( 'ID' => $this->submission_id ),
+			array( '%s', '%s', '%s' ),
+			array( '%d' )
+		);
 	}
 
 	/**

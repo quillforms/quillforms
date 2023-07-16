@@ -5,11 +5,17 @@ import { formatMoney } from '@quillforms/utils';
 import useGeneralTheme from '../../../hooks/use-general-theme';
 
 /**
+ * WordPress Dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * External Dependencies
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
 import tinycolor from 'tinycolor2';
+import Button from '../../button';
 /**
  * Internal Dependencies
  */
