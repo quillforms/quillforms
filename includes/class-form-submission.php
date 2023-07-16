@@ -667,13 +667,11 @@ class Form_Submission {
 		return (bool) $wpdb->update(
 			"{$wpdb->prefix}quillforms_pending_submissions",
 			array(
-				'entry'        => maybe_serialize( $this->entry ),
-				'form_data'    => maybe_serialize( $this->form_data ),
-				'date_created' => gmdate( 'Y-m-d H:i:s' ),
+				'entry'     => maybe_serialize( $this->entry ),
+				'form_data' => maybe_serialize( $this->form_data ),
 			),
 			array( 'ID' => $this->submission_id ),
-			array( '%s', '%s', '%s' ),
-			array( '%d' )
+			array( '%s', '%s' ),
 		);
 	}
 

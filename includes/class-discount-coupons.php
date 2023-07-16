@@ -233,16 +233,6 @@ class Discount_Coupons {
 			);
 		}
 
-		// Check coupon already used.
-		$payments = $this->form_submission->entry->get_meta_value( 'payments' );
-		error_log( wp_json_encode( $payments['coupons'] ?? array() ) . ' - ' . $coupon_id );
-		if ( isset( $payments['coupons'][ $coupon_id ] ) ) {
-			return array(
-				'valid' => false,
-				'error' => __( 'Coupon already used!', 'quillforms' ),
-			);
-		}
-
 		$coupon_data    = $this->coupons[ $coupon_id ];
 		$start_date     = $coupon_data['start_date'];
 		$end_date       = $coupon_data['end_date'];
