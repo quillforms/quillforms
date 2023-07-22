@@ -27,21 +27,21 @@ const Coupon: React.FC< Props > = ( { data } ) => {
 	const [ isPaying, setIsPaying ] = useState( false );
 	const [ showCoupon, setShowCoupon ] = useState( false );
 	const [ coupon, setCoupon ] = useState( '' );
+	const [ error, setError ] = useState( '' );
 	const { setPaymentData } = useDispatch( 'quillForms/renderer-core' );
 
 	const applyCoupon = async () => {
 		setIsPaying( true );
 		try {
-			const { submission_id, hashed_submission_id } = data;
+			const { submission_id, hashed_id } = data;
 			let response = await fetch(
 				configApi.getAdminUrl() + 'admin-ajax.php',
 				{
 					method: 'POST',
 					body: new URLSearchParams( {
 						action: 'quillforms_apply_discount',
-						formId: configApi.getFormId().toString(),
 						submissionId: submission_id,
-						hashedSubmissionId: hashed_submission_id,
+						hashedId: hashed_id,
 						coupon,
 					} ),
 				}
@@ -49,17 +49,16 @@ const Coupon: React.FC< Props > = ( { data } ) => {
 
 			let result = await response.json();
 			if ( result.success ) {
-				console.log( 'createSubscription: result', result, data );
-
 				// Update new products
 				const UpdatedData = { ...data };
-				UpdatedData.payments.discount_amount = result.data.amount;
+				UpdatedData.payments.discount_details = result.data.details;
+				UpdatedData.payments.discount_details[ 'coupon' ] = coupon;
 				setPaymentData( UpdatedData );
 			} else {
-				console.log( 'createSubscription: result', result, data );
+				setError( result.data );
 			}
 		} catch ( e ) {
-			console.log( 'createSubscription: error throwed', e );
+			console.log( 'applyCoupon: error throwed', e );
 			return {
 				success: false,
 				message:
@@ -70,6 +69,7 @@ const Coupon: React.FC< Props > = ( { data } ) => {
 		}
 
 		setIsPaying( false );
+		setCoupon( '' );
 	};
 	return (
 		<div className="renderer-core-payment-coupon">
@@ -143,6 +143,20 @@ const Coupon: React.FC< Props > = ( { data } ) => {
 							</span>
 						</button>
 					</div>
+				</div>
+			) }
+			{ error && (
+				<div
+					className={ classnames(
+						'renderer-core-payment-coupon__error',
+						css`
+							color: #a94442;
+							font-size: 14px;
+							margin-top: 10px;
+						`
+					) }
+				>
+					{ error }
 				</div>
 			) }
 		</div>

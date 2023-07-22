@@ -107,16 +107,6 @@ const Coupon = ({ id }) => {
                     type="number"
                     help={__('How many times the coupon can be used before it is void.', 'quillforms')}
                 />
-                <div className="coupon__status" style={{ marginTop: '20px' }}>
-                    <ToggleControl
-                        label={__('Individual Use', 'quillforms')}
-                        value={coupon.individual_use}
-                        onChange={(individual_use) =>
-                            updateCoupon(id, { individual_use })
-                        }
-                        help={__('Check this box if the coupon cannot be used in conjunction with other coupons.', 'quillforms')}
-                    />
-                </div>
             </PanelBody>
         </div>
     );

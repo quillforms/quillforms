@@ -9,8 +9,6 @@
 
 namespace QuillForms;
 
-use QuillForms\Addon\Payment_Gateway\Payment_Gateway;
-
 /**
  * Form Submission class.
  *
@@ -84,33 +82,88 @@ class Discount_Coupons {
 	 * @since 2.13.1
 	 */
 	private function __construct() {
+		// Ajax.
 		add_action( 'wp_ajax_quillforms_apply_discount', array( $this, 'apply_discount' ) );
 		add_action( 'wp_ajax_nopriv_quillforms_apply_discount', array( $this, 'apply_discount' ) );
+
+		add_action( 'wp_ajax_quillforms_delete_coupon', array( $this, 'delete_coupon' ) );
+		add_action( 'wp_ajax_nopriv_quillforms_delete_coupon', array( $this, 'delete_coupon' ) );
+
+		// Update coupon usage count.
+		add_action( 'quillforms_entry_payment_processed', array( $this, 'update_coupon_usage_count' ), 10, 3 );
+	}
+
+	/**
+	 * Update coupon usage count.
+	 *
+	 * @since 2.13.1
+	 *
+	 * @param int   $submission_id Submission id.
+	 * @param Entry $entry Entry.
+	 * @param array $form_data Form data.
+	 */
+	public function update_coupon_usage_count( $submission_id, $entry, $form_data ) {
+		$form_id                  = $entry->form_id;
+		$entry_payments           = $entry->meta['payments']['value'];
+		$entry_coupons            = $entry_payments['coupons'] ?? array();
+		$form_payments            = $form_data['payments'];
+		$form_coupons             = $form_payments['coupons'] ?? array();
+		$form_coupons_usage_count = $form_data['coupons_usage_count'] ?? array();
+		foreach ( $entry_coupons as $coupon_id => $coupon ) {
+			if ( ! isset( $form_coupons[ $coupon_id ] ) ) {
+				continue;
+			}
+
+			$usage_count                            = $form_coupons_usage_count[ $coupon_id ] ?? 0;
+			$usage_count                            = $usage_count + 1;
+			$form_coupons_usage_count[ $coupon_id ] = $usage_count;
+			update_post_meta( $form_id, 'coupons_usage_count', $form_coupons_usage_count );
+		}
+	}
+
+	/**
+	 * Delete coupon.
+	 *
+	 * @since 2.13.1
+	 *
+	 * @return void
+	 */
+	public function delete_coupon() {
+		$this->ajax_init_form_submission();
+		$coupon_code = sanitize_text_field( $_POST['coupon'] ?? '' );
+
+		if ( ! $coupon_code ) {
+			wp_send_json_error( esc_html__( 'Coupon not found', 'quillforms' ) );
+		}
+
+		$this->coupons = $this->form_submission->form_data['payments']['coupons'];
+
+		$coupon_id = $this->get_coupon_id( $coupon_code );
+		if ( ! $coupon_id ) {
+			wp_send_json_error( esc_html__( 'Coupon not found', 'quillforms' ) );
+		}
+
+		$payments = $this->form_submission->entry->get_meta_value( 'payments' );
+		$coupons  = $payments['coupons'] ?? array();
+		unset( $coupons[ $coupon_id ] );
+		$payments['coupons']           = $coupons;
+		$products                      = $payments['products'];
+		$payments['products']['total'] = $products['original_total'] ?? $products['total'];
+		$this->form_submission->entry->set_meta_value( 'payments', $payments );
+		$this->form_submission->update_pending_submission();
+
+		wp_send_json_success( esc_html__( 'Coupon deleted successfully', 'quillforms' ) );
 	}
 
 	/**
 	 * Apply discount.
 	 *
-	 * @since 1.0.0
+	 * @since 2.13.1
 	 */
 	public function apply_discount() {
-		$coupon_code          = sanitize_text_field( $_POST['coupon'] );
-		$form_id              = sanitize_text_field( $_POST['formId'] );
-		$submission_id        = sanitize_text_field( $_POST['submissionId'] );
-		$hashed_submission_id = sanitize_text_field( $_POST['hashedSubmissionId'] );
+		$this->ajax_init_form_submission();
 
-		// Check if submission id is valid.
-		if ( ! $this->is_valid_submission_id( $submission_id, $hashed_submission_id ) ) {
-			wp_send_json_error( __( 'Invalid submission id!', 'quillforms' ) );
-		}
-
-		$this->form_submission = Form_Submission::instance();
-		$restore               = $this->form_submission->restore_pending_submission( $submission_id );
-
-		if ( ! $restore ) {
-			wp_send_json_error( esc_html__( 'Cannot retrieve from submission', 'quillforms' ) );
-		}
-
+		$coupon_code   = sanitize_text_field( $_POST['coupon'] );
 		$this->coupons = $this->form_submission->form_data['payments']['coupons'];
 
 		// Check coupon valid.
@@ -125,27 +178,27 @@ class Discount_Coupons {
 		// Payments.
 		$payments = $this->form_submission->entry->get_meta_value( 'payments' );
 		$products = $payments['products'];
-		$amount   = $products['total'];
-
+		$amount   = $products['original_total'] ?? $products['total'];
 		// Apply coupon.
-		$amount = $this->apply_coupon( $amount );
+		$discount = $this->apply_coupon( $amount );
 
-		// Update coupon usage count.
-		// $this->update_coupon_usage_count( $coupon_id, $form_id );
-
-		error_log( wp_json_encode( $payments ) . ' updated payments' );
 		// Update entry.
-		$payments['original_total']        = $products['total'];
-		$payments['coupons'][ $coupon_id ] = $this->coupon;
-		$payments['products']['total']     = $amount;
-		error_log( wp_json_encode( $payments ) . ' updated payments' );
+		$payments['products']['original_total'] = $products['original_total'] ?? $products['total'];
+		$payments['coupons'][ $coupon_id ]      = $this->coupon;
+		$payments['products']['total']          = $discount['amount'];
 		$this->form_submission->entry->set_meta_value( 'payments', $payments );
 		$this->form_submission->update_pending_submission();
 
 		wp_send_json_success(
 			array(
 				'message' => esc_html__( 'Coupon applied successfully', 'quillforms' ),
-				'amount'  => $amount,
+				'details' => array(
+					'amount'          => $discount['amount'],
+					'discount'        => $discount['discount'],
+					'code'            => $coupon_code,
+					'type'            => $this->coupon['discount_type'],
+					'discount_amount' => $this->coupon['discount_amount'],
+				),
 			)
 		);
 	}
@@ -153,7 +206,7 @@ class Discount_Coupons {
 	/**
 	 * Apply coupon.
 	 *
-	 * @since 1.0.0
+	 * @since 2.13.1
 	 *
 	 * @param float $amount Amount.
 	 *
@@ -162,63 +215,27 @@ class Discount_Coupons {
 	private function apply_coupon( $amount ) {
 		$discount_type = $this->coupon['discount_type'];
 		$amount        = floatval( $amount );
+		$discount      = null;
 
 		if ( 'percent' === $discount_type ) {
-			$amount = $amount - ( $amount * ( $this->coupon['discount_amount'] / 100 ) );
+			$discount = $amount * ( $this->coupon['discount_amount'] / 100 );
 		} else {
-			$amount = $amount - $this->coupon['discount_amount'];
+			$discount = $this->coupon['discount_amount'];
 		}
 
-		// Round amount with 2 decimal places.
+		$amount = $amount - $discount;
 		$amount = round( $amount, 2 );
 
-		return $amount;
-	}
-
-	/**
-	 * Validate submission id.
-	 *
-	 * @since 1.10.0
-	 *
-	 * @param string $submission_id Submission id.
-	 * @param string $hashed_submission_id Hashed submission id.
-	 *
-	 * @return boolean
-	 */
-	private function is_valid_submission_id( $submission_id, $hashed_submission_id ) {
-		$submission_hash = wp_hash( "quillforms_submission_{$submission_id}" );
-
-		if ( $submission_hash !== $hashed_submission_id ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Update coupon usage count.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $coupon_id Coupon id.
-	 * @param int    $form_id   Form id.
-	 *
-	 * @return array
-	 */
-	private function update_coupon_usage_count( $coupon_id, $form_id ) {
-		$this->coupon = $this->coupons[ $coupon_id ];
-		$usage_count  = $this->coupon['usage_count'] ?? 0;
-		$usage_count ++;
-		$updated_payments = $this->form_submission->form_data['payments'];
-		$updated_payments['coupons'][ $coupon_id ]['usage_count'] = $usage_count;
-
-		update_post_meta( $form_id, 'payments', $updated_payments );
+		return array(
+			'amount'   => $amount,
+			'discount' => round( $discount, 2 ),
+		);
 	}
 
 	/**
 	 * Validate coupon.
 	 *
-	 * @since 1.0.0
+	 * @since 2.13.1
 	 *
 	 * @param string $coupon_code Coupon code.
 	 *
@@ -233,13 +250,12 @@ class Discount_Coupons {
 			);
 		}
 
-		$coupon_data    = $this->coupons[ $coupon_id ];
-		$start_date     = $coupon_data['start_date'];
-		$end_date       = $coupon_data['end_date'];
-		$usage_limit    = $coupon_data['usage_limit'];
-		$individual_use = $coupon_data['individual_use'];
-		$usage_count    = $coupon_data['usage_count'] ?? 0;
-		error_log( $usage_count . ' - count - limit - ' . $usage_limit );
+		$coupon_data = $this->coupons[ $coupon_id ];
+		$start_date  = $coupon_data['start_date'];
+		$end_date    = $coupon_data['end_date'];
+		$usage_limit = $coupon_data['usage_limit'];
+		$usage_count = $this->form_submission->form_data['coupons_usage_count'][ $coupon_id ] ?? 0;
+
 		// Check coupon expired.
 		if ( $start_date ) {
 			$today = strtotime( 'today' );
@@ -272,16 +288,6 @@ class Discount_Coupons {
 			}
 		}
 
-		// Check coupon individual use.
-		if ( $individual_use ) {
-			if ( ! empty( $this->form_submission->form_data['payments']['coupons'] ?? array() ) ) {
-				return array(
-					'valid' => false,
-					'error' => __( 'Coupon can not be used with other coupons!', 'quillforms' ),
-				);
-			}
-		}
-
 		// Return success.
 		return array(
 			'valid' => true,
@@ -292,7 +298,7 @@ class Discount_Coupons {
 	/**
 	 * Get coupon id from coupon code.
 	 *
-	 * @since 1.0.0
+	 * @since 2.13.1
 	 *
 	 * @param string $coupon_code Coupon code.
 	 *
@@ -305,6 +311,32 @@ class Discount_Coupons {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Initialize form submission for ajax request
+	 *
+	 * @since 2.13.1
+	 *
+	 * @return void
+	 */
+	private function ajax_init_form_submission() {
+		$submission_id = sanitize_text_field( $_POST['submissionId'] );
+		$hashed_id     = sanitize_text_field( $_POST['hashedId'] );
+
+		$this->form_submission = Form_Submission::instance();
+		$restore               = $this->form_submission->restore_pending_submission( $submission_id );
+
+		if ( ! $restore ) {
+			wp_send_json_error( esc_html__( 'Cannot retrieve from submission', 'quillforms' ) );
+			exit;
+		}
+
+		$entry_hashed_id = $this->form_submission->entry->get_meta_value( 'hashed_id' );
+		if ( $entry_hashed_id !== $hashed_id ) {
+			wp_send_json_error( esc_html__( 'Invalid submission', 'quillforms' ) );
+			exit;
+		}
 	}
 
 }

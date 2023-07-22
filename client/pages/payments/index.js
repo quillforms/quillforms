@@ -156,7 +156,7 @@ const PaymentsPage = ({ params }) => {
 			});
 			return;
 		}
-
+		console.log(coupons);
 		// save
 		apiFetch({
 			path:

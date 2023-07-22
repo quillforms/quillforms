@@ -16,11 +16,11 @@ defined( 'ABSPATH' ) || exit;
 $payments_schema = array(
 	'type'       => 'object',
 	'properties' => array(
-		'enabled'          => array(
+		'enabled'             => array(
 			'type'     => 'boolean',
 			'required' => true,
 		),
-		'currency'         => array(
+		'currency'            => array(
 			'type'       => 'object',
 			'required'   => true,
 			'properties' => array(
@@ -34,19 +34,19 @@ $payments_schema = array(
 				),
 			),
 		),
-		'methods'          => array(
+		'methods'             => array(
 			'type'                 => 'object',
 			'additionalProperties' => array(
 				'type' => 'object',
 			),
 		),
-		'gateways_options' => array(
+		'gateways_options'    => array(
 			'type'                 => 'object',
 			'additionalProperties' => array(
 				'type' => 'object',
 			),
 		),
-		'labels'           => array(
+		'labels'              => array(
 			'type'       => 'object',
 			'required'   => true,
 			'properties' => array(
@@ -68,7 +68,7 @@ $payments_schema = array(
 				),
 			),
 		),
-		'models'           => array(
+		'models'              => array(
 			'type'                 => 'object',
 			'required'             => true,
 			'additionalProperties' => array(
@@ -111,7 +111,7 @@ $payments_schema = array(
 				),
 			),
 		),
-		'coupons'          => array(
+		'coupons'             => array(
 			'type'                 => 'object',
 			'required'             => false,
 			'additionalProperties' => array(
@@ -146,11 +146,14 @@ $payments_schema = array(
 						'type'     => 'string',
 						'required' => false,
 					),
-					'individual_use'  => array(
-						'type'     => 'boolean',
-						'required' => false,
-					),
 				),
+			),
+		),
+		'coupons_usage_count' => array(
+			'type'     => 'array',
+			'required' => false,
+			'items'    => array(
+				'type' => 'integer',
 			),
 		),
 	),

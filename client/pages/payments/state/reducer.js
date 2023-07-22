@@ -209,13 +209,13 @@ const coupons = (state = {}, action) => {
 				default:
 					coupon = { ...state[action.id], ...action.coupon };
 			}
+
 			return {
 				...state,
 				[action.id]: coupon,
 			};
 		}
 	}
-	console.log(state);
 	return state;
 };
 

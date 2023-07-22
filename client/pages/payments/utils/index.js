@@ -81,7 +81,6 @@ const getCouponDefaultState = () => {
 		maximum_amount: '',
 		start_date: '',
 		end_date: '',
-		individual_use: false,
 		usage_limit: '',
 	}
 };
