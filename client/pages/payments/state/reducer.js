@@ -23,6 +23,7 @@ import {
 	SET_LABEL,
 	ADD_COUPON,
 	UPDATE_COUPON,
+	DELETE_COUPON
 } from './constants';
 
 /**
@@ -214,6 +215,10 @@ const coupons = (state = {}, action) => {
 				...state,
 				[action.id]: coupon,
 			};
+		}
+
+		case DELETE_COUPON: {
+			return omit({ ...state }, action.id);
 		}
 	}
 	return state;

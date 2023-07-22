@@ -283,7 +283,7 @@ class Discount_Coupons {
 			if ( $usage_count >= $usage_limit ) {
 				return array(
 					'valid' => false,
-					'error' => __( 'Coupon usage limit reached!', 'quillforms' ),
+					'error' => __( 'Coupon expired!', 'quillforms' ),
 				);
 			}
 		}

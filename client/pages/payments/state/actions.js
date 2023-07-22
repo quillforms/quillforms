@@ -13,6 +13,7 @@ import {
 	SET_ERRORS,
 	ADD_COUPON,
 	UPDATE_COUPON,
+	DELETE_COUPON
 } from './constants';
 
 export default (dispatch) => {
@@ -94,5 +95,11 @@ export default (dispatch) => {
 				mode,
 			});
 		},
+		deleteCoupon: (id) => {
+			dispatch({
+				type: DELETE_COUPON,
+				id,
+			});
+		}
 	};
 };

@@ -9,3 +9,4 @@ export const SET_LABEL = 'SET_LABEL';
 export const SET_ERRORS = 'SET_ERRORS';
 export const ADD_COUPON = 'ADD_COUPON';
 export const UPDATE_COUPON = 'UPDATE_COUPON';
+export const DELETE_COUPON = 'DELETE_COUPON';

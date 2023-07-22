@@ -40,6 +40,9 @@ const PaymentsContext = createContext({
 	},
 	updateCoupon: (_id, _coupon, _mode = 'recursive') => {
 		throw 'updateCoupon() not implemented.';
+	},
+	deleteCoupon: (_id) => {
+		throw 'deleteCoupon() not implemented.';
 	}
 });
 

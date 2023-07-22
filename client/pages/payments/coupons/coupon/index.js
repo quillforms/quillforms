@@ -1,18 +1,19 @@
 /**
  * QuillForms Dependencies.
  */
-import { Button, TextControl, SelectControl, ControlLabel, ControlWrapper } from '@quillforms/admin-components';
+import { TextControl, SelectControl, ControlLabel } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
  */
 import { usePaymentsContext } from '../../state/context';
+import DeleteButton from '../delete-button';
 
 const Coupon = ({ id }) => {
     const { coupons, updateCoupon } = usePaymentsContext();
@@ -108,6 +109,7 @@ const Coupon = ({ id }) => {
                     help={__('How many times the coupon can be used before it is void.', 'quillforms')}
                 />
             </PanelBody>
+            <DeleteButton id={id} />
         </div>
     );
 };

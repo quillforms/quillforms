@@ -7,6 +7,7 @@ import { BaseControl, ControlWrapper } from '@quillforms/admin-components';
  * WordPress dependencies.
  */
 import { __ } from '@wordpress/i18n';
+import { Panel } from '@wordpress/components';
 
 /**
  * Internal Dependencies
@@ -21,12 +22,16 @@ const Coupons = () => {
 	return (
 		<div className="quillforms-payments-page-settings__coupons">
 			<h3> {__('Coupons', 'quillforms')} </h3>
-			<div className="quillforms-payments-page-settings__products-content">
+			<div className="quillforms-payments-page-settings__coupons-content">
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
-						{Object.keys(coupons).map((id) => (
-							<Coupon key={id} id={id} />
-						))}
+						{Object.keys(coupons).length > 0 && (
+							<Panel>
+								{Object.keys(coupons).map((id) => (
+									<Coupon key={id} id={id} />
+								))}
+							</Panel>
+						)}
 						<AddButton />
 					</ControlWrapper>
 				</BaseControl>
