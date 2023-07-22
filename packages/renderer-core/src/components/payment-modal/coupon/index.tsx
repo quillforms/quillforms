@@ -31,6 +31,7 @@ const Coupon: React.FC< Props > = ( { data } ) => {
 	const { setPaymentData } = useDispatch( 'quillForms/renderer-core' );
 
 	const applyCoupon = async () => {
+		setError( '' );
 		setIsPaying( true );
 		try {
 			const { submission_id, hashed_id } = data;

@@ -164,7 +164,7 @@ class Discount_Coupons {
 		$this->ajax_init_form_submission();
 
 		$coupon_code   = sanitize_text_field( $_POST['coupon'] );
-		$this->coupons = $this->form_submission->form_data['payments']['coupons'];
+		$this->coupons = $this->form_data['payments']['coupons'];
 
 		// Check coupon valid.
 		$validation_result = $this->validate_coupon( $coupon_code );
@@ -254,7 +254,7 @@ class Discount_Coupons {
 		$start_date  = $coupon_data['start_date'];
 		$end_date    = $coupon_data['end_date'];
 		$usage_limit = $coupon_data['usage_limit'];
-		$usage_count = $this->form_submission->form_data['coupons_usage_count'][ $coupon_id ] ?? 0;
+		$usage_count = $this->form_data['coupons_usage_count'][ $coupon_id ] ?? 0;
 
 		// Check coupon expired.
 		if ( $start_date ) {
@@ -337,6 +337,9 @@ class Discount_Coupons {
 			wp_send_json_error( esc_html__( 'Invalid submission', 'quillforms' ) );
 			exit;
 		}
+
+		$form_id         = $this->form_submission->form_data['id'];
+		$this->form_data = Core::get_form_data( $form_id );
 	}
 
 }
