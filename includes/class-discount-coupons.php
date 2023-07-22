@@ -104,7 +104,7 @@ class Discount_Coupons {
 	 */
 	public function update_coupon_usage_count( $submission_id, $entry, $form_data ) {
 		$form_id                  = $entry->form_id;
-		$entry_payments           = $entry->meta['payments']['value'];
+		$entry_payments           = $entry->get_meta_value( 'payments' );
 		$entry_coupons            = $entry_payments['coupons'] ?? array();
 		$form_payments            = $form_data['payments'];
 		$form_coupons             = $form_payments['coupons'] ?? array();
