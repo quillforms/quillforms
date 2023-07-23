@@ -1058,6 +1058,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentcrm/icon.svg',
 				),
 			),
+			'discord'                   => array(
+				'name'           => esc_html__( 'Discord', 'quillforms' ),
+				'description'    => esc_html__( 'Discord addon allows you to send your form submissions to your discord server.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-discord/quillforms-discord.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/discord/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
