@@ -1068,6 +1068,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/discord/icon.svg',
 				),
 			),
+			'cleverreach'               => array(
+				'name'           => esc_html__( 'CleverReach', 'quillforms' ),
+				'description'    => esc_html__( 'CleverReach addon allows you to connect your forms with CleverReach to send your leads to your CleverReach account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-cleverreach/quillforms-cleverreach.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/cleverreach/icon.svg',
+				),
+			),
 			'wpuserregistration'        => array(
 				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
