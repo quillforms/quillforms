@@ -1,11 +1,11 @@
-( function () {
+(function () {
 	const formObject = wp.hooks.applyFilters(
 		'QuillForms.Renderer.FormObject',
 		qfRender.formObject
 	);
 
 	ReactDOM.render(
-		React.createElement( qf.rendererCore.Form, {
+		React.createElement(qf.rendererCore.Form, {
 			formObj: formObject,
 			formId: qfRender.formId,
 			applyLogic: true,
@@ -13,7 +13,7 @@
 				const ajaxurl = qfRender.ajaxurl;
 				let formData = {
 					answers: wp.data
-						.select( 'quillForms/renderer-core' )
+						.select('quillForms/renderer-core')
 						.getAnswers(),
 					formId: qfRender.formId,
 				};
@@ -22,31 +22,41 @@
 					[],
 					{ formObject }
 				);
-				Promise.all( promises )
-					.then( function () {
+				Promise.all(promises)
+					.then(function () {
 						formData = wp.hooks.applyFilters(
 							'QuillForms.Renderer.SubmissionFormData',
 							formData,
 							{ formObject }
 						);
 						const data = new FormData();
-						data.append( 'action', 'quillforms_form_submit' );
-						data.append( 'formData', JSON.stringify( formData ) );
-						fetch( ajaxurl, {
+						data.append('action', 'quillforms_form_submit');
+						data.append('formData', JSON.stringify(formData));
+						fetch(ajaxurl, {
 							method: 'POST',
 							credentials: 'same-origin',
 							body: data,
-						} )
-							.then( function ( response ) {
-								if ( ! response.ok ) {
-									return Promise.reject( response );
+						})
+							.then(function (response) {
+								if (!response.ok) {
+									return Promise.reject(response);
 								}
 								return response.json();
-							} )
-							.then( function ( res ) {
-								if ( res && res.success ) {
+							})
+							.then(function (res) {
+								if (res && res.success) {
 									// In case of successful submission, complete the form.
-									if ( res.data.status === 'completed' ) {
+									if (res.data.status === 'completed') {
+										setTimeout(() => {
+											localStorage.removeItem(
+												'quillforms-answers-' +
+												qfRender.formId
+											);
+											localStorage.removeItem(
+												'quillforms-swiper-' +
+												qfRender.formId
+											);
+										}, 1000);
 										wp.data
 											.dispatch(
 												'quillForms/renderer-core'
@@ -63,12 +73,12 @@
 											.dispatch(
 												'quillForms/renderer-core'
 											)
-											.setPaymentData( res.data );
+											.setPaymentData(res.data);
 									} else {
 										throw 'Server error; unkown status!';
 									}
-								} else if ( res && res.data ) {
-									if ( res.data.fields ) {
+								} else if (res && res.data) {
+									if (res.data.fields) {
 										// In case of fields error from server side, set their valid flag with false and set their validation error.
 
 										const walkPath = wp.data
@@ -77,35 +87,35 @@
 											)
 											.getWalkPath();
 										const firstField = qf.rendererCore
-											.getBlocksRecursively( walkPath )
-											.find( function ( o ) {
+											.getBlocksRecursively(walkPath)
+											.find(function (o) {
 												return Object.keys(
 													res.data.fields
-												).includes( o.id );
-											} );
+												).includes(o.id);
+											});
 
 										wp.data
 											.dispatch(
 												'quillForms/renderer-core'
 											)
-											.goToBlock( firstField.id );
+											.goToBlock(firstField.id);
 
 										// Get the first invalid field and go back to it.
-										if ( firstField ) {
-											setTimeout( function () {
+										if (firstField) {
+											setTimeout(function () {
 												wp.data
 													.dispatch(
 														'quillForms/renderer-core'
 													)
-													.setIsSubmitting( false );
+													.setIsSubmitting(false);
 												wp.data
 													.dispatch(
 														'quillForms/renderer-core'
 													)
-													.setIsReviewing( true );
+													.setIsReviewing(true);
 												Object.keys(
 													res.data.fields
-												).forEach( function (
+												).forEach(function (
 													fieldId,
 													index
 												) {
@@ -124,23 +134,23 @@
 														.setFieldValidationErr(
 															fieldId,
 															res.data.fields[
-																fieldId
+															fieldId
 															]
 														);
-												} );
-											}, 500 );
+												});
+											}, 500);
 										}
 									}
 								}
-							} )
-							.catch( function ( err ) {
-								if ( err && err.status === 500 ) {
+							})
+							.catch(function (err) {
+								if (err && err.status === 500) {
 									// Server error = 500
 									wp.data
-										.dispatch( 'quillForms/renderer-core' )
+										.dispatch('quillForms/renderer-core')
 										.setSubmissionErr(
 											qfRender.formObj.messages[
-												'label.errorAlert.serverError'
+											'label.errorAlert.serverError'
 											]
 										);
 								} else {
@@ -149,22 +159,22 @@
 									// There should be some other of types like invalid nonce field, or spam detected.
 									// but this is enough for the moment.
 									wp.data
-										.dispatch( 'quillForms/renderer-core' )
+										.dispatch('quillForms/renderer-core')
 										.setSubmissionErr(
 											formObject.messages[
-												'label.errorAlert.noConnection'
+											'label.errorAlert.noConnection'
 											]
 										);
 								}
-							} );
-					} )
-					.catch( function ( err ) {
+							});
+					})
+					.catch(function (err) {
 						wp.data
-							.dispatch( 'quillForms/renderer-core' )
-							.setSubmissionErr( err );
-					} );
+							.dispatch('quillForms/renderer-core')
+							.setSubmissionErr(err);
+					});
 			},
-		} ),
-		document.getElementById( 'quillforms-renderer' )
+		}),
+		document.getElementById('quillforms-renderer')
 	);
-} )();
+})();

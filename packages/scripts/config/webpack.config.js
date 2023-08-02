@@ -65,22 +65,22 @@ const cssLoaders = [
           sourceMap: !isProduction,
           plugins: isProduction
             ? [
-                ...postcssPlugins,
-                require("cssnano")({
-                  // Provide a fallback configuration if there's not
-                  // one explicitly available in the project.
-                  ...(!hasCssnanoConfig() && {
-                    preset: [
-                      "default",
-                      {
-                        discardComments: {
-                          removeAll: true,
-                        },
+              ...postcssPlugins,
+              require("cssnano")({
+                // Provide a fallback configuration if there's not
+                // one explicitly available in the project.
+                ...(!hasCssnanoConfig() && {
+                  preset: [
+                    "default",
+                    {
+                      discardComments: {
+                        removeAll: true,
                       },
-                    ],
-                  }),
+                    },
+                  ],
                 }),
-              ]
+              }),
+            ]
             : postcssPlugins,
         },
       }),

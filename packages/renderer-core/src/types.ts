@@ -25,6 +25,7 @@ export type FormObj = {
 		animationDirection?: 'vertical' | 'horizontal';
 		showQuestionsNumbers?: boolean;
 		showLettersOnAnswers?: boolean;
+		saveAnswersInBrowser?: boolean;
 	};
 	hiddenFields?: Object;
 	customCSS?: string;

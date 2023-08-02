@@ -143,6 +143,16 @@ module.exports = {
 		client: './client',
 		...entryPoints,
 	},
+
+
+	resolve: {
+		...defaultConfig.resolve,
+		alias: {
+			"react/jsx-runtime.js": "react/jsx-runtime",
+			"react/jsx-dev-runtime.js": "react/jsx-dev-runtime"
+		}
+	},
+
 	output: {
 		devtoolNamespace: 'quillforms',
 		filename: (pathData) => {

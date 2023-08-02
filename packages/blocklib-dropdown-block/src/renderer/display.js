@@ -60,6 +60,7 @@ const DropdownDisplay = (props) => {
 	} = props;
 	const { choices, required } = attributes;
 	const cx = useCx();
+	const isIframed = window.self !== window.top;
 	const theme = useBlockTheme(attributes.themeId);
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [searchKeyword, setSearchKeyword] = useState('');
@@ -164,7 +165,7 @@ const DropdownDisplay = (props) => {
 		// show close icon of there is any string
 		setShowCloseIcon(e.target.value !== '');
 		setInputValue(e.target.value);
-		if (!isTouchScreen) setShowDropdown(true);
+		if (!isTouchScreen || iframed) setShowDropdown(true);
 		if (val) {
 			setVal(null);
 			setSearchKeyword('');
@@ -281,7 +282,7 @@ const DropdownDisplay = (props) => {
 				setSearchKeyword(choice.label);
 				setShowDropdown(false);
 				setSelectedChoiceIndex(-1);
-				if (isTouchScreen) {
+				if (isTouchScreen && !iframed) {
 					setShowFDrop(false);
 					setFooterDisplay(true);
 					// timer2 for showing the input after choosing value
@@ -363,9 +364,9 @@ const DropdownDisplay = (props) => {
 							: ''
 				}
 				onClick={() => {
-					if (isTouchScreen) {
+					if (isTouchScreen && !isIframed) {
 						setShowFDrop(true);
-						inputRef.current.blur();
+						inputRef?.current?.blur();
 					} else {
 						setShowDropdown(true);
 					}
@@ -384,48 +385,47 @@ const DropdownDisplay = (props) => {
 				autoComplete="off"
 			/>
 			{(val && val.length > 0) ||
-				(showCloseIcon && !isTouchScreen) ? (
+				(showCloseIcon && (!isTouchScreen || iframed)) ? (
 				<CloseIcon
-						onClick={() => {
-							clearTimeout(timer);
-							timer2 && clearTimeout(timer2);
-							setSearchKeyword('');
-							setIsAnswered(false);
-							setVal(undefined);
-							setShowCloseIcon(false);
-							if (!isTouchScreen) {
+					onClick={() => {
+						clearTimeout(timer);
+						timer2 && clearTimeout(timer2);
+						setSearchKeyword('');
+						setIsAnswered(false);
+						setVal(undefined);
+						setShowCloseIcon(false);
+						if (!isTouchScreen) {
 							inputRef.current.focus();
 						}
-						}}
+					}}
 				/>
 			) : (
 				<DropdownIcon
-						style={{
-							transform: `${showDropdown ? 'rotate(180deg)' : 'rotate(0deg)'
-								}`,
-						}}
-						onClick={() => {
+					style={{
+						transform: `${showDropdown ? 'rotate(180deg)' : 'rotate(0deg)'
+							}`,
+					}}
+					onClick={() => {
+						showDropdown && setSelectedChoiceIndex(-1);
+						if (isTouchScreen) {
+							setShowFDrop(!showFDrop);
+						} else {
+							setShowDropdown(!showDropdown);
+							inputRef.current.focus();
+						}
+					}}
+					onKeyDown={(e) => {
+						if (e.keyCode === ENTER_CODE) {
+							e.stopPropagation();
 							showDropdown && setSelectedChoiceIndex(-1);
 							if (isTouchScreen) {
 								setShowFDrop(!showFDrop);
-						} else {
-								setShowDropdown(!showDropdown);
-							inputRef.current.focus();
-						}
-						}}
-						onKeyDown={(e) => {
-							if (e.keyCode === ENTER_CODE) {
-							e.stopPropagation();
-								showDropdown && setSelectedChoiceIndex(-1);
-								if (isTouchScreen) {
-									setShowFDrop(!showFDrop);
 							} else {
 								setShowDropdown(!showDropdown);
 								inputRef.current.focus();
 							}
-						} else {
 						}
-						}}
+					}}
 				/>
 			)}
 
@@ -473,7 +473,7 @@ const DropdownDisplay = (props) => {
 						})
 					) : (
 						<div
-								className={cx(css`
+							className={cx(css`
 								background: ${theme.errorsBgColor};
 								color: ${theme.errorsFontColor};
 								display: inline-block;
@@ -481,7 +481,7 @@ const DropdownDisplay = (props) => {
 								border-radius: 5px;
 							` )}
 						>
-								{messages['block.dropdown.noSuggestions']}
+							{messages['block.dropdown.noSuggestions']}
 						</div>
 					)}
 				</div>
@@ -630,7 +630,7 @@ const DropdownDisplay = (props) => {
 										})
 									) : (
 										<div
-												className={cx(css`
+											className={cx(css`
 												background: ${theme.errorsBgColor};
 												color: ${theme.errorsFontColor};
 												display: inline-block;
@@ -640,7 +640,7 @@ const DropdownDisplay = (props) => {
 										>
 											{
 												messages[
-													'block.dropdown.noSuggestions'
+												'block.dropdown.noSuggestions'
 												]
 											}
 										</div>

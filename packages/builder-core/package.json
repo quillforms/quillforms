@@ -36,6 +36,7 @@
 		"framer-motion": "^4.1.17",
 		"lodash": "^4.17.21",
 		"react-confirm-alert": "^2.7.0",
+		"react-dnd": "15.1.2",
 		"react-loader-spinner": "^5.3.4",
 		"uuid": "^3.3.2"
 	},

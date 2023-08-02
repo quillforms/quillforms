@@ -1,7 +1,7 @@
 import { SET_CORRECT_ANSWERS, SHOW_CORRECT_ANSWER } from "./constants"
 
 const initialState = {
-	mode: 'disabled',
+	enabled: false,
 	correctAnswers: {},
 	showCorrectAnswer: false,
 	showExplanation: false,
@@ -9,6 +9,13 @@ const initialState = {
 
 const quizEditorReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case TOGGLE_MODE: {
+			return {
+				...state,
+				enabled: !enabled
+
+			}
+		}
 		case SET_CORRECT_ANSWERS: {
 			return {
 				...state,
@@ -26,3 +33,4 @@ const quizEditorReducer = (state = initialState, action) => {
 
 	return state;
 }
+export default quizEditorReducer;

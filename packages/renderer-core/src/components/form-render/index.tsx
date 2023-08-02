@@ -100,10 +100,10 @@ const Form: React.FC<Props> = ({
 			animationDirection: 'vertical',
 			showQuestionsNumbers: true,
 			showLettersOnAnswers: true,
+			saveAnswersInBrowser: false,
 			...formObj.settings,
 		};
 
-		console.log(formObj);
 		formObj.blocks = map(formObj.blocks, ($block) => {
 			if (
 				(

@@ -223,6 +223,15 @@ function quillforms_register_packages_scripts( $scripts )
     );
 
     quillforms_override_script(
+        $scripts,
+        'tailwindcss',
+        QUILLFORMS_PLUGIN_URL . '/lib/vendor/tailwindcss.js',
+        array( 'react', 'wp-element' ),
+        '1.8.6',
+        true
+    );
+
+    quillforms_override_script(
         $scripts, 'quillforms-iframe-resizer', QUILLFORMS_PLUGIN_URL . '/includes/render/iframe-resizer-min.js',
         array('jquery'),
         QUILLFORMS_VERSION,
@@ -273,11 +282,11 @@ function quillforms_register_packages_styles( $styles )
         'quillforms-admin-components',
         'quillforms-block-editor',
         'quillforms-renderer-core',
+        'quillforms-quiz-editor',
         'quillforms-theme-editor',
         'quillforms-notifications-editor',
         'quillforms-messages-editor',
         'quillforms-form-integrations',
-        'quillforms-quiz-editor',
         'wp-components',
         'common',
         ),
@@ -291,7 +300,7 @@ function quillforms_register_packages_styles( $styles )
         'quillforms-admin-components',
         quillforms_url('build/admin-components/style.css'),
         array(),
-        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/builder-core/style.css')
+        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/admin-components/style.css')
     );
     $styles->add_data('quillforms-admin-components', 'rtl', 'replace');
 
@@ -370,7 +379,7 @@ function quillforms_register_packages_styles( $styles )
         $styles,
         'quillforms-quiz-editor',
         quillforms_url('build/quiz-editor/style.css'),
-        array( 'quillforms-admin-components', 'wp-components' ),
+        array( 'quillforms-admin-components', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-post' ),
         filemtime(QUILLFORMS_PLUGIN_DIR . 'build/style.css')
     );
     $styles->add_data('quillforms-quiz-editor', 'rtl', 'replace');

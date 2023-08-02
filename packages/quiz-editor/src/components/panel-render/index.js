@@ -51,60 +51,61 @@ const PanelRender = () => {
 
     return (
         <div>
-            {supportedBlocks.map((block) => {
-                const blockType = blockTypes[block.name];
-                // for now, we will support multiple choice, dropdown and picture choice questions.
-                if (!blockType.supports.choices) {
-                    return null;
-                }
+            {
+                supportedBlocks.map((block) => {
+                    const blockType = blockTypes[block.name];
+                    // for now, we will support multiple choice, dropdown and picture choice questions.
+                    if (!blockType.supports.choices) {
+                        return null;
+                    }
 
-                const choices = blockType.getChoices({
-                    id: block.id,
-                    attributes: block.attributes ?? {},
-                });
-                return (
-                    <div
-                        key={block.id}
-                        className='quiz-editor-block'
-                    >
-                        <div className='quiz-editor-block-header'>
-                            <BlockIconBox
-                                icon={blockType?.icon}
-                                color={blockType?.color}
-                            />
-                            <div
-                                className={css`
+                    const choices = blockType.getChoices({
+                        id: block.id,
+                        attributes: block.attributes ?? {},
+                    });
+                    return (
+                        <div
+                            key={block.id}
+                            className='quiz-editor-block'
+                        >
+                            <div className='quiz-editor-block-header'>
+                                <BlockIconBox
+                                    icon={blockType?.icon}
+                                    color={blockType?.color}
+                                />
+                                <div
+                                    className={css`
 									flex: 1;
 									margin-left: 15px;
 								`}
-                            >
-                                {block.attributes?.label}
-                            </div>
-                        </div>
-                        <div className='quiz-editor-block-body'>
-                            <div className='quiz-editor-block-choice'>
-                                <div className='quiz-editor-block-choice-label-wrapper'>
-                                    Answer
-                                </div>
-                                <div>
-                                    Correct?
+                                >
+                                    {block.attributes?.label}
                                 </div>
                             </div>
-                            {choices &&
-                                choices.map((choice, index) => {
-                                    const label = choice.label;
-                                    const choiceId = choice.value;
+                            <div className='quiz-editor-block-body'>
+                                <div className='quiz-editor-block-choice'>
+                                    <div className='quiz-editor-block-choice-label-wrapper'>
+                                        Answer
+                                    </div>
+                                    <div>
+                                        Correct?
+                                    </div>
+                                </div>
+                                {choices &&
+                                    choices.map((choice, index) => {
+                                        const label = choice.label;
+                                        const choiceId = choice.value;
 
-                                    return (
-                                        <div
-                                            key={choiceId}
-                                            className='quiz-editor-block-choice'
-                                        >
-                                            <div className='quiz-editor-block-choice-label-wrapper'>
-                                                <div
-                                                    className={classnames(
-                                                        'points-block-choice-label-key',
-                                                        css`
+                                        return (
+                                            <div
+                                                key={choiceId}
+                                                className='quiz-editor-block-choice'
+                                            >
+                                                <div className='quiz-editor-block-choice-label-wrapper'>
+                                                    <div
+                                                        className={classnames(
+                                                            'points-block-choice-label-key',
+                                                            css`
 															display: flex;
 															justify-content: center;
 															align-items: center;
@@ -116,27 +117,29 @@ const PanelRender = () => {
 															color: #fff;
 															margin-right: 10px;
 														`
-                                                    )}
-                                                >
-                                                    {identName(
-                                                        index
-                                                    ).toUpperCase()}
+                                                        )}
+                                                    >
+                                                        {identName(
+                                                            index
+                                                        ).toUpperCase()}
+                                                    </div>
+                                                    <div className='points-block-choice-label'>
+                                                        {label}
+                                                    </div>
                                                 </div>
-                                                <div className='points-block-choice-label'>
-                                                    {label}
+                                                <div>
+                                                    <ToggleControl />
                                                 </div>
                                             </div>
-                                            <div>
-                                                <ToggleControl />
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })}
+                            </div>
                         </div>
-                    </div>
-                );
-            })}
-        </div>
+                    );
+                })
+            }
+
+        </div >
     );
 };
 export default PanelRender;

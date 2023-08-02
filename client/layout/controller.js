@@ -15,6 +15,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { parse } from 'qs';
 import classnames from 'classnames';
 import { motion } from 'framer-motion';
+
 /**
  * Internal Dependencies
  */
@@ -136,6 +137,7 @@ registerAdminPage('addons', {
 	component: Addons,
 	path: 'addons',
 });
+
 
 registerAdminPage('settings', {
 	component: Settings,

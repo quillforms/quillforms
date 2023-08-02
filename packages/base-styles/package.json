@@ -23,5 +23,8 @@
 	"module": "build-module/index.js",
 	"publishConfig": {
 		"access": "public"
+	},
+	"dependencies": {
+		"react-dnd": "15.1.2"
 	}
 }

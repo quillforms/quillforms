@@ -30,7 +30,8 @@
 		"@quillforms/config": "file:../config",
 		"@wordpress/data": "^9.2.0",
 		"@wordpress/element": "^5.9.0",
-		"@wordpress/hooks": "^3.32.0"
+		"@wordpress/hooks": "^3.32.0",
+		"react-dnd": "15.1.2"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0",

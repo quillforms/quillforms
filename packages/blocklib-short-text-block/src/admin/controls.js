@@ -14,7 +14,7 @@ import {
  */
 import { Fragment } from 'react';
 
-const shortTextControl = ( { attributes, setAttributes } ) => {
+const shortTextControl = ({ attributes, setAttributes }) => {
 	const { setMaxCharacters, maxCharacters, minCharacters } = attributes;
 	return (
 		<Fragment>
@@ -22,49 +22,50 @@ const shortTextControl = ( { attributes, setAttributes } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Min Characters" isNew />
 					<ToggleControl
-						checked={ minCharacters !== false }
-						onChange={ () => {
-							setAttributes( {
+						checked={minCharacters !== false}
+						onChange={() => {
+							setAttributes({
 								minCharacters:
 									minCharacters !== false ? false : 0,
-							} );
-						} }
+							});
+						}}
 					/>
 				</ControlWrapper>
-				{ minCharacters !== false && (
+				{minCharacters !== false && (
 					<TextControl
 						type="number"
-						onChange={ ( val ) => {
-							setAttributes( {
+						value={minCharacters}
+						onChange={(val) => {
+							setAttributes({
 								minCharacters: val,
-							} );
-						} }
+							});
+						}}
 					/>
-				) }
+				)}
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label="Max Characters" />
 					<ToggleControl
-						checked={ setMaxCharacters }
-						onChange={ () => {
-							setAttributes( {
-								setMaxCharacters: ! setMaxCharacters,
-							} );
-						} }
+						checked={setMaxCharacters}
+						onChange={() => {
+							setAttributes({
+								setMaxCharacters: !setMaxCharacters,
+							});
+						}}
 					/>
 				</ControlWrapper>
-				{ setMaxCharacters && (
+				{setMaxCharacters && (
 					<TextControl
 						type="number"
-						value={ maxCharacters }
-						onChange={ ( val ) =>
-							setAttributes( {
+						value={maxCharacters}
+						onChange={(val) =>
+							setAttributes({
 								maxCharacters: val,
-							} )
+							})
 						}
 					/>
-				) }
+				)}
 			</BaseControl>
 		</Fragment>
 	);

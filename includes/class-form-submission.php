@@ -375,11 +375,13 @@ class Form_Submission
             do_action('quillforms_entry_saved', $this->entry, $this->form_data);
         }
 
-        // process email notifications.
-        $this->entry_email();
 
         // finally do entry processed action.
         do_action('quillforms_entry_processed', $this->entry, $this->form_data);
+
+        // process email notifications.
+        $this->entry_email();
+
     }
 
     /**

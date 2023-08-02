@@ -24,7 +24,8 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/types": "^3.0.15"
+		"@quillforms/types": "^3.0.15",
+		"react-dnd": "15.1.2"
 	},
 	"publishConfig": {
 		"access": "public"

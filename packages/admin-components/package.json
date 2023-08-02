@@ -34,6 +34,7 @@
 		"@wordpress/icons": "^9.23.0",
 		"@wordpress/media-utils": "^4.23.0",
 		"classnames": "^2.3.1",
+		"cmdk": "^0.2.0",
 		"downshift": "^6.1.7",
 		"emotion": "10.0.27",
 		"escape-html": "^1.0.3",
@@ -43,10 +44,11 @@
 		"react-beautiful-dnd": "^13.1.0",
 		"react-loader-spinner": "^5.1.7-beta.1",
 		"react-window": "^1.8.6",
-		"slate": "^0.84.0",
-		"slate-history": "^0.66.0",
-		"slate-hyperscript": "^0.77.0",
-		"slate-react": "^0.83.2",
+		"slate": "^0.94.1",
+		"slate-history": "0.86.0",
+		"slate-hyperscript": "0.77.0",
+		"slate-react": "^0.97.2",
+		"tailwind-merge": "^1.14.0",
 		"tinycolor2": "^1.4.1"
 	},
 	"peerDependencies": {

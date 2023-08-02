@@ -22,7 +22,8 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"dependencies": {
-		"@babel/runtime": "^7.9.2"
+		"@babel/runtime": "^7.9.2",
+		"react-dnd": "15.1.2"
 	},
 	"publishConfig": {
 		"access": "public"

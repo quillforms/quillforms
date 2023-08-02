@@ -28,3 +28,7 @@ export { default as ResponsiveControl } from './responsive-control';
 export { default as ToggleControl } from './toggle-control';
 export { default as SelectControl } from './select-control';
 export { default as TextControl } from './text-control';
+export { default as useFields } from "./combobox-control/use-fields";
+export { default as useHiddenFields } from './combobox-control/use-hidden-fields';
+export { default as useVariables } from './combobox-control/use-variables';
+export { default as MergeTagListItem } from './rich-text/components/merge-tag-list-item';

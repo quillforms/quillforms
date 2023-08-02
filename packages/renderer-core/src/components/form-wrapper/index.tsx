@@ -19,6 +19,7 @@ import FormFlow from '../form-flow';
 import useBlocks from '../../hooks/use-blocks';
 import type { Screen } from '../../store/types';
 import useFormContext from '../../hooks/use-form-context';
+import { useFormSettings } from '../../hooks';
 
 interface Props {
 	applyLogic: boolean;
@@ -38,7 +39,9 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 	const {
 		isPreview,
 		formObj: { hiddenFields },
+		formId
 	} = useFormContext();
+	const { saveAnswersInBrowser } = useFormSettings();
 	const {
 		setSwiper,
 		insertEmptyFieldAnswer,

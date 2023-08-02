@@ -25,6 +25,7 @@
 		"@quillforms/admin-components": "^3.0.32",
 		"@quillforms/config": "^3.0.16",
 		"react-confirm-alert": "^2.7.0",
+		"react-dnd": "15.1.2",
 		"react-multi-email": "^0.5.3"
 	},
 	"peerDependencies": {

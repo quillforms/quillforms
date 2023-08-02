@@ -24,7 +24,8 @@
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "^3.0.32",
 		"@quillforms/config": "^3.0.16",
-		"react-ace": "^10.1.0"
+		"react-ace": "^10.1.0",
+		"react-dnd": "15.1.2"
 	},
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",

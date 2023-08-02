@@ -36,7 +36,8 @@
 		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
 		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
 		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
-		"@quillforms/blocks": "file:../blocks"
+		"@quillforms/blocks": "file:../blocks",
+		"react-dnd": "15.1.2"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0",

@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@woocommerce/navigation": "^7.0.0",
+		"react-dnd": "15.1.2",
 		"react-router-dom": "^5.2.0",
 		"react-router-navigation-prompt": "^1.8.13"
 	},

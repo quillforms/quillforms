@@ -27,6 +27,7 @@
 		"@quillforms/notifications-editor": "^4.0.19",
 		"@quillforms/types": "^3.0.15",
 		"@quillforms/utils": "^3.0.19",
+		"react-dnd": "15.1.2",
 		"rememo": "^4.0.2"
 	},
 	"publishConfig": {

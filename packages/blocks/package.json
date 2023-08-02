@@ -25,7 +25,8 @@
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/utils": "^3.0.19",
 		"@wordpress/data": "^9.2.0",
-		"lodash": "^4.17.21"
+		"lodash": "^4.17.21",
+		"react-dnd": "15.1.2"
 	},
 	"devDependencies": {
 		"@quillforms/types": "^3.0.15"

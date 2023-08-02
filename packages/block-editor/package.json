@@ -36,12 +36,13 @@
 		"lodash": "^4.17.21",
 		"react-autosize-textarea": "^7.1.0",
 		"react-confirm-alert": "^2.7.0",
+		"react-dnd": "15.1.2",
 		"react-intersection-observer": "^8.32.0",
 		"rememo": "^4.0.2",
-		"slate": "^0.81.1",
-		"slate-history": "^0.66.0",
-		"slate-hyperscript": "^0.77.0",
-		"slate-react": "^0.81.0"
+		"slate": "^0.94.1",
+		"slate-history": "0.86.0",
+		"slate-hyperscript": "0.77.0",
+		"slate-react": "^0.97.2"
 	},
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",

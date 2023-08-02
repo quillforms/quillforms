@@ -24,11 +24,12 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@mui/material": "^5.13.1",
+		"@mui/material": "^5.14.1",
 		"@quillforms/admin-components": "file:../admin-components",
 		"@quillforms/renderer-core": "file:../renderer-core",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
+		"react-dnd": "15.1.2",
 		"react-range-slider-input": "^3.0.7",
 		"rsuite": "^5.33.1",
 		"tinycolor2": "^1.4.2"

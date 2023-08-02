@@ -36,131 +36,131 @@ import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
 import { forEach, size } from 'lodash';
 
-const PaymentsPage = ( { params } ) => {
-	const [ showReleaseModal, setShowReleaseModal ] = useState( false );
+const PaymentsPage = ({ params }) => {
+	const [showReleaseModal, setShowReleaseModal] = useState(false);
 
-	useEffect( () => {
-		setTimeout( () => {
-			localStorage.setItem( 'qf_payments_modal_viewed', true );
-		}, 100 );
-	}, [ showReleaseModal ] );
+	useEffect(() => {
+		setTimeout(() => {
+			localStorage.setItem('qf_payments_modal_viewed', true);
+		}, 100);
+	}, [showReleaseModal]);
 
-	useEffect( () => {
-		setShowReleaseModal( true );
-	}, [] );
+	useEffect(() => {
+		setShowReleaseModal(true);
+	}, []);
 	const formId = params.id;
 
 	// constants.
 	const gateways = getPaymentGatewayModules();
 
 	// component state.
-	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
+	const [state, dispatch] = useReducer(reducer, getInitialState());
 	const { general, models, products, labels, errors } = state;
 	const settings = {
 		...general,
 		models,
 		labels,
 	};
-	const $actions = actions( dispatch );
+	const $actions = actions(dispatch);
 
 	// data selectors.
 	const { formBlocks, blocksResolved, blockTypes } = useSelect(
-		( select ) => {
+		(select) => {
 			return {
 				formBlocks:
-					select( 'quillForms/block-editor' ).getBlocks() ?? [],
+					select('quillForms/block-editor').getBlocks() ?? [],
 				blocksResolved: select(
 					'quillForms/block-editor'
-				).hasFinishedResolution( 'getBlocks' ),
-				blockTypes: select( 'quillForms/blocks' ).getBlockTypes() ?? {},
+				).hasFinishedResolution('getBlocks'),
+				blockTypes: select('quillForms/blocks').getBlockTypes() ?? {},
 			};
 		}
 	);
 
 	const blocks = [];
 
-	if ( size( formBlocks ) > 0 ) {
-		forEach( formBlocks, ( block ) => {
-			const blockType = blockTypes[ block.name ];
-			if ( blockType ) {
-				blocks.push( block );
+	if (size(formBlocks) > 0) {
+		forEach(formBlocks, (block) => {
+			const blockType = blockTypes[block.name];
+			if (blockType) {
+				blocks.push(block);
 				if (
 					blockType?.supports?.innerBlocks &&
-					size( block?.innerBlocks ) > 0
+					size(block?.innerBlocks) > 0
 				) {
-					forEach( block.innerBlocks, ( childBlock ) => {
-						blocks.push( childBlock );
-					} );
+					forEach(block.innerBlocks, (childBlock) => {
+						blocks.push(childBlock);
+					});
 				}
 			}
-		} );
+		});
 	}
 
 	// notice dispatchers.
 	const { createErrorNotice, createSuccessNotice } =
-		useDispatch( 'core/notices' );
+		useDispatch('core/notices');
 
 	// validate on mount.
-	useEffect( () => {
-		if ( blocksResolved ) {
+	useEffect(() => {
+		if (blocksResolved) {
 			validate();
 		}
-	}, [ blocksResolved ] );
+	}, [blocksResolved]);
 
 	const onSave = () => {
 		// validate selection of one method at least.
-		if ( general.enabled && Object.keys( general.methods ).length === 0 ) {
-			createErrorNotice( `⛔ Please select at least one payment method`, {
+		if (general.enabled && Object.keys(general.methods).length === 0) {
+			createErrorNotice(`⛔ Please select at least one payment method`, {
 				type: 'snackbar',
 				isDismissible: true,
-			} );
+			});
 			return;
 		}
 
 		// validate gateways options.
 		const enabled = [];
-		for ( const key of Object.keys( general.methods ) ) {
-			const gateway = key.split( ':' )[ 0 ];
-			if ( ! enabled.includes( gateway ) ) {
-				enabled.push( gateway );
+		for (const key of Object.keys(general.methods)) {
+			const gateway = key.split(':')[0];
+			if (!enabled.includes(gateway)) {
+				enabled.push(gateway);
 			}
 		}
-		for ( const gateway of enabled ) {
-			const options = gateways[ gateway ].options ?? null;
-			if ( options && options.has( settings ) ) {
-				const validate = options.validate( settings );
-				if ( ! validate.valid ) {
-					createErrorNotice( `⛔ ${ validate.message }`, {
+		for (const gateway of enabled) {
+			const options = gateways[gateway].options ?? null;
+			if (options && options.has(settings)) {
+				const validate = options.validate(settings);
+				if (!validate.valid) {
+					createErrorNotice(`⛔ ${validate.message}`, {
 						type: 'snackbar',
 						isDismissible: true,
-					} );
+					});
 					return;
 				}
 			}
 		}
 
 		// validate adding of one product at least.
-		if ( general.enabled && Object.entries( products ).length === 0 ) {
-			createErrorNotice( `⛔ Please add at least one product`, {
+		if (general.enabled && Object.entries(products).length === 0) {
+			createErrorNotice(`⛔ Please add at least one product`, {
 				type: 'snackbar',
 				isDismissible: true,
-			} );
+			});
 			return;
 		}
 
-		if ( ! validate() ) {
-			createErrorNotice( `⛔ Please check highlighted errors`, {
+		if (!validate()) {
+			createErrorNotice(`⛔ Please check highlighted errors`, {
 				type: 'snackbar',
 				isDismissible: true,
-			} );
+			});
 			return;
 		}
 
 		// save
-		apiFetch( {
+		apiFetch({
 			path:
-				`/wp/v2/quill_forms/${ formId }` +
-				`?context=edit&_timestamp=${ Date.now() }`,
+				`/wp/v2/quill_forms/${formId}` +
+				`?context=edit&_timestamp=${Date.now()}`,
 			method: 'POST',
 			data: {
 				payments: {
@@ -170,22 +170,22 @@ const PaymentsPage = ( { params } ) => {
 				},
 				products,
 			},
-		} )
-			.then( () => {
-				createSuccessNotice( '🚀 Saved successfully!', {
+		})
+			.then(() => {
+				createSuccessNotice('🚀 Saved successfully!', {
 					type: 'snackbar',
 					isDismissible: true,
-				} );
-			} )
-			.catch( ( error ) => {
+				});
+			})
+			.catch((error) => {
 				createErrorNotice(
-					`⛔ ${ error?.message ?? 'Error while saving!' }`,
+					`⛔ ${error?.message ?? 'Error while saving!'}`,
 					{
 						type: 'snackbar',
 						isDismissible: true,
 					}
 				);
-			} );
+			});
 	};
 
 	const validate = () => {
@@ -194,64 +194,64 @@ const PaymentsPage = ( { params } ) => {
 		};
 
 		// validate each product
-		for ( const [ id, product ] of Object.entries( products ) ) {
+		for (const [id, product] of Object.entries(products)) {
 			// source
-			if ( ! product.source ) {
-				$errors.products[ id ] = 'Please select product source';
+			if (!product.source) {
+				$errors.products[id] = 'Please select product source';
 				continue;
 			}
 
-			switch ( product.source.type ) {
+			switch (product.source.type) {
 				case 'field':
 					const block = blocks.find(
-						( block ) => block.id === product.source.value
+						(block) => block.id === product.source.value
 					);
-					const blockType = blockTypes[ block?.name ];
-					if ( ! block || ! blockType ) {
-						$errors.products[ id ] =
+					const blockType = blockTypes[block?.name];
+					if (!block || !blockType) {
+						$errors.products[id] =
 							'Unknown form block, please select another source';
 						break;
 					}
 
-					if ( blockType.supports.numeric ) {
-						if ( ! product.name ) {
-							$errors.products[ id ] =
+					if (blockType.supports.numeric) {
+						if (!product.name) {
+							$errors.products[id] =
 								'Please enter product name';
 						}
 					}
 					break;
 				case 'variable':
-					if ( ! product.name ) {
-						$errors.products[ id ] = 'Please enter product name';
+					if (!product.name) {
+						$errors.products[id] = 'Please enter product name';
 					}
 					break;
 				case 'other':
-					if ( product.source.value === 'defined' ) {
-						if ( ! product.name ) {
-							$errors.products[ id ] =
+					if (product.source.value === 'defined') {
+						if (!product.name) {
+							$errors.products[id] =
 								'Please enter product name';
-						} else if ( ! product.price ) {
-							$errors.products[ id ] =
+						} else if (!product.price) {
+							$errors.products[id] =
 								'Please enter product price';
 						}
 					} else {
-						$errors.products[ id ] = 'Unknown product source';
+						$errors.products[id] = 'Unknown product source';
 					}
 					break;
 				default:
-					$errors.products[ id ] = 'Unknown product source';
+					$errors.products[id] = 'Unknown product source';
 			}
 		}
 
-		$actions.setErrors( $errors );
+		$actions.setErrors($errors);
 
-		return Object.entries( $errors.products ).length === 0;
+		return Object.entries($errors.products).length === 0;
 	};
 
 	return (
 		<AnimateSharedLayout>
 			<PaymentsContextProvider
-				value={ {
+				value={{
 					settings,
 					general,
 					models,
@@ -259,7 +259,7 @@ const PaymentsPage = ( { params } ) => {
 					labels,
 					errors,
 					...$actions,
-				} }
+				}}
 			>
 				<div className="quillforms-payments-page">
 					<div className="quillforms-payments-page-header">
@@ -287,20 +287,20 @@ const PaymentsPage = ( { params } ) => {
 							className="quillforms-payments-page-settings-save"
 							isPrimary
 							isLarge
-							onClick={ onSave }
+							onClick={onSave}
 						>
 							Save
 						</Button>
 					</div>
 				</div>
 			</PaymentsContextProvider>
-			{ showReleaseModal &&
-				! localStorage.getItem( 'qf_payments_modal_viewed' ) && (
+			{showReleaseModal &&
+				!localStorage.getItem('qf_payments_modal_viewed') && (
 					<Modal
-						focusOnMount={ true }
-						shouldCloseOnEsc={ false }
-						shouldCloseOnClickOutside={ false }
-						className={ css`
+						focusOnMount={true}
+						shouldCloseOnEsc={false}
+						shouldCloseOnClickOutside={false}
+						className={css`
 							border: none !important;
 							border-radius: 9px;
 
@@ -321,10 +321,10 @@ const PaymentsPage = ( { params } ) => {
 								text-align: center;
 							}
 						` }
-						title={ 'How to accept payments with Quill Forms?' }
-						onRequestClose={ () => {
-							setShowReleaseModal( false );
-						} }
+						title={'How to accept payments with Quill Forms?'}
+						onRequestClose={() => {
+							setShowReleaseModal(false);
+						}}
 					>
 						<iframe
 							width="560"
@@ -336,7 +336,7 @@ const PaymentsPage = ( { params } ) => {
 							allowFullScreen
 						></iframe>
 					</Modal>
-				) }
+				)}
 		</AnimateSharedLayout>
 	);
 };
