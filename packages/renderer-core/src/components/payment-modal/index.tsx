@@ -1,6 +1,7 @@
 /**
  * Internal Dependencies
  */
+import Coupon from './coupon';
 import Info from './info';
 import Methods from './methods';
 
@@ -13,6 +14,7 @@ const PaymentModal: React.FC< Props > = ( { data } ) => {
 		<div className="renderer-core-payment-modal">
 			<div className="renderer-core-payment-modal__content">
 				<Info data={ data } />
+				<Coupon data={ data } />
 				{ Object.keys( data.payments.methods ).length > 0 ? (
 					<Methods data={ data } />
 				) : (

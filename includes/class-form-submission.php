@@ -228,6 +228,9 @@ class Form_Submission {
 			$this->format_field_value( $block );
 		}
 
+		// Create hash for the entry.
+		$this->entry->set_meta_value( 'hashed_id', $this->get_hash() );
+
 		// check payments.
 		$payments = $this->get_payments_meta();
 		if ( $payments ) {
@@ -244,6 +247,18 @@ class Form_Submission {
 		}
 
 		$this->process_entry();
+	}
+
+	/**
+	 * Get hash for the entry.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	public function get_hash() {
+
+		return wp_generate_password( 32, false, false );
 	}
 
 	/**
@@ -342,6 +357,7 @@ class Form_Submission {
 		switch ( $this->step ) {
 			case 'payment':
 				$this->process_entry();
+				do_action( 'quillforms_entry_payment_processed', $this->submission_id, $this->entry, $this->form_data );
 				$this->delete_pending_submission( $this->submission_id );
 				break;
 		}
@@ -449,7 +465,7 @@ class Form_Submission {
 						break;
 					}
 
-					if ( $block_type->supported_features['numeric'] ) {
+					if ( $block_type->supported_features['numeric'] ?? false ) {
 						$items[] = array(
 							'name'     => $product['name'],
 							'price'    => (float) $block_type->get_numeric_value( $this->entry->get_record_value( 'field', $block_id ) ),
@@ -518,6 +534,7 @@ class Form_Submission {
 		return array(
 			'status'             => 'pending_payment',
 			'submission_id'      => $this->submission_id,
+			'hashed_id'          => $this->entry->get_meta_value( 'hashed_id' ),
 			'payments'           => $this->get_payments_renderer_data(),
 			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
 		);
@@ -653,6 +670,27 @@ class Form_Submission {
 	}
 
 	/**
+	 * Update pending submission
+	 *
+	 * @since next.version
+	 *
+	 * @return boolean
+	 */
+	public function update_pending_submission() {
+		global $wpdb;
+
+		return (bool) $wpdb->update(
+			"{$wpdb->prefix}quillforms_pending_submissions",
+			array(
+				'entry'     => maybe_serialize( $this->entry ),
+				'form_data' => maybe_serialize( $this->form_data ),
+			),
+			array( 'ID' => $this->submission_id ),
+			array( '%s', '%s' ),
+		);
+	}
+
+	/**
 	 * Delete pending submission
 	 *
 	 * @since next.version
@@ -661,7 +699,7 @@ class Form_Submission {
 	 * @return boolean
 	 */
 	private function delete_pending_submission( $id ) {
-		 global $wpdb;
+		global $wpdb;
 
 		return (bool) $wpdb->delete(
 			"{$wpdb->prefix}quillforms_pending_submissions",

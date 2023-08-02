@@ -21,6 +21,9 @@ import {
 	DELETE_PRODUCT,
 	SET_ERRORS,
 	SET_LABEL,
+	ADD_COUPON,
+	UPDATE_COUPON,
+	DELETE_COUPON
 } from './constants';
 
 /**
@@ -31,15 +34,15 @@ import {
  *
  * @return {Object} Updated state.
  */
-const general = ( state = false, action ) => {
-	switch ( action.type ) {
+const general = (state = false, action) => {
+	switch (action.type) {
 		case UPDATE_GENERAL: {
-			switch ( action.mode ) {
+			switch (action.mode) {
 				case 'recursive':
 					const $general = { ...state };
-					mergeWith( $general, action.general, ( obj, src ) => {
-						if ( isArray( obj ) ) return src;
-					} );
+					mergeWith($general, action.general, (obj, src) => {
+						if (isArray(obj)) return src;
+					});
 					return $general;
 				case 'set':
 					return { ...action.general };
@@ -60,42 +63,42 @@ const general = ( state = false, action ) => {
  *
  * @return {Object} Updated state.
  */
-const models = ( state = {}, action ) => {
-	switch ( action.type ) {
+const models = (state = {}, action) => {
+	switch (action.type) {
 		case ADD_MODEL: {
 			return {
 				...state,
-				[ action.id ]: action.model,
+				[action.id]: action.model,
 			};
 		}
 
 		case UPDATE_MODEL: {
-			if ( ! state?.[ action.id ] ) {
+			if (!state?.[action.id]) {
 				return state;
 			}
 			let model;
-			switch ( action.mode ) {
+			switch (action.mode) {
 				case 'recursive':
-					model = { ...state[ action.id ] };
-					mergeWith( model, action.model, ( obj, src ) => {
-						if ( isArray( obj ) ) return src;
-					} );
+					model = { ...state[action.id] };
+					mergeWith(model, action.model, (obj, src) => {
+						if (isArray(obj)) return src;
+					});
 					break;
 				case 'set':
 					model = { ...action.model };
 					break;
 				case 'normal':
 				default:
-					model = { ...state[ action.id ], ...action.model };
+					model = { ...state[action.id], ...action.model };
 			}
 			return {
 				...state,
-				[ action.id ]: model,
+				[action.id]: model,
 			};
 		}
 
 		case DELETE_MODEL: {
-			return omit( { ...state }, action.id );
+			return omit({ ...state }, action.id);
 		}
 	}
 	return state;
@@ -109,42 +112,42 @@ const models = ( state = {}, action ) => {
  *
  * @return {Object} Updated state.
  */
-const products = ( state = {}, action ) => {
-	switch ( action.type ) {
+const products = (state = {}, action) => {
+	switch (action.type) {
 		case ADD_PRODUCT: {
 			return {
 				...state,
-				[ action.id ]: action.product,
+				[action.id]: action.product,
 			};
 		}
 
 		case UPDATE_PRODUCT: {
-			if ( ! state?.[ action.id ] ) {
+			if (!state?.[action.id]) {
 				return state;
 			}
 			let product;
-			switch ( action.mode ) {
+			switch (action.mode) {
 				case 'recursive':
-					product = { ...state[ action.id ] };
-					mergeWith( product, action.product, ( obj, src ) => {
-						if ( isArray( obj ) ) return src;
-					} );
+					product = { ...state[action.id] };
+					mergeWith(product, action.product, (obj, src) => {
+						if (isArray(obj)) return src;
+					});
 					break;
 				case 'set':
 					product = { ...action.product };
 					break;
 				case 'normal':
 				default:
-					product = { ...state[ action.id ], ...action.product };
+					product = { ...state[action.id], ...action.product };
 			}
 			return {
 				...state,
-				[ action.id ]: product,
+				[action.id]: product,
 			};
 		}
 
 		case DELETE_PRODUCT: {
-			return omit( { ...state }, action.id );
+			return omit({ ...state }, action.id);
 		}
 	}
 	return state;
@@ -159,12 +162,12 @@ const products = ( state = {}, action ) => {
  * @return {Object} Updated state.
  */
 
-const labels = ( state = {}, action ) => {
-	switch ( action.type ) {
+const labels = (state = {}, action) => {
+	switch (action.type) {
 		case SET_LABEL: {
 			return {
 				...state,
-				[ action.key ]: action.value,
+				[action.key]: action.value,
 			};
 		}
 	}
@@ -173,14 +176,64 @@ const labels = ( state = {}, action ) => {
 
 /**
  * Reducer returning the state.
+ * 
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ * 
+ * @return {Object} Updated state.
+ */
+const coupons = (state = {}, action) => {
+	switch (action.type) {
+		case ADD_COUPON: {
+			return {
+				...state,
+				[action.id]: action.coupon,
+			};
+		}
+
+		case UPDATE_COUPON: {
+			if (!state?.[action.id]) {
+				return state;
+			}
+			let coupon;
+			switch (action.mode) {
+				case 'recursive':
+					coupon = { ...state[action.id] };
+					mergeWith(coupon, action.coupon, (obj, src) => {
+						if (isArray(obj)) return src;
+					});
+					break;
+				case 'set':
+					coupon = { ...action.coupon };
+					break;
+				case 'normal':
+				default:
+					coupon = { ...state[action.id], ...action.coupon };
+			}
+
+			return {
+				...state,
+				[action.id]: coupon,
+			};
+		}
+
+		case DELETE_COUPON: {
+			return omit({ ...state }, action.id);
+		}
+	}
+	return state;
+};
+
+/**
+ * Reducer returning the state.
  *
  * @param {Object} state  Current state.
  * @param {Object} action Dispatched action.
  *
  * @return {Object} Updated state.
  */
-const errors = ( state = {}, action ) => {
-	switch ( action.type ) {
+const errors = (state = {}, action) => {
+	switch (action.type) {
 		case SET_ERRORS: {
 			return action.value;
 		}
@@ -188,11 +241,12 @@ const errors = ( state = {}, action ) => {
 	return state;
 };
 
-const CombinedReducer = combineReducers( {
+const CombinedReducer = combineReducers({
 	general,
 	models,
 	products,
 	labels,
+	coupons,
 	errors,
-} );
+});
 export default CombinedReducer;

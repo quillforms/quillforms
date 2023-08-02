@@ -16,11 +16,11 @@ defined( 'ABSPATH' ) || exit;
 $payments_schema = array(
 	'type'       => 'object',
 	'properties' => array(
-		'enabled'          => array(
+		'enabled'             => array(
 			'type'     => 'boolean',
 			'required' => true,
 		),
-		'currency'         => array(
+		'currency'            => array(
 			'type'       => 'object',
 			'required'   => true,
 			'properties' => array(
@@ -34,19 +34,19 @@ $payments_schema = array(
 				),
 			),
 		),
-		'methods'          => array(
+		'methods'             => array(
 			'type'                 => 'object',
 			'additionalProperties' => array(
 				'type' => 'object',
 			),
 		),
-		'gateways_options' => array(
+		'gateways_options'    => array(
 			'type'                 => 'object',
 			'additionalProperties' => array(
 				'type' => 'object',
 			),
 		),
-		'labels'           => array(
+		'labels'              => array(
 			'type'       => 'object',
 			'required'   => true,
 			'properties' => array(
@@ -68,7 +68,7 @@ $payments_schema = array(
 				),
 			),
 		),
-		'models'           => array(
+		'models'              => array(
 			'type'                 => 'object',
 			'required'             => true,
 			'additionalProperties' => array(
@@ -109,6 +109,51 @@ $payments_schema = array(
 						),
 					),
 				),
+			),
+		),
+		'coupons'             => array(
+			'type'                 => 'object',
+			'required'             => false,
+			'additionalProperties' => array(
+				'type'       => 'object',
+				'properties' => array(
+					'name'            => array(
+						'type'     => 'string',
+						'required' => true,
+					),
+					'code'            => array(
+						'type'     => 'string',
+						'required' => true,
+					),
+					'discount_type'   => array(
+						'type'     => 'string',
+						'enum'     => array( 'percent', 'fixed' ),
+						'required' => true,
+					),
+					'discount_amount' => array(
+						'type'     => 'string',
+						'required' => true,
+					),
+					'start_date'      => array(
+						'type'     => 'string',
+						'required' => false,
+					),
+					'end_date'        => array(
+						'type'     => 'string',
+						'required' => false,
+					),
+					'usage_limit'     => array(
+						'type'     => 'string',
+						'required' => false,
+					),
+				),
+			),
+		),
+		'coupons_usage_count' => array(
+			'type'     => 'array',
+			'required' => false,
+			'items'    => array(
+				'type' => 'integer',
 			),
 		),
 	),
