@@ -12,7 +12,6 @@ import { memo, useCallback, useEffect } from 'react';
 /**
  * External Dependencies
  */
-import classnames from 'classnames';
 import { cloneDeep, debounce } from 'lodash';
 
 /**
