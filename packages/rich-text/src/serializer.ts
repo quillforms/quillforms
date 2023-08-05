@@ -57,7 +57,7 @@ const getNode = ({ element, children }) => {
   };
   
   const getLeaf = ({ leaf, children }) => {
-    console.log(leaf);
+    // console.log(leaf);
     let newChildren = children;
     if (leaf['bold']) {
       newChildren = `<strong>${newChildren}</strong>`;
@@ -98,7 +98,7 @@ const getNode = ({ element, children }) => {
     nodes
       .map((node) => {
         attributes = '';
-        console.log(node)
+        // console.log(node)
         if (Text.isText(node)) {
           return getLeaf({ leaf: node, children: node.text });
         }

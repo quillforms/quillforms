@@ -2,6 +2,15 @@ import React from 'react';
 import { PlateElement, PlateElementProps, focusEditor, usePlateEditorState } from '@udecode/plate-common';
 import { css } from 'emotion';
 import { ReactEditor } from 'slate-react';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+    useOpenState,
+} from './dropdown-menu';
+import { ToolbarButton } from './toolbar';
+
 const MergeTags = () => {
     const editor = usePlateEditorState();
 
@@ -25,5 +34,6 @@ const MergeTags = () => {
             Recall Information
         </div>
     );
+
 };
 export default MergeTags;

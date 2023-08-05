@@ -27,6 +27,7 @@
     }
     div[data-radix-popper-content-wrapper] {
         background: #fff;
+        z-index: 9999999999999999999999999999 !important;
     }
   .quillforms-full-rich-text, div[data-radix-popper-content-wrapper] {
   *,

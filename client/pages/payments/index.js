@@ -3,6 +3,7 @@
  */
 import { Button } from '@quillforms/admin-components';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
+import { FullRichText } from "@quillforms/rich-text";
 
 /**
  * WordPress Dependencies
@@ -252,6 +253,7 @@ const PaymentsPage = ({ params }) => {
 
 	return (
 		<AnimateSharedLayout>
+			<FullRichText value="<p></p>" />
 			<PaymentsContextProvider
 				value={{
 					settings,

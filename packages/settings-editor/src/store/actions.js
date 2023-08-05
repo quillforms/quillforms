@@ -42,7 +42,6 @@ export const changeAnimationDirection = (direction) => {
 };
 
 export const showLettersOnAnswers = (flag) => {
-	console.log(flag);
 	return {
 		type: SHOW_LETTERS_ON_ANSWERS,
 		flag,

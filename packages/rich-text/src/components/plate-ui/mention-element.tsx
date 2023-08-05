@@ -30,12 +30,9 @@ const MentionElement = forwardRef<
 >(({ prefix, renderLabel, className, onClick, ...props }, ref) => {
   const { children, element } = props;
 
-  const selected = useSelected();
-  const focused = useFocused();
   const fields = useFields({ section: 'fields' });
   const variables = useVariables({ section: 'variables' });
   const hiddenFields = useHiddenFields({ section: 'hidden_fields' });
-  console.log(fields);
   const { mentionType, mentionModifier } = element;
   // Now depending on the mentionType and mentionModifier we will get the item
   // from the fields or variable or hidden_field

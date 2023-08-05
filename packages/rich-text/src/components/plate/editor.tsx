@@ -42,7 +42,7 @@ export default function Editor({ value, onChange }) {
     const deserializedValue = deserializeHtml(tmpEditor, {
       element: $value
     });
-
+    console.log(deserializedValue)
 
     return deserializedValue;
   }, []
@@ -61,7 +61,6 @@ export default function Editor({ value, onChange }) {
   const fields = useFields({ section: 'fields' });
   const variables = useVariables({ section: 'variables' });
   const hiddenFields = useHiddenFields({ section: 'hidden_fields' });
-  console.log(variables)
   let items = fields.concat(variables).concat(hiddenFields);
   items = items.map((item, index) => {
     return {
@@ -76,7 +75,9 @@ export default function Editor({ value, onChange }) {
         <div className="relative">
           <PlateProvider plugins={plugins} initialValue={initialValue}
             onChange={(newValue) => {
-              onChange(htmlSerialize(newValue));
+              if (onChange) {
+                onChange(htmlSerialize(newValue));
+              }
             }}
           >
             <FixedToolbar>
@@ -120,6 +121,6 @@ export default function Editor({ value, onChange }) {
           </PlateProvider>
         </div >
       </DndProvider >
-    </div>
+    </div >
   );
 }

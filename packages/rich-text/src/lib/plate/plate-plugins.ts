@@ -503,15 +503,7 @@ export const plugins = createPlugins(
             return React.createElement('div', {}, children)
           }
         },
-        [ELEMENT_MENTION]: {
-          serializeHtml: ({ leaf, children }) => {
-            console.log('mention', leaf);
-            return `{{}}`
-          },
-          deserializeHtml: (args) => {
-            console.log(args)
-          }
-        },
+
         
         
       })

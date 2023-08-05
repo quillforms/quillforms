@@ -103,10 +103,10 @@ const ChoicesWrapper =
 		const handleClick = useCallback(
 			debounce((map) => {
 				const pressedLetter = Object.values(map).join('');
-				console.log(pressedLetter);
-				console.log($choices)
+				// console.log(pressedLetter);
+				// console.log($choices)
 				const $choiceIndex = $choices.findIndex(choice => choice.order.toUpperCase() === pressedLetter.toUpperCase());
-				console.log($choiceIndex)
+				// console.log($choiceIndex)
 				document.querySelector(`#block-${id} .multiplechoice__options .multipleChoice__optionWrapper:nth-child(${$choiceIndex + 1})`)?.click();
 				mappedKeyboardTicks = {};
 			}, 100),

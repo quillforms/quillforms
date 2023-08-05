@@ -43,7 +43,7 @@ const CustomizeThemePanel = () => {
 	const { setCurrentThemeProperties, setCurrentThemeTitle } = useDispatch(
 		'quillForms/theme-editor'
 	);
-	const { theme, shouldBeSaved, currentThemeId, customFontsList } = useSelect( ( select ) => {
+	const { theme, shouldBeSaved, currentThemeId, customFontsList } = useSelect((select) => {
 		return {
 			shouldBeSaved: select(
 				'quillForms/theme-editor'
@@ -51,19 +51,18 @@ const CustomizeThemePanel = () => {
 			currentThemeId: select(
 				'quillForms/theme-editor'
 			).getCurrentThemeId(),
-			theme: select( 'quillForms/theme-editor' ).getCurrentTheme(),
-			customFontsList: select( 'quillForms/custom-fonts' )?.getFontsList() ?? [],
+			theme: select('quillForms/theme-editor').getCurrentTheme(),
+			customFontsList: select('quillForms/custom-fonts')?.getFontsList() ?? [],
 		};
-	} );
+	});
 
 	let customFonts = {};
-	console.log(customFontsList);
-	if(size(customFontsList) > 0) {
+	if (size(customFontsList) > 0) {
 		forEach(customFontsList, (font) => {
 			customFonts[font.title] = 'custom';
 		});
 	}
-	const allFonts = {...customFonts, ...configApi.getFonts() };
+	const allFonts = { ...customFonts, ...configApi.getFonts() };
 	const { title, properties } = { ...theme };
 
 	const $properties = {
@@ -94,70 +93,70 @@ const CustomizeThemePanel = () => {
 	} = $properties;
 	return (
 		<div className="theme-editor-customize">
-			<PanelBody title="Theme Title" initialOpen={ false }>
+			<PanelBody title="Theme Title" initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Title" />
 						<TextControl
-							value={ title }
-							onChange={ ( val ) => {
-								setCurrentThemeTitle( val );
-							} }
+							value={title}
+							onChange={(val) => {
+								setCurrentThemeTitle(val);
+							}}
 						/>
 					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
-			<PanelBody title="Background and Logo" initialOpen={ false }>
+			<PanelBody title="Background and Logo" initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Background Overlay Color" />
-						<ColorPreview color={ backgroundColor } />
+						<ColorPreview color={backgroundColor} />
 					</ControlWrapper>
 					<ComboColorPicker
-						color={ backgroundColor }
-						setColor={ ( value ) => {
-							setCurrentThemeProperties( {
+						color={backgroundColor}
+						setColor={(value) => {
+							setCurrentThemeProperties({
 								backgroundColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Background Image" />
-						{ isEmpty( backgroundImage ) ? (
+						{isEmpty(backgroundImage) ? (
 							<MediaUpload
-								onSelect={ ( media ) =>
-									setCurrentThemeProperties( {
+								onSelect={(media) =>
+									setCurrentThemeProperties({
 										backgroundImage: media.url,
-									} )
+									})
 								}
-								allowedTypes={ [ 'image' ] }
-								render={ ( { open } ) => (
-									<Button isSmall onClick={ open }>
+								allowedTypes={['image']}
+								render={({ open }) => (
+									<Button isSmall onClick={open}>
 										Add
 									</Button>
-								) }
+								)}
 							/>
 						) : (
 							<Button
 								isDanger
 								isSmall
-								onClick={ () =>
-									setCurrentThemeProperties( {
+								onClick={() =>
+									setCurrentThemeProperties({
 										backgroundImage: '',
-									} )
+									})
 								}
 							>
 								Remove
 							</Button>
-						) }
+						)}
 					</ControlWrapper>
 				</BaseControl>
 
-				{ ! isEmpty( backgroundImage ) && (
+				{!isEmpty(backgroundImage) && (
 					<div
-						className={ css`
+						className={css`
 							max-width: 300px;
 						` }
 					>
@@ -165,91 +164,91 @@ const CustomizeThemePanel = () => {
 							<ControlWrapper orientation="vertical">
 								<ControlLabel label="Focal Point Picker"></ControlLabel>
 								<div
-									className={ css`
+									className={css`
 										max-width: 300px;
 									` }
 								>
 									<FocalPointPicker
-										url={ backgroundImage }
-										value={ backgroundImageFocalPoint }
-										onDragStart={ ( val ) => {
-											setCurrentThemeProperties( {
+										url={backgroundImage}
+										value={backgroundImageFocalPoint}
+										onDragStart={(val) => {
+											setCurrentThemeProperties({
 												backgroundImageFocalPoint: val,
-											} );
-										} }
-										onDrag={ ( val ) => {
-											setCurrentThemeProperties( {
+											});
+										}}
+										onDrag={(val) => {
+											setCurrentThemeProperties({
 												backgroundImageFocalPoint: val,
-											} );
-										} }
-										onChange={ ( val ) => {
-											setCurrentThemeProperties( {
+											});
+										}}
+										onChange={(val) => {
+											setCurrentThemeProperties({
 												backgroundImageFocalPoint: val,
-											} );
-										} }
+											});
+										}}
 									/>
 								</div>
 							</ControlWrapper>
 						</BaseControl>
 					</div>
-				) }
+				)}
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="logo" />
-						{ isEmpty( logo ) ? (
+						{isEmpty(logo) ? (
 							<MediaUpload
-								onSelect={ ( media ) =>
-									setCurrentThemeProperties( {
+								onSelect={(media) =>
+									setCurrentThemeProperties({
 										logo: {
 											type: 'image',
 											src: media.url,
 										},
-									} )
+									})
 								}
-								allowedTypes={ [ 'image' ] }
-								render={ ( { open } ) => (
-									<Button isSmall onClick={ open }>
+								allowedTypes={['image']}
+								render={({ open }) => (
+									<Button isSmall onClick={open}>
 										Add
 									</Button>
-								) }
+								)}
 							/>
 						) : (
 							<Button
 								isDanger
 								isSmall
-								onClick={ () =>
-									setCurrentThemeProperties( {
+								onClick={() =>
+									setCurrentThemeProperties({
 										logo: {},
-									} )
+									})
 								}
 							>
 								Remove
 							</Button>
-						) }
+						)}
 					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
 
-			<PanelBody title="Font Families" initialOpen={ false }>
+			<PanelBody title="Font Families" initialOpen={false}>
 				<div className="fonts-hint">
 					<div className="admin-components-control-label__new-feature">
 						NEW
 					</div>
 					<p>
-					 Now, you can add your custom font from the custom fonts panel at the top.
+						Now, you can add your custom font from the custom fonts panel at the top.
 					</p>
 				</div>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Base Font" />
 						<FontPicker
-							fonts={ allFonts }
-							selectedFont={ font }
-							setFont={ ( value ) => {
-								setCurrentThemeProperties( {
+							fonts={allFonts}
+							selectedFont={font}
+							setFont={(value) => {
+								setCurrentThemeProperties({
 									font: value,
-								} );
-							} }
+								});
+							}}
 						/>
 					</ControlWrapper>
 				</BaseControl>
@@ -257,20 +256,20 @@ const CustomizeThemePanel = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
 							label="Questions Label Font"
-							isNew={ true }
+							isNew={true}
 						/>
 						<FontPicker
-							fonts={ {
+							fonts={{
 								Inherit: 'inherit',
 								...customFonts,
 								...configApi.getFonts(),
-							} }
-							selectedFont={ questionsLabelFont }
-							setFont={ ( value ) => {
-								setCurrentThemeProperties( {
+							}}
+							selectedFont={questionsLabelFont}
+							setFont={(value) => {
+								setCurrentThemeProperties({
 									questionsLabelFont: value,
-								} );
-							} }
+								});
+							}}
 						/>
 					</ControlWrapper>
 				</BaseControl>
@@ -278,154 +277,154 @@ const CustomizeThemePanel = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
 							label="Questions Description Font"
-							isNew={ true }
+							isNew={true}
 						/>
 						<FontPicker
-							fonts={ {
+							fonts={{
 								Inherit: 'inherit',
 								...customFonts,
 								...configApi.getFonts(),
-							} }
-							selectedFont={ questionsDescriptionFont }
-							setFont={ ( value ) => {
-								setCurrentThemeProperties( {
+							}}
+							selectedFont={questionsDescriptionFont}
+							setFont={(value) => {
+								setCurrentThemeProperties({
 									questionsDescriptionFont: value,
-								} );
-							} }
+								});
+							}}
 						/>
 					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
 
-			<PanelBody title="Colors" initialOpen={ false }>
+			<PanelBody title="Colors" initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Questions Color" />
-						<ColorPreview color={ questionsColor } />
+						<ColorPreview color={questionsColor} />
 					</ControlWrapper>
 					<ColorPicker
-						value={ questionsColor }
-						onChange={ ( value ) => {
-							setCurrentThemeProperties( {
+						value={questionsColor}
+						onChange={(value) => {
+							setCurrentThemeProperties({
 								questionsColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Answers Color" />
-						<ColorPreview color={ answersColor } />
+						<ColorPreview color={answersColor} />
 					</ControlWrapper>
 					<ColorPicker
-						value={ answersColor }
-						onChange={ ( value ) => {
-							setCurrentThemeProperties( {
+						value={answersColor}
+						onChange={(value) => {
+							setCurrentThemeProperties({
 								answersColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Buttons Font Color" />
-						<ColorPreview color={ buttonsFontColor } />
+						<ColorPreview color={buttonsFontColor} />
 					</ControlWrapper>
 					<ColorPicker
-						value={ buttonsFontColor }
-						onChange={ ( value ) => {
-							setCurrentThemeProperties( {
+						value={buttonsFontColor}
+						onChange={(value) => {
+							setCurrentThemeProperties({
 								buttonsFontColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Buttons Background Color" />
-						<ColorPreview color={ buttonsBgColor } />
+						<ColorPreview color={buttonsBgColor} />
 					</ControlWrapper>
 					<ComboColorPicker
-						color={ buttonsBgColor }
-						setColor={ ( value ) => {
-							setCurrentThemeProperties( {
+						color={buttonsBgColor}
+						setColor={(value) => {
+							setCurrentThemeProperties({
 								buttonsBgColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Erros Text Color" />
-						<ColorPreview color={ errorsFontColor } />
+						<ColorPreview color={errorsFontColor} />
 					</ControlWrapper>
 					<ColorPicker
-						value={ errorsFontColor }
-						onChange={ ( value ) => {
-							setCurrentThemeProperties( {
+						value={errorsFontColor}
+						onChange={(value) => {
+							setCurrentThemeProperties({
 								errorsFontColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Errros Background Color" />
-						<ColorPreview color={ errorsBgColor } />
+						<ColorPreview color={errorsBgColor} />
 					</ControlWrapper>
 					<ComboColorPicker
-						color={ errorsBgColor }
-						setColor={ ( value ) => {
-							setCurrentThemeProperties( {
+						color={errorsBgColor}
+						setColor={(value) => {
+							setCurrentThemeProperties({
 								errorsBgColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
 						<ControlLabel
 							label="Form Footer Background Color"
-							isNew={ true }
+							isNew={true}
 						/>
 						<ResponsiveControl
 							desktopChildren={
 								<ComboColorPicker
-									color={ formFooterBgColor.lg }
-									setColor={ ( value ) => {
-										setCurrentThemeProperties( {
+									color={formFooterBgColor.lg}
+									setColor={(value) => {
+										setCurrentThemeProperties({
 											formFooterBgColor: {
 												...formFooterBgColor,
 												lg: value,
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 							}
 							tabletChildren={
 								<ComboColorPicker
-									color={ formFooterBgColor.md }
-									setColor={ ( value ) => {
-										setCurrentThemeProperties( {
+									color={formFooterBgColor.md}
+									setColor={(value) => {
+										setCurrentThemeProperties({
 											formFooterBgColor: {
 												...formFooterBgColor,
 												md: value,
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 							}
 							mobileChildren={
 								<ComboColorPicker
-									color={ formFooterBgColor.sm }
-									setColor={ ( value ) => {
-										setCurrentThemeProperties( {
+									color={formFooterBgColor.sm}
+									setColor={(value) => {
+										setCurrentThemeProperties({
 											formFooterBgColor: {
 												...formFooterBgColor,
 												sm: value,
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 							}
 						/>
@@ -434,53 +433,53 @@ const CustomizeThemePanel = () => {
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Progress Bar Fill Color" />
-						<ColorPreview color={ progressBarFillColor } />
+						<ColorPreview color={progressBarFillColor} />
 					</ControlWrapper>
 					<ColorPicker
-						value={ progressBarFillColor }
-						onChange={ ( value ) => {
-							setCurrentThemeProperties( {
+						value={progressBarFillColor}
+						onChange={(value) => {
+							setCurrentThemeProperties({
 								progressBarFillColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Progress Bar Background Color" />
-						<ColorPreview color={ progressBarBgColor } />
+						<ColorPreview color={progressBarBgColor} />
 					</ControlWrapper>
 					<ColorPicker
-						value={ progressBarBgColor }
-						onChange={ ( value ) => {
-							setCurrentThemeProperties( {
+						value={progressBarBgColor}
+						onChange={(value) => {
+							setCurrentThemeProperties({
 								progressBarBgColor: value,
-							} );
-						} }
+							});
+						}}
 					/>
 				</BaseControl>
 			</PanelBody>
 
 			<TypographyPanel
-				properties={ $properties }
-				setCurrentThemeProperties={ setCurrentThemeProperties }
+				properties={$properties}
+				setCurrentThemeProperties={setCurrentThemeProperties}
 			/>
-			<PanelBody title="Borders" initialOpen={ false }>
+			<PanelBody title="Borders" initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel label="Buttons Border Radius(px)" />
 						<RangeControl
-							className={ css`
+							className={css`
 								width: 30%;
 							` }
-							value={ buttonsBorderRadius }
-							onChange={ ( value ) =>
-								setCurrentThemeProperties( {
+							value={buttonsBorderRadius}
+							onChange={(value) =>
+								setCurrentThemeProperties({
 									buttonsBorderRadius: value,
-								} )
+								})
 							}
-							min={ 1 }
-							max={ 30 }
+							min={1}
+							max={30}
 						/>
 					</ControlWrapper>
 				</BaseControl>
@@ -488,20 +487,20 @@ const CustomizeThemePanel = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
 							label="Buttons Border Width(px)"
-							isNew={ true }
+							isNew={true}
 						/>
 						<RangeControl
-							className={ css`
+							className={css`
 								width: 30%;
 							` }
-							value={ buttonsBorderWidth }
-							onChange={ ( value ) =>
-								setCurrentThemeProperties( {
+							value={buttonsBorderWidth}
+							onChange={(value) =>
+								setCurrentThemeProperties({
 									buttonsBorderWidth: value,
-								} )
+								})
 							}
-							min={ 0 }
-							max={ 10 }
+							min={0}
+							max={10}
 						/>
 					</ControlWrapper>
 				</BaseControl>
@@ -509,26 +508,26 @@ const CustomizeThemePanel = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
 							label="Buttons Border Color"
-							isNew={ true }
+							isNew={true}
 						/>
 						<ColorPicker
-							value={ buttonsBorderColor }
-							onChange={ ( value ) => {
-								setCurrentThemeProperties( {
+							value={buttonsBorderColor}
+							onChange={(value) => {
+								setCurrentThemeProperties({
 									buttonsBorderColor: value,
-								} );
-							} }
+								});
+							}}
 						/>
 					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
-			{ shouldBeSaved && (
+			{shouldBeSaved && (
 				<CustomizeFooter
-					themeTitle={ title }
-					themeProperties={ theme.properties }
-					themeId={ currentThemeId }
+					themeTitle={title}
+					themeProperties={theme.properties}
+					themeId={currentThemeId}
 				/>
-			) }
+			)}
 		</div>
 	);
 };

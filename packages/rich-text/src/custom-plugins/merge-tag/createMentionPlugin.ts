@@ -28,7 +28,6 @@ export const createMentionPlugin = createPluginFactory<MentionPlugin>({
   deserializeHtml: {
 
     getNode: (el, node) => {
-      console.log(node)
       if(el.nodeName === 'MENTION') {
         return {
           type: 'mention',
