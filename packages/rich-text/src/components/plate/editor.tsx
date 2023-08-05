@@ -2,6 +2,7 @@
 
 import React, { useRef, useMemo, useEffect } from 'react';
 import { useFields, useVariables, useHiddenFields } from '@quillforms/admin-components';
+import { autop } from "@wordpress/autop";
 import { CommentsProvider } from '@udecode/plate-comments';
 import { Plate, PlateProvider, focusEditor, getEndPoint, getStartPoint } from '@udecode/plate-common';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
@@ -33,7 +34,8 @@ export default function Editor({ value, onChange }) {
   // ];
 
   const initialValue = useMemo(() => {
-    const formattedValue = value ?? "<p></p>";
+
+    const formattedValue = autop(value);
     const $value = formattedValue.replace(
       /{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
       "<mention data-type='$1' data-modifier='$2'>_____</mention>"
@@ -47,16 +49,16 @@ export default function Editor({ value, onChange }) {
     return deserializedValue;
   }, []
   );
-  const editor = usePlateSelectors().editor();
-  const isRendered = usePlateSelectors().isRendered();
+  // const editor = usePlateSelectors().editor();
+  // const isRendered = usePlateSelectors().isRendered();
 
-  useEffect(() => {
-    if (isRendered && editor) {
-      setTimeout(() => {
-        focusEditor(editor, getEndPoint(editor, [0]));
-      }, 0);
-    }
-  }, [editor, isRendered]);
+  // useEffect(() => {
+  //   if (isRendered && editor) {
+  //     setTimeout(() => {
+  //       focusEditor(editor, getEndPoint(editor, [0]));
+  //     }, 0);
+  //   }
+  // }, [editor, isRendered]);
 
   const fields = useFields({ section: 'fields' });
   const variables = useVariables({ section: 'variables' });
