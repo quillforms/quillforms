@@ -33,7 +33,8 @@ export const createMentionPlugin = createPluginFactory<MentionPlugin>({
           type: 'mention',
           value: `{{${el.dataset.type}:${el.dataset.modifier}}}`,
           mentionType: el.dataset.type,
-          mentionModifier: el.dataset.modifier
+          mentionModifier: el.dataset.modifier,
+          children: [{ text: "" }]
         }
       }
     }
