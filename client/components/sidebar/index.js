@@ -19,21 +19,22 @@ import AddonIcon from './addons-icon';
 import LicenseIcon from './license-icon';
 import SupportIcon from './support-icon';
 import SystemIcon from './system-icon';
-const clean = ( str ) => {
-	return str.replace( 'quillforms', '' ).replace( '&path=', '' );
+import ImportExportIcon from './import-export-icon';
+const clean = (str) => {
+	return str.replace('quillforms', '').replace('&path=', '');
 };
 
-const matchesRegesiteredRoutes = ( path ) => {
+const matchesRegesiteredRoutes = (path) => {
 	let ret = false;
-	forEach( getAdminPages(), ( page ) => {
-		const match = matchPath( path, {
+	forEach(getAdminPages(), (page) => {
+		const match = matchPath(path, {
 			path: page.path,
 			exact: true,
 			strict: false,
-		} );
+		});
 		ret = true;
 		return;
-	} );
+	});
 	return ret;
 };
 const Sidebar = () => {
@@ -41,61 +42,63 @@ const Sidebar = () => {
 		<div className="qf-admin-sidebar">
 			<h1 className="qf-admin-sidebar-heading">Quill Forms</h1>
 			<div className="qf-admin-sidebar-nav-items">
-				{ map( qfAdmin.submenuPages, ( page, index ) => {
+				{map(qfAdmin.submenuPages, (page, index) => {
 					if (
-						matchesRegesiteredRoutes( '/' + clean( page[ 2 ] ) )
+						matchesRegesiteredRoutes('/' + clean(page[2]))
 					) {
 						return (
 							<NavLink
-								key={ `page-${ index }` }
-								isActive={ ( match, location ) => {
+								key={`page-${index}`}
+								isActive={(match, location) => {
 									if (
-										( location.pathname ===
-											clean( page[ 2 ] ) ) |
-										( location.pathname ===
-											'/' + clean( page[ 2 ] ) )
+										(location.pathname ===
+											clean(page[2])) |
+										(location.pathname ===
+											'/' + clean(page[2]))
 									) {
 										return true;
 									}
-								} }
+								}}
 								activeClassName="selected"
 								className="qf-admin-sidebar-nav-item"
-								to={ `/admin.php?page=${ page[ 2 ] }` }
+								to={`/admin.php?page=${page[2]}`}
 							>
 								<div className="qf-admin-sidebar-nav-item__icon">
-									{ page[ 2 ] === 'quillforms' ? (
+									{page[2] === 'quillforms' ? (
 										<HomeIcon />
-									) : page[ 2 ] ===
-									  'quillforms&path=addons' ? (
+									) : page[2] ===
+										'quillforms&path=addons' ? (
 										<AddonIcon />
-									) : page[ 2 ] ===
-									  'quillforms&path=license' ? (
+									) : page[2] ===
+										'quillforms&path=license' ? (
 										<LicenseIcon />
-									) : page[ 2 ] ===
-									  'quillforms&path=support' ? (
+									) : page[2] ===
+										'quillforms&path=support' ? (
 										<SupportIcon />
-									) : page[ 2 ] ===
-									  'quillforms&path=system' ? (
+									) : page[2] ===
+										'quillforms&path=system' ? (
 										<SystemIcon />
+									) : page[2] === 'quillforms&path=import-export' ? (
+										<ImportExportIcon />
 									) : (
 										<SettingsIcon />
-									) }
+									)}
 								</div>
-								{ page[ 0 ] }
+								{page[0]}
 							</NavLink>
 						);
 					} else {
 						return (
 							<a
-								href={ `/admin.php?page=${ page[ 2 ] }` }
+								href={`/admin.php?page=${page[2]}`}
 								className="qf-admin-sidebar-nav-item"
 								target="_blank"
 							/>
 						);
 					}
-				} ) }
+				})}
 			</div>
 		</div>
 	);
 };
-export default withRouter( Sidebar );
+export default withRouter(Sidebar);

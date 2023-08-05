@@ -30,6 +30,7 @@ import Settings from '../pages/settings';
 import License from '../pages/license';
 import System from '../pages/system';
 import Support from '../pages/support';
+import ImportExport from '../pages/import-export';
 
 export const Controller = ({ page, match, location }) => {
 	useEffect(() => {
@@ -155,6 +156,11 @@ registerAdminPage('system', {
 registerAdminPage('support', {
 	component: Support,
 	path: 'support',
+});
+
+registerAdminPage('import-export', {
+	component: ImportExport,
+	path: 'import-export',
 });
 
 registerAdminPage('not_found', {
