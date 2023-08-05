@@ -437,7 +437,7 @@ class Store {
 			),
 			'pdf'                       => array(
 				'name'           => esc_html__( 'PDF Entries Export', 'quillforms' ),
-				'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files.', 'quillforms' ),
+				'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files and attach them to your email notifications.', 'quillforms' ),
 				'plugin_file'    => 'quillforms-pdf/quillforms-pdf.php',
 				'plan'           => 'plus',
 				'is_integration' => true,
