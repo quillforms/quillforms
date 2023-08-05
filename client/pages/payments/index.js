@@ -3,6 +3,7 @@
  */
 import { Button } from '@quillforms/admin-components';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
+import { FullRichText } from "@quillforms/rich-text";
 
 /**
  * WordPress Dependencies
@@ -35,6 +36,7 @@ import Labels from './labels';
 import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
 import { forEach, size } from 'lodash';
+import Coupons from './coupons';
 
 const PaymentsPage = ({ params }) => {
 	const [showReleaseModal, setShowReleaseModal] = useState(false);
@@ -55,7 +57,7 @@ const PaymentsPage = ({ params }) => {
 
 	// component state.
 	const [state, dispatch] = useReducer(reducer, getInitialState());
-	const { general, models, products, labels, errors } = state;
+	const { general, models, products, labels, coupons, errors } = state;
 	const settings = {
 		...general,
 		models,
@@ -155,7 +157,7 @@ const PaymentsPage = ({ params }) => {
 			});
 			return;
 		}
-
+		console.log(coupons);
 		// save
 		apiFetch({
 			path:
@@ -167,6 +169,7 @@ const PaymentsPage = ({ params }) => {
 					...general,
 					models,
 					labels,
+					coupons,
 				},
 				products,
 			},
@@ -250,6 +253,7 @@ const PaymentsPage = ({ params }) => {
 
 	return (
 		<AnimateSharedLayout>
+			<FullRichText />
 			<PaymentsContextProvider
 				value={{
 					settings,
@@ -257,6 +261,7 @@ const PaymentsPage = ({ params }) => {
 					models,
 					products,
 					labels,
+					coupons,
 					errors,
 					...$actions,
 				}}
@@ -277,6 +282,7 @@ const PaymentsPage = ({ params }) => {
 					<div className="quillforms-payments-page-settings">
 						<General />
 						<Products />
+						<Coupons />
 						<Models />
 
 						<Methods />

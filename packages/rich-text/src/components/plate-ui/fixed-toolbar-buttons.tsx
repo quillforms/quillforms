@@ -31,6 +31,7 @@ import { ModeDropdownMenu } from './mode-dropdown-menu';
 import { ToolbarGroup } from './toolbar';
 import { TurnIntoDropdownMenu } from './turn-into-dropdown-menu';
 
+import MergeTags from './merge-tags';
 export function FixedToolbarButtons() {
   const readOnly = usePlateReadOnly();
 
@@ -106,6 +107,7 @@ export function FixedToolbarButtons() {
               <TableDropdownMenu />
 
               <EmojiDropdownMenu />
+              <MergeTags />
 
               <MoreDropdownMenu />
             </ToolbarGroup>

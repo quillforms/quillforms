@@ -435,6 +435,16 @@ class Store {
 					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
 				),
 			),
+			'pdf'                       => array(
+				'name'           => esc_html__( 'PDF Entries Export', 'quillforms' ),
+				'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-pdf/quillforms-pdf.php',
+				'plan'           => 'plus',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pdf/icon.svg',
+				),
+			),
 			'logic'                     => array(
 				'name'           => esc_html__( 'Logic', 'quillforms' ),
 				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
@@ -1046,6 +1056,26 @@ class Store {
 				'is_integration' => true,
 				'assets'         => array(
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentcrm/icon.svg',
+				),
+			),
+			'discord'                   => array(
+				'name'           => esc_html__( 'Discord', 'quillforms' ),
+				'description'    => esc_html__( 'Discord addon allows you to send your form submissions to your discord server.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-discord/quillforms-discord.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/discord/icon.svg',
+				),
+			),
+			'cleverreach'               => array(
+				'name'           => esc_html__( 'CleverReach', 'quillforms' ),
+				'description'    => esc_html__( 'CleverReach addon allows you to connect your forms with CleverReach to send your leads to your CleverReach account.', 'quillforms' ),
+				'plugin_file'    => 'quillforms-cleverreach/quillforms-cleverreach.php',
+				'plan'           => 'basic',
+				'is_integration' => true,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/cleverreach/icon.svg',
 				),
 			),
 			'wpuserregistration'        => array(

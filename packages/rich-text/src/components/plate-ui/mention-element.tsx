@@ -7,7 +7,7 @@ import {
 } from '@udecode/plate-common';
 import { TMentionElement } from '@udecode/plate-mention';
 import { useFocused, useSelected } from 'slate-react';
-import { getPlainExcerpt } from "@quillforms/admin-components";
+import { getPlainExcerpt, useFields, useHiddenFields, useVariables } from "@quillforms/admin-components";
 import { Icon } from "@wordpress/components";
 import classnames from "classnames";
 import { css } from "emotion";
@@ -32,7 +32,18 @@ const MentionElement = forwardRef<
 
   const selected = useSelected();
   const focused = useFocused();
-  const item = element.item;
+  const fields = useFields({ section: 'fields' });
+  const variables = useVariables({ section: 'variables' });
+  const hiddenFields = useHiddenFields({ section: 'hidden_fields' });
+  console.log(fields);
+  const { mentionType, mentionModifier } = element;
+  // Now depending on the mentionType and mentionModifier we will get the item
+  // from the fields or variable or hidden_field
+  const item = mentionType === 'field'
+    ? fields.find((field) => field.value === mentionModifier)
+    : mentionType === 'variable'
+      ? variables.find((variable) => variable.value === mentionModifier)
+      : hiddenFields.find((hiddenField) => hiddenField.value === mentionModifier);
   const mergeTagIcon = item?.iconBox.icon;
   const renderedIcon = (
     <Icon
@@ -58,51 +69,53 @@ const MentionElement = forwardRef<
     >
       {/* {prefix}
       {element.value} */}
-      < span
-        contentEditable={false}
-        className={
-          classnames(
-            'rich-text-merge-tag__node-wrapper',
-            css`
+      {item ?
+        < span
+          contentEditable={false}
+          className={
+            classnames(
+              'rich-text-merge-tag__node-wrapper',
+              css`
 							color: ${item?.iconBox.color
-                ? item?.iconBox?.color
-                : '#bb426f'
-              };
+                  ? item?.iconBox?.color
+                  : '#bb426f'
+                };
               bordercolor: ${item?.iconBox.color
-                ? item?.iconBox.color
-                : '#bb426f'
-              };
+                  ? item?.iconBox.color
+                  : '#bb426f'
+                };
               fill: ${item?.iconBox.color
-                ? item?.iconBox.color
-                : '#bb426f'
-              };
+                  ? item?.iconBox.color
+                  : '#bb426f'
+                };
               padding: 1.5px 8px;
 `
-          )}
-      >
-        <span
-          className={classnames(
-            'rich-text-merge-tag__background',
-            css`
+            )}
+        >
+          <span
+            className={classnames(
+              'rich-text-merge-tag__background',
+              css`
                 background: ${item?.iconBox.color
-                ? item?.iconBox.color
-                : '#bb426f'
-              };
+                  ? item?.iconBox.color
+                  : '#bb426f'
+                };
 `
-          )}
-        />
-        <span className="rich-text-merge-tag__icon-box">
-          {renderedIcon}
-        </span>
-        <span
-          className="rich-text-merge-tag__title"
-          dangerouslySetInnerHTML={{
-            __html: getPlainExcerpt(item.label),
-          }}
-        />
-        {children}
+            )}
+          />
+          <span className="rich-text-merge-tag__icon-box">
+            {renderedIcon}
+          </span>
+          <span
+            className="rich-text-merge-tag__title"
+            dangerouslySetInnerHTML={{
+              __html: getPlainExcerpt(item.label),
+            }}
+          />
+          {children}
 
-      </span>
+        </span>
+        : element.value}
     </PlateElement>
   );
 });

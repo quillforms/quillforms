@@ -84,11 +84,29 @@
 		margin-bottom: 40px;
 
 		.renderer-core-payment-order__item-row,
-		.renderer-core-payment-modal-info_footer {
+		.renderer-core-payment-modal-info_footer,
+		.renderer-core-payment-modal-info_discount {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			padding: 15px;
+		}
+	}
+}
+.renderer-core-payment-coupon {
+	padding: 15px;
+	margin-bottom: 20px;
+	.renderer-core-payment-coupon__label {
+		margin-right: 15px;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	.render-core-payment-coupon-form {
+		display: flex;
+		align-items: center;
+		margin-top: 20px;
+		.renderer-core-payment-coupon__apply {
+			margin-left: 15px;
 		}
 	}
 }

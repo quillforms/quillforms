@@ -21,7 +21,7 @@
 - [Getting Started](/react-docs/get-started.md)
 - [Create Your Own Custom Block Type](/react-docs/create-your-own-custom-block-type.md)
 - [Available React Hooks](/react-docs/available-react-hooks.md)
-- [UseRendererStoreActions Hook](/react-docs/use-renderer-store-actions.md)🚀🚀
+- [useRendererStoreActions Hook](/react-docs/use-renderer-store-actions.md)🚀🚀
 - [Understanding beforeGoingNext prop](/react-docs/beforeGoingNext.md) 🚀
 - [More Validation for core blocks](/react-docs/core-blocks-validation.md)
 - [Asynchronous API Reqeuest or Validations Before Submission](/react-docs/async-requests.md)

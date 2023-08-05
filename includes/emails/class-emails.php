@@ -335,34 +335,43 @@ class Emails {
 		quillforms_get_logger()->debug( 'Sending an email', compact( 'to', 'subject', 'message', 'attachments' ) );
 
 		// if ( ! did_action( 'init' ) && ! did_action( 'admin_init' ) ) {
-		// 	quillforms_get_logger()->debug( 'Wrong config', array(
-		// 		"code" => "wrong-config"
-		// 	) );
-		// 	_doing_it_wrong( __FUNCTION__, esc_html__( 'You cannot send emails with Emails() until init/admin_init has been reached.', 'quillforms' ), null );
+		// quillforms_get_logger()->debug( 'Wrong config', array(
+		// "code" => "wrong-config"
+		// ) );
+		// _doing_it_wrong( __FUNCTION__, esc_html__( 'You cannot send emails with Emails() until init/admin_init has been reached.', 'quillforms' ), null );
 
-		// 	return false;
+		// return false;
 		// }
 
 		// Don't send anything if emails have been disabled.
 		if ( $this->is_email_disabled() ) {
-			quillforms_get_logger()->debug( 'Disabled email', array(
-				"code" => "disabled-email"
-			) );
+			quillforms_get_logger()->debug(
+				'Disabled email',
+				array(
+					'code' => 'disabled-email',
+				)
+			);
 			return false;
 		}
 
 		// Don't send if email address is invalid.
 		if ( ! is_email( $to ) ) {
-			quillforms_get_logger()->debug( 'Incorrect email', array(
-				"code" => "wrong-email"
-			) );
+			quillforms_get_logger()->debug(
+				'Incorrect email',
+				array(
+					'code' => 'wrong-email',
+				)
+			);
 
 			return false;
 		}
 
-		quillforms_get_logger()->debug( 'Pre sending email', array(
-			"code" => "pre-sending-email"
-		) );
+		quillforms_get_logger()->debug(
+			'Pre sending email',
+			array(
+				'code' => 'pre-sending-email',
+			)
+		);
 		// Hooks before email is sent.
 		do_action( 'quillforms_email_send_before', $this );
 
@@ -382,7 +391,6 @@ class Emails {
 			),
 			$this
 		);
-
 
 		quillforms_get_logger()->debug( 'Email data', compact( 'data' ) );
 
@@ -518,8 +526,8 @@ class Emails {
 				$field_label = '';
 				$field_val   = '';
 
-				if ( ! isset( $this->entry->records['fields'][ $block['id'] ] ) || '' === (string) $this->entry->records['fields'][ $block['id'] ] ) {
-						continue;
+				if ( ! isset( $this->entry->records['fields'][ $block['id'] ] ) ) {
+					continue;
 				}
 
 				$field_label = $block['attributes']['label'];

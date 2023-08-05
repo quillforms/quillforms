@@ -160,7 +160,7 @@ class Short_Text_Block_Type extends Block_Type {
 				$this->validation_err = 'Invalid value passed!';
 			} else {
 				$set_max_characters = $this->attributes['setMaxCharacters'];
-				$max_characters     = $this->attributes['maxCharacters'];
+				$max_characters     = $this->attributes['maxCharacters'] ?? 0;
 				if ( $set_max_characters && $max_characters && strlen( $value ) > $max_characters ) {
 					$this->is_valid       = false;
 					$this->validation_err = $messages['label.errorAlert.maxCharacters'];

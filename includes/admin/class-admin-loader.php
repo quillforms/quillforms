@@ -137,7 +137,7 @@ class Admin_Loader {
 		Core::register_block_types_by_js();
 		Core::set_admin_config();
 		Core::add_gallery_themes();
-		Core::add_tailwind_config();
+		// Core::add_tailwind_config();
 	}
 
 	/**
@@ -208,7 +208,7 @@ class Admin_Loader {
 		wp_enqueue_style( 'quillforms-client' );
 		// Load builder core package style.
 		wp_enqueue_style( 'quillforms-builder-core' );
-		wp_enqueue_script( 'tailwindcss' );
+		// wp_enqueue_script( 'tailwindcss' );
 
 		// Important to check for authentication.
 		wp_auth_check_load();
@@ -235,114 +235,6 @@ class Admin_Loader {
 		}
 		?>
 		<div class="wrap">
-			<style type="text/tailwindcss">
-				@layer base {
-						:root {
-							--background: 0 0% 100%;
-							--foreground: 240 10% 3.9%;
-						
-							--muted: 240 4.8% 95.9%;
-							--muted-foreground: 240 3.8% 46.1%;
-						
-							--popover: 0 0% 100%;
-							--popover-foreground: 240 10% 3.9%;
-						
-							--card: 0 0% 100%;
-							--card-foreground: 240 10% 3.9%;
-						
-							--border: 240 5.9% 90%;
-							--input: 240 5.9% 90%;
-						
-							--primary: 240 5.9% 10%;
-							--primary-foreground: 0 0% 98%;
-						
-							--secondary: 240 4.8% 95.9%;
-							--secondary-foreground: 240 5.9% 10%;
-						
-							--accent: 240 4.8% 95.9%;
-							--accent-foreground: 240 5.9% 10%;
-						
-							--destructive: 0 84.2% 60.2%;
-							--destructive-foreground: 0 0% 98%;
-						
-							--ring: 240 5% 64.9%;
-						
-							--radius: 0.5rem;
-						}
-						
-						.dark {
-							--background: 240 10% 3.9%;
-							--foreground: 0 0% 98%;
-						
-							--muted: 240 3.7% 15.9%;
-							--muted-foreground: 240 5% 64.9%;
-						
-							--popover: 240 10% 3.9%;
-							--popover-foreground: 0 0% 98%;
-						
-							--card: 240 10% 3.9%;
-							--card-foreground: 0 0% 98%;
-						
-							--border: 240 3.7% 25%;
-							--input: 240 3.7% 25%;
-						
-							--primary: 0 0% 98%;
-							--primary-foreground: 240 5.9% 10%;
-						
-							--secondary: 240 3.7% 15.9%;
-							--secondary-foreground: 0 0% 98%;
-						
-							--accent: 240 3.7% 15.9%;
-							--accent-foreground: 0 0% 98%;
-						
-							--destructive: 0 62.8% 30.6%;
-							--destructive-foreground: 0 85.7% 97.3%;
-						
-							--ring: 240 3.7% 25%;
-						}
-						}
-						
-						@layer base {
-						body {
-							font-feature-settings: 'rlig' 1, 'calt' 1;
-						}
-						
-						kbd {
-							font-size: inherit;
-						}
-						
-						[data-slate-editor] {
-							font-family: Inter, ui-sans-serif, system-ui, -apple-system,
-							BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
-							sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,
-							'Noto Color Emoji';
-						}
-						
-						.slate-selection-area {
-							background: #4f90f22d;
-							border: 1000px solid #4f90f2;
-						}
-						}
-						
-						@layer utilities {
-						.step {
-							counter-increment: step;
-						}
-						
-						.step:before {
-							@apply absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-medium;
-							@apply ml-[-50px] mt-[-4px];
-							content: counter(step);
-						}
-						}
-						
-						@media (max-width: 640px) {
-						.container {
-							@apply px-4;
-						}
-				}
-
-			</style>
 			<div id="qf-admin-root">
 				<div id="qf-admin-root__loader-container" style="
 					display: flex;

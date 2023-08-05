@@ -16,10 +16,8 @@ import configApi from '@quillforms/config';
 /**
  * External Dependencies
  */
-import { Bars as Loader } from 'react-loader-spinner';
-import { css } from 'emotion';
 import ShareBody from './body';
-import './style.scss';
+import './style.css';
 
 const Share = ({ params }) => {
 	const initialPayload = configApi.getInitialPayload();

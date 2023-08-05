@@ -88,6 +88,8 @@ registerAdminPage('builder', {
 		'quillForms/notifications-editor',
 		'quillForms/theme-editor',
 		'quillForms/document-editor',
+		'quillforms/logic-editor',
+		'quillforms/hidden-fields'
 	],
 });
 
@@ -110,6 +112,15 @@ registerAdminPage('payments', {
 		return <FormAdminBar formId={params.id} />;
 	},
 	requiresInitialPayload: true,
+	connectedStores: [
+		'quillForms/block-editor',
+		'quillForms/messages-editor',
+		'quillForms/notifications-editor',
+		'quillForms/theme-editor',
+		'quillForms/document-editor',
+		'quillforms/logic-editor',
+		'quillforms/hidden-fields'
+	],
 });
 
 registerAdminPage('integrations', {
@@ -121,6 +132,15 @@ registerAdminPage('integrations', {
 		return <FormAdminBar formId={params.id} />;
 	},
 	requiresInitialPayload: true,
+	connectedStores: [
+		'quillForms/block-editor',
+		'quillForms/messages-editor',
+		'quillForms/notifications-editor',
+		'quillForms/theme-editor',
+		'quillForms/document-editor',
+		'quillforms/logic-editor',
+		'quillforms/hidden-fields'
+	],
 });
 
 registerAdminPage('share', {

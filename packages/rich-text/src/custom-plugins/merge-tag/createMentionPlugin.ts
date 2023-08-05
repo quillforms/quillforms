@@ -23,7 +23,21 @@ export const createMentionPlugin = createPluginFactory<MentionPlugin>({
   options: {
     trigger: '@',
     triggerPreviousCharPattern: /.*/,
-    createMentionNode: (item) => ({ value: `{{${item.type}:${item.value}}}`, item }),
+    createMentionNode: (item) => ({ value: `{{${item.type}:${item.value}}}`, mentionType: item.type, mentionModifier: item.value }),
+  },
+  deserializeHtml: {
+
+    getNode: (el, node) => {
+      console.log(node)
+      if(el.nodeName === 'MENTION') {
+        return {
+          type: 'mention',
+          value: `{{${el.dataset.type}:${el.dataset.modifier}}}`,
+          mentionType: el.dataset.type,
+          mentionModifier: el.dataset.modifier
+        }
+      }
+    }
   },
   plugins: [
     {

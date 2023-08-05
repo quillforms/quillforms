@@ -120,7 +120,7 @@ import {
   ELEMENT_TH,
   ELEMENT_TR,
 } from '@udecode/plate-table';
-import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
+// import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
 
 import { autoformatPlugin } from '../../lib/plate/autoformatPlugin';
 import { dragOverCursorPlugin } from '../../lib/plate/dragOverCursorPlugin';
@@ -344,9 +344,9 @@ export const plugins = createPlugins(
     //     },
     //   ],
     // }),
-    createTrailingBlockPlugin({
-      options: { type: ELEMENT_PARAGRAPH },
-    }),
+    // createTrailingBlockPlugin({
+    //   options: { type: ELEMENT_PARAGRAPH },
+    // }),
     dragOverCursorPlugin,
 
     // Collaboration
@@ -507,8 +507,12 @@ export const plugins = createPlugins(
           serializeHtml: ({ leaf, children }) => {
             console.log('mention', leaf);
             return `{{}}`
+          },
+          deserializeHtml: (args) => {
+            console.log(args)
           }
         },
+        
         
       })
       

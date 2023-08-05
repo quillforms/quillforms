@@ -11,7 +11,7 @@ const getInitialState = () => {
 			gateways_options: {},
 		},
 		models: {
-			[ randomId() ]: getModelDefaultState( 'Payment Model #1' ),
+			[randomId()]: getModelDefaultState('Payment Model #1'),
 		},
 		labels: {
 			order_details_heading: 'Order Details',
@@ -20,12 +20,13 @@ const getInitialState = () => {
 			pay: 'Pay Now',
 		},
 		products: {},
+		coupons: {},
 		errors: {
 			products: {},
 		},
 	};
 
-	if ( isObject( ConfigApi.getInitialPayload().payments ) ) {
+	if (isObject(ConfigApi.getInitialPayload().payments)) {
 		const payments = ConfigApi.getInitialPayload().payments;
 
 		// separate models.
@@ -35,6 +36,10 @@ const getInitialState = () => {
 		// separate labels.
 		const labels = payments.labels;
 		delete payments.labels;
+
+		// separate coupons.
+		const coupons = payments.coupons;
+		delete payments.coupons;
 
 		state = {
 			...state,
@@ -47,17 +52,18 @@ const getInitialState = () => {
 				...state.labels,
 				...labels,
 			},
+			coupons: coupons,
 		};
 	}
 
-	if ( isObject( ConfigApi.getInitialPayload().products ) ) {
+	if (isObject(ConfigApi.getInitialPayload().products)) {
 		state = { ...state, products: ConfigApi.getInitialPayload().products };
 	}
 
 	return state;
 };
 
-const getModelDefaultState = ( name ) => {
+const getModelDefaultState = (name) => {
 	return {
 		name,
 		recurring: false,
@@ -65,16 +71,30 @@ const getModelDefaultState = ( name ) => {
 	};
 };
 
-const randomId = () => {
-	return Math.random().toString( 36 ).substring( 2, 8 );
+const getCouponDefaultState = () => {
+	return {
+		name: '',
+		code: '',
+		discount_type: 'percent',
+		amount: '',
+		minimum_amount: '',
+		maximum_amount: '',
+		start_date: '',
+		end_date: '',
+		usage_limit: '',
+	}
 };
 
-const isObject = ( variable ) => {
+const randomId = () => {
+	return Math.random().toString(36).substring(2, 8);
+};
+
+const isObject = (variable) => {
 	return (
 		typeof variable === 'object' &&
 		variable !== null &&
-		! Array.isArray( variable )
+		!Array.isArray(variable)
 	);
 };
 
-export { getInitialState, getModelDefaultState, randomId, isObject };
+export { getInitialState, getModelDefaultState, getCouponDefaultState, randomId, isObject };

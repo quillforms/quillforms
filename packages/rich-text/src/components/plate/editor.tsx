@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useRef, useMemo } from 'react';
-import { useFields } from '@quillforms/admin-components';
+import React, { useRef, useMemo, useEffect } from 'react';
+import { useFields, useVariables, useHiddenFields } from '@quillforms/admin-components';
 import { CommentsProvider } from '@udecode/plate-comments';
-import { Plate, PlateProvider } from '@udecode/plate-common';
+import { Plate, PlateProvider, focusEditor, getEndPoint, getStartPoint } from '@udecode/plate-common';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -20,20 +20,9 @@ import { FloatingToolbar } from '../../components/plate-ui/floating-toolbar';
 import { FloatingToolbarButtons } from '../../components/plate-ui/floating-toolbar-buttons';
 import { MentionCombobox } from '../../components/plate-ui/mention-combobox';
 import { usePlateEditorState, usePlateSelectors, createPlateEditor, deserializeHtml } from "@udecode/plate-core";
-import { serializeHtml } from '@udecode/plate-serializer-html';
 import { htmlSerialize } from '../../serializer';
 
-const SerializeHtml = () => {
-  const editor = usePlateEditorState();
-  const html = serializeHtml(editor, {
-    nodes: editor.children,
-  });
-  console.log(html)
-
-  return <pre>{html}</pre>;
-};
-
-export default function Editor() {
+export default function Editor({ value, onChange }) {
   const containerRef = useRef(null);
 
   // const initialValue = [
@@ -44,20 +33,36 @@ export default function Editor() {
   // ];
 
   const initialValue = useMemo(() => {
-    const value = "<p >Hello, World!{{field:oy1apvc1n}}</p>";
-    const $value = value.replace(
+    const formattedValue = value ?? "<p></p>";
+    const $value = formattedValue.replace(
       /{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
       "<mention data-type='$1' data-modifier='$2'>_____</mention>"
     );
     const tmpEditor = createPlateEditor({ plugins });
-    return deserializeHtml(tmpEditor, {
+    const deserializedValue = deserializeHtml(tmpEditor, {
       element: $value
     });
-  }
-    , []
+
+
+    return deserializedValue;
+  }, []
   );
+  const editor = usePlateSelectors().editor();
+  const isRendered = usePlateSelectors().isRendered();
+
+  useEffect(() => {
+    if (isRendered && editor) {
+      setTimeout(() => {
+        focusEditor(editor, getEndPoint(editor, [0]));
+      }, 0);
+    }
+  }, [editor, isRendered]);
+
   const fields = useFields({ section: 'fields' });
-  let items = fields;
+  const variables = useVariables({ section: 'variables' });
+  const hiddenFields = useHiddenFields({ section: 'hidden_fields' });
+  console.log(variables)
+  let items = fields.concat(variables).concat(hiddenFields);
   items = items.map((item, index) => {
     return {
       ...item,
@@ -66,55 +71,55 @@ export default function Editor() {
     }
   })
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="relative">
-        <PlateProvider plugins={plugins} initialValue={initialValue}
-          onChange={(newValue) => {
-            console.log("#########");
-            console.log(htmlSerialize(newValue));
-            console.log("##########")
-          }}
-        >
-          <FixedToolbar>
-            <FixedToolbarButtons />
-          </FixedToolbar>
+    <div className='quillforms-full-rich-text'>
+      <DndProvider backend={HTML5Backend}>
+        <div className="relative">
+          <PlateProvider plugins={plugins} initialValue={initialValue}
+            onChange={(newValue) => {
+              onChange(htmlSerialize(newValue));
+            }}
+          >
+            <FixedToolbar>
+              <FixedToolbarButtons />
+            </FixedToolbar>
 
-          <div className="flex">
-            {/* <CommentsProvider users={commentsUsers} myUserId={myUserId}> */}
-            <div
-              ref={containerRef}
-              className={cn(
-                'relative flex max-w-[900px] overflow-x-auto',
-                '[&_.slate-start-area-top]:!h-4',
-                '[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px]'
-              )}
-            >
-              <Plate
-                editableProps={{
-                  autoFocus: true,
-                  className: cn(
-                    'relative max-w-full leading-[1.4] outline-none [&_strong]:font-bold',
-                    '!min-h-[600px] w-[900px] px-[96px] py-16'
-                  ),
-                  placeholder: 'Type…',
-                }}
+            <div className="flex">
+              {/* <CommentsProvider users={commentsUsers} myUserId={myUserId}> */}
+              <div
+                ref={containerRef}
+                className={cn(
+                  'relative flex max-w-[900px] overflow-x-auto',
+                  '[&_.slate-start-area-top]:!h-4',
+                  '[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px]'
+                )}
               >
-                {/* <FloatingToolbar>
+                <Plate
+                  editableProps={{
+                    autoFocus: true,
+                    className: cn(
+                      'relative max-w-full leading-[1.4] outline-none [&_strong]:font-bold',
+                      '!min-h-[600px] w-[900px] px-[96px] py-16'
+                    ),
+                    placeholder: 'Type…',
+                  }}
+                >
+                  {/* <FloatingToolbar>
                   <FloatingToolbarButtons />
                 </FloatingToolbar> */}
 
-                <MentionCombobox items={items} />
+                  <MentionCombobox items={items} />
 
-                <CursorOverlay containerRef={containerRef} />
-                {/* <SerializeHtml /> */}
-              </Plate>
-            </div>
+                  <CursorOverlay containerRef={containerRef} />
+                  {/* <SerializeHtml /> */}
+                </Plate>
+              </div>
 
-            {/* <CommentsPopover />
+              {/* <CommentsPopover />
           </CommentsProvider> */}
-          </div>
-        </PlateProvider>
-      </div >
-    </DndProvider >
+            </div>
+          </PlateProvider>
+        </div >
+      </DndProvider >
+    </div>
   );
 }

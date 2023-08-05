@@ -222,14 +222,14 @@ function quillforms_register_packages_scripts( $scripts )
         true
     );
 
-    quillforms_override_script(
-        $scripts,
-        'tailwindcss',
-        QUILLFORMS_PLUGIN_URL . '/lib/vendor/tailwindcss.js',
-        array( 'react', 'wp-element' ),
-        '1.8.6',
-        true
-    );
+    // quillforms_override_script(
+    //     $scripts,
+    //     'tailwindcss',
+    //     QUILLFORMS_PLUGIN_URL . '/lib/vendor/tailwindcss.js',
+    //     array( 'react', 'wp-element' ),
+    //     '1.8.6',
+    //     true
+    // );
 
     quillforms_override_script(
         $scripts, 'quillforms-iframe-resizer', QUILLFORMS_PLUGIN_URL . '/includes/render/iframe-resizer-min.js',
@@ -369,7 +369,7 @@ function quillforms_register_packages_styles( $styles )
         $styles,
         'quillforms-client',
         quillforms_url('build/style.css'),
-        array( 'quillforms-admin-components', 'wp-components' ),
+        array( 'quillforms-admin-components', 'wp-components', 'quillforms-rich-text' ),
         filemtime(QUILLFORMS_PLUGIN_DIR . 'build/style.css')
     );
     $styles->add_data('quillforms-client', 'rtl', 'replace');
@@ -379,10 +379,21 @@ function quillforms_register_packages_styles( $styles )
         $styles,
         'quillforms-quiz-editor',
         quillforms_url('build/quiz-editor/style.css'),
-        array( 'quillforms-admin-components', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-post' ),
+        array( 'quillforms-admin-components', 'wp-components' ),
         filemtime(QUILLFORMS_PLUGIN_DIR . 'build/style.css')
     );
     $styles->add_data('quillforms-quiz-editor', 'rtl', 'replace');
+
+    quillforms_override_style(
+        $styles,
+        'quillforms-rich-text',
+        quillforms_url('build/rich-text/style.css'),
+        array( 'quillforms-admin-components' ),
+        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/rich-text/style.css')
+    );
+
+    $styles->add_data('quillforms-rich-text', 'rtl', 'replace');
+
 
     quillforms_override_style(
         $styles,
