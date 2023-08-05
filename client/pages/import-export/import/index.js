@@ -70,6 +70,7 @@ const Import = () => {
                         }
                     );
                 }
+                setIsLoading(false);
             })
             .catch(() => {
                 createErrorNotice(
@@ -79,8 +80,8 @@ const Import = () => {
                         isDismissible: true,
                     }
                 );
+                setIsLoading(false);
             });
-        setIsLoading(false);
     };
 
     return (
