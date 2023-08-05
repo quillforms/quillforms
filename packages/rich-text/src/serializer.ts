@@ -19,7 +19,7 @@ const getNode = ({ element, children }) => {
         // the plugin may have an optional parameter for the wrapping tag, default to blockquote
         return `<blockquote>${children}</blockquote>`;
       case ELEMENT_PARAGRAPH:
-        return `<p ${attributes}>${children}</p>`;
+        return `<p style="${attributes}">${children}</p>`;
       case ELEMENT_LINK:
         return `<a style="${attributes}" href="${escapeHtml(element.url)}">${children}</a>`;
       case ELEMENT_MENTION: {
