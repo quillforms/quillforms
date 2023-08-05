@@ -8,12 +8,15 @@ import { Modal } from "@wordpress/components";
 import { ComboColorPicker, ColorPicker } from "@quillforms/theme-editor";
 import { Button } from "@quillforms/admin-components";
 import { css } from "emotion";
+import QRCode from "react-qr-code";
+import QRCodeIcon from "./qrcode-icon";
+
 const ShareBody = ({ payload }) => {
 
     const [modalState, setModalState] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
     const [popupSettings, setPopupSettings] = useState({
-        buttonTitle: 'Open Form',
+        Title: 'Open Form',
         buttonBackgroundColor: '#000000',
         buttonTextColor: '#ffffff',
         buttonBorderRadius: '24',
@@ -28,6 +31,27 @@ const ShareBody = ({ payload }) => {
         },
     });
 
+    const downloadQR = () => {
+        const svg = document.querySelector(".quillforms-qr-share-modal svg");
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const img = new Image();
+        img.onload = function () {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            const pngFile = canvas.toDataURL("image/png");
+
+            const downloadLink = document.createElement("a");
+            downloadLink.download = "quillforms-qrcode";
+            downloadLink.href = `${pngFile}`;
+            downloadLink.click();
+        };
+
+        img.src = "data:image/svg+xml;base64," + btoa(svgData);
+    };
+
     const popupShortcode = `[quillforms-popup id="${payload?.id}" ${Object.keys(popupSettings).map(($key) => {
         if ($key === "buttonPadding") {
             return `buttonPadding="${Object.keys(popupSettings[$key]).map(($paddingKey) => {
@@ -37,7 +61,6 @@ const ShareBody = ({ payload }) => {
         return `${$key}="${popupSettings[$key]}"`;
     }).join(" ")} ]`;
 
-    console.log(popupShortcode)
 
     useEffect(() => {
         if (isCopied) {
@@ -128,7 +151,28 @@ const ShareBody = ({ payload }) => {
                         <p>Display your form on a popup upon clicking a desinated button. Copy the shortcode and paste it into your post or page.</p>
                     </div>
                 </div>
-
+                <div className="quillforms-share-card" onClick={() => {
+                    setModalState('qr');
+                }}>
+                    <div className="quillforms-share-card-header">
+                        <div className={css`
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                        `}>
+                            <div>
+                                <QRCodeIcon />
+                                <h3>QR Code</h3>
+                            </div>
+                            <div className="admin-components-control-label__new-feature">
+                                NEW
+                            </div>
+                        </div>
+                    </div>
+                    <div className="quillforms-share-card-body">
+                        <p>Share your form with others by scanning the QR code.</p>
+                    </div>
+                </div>
             </div>
             {modalState === 'link' && (
                 <Modal
@@ -431,8 +475,70 @@ const ShareBody = ({ payload }) => {
             )
             }
 
-        </div >
+            {modalState === 'qr' && (
+                <Modal
+                    title="QR Code"
+                    onRequestClose={() => {
+                        setModalState(null);
+                    }}
+                    className={
+                        css`
+                            
+                            min-height: 600px;
+                            max-width: 600px;
 
+                            .components-modal__content {
+                                padding: 20px 0 0;
+                                margin-top: 60px;
+                                background: #fafafa;
+                                &:before {
+                                    display: none;
+                                }
+                                .components-modal__header {
+                                    margin: 0 0 45px;
+        
+                                    div {
+                                        justify-content: center;
+                                    }
+                                }
+                            }
+                        `
+                    }
+                >
+                    <div className={css`
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 0 20px;
+                    `}>
+                        <div className="quillforms-qr-share-modal">
+                            <p>Simply scan the code to initiate your Quill Forms, which function seamlessly both online and offline (printer required naturally).
+                            </p>
+                            <p className={css`
+                                background: #ffaef7;
+                                padding: 5px 10px;
+                                border-radius: 5px;
+                            `}>Changing the slug of your form within the builder will result in a corresponding alteration of the QR code.
+                            </p>
+                            <div className={css`
+                                text-align: center;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                margin-top: 40px;
+                            `}>
+                                <QRCode value={payload?.link} />
+                                <Button className={css`
+                                    margin-top: 20px;
+                                `} isPrimary isLarge onClick={() => downloadQR()}>Download</Button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Modal >
+            )}
+        </div>
     )
 };
 
