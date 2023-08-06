@@ -78,7 +78,7 @@ const PanelRender = () => {
 		<div className="settings-editor-panel-render">
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Save Answers In User Browser'} isNew />
+					<ControlLabel label={'Auto save progress( save answers in user browser )'} isNew />
 					<ToggleControl
 						checked={shouldAnswersBeSavedInBrowser}
 						onChange={() =>

@@ -37,6 +37,7 @@
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
 		"html-react-parser": "^1.4.12",
+		"js-cookie": "^3.0.5",
 		"lethargy": "^1.0.9",
 		"lodash": "4.17.21",
 		"react-dnd": "15.1.2",

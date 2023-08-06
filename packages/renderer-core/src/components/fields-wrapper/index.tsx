@@ -13,6 +13,7 @@ import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { Lethargy } from 'lethargy';
 import type React from 'react';
+import Cookies from 'js-cookie';
 
 /**
  * Internal Dependencies
@@ -94,8 +95,9 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	} = useDispatch('quillForms/renderer-core');
 
 	useEffect(() => {
-		if (settings?.saveAnswersInBrowser) {
-			const answers = localStorage.getItem('quillforms-answers-' + formId) ? JSON.parse(localStorage.getItem('quillforms-answers-' + formId)) : {};
+		if (settings?.saveAnswersInBrowser && !isPreview) {
+			// replace localstorage with cookies.
+			const answers = Cookies.get(`quillforms-answers-${formId}`) ? JSON.parse(Cookies.get(`quillforms-answers-${formId}`)) : {};
 			editableFields.forEach((field) => {
 				if (answers[field.id]) {
 					setFieldAnswer(field.id, answers[field.id].value);
@@ -107,9 +109,9 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 
 	useEffect(() => {
 		if (!isPreview && settings?.saveAnswersInBrowser) {
-
-			localStorage.setItem(`quillforms-answers-${formId}`, JSON.stringify(answers));
-			localStorage.setItem(`quillforms-swiper-${formId}`, JSON.stringify(swiper));
+			// replace localstorage with cookies which will expire in 30 days.
+			Cookies.set(`quillforms-answers-${formId}`, JSON.stringify(answers), { expires: 30 }, { path: '/' });
+			Cookies.set(`quillforms-swiper-${formId}`, JSON.stringify(swiper), { expires: 30 }, { path: '/' });
 		}
 	}, [swiper, answers]);
 	const isTouchScreen =

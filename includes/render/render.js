@@ -48,14 +48,11 @@
 									// In case of successful submission, complete the form.
 									if (res.data.status === 'completed') {
 										setTimeout(() => {
-											localStorage.removeItem(
-												'quillforms-answers-' +
-												qfRender.formId
-											);
-											localStorage.removeItem(
-												'quillforms-swiper-' +
-												qfRender.formId
-											);
+											document.cookie = 'quillforms-answers-' +
+												qfRender.formId + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+											document.cookie = 'quillforms-swiper-' +
+												qfRender.formId + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
 										}, 1000);
 										wp.data
 											.dispatch(
