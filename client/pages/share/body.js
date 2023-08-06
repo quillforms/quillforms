@@ -377,7 +377,6 @@ const ShareBody = ({ payload }) => {
                                         <div>
                                             <span>Top</span>
                                             <input type="number" value={popupSettings.buttonPadding.top} onChange={(e) => {
-                                                console.log(e.target.value)
                                                 setPopupSettings({
                                                     ...popupSettings,
                                                     buttonPadding: {
