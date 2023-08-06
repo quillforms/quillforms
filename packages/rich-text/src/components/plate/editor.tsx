@@ -44,7 +44,6 @@ export default function Editor({ value, onChange }) {
     const deserializedValue = deserializeHtml(tmpEditor, {
       element: $value
     });
-    console.log(deserializedValue)
 
     return deserializedValue;
   }, []
@@ -77,9 +76,6 @@ export default function Editor({ value, onChange }) {
         <div className="relative">
           <PlateProvider plugins={plugins} initialValue={initialValue}
             onChange={(newValue) => {
-              console.log(newValue);
-              console.log(htmlSerialize(newValue));
-
               if (onChange) {
                 onChange(htmlSerialize(newValue));
               }
@@ -104,7 +100,7 @@ export default function Editor({ value, onChange }) {
                     autoFocus: true,
                     className: cn(
                       'relative max-w-full leading-[1.4] outline-none [&_strong]:font-bold',
-                      '!min-h-[600px] w-[900px] px-[96px] py-16'
+                      '!min-h-[600px] w-[900px] px-[96px] py-[20px]'
                     ),
                     placeholder: 'Type here...',
                   }}

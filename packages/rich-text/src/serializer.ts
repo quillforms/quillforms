@@ -15,10 +15,6 @@ import { size } from 'lodash';
 import { Text, Node } from 'slate';
 let attributes;
 let leafAttributes;
-let ulist = false;
-let olist = false;
-let ulistStart = false;
-let olistStart = false;
 const getNode = ({ element, children }) => {
     if(size(leafAttributes) > 0) {  
       children = `<span style="${leafAttributes}">${children}</span>`;
