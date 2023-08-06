@@ -67,7 +67,7 @@ class Admin {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
 		add_action( 'pre_get_posts', array( $this, 'include_quill_forms_post_type_in_query' ), 11 );
-		add_filter( 'post_type_link', array( $this, 'remove_cpt_slug'), 10, 3 );
+		add_filter( 'post_type_link', array( $this, 'remove_cpt_slug' ), 10, 3 );
 	}
 
 	/**
@@ -78,10 +78,10 @@ class Admin {
 	 * @return integer|WP_Error|false
 	 */
 	public function duplicate_form() {
-		if(!current_user_can('manage_quillforms')) {
-			wp_send_json_error('Unauthorized');
+		if ( ! current_user_can( 'manage_quillforms' ) ) {
+			wp_send_json_error( 'Unauthorized' );
 			return;
-		} 
+		}
 		$form_id = (int) $_POST['form_id'];
 		$form    = get_post( $form_id );
 		if ( ! $form ) {
@@ -152,6 +152,9 @@ class Admin {
 
 		// Add system page as a submenu page.
 		add_submenu_page( 'quillforms', __( 'System', 'quillforms' ), __( 'System', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms&path=system', array( Admin_Loader::class, 'page_wrapper' ) );
+
+		// Add import/export page as a submenu page.
+		add_submenu_page( 'quillforms', __( 'Import/Export', 'quillforms' ), __( 'Import/Export', 'quillforms' ), 'manage_quillforms', 'quillforms&path=import-export', array( Admin_Loader::class, 'page_wrapper' ) );
 
 		// Add support page as a submenu page.
 		add_submenu_page( 'quillforms', __( 'Support', 'quillforms' ), __( 'Support', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms&path=support', array( Admin_Loader::class, 'page_wrapper' ) );
