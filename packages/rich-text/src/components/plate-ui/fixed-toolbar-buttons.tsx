@@ -91,10 +91,10 @@ export function FixedToolbarButtons() {
               <AlignDropdownMenu />
 
               <LineHeightDropdownMenu />
-
+              {/* 
               <IndentListToolbarButton nodeType={ListStyleType.Disc} />
               <IndentListToolbarButton nodeType={ListStyleType.Decimal} />
-
+ */}
               {/* <OutdentToolbarButton />
               <IndentToolbarButton /> */}
             </ToolbarGroup>

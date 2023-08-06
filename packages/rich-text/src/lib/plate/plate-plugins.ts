@@ -181,8 +181,8 @@ export const plugins = createPlugins(
     createMediaEmbedPlugin(),
     createMentionPlugin(),
     createTablePlugin(),
-    createTodoListPlugin(),
-    createExcalidrawPlugin(),
+    // createTodoListPlugin(),
+    // createExcalidrawPlugin(),
 
     // Marks
     createBoldPlugin(),
@@ -195,7 +195,7 @@ export const plugins = createPlugins(
     createFontColorPlugin(),
     createFontBackgroundColorPlugin(),
     createFontSizePlugin(),
-    createHighlightPlugin(),
+    // createHighlightPlugin(),
 
     // Block Style
     createAlignPlugin({
@@ -205,21 +205,21 @@ export const plugins = createPlugins(
         },
       },
     }),
-    createIndentPlugin({
-      inject: {
-        props: {
-          validTypes: [
-            ELEMENT_PARAGRAPH,
-            ELEMENT_H1,
-            ELEMENT_H2,
-            ELEMENT_H3,
-            ELEMENT_BLOCKQUOTE,
-            ELEMENT_CODE_BLOCK,
-          ],
-        },
-      },
-    }),
-    createIndentListPlugin(),
+    // createIndentPlugin({
+    //   inject: {
+    //     props: {
+    //       validTypes: [
+    //         ELEMENT_PARAGRAPH,
+    //         ELEMENT_H1,
+    //         ELEMENT_H2,
+    //         ELEMENT_H3,
+    //         ELEMENT_BLOCKQUOTE,
+    //         ELEMENT_CODE_BLOCK,
+    //       ],
+    //     },
+    //   },
+    // }),
+    // createIndentListPlugin(),
     createLineHeightPlugin({
       inject: {
         props: {
@@ -231,7 +231,7 @@ export const plugins = createPlugins(
     }),
 
     // Functionality
-    createAutoformatPlugin(autoformatPlugin),
+    // createAutoformatPlugin(autoformatPlugin),
     createBlockSelectionPlugin({
       options: {
         sizes: {
@@ -270,7 +270,7 @@ export const plugins = createPlugins(
         ],
       },
     }),
-    createNodeIdPlugin(),
+    // createNodeIdPlugin(),
     createResetNodePlugin({
       options: {
         rules: [
@@ -397,116 +397,114 @@ export const plugins = createPlugins(
         [MARK_UNDERLINE]: withProps(PlateLeaf, { as: 'u' }),
         [MARK_COMMENT]: CommentLeaf,
       }),
-      overrideByKey: ({
-        [ELEMENT_PARAGRAPH]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('p', {}, children)
-          }
-        },
-        [ELEMENT_H1]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('h1', {}, children)
-          }
-        },
-        [ELEMENT_H2]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('h2', {}, children)
-          }
-        },
-        [ELEMENT_H3]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('h3', {}, children)
-          }
-        },
-        [ELEMENT_H4]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('h4', {}, children)
-          }
-        },
-        [ELEMENT_H5]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('h5', {}, children)
-          }
-        },
-        [ELEMENT_H6]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('h6', {}, children)
-          }
-        },
-        [ELEMENT_TABLE]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('table', {}, children)
-          }
-        },
-        [ELEMENT_TD]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('td', {}, children)
-          }
-        },
-        [ELEMENT_TH]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('th', {}, children)
-          }
-        },
-        [ELEMENT_TODO_LI]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('li', {}, children)
-          }
-        },
-        [ELEMENT_TR]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('tr', {}, children)
-          }
-        },
-        [ELEMENT_LINK]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('a', {}, children)
-          }
-        },
-        [ELEMENT_IMAGE]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('img', {}, children)
-          }
-        },
-        [ELEMENT_UL]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('ul', {}, children)
-          }
-        },
-        [ELEMENT_OL]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('ol', {}, children)
-          }
-        },
-        [ELEMENT_BLOCKQUOTE]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('blockquote', {}, children)
-          }
-        },
-        [ELEMENT_CODE_BLOCK]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('pre', {}, children)
-          }
-        },
-        [ELEMENT_CODE_LINE]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('code', {}, children)
-          }
-        },
-        [ELEMENT_CODE_SYNTAX]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('code', {}, children)
-          }
-        },
-        [ELEMENT_MEDIA_EMBED]: {
-          serializeHtml: ({ leaf, children }) => {
-            return React.createElement('div', {}, children)
-          }
-        },
+      // overrideByKey: ({
+      //   [ELEMENT_PARAGRAPH]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('p', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_H1]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('h1', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_H2]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('h2', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_H3]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('h3', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_H4]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('h4', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_H5]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('h5', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_H6]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('h6', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_TABLE]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('table', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_TD]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('td', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_TH]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('th', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_TODO_LI]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('li', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_TR]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('tr', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_LINK]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('a', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_IMAGE]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('img', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_UL]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('ul', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_OL]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('ol', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_BLOCKQUOTE]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('blockquote', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_CODE_BLOCK]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('pre', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_CODE_LINE]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('code', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_CODE_SYNTAX]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('code', {}, children)
+      //     }
+      //   },
+      //   [ELEMENT_MEDIA_EMBED]: {
+      //     serializeHtml: ({ leaf, children }) => {
+      //       return React.createElement('div', {}, children)
+      //     }
+      //   },
 
-        
-        
-      })
+      // })
       
     // ),
   }

@@ -8,6 +8,7 @@ import { withMention } from './withMention';
 export const ELEMENT_MENTION = 'mention';
 export const ELEMENT_MENTION_INPUT = 'mention_input';
 
+import { size } from 'lodash';  
 /**
  * Enables support for autocompleting @mentions.
  */
@@ -28,6 +29,27 @@ export const createMentionPlugin = createPluginFactory<MentionPlugin>({
   deserializeHtml: {
 
     getNode: (el, node) => {
+      // console.log(el);
+      // let styles = {};
+      // if(el?.style?.lineHeight) {
+      //   styles = { ...styles, lineHeight: el.style.lineHeight };
+      // }
+      // if(el?.style?.textAlign) {
+      //   styles = { ...styles, align: el.style.textAlign };
+      // }
+      // if(el?.style?.color) {
+      //   styles = { ...styles, color: el.style.color };
+      // }
+      // if(el?.style.backgroundColor) {
+      //   styles = { ...styles, backgroundColor: el.style.backgroundColor };
+      // }
+      // if(size(styles) > 0 ) {
+      //   return {
+      //     type: el.nodeName.toLowerCase(),
+      //     ...styles,
+      //     children: [{ text: el.textContent }]
+      //   }
+      // }
       if(el.nodeName === 'MENTION') {
         return {
           type: 'mention',

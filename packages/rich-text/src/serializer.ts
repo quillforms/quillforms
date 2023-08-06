@@ -11,9 +11,25 @@ import { ELEMENT_MENTION } from '@udecode/plate-mention';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from '@udecode/plate-table';
 import escapeHtml from 'escape-html';
+import { size } from 'lodash';
 import { Text, Node } from 'slate';
 let attributes;
+let leafAttributes;
+let ulist = false;
+let olist = false;
+let ulistStart = false;
+let olistStart = false;
 const getNode = ({ element, children }) => {
+    if(size(leafAttributes) > 0) {  
+      children = `<span style="${leafAttributes}">${children}</span>`;
+    }   
+    if(element['align']) {
+      attributes = `text-align:${element['align']};`;
+    }
+    if(element['lineHeight']) {
+      attributes = `${attributes}line-height:${element['lineHeight']};`;
+    }
+
     switch (element.type) {
       case ELEMENT_BLOCKQUOTE:
         // the plugin may have an optional parameter for the wrapping tag, default to blockquote
@@ -42,7 +58,7 @@ const getNode = ({ element, children }) => {
       case ELEMENT_UL:
         return `<ul>${children}</ul>`;
       case ELEMENT_LI:
-        return `<li>${children}</li>`;
+        return `<li style="${attributes}">${children}</li>`;
       case ELEMENT_TABLE:
         return `<table>${children}</table>`;
       case ELEMENT_TR:
@@ -50,14 +66,15 @@ const getNode = ({ element, children }) => {
       case ELEMENT_TD:
         return `<td>${children}</td>`;
       case ELEMENT_IMAGE:
-        return `<img src="${escapeHtml(element.url)}">${children}</img>`;
+        return `<img style="${attributes}" src="${escapeHtml(element.url)}">${children}</img>`;
       default:
         return children;
     }
   };
   
   const getLeaf = ({ leaf, children }) => {
-    // console.log(leaf);
+    leafAttributes = '';
+
     let newChildren = children;
     if (leaf['bold']) {
       newChildren = `<strong>${newChildren}</strong>`;
@@ -69,7 +86,7 @@ const getNode = ({ element, children }) => {
       newChildren = `<u>${newChildren}</u>`;
     }
     if(leaf['color']) {
-        attributes += 'color: ' + leaf['color'] + ';';
+      leafAttributes += "color: " + leaf['color'] + ";";
     }
     if(leaf['subscript']) {
       newChildren = `<sub>${newChildren}</sub>`;
@@ -88,17 +105,40 @@ const getNode = ({ element, children }) => {
     }
   
     if(leaf['backgroundColor']) {
-      attributes += 'background-color: ' + leaf['backgroundColor'] + ';';
+      leafAttributes += 'background-color: ' + leaf['backgroundColor'] + ';';
     }
     return newChildren;
   };
   
   // should iterate over the plugins, see htmlDeserialize
-  export const htmlSerialize = (nodes) =>
+  export const htmlSerialize = (nodes, index) =>
     nodes
       .map((node) => {
         attributes = '';
-        // console.log(node)
+       
+        // if(node['listStyleType'] === 'disc' && !node['listStart']) {
+        //   ulist = true;
+        // }
+        // if(node['listStyleType'] === 'decimal' && !node['listStart']) {
+        //   olist = true;
+        // }
+        // if (!node['listStyleType'] && ulist) {
+        //   ulist = false;
+        //   return `</ul>`;
+        // }
+        // if (!node['listStyleType'] && olist) {
+        //   olist = false;
+        //   return `</ol>`;
+        // }
+        // if(ulist && !ulistStart) {
+        //   ulistStart = true;
+        //   return `<ul>`;
+        // }      
+        // if(olist && !olistStart) {
+        //   olistStart = true;
+        //   return `<ol>`;
+        // }
+
         if (Text.isText(node)) {
           return getLeaf({ leaf: node, children: node.text });
         }
