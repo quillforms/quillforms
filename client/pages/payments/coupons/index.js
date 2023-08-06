@@ -21,7 +21,10 @@ const Coupons = () => {
 
 	return (
 		<div className="quillforms-payments-page-settings__coupons">
-			<h3> {__('Discount Coupons', 'quillforms')} </h3>
+			<h3> {__('Discount Coupons', 'quillforms')}  <div className="admin-components-control-label__new-feature">
+				NEW
+			</div></h3>
+
 			<div className="quillforms-payments-page-settings__coupons-content">
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
