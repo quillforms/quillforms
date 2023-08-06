@@ -4,4 +4,3 @@ export * from './components';
 import '@quillforms/document-editor';
 import '@quillforms/settings-editor';
 import '@quillforms/notifications-editor';
-import '@quillforms/quiz-editor';

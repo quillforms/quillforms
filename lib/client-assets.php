@@ -282,7 +282,6 @@ function quillforms_register_packages_styles( $styles )
         'quillforms-admin-components',
         'quillforms-block-editor',
         'quillforms-renderer-core',
-        'quillforms-quiz-editor',
         'quillforms-theme-editor',
         'quillforms-notifications-editor',
         'quillforms-messages-editor',
@@ -374,15 +373,15 @@ function quillforms_register_packages_styles( $styles )
     );
     $styles->add_data('quillforms-client', 'rtl', 'replace');
 
-     // Client style.
-     quillforms_override_style(
-        $styles,
-        'quillforms-quiz-editor',
-        quillforms_url('build/quiz-editor/style.css'),
-        array( 'quillforms-admin-components', 'wp-components' ),
-        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/style.css')
-    );
-    $styles->add_data('quillforms-quiz-editor', 'rtl', 'replace');
+    //  // Client style.
+    //  quillforms_override_style(
+    //     $styles,
+    //     'quillforms-quiz-editor',
+    //     quillforms_url('build/quiz-editor/style.css'),
+    //     array( 'quillforms-admin-components', 'wp-components' ),
+    //     filemtime(QUILLFORMS_PLUGIN_DIR . 'build/style.css')
+    // );
+    // $styles->add_data('quillforms-quiz-editor', 'rtl', 'replace');
 
     quillforms_override_style(
         $styles,
