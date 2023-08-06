@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.1
-Stable tag: 2.12.1
+Stable tag: 2.13.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -60,6 +60,7 @@ By set up email notifications, you can get an email after each submission with t
 - Track UTM Parameters
 - Zapier integration to connect with 3000+ apps
 - Webhooks
+- Export entries to PDF or attach pdf to emails
 - One time payment and subscriptions with Stripe checkout and Stripe elements
 - One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal
 - One time payment and subscriptions with authorize.net
@@ -67,6 +68,7 @@ By set up email notifications, you can get an email after each submission with t
 - One time payment and subscriptions with Mollie
 - One time payment and subscriptions with Razorpay
 - one time payments and subscriptions with 2checkout
+- Discount coupons
 - GoogleSheets integration
 - MailChimp integration
 - Constant Contact integration
@@ -86,6 +88,10 @@ By set up email notifications, you can get an email after each submission with t
 - Freshsales CRM integration
 - ClickUp integration
 - Airtable integration
+- Moosend integration
+- CleverReach integration
+- FluentCRM integration
+- Discord integration 
 - Custom fonts
 - Convertkit integration
 - Asana integration
@@ -160,6 +166,19 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 2.13.0 = 8 August 2023
+Feature: Save user answers in user browser.
+Feature: Share the form via QR code.
+Feature: Discount Coupons for payments. 
+Feature: Export entries to PDF or attach PDF to emails.
+Feature: Export and import forms.
+Feature: FluentCRM integration.
+Feature: Moosend integration.
+Feature: CleverReach integration.
+Feature: Discord integration.
+Fix: Fix a conflict with WPML plugin.
+Fix: Fix the Swiss currency.
 
 = 2.12.1 = 15 June 2023
 Fix: Urgent Fix for pop up shortcode to be working properly.
