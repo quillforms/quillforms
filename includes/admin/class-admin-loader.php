@@ -103,7 +103,7 @@ class Admin_Loader {
 			array(
 				'adminUrl'                => admin_url(),
 				'assetsBuildUrl'          => QUILLFORMS_PLUGIN_URL,
-				'submenuPages'            => $submenu['quillforms'],
+				'submenuPages'            => $submenu['quillforms'] ?? [],
 				'site_store_nonce'        => wp_create_nonce( 'quillforms_site_store' ),
 				'license_nonce'           => wp_create_nonce( 'quillforms_license' ),
 				'current_user_name'       => $user->display_name,
