@@ -118,7 +118,7 @@ class Admin {
 		add_menu_page(
 			__( 'Quill Forms', 'quillforms' ),
 			__( 'Quill Forms', 'quillforms' ),
-			'manage_quillforms',
+			apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'),
 			'quillforms',
 			array( Admin_Loader::class, 'page_wrapper' ),
 			'data:image/svg+xml;base64,' . base64_encode(
@@ -139,22 +139,22 @@ class Admin {
 			30
 		);
 		// Add main page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'Quill Forms', 'quillforms' ), __( 'All Forms', 'quillforms' ), 'manage_quillforms', 'quillforms', array( Admin_Loader::class, 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'Quill Forms', 'quillforms' ), __( 'All Forms', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms', array( Admin_Loader::class, 'page_wrapper' ) );
 
 		// Add addons page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'Addons', 'quillforms' ), __( 'Addons', 'quillforms' ), 'manage_quillforms', 'quillforms&path=addons', array( Admin_Loader::class, 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'Addons', 'quillforms' ), __( 'Addons', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms&path=addons', array( Admin_Loader::class, 'page_wrapper' ) );
 
 		// Add settings page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'Settings', 'quillforms' ), __( 'Settings', 'quillforms' ), 'manage_quillforms', 'quillforms&path=settings', array( Admin_Loader::class, 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'Settings', 'quillforms' ), __( 'Settings', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms&path=settings', array( Admin_Loader::class, 'page_wrapper' ) );
 
 		// Add license page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'License', 'quillforms' ), __( 'License', 'quillforms' ), 'manage_quillforms', 'quillforms&path=license', array( Admin_Loader::class, 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'License', 'quillforms' ), __( 'License', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms&path=license', array( Admin_Loader::class, 'page_wrapper' ) );
 
 		// Add system page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'System', 'quillforms' ), __( 'System', 'quillforms' ), 'manage_quillforms', 'quillforms&path=system', array( Admin_Loader::class, 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'System', 'quillforms' ), __( 'System', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms&path=system', array( Admin_Loader::class, 'page_wrapper' ) );
 
 		// Add support page as a submenu page.
-		add_submenu_page( 'quillforms', __( 'Support', 'quillforms' ), __( 'Support', 'quillforms' ), 'manage_quillforms', 'quillforms&path=support', array( Admin_Loader::class, 'page_wrapper' ) );
+		add_submenu_page( 'quillforms', __( 'Support', 'quillforms' ), __( 'Support', 'quillforms' ), apply_filters('quillforms_admin_capability_filter',  'manage_quillforms'), 'quillforms&path=support', array( Admin_Loader::class, 'page_wrapper' ) );
 	}
 
 	/**
