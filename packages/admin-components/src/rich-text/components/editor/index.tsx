@@ -259,6 +259,19 @@ const TextEditor: React.FC<Props> = (props) => {
 						color={color}
 						renderLeaf={($props) => <Leaf {...$props} />}
 						renderElement={renderElement}
+						renderPlaceholder={({ attributes, children }) => (
+							<>
+								<div
+									{...attributes}
+									style={{ opacity: 0, height: 0, position: "relative", zIndex: -1 }}
+								>
+									{children}
+								</div>
+								<div {...attributes}>
+									{children}
+								</div>
+							</>
+						)}
 						placeholder={placeholder}
 						onFocus={onFocus}
 						onKeyDown={onKeyDown}
