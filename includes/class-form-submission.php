@@ -258,7 +258,7 @@ class Form_Submission {
 	 */
 	public function get_hash() {
 
-		return wp_generate_password( 32, false, false );
+		return wp_generate_password( 12, false, false );
 	}
 
 	/**
