@@ -188,7 +188,7 @@ const WelcomeScreenOutput = ({ attributes }) => {
 									`
 									)}
 								>
-									<HTMLParser value={label} />
+									<HTMLParser value={attributes.label} />
 								</div>
 							)}
 							{attributes?.description &&
