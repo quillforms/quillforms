@@ -22,22 +22,20 @@ import { css } from 'emotion';
 import classNames from 'classnames';
 import Attachment from './attachment';
 
-const WelcomeScreenOutput = ( { attributes } ) => {
+const WelcomeScreenOutput = ({ attributes }) => {
 	const { isPreview, deviceWidth } = useFormContext();
-	const [ isActive, setIsActive ] = useState( false );
-	const [ stickyFooter, setStickyFooter ] = useState( false );
-	let label = '...';
-	if ( attributes?.label ) label = attributes.label;
-	const theme = useBlockTheme( attributes.themeId );
+	const [isActive, setIsActive] = useState(false);
+	const [stickyFooter, setStickyFooter] = useState(false);
+	const theme = useBlockTheme(attributes.themeId);
 	const screenWrapperRef = useRef();
 	const screenContentRef = useRef();
 
-	const { goToBlock } = useDispatch( 'quillForms/renderer-core' );
-	const { walkPath } = useSelect( ( select ) => {
+	const { goToBlock } = useDispatch('quillForms/renderer-core');
+	const { walkPath } = useSelect((select) => {
 		return {
-			walkPath: select( 'quillForms/renderer-core' ).getWalkPath(),
+			walkPath: select('quillForms/renderer-core').getWalkPath(),
 		};
-	} );
+	});
 	// useLayoutEffect( () => {
 	// 	if (
 	// 		screenContentRef.current.clientHeight + 150 >
@@ -49,38 +47,38 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 	// 	}
 	// } );
 
-	useEffect( () => {
-		setIsActive( true );
+	useEffect(() => {
+		setIsActive(true);
 
-		return () => setIsActive( false );
-	}, [] );
+		return () => setIsActive(false);
+	}, []);
 	let next = noop;
 
-	if ( walkPath[ 0 ] && walkPath[ 0 ].id ) {
-		next = () => goToBlock( walkPath[ 0 ].id );
+	if (walkPath[0] && walkPath[0].id) {
+		next = () => goToBlock(walkPath[0].id);
 	}
 
 	return (
 		<div
-			className={ css`
+			className={css`
 				height: 100%;
 				position: relative;
 				outline: none;
 			` }
-			ref={ screenWrapperRef }
+			ref={screenWrapperRef}
 			tabIndex="0"
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' ) {
+			onKeyDown={(e) => {
+				if (e.key === 'Enter') {
 					e.stopPropagation();
 					next();
 				}
-			} }
+			}}
 		>
 			<div
-				className={ classNames(
+				className={classNames(
 					'qf-welcome-screen-block__wrapper',
 					`blocktype-welcome-screen-block`,
-					`renderer-core-block-${ attributes?.layout }-layout`,
+					`renderer-core-block-${attributes?.layout}-layout`,
 					{
 						'with-sticky-footer': stickyFooter,
 						active: isActive,
@@ -94,12 +92,12 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 							bottom: 0;
 							z-index: 6;
 							display: flex;
-							${ ( attributes.layout === 'stack' ||
-								( deviceWidth === 'mobile' &&
-									( attributes.layout === 'float-left' ||
-										attributes.layout ===
-											'float-right' ) ) ) &&
-							`flex-direction: column;
+							${(attributes.layout === 'stack' ||
+							(deviceWidth === 'mobile' &&
+								(attributes.layout === 'float-left' ||
+									attributes.layout ===
+									'float-right'))) &&
+						`flex-direction: column;
 							.qf-welcome-screen-block__content-wrapper {
 
 								position: absolute;
@@ -142,144 +140,146 @@ const WelcomeScreenOutput = ( { attributes } ) => {
 							min-height: 100%;
 						}
 					`
-				) }
+				)}
 			>
-				<div className={ 'qf-welcome-screen-block__content-wrapper' }>
+				<div className={'qf-welcome-screen-block__content-wrapper'}>
 					<div
 						className="qf-welcome-screen-block__content"
-						ref={ screenContentRef }
+						ref={screenContentRef}
 					>
-						{ ( attributes.layout === 'stack' ||
-							( deviceWidth === 'mobile' &&
-								( attributes.layout === 'float-left' ||
+						{(attributes.layout === 'stack' ||
+							(deviceWidth === 'mobile' &&
+								(attributes.layout === 'float-left' ||
 									attributes.layout ===
-										'float-right' ) ) ) && (
-							<Attachment
-								isPreview={ isPreview }
-								attributes={ attributes }
-							/>
-						) }
+									'float-right'))) && (
+								<Attachment
+									isPreview={isPreview}
+									attributes={attributes}
+								/>
+							)}
 						<div
-							className={ css`
+							className={css`
 								margin-top: 25px;
 							` }
 						>
-							<div
-								className={ classNames(
-									'renderer-components-block-label',
-									css`
-										color: ${ theme.questionsColor };
-										font-family: ${ theme.questionsLabelFont };
+							{attributes?.label && (
+								<div
+									className={classNames(
+										'renderer-components-block-label',
+										css`
+										color: ${theme.questionsColor};
+										font-family: ${theme.questionsLabelFont};
 										@media ( min-width: 768px ) {
-											font-size: ${ theme
+											font-size: ${theme
 												.questionsLabelFontSize
-												.lg } !important;
-											line-height: ${ theme
+												.lg} !important;
+											line-height: ${theme
 												.questionsLabelLineHeight
-												.lg } !important;
+												.lg} !important;
 										}
 										@media ( max-width: 767px ) {
-											font-size: ${ theme
+											font-size: ${theme
 												.questionsLabelFontSize
-												.sm } !important;
-											line-height: ${ theme
+												.sm} !important;
+											line-height: ${theme
 												.questionsLabelLineHeight
-												.sm } !important;
+												.sm} !important;
 										}
 									`
-								) }
-							>
-								<HTMLParser value={ label } />
-							</div>
-							{ attributes?.description &&
+									)}
+								>
+									<HTMLParser value={label} />
+								</div>
+							)}
+							{attributes?.description &&
 								attributes.description !== '' && (
 									<div
-										className={ classNames(
+										className={classNames(
 											'renderer-components-block-description',
 											css`
-												color: ${ theme.questionsColor };
-												font-family: ${ theme.questionsDescriptionFont };
+												color: ${theme.questionsColor};
+												font-family: ${theme.questionsDescriptionFont};
 												@media ( min-width: 768px ) {
-													font-size: ${ theme
-														.questionsDescriptionFontSize
-														.lg } !important;
-													line-height: ${ theme
-														.questionsDescriptionLineHeight
-														.lg } !important;
+													font-size: ${theme
+													.questionsDescriptionFontSize
+													.lg} !important;
+													line-height: ${theme
+													.questionsDescriptionLineHeight
+													.lg} !important;
 												}
 												@media ( max-width: 767px ) {
-													font-size: ${ theme
-														.questionsDescriptionFontSize
-														.sm } !important;
-													line-height: ${ theme
-														.questionsDescriptionLineHeight
-														.sm } !important;
+													font-size: ${theme
+													.questionsDescriptionFontSize
+													.sm} !important;
+													line-height: ${theme
+													.questionsDescriptionLineHeight
+													.sm} !important;
 												}
 											`
-										) }
+										)}
 									>
 										<HTMLParser
-											value={ attributes.description }
+											value={attributes.description}
 										/>
 									</div>
-								) }
-							{ attributes.customHTML && (
+								)}
+							{attributes.customHTML && (
 								<div
-									className={ classNames(
+									className={classNames(
 										'renderer-components-block-custom-html',
 										css`
-											color: ${ theme.questionsColor };
+											color: ${theme.questionsColor};
 										`
-									) }
-									dangerouslySetInnerHTML={ {
+									)}
+									dangerouslySetInnerHTML={{
 										__html: attributes?.customHTML,
-									} }
+									}}
 								></div>
-							) }
+							)}
 						</div>
 						<ScreenAction
-							theme={ theme }
-							next={ next }
-							isSticky={ stickyFooter }
-							buttonText={ attributes.buttonText }
+							theme={theme}
+							next={next}
+							isSticky={stickyFooter}
+							buttonText={attributes.buttonText}
 						/>
 					</div>
 				</div>
-				{ ( ( attributes.layout !== 'stack' &&
-					deviceWidth !== 'mobile' ) ||
-					( deviceWidth === 'mobile' &&
-						( attributes.layout === 'split-left' ||
-							attributes.layout === 'split-right' ) ) ) && (
-					<div
-						className={ classNames(
-							'renderer-core-block-attachment-wrapper',
-							css`
+				{((attributes.layout !== 'stack' &&
+					deviceWidth !== 'mobile') ||
+					(deviceWidth === 'mobile' &&
+						(attributes.layout === 'split-left' ||
+							attributes.layout === 'split-right'))) && (
+						<div
+							className={classNames(
+								'renderer-core-block-attachment-wrapper',
+								css`
 								img {
 									object-position: ${
-											// @ts-expect-error
-											attributes?.attachmentFocalPoint
-												?.x * 100
-										 }%
+									// @ts-expect-error
+									attributes?.attachmentFocalPoint
+										?.x * 100
+									}%
 										${
-											// @ts-expect-error
-											attributes?.attachmentFocalPoint
-												?.y * 100
-										 }%;
+									// @ts-expect-error
+									attributes?.attachmentFocalPoint
+										?.y * 100
+									}%;
 								}
 							`
-						) }
-					>
-						<Attachment
-							isPreview={ isPreview }
-							attributes={ attributes }
-						/>
-					</div>
-				) }
+							)}
+						>
+							<Attachment
+								isPreview={isPreview}
+								attributes={attributes}
+							/>
+						</div>
+					)}
 			</div>
 		</div>
 	);
 };
-const ScreenAction = ( { isSticky, buttonText, next, theme } ) => {
+const ScreenAction = ({ isSticky, buttonText, next, theme }) => {
 	const messages = useMessages();
 	const isTouchScreen =
 		'ontouchstart' in window ||
@@ -288,7 +288,7 @@ const ScreenAction = ( { isSticky, buttonText, next, theme } ) => {
 
 	return (
 		<div
-			className={ classNames(
+			className={classNames(
 				'qf-welcome-screen-block__action-wrapper',
 				{
 					'is-sticky': isSticky,
@@ -316,26 +316,26 @@ const ScreenAction = ( { isSticky, buttonText, next, theme } ) => {
 					// 	.qf-welcome-screen-block__action {
 					// 		margin: 0 auto;
 				`
-			) }
+			)}
 		>
 			<div className="qf-welcome-screen-block__action">
-				<Button theme={ theme } onClick={ next }>
-					{ buttonText }
+				<Button theme={theme} onClick={next}>
+					{buttonText}
 				</Button>
 			</div>
 
 			<div
-				className={ classNames(
+				className={classNames(
 					'qf-welcome-screen-block__action-helper-text',
 					css`
-						color: ${ theme.questionsColor };
+						color: ${theme.questionsColor};
 						font-size: 12px;
 					`
-				) }
+				)}
 			>
-				{ ! isTouchScreen && (
-					<HTMLParser value={ messages[ 'label.hintText.enter' ] } />
-				) }
+				{!isTouchScreen && (
+					<HTMLParser value={messages['label.hintText.enter']} />
+				)}
 			</div>
 		</div>
 	);
