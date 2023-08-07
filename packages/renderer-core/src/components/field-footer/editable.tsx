@@ -15,16 +15,16 @@ interface Props {
 	id: string | undefined;
 	shakingErr: string | null;
 }
-const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
-	if ( ! id ) return null;
-	const { isValid, validationErr } = useSelect( ( select ) => {
+const EditableBlockFooter: React.FC<Props> = ({ id, shakingErr }) => {
+	if (!id) return null;
+	const { isValid, validationErr } = useSelect((select) => {
 		return {
-			isValid: select( 'quillForms/renderer-core' ).isValidField( id ),
+			isValid: select('quillForms/renderer-core').isValidField(id),
 			validationErr: select(
 				'quillForms/renderer-core'
-			).getFieldValidationErr( id ),
+			).getFieldValidationErr(id),
 		};
-	} );
+	});
 	const {
 		next,
 		isErrMsgVisible,
@@ -33,24 +33,24 @@ const EditableBlockFooter: React.FC< Props > = ( { id, shakingErr } ) => {
 	} = __experimentalUseFieldRenderContext();
 	return (
 		<>
-			{ shakingErr ||
-			( ! isValid && validationErr?.length > 0 && isErrMsgVisible ) ? (
+			{shakingErr ||
+				(!isValid && validationErr?.length > 0 && isErrMsgVisible) ? (
 				// @ts-expect-error
-				<ErrMsg message={ shakingErr ? shakingErr : validationErr } />
+				<ErrMsg message={shakingErr ? shakingErr : validationErr} />
 			) : isLastField ? (
 				<SubmitBtn />
 			) : (
 				// @ts-expect-error
 				<FieldAction
-					clickHandler={ () => {
-						if ( validationErr && ! isValid ) {
-							showErrMsg( true );
+					clickHandler={() => {
+						if (validationErr && !isValid) {
+							showErrMsg(true);
 						} else {
 							next();
 						}
-					} }
+					}}
 				/>
-			) }
+			)}
 		</>
 	);
 };

@@ -101,8 +101,8 @@ const singleRangeSliderDisplay = (props) => {
 				}}
 				value={typeof val === 'undefined' ? 0 : parseFloat(val)}
 				onChange={e => {
-					checkfieldValidation(e.target.value);
 					setVal(e.target.value);
+					checkfieldValidation(e.target.value);
 				}}
 			/>
 		</div>

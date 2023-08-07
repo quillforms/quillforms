@@ -23,17 +23,17 @@ interface Props {
 	next: Function;
 }
 
-const FieldRender: React.FC< Props > = memo(
-	( {
+const FieldRender: React.FC<Props> = memo(
+	({
 		id,
 		isActive,
 		isLastField,
 		shouldBeRendered,
 		isCurrentBlockSafeToSwipe,
 		next,
-	} ) => {
-		const [ isSubmitBtnVisible, showNextBtn ] = useState< boolean >( true );
-		const [ isErrMsgVisible, showErrMsg ] = useState< boolean >( false );
+	}) => {
+		const [isSubmitBtnVisible, showNextBtn] = useState<boolean>(true);
+		const [isErrMsgVisible, showErrMsg] = useState<boolean>(false);
 
 		const {
 			isReviewing,
@@ -41,44 +41,44 @@ const FieldRender: React.FC< Props > = memo(
 			block,
 			firstInvalidFieldId,
 			lastFieldId,
-		} = useSelect( ( select ) => {
-			const walkPath = select( 'quillForms/renderer-core' ).getWalkPath();
+		} = useSelect((select) => {
+			const walkPath = select('quillForms/renderer-core').getWalkPath();
 			return {
-				isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
-				isValid: select( 'quillForms/renderer-core' ).isValidField(
+				isReviewing: select('quillForms/renderer-core').isReviewing(),
+				isValid: select('quillForms/renderer-core').isValidField(
 					id
 				),
-				block: select( 'quillForms/renderer-core' ).getBlockById( id ),
+				block: select('quillForms/renderer-core').getBlockById(id),
 				firstInvalidFieldId: select(
 					'quillForms/renderer-core'
 				).getFirstInvalidFieldId(),
-				lastFieldId: walkPath[ walkPath.length - 1 ].id,
+				lastFieldId: walkPath[walkPath.length - 1].id,
 			};
-		} );
+		});
 
 		const { goToBlock, setIsCurrentBlockSafeToSwipe } = useDispatch(
 			'quillForms/renderer-core'
 		);
 
-		useEffect( () => {
-			if ( isActive && ! isReviewing && ! isErrMsgVisible ) {
-				showErrMsg( false );
-				setIsCurrentBlockSafeToSwipe( true );
+		useEffect(() => {
+			if (isActive && !isReviewing && !isErrMsgVisible) {
+				showErrMsg(false);
+				setIsCurrentBlockSafeToSwipe(true);
 			}
-		}, [ isActive, isErrMsgVisible, isReviewing ] );
+		}, [isActive, isErrMsgVisible, isReviewing]);
 
-		useEffect( () => {
-			if ( ! isCurrentBlockSafeToSwipe ) {
-				showErrMsg( true );
+		useEffect(() => {
+			if (!isCurrentBlockSafeToSwipe) {
+				showErrMsg(true);
 			}
-		}, [ isCurrentBlockSafeToSwipe ] );
-		useEffect( () => {
-			if ( isReviewing && ! isValid ) {
-				showErrMsg( true );
+		}, [isCurrentBlockSafeToSwipe]);
+		useEffect(() => {
+			if (isReviewing && !isValid) {
+				showErrMsg(true);
 			}
-		}, [ isReviewing, isValid ] );
+		}, [isReviewing, isValid]);
 
-		if ( ! block ) return null;
+		if (!block) return null;
 		//console.log( block );
 		const { name, attributes, innerBlocks } = block;
 
@@ -94,18 +94,18 @@ const FieldRender: React.FC< Props > = memo(
 			isSubmitBtnVisible,
 			showNextBtn,
 			next: () => {
-				if ( ! isReviewing ) {
+				if (!isReviewing) {
 					next();
-				} else if ( firstInvalidFieldId ) {
-					goToBlock( firstInvalidFieldId );
+				} else if (firstInvalidFieldId) {
+					goToBlock(firstInvalidFieldId);
 				} else {
-					goToBlock( lastFieldId );
+					goToBlock(lastFieldId);
 				}
 			},
 			isLastField,
 		};
 		return (
-			<FieldRenderContextProvider value={ context }>
+			<FieldRenderContextProvider value={context}>
 				<FieldWrapper />
 			</FieldRenderContextProvider>
 		);

@@ -74,6 +74,11 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		(block) => block.id === currentBlockId
 	);
 
+	const { nextBlock } = useSelect((select) => {
+		return {
+			nextBlock: nextBlockId ? select('quillForms/renderer-core').getBlockById(nextBlockId) : undefined
+		}
+	});
 	const currentBlockName = walkPath[currentBlockIndex]?.name;
 
 	const currentBlockType = blockTypes?.[currentBlockName];
@@ -327,7 +332,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 								isActive ? isCurrentBlockSafeToSwipe : true
 							}
 							isLastField={
-								// isThereNextField &&
+								!nextBlock || nextBlock.name === 'thankyou-screen' &&
 								index === fields.length - 1
 							}
 							next={() => {
