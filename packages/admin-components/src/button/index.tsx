@@ -6,9 +6,9 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { createElement, forwardRef } from 'react';
+import { createElement } from 'react';
 
-export function Button( props, ref ) {
+export function Button(props) {
 	const {
 		isDefault,
 		isPrimary,
@@ -22,7 +22,7 @@ export function Button( props, ref ) {
 		...additionalProps
 	} = props;
 
-	const classes = classnames( 'admin-components-button', className, {
+	const classes = classnames('admin-components-button', className, {
 		'is-button': isDefault || isPrimary || isLarge || isSmall || isDanger,
 		'is-default': isDefault || isLarge || isSmall,
 		'is-primary': isPrimary,
@@ -31,17 +31,16 @@ export function Button( props, ref ) {
 		'is-tertiary': isTertiary,
 		'is-flat': isFlat,
 		'is-danger': isDanger,
-	} );
+	});
 
 	const tag = 'button';
 	const tagProps = { type: 'button', disabled };
 
-	return createElement( tag, {
+	return createElement(tag, {
 		...tagProps,
 		...additionalProps,
 		className: classes,
-		ref,
-	} );
+	});
 }
 
-export default forwardRef( Button );
+export default Button;

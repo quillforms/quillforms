@@ -248,6 +248,10 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 
 		case GO_NEXT: {
 			if ( isAnimating ) return state;
+			const nextFieldType = walkPath.find(
+				( block ) => block.id === nextBlockId
+			)?.name;
+			if (!nextFieldType || nextFieldType === 'thankyou-screen') return state;
 			// const isThereNextField =
 			// 	walkPath.filter(
 			// 		( block ) =>
