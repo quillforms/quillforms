@@ -80,10 +80,10 @@ const builderStores = [
 	'quillForms/notifications-editor',
 	'quillForms/theme-editor',
 	'quillForms/document-editor',
-	'quillforms/logic-editor',
-	'quillforms/code-editor',
-	'quillforms-settings-editor',
-	'quillforms/hidden-fields',
+	'quillForms/logic-editor',
+	'quillForms/code-editor',
+	'quillForms-settings-editor',
+	'quillForms/hidden-fields',
 	'quillForms/form-locker-editor'
 ];
 
