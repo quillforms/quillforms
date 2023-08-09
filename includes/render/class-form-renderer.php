@@ -249,11 +249,21 @@ class Form_Renderer
                     if(isset($block['attributes']['defaultValue'])) {
                         $block['attributes']['defaultValue'] = $this->parse_default_value($block['attributes']['defaultValue']);
                     }
+                    foreach(['label', 'description', 'customHTML'] as $key) {
+                        if(isset($block['attributes'][$key])) {
+                            $block['attributes'][$key] = do_shortcode($block['attributes'][$key]);
+                        }
+                    }
                     if( isset($block['innerBlocks']) && !empty($block['innerBlocks']) ) {
 						$block['innerBlocks'] = array_map(function($child_block) {
 							if( isset($child_block['attributes']['defaultValue']) ) {
 								$child_block['attributes']['defaultValue'] = $this->parse_default_value($child_block['attributes']['defaultValue']);
 							}
+                            foreach(['label', 'description', 'customHTML'] as $key) {
+                                if(isset($child_block['attributes'][$key])) {
+                                    $child_block['attributes'][$key] = do_shortcode($child_block['attributes'][$key]);
+                                }
+                            }
 							return $child_block;
 						}, $block['innerBlocks']);
                     }
