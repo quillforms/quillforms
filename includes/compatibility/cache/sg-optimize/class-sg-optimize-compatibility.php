@@ -88,6 +88,14 @@ class SG_Optimize_Compatibility {
 			$exclude_list[] = 'quillforms-blocklib-matrix-block-renderer-script';
 			$exclude_list[] = 'quillforms-blocklib-slider-block-renderer-script';
 			$exclude_list[] = 'quillforms-blocklib-custom-thankyouscreen-block-renderer-script';
+			$exclude_list[] = 'quillforms-iframe-resizer';
+			$exclude_list[] = 'quillforms-iframe-resizer-implementer';
+			$exclude_list[] = 'quillforms-iframe-resizer-content-window-script';
+			$exclude_list[] = 'quillforms-react-renderer-script';
+			$exclude_list[] = 'quillforms-blocklib-group-block-renderer-script';
+			$exclude_list[] = 'quillforms-payment-gateways';
+			$exclude_list[] = 'wp-dom-ready';
+			$exclude_list[] = 'wp-polyfill-inert';
 			$exclude_list[] = 'quillforms-stripe-renderer';
 			$exclude_list[] = 'quillforms-paypal-renderer';
 			$exclude_list[] = 'quillforms-logic-renderer';
