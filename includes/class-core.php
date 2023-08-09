@@ -219,7 +219,6 @@ class Core {
 			$args['rewrite']['slug'] = Settings::get( 'quillforms_slug' );
 		}
 		register_post_type( 'quill_forms', $args );
-		flush_rewrite_rules();
 	}
 
 	/**
