@@ -170,6 +170,8 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 = 2.13.1 = 7 August 2023
 Fix: minor tweaks for jump logic if the block is before the current block.
 Fix: Removing the 3 dots in the block label if it is empty in the welcome screen block only.
+Fix: Fixing an issue with WPML.
+Fix: Fixing an issue with Siteground optimizer.
 
 = 2.13.0 = 6 August 2023
 Feature: Save user answers in user browser.
@@ -181,7 +183,6 @@ Feature: FluentCRM integration.
 Feature: Moosend integration.
 Feature: CleverReach integration.
 Feature: Discord integration.
-Fix: Fix a conflict with WPML plugin.
 Fix: Fix the Swiss currency.
 
 = 2.12.1 = 15 June 2023
