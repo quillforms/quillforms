@@ -247,7 +247,6 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		}
 
 		case GO_NEXT: {
-			console.log(state);
 			if ( isAnimating ) return state;
 			// const isThereNextField =
 			// 	walkPath.filter(
