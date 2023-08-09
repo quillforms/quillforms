@@ -74,6 +74,19 @@ registerAdminPage('home', {
 	path: '/',
 });
 
+const builderStores = [
+	'quillForms/block-editor',
+	'quillForms/messages-editor',
+	'quillForms/notifications-editor',
+	'quillForms/theme-editor',
+	'quillForms/document-editor',
+	'quillforms/logic-editor',
+	'quillforms/code-editor',
+	'quillforms-settings-editor',
+	'quillforms/hidden-fields',
+	'quillForms/form-locker-editor'
+];
+
 registerAdminPage('builder', {
 	component: Builder,
 	path: '/forms/:id/builder/',
@@ -113,15 +126,7 @@ registerAdminPage('payments', {
 		return <FormAdminBar formId={params.id} />;
 	},
 	requiresInitialPayload: true,
-	connectedStores: [
-		'quillForms/block-editor',
-		'quillForms/messages-editor',
-		'quillForms/notifications-editor',
-		'quillForms/theme-editor',
-		'quillForms/document-editor',
-		'quillforms/logic-editor',
-		'quillforms/hidden-fields'
-	],
+	connectedStores: 
 });
 
 registerAdminPage('integrations', {
