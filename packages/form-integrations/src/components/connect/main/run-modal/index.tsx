@@ -7,6 +7,7 @@ import { Button } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
+import { __ } from '@wordpress/i18n';
 import { Modal } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from '@wordpress/element';
@@ -16,6 +17,7 @@ import { useEffect, useState } from '@wordpress/element';
  */
 import { ThreeDots, TailSpin } from 'react-loader-spinner';
 import { css } from 'emotion';
+
 /**
  * Internal Dependencies
  */
@@ -28,41 +30,41 @@ interface Props {
 	close: () => void;
 }
 
-const RunModal: React.FC< Props > = ( { id, name, close } ) => {
+const RunModal: React.FC<Props> = ({ id, name, close }) => {
 	const formId = useParams().id;
 	const { provider, connections } = useConnectContext();
-	const connection = connections[ id ];
+	const connection = connections[id];
 
-	const [ entries, setEntries ] = useState< null | any | false >( null );
-	const [ selected, setSelected ] = useState< number[] >( [] );
-	const [ result, setResult ] = useState< {
+	const [entries, setEntries] = useState<null | any | false>(null);
+	const [selected, setSelected] = useState<number[]>([]);
+	const [result, setResult] = useState<{
 		status: string;
 		message?: JSX.Element;
-	} >( {
+	}>({
 		status: 'ready',
-	} );
+	});
 
 	// on mount fetch entries ids & dates & statuses.
-	useEffect( () => {
-		apiFetch( {
-			path: `/qf/v1/forms/${ formId }/entries?records=false&meta=true`,
+	useEffect(() => {
+		apiFetch({
+			path: `/qf/v1/forms/${formId}/entries?records=false&meta=true`,
 			method: 'GET',
-		} )
-			.then( ( res: any ) => {
-				setEntries( res?.items );
-			} )
-			.catch( () => {
+		})
+			.then((res: any) => {
+				setEntries(res?.items);
+			})
+			.catch(() => {
 				//console.log( 'Error: ', err );
-				setEntries( false );
-			} );
-	}, [] );
+				setEntries(false);
+			});
+	}, []);
 
 	const run = () => {
-		setResult( {
+		setResult({
 			status: 'running',
-		} );
-		apiFetch( {
-			path: `/qf/v1/addons/${ provider.slug }/run-connection`,
+		});
+		apiFetch({
+			path: `/qf/v1/addons/${provider.slug}/run-connection`,
 			method: 'POST',
 			data: {
 				connection_id: id,
@@ -71,47 +73,47 @@ const RunModal: React.FC< Props > = ( { id, name, close } ) => {
 				entry_ids: selected,
 			},
 			// @ts-ignore
-		} ).then( ( res: any ) => {
+		}).then((res: any) => {
 			const message = (
 				<div>
 					<div>Processing selected entries has completed.</div>
-					{ !! res.results.succeeded.length && (
+					{!!res.results.succeeded.length && (
 						<div>
-							{ res.results.succeeded.length } entries has
+							{res.results.succeeded.length} entries has
 							succeeded.
 						</div>
-					) }
-					{ !! res.results.failed.length && (
+					)}
+					{!!res.results.failed.length && (
 						<div>
-							{ res.results.failed.length } entries has failed.
+							{res.results.failed.length} entries has failed.
 						</div>
-					) }
-					{ !! res.results.skipped.length && (
+					)}
+					{!!res.results.skipped.length && (
 						<div>
-							{ res.results.skipped.length } entries has been
+							{res.results.skipped.length} entries has been
 							skipped.
 						</div>
-					) }
+					)}
 					<div>Check log for details.</div>
 				</div>
 			);
-			setResult( {
+			setResult({
 				status: 'done',
 				message,
-			} );
-		} );
+			});
+		});
 	};
 
 	return (
 		<Modal
 			className="integration-run-connection-modal"
-			title={ `Run connection: ${ name }` }
-			onRequestClose={ close }
-			shouldCloseOnClickOutside={ false }
+			title={`Run connection: ${name}`}
+			onRequestClose={close}
+			shouldCloseOnClickOutside={false}
 		>
 			<div>
 				<div
-					className={ css`
+					className={css`
 						padding: 10px;
 						border-radius: 5px;
 						display: inline-flex;
@@ -122,15 +124,15 @@ const RunModal: React.FC< Props > = ( { id, name, close } ) => {
 					Use this option if you would like to test your connection or
 					to run the connection for some entries manually.
 				</div>
-				{ entries === null || result.status === 'running' ? (
+				{entries === null || result.status === 'running' ? (
 					<div className="run-connection-modal-loading">
-						<ThreeDots color="#8640e3" height={ 50 } width={ 50 } />
+						<ThreeDots color="#8640e3" height={50} width={50} />
 					</div>
 				) : entries === false ? (
 					<div>Error occurred at fetching entries.</div>
 				) : result.status === 'done' ? (
-					<div style={ { marginTop: '20px' } }>
-						{ result.message }
+					<div style={{ marginTop: '20px' }}>
+						{result.message}
 					</div>
 				) : (
 					<>
@@ -141,114 +143,114 @@ const RunModal: React.FC< Props > = ( { id, name, close } ) => {
 										selected.length === 0
 											? 'unchecked'
 											: entries.length === selected.length
-											? 'checked'
-											: 'mixed'
+												? 'checked'
+												: 'mixed'
 									}
-									click={ () => {
-										if ( selected.length === 0 ) {
+									click={() => {
+										if (selected.length === 0) {
 											setSelected(
 												entries.map(
-													( entry: any ) => entry.ID
+													(entry: any) => entry.ID
 												)
 											);
 										} else {
-											setSelected( [] );
+											setSelected([]);
 										}
-									} }
+									}}
 								/>
-								<span>{ `${ entries.length } responses in total` }</span>
+								<span>{`${entries.length} responses in total`}</span>
 							</div>
-							{ entries.map( ( entry: any ) => {
+							{entries.map((entry: any) => {
 								const status =
 									entry.meta[
-										`${ provider.slug }_connection_${ id }_process_status`
+										`${provider.slug}_connection_${id}_process_status`
 									]?.value ?? null;
 								const statusStyles = {};
-								if ( status === 'succeeded' ) {
+								if (status === 'succeeded') {
 									// @ts-ignore
 									statusStyles.color = '#36c3a9';
-								} else if ( status === 'failed' ) {
+								} else if (status === 'failed') {
 									// @ts-ignore
 									statusStyles.color = '#d40000';
 								}
 								return (
 									<div
-										key={ entry.ID }
+										key={entry.ID}
 										className="list-item"
-										onClick={ () => {
-											const checked = ! selected.includes(
+										onClick={() => {
+											const checked = !selected.includes(
 												entry.ID
 											);
-											let _selected = [ ...selected ];
-											if ( checked ) {
-												_selected.push( entry.ID );
+											let _selected = [...selected];
+											if (checked) {
+												_selected.push(entry.ID);
 											} else {
 												_selected = _selected.filter(
-													( item ) => item != entry.ID
+													(item) => item != entry.ID
 												);
 											}
-											setSelected( _selected );
-										} }
+											setSelected(_selected);
+										}}
 									>
 										<CustomCheckboxControl
 											status={
-												selected.includes( entry.ID )
+												selected.includes(entry.ID)
 													? 'checked'
 													: 'unchecked'
 											}
 										/>
 										<div className="list-item-id">
-											{ entry.ID }{ ' ' }
-											<small style={ statusStyles }>
-												{ status ?? '' }
+											{__('Entry ID:', 'quillforms')} {entry.ID}{' '}
+											<small style={statusStyles}>
+												{status ?? ''}
 											</small>
 										</div>
 										<div className="list-item-date">
-											{ entry.date_created }
+											{entry.date_created}
 										</div>
 									</div>
 								);
-							} ) }
+							})}
 						</div>
 						<div className="run-connection-modal-footer">
 							<Button
 								isPrimary
 								isLarge
 								className="save-button"
-								onClick={ run }
+								onClick={run}
 								disabled={
 									result.status === 'running' ||
 									selected.length === 0
 								}
 							>
-								{ result.status === 'running' ? (
+								{result.status === 'running' ? (
 									<>
-										Running{ ' ' }
+										Running{' '}
 										<TailSpin
 											color="#fff"
-											height={ 16 }
-											width={ 16 }
-											wrapperStyle={ {
+											height={16}
+											width={16}
+											wrapperStyle={{
 												paddingLeft: '6px',
 												paddingTop: '7px',
-											} }
+											}}
 										/>
 									</>
 								) : (
 									<>Run</>
-								) }
+								)}
 							</Button>
 							<Button
 								isDefault
 								isLarge
 								className="cancel-button"
-								onClick={ close }
+								onClick={close}
 							>
 								Cancel
 							</Button>
 						</div>
 					</>
-				) }
+				)}
 			</div>
 		</Modal>
 	);
