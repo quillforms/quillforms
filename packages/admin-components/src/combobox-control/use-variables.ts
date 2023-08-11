@@ -26,7 +26,7 @@ const useVariables = ( { section } ) => {
 				( select(
 					'quillForms/logic-editor'
 					// @ts-ignore.
-				)?.getLogicVariables() as FormLogicVariables ) ?? {},
+				)?.getLogic()?.variables as FormLogicVariables ) ?? {},
 		};
 	} );
 
