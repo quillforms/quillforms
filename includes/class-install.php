@@ -168,7 +168,7 @@ class Install
 	 * 
 	 * Add branded "powered by"
 	 */
-	public function version_2_13_4_migration() {
+	public static function version_2_13_4_migration() {
 		if (version_compare($version, '2.13.4', '<')) {
 			$license = License::instance()->get_license_info();
 			if($license['status'] === 'valid') return;
