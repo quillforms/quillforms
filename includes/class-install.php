@@ -8,6 +8,7 @@
  */
 
 namespace QuillForms;
+use QuillForms\Site\License;
 
 /**
  * Class Install is responsible for main set up.
@@ -62,6 +63,7 @@ class Install
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
 		self::version_1_7_5_migration();
+		self::version_2_13_4_migration();
 		self::create_cron_jobs();
 		self::update_quillforms_version();
 
@@ -155,6 +157,34 @@ class Install
 			if ($charset_collate) {
 				$wpdb->query("alter table {$wpdb->prefix}quillforms_themes convert to $charset_collate;"); // phpcs:ignore
 				$wpdb->query("alter table {$wpdb->prefix}quillforms_task_meta convert to $charset_collate;"); // phpcs:ignore
+			}
+		}
+	}
+
+	/**
+	 * Version 2.13.4 migration
+	 * 
+	 * @since version 2.13.4
+	 * 
+	 * Add branded "powered by"
+	 */
+	public function version_2_13_4_migration() {
+		if (version_compare($version, '2.13.4', '<')) {
+			$license = License::instance()->get_license_info();
+			if($license['status'] === 'valid') return;
+			$forms = get_posts( array(
+				'post_type' => 'quill_forms',
+				'posts_per_page' => -1,
+			) );
+			// for all forms add a setting in the form settings to enable the branded powered by if the form is free
+			if( !empty($forms)) { 
+				foreach ( $forms as $form ) {
+					$settings = get_post_meta( $form->ID, 'settings', true );
+					if ( ! isset( $settings['poweredBy'] ) ) {
+						$settings['poweredBy'] = true;
+						update_post_meta( $form->ID, 'settings', $settings );
+					}
+				}
 			}
 		}
 	}
