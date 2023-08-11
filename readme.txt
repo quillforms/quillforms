@@ -167,6 +167,9 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 2.13.3 = 11 August 2023
+Fix: Flushing the rewrite rules to avoid the 404 errors.
+
 = 2.13.2 = 9 August 2023
 Urgent Fix: Fixing a bug in jump logic 
 Fix: Fixing the blocks dropdown error in some websites.

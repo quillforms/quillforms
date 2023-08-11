@@ -145,6 +145,7 @@ final class QuillForms {
 		add_action( 'init', array( Capabilities::class, 'assign_capabilities_for_user_roles' ) );
 		add_action( 'init', array( Core::class, 'register_quillforms_post_type' ) );
 		add_action( 'init', array( $this, 'register_rest_fields' ) );
+		add_action( 'init', array( $this, 'flush_rewrite_rules', 9999999));
 	}
 
 	/**
@@ -157,6 +158,30 @@ final class QuillForms {
 		$handlers[] = new Log_Handler_DB();
 		return $handlers;
 	}
+
+	/**
+	 * Flush rewrite rules
+	 *
+	 * @since 2.13.3
+	 */
+	public function flush_rewrite_rules() {
+
+		if ( ! $option = get_option( 'my-plugin-flush-rewrite-rules' ) ) {
+			return false;
+		}
+	
+		if ( $option == 1 ) {
+	
+			flush_rewrite_rules();
+			update_option( 'my-plugin-flush-rewrite-rules', 0 );
+	
+		}
+	
+		return true;
+	
+	}
+		
+		
 
 	/**
 	 * Register REST fields.

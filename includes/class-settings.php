@@ -97,6 +97,7 @@ class Settings {
 	 * @return boolean
 	 */
 	public static function update_all( $settings ) {
+		update_option( 'quillforms-flush-rewrite-rules', 1 );
 		return update_option( self::OPTION_NAME, $settings );
 	}
 
