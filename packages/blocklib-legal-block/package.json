@@ -1,0 +1,42 @@
+{
+	"name": "@quillforms/blocklib-checkbox-block",
+	"version": "3.0.43",
+	"description": "Checkbox block for quillforms",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"checkbox",
+		"block"
+	],
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocklib-checkbox-block/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/quillforms-checkbox-block"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"sideEffects": false,
+	"dependencies": {
+		"@babel/runtime": "^7.16.0",
+		"@emotion/css": "^11.10.5",
+		"@emotion/react": "^11.10.5",
+		"@emotion/styled": "^11.10.5",
+		"@quillforms/admin-components": "^3.0.32",
+		"@quillforms/renderer-core": "^5.5.0",
+		"classnames": "^2.3.1",
+		"tinycolor2": "^1.4.2"
+	},
+	"peerDependencies": {
+		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+		"react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
+}

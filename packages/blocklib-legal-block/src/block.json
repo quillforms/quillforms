@@ -1,0 +1,31 @@
+{
+	"name": "legal",
+	"supports": {
+		"editable": true,
+		"required": true,
+		"attachment": true,
+		"description": true,
+		"logic": true,
+		"theme": true,
+		"points": true,
+		"payments": false,
+		"choices": true,
+		"correctAnswers": false
+	},
+	"attributes": {
+		"yesLabel": {
+			"type": "string",
+			"description": "The label for the 'yes' option",
+			"default": "Yes"
+		},
+		"noLabel": {
+			"type": "string",
+			"description": "The label for the 'no' option",
+			"default": "No"
+		}
+	},
+	"logicalOperators": [
+		"is",
+		"is_not"
+	]
+}
