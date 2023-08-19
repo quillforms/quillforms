@@ -101,6 +101,7 @@ const Form: React.FC<Props> = ({
 			showQuestionsNumbers: true,
 			showLettersOnAnswers: true,
 			saveAnswersInBrowser: false,
+			displayBranding: true,
 			...formObj.settings,
 		};
 

@@ -7,19 +7,28 @@ import {
 	ControlLabel,
 	ToggleControl,
 	SelectControl,
+	__experimentalFeatureAvailability
 } from '@quillforms/admin-components';
+import ConfigAPI from '@quillforms/config';
 
 /**
  * WordPress Dependencies
  */
+import { Modal } from "@wordpress/components";
+import { useState } from "@wordpress/element";
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
  */
 import { css } from 'emotion';
+import classnames from "classnames";
 
 const PanelRender = () => {
+
+	const [displayProModal, setDisplayProModal] = useState(false);
+	const license = ConfigAPI.getLicense();
+
 	const {
 		disableProgressBar,
 		disableWheelSwiping,
@@ -27,7 +36,8 @@ const PanelRender = () => {
 		changeAnimationDirection,
 		showLettersOnAnswers,
 		showQuestionsNumbers,
-		saveAnswersInBrowser
+		saveAnswersInBrowser,
+		displayBranding,
 	} = useDispatch('quillForms/settings-editor');
 
 	const {
@@ -37,6 +47,7 @@ const PanelRender = () => {
 		shouldLettersOnAnswersBeDisplayed,
 		shouldQuestionsNumbersBeDisplayed,
 		shouldAnswersBeSavedInBrowser,
+		shouldBrandingBeDisplayed,
 		animationDirection,
 	} = useSelect((select) => {
 		return {
@@ -60,7 +71,10 @@ const PanelRender = () => {
 			).shouldQuestionsNumbersBeDisplayed(),
 			shouldAnswersBeSavedInBrowser: select(
 				'quillForms/settings-editor'
-			).shouldAnswersBeSavedInBrowser()
+			).shouldAnswersBeSavedInBrowser(),
+			shouldBrandingBeDisplayed: select(
+				'quillForms/settings-editor'
+			).shouldBrandingBeDisplayed()
 		};
 	});
 
@@ -165,7 +179,63 @@ const PanelRender = () => {
 					/>
 				</ControlWrapper>
 			</BaseControl>
-		</div>
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel label={'Display Branding'} />
+					<ToggleControl
+						checked={shouldBrandingBeDisplayed}
+						onChange={() => {
+							if (license?.status !== 'valid') {
+								setDisplayProModal(true);
+							}
+							else {
+								displayBranding(!shouldBrandingBeDisplayed);
+							}
+						}}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+
+			<>
+				{displayProModal && (
+					<Modal
+						className={classnames(
+							css`
+										border: none !important;
+										border-radius: 9px;
+
+										.components-modal__header {
+											background: linear-gradient(
+												42deg,
+												rgb( 235 54 221 ),
+												rgb( 238 142 22 )
+											);
+											h1 {
+												color: #fff;
+											}
+											svg {
+												fill: #fff;
+											}
+										}
+										.components-modal__content {
+											text-align: center;
+										}
+									`
+						)}
+						title="Remove QuillForms Branding"
+						onRequestClose={() => {
+							setDisplayProModal(false);
+						}}
+					>
+						<__experimentalFeatureAvailability
+							featureName="Remove QuillForms Branding"
+							planKey="basic"
+							showLockIcon={true}
+						/>
+					</Modal>
+				)}
+			</>
+		</div >
 	);
 };
 export default PanelRender;

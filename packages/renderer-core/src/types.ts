@@ -26,6 +26,7 @@ export type FormObj = {
 		showQuestionsNumbers?: boolean;
 		showLettersOnAnswers?: boolean;
 		saveAnswersInBrowser?: boolean;
+		displayBranding?: boolean;
 	};
 	hiddenFields?: Object;
 	customCSS?: string;

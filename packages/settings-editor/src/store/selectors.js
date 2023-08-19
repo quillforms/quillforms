@@ -26,3 +26,7 @@ export function shouldQuestionsNumbersBeDisplayed(state) {
 export function shouldAnswersBeSavedInBrowser(state) {
 	return state.saveAnswersInBrowser;
 }
+
+export function shouldBrandingBeDisplayed(state) {
+	return state.displayBranding;
+}

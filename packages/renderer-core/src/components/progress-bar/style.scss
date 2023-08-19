@@ -7,6 +7,7 @@
 
 		@media(max-width: 767px) {
 			background-color: transparent !important;
+			width: 0px;
 			.renderer-core-progress-bar__label {
 				display: none !important;
 			}

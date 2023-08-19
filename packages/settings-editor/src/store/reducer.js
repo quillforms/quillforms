@@ -7,6 +7,7 @@ import {
 	SHOW_LETTERS_ON_ANSWERS,
 	SAVE_ANSWERS_IN_BROWSER,
 	SETUP_STORE,
+	DISPLAY_BRANDING,
 } from './constants';
 
 /**
@@ -153,6 +154,30 @@ export function showQuestionsNumbers(state = true, action) {
 }
 
 /**
+ * Show questions numbers.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function displayBranding(state = true, action) {
+	switch (action.type) {
+		case DISPLAY_BRANDING:
+			return action.flag;
+
+		case SETUP_STORE: {
+			return typeof action.initialPayload?.displayBranding !==
+				'undefined'
+				? action.initialPayload?.displayBranding
+				: true;
+		}
+	}
+
+	return state;
+}
+
+/**
  * Change animation direction.
  *
  * @param {Object} state  Current state.
@@ -175,6 +200,8 @@ export function animationDirection(state = false, action) {
 	return state;
 }
 
+
+
 export default combineReducers({
 	disableProgressBar,
 	disableWheelSwiping,
@@ -183,4 +210,5 @@ export default combineReducers({
 	showLettersOnAnswers,
 	showQuestionsNumbers,
 	saveAnswersInBrowser,
+	displayBranding,
 });
