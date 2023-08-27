@@ -27,7 +27,10 @@ register_rest_field(
 			$prev_value = get_post_meta( $form_id, 'settings', true );
 			if ( $prev_value === $meta ) {
 				return true;
-			}
+			}		
+			update_option( 'quillforms-flush-rewrite-rules', 1 );
+
+
 			$ret = update_post_meta(
 				$form_id,
 				'settings',

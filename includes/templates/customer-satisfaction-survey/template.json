@@ -1,0 +1,305 @@
+{
+	"blocks": [
+		{
+			"id": "87c1fw84h",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "Thank you for choosing to participate in our survey. Your feedback is incredibly important to us as it helps us understand how we can better serve you. This survey will only take a few minutes of your time.\n\nYour honest responses will enable us to enhance our products/services and provide you with an even better experience. We appreciate your valuable input and look forward to hearing your thoughts.",
+				"label": "Welcome to our Customer Satisfaction Survey!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "tdt5rvj38",
+			"name": "short-text",
+			"attributes": {
+				"minCharacters": false,
+				"setMaxCharacters": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"placeholder": false,
+				"attachment": [],
+				"defaultValue": "",
+				"description": "",
+				"label": "Let&#39;s start with your name",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "8t44xnf1s",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "star",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "How satisfied are you with our product?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "r0t5hryfc",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "thumb",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "How would you rate the quality of our product?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "toubsjqo3",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "heart",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "How satisfied are you with the customer support you received?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "xgaqxwt1e",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "trophy",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "How easy was it to use our product/service?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "xwzfpd2db",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "rxxtdxg1x9",
+						"label": "Yes, definitely"
+					},
+					{
+						"value": "0ti4uokomj",
+						"label": "Yes, to some extent"
+					},
+					{
+						"value": "rop77f0noq",
+						"label": "Not sure"
+					},
+					{
+						"value": "rq1mh2ezwj",
+						"label": "No, not really"
+					},
+					{
+						"value": "39jz1ubxgg",
+						"label": "No, not at all"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "Do you feel our product/service provides value for the money?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "2bzt4nqa3",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "1ho7v5emb6",
+						"label": "Faster response times"
+					},
+					{
+						"value": "qxo9j2257k",
+						"label": "Improved product/service features"
+					},
+					{
+						"value": "bcvcfqyv9f",
+						"label": "Better pricing options"
+					},
+					{
+						"value": "7e8k508f9q",
+						"label": "Enhanced user interface/design"
+					},
+					{
+						"value": "4qxahzxzxk",
+						"label": "More comprehensive documentation"
+					},
+					{
+						"value": "r09853430o",
+						"label": "Improved customer support"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"multiple": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "Please select the areas where you think we can improve (select all that apply):",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "zmdr46zfs",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 10,
+				"showLabels": true,
+				"leftLabel": "Not all likely",
+				"centerLabel": "",
+				"rightLabel": "Extremely likely",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "On a scale of 0-10, how likely are you to recommend our product/service to others?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "0epsczvlo",
+			"name": "long-text",
+			"attributes": {
+				"minCharacters": false,
+				"setMaxCharacters": false,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"placeholder": false,
+				"attachment": [],
+				"defaultValue": "",
+				"description": "",
+				"label": "Would you like to add any additional feedback?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"theme": "7",
+	"settings": {
+		"disableProgressBar": false,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": false,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	}
+}

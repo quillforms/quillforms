@@ -169,9 +169,9 @@ class Install
 	 * Add branded "powered by"
 	 */
 	public static function version_2_13_4_migration() {
-		if (version_compare($version, '2.13.4', '<')) {
+		if (version_compare($version, '3.0.0', '<')) {
 			$license = License::instance()->get_license_info();
-			if($license['status'] === 'valid') return;
+			if( !isset($license) || empty($license) || $license['status'] !== 'valid') return;
 			$forms = get_posts( array(
 				'post_type' => 'quill_forms',
 				'posts_per_page' => -1,
@@ -180,8 +180,8 @@ class Install
 			if( !empty($forms)) { 
 				foreach ( $forms as $form ) {
 					$settings = get_post_meta( $form->ID, 'settings', true );
-					if ( ! isset( $settings['poweredBy'] ) ) {
-						$settings['poweredBy'] = true;
+					if ( ! isset( $settings['displayBranding'] ) ) {
+						$settings['displayBranding'] = true;
 						update_post_meta( $form->ID, 'settings', $settings );
 					}
 				}

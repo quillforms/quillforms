@@ -1,0 +1,792 @@
+{
+	"logic": {
+		"actions": {
+			"b0xu9cdqm": [
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "b0xu9cdqm"
+									},
+									{
+										"value": "snnhcxts12"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 2,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "b0xu9cdqm"
+									},
+									{
+										"value": "124e4567e89b"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 3,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "b0xu9cdqm"
+									},
+									{
+										"value": "qdovn06cfq"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 4,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "b0xu9cdqm"
+									},
+									{
+										"value": "8kmbz8tk4a"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"yfyjrvv78": [
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "yfyjrvv78"
+									},
+									{
+										"value": "i9jrnwmvgt"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 2,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "yfyjrvv78"
+									},
+									{
+										"value": "s7ef1mrlie"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 3,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "yfyjrvv78"
+									},
+									{
+										"value": "2r2le132ow"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 4,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "yfyjrvv78"
+									},
+									{
+										"value": "y8i0eudkj9"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"sxexi1681": [
+				{
+					"type": "add",
+					"target": "score",
+					"value": 4,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "sxexi1681"
+									},
+									{
+										"value": "t9ipqvgrpp"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 3,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "sxexi1681"
+									},
+									{
+										"value": "6248ve2ece"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 2,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "sxexi1681"
+									},
+									{
+										"value": "unzf5f1y9a"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "sxexi1681"
+									},
+									{
+										"value": "517tgdn6ny"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"xzi2mu0ee": [
+				{
+					"type": "add",
+					"target": "score",
+					"value": 4,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "xzi2mu0ee"
+									},
+									{
+										"value": "yo9r2rxlld"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "xzi2mu0ee"
+									},
+									{
+										"value": "or3k8mts1b"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 3,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "xzi2mu0ee"
+									},
+									{
+										"value": "ii0uaruie9"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 2,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "xzi2mu0ee"
+									},
+									{
+										"value": "hkhme1anjy"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "jump",
+					"target": "b07ehehbl",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "variable",
+										"value": "score"
+									},
+									{
+										"value": "12"
+									}
+								],
+								"op": "greater_than"
+							}
+						]
+					]
+				},
+				{
+					"type": "jump",
+					"target": "83terkecp",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "variable",
+										"value": "score"
+									},
+									{
+										"value": "8"
+									}
+								],
+								"op": "greater_than"
+							}
+						]
+					]
+				},
+				{
+					"type": "jump",
+					"target": "ke1dcewyp",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "variable",
+										"value": "score"
+									},
+									{
+										"value": "4"
+									}
+								],
+								"op": "greater_than"
+							}
+						]
+					]
+				}
+			]
+		},
+		"defaultJumpTargets": {
+			"xzi2mu0ee": "wz6p72vb7"
+		},
+		"variables": {
+			"score": {
+				"label": "Score",
+				"initialValue": 0
+			}
+		},
+		"nodesPositions": {
+			"yfyjrvv78": {
+				"x": 500,
+				"y": 204
+			},
+			"xzi2mu0ee": {
+				"x": 500,
+				"y": 403
+			},
+			"b07ehehbl": {
+				"x": 143,
+				"y": 501
+			},
+			"83terkecp": {
+				"x": 414,
+				"y": 502
+			},
+			"ke1dcewyp": {
+				"x": 726,
+				"y": 501
+			},
+			"wz6p72vb7": {
+				"x": 1005,
+				"y": 492
+			},
+			"default_thankyou_screen": {
+				"x": 585,
+				"y": 805.5599853515624
+			}
+		}
+	},
+	"blocks": [
+		{
+			"id": "buq8olks1",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "Discover fascinating insights about yourself with our interactive personality quiz. Answer a series of questions, and we&#39;ll reveal unique aspects of your character and provide valuable self-reflection. Gain a deeper understanding of your strengths, preferences, and potential areas for growth. Let&#39;s embark on this journey of self-discovery together!",
+				"label": "Welcome to our Personality Quiz",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "b0xu9cdqm",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "124e4567e89b",
+						"label": "Exploring nature and going for a hike or bike ride."
+					},
+					{
+						"value": "snnhcxts12",
+						"label": "Relaxing at home with a good book."
+					},
+					{
+						"value": "qdovn06cfq",
+						"label": "Socializing with friends and attending events."
+					},
+					{
+						"value": "8kmbz8tk4a",
+						"label": "Engaging in a creative activity like painting or writing."
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/pexels-chandri-anggara-16943679.jpg"
+				},
+				"description": "",
+				"randomize": false,
+				"label": "What is your ideal way to spend a free day?",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.46,
+					"y": 0.09
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "yfyjrvv78",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "i9jrnwmvgt",
+						"label": "I prefer to take a step back and have some alone time to calm down."
+					},
+					{
+						"value": "s7ef1mrlie",
+						"label": "I rely on organization and planning to tackle the challenges."
+					},
+					{
+						"value": "2r2le132ow",
+						"label": "I seek support from friends or family to help me through it."
+					},
+					{
+						"value": "y8i0eudkj9",
+						"label": "I find solace in expressing my emotions and talking about the situation."
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/pexels-shvets-production-7203956.jpg"
+				},
+				"description": "",
+				"randomize": false,
+				"label": "How do you handle stressful situations?",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "sxexi1681",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "t9ipqvgrpp",
+						"label": "I trust my intuition and go with my gut feeling."
+					},
+					{
+						"value": "6248ve2ece",
+						"label": "I analyze the pros and cons and make a logical choice."
+					},
+					{
+						"value": "unzf5f1y9a",
+						"label": "I discuss the options with others and consider their input."
+					},
+					{
+						"value": "517tgdn6ny",
+						"label": "I tend to follow my heart and consider the emotional aspect."
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/pexels-ono-kosuki-5974379-1.jpg"
+				},
+				"description": "",
+				"randomize": false,
+				"label": "What is your approach to making decisions?",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "xzi2mu0ee",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "yo9r2rxlld",
+						"label": "I adapt quickly and enjoy the excitement of new experiences."
+					},
+					{
+						"value": "or3k8mts1b",
+						"label": "I appreciate stability and prefer a routine."
+					},
+					{
+						"value": "ii0uaruie9",
+						"label": "I embrace change and see it as an opportunity for growth."
+					},
+					{
+						"value": "hkhme1anjy",
+						"label": "I may feel a bit uncomfortable at first but eventually adjust."
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "How do you handle change?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "b07ehehbl",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Personality Type A\n\nAdventurous and Nature Enthusiast",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "83terkecp",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Personality Type B\n\nIntroverted and Organized",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "ke1dcewyp",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Personality Type C\n\nSocial and Outgoing",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "wz6p72vb7",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Personality Type D\n\nCreative and Emotionally-driven",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": true,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": true,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	}
+}

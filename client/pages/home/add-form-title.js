@@ -16,85 +16,95 @@ import apiFetch from '@wordpress/api-fetch';
 import { Oval as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 
-const AddFormModalContent = ( { closeModal } ) => {
-	const [ title, setTitle ] = useState( '' );
-	const [ isCreating, setIsCreating ] = useState( false );
+const AddFormTitle = ({ closeModal }) => {
+	const [title, setTitle] = useState('');
+	const [isCreating, setIsCreating] = useState(false);
 
-	const ref = useRef( null );
-	useEffect( () => {
-		if ( ref && ref.current ) ref.current.focus();
-	}, [ ref.current ] );
+	const ref = useRef(null);
+	useEffect(() => {
+		if (ref && ref.current) ref.current.focus();
+	}, [ref.current]);
 
 	const createNewForm = () => {
-		setIsCreating( true );
+		setIsCreating(true);
 		// Post
-		apiFetch( {
+		apiFetch({
 			path: '/wp/v2/quill_forms',
 			method: 'POST',
 			data: {
 				title,
 			},
-		} ).then( ( res ) => {
+		}).then((res) => {
 			const { id } = res;
-			getHistory().push( getNewPath( {}, `/forms/${ id }/builder` ) );
-		} );
+			getHistory().push(getNewPath({}, `/forms/${id}/builder`));
+		});
 	};
 	return (
-		<>
+		<div className={css`
+			width: 100%;
+		`}>
 			<div
-				className={ css`
+				className={css`
 					margin-bottom: 20px;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
 				` }
 			>
-				Form Title
-				<TextControl
-					ref={ ref }
-					value={ title }
-					onChange={ ( val ) => setTitle( val ) }
+				<h2> Form Title </h2>
+				<input
+					type="text"
+					placeholder='Insert Form Title here!'
+					ref={ref}
+					value={title}
+					onChange={(e) => setTitle(e.target.value)}
 				/>
 			</div>
 			<div className="quillforms-home__add-form-modal-footer">
 				<Button
 					isDefault
-					className={ css`
+					className={css`
 						margin-right: 10px !important;
 					` }
-					onClick={ closeModal }
+					onClick={closeModal}
 				>
 					Cancel
 				</Button>
 				<Button
-					className={ css`
+					className={css`
 						width: 70px;
 						display: flex;
 						justify-content: center;
 						align-items: center;
+						width: 100%;
+						max-width: 800px;
 					` }
-					onClick={ () => {
-						if ( ! isCreating ) {
+					onClick={() => {
+						if (!isCreating) {
 							createNewForm();
 						}
-					} }
+					}}
 					isPrimary
 				>
-					{ isCreating ? (
+					{isCreating ? (
 						<Loader
-							className={ css`
+							className={css`
 								display: flex;
 								justify-content: center;
 								align-items: center;
 							` }
 							color="#fff"
-							height={ 15 }
-							width={ 15 }
+							height={15}
+							width={15}
 						/>
 					) : (
 						'Create'
-					) }
+					)}
 				</Button>
 			</div>
-		</>
+		</div>
 	);
 };
 
-export default AddFormModalContent;
+export default AddFormTitle;

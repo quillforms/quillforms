@@ -1,0 +1,492 @@
+{
+	"logic": {
+		"actions": {
+			"803cagtfi": [
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "803cagtfi"
+									},
+									{
+										"value": "n40qz1sw0i"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"iiqanhmpg": [
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "iiqanhmpg"
+									},
+									{
+										"value": "n40qz1sw0i"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "iiqanhmpg"
+									},
+									{
+										"value": "cyh6qm731a"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"evk97fgua": [
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "evk97fgua"
+									},
+									{
+										"value": "ieg9vpx6k5"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"0u3cbf6z6": [
+				{
+					"type": "jump",
+					"target": "isygqgo4p",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "variable",
+										"value": "score"
+									},
+									{
+										"value": "2"
+									}
+								],
+								"op": "lower_than"
+							}
+						]
+					]
+				},
+				{
+					"type": "jump",
+					"target": "1p7okd062",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "variable",
+										"value": "score"
+									},
+									{
+										"value": "4"
+									}
+								],
+								"op": "lower_than"
+							}
+						]
+					]
+				},
+				{
+					"type": "jump",
+					"target": "uscnz2sx0",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "variable",
+										"value": "score"
+									},
+									{
+										"value": "4"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "score",
+					"value": 1,
+					"points": true,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "0u3cbf6z6"
+									},
+									{
+										"value": "smqcn118aw"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			]
+		},
+		"defaultJumpTargets": [],
+		"variables": {
+			"score": {
+				"label": "Score",
+				"initialValue": 0
+			}
+		},
+		"nodesPositions": {
+			"0u3cbf6z6": {
+				"x": 498,
+				"y": 314
+			},
+			"isygqgo4p": {
+				"x": 96.95371798626448,
+				"y": 453.2434038245749
+			},
+			"1p7okd062": {
+				"x": 495.4524640226356,
+				"y": 465.89348016976624
+			},
+			"uscnz2sx0": {
+				"x": 874.0348341382308,
+				"y": 452.2050807356534
+			},
+			"default_thankyou_screen": {
+				"x": 864.9397621835014,
+				"y": 898.4088781173947
+			}
+		}
+	},
+	"blocks": [
+		{
+			"id": "803cagtfi",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "tw69v2dfc8",
+						"label": "London"
+					},
+					{
+						"value": "n40qz1sw0i",
+						"label": "Paris"
+					},
+					{
+						"value": "12k5gggdt1",
+						"label": "Rome"
+					},
+					{
+						"value": "upl5kartbh",
+						"label": "Madrid"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/france.png"
+				},
+				"description": "",
+				"randomize": false,
+				"label": "What is the capital city of France?",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "iiqanhmpg",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "7pjjtaca5t",
+						"label": "Venus"
+					},
+					{
+						"value": "cyh6qm731a",
+						"label": "Mars"
+					},
+					{
+						"value": "87jx2xs153",
+						"label": "Jupiter"
+					},
+					{
+						"value": "bc7biws4gl",
+						"label": "Saturn"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/pexels-rdne-stock-project-8474464.jpg"
+				},
+				"description": "",
+				"randomize": false,
+				"label": "Which planet is known as the &quot;Red Planet&quot;?",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "evk97fgua",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "ieg9vpx6k5",
+						"label": "Australia"
+					},
+					{
+						"value": "y2mmd255yj",
+						"label": "Canada"
+					},
+					{
+						"value": "1yd5cpbl83",
+						"label": "Brazil"
+					},
+					{
+						"value": "1ougbwgrhx",
+						"label": "Japan"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/pexels-卓浩-虞-17648460.jpg"
+				},
+				"description": "",
+				"randomize": false,
+				"label": "Which country is home to the kangaroo?",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "0u3cbf6z6",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "hnpmoornc2",
+						"label": "Pablo Picasso"
+					},
+					{
+						"value": "smqcn118aw",
+						"label": "Leonardo da Vinci"
+					},
+					{
+						"value": "vysasx8mqo",
+						"label": "Vincent van Gogh"
+					},
+					{
+						"value": "0lmz9icn47",
+						"label": "Michelangelo"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "Who painted the famous artwork &quot;Mona Lisa&quot;?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "isygqgo4p",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Your score is {{variable:score}}\nYour level is beginner",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "1p7okd062",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Your score is {{variable:score}}\nYour level is intermediate",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "uscnz2sx0",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Your score is {{variable:score}}\n\nYour level is Expert",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/pexels-andrea-piacquadio-3777931.jpg"
+				}
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": false,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": false,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	}
+}

@@ -1,0 +1,171 @@
+{
+	"blocks": [
+		{
+			"id": "7vjqfqhx6",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Welcome to our donation form!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "vomm1h0t5",
+			"name": "group",
+			"attributes": {
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Contact Information",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			},
+			"innerBlocks": [
+				{
+					"id": "tawl0qw2m",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": false,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "First Name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "vyyosaokp",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": false,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Last Name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "jry70z0m3",
+					"name": "email",
+					"attributes": {
+						"required": false,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Email",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				}
+			]
+		},
+		{
+			"id": "u0fpg7fx6",
+			"name": "slider",
+			"attributes": {
+				"min": "10",
+				"max": "10000",
+				"step": "9",
+				"prefix": "$",
+				"suffix": "",
+				"marks": "no",
+				"customMarks": [
+					{
+						"label": "",
+						"value": ""
+					}
+				],
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"defaultValue": "",
+				"description": "",
+				"label": "Amount to donate",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": true,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": true,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	},
+	"products": {
+		"e9v0al": {
+			"source": {
+				"type": "field",
+				"value": "u0fpg7fx6"
+			},
+			"name": "Donation"
+		}
+	}
+}

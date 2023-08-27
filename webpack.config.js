@@ -44,6 +44,7 @@ const quillFormsBlocklibPackagesNames = [
 	'email',
 	'long-text',
 	'multiple-choice',
+	'legal',
 	'number',
 	'slider',
 	'short-text',
@@ -228,6 +229,10 @@ module.exports = {
 					),
 					path.resolve(
 						__dirname,
+						'packages/blocklib-legal-block'
+					),
+					path.resolve(
+						__dirname,
 						'packages/blocklib-website-block'
 					),
 					path.resolve(
@@ -298,6 +303,10 @@ module.exports = {
 					path.resolve(
 						__dirname,
 						'packages/blocklib-slider-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-legal-block'
 					),
 					path.resolve(
 						__dirname,

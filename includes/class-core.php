@@ -10,6 +10,7 @@
 namespace QuillForms;
 
 use QuillForms\Managers\Blocks_Manager;
+use QuillForms\Managers\Templates_Manager;
 use QuillForms\Models\Form_Theme_Model;
 use QuillForms\Site\License;
 use QuillForms\Site\Store;
@@ -43,82 +44,6 @@ class Core {
 		}
 	}
 
-	// /**
-    //  * Add tailwind config
-    //  */
-    // public static function add_tailwind_config() {
-    //     wp_add_inline_script('tailwindcss', 
-    //         'tailwind.config = { 
-    //         theme: {
-    //             container: {
-    //                 center: true,
-    //                 padding: "2rem",
-    //                 screens: {
-    //                     "2xl": "1400px",
-    //                 },
-    //             },
-    //             extend: {
-    //                 colors: {
-    //                     border: "hsl(var(--border))",
-    //                     input: "hsl(var(--input))",
-    //                     ring: "hsl(var(--ring))",
-    //                     background: "hsl(var(--background))",
-    //                     foreground: "hsl(var(--foreground))",
-    //                     primary: {
-    //                         DEFAULT: "hsl(var(--primary))",
-    //                         foreground: "hsl(var(--primary-foreground))",
-    //                     },
-    //                     secondary: {
-    //                         DEFAULT: "hsl(var(--secondary))",
-    //                         foreground: "hsl(var(--secondary-foreground))",
-    //                     },
-    //                     destructive: {
-    //                         DEFAULT: "hsl(var(--destructive))",
-    //                         foreground: "hsl(var(--destructive-foreground))",
-    //                     },
-    //                     muted: {
-    //                         DEFAULT: "hsl(var(--muted))",
-    //                         foreground: "hsl(var(--muted-foreground))",
-    //                     },
-    //                     accent: {
-    //                         DEFAULT: "hsl(var(--accent))",
-    //                         foreground: "hsl(var(--accent-foreground))",
-    //                     },
-    //                     popover: {
-    //                         DEFAULT: "hsl(var(--popover))",
-    //                         foreground: "hsl(var(--popover-foreground))",
-    //                     },
-    //                     card: {
-    //                         DEFAULT: "hsl(var(--card))",
-    //                         foreground: "hsl(var(--card-foreground))",
-    //                     },
-    //                 },
-    //                 borderRadius: {
-    //                     lg: `var(--radius)`,
-    //                     md: `calc(var(--radius) - 2px)`,
-    //                     sm: "calc(var(--radius) - 4px)",
-    //                 },
-        
-    //                 keyframes: {
-    //                     "accordion-down": {
-    //                         from: { height: 0 },
-    //                         to: { height: "var(--radix-accordion-content-height)" },
-    //                     },
-    //                     "accordion-up": {
-    //                         from: { height: "var(--radix-accordion-content-height)" },
-    //                         to: { height: 0 },
-    //                     },
-    //                 },
-    //                 animation: {
-    //                     "accordion-down": "accordion-down 0.2s ease-out",
-    //                     "accordion-up": "accordion-up 0.2s ease-out",
-    //                 },
-    //             },
-    //         } }',
-    //     );
-    // }
-
-
 	/**
 	 * Set admin config
 	 *
@@ -136,7 +61,8 @@ class Core {
 			'qf.config.default.setCurrencies(' . json_encode( Payments::instance()->get_currencies( array( 'name', 'symbol', 'symbol_pos' ) ) ) . ');' .
 			'qf.config.default.setPlans(' . json_encode( License::instance()->get_plans() ) . ');' .
 			'qf.config.default.setMessagesStructure(' . json_encode( Client_Messages::instance()->get_messages() ) . ');' .
-			'qf.config.default.setMaxUploadSize(' . wp_max_upload_size() / ( 1024 * 1024 ) . ');'
+			'qf.config.default.setMaxUploadSize(' . wp_max_upload_size() / ( 1024 * 1024 ) . ');' .
+			'qf.config.default.setFormTemplates(' . json_encode(Templates_Manager::instance()->get_all_registered() ) . ');'
 		);
 	}
 

@@ -7,9 +7,11 @@
  */
 use QuillForms\Render\Form_Renderer;
 use TinyColor\TinyColor;
+use QuillForms\Site\License;
 
 defined( 'ABSPATH' ) || exit;
 $form_object = Form_Renderer::instance()->prepare_form_object( get_the_ID() );
+$license = License::instance()->get_license_info();
 
 ?>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
@@ -68,6 +70,19 @@ $form_object = Form_Renderer::instance()->prepare_form_object( get_the_ID() );
 				max-width: 150px;
 				max-height: 150px;
 			}
+
+			.qf-loader-container .quillforms-branding-powered-by {
+				margin-top: 20px;
+				font-family: "<?php echo $form_object['theme']['font']; ?>";
+				display: <?php echo $license['status'] === 'valid' ? 'none' : 'block'; ?>
+			}
+
+			.qf-loader-container .quillforms-branding-powered-by a {
+				text-decoration: none !important;
+				color: <?php echo $form_object['theme']['questionsColor']; ?> !important;
+			}
+
+			
 			.qf-loader-container #loading-circle {
 				width: 40px;
 				height: 40px;
@@ -101,6 +116,11 @@ $form_object = Form_Renderer::instance()->prepare_form_object( get_the_ID() );
 
 				<?php } ?>
 				<div id="loading-circle"></div>
+				<div class="quillforms-branding-powered-by">
+					<a href="https://quillforms.com" target="_blank">
+						Powered by Quill Forms
+					</a>
+				</div>
 			</div>
 		</div>
 		<?php wp_footer(); ?>

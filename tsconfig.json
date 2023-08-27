@@ -1,7 +1,6 @@
 {
 	"references": [
 		{"path": "packages/utils"},
-		{"path" : "packages/config"},
 		{"path" : "packages/blocks"},
 		{"path" : "packages/builder-panels"},
 		{"path" : "packages/navigation"},

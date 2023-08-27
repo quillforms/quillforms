@@ -22,4 +22,5 @@ export type ConfigData = Record< string, unknown > & {
 	license: License;
 	storeAddons: StoreAddons;
 	currencies: Currencies;
+	formTemplates: Record< string, unknown >;
 };

@@ -36,6 +36,7 @@ const configData: ConfigData = {
 	plans: {},
 	license: null,
 	storeAddons: {},
+	formTemplates: {},
 	currencies: {},
 };
 
@@ -84,6 +85,25 @@ const getMessagesStructure = ( data: ConfigData ) => (): MessagesStructure => {
 const setMessagesStructure =
 	( data: ConfigData ) => ( value: MessagesStructure ) => {
 		data.structures.messages = value;
+	};
+
+/**
+ * Get templates
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const getFormTemplates = ( data: ConfigData ) => () => {
+	return data.formTemplates;
+};
+
+/**
+ * Set messages structure
+ *
+ * @param data the json environment configuration to use for getting config values
+ */
+const setFormTemplates =
+	( data: ConfigData ) => ( value ) => {
+		data.formTemplates = value;
 	};
 
 /**
@@ -333,6 +353,8 @@ export interface ConfigApi {
 	getFormId: () => number;
 	setFormId: ( value: number ) => void;
 	getFormUrl: () => string;
+	getFormTemplates: () => Record< string, any >;
+	setFormTemplates: ( value: Record< string, any > ) => void;
 	setFormUrl: ( value: string ) => void;
 	getMaxUploadSize: () => number;
 	setMaxUploadSize: ( value: number ) => void;
@@ -378,6 +400,8 @@ const createConfig = ( data: ConfigData ): ConfigApi => {
 	configApi.setStoreAddons = setStoreAddons( data );
 	configApi.getCurrencies = getCurrencies( data );
 	configApi.setCurrencies = setCurrencies( data );
+	configApi.setFormTemplates = setFormTemplates( data );
+	configApi.getFormTemplates = getFormTemplates( data );
 	return configApi;
 };
 

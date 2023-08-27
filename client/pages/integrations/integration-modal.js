@@ -8,11 +8,11 @@ import { Modal } from '@wordpress/components';
  */
 import { css } from 'emotion';
 
-const IntegrationModal = ( { slug, integration, onClose } ) => {
+const IntegrationModal = ({ slug, integration, onClose }) => {
 	const icon = integration.icon;
 	const title = (
 		<div
-			className={ css`
+			className={css`
 				display: flex;
 				align-items: center;
 
@@ -24,24 +24,24 @@ const IntegrationModal = ( { slug, integration, onClose } ) => {
 				}
 			` }
 		>
-			{ typeof icon === 'string' ? (
-				<img src={ icon } />
+			{typeof icon === 'string' ? (
+				<img src={icon} />
 			) : (
-				<IconComponent icon={ icon?.src ? icon.src : icon } />
-			) }{ ' ' }
-			{ integration.title }
+				<IconComponent icon={icon?.src ? icon.src : icon} />
+			)}{' '}
+			{integration.title}
 		</div>
 	);
 
 	return (
 		<Modal
-			title={ title }
-			focusOnMount={ true }
+			title={title}
+			focusOnMount={true}
 			className={
-				`integration-modal integration-modal-${ slug } ` +
+				`integration-modal integration-modal-${slug} ` +
 				css`
-					width: 100%;
-					height: 100%;
+					width: 100% !important;
+					height: 100% !important;
 					max-height: 100%;
 					max-width: 100%;
 					margin-right: 0;
@@ -75,11 +75,11 @@ const IntegrationModal = ( { slug, integration, onClose } ) => {
 					}
 				`
 			}
-			onRequestClose={ onClose }
-			shouldCloseOnEsc={ false }
-			shouldCloseOnClickOutside={ false }
+			onRequestClose={onClose}
+			shouldCloseOnEsc={false}
+			shouldCloseOnClickOutside={false}
 		>
-			<integration.render slug={ slug } onClose={ onClose } />
+			<integration.render slug={slug} onClose={onClose} />
 		</Modal>
 	);
 };

@@ -25,32 +25,37 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import NotificationBox from '../notification-box';
+import AlertMessageWrapper from '../alert-message-wrapper';
 
-const NotificationsList = ( {
+const NotificationsList = ({
 	goNext,
 	setCurrentNotificationId,
 	isActive,
 	isAnimating,
-} ) => {
-	const [ displayProModal, setDisplayProModal ] = useState( false );
+}) => {
+	const [displayProModal, setDisplayProModal] = useState(false);
 	const license = ConfigAPI.getLicense();
-	const { notifications } = useSelect( ( select ) => {
+	const { notifications } = useSelect((select) => {
 		return {
 			notifications: select(
 				'quillForms/notifications-editor'
 			).getNotifications(),
 		};
-	} );
+	});
 	return (
 		<div
-			className={ classnames( 'notifications-editor-notifciations-list', {
+			className={classnames('notifications-editor-notifciations-list', {
 				active: isActive,
 				'is-animating': isAnimating,
-			} ) }
+			})}
 		>
+			<AlertMessageWrapper type={"info"}>
+				Please consider using SMTP plugin to make sure that your emails are delivered to the inbox.
+			</AlertMessageWrapper>
+
 			<div className="notifications-editor-notifciations-list__header">
 				<h4
-					className={ css`
+					className={css`
 						font-size: 15px;
 					` }
 				>
@@ -58,61 +63,61 @@ const NotificationsList = ( {
 				</h4>
 
 				<Button
-					className={ css`
+					className={css`
 						border-radius: 8px !important;
 						display: inlinep-flex;
 						align-items: center;
 					` }
 					isPrimary
-					onClick={ () => {
+					onClick={() => {
 						if (
 							notifications.length > 0 &&
 							license?.status !== 'valid'
 						) {
-							setDisplayProModal( true );
+							setDisplayProModal(true);
 						} else {
-							setCurrentNotificationId( null );
+							setCurrentNotificationId(null);
 							goNext();
 						}
-					} }
+					}}
 					isLarge
 				>
 					Add New Notification
 					<Icon
-						className={ css`
+						className={css`
 							fill: #fff;
 							margin-left: 5px;
 						` }
-						icon={ arrowRight }
-						size={ 15 }
+						icon={arrowRight}
+						size={15}
 					/>
 				</Button>
 			</div>
 			<>
-				{ notifications?.length > 0 ? (
-					notifications.map( ( notification, index ) => {
+				{notifications?.length > 0 ? (
+					notifications.map((notification, index) => {
 						return (
 							<NotificationBox
-								index={ index }
-								onEdit={ () => {
-									setCurrentNotificationId( notification.id );
+								index={index}
+								onEdit={() => {
+									setCurrentNotificationId(notification.id);
 									goNext();
-								} }
-								key={ notification.id }
-								notification={ notification }
+								}}
+								key={notification.id}
+								notification={notification}
 							/>
 						);
-					} )
+					})
 				) : (
 					<div className="notifications-editor-no-notifications-msg">
 						There are no notifications.
 					</div>
-				) }
+				)}
 			</>
 			<>
-				{ displayProModal && (
+				{displayProModal && (
 					<Modal
-						className={ classnames(
+						className={classnames(
 							css`
 								border: none !important;
 								border-radius: 9px;
@@ -134,19 +139,19 @@ const NotificationsList = ( {
 									text-align: center;
 								}
 							`
-						) }
+						)}
 						title="Multiple notifications is a pro feature"
-						onRequestClose={ () => {
-							setDisplayProModal( false );
-						} }
+						onRequestClose={() => {
+							setDisplayProModal(false);
+						}}
 					>
 						<__experimentalFeatureAvailability
 							featureName="Multiple notifications"
 							planKey="basic"
-							showLockIcon={ true }
+							showLockIcon={true}
 						/>
 					</Modal>
-				) }
+				)}
 			</>
 		</div>
 	);

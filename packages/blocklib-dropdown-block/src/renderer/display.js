@@ -90,8 +90,8 @@ const DropdownDisplay = (props) => {
 			);
 	}, [choices, searchKeyword]);
 
-	const checkFieldValidation = () => {
-		if (required === true && (!val || val === '')) {
+	const checkFieldValidation = ($val) => {
+		if (required === true && (!$val || $val === '')) {
 			setIsValid(false);
 			setValidationErr(
 				messages['label.errorAlert.selectionRequired']
@@ -146,7 +146,7 @@ const DropdownDisplay = (props) => {
 		// Note, that this effect will also be called on mount, that's why we check if isReviewing = false
 		// because we want to display errors coming from server.
 		if (isPreview || !isReviewing) checkFieldValidation(val);
-	}, [val, attributes]);
+	}, [attributes]);
 
 	useEffect(() => {
 		if (showFDrop) {
@@ -295,6 +295,7 @@ const DropdownDisplay = (props) => {
 			},
 			isTouchScreen ? 500 : 700
 		);
+		checkFieldValidation()
 	};
 
 	return (

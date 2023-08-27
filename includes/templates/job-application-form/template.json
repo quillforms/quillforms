@@ -1,0 +1,302 @@
+{
+	"blocks": [
+		{
+			"id": "rn30zt9kx",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2022/10/undraw_resume_re_hkth.svg"
+				},
+				"description": "",
+				"label": "We are looking for a senior software engineer. Are you interested to join us?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "332px"
+			}
+		},
+		{
+			"id": "g3lwwiet5",
+			"name": "short-text",
+			"attributes": {
+				"minCharacters": false,
+				"setMaxCharacters": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"placeholder": false,
+				"attachment": [],
+				"defaultValue": "",
+				"description": "",
+				"label": "First, let&#39;s start with your name.",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "xx5w325sy",
+			"name": "email",
+			"attributes": {
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"placeholder": false,
+				"defaultValue": "",
+				"description": "",
+				"label": "Please type your email!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "q6we2mxu5",
+			"name": "statement",
+			"attributes": {
+				"buttonText": "That's me",
+				"quotationMarks": true,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Nice to meet you {{field:g3lwwiet5}}, thanks for taking the time to apply\n\nHere is the job requirements:\n\nWe are looking for a senior a software engineer with experience more than 6 years in front end and back end.\n\nIdeally, we are looking for a problem solver who can suggest smart solutions to complex problems.",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "exxrugyus",
+			"name": "statement",
+			"attributes": {
+				"buttonText": "Sure",
+				"quotationMarks": true,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Great! Now we&#39;d like to ask a few questions about you!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "jmrr6fo83",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 10,
+				"showLabels": false,
+				"leftLabel": "",
+				"centerLabel": "",
+				"rightLabel": "",
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "From 1 to 10, how would you rate your experience with backend technologies?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "3ytek2tin",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 10,
+				"showLabels": false,
+				"leftLabel": "",
+				"centerLabel": "",
+				"rightLabel": "",
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "From 1 to 10, how would you rate your experience with frontend technologies?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "rlv2f8ohn",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "124e4567e89b",
+						"label": "PHP"
+					},
+					{
+						"value": "wawkardh3z",
+						"label": "Javascript"
+					},
+					{
+						"value": "0wh4i209lp",
+						"label": "Python"
+					},
+					{
+						"value": "b0i648nxkz",
+						"label": "Ruby"
+					},
+					{
+						"value": "acruw8drps",
+						"label": "Java"
+					},
+					{
+						"value": "lpazz9mnzx",
+						"label": "C#"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"multiple": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "You can choose more than one!",
+				"randomize": false,
+				"label": "Which programming languages do you have experience in?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "wnh19oyky",
+			"name": "file",
+			"attributes": {
+				"maxFileSize": 2,
+				"allowedFileExtensions": "pdf",
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Please Upload your CV in PDF format!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "8ikyeg8ek",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Great {{field:g3lwwiet5}}!\n\nWe will contact you soon!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [
+		{
+			"properties": {
+				"title": "",
+				"toType": "field",
+				"active": true,
+				"recipients": [
+					"{{field:xx5w325sy}}"
+				],
+				"replyTo": "",
+				"subject": "Thanks for your job application!",
+				"message": "Hello {{field:g3lwwiet5}},\n\nThanks for trying the demo!"
+			},
+			"id": "d0vgzgoix"
+		}
+	],
+	"settings": {
+		"disableProgressBar": false,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": false,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true
+	}
+}

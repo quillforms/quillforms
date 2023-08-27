@@ -1,0 +1,690 @@
+{
+	"logic": {
+		"actions": {
+			"frdiy7qcj": [
+				{
+					"type": "jump",
+					"target": "tb1vx7oj6",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "frdiy7qcj"
+									},
+									{
+										"value": "124e4567e89b"
+									}
+								],
+								"op": "is"
+							}
+						],
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "frdiy7qcj"
+									},
+									{
+										"value": "8ombhqqy6o"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"tb1vx7oj6": [
+				{
+					"type": "multiply",
+					"target": "nfbp98a1s",
+					"value": {
+						"type": "field",
+						"value": "tb1vx7oj6"
+					},
+					"conditions": true
+				},
+				{
+					"type": "add",
+					"target": "72tdv9eyu",
+					"value": {
+						"type": "variable",
+						"value": "nfbp98a1s"
+					},
+					"conditions": true
+				}
+			],
+			"ooz4ga87q": [
+				{
+					"type": "multiply",
+					"target": "j14ka8rnu",
+					"value": {
+						"type": "field",
+						"value": "ooz4ga87q"
+					},
+					"conditions": true
+				},
+				{
+					"type": "add",
+					"target": "72tdv9eyu",
+					"value": {
+						"type": "variable",
+						"value": "j14ka8rnu"
+					},
+					"conditions": true
+				}
+			],
+			"vgqh8s9ws": [
+				{
+					"type": "add",
+					"target": "72tdv9eyu",
+					"value": 1000,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "vgqh8s9ws"
+									},
+									{
+										"value": "124e4567e89b"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "72tdv9eyu",
+					"value": 2000,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "vgqh8s9ws"
+									},
+									{
+										"value": "vf8ipjq86m"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "72tdv9eyu",
+					"value": 3000,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "vgqh8s9ws"
+									},
+									{
+										"value": "jmeco6m3kn"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "72tdv9eyu",
+					"value": 4000,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "vgqh8s9ws"
+									},
+									{
+										"value": "kr02gwr3rs"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				},
+				{
+					"type": "add",
+					"target": "72tdv9eyu",
+					"value": 5000,
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "vgqh8s9ws"
+									},
+									{
+										"value": "1uwa792xhk"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			],
+			"hin4yl1ev": [
+				{
+					"type": "jump",
+					"target": "21ppnbph6",
+					"conditions": [
+						[
+							{
+								"vars": [
+									{
+										"type": "field",
+										"value": "hin4yl1ev"
+									},
+									{
+										"value": "r45nhri03f"
+									}
+								],
+								"op": "is"
+							}
+						]
+					]
+				}
+			]
+		},
+		"defaultJumpTargets": {
+			"frdiy7qcj": "ooz4ga87q",
+			"tb1vx7oj6": "vgqh8s9ws",
+			"ooz4ga87q": "vgqh8s9ws",
+			"hin4yl1ev": "0p2qc3den",
+			"21ppnbph6": "jb2ewrern"
+		},
+		"variables": {
+			"score": {
+				"label": "Score",
+				"initialValue": 0
+			},
+			"72tdv9eyu": {
+				"label": "Total Cost",
+				"initialValue": 5000
+			},
+			"nfbp98a1s": {
+				"label": "Pages Cost",
+				"initialValue": 1250
+			},
+			"j14ka8rnu": {
+				"label": "Products Cost",
+				"initialValue": 500
+			}
+		},
+		"nodesPositions": {
+			"tb1vx7oj6": {
+				"x": 293,
+				"y": 223
+			},
+			"ooz4ga87q": {
+				"x": 695,
+				"y": 222
+			},
+			"21ppnbph6": {
+				"x": 819.1337330856238,
+				"y": 689.2684842799546
+			},
+			"0p2qc3den": {
+				"x": 503.3461450842368,
+				"y": 688.2884922051716
+			},
+			"jb2ewrern": {
+				"x": 821.5952907973171,
+				"y": 838.2743589690956
+			}
+		}
+	},
+	"blocks": [
+		{
+			"id": "8t4j0vo63",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "We will ask you a set of questions to give you a quote for your web design project.\n\nInitial cost is $5000",
+				"label": "Welcome to our web design cost calculator",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "frdiy7qcj",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "124e4567e89b",
+						"label": "Personal Blog"
+					},
+					{
+						"value": "8ombhqqy6o",
+						"label": "Business"
+					},
+					{
+						"value": "fyawkr51zo",
+						"label": "E-commerce"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "What type of website do you need?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "tb1vx7oj6",
+			"name": "slider",
+			"attributes": {
+				"min": "1",
+				"max": 100,
+				"step": "1",
+				"prefix": "",
+				"suffix": "",
+				"marks": "custom",
+				"customMarks": [
+					{
+						"label": "1 page",
+						"value": "1"
+					},
+					{
+						"label": "50 pages",
+						"value": "50"
+					},
+					{
+						"label": "100 pages",
+						"value": "100"
+					}
+				],
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"defaultValue": "1",
+				"description": "Each page adds $1250",
+				"label": "How many pages do you have?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "ooz4ga87q",
+			"name": "slider",
+			"attributes": {
+				"min": "1",
+				"max": 100,
+				"step": "1",
+				"prefix": "",
+				"suffix": "",
+				"marks": "custom",
+				"customMarks": [
+					{
+						"label": "1 product",
+						"value": "1"
+					},
+					{
+						"label": "50 products",
+						"value": "50"
+					},
+					{
+						"label": "100 products",
+						"value": "100"
+					}
+				],
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"defaultValue": "1",
+				"description": "Each product adds $500",
+				"label": "How many products do you have?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "vgqh8s9ws",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "124e4567e89b",
+						"label": "30k - 70k (+$1000)"
+					},
+					{
+						"value": "vf8ipjq86m",
+						"label": "70k - 130k (+$2000)"
+					},
+					{
+						"value": "jmeco6m3kn",
+						"label": "130k - 300k (+$3000) "
+					},
+					{
+						"value": "kr02gwr3rs",
+						"label": "300k - 1M (+$4000)"
+					},
+					{
+						"value": "1uwa792xhk",
+						"label": "1M - 3M (+$5000)"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "Estimated Traffic?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "hin4yl1ev",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "r45nhri03f",
+						"label": "Yes"
+					},
+					{
+						"value": "p7jisihw8h",
+						"label": "No"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "Great, your estimated cost is ${{variable:72tdv9eyu}}\n\nWould you like to proceed with filling in your details?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "21ppnbph6",
+			"name": "group",
+			"attributes": {
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Please fill in your details and we will get back to you shortly",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			},
+			"innerBlocks": [
+				{
+					"id": "zb6ert1dc",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Your Name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "tqkrw4t07",
+					"name": "email",
+					"attributes": {
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Your email",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "udchei653",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Your company name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "nlewt7ftc",
+					"name": "phone",
+					"attributes": {
+						"defaultCountry": "us",
+						"disableOtherCountries": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"description": "",
+						"label": "Your Phone number",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "sc43bh40k",
+					"name": "long-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Your project details",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				}
+			]
+		},
+		{
+			"id": "0p2qc3den",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Hope you have enjoyed our cost calculator.\n\nPlease get in touch if you have any inqueries!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "jb2ewrern",
+			"name": "thankyou-screen",
+			"attributes": {
+				"autoRedirect": false,
+				"autoRedirectUrl": "",
+				"autoRedirectLag": 0.5,
+				"showButton": false,
+				"buttonText": "Again",
+				"buttonMode": "reload",
+				"redirectUrl": "",
+				"redirectOnSameWindow": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Great, we will get back to you shortly!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": true,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": true,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	}
+}

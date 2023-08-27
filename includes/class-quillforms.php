@@ -112,6 +112,16 @@ final class QuillForms {
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/wpoptimize/class-wpoptimize-compatibility.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/sg-optimize/class-sg-optimize-compatibility.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/wp-rocket/class-wp-rocket-compatibility.php';
+
+		// Form Templates
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/simple-contact-form/class-simple-contact-form-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/simple-donation-form/class-simple-donation-form-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/customer-satisfaction-survey/class-customer-satisfaction-survey-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/web-design-cost-calculator/class-web-design-cost-calculator-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/personality-quiz/class-personality-quiz-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/job-application-form/class-job-application-form-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/trivia-quiz/class-trivia-quiz-template.php';
+		
 	}
 
 	/**

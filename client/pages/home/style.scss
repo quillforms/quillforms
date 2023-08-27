@@ -125,10 +125,126 @@
 			cursor: inherit;
 		}
 
+
+		
+
 	}
 
 }
 .quillforms-home__add-form-modal-footer {
 	display: flex;
     justify-content: flex-end;
+}
+
+
+.create-form-cards {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 800px;
+	margin-top: 100px;
+	margin-right: auto;
+	margin-left: auto;
+
+}
+
+.create-form-cards div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 300px;
+	width: 250px;
+	margin: 20px;
+	background: #5c22ca;
+	border-radius: 20px;
+	color: #fff;
+	font-size: 18px;
+	cursor: pointer;
+	span, svg {
+		margin-bottom: 20px;
+		font-size: 22px;
+	}
+}
+
+.create-form-cards div:nth-child(1) {
+	background: #e7e5e5;
+	color: #000
+}
+
+.choose-template {
+	height: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+.choose-template__cards {
+	display: flex;
+	flex-wrap: wrap;
+}
+.choose-template__card {
+	width: 214px;
+    cursor: pointer;
+    margin: 20px;
+    background: #eee;
+    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
+    overflow: hidden;
+	h3 {
+		display: flex;
+		align-items: center;
+		padding: 0px 10px;
+		font-size: 18px;
+	}
+
+}
+
+.choose-template__card img {
+    width: 214px;
+    height: 169px;
+    object-fit: cover
+}
+.chosen-template {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	
+	.chosen-template__header {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 400px;
+		height: 100%;
+		padding: 20px;
+		text-align: left;
+		.chosen-template__notes {
+			padding: 10px;
+			background: antiquewhite;
+			border-radius: 5px;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		h2 {
+			font-size: 30px;
+			margin-bottom: 20px;
+			font-family: 'Roboto', sans-serif;
+		}
+	}
+	.chosen-template__preview {
+		width: 100%;
+		height: 100%;
+	}
+	.chosen-template__preview iframe {
+		width: 100%;
+		height: 100%;
+	}
+
+	.chosen-template__back {
+		position: absolute;
+		top: 80px;
+		left: 20px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+	}
 }
