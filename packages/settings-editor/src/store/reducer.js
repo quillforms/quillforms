@@ -10,6 +10,12 @@ import {
 	DISPLAY_BRANDING,
 } from './constants';
 
+
+/**
+ * Quill Forms Dependencies
+ */
+import ConfigAPI from '@quillforms/config';
+
 /**
  * WordPress dependencies
  */
@@ -161,7 +167,8 @@ export function showQuestionsNumbers(state = true, action) {
  *
  * @return {Object} Updated state.
  */
-export function displayBranding(state = true, action) {
+export function displayBranding(state = ConfigAPI?.getLicense()?.status === 'valid' ? false : true, action) {
+
 	switch (action.type) {
 		case DISPLAY_BRANDING:
 			return action.flag;
@@ -170,7 +177,7 @@ export function displayBranding(state = true, action) {
 			return typeof action.initialPayload?.displayBranding !==
 				'undefined'
 				? action.initialPayload?.displayBranding
-				: true;
+				: ConfigAPI?.getLicense()?.status === 'valid' ? false : true;
 		}
 	}
 

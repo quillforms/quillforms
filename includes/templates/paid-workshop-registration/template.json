@@ -1,0 +1,238 @@
+{
+	"blocks": [
+		{
+			"id": "8hxx7qasf",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Thank you for your interest in our workshops. Please fill out the form below to register for your favorite workshop. We look forward to seeing you there!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "r73tqmxw3",
+			"name": "group",
+			"attributes": {
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Please fill in your contact information",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			},
+			"innerBlocks": [
+				{
+					"id": "ur86nhs7v",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Please type your full name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "r2b1bl8id",
+					"name": "email",
+					"attributes": {
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Please type your email",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "c01jlamx3",
+					"name": "phone",
+					"attributes": {
+						"defaultCountry": "us",
+						"disableOtherCountries": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"description": "",
+						"label": "Please type your phone",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				}
+			]
+		},
+		{
+			"id": "131f99hqy",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "124e4567e89b",
+						"label": "PHP Workshop ($100)"
+					},
+					{
+						"value": "gnxd0dfhyl",
+						"label": "Javascript Workshop ($150)"
+					},
+					{
+						"value": "1vplo7j1y6",
+						"label": "Python Workshop ($200)"
+					},
+					{
+						"value": "9d2pcuvqb8",
+						"label": "AI Workshop ($250)"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "Please select your favorite workshop",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "bai1wl0jn",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "z9e487ngzh",
+						"label": "Word of mouth"
+					},
+					{
+						"value": "v259uef6sk",
+						"label": "Social media"
+					},
+					{
+						"value": "yjnzo1ol8f",
+						"label": "Website"
+					},
+					{
+						"value": "wacn026jxt",
+						"label": "Email newsletter"
+					},
+					{
+						"value": "3cg5vbeyqw",
+						"label": "Advertisement"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "How did you hear about our workshop?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": true,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": true,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	},
+	"products": {
+		"0o9vni": {
+			"source": {
+				"type": "field",
+				"value": "131f99hqy"
+			},
+			"choices": {
+				"124e4567e89b": {
+					"price": 100
+				},
+				"gnxd0dfhyl": {
+					"price": 150
+				},
+				"1vplo7j1y6": {
+					"price": 200
+				},
+				"9d2pcuvqb8": {
+					"price": 250
+				}
+			}
+		}
+	}
+}

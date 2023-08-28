@@ -63,7 +63,7 @@ class Install
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
 		self::version_1_7_5_migration();
-		self::version_2_13_4_migration();
+		// self::version_2_13_4_migration();
 		self::create_cron_jobs();
 		self::update_quillforms_version();
 
@@ -161,33 +161,36 @@ class Install
 		}
 	}
 
-	/**
-	 * Version 2.13.4 migration
-	 * 
-	 * @since version 2.13.4
-	 * 
-	 * Add branded "powered by"
-	 */
-	public static function version_2_13_4_migration() {
-		if (version_compare($version, '3.0.0', '<')) {
-			$license = License::instance()->get_license_info();
-			if( !isset($license) || empty($license) || $license['status'] !== 'valid') return;
-			$forms = get_posts( array(
-				'post_type' => 'quill_forms',
-				'posts_per_page' => -1,
-			) );
-			// for all forms add a setting in the form settings to enable the branded powered by if the form is free
-			if( !empty($forms)) { 
-				foreach ( $forms as $form ) {
-					$settings = get_post_meta( $form->ID, 'settings', true );
-					if ( ! isset( $settings['displayBranding'] ) ) {
-						$settings['displayBranding'] = true;
-						update_post_meta( $form->ID, 'settings', $settings );
-					}
-				}
-			}
-		}
-	}
+	// /**
+	//  * Version 2.13.4 migration
+	//  * 
+	//  * @since version 2.13.4
+	//  * 
+	//  * Add branded "powered by"
+	//  */
+	// public static function version_2_13_4_migration() {
+	// 	if (version_compare($version, '3.0.2', '<')) {
+	// 		$license = License::instance()->get_license_info();
+	// 		if( !isset($license) || empty($license) || $license['status'] !== 'valid') return;
+	// 		$forms = get_posts( array(
+	// 			'post_type' => 'quill_forms',
+	// 			'posts_per_page' => -1,
+	// 		) );
+	// 		// for all forms add a setting in the form settings to enable the branded powered by if the form is free
+	// 		if( !empty($forms)) { 
+	// 			foreach ( $forms as $form ) {
+	// 				$settings = get_post_meta( $form->ID, 'settings', true );
+	// 				if ( !isset($settings) || empty($settings) ) {
+	// 					$settings = array();
+	// 				}
+	// 				if ( ! isset( $settings['displayBranding'] ) ) {
+	// 					$settings['displayBranding'] = false;
+	// 					update_post_meta( $form->ID, 'settings', $settings );
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	/**
 	 * Create cron jobs (clear them first).

@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
-Tested up to: 6.1
-Stable tag: 2.13.2
+Tested up to: 6.3
+Stable tag: 3.0.2
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -16,8 +16,15 @@ A new revolution in WordPress forms, surveys and quizzes with focus on UI/UX to 
 Quill Forms is more than just a form. You can build forms, surveys, quizzes and cost estimation forms easily with Quill Forms.
 
 === Demos ===
-[Simple Form](https://quillforms.com/quillforms/my-first-form)
-[Payment Form](https://quillforms.com/quillforms/payment-demo)
+[Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey)
+[Personality Quiz](https://quillforms.com/forms/personality-quiz)
+[Trivia Quiz](https://quillforms.com/forms/trivia-quiz)
+[Donation Form](https://quillforms.com/forms/simple-donation-form)
+[Job Application Form](https://quillforms.com/forms/job-application-form)
+[Course Evaluation Survey](https://quillforms.com/forms/course-evaluation-survey)
+[Web Design Cost Calculator](https://quillforms.com/forms/web-design-cost-calculator)
+[Event Registration](https://quillforms.com/forms/event-registration)
+[Paid Workshop Registration](https://quillforms.com/forms/paid-workshop-registration)
 
 Quill Forms is the best free Typeform alternative for WordPress.
 With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
@@ -46,7 +53,6 @@ QuillForms free version comes with variety of blocks:
 = How to get results in the free version? =
 
 By set up email notifications, you can get an email after each submission with the submission data. For
-
 
 
 
@@ -166,6 +172,14 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 3.0.2 = 28 August 2023
+Fix: Remove the branding by default for Pro users.
+
+= 3.0.0 = 28 August 2023
+Feature: Adding form templates.
+Feature: Adding legal question type.
+New: Adding Quill Forms branding,
 
 = 2.13.3 = 11 August 2023
 Fix: Flushing the rewrite rules to avoid the 404 errors.

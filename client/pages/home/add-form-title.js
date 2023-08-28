@@ -45,11 +45,12 @@ const AddFormTitle = ({ closeModal }) => {
 		`}>
 			<div
 				className={css`
-					margin-bottom: 20px;
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
+					max-width: 800px;
+					margin: 0 auto 20px;
 				` }
 			>
 				<h2> Form Title </h2>
@@ -66,6 +67,7 @@ const AddFormTitle = ({ closeModal }) => {
 					isDefault
 					className={css`
 						margin-right: 10px !important;
+						
 					` }
 					onClick={closeModal}
 				>

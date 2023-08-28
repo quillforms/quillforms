@@ -56,6 +56,7 @@ class Simple_Donation_Form_Template extends Form_Template {
     public function get_notes() {
         return "You have to enable payments in \"payments\" tab and select your favorite payment gateway to let the payment work.";
     }
+    
     /**
      * Get template data
      * 

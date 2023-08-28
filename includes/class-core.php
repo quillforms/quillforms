@@ -342,6 +342,14 @@ class Core {
 	 */
 	public static function get_form_settings( $form_id ) {
 		$settings = get_post_meta( $form_id, 'settings', true );
+		if(!isset($settings)) {
+			$settings = array();
+		}
+		$license = License::instance()->get_license_info();
+		if( isset($license) && !empty($license) && $license['status'] === 'valid' && !isset($settings['displayBranding'])) {
+			$settings['displayBranding'] = false;
+		}
+
 		return $settings;
 	}
 }
