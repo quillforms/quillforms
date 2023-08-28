@@ -1,0 +1,231 @@
+{
+	"blocks": [
+		{
+			"id": "8hxx7qasf",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Thank you for your interest in our upcoming event. Please fill out the form below to register for the event. We look forward to seeing you there!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "r73tqmxw3",
+			"name": "group",
+			"attributes": {
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"label": "Please fill in your contact information",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			},
+			"innerBlocks": [
+				{
+					"id": "ur86nhs7v",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": false,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Please type your full name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "r2b1bl8id",
+					"name": "email",
+					"attributes": {
+						"required": false,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Please type your email",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "c01jlamx3",
+					"name": "phone",
+					"attributes": {
+						"defaultCountry": "us",
+						"disableOtherCountries": false,
+						"required": false,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"description": "",
+						"label": "Please type your phone",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				}
+			]
+		},
+		{
+			"id": "ysmfhfuud",
+			"name": "slider",
+			"attributes": {
+				"min": 0,
+				"max": "5",
+				"step": "1",
+				"prefix": "",
+				"suffix": " guest/s",
+				"marks": "no",
+				"customMarks": [
+					{
+						"label": "",
+						"value": ""
+					}
+				],
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"defaultValue": "",
+				"description": "",
+				"label": "How many guests will attend with you?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "9eqtqygrc",
+			"name": "long-text",
+			"attributes": {
+				"minCharacters": false,
+				"setMaxCharacters": false,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"placeholder": false,
+				"attachment": [],
+				"defaultValue": "",
+				"description": "",
+				"label": "Do you have any special requests or accommodations? Please let us know.",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "f4yrns8bn",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "5jeoc96zjz",
+						"label": "Word of mouth"
+					},
+					{
+						"value": "6pgoyml30j",
+						"label": "Social media"
+					},
+					{
+						"value": "ftbsp2xvd6",
+						"label": "Website"
+					},
+					{
+						"value": "8x1bqsh5xb",
+						"label": "Email newsletter"
+					},
+					{
+						"value": "z9r2kon7is",
+						"label": "Advertisement"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"randomize": false,
+				"label": "How did you hear about this event?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": true,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": true,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	}
+}

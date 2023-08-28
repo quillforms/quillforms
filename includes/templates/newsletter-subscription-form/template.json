@@ -1,0 +1,107 @@
+{
+	"blocks": [
+		{
+			"id": "0groimlg6",
+			"name": "group",
+			"attributes": {
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "Stay up-to-date with the latest news, updates, and exclusive offers by subscribing to our newsletter. Simply fill out the form below and join our community of informed subscribers.",
+				"label": "Subscribe to our newsletter today!",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			},
+			"innerBlocks": [
+				{
+					"id": "w6ois83n4",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "First Name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "4ohmn3gqm",
+					"name": "short-text",
+					"attributes": {
+						"minCharacters": false,
+						"setMaxCharacters": false,
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Last Name",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				},
+				{
+					"id": "47tqhwm6f",
+					"name": "email",
+					"attributes": {
+						"required": true,
+						"nextBtnLabel": false,
+						"classnames": "",
+						"placeholder": false,
+						"defaultValue": "",
+						"description": "",
+						"label": "Email",
+						"customHTML": "",
+						"layout": "stack",
+						"attachmentFocalPoint": {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"attachmentFancyBorderRadius": false,
+						"attachmentBorderRadius": "0px",
+						"attachmentMaxWidth": "none"
+					}
+				}
+			]
+		}
+	],
+	"messages": [],
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": true,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": true,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": false,
+		"saveAnswersInBrowser": false
+	}
+}

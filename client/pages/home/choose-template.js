@@ -29,7 +29,7 @@ const ChooseTemplate = () => {
                     <div className="chosen-template__header">
 
                         <h2>{formTemplates[chosenTemplate].title}</h2>
-                        {formTemplates[chosenTemplate]?.notes && (
+                        {size(formTemplates[chosenTemplate]?.notes) > 0 && (
                             <div className="chosen-template__notes">
                                 {formTemplates[chosenTemplate]?.notes}
                             </div>

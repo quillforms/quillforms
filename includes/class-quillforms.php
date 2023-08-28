@@ -115,12 +115,16 @@ final class QuillForms {
 
 		// Form Templates
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/simple-contact-form/class-simple-contact-form-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/newsletter-subscription-form/class-newsletter-subscription-form-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/simple-donation-form/class-simple-donation-form-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/customer-satisfaction-survey/class-customer-satisfaction-survey-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/web-design-cost-calculator/class-web-design-cost-calculator-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/personality-quiz/class-personality-quiz-template.php';
-		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/job-application-form/class-job-application-form-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/trivia-quiz/class-trivia-quiz-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/job-application-form/class-job-application-form-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/course-evaluation-survey/class-course-evaluation-survey-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/event-registration/class-event-registration-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/paid-workshop-registration/class-paid-workshop-registration-template.php';
 		
 	}
 

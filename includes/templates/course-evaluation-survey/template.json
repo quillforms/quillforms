@@ -1,0 +1,313 @@
+{
+	"blocks": [
+		{
+			"id": "dxb9zvnds",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "We greatly appreciate your contribution to our course and would like to gather your insights to continually enhance the learning experience for future students. Your feedback will assist us in identifying areas for improvement and tailoring the course to better meet the needs of our learners.",
+				"label": "Thank you for participating in our course. Your feedback is valuable.",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "5socpuzsf",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 5,
+				"showLabels": true,
+				"leftLabel": "Not satisfied",
+				"centerLabel": "",
+				"rightLabel": "Very satisfied",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "How satisfied were you with the course overall?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "fsescj3r7",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 5,
+				"showLabels": true,
+				"leftLabel": "Not at all well",
+				"centerLabel": "",
+				"rightLabel": "Extremely well",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Thank you, did the course meet your expectations?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "578nsjn03",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 5,
+				"showLabels": true,
+				"leftLabel": "Not good",
+				"centerLabel": "",
+				"rightLabel": "Excellent",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "How would you rate the instructor&#39;s knowledge and expertise in the subject matter?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "7jiw664zg",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 5,
+				"showLabels": true,
+				"leftLabel": "Not helpful",
+				"centerLabel": "",
+				"rightLabel": "Very helpful",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Were the course materials (e.g., textbooks, handouts, online resources) helpful and relevant?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "bcsglbkvu",
+			"name": "opinion-scale",
+			"attributes": {
+				"start": 1,
+				"end": 5,
+				"showLabels": true,
+				"leftLabel": "Not engaging",
+				"centerLabel": "",
+				"rightLabel": "Very engaging",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "How engaging were the teaching methods and instructional materials used in the course?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "nvcfypifg",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "star",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Please rate the communication of the course objectives and learning outcomes",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "s57nky0hi",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "heart",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "Please rate the course alignment with the learning objectives",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "hpf7k6sct",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "thumb",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "How would you rate the support and availability of the instructor for questions and clarification?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "f0qhs764l",
+			"name": "rating",
+			"attributes": {
+				"number": 5,
+				"shape": "trophy",
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"description": "",
+				"label": "How likely are you to recommend this course to others?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "3lxujr47f",
+			"name": "long-text",
+			"attributes": {
+				"minCharacters": false,
+				"setMaxCharacters": false,
+				"required": false,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"placeholder": false,
+				"defaultValue": "",
+				"description": "",
+				"label": "Overall, what were the strengths and weaknesses of the course?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": {
+		"block.defaultThankYouScreen.label": "Thank you for helping us shape the future of our course.",
+		"label.button.ok": "OK",
+		"label.hintText.enter": "press <strong>Enter ↵</strong>",
+		"label.hintText.multipleSelection": "Choose as many as you like",
+		"block.dropdown.placeholder": "Type or select an option",
+		"block.dropdown.noSuggestions": "No Suggestions!",
+		"block.shortText.placeholder": "Type your answer here",
+		"block.longText.placeholder": "Type your answer here",
+		"block.longText.hint": "<strong>Shift ⇧ + Enter ↵</strong> to make a line break",
+		"block.longText.touchHint": "<strong> Enter ↵</strong> to make a line break",
+		"block.number.placeholder": "Type your answer here",
+		"block.email.placeholder": "Type your email here",
+		"label.hintText.key": "Key",
+		"label.yes.default": "Yes",
+		"label.no.default": "No",
+		"label.progress.percent": "{{progress:percent}}% completed",
+		"label.errorAlert.required": "This field is required!",
+		"label.errorAlert.date": "Invalid date!",
+		"label.errorAlert.number": "Numbers only!",
+		"label.errorAlert.selectionRequired": "Please make at least one selection!",
+		"label.errorAlert.email": "Invalid email!",
+		"label.errorAlert.url": "Invalid url!",
+		"label.errorAlert.range": "Please enter a number between {{attribute:min}} and {{attribute:max}}",
+		"label.errorAlert.minNum": "Please enter a number greater than {{attribute:min}}",
+		"label.errorAlert.maxNum": "Please enter a number lower than {{attribute:max}}",
+		"label.errorAlert.maxCharacters": "Maximum characters reached!",
+		"label.errorAlert.minCharacters": "Please insert more than {{attribute:minCharacters}} characters!",
+		"label.errorAlert.minChoices": "Please select at least {{attribute:min}} choices!",
+		"label.errorAlert.maxChoices": "Maximum choices to select is {{attribute:max}}!",
+		"label.submitBtn": "Submit",
+		"label.errorAlert.noConnection": "Can't connect to the server right now!",
+		"label.errorAlert.serverError": "Server error!",
+		"block.file.uploadLabel": "<strong> Choose file </strong> or <strong>Drag here</strong>",
+		"label.hint.maxFileUploadSize": "Maximum file size is {{attribute:maxFileSize}}MB",
+		"label.errorAlert.phone": "Invalid phone number!"
+	},
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": false,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": false,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false
+	}
+}
