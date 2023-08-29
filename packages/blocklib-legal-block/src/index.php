@@ -65,7 +65,7 @@ class Legal_Block_Type extends Block_Type {
 	 */
 	public function get_block_admin_assets() : iterable {
 		return array(
-			'style'  => 'quillforms-blocklib-legal-block-admin-style',
+			'style'  => '',
 			'script' => 'quillforms-blocklib-legal-block-admin-script',
 		);
 	}
@@ -79,7 +79,7 @@ class Legal_Block_Type extends Block_Type {
 	 */
 	public function get_block_renderer_assets() : iterable {
 		return array(
-			'style'  => 'quillforms-blocklib-legal-block-renderer-style',
+			'style'  => '',
 			'script' => 'quillforms-blocklib-legal-block-renderer-script',
 		);
 	}

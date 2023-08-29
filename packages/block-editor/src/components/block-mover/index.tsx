@@ -16,30 +16,27 @@ interface Props {
 	handleProps: DraggableProvidedDragHandleProps | undefined;
 	parentIndex?: number;
 }
-const BlockMover: React.FC< Props > = ( {
+const BlockMover: React.FC<Props> = ({
 	blockType,
 	id,
 	parentIndex,
 	handleProps,
-} ) => {
-	//console.log( 'Dfdff' );
-	const { blockOrder } = useSelect( ( select ) => {
+}) => {
+	const { blockOrder } = useSelect((select) => {
 		return {
-			blockOrder: select( 'quillForms/block-editor' ).getBlockOrderById(
+			blockOrder: select('quillForms/block-editor').getBlockOrderById(
 				id,
 				parentIndex
 			),
 		};
-	} );
-
-	//console.log( blockOrder );
+	});
 
 	return (
-		<div className="block-editor-block-mover" { ...handleProps }>
+		<div className="block-editor-block-mover" {...handleProps}>
 			<BlockIconBox
-				icon={ blockType?.icon }
-				order={ blockOrder }
-				color={ blockType?.color }
+				icon={blockType?.icon}
+				order={blockOrder}
+				color={blockType?.color}
 			/>
 		</div>
 	);

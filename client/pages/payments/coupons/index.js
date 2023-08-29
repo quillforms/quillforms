@@ -16,6 +16,10 @@ import { usePaymentsContext } from '../state/context';
 import AddButton from './add-button';
 import Coupon from './coupon';
 
+/**
+ * External Dependencies
+ */
+import { keys, size } from 'lodash';
 const Coupons = () => {
 	const { coupons } = usePaymentsContext();
 
@@ -28,7 +32,7 @@ const Coupons = () => {
 			<div className="quillforms-payments-page-settings__coupons-content">
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
-						{Object.keys(coupons).length > 0 && (
+						{size(keys(coupons)) > 0 && (
 							<Panel>
 								{Object.keys(coupons).map((id) => (
 									<Coupon key={id} id={id} />

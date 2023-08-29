@@ -21,16 +21,15 @@ interface Props {
 	reject: () => void;
 	closeModal: () => void;
 }
-const DeleteAlertModal: React.FC< Props > = ( {
+const DeleteAlertModal: React.FC<Props> = ({
 	messages,
 	approve,
 	reject,
 	closeModal,
-} ) => {
-	//console.log( messages );
+}) => {
 	return (
 		<Modal
-			className={ classnames(
+			className={classnames(
 				'block-editor-delete-alert-modal',
 				css`
 					border: none !important;
@@ -39,36 +38,35 @@ const DeleteAlertModal: React.FC< Props > = ( {
 					border-radius: 10px;
 					z-index: 1111111;
 				`
-			) }
+			)}
 			// Because focus on editor is causing the click handler to be triggered
-			shouldCloseOnClickOutside={ false }
+			shouldCloseOnClickOutside={false}
 			title="Warning!"
-			onRequestClose={ closeModal }
+			onRequestClose={closeModal}
 		>
 			<div>
 				<div>
 					Are you sure you want to delete this item? All of its data
 					will be deleted.
 				</div>
-				{ size( messages ) > 0 && (
+				{size(messages) > 0 && (
 					<>
 						<div>
-							{ messages.length === 1
-								? messages[ 0 ]
-								: messages.map( ( message, index ) => (
-										<div key={ index }>{ `${
-											index + 1
-										}. ${ message }` }</div>
-								  ) ) }
+							{messages.length === 1
+								? messages[0]
+								: messages.map((message, index) => (
+									<div key={index}>{`${index + 1
+										}. ${message}`}</div>
+								))}
 						</div>
 
 						<br />
 						<div>Are you sure you want to proceed?</div>
 					</>
-				) }
+				)}
 			</div>
 			<div
-				className={ css`
+				className={css`
 					display: flex;
 					margin-top: 10px;
 					justify-content: flex-end;
@@ -77,26 +75,26 @@ const DeleteAlertModal: React.FC< Props > = ( {
 				<Button
 					isDefault
 					isLarge
-					className={ css`
+					className={css`
 						margin-right: 10px !important;
 					` }
-					onClick={ () => {
+					onClick={() => {
 						reject();
-					} }
+					}}
 				>
 					Cancel
 				</Button>
 				<Button
 					isLarge
-					className={ css`
+					className={css`
 						width: 70px;
 						display: flex;
 						justify-content: center;
 						align-items: center;
 					` }
-					onClick={ () => {
+					onClick={() => {
 						approve();
-					} }
+					}}
 					isPrimary
 				>
 					Delete

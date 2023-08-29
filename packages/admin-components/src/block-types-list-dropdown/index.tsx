@@ -20,16 +20,15 @@ interface Props {
 	color: string;
 	parent?: string;
 }
-const BlockTypesListDropdown: React.FC< Props > = ( {
+const BlockTypesListDropdown: React.FC<Props> = ({
 	destinationIndex,
 	color = 'primary',
 	parent,
-} ) => {
-	//console.log( parent );
+}) => {
 	return (
 		<Dropdown
 			position="bottom right"
-			className={ css`
+			className={css`
 				.components-popover__content {
 					width: 250px;
 					max-height: 350px !important;
@@ -40,15 +39,15 @@ const BlockTypesListDropdown: React.FC< Props > = ( {
 					}
 				}
 			` }
-			renderToggle={ ( { isOpen, onToggle } ) => (
+			renderToggle={({ isOpen, onToggle }) => (
 				<div
-					onClick={ onToggle }
-					aria-expanded={ isOpen }
-					className={ css`
+					onClick={onToggle}
+					aria-expanded={isOpen}
+					className={css`
 						margin: 0 10px;
-						background: ${ color === 'primary'
+						background: ${color === 'primary'
 							? `#3a3a3a`
-							: '#fff' };
+							: '#fff'};
 						cursor: pointer;
 						width: 25px;
 						height: 25px;
@@ -57,7 +56,7 @@ const BlockTypesListDropdown: React.FC< Props > = ( {
 						justify-content: center;
 						border-radius: 50%;
 						span {
-							color: ${ color === 'primary' ? `#fff` : `#333` };
+							color: ${color === 'primary' ? `#fff` : `#333`};
 							font-size: inherit;
 							width: auto;
 							height: auto;
@@ -66,11 +65,11 @@ const BlockTypesListDropdown: React.FC< Props > = ( {
 				>
 					<Icon icon="plus"></Icon>
 				</div>
-			) }
-			renderContent={ () => (
+			)}
+			renderContent={() => (
 				<>
 					<p
-						className={ css`
+						className={css`
 							font-weight: bold;
 							padding: 0 15px;
 							user-select: none;
@@ -80,11 +79,11 @@ const BlockTypesListDropdown: React.FC< Props > = ( {
 					</p>
 
 					<BlockTypesList
-						parent={ parent }
-						destinationIndex={ destinationIndex }
+						parent={parent}
+						destinationIndex={destinationIndex}
 					/>
 				</>
-			) }
+			)}
 		/>
 	);
 };

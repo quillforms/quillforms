@@ -30,7 +30,6 @@ const ChoicesWrapper =
 		setChoiceClicked,
 		checkfieldValidation,
 	}) => {
-		console.log(val)
 		const { verticalAlign, yesLabel, noLabel, themeId } = attributes;
 		const cx = useCx();
 

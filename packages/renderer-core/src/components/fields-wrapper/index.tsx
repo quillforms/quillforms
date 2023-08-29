@@ -3,7 +3,7 @@
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef, useCallback } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -186,10 +186,10 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 					: true,
 		};
 	});
-
 	useEffect(() => {
 		if (isCurrentBlockSafeToSwipe) setIsCurrentBlockSafeToSwipe(true);
 	}, [isCurrentBlockValid]);
+
 	const isFirstField =
 		walkPath?.length > 0 && walkPath[0].id === currentBlockId;
 
@@ -304,6 +304,14 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	// const isThereNextField =
 	// 	fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
+	const handleNext = () => {
+		if (isCurrentBlockValid) {
+			goNextReally();
+		} else {
+			setIsCurrentBlockSafeToSwipe(false);
+		}
+
+	};
 	return (
 		<div
 			onWheel={swipingHandler}
@@ -332,16 +340,12 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 								isActive ? isCurrentBlockSafeToSwipe : true
 							}
 							isLastField={
-								!nextBlock || nextBlock.name === 'thankyou-screen' &&
+								(!nextBlock || nextBlock.name === 'thankyou-screen') &&
 								index === fields.length - 1
 							}
-							next={() => {
-								if (isCurrentBlockValid) {
-									goNextReally();
-								} else {
-									setIsCurrentBlockSafeToSwipe(false);
-								}
-							}}
+							next={() =>
+								handleNext(isCurrentBlockValid)
+							}
 						/>
 					);
 				})}

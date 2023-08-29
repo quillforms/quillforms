@@ -316,7 +316,6 @@ const BlockEditorReducer: Reducer<
 				blocks = $blocks;
 			}
 
-			//console.log( blocks );
 			const newState = {
 				...state,
 				currentBlockId:
@@ -329,7 +328,6 @@ const BlockEditorReducer: Reducer<
 						: newCurrentBlockId,
 				blocks,
 			};
-			//console.log( newState );
 			return newState;
 		}
 

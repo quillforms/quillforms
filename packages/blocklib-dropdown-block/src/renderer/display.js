@@ -66,6 +66,7 @@ const DropdownDisplay = (props) => {
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [selectedChoiceIndex, setSelectedChoiceIndex] = useState(-1);
 	const [clicked, setClicked] = useState(false);
+	const [goNext, setGoNext] = useState(false);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [showFixedDropdownInDom, setShowFixedDropdownInDom] =
@@ -165,10 +166,11 @@ const DropdownDisplay = (props) => {
 		// show close icon of there is any string
 		setShowCloseIcon(e.target.value !== '');
 		setInputValue(e.target.value);
-		if (!isTouchScreen || iframed) setShowDropdown(true);
+		if (!isTouchScreen || isIframed) setShowDropdown(true);
 		if (val) {
 			setVal(null);
 			setSearchKeyword('');
+			checkFieldValidation(undefined);
 			return;
 		}
 		setSearchKeyword(e.target.value);
@@ -179,6 +181,7 @@ const DropdownDisplay = (props) => {
 			//clearTimeout( timer );
 			if (timer2) clearTimeout(timer2);
 		}
+		setGoNext(false);
 	}, [isActive]);
 
 	useEffect(() => {
@@ -193,6 +196,12 @@ const DropdownDisplay = (props) => {
 			timer2 && clearTimeout(timer2);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (goNext) {
+			next();
+		}
+	}, [goNext])
 
 	function checkInView(container, element) {
 		//Get container properties
@@ -273,29 +282,32 @@ const DropdownDisplay = (props) => {
 			setVal(null);
 			setIsAnswered(false);
 			setSearchKeyword('');
+			checkFieldValidation(undefined);
+			setGoNext(false);
 			return;
 		}
 		setIsAnswered(true);
 		setVal(choice.value);
+		checkFieldValidation(choice.value)
+
 		timer = setTimeout(
 			() => {
 				setSearchKeyword(choice.label);
 				setShowDropdown(false);
 				setSelectedChoiceIndex(-1);
-				if (isTouchScreen && !iframed) {
+				if (isTouchScreen && !isIframed) {
 					setShowFDrop(false);
 					setFooterDisplay(true);
 					// timer2 for showing the input after choosing value
 					timer2 = setTimeout(() => {
-						next();
+						setGoNext(true)
 					}, 750);
 				} else {
-					next();
+					setGoNext(true);
 				}
 			},
 			isTouchScreen ? 500 : 700
 		);
-		checkFieldValidation()
 	};
 
 	return (
@@ -386,7 +398,7 @@ const DropdownDisplay = (props) => {
 				autoComplete="off"
 			/>
 			{(val && val.length > 0) ||
-				(showCloseIcon && (!isTouchScreen || iframed)) ? (
+				(showCloseIcon && (!isTouchScreen || isIframed)) ? (
 				<CloseIcon
 					onClick={() => {
 						clearTimeout(timer);

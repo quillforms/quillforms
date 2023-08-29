@@ -1,6 +1,5 @@
-const Hint = ( { models, general, updateGeneral } ) => {
-	console.log( models, general, updateGeneral );
-	return <div className="hint">This is gfgf</div>;
+const Hint = ({ }) => {
+	return <div className="hint"></div>;
 };
 
 export default Hint;

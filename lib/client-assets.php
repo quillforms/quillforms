@@ -511,23 +511,23 @@ function quillforms_register_packages_styles( $styles )
         filemtime(QUILLFORMS_PLUGIN_DIR . 'build/blocklib-multiple-choice-block/renderer.css')
     );
 
-    quillforms_override_style(
-        $styles,
-        'quillforms-blocklib-legal-block-admin-style',
-        quillforms_url('build/blocklib-legal-block/admin.css'),
-        array( 'quillforms-admin-components' ),
-        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/blocklib-legal-block/admin.css')
-    );
+    // quillforms_override_style(
+    //     $styles,
+    //     'quillforms-blocklib-legal-block-admin-style',
+    //     quillforms_url('build/blocklib-legal-block/admin.css'),
+    //     array( 'quillforms-admin-components' ),
+    //     filemtime(QUILLFORMS_PLUGIN_DIR . 'build/blocklib-legal-block/admin.css')
+    // );
 
-    $styles->add_data('quillforms-blocklib-legal-block-admin-style', 'rtl', 'replace');
+    // $styles->add_data('quillforms-blocklib-legal-block-admin-style', 'rtl', 'replace');
 
-    quillforms_override_style(
-        $styles,
-        'quillforms-blocklib-legal-block-renderer-style',
-        quillforms_url('build/blocklib-legal-block/renderer.css'),
-        array(),
-        filemtime(QUILLFORMS_PLUGIN_DIR . 'build/blocklib-legal-block/renderer.css')
-    );
+    // quillforms_override_style(
+    //     $styles,
+    //     'quillforms-blocklib-legal-block-renderer-style',
+    //     quillforms_url('build/blocklib-legal-block/renderer.css'),
+    //     array(),
+    //     filemtime(QUILLFORMS_PLUGIN_DIR . 'build/blocklib-legal-block/renderer.css')
+    // );
 
 
     $styles->add_data('quillforms-blocklib-legal-block-renderer-style', 'rtl', 'replace');

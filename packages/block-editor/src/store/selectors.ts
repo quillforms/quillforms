@@ -87,10 +87,8 @@ export const getBlockById = (
 	blockId: string,
 	parentIndex: number | undefined = undefined
 ): FormBlock | undefined => {
-	//console.log( state.blocks );
 	if ( typeof parentIndex === 'undefined' ) {
 		const block = state.blocks.find( ( $block ) => $block.id === blockId );
-		//console.log( block );
 		if ( ! block ) return undefined;
 		return block;
 	}
@@ -123,10 +121,7 @@ export const getBlockOrderById = (
 	id: string,
 	parentIndex: number | undefined = undefined
 ): BlockOrder => {
-	//console.log( id );
-	//console.log( state.blocks );
 	const formBlock = getBlockById( state, id, parentIndex );
-	//console.log( formBlock );
 	if ( ! formBlock ) return undefined;
 	const blockType =
 		select( 'quillForms/blocks' ).getBlockTypes()[ formBlock.name ];

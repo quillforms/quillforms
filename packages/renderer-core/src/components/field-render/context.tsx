@@ -22,12 +22,12 @@ interface FieldRenderContext {
 	innerBlocks?: FormBlocks;
 	isSubmitBtnVisible: boolean;
 	isErrMsgVisible: boolean;
-	showNextBtn: ( x: boolean ) => void;
-	showErrMsg: ( x: boolean ) => void;
+	showNextBtn: (x: boolean) => void;
+	showErrMsg: (x: boolean) => void;
 	next: () => void;
 	isLastField: boolean;
 }
-const Context = createContext< FieldRenderContext >( {
+const Context = createContext<FieldRenderContext>({
 	id: undefined,
 	blockName: undefined,
 	attributes: undefined,
@@ -39,13 +39,13 @@ const Context = createContext< FieldRenderContext >( {
 	showNextBtn: noop,
 	next: noop,
 	isLastField: false,
-} );
+});
 const { Provider } = Context;
 
-export const FieldRenderContextProvider = ( { value, children } ) => {
+export const FieldRenderContextProvider = ({ value, children }) => {
 	return (
-		<Provider value={ useMemo( () => value, Object.values( value ) ) }>
-			{ children }
+		<Provider value={useMemo(() => value, Object.values(value))}>
+			{children}
 		</Provider>
 	);
 };
@@ -56,5 +56,5 @@ export const FieldRenderContextProvider = ( { value, children } ) => {
  * @return {Object} Block render context
  */
 export function __experimentalUseFieldRenderContext(): FieldRenderContext {
-	return useContext( Context );
+	return useContext(Context);
 }

@@ -15,7 +15,7 @@ import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
 import classnames from 'classnames';
 
-const ShortTextOutput = ( props ) => {
+const ShortTextOutput = (props) => {
 	const {
 		id,
 		attributes,
@@ -34,8 +34,8 @@ const ShortTextOutput = ( props ) => {
 		isReviewing,
 	} = props;
 	const messages = useMessages();
-	const theme = useBlockTheme( attributes.themeId );
-	const answersColor = tinyColor( theme.answersColor );
+	const theme = useBlockTheme(attributes.themeId);
+	const answersColor = tinyColor(theme.answersColor);
 
 	const {
 		minCharacters,
@@ -45,59 +45,59 @@ const ShortTextOutput = ( props ) => {
 		placeholder,
 	} = attributes;
 
-	const checkfieldValidation = ( value ) => {
-		if ( required === true && ( ! value || value === '' ) ) {
-			setIsValid( false );
-			setValidationErr( messages[ 'label.errorAlert.required' ] );
+	const checkfieldValidation = (value) => {
+		if (required === true && (!value || value === '')) {
+			setIsValid(false);
+			setValidationErr(messages['label.errorAlert.required']);
 		} else if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
 			value?.length > maxCharacters
 		) {
-			setIsValid( false );
-			setValidationErr( messages[ 'label.errorAlert.maxCharacters' ] );
+			setIsValid(false);
+			setValidationErr(messages['label.errorAlert.maxCharacters']);
 		} else if (
 			minCharacters !== false &&
 			minCharacters > 0 &&
 			value?.length < minCharacters
 		) {
-			setIsValid( false );
-			setValidationErr( messages[ 'label.errorAlert.minCharacters' ] );
+			setIsValid(false);
+			setValidationErr(messages['label.errorAlert.minCharacters']);
 		} else {
-			setIsValid( true );
-			setValidationErr( null );
+			setIsValid(true);
+			setValidationErr(null);
 		}
 	};
 
-	useEffect( () => {
-		if ( isPreview || ! isReviewing ) checkfieldValidation( val );
-	}, [ attributes ] );
+	useEffect(() => {
+		if (isPreview || !isReviewing) checkfieldValidation(val);
+	}, [attributes]);
 
-	const changeHandler = ( e ) => {
+	const changeHandler = (e) => {
 		const value = e.target.value;
 		if (
 			setMaxCharacters &&
 			maxCharacters > 0 &&
 			value.length > maxCharacters
 		) {
-			blockWithError( messages[ 'label.errorAlert.maxCharacters' ] );
+			blockWithError(messages['label.errorAlert.maxCharacters']);
 		} else {
-			setVal( value );
-			showErrMsg( false );
-			checkfieldValidation( value );
+			setVal(value);
+			showErrMsg(false);
+			checkfieldValidation(value);
 		}
-		if ( value && value !== '' ) {
-			setIsAnswered( true );
-			showNextBtn( true );
+		if (value && value !== '') {
+			setIsAnswered(true);
+			showNextBtn(true);
 		} else {
-			setIsAnswered( false );
+			setIsAnswered(false);
 		}
 	};
 
 	return (
 		<input
-			ref={ inputRef }
-			className={ classnames(
+			ref={inputRef}
+			className={classnames(
 				css`
 					& {
 						width: 100%;
@@ -107,54 +107,55 @@ const ShortTextOutput = ( props ) => {
 						padding-bottom: 8px;
 						background: transparent;
 						transition: box-shadow 0.1s ease-out 0s;
-						box-shadow: ${ answersColor.setAlpha( 0.3 ).toString() }
+						box-shadow: ${answersColor.setAlpha(0.3).toString()}
 							0px 1px !important;
 					}
 
 					&::placeholder {
 						opacity: 0.3;
 						/* Chrome, Firefox, Opera, Safari 10.1+ */
-						color: ${ theme.answersColor };
+						color: ${theme.answersColor};
 					}
 
 					&:-ms-input-placeholder {
 						opacity: 0.3;
 						/* Internet Explorer 10-11 */
-						color: ${ theme.answersColor };
+						color: ${theme.answersColor};
 					}
 
 					&::-ms-input-placeholder {
 						opacity: 0.3;
 						/* Microsoft Edge */
-						color: ${ theme.answersColor };
+						color: ${theme.answersColor};
 					}
 
 					&:focus {
-						box-shadow: ${ answersColor.setAlpha( 1 ).toString() }
+						box-shadow: ${answersColor.setAlpha(1).toString()}
 							0px 2px !important;
 					}
 
-					color: ${ theme.answersColor } !important;
+					color: ${theme.answersColor} !important;
+					-webkit-appearance: none;
 				`
-			) }
-			id={ 'short-text-' + id }
+			)}
+			id={'short-text-' + id}
 			placeholder={
 				placeholder === false
-					? messages[ 'block.shortText.placeholder' ]
+					? messages['block.shortText.placeholder']
 					: placeholder
 			}
-			onChange={ changeHandler }
-			value={ val ? val.toString() : '' }
-			onFocus={ () => {
-				if ( isTouchScreen ) {
-					setFooterDisplay( false );
+			onChange={changeHandler}
+			value={val ? val.toString() : ''}
+			onFocus={() => {
+				if (isTouchScreen) {
+					setFooterDisplay(false);
 				}
-			} }
-			onBlur={ () => {
-				if ( isTouchScreen ) {
-					setFooterDisplay( true );
+			}}
+			onBlur={() => {
+				if (isTouchScreen) {
+					setFooterDisplay(true);
 				}
-			} }
+			}}
 			autoComplete="off"
 		/>
 	);

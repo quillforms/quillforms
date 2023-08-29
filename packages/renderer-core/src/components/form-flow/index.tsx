@@ -223,6 +223,7 @@ const FormFlow: React.FC<Props> = ({ applyLogic }) => {
 						height: 100%;
 						overflow: hidden;
 						background: ${generalTheme.backgroundColor};
+						font-family: inherit;
 						@media ( min-width: 768px ) {
 							font-size: ${generalTheme.fontSize.lg};
 							line-height: ${generalTheme.fontLineHeight.lg};

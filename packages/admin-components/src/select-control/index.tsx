@@ -21,17 +21,17 @@ import {
 	VisuallyHidden,
 } from '@wordpress/components';
 
-const itemToString = ( item ) => {
-	if ( item?.name ) {
-		if ( typeof item.name === 'string' ) {
+const itemToString = (item) => {
+	if (item?.name) {
+		if (typeof item.name === 'string') {
 			return item.name;
 		}
-		const span = document.createElement( 'span' );
-		render( item.name, span );
-		const tmp = document.createElement( 'div' );
-		tmp.appendChild( span );
+		const span = document.createElement('span');
+		render(item.name, span);
+		const tmp = document.createElement('div');
+		tmp.appendChild(span);
 		// @ts-expect-error
-		return tmp.children[ 0 ]?.innerText;
+		return tmp.children[0]?.innerText;
 		// var div = document.createElement( 'div' );
 		// div.innerHTML = reactToHtmlString;
 		// return div.textContent || div.innerText || '';
@@ -46,19 +46,19 @@ const stateReducer = (
 	{ selectedItem },
 	{ type, changes, props: { items } }
 ) => {
-	switch ( type ) {
+	switch (type) {
 		case useSelect.stateChangeTypes.ToggleButtonKeyDownArrowDown:
 			// If we already have a selected item, try to select the next one,
 			// without circular navigation. Otherwise, select the first item.
 			return {
 				selectedItem:
 					items[
-						selectedItem
-							? Math.min(
-									items.indexOf( selectedItem ) + 1,
-									items.length - 1
-							  )
-							: 0
+					selectedItem
+						? Math.min(
+							items.indexOf(selectedItem) + 1,
+							items.length - 1
+						)
+						: 0
 					],
 			};
 		case useSelect.stateChangeTypes.ToggleButtonKeyDownArrowUp:
@@ -67,9 +67,9 @@ const stateReducer = (
 			return {
 				selectedItem:
 					items[
-						selectedItem
-							? Math.max( items.indexOf( selectedItem ) - 1, 0 )
-							: items.length - 1
+					selectedItem
+						? Math.max(items.indexOf(selectedItem) - 1, 0)
+						: items.length - 1
 					],
 			};
 		default:
@@ -84,7 +84,7 @@ interface Props {
 	onChange: (item: any) => void;
 	value: any;
 }
-const SelectControl:React.FC<Props> = ( {
+const SelectControl: React.FC<Props> = ({
 	/** Start opting into the larger default height that will become the default size in a future version. */
 	// @ts-expect-error
 	__next36pxDefaultSize = false,
@@ -97,7 +97,7 @@ const SelectControl:React.FC<Props> = ( {
 	options: items,
 	onChange: onSelectedItemChange,
 	value: _selectedItem,
-} ) => {
+}) => {
 	const {
 		getLabelProps,
 		getToggleButtonProps,
@@ -106,79 +106,79 @@ const SelectControl:React.FC<Props> = ( {
 		isOpen,
 		highlightedIndex,
 		selectedItem,
-	} = useSelect( {
+	} = useSelect({
 		// @ts-expect-error
-		initialSelectedItem: items[ 0 ],
+		initialSelectedItem: items[0],
 		// @ts-expect-error
 		items,
 		itemToString,
 		onSelectedItemChange,
-		...( typeof _selectedItem !== 'undefined' && _selectedItem !== null
+		...(typeof _selectedItem !== 'undefined' && _selectedItem !== null
 			? { selectedItem: _selectedItem }
-			: undefined ),
+			: undefined),
 
 		// @ts-ignore
 		stateReducer,
-	} );
+	});
 
 	function getDescribedBy() {
-		if ( describedBy ) {
+		if (describedBy) {
 			return describedBy;
 		}
 
-		if ( ! selectedItem ) {
-			return __( 'No selection' );
+		if (!selectedItem) {
+			return __('No selection');
 		}
 
 		// translators: %s: The selected option.
-		return sprintf( __( 'Currently selected: %s' ), selectedItem.name );
+		return sprintf(__('Currently selected: %s'), selectedItem.name);
 	}
 
-	const menuProps = getMenuProps( {
+	const menuProps = getMenuProps({
 		className: 'components-custom-select-control__menu',
-		'aria-hidden': ! isOpen,
-	} );
+		'aria-hidden': !isOpen,
+	});
 
 	const onKeyDownHandler = useCallback(
-		( e ) => {
+		(e) => {
 			e.stopPropagation();
-			menuProps?.onKeyDown?.( e );
+			menuProps?.onKeyDown?.(e);
 		},
-		[ menuProps ]
+		[menuProps]
 	);
 
 	// We need this here, because the null active descendant is not fully ARIA compliant.
 	if (
-		menuProps[ 'aria-activedescendant' ]?.startsWith( 'downshift-null' )
+		menuProps['aria-activedescendant']?.startsWith('downshift-null')
 	) {
-		delete menuProps[ 'aria-activedescendant' ];
+		delete menuProps['aria-activedescendant'];
 	}
 
 	return (
 		<div className="admin-components-select-control">
 			<div
-				className={ classnames(
+				className={classnames(
 					'components-custom-select-control',
 					className
-				) }
+				)}
 			>
-				{ hideLabelFromVision ? (
-					<VisuallyHidden as="label" { ...getLabelProps() }>
-						{ label }
+				{hideLabelFromVision ? (
+					<VisuallyHidden as="label" {...getLabelProps()}>
+						{label}
 					</VisuallyHidden>
 				) : (
 					/* eslint-disable-next-line jsx-a11y/label-has-associated-control, jsx-a11y/label-has-for */
 					<label
-						{ ...getLabelProps( {
+						{...getLabelProps({
 							className:
 								'components-custom-select-control__label',
-						} ) }
+						})}
 					>
-						{ label }
+						{label}
 					</label>
-				) }
+				)}
 				<Button
-					{ ...getToggleButtonProps( {
+					{...getToggleButtonProps({
 						// This is needed because some speech recognition software don't support `aria-labelledby`.
 						'aria-label': label,
 						'aria-labelledby': undefined,
@@ -191,31 +191,30 @@ const SelectControl:React.FC<Props> = ( {
 						),
 						// @ts-expect-error
 						describedBy: getDescribedBy(),
-					} ) }
+					})}
 				>
-					{ selectedItem?.name }
+					{selectedItem?.name}
 					<Icon
-						icon={ chevronDown }
-						className={ classnames(
+						icon={chevronDown}
+						className={classnames(
 							'components-custom-select-control__button-icon',
 							{
 								'is-next-36px-default-size':
 									__next36pxDefaultSize,
 							}
-						) }
-						size={ 18 }
+						)}
+						size={18}
 					/>
 				</Button>
-				{ /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */ }
-				<ul { ...menuProps } onKeyDown={ onKeyDownHandler }>
-					{ isOpen &&
-					    // @ts-expect-error
-						items.map( ( item, index ) => {
-							//console.log( item );
+				{ /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+				<ul {...menuProps} onKeyDown={onKeyDownHandler}>
+					{isOpen &&
+						// @ts-expect-error
+						items.map((item, index) => {
 							return (
 								// eslint-disable-next-line react/jsx-key
 								<li
-									{ ...getItemProps( {
+									{...getItemProps({
 										item,
 										index,
 										key: item.key,
@@ -226,29 +225,29 @@ const SelectControl:React.FC<Props> = ( {
 												'is-highlighted':
 													index === highlightedIndex,
 												'has-hint':
-													!! item.__experimentalHint,
+													!!item.__experimentalHint,
 												'is-next-36px-default-size':
 													__next36pxDefaultSize,
 											}
 										),
 										style: item.style,
-									} ) }
+									})}
 								>
-									{ item.name }
-									{ item.__experimentalHint && (
+									{item.name}
+									{item.__experimentalHint && (
 										<span className="components-custom-select-control__item-hint">
-											{ item.__experimentalHint }
+											{item.__experimentalHint}
 										</span>
-									) }
-									{ item === selectedItem && (
+									)}
+									{item === selectedItem && (
 										<Icon
-											icon={ check }
+											icon={check}
 											className="components-custom-select-control__item-icon"
 										/>
-									) }
+									)}
 								</li>
 							);
-						} ) }
+						})}
 				</ul>
 			</div>
 		</div>

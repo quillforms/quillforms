@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect, memo } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ interface Props {
 	next: Function;
 }
 
-const FieldRender: React.FC<Props> = memo(
+const FieldRender: React.FC<Props> =
 	({
 		id,
 		isActive,
@@ -109,7 +109,6 @@ const FieldRender: React.FC<Props> = memo(
 				<FieldWrapper />
 			</FieldRenderContextProvider>
 		);
-	}
-);
+	};
 
 export default FieldRender;
