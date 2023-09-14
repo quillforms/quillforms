@@ -26,10 +26,15 @@ const DropdownLogicControl = ({
 			setValue('yes');
 		}
 	}, []);
-	const options = {
-		'yes': yesLabel,
-		'no': noLabel,
+	const options = [{
+		key: 'yes',
+		name: yesLabel ? yesLabel : 'Yes',
+	},
+	{
+		key: 'no',
+		name: noLabel ? noLabel : 'No',
 	}
+	];
 	return (
 		<SelectControl
 			className={css`

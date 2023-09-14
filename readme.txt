@@ -173,6 +173,11 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 3.2.0 = 14 Sep 2023
+Feature: Adding correct/incorrect answers mode.
+Feature: Adding labels for payments discounts.
+Fix: Let the submit work on click on Enter.
+Fix: Fix a conflict with WP Rocket, Perfmatters and 10Web Optimizer plugin.
 = 3.1.0 = 29 August 2023
 Fix: Fixing  front end issues related to dropdown block.
 Fix: Improving some styles.

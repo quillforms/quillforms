@@ -8,18 +8,15 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
-	margin-right: auto;
-	margin-left: auto;
 	font-size: 26px;
 	padding: 30px;
-	max-width: 700px;
 	line-height: 1.5em;
 	text-align: center;
 	height: 100%;
-	margin: 0 auto;
 	z-index: 0;
 	opacity: 0;
 	visibility: hidden;
+	overflow-y: auto;
 	transition: 0.8s opacity;
 
 	&.active {
@@ -28,6 +25,11 @@
 		z-index: 1;
 	}
 
+	.qf-thankyou-screen-block__content-wrapper {
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 700px;
+	}
 	@media (max-width: $break-small) {
 		font-size: 22px;
 	}

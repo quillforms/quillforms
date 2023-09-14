@@ -24,7 +24,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "^3.0.32",
-		"@quillforms/block-editor": "^3.0.35",
+		"@quillforms/block-editor": "file:../block-editor",
 		"@quillforms/blocks": "^4.1.2",
 		"@quillforms/builder-panels": "^4.0.22",
 		"@quillforms/renderer-core": "^5.5.0",

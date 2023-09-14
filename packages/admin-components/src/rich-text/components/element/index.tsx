@@ -14,33 +14,33 @@ interface Props extends RenderElementProps {
 	mergeTags: MergeTags;
 	element: CustomElement;
 }
-const Element: React.FC< Props > = ( {
+const Element: React.FC<Props> = ({
 	attributes,
 	children,
 	element,
 	editor,
 	mergeTags,
-} ) => {
-	const path = ReactEditor.findPath( editor, element );
+}) => {
+	const path = ReactEditor.findPath(editor, element);
 
-	if ( element.type === 'mergeTag' ) {
+	if (element.type === 'mergeTag') {
 		return (
 			<MergeTagComponent
-				element={ element }
-				mergeTags={ mergeTags }
-				editor={ editor }
-				path={ path }
-				attributes={ attributes }
-				children={ children }
+				element={element}
+				mergeTags={mergeTags}
+				editor={editor}
+				path={path}
+				attributes={attributes}
+				children={children}
 			/>
 		);
-	} else if ( element.type === 'link' ) {
+	} else if (element.type === 'link') {
 		return (
-			<a { ...attributes } href={ ( element as Link ).url }>
-				{ children }
+			<a {...attributes} href={(element as Link).url}>
+				{children}
 			</a>
 		);
 	}
-	return <p { ...attributes }>{ children }</p>;
+	return <p {...attributes}>{children}</p>;
 };
 export default Element;

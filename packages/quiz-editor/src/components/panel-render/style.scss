@@ -1,3 +1,17 @@
+.quiz-editor-tags {
+	background: #fff;
+	border-radius: 5px;
+}
+.quiz-editor-tag {
+	display: flex;
+	justify-content: space-around;
+	padding: 10px;
+	border-bottom: 1px solid #e3e3e3
+}
+ 
+.quiz-editor-tag:last-child {
+	border-bottom: none;
+}
 .quiz-editor-block {
 	flex-grow: 1;
 	padding: 20px;
@@ -43,5 +57,16 @@
 			padding: 3px 8px;
 
 		}
+		
+	}
+
+	
+
+	.quiz-editor-question-explanation-input {
+		margin-top: 10px;
+	}
+	.quiz-editor-question-explanation-input textarea {
+		width: 100%;
+		min-height:120px
 	}
 }

@@ -22,10 +22,21 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 
 const SubmitBtn: React.FC = () => {
 	const messages = useMessages();
+	const [active, setActive] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setActive(true);
+		}, 100);
+	});
 	const { isLastField, isActive, attributes } =
 		__experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes?.themeId );
-
+	const theme = useBlockTheme(attributes?.themeId);
+	const isTouchScreen =
+		(typeof window !== 'undefined' && 'ontouchstart' in window) ||
+		(typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) ||
+		// @ts-expect-error
+		(typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0);
 	const {
 		goToBlock,
 		goNext,
@@ -37,9 +48,9 @@ const SubmitBtn: React.FC = () => {
 		completeForm,
 		setIsCurrentBlockSafeToSwipe,
 		setIsFieldPending,
-	} = useDispatch( 'quillForms/renderer-core' );
+	} = useDispatch('quillForms/renderer-core');
 	const { onSubmit, beforeGoingNext } = useFormContext();
-	const [ isWaitingPending, setIsWaitingPending ] = useState( false );
+	const [isWaitingPending, setIsWaitingPending] = useState(false);
 
 	const {
 		answers,
@@ -48,14 +59,14 @@ const SubmitBtn: React.FC = () => {
 		isSubmitting,
 		submissionErr,
 		currentBlockId,
-	} = useSelect( ( select ) => {
+	} = useSelect((select) => {
 		return {
 			currentBlockId: select(
 				'quillForms/renderer-core'
 			).getCurrentBlockId(),
-			answers: select( 'quillForms/renderer-core' ).getAnswers(),
-			pendingMsg: select( 'quillForms/renderer-core' ).getPendingMsg(),
-			isSubmitting: select( 'quillForms/renderer-core' ).isSubmitting(),
+			answers: select('quillForms/renderer-core').getAnswers(),
+			pendingMsg: select('quillForms/renderer-core').getPendingMsg(),
+			isSubmitting: select('quillForms/renderer-core').isSubmitting(),
 			firstInvalidFieldId: select(
 				'quillForms/renderer-core'
 			).getFirstInvalidFieldId(),
@@ -63,36 +74,35 @@ const SubmitBtn: React.FC = () => {
 				'quillForms/renderer-core'
 			).getSubmissionErr(),
 		};
-	} );
+	});
 
 
-	if ( ! currentBlockId ) return null;
+	if (!currentBlockId) return null;
 
-	const handleKeyDown = ( e ) => {
-		if ( e.key === 'Enter' ) {
-			if ( e.metaKey ) {
-				submitHandler();
-			}
+	const handleKeyDown = (e) => {
+		if (e.key === 'Enter' && !isTouchScreen) {
+			submitHandler();
 		}
 	};
 
 	const goToFirstInvalidField = () => {
-		if ( firstInvalidFieldId ) goToBlock( firstInvalidFieldId );
+		if (firstInvalidFieldId) goToBlock(firstInvalidFieldId);
 	};
-	useEffect( () => {
-		if ( isLastField && isActive ) {
-			setIsReviewing( false );
-			window.addEventListener( 'keydown', handleKeyDown );
+	useEffect(() => {
+		if (isLastField && isActive) {
+			setIsReviewing(false);
+			window.addEventListener('keydown', handleKeyDown);
 		} else {
-			removeEventListener( 'keydown', handleKeyDown );
+			removeEventListener('keydown', handleKeyDown);
 		}
 
-		return () => removeEventListener( 'keydown', handleKeyDown );
-	}, [ isLastField, isActive ] );
+		return () => removeEventListener('keydown', handleKeyDown);
+	}, [isLastField, isActive]);
 
 	const submitHandler = async () => {
-		if ( beforeGoingNext && currentBlockId ) {
-			await beforeGoingNext( {
+		if (isSubmitting) return;
+		if (beforeGoingNext && currentBlockId) {
+			await beforeGoingNext({
 				answers,
 				setIsFieldValid,
 				setFieldValidationErr,
@@ -100,29 +110,29 @@ const SubmitBtn: React.FC = () => {
 				currentBlockId,
 				goNext,
 				setIsCurrentBlockSafeToSwipe,
-				setIsPending: ( val ) =>
-					setIsFieldPending( currentBlockId, val ),
-			} );
+				setIsPending: (val) =>
+					setIsFieldPending(currentBlockId, val),
+			});
 		}
-		if ( pendingMsg === false ) {
+		if (pendingMsg === false) {
 			reviewAndSubmit();
 		} else {
-			setIsWaitingPending( true );
+			setIsWaitingPending(true);
 		}
 	};
 
 	const reviewAndSubmit = () => {
-		setIsReviewing( false );
-		if ( firstInvalidFieldId ) {
-			setTimeout( () => {
-				setIsReviewing( true );
-			}, 50 );
+		setIsReviewing(false);
+		if (firstInvalidFieldId) {
+			setTimeout(() => {
+				setIsReviewing(true);
+			}, 50);
 
-			setTimeout( () => {
+			setTimeout(() => {
 				goToFirstInvalidField();
-			}, 100 );
+			}, 100);
 		} else {
-			setIsSubmitting( true );
+			setIsSubmitting(true);
 			onSubmit(
 				{ answers },
 				{
@@ -133,34 +143,45 @@ const SubmitBtn: React.FC = () => {
 					goToBlock,
 					completeForm,
 					setSubmissionErr,
-					setIsPending: ( val ) =>
-						setIsFieldPending( currentBlockId, val ),
+					setIsPending: (val) =>
+						setIsFieldPending(currentBlockId, val),
 				}
 			);
 		}
 	};
 
-	useEffect( () => {
-		if ( isWaitingPending && pendingMsg === false ) {
-			setIsWaitingPending( false );
+	useEffect(() => {
+		if (isWaitingPending && pendingMsg === false) {
+			setIsWaitingPending(false);
 			reviewAndSubmit();
 		}
-	}, [ isWaitingPending, pendingMsg ] );
+	}, [isWaitingPending, pendingMsg]);
 
 	return (
-		<div className="renderer-core-submit-btn-wrapper">
+		<div className={classNames("renderer-core-submit-btn-wrapper", {
+			active
+		},
+			css`
+			opacity: 0;
+			transform: translateY(20px);
+			transition: all 0.4s ease;
+			&.active {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		`)}>
 			<Button
 				className="renderer-core-submit-btn"
-				onClick={ () => {
-					if ( ! isSubmitting ) submitHandler();
-				} }
-				onKeyDown={ ( e ) => {
-					if ( e.key === 'Enter' ) {
+				onClick={() => {
+					if (!isSubmitting) submitHandler();
+				}}
+				onKeyDown={(e) => {
+					if (e.key === 'Enter') {
 						e.stopPropagation();
-						if ( ! isSubmitting ) submitHandler();
+						if (!isSubmitting) submitHandler();
 					}
-				} }
-				theme={ theme }
+				}}
+				theme={theme}
 			>
 				<HTMLParser
 					value={
@@ -168,31 +189,31 @@ const SubmitBtn: React.FC = () => {
 							? pendingMsg
 								? pendingMsg
 								: ''
-							: messages[ 'label.submitBtn' ]
+							: messages['label.submitBtn']
 					}
 				/>
-				{ ( isWaitingPending || isSubmitting ) && (
+				{(isWaitingPending || isSubmitting) && (
 					<Loader
 						wrapperClass="renderer-core-submit-btn__loader"
 						color="#fff"
-						height={ 20 }
-						width={ 20 }
+						height={20}
+						width={20}
 					/>
-				) }
+				)}
 			</Button>
-			{ submissionErr && (
+			{submissionErr && (
 				<div
-					className={ classNames(
+					className={classNames(
 						'renderer-core-submit-error',
 						css`
-							color: ${ theme.questionsColor };
+							color: ${theme.questionsColor};
 							margin-top: 15px;
 						`
-					) }
+					)}
 				>
-					{ submissionErr }
+					{submissionErr}
 				</div>
-			) }
+			)}
 		</div>
 	);
 };

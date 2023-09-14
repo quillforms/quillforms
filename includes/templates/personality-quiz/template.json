@@ -430,36 +430,6 @@
 				"label": "Score",
 				"initialValue": 0
 			}
-		},
-		"nodesPositions": {
-			"yfyjrvv78": {
-				"x": 500,
-				"y": 204
-			},
-			"xzi2mu0ee": {
-				"x": 500,
-				"y": 403
-			},
-			"b07ehehbl": {
-				"x": 143,
-				"y": 501
-			},
-			"83terkecp": {
-				"x": 414,
-				"y": 502
-			},
-			"ke1dcewyp": {
-				"x": 726,
-				"y": 501
-			},
-			"wz6p72vb7": {
-				"x": 1005,
-				"y": 492
-			},
-			"default_thankyou_screen": {
-				"x": 585,
-				"y": 805.5599853515624
-			}
 		}
 	},
 	"blocks": [

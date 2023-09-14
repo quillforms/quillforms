@@ -105,6 +105,14 @@ const Form: React.FC<Props> = ({
 			...formObj.settings,
 		};
 
+		formObj.correctIncorrectQuiz = {
+			enabled: false,
+			questions: {},
+			showAnswersDuringQuiz: true,
+			...formObj.correctIncorrectQuiz,
+
+		}
+
 		formObj.blocks = map(formObj.blocks, ($block) => {
 			if (
 				(

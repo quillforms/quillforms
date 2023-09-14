@@ -211,5 +211,6 @@ final class QuillForms {
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/products.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/theme.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/settings.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/rest-fields/quiz.php';
 	}
 }

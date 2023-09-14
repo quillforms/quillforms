@@ -77,9 +77,10 @@ const TextEditor: React.FC<Props> = (props) => {
 		return !!match;
 	};
 
-	const renderElement = ($props: RenderElementProps) => (
-		<Element editor={editor} {...$props} mergeTags={mergeTags} />
-	);
+	const renderElement = useCallback(props => {
+		return <Element {...props} editor={editor} mergeTags={mergeTags} />;
+	}, [mergeTags, value]);
+
 
 	const toggleFormat = (editor: Editor, format) => {
 		const active = isFormatActive(format);

@@ -8,7 +8,7 @@ import { isRTL } from '@wordpress/i18n';
  */
 import { css, keyframes } from '@quillforms/utils';
 
-const vibrate = keyframes( {
+const vibrate = keyframes({
 	'0%': {
 		transform: 'scale(1)',
 	},
@@ -24,7 +24,7 @@ const vibrate = keyframes( {
 	'100%': {
 		transform: 'scale(1)',
 	},
-} );
+});
 export const MultipleChoiceOptions = css`
 	& {
 		display: flex;
@@ -66,7 +66,7 @@ export const MultipleChoiceOptions = css`
 			border-style: solid;
 			border-width: 1px;
 			appearance: none;
-			text-align: ${ isRTL() ? 'right' : 'left' };
+			text-align: ${isRTL() ? 'right' : 'left'};
 			user-select: none;
 			backface-visibility: hidden;
 			-webkit-backface-visibility: hidden;
@@ -86,7 +86,28 @@ export const MultipleChoiceOptions = css`
 		}
 
 		&.clicked {
-			animation: ${ vibrate } 0.4s linear forwards;
+			animation: ${vibrate} 0.4s linear forwards;
+		}
+
+		&.correct {
+			background: #7bc178 !important;
+			border-color: #5da458 !important;
+		}
+
+		&.wrong {
+			background: #d4494c;
+			border-color: #ffa39e;
+			
+		}
+
+		&.correct, &.wrong {
+			color: #fff;
+			.multipleChoice__optionKey {
+				background: transparent !important;
+				border-color: #fff !important;
+				color: #fff !important;
+			}
+			
 		}
 
 		.multipleChoice__optionLabel {

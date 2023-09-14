@@ -30,6 +30,16 @@ export type FormObj = {
 	};
 	hiddenFields?: Object;
 	customCSS?: string;
+	correctIncorrectQuiz?: {
+		enabled: boolean;
+		questions: {
+			[ key: string ]: {
+				correctAnswers: string[];
+				explanation: string;
+			}
+		}
+		showAnswersDuringQuiz?: boolean;
+	}
 };
 
 export type SubmissionDispatchers = {

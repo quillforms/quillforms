@@ -6,9 +6,9 @@ import ConfigAPI from '@quillforms/config';
 /**
  * Internal Dependencies
  */
-import { setCustomCSS } from '../../build/store/actions';
+import { setupStore } from '../../build/store/actions';
 
-export function getCustomCSS( state ) {
+export function getState(state) {
 	const initialPayload = ConfigAPI.getInitialPayload();
-	return setCustomCSS( initialPayload.customCSS ?? '' );
+	return setupStore(initialPayload.quiz ?? {});
 }

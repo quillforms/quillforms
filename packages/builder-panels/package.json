@@ -23,10 +23,10 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/block-editor": "^3.0.35",
-		"@quillforms/notifications-editor": "^4.0.19",
-		"@quillforms/types": "^3.0.15",
-		"@quillforms/utils": "^3.0.19",
+		"@quillforms/block-editor": "file:../block-editor",
+		"@quillforms/notifications-editor": "file:../notifications-editor",
+		"@quillforms/types": "file:../types",
+		"@quillforms/utils": "file:../utils",
 		"react-dnd": "15.1.2",
 		"rememo": "^4.0.2"
 	},

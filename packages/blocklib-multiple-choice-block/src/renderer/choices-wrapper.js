@@ -26,6 +26,8 @@ const ChoicesWrapper =
 		attributes,
 		val,
 		isActive,
+		correctIncorrectQuiz,
+		isAnswerLocked,
 		setVal,
 		setChoiceClicked,
 		checkfieldValidation,
@@ -79,11 +81,13 @@ const ChoicesWrapper =
 				$val = [];
 			}
 			if (selected) {
-				$val.splice(
-					$val.findIndex((item) => item === newValue),
-					1
-				);
-				setVal($val);
+				if (!correctIncorrectQuiz?.showAnswersDuringQuiz) {
+					$val.splice(
+						$val.findIndex((item) => item === newValue),
+						1
+					);
+					setVal($val);
+				}
 			} else {
 				if (multiple) {
 					$val.push(newValue);
@@ -113,8 +117,10 @@ const ChoicesWrapper =
 		);
 		let mappedKeyboardTicks = {}
 		const handleKeyDown = (e) => {
-			mappedKeyboardTicks[e.code] = String.fromCharCode(e.keyCode);
-			handleClick(mappedKeyboardTicks);
+			if (!isAnswerLocked) {
+				mappedKeyboardTicks[e.code] = String.fromCharCode(e.keyCode);
+				handleClick(mappedKeyboardTicks);
+			}
 		}
 
 		useEffect(() => {
@@ -139,18 +145,22 @@ const ChoicesWrapper =
 							return (
 								<ChoiceItem
 									theme={theme}
+									blockId={id}
 									key={`block-multiple-choice-${id}-choice-${choice.value}`}
 									choiceLabel={choice.label}
 									choiceValue={choice.value}
 									order={choice.order.toUpperCase()}
+									isAnswerLocked={isAnswerLocked}
 									selected={choice.selected}
+									correctIncorrectQuiz={correctIncorrectQuiz}
 									multiple={multiple}
-									clickHandler={() =>
+									clickHandler={() => {
 										clickHandler(
 											choice.value,
 											choice.selected
 										)
-									}
+
+									}}
 								/>
 							);
 						})}

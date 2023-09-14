@@ -24,6 +24,7 @@ import {
 	COMPLETE_FORM,
 	SET_SWIPER_STATE,
 	GO_TO_BLOCK,
+	SET_CORRECT_INCORRECT_DISPLAY,
 	SET_SUBMISSION_ERR,
 	SET_FIELD_ANSWER,
 	INSERT_EMPTY_FIELD_ANSWER,
@@ -31,6 +32,7 @@ import {
 	SET_IS_FIELD_ANSWERED,
 	SET_IS_FIELD_PENDING,
 	SET_FIELD_PENDING_MSG,
+	SET_IS_FIELD_ANSWER_CORRECT,
 	SET_FIELD_VALIDATION_ERR,
 	RESET_ANSWERS,
 	SET_IS_REVIEWING,
@@ -39,6 +41,8 @@ import {
 	SET_IS_FOCUSED,
 	SET_FOOTER_DISPLAY,
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
+	SET_IS_FIELD_ANSWER_LOCKED,
+	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
 } from './constants';
 import type {
 	SwiperState,
@@ -58,6 +62,7 @@ const initialState: SwiperState = {
 	nextBlockId: undefined,
 	lastActiveBlockId: undefined,
 	prevBlockId: undefined,
+	correctIncorrectDisplay: false,
 	canSwipeNext: false,
 	canSwipePrev: false,
 	isCurrentBlockSafeToSwipe: true,
@@ -78,6 +83,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		nextBlockId,
 		prevBlockId,
 		thankyouScreens,
+		correctIncorrectDisplay
 	} = state;
 	switch ( action.type ) {
 		case SET_SWIPER_STATE: {
@@ -247,7 +253,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		}
 
 		case GO_NEXT: {
-			if ( isAnimating ) return state;
+			if ( isAnimating || correctIncorrectDisplay ) return state;
 			const nextFieldType = walkPath.find(
 				( block ) => block.id === nextBlockId
 			)?.name;
@@ -280,6 +286,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			) {
 				$newCurrentBlockId = undefined;
 			}
+			
 			return {
 				...state,
 				canSwipeNext: ! $newCurrentBlockId ? false : true,
@@ -306,7 +313,7 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			const isFirstField =
 				walkPath?.length > 0 && walkPath[ 0 ].id === currentBlockId;
 
-			if ( isAnimating || isFirstField ) return state;
+			if ( isAnimating || isFirstField || correctIncorrectDisplay ) return state;
 			const currentFieldIndex = walkPath.findIndex(
 				( field ) => field.id === currentBlockId
 			);
@@ -322,6 +329,14 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					: undefined,
 				isAnimating: true,
 				isThankyouScreenActive: false,
+			};
+		}
+
+		case SET_CORRECT_INCORRECT_DISPLAY: {
+			const { val } = action;
+			return {
+				...state,
+				correctIncorrectDisplay: val,
 			};
 		}
 
@@ -537,6 +552,9 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 					isPending: false,
 					pendingMsg: undefined,
 					validationErr: undefined,
+					isCorrect: undefined,
+					isCorrectIncorrectScreenDisplayed: false,
+					isLocked: false,
 					blockName,
 				};
 			}
@@ -593,6 +611,52 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 				[ id ]: {
 					...state[ id ],
 					isAnswered: val,
+				},
+			};
+		}
+
+		// SET IS FIELD ANSWER CORRECT
+		case SET_IS_FIELD_ANSWER_CORRECT: {
+			const { id, val } = action;
+			// If the field id is incorrect or the value passed is the same value, return same state.
+			if ( ! state[ id ] || val === state[ id ].isCorrect ) {
+				return state;
+			}
+			return {
+				...state,
+				[ id ]: {
+					...state[ id ],
+					isCorrect: val,
+				},
+			};
+		}
+
+		case SET_IS_FIELD_ANSWER_LOCKED: {
+			const { id, val } = action;
+			// .
+			if ( ! state[ id ] || val === state[ id ].isLocked ) {
+				return state;
+			}
+			return {
+				...state,
+				[ id ]: {
+					...state[ id ],
+					isLocked: val,
+				},
+			};
+		}
+
+		case SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED: {
+			const { id, val } = action;
+			// .
+			if ( ! state[ id ] || val === state[ id ].isCorrectIncorrectScreenDisplayed ) {
+				return state;
+			}
+			return {
+				...state,
+				[ id ]: {
+					...state[ id ],
+					isCorrectIncorrectScreenDisplayed: val,
 				},
 			};
 		}

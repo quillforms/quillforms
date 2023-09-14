@@ -3,7 +3,7 @@
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef, useCallback } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -28,6 +28,7 @@ import {
 	useFormContext,
 	useEditableFields,
 } from '../../hooks';
+import useCorrectIncorrectQuiz from '../../hooks/use-correct-incorrect-quiz';
 
 let lastScrollDate = 0;
 const lethargy = new Lethargy();
@@ -43,6 +44,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
 	const hiddenFields = useHiddenFields();
+	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const settings = useFormSettings();
 	const editableFields = useEditableFields(true);
 
@@ -52,6 +54,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 			swiper: select('quillForms/renderer-core').getSwiperState(),
 		};
 	});
+
 
 	const {
 		walkPath,
@@ -96,7 +99,9 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		setIsFieldValid,
 		setIsFieldPending,
 		setFieldValidationErr,
-		setFieldAnswer
+		setFieldAnswer,
+		setCorrectIncorrectDisplay,
+		setIsFieldCorrectIncorrectScreenDisplayed
 	} = useDispatch('quillForms/renderer-core');
 
 	useEffect(() => {
@@ -151,7 +156,6 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 			block.name !== 'welcome-screen' && block.name !== 'thankyou-screen'
 	);
 
-
 	const goNextReally = async () => {
 		if (answers[currentBlockIndex]?.isPending) return;
 		if (beforeGoingNext && currentBlockId) {
@@ -167,6 +171,17 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 					setIsFieldPending(currentBlockId, val),
 			});
 		} else {
+			if (
+				correctIncorrectQuiz?.enabled &&
+				swiper?.correctIncorrectDisplay === false &&
+				currentBlockType.supports.correctAnswers &&
+				correctIncorrectQuiz?.showAnswersDuringQuiz &&
+				!answers[currentBlockId]?.isCorrectIncorrectScreenDisplayed
+			) {
+				setCorrectIncorrectDisplay(true);
+				setIsFieldCorrectIncorrectScreenDisplayed(currentBlockId, true);
+				return;
+			}
 			goNext();
 		}
 	};
@@ -342,9 +357,12 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 							isLastField={
 								(!nextBlock || nextBlock.name === 'thankyou-screen') &&
 								index === fields.length - 1
+								// if correct answers mode is enabled and the answer isn't still locked
+								// then it should not be the last field
+								&& !(correctIncorrectQuiz?.enabled && !answers[field.id]?.isCorrectIncorrectScreenDisplayed)
 							}
 							next={() =>
-								handleNext(isCurrentBlockValid)
+								handleNext()
 							}
 						/>
 					);

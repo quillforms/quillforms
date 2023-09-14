@@ -13,11 +13,15 @@ import {
 	SET_IS_FIELD_ANSWERED,
 	SET_IS_FIELD_PENDING,
 	SET_FIELD_PENDING_MSG,
+	SET_IS_FIELD_ANSWER_LOCKED,
 	RESET_ANSWERS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
 	SET_PAYMENT_DATA,
+	SET_CORRECT_INCORRECT_DISPLAY,
+	SET_IS_FIELD_ANSWER_CORRECT,
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
+	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED
 } from './constants';
 export type Screen = {
 	id: string;
@@ -26,6 +30,7 @@ export type Screen = {
 
 export type SwiperState = {
 	walkPath: FormBlocks;
+
 	welcomeScreens: Screen[];
 	thankyouScreens: Screen[];
 	currentBlockId: undefined | string;
@@ -36,6 +41,7 @@ export type SwiperState = {
 	canSwipePrev: boolean;
 	isAnimating: boolean;
 	isReviewing: boolean;
+	correctIncorrectDisplay: boolean;
 	isCurrentBlockSafeToSwipe: boolean;
 	isThankyouScreenActive: boolean;
 	isWelcomeScreenActive: boolean;
@@ -54,6 +60,11 @@ export type SubmissionState = {
 type setSwiperAction = {
 	type: typeof SET_SWIPER_STATE;
 	swiperState: Partial< SwiperState >;
+};
+
+type setCorrectIncorrectDisplay = {
+	type: typeof SET_CORRECT_INCORRECT_DISPLAY;
+	val: boolean;
 };
 
 type goNextAction = {
@@ -83,6 +94,9 @@ export type Answer = {
 	blockName: string;
 	value: unknown;
 	validationErr: string | undefined;
+	isCorrect?: boolean | undefined;
+	isLocked?: boolean;
+	isCorrectIncorrectScreenDisplayed?: boolean;
 };
 
 export type RendererAnswersState = Record< string, Answer >;
@@ -101,6 +115,13 @@ type setFieldAnswerAction = {
 	id: string;
 	val: unknown;
 };
+
+type setFieldAnswerCorrectAction = {
+	type: typeof SET_IS_FIELD_ANSWER_CORRECT;
+	id: string;
+	val: boolean;
+};
+
 
 type setIsFieldValidAction = {
 	type: typeof SET_IS_FIELD_VALID;
@@ -155,6 +176,13 @@ type setSumbissionErr = {
 	val: string;
 };
 
+type setIsFieldAnswerLocked = {
+	type: typeof SET_IS_FIELD_ANSWER_LOCKED;
+	id: string;
+	val: boolean;
+};
+
+
 type setPaymentDataAction = {
 	type: typeof SET_PAYMENT_DATA;
 	data: {
@@ -171,6 +199,13 @@ type setPaymentDataAction = {
 	};
 };
 
+type setIsFieldCorrectIncorrectScreenDisplayed = {
+	type: typeof SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED;
+	id: string;
+	val: boolean;
+};
+
+
 export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
 	| setFieldAnswerAction
@@ -179,6 +214,9 @@ export type RendererAnswersActionTypes =
 	| setIsFieldAnsweredAction
 	| setIsFieldPendingAction
 	| setFieldPendingMsg
+	| setIsFieldAnswerLocked
+	| setIsFieldCorrectIncorrectScreenDisplayed
+	| setFieldAnswerCorrectAction
 	| resetAnswers
 	| ReturnType< () => { type: 'NOOP' } >;
 
@@ -187,6 +225,7 @@ export type SwiperActionTypes =
 	| goNextAction
 	| goPrevAction
 	| goTonextBtn
+	| setCorrectIncorrectDisplay
 	| setIsCurrentBlockSafeToSwipeAction
 	| completeFormAction
 	| ReturnType< () => { type: 'NOOP' } >;

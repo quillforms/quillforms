@@ -31,104 +31,104 @@ interface Props extends RenderElementProps {
 	children: React.ReactNode;
 	element: CustomElement;
 }
-const EditorMergeTag: React.FC< Props > = ( {
+const EditorMergeTag: React.FC<Props> = ({
 	attributes,
 	editor,
 	children,
 	path,
 	element,
 	mergeTags,
-} ) => {
+}) => {
 	const { type, modifier } = element.data as MergeTag;
-	const [ node ] = Editor.node( editor, path );
+	const [node] = Editor.node(editor, path);
 
 	const mergeTag = mergeTags.find(
-		( a ) => a.type === type && a.modifier === modifier
+		(a) => a.type === type && a.modifier === modifier
 	);
 	const mergeTagIcon = mergeTag?.icon ? mergeTag.icon : plus;
 	const renderedIcon = (
 		<Icon
 			icon={
-				( ( mergeTagIcon as IconDescriptor )?.src as IconType )
-					? ( ( mergeTagIcon as IconDescriptor )?.src as IconType )
+				((mergeTagIcon as IconDescriptor)?.src as IconType)
+					? ((mergeTagIcon as IconDescriptor)?.src as IconType)
 					// @ts-expect-error
-					: ( mergeTagIcon as Dashicon.Icon )
+					: (mergeTagIcon as Dashicon.Icon)
 			}
 		/>
 	);
 
-	useEffect( () => {
-		if ( ! mergeTag ) {
-			editor.apply( { type: 'remove_node', path, node } );
+	useEffect(() => {
+		if (!mergeTag) {
+			editor.apply({ type: 'remove_node', path, node });
 			Transforms.insertNodes(
 				editor,
 				{
-					text: `{{${ type }:${ modifier }}}`,
+					text: `{{${type}:${modifier}}}`,
 				},
 				{
 					at: path,
 				}
 			);
 		}
-	}, [] );
+	}, []);
 	return (
 		<>
-			{ mergeTag && (
+			{mergeTag && (
 				<span
-					{ ...attributes }
-					contentEditable={ false }
-					className={ classnames(
+					{...attributes}
+					contentEditable={false}
+					className={classnames(
 						'rich-text-merge-tag__node-wrapper',
 						css`
-							color: ${ mergeTag?.color
+							color: ${mergeTag?.color
 								? mergeTag.color
-								: '#bb426f' };
-							bordercolor: ${ mergeTag?.color
+								: '#bb426f'};
+							bordercolor: ${mergeTag?.color
 								? mergeTag.color
-								: '#bb426f' };
-							fill: ${ mergeTag?.color
+								: '#bb426f'};
+							fill: ${mergeTag?.color
 								? mergeTag.color
-								: '#bb426f' };
+								: '#bb426f'};
 						`
-					) }
+					)}
 				>
 					<span
-						className={ classnames(
+						className={classnames(
 							'rich-text-merge-tag__background',
 							css`
-								background: ${ mergeTag?.color
+								background: ${mergeTag?.color
 									? mergeTag.color
-									: '#bb426f' };
+									: '#bb426f'};
 							`
-						) }
+						)}
 					/>
 					<span className="rich-text-merge-tag__icon-box">
-						{ renderedIcon }
+						{renderedIcon}
 					</span>
 					<span
 						className="rich-text-merge-tag__title"
-						dangerouslySetInnerHTML={ {
-							__html: getPlainExcerpt( mergeTag.label ),
-						} }
+						dangerouslySetInnerHTML={{
+							__html: getPlainExcerpt(mergeTag.label),
+						}}
 					/>
 
 					<button
 						className="rich-text-merge-tag__delete"
-						onClick={ () => {
-							setTimeout( () => {
-								editor.apply( {
+						onClick={() => {
+							setTimeout(() => {
+								editor.apply({
 									type: 'remove_node',
 									path,
 									node,
-								} );
-							}, 0 );
-						} }
+								});
+							}, 0);
+						}}
 					>
-						<Icon icon={ close } />
+						<Icon icon={close} />
 					</button>
-					{ children }
+					{children}
 				</span>
-			) }
+			)}
 		</>
 	);
 };

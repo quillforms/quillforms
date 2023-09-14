@@ -19,18 +19,21 @@ import BlockFooter from '../field-footer';
 import useFormContext from '../../hooks/use-form-context';
 import useHandleFocus from '../../hooks/use-handle-focus';
 import useBlockTheme from '../../hooks/use-block-theme';
+import { useCorrectIncorrectQuiz, useMessages } from '../../hooks';
+import tinyColor from 'tinycolor2';
+import classnames from "classnames";
 interface Props {
-	setIsShaking: ( value: boolean ) => void;
+	setIsShaking: (value: boolean) => void;
 	isShaking: boolean;
 }
-let timer1: ReturnType< typeof setTimeout >,
-	timer2: ReturnType< typeof setTimeout >;
+let timer1: ReturnType<typeof setTimeout>,
+	timer2: ReturnType<typeof setTimeout>;
 
-const FieldDisplayWrapper: React.FC< Props > = ( {
+const FieldDisplayWrapper: React.FC<Props> = ({
 	isShaking,
 	setIsShaking,
-} ) => {
-	const inputRef = useRef( null );
+}) => {
+	const inputRef = useRef(null);
 	const {
 		id,
 		next,
@@ -41,108 +44,110 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		showErrMsg,
 		innerBlocks,
 	} = __experimentalUseFieldRenderContext();
-	const theme = useBlockTheme( attributes?.themeId );
+	const theme = useBlockTheme(attributes?.themeId);
+	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 
 	const isTouchScreen =
-		( typeof window !== 'undefined' && 'ontouchstart' in window ) ||
-		( typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0 ) ||
+		(typeof window !== 'undefined' && 'ontouchstart' in window) ||
+		(typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) ||
 		// @ts-expect-error
-		( typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0 );
+		(typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0);
 
-	useHandleFocus( inputRef, isActive, isTouchScreen );
+	useHandleFocus(inputRef, isActive, isTouchScreen);
 	const { isPreview, formId } = useFormContext();
 
-	if ( ! blockName || ! id ) return null;
+	if (!blockName || !id) return null;
 	const blockTypes = useBlockTypes();
-	const blockType = blockTypes[ blockName ];
-	const [ shakingErr, setShakingErr ] = useState( null );
-
-	const { isCurrentBlockEditable, isReviewing } = useSelect( ( select ) => {
+	const blockType = blockTypes[blockName];
+	const [shakingErr, setShakingErr] = useState(null);
+	const messages = useMessages();
+	const { isCurrentBlockEditable, isReviewing } = useSelect((select) => {
 		return {
 			isCurrentBlockEditable: select(
 				'quillForms/blocks'
-			).hasBlockSupport( blockName, 'editable' ),
-			isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
+			).hasBlockSupport(blockName, 'editable'),
+			isReviewing: select('quillForms/renderer-core').isReviewing(),
 		};
-	} );
-	const { answerValue, isAnswered, isValid, isPending } = useSelect(
-		( select ) => {
+	});
+	const { answerValue, isAnswered, isValid, isPending, isAnswerLocked } = useSelect(
+		(select) => {
 			return {
 				answerValue: isCurrentBlockEditable
-					? select( 'quillForms/renderer-core' ).getFieldAnswerVal(
-							id
-					  )
+					? select('quillForms/renderer-core').getFieldAnswerVal(
+						id
+					)
 					: null,
 				isAnswered: isCurrentBlockEditable
-					? select( 'quillForms/renderer-core' ).isAnsweredField( id )
+					? select('quillForms/renderer-core').isAnsweredField(id)
 					: null,
 				isValid: isCurrentBlockEditable
-					? select( 'quillForms/renderer-core' ).isValidField( id )
+					? select('quillForms/renderer-core').isValidField(id)
 					: null,
-				isPending: select( 'quillForms/renderer-core' ).isFieldPending(
+				isPending: select('quillForms/renderer-core').isFieldPending(
 					id
 				),
+				isAnswerLocked: select('quillForms/renderer-core').isFieldAnswerLocked(id)
 			};
 		}
 	);
 
 	const clearTimers = () => {
-		clearTimeout( timer1 );
-		clearTimeout( timer2 );
+		clearTimeout(timer1);
+		clearTimeout(timer2);
 	};
 
-	useEffect( () => {
+	useEffect(() => {
 		clearTimers();
-		setIsShaking( false );
-		if ( shakingErr ) setShakingErr( null );
-	}, [ answerValue ] );
+		setIsShaking(false);
+		if (shakingErr) setShakingErr(null);
+	}, [answerValue]);
 
-	useEffect( () => {
-		if ( ! isActive ) {
+	useEffect(() => {
+		if (!isActive) {
 			clearTimers();
-			setIsShaking( false );
-			if ( shakingErr ) setShakingErr( null );
+			setIsShaking(false);
+			if (shakingErr) setShakingErr(null);
 		}
 
-		if ( isActive ) {
-			setFooterDisplay( true );
+		if (isActive) {
+			setFooterDisplay(true);
 		}
-	}, [ isActive ] );
+	}, [isActive]);
 
-	const shakeWithError = ( err ) => {
+	const shakeWithError = (err) => {
 		clearTimers();
-		if ( ! isShaking ) setIsShaking( true );
-		if ( ! shakingErr ) setShakingErr( err );
-		timer1 = setTimeout( () => {
-			setIsShaking( false );
-		}, 600 );
-		timer2 = setTimeout( () => {
-			setShakingErr( null );
-		}, 1200 );
+		if (!isShaking) setIsShaking(true);
+		if (!shakingErr) setShakingErr(err);
+		timer1 = setTimeout(() => {
+			setIsShaking(false);
+		}, 600);
+		timer2 = setTimeout(() => {
+			setShakingErr(null);
+		}, 1200);
 	};
 
-	useEffect( () => {
-		if ( isAnswered ) {
+	useEffect(() => {
+		if (isAnswered) {
 			const action = isActive
 				? 'QuillForms.RendererCore.FieldAnsweredActive'
 				: 'QuillForms.RendererCore.FieldAnswered';
-			doAction( action, {
+			doAction(action, {
 				formId,
 				id,
 				label: attributes?.label,
-			} );
+			});
 		}
-	}, [ isAnswered, isActive ] );
+	}, [isAnswered, isActive]);
 
-	useEffect( () => {
-		if ( isActive ) {
-			doAction( 'QuillForms.RendererCore.FieldActive', {
+	useEffect(() => {
+		if (isActive) {
+			doAction('QuillForms.RendererCore.FieldActive', {
 				formId,
 				id,
 				label: attributes?.label,
-			} );
+			});
 		}
-	}, [ isActive ] );
+	}, [isActive]);
 
 	const {
 		setIsFieldValid,
@@ -150,9 +155,10 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		setIsFieldAnswered,
 		setIsFieldPending,
 		setFieldPendingMsg,
+		setIsFieldAnswerCorrect,
 		setFieldAnswer,
 		setFooterDisplay,
-	} = useDispatch( 'quillForms/renderer-core' );
+	} = useDispatch('quillForms/renderer-core');
 
 	const props = {
 		id,
@@ -162,15 +168,17 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 		isPending,
 		innerBlocks,
 		isReviewing,
+		isAnswerLocked,
 		val: answerValue,
-		setIsValid: ( val: boolean ) => setIsFieldValid( id, val ),
-		setIsAnswered: ( val: boolean ) => setIsFieldAnswered( id, val ),
-		setIsPending: ( val: boolean ) => setIsFieldPending( id, val ),
-		setPendingMsg: ( val: string ) => setFieldPendingMsg( id, val ),
-		setValidationErr: ( val: string ) => setFieldValidationErr( id, val ),
-		setVal: ( val: string ) => setFieldAnswer( id, val ),
+		setIsValid: (val: boolean) => setIsFieldValid(id, val),
+		setIsAnswered: (val: boolean) => setIsFieldAnswered(id, val),
+		setIsPending: (val: boolean) => setIsFieldPending(id, val),
+		setPendingMsg: (val: string) => setFieldPendingMsg(id, val),
+		setValidationErr: (val: string) => setFieldValidationErr(id, val),
+		setIsAnswerCorrect: (val: boolean) => setIsFieldAnswerCorrect(id, val),
+		setVal: (val: string) => setFieldAnswer(id, val),
 		showNextBtn,
-		blockWithError: ( err: string ) => shakeWithError( err ),
+		blockWithError: (err: string) => shakeWithError(err),
 		showErrMsg,
 		isPreview,
 		isTouchScreen,
@@ -184,31 +192,56 @@ const FieldDisplayWrapper: React.FC< Props > = ( {
 			role="presentation"
 			className="renderer-core-field-display-wrapper"
 		>
-			{ blockType?.display && (
+			{blockType?.display && (
 				<div
-					className={ css`
+					className={css`
 						@media ( max-width: 767px ) {
-							margin-top: ${ theme.typographyPreset === 'sm'
-								? `24px`
-								: `32px` };
+							margin-top: ${theme.typographyPreset === 'sm'
+							? `24px`
+							: `32px`};
 						}
 
 						@media ( min-width: 768px ) {
-							margin-top: ${ theme.typographyPreset === 'sm'
-								? `24px`
-								: theme.typographyPreset === 'lg'
+							margin-top: ${theme.typographyPreset === 'sm'
+							? `24px`
+							: theme.typographyPreset === 'lg'
 								? `40px`
-								: `32px` };
+								: `32px`};
 						}
 					` }
 				>
 					{
 						/* @ts-expect-error */
-						<blockType.display { ...props } />
+						<blockType.display {...props} />
+
+
 					}
+					<>
+						{isAnswerLocked && correctIncorrectQuiz?.enabled && correctIncorrectQuiz?.questions?.[id]?.explanation?.trim() && (
+							<div className={classnames("renderer-core-field-display-wrapper__explanation", css`
+							
+								background-color: ${tinyColor(theme.questionsColor).setAlpha(0.1).toString()};
+								color: ${theme.questionsColor};
+								padding: 16px;
+								margin-top: 16px;
+								border-radius: 4px;
+								border: 1px solid ${tinyColor(theme.questionsColor).setAlpha(0.2).toString()};
+							`)}>
+								<div className={classnames("renderer-core-field-display-wrapper__explanation__heading", css`
+									margin-bottom: 15px;
+								`)}>
+									<strong>{messages['label.answersExplanation']}</strong>
+								</div>
+								{correctIncorrectQuiz?.questions[id].explanation}
+							</div>
+
+						)}
+					</>
+
 				</div>
-			) }
-			<BlockFooter shakingErr={ shakingErr } isPending={ isPending } />
+
+			)}
+			<BlockFooter shakingErr={shakingErr} isPending={isPending} />
 		</div>
 	);
 };

@@ -1,32 +1,42 @@
-import { SET_CORRECT_ANSWERS, SHOW_CORRECT_ANSWER } from "./constants"
+import {
+	SETUP_STORE,
+	SET_CORRECT_ANSWERS,
+	SHOW_ANSWERS_DURING_QUIZ,
+	TOGGLE_CORRECT_INCORRECT_QUIZ_MODE
+} from "./constants"
 
 const initialState = {
 	enabled: false,
-	correctAnswers: {},
-	showCorrectAnswer: false,
-	showExplanation: false,
+	questions: {},
+	showAnswersDuringQuiz: true,
 }
 
 const quizEditorReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case TOGGLE_MODE: {
+
+		case SETUP_STORE: {
 			return {
 				...state,
-				enabled: !enabled
-
+				...action.initialState
+			}
+		}
+		case TOGGLE_CORRECT_INCORRECT_QUIZ_MODE: {
+			return {
+				...state,
+				enabled: !state.enabled
 			}
 		}
 		case SET_CORRECT_ANSWERS: {
 			return {
 				...state,
-				correctAnswers: action.answers
+				questions: action.answers
 			}
 		}
 
-		case SHOW_CORRECT_ANSWER: {
+		case SHOW_ANSWERS_DURING_QUIZ: {
 			return {
 				...state,
-				showCorrectAnswer: action.flag
+				showAnswersDuringQuiz: action.showAnswersDuringQuiz
 			}
 		}
 	}

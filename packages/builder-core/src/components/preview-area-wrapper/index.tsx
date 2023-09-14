@@ -33,6 +33,7 @@ const FormPreview: React.FC<Props> = ({ formId }) => {
 	const themeId = useCurrentThemeId();
 	const currentTheme = useCurrentTheme();
 	const {
+		correctIncorrectQuiz,
 		hasThemesFinishedResolution,
 		hasFontsFinishedResolution,
 		themesList,
@@ -69,6 +70,9 @@ const FormPreview: React.FC<Props> = ({ formId }) => {
 			)?.getHiddenFields(),
 			settings: select('quillForms/settings-editor').getSettings(),
 			customCSS: select('quillForms/code-editor').getCustomCSS(),
+			correctIncorrectQuiz: select(
+				'quillForms/quiz-editor'
+			)?.getState(),
 		};
 	});
 
@@ -198,6 +202,7 @@ const FormPreview: React.FC<Props> = ({ formId }) => {
 												themesList: $themesList,
 												settings,
 												customCSS,
+												correctIncorrectQuiz
 											}}
 											applyLogic={applyJumpLogic}
 											customFonts={customFontsList}

@@ -48,39 +48,39 @@ interface Props {
 	parentIndex?: number;
 }
 
-const BlockListItem: React.FC< Props > = ( {
+const BlockListItem: React.FC<Props> = ({
 	id,
 	index,
 	name,
 	parentId,
 	parentIndex,
-} ) => {
-	const [ ref, inView ] = useInView( {
+}) => {
+	const [ref, inView] = useInView({
 		/* Optional options */
 		threshold: 0,
-	} );
-	const { isSelected, block, blockType } = useSelect( ( select ) => {
+	});
+	const { isSelected, block, blockType } = useSelect((select) => {
 		return {
-			block: select( 'quillForms/block-editor' ).getBlockById(
+			block: select('quillForms/block-editor').getBlockById(
 				id,
 				parentIndex
 			),
-			blockType: select( 'quillForms/blocks' ).getBlockType( name ),
-			isSelected: ! parentId
-				? select( 'quillForms/block-editor' ).getCurrentBlockId() === id
+			blockType: select('quillForms/blocks').getBlockType(name),
+			isSelected: !parentId
+				? select('quillForms/block-editor').getCurrentBlockId() === id
 				: select(
-						'quillForms/block-editor'
-				  ).getCurrentChildBlockId() === id,
+					'quillForms/block-editor'
+				).getCurrentChildBlockId() === id,
 		};
-	} );
+	});
 
-	if ( ! block || ! blockType ) return null;
+	if (!block || !blockType) return null;
 	const { attributes, innerBlocks } = block;
 
 	const label = attributes?.label ? attributes.label : '';
 	const description = attributes?.label ? attributes.description : '';
 
-	const [ labelJsonVal, setLabelJsonVal ] = useState< CustomNode[] >( [
+	const [labelJsonVal, setLabelJsonVal] = useState<CustomNode[]>([
 		{
 			type: 'paragraph',
 			children: [
@@ -89,9 +89,9 @@ const BlockListItem: React.FC< Props > = ( {
 				},
 			],
 		},
-	] );
+	]);
 
-	const [ descJsonVal, setDescJsonVal ] = useState< CustomNode[] >( [
+	const [descJsonVal, setDescJsonVal] = useState<CustomNode[]>([
 		{
 			type: 'paragraph',
 			children: [
@@ -100,22 +100,22 @@ const BlockListItem: React.FC< Props > = ( {
 				},
 			],
 		},
-	] );
+	]);
 
-	const [ focusedEl, setFocusedEl ] = useState< FocusedEl >( undefined );
+	const [focusedEl, setFocusedEl] = useState<FocusedEl>(undefined);
 	// Handling the error state
-	const [ hasError, setErrorState ] = useState< boolean >( false );
+	const [hasError, setErrorState] = useState<boolean>(false);
 
-	const getDeserializedValue = ( val ) => {
-		return deserialize( val );
+	const getDeserializedValue = (val) => {
+		return deserialize(val);
 	};
 
 	// Deserialize value on mount
-	useEffect( () => {
-		setLabelJsonVal( getDeserializedValue( label ) );
-		if ( !! description )
-			setDescJsonVal( getDeserializedValue( description ) );
-	}, [] );
+	useEffect(() => {
+		setLabelJsonVal(getDeserializedValue(label));
+		if (!!description)
+			setDescJsonVal(getDeserializedValue(description));
+	}, []);
 
 	// @ts-expect-error
 	const labelEditor: ReactEditor & HistoryEditor = useMemo(
@@ -129,88 +129,88 @@ const BlockListItem: React.FC< Props > = ( {
 		[]
 	);
 
-	if ( hasError ) {
+	if (hasError) {
 		return <BlockEditCrashWarning />;
 	}
 	const isDragDisabled = false;
 
 	return (
-		<AsyncModeProvider value={ ! isSelected }>
-			<div ref={ ref }>
-				{ /* @ts-expect-error */ }
-				<BlockEditCrashBoundary onError={ () => setErrorState( true ) }>
+		<AsyncModeProvider value={!isSelected}>
+			<div ref={ref}>
+				{ /* @ts-expect-error */}
+				<BlockEditCrashBoundary onError={() => setErrorState(true)}>
 					<__experimentalDraggable
 						isDragDisabled={
 							isDragDisabled ||
-							! inView ||
+							!inView ||
 							name === 'welcome-screen'
 						}
-						key={ id }
-						draggableId={ id.toString() }
-						index={ index }
+						key={id}
+						draggableId={id.toString()}
+						index={index}
 					>
-						{ ( provided, _snapshot ) => (
+						{(provided, _snapshot) => (
 							<BoxWrapper
-								id={ id }
-								parentId={ parentId }
-								isSelected={ isSelected }
+								id={id}
+								parentId={parentId}
+								isSelected={isSelected}
 							>
 								<div className="block-editor-block-edit-box__content-wrapper">
 									<div
 										className="block-editor-block-edit-box__content"
-										{ ...provided.draggableProps }
-										ref={ provided.innerRef }
-										style={ provided.draggableProps.style }
+										{...provided.draggableProps}
+										ref={provided.innerRef}
+										style={provided.draggableProps.style}
 									>
-										{ inView ? (
+										{inView ? (
 											<Fragment>
 												<BlockMover
-													parentIndex={ parentIndex }
+													parentIndex={parentIndex}
 													handleProps={
 														provided?.dragHandleProps
 															? {
-																	...provided.dragHandleProps,
-															  }
+																...provided.dragHandleProps,
+															}
 															: undefined
 													}
-													id={ id }
-													blockType={ blockType }
+													id={id}
+													blockType={blockType}
 												/>
 												<BlockEditor
-													isSelected={ isSelected }
-													name={ name }
-													attributes={ attributes }
-													focusedEl={ focusedEl }
-													setFocusedEl={ ( val ) =>
-														setFocusedEl( val )
+													isSelected={isSelected}
+													name={name}
+													attributes={attributes}
+													focusedEl={focusedEl}
+													setFocusedEl={(val) =>
+														setFocusedEl(val)
 													}
 													isContainer={
 														blockType?.supports
 															?.innerBlocks
 													}
-													parentIndex={ parentIndex }
-													parentId={ parentId }
-													innerBlocks={ innerBlocks }
-													id={ id }
-													index={ index }
+													parentIndex={parentIndex}
+													parentId={parentId}
+													innerBlocks={innerBlocks}
+													id={id}
+													index={index}
 													blockColor={
 														blockType?.color
 													}
-													label={ labelJsonVal }
-													desc={ descJsonVal }
+													label={labelJsonVal}
+													desc={descJsonVal}
 													// @ts-expect-error
-													labelEditor={ labelEditor }
-													setLabelJsonVal={ (
+													labelEditor={labelEditor}
+													setLabelJsonVal={(
 														value
 													) =>
-														setLabelJsonVal( value )
+														setLabelJsonVal(value)
 													}
 													// @ts-expect-error
-													descEditor={ descEditor }
-													setDescJsonVal={ (
+													descEditor={descEditor}
+													setDescJsonVal={(
 														value
 													) =>
-														setDescJsonVal( value )
+														setDescJsonVal(value)
 													}
 												/>
 												<BlockTypesListDropdown
@@ -218,22 +218,22 @@ const BlockListItem: React.FC< Props > = ( {
 														index + 1
 													}
 													// @ts-ignore
-													parent={ parentId }
+													parent={parentId}
 													color="secodary"
 												/>
 											</Fragment>
 										) : (
 											<Fragment>
 												<BlockIconWrapper
-													color={ blockType?.color }
+													color={blockType?.color}
 												/>
 												<BlockPlaceholder />
 											</Fragment>
-										) }
+										)}
 									</div>
 								</div>
 							</BoxWrapper>
-						) }
+						)}
 					</__experimentalDraggable>
 				</BlockEditCrashBoundary>
 			</div>

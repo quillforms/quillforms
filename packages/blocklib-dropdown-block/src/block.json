@@ -31,8 +31,7 @@
 		"theme": true,
 		"points": true,
 		"payments": true,
-		"choices": true,
-		"correctAnswers": true
+		"choices": true
 	},
 	"logicalOperators": [
 		"is",

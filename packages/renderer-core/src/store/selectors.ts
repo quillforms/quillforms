@@ -64,6 +64,19 @@ export function getWalkPath( state: State ): FormBlocks {
 export function isAnimating( state: State ): boolean {
 	return state.swiper.isAnimating;
 }
+
+/**
+ * Get correct incorrect display state
+ * 
+ * @param {State} state Global application state.
+ * 
+ * @return {boolean} Correct incorrect display state
+ */
+export function getCorrectIncorrectDisplay( state: State ): boolean {
+	return state.swiper.correctIncorrectDisplay;
+}
+
+
 /**
  * Get current block id.
  *
@@ -267,6 +280,7 @@ export function getAnswersValues( state: State ): Record< string, unknown > {
 	} );
 }
 
+
 /**
  * Get count of answered fields.
  *
@@ -389,6 +403,36 @@ export function hasValidFields( state: State, id: string ): boolean {
 }
 
 /**
+ * Is field answer correct
+ * @param state 
+ * @param id 
+ */
+export function isFieldAnswerCorrect(state: State, id:string): boolean | undefined {
+	return state.answers[ id ]?.isCorrect;
+}
+
+
+/**
+ * Is field answer locked
+ * 
+ * @param state
+ * @param id
+ */
+export function isFieldAnswerLocked(state: State, id:string): boolean | undefined {
+	return state.answers[ id ]?.isLocked;
+}
+
+/**
+ * Is field Correct Incorrect Screen Displayed
+ * 
+ * @param state
+ * @param id
+ */
+export function isFieldCorrectIncorrectScreenDisplayed(state: State, id:string): boolean | undefined {
+	return state.answers[ id ]?.isCorrectIncorrectScreenDisplayed;
+}
+
+/**
  * Is field pending.
  *
  * @param {State}  state Global application state.
@@ -459,4 +503,29 @@ export function shouldFooterBeDisplayed( state: State ): boolean {
  */
 export function getSubmissionErr( state: State ): string {
 	return state.submit.submissionErr;
+}
+
+/**
+ * Get correct answers count
+ * 
+ * @param {State} state Global application state.
+ * 
+ * @return {number} correct answers count
+ */
+export function getCorrectAnswersCount( state: State ): number {
+	// access answers object and filter correct answers
+	return Object.values( state.answers ).filter( ( answer ) => answer.isCorrect === true ).length;
+} 
+
+
+/**
+ * Get incorrect answers count
+ * 
+ * @param {State} state Global application state.
+ * 
+ * @return {number} incorrect answers count
+ */
+export function getIncorrectAnswersCount( state: State ): number {
+	// access answers object and filter incorrect answers
+	return Object.values( state.answers ).filter( ( answer ) => answer.isCorrect === false ).length;
 }

@@ -109,6 +109,10 @@ class Form_Renderer
 
         // Remove any defer/async before printing script tags.
         add_filter('script_loader_tag', array( $this, 'remove_script_defer' ), PHP_INT_MAX, 3);
+
+        // Add some data attributes to js
+        add_filter('script_loader_tag', array( $this, 'add_script_data_attributes' ), PHP_INT_MAX, 3);
+
     }
 
     /**
@@ -119,7 +123,12 @@ class Form_Renderer
      * @return void
      */
     public function check_override()
-    {
+    {   
+        // Compatability with Perfmaters plugin.
+        if(is_singular('quill_forms') ) {
+            add_filter('perfmatters_defer_js', '__return_false');
+            add_filter('perfmatters_delay_js', '__return_false');
+        }
         $this->overrided = apply_filters('quillforms_form_renderer_overrided', false);
     }
 
@@ -173,6 +182,8 @@ class Form_Renderer
         if (function_exists('wpfc_exclude_current_page') ) {
             wpfc_exclude_current_page();
         }
+
+
     }
 
     /**
@@ -226,20 +237,21 @@ class Form_Renderer
             $this->form_object = apply_filters(
                 'quillforms_renderer_form_object',
                 array(
-                'blocks'     => Core::get_blocks($this->form_id),
-                'messages'   => array_merge(
-                    array_map(
-                        function ( $value ) {
-                            return $value['default'];
-                        },
-                        Client_Messages::instance()->get_messages()
+                    'blocks'     => Core::get_blocks($this->form_id),
+                    'messages'   => array_merge(
+                        array_map(
+                            function ( $value ) {
+                                return $value['default'];
+                            },
+                            Client_Messages::instance()->get_messages()
+                        ),
+                        Core::get_messages($this->form_id)
                     ),
-                    Core::get_messages($this->form_id)
-                ),
-                'theme'      => Core::get_theme($this->form_id),
-                'themesList' => Form_Theme_Model::get_all_registered_themes(),
-                'settings'   => Core::get_form_settings($this->form_id),
-                'customCSS'  => get_post_meta($this->form_id, 'customCSS', true) ?? "",
+                    'theme'      => Core::get_theme($this->form_id),
+                    'themesList' => Form_Theme_Model::get_all_registered_themes(),
+                    'settings'   => Core::get_form_settings($this->form_id),
+                    'customCSS'  => get_post_meta($this->form_id, 'customCSS', true) ?? "",
+                    'correctIncorrectQuiz'       => get_post_meta($this->form_id, 'quiz', true) ?? false,
                 ),
                 $this->form_id
             );
@@ -446,4 +458,21 @@ class Form_Renderer
           return $tag;
     }
 
+    /**
+     * Add some data attributes to js
+     *
+     * @since 1.13.1
+     *
+     * @param  string $tag    The `<script>` tag for the enqueued script.
+     * @param  string $handle The script's registered handle.
+     * @param  string $src    The script's source URL.
+     * @return string
+     */
+	public function add_script_data_attributes( $tag, $handle, $src ) 	{ // phpcs:ignore
+        if (is_singular('quill_forms') ) {
+            $tag =  str_replace( '<script', '<script data-two-no-delay="true" data-two-no-defer="true" data-pagespeed-no-defer="true"', $tag );
+        }
+
+        return $tag;
+    }
 }

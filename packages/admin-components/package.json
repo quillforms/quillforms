@@ -47,7 +47,7 @@
 		"slate": "^0.94.1",
 		"slate-history": "0.86.0",
 		"slate-hyperscript": "0.77.0",
-		"slate-react": "^0.97.2",
+		"slate-react": "^0.98.3",
 		"tailwind-merge": "^1.14.0",
 		"tinycolor2": "^1.4.1"
 	},

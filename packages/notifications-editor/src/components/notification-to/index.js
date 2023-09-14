@@ -5,14 +5,13 @@ import {
 	BaseControl,
 	ControlWrapper,
 	ControlLabel,
-	SelectControl,
 } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
 import { useEffect } from 'react';
-
+import { RadioControl } from '@wordpress/components';
 /**
  * External Dependencies
  */
@@ -26,7 +25,7 @@ import classnames from 'classnames';
 import EmailSelect from '../email-select';
 import AlertMessageWrapper from '../alert-message-wrapper';
 
-const NotificationTo = ( {
+const NotificationTo = ({
 	recipients,
 	toType,
 	setValue,
@@ -34,14 +33,14 @@ const NotificationTo = ( {
 	setIsValid,
 	emailFields,
 	isReviewing,
-} ) => {
-	useEffect( () => {
-		if ( ! recipients || recipients.length === 0 ) {
-			setIsValid( false );
+}) => {
+	useEffect(() => {
+		if (!recipients || recipients.length === 0) {
+			setIsValid(false);
 		} else {
-			setIsValid( true );
+			setIsValid(true);
 		}
-	}, [ recipients ] );
+	}, [recipients]);
 
 	const options = [
 		{ key: 'email', name: 'Email' },
@@ -50,104 +49,100 @@ const NotificationTo = ( {
 
 	return (
 		<BaseControl>
-			<ControlWrapper orientation="horizontal">
+			<ControlWrapper orientation="vertical">
 				<ControlLabel
 					label="Send a notification to"
-					showAsterisk={ true }
+					showAsterisk={true}
 				/>
-				<div
-					className={ classnames(
-						'notification-editor-toType-select',
-						'select-control-wrapper',
-						css`
-							width: 187px;
-						`
-					) }
-				>
-					<SelectControl
-						className={ css`
-							margin-top: 0 !important;
-						` }
-						value={ options.find(
-							( option ) => option.key === toType
-						) }
-						onChange={ ( { selectedItem } ) => {
-							setValue( {
-								toType: selectedItem.key,
-								recipients: [],
-							} );
-						} }
-						options={ options }
-					/>
-				</div>
+
+				<RadioControl
+					selected={toType}
+					options={[
+						{
+							label: 'Email',
+							value: 'email',
+						},
+						{
+							label: 'Field',
+							value: 'field',
+						},
+					]}
+					onChange={(val) => {
+						setValue({
+							toType: val,
+							recipients: [],
+						});
+					}}
+				/>
+
 			</ControlWrapper>
-			{ toType === 'email' && (
+			{toType === 'email' && (
 				<ReactMultiEmail
 					placeholder="Type an email then hit a space"
 					emails={
 						recipients?.length > 0
-							? recipients.filter( ( recipient ) =>
-									isEmail( recipient )
-							  )
+							? recipients.filter((recipient) =>
+								isEmail(recipient)
+							)
 							: []
 					}
-					onChange={ ( _emails ) => {
-						const emails = _emails.filter( ( email ) =>
-							isEmail( email )
+					onChange={(_emails) => {
+						const emails = _emails.filter((email) =>
+							isEmail(email)
 						);
-						setValue( { recipients: uniq( emails ) } );
-					} }
-					validateEmail={ ( email ) => {
-						return isEmail( email ); // return boolean
-					} }
-					getLabel={ ( email, index, removeEmail ) => {
+						setValue({ recipients: uniq(emails) });
+					}}
+					validateEmail={(email) => {
+						return isEmail(email); // return boolean
+					}}
+					getLabel={(email, index, removeEmail) => {
 						return (
-							<div data-tag key={ index }>
-								{ email }
+							<div data-tag key={index}>
+								{email}
 								<span
 									data-tag-handle
-									onClick={ () => removeEmail( index ) }
+									onClick={() => removeEmail(index)}
 								>
 									×
 								</span>
 							</div>
 						);
-					} }
+					}}
 				/>
-			) }
-			{ toType === 'field' && (
+			)}
+			{toType === 'field' && (
 				<EmailSelect
-					isRequired={ true }
-					emailFields={ emailFields }
+					isRequired={true}
+					emailFields={emailFields}
 					value={
 						recipients &&
-						recipients[ 0 ] &&
-						recipients[ 0 ].length > 0
-							? recipients[ 0 ]
+							recipients[0] &&
+							recipients[0].length > 0
+							? recipients[0]
 							: ''
 					}
-					setValue={ ( val ) => {
+					setValue={(val) => {
 						if (
 							val &&
-							emailFields.some( ( field ) => field.id === val )
+							emailFields.some((field) => field.id === val)
 						) {
-							setValue( {
-								recipients: [ `{{field:${ val }}}` ],
-							} );
+							setValue({
+								recipients: [`{{field:${val}}}`],
+							});
 						} else {
-							setValue( { recipients: [] } );
+							setValue({ recipients: [] });
 						}
-					} }
+					}}
 				/>
-			) }
-			{ ! isValid &&
+			)}
+			{!isValid &&
 				isReviewing &&
-				( toType === 'email' ||
-					( toType === 'field' && emailFields.length > 0 ) ) && (
+				(toType === 'email' ||
+					(toType === 'field' && emailFields.length > 0)) && (
 					<AlertMessageWrapper type="error">
 						Please insert at least one correct email!
 					</AlertMessageWrapper>
-				) }
+				)}
 		</BaseControl>
 	);
 };

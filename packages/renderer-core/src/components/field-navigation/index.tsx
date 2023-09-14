@@ -15,8 +15,9 @@ import { css } from 'emotion';
 import { useCurrentTheme, useFormContext, useFormSettings } from '../../hooks';
 import DownIcon from './down-icon';
 import UpIcon from './up-icon';
+import useCorrectIncorrectQuiz from '../../hooks/use-correct-incorrect-quiz';
 
-const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
+const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 	const {
 		goNext,
 		goPrev,
@@ -25,47 +26,52 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 		setIsFieldPending,
 		setFieldValidationErr,
 		goToBlock,
-	} = useDispatch( 'quillForms/renderer-core' );
+		setCorrectIncorrectDisplay,
+		setIsFieldCorrectIncorrectScreenDisplayed
+	} = useDispatch('quillForms/renderer-core');
 	const { beforeGoingNext } = useFormContext();
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
-	const { currentBlockId, walkPath, blockTypes } = useSelect( ( select ) => {
+	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
+	const { currentBlockId, walkPath, blockTypes, correctIncorrectDisplay } = useSelect((select) => {
 		return {
 			currentBlockId: select(
 				'quillForms/renderer-core'
 			).getCurrentBlockId(),
-			walkPath: select( 'quillForms/renderer-core' ).getWalkPath(),
-			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			walkPath: select('quillForms/renderer-core').getWalkPath(),
+			blockTypes: select('quillForms/blocks').getBlockTypes(),
+			correctIncorrectDisplay: select('quillForms/renderer-core').getCorrectIncorrectDisplay(),
 		};
-	} );
-	if ( ! currentBlockId ) return null;
+	});
+	if (!currentBlockId) return null;
 	const currentBlockIndex = walkPath.findIndex(
-		( block ) => block.id === currentBlockId
+		(block) => block.id === currentBlockId
 	);
 
-	const currentBlockName = walkPath[ currentBlockIndex ]?.name;
+	const currentBlockName = walkPath[currentBlockIndex]?.name;
 
-	const currentBlockType = blockTypes?.[ currentBlockName ];
+	const currentBlockType = blockTypes?.[currentBlockName];
 
-	const { isCurrentBlockValid, answers } = useSelect( ( select ) => {
+	const { isCurrentBlockValid, answers, isFieldCorrectIncorrectScreenDisplayed } = useSelect((select) => {
 		return {
-			answers: select( 'quillForms/renderer-core' ).getAnswers(),
+			answers: select('quillForms/renderer-core').getAnswers(),
 			isCurrentBlockValid: currentBlockType?.supports?.innerBlocks
-				? select( 'quillForms/renderer-core' )?.hasValidFields(
-						currentBlockId
-				  )
+				? select('quillForms/renderer-core')?.hasValidFields(
+					currentBlockId
+				)
 				: currentBlockType?.supports?.editable
-				? select( 'quillForms/renderer-core' )?.isValidField(
+					? select('quillForms/renderer-core')?.isValidField(
 						currentBlockId
-				  )
-				: true,
+					)
+					: true,
+			isFieldCorrectIncorrectScreenDisplayed: select('quillForms/renderer-core').isFieldCorrectIncorrectScreenDisplayed(currentBlockId)
 		};
-	} );
+	});
 
 	const goNextReally = async () => {
-		if ( answers[ currentBlockIndex ]?.isPending ) return;
-		if ( beforeGoingNext && currentBlockId ) {
-			await beforeGoingNext( {
+		if (answers[currentBlockIndex]?.isPending) return;
+		if (beforeGoingNext && currentBlockId) {
+			await beforeGoingNext({
 				answers,
 				currentBlockId,
 				setIsFieldValid,
@@ -73,57 +79,66 @@ const FieldNavigation = ( { shouldFooterBeDisplayed } ) => {
 				setIsCurrentBlockSafeToSwipe,
 				goToBlock,
 				goNext,
-				setIsPending: ( val ) =>
-					setIsFieldPending( currentBlockId, val ),
-			} );
+				setIsPending: (val) =>
+					setIsFieldPending(currentBlockId, val),
+			});
 		} else {
+			if (correctIncorrectQuiz?.enabled &&
+				correctIncorrectDisplay === false &&
+				currentBlockType.supports.correctAnswers &&
+				!isFieldCorrectIncorrectScreenDisplayed
+			) {
+				setCorrectIncorrectDisplay(true);
+				setIsFieldCorrectIncorrectScreenDisplayed(currentBlockId, true);
+				return;
+			}
 			goNext();
 		}
 	};
 
 	return (
 		<div
-			className={ classnames( 'renderer-core-field-navigation', {
-				hidden: ! shouldFooterBeDisplayed,
-			} ) }
+			className={classnames('renderer-core-field-navigation', {
+				hidden: !shouldFooterBeDisplayed,
+			})}
 		>
 			<div
-				className={ classnames(
+				className={classnames(
 					'renderer-core-field-navigation__up-icon',
 					{
 						rotate: settings?.animationDirection === 'horizontal',
 					},
 					css`
-						background: ${ theme.buttonsBgColor };
+						background: ${theme.buttonsBgColor};
 					`
-				) }
-				onClick={ () => {
+				)}
+				onClick={() => {
 					goPrev();
-				} }
+				}}
 			>
 				<UpIcon />
 			</div>
 			<div
-				className={ classnames(
+				className={classnames(
 					'renderer-core-field-navigation__down-icon',
 					{
 						rotate: settings?.animationDirection === 'horizontal',
 					},
 					css`
-						background: ${ theme.buttonsBgColor };
+						background: ${theme.buttonsBgColor};
 					`
-				) }
-				onClick={ () => {
+				)}
+				onClick={() => {
 					if (
-						walkPath[ walkPath.length - 1 ].id !== currentBlockId
+						walkPath[walkPath.length - 1].id !== currentBlockId
 					) {
-						if ( isCurrentBlockValid ) {
+						if (isCurrentBlockValid) {
 							goNextReally();
 						} else {
-							setIsCurrentBlockSafeToSwipe( false );
+							setIsCurrentBlockSafeToSwipe(false);
 						}
 					}
-				} }
+				}}
 			>
 				<DownIcon />
 			</div>

@@ -81,9 +81,10 @@ const BlockEdit: React.FC<Props> = (props) => {
 		attachment = attributes.attachment;
 	}
 
-	const { blockTypes } = useSelect((select) => {
+	const { blockTypes, correctIncorrectQuiz } = useSelect((select) => {
 		return {
 			blockTypes: select('quillForms/blocks').getBlockTypes(),
+			correctIncorrectQuiz: select('quillForms/quiz-editor').getState()
 		};
 	});
 
@@ -108,6 +109,35 @@ const BlockEdit: React.FC<Props> = (props) => {
 	mergeTags = mergeTags.concat(
 		applyFilters('QuillForms.Builder.MergeTags', []) as any[]
 	);
+
+	if (correctIncorrectQuiz?.enabled) {
+		mergeTags = mergeTags.concat([
+			{
+				type: 'quiz',
+				label: 'Correct Answers Count',
+				modifier: 'correct_answers_count',
+				icon: 'yes',
+				color: '#4caf50',
+				order: undefined,
+			},
+			{
+				type: 'quiz',
+				label: 'Incorrect Answers Count',
+				modifier: 'incorrect_answers_count',
+				icon: 'no-alt',
+				color: '#f44336',
+				order: undefined,
+			},
+			{
+				type: 'quiz',
+				label: 'Quiz Summary',
+				modifier: 'summary',
+				icon: 'editor-table',
+				color: '#4caf50',
+				order: undefined,
+			}
+		]);
+	}
 
 	let currentEditor = labelEditor;
 	if (focusedEl === 'desc') {

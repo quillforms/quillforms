@@ -31,13 +31,13 @@ import RestartIcon from './restart-icon';
 
 interface Props {
 	formId: number;
-	setFullPreviewMode: ( val: boolean ) => void;
+	setFullPreviewMode: (val: boolean) => void;
 }
-const FullFormPreview: React.FC< Props > = ( {
+const FullFormPreview: React.FC<Props> = ({
 	formId,
 	setFullPreviewMode,
-} ) => {
-	const [ isReady, setIsReady ] = useState( false );
+}) => {
+	const [isReady, setIsReady] = useState(false);
 
 	const { resetAnswers, goToBlock, completeForm } = useDispatch(
 		'quillForms/renderer-core'
@@ -45,58 +45,82 @@ const FullFormPreview: React.FC< Props > = ( {
 
 	const themeId = useCurrentThemeId();
 	const currentTheme = useCurrentTheme();
-	const { themesList, blocks, messages, logic, hiddenFields, settings } =
-		useSelect( ( select ) => {
-			// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
-			return {
-				themesList: select( 'quillForms/theme-editor' ).getThemesList(),
-				currentBlockBeingEdited: select(
-					'quillForms/block-editor'
-				).getCurrentBlockId(),
-				blocks: select( 'quillForms/block-editor' ).getBlocks(),
-				messages: select( 'quillForms/messages-editor' ).getMessages(),
-				logic: select( 'quillForms/logic-editor' )?.getLogic(),
-				hiddenFields: select(
-					'quillForms/hidden-fields-editor'
-				)?.getHiddenFields(),
-				settings: select( 'quillForms/settings-editor' ).getSettings(),
-			};
-		} );
+	const {
+		correctIncorrectQuiz,
+		themesList,
+		customFontsList,
+		currentBlockBeingEdited,
+		blocks,
+		messages,
+		logic,
+		hiddenFields,
+		settings,
+		customCSS,
+	} = useSelect((select) => {
+		// hasFinishedResolution isn't in select map and until now, @types/wordpress__data doesn't have it by default.
+		const { hasFinishedResolution } = select('quillForms/theme-editor');
+		const customFontsSelector = select('quillForms/custom-fonts');
 
-	useEffect( () => {
+		return {
+			hasThemesFinishedResolution:
+				hasFinishedResolution('getThemesList'),
+			hasFontsFinishedResolution:
+				// @ts-expect-error
+				customFontsSelector ? customFontsSelector.hasFinishedResolution('getFontsList') : true,
+
+			themesList: select('quillForms/theme-editor').getThemesList(),
+			customFontsList: customFontsSelector?.getFontsList() ?? [],
+			currentBlockBeingEdited: select(
+				'quillForms/block-editor'
+			).getCurrentBlockId(),
+			blocks: select('quillForms/block-editor').getBlocks(),
+			messages: select('quillForms/messages-editor').getMessages(),
+			logic: select('quillForms/logic-editor')?.getLogic(),
+			hiddenFields: select(
+				'quillForms/hidden-fields-editor'
+			)?.getHiddenFields(),
+			settings: select('quillForms/settings-editor').getSettings(),
+			customCSS: select('quillForms/code-editor').getCustomCSS(),
+			correctIncorrectQuiz: select(
+				'quillForms/quiz-editor'
+			)?.getState(),
+		};
+	});
+
+	useEffect(() => {
 		resetAnswers();
-		if ( blocks?.length > 0 ) {
-			goToBlock( blocks[ 0 ].id );
+		if (blocks?.length > 0) {
+			goToBlock(blocks[0].id);
 		}
-		setTimeout( () => {
-			setIsReady( true );
-		}, 500 );
-	}, [ isReady ] );
-	const $themesList = cloneDeep( themesList );
-	if ( themeId ) {
+		setTimeout(() => {
+			setIsReady(true);
+		}, 500);
+	}, [isReady]);
+	const $themesList = cloneDeep(themesList);
+	if (themeId) {
 		$themesList[
-			$themesList.findIndex( ( theme ) => theme.id === themeId )
+			$themesList.findIndex((theme) => theme.id === themeId)
 		] = {
 			id: themeId,
 			...currentTheme,
 		};
 	}
 	const $hiddenFields = {};
-	if ( hiddenFields ) {
-		for ( const field of hiddenFields ) {
-			if ( $hiddenFields[ field.name ] === undefined ) {
-				$hiddenFields[ field.name ] = field.test;
+	if (hiddenFields) {
+		for (const field of hiddenFields) {
+			if ($hiddenFields[field.name] === undefined) {
+				$hiddenFields[field.name] = field.test;
 			}
 		}
 	}
 
 	return (
 		<>
-			{ createPortal(
+			{createPortal(
 				<div className="builder-core-full-preview-area-wrapper">
-					{ ! isReady ? (
+					{!isReady ? (
 						<div
-							className={ classnames(
+							className={classnames(
 								'builder-core-full-preview-area-wrapper__loader',
 								css`
 									display: flex;
@@ -106,43 +130,43 @@ const FullFormPreview: React.FC< Props > = ( {
 									align-items: center;
 									justify-content: center;
 								`
-							) }
+							)}
 						>
-							<Loader color="#333" height={ 30 } width={ 30 } />
+							<Loader color="#333" height={30} width={30} />
 						</div>
 					) : (
 						<>
 							<div className="builder-core-full-preview-area__header">
 								<a
 									className="builder-core-full-preview-area__back"
-									onClick={ () => {
-										setFullPreviewMode( false );
+									onClick={() => {
+										setFullPreviewMode(false);
 										resetAnswers();
-									} }
+									}}
 								>
-									<Icon icon={ arrowLeft } /> Back
+									<Icon icon={arrowLeft} /> Back
 								</a>
 								<div className="builder-core-full-preview-area__title">
 									Live Preview
 								</div>
 								<div
 									className="builder-core-full-preview-area__restart"
-									onClick={ () => {
-										setIsReady( false );
+									onClick={() => {
+										setIsReady(false);
 										resetAnswers();
-										if ( blocks?.length > 0 ) {
-											goToBlock( blocks[ 0 ].id );
+										if (blocks?.length > 0) {
+											goToBlock(blocks[0].id);
 										}
-									} }
+									}}
 								>
 									<RestartIcon /> Restart
 								</div>
 							</div>
 							<div className="builder-core-full-preview-area">
-								{ blocks.length > 0 ? (
+								{blocks.length > 0 ? (
 									<Form
-										formId={ formId }
-										formObj={ {
+										formId={formId}
+										formObj={{
 											blocks,
 											theme: currentTheme?.properties,
 											messages,
@@ -150,24 +174,27 @@ const FullFormPreview: React.FC< Props > = ( {
 											hiddenFields: $hiddenFields,
 											themesList: $themesList,
 											settings,
-										} }
-										applyLogic={ true }
-										onSubmit={ () => {
-											setTimeout( () => {
+											customCSS,
+											correctIncorrectQuiz
+										}}
+										customFonts={customFontsList}
+										applyLogic={true}
+										onSubmit={() => {
+											setTimeout(() => {
 												completeForm();
-											}, 500 );
-										} }
-										isPreview={ true }
+											}, 500);
+										}}
+										isPreview={true}
 									/>
 								) : (
 									<NoBlocks />
-								) }
+								)}
 							</div>
 						</>
-					) }
+					)}
 				</div>,
 				document.body
-			) }
+			)}
 		</>
 	);
 };

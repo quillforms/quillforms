@@ -6,3 +6,4 @@ import './theme';
 import './title';
 import './slug';
 import './settings';
+import "./quiz";

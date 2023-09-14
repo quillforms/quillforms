@@ -7,6 +7,8 @@
  */
 
 namespace QuillForms;
+use QuillForms\Managers\Blocks_Manager;
+
 /**
  * This class is to handle merge tags.
  * Merge tags should have the same structure with type and modifier {{type:modifer}}
@@ -61,6 +63,7 @@ class Merge_Tags
         $this->register('property', array( 'process' => array( $this, 'process_property_merge_tag' ) ));
         $this->register('user', array( 'process' => array( $this, 'process_user_merge_tag' ) ));
         $this->register('website', array( 'process' => array( $this, 'process_website_merge_tag' ) ));
+        $this->register('quiz', array( 'process' => array( $this, 'process_quiz_merge_tag' ) ));
     }
 
     /**
@@ -261,6 +264,107 @@ class Merge_Tags
 		case 'username':
 			return $user->user_login;
 
+        }
+        return '';
+    }
+
+
+    /**
+     * Process quiz merge tag.
+     * Website merge tag is when we have {{quiz:any}} in the string.
+     * So, now the merge tag type is "quiz" and the modifier is "any".
+     * We need to do some processing on this merge tag and replace it with the appropriate string.
+     *
+     * @since 1.8.9
+     *
+     * @param string $modifier  The merge tag modifier.
+     * @param Entry  $entry     The entry object.
+     * @param array  $form_data The form data and settings.
+     * @param string $context   The context.
+     *
+     * @return string The string after processing merge tags.
+     */
+	public function process_quiz_merge_tag( $modifier, $entry, $form_data, $context ) { // phpcs:ignore
+        $correctIncorrectQuiz  =  get_post_meta($form_data['id'], 'quiz', true) ?? false;
+        if (!$correctIncorrectQuiz || !is_array($correctIncorrectQuiz) || empty($correctIncorrectQuiz) || !$correctIncorrectQuiz['enabled']) {
+            return '';
+        }
+
+        $messages= $form_data['messages'];
+
+        quillforms_get_logger()->info('quiz', array('quiz' => $correctIncorrectQuiz));
+        $blocks = $form_data['blocks'];
+        $correct_count  = 0;
+        $incorrect_count = 0;
+        $correct_incorrect_summary = array();
+        foreach ( $blocks as $block_data ) {
+            $field_id = $block_data['id'];
+
+            $block_type = Blocks_Manager::instance()->create( $block_data );
+            if($block_type && $block_type->supported_features['correctAnswers'] &&  $correctIncorrectQuiz['enabled']) {
+                $field_value = $entry->get_record_value( 'field', $field_id );
+                quillforms_get_logger()->info( 'field_value', $field_value );
+                // this is how we check in js
+                // const isCorrect = $val.every((answer) => correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes(answer));
+                $new_block = $block_data;
+                if($field_value && is_array($field_value)) {
+                    $is_correct = quillforms_array_every(  $field_value, function( $answer ) use ( $correctIncorrectQuiz, $field_id ) {
+                        if(isset($correctIncorrectQuiz['questions'][$field_id]) && isset($correctIncorrectQuiz['questions'][$field_id]['correctAnswers']) ) {
+                            return in_array( $answer, $correctIncorrectQuiz['questions'][ $field_id ]['correctAnswers'], true );
+                        }
+                        return false;
+                    } );
+                } else {
+                    $is_correct = false;
+                }
+                $new_block['isCorrect'] = $is_correct;
+                $new_block['value'] = $field_value;
+                $new_block['block_type'] = $block_type;
+                if(isset($correctIncorrectQuiz['questions'][ $field_id ]['explanation']) && !empty( $correctIncorrectQuiz['questions'][$field_id]['explanation'])) {
+                    $new_block['explanation'] = $correctIncorrectQuiz['questions'][ $field_id ]['explanation'];
+                }
+                
+
+                
+                if ($is_correct) {
+                    $correct_count ++;
+                } else {
+                    $incorrect_count ++;
+                }
+
+                $correct_incorrect_summary[] = $new_block;
+            }
+        }
+        switch ( $modifier ) {
+        case 'correct_answers_count':
+            return $correct_count;
+        case 'incorrect_answers_count':
+            return $incorrect_count;
+
+        case 'summary':
+            quillforms_get_logger()->info('summary', array('summary' => $correct_incorrect_summary) );
+            $res = '';
+            foreach($correct_incorrect_summary as $index => $field) {
+                $res .= '<p>' . $index + 1  . '- ' . $field['attributes']['label'] . '</p>';
+                if($field['value'] && !empty($field['value'])) {
+                    $readable_value= $field['block_type']->get_readable_value( $field['value'], $form_data, $context );
+                }
+                else {
+                    $readable_value = '';
+                }
+                $background_color = $answers[$field_id]['isCorrect'] ? '#5bc68a' : '#d93148';
+                $res .= '<p>' .   $messages["label.yourAnswer"] .': ' . $readable_value . '</p>';
+                $res .= '<p style="color: #fff;background-color:' . $background_color .  ';padding: 5px 8px; display: inline-block;">'. $field['correct'] ? $messages['label.correct'] : $messages['label.incorrect'] . '</p>';
+                if($field['explanation']) {
+                    $res .= '<p style="">' . $messages['label.answersExplanation'] . '</p> <p style="">' . $field['explanation'] . '</p>';
+                }
+                // return '<p>' . $field['attributes']['label']  . '<p
+                // <p style="">'. $field['correct'] ? 'Correct' : 'Incorrect' . '</p>' . 
+                // $field['explanation'] ? '<p style="">Answer Explanation</p>             
+                // <p style="">' . $field['explanation'] . '</p>' : '';
+            }
+
+            return $res;
         }
         return '';
     }

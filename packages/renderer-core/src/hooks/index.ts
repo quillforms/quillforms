@@ -16,3 +16,4 @@ export { default as useAnswersResetter } from './use-answers-reset';
 export { default as useGoToBlock } from './use-go-to-block';
 export { default as useFieldAnswer } from './use-field-answer';
 export { default as useStripTags } from './use-strip-tags';
+export { default as useCorrectIncorrectQuiz } from "./use-correct-incorrect-quiz";

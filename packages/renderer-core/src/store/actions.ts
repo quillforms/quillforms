@@ -15,10 +15,14 @@ import {
 	SET_IS_FIELD_VALID,
 	INSERT_EMPTY_FIELD_ANSWER,
 	SET_FIELD_VALIDATION_ERR,
+	SET_CORRECT_INCORRECT_DISPLAY,
+	SET_IS_FIELD_ANSWER_LOCKED,
+	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
 	RESET_ANSWERS,
 	SET_IS_FOCUSED,
 	SET_FOOTER_DISPLAY,
-	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
+	SET_IS_FIELD_ANSWER_CORRECT,
+	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE
 } from './constants';
 
 import type {
@@ -342,3 +346,64 @@ export const setIsCurrentBlockSafeToSwipe = ( val: boolean ) => {
 		val,
 	};
 };
+
+
+/**
+ * Set Is Field Answer Correct
+ * 
+ * 
+ * @param {string} id  Field uid.
+ * @param {boolean} val Field isCorrect flag.
+ */
+export const setIsFieldAnswerCorrect = (
+	id: string,
+	val: boolean
+): RendererAnswersActionTypes => {
+	return {
+		type: SET_IS_FIELD_ANSWER_CORRECT,
+		id,
+		val,
+	};
+}
+
+/**
+ * Set Is answer locked
+ * @param {string} id  Field uid.
+ * @param {boolean} val Field isCorrect flag.
+ */
+export const setIsFieldAnswerLocked = (
+	id: string,
+	val: boolean
+): RendererAnswersActionTypes => {
+	return {
+		type: SET_IS_FIELD_ANSWER_LOCKED,
+		id,
+		val,
+	}
+}
+
+/**
+ * Set Is Field correct incorrect screen displayed
+ * @param val 
+ * @returns 
+ */
+export const setIsFieldCorrectIncorrectScreenDisplayed = (
+	id: string,
+	val: boolean
+): RendererAnswersActionTypes => {
+	return {
+		type: SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
+		id,
+		val,
+	}
+}
+
+
+export const setCorrectIncorrectDisplay = (
+	val: boolean
+): SwiperActionTypes => {
+	return {
+		type: SET_CORRECT_INCORRECT_DISPLAY,
+		val,
+	};
+}

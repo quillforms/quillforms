@@ -318,3 +318,24 @@ function quillforms_objects_find( $objects, $key, $value ) {
 	}
 	return null;
 }
+
+
+/**
+ * Js every equivalent for php
+ * 
+ * @since @next
+ * 
+ * @param array    $arr       The array to be checked.
+ * @param callable $predicate The predicate to be checked.
+ * 
+ * @return bool
+ */
+function quillforms_array_every(array $arr, callable $predicate) {
+    foreach ($arr as $e) {
+        if (!call_user_func($predicate, $e)) {
+             return false;
+        }
+    }
+
+    return true;
+}

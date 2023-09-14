@@ -1,7 +1,7 @@
 /**
  * QuillForms Depndencies
  */
-import { useMessages } from '@quillforms/renderer-core';
+import { useMessages, useCorrectIncorrectQuiz } from '@quillforms/renderer-core';
 
 /**
  * WordPress Dependencies
@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 /**
  * External Dependencies
  */
-import { size } from 'lodash';
+import { set, size } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -30,20 +30,32 @@ const MultipleChoiceOutput = (props) => {
 		val,
 		setVal,
 		next,
+		isAnswerLocked,
 		isActive,
 		isAnimating,
 		showErrMsg,
 		isPreview,
 		isReviewing,
+		setIsAnswerCorrect
 	} = props;
 	const { multiple, required, min, max } = attributes;
 	const messages = useMessages();
+	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const [choiceClicked, setChoiceClicked] = useState(null);
 	const checkfieldValidation = ($val) => {
 		if (required === true && (!$val || $val.length === 0)) {
 			setIsValid(false);
 			setValidationErr(messages['label.errorAlert.required']);
 		} else {
+			if (size($val) > 0 && correctIncorrectQuiz?.enabled && correctIncorrectQuiz?.showAnswersDuringQuiz) {
+				// $val is array of selected choices
+				// const isCorrect = correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes($val);
+				// if each value from $val includes any answer from those in the correctAnswers array, then it is correct, not the opposite.
+
+				const isCorrect = $val.every((answer) => correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes(answer));
+				// const isCorrect = correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.every((answer) => $val.includes(answer));
+				setIsAnswerCorrect(isCorrect);
+			}
 			if (multiple && min && size($val) < min) {
 				setIsValid(false);
 				setValidationErr(messages['label.errorAlert.minChoices']);
@@ -83,7 +95,7 @@ const MultipleChoiceOutput = (props) => {
 
 	useEffect(() => {
 		if (isPreview || !isReviewing) checkfieldValidation(val);
-	}, [attributes]);
+	}, [attributes, correctIncorrectQuiz]);
 
 	useEffect(() => {
 		if (val?.length > 0) {
@@ -105,6 +117,8 @@ const MultipleChoiceOutput = (props) => {
 				id={id}
 				val={val}
 				isActive={isActive}
+				isAnswerLocked={isAnswerLocked}
+				correctIncorrectQuiz={correctIncorrectQuiz}
 				checkfieldValidation={checkfieldValidation}
 				setVal={setVal}
 				setChoiceClicked={(val) => {
