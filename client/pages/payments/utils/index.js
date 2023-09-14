@@ -20,7 +20,7 @@ const getInitialState = () => {
 			pay: 'Pay Now',
 			discountQuestion: 'You have a coupon?',
 			discountPlaceholder: 'Enter your discount code',
-			discountApply: 'Apply',
+			applyDiscount: 'Apply',
 		},
 		products: {},
 		coupons: {},

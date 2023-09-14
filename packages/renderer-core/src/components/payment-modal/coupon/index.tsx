@@ -80,14 +80,14 @@ const Coupon: React.FC<Props> = ({ data }) => {
 				`)}
 				onClick={() => setShowCoupon(true)}
 			>
-				{data.payments.labels?.discountQuestion}
+				{data.payments.labels?.discountQuestion ?? 'You have a coupon?'}
 			</div>
 			{showCoupon && (
 				<div className="render-core-payment-coupon-form">
 					<div className="renderer-core-payment-coupon__input">
 						<input
 							type="text"
-							placeholder={data.payments.labels?.discountPlaceholder}
+							placeholder={data.payments.labels?.discountPlaceholde ?? 'Enter your discount code'}
 							style={{
 								color: '#333',
 								border: `1px solid rgba(0, 0, 0, 0.3)`,
@@ -140,7 +140,7 @@ const Coupon: React.FC<Props> = ({ data }) => {
 										width={16}
 									/>
 								) : (
-									<>{data.payments.labels?.discountApply} </>
+									<>{data.payments.labels?.applyDiscount ?? 'apply'} </>
 								)}
 							</span>
 						</button>

@@ -74,6 +74,13 @@ const ChooseTemplate = () => {
                                 }
                             }
 
+                            if (formTemplates[chosenTemplate].data.quiz) {
+                                data = {
+                                    ...data,
+                                    quiz: formTemplates[chosenTemplate].data.quiz
+                                }
+                            }
+
                             if (formTemplates[chosenTemplate].data.products) {
                                 data = {
                                     ...data,

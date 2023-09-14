@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.3
-Stable tag: 3.1.0
+Stable tag: 3.2.1
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -17,6 +17,7 @@ Quill Forms is more than just a form. You can build forms, surveys, quizzes and 
 
 === Demos ===
 [Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey)
+[Correct and Incorrect Science Quiz](https://quillforms.com/forms/correct-and-incorrect-science-quiz/)
 [Personality Quiz](https://quillforms.com/forms/personality-quiz)
 [Trivia Quiz](https://quillforms.com/forms/trivia-quiz)
 [Donation Form](https://quillforms.com/forms/simple-donation-form)
@@ -172,6 +173,10 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 3.2.1 = 15 Sep 2023
+Feature: Adding Correct and incorrect quiz template
+Fix: Fixing the discount coupons issue
 
 = 3.2.0 = 14 Sep 2023
 Feature: Adding correct/incorrect answers mode.

@@ -119,6 +119,7 @@ final class QuillForms {
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/simple-donation-form/class-simple-donation-form-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/customer-satisfaction-survey/class-customer-satisfaction-survey-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/web-design-cost-calculator/class-web-design-cost-calculator-template.php';
+		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/science-quiz/class-science-quiz-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/personality-quiz/class-personality-quiz-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/trivia-quiz/class-trivia-quiz-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/job-application-form/class-job-application-form-template.php';

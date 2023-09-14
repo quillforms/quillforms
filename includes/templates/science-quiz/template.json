@@ -1,0 +1,331 @@
+{
+	"blocks": [
+		{
+			"id": "21sf00n4n",
+			"name": "welcome-screen",
+			"attributes": {
+				"buttonText": "Let's start!",
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "Click &quot;Start&quot; when you are ready",
+				"label": "Welcome to our science quiz",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "4okn1l565",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "hgp23oq5lx",
+						"label": "Au"
+					},
+					{
+						"value": "l2x62qknj0",
+						"label": "Ag"
+					},
+					{
+						"value": "qqwhkjga9e",
+						"label": "Go"
+					},
+					{
+						"value": "8gourwgsce",
+						"label": "Gd"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "What is the chemical symbol for the element Gold?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "pse4351n8",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "bnn8kstz0o",
+						"label": "Venus"
+					},
+					{
+						"value": "kqocqbm44j",
+						"label": "Mars"
+					},
+					{
+						"value": "tiyikijckl",
+						"label": "Jupiter"
+					},
+					{
+						"value": "qbpp3fhfjd",
+						"label": "Saturn"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": {
+					"type": "image",
+					"url": "https://quillforms.com/wp-content/uploads/2023/08/pexels-rdne-stock-project-8474464.jpg"
+				},
+				"description": "",
+				"randomize": false,
+				"label": "Which planet in our solar system is known as the &quot;Red Planet&quot;?",
+				"customHTML": "",
+				"layout": "split-right",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "o3squ3dzm",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "k5qv941n08",
+						"label": "Liver"
+					},
+					{
+						"value": "5agwmpv7a6",
+						"label": "Heart"
+					},
+					{
+						"value": "veedtuchrx",
+						"label": "Brain"
+					},
+					{
+						"value": "gznjknd3vf",
+						"label": "Skin"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "What is the largest organ in the human body?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "umlcseitb",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "1ch8q1xoah",
+						"label": "Sublimation"
+					},
+					{
+						"value": "i3ctid08et",
+						"label": "Evaporation"
+					},
+					{
+						"value": "xxbrji82y6",
+						"label": "Condensation"
+					},
+					{
+						"value": "aheqikwvw6",
+						"label": "Melting"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": true,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "Which process converts liquid water into water vapor?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		},
+		{
+			"id": "6eotx8a5q",
+			"name": "multiple-choice",
+			"attributes": {
+				"choices": [
+					{
+						"value": "1twyflnz85",
+						"label": "Volt"
+					},
+					{
+						"value": "mxxjsh7cbz",
+						"label": "Watt"
+					},
+					{
+						"value": "nyxfyynu60",
+						"label": "Ampere"
+					},
+					{
+						"value": "hmp01hx6rn",
+						"label": "Ohm"
+					}
+				],
+				"max": false,
+				"min": false,
+				"verticalAlign": false,
+				"required": true,
+				"nextBtnLabel": false,
+				"classnames": "",
+				"attachment": [],
+				"description": "",
+				"randomize": false,
+				"label": "What is the unit of measurement for electric current?",
+				"customHTML": "",
+				"layout": "stack",
+				"attachmentFocalPoint": {
+					"x": 0.5,
+					"y": 0.5
+				},
+				"attachmentFancyBorderRadius": false,
+				"attachmentBorderRadius": "0px",
+				"attachmentMaxWidth": "none"
+			}
+		}
+	],
+	"messages": {
+		"block.defaultThankYouScreen.label": "We hope you find this science quiz enjoyable and informative!\n\nSummary of your quiz:\n\n{{quiz:correct_answers_count}} correct answers\n\n{{quiz:incorrect_answers_count}} incorrect answers\n\n{{quiz:summary}}",
+		"label.button.ok": "OK",
+		"label.hintText.enter": "press <strong>Enter ↵</strong>",
+		"label.hintText.multipleSelection": "Choose as many as you like",
+		"block.dropdown.placeholder": "Type or select an option",
+		"block.dropdown.noSuggestions": "No Suggestions!",
+		"block.shortText.placeholder": "Type your answer here",
+		"block.longText.placeholder": "Type your answer here",
+		"block.longText.hint": "<strong>Shift ⇧ + Enter ↵</strong> to make a line break",
+		"block.longText.touchHint": "<strong> Enter ↵</strong> to make a line break",
+		"block.number.placeholder": "Type your answer here",
+		"block.email.placeholder": "Type your email here",
+		"label.correct": "Correct",
+		"label.incorrect": "Incorrect",
+		"label.yourAnswer": "Your answer",
+		"label.answersExplanation": "Answers explanation",
+		"label.hintText.key": "Key",
+		"label.yes.default": "Yes",
+		"label.no.default": "No",
+		"label.progress.percent": "{{progress:percent}}% completed",
+		"label.errorAlert.required": "This field is required!",
+		"label.errorAlert.date": "Invalid date!",
+		"label.errorAlert.number": "Numbers only!",
+		"label.errorAlert.selectionRequired": "Please make at least one selection!",
+		"label.errorAlert.email": "Invalid email!",
+		"label.errorAlert.url": "Invalid url!",
+		"label.errorAlert.range": "Please enter a number between {{attribute:min}} and {{attribute:max}}",
+		"label.errorAlert.minNum": "Please enter a number greater than {{attribute:min}}",
+		"label.errorAlert.maxNum": "Please enter a number lower than {{attribute:max}}",
+		"label.errorAlert.maxCharacters": "Maximum characters reached!",
+		"label.errorAlert.minCharacters": "Please insert more than {{attribute:minCharacters}} characters!",
+		"label.errorAlert.minChoices": "Please select at least {{attribute:min}} choices!",
+		"label.errorAlert.maxChoices": "Maximum choices to select is {{attribute:max}}!",
+		"label.submitBtn": "Submit",
+		"label.errorAlert.noConnection": "Can't connect to the server right now!",
+		"label.errorAlert.serverError": "Server error!",
+		"block.file.uploadLabel": "<strong> Choose file </strong> or <strong>Drag here</strong>",
+		"label.hint.maxFileUploadSize": "Maximum file size is {{attribute:maxFileSize}}MB",
+		"label.errorAlert.phone": "Invalid phone number!"
+	},
+	"notifications": [],
+	"settings": {
+		"disableProgressBar": false,
+		"disableWheelSwiping": false,
+		"disableNavigationArrows": false,
+		"animationDirection": "vertical",
+		"showLettersOnAnswers": true,
+		"showQuestionsNumbers": true,
+		"saveAnswersInBrowser": false,
+		"displayBranding": false
+	},
+	"quiz": {
+		"enabled": true,
+		"questions": {
+			"4okn1l565": {
+				"correctAnswers": [
+					"hgp23oq5lx"
+				],
+				"explanation": "The chemical symbol for Gold is Au, derived from its Latin name \"aurum.\""
+			},
+			"pse4351n8": {
+				"correctAnswers": [
+					"kqocqbm44j"
+				],
+				"explanation": "Mars is often referred to as the \"Red Planet\" due to its reddish appearance caused by iron oxide (rust) on its surface."
+			},
+			"o3squ3dzm": {
+				"correctAnswers": [
+					"gznjknd3vf"
+				],
+				"explanation": " The skin is the largest organ in the human body, serving as a protective barrier and playing a crucial role in regulating body temperature."
+			},
+			"umlcseitb": {
+				"correctAnswers": [
+					"i3ctid08et"
+				],
+				"explanation": "Evaporation is the process by which liquid water changes into water vapor due to the absorption of heat energy."
+			},
+			"6eotx8a5q": {
+				"correctAnswers": [
+					"nyxfyynu60"
+				],
+				"explanation": "Electric current is measured in amperes (A), named after the French physicist André-Marie Ampère.\n\n"
+			}
+		},
+		"showAnswersDuringQuiz": true
+	}
+}

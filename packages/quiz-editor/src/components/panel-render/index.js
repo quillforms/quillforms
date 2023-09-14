@@ -105,9 +105,20 @@ const PanelRender = () => {
                                         {`{{quiz:summary}}`}
                                     </div>
                                     <div className='quiz-editor-tag-explanation'>
-                                        {`Prints the summary of the quiz`}
+                                        {`presents each question along with the answer's correctness, followed by an explanation if available.`}
                                     </div>
                                 </div>
+                            </div>
+                            <div className={css`  
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100px;
+                                margin-top: 30px;
+                                background: #ffeec1;
+                                color: #85855b;
+                                font-size: 14px;`}>
+                                Assingning points can be done from "Calculator" panel then click on "Points" subpanel.
                             </div>
                         </ControlWrapper>
                     </BaseControl>

@@ -79,6 +79,7 @@ const Labels = () => {
 							}}
 						></TextControl>
 					</ControlWrapper>
+
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
