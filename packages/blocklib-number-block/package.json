@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-number-block",
-	"version": "3.0.44",
+	"version": "3.0.45",
 	"description": "Number block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -24,7 +24,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@quillforms/admin-components": "^3.0.33",
-		"@quillforms/renderer-core": "^5.6.0",
+		"@quillforms/renderer-core": "^5.7.0",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
 		"react-dnd": "15.1.2",
