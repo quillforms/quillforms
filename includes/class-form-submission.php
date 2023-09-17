@@ -687,7 +687,7 @@ class Form_Submission {
 				'form_data' => maybe_serialize( $this->form_data ),
 			),
 			array( 'ID' => $this->submission_id ),
-			array( '%s', '%s' ),
+			array( '%s', '%s' )
 		);
 	}
 

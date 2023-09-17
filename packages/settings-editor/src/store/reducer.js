@@ -167,7 +167,7 @@ export function showQuestionsNumbers(state = true, action) {
  *
  * @return {Object} Updated state.
  */
-export function displayBranding(state = ConfigAPI?.getLicense()?.status === 'valid' ? false : true, action) {
+export function displayBranding(state = false, action) {
 
 	switch (action.type) {
 		case DISPLAY_BRANDING:
@@ -177,7 +177,7 @@ export function displayBranding(state = ConfigAPI?.getLicense()?.status === 'val
 			return typeof action.initialPayload?.displayBranding !==
 				'undefined'
 				? action.initialPayload?.displayBranding
-				: ConfigAPI?.getLicense()?.status === 'valid' ? false : true;
+				: false;
 		}
 	}
 

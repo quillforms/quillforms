@@ -26,8 +26,6 @@ import classnames from "classnames";
 
 const PanelRender = () => {
 
-	const [displayProModal, setDisplayProModal] = useState(false);
-	const license = ConfigAPI.getLicense();
 
 	const {
 		disableProgressBar,
@@ -185,57 +183,12 @@ const PanelRender = () => {
 					<ToggleControl
 						checked={shouldBrandingBeDisplayed}
 						onChange={() => {
-							if (license?.status !== 'valid') {
-								setDisplayProModal(true);
-							}
-							else {
-								displayBranding(!shouldBrandingBeDisplayed);
-							}
+							displayBranding(!shouldBrandingBeDisplayed);
 						}}
 					/>
 				</ControlWrapper>
 			</BaseControl>
-
-			<>
-				{displayProModal && (
-					<Modal
-						className={classnames(
-							css`
-										border: none !important;
-										border-radius: 9px;
-
-										.components-modal__header {
-											background: linear-gradient(
-												42deg,
-												rgb( 235 54 221 ),
-												rgb( 238 142 22 )
-											);
-											h1 {
-												color: #fff;
-											}
-											svg {
-												fill: #fff;
-											}
-										}
-										.components-modal__content {
-											text-align: center;
-										}
-									`
-						)}
-						title="Remove QuillForms Branding"
-						onRequestClose={() => {
-							setDisplayProModal(false);
-						}}
-					>
-						<__experimentalFeatureAvailability
-							featureName="Remove QuillForms Branding"
-							planKey="basic"
-							showLockIcon={true}
-						/>
-					</Modal>
-				)}
-			</>
-		</div >
+		</div>
 	);
 };
 export default PanelRender;
