@@ -622,7 +622,7 @@ class Form_Submission {
 				'step'         => $step,
 				'entry'        => maybe_serialize( $this->entry ),
 				'form_data'    => maybe_serialize( $this->form_data ),
-				'date_created' => gmdate( 'Y-m-d H:i:s' ),
+				'date_created' => gmdate( 'Y-m-d H:i:s' )
 			)
 		);
 

@@ -345,7 +345,8 @@ class Merge_Tags
             quillforms_get_logger()->info('summary', array('summary' => $correct_incorrect_summary) );
             $res = '';
             foreach($correct_incorrect_summary as $index => $field) {
-                $res .= '<p>' . $index + 1  . '- ' . $field['attributes']['label'] . '</p>';
+                $question_number = $index + 1;
+                $res .= '<p>' . $question_number  . '- ' . $field['attributes']['label'] . '</p>';
                 if($field['value'] && !empty($field['value'])) {
                     $readable_value= $field['block_type']->get_readable_value( $field['value'], $form_data, $context );
                 }
