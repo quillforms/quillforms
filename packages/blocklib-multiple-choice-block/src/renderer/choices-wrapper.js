@@ -81,7 +81,7 @@ const ChoicesWrapper =
 				$val = [];
 			}
 			if (selected) {
-				if (!correctIncorrectQuiz?.showAnswersDuringQuiz) {
+				if (!correctIncorrectQuiz?.enabled || !correctIncorrectQuiz?.showAnswersDuringQuiz) {
 					$val.splice(
 						$val.findIndex((item) => item === newValue),
 						1
