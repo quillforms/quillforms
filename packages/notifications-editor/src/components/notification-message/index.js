@@ -7,8 +7,10 @@ import {
 	ControlWrapper,
 	getPlainExcerpt,
 	RichTextControl,
+
 } from '@quillforms/admin-components';
 
+import { FullRichText } from '@quillforms/rich-text';
 /**
  * WordPress Dependencies
  */
@@ -68,15 +70,17 @@ const EmailMessage = ({
 		{
 			type: 'form',
 			modifier: 'all_answers',
+			value: 'all_answers',
 			label: 'all_answers',
 		},
-	].concat(fields);
+	];
 	if (quizMode) {
-		mergeTags = mergeTags.concat([
+		mergeTags = [
 			{
 				type: 'quiz',
 				label: 'Correct Answers Count',
 				modifier: 'correct_answers_count',
+				value: 'correct_answers_count',
 				icon: 'yes',
 				color: '#4caf50',
 				order: undefined,
@@ -85,6 +89,7 @@ const EmailMessage = ({
 				type: 'quiz',
 				label: 'Incorrect Answers Count',
 				modifier: 'incorrect_answers_count',
+				value: 'incorrect_answers_count',
 				icon: 'no-alt',
 				color: '#f44336',
 				order: undefined,
@@ -93,22 +98,29 @@ const EmailMessage = ({
 				type: 'quiz',
 				label: 'Quiz Summary',
 				modifier: 'summary',
+				value: 'summary',
 				icon: 'editor-table',
 				color: '#4caf50',
 				order: undefined,
 			}
-		]);
+		];
 	}
 
-	mergeTags = mergeTags.concat(
-		applyFilters('QuillForms.Builder.MergeTags', [])
-	);
+	// mergeTags = mergeTags.concat(
+	// 	applyFilters('QuillForms.Builder.MergeTags', [])
+	// );
 
 	return (
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
 				<ControlLabel label="Message" showAsterisk={true} />
-				<RichTextControl
+				<FullRichText value={value || '<p></p>'}
+					onChange={(newVal) => {
+						setValue(newVal);
+					}}
+					customMergeTags={mergeTags}
+				/>
+				{/* <RichTextControl
 					className={css`
 						min-height: 120px !important;
 					` }
@@ -118,7 +130,7 @@ const EmailMessage = ({
 						setValue(newVal);
 					}}
 					allowedFormats={['bold', 'italic', 'link']}
-				/>
+				/> */}
 			</ControlWrapper>
 			{!isValid && isReviewing && (
 				<AlertMessageWrapper type="error">
