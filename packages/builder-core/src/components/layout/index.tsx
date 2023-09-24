@@ -33,21 +33,21 @@ import { size } from 'lodash';
 interface Props {
 	formId: number;
 }
-const Layout: React.FC< Props > = ( { formId } ) => {
-	const [ targetIndex, setTargetIndex ] = useState< number >();
-	const [ isDraggingContent, setIsDraggingContent ] =
-		useState< boolean >( false );
-	const [ sourceContentIndex, setSourceContentIndex ] = useState< number >();
-	const [ isDragging, setIsDragging ] = useState< boolean >( false );
+const Layout: React.FC<Props> = ({ formId }) => {
+	const [targetIndex, setTargetIndex] = useState<number>();
+	const [isDraggingContent, setIsDraggingContent] =
+		useState<boolean>(false);
+	const [sourceContentIndex, setSourceContentIndex] = useState<number>();
+	const [isDragging, setIsDragging] = useState<boolean>(false);
 
 	const { blockTypes, currentPanel, areaToShow, formBlocks } = useSelect(
-		( select ) => {
-			const { getBlockTypes } = select( 'quillForms/blocks' );
+		(select) => {
+			const { getBlockTypes } = select('quillForms/blocks');
 			const { getCurrentPanel, getAreaToShow } = select(
 				'quillForms/builder-panels'
 			);
 
-			const { getBlocks } = select( 'quillForms/block-editor' );
+			const { getBlocks } = select('quillForms/block-editor');
 			return {
 				blockTypes: getBlockTypes(),
 				currentPanel: getCurrentPanel(),
@@ -64,9 +64,9 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		'quillForms/renderer-core'
 	);
 
-	const hasIncorrectFieldMergeTags = ( a: number, b: number ): boolean => {
-		const list = [ ...formBlocks ];
-		const { attributes } = list[ a ];
+	const hasIncorrectFieldMergeTags = (a: number, b: number): boolean => {
+		const list = [...formBlocks];
+		const { attributes } = list[a];
 		const label = attributes?.label ? attributes.label : '';
 		const description = attributes?.description
 			? attributes.description
@@ -74,77 +74,77 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		const regex = /{{field:([a-zA-Z0-9-_]+)}}/g;
 		let match;
 
-		while ( ( match = regex.exec( label + ' ' + description ) ) ) {
-			const fieldId = match[ 1 ];
+		while ((match = regex.exec(label + ' ' + description))) {
+			const fieldId = match[1];
 			const fieldIndex = formBlocks.findIndex(
-				( field ) => field.id === fieldId
+				(field) => field.id === fieldId
 			);
-			if ( fieldIndex >= b ) {
+			if (fieldIndex >= b) {
 				return true;
 			}
 		}
 		return false;
 	};
 
-	const onDragStart: OnDragStartResponder = ( {
+	const onDragStart: OnDragStartResponder = ({
 		source,
 	}: {
 		source: {
 			index?: number;
 			droppableId?: string;
 		};
-	} ) => {
-		setIsDragging( true );
-		if ( source?.droppableId !== 'DROP_AREA' ) return;
-		setSourceContentIndex( source.index );
+	}) => {
+		setIsDragging(true);
+		if (source?.droppableId !== 'DROP_AREA') return;
+		setSourceContentIndex(source.index);
 	};
 
-	const onDragUpdate: OnDragUpdateResponder = ( { destination } ) => {
-		if ( destination?.droppableId !== 'DROP_AREA' ) {
-			setTargetIndex( undefined );
+	const onDragUpdate: OnDragUpdateResponder = ({ destination }) => {
+		if (destination?.droppableId !== 'DROP_AREA') {
+			setTargetIndex(undefined);
 			return;
 		}
 		let next = destination?.index;
 
-		if ( isDraggingContent && next && sourceContentIndex !== undefined ) {
+		if (isDraggingContent && next && sourceContentIndex !== undefined) {
 			next = next >= sourceContentIndex ? next + 1 : next;
 		}
 
-		setTargetIndex( next );
+		setTargetIndex(next);
 	};
 
-	const onDragEnd: OnDragEndResponder = ( result ) => {
-		setIsDragging( false );
-		setTargetIndex( undefined );
-		setIsDraggingContent( false );
+	const onDragEnd: OnDragEndResponder = (result) => {
+		setIsDragging(false);
+		setTargetIndex(undefined);
+		setIsDraggingContent(false);
 
 		const { source, destination } = result;
 
 		// dropped outside the list or source and destination are the same
-		if ( ! destination || source.index === destination.index ) {
+		if (!destination || source.index === destination.index) {
 			return;
 		}
 
-		if ( source.droppableId && destination.droppableId ) {
+		if (source.droppableId && destination.droppableId) {
 			let dragAlerts: string[] = [];
 
-			if ( source.droppableId === 'DROP_AREA' ) {
-				if (
-					hasIncorrectFieldMergeTags(
-						source.index,
-						destination.index
-					) ||
-					hasIncorrectFieldMergeTags(
-						destination.index,
-						source.index
-					)
-				) {
-					dragAlerts.push(
-						// eslint-disable-next-line no-multi-str
-						'This block recalls information from previous fields.\
-					 This info will be lost if you proceed with this block movement.'
-					);
-				}
+			if (source.droppableId === 'DROP_AREA') {
+				// if (
+				// 	hasIncorrectFieldMergeTags(
+				// 		source.index,
+				// 		destination.index
+				// 	) ||
+				// 	hasIncorrectFieldMergeTags(
+				// 		destination.index,
+				// 		source.index
+				// 	)
+				// ) {
+				// 	dragAlerts.push(
+				// 		// eslint-disable-next-line no-multi-str
+				// 		'This block recalls information from previous fields.\
+				// 	 This info will be lost if you proceed with this block movement.'
+				// 	);
+				// }
 				dragAlerts = dragAlerts.concat(
 					applyFilters(
 						'QuillForms.BuilderCore.BlockReorderAlerts',
@@ -154,13 +154,13 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 					) as string[]
 				);
 			}
-			if ( dragAlerts.length > 0 ) {
-				confirmAlert( {
-					customUI: ( { onClose } ) => {
+			if (dragAlerts.length > 0) {
+				confirmAlert({
+					customUI: ({ onClose }) => {
 						return (
 							<DragAlert
-								messages={ dragAlerts }
-								approve={ () => {
+								messages={dragAlerts}
+								approve={() => {
 									doAction(
 										'QuillForms.BuilderCore.BlockReorder',
 										source.index,
@@ -171,28 +171,28 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 										destination.index
 									);
 									onClose();
-								} }
-								reject={ () => {
+								}}
+								reject={() => {
 									onClose();
-								} }
-								closeModal={ onClose }
+								}}
+								closeModal={onClose}
 							/>
 						);
 					},
-				} );
+				});
 			} else {
 				let parentSourceIndex;
 				let parentDestIndex;
 
-				if ( source.droppableId !== 'DROP_AREA' ) {
+				if (source.droppableId !== 'DROP_AREA') {
 					parentSourceIndex = source.droppableId.substr(
-						source.droppableId.lastIndexOf( '_' ) + 1
+						source.droppableId.lastIndexOf('_') + 1
 					);
 				}
 
-				if ( destination.droppableId !== 'DROP_AREA' ) {
+				if (destination.droppableId !== 'DROP_AREA') {
 					parentDestIndex = destination.droppableId.substr(
-						destination.droppableId.lastIndexOf( '_' ) + 1
+						destination.droppableId.lastIndexOf('_') + 1
 					);
 				}
 				__experimentalReorderBlocks(
@@ -205,86 +205,86 @@ const Layout: React.FC< Props > = ( { formId } ) => {
 		}
 	};
 
-	const onBeforeCapture: OnBeforeCaptureResponder = ( { draggableId } ) => {
+	const onBeforeCapture: OnBeforeCaptureResponder = ({ draggableId }) => {
 		const contentListItem = formBlocks.find(
-			( block ) => block.id === draggableId
+			(block) => block.id === draggableId
 		);
-		const isDraggingContentList = !! contentListItem;
+		const isDraggingContentList = !!contentListItem;
 
-		if ( isDraggingContentList ) {
-			setIsDraggingContent( true );
+		if (isDraggingContentList) {
+			setIsDraggingContent(true);
 		}
 
 		const el = document.querySelector(
-			`[data-rbd-draggable-id="${ draggableId }"]`
+			`[data-rbd-draggable-id="${draggableId}"]`
 		) as HTMLInputElement;
 
-		if ( el ) {
+		if (el) {
 			el.style.height = isDraggingContentList ? '24px' : '2px';
 		}
 	};
 
-	const formPreview = useMemo( () => {
-		return <FormPreview formId={ formId } />;
-	}, [] );
+	const formPreview = useMemo(() => {
+		return <FormPreview formId={formId} />;
+	}, []);
 
-	const builderPanelsBar = useMemo( () => {
+	const builderPanelsBar = useMemo(() => {
 		return <BuilderPanelsBar />;
-	}, [] );
+	}, []);
 
-	const panel = useMemo( () => {
+	const panel = useMemo(() => {
 		return <Panel />;
-	}, [] );
+	}, []);
 
 	// Setting current block id once blocks are resolved.
-	useEffect( () => {
-		if ( formBlocks?.length > 0 ) {
-			setCurrentBlock( formBlocks[ 0 ].id );
-			formBlocks.forEach( ( block ) => {
-				let blockType = blockTypes[ block.name ];
-				if ( blockType.supports.editable )
-					insertEmptyFieldAnswer( block.id, block.name );
+	useEffect(() => {
+		if (formBlocks?.length > 0) {
+			setCurrentBlock(formBlocks[0].id);
+			formBlocks.forEach((block) => {
+				let blockType = blockTypes[block.name];
+				if (blockType.supports.editable)
+					insertEmptyFieldAnswer(block.id, block.name);
 
 				if (
 					blockType.supports.innerBlocks &&
-					size( block?.innerBlocks ) > 0
+					size(block?.innerBlocks) > 0
 				) {
-					block?.innerBlocks.forEach( ( childBlock ) => {
-						blockType = blockTypes[ childBlock.name ];
-						if ( blockType?.supports?.editable )
+					block?.innerBlocks.forEach((childBlock) => {
+						blockType = blockTypes[childBlock.name];
+						if (blockType?.supports?.editable)
 							insertEmptyFieldAnswer(
 								childBlock.id,
 								childBlock.name
 							);
-					} );
+					});
 				}
-			} );
+			});
 		}
-	}, [] );
+	}, []);
 
 	return (
 		<div
 			className="builder-core-layout"
-			onKeyDown={ ( e ) => e.stopPropagation() }
+			onKeyDown={(e) => e.stopPropagation()}
 		>
-			{ builderPanelsBar }
+			{builderPanelsBar}
 			<DragDropContext
-				onDragStart={ onDragStart }
-				onDragEnd={ onDragEnd }
-				onDragUpdate={ onDragUpdate }
-				onBeforeCapture={ onBeforeCapture }
+				onDragStart={onDragStart}
+				onDragEnd={onDragEnd}
+				onDragUpdate={onDragUpdate}
+				onBeforeCapture={onBeforeCapture}
 			>
-				{ currentPanel && panel }
-				{ ( ! areaToShow || areaToShow === 'drop-area' ) && (
+				{currentPanel && panel}
+				{(!areaToShow || areaToShow === 'drop-area') && (
 					<DropArea
-						isDragging={ isDragging }
-						currentPanel={ currentPanel }
-						targetIndex={ targetIndex }
-						areaToShow={ areaToShow }
+						isDragging={isDragging}
+						currentPanel={currentPanel}
+						targetIndex={targetIndex}
+						areaToShow={areaToShow}
 					/>
-				) }
+				)}
 			</DragDropContext>
-			{ ( ! areaToShow || areaToShow === 'preview-area' ) && formPreview }
+			{(!areaToShow || areaToShow === 'preview-area') && formPreview}
 		</div>
 	);
 };
