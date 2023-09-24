@@ -155,8 +155,11 @@ export const getBlockOrderById = (
 		const fieldIndex = state.blocks?.[
 			parentIndex
 		]?.innerBlocks?.findIndex( ( block ) => block.id === id );
-		if ( typeof fieldIndex !== 'undefined' && fieldIndex > -1 )
-			itemOrder = parentIndex + 1 + identAlphabetically( fieldIndex );
+		if ( typeof fieldIndex !== 'undefined' && fieldIndex > -1 ) {
+			const parentBlockId = state.blocks[ parentIndex ].id;
+			const parentBlockOrder = getBlockOrderById( state, parentBlockId );
+			itemOrder = parentBlockOrder + identAlphabetically( fieldIndex );
+		}
 	}
 	return itemOrder;
 };
@@ -232,7 +235,8 @@ export const getPreviousBlocksByCriteria = (
 	state: State,
 	criteria,
 	id: string,
-	includeCurrentBlock: boolean = false
+	includeCurrentBlock: boolean = false,
+	relation: 'and' | 'or' = 'and'
 ) => {
 	const blocks = getBlocks( state );
 	const filteredCriteria = pick( criteria, [
@@ -241,6 +245,9 @@ export const getPreviousBlocksByCriteria = (
 		'attachment',
 		'description',
 		'editable',
+		'innerBlocks',
+		'correctAnswers',
+		'points',
 		'numeric',
 	] );
 
@@ -255,11 +262,18 @@ export const getPreviousBlocksByCriteria = (
 		return prevFormBlocks.filter( ( block ) => {
 			const blockType =
 				select( 'quillForms/blocks' ).getBlockTypes()[ block.name ];
-			return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+			if ( relation === 'and' )
+				return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+					typeof val === 'boolean'
+						? blockType.supports[ key ] === val
+						: true
+				);
+			return Object.entries( filteredCriteria ).some( ( [ key, val ] ) =>
 				typeof val === 'boolean'
 					? blockType.supports[ key ] === val
 					: true
 			);
+
 		} );
 	}
 	return [];
@@ -280,17 +294,28 @@ export const getPreviousEditableFieldsWithOrder = (
 ): FormBlockWithOrder[] => {
 	const prevEditableFields: FormBlockWithOrder[] = [];
 
-	const blocks = getBlocks( state );
+	const blocks = state.blocks;
 
 	const blockIndex = findIndex( blocks, ( block ) => block.id === id );
 	if ( blockIndex > 0 ) {
 		const prevFormBlocks = slice( blocks, 0, blockIndex );
-		forEach( prevFormBlocks, ( block ) => {
+		forEach( prevFormBlocks, ( block, $prevBlockIndex ) => {
 			const blockType = getBlockType( block.name );
 			if ( blockType?.supports?.editable ) {
 				prevEditableFields.push( {
 					...block,
 					order: getBlockOrderById( state, block.id ),
+				} );
+			}
+			if(blockType?.supports?.innerBlocks) {
+				forEach( block.innerBlocks, ( innerBlock ) => {
+					const innerBlockType = getBlockType( innerBlock.name );
+					if ( innerBlockType?.supports?.editable ) {
+						prevEditableFields.push( {
+							...innerBlock,
+							order: getBlockOrderById( state, innerBlock.id, $prevBlockIndex ),
+						} );
+					}
 				} );
 			}
 		} );
