@@ -71,6 +71,10 @@ body.js.is-fullscreen-mode {
 	color: #6d78d8;
 	border-color: #6d78d83d !important;
 }
+.quillforms-layout #quillforms-builder-page h1 {
+	color: inherit;
+	border-color: inherit !important;
+}
 .components-popover .components-popover__content {
 	//position: absolute;
 	height: auto;
@@ -99,4 +103,9 @@ body.js.is-fullscreen-mode {
 
 .components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__control-point-dropdown {
 	z-index: 11 !important;
+}
+
+// elementor
+#e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap .page-title-action, #e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap h1 {
+	display: block
 }
