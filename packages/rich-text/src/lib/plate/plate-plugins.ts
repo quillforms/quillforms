@@ -120,7 +120,7 @@ import {
   ELEMENT_TH,
   ELEMENT_TR,
 } from '@udecode/plate-table';
-// import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
+import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
 
 import { autoformatPlugin } from '../../lib/plate/autoformatPlugin';
 import { dragOverCursorPlugin } from '../../lib/plate/dragOverCursorPlugin';
@@ -231,7 +231,7 @@ export const plugins = createPlugins(
     }),
 
     // Functionality
-    // createAutoformatPlugin(autoformatPlugin),
+    createAutoformatPlugin(autoformatPlugin),
     createBlockSelectionPlugin({
       options: {
         sizes: {
@@ -270,7 +270,7 @@ export const plugins = createPlugins(
         ],
       },
     }),
-    // createNodeIdPlugin(),
+    createNodeIdPlugin(),
     createResetNodePlugin({
       options: {
         rules: [
@@ -344,9 +344,9 @@ export const plugins = createPlugins(
     //     },
     //   ],
     // }),
-    // createTrailingBlockPlugin({
-    //   options: { type: ELEMENT_PARAGRAPH },
-    // }),
+    createTrailingBlockPlugin({
+      options: { type: ELEMENT_PARAGRAPH },
+    }),
     dragOverCursorPlugin,
 
     // Collaboration
@@ -359,8 +359,7 @@ export const plugins = createPlugins(
     createJuicePlugin(),
   ],
   {
-    components:  withDraggables(
-      // withPlaceholders(
+    components: withPlaceholders(
         {
         [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
         [ELEMENT_CODE_BLOCK]: CodeBlockElement,
@@ -400,7 +399,7 @@ export const plugins = createPlugins(
       // overrideByKey: ({
       //   [ELEMENT_PARAGRAPH]: {
       //     serializeHtml: ({ leaf, children }) => {
-      //       return React.createElement('p', {}, children)
+      //        return React.createElement('p', {}, children)
       //     }
       //   },
       //   [ELEMENT_H1]: {

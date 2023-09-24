@@ -13,8 +13,7 @@ import { cn } from '../../lib/utils';
 export const Placeholder = (props: PlaceholderProps) => {
   const { children, placeholder, nodeProps } = props;
 
-  // const { enabled } = usePlaceholderState(props);
-  const { enabled } = true;
+  const { enabled } = usePlaceholderState(props);
 
   return React.Children.map(children, (child) => {
     return React.cloneElement(child, {
@@ -22,6 +21,7 @@ export const Placeholder = (props: PlaceholderProps) => {
       nodeProps: {
         ...nodeProps,
         className: cn(
+          enabled &&
           'before:absolute before:cursor-text before:opacity-30 before:content-[attr(placeholder)]'
         ),
         placeholder,

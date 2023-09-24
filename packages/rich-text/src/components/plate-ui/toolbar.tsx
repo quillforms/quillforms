@@ -144,18 +144,17 @@ const ToolbarButton = React.forwardRef<
         </ToolbarPrimitive.Button>
       );
 
-    return <>{content}</>
+    return isLoaded && tooltip ? (
+      <Tooltip>
+        <TooltipTrigger>{content}</TooltipTrigger>
 
-    //  isLoaded && tooltip ? (
-    //   <Tooltip>
-    //     <TooltipTrigger>{content}</TooltipTrigger>
-
-    //     <TooltipPortal>
-    //       <TooltipContent>{tooltip}</TooltipContent>
-    //     </TooltipPortal>
-    //   </Tooltip>
-    // ) : (
-    // );
+        <TooltipPortal>
+          <TooltipContent>{tooltip}</TooltipContent>
+        </TooltipPortal>
+      </Tooltip>
+    ) : (
+      <>{content}</>
+    );
   }
 );
 ToolbarButton.displayName = ToolbarPrimitive.Button.displayName;

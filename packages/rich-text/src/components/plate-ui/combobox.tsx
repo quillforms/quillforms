@@ -39,7 +39,7 @@ export function ComboboxItem<TData extends Data = NoData>({
   return (
     <div
       className={cn(
-        'relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors',
+        'rich-text-merge-tag-list-item__wrapper relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors',
         'hover:bg-accent hover:text-accent-foreground data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground'
       )}
       {...props}

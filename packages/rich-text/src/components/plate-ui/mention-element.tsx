@@ -9,9 +9,11 @@ import { TMentionElement } from '@udecode/plate-mention';
 import { useFocused, useSelected } from 'slate-react';
 import { getPlainExcerpt, useFields, useHiddenFields, useVariables } from "@quillforms/admin-components";
 import { Icon } from "@wordpress/components";
+import { plus } from "@wordpress/icons";
 import classnames from "classnames";
 import { css } from "emotion";
 import { cn } from '../../lib/utils';
+import { useItemsContext } from '../plate/items-provider';
 
 export interface MentionElementProps
   extends PlateElementProps<Value, TMentionElement> {
@@ -29,23 +31,22 @@ const MentionElement = forwardRef<
   MentionElementProps
 >(({ prefix, renderLabel, className, onClick, ...props }, ref) => {
   const { children, element } = props;
-
-  const fields = useFields({ section: 'fields' });
-  const variables = useVariables({ section: 'variables' });
-  const hiddenFields = useHiddenFields({ section: 'hidden_fields' });
+  const items = useItemsContext();
+  // console.log(items)
   const { mentionType, mentionModifier } = element;
   // Now depending on the mentionType and mentionModifier we will get the item
   // from the fields or variable or hidden_field
-  const item = mentionType === 'field'
-    ? fields.find((field) => field.value === mentionModifier)
-    : mentionType === 'variable'
-      ? variables.find((variable) => variable.value === mentionModifier)
-      : hiddenFields.find((hiddenField) => hiddenField.value === mentionModifier);
-  const mergeTagIcon = item?.iconBox.icon;
+  const item = items.find($item => $item.type === mentionType && $item.value === mentionModifier);
+  // ? fields.find((field) => field.value === mentionModifier)
+  // : mentionType === 'variable'
+  //   ? variables.find((variable) => variable.value === mentionModifier)
+  //   : hiddenFields.find((hiddenField) => hiddenField.value === mentionModifier);
+  const mergeTagIcon = item?.iconBox?.icon ?? plus;
+
   const renderedIcon = (
     <Icon
       icon={
-        (mergeTagIcon)
+        (mergeTagIcon?.src)
           ? (mergeTagIcon?.src)
           // @ts-expect-error
           : (mergeTagIcon)
@@ -53,67 +54,76 @@ const MentionElement = forwardRef<
     />
   );
   return (
-    <PlateElement
-      ref={ref}
-      className={cn(
-        'inline-block',
-        className
-      )}
-      data-slate-value={element.value}
-      contentEditable={false}
-      onClick={getHandler(onClick, element)}
-      {...props}
-    >
-      {/* {prefix}
-      {element.value} */}
+    <>
       {item ?
-        < span
+        <PlateElement
+          ref={ref}
+          className={cn(
+            'inline-block',
+            className
+          )}
+          data-slate-value={element.value}
           contentEditable={false}
-          className={
-            classnames(
-              'rich-text-merge-tag__node-wrapper',
-              css`
-							color: ${item?.iconBox.color
-                  ? item?.iconBox?.color
-                  : '#bb426f'
-                };
-              bordercolor: ${item?.iconBox.color
-                  ? item?.iconBox.color
-                  : '#bb426f'
-                };
-              fill: ${item?.iconBox.color
-                  ? item?.iconBox.color
-                  : '#bb426f'
-                };
+          onClick={() => {
+            if (item) {
+              getHandler(onClick, element)
+            }
+          }}
+          {...props}
+        >
+          {/* {prefix}
+      {element.value} */}
+          < span
+            contentEditable={false}
+            className={
+              classnames(
+                'rich-text-merge-tag__node-wrapper',
+                css`
+							color: ${item?.iconBox?.color
+                    ? item?.iconBox?.color
+                    : '#bb426f'
+                  };
+              bordercolor: ${item?.iconBox?.color
+                    ? item?.iconBox.color
+                    : '#bb426f'
+                  };
+              fill: ${item?.iconBox?.color
+                    ? item?.iconBox.color
+                    : '#bb426f'
+                  };
               padding: 1.5px 8px;
 `
-            )}
-        >
-          <span
-            className={classnames(
-              'rich-text-merge-tag__background',
-              css`
-                background: ${item?.iconBox.color
-                  ? item?.iconBox.color
-                  : '#bb426f'
-                };
+              )}
+          >
+            <span
+              className={classnames(
+                'rich-text-merge-tag__background',
+                css`
+                background: ${item?.iconBox?.color
+                    ? item?.iconBox.color
+                    : '#bb426f'
+                  };
 `
-            )}
-          />
-          <span className="rich-text-merge-tag__icon-box">
-            {renderedIcon}
+              )}
+            />
+            <span className="rich-text-merge-tag__icon-box">
+              {renderedIcon}
+            </span>
+            <span
+              className="rich-text-merge-tag__title"
+              dangerouslySetInnerHTML={{
+                __html: getPlainExcerpt(item.label),
+              }}
+            />
           </span>
-          <span
-            className="rich-text-merge-tag__title"
-            dangerouslySetInnerHTML={{
-              __html: getPlainExcerpt(item.label),
-            }}
-          />
           {children}
 
-        </span>
-        : element.value}
-    </PlateElement>
+        </PlateElement> :
+        (
+          <span><span>{element.value}</span> {children} </span>
+        )
+      }
+    </>
   );
 });
 

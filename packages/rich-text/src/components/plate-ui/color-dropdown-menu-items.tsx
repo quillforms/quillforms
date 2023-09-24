@@ -54,15 +54,14 @@ export function ColorDropdownMenuItem({
     </DropdownMenuItem>
   );
 
-  return content;
-  // name ? (
-  //   <Tooltip>
-  //     <TooltipTrigger>{content}</TooltipTrigger>
-  //     <TooltipContent>{name}</TooltipContent>
-  //   </Tooltip>
-  // ) : (
-
-  // );
+  return name ? (
+    <Tooltip>
+      <TooltipTrigger>{content}</TooltipTrigger>
+      <TooltipContent>{name}</TooltipContent>
+    </Tooltip>
+  ) : (
+    content
+  );
 }
 
 type ColorDropdownMenuItemsProps = {

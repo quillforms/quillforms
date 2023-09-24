@@ -110,12 +110,12 @@ const Draggable = forwardRef<HTMLDivElement, DraggableProps>(
                 classNames.blockToolbar
               )}
             >
-              {/* <Tooltip>
+              <Tooltip>
                 <TooltipTrigger ref={handleRef}>
                   <Icons.dragHandle className="h-4 w-4 text-muted-foreground" />
                 </TooltipTrigger>
                 <TooltipContent>Drag to move</TooltipContent>
-              </Tooltip> */}
+              </Tooltip>
             </div>
           </div>
         </div>
