@@ -172,7 +172,7 @@ class Shortcode
                 border-color: ' . $buttonBorderColor . ';
                 font-size: ' . $buttonFontSize . 'px;
                 padding: ' . $buttonPadding . ';
-                text-deocration: none;
+                text-decoration: none;
                 cursor:pointer;
             "
                 data-url="' . $src . '"
