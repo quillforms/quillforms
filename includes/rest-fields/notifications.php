@@ -54,17 +54,8 @@ register_rest_field(
 							if ( ! empty( $notification_properties ) ) {
 								foreach ( $notification_properties as $prop => $val ) {
 									if ( 'message' === $prop ) {
-										$value[ $notification_index ]['properties'][ $prop ] = wp_kses(
-											$val,
-											array(
-												'a'      => array(
-													'href' => array(),
-													'title' => array(),
-												),
-												'br'     => array(),
-												'strong' => array(),
-												'em'     => array(),
-											)
+										$value[ $notification_index ]['properties'][ $prop ] = wp_kses_post(
+											$val
 										);
 									} elseif ( 'subject' === $prop || 'title' === $prop || 'replyTo' === $prop ) {
 										$value[ $notification_index ]['properties'][ $prop ] = sanitize_text_field( $val );
