@@ -74,7 +74,7 @@ $license = License::instance()->get_license_info();
 			.qf-loader-container .quillforms-branding-powered-by {
 				margin-top: 20px;
 				font-family: "<?php echo $form_object['theme']['font']; ?>";
-				display: <?php echo $license['status'] === 'valid' ? 'none' : 'block'; ?>
+				display: 'none';
 			}
 
 			.qf-loader-container .quillforms-branding-powered-by a {
