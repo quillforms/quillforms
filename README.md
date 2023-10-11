@@ -17,16 +17,16 @@
 
 # Demos
 
-[Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey)
-[Correct and Incorrect Science Quiz](https://quillforms.com/forms/correct-and-incorrect-science-quiz/)
-[Personality Quiz](https://quillforms.com/forms/personality-quiz)
-[Trivia Quiz](https://quillforms.com/forms/trivia-quiz)
-[Donation Form](https://quillforms.com/forms/simple-donation-form)
-[Job Application Form](https://quillforms.com/forms/job-application-form)
-[Course Evaluation Survey](https://quillforms.com/forms/course-evaluation-survey)
-[Web Design Cost Calculator](https://quillforms.com/forms/web-design-cost-calculator)
-[Event Registration](https://quillforms.com/forms/event-registration)
-[Paid Workshop Registration](https://quillforms.com/forms/paid-workshop-registration)
+[Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey) <br>
+[Correct and Incorrect Science Quiz](https://quillforms.com/forms/correct-and-incorrect-science-quiz/)  <br>
+[Personality Quiz](https://quillforms.com/forms/personality-quiz)  <br>
+[Trivia Quiz](https://quillforms.com/forms/trivia-quiz)  <br>
+[Donation Form](https://quillforms.com/forms/simple-donation-form)  <br>
+[Job Application Form](https://quillforms.com/forms/job-application-form)  <br>
+[Course Evaluation Survey](https://quillforms.com/forms/course-evaluation-survey)  <br>
+[Web Design Cost Calculator](https://quillforms.com/forms/web-design-cost-calculator)  <br>
+[Event Registration](https://quillforms.com/forms/event-registration)  <br>
+[Paid Workshop Registration](https://quillforms.com/forms/paid-workshop-registration)  <br>
 
 # How to use in your React app?
 
