@@ -32,13 +32,14 @@ const AddonFeatureAvailability: React.FC<Props> = ({
 }) => {
 	const license = ConfigApi.getLicense();
 	const addon = ConfigApi.getStoreAddons()[addonSlug];
+	const isWPEnv = ConfigApi.isWPEnv();
 	const featurePlanLabel = ConfigApi.getPlans()[addon.plan].label;
 	const isPlanAccessible = ConfigApi.isPlanAccessible(addon.plan);
 
 	let content = <div></div>;
 
 	// if addon installed.
-	if (addon.is_installed) {
+	if (isWPEnv && addon.is_installed) {
 		// license note in case of invalid or low level license.
 		let licenseNote = <div></div>;
 		if (license?.status !== 'valid') {
@@ -117,6 +118,7 @@ const AddonFeatureAvailability: React.FC<Props> = ({
 							font-size: 15px;
 						` }
 					>
+
 						We're sorry, {featureName} is not available
 						<br />
 						on your plan. Please upgrade to the {
@@ -126,13 +128,21 @@ const AddonFeatureAvailability: React.FC<Props> = ({
 						<br />
 						all of {featurePlanLabel} features.
 					</p>
-					<a
-						href="https://quillforms.com"
-						target="_blank"
-						className="addon-feature-availability-upgrade-button"
-					>
-						Upgrade to {featurePlanLabel}!
-					</a>
+					<>
+						{isWPEnv ? (
+							<a
+								href="https://quillforms.com"
+								target="_blank"
+								className="addon-feature-availability-upgrade-button"
+							>
+								Upgrade to {featurePlanLabel}!
+							</a>
+						)
+							: (
+								<NavLink to="/admin.php?page=quillforms&path=account" className="addon-feature-availability-upgrade-button">
+									Upgrade to {featurePlanLabel}! </NavLink>
+							)}
+					</>
 				</div>
 			);
 		}

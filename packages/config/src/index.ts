@@ -32,7 +32,7 @@ const configData: ConfigData = {
 	formId: 0,
 	formUrl: '',
 	maxUploadSize: 8,
-	isWPEnv: false,
+	isWPEnv: true,
 	plans: {},
 	license: null,
 	storeAddons: {},
@@ -129,7 +129,10 @@ const isWPEnv = ( data: ConfigData ) => (): boolean => {
  *
  * @param data
  */
-const setWPEnv = ( data: ConfigData ) => ( value: boolean ) => {
+const setWPEnv = ( data: ConfigData ) => ( value: boolean | string) => {
+	if(typeof value === 'string') {
+		value = JSON.parse(value.toLowerCase()) as boolean;
+	}
 	data.isWPEnv = value;
 };
 /**

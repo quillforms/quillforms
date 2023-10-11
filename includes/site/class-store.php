@@ -147,6 +147,8 @@ class Store {
 			)
 		);
 
+		
+
 		// check download link.
 		$download_link = $plugin_data['data']['download_link'] ?? null;
 		if ( empty( $download_link ) ) {
@@ -353,6 +355,14 @@ class Store {
 		}
 
 		$result = $this->install( $addon_slug );
+		quillforms_get_logger()->info(
+			esc_html__( 'Addon installation result', 'quillforms' ),
+			array(
+				'code'       => 'addon_installation_result',
+				'addon_slug' => $addon_slug,
+				'result'     => $result,
+			)
+		);
 		if ( $result['success'] ) {
 			wp_send_json_success( esc_html__( 'Addon plugin installed successfully', 'quillforms' ), 200 );
 		} else {
@@ -422,7 +432,7 @@ class Store {
 	 * @return void
 	 */
 	private function define_addons() {
-		$addons = array(
+		$addons = apply_filters('quillforms_store_addons', array(
 			'entries'                   => array(
 				'name'           => esc_html__( 'Entries', 'quillforms' ),
 				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
@@ -1098,7 +1108,7 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/postcreation/icon.svg',
 				),
 			),
-		);
+		) );
 
 		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugin_data' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );

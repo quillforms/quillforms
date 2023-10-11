@@ -60,7 +60,7 @@ const Sidebar = () => {
 									}
 								}}
 								activeClassName="selected"
-								className="qf-admin-sidebar-nav-item"
+								className={`qf-admin-sidebar-nav-item qf-admin-sidebar-nav-item-${page[2].replace('quillforms&path=', '')}-page`}
 								to={`/admin.php?page=${page[2]}`}
 							>
 								<div className="qf-admin-sidebar-nav-item__icon">
