@@ -7,7 +7,6 @@
 **Open Source Typeform Alternative**  based on `React` and `Typescript` <br>
 **Now supports Next JS**
 
-[Watch Demo](https://quillforms.com/quillforms/my-first-form/) <br>
 [Join Our Discord Channel](https://discord.gg/a5PDrzu8dE)  <br>
 [Join Our New Facebook Group](https://facebook.com/groups/quillforms/) 
 
@@ -15,6 +14,19 @@
 
 ![Screenshot of the QuillForms renderer](https://quillforms.com/wp-content/uploads/2021/10/frame_generic_light-3.png)
 </div>
+
+# Demos
+
+[Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey)
+[Correct and Incorrect Science Quiz](https://quillforms.com/forms/correct-and-incorrect-science-quiz/)
+[Personality Quiz](https://quillforms.com/forms/personality-quiz)
+[Trivia Quiz](https://quillforms.com/forms/trivia-quiz)
+[Donation Form](https://quillforms.com/forms/simple-donation-form)
+[Job Application Form](https://quillforms.com/forms/job-application-form)
+[Course Evaluation Survey](https://quillforms.com/forms/course-evaluation-survey)
+[Web Design Cost Calculator](https://quillforms.com/forms/web-design-cost-calculator)
+[Event Registration](https://quillforms.com/forms/event-registration)
+[Paid Workshop Registration](https://quillforms.com/forms/paid-workshop-registration)
 
 # How to use in your React app?
 
