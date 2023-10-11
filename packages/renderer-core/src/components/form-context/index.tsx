@@ -11,7 +11,7 @@ interface FormContext {
 	isPreview: boolean;
 	deviceWidth?: string;
 	customFonts?: CustomFont[];
-	formId?: number;
+	formId?: number | string;
 	beforeGoingNext?: ({
 		setIsFieldValid,
 		setIsPending,
