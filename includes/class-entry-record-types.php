@@ -165,7 +165,7 @@ class Entry_Record_Types {
 			return null;
 		}
 
-		return $block_type->get_readable_value( $raw_value, $form_data, $context );
+		return apply_filters('quillforms_get_field_readable_value', $block_type->get_readable_value( $raw_value, $form_data, $context ), $field_id, $raw_value, $entry, $form_data, $context );
 	}
 
 	/**
