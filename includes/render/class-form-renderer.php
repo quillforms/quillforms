@@ -395,7 +395,11 @@ class Form_Renderer
                 QUILLFORMS_VERSION,
                 true
             );
-
+            $custom_fonts - [];
+            // check if custom fonts class exists
+            if ( class_exists( '\QuillForms_CustomFonts\Fonts_Model' ) ) {
+                $custom_fonts = \QuillForms_CustomFonts\Fonts_Model::get_all_registered_fonts();
+            }
             wp_localize_script(
                 'quillforms-react-renderer-script',
                 'qfRender',
@@ -403,6 +407,7 @@ class Form_Renderer
                 'ajaxurl'    => admin_url('admin-ajax.php'),
                 'formObject' => $form_object,
                 'formId'     => $form_id,
+                'customFonts' => $custom_fonts,
                 )
             );
 
