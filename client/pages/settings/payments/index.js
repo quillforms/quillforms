@@ -8,6 +8,7 @@ import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-compon
 /**
  * WordPress Dependencies
  */
+import { useEffect, useState } from "@wordpress/element";
 import { Panel, PanelBody } from '@wordpress/components';
 import { Icon as IconComponent } from '@wordpress/components';
 
@@ -17,49 +18,56 @@ import { Icon as IconComponent } from '@wordpress/components';
 import './style.scss';
 
 const Payments = () => {
+	const [isLoading, setIsloading] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsloading(true);
+		}, 500);
+	})
 	const gateways = getPaymentGatewayModules();
 
 	return (
 		<div className="quillforms-settings-payments-tab">
 			<Panel>
-				{ Object.entries( gateways ).map( ( [ slug, gateway ] ) => {
+				{Object.entries(gateways).map(([slug, gateway]) => {
 					const icon = gateway.icon.mini;
 					const header = (
 						<div className="quillforms-settings-payments-tab-addon-header">
-							{ typeof icon === 'string' ? (
-								<img src={ icon } />
+							{typeof icon === 'string' ? (
+								<img src={icon} />
 							) : (
 								<IconComponent
-									icon={ icon?.src ? icon.src : icon }
+									icon={icon?.src ? icon.src : icon}
 								/>
-							) }
-							<div>{ gateway.name }</div>
+							)}
+							<div>{gateway.name}</div>
 						</div>
 					);
-					const addon = ConfigApi.getStoreAddons()[ slug ];
+					const addon = ConfigApi.getStoreAddons()[slug];
 					return (
 						<PanelBody
-							key={ slug }
-							title={ header }
-							initialOpen={ false }
+							key={slug}
+							title={header}
+							initialOpen={false}
 							className="quillforms-settings-payments-tab-addon"
 						>
-							{ ! gateway.settings ? (
+							{!gateway.settings ? (
 								<__experimentalAddonFeatureAvailability
 									featureName={
 										addon.name + ' Payment Gateway'
 									}
-									addonSlug={ slug }
-									showLockIcon={ true }
+									addonSlug={slug}
+									showLockIcon={true}
 								/>
 							) : (
 								<div className="quillforms-settings-payments-tab-addon-body">
-									<gateway.settings slug={ slug } />
+									<gateway.settings slug={slug} />
 								</div>
-							) }
+							)}
 						</PanelBody>
 					);
-				} ) }
+				})}
 			</Panel>
 		</div>
 	);
