@@ -717,13 +717,6 @@ class Form_Submission {
 	 * @return void
 	 */
 	public function entry_email() {
-		quillforms_get_logger()->debug(
-			'Start processing notifications',
-			array(
-				'form_data' => $this->form_data,
-				'entry'     => $this->entry,
-			)
-		);
 
 		foreach ( $this->form_data['notifications'] as $notification ) {
 
@@ -789,8 +782,6 @@ class Form_Submission {
 			}
 
 			$emails = apply_filters( 'quillforms_entry_email_before_send', $emails );
-
-			quillforms_get_logger()->debug( 'Emails object', compact( 'emails' ) );
 
 			// Go.
 			foreach ( $email['address'] as $address ) {

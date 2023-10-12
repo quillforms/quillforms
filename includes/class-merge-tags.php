@@ -292,7 +292,6 @@ class Merge_Tags
 
         $messages= $form_data['messages'];
 
-        quillforms_get_logger()->info('quiz', array('quiz' => $correctIncorrectQuiz));
         $blocks = $form_data['blocks'];
         $correct_count  = 0;
         $incorrect_count = 0;
@@ -303,7 +302,6 @@ class Merge_Tags
             $block_type = Blocks_Manager::instance()->create( $block_data );
             if($block_type && $block_type->supported_features['correctAnswers'] &&  $correctIncorrectQuiz['enabled']) {
                 $field_value = $entry->get_record_value( 'field', $field_id );
-                quillforms_get_logger()->info( 'field_value', $field_value );
                 // this is how we check in js
                 // const isCorrect = $val.every((answer) => correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes(answer));
                 $new_block = $block_data;
@@ -342,7 +340,6 @@ class Merge_Tags
             return $incorrect_count;
 
         case 'summary':
-            quillforms_get_logger()->info('summary', array('summary' => $correct_incorrect_summary) );
             $res = '';
             foreach($correct_incorrect_summary as $index => $field) {
                 $question_number = $index + 1;

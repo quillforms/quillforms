@@ -527,6 +527,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
 				),
 			),
+			'inputmaskblock'			=> array(
+				'name'           => esc_html__( 'Input Mask Block', 'quillforms' ),
+				'description'    => esc_html__( 'Input mask block that allows you to define your own mask with ability to set up complex masks with regex', 'quillforms' ),
+				'plugin_file'    => 'quillforms-inputmaskblock/quillforms-inputmaskblock.php',
+				'plan'           => 'basic',
+				'is_integration' => false,
+				'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/inputmaskblock/icon.svg',
+				),
+			),
 			'fileblock'                 => array(
 				'name'           => esc_html__( 'File Block', 'quillforms' ),
 				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions.', 'quillforms' ),

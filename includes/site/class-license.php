@@ -162,18 +162,6 @@ class License {
 		$user_plan_level    = array_search( $user_plan, $plans_keys, true );
 		$feature_plan_level = array_search( $feature_plan, $plans_keys, true );
 
-		quillforms_get_logger()->info(
-			'Is plan accessible',
-			array(
-				'code'             => 'is_plan_accessible',
-				'user_plan'        => $user_plan,
-				'feature_plan'     => $feature_plan,
-				'user_plan_level'  => $user_plan_level,
-				'feature_plan_leve' => $feature_plan_level,
-				'comparison'       => $user_plan_level >= $feature_plan_level,
-			)
-		);
-
 		if ( false === $user_plan_level || false === $feature_plan_level ) {
 			return false;
 		}
