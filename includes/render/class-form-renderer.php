@@ -395,7 +395,7 @@ class Form_Renderer
                 QUILLFORMS_VERSION,
                 true
             );
-            $custom_fonts - [];
+            $custom_fonts = [];
             // check if custom fonts class exists
             if ( class_exists( '\QuillForms_CustomFonts\Fonts_Model' ) ) {
                 $custom_fonts = \QuillForms_CustomFonts\Fonts_Model::get_all_registered_fonts();
