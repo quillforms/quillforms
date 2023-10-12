@@ -7,7 +7,6 @@
 **Open Source Typeform Alternative**  based on `React` and `Typescript` <br>
 **Now supports Next JS**
 
-[Watch Demo](https://quillforms.com/quillforms/my-first-form/) <br>
 [Join Our Discord Channel](https://discord.gg/a5PDrzu8dE)  <br>
 [Join Our New Facebook Group](https://facebook.com/groups/quillforms/) 
 
@@ -15,6 +14,19 @@
 
 ![Screenshot of the QuillForms renderer](https://quillforms.com/wp-content/uploads/2021/10/frame_generic_light-3.png)
 </div>
+
+# Demos
+
+- [Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey) <br>
+- [Correct and Incorrect Science Quiz](https://quillforms.com/forms/correct-and-incorrect-science-quiz/)  <br>
+- [Personality Quiz](https://quillforms.com/forms/personality-quiz)  <br>
+- [Trivia Quiz](https://quillforms.com/forms/trivia-quiz)  <br>
+- [Donation Form](https://quillforms.com/forms/simple-donation-form)  <br>
+- [Job Application Form](https://quillforms.com/forms/job-application-form)  <br>
+- [Course Evaluation Survey](https://quillforms.com/forms/course-evaluation-survey)  <br>
+- [Web Design Cost Calculator](https://quillforms.com/forms/web-design-cost-calculator)  <br>
+- [Event Registration](https://quillforms.com/forms/event-registration)  <br>
+- [Paid Workshop Registration](https://quillforms.com/forms/paid-workshop-registration)  <br>
 
 # How to use in your React app?
 
