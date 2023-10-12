@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+	stroke="currentColor"
+	fill="#eee"
+	strokeWidth="1px"
+	viewBox="0 0 120 120"
+	height="1em"
+	width="1em"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<text style="font-size: 50px" x="60" y="80">-/--</text>
+	
+</svg>

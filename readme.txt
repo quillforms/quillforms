@@ -174,6 +174,12 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 == Changelog ==
 
+= 3.3.0 = 12 Oct 2023
+Feature: Introducing Input mask addon for basic plan.
+Fix: Fixing custom fonts issue.
+Fix: Fixing an issue with date block.
+Dev: Adding some useful filter hooks.
+
 = 3.2.4 = 26 Sep 2023
 Fix: Fixing issue with email notifications message that strips some html tags.
 
