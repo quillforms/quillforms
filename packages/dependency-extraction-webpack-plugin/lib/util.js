@@ -17,12 +17,16 @@ const BUNDLED_PACKAGES = [
  * @return {string|string[]|undefined} The resulting external definition. Return `undefined`
  *   to ignore the request. Return `string|string[]` to map the request to an external.
  */
-function defaultRequestToExternal( request ) {
-	switch ( request ) {
+function defaultRequestToExternal(request) {
+	switch (request) {
 		case 'moment':
 			return request;
 		case 'emotion': {
 			return 'emotion';
+		}
+
+		case 'tinycolor2': {
+			return 'tinycolor2';
 		}
 		case '@babel/runtime/regenerator':
 			return 'regeneratorRuntime';
@@ -41,25 +45,25 @@ function defaultRequestToExternal( request ) {
 			return 'ReactDOM';
 	}
 
-	if ( request.includes( 'react-refresh/runtime' ) ) {
+	if (request.includes('react-refresh/runtime')) {
 		return 'ReactRefreshRuntime';
 	}
 
-	if ( BUNDLED_PACKAGES.includes( request ) ) {
+	if (BUNDLED_PACKAGES.includes(request)) {
 		return undefined;
 	}
 
-	if ( request.startsWith( WORDPRESS_NAMESPACE ) ) {
+	if (request.startsWith(WORDPRESS_NAMESPACE)) {
 		return [
 			'wp',
-			camelCaseDash( request.substring( WORDPRESS_NAMESPACE.length ) ),
+			camelCaseDash(request.substring(WORDPRESS_NAMESPACE.length)),
 		];
 	}
 	// For Quill Forms
-	if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
+	if (request.startsWith(QUILLFORMS_NAMESPACE)) {
 		return [
 			'qf',
-			camelCaseDash( request.substring( QUILLFORMS_NAMESPACE.length ) ),
+			camelCaseDash(request.substring(QUILLFORMS_NAMESPACE.length)),
 		];
 	}
 }
@@ -75,8 +79,8 @@ function defaultRequestToExternal( request ) {
  * @return {string|undefined} WordPress script handle to map the request to. Return `undefined`
  *   to use the same name as the module.
  */
-function defaultRequestToHandle( request ) {
-	switch ( request ) {
+function defaultRequestToHandle(request) {
+	switch (request) {
 		case '@babel/runtime/regenerator':
 			return 'wp-polyfill';
 
@@ -84,17 +88,17 @@ function defaultRequestToHandle( request ) {
 			return 'lodash';
 	}
 
-	if ( request.includes( 'react-refresh/runtime' ) ) {
+	if (request.includes('react-refresh/runtime')) {
 		return 'wp-react-refresh-runtime';
 	}
 
-	if ( request.startsWith( WORDPRESS_NAMESPACE ) ) {
-		return 'wp-' + request.substring( WORDPRESS_NAMESPACE.length );
+	if (request.startsWith(WORDPRESS_NAMESPACE)) {
+		return 'wp-' + request.substring(WORDPRESS_NAMESPACE.length);
 	}
 
 	// For Quill Forms
-	if ( request.startsWith( QUILLFORMS_NAMESPACE ) ) {
-		return 'quillforms-' + request.substring( QUILLFORMS_NAMESPACE.length );
+	if (request.startsWith(QUILLFORMS_NAMESPACE)) {
+		return 'quillforms-' + request.substring(QUILLFORMS_NAMESPACE.length);
 	}
 }
 
@@ -107,8 +111,8 @@ function defaultRequestToHandle( request ) {
  * @param {string} string Input dash-delimited string.
  * @return {string} Camel-cased string.
  */
-function camelCaseDash( string ) {
-	return string.replace( /-([a-z])/g, ( _, letter ) => letter.toUpperCase() );
+function camelCaseDash(string) {
+	return string.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
 module.exports = {

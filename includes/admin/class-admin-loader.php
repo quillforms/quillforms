@@ -106,6 +106,7 @@ class Admin_Loader {
 				'submenuPages'            => $submenu['quillforms'] ?? [],
 				'site_store_nonce'        => wp_create_nonce( 'quillforms_site_store' ),
 				'license_nonce'           => wp_create_nonce( 'quillforms_license' ),
+				'duplicate_nonce'		  => wp_create_nonce( 'quillforms_duplicate' ),
 				'current_user_name'       => $user->display_name,
 				'current_user_avatar_url' => esc_url(
 					get_avatar_url( $user->ID )

@@ -1,5 +1,10 @@
 /* eslint-disable no-console */
 /**
+ * QuillForms Dependencies
+ */
+import ConfigAPI from '@quillforms/config';
+
+/**
  * WordPress Dependencies
  */
 import { select, dispatch } from '@wordpress/data';
@@ -51,8 +56,14 @@ export const registerBlockType = (
 	name: string,
 	settings: BlockTypeSettings
 ): BlockTypeSettings | undefined => {
+
 	if ( typeof name !== 'string' ) {
 		console.error( 'Block names must be strings.' );
+		return;
+	}
+
+	const isWPEnv = ConfigAPI.isWPEnv();
+	if( name === 'file' && !isWPEnv && window?.quillformsSaasManagerAdmin?.plan?.plan === 'free' ) {
 		return;
 	}
 

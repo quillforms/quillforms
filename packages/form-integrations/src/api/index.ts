@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { isValidIcon, normalizeIconObject } from '@quillforms/utils';
+import ConfigAPI from '@quillforms/config';
 
 /**
  * WordPress Dependencies
@@ -31,11 +32,14 @@ export const registerIntegrationModule = (
 	slug: string,
 	settings: IntegrationModuleSettings
 ) => {
-	settings = applyFilters(
-		'QuillForms.FormIntegrations.IntegrationModuleSettings',
-		settings,
-		slug
-	) as IntegrationModuleSettings;
+	const isWPEnv = ConfigAPI.isWPEnv();
+	if (isWPEnv || (!isWPEnv &&  window?.quillformsSaasManagerAdmin?.plan?.plan !== 'free')) {
+		settings = applyFilters(
+			'QuillForms.FormIntegrations.IntegrationModuleSettings',
+			settings,
+			slug
+		) as IntegrationModuleSettings;
+	}
 
 	if ( integrationModules[ slug ] ) {
 		console.error( `This integration ${ slug } is already registered!` );

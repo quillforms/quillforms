@@ -141,9 +141,15 @@ class Core {
 			'menu_position'      => 30,
 			'show_in_rest'       => true,
 		);
-		if ( Settings::get( 'override_quillforms_slug' ) === true && ! empty( Settings::get( 'quillforms_slug' ) ) ) {
-			$args['rewrite']['slug'] = Settings::get( 'quillforms_slug' );
-		}
+		if ( Settings::get( 'override_quillforms_slug' ) === true ) {
+			if (! empty( Settings::get( 'quillforms_slug' ) ) ) {
+				$args['rewrite']['slug'] = Settings::get( 'quillforms_slug' );
+			}
+			
+		} 
+
+		$args['rewrite']['slug'] = apply_filters('quillforms_rewrite_slug', $args['rewrite']['slug']);
+		
 		register_post_type( 'quill_forms', $args );
 	}
 

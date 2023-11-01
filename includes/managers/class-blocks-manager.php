@@ -64,6 +64,10 @@ final class Blocks_Manager
             return false;
         }
 
+        $should_block_be_registered = apply_filters('quillforms_should_block_be_registered', true, $block_name, $block_type);
+        if( ! $should_block_be_registered ) {
+            return false;
+        }
         $this->registered_block_types[ $block_name ] = $block_type;
 
         return $block_type;

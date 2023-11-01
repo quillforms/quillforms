@@ -261,6 +261,15 @@ function quillforms_register_packages_scripts( $scripts )
         true
     );
 
+    quillforms_override_script(
+        $scripts,
+        'tinyColor2',
+        QUILLFORMS_PLUGIN_URL . '/lib/vendor/tinycolor.min.js',
+        array(),
+        QUILLFORMS_VERSION,
+        true
+    );
+
 }
 
 /**

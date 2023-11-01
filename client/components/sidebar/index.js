@@ -1,4 +1,8 @@
 /**
+ * Quill Forms Dependencies
+ */
+import ConfigAPI from '@quillforms/config';
+/**
  * External Dependencies
  */
 import {
@@ -38,6 +42,7 @@ const matchesRegesiteredRoutes = (path) => {
 	return ret;
 };
 const Sidebar = () => {
+	const isWPEnv = ConfigAPI.isWPEnv();
 	return (
 		<div className="qf-admin-sidebar">
 			<h1 className="qf-admin-sidebar-heading">Quill Forms</h1>
@@ -97,7 +102,33 @@ const Sidebar = () => {
 						);
 					}
 				})}
+
 			</div>
+			{!isWPEnv && (
+				<div className='qf-admin-account-summary'>
+					<h3 className='qf-admin-account-summary__heading'>Account Summary</h3>
+					<table className='qf-admin-account-summary__table'>
+						<tr>
+							<td>Plan</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Entries Count</td>
+							<td>{window?.quillformsSaasManagerAdmin?.entriesCount}</td>
+						</tr>
+						<tr>
+							<td>Entries Limit</td>
+							<td></td>
+						</tr>
+					</table>
+					<NavLink
+						className="qf-admin-account-link"
+						to={`/admin.php?page=quillforms&path=account`}
+					>
+						Upgrade
+					</NavLink>
+				</div>
+			)}
 		</div>
 	);
 };

@@ -36,59 +36,59 @@ import { ThreeDots as Loader } from 'react-loader-spinner';
 import './style.scss';
 
 const General = () => {
-	const [ settings, setSettings ] = useState( null );
-	const [ displayProModal, setDisplayProModal ] = useState( false );
-	const [ isSaving, setIsSaving ] = useState( false );
+	const [settings, setSettings] = useState(null);
+	const [displayProModal, setDisplayProModal] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
 	const license = ConfigAPI.getLicense();
 
 	const { createErrorNotice, createSuccessNotice } =
-		useDispatch( 'core/notices' );
+		useDispatch('core/notices');
 
-	useEffect( () => {
-		apiFetch( {
+	useEffect(() => {
+		apiFetch({
 			path: `/qf/v1/settings?groups=general`,
 			method: 'GET',
-		} )
-			.then( ( res ) => {
-				setSettings( res.general );
-			} )
-			.catch( () => {
-				setSettings( false );
-			} );
-	}, [] );
+		})
+			.then((res) => {
+				setSettings(res.general);
+			})
+			.catch(() => {
+				setSettings(false);
+			});
+	}, []);
 
 	const save = () => {
-		setIsSaving( true );
-		apiFetch( {
+		setIsSaving(true);
+		apiFetch({
 			path: `/qf/v1/settings`,
 			method: 'POST',
 			data: settings,
-		} )
-			.then( () => {
-				createSuccessNotice( '✅ Settings saved', {
+		})
+			.then(() => {
+				createSuccessNotice('✅ Settings saved', {
 					type: 'snackbar',
 					isDismissible: true,
-				} );
-				setIsSaving( false );
+				});
+				setIsSaving(false);
 				// To reinitialize google maps scripts
-				setForceReload( true );
-			} )
-			.catch( ( err ) => {
-				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
+				setForceReload(true);
+			})
+			.catch((err) => {
+				createErrorNotice(`⛔ ${err ?? 'Error'}`, {
 					type: 'snackbar',
 					isDismissible: true,
-				} );
-				setIsSaving( false );
-			} );
+				});
+				setIsSaving(false);
+			});
 	};
 
-	const setSettingField = ( key, value ) => {
-		setSettings( ( settings ) => {
+	const setSettingField = (key, value) => {
+		setSettings((settings) => {
 			return {
 				...settings,
-				[ key ]: value,
+				[key]: value,
 			};
-		} );
+		});
 	};
 
 	const logLevelOptions = [
@@ -108,9 +108,9 @@ const General = () => {
 
 	return (
 		<div className="quillforms-settings-general-tab">
-			{ settings === null ? (
+			{settings === null ? (
 				<div
-					className={ css`
+					className={css`
 						display: flex;
 						flex-wrap: wrap;
 						width: 100%;
@@ -119,9 +119,9 @@ const General = () => {
 						align-items: center;
 					` }
 				>
-					<Loader color="#8640e3" height={ 50 } width={ 50 } />
+					<Loader color="#8640e3" height={50} width={50} />
 				</div>
-			) : ! settings ? (
+			) : !settings ? (
 				<div className="error">Cannot load settings</div>
 			) : (
 				<div>
@@ -129,7 +129,7 @@ const General = () => {
 						<ControlWrapper orientation="horizontal">
 							<ControlLabel label="Log level"></ControlLabel>
 							<SelectControl
-								className={ css`
+								className={css`
 									width: 200px;
 									margin-left: 10px;
 
@@ -137,17 +137,17 @@ const General = () => {
 										margin-bottom: 0;
 									}
 								` }
-								value={ logLevelOptions.find(
-									( option ) =>
+								value={logLevelOptions.find(
+									(option) =>
 										option.key === settings.log_level
-								) }
-								onChange={ ( selectedChoice ) => {
+								)}
+								onChange={(selectedChoice) => {
 									setSettingField(
 										'log_level',
 										selectedChoice.selectedItem.key
 									);
-								} }
-								options={ logLevelOptions }
+								}}
+								options={logLevelOptions}
 							/>
 						</ControlWrapper>
 					</BaseControl>
@@ -155,42 +155,42 @@ const General = () => {
 						<ControlWrapper orientation="horizontal">
 							<ControlLabel
 								label="Override 'quillforms' slug in the url"
-								isNew={ true }
+								isNew={true}
 							/>
 							<ToggleControl
 								checked={
-									settings?.override_quillforms_slug &&
-									license?.status === 'valid'
+									settings?.override_quillforms_slug
+
 								}
-								onChange={ () => {
-									if ( license?.status !== 'valid' ) {
-										setDisplayProModal( true );
+								onChange={() => {
+									if (license?.status !== 'valid') {
+										setDisplayProModal(true);
 									} else {
 										setSettingField(
 											'override_quillforms_slug',
-											! settings?.override_quillforms_slug
+											!settings?.override_quillforms_slug
 										);
 									}
-								} }
+								}}
 							/>
 						</ControlWrapper>
-						{ settings?.override_quillforms_slug &&
+						{settings?.override_quillforms_slug &&
 							license?.status === 'valid' && (
 								<>
 									<ControlWrapper orientation="vertical">
 										<ControlLabel label="Your New Slug:"></ControlLabel>
 										<TextControl
-											value={ settings?.quillforms_slug }
-											onChange={ ( val ) => {
+											value={settings?.quillforms_slug}
+											onChange={(val) => {
 												setSettingField(
 													'quillforms_slug',
 													val.trim()
 												);
-											} }
+											}}
 										/>
 									</ControlWrapper>
 									<p
-										className={ css`
+										className={css`
 											color: #8e8989;
 											margin-top: 0;
 										` }
@@ -199,7 +199,7 @@ const General = () => {
 										'quillforms' slug from url.
 									</p>
 								</>
-							) }
+							)}
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="horizontal">
@@ -209,12 +209,12 @@ const General = () => {
 								checked={
 									settings?.providers_sync_entry_process
 								}
-								onChange={ () => {
+								onChange={() => {
 									setSettingField(
 										'providers_sync_entry_process',
-										! settings?.providers_sync_entry_process
+										!settings?.providers_sync_entry_process
 									);
-								} }
+								}}
 							/>
 						</ControlWrapper>
 					</BaseControl>
@@ -223,13 +223,13 @@ const General = () => {
 							<ControlLabel label="Disable collecting user ip" />
 
 							<ToggleControl
-								checked={ settings.disable_collecting_user_ip }
-								onChange={ () => {
+								checked={settings.disable_collecting_user_ip}
+								onChange={() => {
 									setSettingField(
 										'disable_collecting_user_ip',
-										! settings.disable_collecting_user_ip
+										!settings.disable_collecting_user_ip
 									);
-								} }
+								}}
 							/>
 						</ControlWrapper>
 					</BaseControl>
@@ -241,12 +241,12 @@ const General = () => {
 								checked={
 									settings.disable_collecting_user_agent
 								}
-								onChange={ () => {
+								onChange={() => {
 									setSettingField(
 										'disable_collecting_user_agent',
-										! settings.disable_collecting_user_agent
+										!settings.disable_collecting_user_agent
 									);
-								} }
+								}}
 							/>
 						</ControlWrapper>
 					</BaseControl>
@@ -254,28 +254,28 @@ const General = () => {
 						<ControlWrapper orientation="vertical">
 							<ControlLabel label="Google Maps api key"></ControlLabel>
 							<TextControl
-								value={ settings.google_maps_api_key }
-								onChange={ ( value ) => {
+								value={settings.google_maps_api_key}
+								onChange={(value) => {
 									setSettingField(
 										'google_maps_api_key',
 										value
 									);
-								} }
+								}}
 							/>
 							<p
-								className={ css`
+								className={css`
 									background: rgb( 246 246 246 );
 									padding: 12px;
 									border-radius: 10px;
 								` }
 							>
 								To get your API key <br />
-								1-{ ' ' }
+								1-{' '}
 								<a href="https://developers.google.com/maps/documentation/javascript/places#enable_apis">
 									Enable GoogleMaps Places API.
 								</a>
 								<br />
-								2-{ ' ' }
+								2-{' '}
 								<a href="https://developers.google.com/maps/documentation/javascript/get-api-key">
 									Get an API key.
 								</a>
@@ -285,25 +285,25 @@ const General = () => {
 					</BaseControl>
 
 					<div
-						className={ css`
+						className={css`
 							text-align: left;
 							margin-top: 20px;
 						` }
 					>
-						{ isSaving ? (
+						{isSaving ? (
 							<Button isLarge isSecondary>
 								Saving
 							</Button>
 						) : (
-							<Button isLarge isPrimary onClick={ save }>
+							<Button isLarge isPrimary onClick={save}>
 								Save
 							</Button>
-						) }
+						)}
 					</div>
 					<>
-						{ displayProModal && (
+						{displayProModal && (
 							<Modal
-								className={ classnames(
+								className={classnames(
 									css`
 										border: none !important;
 										border-radius: 9px;
@@ -325,22 +325,22 @@ const General = () => {
 											text-align: center;
 										}
 									`
-								) }
+								)}
 								title="Overwrite quillforms slug is a pro feature"
-								onRequestClose={ () => {
-									setDisplayProModal( false );
-								} }
+								onRequestClose={() => {
+									setDisplayProModal(false);
+								}}
 							>
 								<__experimentalFeatureAvailability
 									featureName="Override quillforms slug"
 									planKey="basic"
-									showLockIcon={ true }
+									showLockIcon={true}
 								/>
 							</Modal>
-						) }
+						)}
 					</>
 				</div>
-			) }
+			)}
 		</div>
 	);
 };

@@ -11,7 +11,11 @@ import { css } from "emotion";
 import QRCode from "react-qr-code";
 import QRCodeIcon from "./qrcode-icon";
 
+import configApi from "@quillforms/config";
+
 const ShareBody = ({ payload }) => {
+
+    const isWPEnv = configApi.isWPEnv();
 
     const [modalState, setModalState] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
@@ -103,21 +107,23 @@ const ShareBody = ({ payload }) => {
                         <p>Copy the form link and share it with your audience.</p>
                     </div>
                 </div>
-                <div className="quillforms-share-card" onClick={() => {
-                    setModalState('shortcode');
-                }}>
-                    <div className="quillforms-share-card-header">
-                        <h3 style={{
-                            marginTop: 0,
-                            fontSize: "22px",
-                            marginBottom: "34px"
-                        }}>[ / ]</h3>
-                        <h3>Shortcode</h3>
+                {isWPEnv && (
+                    <div className="quillforms-share-card" onClick={() => {
+                        setModalState('shortcode');
+                    }}>
+                        <div className="quillforms-share-card-header">
+                            <h3 style={{
+                                marginTop: 0,
+                                fontSize: "22px",
+                                marginBottom: "34px"
+                            }}>[ / ]</h3>
+                            <h3>Shortcode</h3>
+                        </div>
+                        <div className="quillforms-share-card-body">
+                            <p>Copy the shortcode and paste it into your post or page.</p>
+                        </div>
                     </div>
-                    <div className="quillforms-share-card-body">
-                        <p>Copy the shortcode and paste it into your post or page.</p>
-                    </div>
-                </div>
+                )}
                 <div className="quillforms-share-card" onClick={() => {
                     setModalState('embed');
                 }}>
@@ -129,28 +135,30 @@ const ShareBody = ({ payload }) => {
                         <p>Embed code is useful to share the form in an external web page. Copy the code and paste it into your external post or page.</p>
                     </div>
                 </div>
-                <div className="quillforms-share-card" onClick={() => {
-                    setModalState('popup');
-                }}>
-                    <div className="quillforms-share-card-header">
-                        <div className={css`
-                            display: flex;
-                            align-items: flex-start;
-                            justify-content: space-between;
-                        `}>
-                            <div>
-                                <PopupIcon />
-                                <h3>Popup</h3>
-                            </div>
-                            <div className="admin-components-control-label__new-feature">
-                                NEW
+                {isWPEnv && (
+                    <div className="quillforms-share-card" onClick={() => {
+                        setModalState('popup');
+                    }}>
+                        <div className="quillforms-share-card-header">
+                            <div className={css`
+                                display: flex;
+                                align-items: flex-start;
+                                justify-content: space-between;
+                            `}>
+                                <div>
+                                    <PopupIcon />
+                                    <h3>Popup</h3>
+                                </div>
+                                <div className="admin-components-control-label__new-feature">
+                                    NEW
+                                </div>
                             </div>
                         </div>
+                        <div className="quillforms-share-card-body">
+                            <p>Display your form on a popup upon clicking a desinated button. Copy the shortcode and paste it into your post or page.</p>
+                        </div>
                     </div>
-                    <div className="quillforms-share-card-body">
-                        <p>Display your form on a popup upon clicking a desinated button. Copy the shortcode and paste it into your post or page.</p>
-                    </div>
-                </div>
+                )}
                 <div className="quillforms-share-card" onClick={() => {
                     setModalState('qr');
                 }}>

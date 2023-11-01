@@ -90,7 +90,7 @@ const Settings = () => {
 							className: 'tab-' + name,
 						};
 					})}
-					initialTabName={params?.tab ?? isWPEnv ? 'general' : 'payments'}
+					initialTabName={params?.tab ?? isWPEnv ? 'general' : 'general'}
 				>
 					{(tab) => (
 						<div>

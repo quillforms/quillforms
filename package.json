@@ -18,7 +18,7 @@
 		"clean:packages": "rimraf \"./packages/*/@(build|build-module|build-style)\"",
 		"clean:package-types": "tsc --build --clean",
 		"prebuild:packages": "npm run clean:packages && lerna run build",
-		"build:packages": "npm run build:package-types && node ./bin/packages/build.js",
+		"build:packages": "node ./bin/packages/build.js",
 		"build:package-types": "node ./bin/packages/validate-typescript-version.js && tsc --build",
 		"build": "npm run build:packages && qf-scripts build",
 		"dist": "rimraf \"./dist\" && mkdir dist && zip -rq dist/quillforms.zip assets build dependencies includes lib quillforms.php readme.txt",

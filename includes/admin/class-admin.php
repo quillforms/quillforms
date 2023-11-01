@@ -68,6 +68,8 @@ class Admin {
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
 		add_action( 'pre_get_posts', array( $this, 'include_quill_forms_post_type_in_query' ), 11 );
 		add_filter( 'post_type_link', array( $this, 'remove_cpt_slug' ), 10, 3 );
+		add_filter('rewrite_rules_array', array($this, 'rewrite_quillforms_rules') );
+		
 	}
 
 	/**
@@ -78,6 +80,11 @@ class Admin {
 	 * @return integer|WP_Error|false
 	 */
 	public function duplicate_form() {
+		// check for valid nonce field.
+		if ( ! check_ajax_referer( 'quillforms_duplicate', '_nonce', false ) ) {
+			wp_send_json_error( esc_html__( 'Invalid nonce', 'quillforms' ), 403 );
+			exit;
+		}
 		if ( ! current_user_can( 'manage_quillforms' ) ) {
 			wp_send_json_error( 'Unauthorized' );
 			return;
@@ -207,6 +214,26 @@ class Admin {
 		$post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
 
 		return $post_link;
+	}
+
+	/**
+	 * Rewrite QuillForms Rules
+	 * 
+	 * @since 3.4.0
+	 */
+	public function rewrite_quillforms_rules( $rules ) {
+		$override_slug= Settings::get("override_quillforms_slug");
+		$new_slug =  Settings::get("quillforms_slug");
+		// 
+		if($override_slug && empty($new_slug)) {
+			// in this case the url shouldn't contain quillforms slug
+			$rules = array_merge(
+				['[^/]+/quillforms/([^/]+)/?$' => 'index.php?quill_forms=$matches[1]'],
+				$rules
+			);
+		}
+
+		return $rules;
 	}
 
 }
