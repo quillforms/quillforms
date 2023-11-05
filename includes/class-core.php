@@ -234,7 +234,9 @@ class Core {
 	 */
 	public static function get_messages( $form_id ) {
 		$messages         = get_post_meta( $form_id, 'messages', true );
-		$messages         = $messages ?? array();
+		if(empty($messages)) {
+			$messages = array();
+		}	
 		$default_messages = Client_Messages::instance()->get_messages();
 		foreach ( $default_messages as $key => $message ) {
 			if ( ! $message['default'] ) {
