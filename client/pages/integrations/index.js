@@ -24,10 +24,11 @@ import './style.scss';
 import Icon from './icon';
 import SearchIcon from './search-icon';
 import IntegrationModal from './integration-modal';
+import { NavLink } from '@quillforms/navigation';
 
-const IntegrationsPage = ( { params } ) => {
-	const [ modalIntegration, setModalIntegration ] = useState( null );
-	const [ searchKeyword, setSearchKeyword ] = useState( '' );
+const IntegrationsPage = ({ params }) => {
+	const [modalIntegration, setModalIntegration] = useState(null);
+	const [searchKeyword, setSearchKeyword] = useState('');
 
 	const integrationsModules = getIntegrationModules();
 
@@ -49,18 +50,18 @@ const IntegrationsPage = ( { params } ) => {
 				<input
 					className="quillforms-integrations-page-search__input"
 					type="text"
-					value={ searchKeyword }
-					placeholder={ 'Search Integrations' }
-					onChange={ ( e ) => {
-						setSearchKeyword( e.target.value );
-					} }
+					value={searchKeyword}
+					placeholder={'Search Integrations'}
+					onChange={(e) => {
+						setSearchKeyword(e.target.value);
+					}}
 				/>
 				<SearchIcon />
 			</div>
 			<div className="quillforms-integrations-page__integrations-list">
-				{ size( integrationsModules ) > 0 ? (
-					map( keys( integrationsModules ), ( slug ) => {
-						const icon = integrationsModules[ slug ].icon;
+				{size(integrationsModules) > 0 ? (
+					map(keys(integrationsModules), (slug) => {
+						const icon = integrationsModules[slug].icon;
 						const connected = applyFilters(
 							'QuillForms.Integrations.IsConnected',
 							false,
@@ -68,48 +69,48 @@ const IntegrationsPage = ( { params } ) => {
 						);
 						return (
 							<div
-								key={ slug }
+								key={slug}
 								className="quillforms-integrations-page__integration-list-item"
 							>
 								<div className="quillforms-integrations-page__integration-module-header">
 									<div className="quillforms-integrations-page__integration-module-icon">
-										{ typeof icon === 'string' ? (
-											<img src={ icon } />
+										{typeof icon === 'string' ? (
+											<img src={icon} />
 										) : (
 											<IconComponent
 												icon={
 													icon?.src ? icon.src : icon
 												}
 											/>
-										) }
+										)}
 									</div>
 									<div className="quillforms-integrations-page__integration-module-title">
-										{ integrationsModules[ slug ].title }
+										{integrationsModules[slug].title}
 									</div>
 								</div>
 								<div className="quillforms-integrations-page__integration-module-desc">
-									{ integrationsModules[ slug ].description }
+									{integrationsModules[slug].description}
 								</div>
 								<div className="quillforms-integrations-page__integration-module-footer">
 									<Button
 										isPrimary
-										onClick={ () =>
-											setModalIntegration( slug )
+										onClick={() =>
+											setModalIntegration(slug)
 										}
 									>
-										{ connected ? (
+										{connected ? (
 											<span>Edit Connections</span>
 										) : (
 											<span>Connect</span>
-										) }
+										)}
 									</Button>
 								</div>
 							</div>
 						);
-					} )
+					})
 				) : (
 					<div
-						className={ css`
+						className={css`
 							background: #e05252;
 							color: #fff;
 							padding: 10px;
@@ -122,15 +123,21 @@ const IntegrationsPage = ( { params } ) => {
 					>
 						No integrations found!
 					</div>
-				) }
+				)}
 			</div>
-			{ modalIntegration && (
+
+			<div className="quillforms-analytics-note">
+				You can connect with Google Tag manager, Google Analytics and Facebook Pixel from <NavLink
+					to={`/admin.php?page=quillforms&path=settings&tab=analytics`}
+				>Settings</NavLink> page
+			</div>
+			{modalIntegration && (
 				<IntegrationModal
-					slug={ modalIntegration }
-					integration={ integrationsModules[ modalIntegration ] }
-					onClose={ () => setModalIntegration( null ) }
+					slug={modalIntegration}
+					integration={integrationsModules[modalIntegration]}
+					onClose={() => setModalIntegration(null)}
 				/>
-			) }
+			)}
 		</div>
 	);
 };

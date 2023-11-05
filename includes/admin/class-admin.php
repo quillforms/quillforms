@@ -85,6 +85,7 @@ class Admin {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'quillforms' ), 403 );
 			exit;
 		}
+		
 		if ( ! current_user_can( 'manage_quillforms' ) ) {
 			wp_send_json_error( 'Unauthorized' );
 			return;

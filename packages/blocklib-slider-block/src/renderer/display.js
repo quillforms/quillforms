@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 /**
  * External Dependencies
  */
-import tinyColor from 'tinycolor2';
+import tinyColor from 'tinycolor';
 import { css } from 'emotion';
 import classnames from 'classnames';
 import Slider from '@mui/material/Slider';

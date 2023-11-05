@@ -25,8 +25,8 @@ function defaultRequestToExternal(request) {
 			return 'emotion';
 		}
 
-		case 'tinycolor2': {
-			return 'tinycolor2';
+		case 'tinycolor': {
+			return 'tinycolor';
 		}
 		case '@babel/runtime/regenerator':
 			return 'regeneratorRuntime';

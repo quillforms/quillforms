@@ -21,6 +21,7 @@
 		"build:packages": "node ./bin/packages/build.js",
 		"build:package-types": "node ./bin/packages/validate-typescript-version.js && tsc --build",
 		"build": "npm run build:packages && qf-scripts build",
+		"dist-w": "rimraf \"./dist\" && mkdir dist && powershell Compress-Archive -Path assets, build, dependencies, includes, lib, quillforms.php, readme.txt -DestinationPath \"./dist/quillforms.zip\"",
 		"dist": "rimraf \"./dist\" && mkdir dist && zip -rq dist/quillforms.zip assets build dependencies includes lib quillforms.php readme.txt",
 		"changelog": "./bin/plugin/cli.js changelog",
 		"check-engines": "qf-scripts check-engines",

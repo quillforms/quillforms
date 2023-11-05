@@ -9,7 +9,7 @@ import { useMessages } from '@quillforms/renderer-core';
 import classnames from 'classnames';
 import { css } from 'emotion';
 import { useState } from 'react';
-import tinyColor from 'tinycolor2';
+import tinyColor from 'tinycolor';
 
 const ChoiceItem = ({
 	order,

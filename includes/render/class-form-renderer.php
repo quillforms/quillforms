@@ -388,6 +388,12 @@ class Form_Renderer
                 true
             );
 
+            // Add data attributes to the script
+            wp_script_add_data( 'quillforms-react-renderer-script', 'data-no-optimize', '1' );
+            wp_script_add_data( 'quillforms-react-renderer-script', 'data-two-no-delay', 'true' );
+            wp_script_add_data( 'quillforms-react-renderer-script', 'data-two-no-defer', 'true' );
+            wp_script_add_data( 'quillforms-react-renderer-script', 'data-pagespeed-no-defer', 'true' );
+
 			wp_enqueue_script(
                 'quillforms-iframe-resizer-content-window-script',
                 QUILLFORMS_PLUGIN_URL . 'includes/render/iframe-resizer-content-window-min.js',
@@ -400,16 +406,20 @@ class Form_Renderer
             if ( class_exists( '\QuillForms_CustomFonts\Fonts_Model' ) ) {
                 $custom_fonts = \QuillForms_CustomFonts\Fonts_Model::get_all_registered_fonts();
             }
-            wp_localize_script(
-                'quillforms-react-renderer-script',
-                'qfRender',
-                array(
-                'ajaxurl'    => admin_url('admin-ajax.php'),
-                'formObject' => $form_object,
-                'formId'     => $form_id,
-                'customFonts' => $custom_fonts,
-                )
+            wp_add_inline_script(
+                'quillforms-renderer-core',
+                'window.qfRender = ' . wp_json_encode(
+                    array(
+                        'ajaxurl'    => admin_url('admin-ajax.php'),
+                        'formObject' => $form_object,
+                        'formId'     => $form_id,
+                        'customFonts' => $custom_fonts,
+                        '_nonce' => wp_create_nonce( 'quillforms-renderer' ),
+                    )
+                ),
+                'after'
             );
+
 
             $submission_id = $_GET['submission_id'] ?? null;
             $step          = $_GET['step'] ?? null;
@@ -475,7 +485,7 @@ class Form_Renderer
      */
 	public function add_script_data_attributes( $tag, $handle, $src ) 	{ // phpcs:ignore
         if (is_singular('quill_forms') ) {
-            $tag =  str_replace( '<script', '<script data-two-no-delay="true" data-two-no-defer="true" data-pagespeed-no-defer="true"', $tag );
+            $tag =  str_replace( '<script', '<script data-no-optimize="1" data-two-no-delay="true" data-two-no-defer="true" data-pagespeed-no-defer="true"', $tag );
         }
 
         return $tag;

@@ -18,43 +18,43 @@ import './style.scss';
 
 const Analytics = () => {
 	const StoreAddons = ConfigAPI.getStoreAddons();
-	const AnalyticsAddons = [ 'googleanalytics', 'facebookpixel' ];
+	const AnalyticsAddons = ['googleanalytics', 'facebookpixel', 'googletagmanager'];
 
 	return (
 		<div className="quillforms-analytics-tab">
 			<Panel>
-				{ AnalyticsAddons.map( ( slug ) => {
-					const addon = StoreAddons[ slug ];
+				{AnalyticsAddons.map((slug) => {
+					const addon = StoreAddons[slug];
 					return (
 						<PanelBody
-							key={ slug }
+							key={slug}
 							title={
 								<div className="quillforms-analytics-tab-addon-header">
-									<img src={ addon.assets.icon } />
-									<div>{ addon.name }</div>
+									<img src={addon.assets.icon} />
+									<div>{addon.name}</div>
 								</div>
 							}
-							initialOpen={ false }
+							initialOpen={false}
 							className="quillforms-analytics-tab-addon"
 						>
 							<div className="quillforms-analytics-tab-addon-body">
-								{ applyFilters(
+								{applyFilters(
 									'QuillForms.Settings.Analytics.SettingsRender',
 									<__experimentalAddonFeatureAvailability
 										featureName={
 											addon.name +
 											' ' +
-											__( 'Addon', 'quillforms' )
+											__('Addon', 'quillforms')
 										}
-										addonSlug={ slug }
-										showLockIcon={ true }
+										addonSlug={slug}
+										showLockIcon={true}
 									/>,
 									slug
-								) }
+								)}
 							</div>
 						</PanelBody>
 					);
-				} ) }
+				})}
 			</Panel>
 		</div>
 	);

@@ -263,7 +263,7 @@ function quillforms_register_packages_scripts( $scripts )
 
     quillforms_override_script(
         $scripts,
-        'tinyColor2',
+        'tinycolor',
         QUILLFORMS_PLUGIN_URL . '/lib/vendor/tinycolor.min.js',
         array(),
         QUILLFORMS_VERSION,

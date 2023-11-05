@@ -17,7 +17,7 @@ import { useState } from '@wordpress/element';
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-import tinycolor from 'tinycolor2';
+import tinycolor from 'tinycolor';
 import { TailSpin as Loader } from 'react-loader-spinner';
 
 /**

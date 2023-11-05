@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import tinycolor from 'tinycolor2';
+import tinycolor from 'tinycolor';
 import gradientParser from 'gradient-parser';
 
 /**
@@ -10,12 +10,12 @@ import gradientParser from 'gradient-parser';
  *
  * @return { boolean } Is the received color gradient or not
  */
-export const isGradient = ( value ) => {
-	let hasGradient = !! value;
+export const isGradient = (value) => {
+	let hasGradient = !!value;
 
 	try {
-		gradientParser.parse( value );
-	} catch ( error ) {
+		gradientParser.parse(value);
+	} catch (error) {
 		hasGradient = false;
 	}
 	return hasGradient;
@@ -25,8 +25,8 @@ export const isGradient = ( value ) => {
  * @param {Object|string} data A hex color string or an object with a hex property
  * @return { boolean } Is the received color solid or not
  */
-export const isSolid = ( data = {} ) => {
-	const tinyColorObj = data.hex ? tinycolor( data.hex ) : tinycolor( data );
-	if ( tinyColorObj._format ) return true;
+export const isSolid = (data = {}) => {
+	const tinyColorObj = data.hex ? tinycolor(data.hex) : tinycolor(data);
+	if (tinyColorObj._format) return true;
 	return false;
 };

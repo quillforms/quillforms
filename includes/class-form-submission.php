@@ -119,11 +119,15 @@ class Form_Submission {
 	 */
 	public function process_submission() {
 		$unsanitized_entry = json_decode( stripslashes( $_POST['formData'] ), true );
+
+
 		// Check if form id is valid.
 		if ( ! isset( $unsanitized_entry ) || ! isset( $unsanitized_entry['formId'] ) ) {
 			$this->errors['form'] = 'Form Id missing!';
 			return;
 		}
+
+
 
 		// Check if answers is array.
 		if ( ! isset( $unsanitized_entry['answers'] ) || ! is_array( $unsanitized_entry['answers'] ) ) {
@@ -132,6 +136,16 @@ class Form_Submission {
 		}
 
 		$form_id = sanitize_text_field( $unsanitized_entry['formId'] );
+
+		$should_verify_nonce = false;
+		$should_verify_nonce = apply_filters('quillforms_renderer_nonce_verify', $should_verify_nonce, $form_id);
+		if($should_verify_nonce) {
+			if (!wp_verify_nonce($unsanitized_entry['quillforms_nonce'], 'quillforms-renderer')) {
+				$this->errors['form'] = 'Invalid nonce!';
+				return;
+			}
+		}
+
 
 		// Check if post type is quill_forms and its status is publish.
 		if ( 'quill_forms' !== get_post_type( $form_id ) || 'publish' !== get_post_status( $form_id ) ) {

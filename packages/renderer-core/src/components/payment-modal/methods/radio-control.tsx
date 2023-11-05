@@ -3,92 +3,92 @@
 
 import classnames from 'classnames';
 import { css } from 'emotion';
-import tinyColor from 'tinycolor2';
+import tinyColor from 'tinycolor';
 
 import useGeneralTheme from '../../../hooks/use-general-theme';
 
-const RadioControl = ( {
+const RadioControl = ({
 	options,
 	id,
 	selected,
 	onChange,
 	...additionalProps
-} ) => {
+}) => {
 	const generalTheme = useGeneralTheme();
-	const onChangeValue = ( optionValue ) => onChange( optionValue );
+	const onChangeValue = (optionValue) => onChange(optionValue);
 
-	if ( ! options?.length ) {
+	if (!options?.length) {
 		return null;
 	}
-	const answersColor = tinyColor( generalTheme.answersColor );
+	const answersColor = tinyColor(generalTheme.answersColor);
 
 	return (
 		<>
-			{ options.map( ( option, index ) => (
+			{options.map((option, index) => (
 				<div
-					key={ option.value }
-					className={ classnames(
+					key={option.value}
+					className={classnames(
 						'renderer-components-radio-control__option',
 						{
 							selected: option.value === selected,
 						},
 						css`
-							border-color: ${ generalTheme.answersColor };
-							color: ${ generalTheme.answersColor };
+							border-color: ${generalTheme.answersColor};
+							color: ${generalTheme.answersColor};
 							.check {
-								border-color: ${ generalTheme.answersColor };
+								border-color: ${generalTheme.answersColor};
 							}
 							&:hover {
-								background: ${ answersColor
-									.setAlpha( 0.2 )
-									.toString() };
+								background: ${answersColor
+								.setAlpha(0.2)
+								.toString()};
 							}
 
 							&.selected {
-								background: ${ tinyColor(
+								background: ${tinyColor(
 									generalTheme.answersColor
 								)
-									.setAlpha( 0.75 )
-									.toString() };
-								color: ${ tinyColor(
+								.setAlpha(0.75)
+								.toString()};
+								color: ${tinyColor(
 									generalTheme.answersColor
 								).isDark()
-									? '#fff'
-									: '#333' };
+								? '#fff'
+								: '#333'};
 								input[type='radio'] ~ .check {
 									border: 5px solid
-										${ tinyColor(
-											generalTheme.answersColor
-										).isDark()
-											? '#fff'
-											: '#333' };
+										${tinyColor(
+									generalTheme.answersColor
+								).isDark()
+								? '#fff'
+								: '#333'};
 								}
 
 								input[type='radio'] ~ .check::before {
-									background: ${ generalTheme.answersColor };
+									background: ${generalTheme.answersColor};
 								}
 							}
 						`
-					) }
-					onClick={ () => onChangeValue( option.value ) }
+					)}
+					onClick={() => onChangeValue(option.value)}
 				>
 					<input
-						id={ `${ id }-${ index }` }
+						id={`${id}-${index}`}
 						className="renderer-components-radio-control__input"
 						type="radio"
-						name={ id }
-						value={ option.value }
-						checked={ option.value === selected }
-						{ ...additionalProps }
+						name={id}
+						value={option.value}
+						checked={option.value === selected}
+						{...additionalProps}
 					/>
-					<label htmlFor={ `${ id }-${ index }` }>
-						{ option.label }
+					<label htmlFor={`${id}-${index}`}>
+						{option.label}
 					</label>
 					<div className="check">
 						<div className="inside"></div>
 					</div>
 				</div>
-			) ) }
+			))}
 		</>
 	);
 };

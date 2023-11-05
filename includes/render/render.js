@@ -33,6 +33,7 @@
 						const data = new FormData();
 						data.append('action', 'quillforms_form_submit');
 						data.append('formData', JSON.stringify(formData));
+						data.append('quillforms_nonce', window.qfRender._nonce);
 						fetch(ajaxurl, {
 							method: 'POST',
 							credentials: 'same-origin',

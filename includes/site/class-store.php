@@ -487,6 +487,16 @@ class Store {
 					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/formlocker/icon.svg',
 				),
 			),
+			'googletagmanager'          => array(
+				'name'			 => esc_html__( 'Google Tag Manager', 'quillforms' ),
+				'description'	 => esc_html__( 'Google Tag Manager addon allows you to add Google Tag Manager to your forms and track user activity and form submissions.', 'quillforms' ),
+				'plugin_file'	 => 'quillforms-googletagmanager/quillforms-googletagmanager.php',
+				'plan'			 => 'basic',
+				'is_integration' => false,
+				'assets'		 => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googletagmanager/icon.svg',
+				),
+			),
 			'ratingblock'               => array(
 				'name'           => esc_html__( 'Rating Block', 'quillforms' ),
 				'description'    => esc_html__( 'Add rating question type to your form. You can use stars, hearts, thumbs, thunderbolts, trophies, circles, ...etc in this rating question', 'quillforms' ),
