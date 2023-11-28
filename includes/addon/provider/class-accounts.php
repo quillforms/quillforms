@@ -137,7 +137,7 @@ abstract class Accounts {
 			)
 		);
 		foreach ( $forms as $form_id ) {
-			$connections     = $this->provider->form_data->get( $form_id, 'connections' );
+			$connections     = $this->provider->form_data->get( $form_id, 'connections' ) ?? array();
 			$new_connections = array_filter(
 				$connections,
 				function( $connection ) use ( $account_id ) {
@@ -155,6 +155,7 @@ abstract class Accounts {
 					)
 				);
 			}
+			
 		}
 	}
 

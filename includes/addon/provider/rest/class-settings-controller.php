@@ -30,8 +30,10 @@ abstract class Settings_Controller extends Abstract_Settings_Controller {
 	public function delete( $request ) { // phpcs:ignore
 		// delete accounts through accounts class.
 		$accounts = $this->addon->accounts->get_accounts();
-		foreach ( array_keys( $accounts ) as $account_id ) {
-			$this->addon->accounts->remove_account( $account_id );
+		if( ! empty( $accounts ) ) {
+			foreach ( array_keys( $accounts ) as $account_id ) {
+				$this->addon->accounts->remove_account( $account_id );
+			}
 		}
 
 		return parent::delete( $request );
