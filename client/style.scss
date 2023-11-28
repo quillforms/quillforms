@@ -84,6 +84,7 @@ body.js.is-fullscreen-mode {
 	border-radius: 8px;
 	box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
 	border: none;
+	min-width: 250px !important;
 }
 .components-popover .components-popover__content .components-menu-item__button {
 	box-shadow: none !important;
