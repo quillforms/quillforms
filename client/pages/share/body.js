@@ -20,7 +20,7 @@ const ShareBody = ({ payload }) => {
     const [modalState, setModalState] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
     const [popupSettings, setPopupSettings] = useState({
-        Title: 'Open Form',
+        buttonTitle: 'Open Form',
         buttonBackgroundColor: '#000000',
         buttonTextColor: '#ffffff',
         buttonBorderRadius: '24',
@@ -268,8 +268,8 @@ const ShareBody = ({ payload }) => {
                     }}
                     className={
                         css`
-                            width: 100%;
-                            height: 100%;
+                            width: 100% !important;
+                            height: 100% !important;
                             max-height: 100%;
                             max-width: 100%;
                             margin-right: 0;
