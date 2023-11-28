@@ -293,6 +293,9 @@ class Form_Renderer
      */
     public function parse_default_value( $value )
     {
+        if(empty($value) || empty(trim($value))) {
+            return '';
+        }
         return Merge_Tags::instance()->process_text($value, null, null, 'plain', ['hidden_field']);
     }
 
