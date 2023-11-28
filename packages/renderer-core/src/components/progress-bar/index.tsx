@@ -16,7 +16,7 @@ const ProgressBar = () => {
 	const theme = useCurrentTheme();
 	const percent = useProgressPerecent();
 	const messages = useMessages();
-	const questionsColor = tinyColor(theme.questionsColor);
+	const questionsColor = tinyColor(theme?.questionsColor);
 	return (
 		<div
 			className={classnames(
