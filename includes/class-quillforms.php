@@ -126,7 +126,7 @@ final class QuillForms {
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/course-evaluation-survey/class-course-evaluation-survey-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/event-registration/class-event-registration-template.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/paid-workshop-registration/class-paid-workshop-registration-template.php';
-		
+	
 	}
 
 	/**
@@ -156,11 +156,29 @@ final class QuillForms {
 	 * @since 1.0.0
 	 */
 	private function init_hooks() {
-		 add_filter( 'quillforms_register_log_handlers', array( $this, 'register_log_handlers' ) );
+		add_filter( 'quillforms_register_log_handlers', array( $this, 'register_log_handlers' ) );
 		add_action( 'init', array( Capabilities::class, 'assign_capabilities_for_user_roles' ) );
 		add_action( 'init', array( Core::class, 'register_quillforms_post_type' ) );
 		add_action( 'init', array( $this, 'register_rest_fields' ) );
 		add_action( 'init', array( $this, 'flush_rewrite_rules'), 9999999);
+		add_action( 'init', function() {
+			if (in_array('elementor/elementor.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+
+				// Require the widget class file
+				require_once(QUILLFORMS_PLUGIN_DIR . 'includes/page-builders/elementor/widget.php');
+				// Require the popup class file
+				require_once(QUILLFORMS_PLUGIN_DIR . 'includes/page-builders/elementor/popup.php');
+			
+				// Register the widget
+				add_action('elementor/widgets/widgets_registered', function () {
+					$widget_manager = \Elementor\Plugin::instance()->widgets_manager;
+					$widget = new \QuillForms\PageBuilders\Elementor\QuillForms_Widget();
+					$popup_widget = new \QuillForms\PageBuilders\Elementor\QuillForms_Popup_Widget();
+					$widget_manager->register_widget_type($widget);
+					$widget_manager->register_widget_type($popup_widget);
+				});
+			}
+		});
 	}
 
 	/**
