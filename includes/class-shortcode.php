@@ -110,7 +110,7 @@ class Shortcode
         // wp_enqueue_script('quillforms-iframe-resizer');
         wp_enqueue_script('quillforms-iframe-resizer-implementer');
 
-        return "<iframe  data-max-height='$max_height' class='quillforms-iframe' scrolling='no' src='$src' width='$width' style='border:0;min-height:$min_height; max-height: $max_height'></iframe>";
+        return "<iframe data-max-height='$max_height' class='quillforms-iframe' scrolling='no' src='$src' width='$width' style='border:0;min-height:$min_height; max-height: $max_height'></iframe>";
 
     }
 
@@ -180,7 +180,22 @@ class Shortcode
             >
                 ' . $buttonTitle . '
             </a>
-            <div class="quillforms-popup-overlay" data-formId="' . $id . '">
+            <div class="quillforms-popup-overlay" style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba( 0, 0, 0, 0.8 );
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+                pointer-events: none;
+                visibility: hidden;
+            " data-formId="' . $id . '">
                 <div class="quillforms-popup-container">
                     <div class="quillforms-popup-close">
                         <svg fill="currentColor" height="32" width="32" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
