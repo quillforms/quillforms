@@ -104,6 +104,10 @@ class Entry_Record_Types {
 			array(
 				'check' => $args['is_condition_fulfilled'] ?? function( $record_id, $condition, $entry, $form_data ) use ( $type ) { // phpcs:ignore
 					$value = $entry->get_record_value( $type, $record_id ) ?? '';
+					// var_dump($condition);
+					if(!empty($condition['value']) && isset($condition['type']) && $condition['type'] === 'variable'  ) {
+						$condition['value'] = $entry->get_record_value('variable', $condition['value']) ?? '';
+					}
 					return Logic_Conditions::is_condition_fulfilled( $value, $condition );
 				},
 			)

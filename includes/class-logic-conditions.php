@@ -108,7 +108,9 @@ class Logic_Conditions {
 			$_condition = array(
 				'operator' => $condition['op'],
 				'value'    => $condition['vars'][1]['value'],
+				'type'     => $condition['vars'][1]['type'],
 			);
+		
 			if ( isset( $this->types[ $type ] ) ) {
 				if ( ! $this->types[ $type ]['check']( $modifier, $_condition, $entry, $form_data ) ) {
 					return false;

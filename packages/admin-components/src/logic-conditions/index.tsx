@@ -30,10 +30,11 @@ import ComboboxControl, {
 import OperatorSelector from './operator-selector';
 import TextControl from '../text-control';
 import Button from '../button';
+import AdvancedDropdown from './advanced-dropdown';
 
 export type LogicConditionsProps = {
 	value: EditorLogicCondition[][];
-	onChange: ( value: EditorLogicCondition[][] ) => void;
+	onChange: (value: EditorLogicCondition[][]) => void;
 	combobox?: {
 		customize?: {
 			handler: CustomizeFunction;
@@ -43,118 +44,118 @@ export type LogicConditionsProps = {
 	};
 };
 
-const LogicConditions: React.FC< LogicConditionsProps > = ( {
+const LogicConditions: React.FC<LogicConditionsProps> = ({
 	value,
 	onChange,
 	combobox,
-} ) => {
-	const { formBlocks, blockTypes } = useSelect( ( select ) => {
+}) => {
+	const { formBlocks, blockTypes } = useSelect((select) => {
 		return {
 			// @ts-ignore
-			formBlocks: select( 'quillForms/block-editor' ).getBlocks(),
-			blockTypes: select( 'quillForms/blocks' ).getBlockTypes(),
+			formBlocks: select('quillForms/block-editor').getBlocks(),
+			blockTypes: select('quillForms/blocks').getBlockTypes(),
 		};
-	} );
+	});
 
 	const blocks: FormBlocks = [];
 
-	if ( size( formBlocks ) > 0 ) {
-		forEach( formBlocks, ( block ) => {
-			if ( blockTypes[ block.name ]?.supports?.editable ) {
-				blocks.push( { ...block } );
+	if (size(formBlocks) > 0) {
+		forEach(formBlocks, (block) => {
+			if (blockTypes[block.name]?.supports?.editable) {
+				blocks.push({ ...block });
 			}
-			if ( blockTypes[ block.name ]?.supports?.innerBlocks ) {
-				if ( size( block?.innerBlocks ) > 0 ) {
-					forEach( block.innerBlocks, ( childBlock ) => {
-						blocks.push( {
+			if (blockTypes[block.name]?.supports?.innerBlocks) {
+				if (size(block?.innerBlocks) > 0) {
+					forEach(block.innerBlocks, (childBlock) => {
+						blocks.push({
 							...childBlock,
-						} );
-					} );
+						});
+					});
 				}
 			}
-		} );
+		});
 	}
 	// update value on mount if input isn't array or is empty array.
-	useEffect( () => {
-		if ( ! Array.isArray( value ) || value.length === 0 ) {
-			onChange( [ [ { vars: [ {}, {} ] } ] ] );
+	useEffect(() => {
+		if (!Array.isArray(value) || value.length === 0) {
+			onChange([[{ vars: [{}, {}] }]]);
 		}
-	}, [] );
+	}, []);
 
 	const customize = combobox?.customize?.override
 		? combobox.customize.handler
-		: ( customizable: CustomizeObject ) => {
-				let { sections, options } = customizable;
-				sections = sections.filter( ( section ) =>
-					[ 'fields', 'variables', 'hidden_fields' ].includes(
-						section.key
-					)
-				);
-				options = options.filter( ( option ) => {
-					if ( option.type === 'field' ) {
-						const blockType =
-							blockTypes[ option.other?.name ?? '' ];
-						return (
-							blockType?.supports?.logic &&
-							blockType?.supports?.logicConditions
-						);
-					} else if (
-						[ 'variable', 'hidden_field' ].includes( option.type )
-					) {
-						return true;
-					}
-					return false;
-				} );
-
-				if ( combobox?.customize ) {
-					const customized = combobox.customize.handler( {
-						sections,
-						options,
-					} );
-					sections = customized.sections;
-					options = customized.options;
+		: (customizable: CustomizeObject) => {
+			let { sections, options } = customizable;
+			sections = sections.filter((section) =>
+				['fields', 'variables', 'hidden_fields'].includes(
+					section.key
+				)
+			);
+			options = options.filter((option) => {
+				if (option.type === 'field') {
+					const blockType =
+						blockTypes[option.other?.name ?? ''];
+					return (
+						blockType?.supports?.logic &&
+						blockType?.supports?.logicConditions
+					);
+				} else if (
+					['variable', 'hidden_field'].includes(option.type)
+				) {
+					return true;
 				}
+				return false;
+			});
 
-				return { sections, options };
-		  };
+			if (combobox?.customize) {
+				const customized = combobox.customize.handler({
+					sections,
+					options,
+				});
+				sections = customized.sections;
+				options = customized.options;
+			}
 
-	if ( ! Array.isArray( value ) ) {
+			return { sections, options };
+		};
+
+	if (!Array.isArray(value)) {
 		return null;
 	}
 
 	return (
 		<div className="logic-conditions">
-			{ value.map( ( group, gi ) => (
-				<div key={ gi }>
+			{value.map((group, gi) => (
+				<div key={gi}>
 					<div className="logic-conditions__group">
-						{ value.length > 1 && (
+						{value.length > 1 && (
 							<div className="group-remove">
 								<Icon
-									icon={ closeSmall }
-									onClick={ () => {
-										const $value = [ ...value ];
-										$value.splice( gi, 1 );
-										onChange( $value );
-									} }
+									icon={closeSmall}
+									onClick={() => {
+										const $value = [...value];
+										$value.splice(gi, 1);
+										onChange($value);
+									}}
 								/>
 							</div>
-						) }
-						{ group.map( ( condition, ci ) => {
-							const var0Type = condition.vars[ 0 ].type;
-							const var0Value = condition.vars[ 0 ].value;
+						)}
+						{group.map((condition, ci) => {
+							const var0Type = condition.vars[0].type;
+							const var0Value = condition.vars[0].value;
 							const op = condition.op;
-							const var1Value = condition.vars[ 1 ].value;
+							const var1Value = condition.vars[1].value;
 
 							// some properties for field type.
 							let block;
 							let blockType;
-							if ( var0Type === 'field' ) {
+							if (var0Type === 'field') {
 								block = blocks.find(
-									( $block ) =>
-										$block.id === condition.vars[ 0 ].value
+									($block) =>
+										$block.id === condition.vars[0].value
 								);
-								blockType = blockTypes[ block?.name ];
-								if ( ! blockType ) {
+								blockType = blockTypes[block?.name];
+								if (!blockType) {
 									return null;
 								}
 							}
@@ -162,11 +163,11 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 							// possible operators list.
 							let operators: LogicConditionOperator[] | null =
 								null;
-							if ( var0Type === 'field' ) {
-								if ( blockType.logicalOperators ) {
+							if (var0Type === 'field') {
+								if (blockType.logicalOperators) {
 									operators = blockType.logicalOperators;
 								}
-							} else if ( var0Type === 'variable' ) {
+							} else if (var0Type === 'variable') {
 								operators = [
 									'is',
 									'is_not',
@@ -174,7 +175,7 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 									'greater_than',
 								];
 							}
-							if ( ! operators ) {
+							if (!operators) {
 								operators = [
 									'is',
 									'is_not',
@@ -196,156 +197,172 @@ const LogicConditions: React.FC< LogicConditionsProps > = ( {
 											excerptLength={
 												combobox?.excerptLength ?? 30
 											}
-											value={ condition.vars[ 0 ] }
-											onChange={ ( var0 ) => {
-												const $value = [ ...value ];
-												$value[ gi ][ ci ] = {
-													vars: [ var0, {} ],
+											value={condition.vars[0]}
+											onChange={(var0) => {
+												const $value = [...value];
+												$value[gi][ci] = {
+													vars: [var0, {}],
 												};
-												onChange( $value );
-											} }
-											isToggleEnabled={ false }
-											customize={ customize }
-											hideChooseOption={ true }
-											selectFirstOption={ true }
+
+
+												$value[gi][ci][1] = {
+													type: undefined,
+													value: ""
+												}
+												onChange($value);
+											}}
+											isToggleEnabled={false}
+											customize={customize}
+											hideChooseOption={true}
+											selectFirstOption={true}
 										/>
 									</div>
 									<div className="condition-op">
-										{ var0Value && (
+										{var0Value && (
 											<OperatorSelector
-												operators={ operators }
-												value={ op ?? null }
-												onChange={ ( op ) => {
-													const $value = [ ...value ];
-													$value[ gi ][ ci ].op = op;
-													onChange( $value );
-												} }
+												operators={operators}
+												value={op ?? null}
+												onChange={(op) => {
+													const $value = [...value];
+													$value[gi][ci].op = op;
+													onChange($value);
+												}}
 											/>
-										) }
+										)}
 									</div>
 								</div>
 							);
 
 							// row2 render.
-							if ( var0Value ) {
+							if (var0Value) {
 								row2 = (
 									<div className="condition-row-2">
-										{ var0Type === 'field' &&
-										blockType.logicControl ? (
+										{var0Type === 'field' &&
+											blockType.logicControl ? (
 											<blockType.logicControl
-												attributes={ block.attributes }
-												value={ var1Value }
-												setValue={ ( var1 ) => {
-													const $value = [ ...value ];
-													$value[ gi ][
+												attributes={block.attributes}
+												value={var1Value}
+												setValue={(var1) => {
+													const $value = [...value];
+													$value[gi][
 														ci
-													].vars[ 1 ].value = var1;
-													onChange( $value );
-												} }
-												removeCondition={ () => {
-													const $value = [ ...value ];
-													$value[ gi ].splice(
+													].vars[1].value = var1;
+													onChange($value);
+												}}
+												removeCondition={() => {
+													const $value = [...value];
+													$value[gi].splice(
 														ci,
 														1
 													);
-													onChange( $value );
-												} }
+													onChange($value);
+												}}
 											/>
 										) : var0Type === 'variable' ? (
-											<TextControl
-												type="number"
-												value={ var1Value ?? '' }
-												onChange={ ( var1 ) => {
-													const $value = [ ...value ];
-													$value[ gi ][
-														ci
-													].vars[ 1 ].value = var1;
-													onChange( $value );
-												} }
-											/>
+											// <TextControl
+											// 	type="number"
+											// 	value={ var1Value ?? '' }
+											// 	onChange={ ( var1 ) => {
+											// 		const $value = [ ...value ];
+											// 		$value[ gi ][
+											// 			ci
+											// 		].vars[ 1 ].value = var1;
+											// 		onChange( $value );
+											// 	} }
+											// />
+											<AdvancedDropdown var0={condition.vars[0]} var1={condition.vars[1]} onChange={var1 => {
+												const $value = [...value];
+												$value[gi][
+													ci
+												].vars[1].value = var1.value;
+												$value[gi][
+													ci
+												].vars[1].type = var1.type;
+												onChange($value);
+											}} />
 										) : (
 											<TextControl
-												value={ var1Value ?? '' }
-												onChange={ ( var1 ) => {
-													const $value = [ ...value ];
-													$value[ gi ][
+												value={var1Value ?? ''}
+												onChange={(var1) => {
+													const $value = [...value];
+													$value[gi][
 														ci
-													].vars[ 1 ].value = var1;
-													onChange( $value );
-												} }
+													].vars[1].value = var1;
+													onChange($value);
+												}}
 											/>
-										) }
+										)}
 									</div>
 								);
 							}
 
 							return (
-								<div key={ ci }>
+								<div key={ci}>
 									<div className="logic-conditions__condition">
 										<div className="condition-rows">
-											{ row1 }
-											{ row2 }
+											{row1}
+											{row2}
 										</div>
-										{ group.length > 1 && (
+										{group.length > 1 && (
 											<div>
 												<div className="condition-remove">
 													<Icon
-														icon={ closeSmall }
-														onClick={ () => {
+														icon={closeSmall}
+														onClick={() => {
 															const $value = [
 																...value,
 															];
-															$value[ gi ].splice(
+															$value[gi].splice(
 																ci,
 																1
 															);
-															onChange( $value );
-														} }
+															onChange($value);
+														}}
 													/>
 												</div>
 											</div>
-										) }
+										)}
 									</div>
-									{ group.length - 1 !== ci ? (
+									{group.length - 1 !== ci ? (
 										<div>and</div>
 									) : (
 										<div className="logic-conditions__add-condition">
 											<Button
 												isPrimary
-												onClick={ () => {
-													const $value = [ ...value ];
-													$value[ gi ].push( {
-														vars: [ {}, {} ],
-													} );
-													onChange( $value );
-												} }
+												onClick={() => {
+													const $value = [...value];
+													$value[gi].push({
+														vars: [{}, {}],
+													});
+													onChange($value);
+												}}
 											>
 												and
 											</Button>
 										</div>
-									) }
+									)}
 								</div>
 							);
-						} ) }
+						})}
 					</div>
-					{ value.length - 1 !== gi ? (
+					{value.length - 1 !== gi ? (
 						<div className="logic-conditions__or">- OR -</div>
 					) : (
 						<div className="logic-conditions__add-group">
 							<Button
 								isPrimary
-								onClick={ () => {
-									const $value = [ ...value ];
-									$value.push( [ { vars: [ {}, {} ] } ] );
-									onChange( $value );
-								} }
+								onClick={() => {
+									const $value = [...value];
+									$value.push([{ vars: [{}, {}] }]);
+									onChange($value);
+								}}
 							>
 								OR
 							</Button>
 						</div>
-					) }
+					)}
 				</div>
-			) ) }
+			))}
 		</div>
 	);
 };

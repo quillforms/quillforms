@@ -43,6 +43,7 @@
 		"lodash": "^4.17.21",
 		"react-beautiful-dnd": "^13.1.0",
 		"react-loader-spinner": "^5.1.7-beta.1",
+		"react-select": "^5.8.0",
 		"react-window": "^1.8.6",
 		"slate": "^0.94.1",
 		"slate-history": "0.86.0",
