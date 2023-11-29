@@ -201,14 +201,9 @@ const LogicConditions: React.FC<LogicConditionsProps> = ({
 											onChange={(var0) => {
 												const $value = [...value];
 												$value[gi][ci] = {
-													vars: [var0, {}],
+													vars: [var0, { type: undefined }],
 												};
 
-
-												$value[gi][ci][1] = {
-													type: undefined,
-													value: ""
-												}
 												onChange($value);
 											}}
 											isToggleEnabled={false}
