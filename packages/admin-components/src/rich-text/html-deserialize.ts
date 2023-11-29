@@ -128,7 +128,7 @@ const deserialize = ( el: HTMLElement | ChildNode ) => {
 		const attrs = TEXT_TAGS[ nodeName ]( el );
 		return children.map( ( child: Descendant ): void | Text => {
 			// This condition is to prevent throwing error when we have a string like this: <strong> {{type:modifier}} </strong>
-			if ( child.type !== 'mergeTag' ) {
+			if ( child?.type !== 'mergeTag' ) {
 				return jsx( 'text', { ...attrs }, child );
 			}
 		} );
