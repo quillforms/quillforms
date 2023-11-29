@@ -16,6 +16,7 @@ $license = License::instance()->get_license_info();
 ?>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
 	<head>
+		<link rel="shortcut icon" href="<?php echo esc_url( get_site_icon_url() ); ?>" />
 		<style>
 			html, body {
 				position: relative !important;
@@ -103,7 +104,7 @@ $license = License::instance()->get_license_info();
 			}
 		</style>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" name="viewport">
-		<title><?php echo get_the_title(); ?></title>
+		<title><?php echo get_the_title(); ?></title> 
 		<?php do_action( 'wp_enqueue_scripts' ); ?>
 	</head>
 	<body>
@@ -116,11 +117,11 @@ $license = License::instance()->get_license_info();
 
 				<?php } ?>
 				<div id="loading-circle"></div>
-				<div class="quillforms-branding-powered-by">
+				<!-- <div class="quillforms-branding-powered-by">
 					<a href="https://quillforms.com" target="_blank">
 						Powered by Quill Forms
 					</a>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<?php wp_footer(); ?>
