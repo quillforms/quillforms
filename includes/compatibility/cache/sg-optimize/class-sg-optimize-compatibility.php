@@ -26,6 +26,7 @@ class SG_Optimize_Compatibility {
 		add_filter( 'sgo_javascript_combine_exclude', array( __CLASS__, 'exclude_quillforms_pages' ) );
 		add_filter( 'sgo_js_minify_exclude', array( __CLASS__, 'exclude_quillforms_pages' ) );
 		add_filter( 'sgo_js_async_exclude', array( __CLASS__, 'exclude_quillforms_pages' ) );
+		add_action( 'init', array( __CLASS__, 'exclude_quillforms_post_type' ) );
 
 	}
 
@@ -106,6 +107,21 @@ class SG_Optimize_Compatibility {
 		}
 		return $exclude_list;
 	}
+
+	/**
+	 * Exclude Quill Forms post type.
+	 *
+	 * @static
+	 * @since 1.8.2
+	 */
+	public static function exclude_quillforms_post_type() {
+		$post_types = \get_option( 'siteground_optimizer_post_types_exclude', array() );
+		if ( ! in_array( 'quill_forms', $post_types, true ) ) {
+			$post_types[] = 'quill_forms';
+			\update_option( 'siteground_optimizer_post_types_exclude', $post_types );
+		}
+	}
+		
 }
 
 SG_Optimize_Compatibility::hooks();
