@@ -60,6 +60,8 @@ class SG_Optimize_Compatibility {
 			$exclude_list[] = 'quillforms-renderer-core';
 			$exclude_list[] = 'wp-autop';
 			$exclude_list[] = 'wp-data';
+			$exclude_list[] = 'wp-polyfill-inert';
+			$exclude_list[] = 'wp-polyfill';
 			$exclude_list[] = 'wp-i18n';
 			$exclude_list[] = 'wp-escape-html';
 			$exclude_list[] = 'regenerator-runtime';
@@ -88,6 +90,8 @@ class SG_Optimize_Compatibility {
 			$exclude_list[] = 'quillforms-blocklib-picture-choice-block-renderer-script';
 			$exclude_list[] = 'quillforms-blocklib-matrix-block-renderer-script';
 			$exclude_list[] = 'quillforms-blocklib-slider-block-renderer-script';
+			$exclude_list[] = 'quillforms-blocklib-legal-block-renderer-script';
+			$exclude_list[] = 'quillforms-blocklib-group-block-renderer-script';
 			$exclude_list[] = 'quillforms-blocklib-custom-thankyouscreen-block-renderer-script';
 			$exclude_list[] = 'quillforms-iframe-resizer';
 			$exclude_list[] = 'quillforms-iframe-resizer-implementer';
@@ -96,7 +100,6 @@ class SG_Optimize_Compatibility {
 			$exclude_list[] = 'quillforms-blocklib-group-block-renderer-script';
 			$exclude_list[] = 'quillforms-payment-gateways';
 			$exclude_list[] = 'wp-dom-ready';
-			$exclude_list[] = 'wp-polyfill-inert';
 			$exclude_list[] = 'quillforms-stripe-renderer';
 			$exclude_list[] = 'quillforms-paypal-renderer';
 			$exclude_list[] = 'quillforms-logic-renderer';
@@ -104,6 +107,8 @@ class SG_Optimize_Compatibility {
 			$exclude_list[] = 'quillforms-config';
 			$exclude_list[] = 'quillforms-utils';
 			$exclude_list[] = 'wp-hooks';
+			$exclude_list[] = 'wp-*';
+			$exclude_list[] = 'quillforms-*';
 		}
 		return $exclude_list;
 	}
