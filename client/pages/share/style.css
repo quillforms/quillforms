@@ -23,7 +23,7 @@
     margin-bottom: 10px;
 }
 .quillforms-share-popup-settings-row-padding-group span {
-    width: 50px;
+    width: 55px;
     display: inline-block;
     margin: 10px 0;
 }
@@ -39,4 +39,15 @@
     width: 400px;
     overflow: hidden;
     border: 2px dashed #b4b2b2;
+}
+
+.quillforms-share-popup-settings-row-max-width-group input,
+.quillforms-share-popup-settings-row-max-height-group input {
+    width: 65px;
+    
+}
+.quillforms-share-popup-settings-row-max-height-group div,
+.quillforms-share-popup-settings-row-max-width-group div {
+    display: flex;
+    align-items: center;
 }

@@ -134,11 +134,16 @@ class Shortcode
                 'buttonbordercolor' => '#000000',
                 'buttonfontsize' => '16',
                 'buttonpadding' => '10px 20px',
+                'popupmaxwidth' => '90',
+                'popupmaxwidthunit' => '%',
+                'popupmaxheight' => '90',
+                'popupmaxheightunit' => '%',
             ),
             $atts,
             'quillforms-popup'
         );
 
+        
         $id     = (int) $atts['id'];
         $buttonTitle = isset($atts['buttontitle']) ? $atts['buttontitle'] : 'Open Form';
         $buttonBackgroundColor = isset($atts['buttonbackgroundcolor']) ? $atts['buttonbackgroundcolor'] : '#000000';
@@ -148,6 +153,15 @@ class Shortcode
         $buttonBorderColor = isset($atts['buttonbordercolor']) ? $atts['buttonbordercolor'] : '#000000';
         $buttonFontSize = isset($atts['buttonfontsize']) ? $atts['buttonfontsize'] : '16';
         $buttonPadding = isset($atts['buttonpadding']) ? $atts['buttonpadding'] : '10px 20px';
+        // popupMaxWidth: '90',
+        //popUpMaxWidthUnit: '%',
+        //popuoMaxHeight: '90',
+        // popUpMaxHeightUnit: '%',
+        $popupMaxWidth = isset($atts['popupmaxwidth']) ? $atts['popupmaxwidth'] : '90';
+        $popupMaxWidthUnit = isset($atts['popupmaxwidthunit']) ? $atts['popupmaxwidthunit'] : '%';
+        $popupMaxHeight = isset($atts['popupmaxheight']) ? $atts['popupmaxheight'] : '90';
+        $popupMaxHeightUnit = isset($atts['popupmaxheightunit']) ? $atts['popupmaxheightunit'] : '%';
+
         $permalink = get_permalink($id);
         if ('quill_forms' !== get_post_type($id) ) {
             return 'Invalid form id';
@@ -196,7 +210,12 @@ class Shortcode
                 pointer-events: none;
                 visibility: hidden;
             " data-formId="' . $id . '">
-                <div class="quillforms-popup-container">
+                <div class="quillforms-popup-container" style="
+                    max-width: ' . $popupMaxWidth . $popupMaxWidthUnit . ';
+                    max-height: ' . $popupMaxHeight . $popupMaxHeightUnit . ';
+                    width: 100%;
+                    height: 100%;
+                ">
                     <div class="quillforms-popup-close">
                         <svg fill="currentColor" height="32" width="32" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
                     </div>

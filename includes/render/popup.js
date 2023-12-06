@@ -26,7 +26,16 @@ jQuery(document).ready(function ($) {
     $('.quillforms-popup-close').on('click', function () {
         $(this).closest('.quillforms-popup-overlay').removeClass('active');
         $('body').removeClass('quillforms-popup-active');
-    })
+    });
+
+    // close pop up on click outside
+    $(document).mouseup(function (e) {
+        var container = $(".quillforms-popup-overlay.active .quillforms-popup-container");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.closest('.quillforms-popup-overlay').removeClass('active');
+            $('body').removeClass('quillforms-popup-active');
+        }
+    });
 
     $('.quillforms-popup-iframe-wrapper iframe').on('load', function () {
         $(this).closest('.quillforms-popup-iframe-wrapper').addClass('active');

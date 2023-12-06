@@ -107,29 +107,21 @@ const Sidebar = () => {
 			{!isWPEnv && (
 				<div className='qf-admin-account-summary'>
 					<h3 className='qf-admin-account-summary__heading'>Account Summary</h3>
-					<table className='qf-admin-account-summary__table'>
-						<tr>
-							<td>Plan</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>Entries Count</td>
-							<td>{window?.quillformsSaasManagerAdmin?.entriesCount}</td>
-						</tr>
-						<tr>
-							<td>Entries Limit</td>
-							<td></td>
-						</tr>
-					</table>
+					<div className='qf-admin-account-summary'>
+						<h3>Responses Collected</h3>
+
+						{window?.quillformsSaasManagerAdmin?.entriesCount}/{window?.quillformsSaasManagerAdmin?.entriesLimit}
+					</div>
 					<NavLink
 						className="qf-admin-account-link"
 						to={`/admin.php?page=quillforms&path=account`}
 					>
-						Upgrade
+						Increase your responses limit
 					</NavLink>
 				</div>
-			)}
-		</div>
+			)
+			}
+		</div >
 	);
 };
 export default withRouter(Sidebar);

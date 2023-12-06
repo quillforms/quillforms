@@ -33,6 +33,11 @@ const ShareBody = ({ payload }) => {
             bottom: 10,
             left: 20,
         },
+        popupMaxWidth: '90',
+        popupMaxWidthUnit: '%',
+        popupMaxHeight: '100',
+        popupMaxHeightUnit: '%',
+
     });
 
     const downloadQR = () => {
@@ -432,6 +437,50 @@ const ShareBody = ({ payload }) => {
                                             }} />
                                         </div>
 
+                                    </div>
+                                </div>
+                                <div className="quillforms-share-popup-settings-row">
+                                    <label>Popup max width</label>
+                                    <div className="quillforms-share-popup-settings-row-max-width-group">
+                                        <div>
+                                            <input type="number" value={popupSettings.popupMaxWidth} onChange={(e) => {
+                                                setPopupSettings({
+                                                    ...popupSettings,
+                                                    popupMaxWidth: e.target.value !== '' ? e.target.value : 0
+                                                });
+                                            }} />
+                                            <select value={popupSettings.popupMaxWidthUnit} onChange={(e) => {
+                                                setPopupSettings({
+                                                    ...popupSettings,
+                                                    popupMaxWidthUnit: e.target.value
+                                                });
+                                            }}>
+                                                <option value="px">px</option>
+                                                <option value="%">%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="quillforms-share-popup-settings-row">
+                                    <label>Popup max height</label>
+                                    <div className="quillforms-share-popup-settings-row-max-height-group">
+                                        <div>
+                                            <input type="number" value={popupSettings.popupMaxHeight} onChange={(e) => {
+                                                setPopupSettings({
+                                                    ...popupSettings,
+                                                    popupMaxHeight: e.target.value !== '' ? e.target.value : 0
+                                                });
+                                            }} />
+                                            <select value={popupSettings.popupMaxHeightUnit} onChange={(e) => {
+                                                setPopupSettings({
+                                                    ...popupSettings,
+                                                    popupMaxHeightUnit: e.target.value
+                                                });
+                                            }}>
+                                                <option value="px">px</option>
+                                                <option value="%">%</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

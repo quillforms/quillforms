@@ -9,7 +9,6 @@ body.quillforms-popup-active {
     visibility: visible !important;
 }
 .quillforms-popup-overlay .quillforms-popup-close {
-    cursor: pointer;
     padding: 8px 0;
     display: flex;
     justify-content: flex-end;
@@ -18,12 +17,11 @@ body.quillforms-popup-active {
     width: 30px;
     height: 30px;
     fill: #fff;
+    cursor: pointer;
 }
 
 .quillforms-popup-overlay .quillforms-popup-container {
     position: relative;
-    width: 90%;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
