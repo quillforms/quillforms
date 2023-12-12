@@ -55,8 +55,8 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 	if (parent) {
 		blockTypes = pickBy(blockTypes, (blockType) => {
 			return (
-				blockType.supports.editable === true &&
-				!blockType.supports.innerBlocks
+				(blockType.supports.editable === true &&
+					!blockType.supports.innerBlocks) || blockType.name === 'statement'
 			);
 		});
 	}
