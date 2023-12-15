@@ -100,6 +100,65 @@ class Form_Submission {
 	private function __construct() {
 		add_action( 'wp_ajax_quillforms_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_quillforms_form_submit', array( $this, 'submit' ) );
+
+		add_action( 'wp_ajax_quillforms_complete_payment', array( $this, 'complete_payment' ) );
+		add_action( 'wp_ajax_nopriv_quillforms_complete_payment', array( $this, 'complete_payment' ) );
+	}
+
+	/**
+	 * Complete payment
+	 *
+	 * @since next.version
+	 *
+	 * @return void
+	 */
+	public function complete_payment() {
+		$submission_id = sanitize_text_field( $_POST['submissionId'] );
+		$hashed_id     = sanitize_text_field( $_POST['hashedId'] );
+
+		$this->form_submission = Form_Submission::instance();
+		$restore               = $this->form_submission->restore_pending_submission( $submission_id );
+
+		if ( ! $restore ) {
+			wp_send_json_error( esc_html__( 'Cannot retrieve from submission', 'quillforms' ) );
+			exit;
+		}
+
+		$entry_hashed_id = $this->form_submission->entry->get_meta_value( 'hashed_id' );
+		if ( $entry_hashed_id !== $hashed_id ) {
+			wp_send_json_error( esc_html__( 'Invalid submission', 'quillforms' ) );
+			exit;
+		}
+
+		// save method.
+		$payment_id = "payment_submission_id_{$submission_id}";
+		$payments   = $this->form_submission->entry->get_meta_value( 'payments' );
+		$currency   = $payments['currency']['code'];
+		$products   = $payments['products'];
+		$amount     = $products['total'];
+		$this->form_submission->entry->meta['payments']['value']['gateway'] = 'store_gateway';
+
+		// save transaction.
+		$this->form_submission->entry->meta['payments']['value']['transactions'][ $payment_id ] = array(
+			'amount'   => $amount,
+			'currency' => $currency,
+			'status'   => 'completed',
+			'mode'     => $this->mode_settings['mode'] ?? 'form_submission',
+		);
+		// save meta lookup.
+		$this->form_submission->entry->meta[ $payment_id ]['value'] = '1';
+
+		// save to notes.
+		$this->form_submission->entry->meta['notes']['value'][] = array(
+			'source'  => 'store_gateway',
+			/* translators: %s for payment id */
+			'message' => sprintf( esc_html__( 'Payment for submission %s is completed.', 'quillforms' ), $submission_id ),
+			'date'    => gmdate( 'Y-m-d H:i:s' ),
+		);
+
+		$this->form_submission->continue_pending_submission();
+
+		wp_send_json_success( array( 'status' => 'completed' ), 200 );
 	}
 
 	/**
@@ -120,14 +179,11 @@ class Form_Submission {
 	public function process_submission() {
 		$unsanitized_entry = json_decode( stripslashes( $_POST['formData'] ), true );
 
-
 		// Check if form id is valid.
 		if ( ! isset( $unsanitized_entry ) || ! isset( $unsanitized_entry['formId'] ) ) {
 			$this->errors['form'] = 'Form Id missing!';
 			return;
 		}
-
-
 
 		// Check if answers is array.
 		if ( ! isset( $unsanitized_entry['answers'] ) || ! is_array( $unsanitized_entry['answers'] ) ) {
@@ -138,14 +194,13 @@ class Form_Submission {
 		$form_id = sanitize_text_field( $unsanitized_entry['formId'] );
 
 		$should_verify_nonce = false;
-		$should_verify_nonce = apply_filters('quillforms_renderer_nonce_verify', $should_verify_nonce, $form_id);
-		if($should_verify_nonce) {
-			if (!wp_verify_nonce($unsanitized_entry['quillforms_nonce'], 'quillforms-renderer')) {
+		$should_verify_nonce = apply_filters( 'quillforms_renderer_nonce_verify', $should_verify_nonce, $form_id );
+		if ( $should_verify_nonce ) {
+			if ( ! wp_verify_nonce( $unsanitized_entry['quillforms_nonce'], 'quillforms-renderer' ) ) {
 				$this->errors['form'] = 'Invalid nonce!';
 				return;
 			}
 		}
-
 
 		// Check if post type is quill_forms and its status is publish.
 		if ( 'quill_forms' !== get_post_type( $form_id ) || 'publish' !== get_post_status( $form_id ) ) {
@@ -386,7 +441,6 @@ class Form_Submission {
 		if ( $this->submission_id ) {
 			$this->entry->set_meta_value( 'submission_id', $this->submission_id );
 		}
-
 
 		// this can set ID of the entry.
 		$this->entry = apply_filters( 'quillforms_entry_save', $this->entry, $this->form_data );
@@ -636,7 +690,7 @@ class Form_Submission {
 				'step'         => $step,
 				'entry'        => maybe_serialize( $this->entry ),
 				'form_data'    => maybe_serialize( $this->form_data ),
-				'date_created' => gmdate( 'Y-m-d H:i:s' )
+				'date_created' => gmdate( 'Y-m-d H:i:s' ),
 			)
 		);
 

@@ -108,7 +108,7 @@ class Discount_Coupons {
 		$entry_coupons            = $entry_payments['coupons'] ?? array();
 		$form_payments            = $form_data['payments'];
 		$form_coupons             = $form_payments['coupons'] ?? array();
-		$form_coupons_usage_count = $form_data['coupons_usage_count'] ?? array();
+		$form_coupons_usage_count = is_array( $form_data['coupons_usage_count'] ) ? $form_data['coupons_usage_count'] : array();
 		foreach ( $entry_coupons as $coupon_id => $coupon ) {
 			if ( ! isset( $form_coupons[ $coupon_id ] ) ) {
 				continue;
@@ -250,11 +250,13 @@ class Discount_Coupons {
 			);
 		}
 
-		$coupon_data = $this->coupons[ $coupon_id ];
-		$start_date  = $coupon_data['start_date'];
-		$end_date    = $coupon_data['end_date'];
-		$usage_limit = $coupon_data['usage_limit'];
-		$usage_count = $this->form_data['coupons_usage_count'][ $coupon_id ] ?? 0;
+		$coupon_data         = $this->coupons[ $coupon_id ];
+		$start_date          = $coupon_data['start_date'];
+		$end_date            = $coupon_data['end_date'];
+		$usage_limit         = $coupon_data['usage_limit'];
+		$coupons_usage_count = is_array( $this->form_data['coupons_usage_count'] ) ? $this->form_data['coupons_usage_count'] : array();
+		$usage_count         = isset( $coupons_usage_count[ $coupon_id ] ) ? $coupons_usage_count[ $coupon_id ]
+		: 0;
 
 		// Check coupon expired.
 		if ( $start_date ) {
