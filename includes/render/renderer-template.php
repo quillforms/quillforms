@@ -14,6 +14,7 @@ $form_object = Form_Renderer::instance()->prepare_form_object( get_the_ID() );
 $license = License::instance()->get_license_info();
 
 ?>
+<!DOCTYPE html>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
 	<head>
 		<link rel="shortcut icon" href="<?php echo esc_url( get_site_icon_url() ); ?>" />
