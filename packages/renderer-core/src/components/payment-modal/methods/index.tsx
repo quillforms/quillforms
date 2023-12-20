@@ -26,65 +26,65 @@ interface Props {
 	data: any;
 }
 
-const Methods: React.FC< Props > = ( { data } ) => {
+const Methods: React.FC<Props> = ({ data }) => {
 	const { setPaymentData, completeForm } = useDispatch(
 		'quillForms/renderer-core'
 	);
 	const generalTheme = useGeneralTheme();
 
 	const gateways = getPaymentGatewayModules();
-	const methodsKeys = Object.keys( data.payments.methods );
+	const methodsKeys = Object.keys(data.payments.methods);
 
-	const options = methodsKeys.map( ( key ) => {
-		const [ gateway, method ] = key.split( ':' );
+	const options = methodsKeys.map((key) => {
+		const [gateway, method] = key.split(':');
 		return {
-			label: gateways[ gateway ].methods[ method ].customer.label.text,
+			label: gateways[gateway].methods[method].customer.label.text,
 			value: key,
 		};
-	} );
+	});
 
-	const urlParams = new URLSearchParams( window.location.search );
-	let defaultMethod = methodsKeys[ 0 ];
+	const urlParams = new URLSearchParams(window.location.search);
+	let defaultMethod = methodsKeys[0];
 	if (
-		urlParams.get( 'step' ) === 'payment' &&
-		methodsKeys.includes( urlParams.get( 'method' ) ?? '' )
+		urlParams.get('step') === 'payment' &&
+		methodsKeys.includes(urlParams.get('method') ?? '')
 	) {
-		defaultMethod = urlParams.get( 'method' ) ?? '';
+		defaultMethod = urlParams.get('method') ?? '';
 	}
 
-	const [ selected, setSelected ] = useState( defaultMethod );
-	const [ gateway, method ] = selected.split( ':' );
+	const [selected, setSelected] = useState(defaultMethod);
+	const [gateway, method] = selected.split(':');
 
 	const CustomerRender =
-		gateways[ gateway ].methods[ method ].customer.render;
+		gateways[gateway].methods[method].customer.render;
 	const discountDetails = data.payments?.discount_details;
 	const discountAmount = discountDetails?.amount;
-	const [ isPaying, setIsPaying ] = useState( false );
-	const completePendingSubmission = async () => {
-		if ( isPaying ) return;
-		setIsPaying( true );
+	const [isPaying, setIsPaying] = useState(false);
+	const completeFullDiscountedOrders = async () => {
+		if (isPaying) return;
+		setIsPaying(true);
 		try {
 			const { submission_id, hashed_id } = data;
 			let response = await fetch(
 				configApi.getAdminUrl() + 'admin-ajax.php',
 				{
 					method: 'POST',
-					body: new URLSearchParams( {
-						action: 'quillforms_complete_payment',
+					body: new URLSearchParams({
+						action: 'quillforms_complete_full_discounted_orders',
 						submissionId: submission_id,
 						hashedId: hashed_id,
-					} ),
+					}),
 				}
 			);
 
 			let result = await response.json();
-			if ( result.success ) {
+			if (result.success) {
 				completeForm();
 			} else {
-				throw new Error( result.message );
+				throw new Error(result.message);
 			}
-		} catch ( e ) {
-			console.log( 'completePendingSubmission: error throwed', e );
+		} catch (e) {
+			console.log('completePendingSubmission: error throwed', e);
 			return {
 				success: false,
 				message:
@@ -94,48 +94,48 @@ const Methods: React.FC< Props > = ( { data } ) => {
 			};
 		}
 
-		setIsPaying( false );
+		setIsPaying(false);
 	};
 
 	return (
 		<div className="renderer-core-payment-modal-methods">
 			<>
-				{ size( methodsKeys ) > 1 && (
+				{size(methodsKeys) > 1 && (
 					<>
 						<p
-							className={ css`
-								color: ${ generalTheme.questionsColor };
+							className={css`
+								color: ${generalTheme.questionsColor};
 								font-size: 20px;
 							` }
 						>
-							{ data.payments.labels?.select_payment_method ??
-								'Select a payment method' }
+							{data.payments.labels?.select_payment_method ??
+								'Select a payment method'}
 						</p>
 						<div className="renderer-components-radio-control__options-group">
 							<RadioControl
 								id="payment-methods"
-								selected={ selected }
-								options={ options }
-								onChange={ setSelected }
+								selected={selected}
+								options={options}
+								onChange={setSelected}
 							/>
 						</div>
 					</>
-				) }
+				)}
 			</>
-			{ discountAmount !== 0 && (
+			{discountAmount !== 0 && (
 				<CustomerRender
-					slug={ selected }
-					data={ data }
-					onComplete={ () => {
+					slug={selected}
+					data={data}
+					onComplete={() => {
 						completeForm();
-						setPaymentData( null );
-					} }
+						setPaymentData(null);
+					}}
 				/>
-			) }
-			{ discountAmount === 0 && (
+			)}
+			{discountAmount === 0 && (
 				<div>
 					<Button
-						className={ classnames(
+						className={classnames(
 							{
 								loading: isPaying,
 							},
@@ -145,28 +145,28 @@ const Methods: React.FC< Props > = ( { data } ) => {
 								}
 							`,
 							'payment-button'
-						) }
-						onClick={ () => {
-							completePendingSubmission();
-						} }
+						)}
+						onClick={() => {
+							completeFullDiscountedOrders();
+						}}
 					>
 						<span id="button-text">
-							{ isPaying ? (
+							{isPaying ? (
 								<Loader
-									color={ generalTheme.buttonsFontColor }
-									height={ 50 }
-									width={ 50 }
+									color={generalTheme.buttonsFontColor}
+									height={50}
+									width={50}
 								/>
 							) : (
 								<>
-									{ data?.payments?.labels?.pay ??
-										__( 'Pay now', 'quillforms' ) }
+									{data?.payments?.labels?.pay ??
+										__('Pay now', 'quillforms')}
 								</>
-							) }
+							)}
 						</span>
 					</Button>
 				</div>
-			) }
+			)}
 		</div>
 	);
 };
