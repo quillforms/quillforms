@@ -451,7 +451,7 @@ const DropdownDisplay = (props) => {
 						},
 						styles.DropdownChoices,
 						css`
-							background: ${theme.backgroundColor};
+							background: ${theme.backgroundColor ?? '#fff'};
 							padding: 15px;
 							border: 1px dashed ${theme.answersColor};
 						`

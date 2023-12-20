@@ -86,3 +86,23 @@
 		height: 14px;
 	}
 }
+
+
+.qf-admin-account-summary {
+	box-shadow: 0 10px 12px 0 rgba(0,0,0,.05);
+	 padding: 10px;
+	 margin-top: 20px;
+	 background: #fff;
+	 border-radius: 10px;
+	.qf-admin-account-summary__content {
+		h3 {
+			font-size: 15px;
+			font-weight: normal
+		}
+	}
+	.qf-admin-account-summary__reset-date {
+		font-size: 12px;
+		color: #67748e;
+	}
+	 
+ }

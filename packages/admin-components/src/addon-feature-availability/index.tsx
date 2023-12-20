@@ -139,7 +139,7 @@ const AddonFeatureAvailability: React.FC<Props> = ({
 							</a>
 						)
 							: (
-								<NavLink to="/admin.php?page=quillforms&path=account" className="addon-feature-availability-upgrade-button">
+								<NavLink to="/admin.php?page=quillforms&path=checkout" className="addon-feature-availability-upgrade-button">
 									Upgrade to {featurePlanLabel}! </NavLink>
 							)}
 					</>

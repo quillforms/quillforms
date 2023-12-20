@@ -107,14 +107,19 @@ const Sidebar = () => {
 			{!isWPEnv && (
 				<div className='qf-admin-account-summary'>
 					<h3 className='qf-admin-account-summary__heading'>Account Summary</h3>
-					<div className='qf-admin-account-summary'>
+					<div className='qf-admin-account-summary__content'>
 						<h3>Responses Collected</h3>
 
 						{window?.quillformsSaasManagerAdmin?.entriesCount}/{window?.quillformsSaasManagerAdmin?.entriesLimit}
 					</div>
+					{window?.quillformsSaasManagerAdmin.entriesResetDate && (
+						<span className='qf-admin-account-summary__reset-date'>
+							Resets on {window?.quillformsSaasManagerAdmin.entriesResetDate}
+						</span>
+					)}
 					<NavLink
 						className="qf-admin-account-link"
-						to={`/admin.php?page=quillforms&path=account`}
+						to={`/admin.php?page=quillforms&path=checkout`}
 					>
 						Increase your responses limit
 					</NavLink>

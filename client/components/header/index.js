@@ -1,14 +1,18 @@
 /**
+ * Quill Forms Dependencies
+ */
+import ConfigApi from '@quillforms/config';
+/**
  * WordPress Dependencies
  */
 import { Icon } from '@wordpress/components';
 import { arrowLeft } from '@wordpress/icons';
-import { useSelect } from '@wordpress/data';
+
 
 /**
  * External Dependencies
  */
-import { keys, size } from 'lodash';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -24,14 +28,14 @@ const Header = () => {
 				<Logo />
 				<a
 					className="qf-admin-header__dashboard-link"
-					href={ qfAdmin.adminUrl }
+					href={qfAdmin.adminUrl}
 				>
-					<Icon icon={ arrowLeft } /> Back to WordPress Dashboard
+					<Icon icon={arrowLeft} /> Back to WordPress Dashboard
 				</a>
 			</div>
 			<div className="qf-admin-header__right">
 				<div className="qf-admin-header__user-name">
-					Howdy, { qfAdmin.current_user_name }
+					Howdy, {qfAdmin.current_user_name}
 				</div>
 
 				<div className="qf-admin-header__user-image">

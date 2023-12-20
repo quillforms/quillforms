@@ -33,7 +33,7 @@ export const registerPaymentGatewayModule = (
 
 	const isWPEnv = configApi.isWPEnv();
 
-	if(isWPEnv || (!isWPEnv && !['free', 'basic-yearly', 'basic-monthly'].includes(window?.quillformsSaasManagerAdmin?.plan?.plan))) {
+	if (isWPEnv || (!isWPEnv && !['free', 'basic_yearly', 'basic_monthly'].includes(window?.quillformsSaasManagerAdmin?.plan?.plan))) {
 		module = applyFilters(
 			'QuillForms.PaymentGateways.PaymentGatewayModule',
 			module,
@@ -41,54 +41,54 @@ export const registerPaymentGatewayModule = (
 		) as PaymentGatewayModule;
 	}
 
-	if ( paymentGatewayModules[ slug ] ) {
+	if (paymentGatewayModules[slug]) {
 		console.error(
-			`This payment gateway ${ slug } is already registered!`
+			`This payment gateway ${slug} is already registered!`
 		);
 		return;
 	}
 
-	if ( ! module.name ) {
-		console.error( `The 'name' property is mandatory!` );
+	if (!module.name) {
+		console.error(`The 'name' property is mandatory!`);
 		return;
 	}
 
-	if ( typeof module.name !== 'string' ) {
-		console.error( `The 'name' property must be a string!` );
+	if (typeof module.name !== 'string') {
+		console.error(`The 'name' property must be a string!`);
 		return;
 	}
 
-	if ( ! module.icon ) {
-		console.error( `The 'icon' property is mandatory!` );
+	if (!module.icon) {
+		console.error(`The 'icon' property is mandatory!`);
 		return;
 	}
 
-	if ( ! module.description ) {
-		console.error( `The 'description' property is mandatory!` );
+	if (!module.description) {
+		console.error(`The 'description' property is mandatory!`);
 		return;
 	}
 
-	if ( module.settings && ! isFunction( module.settings ) ) {
-		console.error( 'The "settings" property must be a valid function!' );
+	if (module.settings && !isFunction(module.settings)) {
+		console.error('The "settings" property must be a valid function!');
 		return;
 	}
 
-	if ( ! module.methods ) {
-		console.error( `The 'methods' property is mandatory!` );
+	if (!module.methods) {
+		console.error(`The 'methods' property is mandatory!`);
 		return;
 	}
 
-	for ( const _method of Object.values( module.methods ) ) {
+	for (const _method of Object.values(module.methods)) {
 		// TODO: method props check.
 	}
 
-	paymentGatewayModules[ slug ] = module;
+	paymentGatewayModules[slug] = module;
 };
 
 export const getPaymentGatewayModules = (): PaymentGatewayModules => {
 	return paymentGatewayModules;
 };
 
-export const getPaymentGatewayModule = ( slug: string ) => {
-	return paymentGatewayModules[ slug ];
+export const getPaymentGatewayModule = (slug: string) => {
+	return paymentGatewayModules[slug];
 };
