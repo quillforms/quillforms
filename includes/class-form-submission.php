@@ -101,18 +101,18 @@ class Form_Submission {
 		add_action( 'wp_ajax_quillforms_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_quillforms_form_submit', array( $this, 'submit' ) );
 
-		add_action( 'wp_ajax_quillforms_complete_payment', array( $this, 'complete_payment' ) );
-		add_action( 'wp_ajax_nopriv_quillforms_complete_payment', array( $this, 'complete_payment' ) );
+		add_action( 'wp_ajax_quillforms_complete_full_discounted_orders', array( $this, 'complete_full_discounted_orders' ) );
+		add_action( 'wp_ajax_nopriv_quillforms_complete_full_discounted_orders', array( $this, 'complete_full_discounted_orders' ) );
 	}
 
 	/**
-	 * Complete payment
+	 * Complete full discount orders
 	 *
 	 * @since next.version
 	 *
 	 * @return void
 	 */
-	public function complete_payment() {
+	public function complete_full_discounted_orders() {
 		$submission_id = sanitize_text_field( $_POST['submissionId'] );
 		$hashed_id     = sanitize_text_field( $_POST['hashedId'] );
 
@@ -136,6 +136,11 @@ class Form_Submission {
 		$currency   = $payments['currency']['code'];
 		$products   = $payments['products'];
 		$amount     = $products['total'];
+
+		if($amount != 0) {
+			wp_send_json_error( esc_html__( 'Something went wrong', 'quillforms' ) );
+			exit;
+		}
 		$this->form_submission->entry->meta['payments']['value']['gateway'] = 'store_gateway';
 
 		// save transaction.
