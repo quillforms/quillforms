@@ -125,6 +125,9 @@ type DefaultAttributes = {
    // The block description
    description?: string;
 
+   // Custom HTML
+   customHTML?: string;
+
    // The block required flag
    required?: boolean;
 
