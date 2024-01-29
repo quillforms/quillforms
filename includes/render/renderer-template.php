@@ -17,7 +17,7 @@ $license = License::instance()->get_license_info();
 <!DOCTYPE html>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
 	<head>
-		<link rel="shortcut icon" href="<?php echo esc_url( get_site_icon_url() ); ?>" />
+		<link rel="shortcut icon" href="<?php echo apply_filters('quillforms_favicon', esc_url( get_site_icon_url() ) ); ?>" />
 		<style>
 			html, body {
 				position: relative !important;

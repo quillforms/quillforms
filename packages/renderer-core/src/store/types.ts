@@ -21,7 +21,8 @@ import {
 	SET_CORRECT_INCORRECT_DISPLAY,
 	SET_IS_FIELD_ANSWER_CORRECT,
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
-	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED
+	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
+	SET_THANKYOU_SCREENS
 } from './constants';
 export type Screen = {
 	id: string;
@@ -59,7 +60,7 @@ export type SubmissionState = {
  */
 type setSwiperAction = {
 	type: typeof SET_SWIPER_STATE;
-	swiperState: Partial< SwiperState >;
+	swiperState: Partial<SwiperState>;
 };
 
 type setCorrectIncorrectDisplay = {
@@ -99,7 +100,7 @@ export type Answer = {
 	isCorrectIncorrectScreenDisplayed?: boolean;
 };
 
-export type RendererAnswersState = Record< string, Answer >;
+export type RendererAnswersState = Record<string, Answer>;
 
 /**
  * Actions
@@ -122,7 +123,11 @@ type setFieldAnswerCorrectAction = {
 	val: boolean;
 };
 
+type setThankyouScreens = {
+	type: typeof SET_THANKYOU_SCREENS;
+	screens: Screen[];
 
+}
 type setIsFieldValidAction = {
 	type: typeof SET_IS_FIELD_VALID;
 	id: string;
@@ -193,7 +198,7 @@ type setPaymentDataAction = {
 		total: number;
 		methods: {
 			[
-				key: string
+			key: string
 			]: {} /* stripe:checkout, stripe:form, paypal:checkout, paypal:card */;
 		};
 	};
@@ -218,17 +223,18 @@ export type RendererAnswersActionTypes =
 	| setIsFieldCorrectIncorrectScreenDisplayed
 	| setFieldAnswerCorrectAction
 	| resetAnswers
-	| ReturnType< () => { type: 'NOOP' } >;
+	| ReturnType<() => { type: 'NOOP' }>;
 
 export type SwiperActionTypes =
 	| setSwiperAction
 	| goNextAction
 	| goPrevAction
 	| goTonextBtn
+	| setThankyouScreens
 	| setCorrectIncorrectDisplay
 	| setIsCurrentBlockSafeToSwipeAction
 	| completeFormAction
-	| ReturnType< () => { type: 'NOOP' } >;
+	| ReturnType<() => { type: 'NOOP' }>;
 
 export type SubmitActionTypes =
 	| setIsReviewing
@@ -236,7 +242,7 @@ export type SubmitActionTypes =
 	| setSumbissionErr
 	| setPaymentDataAction
 	| completeFormAction
-	| ReturnType< () => { type: 'NOOP' } >;
+	| ReturnType<() => { type: 'NOOP' }>;
 
 export interface CustomStoreDescriptor {
 	name: string;

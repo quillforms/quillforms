@@ -1,3 +1,4 @@
+import { Screen } from './types';
 import {
 	SET_SWIPER_STATE,
 	GO_NEXT,
@@ -22,6 +23,7 @@ import {
 	SET_IS_FOCUSED,
 	SET_FOOTER_DISPLAY,
 	SET_IS_FIELD_ANSWER_CORRECT,
+	SET_THANKYOU_SCREENS,
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE
 } from './constants';
 
@@ -41,7 +43,7 @@ import type {
  * @return {SwiperActionTypes} Action object.
  */
 export const setSwiper = (
-	swiperState: Partial< SwiperState >
+	swiperState: Partial<SwiperState>
 ): SwiperActionTypes => {
 	return {
 		type: SET_SWIPER_STATE,
@@ -56,7 +58,7 @@ export const setSwiper = (
  *
  * @return {SwiperActionTypes} Action object.
  */
-export const goNext = ( isSwiping: boolean = false ): SwiperActionTypes => {
+export const goNext = (isSwiping: boolean = false): SwiperActionTypes => {
 	return {
 		type: GO_NEXT,
 		isSwiping,
@@ -255,7 +257,7 @@ export const setFieldValidationErr = (
  *
  * @return {Object} Action object
  */
-export const setIsReviewing = ( val: boolean ): SubmitActionTypes => {
+export const setIsReviewing = (val: boolean): SubmitActionTypes => {
 	return {
 		type: SET_IS_REVIEWING,
 		val,
@@ -269,7 +271,7 @@ export const setIsReviewing = ( val: boolean ): SubmitActionTypes => {
  *
  * @return {Object} Action object
  */
-export const setIsSubmitting = ( val: boolean ): SubmitActionTypes => {
+export const setIsSubmitting = (val: boolean): SubmitActionTypes => {
 	return {
 		type: SET_IS_SUBMITTING,
 		val,
@@ -283,7 +285,7 @@ export const setIsSubmitting = ( val: boolean ): SubmitActionTypes => {
  *
  * @return {Object} Action object
  */
-export const setSubmissionErr = ( val: string ): SubmitActionTypes => {
+export const setSubmissionErr = (val: string): SubmitActionTypes => {
 	return {
 		type: SET_SUBMISSION_ERR,
 		val,
@@ -296,7 +298,7 @@ export const setSubmissionErr = ( val: string ): SubmitActionTypes => {
  * @param  data
  * @return {SwiperActionTypes} Action object
  */
-export const setPaymentData = ( data: any ): SubmitActionTypes => {
+export const setPaymentData = (data: any): SubmitActionTypes => {
 	return {
 		type: SET_PAYMENT_DATA,
 		data,
@@ -310,7 +312,7 @@ export const setPaymentData = ( data: any ): SubmitActionTypes => {
  *
  * @return {Object} Action object
  */
-export const setIsFocused = ( val: boolean ) => {
+export const setIsFocused = (val: boolean) => {
 	return {
 		type: SET_IS_FOCUSED,
 		val,
@@ -325,7 +327,7 @@ export const setIsFocused = ( val: boolean ) => {
  *
  * @return {Object} Action object
  */
-export const setFooterDisplay = ( val: boolean ) => {
+export const setFooterDisplay = (val: boolean) => {
 	return {
 		type: SET_FOOTER_DISPLAY,
 		val,
@@ -340,7 +342,7 @@ export const setFooterDisplay = ( val: boolean ) => {
  *
  * @return {Object} Action object
  */
-export const setIsCurrentBlockSafeToSwipe = ( val: boolean ) => {
+export const setIsCurrentBlockSafeToSwipe = (val: boolean) => {
 	return {
 		type: SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 		val,
@@ -405,5 +407,14 @@ export const setCorrectIncorrectDisplay = (
 	return {
 		type: SET_CORRECT_INCORRECT_DISPLAY,
 		val,
+	};
+}
+
+export const setThankyouScreens = (
+	screens: Screen[]
+): SwiperActionTypes => {
+	return {
+		type: SET_THANKYOU_SCREENS,
+		screens,
 	};
 }

@@ -43,6 +43,7 @@ import {
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 	SET_IS_FIELD_ANSWER_LOCKED,
 	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
+	SET_THANKYOU_SCREENS,
 } from './constants';
 import type {
 	SwiperState,
@@ -72,7 +73,7 @@ const initialState: SwiperState = {
 	isReviewing: false,
 };
 
-const swiper: Reducer< SwiperState, SwiperActionTypes > = (
+const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 	state = initialState,
 	action
 ) => {
@@ -85,23 +86,23 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		thankyouScreens,
 		correctIncorrectDisplay
 	} = state;
-	switch ( action.type ) {
+	switch (action.type) {
 		case SET_SWIPER_STATE: {
 			const newSwiperState = action.swiperState;
 			let validBlocksStructure = true;
 			forEach(
-				[ 'walkPath', 'welcomeScreens', 'thankyouScreens' ],
-				( blockCat ) => {
-					if ( newSwiperState[ blockCat ] ) {
-						const newBlockCat = newSwiperState[ blockCat ];
-						if ( ! Array.isArray( newBlockCat ) ) {
+				['walkPath', 'welcomeScreens', 'thankyouScreens'],
+				(blockCat) => {
+					if (newSwiperState[blockCat]) {
+						const newBlockCat = newSwiperState[blockCat];
+						if (!Array.isArray(newBlockCat)) {
 							validBlocksStructure = false;
 							return;
 						}
 
 						// check if  structure isn't correct
-						if ( newBlockCat.length > 0 ) {
-							forEach( newBlockCat, ( item ) => {
+						if (newBlockCat.length > 0) {
+							forEach(newBlockCat, (item) => {
 								if (
 									typeof item === 'object' &&
 									item != null &&
@@ -109,26 +110,26 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 									typeof item.id === 'string'
 								) {
 									if (
-										size( item.attributes ) > 0 &&
+										size(item.attributes) > 0 &&
 										typeof item.attributes !== 'object'
 									) {
 										validBlocksStructure = false;
 										return;
 									}
 
-									if ( blockCat === 'walkPath' ) {
+									if (blockCat === 'walkPath') {
 										// Check if the block has a name or it is a thank you screen or default thank you screen
 										if (
-											( ! item.hasOwnProperty( 'name' ) ||
+											(!item.hasOwnProperty('name') ||
 												typeof item.name !==
-													'string' ) &&
-											! some(
+												'string') &&
+											!some(
 												newSwiperState.thankyouScreens,
-												( block ) =>
+												(block) =>
 													block.id === item.id
 											) &&
 											item.id !==
-												'default_thankyou_screen'
+											'default_thankyou_screen'
 										) {
 											validBlocksStructure = false;
 										}
@@ -136,13 +137,13 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 								} else {
 									validBlocksStructure = false;
 								}
-							} );
+							});
 						}
 					}
 				}
 			);
 
-			if ( ! validBlocksStructure ) {
+			if (!validBlocksStructure) {
 				return state;
 			}
 
@@ -165,26 +166,26 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				'nextBlockId',
 				'prevBlockId',
 				'lastActiveBlockId',
-			].forEach( ( prop ) => {
-				const allBlocks: ( Screen | FormBlock )[] = [
+			].forEach((prop) => {
+				const allBlocks: (Screen | FormBlock)[] = [
 					...newWalkPath,
 					...newWelcomeScreens,
 					...newThanksScreens,
 				];
 				if (
-					newSwiperState[ prop ] &&
-					! some(
+					newSwiperState[prop] &&
+					!some(
 						allBlocks,
-						( block ) =>
-							block.id === newSwiperState[ prop ] ||
-							newSwiperState[ prop ] === 'default_thankyou_screen'
+						(block) =>
+							block.id === newSwiperState[prop] ||
+							newSwiperState[prop] === 'default_thankyou_screen'
 					)
 				) {
 					checkCorrectIds = false;
 				}
-			} );
+			});
 
-			if ( ! checkCorrectIds ) return state;
+			if (!checkCorrectIds) return state;
 
 			let correctBooleans = true;
 
@@ -195,16 +196,16 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				'canSwipePrev',
 				'isThankyouScreenActive',
 				'isWelcomeScreenActive',
-			].forEach( ( prop ) => {
+			].forEach((prop) => {
 				if (
-					newSwiperState[ prop ] &&
-					typeof newSwiperState[ prop ] !== 'boolean'
+					newSwiperState[prop] &&
+					typeof newSwiperState[prop] !== 'boolean'
 				) {
 					correctBooleans = false;
 				}
-			} );
+			});
 
-			if ( ! correctBooleans ) {
+			if (!correctBooleans) {
 				return state;
 			}
 
@@ -213,11 +214,11 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				: currentBlockId;
 			const isFirstField =
 				newWalkPath?.length > 0 &&
-				newWalkPath[ 0 ].id == newCurrentBlockId;
+				newWalkPath[0].id == newCurrentBlockId;
 
 			const isLastField =
 				newWalkPath?.length > 0 &&
-				newWalkPath[ newWalkPath.length - 1 ].id == newCurrentBlockId;
+				newWalkPath[newWalkPath.length - 1].id == newCurrentBlockId;
 
 			return {
 				...state,
@@ -226,26 +227,26 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 					newSwiperState.canSwipeNext === undefined
 						? state.canSwipeNext
 						: newSwiperState.canSwipeNext === true && isLastField
-						? false
-						: newSwiperState.canSwipeNext,
+							? false
+							: newSwiperState.canSwipeNext,
 				canSwipePrev:
 					newSwiperState.canSwipePrev === undefined
 						? state.canSwipePrev
 						: newSwiperState.canSwipePrev === true && isFirstField
-						? false
-						: newSwiperState.canSwipePrev,
+							? false
+							: newSwiperState.canSwipePrev,
 				isWelcomeScreenActive:
 					newWelcomeScreens.length &&
-					some(
-						newWelcomeScreens,
-						( screen ) => screen.id === newCurrentBlockId
-					)
+						some(
+							newWelcomeScreens,
+							(screen) => screen.id === newCurrentBlockId
+						)
 						? true
 						: false,
 				isThankyouScreenActive:
 					some(
 						newThanksScreens,
-						( screen ) => screen.id === newCurrentBlockId
+						(screen) => screen.id === newCurrentBlockId
 					) || 'default_thankyou_screen' === newCurrentBlockId
 						? true
 						: false,
@@ -253,9 +254,9 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		}
 
 		case GO_NEXT: {
-			if ( isAnimating || correctIncorrectDisplay ) return state;
+			if (isAnimating || correctIncorrectDisplay) return state;
 			const nextFieldType = walkPath.find(
-				( block ) => block.id === nextBlockId
+				(block) => block.id === nextBlockId
 			)?.name;
 			if (!nextFieldType || nextFieldType === 'thankyou-screen') return state;
 			// const isThereNextField =
@@ -271,13 +272,13 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			// 	! isThereNextField;
 			// if ( isReallyLastField ) return state;
 			const currentFieldIndex = walkPath.findIndex(
-				( field ) => field.id === currentBlockId
+				(field) => field.id === currentBlockId
 			);
 			let $newCurrentBlockId = nextBlockId;
 			// To check if the new current block is within the path, if it isn't, navigate to submission screen.
 			// This should apply only when the next block is before the current block.
 			const newCurrentFieldIndex = walkPath.findIndex(
-				( $field ) => $field.id === $newCurrentBlockId
+				($field) => $field.id === $newCurrentBlockId
 			);
 
 			if (
@@ -286,22 +287,22 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 			) {
 				$newCurrentBlockId = undefined;
 			}
-			
+
 			return {
 				...state,
-				canSwipeNext: ! $newCurrentBlockId ? false : true,
+				canSwipeNext: !$newCurrentBlockId ? false : true,
 				canSwipePrev: true,
 				currentBlockId: $newCurrentBlockId,
 				prevBlockId: $newCurrentBlockId
-					? walkPath[ newCurrentFieldIndex - 1 ]
-						? walkPath[ newCurrentFieldIndex - 1 ].id
+					? walkPath[newCurrentFieldIndex - 1]
+						? walkPath[newCurrentFieldIndex - 1].id
 						: undefined
-					: walkPath[ walkPath.length - 1 ].id,
+					: walkPath[walkPath.length - 1].id,
 				lastActiveBlockId: currentBlockId,
 				nextBlockId:
 					newCurrentFieldIndex !== -1
-						? walkPath[ newCurrentFieldIndex + 1 ]
-							? walkPath[ newCurrentFieldIndex + 1 ].id
+						? walkPath[newCurrentFieldIndex + 1]
+							? walkPath[newCurrentFieldIndex + 1].id
 							: undefined
 						: nextBlockId,
 				isAnimating: true,
@@ -311,21 +312,21 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 
 		case GO_PREV: {
 			const isFirstField =
-				walkPath?.length > 0 && walkPath[ 0 ].id === currentBlockId;
+				walkPath?.length > 0 && walkPath[0].id === currentBlockId;
 
-			if ( isAnimating || isFirstField || correctIncorrectDisplay ) return state;
+			if (isAnimating || isFirstField || correctIncorrectDisplay) return state;
 			const currentFieldIndex = walkPath.findIndex(
-				( field ) => field.id === currentBlockId
+				(field) => field.id === currentBlockId
 			);
 			return {
 				...state,
-				canSwipePrev: walkPath[ currentFieldIndex - 2 ] ? true : false,
+				canSwipePrev: walkPath[currentFieldIndex - 2] ? true : false,
 				canSwipeNext: true,
 				currentBlockId: prevBlockId,
 				lastActiveBlockId: currentBlockId,
 				nextBlockId: currentBlockId,
-				prevBlockId: walkPath[ currentFieldIndex - 2 ]?.id
-					? walkPath[ currentFieldIndex - 2 ].id
+				prevBlockId: walkPath[currentFieldIndex - 2]?.id
+					? walkPath[currentFieldIndex - 2].id
 					: undefined,
 				isAnimating: true,
 				isThankyouScreenActive: false,
@@ -349,12 +350,12 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 		}
 		case GO_TO_BLOCK: {
 			let { id, forceUpdateState } = action;
-			if ( currentBlockId === id && ! forceUpdateState ) return state;
+			if (currentBlockId === id && !forceUpdateState) return state;
 			const isTheBlockWelcomeScreenBlock = state.welcomeScreens.some(
-				( screen ) => screen.id === id
+				(screen) => screen.id === id
 			);
 			const isTheBlockThankyouScreenBlock = state.thankyouScreens.some(
-				( screen ) => screen.id === id
+				(screen) => screen.id === id
 			);
 
 			if (
@@ -375,38 +376,38 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				};
 			}
 			let fieldIndex = state.walkPath.findIndex(
-				( field ) => field.id === id
+				(field) => field.id === id
 			);
 
 			// If invalid parent block, try to search for inner blocks.
 			if (
 				fieldIndex === -1 &&
-				! isTheBlockWelcomeScreenBlock &&
-				! isTheBlockThankyouScreenBlock
+				!isTheBlockWelcomeScreenBlock &&
+				!isTheBlockThankyouScreenBlock
 			) {
 				const groupBlocks = state.walkPath.filter(
-					( field ) => field.name === 'group'
+					(field) => field.name === 'group'
 				);
 
 				let parentId;
-				forEach( groupBlocks, ( groupBlock ) => {
-					if ( groupBlock.innerBlocks ) {
+				forEach(groupBlocks, (groupBlock) => {
+					if (groupBlock.innerBlocks) {
 						const childIndex = groupBlock.innerBlocks.findIndex(
-							( childBlock ) => childBlock.id === id
+							(childBlock) => childBlock.id === id
 						);
 
-						if ( childIndex !== -1 ) {
+						if (childIndex !== -1) {
 							parentId = groupBlock.id;
 						}
 					}
-				} );
+				});
 
-				if ( ! parentId ) {
+				if (!parentId) {
 					return state;
 				}
 				id = parentId;
 				fieldIndex = state.walkPath.findIndex(
-					( field ) => field.id === id
+					(field) => field.id === id
 				);
 			}
 
@@ -414,18 +415,25 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				...state,
 				currentBlockId: id,
 				isAnimating: true,
-				canSwipeNext: walkPath[ fieldIndex + 1 ] ? true : false,
-				canSwipePrev: walkPath[ fieldIndex - 1 ] ? true : false,
-				nextBlockId: walkPath[ fieldIndex + 1 ]
-					? walkPath[ fieldIndex + 1 ].id
+				canSwipeNext: walkPath[fieldIndex + 1] ? true : false,
+				canSwipePrev: walkPath[fieldIndex - 1] ? true : false,
+				nextBlockId: walkPath[fieldIndex + 1]
+					? walkPath[fieldIndex + 1].id
 					: undefined,
-				prevBlockId: walkPath[ fieldIndex - 1 ]
-					? walkPath[ fieldIndex - 1 ].id
+				prevBlockId: walkPath[fieldIndex - 1]
+					? walkPath[fieldIndex - 1].id
 					: undefined,
 				lastActiveBlockId: currentBlockId,
 				isWelcomeScreenActive: false,
 				isThankyouScreenActive: false,
 			};
+		}
+
+		case SET_THANKYOU_SCREENS: {
+			return {
+				...state,
+				thankyouScreens: action.screens,
+			}
 		}
 		case COMPLETE_FORM: {
 			return {
@@ -435,9 +443,9 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 				isThankyouScreenActive: true,
 				currentBlockId: nextBlockId && state.thankyouScreens.find(screen => screen.id === nextBlockId)
 					? nextBlockId
-					: thankyouScreens[ 0 ]?.id
-					? thankyouScreens[ 0 ].id
-					: 'default_thankyou_screen',
+					: thankyouScreens[0]?.id
+						? thankyouScreens[0].id
+						: 'default_thankyou_screen',
 				prevBlockId: undefined,
 				nextBlockId: undefined,
 				lastActiveBlockId: undefined,
@@ -448,10 +456,10 @@ const swiper: Reducer< SwiperState, SwiperActionTypes > = (
 	return state;
 };
 
-const isFocused: Reducer = ( state = false, action ) => {
-	switch ( action.type ) {
+const isFocused: Reducer = (state = false, action) => {
+	switch (action.type) {
 		case SET_IS_FOCUSED: {
-			if ( typeof action.val !== 'boolean' ) {
+			if (typeof action.val !== 'boolean') {
 				return state;
 			}
 
@@ -462,10 +470,10 @@ const isFocused: Reducer = ( state = false, action ) => {
 	return state;
 };
 
-const footerDisplay: Reducer = ( state = true, action ) => {
-	switch ( action.type ) {
+const footerDisplay: Reducer = (state = true, action) => {
+	switch (action.type) {
 		case SET_FOOTER_DISPLAY: {
-			if ( typeof action.val !== 'boolean' ) {
+			if (typeof action.val !== 'boolean') {
 				return state;
 			}
 
@@ -476,7 +484,7 @@ const footerDisplay: Reducer = ( state = true, action ) => {
 	return state;
 };
 
-const submit: Reducer< SubmissionState, SubmitActionTypes > = (
+const submit: Reducer<SubmissionState, SubmitActionTypes> = (
 	state = {
 		isSubmitting: false,
 		isReviewing: false,
@@ -485,7 +493,7 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 	},
 	action
 ) => {
-	switch ( action.type ) {
+	switch (action.type) {
 		case COMPLETE_FORM: {
 			return {
 				isSubmitting: false,
@@ -514,7 +522,7 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 
 		case SET_SUBMISSION_ERR: {
 			// Make sure this action is called while the form is submitting already, otherwhise, do nothing.
-			if ( ! state.isSubmitting ) return state;
+			if (!state.isSubmitting) return state;
 			const { val } = action;
 			return {
 				...state,
@@ -534,18 +542,18 @@ const submit: Reducer< SubmissionState, SubmitActionTypes > = (
 	return state;
 };
 
-const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
+const answers: Reducer<RendererAnswersState, RendererAnswersActionTypes> = (
 	state = {},
 	action
 ) => {
-	switch ( action.type ) {
+	switch (action.type) {
 		// Insert Empty Field Answer
 		case INSERT_EMPTY_FIELD_ANSWER: {
 			const { id, blockName } = action;
 			const answers = { ...state };
 
-			if ( ! answers[ id ] ) {
-				answers[ id ] = {
+			if (!answers[id]) {
+				answers[id] = {
 					value: undefined,
 					isValid: true,
 					isAnswered: false,
@@ -565,14 +573,14 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_FIELD_ANSWER: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( val === state[ id ]?.value ) {
+			if (val === state[id]?.value) {
 				return state;
 			}
 
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					value: val,
 				},
 			};
@@ -586,14 +594,14 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_IS_FIELD_VALID: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( ! state[ id ] || val === state[ id ].isValid ) {
+			if (!state[id] || val === state[id].isValid) {
 				return state;
 			}
 
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					isValid: val,
 				},
 			};
@@ -603,13 +611,13 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_IS_FIELD_ANSWERED: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( ! state[ id ] || val === state[ id ].isAnswered ) {
+			if (!state[id] || val === state[id].isAnswered) {
 				return state;
 			}
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					isAnswered: val,
 				},
 			};
@@ -619,13 +627,13 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_IS_FIELD_ANSWER_CORRECT: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( ! state[ id ] || val === state[ id ].isCorrect ) {
+			if (!state[id] || val === state[id].isCorrect) {
 				return state;
 			}
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					isCorrect: val,
 				},
 			};
@@ -634,13 +642,13 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_IS_FIELD_ANSWER_LOCKED: {
 			const { id, val } = action;
 			// .
-			if ( ! state[ id ] || val === state[ id ].isLocked ) {
+			if (!state[id] || val === state[id].isLocked) {
 				return state;
 			}
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					isLocked: val,
 				},
 			};
@@ -649,13 +657,13 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED: {
 			const { id, val } = action;
 			// .
-			if ( ! state[ id ] || val === state[ id ].isCorrectIncorrectScreenDisplayed ) {
+			if (!state[id] || val === state[id].isCorrectIncorrectScreenDisplayed) {
 				return state;
 			}
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					isCorrectIncorrectScreenDisplayed: val,
 				},
 			};
@@ -665,13 +673,13 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_IS_FIELD_PENDING: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( ! state[ id ] || val === state[ id ].isPending ) {
+			if (!state[id] || val === state[id].isPending) {
 				return state;
 			}
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					isPending: val,
 				},
 			};
@@ -681,13 +689,13 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_FIELD_PENDING_MSG: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( ! state[ id ] || val === state[ id ].pendingMsg ) {
+			if (!state[id] || val === state[id].pendingMsg) {
 				return state;
 			}
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					pendingMsg: val,
 				},
 			};
@@ -697,13 +705,13 @@ const answers: Reducer< RendererAnswersState, RendererAnswersActionTypes > = (
 		case SET_FIELD_VALIDATION_ERR: {
 			const { id, val } = action;
 			// If the field id is incorrect or the value passed is the same value, return same state.
-			if ( ! state[ id ] || val === state[ id ].validationErr ) {
+			if (!state[id] || val === state[id].validationErr) {
 				return state;
 			}
 			return {
 				...state,
-				[ id ]: {
-					...state[ id ],
+				[id]: {
+					...state[id],
 					validationErr: val,
 				},
 			};
@@ -722,13 +730,13 @@ const RendererCoreReducer: Reducer<
 		swiper: SwiperState;
 	},
 	any
-> = combineReducers( {
+> = combineReducers({
 	answers,
 	footerDisplay,
 	isFocused,
 	submit,
 	swiper,
-} );
-export type State = ReturnType< typeof RendererCoreReducer >;
+});
+export type State = ReturnType<typeof RendererCoreReducer>;
 
 export default RendererCoreReducer;

@@ -52,10 +52,13 @@
 										setTimeout(() => {
 											document.cookie = 'quillforms-answers-' +
 												qfRender.formId + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-											document.cookie = 'quillforms-swiper-' +
+											document.cookie = 'quillforms-current-block-' +
 												qfRender.formId + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
 										}, 1000);
+										wp.data.dispatch(
+											'quillForms/renderer-core'
+										).setThankyouScreens(res.data.thankyouscreens)
 										wp.data
 											.dispatch(
 												'quillForms/renderer-core'
@@ -68,6 +71,12 @@
 									} else if (
 										res.data.status === 'pending_payment'
 									) {
+										if (res.data.thankyouScreens) {
+											wp.data.dispatch(
+												'quillForms/renderer-core'
+											).setThankyouScreens(res.data.thankyouscreens)
+										}
+
 										wp.data
 											.dispatch(
 												'quillForms/renderer-core'
@@ -143,6 +152,7 @@
 								}
 							})
 							.catch(function (err) {
+								console.log(err);
 								if (err && err.status === 500) {
 									// Server error = 500
 									wp.data
