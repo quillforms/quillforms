@@ -72,7 +72,8 @@ const FieldWrapper: React.FC = () => {
 		setIsCurrentBlockSafeToSwipe,
 		setIsFieldAnswerLocked,
 		setCorrectIncorrectDisplay,
-		goNext
+		goNext,
+		setFooterDisplay
 	} = useDispatch(
 		'quillForms/renderer-core'
 	);
@@ -394,7 +395,10 @@ const FieldWrapper: React.FC = () => {
 										e.preventDefault();
 										return;
 									}
-									if (e.key === 'Enter' && !isTouchScreen) {
+									if (e.key === 'Enter') {
+										if (isTouchScreen) {
+											setFooterDisplay(true);
+										}
 										if (isValid) {
 											next();
 										} else {
