@@ -2,13 +2,15 @@
  * QuillForms Dependencies
  */
 import { getNewPath, getHistory } from '@quillforms/navigation';
+import { TextControl, Button } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
-import { DropdownMenu, MenuItem, MenuGroup } from '@wordpress/components';
+import { DropdownMenu, MenuItem, MenuGroup, Modal } from '@wordpress/components';
 import { moreHorizontal } from '@wordpress/icons';
 import { useDispatch } from '@wordpress/data';
+import { useState } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -17,10 +19,14 @@ import classnames from 'classnames';
 import { css } from 'emotion';
 
 const FormActions = ({ form, formId, setIsLoading }) => {
-	const { deleteEntityRecord } = useDispatch('core');
+	const { deleteEntityRecord, editEntityRecord, saveEditedEntityRecord } = useDispatch('core');
 	const { createErrorNotice, createSuccessNotice } =
 		useDispatch('core/notices');
 	const { invalidateResolution } = useDispatch('core/data');
+	const [showRenameForm, setShowRenameForm] = useState(false);
+	const [formTitle, setFormTitle] = useState(form.title.raw);
+	const [editSlug, setEditSlug] = useState(false);
+	const [formSlug, setFormSlug] = useState(form.slug);
 
 	const duplicate = async () => {
 		const data = new FormData();
@@ -124,6 +130,72 @@ const FormActions = ({ form, formId, setIsLoading }) => {
 						>
 							Integrations
 						</MenuItem>
+						<MenuItem
+							className="quillforms-home-form-actions__menu-item"
+							onClick={() => {
+								const history = getHistory();
+								history.push(
+									getNewPath(
+										{},
+										`/forms/${formId}/share`
+									)
+								);
+							}}
+						>
+							Share
+						</MenuItem>
+						{/*<!-- Rename the form-->*/}
+						<MenuItem
+							className="quillforms-home-form-actions__menu-item"
+							onClick={() => {
+								setShowRenameForm(true);
+								onClose();
+							}}
+						>
+							Rename
+						</MenuItem>
+						{/*<!-- Change the form slug-->*/}
+						<MenuItem
+							className="quillforms-home-form-actions__menu-item"
+							onClick={() => {
+								setEditSlug(true);
+								onClose();
+							}}
+						>
+							Change slug
+						</MenuItem>
+						<MenuItem
+							className="quillforms-home-form-actions__menu-item"
+							onClick={async () => {
+								setIsLoading(true);
+								const newStatus = form.status === 'publish' ? 'draft' : 'publish';
+								console.log(editEntityRecord)
+								editEntityRecord('postType', 'quill_forms', formId, { status: newStatus });
+								const res = await saveEditedEntityRecord('postType', 'quill_forms', formId);
+								if (!res) {
+									createErrorNotice(
+										'⛔ Errror!',
+										{
+											type: 'snackbar',
+											isDismissible: true,
+										}
+									);
+									setIsLoading(false);
+								} else {
+									createSuccessNotice(
+										`✅ Form status changed to ${newStatus} successfully!`,
+										{
+											type: 'snackbar',
+											isDismissible: true,
+										}
+									);
+								}
+								onClose();
+							}}
+						>
+							{form.status === 'publish' ? 'Move to draft' : 'Publish'}
+						</MenuItem>
+
 
 						<MenuItem
 							className={classnames(
@@ -135,6 +207,14 @@ const FormActions = ({ form, formId, setIsLoading }) => {
 								`
 							)}
 							onClick={async () => {
+								onClose();
+								if (
+									!confirm(
+										'Are you sure you want to move this form to trash?'
+									)
+								) {
+									return;
+								}
 								setIsLoading(true);
 								const res = await deleteEntityRecord(
 									'postType',
@@ -159,14 +239,143 @@ const FormActions = ({ form, formId, setIsLoading }) => {
 										}
 									);
 								}
-								onClose();
 							}}
 						>
 							Move to trash
 						</MenuItem>
 					</MenuGroup>
+
 				)}
 			</DropdownMenu>
+			{showRenameForm && (
+				<Modal
+					title="Rename Form"
+					onRequestClose={() => setShowRenameForm(false)}
+				>
+					<TextControl
+						type="text"
+						className="quillforms-home-form-actions__rename-input"
+						value={formTitle}
+						onChange={(val) => {
+							if (!val) {
+								createErrorNotice(
+									'⛔ Form title cannot be empty!',
+									{
+										type: 'snackbar',
+										isDismissible: true,
+									}
+								);
+								return;
+							}
+							setFormTitle(val);
+							editEntityRecord(
+								'postType',
+								'quill_forms',
+								formId,
+								{ title: val }
+							);
+						}}
+					/>
+					<Button
+						isPrimary
+						className="quillforms-home-form-actions__rename-button"
+						onClick={async () => {
+							setIsLoading(true);
+							const res = await saveEditedEntityRecord(
+								'postType',
+								'quill_forms',
+								formId
+							);
+							if (!res) {
+								createErrorNotice(
+									'⛔ Errror in form renaming!',
+									{
+										type: 'snackbar',
+										isDismissible: true,
+									}
+								);
+								setIsLoading(false);
+							} else {
+								createSuccessNotice(
+									'✅ Form renamed successfully!',
+									{
+										type: 'snackbar',
+										isDismissible: true,
+									}
+								);
+							}
+							setShowRenameForm(false);
+						}}
+					>
+						Rename
+					</Button>
+
+				</Modal>
+			)}
+			{editSlug && (
+				<Modal
+					title="Change Form Slug"
+					onRequestClose={() => setEditSlug(false)}
+				>
+					<TextControl
+						type="text"
+						className="quillforms-home-form-actions__rename-input"
+						value={formSlug}
+						onChange={(val) => {
+							if (!val) {
+								createErrorNotice(
+									'⛔ Form slug cannot be empty!',
+									{
+										type: 'snackbar',
+										isDismissible: true,
+									}
+								);
+								return;
+							}
+							setFormSlug(val);
+							editEntityRecord(
+								'postType',
+								'quill_forms',
+								formId,
+								{ slug: val }
+							);
+						}}
+					/>
+					<Button
+						isPrimary
+						className="quillforms-home-form-actions__rename-button"
+						onClick={async () => {
+							setIsLoading(true);
+							const res = await saveEditedEntityRecord(
+								'postType',
+								'quill_forms',
+								formId
+							);
+							if (!res) {
+								createErrorNotice(
+									'⛔ Errror in form slug changing!',
+									{
+										type: 'snackbar',
+										isDismissible: true,
+									}
+								);
+								setIsLoading(false);
+							} else {
+								createSuccessNotice(
+									'✅ Form slug changed successfully!',
+									{
+										type: 'snackbar',
+										isDismissible: true,
+									}
+								);
+							}
+							setEditSlug(false);
+						}}
+					>
+						Change
+					</Button>
+				</Modal>
+			)}
 		</div>
 	);
 };
