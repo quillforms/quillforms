@@ -121,9 +121,9 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		if (!isPreview && settings?.saveAnswersInBrowser) {
 			// replace localstorage with cookies which will expire in 30 days.
 			Cookies.set(`quillforms-answers-${formId}`, JSON.stringify(answers), { expires: 30 }, { path: '/' });
-			Cookies.set(`quillforms-swiper-${formId}`, JSON.stringify(swiper), { expires: 30 }, { path: '/' });
+			Cookies.set(`quillforms-current-block-${formId}`, currentBlockId, { expires: 30 }, { path: '/' });
 		}
-	}, [swiper, answers]);
+	}, [currentBlockId, answers]);
 	const isTouchScreen =
 		(typeof window !== 'undefined' && 'ontouchstart' in window) ||
 		(typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) || // @ts-expect-error
@@ -357,9 +357,6 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 							isLastField={
 								(!nextBlock || nextBlock.name === 'thankyou-screen') &&
 								index === fields.length - 1
-								// if correct answers mode is enabled and the answer isn't still locked
-								// then it should not be the last field
-								&& !(correctIncorrectQuiz?.enabled && !answers[field.id]?.isCorrectIncorrectScreenDisplayed)
 							}
 							next={() =>
 								handleNext()
