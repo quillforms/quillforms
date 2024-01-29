@@ -3,8 +3,7 @@
 	"attributes": {
 		"buttonText": {
 			"type": "string",
-			"default": "Let's start!",
-			"maxLength": 24
+			"default": "Let's start!"
 		}
 	},
 	"supports": {

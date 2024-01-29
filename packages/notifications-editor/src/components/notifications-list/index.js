@@ -35,6 +35,7 @@ const NotificationsList = ({
 }) => {
 	const [displayProModal, setDisplayProModal] = useState(false);
 	const license = ConfigAPI.getLicense();
+	const isWPEnv = ConfigAPI.isWPEnv();
 	const { notifications } = useSelect((select) => {
 		return {
 			notifications: select(
@@ -49,10 +50,11 @@ const NotificationsList = ({
 				'is-animating': isAnimating,
 			})}
 		>
-			<AlertMessageWrapper type={"info"}>
-				Please consider using SMTP plugin to make sure that your emails are delivered to the inbox.
-			</AlertMessageWrapper>
-
+			{isWPEnv && (
+				<AlertMessageWrapper type={"info"}>
+					Please consider using SMTP plugin to make sure that your emails are delivered to the inbox.
+				</AlertMessageWrapper>
+			)}
 			<div className="notifications-editor-notifciations-list__header">
 				<h4
 					className={css`
@@ -72,7 +74,8 @@ const NotificationsList = ({
 					onClick={() => {
 						if (
 							notifications.length > 0 &&
-							license?.status !== 'valid'
+							license?.status !== 'valid' &&
+							isWPEnv
 						) {
 							setDisplayProModal(true);
 						} else {

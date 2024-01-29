@@ -113,9 +113,9 @@ const Sidebar = () => {
 						{window?.quillformsSaasManagerAdmin?.entriesCount}/{window?.quillformsSaasManagerAdmin?.entriesLimit}
 					</div>
 					{window?.quillformsSaasManagerAdmin.entriesResetDate && (
-						<span className='qf-admin-account-summary__reset-date'>
+						<p className='qf-admin-account-summary__reset-date'>
 							Resets on {window?.quillformsSaasManagerAdmin.entriesResetDate}
-						</span>
+						</p>
 					)}
 					<NavLink
 						className="qf-admin-account-link"
