@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/config",
-	"version": "3.0.17",
+	"version": "3.0.18",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -24,7 +24,7 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/types": "^3.0.16",
+		"@quillforms/types": "^3.0.17",
 		"react-dnd": "15.1.2"
 	},
 	"publishConfig": {
