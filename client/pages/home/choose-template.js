@@ -53,6 +53,9 @@ const ChooseTemplate = () => {
 
                             let data = {}
                             data['title'] = formTemplates[chosenTemplate].title;
+                            // publish
+                            data['status'] = 'publish';
+
                             data['blocks'] = formTemplates[chosenTemplate].data.blocks;
                             if (formTemplates[chosenTemplate].data.settings) {
                                 data = {
