@@ -64,7 +64,7 @@ const NumberOutput = (props) => {
 
 		const value = e.target.value;
 		if (isNaN(value)) {
-			blockWithError('Numbers only!');
+			blockWithError(messages['label.errorAlert.number']);
 			return;
 		}
 		if (value !== 0 && !value) {
