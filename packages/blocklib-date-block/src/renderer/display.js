@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 /**
  * External Dependencies
  */
-import tinyColor from 'tinycolor';
+import tinyColor from 'tinyColor2';
 import MaskedInput from 'react-text-mask';
 import dayJs from 'dayjs';
 import CustomParseFormat from 'dayjs/plugin/customParseFormat';

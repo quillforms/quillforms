@@ -20,7 +20,7 @@ import useFormContext from '../../hooks/use-form-context';
 import useHandleFocus from '../../hooks/use-handle-focus';
 import useBlockTheme from '../../hooks/use-block-theme';
 import { useCorrectIncorrectQuiz, useMessages } from '../../hooks';
-import tinyColor from 'tinycolor';
+import tinyColor from 'tinyColor2';
 import classnames from "classnames";
 interface Props {
 	setIsShaking: (value: boolean) => void;

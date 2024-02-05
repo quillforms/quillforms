@@ -25,7 +25,7 @@ import { FC } from 'react';
  */
 import classNames from 'classnames';
 import { css } from 'emotion';
-import tinycolor from 'tinycolor';
+import tinycolor from 'tinyColor2';
 
 const areEqual = (prevProps: Props, nextProps: Props): boolean => {
 	if (prevProps.disabled === nextProps.disabled) return true;

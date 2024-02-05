@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import tinycolor from 'tinycolor';
+import tinycolor from 'tinyColor2';
 import gradientParser from 'gradient-parser';
 
 /**
