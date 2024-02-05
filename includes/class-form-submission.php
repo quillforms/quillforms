@@ -900,12 +900,12 @@ class Form_Submission {
 				function ( $block ) {
 					$block['attributes']['redirectUrl'] = $block['attributes']['redirectUrl'] ?? '';
 					if(!empty($block['attributes']['redirectUrl'])) {
-						$block['attributes']['redirectUrl'] = Merge_Tags::instance()->process_text( $block['attributes']['redirectUrl'], $this->entry, $this->form_data );
+						$block['attributes']['redirectUrl'] = Merge_Tags::instance()->process_text( $block['attributes']['redirectUrl'], $this->entry, $this->form_data, 'plain' );
 					}
 
 					$block['attributes']['autoRedirectUrl'] = $block['attributes']['autoRedirectUrl'] ?? '';
 					if(!empty($block['attributes']['autoRedirectUrl'])) {
-						$block['attributes']['autoRedirectUrl'] = Merge_Tags::instance()->process_text( $block['attributes']['autoRedirectUrl'], $this->entry, $this->form_data );
+						$block['attributes']['autoRedirectUrl'] = Merge_Tags::instance()->process_text( $block['attributes']['autoRedirectUrl'], $this->entry, $this->form_data, 'plain' );
 					}
 					return $block;
 				},
