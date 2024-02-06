@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { map } from 'lodash';
-import tinycolor from 'tinyColor2';
+import tinycolor from 'tinycolor2';
 
 /**
  * WordPress dependencies

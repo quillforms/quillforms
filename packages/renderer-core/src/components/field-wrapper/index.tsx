@@ -15,7 +15,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
-import tinyColor from 'tinyColor2';
+import tinyColor from 'tinycolor2';
 
 
 /**

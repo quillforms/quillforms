@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 /**
  * External Dependencies
  */
-import tinyColor from 'tinyColor2';
+import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
 import classnames from 'classnames';
 

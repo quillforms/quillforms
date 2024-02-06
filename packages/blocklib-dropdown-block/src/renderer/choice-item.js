@@ -13,7 +13,7 @@ import { useState, useEffect, useRef } from 'react';
  * External Dependencies
  */
 import classnames from 'classnames';
-import tinyColor from 'tinyColor2';
+import tinyColor from 'tinycolor2';
 import * as styles from './styles';
 
 let selectionTimer;

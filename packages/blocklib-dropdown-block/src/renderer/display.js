@@ -20,7 +20,7 @@ import { useSelect } from '@wordpress/data';
 /**
  * External Dependencies
  */
-import tinyColor from 'tinyColor2';
+import tinyColor from 'tinycolor2';
 import classnames from 'classnames';
 import { cloneDeep } from 'lodash';
 

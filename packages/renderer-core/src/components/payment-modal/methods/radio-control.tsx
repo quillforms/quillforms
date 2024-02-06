@@ -3,7 +3,7 @@
 
 import classnames from 'classnames';
 import { css } from 'emotion';
-import tinyColor from 'tinyColor2';
+import tinyColor from 'tinycolor2';
 
 import useGeneralTheme from '../../../hooks/use-general-theme';
 

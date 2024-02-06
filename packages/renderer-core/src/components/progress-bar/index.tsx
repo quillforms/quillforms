@@ -3,7 +3,7 @@
  */
 import { css } from 'emotion';
 import classnames from 'classnames';
-import tinyColor from 'tinyColor2';
+import tinyColor from 'tinycolor2';
 
 /**
  * Internal Dependencies

@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
 /**
  * External Dependencies
  */
-import tinyColor from 'tinyColor2';
+import tinyColor from 'tinycolor2';
 import TextareaAutosize from 'react-autosize-textarea';
 import { css } from 'emotion';
 import classnames from 'classnames';
