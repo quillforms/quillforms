@@ -1,7 +1,7 @@
 ## Custom CSS
 
 Quill Forms gives you the ability to add custom css easily.
-To add custom css, you should pass `customCSS` propery to your `formObj` prop like the following
+To add custom css, you should pass `customCSS` property to your `formObj` prop like the following
 ```js
 <Form 
   formObj={
