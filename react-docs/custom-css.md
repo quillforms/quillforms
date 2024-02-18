@@ -4,7 +4,7 @@ Quill Forms gives you the ability to add custom css easily.
 To add custom css, you should pass `customCSS` property to your `formObj` prop like the following
 ```js
 <Form 
-  formObj={
+  formObj={{
     ...formObj,
     customCSS: `
       input: {
@@ -14,6 +14,6 @@ To add custom css, you should pass `customCSS` property to your `formObj` prop l
         padding: 8px !important;
       }
     `
-  }
+  }}
 />
 ```
