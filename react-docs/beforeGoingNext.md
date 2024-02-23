@@ -14,7 +14,7 @@ This function will be called before going to next block and you can completely o
            answers,
            setFieldValidationErr,
            setIsCurrentBlockSafeToSwipe,
-           goToField,
+           goToBlock,
            goNext
          }) => {
            if (
