@@ -23,7 +23,7 @@ In the following example, we are validating a specific field based on API reques
     answers,
     setFieldValidationErr,
     setIsCurrentBlockSafeToSwipe,
-    goToField,
+    goToBlock,
     goNext,
   }) => {
     if (currentBlockId === "first-question") {
