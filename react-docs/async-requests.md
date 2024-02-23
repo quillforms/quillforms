@@ -14,68 +14,61 @@ In this case, you need to use `beforeGoingNext` prop and you can get more detail
 
 In the following example, we are validating a specific field based on API request:
 ```js
- <Form
-        formId="1"
-	 beforeGoingNext: async ({
-           setIsFieldValid,
-           setIsPending,
-           currentBlockId,
-           answers,
-           setFieldValidationErr,
-           setIsCurrentBlockSafeToSwipe,
-           goToField,
-           goNext
-         }) => {
-           if (
-            currentBlockId === "first-question" 
-          ) {
-            setIsPending(true); // Very important to let Quill Forms blocks the user form going to the next question and showing a spinner to him.
-            const res = await MY_API_REQUEST_FUNCTION(); 
-	    setIsPending(false);
-            if(res === 'something') {
-                setIsFieldValid(currentBlockId, false);
-                setFieldValidationErr(currentBlockId, "This is a test");
-                setIsCurrentBlockSafeToSwipe(false);
-            }
-            else {
-              setIsFieldValid(currentBlockId, true);
-              setFieldValidationErr(currentBlockId, "");
-              setIsCurrentBlockSafeToSwipe(true);
-              goNext();
-            }
-	    
-          } 
-        }
-        formObj={{
-          blocks: [
-            {
-              name: "short-text",
-              id: "first-question",
-              attributes: {
-                classnames: "my-first-block",
-                nextBtnLabel: "Great",
-                attachment: {
-                  type: "image",
-                  url:
-                    "https://quillforms.com/wp-content/uploads/2022/10/ludovic-migneault-B9YbNbaemMI-unsplash_50-scaled.jpeg"
-                },
-                layout: "split-right",
-                required: true,
-                label: "Let's start with your name"
-              },
-              
-            },
-            {
-              name: "long-text",
-              id: "gqr1294c",
-              attributes: {
-                label: "Please type your message!"
-                required: true,
-      
-              }
-            }
-          ]
-       }}
+<Form
+  formId="1"
+  beforeGoingNext={async ({
+    setIsFieldValid,
+    setIsPending,
+    currentBlockId,
+    answers,
+    setFieldValidationErr,
+    setIsCurrentBlockSafeToSwipe,
+    goToField,
+    goNext,
+  }) => {
+    if (currentBlockId === "first-question") {
+      setIsPending(true); // Very important to let Quill Forms blocks the user form going to the next question and showing a spinner to him.
+      const res = await MY_API_REQUEST_FUNCTION();
+      setIsPending(false);
+      if (res === "something") {
+        setIsFieldValid(currentBlockId, false);
+        setFieldValidationErr(currentBlockId, "This is a test");
+        setIsCurrentBlockSafeToSwipe(false);
+      } else {
+        setIsFieldValid(currentBlockId, true);
+        setFieldValidationErr(currentBlockId, "");
+        setIsCurrentBlockSafeToSwipe(true);
+        goNext();
+      }
+    }
+  }}
+  formObj={{
+    blocks: [
+      {
+        name: "short-text",
+        id: "first-question",
+        attributes: {
+          classnames: "my-first-block",
+          nextBtnLabel: "Great",
+          attachment: {
+            type: "image",
+            url: "https://quillforms.com/wp-content/uploads/2022/10/ludovic-migneault-B9YbNbaemMI-unsplash_50-scaled.jpeg",
+          },
+          layout: "split-right",
+          required: true,
+          label: "Let's start with your name",
+        },
+      },
+      {
+        name: "long-text",
+        id: "gqr1294c",
+        attributes: {
+          label: "Please type your message!",
+          required: true,
+        },
+      },
+    ],
+  }}
 />
 ```
 
