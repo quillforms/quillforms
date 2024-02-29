@@ -29,8 +29,8 @@ const Methods = () => {
 	const { general, models, updateGeneral } = usePaymentsContext();
 
 	// is any model recurring.
-	const recurring = !! Object.values( models ).find(
-		( model ) => model.recurring
+	const recurring = !!Object.values(models).find(
+		(model) => model.recurring
 	);
 
 	const spring = {
@@ -42,52 +42,54 @@ const Methods = () => {
 	// all registered gateways and methods.
 	const gateways = getPaymentGatewayModules();
 	const methods = [];
-	for ( const [ gateway, data ] of Object.entries( gateways ) ) {
-		for ( const method of Object.keys( data.methods ) ) {
-			methods.push( `${ gateway }:${ method }` );
+	for (const [gateway, data] of Object.entries(gateways)) {
+		for (const method of Object.keys(data.methods)) {
+			methods.push(`${gateway}:${method}`);
 		}
 	}
 
 	// disable recurring unsupported methods.
-	useEffect( () => {
-		if ( recurring ) {
+	useEffect(() => {
+		if (recurring) {
 			let $methods = { ...general.methods };
-			for ( const key in general.methods ) {
-				const [ gateway, method ] = key.split( ':' );
-				const data = gateways[ gateway ]?.methods[ method ];
-				if ( ! data?.isRecurringSupported ) {
-					$methods = omit( $methods, key );
+			for (const key in general.methods) {
+				const [gateway, method] = key.split(':');
+				const data = gateways[gateway]?.methods[method];
+				if (!data?.isRecurringSupported) {
+					$methods = omit($methods, key);
 				}
 			}
-			updateGeneral( { methods: $methods } );
+			updateGeneral({ methods: $methods });
 		}
-	}, [ models ] );
+	}, [models]);
 
 	// disable inactive and not configured methods.
-	useEffect( () => {
+	useEffect(() => {
 		let $methods = { ...general.methods };
-		for ( const key in general.methods ) {
-			const [ gateway, method ] = key.split( ':' );
-			const active = gateways[ gateway ]?.active;
+		for (const key in general.methods) {
+			const [gateway, method] = key.split(':');
+			const active = gateways[gateway]?.active;
 			if (
-				! active ||
-				! gateways[ gateway ]?.methods[ method ]?.configured
+				!active ||
+				!gateways[gateway]?.methods[method]?.configured
 			) {
-				$methods = omit( $methods, key );
+				$methods = omit($methods, key);
 			}
 		}
-		updateGeneral( { methods: $methods } );
-	}, [] );
+		updateGeneral({ methods: $methods });
+	}, []);
 
 	// reorder enabled methods.
-	const reorder = ( index, action ) => {
-		const toIndex = index + ( action === 'up' ? -1 : 1 );
-		const $methods = Object.entries( general.methods );
-		const item = $methods[ index ];
-		$methods[ index ] = $methods[ toIndex ];
-		$methods[ toIndex ] = item;
-		updateGeneral( { methods: Object.fromEntries( $methods ) } );
+	const reorder = (index, action) => {
+		const toIndex = index + (action === 'up' ? -1 : 1);
+		const $methods = Object.entries(general.methods);
+		const item = $methods[index];
+		$methods[index] = $methods[toIndex];
+		$methods[toIndex] = item;
+		updateGeneral({ methods: Object.fromEntries($methods) });
 	};
+
+	const isWPEnv = ConfigApi.isWPEnv();
 
 	// loop over the enabled methods then other methods.
 	return (
@@ -97,140 +99,154 @@ const Methods = () => {
 				The default payment gateway is the first enabled payment gateway
 			</div>
 			<div className="quillforms-payments-page-settings__methods-content">
-				{ Object.keys( general.methods ).map( ( key, index ) => {
-					const [ gateway, method ] = key.split( ':' );
-					const data = gateways[ gateway ].methods[ method ];
+				{Object.keys(general.methods).map((key, index) => {
+					const [gateway, method] = key.split(':');
+					const data = gateways[gateway].methods[method];
 					return (
 						<motion.div
-							key={ key }
+							key={key}
 							layout
-							transition={ spring }
+							transition={spring}
 							className="payment-method"
 						>
-							<MethodLabelWrapper data={ data }>
+							<MethodLabelWrapper data={data}>
 								<ToggleControl
-									checked={ true }
-									onChange={ () => {
+									checked={true}
+									onChange={() => {
 										const $methods = omit(
 											{ ...general.methods },
 											key
 										);
-										updateGeneral( { methods: $methods } );
-									} }
+										updateGeneral({ methods: $methods });
+									}}
 								/>
 							</MethodLabelWrapper>
 							<div className="reordering-buttons">
 								<Button
-									className={ classnames( {
+									className={classnames({
 										disabled: index === 0,
-									} ) }
-									onClick={ () => {
-										if ( index !== 0 )
-											reorder( index, 'up' );
-									} }
+									})}
+									onClick={() => {
+										if (index !== 0)
+											reorder(index, 'up');
+									}}
 								>
-									<IconComponent icon={ chevronUp } />
+									<IconComponent icon={chevronUp} />
 								</Button>
 								<Button
-									className={ classnames( {
+									className={classnames({
 										disabled:
 											index ===
-											Object.keys( general.methods )
+											Object.keys(general.methods)
 												.length -
-												1,
-									} ) }
-									onClick={ () => {
+											1,
+									})}
+									onClick={() => {
 										if (
 											index !==
-											Object.keys( general.methods )
+											Object.keys(general.methods)
 												.length -
-												1
+											1
 										)
-											reorder( index, 'down' );
-									} }
+											reorder(index, 'down');
+									}}
 								>
-									<IconComponent icon={ chevronDown } />
+									<IconComponent icon={chevronDown} />
 								</Button>
 							</div>
 						</motion.div>
 					);
-				} ) }
-				{ methods.map( ( key ) => {
-					if ( Object.keys( general.methods ).includes( key ) ) {
+				})}
+				{methods.map((key) => {
+					if (Object.keys(general.methods).includes(key)) {
 						return null;
 					}
 
-					const [ gateway, method ] = key.split( ':' );
-					const active = gateways[ gateway ].active;
-					const data = gateways[ gateway ].methods[ method ];
+					const [gateway, method] = key.split(':');
+					const active = gateways[gateway].active;
+					const data = gateways[gateway].methods[method];
 					const configured = data?.configured ?? false;
 
 					let notice = null;
 					let available = true;
 
 					// if method doesn't support recurring.
-					if ( recurring && ! data?.isRecurringSupported ) {
+					if (recurring && !data?.isRecurringSupported) {
 						available = false;
 						notice = (
 							<div className="method-warning">
-								<IconComponent icon={ warning } />
+								<IconComponent icon={warning} />
 								<i>Doesn't support recurring payments</i>
 							</div>
 						);
 					}
 
 					// if gateway addon is not active.
-					if ( available && ! active ) {
+					if (available && !active) {
 						available = false;
 
-						const addon = ConfigApi.getStoreAddons()[ gateway ];
-						if ( addon.is_installed ) {
+						const addon = ConfigApi.getStoreAddons()[gateway];
+						if (isWPEnv && addon.is_installed) {
 							notice = (
 								<i>
 									<NavLink
-										to={ `/admin.php?page=quillforms&path=addons` }
+										to={`/admin.php?page=quillforms&path=addons`}
 									>
 										Activate it
 									</NavLink>
 								</i>
 							);
 						} else {
-							const isPlanAccessible = ConfigApi.isPlanAccessible(
-								addon.plan
-							);
-							if ( isPlanAccessible ) {
+							if (!isWPEnv) {
 								notice = (
 									<i>
 										<NavLink
-											to={ `/admin.php?page=quillforms&path=addons` }
+											to={`/admin.php?page=quillforms&path=checkout`}
+											className="upgrade-plan"
 										>
-											Install it
+											Upgrade Your Plan
 										</NavLink>
 									</i>
 								);
-							} else {
-								notice = (
-									<i>
-										<a
-											className="upgrade-plan"
-											href="https://quillforms.com"
-										>
-											Upgrade your plan
-										</a>
-									</i>
+							}
+							else {
+								const isPlanAccessible = ConfigApi.isPlanAccessible(
+									addon.plan
 								);
+								if (isPlanAccessible) {
+									notice = (
+										<i>
+											<NavLink
+												to={`/admin.php?page=quillforms&path=addons`}
+											>
+												Install it
+											</NavLink>
+										</i>
+									);
+								} else {
+									notice = (
+										<i>
+											<a
+												className="upgrade-plan"
+												href="https://quillforms.com"
+											>
+												Upgrade your plan
+											</a>
+										</i>
+									);
+								}
 							}
 						}
 					}
 
 					// if method is not configured.
-					if ( available && ! configured ) {
+					if (available && !configured) {
 						available = false;
 
 						notice = (
 							<i>
 								<NavLink
-									to={ `/admin.php?page=quillforms&path=settings&tab=payments` }
+									to={`/admin.php?page=quillforms&path=settings&tab=payments`}
 								>
 									Configure it
 								</NavLink>
@@ -240,34 +256,34 @@ const Methods = () => {
 
 					return (
 						<motion.div
-							key={ key }
+							key={key}
 							layout
-							transition={ spring }
+							transition={spring}
 							className="payment-method"
 						>
-							<MethodLabelWrapper data={ data } notice={ notice }>
+							<MethodLabelWrapper data={data} notice={notice}>
 								<ToggleControl
-									checked={ false }
-									disabled={ ! available }
-									onClick={ () => {
+									checked={false}
+									disabled={!available}
+									onClick={() => {
 										updateGeneral(
 											{
-												methods: { [ key ]: {} },
+												methods: { [key]: {} },
 											},
 											'recursive'
 										);
-									} }
+									}}
 								/>
 							</MethodLabelWrapper>
 						</motion.div>
 					);
-				} ) }
+				})}
 			</div>
 		</div>
 	);
 };
 
-const MethodLabelWrapper = ( { children, data, notice } ) => {
+const MethodLabelWrapper = ({ children, data, notice }) => {
 	const { general, models, updateGeneral } = usePaymentsContext();
 	return (
 		<ControlWrapper orientation="horizontal">
@@ -275,8 +291,8 @@ const MethodLabelWrapper = ( { children, data, notice } ) => {
 				<ControlWrapper orientation="vertical">
 					<div className="method-label-wrapper">
 						<div className="method-label">
-							{ typeof data.admin.label.icon === 'string' ? (
-								<img src={ data.admin.label.icon } />
+							{typeof data.admin.label.icon === 'string' ? (
+								<img src={data.admin.label.icon} />
 							) : (
 								<IconComponent
 									icon={
@@ -285,31 +301,31 @@ const MethodLabelWrapper = ( { children, data, notice } ) => {
 											: data.admin.label.icon
 									}
 								/>
-							) }
+							)}
 							<div className="method-label-text">
-								{ data.admin.label.text }
+								{data.admin.label.text}
 							</div>
 						</div>
-						{ notice && (
+						{notice && (
 							<span className="method-label-notice">
-								{ notice }
+								{notice}
 							</span>
-						) }
+						)}
 					</div>
-					{ data?.admin?.hint ? (
+					{data?.admin?.hint ? (
 						<div className="method-label-hint">
 							{
 								<data.admin.hint
-									general={ general }
-									models={ models }
-									updateGeneral={ updateGeneral }
+									general={general}
+									models={models}
+									updateGeneral={updateGeneral}
 								/>
 							}
 						</div>
-					) : null }
+					) : null}
 				</ControlWrapper>
 			</div>
-			<>{ children }</>
+			<>{children}</>
 		</ControlWrapper>
 	);
 };
