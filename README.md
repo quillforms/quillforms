@@ -39,6 +39,7 @@
 - [Asynchronous API Reqeuest or Validations Before Submission](/react-docs/async-requests.md)
 - [Group Block(New)🚀🚀](/react-docs/group-block.md)
 - [Dynamic Blocks Rendering(show, hide, add or remove blocks based on conditions)](/react-docs/conditional-blocks-rendering.md)
+- [Custom CSS](/react-docs/custom-css.md)
 - [Recall Information](/react-docs/recall-information.md)
 - [Available Actions and Filters](/react-docs/available-actions-and-filters.md)
 
