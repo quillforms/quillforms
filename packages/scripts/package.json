@@ -68,6 +68,8 @@
 		"npm-packlist": "^3.0.0",
 		"postcss": "^8.4.5",
 		"postcss-loader": "^6.2.1",
+		"postcss-nested": "^6.0.1",
+		"postcss-simple-vars": "^7.0.1",
 		"prettier": "npm:wp-prettier@2.6.2",
 		"react-dnd": "15.1.2",
 		"react-refresh": "^0.10.0",
