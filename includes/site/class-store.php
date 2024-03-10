@@ -147,8 +147,6 @@ class Store {
 			)
 		);
 
-		
-
 		// check download link.
 		$download_link = $plugin_data['data']['download_link'] ?? null;
 		if ( empty( $download_link ) ) {
@@ -432,703 +430,716 @@ class Store {
 	 * @return void
 	 */
 	private function define_addons() {
-		$addons = apply_filters('quillforms_store_addons', array(
-			'entries'                   => array(
-				'name'           => esc_html__( 'Entries', 'quillforms' ),
-				'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
-				'min_version'    => '1.2.0',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
+		$addons = apply_filters(
+			'quillforms_store_addons',
+			array(
+				'entries'                   => array(
+					'name'           => esc_html__( 'Entries', 'quillforms' ),
+					'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
+					'min_version'    => '1.2.0',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
+					),
 				),
-			),
-			'pdf'                       => array(
-				'name'           => esc_html__( 'PDF Entries Export', 'quillforms' ),
-				'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files and attach them to your email notifications.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-pdf/quillforms-pdf.php',
-				'plan'           => 'plus',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pdf/icon.svg',
+				'pdf'                       => array(
+					'name'           => esc_html__( 'PDF Entries Export', 'quillforms' ),
+					'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files and attach them to your email notifications.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-pdf/quillforms-pdf.php',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pdf/icon.svg',
+					),
 				),
-			),
-			'logic'                     => array(
-				'name'           => esc_html__( 'Logic', 'quillforms' ),
-				'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
-				'min_version'    => '1.5.0',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/banner.png',
+				'logic'                     => array(
+					'name'           => esc_html__( 'Logic', 'quillforms' ),
+					'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-logic/quillforms-logic.php',
+					'min_version'    => '1.5.0',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/logic/banner.png',
+					),
 				),
-			),
-			'hiddenfields'              => array(
-				'name'           => esc_html__( 'Hidden Fields', 'quillforms' ),
-				'description'    => esc_html__( 'Hidden fields are custom url parameters you can set up in your form to access the query string in the url and also it can track the UTM parameters that are useful for your campaigns tracking.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-hiddenfields/quillforms-hiddenfields.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
+				'hiddenfields'              => array(
+					'name'           => esc_html__( 'Hidden Fields', 'quillforms' ),
+					'description'    => esc_html__( 'Hidden fields are custom url parameters you can set up in your form to access the query string in the url and also it can track the UTM parameters that are useful for your campaigns tracking.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-hiddenfields/quillforms-hiddenfields.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hiddenfields/icon.svg',
+					),
 				),
-			),
-			'formlocker'                => array(
-				'name'           => esc_html__( 'Form Locker', 'quillforms' ),
-				'description'    => esc_html__( 'Form Locker enables you to lock your forms with password, restrict access to logged in users or specific user roles, form accessability between start date and end date and restriction on the submission with the same email, phone, user id or with entries limit', 'quillforms' ),
-				'plugin_file'    => 'quillforms-formlocker/quillforms-formlocker.php',
-				'plan'           => 'plus',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/formlocker/icon.svg',
+				'formlocker'                => array(
+					'name'           => esc_html__( 'Form Locker', 'quillforms' ),
+					'description'    => esc_html__( 'Form Locker enables you to lock your forms with password, restrict access to logged in users or specific user roles, form accessability between start date and end date and restriction on the submission with the same email, phone, user id or with entries limit', 'quillforms' ),
+					'plugin_file'    => 'quillforms-formlocker/quillforms-formlocker.php',
+					'plan'           => 'plus',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/formlocker/icon.svg',
+					),
 				),
-			),
-			'googletagmanager'          => array(
-				'name'			 => esc_html__( 'Google Tag Manager', 'quillforms' ),
-				'description'	 => esc_html__( 'Google Tag Manager addon allows you to add Google Tag Manager to your forms and track user activity and form submissions.', 'quillforms' ),
-				'plugin_file'	 => 'quillforms-googletagmanager/quillforms-googletagmanager.php',
-				'plan'			 => 'basic',
-				'is_integration' => false,
-				'assets'		 => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googletagmanager/icon.svg',
+				'googletagmanager'          => array(
+					'name'           => esc_html__( 'Google Tag Manager', 'quillforms' ),
+					'description'    => esc_html__( 'Google Tag Manager addon allows you to add Google Tag Manager to your forms and track user activity and form submissions.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-googletagmanager/quillforms-googletagmanager.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googletagmanager/icon.svg',
+					),
 				),
-			),
-			'ratingblock'               => array(
-				'name'           => esc_html__( 'Rating Block', 'quillforms' ),
-				'description'    => esc_html__( 'Add rating question type to your form. You can use stars, hearts, thumbs, thunderbolts, trophies, circles, ...etc in this rating question', 'quillforms' ),
-				'plugin_file'    => 'quillforms-ratingblock/quillforms-ratingblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/ratingblock/icon.svg',
+				'ratingblock'               => array(
+					'name'           => esc_html__( 'Rating Block', 'quillforms' ),
+					'description'    => esc_html__( 'Add rating question type to your form. You can use stars, hearts, thumbs, thunderbolts, trophies, circles, ...etc in this rating question', 'quillforms' ),
+					'plugin_file'    => 'quillforms-ratingblock/quillforms-ratingblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/ratingblock/icon.svg',
+					),
 				),
-			),
-			'recaptcha'                 => array(
-				'name'           => esc_html__( 'reCAPTCHA', 'quillforms' ),
-				'description'    => esc_html__( 'Google reCAPTCHA protects your website from fraud and abuse.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-recaptcha/quillforms-recaptcha.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
+				'recaptcha'                 => array(
+					'name'           => esc_html__( 'reCAPTCHA', 'quillforms' ),
+					'description'    => esc_html__( 'Google reCAPTCHA protects your website from fraud and abuse.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-recaptcha/quillforms-recaptcha.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
+					),
 				),
-			),
-			'customfonts'               => array(
-				'name'           => esc_html__( 'Custom Fonts', 'quillforms' ),
-				'description'    => esc_html__( 'Upload your own custom fonts to use them in Quill Forms!', 'quillforms' ),
-				'plugin_file'    => 'quillforms-customfonts/quillforms-customfonts.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customfonts/icon.svg',
+				'customfonts'               => array(
+					'name'           => esc_html__( 'Custom Fonts', 'quillforms' ),
+					'description'    => esc_html__( 'Upload your own custom fonts to use them in Quill Forms!', 'quillforms' ),
+					'plugin_file'    => 'quillforms-customfonts/quillforms-customfonts.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customfonts/icon.svg',
+					),
 				),
-			),
-			'calendlyblock'             => array(
-				'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
-				'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-calendlyblock/quillforms-calendlyblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
+				'calendlyblock'             => array(
+					'name'           => esc_html__( 'Calendly Block', 'quillforms' ),
+					'description'    => esc_html__( 'Calendly Block allows your customers to schedule appointments with calendly.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-calendlyblock/quillforms-calendlyblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/calendlyblock/icon.svg',
+					),
 				),
-			),
-			'inputmaskblock'			=> array(
-				'name'           => esc_html__( 'Input Mask Block', 'quillforms' ),
-				'description'    => esc_html__( 'Input mask block that allows you to define your own mask with ability to set up complex masks with regex', 'quillforms' ),
-				'plugin_file'    => 'quillforms-inputmaskblock/quillforms-inputmaskblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/inputmaskblock/icon.svg',
+				'inputmaskblock'            => array(
+					'name'           => esc_html__( 'Input Mask Block', 'quillforms' ),
+					'description'    => esc_html__( 'Input mask block that allows you to define your own mask with ability to set up complex masks with regex', 'quillforms' ),
+					'plugin_file'    => 'quillforms-inputmaskblock/quillforms-inputmaskblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/inputmaskblock/icon.svg',
+					),
 				),
-			),
-			'fileblock'                 => array(
-				'name'           => esc_html__( 'File Block', 'quillforms' ),
-				'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-fileblock/quillforms-fileblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/banner.png',
+				'fileblock'                 => array(
+					'name'           => esc_html__( 'File Block', 'quillforms' ),
+					'description'    => esc_html__( 'Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-fileblock/quillforms-fileblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fileblock/banner.png',
+					),
 				),
-			),
-			'datetimepickerblock'       => array(
-				'name'           => esc_html__( 'Date Calendar Picker Block', 'quillforms' ),
-				'description'    => esc_html__( 'Date Calendar picker with advanced feature to set minimum date, maximum date and disable some dates', 'quillforms' ),
-				'plugin_file'    => 'quillforms-datetimepickerblock/quillforms-datetimepickerblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/datetimepicker/icon.svg',
+				'datetimepickerblock'       => array(
+					'name'           => esc_html__( 'Date Calendar Picker Block', 'quillforms' ),
+					'description'    => esc_html__( 'Date Calendar picker with advanced feature to set minimum date, maximum date and disable some dates', 'quillforms' ),
+					'plugin_file'    => 'quillforms-datetimepickerblock/quillforms-datetimepickerblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/datetimepicker/icon.svg',
+					),
 				),
-			),
-			'phoneblock'                => array(
-				'name'           => esc_html__( 'Phone Block', 'quillforms' ),
-				'description'    => esc_html__( 'Add phone question type to your form with international format.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-phoneblock/quillforms-phoneblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/phoneblock/icon.svg',
+				'phoneblock'                => array(
+					'name'           => esc_html__( 'Phone Block', 'quillforms' ),
+					'description'    => esc_html__( 'Add phone question type to your form with international format.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-phoneblock/quillforms-phoneblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/phoneblock/icon.svg',
+					),
 				),
-			),
-			'opinionscaleblock'         => array(
-				'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
-				'description'    => esc_html__( 'An Opinion Scale lets people select an opinion on the scale you provide them. Easy to understand and quick to use, it is a nice way to collect opinions.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-opinionscaleblock/quillforms-opinionscaleblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinionscaleblock/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinionscaleblock/banner.png',
+				'opinionscaleblock'         => array(
+					'name'           => esc_html__( 'Opinion Scale Block', 'quillforms' ),
+					'description'    => esc_html__( 'An Opinion Scale lets people select an opinion on the scale you provide them. Easy to understand and quick to use, it is a nice way to collect opinions.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-opinionscaleblock/quillforms-opinionscaleblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinionscaleblock/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/opinionscaleblock/banner.png',
+					),
 				),
-			),
-			'picturechoiceblock'        => array(
-				'name'           => esc_html__( 'Picture Choice Block', 'quillforms' ),
-				'description'    => esc_html__( 'Make your survey more interesting with the use of suitable images to select as answers. It is a type of multiple choice question type, only with images instead of text.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-picturechoiceblock/quillforms-picturechoiceblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
+				'picturechoiceblock'        => array(
+					'name'           => esc_html__( 'Picture Choice Block', 'quillforms' ),
+					'description'    => esc_html__( 'Make your survey more interesting with the use of suitable images to select as answers. It is a type of multiple choice question type, only with images instead of text.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-picturechoiceblock/quillforms-picturechoiceblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/picturechoiceblock/icon.svg',
+					),
 				),
-			),
-			// 'qrscannerblock'            => array(
-			// 'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
-			// 'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
-			// 'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
-			// 'plan'           => 'plus',
-			// 'is_integration' => false,
-			// 'assets'         => array(
-			// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
-			// ),
-			// ),
-			'signatureblock'            => array(
-				'name'           => esc_html__( 'Signature Block', 'quillforms' ),
-				'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
-				'plan'           => 'plus',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
+				// 'qrscannerblock'            => array(
+				// 'name'           => esc_html__( 'QR Scanner Block', 'quillforms' ),
+				// 'description'    => esc_html__( 'Allows your users to scan QR codes on your forms.', 'quillforms' ),
+				// 'plugin_file'    => 'quillforms-qrscannerblock/quillforms-qrscannerblock.php',
+				// 'plan'           => 'plus',
+				// 'is_integration' => false,
+				// 'assets'         => array(
+				// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/qrscannerblock/icon.svg',
+				// ),
+				// ),
+				'signatureblock'            => array(
+					'name'           => esc_html__( 'Signature Block', 'quillforms' ),
+					'description'    => esc_html__( 'Collect signature directly from your users on your forms.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-signatureblock/quillforms-signatureblock.php',
+					'plan'           => 'plus',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
+					),
 				),
-			),
 
-			'customthankyouscreenblock' => array(
-				'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
-				'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-customthankyouscreenblock/quillforms-customthankyouscreenblock.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
+				'customthankyouscreenblock' => array(
+					'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
+					'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-customthankyouscreenblock/quillforms-customthankyouscreenblock.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
+					),
 				),
-			),
-			'stripe'                    => array(
-				'name'               => esc_html__( 'Stripe', 'quillforms' ),
-				'description'        => esc_html__( 'Accept payments through stripe gateway.', 'quillforms' ),
-				'plugin_file'        => 'quillforms-stripe/quillforms-stripe.php',
-				'plan'               => 'plus',
-				'is_payment_gateway' => true,
-				'assets'             => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/stripe/icon.png',
+				'stripe'                    => array(
+					'name'               => esc_html__( 'Stripe', 'quillforms' ),
+					'description'        => esc_html__( 'Accept payments through stripe gateway.', 'quillforms' ),
+					'plugin_file'        => 'quillforms-stripe/quillforms-stripe.php',
+					'plan'               => 'plus',
+					'is_payment_gateway' => true,
+					'assets'             => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/stripe/icon.png',
+					),
 				),
-			),
-			'paypal'                    => array(
-				'name'               => esc_html__( 'PayPal', 'quillforms' ),
-				'description'        => esc_html__( 'Accept payments through paypal gateway.', 'quillforms' ),
-				'plugin_file'        => 'quillforms-paypal/quillforms-paypal.php',
-				'plan'               => 'plus',
-				'is_payment_gateway' => true,
-				'assets'             => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/paypal/icon.png',
+				'paypal'                    => array(
+					'name'               => esc_html__( 'PayPal', 'quillforms' ),
+					'description'        => esc_html__( 'Accept payments through paypal gateway.', 'quillforms' ),
+					'plugin_file'        => 'quillforms-paypal/quillforms-paypal.php',
+					'plan'               => 'plus',
+					'is_payment_gateway' => true,
+					'assets'             => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/paypal/icon.png',
+					),
 				),
-			),
-			'authorizenet'              => array(
-				'name'               => esc_html__( 'Authorize.Net', 'quillforms' ),
-				'description'        => esc_html__( 'Accept payments through authorize.net gateway.', 'quillforms' ),
-				'plugin_file'        => 'quillforms-authorizenet/quillforms-authorizenet.php',
-				'plan'               => 'plus',
-				'is_payment_gateway' => true,
-				'assets'             => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/authorizenet/icon.png',
+				'authorizenet'              => array(
+					'name'               => esc_html__( 'Authorize.Net', 'quillforms' ),
+					'description'        => esc_html__( 'Accept payments through authorize.net gateway.', 'quillforms' ),
+					'plugin_file'        => 'quillforms-authorizenet/quillforms-authorizenet.php',
+					'plan'               => 'plus',
+					'is_payment_gateway' => true,
+					'assets'             => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/authorizenet/icon.png',
+					),
 				),
-			),
-			'square'                    => array(
-				'name'               => esc_html__( 'Square', 'quillforms' ),
-				'description'        => esc_html__( 'Accept payments through square gateway.', 'quillforms' ),
-				'plugin_file'        => 'quillforms-square/quillforms-square.php',
-				'plan'               => 'plus',
-				'is_payment_gateway' => true,
-				'assets'             => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/square/icon.png',
+				'square'                    => array(
+					'name'               => esc_html__( 'Square', 'quillforms' ),
+					'description'        => esc_html__( 'Accept payments through square gateway.', 'quillforms' ),
+					'plugin_file'        => 'quillforms-square/quillforms-square.php',
+					'plan'               => 'plus',
+					'is_payment_gateway' => true,
+					'assets'             => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/square/icon.png',
+					),
 				),
-			),
-			'razorpay'                  => array(
-				'name'               => esc_html__( 'Razorpay', 'quillforms' ),
-				'description'        => esc_html__( 'Accept payments through razorpay gateway.', 'quillforms' ),
-				'plugin_file'        => 'quillforms-razorpay/quillforms-razorpay.php',
-				'plan'               => 'plus',
-				'is_payment_gateway' => true,
-				'assets'             => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/razorpay/icon.png',
+				'razorpay'                  => array(
+					'name'               => esc_html__( 'Razorpay', 'quillforms' ),
+					'description'        => esc_html__( 'Accept payments through razorpay gateway.', 'quillforms' ),
+					'plugin_file'        => 'quillforms-razorpay/quillforms-razorpay.php',
+					'plan'               => 'plus',
+					'is_payment_gateway' => true,
+					'assets'             => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/razorpay/icon.png',
+					),
 				),
-			),
-			'mollie'                    => array(
-				'name'               => esc_html__( 'Mollie', 'quillforms' ),
-				'description'        => esc_html__( 'Accept payments through mollie gateway.', 'quillforms' ),
-				'plugin_file'        => 'quillforms-mollie/quillforms-mollie.php',
-				'plan'               => 'plus',
-				'is_payment_gateway' => true,
-				'assets'             => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mollie/icon.png',
+				'mollie'                    => array(
+					'name'               => esc_html__( 'Mollie', 'quillforms' ),
+					'description'        => esc_html__( 'Accept payments through mollie gateway.', 'quillforms' ),
+					'plugin_file'        => 'quillforms-mollie/quillforms-mollie.php',
+					'plan'               => 'plus',
+					'is_payment_gateway' => true,
+					'assets'             => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mollie/icon.png',
+					),
 				),
-			),
-			'tco'                       => array(
-				'name'               => esc_html__( '2Checkout', 'quillforms' ),
-				'description'        => esc_html__( '2Checkout addon allows you to accept payments through 2Checkout payment gateway.', 'quillforms' ),
-				'plugin_file'        => 'quillforms-2checkout/quillforms-2checkout.php',
-				'plan'               => 'plus',
-				'is_payment_gateway' => true,
-				'assets'             => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/2checkout/icon.png',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/2checkout/icon-full.png',
+				'tco'                       => array(
+					'name'               => esc_html__( '2Checkout', 'quillforms' ),
+					'description'        => esc_html__( '2Checkout addon allows you to accept payments through 2Checkout payment gateway.', 'quillforms' ),
+					'plugin_file'        => 'quillforms-2checkout/quillforms-2checkout.php',
+					'plan'               => 'plus',
+					'is_payment_gateway' => true,
+					'assets'             => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/2checkout/icon.png',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/2checkout/icon-full.png',
+					),
 				),
-			),
-			'googleanalytics'           => array(
-				'name'           => esc_html__( 'Google Analytics', 'quillforms' ),
-				'description'    => esc_html__( 'Track your users activity and behavior by google analytics.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-googleanalytics/quillforms-googleanalytics.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googleanalytics/icon.svg',
+				'googleanalytics'           => array(
+					'name'           => esc_html__( 'Google Analytics', 'quillforms' ),
+					'description'    => esc_html__( 'Track your users activity and behavior by google analytics.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-googleanalytics/quillforms-googleanalytics.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googleanalytics/icon.svg',
+					),
 				),
-			),
-			'facebookpixel'             => array(
-				'name'           => esc_html__( 'Facebook Pixel', 'quillforms' ),
-				'description'    => esc_html__( 'Track your users activity and behavior by facebook pixel.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-facebookpixel/quillforms-facebookpixel.php',
-				'plan'           => 'basic',
-				'is_integration' => false,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/facebookpixel/icon.svg',
+				'facebookpixel'             => array(
+					'name'           => esc_html__( 'Facebook Pixel', 'quillforms' ),
+					'description'    => esc_html__( 'Track your users activity and behavior by facebook pixel.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-facebookpixel/quillforms-facebookpixel.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/facebookpixel/icon.svg',
+					),
 				),
-			),
-			'activecampaign'            => array(
-				'name'           => esc_html__( 'ActiveCampaign', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your ActiveCampaign account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-activecampaign/quillforms-activecampaign.php',
-				'min_version'    => '1.1.0',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
+				'activecampaign'            => array(
+					'name'           => esc_html__( 'ActiveCampaign', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your ActiveCampaign account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-activecampaign/quillforms-activecampaign.php',
+					'min_version'    => '1.1.0',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/activecampaign/icon.svg',
+					),
 				),
-			),
-			'aweber'                    => array(
-				'name'           => esc_html__( 'AWeber', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your AWeber account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-aweber/quillforms-aweber.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/aweber/icon.svg',
+				'aweber'                    => array(
+					'name'           => esc_html__( 'AWeber', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your AWeber account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-aweber/quillforms-aweber.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/aweber/icon.svg',
+					),
 				),
-			),
-			'constantcontact'           => array(
-				'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-constantcontact/quillforms-constantcontact.php',
-				'min_version'    => '1.1.0',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/banner.png',
+				'constantcontact'           => array(
+					'name'           => esc_html__( 'Constant Contact', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your Constant Contact lists.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-constantcontact/quillforms-constantcontact.php',
+					'min_version'    => '1.1.0',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/constantcontact/banner.png',
+					),
 				),
-			),
-			'mailchimp'                 => array(
-				'name'           => esc_html__( 'MailChimp', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your MailChimp lists.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-mailchimp/quillforms-mailchimp.php',
-				'min_version'    => '1.1.0',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/banner.png',
+				'mailchimp'                 => array(
+					'name'           => esc_html__( 'MailChimp', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your MailChimp lists.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-mailchimp/quillforms-mailchimp.php',
+					'min_version'    => '1.1.0',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailchimp/banner.png',
+					),
 				),
-			),
-			'mailerlite'                => array(
-				'name'           => esc_html__( 'MailerLite', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your MailerLite account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-mailerlite/quillforms-mailerlite.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailerlite/icon.png',
+				'mailerlite'                => array(
+					'name'           => esc_html__( 'MailerLite', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your MailerLite account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-mailerlite/quillforms-mailerlite.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailerlite/icon.png',
+					),
 				),
-			),
-			'mailpoet'                  => array(
-				'name'           => esc_html__( 'MailPoet', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your MailPoet lists.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-mailpoet/quillforms-mailpoet.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
+				'mailpoet'                  => array(
+					'name'           => esc_html__( 'MailPoet', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your MailPoet lists.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-mailpoet/quillforms-mailpoet.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mailpoet/icon.png',
+					),
 				),
-			),
-			'mondaycom'                 => array(
-				'name'           => esc_html__( 'monday.com', 'quillforms' ),
-				'description'    => esc_html__( 'Send new items to your monday.com boards.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-mondaycom/quillforms-mondaycom.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mondaycom/icon.png',
+				'mondaycom'                 => array(
+					'name'           => esc_html__( 'monday.com', 'quillforms' ),
+					'description'    => esc_html__( 'Send new items to your monday.com boards.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-mondaycom/quillforms-mondaycom.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mondaycom/icon.png',
+					),
 				),
-			),
-			'notion'                    => array(
-				'name'           => esc_html__( 'Notion', 'quillforms' ),
-				'description'    => esc_html__( 'Send new entry data to your Notion databases.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-notion/quillforms-notion.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/notion/icon.png',
+				'notion'                    => array(
+					'name'           => esc_html__( 'Notion', 'quillforms' ),
+					'description'    => esc_html__( 'Send new entry data to your Notion databases.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-notion/quillforms-notion.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/notion/icon.png',
+					),
 				),
-			),
-			'pipedrive'                 => array(
-				'name'           => esc_html__( 'Pipedrive', 'quillforms' ),
-				'description'    => esc_html__( 'Create Pipedrive leads on form submission.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-pipedrive/quillforms-pipedrive.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pipedrive/icon.svg',
+				'pipedrive'                 => array(
+					'name'           => esc_html__( 'Pipedrive', 'quillforms' ),
+					'description'    => esc_html__( 'Create Pipedrive leads on form submission.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-pipedrive/quillforms-pipedrive.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pipedrive/icon.svg',
+					),
 				),
-			),
-			'getresponse'               => array(
-				'name'           => esc_html__( 'GetResponse', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your GetResponse lists.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-getresponse/quillforms-getresponse.php',
-				'min_version'    => '1.1.0',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/banner.png',
+				'getresponse'               => array(
+					'name'           => esc_html__( 'GetResponse', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your GetResponse lists.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-getresponse/quillforms-getresponse.php',
+					'min_version'    => '1.1.0',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/getresponse/banner.png',
+					),
 				),
-			),
-			'googlesheets'              => array(
-				'name'           => esc_html__( 'Google Sheets', 'quillforms' ),
-				'description'    => esc_html__( 'Send your submission to Google Sheets. Syncs automatically when a new form is submitted!', 'quillforms' ),
-				'plugin_file'    => 'quillforms-googlesheets/quillforms-googlesheets.php',
-				'min_version'    => '1.2.0',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/banner.png',
+				'googlesheets'              => array(
+					'name'           => esc_html__( 'Google Sheets', 'quillforms' ),
+					'description'    => esc_html__( 'Send your submission to Google Sheets. Syncs automatically when a new form is submitted!', 'quillforms' ),
+					'plugin_file'    => 'quillforms-googlesheets/quillforms-googlesheets.php',
+					'min_version'    => '1.2.0',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googlesheets/banner.png',
+					),
 				),
-			),
-			'hubspot'                   => array(
-				'name'           => esc_html__( 'HubSpot', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your HubSpot account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-hubspot/quillforms-hubspot.php',
-				'min_version'    => '1.1.0',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
+				'hubspot'                   => array(
+					'name'           => esc_html__( 'HubSpot', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your HubSpot account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-hubspot/quillforms-hubspot.php',
+					'min_version'    => '1.1.0',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/hubspot/icon.svg',
+					),
 				),
-			),
-			'klaviyo'                   => array(
-				'name'           => esc_html__( 'Klaviyo', 'quillforms' ),
-				'description'    => esc_html__( 'Send new profiles to your Klaviyo account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-klaviyo/quillforms-klaviyo.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.svg',
+				'klaviyo'                   => array(
+					'name'           => esc_html__( 'Klaviyo', 'quillforms' ),
+					'description'    => esc_html__( 'Send new profiles to your Klaviyo account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-klaviyo/quillforms-klaviyo.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/klaviyo/icon.svg',
+					),
 				),
-			),
-			'salesforce'                => array(
-				'name'           => esc_html__( 'Salesforce', 'quillforms' ),
-				'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-salesforce/quillforms-salesforce.php',
-				'min_version'    => '1.1.0',
-				'plan'           => 'plus',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
+				'salesforce'                => array(
+					'name'           => esc_html__( 'Salesforce', 'quillforms' ),
+					'description'    => esc_html__( 'Send new accounts, contacts, leads, cases or any other object to your Salesforce account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-salesforce/quillforms-salesforce.php',
+					'min_version'    => '1.1.0',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesforce/icon.svg',
+					),
 				),
-			),
-			'sendinblue'                => array(
-				'name'           => esc_html__( 'Sendinblue', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your Sendinblue account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-sendinblue/quillforms-sendinblue.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/sendinblue/icon.png',
+				'sendinblue'                => array(
+					'name'           => esc_html__( 'Sendinblue', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your Sendinblue account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-sendinblue/quillforms-sendinblue.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/sendinblue/icon.png',
+					),
 				),
-			),
-			'slack'                     => array(
-				'name'           => esc_html__( 'Slack', 'quillforms' ),
-				'description'    => esc_html__( 'Send new entries to your Slack workspaces.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-slack/quillforms-slack.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/slack/icon.png',
+				'slack'                     => array(
+					'name'           => esc_html__( 'Slack', 'quillforms' ),
+					'description'    => esc_html__( 'Send new entries to your Slack workspaces.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-slack/quillforms-slack.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/slack/icon.png',
+					),
 				),
-			),
-			'webhooks'                  => array(
-				'name'           => esc_html__( 'Webhooks', 'quillforms' ),
-				'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-webhooks/quillforms-webhooks.php',
-				'plan'           => 'plus',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
+				'webhooks'                  => array(
+					'name'           => esc_html__( 'Webhooks', 'quillforms' ),
+					'description'    => esc_html__( 'Send new entries data to any external service or application.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-webhooks/quillforms-webhooks.php',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/webhooks/icon.svg',
+					),
 				),
-			),
-			'make'                      => array(
-				'name'           => esc_html__( 'Make', 'quillforms' ),
-				'description'    => esc_html__( 'Send your submission to Make (formerly integromat) scenarios.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-make/quillforms-make.php',
-				'plan'           => 'plus',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/make/icon.png',
+				'make'                      => array(
+					'name'           => esc_html__( 'Make', 'quillforms' ),
+					'description'    => esc_html__( 'Send your submission to Make (formerly integromat) scenarios.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-make/quillforms-make.php',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/make/icon.png',
+					),
 				),
-			),
-			'zapier'                    => array(
-				'name'           => esc_html__( 'Zapier', 'quillforms' ),
-				'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-zapier/quillforms-zapier.php',
-				'min_version'    => '1.2.1',
-				'plan'           => 'plus',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/icon.svg',
-					'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/banner.png',
+				'zapier'                    => array(
+					'name'           => esc_html__( 'Zapier', 'quillforms' ),
+					'description'    => esc_html__( 'Send your submission to Zapier configured zaps.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-zapier/quillforms-zapier.php',
+					'min_version'    => '1.2.1',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zapier/banner.png',
+					),
 				),
-			),
-			'bitrix24'                  => array(
-				'name'           => esc_html__( 'Bitrix24', 'quillforms' ),
-				'description'    => esc_html__( 'Send new accounts, contacts, leads or any other crm to your Bitrix24 account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-bitrix24/quillforms-bitrix24.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/bitrix24/icon.svg',
+				'bitrix24'                  => array(
+					'name'           => esc_html__( 'Bitrix24', 'quillforms' ),
+					'description'    => esc_html__( 'Send new accounts, contacts, leads or any other crm to your Bitrix24 account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-bitrix24/quillforms-bitrix24.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/bitrix24/icon.svg',
+					),
 				),
-			),
-			'asana'                     => array(
-				'name'           => esc_html__( 'Asana', 'quillforms' ),
-				'description'    => esc_html__( 'Add Tasks to your Asana account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-asana/quillforms-asana.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/asana/icon.svg',
+				'asana'                     => array(
+					'name'           => esc_html__( 'Asana', 'quillforms' ),
+					'description'    => esc_html__( 'Add Tasks to your Asana account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-asana/quillforms-asana.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/asana/icon.svg',
+					),
 				),
-			),
-			'clickup'                   => array(
-				'name'           => esc_html__( 'ClickUp', 'quillforms' ),
-				'description'    => esc_html__( 'Add Tasks to your ClickUp account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-clickup/quillforms-clickup.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/clickup/icon.svg',
+				'clickup'                   => array(
+					'name'           => esc_html__( 'ClickUp', 'quillforms' ),
+					'description'    => esc_html__( 'Add Tasks to your ClickUp account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-clickup/quillforms-clickup.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/clickup/icon.svg',
+					),
 				),
-			),
-			'mautic'                    => array(
-				'name'           => esc_html__( 'Mautic', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your Mautic account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-mautic/quillforms-mautic.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mautic/icon.svg',
+				'mautic'                    => array(
+					'name'           => esc_html__( 'Mautic', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your Mautic account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-mautic/quillforms-mautic.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/mautic/icon.svg',
+					),
 				),
-			),
-			'zohocrm'                   => array(
-				'name'           => esc_html__( 'ZohoCRM', 'quillforms' ),
-				'description'    => esc_html__( 'Send new accounts, contacts, leads or any other module to your ZohoCRM account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-zohocrm/quillforms-zohocrm.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zohocrm/icon.svg',
+				'zohocrm'                   => array(
+					'name'           => esc_html__( 'ZohoCRM', 'quillforms' ),
+					'description'    => esc_html__( 'Send new accounts, contacts, leads or any other module to your ZohoCRM account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-zohocrm/quillforms-zohocrm.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/zohocrm/icon.svg',
+					),
 				),
-			),
-			'convertkit'                => array(
-				'name'           => esc_html__( 'Convertkit', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your Convertkit account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-convertkit/quillforms-convertkit.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/convertkit/icon.svg',
+				'convertkit'                => array(
+					'name'           => esc_html__( 'Convertkit', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your Convertkit account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-convertkit/quillforms-convertkit.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/convertkit/icon.svg',
+					),
 				),
-			),
-			'freshsales'                => array(
-				'name'           => esc_html__( 'Freshsales', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts to your Freshsales account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-freshsales/quillforms-freshsales.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/freshsales/icon.svg',
+				'freshsales'                => array(
+					'name'           => esc_html__( 'Freshsales', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts to your Freshsales account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-freshsales/quillforms-freshsales.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/freshsales/icon.svg',
+					),
 				),
-			),
-			'airtable'                  => array(
-				'name'           => esc_html__( 'Airtable', 'quillforms' ),
-				'description'    => esc_html__( 'Send new records to your Airtable account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-airtable/quillforms-airtable.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/airtable/icon.svg',
+				'airtable'                  => array(
+					'name'           => esc_html__( 'Airtable', 'quillforms' ),
+					'description'    => esc_html__( 'Send new records to your Airtable account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-airtable/quillforms-airtable.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/airtable/icon.svg',
+					),
 				),
-			),
-			'trello'                    => array(
-				'name'           => esc_html__( 'Trello', 'quillforms' ),
-				'description'    => esc_html__( 'Trello addon allows you to send your form submissions to your Trello boards and lists.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-trello/quillforms-trello.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/trello/icon.svg',
+				'trello'                    => array(
+					'name'           => esc_html__( 'Trello', 'quillforms' ),
+					'description'    => esc_html__( 'Trello addon allows you to send your form submissions to your Trello boards and lists.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-trello/quillforms-trello.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/trello/icon.svg',
+					),
 				),
-			),
-			'agilecrm'                  => array(
-				'name'           => esc_html__( 'AgileCRM', 'quillforms' ),
-				'description'    => esc_html__( 'Send new contacts, tasks to your AgileCRM account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-agilecrm/quillforms-agilecrm.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/agilecrm/icon.svg',
+				'agilecrm'                  => array(
+					'name'           => esc_html__( 'AgileCRM', 'quillforms' ),
+					'description'    => esc_html__( 'Send new contacts, tasks to your AgileCRM account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-agilecrm/quillforms-agilecrm.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/agilecrm/icon.svg',
+					),
 				),
-			),
-			'capsulecrm'                => array(
-				'name'           => esc_html__( 'Capsule CRM', 'quillforms' ),
-				'description'    => esc_html__( 'Capsule CRM addon allows you to automatically create contacts and tasks in your Capsule CRM account when a form is submitted.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-capsulecrm/quillforms-capsulecrm.php',
-				'plan'           => 'plus',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/capsulecrm/icon.svg',
+				'capsulecrm'                => array(
+					'name'           => esc_html__( 'Capsule CRM', 'quillforms' ),
+					'description'    => esc_html__( 'Capsule CRM addon allows you to automatically create contacts and tasks in your Capsule CRM account when a form is submitted.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-capsulecrm/quillforms-capsulecrm.php',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/capsulecrm/icon.svg',
+					),
 				),
-			),
-			'drip'                      => array(
-				'name'           => esc_html__( 'Drip', 'quillforms' ),
-				'description'    => esc_html__( 'Drip addon allows you to connect your forms with Drip email marketing service. It allows you to add subscribers to your Drip account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-drip/quillforms-drip.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/drip/icon.svg',
+				'drip'                      => array(
+					'name'           => esc_html__( 'Drip', 'quillforms' ),
+					'description'    => esc_html__( 'Drip addon allows you to connect your forms with Drip email marketing service. It allows you to add subscribers to your Drip account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-drip/quillforms-drip.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/drip/icon.svg',
+					),
 				),
-			),
-			'salesflare'                => array(
-				'name'           => esc_html__( 'Salesflare', 'quillforms' ),
-				'description'    => esc_html__( 'Salesflare addon makes it easy for you to connect your forms with your Salesflare account. With it, you can create contacts and tasks from your form submissions.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-salesflare/quillforms-salesflare.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesflare/icon.png',
+				'salesflare'                => array(
+					'name'           => esc_html__( 'Salesflare', 'quillforms' ),
+					'description'    => esc_html__( 'Salesflare addon makes it easy for you to connect your forms with your Salesflare account. With it, you can create contacts and tasks from your form submissions.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-salesflare/quillforms-salesflare.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/salesflare/icon.png',
+					),
 				),
-			),
-			'emailoctopus'              => array(
-				'name'           => esc_html__( 'EmailOctopus', 'quillforms' ),
-				'description'    => esc_html__(
-					'EmailOctopus addon allows you to connect your forms with EmailOctopus to create subscribers.',
-					'quillforms'
+				'emailoctopus'              => array(
+					'name'           => esc_html__( 'EmailOctopus', 'quillforms' ),
+					'description'    => esc_html__(
+						'EmailOctopus addon allows you to connect your forms with EmailOctopus to create subscribers.',
+						'quillforms'
+					),
+					'plugin_file'    => 'quillforms-emailoctopus/quillforms-emailoctopus.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/emailoctopus/icon.svg',
+					),
 				),
-				'plugin_file'    => 'quillforms-emailoctopus/quillforms-emailoctopus.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/emailoctopus/icon.svg',
+				'moosend'                   => array(
+					'name'           => esc_html__( 'Moosend', 'quillforms' ),
+					'description'    => esc_html__( 'Moosend addon allows you to connect your forms with Moosend to grow your email list.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-moosend/quillforms-moosend.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/moosend/icon.svg',
+					),
 				),
-			),
-			'moosend'                   => array(
-				'name'           => esc_html__( 'Moosend', 'quillforms' ),
-				'description'    => esc_html__( 'Moosend addon allows you to connect your forms with Moosend to grow your email list.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-moosend/quillforms-moosend.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/moosend/icon.svg',
+				'fluentcrm'                 => array(
+					'name'           => esc_html__( 'FluentCRM', 'quillforms' ),
+					'description'    => esc_html__( 'FluentCRM addon allows you to add contacts to your FluentCRM lists when a form is submitted.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-fluentcrm/quillforms-fluentcrm.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentcrm/icon.svg',
+					),
 				),
-			),
-			'fluentcrm'                 => array(
-				'name'           => esc_html__( 'FluentCRM', 'quillforms' ),
-				'description'    => esc_html__( 'FluentCRM addon allows you to add contacts to your FluentCRM lists when a form is submitted.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-fluentcrm/quillforms-fluentcrm.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentcrm/icon.svg',
+				'discord'                   => array(
+					'name'           => esc_html__( 'Discord', 'quillforms' ),
+					'description'    => esc_html__( 'Discord addon allows you to send your form submissions to your discord server.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-discord/quillforms-discord.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/discord/icon.svg',
+					),
 				),
-			),
-			'discord'                   => array(
-				'name'           => esc_html__( 'Discord', 'quillforms' ),
-				'description'    => esc_html__( 'Discord addon allows you to send your form submissions to your discord server.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-discord/quillforms-discord.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/discord/icon.svg',
+				'cleverreach'               => array(
+					'name'           => esc_html__( 'CleverReach', 'quillforms' ),
+					'description'    => esc_html__( 'CleverReach addon allows you to connect your forms with CleverReach to send your leads to your CleverReach account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-cleverreach/quillforms-cleverreach.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/cleverreach/icon.svg',
+					),
 				),
-			),
-			'cleverreach'               => array(
-				'name'           => esc_html__( 'CleverReach', 'quillforms' ),
-				'description'    => esc_html__( 'CleverReach addon allows you to connect your forms with CleverReach to send your leads to your CleverReach account.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-cleverreach/quillforms-cleverreach.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/cleverreach/icon.svg',
+				'gohighlevel'               => array(
+					'name'           => esc_html__( 'GoHighLevel', 'quillforms' ),
+					'description'    => esc_html__( 'GoHighLevel addon allows you to connect your forms with GoHighLevel to send your leads to your GoHighLevel account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-gohighlevel/quillforms-gohighlevel.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/gohighlevel/icon.png',
+					),
 				),
-			),
-			'wpuserregistration'        => array(
-				'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
-				'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-wpuserregistration/quillforms-wpuserregistration.php',
-				'plan'           => 'plus',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/wpuserregistration/icon.svg',
+				'wpuserregistration'        => array(
+					'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
+					'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-wpuserregistration/quillforms-wpuserregistration.php',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/wpuserregistration/icon.svg',
+					),
 				),
-			),
-			'postcreation'              => array(
-				'name'           => esc_html__( 'Advanced WordPress Post Creation', 'quillforms' ),
-				'description'    => esc_html__( 'Create a new WordPress page, post or any available custom post type on form submission.', 'quillforms' ),
-				'plugin_file'    => 'quillforms-postcreation/quillforms-postcreation.php',
-				'plan'           => 'basic',
-				'is_integration' => true,
-				'assets'         => array(
-					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/postcreation/icon.svg',
+				'postcreation'              => array(
+					'name'           => esc_html__( 'Advanced WordPress Post Creation', 'quillforms' ),
+					'description'    => esc_html__( 'Create a new WordPress page, post or any available custom post type on form submission.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-postcreation/quillforms-postcreation.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/postcreation/icon.svg',
+					),
 				),
-			),
-		) );
+			)
+		);
 
 		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugin_data' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
