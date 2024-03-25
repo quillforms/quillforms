@@ -38,7 +38,7 @@ interface Props {
 	isActive: boolean;
 }
 
-const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
+const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	const { beforeGoingNext, isPreview, formId } = useFormContext();
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
@@ -46,15 +46,19 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	const hiddenFields = useHiddenFields();
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const settings = useFormSettings();
-	const editableFields = useEditableFields(true);
+	const { formObj } = useFormContext();
+	// @ts-ignore saveandcontinue is a property of formObj.
+	const { saveandcontinue = {} } = formObj;
+	// @ts-ignore saved_data is a property of formObj.
+	const { saved_data = {} } = formObj;
+	const editableFields = useEditableFields( true );
 
-	const ref = useRef<HTMLDivElement | null>(null);
-	const { swiper } = useSelect((select) => {
+	const ref = useRef< HTMLDivElement | null >( null );
+	const { swiper } = useSelect( ( select ) => {
 		return {
-			swiper: select('quillForms/renderer-core').getSwiperState(),
+			swiper: select( 'quillForms/renderer-core' ).getSwiperState(),
 		};
-	});
-
+	} );
 
 	const {
 		walkPath,
@@ -68,26 +72,30 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		isCurrentBlockSafeToSwipe,
 	} = swiper;
 
-	const { answers } = useSelect((select) => {
+	const { answers } = useSelect( ( select ) => {
 		return {
-			answers: select('quillForms/renderer-core').getAnswers(),
+			answers: select( 'quillForms/renderer-core' ).getAnswers(),
 		};
-	});
+	} );
 	const currentBlockIndex = walkPath.findIndex(
-		(block) => block.id === currentBlockId
+		( block ) => block.id === currentBlockId
 	);
 
-	const { nextBlock } = useSelect((select) => {
+	const { nextBlock } = useSelect( ( select ) => {
 		return {
-			nextBlock: nextBlockId ? select('quillForms/renderer-core').getBlockById(nextBlockId) : undefined
-		}
-	});
-	const currentBlockName = walkPath[currentBlockIndex]?.name;
+			nextBlock: nextBlockId
+				? select( 'quillForms/renderer-core' ).getBlockById(
+						nextBlockId
+				  )
+				: undefined,
+		};
+	} );
+	const currentBlockName = walkPath[ currentBlockIndex ]?.name;
 
-	const currentBlockType = blockTypes?.[currentBlockName];
+	const currentBlockType = blockTypes?.[ currentBlockName ];
 
 	const lastActiveBlockIndex = walkPath.findIndex(
-		(block) => block.id === lastActiveBlockId
+		( block ) => block.id === lastActiveBlockId
 	);
 
 	const {
@@ -101,65 +109,86 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		setFieldValidationErr,
 		setFieldAnswer,
 		setCorrectIncorrectDisplay,
-		setIsFieldCorrectIncorrectScreenDisplayed
-	} = useDispatch('quillForms/renderer-core');
+		setIsFieldCorrectIncorrectScreenDisplayed,
+	} = useDispatch( 'quillForms/renderer-core' );
 
-	useEffect(() => {
-		if (settings?.saveAnswersInBrowser && !isPreview) {
+	useEffect( () => {
+		if ( saveandcontinue?.enable && saved_data?.hash_id ) {
+			const fields = saved_data?.fields || {};
+
+			Object.keys( fields ).forEach( ( fieldId ) => {
+				setFieldAnswer( fieldId, fields[ fieldId ].value );
+			} );
+
+			return;
+		}
+
+		if ( settings?.saveAnswersInBrowser && ! isPreview ) {
 			// replace localstorage with cookies.
-			const answers = Cookies.get(`quillforms-answers-${formId}`) ? JSON.parse(Cookies.get(`quillforms-answers-${formId}`)) : {};
-			editableFields.forEach((field) => {
-				if (answers[field.id]) {
-					setFieldAnswer(field.id, answers[field.id].value);
+			const answers = Cookies.get( `quillforms-answers-${ formId }` )
+				? JSON.parse( Cookies.get( `quillforms-answers-${ formId }` ) )
+				: {};
+			editableFields.forEach( ( field ) => {
+				if ( answers[ field.id ] ) {
+					setFieldAnswer( field.id, answers[ field.id ].value );
 				}
-			});
+			} );
 		}
+	}, [] );
 
-	}, []);
-
-	useEffect(() => {
-		if (!isPreview && settings?.saveAnswersInBrowser) {
+	useEffect( () => {
+		if ( ! isPreview && settings?.saveAnswersInBrowser ) {
 			// replace localstorage with cookies which will expire in 30 days.
-			Cookies.set(`quillforms-answers-${formId}`, JSON.stringify(answers), { expires: 30 }, { path: '/' });
-			Cookies.set(`quillforms-current-block-${formId}`, currentBlockId, { expires: 30 }, { path: '/' });
+			Cookies.set(
+				`quillforms-answers-${ formId }`,
+				JSON.stringify( answers ),
+				{ expires: 30 },
+				{ path: '/' }
+			);
+			Cookies.set(
+				`quillforms-current-block-${ formId }`,
+				currentBlockId,
+				{ expires: 30 },
+				{ path: '/' }
+			);
 		}
-	}, [currentBlockId, answers]);
+	}, [ currentBlockId, answers ] );
 	const isTouchScreen =
-		(typeof window !== 'undefined' && 'ontouchstart' in window) ||
-		(typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) || // @ts-expect-error
-		(typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0);
+		( typeof window !== 'undefined' && 'ontouchstart' in window ) ||
+		( typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0 ) || // @ts-expect-error
+		( typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0 );
 
 	const getFieldsToRender = (): string[] => {
 		const fieldIds: string[] = [];
 		const filteredBlocks = walkPath.filter(
-			(block) =>
-				answers[block.id]?.isPending ||
+			( block ) =>
+				answers[ block.id ]?.isPending ||
 				block.id === currentBlockId ||
-				(!isTouchScreen && block.id === nextBlockId) ||
-				(!isTouchScreen && block.id === prevBlockId) ||
-				(!isTouchScreen && block.id === lastActiveBlockId)
+				( ! isTouchScreen && block.id === nextBlockId ) ||
+				( ! isTouchScreen && block.id === prevBlockId ) ||
+				( ! isTouchScreen && block.id === lastActiveBlockId )
 		);
-		filteredBlocks.forEach((block) => {
+		filteredBlocks.forEach( ( block ) => {
 			if (
 				block.name !== 'welcome-screen' &&
 				block.name !== 'thankyou-screen'
 			) {
-				fieldIds.push(block.id);
+				fieldIds.push( block.id );
 			}
-		});
+		} );
 		return fieldIds;
 	};
 
 	const fieldsToRender = getFieldsToRender();
 	const fields = walkPath.filter(
-		(block) =>
+		( block ) =>
 			block.name !== 'welcome-screen' && block.name !== 'thankyou-screen'
 	);
 
 	const goNextReally = async () => {
-		if (answers[currentBlockIndex]?.isPending) return;
-		if (beforeGoingNext && currentBlockId) {
-			await beforeGoingNext({
+		if ( answers[ currentBlockIndex ]?.isPending ) return;
+		if ( beforeGoingNext && currentBlockId ) {
+			await beforeGoingNext( {
 				answers,
 				currentBlockId,
 				setIsFieldValid,
@@ -167,124 +196,127 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 				setIsCurrentBlockSafeToSwipe,
 				goToBlock,
 				goNext,
-				setIsPending: (val) =>
-					setIsFieldPending(currentBlockId, val),
-			});
+				setIsPending: ( val ) =>
+					setIsFieldPending( currentBlockId, val ),
+			} );
 		} else {
 			if (
 				correctIncorrectQuiz?.enabled &&
 				swiper?.correctIncorrectDisplay === false &&
 				currentBlockType.supports.correctAnswers &&
 				correctIncorrectQuiz?.showAnswersDuringQuiz &&
-				!answers[currentBlockId]?.isCorrectIncorrectScreenDisplayed
+				! answers[ currentBlockId ]?.isCorrectIncorrectScreenDisplayed
 			) {
-				setCorrectIncorrectDisplay(true);
-				setIsFieldCorrectIncorrectScreenDisplayed(currentBlockId, true);
+				setCorrectIncorrectDisplay( true );
+				setIsFieldCorrectIncorrectScreenDisplayed(
+					currentBlockId,
+					true
+				);
 				return;
 			}
 			goNext();
 		}
 	};
 
-	const { isCurrentBlockValid } = useSelect((select) => {
+	const { isCurrentBlockValid } = useSelect( ( select ) => {
 		return {
 			isCurrentBlockValid: currentBlockType?.supports?.innerBlocks
-				? select('quillForms/renderer-core')?.hasValidFields(
-					// @ts-expect-error
-					currentBlockId
-				)
-				: currentBlockType?.supports?.editable
-					? select('quillForms/renderer-core')?.isValidField(
+				? select( 'quillForms/renderer-core' )?.hasValidFields(
 						// @ts-expect-error
 						currentBlockId
-					)
-					: true,
+				  )
+				: currentBlockType?.supports?.editable
+				? select( 'quillForms/renderer-core' )?.isValidField(
+						// @ts-expect-error
+						currentBlockId
+				  )
+				: true,
 		};
-	});
-	useEffect(() => {
-		if (isCurrentBlockSafeToSwipe) setIsCurrentBlockSafeToSwipe(true);
-	}, [isCurrentBlockValid]);
+	} );
+	useEffect( () => {
+		if ( isCurrentBlockSafeToSwipe ) setIsCurrentBlockSafeToSwipe( true );
+	}, [ isCurrentBlockValid ] );
 
 	const isFirstField =
-		walkPath?.length > 0 && walkPath[0].id === currentBlockId;
+		walkPath?.length > 0 && walkPath[ 0 ].id === currentBlockId;
 
 	const isLastField =
 		walkPath?.length &&
-		currentBlockId === walkPath[walkPath.length - 1].id;
+		currentBlockId === walkPath[ walkPath.length - 1 ].id;
 
-	const handlers = useSwipeable({
-		onSwiping: (e) => {
-			swipingHandler(e, true);
+	const handlers = useSwipeable( {
+		onSwiping: ( e ) => {
+			swipingHandler( e, true );
 		},
 		preventDefaultTouchmoveEvent: false,
 		trackMouse: false,
 		trackTouch: true,
 		delta: 70,
-	});
+	} );
 
 	// Mouse Wheel Handler
 	const swipingHandler = (
 		e: React.WheelEvent | SwipeEventData,
 		touch = false
 	) => {
-		if (settings?.disableWheelSwiping) return;
+		if ( settings?.disableWheelSwiping ) return;
 		let delta = e.deltaY;
-		if (settings?.animationDirection === 'horizontal') {
+		if ( settings?.animationDirection === 'horizontal' ) {
 			delta = e.deltaX;
 		}
-		if (swiper.isAnimating) return;
-		const lethargyCheck = lethargy.check(e);
+		if ( swiper.isAnimating ) return;
+		const lethargyCheck = lethargy.check( e );
 		const now = new Date().getTime();
 		let timeDelay = 900;
-		if (touch) timeDelay = 500;
+		if ( touch ) timeDelay = 500;
 		if (
 			lethargyCheck === false ||
 			isAnimating ||
-			(lastScrollDate && now - lastScrollDate < timeDelay)
+			( lastScrollDate && now - lastScrollDate < timeDelay )
 		)
 			return;
 		if (
 			canSwipePrev &&
-			((delta < -50 && !touch) ||
-				(touch &&
+			( ( delta < -50 && ! touch ) ||
+				( touch &&
 					delta > 50 &&
-					(e as SwipeEventData).dir === 'Down')) &&
-			!isFirstField
+					( e as SwipeEventData ).dir === 'Down' ) ) &&
+			! isFirstField
 		) {
 			// Scroll up
 			lastScrollDate = new Date().getTime();
 			goPrev();
 		} else if (
 			canSwipeNext &&
-			((delta < -50 &&
+			( ( delta < -50 &&
 				touch &&
-				(e as SwipeEventData).dir === 'Up') ||
-				(!touch && delta > 50)) &&
-			!isLastField
+				( e as SwipeEventData ).dir === 'Up' ) ||
+				( ! touch && delta > 50 ) ) &&
+			! isLastField
 		) {
 			lastScrollDate = new Date().getTime();
 			// Scroll down
-			if (isCurrentBlockValid) {
+			if ( isCurrentBlockValid ) {
 				goNextReally();
 			} else {
-				setIsCurrentBlockSafeToSwipe(false);
+				setIsCurrentBlockSafeToSwipe( false );
 			}
 		}
 	};
 
-	useEffect((): void | (() => void) => {
-		if (isAnimating) {
-			const timer = setTimeout(() => {
-				setSwiper({
+	useEffect( (): void | ( () => void ) => {
+		if ( isAnimating ) {
+			const timer = setTimeout( () => {
+				setSwiper( {
 					isAnimating: false,
-				});
-			}, 600);
-			return () => clearTimeout(timer);
+				} );
+			}, 600 );
+			return () => clearTimeout( timer );
 		}
-	}, [swiper]);
+	}, [ swiper ] );
 
-	useEffect(() => {
-		if (applyLogic && isActive) {
+	useEffect( () => {
+		if ( applyLogic && isActive ) {
 			doAction(
 				'QuillForms.RendererCore.LogicApply',
 				blocks,
@@ -293,16 +325,16 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 				hiddenFields
 			);
 		}
-	}, [answers, currentBlockId]);
+	}, [ answers, currentBlockId ] );
 
-	useEffect(() => {
-		if (applyLogic && isActive) {
-			setSwiper({
-				currentBlockId: blocks[0].id,
+	useEffect( () => {
+		if ( applyLogic && isActive ) {
+			setSwiper( {
+				currentBlockId: blocks[ 0 ].id,
 				prevBlockId: undefined,
 				canSwipePrev: false,
 				lastActiveBlockId: undefined,
-			});
+			} );
 			doAction(
 				'QuillForms.RendererCore.LogicApply',
 				blocks,
@@ -311,59 +343,57 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 				hiddenFields
 			);
 		}
-		if (!applyLogic) {
-			doAction('QuillForms.RendererCore.LogicTurnOff');
+		if ( ! applyLogic ) {
+			doAction( 'QuillForms.RendererCore.LogicTurnOff' );
 		}
-	}, [applyLogic]);
+	}, [ applyLogic ] );
 
 	// const isThereNextField =
 	// 	fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
 	const handleNext = () => {
-		if (isCurrentBlockValid) {
+		if ( isCurrentBlockValid ) {
 			goNextReally();
 		} else {
-			setIsCurrentBlockSafeToSwipe(false);
+			setIsCurrentBlockSafeToSwipe( false );
 		}
-
 	};
 	return (
 		<div
-			onWheel={swipingHandler}
-			className={classNames('renderer-core-fields-wrapper', {
+			onWheel={ swipingHandler }
+			className={ classNames( 'renderer-core-fields-wrapper', {
 				active: isActive,
 				'is-moving-up':
 					isAnimating && currentBlockIndex < lastActiveBlockIndex,
 				'is-moving-down':
 					isAnimating && currentBlockIndex > lastActiveBlockIndex,
-			})}
-			ref={ref}
-			aria-hidden={isActive ? false : true}
+			} ) }
+			ref={ ref }
+			aria-hidden={ isActive ? false : true }
 		>
-			<div {...handlers}>
-				{fields.map((field, index) => {
+			<div { ...handlers }>
+				{ fields.map( ( field, index ) => {
 					const isActive = currentBlockId === field.id;
 					return (
 						<FieldRender
-							key={`${field.id}`}
-							id={field.id}
-							shouldBeRendered={fieldsToRender.includes(
+							key={ `${ field.id }` }
+							id={ field.id }
+							shouldBeRendered={ fieldsToRender.includes(
 								field.id
-							)}
-							isActive={isActive}
+							) }
+							isActive={ isActive }
 							isCurrentBlockSafeToSwipe={
 								isActive ? isCurrentBlockSafeToSwipe : true
 							}
 							isLastField={
-								(!nextBlock || nextBlock.name === 'thankyou-screen') &&
+								( ! nextBlock ||
+									nextBlock.name === 'thankyou-screen' ) &&
 								index === fields.length - 1
 							}
-							next={() =>
-								handleNext()
-							}
+							next={ () => handleNext() }
 						/>
 					);
-				})}
+				} ) }
 			</div>
 		</div>
 	);

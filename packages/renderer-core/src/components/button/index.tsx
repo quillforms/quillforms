@@ -17,6 +17,7 @@ interface Props {
 	onKeyDown?: React.KeyboardEventHandler< HTMLDivElement >;
 	theme?: FormTheme;
 	children: React.ReactNode;
+	disableIcon?: boolean;
 }
 const Button: React.FC< Props > = ( {
 	className,
@@ -112,7 +113,7 @@ const Button: React.FC< Props > = ( {
 			{ ...props }
 		>
 			{ children }
-			<ArrowIcon theme={ theme } />
+			{ ! props.disableIcon && <ArrowIcon theme={ theme } /> }
 		</button>
 	);
 };

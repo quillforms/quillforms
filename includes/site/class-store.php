@@ -455,6 +455,16 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/pdf/icon.svg',
 					),
 				),
+				'saveandcontinue'           => array(
+					'name'           => esc_html__( 'Save and Continue Later', 'quillforms' ),
+					'description'    => esc_html__( 'Save and Continue Later addon allows your users to save their progress and continue filling out the form later.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-saveandcontinue/quillforms-saveandcontinue.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/icon.svg',
+					),
+				),
 				'logic'                     => array(
 					'name'           => esc_html__( 'Logic', 'quillforms' ),
 					'description'    => esc_html__( 'Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form.', 'quillforms' ),

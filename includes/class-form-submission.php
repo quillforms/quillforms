@@ -137,7 +137,7 @@ class Form_Submission {
 		$products   = $payments['products'];
 		$amount     = $products['total'];
 
-		if($amount != 0) {
+		if ( $amount != 0 ) {
 			wp_send_json_error( esc_html__( 'Something went wrong', 'quillforms' ) );
 			exit;
 		}
@@ -255,7 +255,7 @@ class Form_Submission {
 		}
 
 		// filter for entry object init.
-     /** @var Entry */ // phpcs:ignore
+     	/** @var Entry */ // phpcs:ignore
 		$this->entry = apply_filters( 'quillforms_entry_init', $this->entry, $this->form_data, $unsanitized_entry );
 
 		// blocks walk path.
@@ -460,7 +460,7 @@ class Form_Submission {
 
 		// action after entry processed.
 		do_action( 'quillforms_after_entry_processed', $this->entry, $this->form_data );
-		
+
 		// finally, process email notifications.
 		$this->entry_email();
 	}
@@ -614,7 +614,7 @@ class Form_Submission {
 			'hashed_id'          => $this->entry->get_meta_value( 'hashed_id' ),
 			'payments'           => $this->get_payments_renderer_data(),
 			'thankyou_screen_id' => $this->get_thankyou_screen_id(),
-			'thankyouscreens'   => $this->format_thankyou_screens(),
+			'thankyouscreens'    => $this->format_thankyou_screens(),
 		);
 	}
 
@@ -877,13 +877,19 @@ class Form_Submission {
 		if ( ! empty( $this->errors ) ) {
 			wp_send_json_error( $this->errors, 200 );
 		} else {
-			wp_send_json_success( array( 'status' => 'completed', 'thankyouscreens' => $this->format_thankyou_screens() ), 200 );
+			wp_send_json_success(
+				array(
+					'status'          => 'completed',
+					'thankyouscreens' => $this->format_thankyou_screens(),
+				),
+				200
+			);
 		}
 	}
 
 	/**
 	 * Format thankyou screens
-	 * 
+	 *
 	 * @since 3.5.5
 	 */
 	protected function format_thankyou_screens() {
@@ -891,20 +897,20 @@ class Form_Submission {
 			$this->form_data['blocks'],
 			function ( $block ) {
 				return 'thankyou-screen' === $block['name'];
-			}	
+			}
 		);
 
-		if(!empty($this->thankyou_screens)) {
-			$this->thankyou_screens = array_values($this->thankyou_screens);
+		if ( ! empty( $this->thankyou_screens ) ) {
+			$this->thankyou_screens = array_values( $this->thankyou_screens );
 			$this->thankyou_screens = array_map(
 				function ( $block ) {
 					$block['attributes']['redirectUrl'] = $block['attributes']['redirectUrl'] ?? '';
-					if(!empty($block['attributes']['redirectUrl'])) {
+					if ( ! empty( $block['attributes']['redirectUrl'] ) ) {
 						$block['attributes']['redirectUrl'] = Merge_Tags::instance()->process_text( $block['attributes']['redirectUrl'], $this->entry, $this->form_data, 'plain' );
 					}
 
 					$block['attributes']['autoRedirectUrl'] = $block['attributes']['autoRedirectUrl'] ?? '';
-					if(!empty($block['attributes']['autoRedirectUrl'])) {
+					if ( ! empty( $block['attributes']['autoRedirectUrl'] ) ) {
 						$block['attributes']['autoRedirectUrl'] = Merge_Tags::instance()->process_text( $block['attributes']['autoRedirectUrl'], $this->entry, $this->form_data, 'plain' );
 					}
 					return $block;
@@ -914,7 +920,6 @@ class Form_Submission {
 		}
 
 		return $this->thankyou_screens;
-
 
 	}
 

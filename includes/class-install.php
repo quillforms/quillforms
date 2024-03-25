@@ -17,17 +17,16 @@ use QuillForms\Site\License;
  *
  * @since 1.0.0
  */
-class Install
-{
+class Install {
+
 
 	/**
 	 * Init
 	 *
 	 * @since 1.0.0
 	 */
-	public static function init()
-	{
-		add_action('init', array(__CLASS__, 'check_version'), 5);
+	public static function init() {
+		 add_action( 'init', array( __CLASS__, 'check_version' ), 5 );
 	}
 
 	/**
@@ -35,11 +34,10 @@ class Install
 	 *
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
-	public static function check_version()
-	{
-		if (version_compare(get_option('quillforms_version'), QUILLFORMS_VERSION, '<')) {
+	public static function check_version() {
+		if ( version_compare( get_option( 'quillforms_version' ), QUILLFORMS_VERSION, '<' ) ) {
 			self::install();
-			do_action('quillforms_updated');
+			do_action( 'quillforms_updated' );
 		}
 	}
 
@@ -49,25 +47,25 @@ class Install
 	 * @since 1.0.0
 	 * @static
 	 */
-	public static function install()
-	{
+	public static function install() {
 		// Check if we are not already running this routine.
-		if ('yes' === get_transient('quillforms_installing')) {
+		if ( 'yes' === get_transient( 'quillforms_installing' ) ) {
 			return;
 		}
 
 		// If we made it till here nothing is running yet, lets set the transient now.
-		set_transient('quillforms_installing', 'yes', MINUTE_IN_SECONDS * 10);
+		set_transient( 'quillforms_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
 		Core::register_quillforms_post_type();
 		Capabilities::assign_capabilities_for_user_roles();
 		self::create_tables();
 		self::version_1_7_5_migration();
+		self::version_3_5_7_migration();
 		// self::version_2_13_4_migration();
 		self::create_cron_jobs();
 		self::update_quillforms_version();
 
-		delete_transient('quillforms_installing');
+		delete_transient( 'quillforms_installing' );
 	}
 
 	/**
@@ -75,8 +73,7 @@ class Install
 	 *
 	 * @since 1.0.0
 	 */
-	public static function create_tables()
-	{
+	public static function create_tables() {
 		global $wpdb;
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -109,6 +106,7 @@ class Install
 				entry longtext NOT NULL,
 				form_data longtext NOT NULL,
 				date_created datetime NOT NULL,
+				hash_id varchar(255) DEFAULT NULL,
 				PRIMARY KEY  (ID),
 				KEY form_id (form_id)
 			) $charset_collate;
@@ -123,7 +121,7 @@ class Install
 				KEY level (level)
 			) $charset_collate;";
 
-		dbDelta($sql);
+		dbDelta( $sql );
 	}
 
 	/**
@@ -134,72 +132,85 @@ class Install
 	 *
 	 * @return void
 	 */
-	private static function version_1_7_5_migration()
-	{
-		global $wpdb;
+	private static function version_1_7_5_migration() {
+		 global $wpdb;
 
-		$version = get_option('quillforms_version');
+		$version = get_option( 'quillforms_version' );
 		// skip new installations.
-		if (!$version) {
+		if ( ! $version ) {
 			return;
 		}
 
 		// fix charset collate.
-		if (version_compare($version, '1.7.5', '<')) {
+		if ( version_compare( $version, '1.7.5', '<' ) ) {
 			$charset_collate = '';
-			if (!empty($wpdb->charset)) {
+			if ( ! empty( $wpdb->charset ) ) {
 				$charset_collate = "character set $wpdb->charset";
 			}
-			if (!empty($wpdb->collate)) {
+			if ( ! empty( $wpdb->collate ) ) {
 				$charset_collate .= " collate $wpdb->collate";
 			}
 
-			if ($charset_collate) {
+			if ( $charset_collate ) {
 				$wpdb->query("alter table {$wpdb->prefix}quillforms_themes convert to $charset_collate;"); // phpcs:ignore
 				$wpdb->query("alter table {$wpdb->prefix}quillforms_task_meta convert to $charset_collate;"); // phpcs:ignore
 			}
 		}
 	}
 
+	/**
+	 * Version 3.5.7 migration
+	 * Add new column hash_id to quillforms_pending_submissions table can be null
+	 *
+	 * @since 3.5.7
+	 */
+	public static function version_3_5_7_migration() {
+		global $wpdb;
+		$version = get_option( 'quillforms_version' );
+		if ( version_compare( $version, '3.5.7', '<' ) ) {
+			$sql = "ALTER TABLE {$wpdb->prefix}quillforms_pending_submissions ADD hash_id varchar(50) DEFAULT NULL";
+			dbDelta( $sql );
+		}
+	}
+
 	// /**
-	//  * Version 2.13.4 migration
-	//  * 
-	//  * @since version 2.13.4
-	//  * 
-	//  * Add branded "powered by"
-	//  */
+	// * Version 2.13.4 migration
+	// *
+	// * @since version 2.13.4
+	// *
+	// * Add branded "powered by"
+	// */
 	// public static function version_2_13_4_migration() {
-	// 	if (version_compare($version, '3.0.2', '<')) {
-	// 		$license = License::instance()->get_license_info();
-	// 		if( !isset($license) || empty($license) || $license['status'] !== 'valid') return;
-	// 		$forms = get_posts( array(
-	// 			'post_type' => 'quill_forms',
-	// 			'posts_per_page' => -1,
-	// 		) );
-	// 		// for all forms add a setting in the form settings to enable the branded powered by if the form is free
-	// 		if( !empty($forms)) { 
-	// 			foreach ( $forms as $form ) {
-	// 				$settings = get_post_meta( $form->ID, 'settings', true );
-	// 				if ( !isset($settings) || empty($settings) ) {
-	// 					$settings = array();
-	// 				}
-	// 				if ( ! isset( $settings['displayBranding'] ) ) {
-	// 					$settings['displayBranding'] = false;
-	// 					update_post_meta( $form->ID, 'settings', $settings );
-	// 				}
-	// 			}
-	// 		}
-	// 	}
+	// if (version_compare($version, '3.0.2', '<')) {
+	// $license = License::instance()->get_license_info();
+	// if( !isset($license) || empty($license) || $license['status'] !== 'valid') return;
+	// $forms = get_posts( array(
+	// 'post_type' => 'quill_forms',
+	// 'posts_per_page' => -1,
+	// ) );
+	// for all forms add a setting in the form settings to enable the branded powered by if the form is free
+	// if( !empty($forms)) {
+	// foreach ( $forms as $form ) {
+	// $settings = get_post_meta( $form->ID, 'settings', true );
+	// if ( !isset($settings) || empty($settings) ) {
+	// $settings = array();
+	// }
+	// if ( ! isset( $settings['displayBranding'] ) ) {
+	// $settings['displayBranding'] = false;
+	// update_post_meta( $form->ID, 'settings', $settings );
+	// }
+	// }
+	// }
+	// }
 	// }
 
 	/**
 	 * Create cron jobs (clear them first).
 	 */
-	private static function create_cron_jobs()
-	{
-		wp_clear_scheduled_hook('quillforms_cleanup_logs');
+	private static function create_cron_jobs() {
+		wp_clear_scheduled_hook( 'quillforms_cleanup_logs' );
 
-		wp_schedule_event(time() + (3 * HOUR_IN_SECONDS), 'daily', 'quillforms_cleanup_logs');
+		wp_schedule_event( time() + ( 3 * HOUR_IN_SECONDS ), 'daily', 'quillforms_cleanup_logs' );
 	}
 
 	/**
@@ -207,9 +218,8 @@ class Install
 	 *
 	 * @since 1.0.0
 	 */
-	private static function update_quillforms_version()
-	{
-		delete_option('quillforms_version');
-		add_option('quillforms_version', QUILLFORMS_VERSION);
+	private static function update_quillforms_version() {
+		delete_option( 'quillforms_version' );
+		add_option( 'quillforms_version', QUILLFORMS_VERSION );
 	}
 }
