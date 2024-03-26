@@ -113,7 +113,7 @@ const FieldsWrapper: React.FC< Props > = ( { applyLogic, isActive } ) => {
 	} = useDispatch( 'quillForms/renderer-core' );
 
 	useEffect( () => {
-		if ( saveandcontinue?.enable && saved_data?.hash_id ) {
+		if ( saveandcontinue?.enable && saved_data?.snapshot ) {
 			const fields = saved_data?.fields || {};
 
 			Object.keys( fields ).forEach( ( fieldId ) => {

@@ -24,7 +24,7 @@ const SaveBtn: React.FC = () => {
 	const { formObj } = useFormContext();
 	// @ts-ignore saved_data is a property of formObj.
 	const { saved_data = {} } = formObj;
-	const [ hashId, setHashId ] = useState( saved_data?.hash_id || '' );
+	const [ snapshot, setSnapshot ] = useState( saved_data?.snapshot || '' );
 
 	const { answers, currentBlockId, getFieldAnswerVal } = useSelect(
 		( select ) => {
@@ -114,8 +114,8 @@ const SaveBtn: React.FC = () => {
 			data.append( 'action', 'quillforms_form_save' );
 			data.append( 'formData', JSON.stringify( formData ) );
 			data.append( 'quillforms_nonce', qfRender._nonce );
-			if ( hashId ) {
-				data.append( 'hashId', hashId );
+			if ( snapshot ) {
+				data.append( 'snapshot', snapshot );
 			}
 			const response = await fetch( ajaxurl, {
 				method: 'POST',
@@ -125,7 +125,7 @@ const SaveBtn: React.FC = () => {
 			const responseData = await response.json();
 			if ( responseData.success ) {
 				setSaved( true );
-				setHashId( responseData.data.hashId );
+				setSnapshot( responseData.data.snapshot );
 			}
 		} catch ( error ) {
 			console.error( error );
