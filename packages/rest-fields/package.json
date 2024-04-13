@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/rest-fields",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"description": "Rest fields for builder",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
