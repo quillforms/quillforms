@@ -17,24 +17,23 @@ import Button from '../button';
 import { useFormContext } from '../../hooks';
 
 const SaveBtn: React.FC = () => {
-	// @ts-ignore, qfRender is a global variable.
-	const qfRender = window.qfRender;
-	const [ isSaving, setIsSaving ] = useState( false );
-	const [ saved, setSaved ] = useState( false );
-	const { formObj } = useFormContext();
+
+	const [isSaving, setIsSaving] = useState(false);
+	const [saved, setSaved] = useState(false);
+	const { formObj, isPreview } = useFormContext();
 	// @ts-ignore saved_data is a property of formObj.
 	const { saved_data = {} } = formObj;
-	const [ snapshot, setSnapshot ] = useState( saved_data?.snapshot || '' );
+	const [snapshot, setSnapshot] = useState(saved_data?.snapshot || '');
 
 	const { answers, currentBlockId, getFieldAnswerVal } = useSelect(
-		( select ) => {
+		(select) => {
 			return {
 				currentBlockId: select(
 					'quillForms/renderer-core'
 				).getCurrentBlockId(),
-				answers: select( 'quillForms/renderer-core' ).getAnswers(),
-				isReviewing: select( 'quillForms/renderer-core' ).isReviewing(),
-				getFieldAnswerVal: select( 'quillForms/renderer-core' )
+				answers: select('quillForms/renderer-core').getAnswers(),
+				isReviewing: select('quillForms/renderer-core').isReviewing(),
+				getFieldAnswerVal: select('quillForms/renderer-core')
 					.getFieldAnswerVal,
 			};
 		}
@@ -45,58 +44,58 @@ const SaveBtn: React.FC = () => {
 		setFieldValidationErr,
 		setIsFieldValid,
 		setIsReviewing,
-	} = useDispatch( 'quillForms/renderer-core' );
+	} = useDispatch('quillForms/renderer-core');
 
-	useEffect( () => {
-		if ( saved ) {
-			setTimeout( () => {
-				setSaved( false );
-			}, 2000 );
+	useEffect(() => {
+		if (saved) {
+			setTimeout(() => {
+				setSaved(false);
+			}, 2000);
 		}
-	}, [ saved ] );
+	}, [saved]);
 
-	if ( ! qfRender ) {
-		return null;
-	}
 
-	const ajaxurl = qfRender.ajaxurl || '';
-	const formId = qfRender.formId;
-	const formObject = qfRender.formObject;
-	const saveAndContinue = formObject?.saveandcontinue;
+	const saveAndContinue = formObj?.saveandcontinue;
 	const recipients = saveAndContinue?.recipients;
 
-	if ( ! saveAndContinue?.enable || ! recipients?.length ) {
+	if (!saveAndContinue?.enable || !recipients?.length) {
 		return null;
 	}
 
 	const getEmailBlockId = () => {
-		let emailBlockId = recipients[ 0 ];
+		let emailBlockId = recipients[0];
 		// Check if has text like {{field:blockId}} clear it and return blockId.
-		if ( ! emailBlockId.includes( '{{field:' ) ) {
+		if (!emailBlockId.includes('{{field:')) {
 			return false;
 		}
-		emailBlockId = emailBlockId.replace( '{{field:', '' );
-		emailBlockId = emailBlockId.replace( '}}', '' );
+		emailBlockId = emailBlockId.replace('{{field:', '');
+		emailBlockId = emailBlockId.replace('}}', '');
 
 		return emailBlockId;
 	};
 
 	const saveHandler = async () => {
+		if (isPreview || isSaving) return;
+		// @ts-ignore, qfRender is a global variable.
+		const qfRender = window.qfRender;
+		const ajaxurl = qfRender.ajaxurl || '';
+		const formId = qfRender.formId;
+
 		const emailBlockId = getEmailBlockId();
-		if ( emailBlockId ) {
-			const emailValue = getFieldAnswerVal( emailBlockId );
-			if ( ! emailValue ) {
-				goToBlock( emailBlockId );
-				setIsReviewing( true );
-				setTimeout( () => {
-					setIsFieldValid( emailBlockId, false );
-					setFieldValidationErr( emailBlockId, 'Error' );
-				}, 100 );
+		if (emailBlockId) {
+			const emailValue = getFieldAnswerVal(emailBlockId);
+			if (!emailValue) {
+				goToBlock(emailBlockId);
+				setIsReviewing(true);
+				setTimeout(() => {
+					setIsFieldValid(emailBlockId, false);
+					setFieldValidationErr(emailBlockId, 'Error');
+				}, 100);
 
 				return;
 			}
 		}
-		setIsSaving( true );
+		setIsSaving(true);
 
 		try {
 			let formData = {
@@ -111,41 +110,41 @@ const SaveBtn: React.FC = () => {
 				{ formObject }
 			) as any;
 			const data = new FormData();
-			data.append( 'action', 'quillforms_form_save' );
-			data.append( 'formData', JSON.stringify( formData ) );
-			data.append( 'quillforms_nonce', qfRender._nonce );
-			if ( snapshot ) {
-				data.append( 'snapshot', snapshot );
+			data.append('action', 'quillforms_form_save');
+			data.append('formData', JSON.stringify(formData));
+			data.append('quillforms_nonce', qfRender._nonce);
+			if (snapshot) {
+				data.append('snapshot', snapshot);
 			}
-			const response = await fetch( ajaxurl, {
+			const response = await fetch(ajaxurl, {
 				method: 'POST',
 				credentials: 'same-origin',
 				body: data,
-			} );
+			});
 			const responseData = await response.json();
-			if ( responseData.success ) {
-				setSaved( true );
-				setSnapshot( responseData.data.snapshot );
+			if (responseData.success) {
+				setSaved(true);
+				setSnapshot(responseData.data.snapshot);
 			}
-		} catch ( error ) {
-			console.error( error );
+		} catch (error) {
+			console.error(error);
 		}
 
-		setIsSaving( false );
+		setIsSaving(false);
 	};
 
 	return (
-		<Button disableIcon={ true } onClick={ saveHandler }>
-			{ isSaving && (
+		<Button disableIcon={true} onClick={saveHandler}>
+			{isSaving && (
 				<Loader
 					wrapperClass="renderer-core-submit-btn__loader"
 					color="#fff"
-					height={ 20 }
-					width={ 20 }
+					height={20}
+					width={20}
 				/>
-			) }
-			{ ! isSaving && saved && 'Saved !' }
-			{ ! isSaving && ! saved && 'Save' }
+			)}
+			{!isSaving && saved && 'Saved !'}
+			{!saved && 'Save'}
 		</Button>
 	);
 };
