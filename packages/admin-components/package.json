@@ -30,7 +30,7 @@
 		"@quillforms/blocks": "^4.1.4",
 		"@quillforms/config": "^3.0.18",
 		"@quillforms/types": "^3.0.17",
-		"@wordpress/components": "^23.9.0",
+		"@wordpress/components": "^27.3.0",
 		"@wordpress/icons": "^9.23.0",
 		"@wordpress/media-utils": "^4.23.0",
 		"classnames": "^2.3.1",

@@ -5,59 +5,59 @@ import { useDispatch } from '@wordpress/data';
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { moreHorizontal } from '@wordpress/icons';
 
-const ThemeActions = ( { id, themeTitle, themeProperties } ) => {
-	const { setCurrentSubPanel } = useDispatch( 'quillForms/builder-panels' );
+const ThemeActions = ({ id, themeTitle, themeProperties }) => {
+	const { setCurrentSubPanel } = useDispatch('quillForms/builder-panels');
 	const { deleteTheme, addNewTheme, setCurrentThemeId, setShouldBeSaved } =
-		useDispatch( 'quillForms/theme-editor' );
+		useDispatch('quillForms/theme-editor');
 
 	return (
 		<div
 			role="presentation"
 			className="theme-editor-theme-actions"
-			onClick={ ( e ) => e.stopPropagation() }
+			onClick={(e) => e.stopPropagation()}
 		>
 			<DropdownMenu
-				popoverProps={ {
+				popoverProps={{
 					placement: 'bottom-start',
-				} }
-				icon={ moreHorizontal }
+				}}
+				icon={moreHorizontal}
 				className="theme-editor-theme-actions__dropdown"
 			>
-				{ ( { onClose } ) => (
+				{({ onClose }) => (
 					<MenuGroup className="theme-editor-theme-actions__menu-group">
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item"
-							onClick={ () => {
-								setCurrentThemeId( id );
-								setCurrentSubPanel( 'theme/customize' );
-								setShouldBeSaved( false );
-							} }
+							onClick={() => {
+								setCurrentThemeId(id);
+								setCurrentSubPanel('theme/customize');
+								setShouldBeSaved(false);
+							}}
 						>
 							Customize
 						</MenuItem>
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item"
-							onClick={ () => {
+							onClick={() => {
 								addNewTheme(
 									themeTitle + '-copy',
 									themeProperties
 								);
 								onClose();
-							} }
+							}}
 						>
 							Duplicate
 						</MenuItem>
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item theme-editor-theme-actions__delete-theme"
-							onClick={ () => {
+							onClick={() => {
 								onClose();
-								deleteTheme( id );
-							} }
+								deleteTheme(id);
+							}}
 						>
 							Delete
 						</MenuItem>
 					</MenuGroup>
-				) }
+				)}
 			</DropdownMenu>
 		</div>
 	);

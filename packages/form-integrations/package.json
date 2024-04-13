@@ -24,7 +24,7 @@
 		"@babel/runtime": "^7.9.2",
 		"@quillforms/navigation": "file:../navigation",
 		"@wordpress/api-fetch": "^6.29.0",
-		"@wordpress/components": "^23.9.0",
+		"@wordpress/components": "^27.3.0",
 		"@wordpress/data": "^9.2.0",
 		"@wordpress/i18n": "^4.32.0",
 		"react-dnd": "15.1.2"

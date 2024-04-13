@@ -1,11 +1,11 @@
 const Icon = () => {
 	return (
 		<i
-			style={ {
+			style={{
 				verticalAlign: 'text-bottom',
 				fontWeight: 'bold',
 				color: '#fff',
-			} }
+			}}
 		>
 			#
 		</i>

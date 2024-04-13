@@ -43,6 +43,7 @@
 		"@udecode/plate-combobox": "^22.0.2",
 		"@udecode/plate-comments": "^22.0.2",
 		"@udecode/plate-common": "^22.0.2",
+		"@udecode/plate-core": "22.0.2",
 		"@udecode/plate-cursor": "^22.0.2",
 		"@udecode/plate-dnd": "^22.0.2",
 		"@udecode/plate-emoji": "^22.0.2",
