@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/dependency-extraction-webpack-plugin",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "This package is forked from Gutenberg project to just add Quill Forms namespace for dependency extraction",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
