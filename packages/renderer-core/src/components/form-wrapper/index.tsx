@@ -38,15 +38,15 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 	const blocks = useBlocks();
 	const {
 		isPreview,
-		formObj: { hiddenFields },
+		formObj: { hiddenFields, initialData },
 		formId
 	} = useFormContext();
-	const { saveAnswersInBrowser } = useFormSettings();
 	const {
 		setSwiper,
 		insertEmptyFieldAnswer,
 		goToBlock,
 		setPaymentData,
+		setAnswers,
 		setFieldAnswer,
 	} = useDispatch('quillForms/renderer-core');
 
@@ -66,7 +66,7 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 	useEffect(() => {
 		if (!isPreview) {
 			editableFields.forEach((field) => {
-				if (field?.attributes?.defaultValue) {
+				if (field?.attributes?.defaultValue || field?.attributes?.defaultVal == 0) {
 					const blockType = blockTypes[field.name];
 					if (blockType?.supports?.numeric) {
 						setFieldAnswer(
@@ -158,8 +158,20 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 
 			if (!formCompleted) {
 				setTimeout(() => {
-					if (firstBlock?.id) {
-						goToBlock(firstBlock.id);
+					if (initialData?.currentBlockId) {
+						goToBlock(initialData.currentBlockId);
+						editableFields.forEach((field) => {
+							if (initialData.answers[field.id]) {
+								setFieldAnswer(field.id, initialData.answers[field.id].value);
+							}
+						});
+
+						setAnswers(initialData?.answers);
+					}
+					else {
+						if (firstBlock?.id) {
+							goToBlock(firstBlock.id);
+						}
 					}
 				}, 100);
 			}

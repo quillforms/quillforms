@@ -27,6 +27,7 @@ import classnames from "classnames";
 const PanelRender = () => {
 
 
+	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
 	const {
 		disableProgressBar,
 		disableWheelSwiping,
@@ -97,6 +98,16 @@ const PanelRender = () => {
 							saveAnswersInBrowser(!shouldAnswersBeSavedInBrowser)
 						}
 					/>
+					<p className={css`
+					    background: antiquewhite;
+						padding: 10px;
+						margin-top: 16px;
+					`}>This feature will save the answers in the user's browser, so the user can continue the form later in same browser.
+						To allow user to save and continue later from any device, you have to use <a href="" onClick={e => {
+							e.preventDefault();
+							setCurrentPanel('save-and-continue')
+						}}>
+							save and continue feature</a></p>
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>

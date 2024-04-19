@@ -14,20 +14,26 @@ import { TailSpin as Loader } from 'react-loader-spinner';
  * Internal Dependencies
  */
 import Button from '../button';
-import { useFormContext } from '../../hooks';
+import { useFormContext, useMessages } from '../../hooks';
+import { set, size } from 'lodash';
+import classnames from "classnames";
 
 const SaveBtn: React.FC = () => {
 
+	const messages = useMessages();
+
 	const [isSaving, setIsSaving] = useState(false);
 	const [saved, setSaved] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(true);
 	const { formObj, isPreview } = useFormContext();
 	// @ts-ignore saved_data is a property of formObj.
 	const { saved_data = {} } = formObj;
 	const [snapshot, setSnapshot] = useState(saved_data?.snapshot || '');
 
-	const { answers, currentBlockId, getFieldAnswerVal } = useSelect(
+	const { allBlocks, answers, currentBlockId, getFieldAnswerVal } = useSelect(
 		(select) => {
 			return {
+				allBlocks: select('quillForms/renderer-core').getBlocksRecursively(),
 				currentBlockId: select(
 					'quillForms/renderer-core'
 				).getCurrentBlockId(),
@@ -48,11 +54,22 @@ const SaveBtn: React.FC = () => {
 
 	useEffect(() => {
 		if (saved) {
+			setIsDisabled(true);
 			setTimeout(() => {
 				setSaved(false);
 			}, 2000);
 		}
 	}, [saved]);
+
+	useEffect(() => {
+		if (isPreview) {
+			setIsDisabled(true);
+		}
+		else {
+			setIsDisabled(false);
+		}
+
+	}, [answers]);
 
 
 	const saveAndContinue = formObj?.saveandcontinue;
@@ -75,7 +92,7 @@ const SaveBtn: React.FC = () => {
 	};
 
 	const saveHandler = async () => {
-		if (isPreview || isSaving) return;
+		if (isPreview || isSaving || isDisabled) return;
 		// @ts-ignore, qfRender is a global variable.
 		const qfRender = window.qfRender;
 		const ajaxurl = qfRender.ajaxurl || '';
@@ -85,11 +102,38 @@ const SaveBtn: React.FC = () => {
 		if (emailBlockId) {
 			const emailValue = getFieldAnswerVal(emailBlockId);
 			if (!emailValue) {
-				goToBlock(emailBlockId);
-				setIsReviewing(true);
 				setTimeout(() => {
 					setIsFieldValid(emailBlockId, false);
-					setFieldValidationErr(emailBlockId, 'Error');
+					if (size(messages) && messages['label.errorAlert.required']) {
+						setFieldValidationErr(emailBlockId, messages['label.errorAlert.required']);
+					}
+					setIsReviewing(true);
+					const block = allBlocks.find((block) => block.id === emailBlockId);
+					if (block) {
+						if (block?.parentId) {
+							goToBlock(block.parentId);
+						}
+						else {
+							goToBlock(emailBlockId);
+						}
+					}
+					goToBlock(emailBlockId);
+
+				}, 100);
+
+
+				return;
+			}
+
+			if (!emailValue?.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+				setTimeout(() => {
+					setIsFieldValid(emailBlockId, false);
+					if (size(messages) && messages['label.errorAlert.email']) {
+						setFieldValidationErr(emailBlockId, messages['label.errorAlert.email']);
+					}
+					setIsReviewing(true);
+					goToBlock(emailBlockId);
+
 				}, 100);
 
 				return;
@@ -107,7 +151,7 @@ const SaveBtn: React.FC = () => {
 			formData = applyFilters(
 				'QuillForms.Renderer.SaveSubmissionFormData',
 				formData,
-				{ formObject }
+				{ formObject: formObj }
 			) as any;
 			const data = new FormData();
 			data.append('action', 'quillforms_form_save');
@@ -133,19 +177,28 @@ const SaveBtn: React.FC = () => {
 		setIsSaving(false);
 	};
 
+
+
 	return (
-		<Button disableIcon={true} onClick={saveHandler}>
-			{isSaving && (
-				<Loader
-					wrapperClass="renderer-core-submit-btn__loader"
-					color="#fff"
-					height={20}
-					width={20}
-				/>
-			)}
-			{!isSaving && saved && 'Saved !'}
-			{!saved && 'Save'}
-		</Button>
+		<>
+			<Button className={classnames("renderer-core-save-button", {
+				disabled: isDisabled,
+			})} disableIcon={true} onClick={saveHandler}>
+
+				{saveAndContinue?.buttonLabel ?? "Save"}
+				{isSaving && (
+					<Loader
+						wrapperClass="renderer-core-save-btn__loader"
+						color="#fff"
+						height={20}
+						width={20}
+					/>
+				)}
+			</Button>
+			<span className={classnames("renderer-core-form-saved", {
+				"renderer-core-form-saved--show": saved,
+			})}>{saveAndContinue?.successMessage ?? "Form successfully saved! Check Your Inbox"}</span>
+		</>
 	);
 };
 

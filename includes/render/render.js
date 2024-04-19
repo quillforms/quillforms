@@ -54,6 +54,8 @@
 												qfRender.formId + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 											document.cookie = 'quillforms-current-block-' +
 												qfRender.formId + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+											localStorage.removeItem('quillforms-answers-' + qfRender.formId);
+											localStorage.removeItem('quillforms-current-block-' + qfRender.formId);
 
 										}, 1000);
 										wp.data.dispatch(

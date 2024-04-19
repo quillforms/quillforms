@@ -35,6 +35,7 @@ import {
 	SET_IS_FIELD_ANSWER_CORRECT,
 	SET_FIELD_VALIDATION_ERR,
 	RESET_ANSWERS,
+	SET_ANSWERS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
 	SET_PAYMENT_DATA,
@@ -590,6 +591,9 @@ const answers: Reducer<RendererAnswersState, RendererAnswersActionTypes> = (
 			return {};
 		}
 
+		case SET_ANSWERS: {
+			return action.answers;
+		}
 		// SET IS FIELD VALID
 		case SET_IS_FIELD_VALID: {
 			const { id, val } = action;

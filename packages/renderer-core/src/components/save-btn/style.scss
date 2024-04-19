@@ -1,0 +1,36 @@
+.renderer-core-save-button {
+    border-radius: 6px;
+    &.disabled {
+        background: #e1dede;
+        color: #7f7979
+    }
+    .renderer-core-save-btn__loader {
+        margin: 0 8px;
+    }
+
+ 
+   
+}
+
+.renderer-core-form-saved {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left:0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transform: translateY(100%);
+    background: #31bd49;
+    z-index: 111111;
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+
+    &.renderer-core-form-saved--show {
+        transform: translateY(0);
+    }
+}

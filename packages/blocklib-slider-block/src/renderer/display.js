@@ -57,6 +57,11 @@ const singleRangeSliderDisplay = (props) => {
 		}
 	};
 
+	useEffect(() => {
+		if (!val && val !== 0) {
+			setVal(min);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (isPreview || !isReviewing) checkfieldValidation(val);

@@ -420,7 +420,7 @@ const DropdownDisplay = (props) => {
 					}}
 					onClick={() => {
 						showDropdown && setSelectedChoiceIndex(-1);
-						if (isTouchScreen) {
+						if (isTouchScreen && !isIframed) {
 							setShowFDrop(!showFDrop);
 						} else {
 							setShowDropdown(!showDropdown);

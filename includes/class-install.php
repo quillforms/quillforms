@@ -106,7 +106,7 @@ class Install {
 				entry longtext NOT NULL,
 				form_data longtext NOT NULL,
 				date_created datetime NOT NULL,
-				hash_id varchar(255) DEFAULT NULL,
+				hash_id varchar(50) DEFAULT NULL,
 				PRIMARY KEY  (ID),
 				KEY form_id (form_id)
 			) $charset_collate;
@@ -160,7 +160,7 @@ class Install {
 
 	/**
 	 * Version 3.5.7 migration
-	 * Add new column hash_id to quillforms_pending_submissions table can be null
+	 * Add new columns 'hash_id' and 'token' to quillforms_pending_submissions table (both can be null)
 	 *
 	 * @since 3.5.7
 	 */
@@ -168,10 +168,12 @@ class Install {
 		global $wpdb;
 		$version = get_option( 'quillforms_version' );
 		if ( version_compare( $version, '3.5.7', '<' ) ) {
-			$sql = "ALTER TABLE {$wpdb->prefix}quillforms_pending_submissions ADD hash_id varchar(50) DEFAULT NULL";
+			$sql = "ALTER TABLE {$wpdb->prefix}quillforms_pending_submissions 
+					ADD hash_id varchar(50) DEFAULT NULL";
 			dbDelta( $sql );
 		}
 	}
+
 
 	// /**
 	// * Version 2.13.4 migration

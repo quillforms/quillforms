@@ -15,6 +15,7 @@ import {
 	SET_FIELD_PENDING_MSG,
 	SET_IS_FIELD_ANSWER_LOCKED,
 	RESET_ANSWERS,
+	SET_ANSWERS,
 	SET_IS_REVIEWING,
 	SET_IS_SUBMITTING,
 	SET_PAYMENT_DATA,
@@ -166,6 +167,11 @@ type resetAnswers = {
 	type: typeof RESET_ANSWERS;
 };
 
+type setAnswers = {
+	type: typeof SET_ANSWERS;
+	answers: Record<string, Answer>;
+};
+
 type setIsReviewing = {
 	type: typeof SET_IS_REVIEWING;
 	val: boolean;
@@ -223,6 +229,7 @@ export type RendererAnswersActionTypes =
 	| setIsFieldCorrectIncorrectScreenDisplayed
 	| setFieldAnswerCorrectAction
 	| resetAnswers
+	| setAnswers
 	| ReturnType<() => { type: 'NOOP' }>;
 
 export type SwiperActionTypes =

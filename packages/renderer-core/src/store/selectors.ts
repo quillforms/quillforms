@@ -19,17 +19,17 @@ import { mapValues, pickBy, find, size, forEach } from 'lodash';
 import type { State } from './reducer';
 import type { RendererAnswersState, Screen, SwiperState } from './types';
 
-export const getBlocksRecursively = ( walkPath: FormBlocks ): FormBlocks => {
+export const getBlocksRecursively = (walkPath: FormBlocks): FormBlocks => {
 	const allBlocks: FormBlocks = [];
-	forEach( walkPath, ( block ) => {
-		allBlocks.push( block );
+	forEach(walkPath, (block) => {
+		allBlocks.push(block);
 
-		if ( block.name === 'group' && size( block.innerBlocks ) > 0 ) {
-			forEach( block.innerBlocks, ( childBlock ) => {
-				allBlocks.push( childBlock );
-			} );
+		if (block.name === 'group' && size(block.innerBlocks) > 0) {
+			forEach(block.innerBlocks, (childBlock) => {
+				allBlocks.push({ ...childBlock, parentId: block.id });
+			});
 		}
-	} );
+	});
 	return allBlocks;
 };
 /**
@@ -39,7 +39,7 @@ export const getBlocksRecursively = ( walkPath: FormBlocks ): FormBlocks => {
  *
  * @return {Object} The swiper state
  */
-export function getSwiperState( state: State ): SwiperState {
+export function getSwiperState(state: State): SwiperState {
 	return state.swiper;
 }
 
@@ -50,7 +50,7 @@ export function getSwiperState( state: State ): SwiperState {
  *
  * @return {Array} Walk path
  */
-export function getWalkPath( state: State ): FormBlocks {
+export function getWalkPath(state: State): FormBlocks {
 	return state.swiper.walkPath;
 }
 
@@ -61,7 +61,7 @@ export function getWalkPath( state: State ): FormBlocks {
  *
  * @return {boolean} Is animating
  */
-export function isAnimating( state: State ): boolean {
+export function isAnimating(state: State): boolean {
 	return state.swiper.isAnimating;
 }
 
@@ -72,7 +72,7 @@ export function isAnimating( state: State ): boolean {
  * 
  * @return {boolean} Correct incorrect display state
  */
-export function getCorrectIncorrectDisplay( state: State ): boolean {
+export function getCorrectIncorrectDisplay(state: State): boolean {
 	return state.swiper.correctIncorrectDisplay;
 }
 
@@ -84,7 +84,7 @@ export function getCorrectIncorrectDisplay( state: State ): boolean {
  *
  * @return {string}  Current block id
  */
-export function getCurrentBlockId( state: State ): string | undefined {
+export function getCurrentBlockId(state: State): string | undefined {
 	return state.swiper.currentBlockId;
 }
 
@@ -95,7 +95,7 @@ export function getCurrentBlockId( state: State ): string | undefined {
  *
  * @return {Screen[]} Welcome screens
  */
-export function getWelcomeScreens( state: State ): Screen[] {
+export function getWelcomeScreens(state: State): Screen[] {
 	return state.swiper.welcomeScreens;
 }
 
@@ -106,7 +106,7 @@ export function getWelcomeScreens( state: State ): Screen[] {
  *
  * @return {Screen[]} Thank you screens
  */
-export function getThankYouScreens( state: State ): Screen[] {
+export function getThankYouScreens(state: State): Screen[] {
 	return state.swiper.thankyouScreens;
 }
 
@@ -122,7 +122,7 @@ export function getBlockById(
 	state: State,
 	id: string
 ): FormBlock | undefined {
-	return state.swiper.walkPath.find( ( block ) => block.id === id );
+	return state.swiper.walkPath.find((block) => block.id === id);
 }
 
 /**
@@ -132,7 +132,7 @@ export function getBlockById(
  *
  * @return {boolean} Is thankyou screen active
  */
-export function isThankyouScreenActive( state: State ): boolean {
+export function isThankyouScreenActive(state: State): boolean {
 	return state.swiper.isThankyouScreenActive;
 }
 
@@ -143,7 +143,7 @@ export function isThankyouScreenActive( state: State ): boolean {
  *
  * @return {boolean} Is welcome screen active
  */
-export function isWelcomeScreenActive( state: State ): boolean {
+export function isWelcomeScreenActive(state: State): boolean {
 	return state.swiper.isWelcomeScreenActive;
 }
 
@@ -154,7 +154,7 @@ export function isWelcomeScreenActive( state: State ): boolean {
  *
  * @return {boolean} Is submitting
  */
-export function isCurrentBlockSafeToSwipe( state: State ): boolean {
+export function isCurrentBlockSafeToSwipe(state: State): boolean {
 	return state.swiper.isCurrentBlockSafeToSwipe;
 }
 
@@ -165,7 +165,7 @@ export function isCurrentBlockSafeToSwipe( state: State ): boolean {
  *
  * @return {boolean} Is reviewing
  */
-export function isReviewing( state: State ): boolean {
+export function isReviewing(state: State): boolean {
 	return state.submit.isReviewing;
 }
 
@@ -176,7 +176,7 @@ export function isReviewing( state: State ): boolean {
  *
  * @return {boolean} Is submitting
  */
-export function isSubmitting( state: State ): boolean {
+export function isSubmitting(state: State): boolean {
 	return state.submit.isSubmitting;
 }
 
@@ -187,7 +187,7 @@ export function isSubmitting( state: State ): boolean {
  *
  * @return {boolean} Is payment modal active
  */
-export function getPaymentData( state: State ): boolean {
+export function getPaymentData(state: State): boolean {
 	return state.submit.paymentData;
 }
 
@@ -203,14 +203,14 @@ export function getBlockCounterValue(
 	state: State,
 	id: string
 ): number | undefined {
-	const blocksWithCounter = getFieldsBySupportCriteria( state, [
+	const blocksWithCounter = getFieldsBySupportCriteria(state, [
 		'editable',
 		'innerBlocks',
-	] );
+	]);
 	const counterValue = blocksWithCounter.findIndex(
-		( editableField ) => editableField.id === id
+		(editableField) => editableField.id === id
 	);
-	if ( counterValue === -1 ) return undefined;
+	if (counterValue === -1) return undefined;
 	return counterValue;
 }
 /**
@@ -220,13 +220,13 @@ export function getBlockCounterValue(
  *
  * @return {Array} The editable fields in current path
  */
-export const getEditableFieldsInCurrentPath = ( state: State ) => {
-	return state.swiper.walkPath.filter( ( block ) => {
-		return select( 'quillForms/blocks' ).hasBlockSupport(
+export const getEditableFieldsInCurrentPath = (state: State) => {
+	return state.swiper.walkPath.filter((block) => {
+		return select('quillForms/blocks').hasBlockSupport(
 			block.name,
 			'editable'
 		);
-	} );
+	});
 };
 
 /**
@@ -238,21 +238,21 @@ export const getEditableFieldsInCurrentPath = ( state: State ) => {
  *
  * @return {Array} The  fields in current path with the support criteria passed.
  */
-export const getFieldsBySupportCriteria = ( state: State, supportCriteria ) => {
-	const blockTypesSelector = select( 'quillForms/blocks' );
-	return state.swiper.walkPath.filter( ( block ) => {
+export const getFieldsBySupportCriteria = (state: State, supportCriteria) => {
+	const blockTypesSelector = select('quillForms/blocks');
+	return state.swiper.walkPath.filter((block) => {
 		let matched = false;
-		supportCriteria.forEach( ( feature ) => {
+		supportCriteria.forEach((feature) => {
 			if (
-				blockTypesSelector.hasBlockSupport( block.name, feature ) ===
+				blockTypesSelector.hasBlockSupport(block.name, feature) ===
 				true
 			) {
 				matched = true;
 			}
-		} );
+		});
 
 		return matched;
-	} );
+	});
 };
 
 /**
@@ -262,7 +262,7 @@ export const getFieldsBySupportCriteria = ( state: State, supportCriteria ) => {
  *
  * @return {RendererAnswersState} Answers
  */
-export function getAnswers( state: State ): RendererAnswersState {
+export function getAnswers(state: State): RendererAnswersState {
 	return state.answers;
 }
 
@@ -274,10 +274,10 @@ export function getAnswers( state: State ): RendererAnswersState {
  * @return {Object} Answers values
  *
  */
-export function getAnswersValues( state: State ): Record< string, unknown > {
-	return mapValues( state.answers, ( o ) => {
+export function getAnswersValues(state: State): Record<string, unknown> {
+	return mapValues(state.answers, (o) => {
 		return o.value;
-	} );
+	});
 }
 
 
@@ -288,12 +288,12 @@ export function getAnswersValues( state: State ): Record< string, unknown > {
  *
  * @return {number} Answered fields count
  */
-export function getAnsweredFieldsLength( state: State ): number {
+export function getAnsweredFieldsLength(state: State): number {
 	const answeredFields = pickBy(
 		state.answers,
-		( value ) => value?.isAnswered === true
+		(value) => value?.isAnswered === true
 	);
-	return answeredFields ? size( answeredFields ) : 0;
+	return answeredFields ? size(answeredFields) : 0;
 }
 
 /**
@@ -304,8 +304,8 @@ export function getAnsweredFieldsLength( state: State ): number {
  *
  * @return {unknown} Field answer value
  */
-export function getFieldAnswerVal( state: State, id: string ): unknown {
-	const answer = state.answers[ id ]?.value;
+export function getFieldAnswerVal(state: State, id: string): unknown {
+	const answer = state.answers[id]?.value;
 	return answer;
 }
 
@@ -318,8 +318,8 @@ export function getFieldAnswerVal( state: State, id: string ): unknown {
  */
 export function getInvalidAnswers(
 	state: State
-): Partial< RendererAnswersState > {
-	const invalidFields = pickBy( state.answers, ( o ) => o.isValid === false );
+): Partial<RendererAnswersState> {
+	const invalidFields = pickBy(state.answers, (o) => o.isValid === false);
 	return invalidFields;
 }
 
@@ -330,8 +330,8 @@ export function getInvalidAnswers(
  *
  * @return {number} Invalid fields length
  */
-export function getInvalidFieldsLength( state: State ): number {
-	return size( getInvalidAnswers( state ) );
+export function getInvalidFieldsLength(state: State): number {
+	return size(getInvalidAnswers(state));
 }
 
 /**
@@ -341,15 +341,15 @@ export function getInvalidFieldsLength( state: State ): number {
  *
  * @return {?string} First invalid field id
  */
-export const getFirstInvalidFieldId = ( state: State ): string | undefined => {
-	const invalidFields = getInvalidAnswers( state );
-	if ( size( invalidFields ) > 0 ) {
-		const invalidFieldsIds = Object.keys( invalidFields );
-		const walkPath = getBlocksRecursively( getWalkPath( state ) );
-		const firstField = find( walkPath, ( o ) =>
-			invalidFieldsIds.includes( o.id )
+export const getFirstInvalidFieldId = (state: State): string | undefined => {
+	const invalidFields = getInvalidAnswers(state);
+	if (size(invalidFields) > 0) {
+		const invalidFieldsIds = Object.keys(invalidFields);
+		const walkPath = getBlocksRecursively(getWalkPath(state));
+		const firstField = find(walkPath, (o) =>
+			invalidFieldsIds.includes(o.id)
 		);
-		if ( firstField ) return firstField.id;
+		if (firstField) return firstField.id;
 	}
 	return undefined;
 };
@@ -362,8 +362,8 @@ export const getFirstInvalidFieldId = ( state: State ): string | undefined => {
  *
  * @return {boolean} showErr flag
  */
-export function isAnsweredField( state: State, id: string ): boolean {
-	return state.answers[ id ]?.isAnswered === true;
+export function isAnsweredField(state: State, id: string): boolean {
+	return state.answers[id]?.isAnswered === true;
 }
 
 /**
@@ -374,8 +374,8 @@ export function isAnsweredField( state: State, id: string ): boolean {
  *
  * @return {boolean} showErr flag
  */
-export function isValidField( state: State, id: string ): boolean {
-	return state.answers[ id ]?.isValid;
+export function isValidField(state: State, id: string): boolean {
+	return state.answers[id]?.isValid;
 }
 
 /**
@@ -387,17 +387,17 @@ export function isValidField( state: State, id: string ): boolean {
  *
  * @return {boolean} showErr flag
  */
-export function hasValidFields( state: State, id: string ): boolean {
-	const block = getBlockById( state, id );
-	if ( ! block ) return false;
+export function hasValidFields(state: State, id: string): boolean {
+	const block = getBlockById(state, id);
+	if (!block) return false;
 	let isValid = true;
-	if ( size( block?.innerBlocks ) > 0 ) {
-		forEach( block.innerBlocks, ( $block ) => {
+	if (size(block?.innerBlocks) > 0) {
+		forEach(block.innerBlocks, ($block) => {
 			const $blockId = $block.id;
-			if ( ! state.answers?.[ $blockId ]?.isValid ) {
+			if (!state.answers?.[$blockId]?.isValid) {
 				isValid = false;
 			}
-		} );
+		});
 	}
 	return isValid;
 }
@@ -407,8 +407,8 @@ export function hasValidFields( state: State, id: string ): boolean {
  * @param state 
  * @param id 
  */
-export function isFieldAnswerCorrect(state: State, id:string): boolean | undefined {
-	return state.answers[ id ]?.isCorrect;
+export function isFieldAnswerCorrect(state: State, id: string): boolean | undefined {
+	return state.answers[id]?.isCorrect;
 }
 
 
@@ -418,8 +418,8 @@ export function isFieldAnswerCorrect(state: State, id:string): boolean | undefin
  * @param state
  * @param id
  */
-export function isFieldAnswerLocked(state: State, id:string): boolean | undefined {
-	return state.answers[ id ]?.isLocked;
+export function isFieldAnswerLocked(state: State, id: string): boolean | undefined {
+	return state.answers[id]?.isLocked;
 }
 
 /**
@@ -428,8 +428,8 @@ export function isFieldAnswerLocked(state: State, id:string): boolean | undefine
  * @param state
  * @param id
  */
-export function isFieldCorrectIncorrectScreenDisplayed(state: State, id:string): boolean | undefined {
-	return state.answers[ id ]?.isCorrectIncorrectScreenDisplayed;
+export function isFieldCorrectIncorrectScreenDisplayed(state: State, id: string): boolean | undefined {
+	return state.answers[id]?.isCorrectIncorrectScreenDisplayed;
 }
 
 /**
@@ -440,8 +440,8 @@ export function isFieldCorrectIncorrectScreenDisplayed(state: State, id:string):
  *
  * @return {boolean} isPending flag.
  */
-export function isFieldPending( state: State, id: string ): boolean {
-	return state.answers[ id ]?.isPending;
+export function isFieldPending(state: State, id: string): boolean {
+	return state.answers[id]?.isPending;
 }
 
 /**
@@ -452,9 +452,9 @@ export function isFieldPending( state: State, id: string ): boolean {
  *
  * @return {string|false} Pending message if pending, or false.
  */
-export function getPendingMsg( state: State ): string | false {
-	for ( const answer of Object.values( state.answers ) ) {
-		if ( answer?.isPending ) return answer.pendingMsg ?? '';
+export function getPendingMsg(state: State): string | false {
+	for (const answer of Object.values(state.answers)) {
+		if (answer?.isPending) return answer.pendingMsg ?? '';
 	}
 	return false;
 }
@@ -467,8 +467,8 @@ export function getPendingMsg( state: State ): string | false {
  *
  * @return {string} Field validation error message
  */
-export function getFieldValidationErr( state: State, id: string ): string | [] {
-	const validationErr = state.answers[ id ]?.validationErr;
+export function getFieldValidationErr(state: State, id: string): string | [] {
+	const validationErr = state.answers[id]?.validationErr;
 	return validationErr ? validationErr : [];
 }
 
@@ -479,7 +479,7 @@ export function getFieldValidationErr( state: State, id: string ): string | [] {
  *
  * @return {boolean} isFocused flag
  */
-export function isFocused( state: State ): boolean {
+export function isFocused(state: State): boolean {
 	return state.isFocused;
 }
 
@@ -490,7 +490,7 @@ export function isFocused( state: State ): boolean {
  *
  * @return {boolean} isFocused flag
  */
-export function shouldFooterBeDisplayed( state: State ): boolean {
+export function shouldFooterBeDisplayed(state: State): boolean {
 	return state.footerDisplay;
 }
 
@@ -501,7 +501,7 @@ export function shouldFooterBeDisplayed( state: State ): boolean {
  *
  * @return {string} submission error message
  */
-export function getSubmissionErr( state: State ): string {
+export function getSubmissionErr(state: State): string {
 	return state.submit.submissionErr;
 }
 
@@ -512,10 +512,10 @@ export function getSubmissionErr( state: State ): string {
  * 
  * @return {number} correct answers count
  */
-export function getCorrectAnswersCount( state: State ): number {
+export function getCorrectAnswersCount(state: State): number {
 	// access answers object and filter correct answers
-	return Object.values( state.answers ).filter( ( answer ) => answer.isCorrect === true ).length;
-} 
+	return Object.values(state.answers).filter((answer) => answer.isCorrect === true).length;
+}
 
 
 /**
@@ -525,7 +525,7 @@ export function getCorrectAnswersCount( state: State ): number {
  * 
  * @return {number} incorrect answers count
  */
-export function getIncorrectAnswersCount( state: State ): number {
+export function getIncorrectAnswersCount(state: State): number {
 	// access answers object and filter incorrect answers
-	return Object.values( state.answers ).filter( ( answer ) => answer.isCorrect === false ).length;
+	return Object.values(state.answers).filter((answer) => answer.isCorrect === false).length;
 }

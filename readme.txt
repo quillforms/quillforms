@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
-Tested up to: 6.3
-Stable tag: 3.5.6
+Tested up to: 6.5.2
+Stable tag: 3.6.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -86,6 +86,9 @@ By set up email notifications, you can get an email after each submission with t
 - GetResponse integration
 - Hubspot integration
 - SalesForce integration
+- GoHighLevel integration
+- FunnelKit integration
+- GroundHogg integration
 - Aweber integration
 - ActiveCampaign integration
 - Notion integration
@@ -174,6 +177,15 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+= 3.6.0 19 April 2024
+Feature: Introducing "Save and Continue" feature.
+Feature: GoHighLevel integration
+Feature: FunnelKit integration
+Feature: GroundHogg integration
+Fix: fixing the default value when it is 0
+Fix: fixing some issues related to dropdown block in mobile.
+
 
 = 3.5.6 = 29 Jan 2024
 Fix: Fix parsing file block merge tags within the thank you screen redirect urls.

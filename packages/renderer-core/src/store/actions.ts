@@ -137,6 +137,21 @@ export const insertEmptyFieldAnswer = (
 };
 
 /**
+ * Returns an action object used in setting answers.
+ * 
+ * @param {Object} answers Answers object.
+ * 
+ * @return {RendererAnswersActionTypes} Action object.
+ */
+export const setAnswers = (
+	answers: Record<string, unknown>
+): RendererAnswersActionTypes => {
+	return {
+		type: SET_FIELD_ANSWER,
+		answers,
+	};
+}
+/**
  * Returns an action object used in setting field answer.
  *
  * @param {string}  id  Field uuid.
