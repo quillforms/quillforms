@@ -79,6 +79,9 @@ class Updater {
 	 * @return object
 	 */
 	public function init_addons_updates( $transient ) {
+		if (!is_object($transient)) {        
+			return $transient;     
+		}
 		$updates_data = $this->get_addons_updates();
 
 		foreach ( Store::instance()->get_all_addons( true ) as $addon_slug => $plugin ) {
