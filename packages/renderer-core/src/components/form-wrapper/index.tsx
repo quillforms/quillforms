@@ -66,7 +66,7 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 	useEffect(() => {
 		if (!isPreview) {
 			editableFields.forEach((field) => {
-				if (field?.attributes?.defaultValue || field?.attributes?.defaultVal == 0) {
+				if (field?.attributes?.defaultValue || field?.attributes?.defaultValue == 0) {
 					const blockType = blockTypes[field.name];
 					if (blockType?.supports?.numeric) {
 						setFieldAnswer(
