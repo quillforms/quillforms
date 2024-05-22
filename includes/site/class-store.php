@@ -681,16 +681,16 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/square/icon.png',
 					),
 				),
-				'btcpayserver'              => array(
-					'name'               => esc_html__( 'BTCPay Server', 'quillforms' ),
-					'description'        => esc_html__( 'Accept payments through BTCPay Server gateway.', 'quillforms' ),
-					'plugin_file'        => 'quillforms-btcpayserver/quillforms-btcpayserver.php',
-					'plan'               => 'plus',
-					'is_payment_gateway' => true,
-					'assets'             => array(
-						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/btcpayserver/icon.svg',
-					),
-				),
+				// 'btcpayserver'              => array(
+				// 	'name'               => esc_html__( 'BTCPay Server', 'quillforms' ),
+				// 	'description'        => esc_html__( 'Accept payments through BTCPay Server gateway.', 'quillforms' ),
+				// 	'plugin_file'        => 'quillforms-btcpayserver/quillforms-btcpayserver.php',
+				// 	'plan'               => 'plus',
+				// 	'is_payment_gateway' => true,
+				// 	'assets'             => array(
+				// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/btcpayserver/icon.svg',
+				// 	),
+				// ),
 				'razorpay'                  => array(
 					'name'               => esc_html__( 'Razorpay', 'quillforms' ),
 					'description'        => esc_html__( 'Accept payments through razorpay gateway.', 'quillforms' ),

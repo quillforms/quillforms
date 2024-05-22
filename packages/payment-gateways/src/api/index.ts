@@ -42,9 +42,9 @@ export const registerPaymentGatewayModule = (
 	}
 
 	if (paymentGatewayModules[slug]) {
-		console.error(
-			`This payment gateway ${slug} is already registered!`
-		);
+		// console.error(
+		// 	`This payment gateway ${slug} is already registered!`
+		// );
 		return;
 	}
 
