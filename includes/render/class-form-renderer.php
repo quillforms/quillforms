@@ -259,7 +259,12 @@ class Form_Renderer
             $this->form_object['blocks'] = array_map(
                 function ($block) {
                     if(isset($block['attributes']['defaultValue'])) {
-                        $block['attributes']['defaultValue'] = $this->parse_default_value($block['attributes']['defaultValue']);
+                        if( $block['attributes']['defaultValue'] == 0) {
+                            $block['attributes']['defaultValue'] = '0';
+                        }
+                        else {
+                            $block['attributes']['defaultValue'] = $this->parse_default_value($block['attributes']['defaultValue']);
+                        }
                     }
                     foreach(['label', 'description', 'customHTML'] as $key) {
                         if(isset($block['attributes'][$key])) {

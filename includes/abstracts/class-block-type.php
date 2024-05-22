@@ -201,6 +201,13 @@ abstract class Block_Type extends stdClass {
 			);
 		}
 
+		if( $this->supported_features['defaultValue']) {
+			$attributes_schema['defaultValue'] = array(
+				'type'    => 'string',
+				'default' => '',
+			);
+		}
+		
 		if( $this->supported_features['placeholder'] ) {
 			$attributes_schema['placeholder'] = array(
 				'type'       => [ 'string', 'boolean' ],

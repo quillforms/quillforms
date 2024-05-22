@@ -313,7 +313,7 @@ const DefaultControls: React.FC<Props> = ({
 								value={{ type: 'text', value: defaultValue }}
 								onChange={(val) => {
 									setAttributes({
-										defaultValue: val?.value ?? '',
+										defaultValue: val?.value == '0' ? '0' : val?.value ?? '',
 									});
 								}}
 								hideChooseOption={true}
