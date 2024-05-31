@@ -81,8 +81,8 @@ class Shortcode
         $id     = (int) $atts['id'];
         $width  = isset($atts['width']) ? $atts['width'] : '100%';
         $height = isset($atts['height']) ? $atts['height'] : null;
-        $min_height = isset($atts['minHeight']) ? $atts['minHeight'] : null;
-        $max_height = isset($atts['maxHeight']) ? $atts['maxHeight'] : null;
+        $min_height = isset($atts['min_height']) ? $atts['min_height'] : null;
+        $max_height = isset($atts['max_height']) ? $atts['max_height'] : null;
         if(!$min_height && $height) {
             $min_height = $height;
         }
