@@ -259,7 +259,9 @@ class Form_Renderer
             $this->form_object['blocks'] = array_map(
                 function ($block) {
                     if(isset($block['attributes']['defaultValue'])) {
-                        if( $block['attributes']['defaultValue'] == 0) {
+                        if( $block['attributes']['defaultValue'] === '0' 
+                            || $block['attributes']['defaultValue'] === 0
+                            ) {
                             $block['attributes']['defaultValue'] = '0';
                         }
                         else {

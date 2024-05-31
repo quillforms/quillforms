@@ -815,6 +815,7 @@ class Form_Submission {
 			// Setup email properties.
 			/* translators: %s - form name. */
 			$email['subject'] = ! empty( $notification_properties['subject'] ) ? $notification_properties['subject'] : sprintf( esc_html__( 'New %s Entry', 'quillforms' ), $this->form_data['title'] );
+			$email['subject'] = Merge_Tags::instance()->process_text( $email['subject'], $this->entry, $this->form_data );
 			$email['address'] = $notification_properties['recipients'];
 			if ( 'field' === $notification_properties['toType'] ) {
 				$email['address'] = array_map(
