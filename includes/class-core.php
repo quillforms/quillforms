@@ -141,15 +141,15 @@ class Core {
 			'menu_position'      => 30,
 			'show_in_rest'       => true,
 		);
+
 		if ( Settings::get( 'override_quillforms_slug' ) === true ) {
-			if (! empty( Settings::get( 'quillforms_slug' ) ) ) {
+			if ( null !== Settings::get( 'quillforms_slug' ) ) {
 				$args['rewrite']['slug'] = Settings::get( 'quillforms_slug' );
 			}
-			
-		} 
+		}
 
 		$args['rewrite']['slug'] = apply_filters('quillforms_rewrite_slug', $args['rewrite']['slug']);
-		
+
 		register_post_type( 'quill_forms', $args );
 	}
 
@@ -236,7 +236,7 @@ class Core {
 		$messages         = get_post_meta( $form_id, 'messages', true );
 		if(empty($messages)) {
 			$messages = array();
-		}	
+		}
 		$default_messages = Client_Messages::instance()->get_messages();
 		foreach ( $default_messages as $key => $message ) {
 			if ( ! $message['default'] ) {
