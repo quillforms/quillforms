@@ -1158,6 +1158,26 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/groundhogg/icon.svg',
 					),
 				),
+				'twilio'                    => array(
+					'name'           => esc_html__( 'Twilio', 'quillforms' ),
+					'description'    => esc_html__( 'Twilio addon allows you to send SMS notifications to your users.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-twilio/quillforms-twilio.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/twilio/icon.svg',
+					),
+				),
+				'keap'                      => array(
+					'name'           => esc_html__( 'Keap', 'quillforms' ),
+					'description'    => esc_html__( 'Keap addon allows you to connect your forms with Keap CRM.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-keap/quillforms-keap.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/keap/icon.svg',
+					),
+				),
 				'wpuserregistration'        => array(
 					'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 					'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
