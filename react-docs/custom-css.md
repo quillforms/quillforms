@@ -7,7 +7,7 @@ To add custom css, you should pass `customCSS` property to your `formObj` prop l
   formObj={{
     ...formObj,
     customCSS: `
-      input: {
+      input {
         border: 1px solid #e3e3e3 !important;
         box-shadown: none !important;
         border-radius: 4px !important;
