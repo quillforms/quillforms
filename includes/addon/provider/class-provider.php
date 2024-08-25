@@ -86,7 +86,7 @@ abstract class Provider extends Addon {
 	 * @return void
 	 */
 	protected function handle_entry_process_sync() {
-		add_action( 'quillforms_entry_processed', array( $this, 'handle_entry_process_action' ), 10, 2 );
+		add_action( 'quillforms_entry_processed', array( $this, 'handle_entry_process_action' ), 10, 3 );
 	}
 
 	/**
@@ -98,7 +98,7 @@ abstract class Provider extends Addon {
 	 */
 	protected function handle_entry_process_async() {
 		// enqueue async task on entry added.
-		add_action( 'quillforms_entry_processed', array( $this, 'add_entry_process_task' ), 10, 2 );
+		add_action( 'quillforms_entry_processed', array( $this, 'add_entry_process_task' ), 10, 3 );
 
 		// register callback for async task.
 		$this->tasks->register_callback( 'entry_process', array( $this, 'handle_entry_process_task' ) );
@@ -109,13 +109,15 @@ abstract class Provider extends Addon {
 	 *
 	 * @since 1.7.4
 	 *
-	 * @param Entry $entry Entry.
-	 * @param array $form_data Form data.
+	 * @param Entry  $entry Entry.
+	 * @param array  $form_data Form data.
+	 * @param string $run_type Run type.
+	 *
 	 * @return void
 	 */
-	public function handle_entry_process_action( $entry, $form_data ) {
+	public function handle_entry_process_action( $entry, $form_data, $run_type ) {
 		$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
-		$entry_process->run();
+		$entry_process->run( null, $run_type );
 	}
 
 	/**
@@ -123,14 +125,16 @@ abstract class Provider extends Addon {
 	 *
 	 * @since 1.7.4
 	 *
-	 * @param Entry $entry Entry.
-	 * @param array $form_data Form data.
+	 * @param Entry  $entry Entry.
+	 * @param array  $form_data Form data.
+	 * @param string $run_type Run type.
+	 *
 	 * @return void
 	 */
-	public function add_entry_process_task( $entry, $form_data ) {
+	public function add_entry_process_task( $entry, $form_data, $run_type ) {
 		$connections = $this->form_data->get( $entry->form_id, 'connections' );
 		if ( ! empty( $connections ) ) {
-			$this->tasks->enqueue_async( 'entry_process', $entry, $form_data );
+			$this->tasks->enqueue_async( 'entry_process', $entry, $form_data, $run_type );
 		}
 	}
 
@@ -139,13 +143,15 @@ abstract class Provider extends Addon {
 	 *
 	 * @since 1.7.4
 	 *
-	 * @param Entry $entry Entry.
-	 * @param array $form_data Form data.
+	 * @param Entry  $entry Entry.
+	 * @param array  $form_data Form data.
+	 * @param string $run_type Run type.
+	 *
 	 * @return void
 	 */
-	public function handle_entry_process_task( $entry, $form_data ) {
+	public function handle_entry_process_task( $entry, $form_data, $run_type ) {
 		$entry_process = new static::$classes['entry_process']( $this, $entry, $form_data );
-		$entry_process->run();
+		$entry_process->run( null, $run_type );
 	}
 
 	/**

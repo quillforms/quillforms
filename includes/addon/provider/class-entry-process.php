@@ -73,11 +73,17 @@ abstract class Entry_Process {
 	 * @since 1.10.0
 	 *
 	 * @param array|null $connections Connections.
+	 * @param string     $run_type Run Type.
 	 * @return void
 	 */
-	final public function run( $connections = null ) {
+	final public function run( $connections = null, $run_type ) {
 		$connections = $connections ?? $this->provider->form_data->get( $this->entry->form_id, 'connections' ) ?? array();
 		foreach ( $connections as $connection_id => $connection ) {
+			$connection_run_type = $connection['run_type'] ?? 'submission';
+			if ( $run_type !== $connection_run_type ) {
+				continue;
+			}
+
 			$this->run_connection( $connection_id, $connection );
 		}
 	}

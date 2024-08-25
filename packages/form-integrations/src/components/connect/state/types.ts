@@ -36,7 +36,8 @@ export type Connection = {
 	name: string;
 	account_id?: string;
 	[ x: string ]: any;
-	conditions?:  any;
+	conditions?: any;
+	run_type?: any;
 };
 
 type DeepPartial< T > = {
