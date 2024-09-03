@@ -106,9 +106,6 @@ const FormAdminBar = ({ formId }) => {
 							to={`/admin.php?page=quillforms&path=/forms/${formId}/payments`}
 						>
 							Payments
-							<div className="admin-components-control-label__new-feature">
-								NEW
-							</div>
 						</NavLink>
 
 						{fills}

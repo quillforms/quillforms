@@ -67,7 +67,6 @@ const singleRangeSliderDisplay = (props) => {
 		if (isPreview || !isReviewing) checkfieldValidation(val);
 	}, [attributes]);
 
-
 	return (
 		<div className={css`
 			margin: 40px 0 0;
@@ -90,9 +89,9 @@ const singleRangeSliderDisplay = (props) => {
 
 		`}>
 			<Slider
-				min={parseFloat(min)}
-				max={parseFloat(max)}
-				step={parseFloat(step)}
+				min={parseFloat(min !== '' ? min : 0)}
+				max={parseFloat(max !== '' ? max : 0)}
+				step={parseFloat(step !== '' ? step : 1)}
 				renderMark={mark => {
 					return prefix + mark + suffix;
 				}}

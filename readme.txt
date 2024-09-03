@@ -1,7 +1,7 @@
  === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.5.2
-Stable tag: 3.6.3
+Stable tag: 3.7.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
 License: GPLv2 or later
@@ -75,6 +75,7 @@ By set up email notifications, you can get an email after each submission with t
 - One time payment and subscriptions with Mollie
 - One time payment and subscriptions with Razorpay
 - one time payments and subscriptions with 2checkout
+- one time payments with BTCPay Server
 - Discount coupons
 - GoogleSheets integration
 - MailChimp integration
@@ -177,6 +178,18 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+
+== 3.8.0 = 3 September 2024
+Feature: Keap integration
+Feature: Twilio integration
+Feature: Processing Integrations after form saving
+Feature: Option to hide astrisk for required fields.
+Feature: Option to disable indexing for forms
+
+= 3.7.0 = 13 June 2024
+Feature: Introducing BTCPay Server integration.
+Fix: Fixing the slider block issue when there is no min or max or step.
+Fix: Minor change in the block editor intersection observer to allow scrolling between large number of questions easily.
 
 = 3.6.3 = 31 May 2024
 Fix: Fixing the prepopulated values issue of "0" for fields.

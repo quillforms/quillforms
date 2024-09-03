@@ -160,7 +160,7 @@ final class QuillForms {
 		add_action( 'init', array( Capabilities::class, 'assign_capabilities_for_user_roles' ) );
 		add_action( 'init', array( Core::class, 'register_quillforms_post_type' ) );
 		add_action( 'init', array( $this, 'register_rest_fields' ) );
-		add_action( 'init', array( $this, 'flush_rewrite_rules'), 9999999);
+		add_action( 'init', array( $this, 'flush_rewrite_rules'), 9999999);		
 		add_action( 'init', function() {
 			if (in_array('elementor/elementor.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 
@@ -213,7 +213,6 @@ final class QuillForms {
 		return true;
 	
 	}
-		
 		
 
 	/**

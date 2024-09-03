@@ -63,10 +63,6 @@ class Admin_Loader {
 		//add_action( 'admin_init', [ $this, 'disable_admin_emojis' ] );
 		// Remove DNS prefetch s.w.org (used for emojis, since WP 4.7)
 
-
-
-
-
 		add_action( 'admin_head', array( __CLASS__, 'remove_notices' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
@@ -97,6 +93,12 @@ class Admin_Loader {
 		global $submenu;
 		$user = wp_get_current_user();
 
+		$plugins_dir = trailingslashit( dirname( dirname( QUILLFORMS_PLUGIN_FILE ) ) );
+
+		$full_smtp_plugin_file = $plugins_dir . 'quill-smtp/quillsmtp.php';
+		$smtp_plugin_exists    = file_exists( $full_smtp_plugin_file );
+
+
 		wp_localize_script(
 			'quillforms-client',
 			'qfAdmin',
@@ -111,6 +113,11 @@ class Admin_Loader {
 				'current_user_avatar_url' => esc_url(
 					get_avatar_url( $user->ID )
 				),
+				// check if Quill SMTP plugin with slug quill-smtp is installed
+				'is_quill_smtp_installed' => $smtp_plugin_exists,
+				// check if Quill SMTP plugin with slug quill-smtp is active
+				'is_quill_smtp_active'    => is_plugin_active( 'quill-smtp/quillsmtp.php' ),
+
 			)
 		);
 	}

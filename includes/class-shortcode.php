@@ -73,16 +73,19 @@ class Shortcode
             array(
             'id'     => null,
             'width'  => '100%',
+            'min_height' => null,
+            'max_height' => null,
+            'height' => null,
             ),
             $atts,
             'quillforms'
         );
 
         $id     = (int) $atts['id'];
-        $width  = isset($atts['width']) ? $atts['width'] : '100%';
-        $height = isset($atts['height']) ? $atts['height'] : null;
-        $min_height = isset($atts['min_height']) ? $atts['min_height'] : null;
-        $max_height = isset($atts['max_height']) ? $atts['max_height'] : null;
+        $width  = isset($atts['width']) ? esc_attr($atts['width']) : '100%';
+        $height = isset($atts['height']) ? esc_attr($atts['height']) : null;
+        $min_height = isset($atts['min_height']) ? esc_attr($atts['min_height']) : null;
+        $max_height = isset($atts['max_height']) ? esc_attr($atts['max_height']) : null;
         if(!$min_height && $height) {
             $min_height = $height;
         }

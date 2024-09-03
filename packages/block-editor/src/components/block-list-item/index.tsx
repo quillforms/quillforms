@@ -58,6 +58,8 @@ const BlockListItem: React.FC<Props> = ({
 	const [ref, inView] = useInView({
 		/* Optional options */
 		threshold: 0,
+		trackVisibility: true,
+		delay: 200
 	});
 	const { isSelected, block, blockType } = useSelect((select) => {
 		return {
