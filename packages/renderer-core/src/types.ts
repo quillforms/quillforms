@@ -10,13 +10,13 @@ import type {
 
 type Theme = {
 	id: number;
-	properties: Partial< FormTheme >;
+	properties: Partial<FormTheme>;
 };
 export type FormObj = {
 	blocks: FormBlocks;
 	themesList?: Theme[];
-	theme?: Partial< FormTheme >;
-	messages?: Partial< FormMessages >;
+	theme?: Partial<FormTheme>;
+	messages?: Partial<FormMessages>;
 	logic?: FormLogic;
 	settings?: {
 		disableProgressBar?: boolean;
@@ -27,13 +27,14 @@ export type FormObj = {
 		showLettersOnAnswers?: boolean;
 		saveAnswersInBrowser?: boolean;
 		displayBranding?: boolean;
+		disableAstreisksOnRequiredFields?: boolean;
 	};
 	hiddenFields?: Object;
 	customCSS?: string;
 	correctIncorrectQuiz?: {
 		enabled: boolean;
 		questions: {
-			[ key: string ]: {
+			[key: string]: {
 				correctAnswers: string[];
 				explanation: string;
 			}
@@ -43,14 +44,14 @@ export type FormObj = {
 };
 
 export type SubmissionDispatchers = {
-	setIsSubmitting: ( flag: boolean ) => void;
-	setIsReviewing: ( flag: boolean ) => void;
-	goToBlock: ( id: string ) => void;
-	setIsFieldValid: ( id: string, flag: boolean ) => void;
-	setFieldValidationErr: ( id: string, err: string ) => void;
+	setIsSubmitting: (flag: boolean) => void;
+	setIsReviewing: (flag: boolean) => void;
+	goToBlock: (id: string) => void;
+	setIsFieldValid: (id: string, flag: boolean) => void;
+	setFieldValidationErr: (id: string, err: string) => void;
 	completeForm: () => void;
-	setSubmissionErr: ( value: string ) => void;
-	setIsPending: ( flag: boolean ) => void;
+	setSubmissionErr: (value: string) => void;
+	setIsPending: (flag: boolean) => void;
 };
 
 type FontVariation = {

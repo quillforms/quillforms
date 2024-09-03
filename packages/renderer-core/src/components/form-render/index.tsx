@@ -102,6 +102,7 @@ const Form: React.FC<Props> = ({
 			showLettersOnAnswers: true,
 			saveAnswersInBrowser: false,
 			displayBranding: false,
+			disableAstreisksOnRequiredFields: false,
 			...formObj.settings,
 		};
 
