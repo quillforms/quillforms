@@ -50,9 +50,18 @@ const NotificationsList = ({
 				'is-animating': isAnimating,
 			})}
 		>
-			{isWPEnv && (
+			{isWPEnv && (!qfAdmin.is_quill_smtp_installed || !qfAdmin.is_quill_smtp_active) && (
 				<AlertMessageWrapper type={"info"}>
-					Please consider using SMTP plugin to make sure that your emails are delivered to the inbox.
+					{!qfAdmin.is_quill_smtp_installed &&
+						<>
+							Email Notifications requires Quill SMTP plugin to be installed and activated. Please install and activate <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">Quill SMTP</a> plugin to make sure that your email notifications are delivered successfully.
+						</>
+					}
+					{qfAdmin.is_quill_smtp_installed && !qfAdmin.is_quill_smtp_active &&
+						<>
+							Email Notifications requires Quill SMTP plugin to be activated. Please activate <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">Quill SMTP</a> plugin to make sure that your email notifications are delivered successfully.
+						</>
+					}
 				</AlertMessageWrapper>
 			)}
 			<div className="notifications-editor-notifciations-list__header">
