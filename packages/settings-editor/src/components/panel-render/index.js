@@ -37,6 +37,7 @@ const PanelRender = () => {
 		showQuestionsNumbers,
 		saveAnswersInBrowser,
 		displayBranding,
+		disableAstreisksOnRequiredFields,
 	} = useDispatch('quillForms/settings-editor');
 
 	const {
@@ -46,6 +47,7 @@ const PanelRender = () => {
 		shouldLettersOnAnswersBeDisplayed,
 		shouldQuestionsNumbersBeDisplayed,
 		shouldAnswersBeSavedInBrowser,
+		shouldAstreisksOnRequiredFieldsBeHidden,
 		shouldBrandingBeDisplayed,
 		animationDirection,
 	} = useSelect((select) => {
@@ -73,7 +75,10 @@ const PanelRender = () => {
 			).shouldAnswersBeSavedInBrowser(),
 			shouldBrandingBeDisplayed: select(
 				'quillForms/settings-editor'
-			).shouldBrandingBeDisplayed()
+			).shouldBrandingBeDisplayed(),
+			shouldAstreisksOnRequiredFieldsBeHidden: select(
+				'quillForms/settings-editor'
+			).shouldAstreisksOnRequiredFieldsBeHidden(),
 		};
 	});
 
@@ -91,7 +96,7 @@ const PanelRender = () => {
 		<div className="settings-editor-panel-render">
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Auto save progress (save answers in user browser)'} isNew />
+					<ControlLabel label={'Auto save progress (save answers in user browser)'} />
 					<ToggleControl
 						checked={shouldAnswersBeSavedInBrowser}
 						onChange={() =>
@@ -134,7 +139,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Letters on answers'} isNew />
+					<ControlLabel label={'Letters on answers'} />
 					<ToggleControl
 						checked={shouldLettersOnAnswersBeDisplayed}
 						onChange={() =>
@@ -147,7 +152,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Questions numbers'} isNew />
+					<ControlLabel label={'Questions numbers'} />
 					<ToggleControl
 						checked={shouldQuestionsNumbersBeDisplayed}
 						onChange={() =>
@@ -166,6 +171,19 @@ const PanelRender = () => {
 						onChange={() =>
 							disableNavigationArrows(
 								!isNavigationArrowsDisabled
+							)
+						}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel label={'Hide asterisks on required fields'} isNew />
+					<ToggleControl
+						checked={shouldAstreisksOnRequiredFieldsBeHidden}
+						onChange={() =>
+							disableAstreisksOnRequiredFields(
+								!shouldAstreisksOnRequiredFieldsBeHidden
 							)
 						}
 					/>

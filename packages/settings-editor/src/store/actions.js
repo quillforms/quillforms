@@ -3,6 +3,7 @@ import {
 	DISABLE_WHEEL_SWIPING,
 	DISABLE_NAVIGATION_ARROWS,
 	CHANGE_ANIMATION_DIRECTION,
+	DISABLE_ASTREISKS_ON_REQUIRED_FIELDS,
 	SETUP_STORE,
 	SHOW_LETTERS_ON_ANSWERS,
 	SHOW_QUESTIONS_NUMBERS,
@@ -66,6 +67,13 @@ export const saveAnswersInBrowser = (flag) => {
 export const displayBranding = (flag) => {
 	return {
 		type: DISPLAY_BRANDING,
+		flag
+	}
+}
+
+export const disableAstreisksOnRequiredFields = (flag) => {
+	return {
+		type: DISABLE_ASTREISKS_ON_REQUIRED_FIELDS,
 		flag
 	}
 }

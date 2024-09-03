@@ -5,6 +5,7 @@ import {
 	CHANGE_ANIMATION_DIRECTION,
 	SHOW_QUESTIONS_NUMBERS,
 	SHOW_LETTERS_ON_ANSWERS,
+	DISABLE_ASTREISKS_ON_REQUIRED_FIELDS,
 	SAVE_ANSWERS_IN_BROWSER,
 	SETUP_STORE,
 	DISPLAY_BRANDING,
@@ -207,6 +208,29 @@ export function animationDirection(state = false, action) {
 	return state;
 }
 
+/**
+ * Disable Astreisks on required fields.
+ * 
+ * @param { Object } state current state.
+ * @param { Object } action Dispatched action.
+ * 
+ * @return { Object } updated state.
+ */
+export function disableAstreisksOnRequiredFields(state = false, action) {
+	switch (action.type) {
+		case DISABLE_ASTREISKS_ON_REQUIRED_FIELDS:
+			return action.flag;
+
+		case SETUP_STORE: {
+			return action.initialPayload?.disableAstreisksOnRequiredFields
+				? action.initialPayload?.disableAstreisksOnRequiredFields
+				: false;
+		}
+	}
+
+	return state;
+}
+
 
 
 export default combineReducers({
@@ -218,4 +242,5 @@ export default combineReducers({
 	showQuestionsNumbers,
 	saveAnswersInBrowser,
 	displayBranding,
+	disableAstreisksOnRequiredFields
 });

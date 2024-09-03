@@ -30,3 +30,7 @@ export function shouldAnswersBeSavedInBrowser(state) {
 export function shouldBrandingBeDisplayed(state) {
 	return state.displayBranding;
 }
+
+export function shouldAstreisksOnRequiredFieldsBeHidden(state) {
+	return state.disableAstreisksOnRequiredFields;
+}
