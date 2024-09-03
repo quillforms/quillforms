@@ -89,6 +89,10 @@ class REST_Settings_Controller extends REST_Controller {
 							'type' => 'boolean',
 							'default' => false
 						),
+						'disable_indexing'         => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
 						'quillforms_slug' => array(
 							'type' => 'string',
 							'default' => ''
