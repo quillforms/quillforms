@@ -8,10 +8,12 @@
 use QuillForms\Render\Form_Renderer;
 use TinyColor\TinyColor;
 use QuillForms\Site\License;
+use QuillForms\Settings;
 
 defined( 'ABSPATH' ) || exit;
 $form_object = Form_Renderer::instance()->prepare_form_object( get_the_ID() );
 $license = License::instance()->get_license_info();
+$disable_indexing = Settings::get( 'disable_indexing' );
 
 ?>
 <!DOCTYPE html>
@@ -105,6 +107,7 @@ $license = License::instance()->get_license_info();
 			}
 		</style>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" name="viewport">
+		<meta name="robots" content="<?php echo $disable_indexing ? 'noindex' : 'index'; ?>">
 		<title><?php echo get_the_title(); ?></title> 
 		<?php do_action( 'wp_enqueue_scripts' ); ?>
 	</head>

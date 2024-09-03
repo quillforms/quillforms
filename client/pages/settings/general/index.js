@@ -155,7 +155,6 @@ const General = () => {
 						<ControlWrapper orientation="horizontal">
 							<ControlLabel
 								label="Override 'quillforms' slug in the url"
-								isNew={true}
 							/>
 							<ToggleControl
 								checked={
@@ -173,6 +172,10 @@ const General = () => {
 									}
 								}}
 							/>
+						</ControlWrapper>
+
+						<ControlWrapper>
+
 						</ControlWrapper>
 						{settings?.override_quillforms_slug &&
 							license?.status === 'valid' && (
@@ -195,11 +198,25 @@ const General = () => {
 											margin-top: 0;
 										` }
 									>
-										You can leave it empty to remove the
-										'quillforms' slug from url.
+										Please don't leave empty
 									</p>
 								</>
 							)}
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label="Disable Indexing for your forms" isNew={true}
+							/>
+							<ToggleControl
+								checked={settings?.disable_indexing}
+								onChange={() => {
+									setSettingField(
+										'disable_indexing',
+										!settings?.disable_indexing
+									);
+								}}
+							/>
+						</ControlWrapper>
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="horizontal">
