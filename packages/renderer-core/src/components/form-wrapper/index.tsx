@@ -157,16 +157,16 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 			}
 
 			if (!formCompleted) {
-				editableFields.forEach((field) => {
-					if (initialData.answers[field.id]) {
-						setFieldAnswer(field.id, initialData.answers[field.id].value);
-					}
-				});
-
-				setAnswers(initialData?.answers);
 				setTimeout(() => {
 					if (initialData?.currentBlockId) {
 						goToBlock(initialData.currentBlockId);
+						editableFields.forEach((field) => {
+							if (initialData.answers && initialData.answers[field.id] && initialData.answers[field.id].value) {
+								setFieldAnswer(field.id, initialData.answers[field.id].value);
+							}
+						});
+
+						setAnswers(initialData?.answers);
 					}
 					else {
 						if (firstBlock?.id) {
