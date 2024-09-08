@@ -597,6 +597,9 @@ class Form_Submission {
 			0
 		);
 
+		// round to 2 decimals
+		$total = round( $total, 2 );
+
 		return compact( 'items', 'total' );
 	}
 
