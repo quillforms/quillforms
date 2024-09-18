@@ -1,7 +1,11 @@
 /**
  * QuillForms Dependencies.
  */
-import { TextControl } from '@quillforms/admin-components';
+import {
+	TextControl,
+	SelectControl,
+	ControlWrapper,
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -60,16 +64,55 @@ const Setup: React.FC< Props > = ( {
 					<Instructions />
 				</div>
 
-				{ Object.entries( fields ).map( ( [ key, field ] ) => (
-					<TextControl
-						key={ key }
-						label={ field.label }
-						value={ inputs[ key ] ?? '' }
-						onChange={ ( value ) =>
-							setInputs( { ...inputs, [ key ]: value } )
-						}
-					/>
-				) ) }
+				{ Object.entries( fields ).map( ( [ key, field ] ) => {
+					switch ( field.type ) {
+						case 'text':
+							return (
+								<TextControl
+									key={ key }
+									label={ field.label }
+									value={ inputs[ key ] ?? '' }
+									onChange={ ( value ) =>
+										setInputs( {
+											...inputs,
+											[ key ]: value,
+										} )
+									}
+								/>
+							);
+						case 'select':
+							return (
+								<div
+									style={ { marginBottom: '20px' } }
+									key={ key }
+								>
+									<SelectControl
+										label={ field.label }
+										value={
+											field.options.find(
+												( option ) =>
+													option.key === inputs[ key ]
+											) ?? field.options[ 0 ]
+										}
+										onChange={ ( { selectedItem } ) => {
+											const value =
+												selectedItem?.key &&
+												selectedItem.key !== 'select'
+													? selectedItem.key
+													: null;
+											setInputs( {
+												...inputs,
+												[ key ]: value,
+											} );
+										} }
+										options={ field.options }
+									/>
+								</div>
+							);
+						default:
+							return null;
+					}
+				} ) }
 			</div>
 
 			<Controls submit={ submit } />

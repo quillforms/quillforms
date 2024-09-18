@@ -1,7 +1,11 @@
 /**
  * QuillForms Dependencies
  */
-import { TextControl, Button } from '@quillforms/admin-components';
+import {
+	TextControl,
+	Button,
+	SelectControl,
+} from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -18,82 +22,82 @@ import { AccountsAuthFields, AccountsLabels, Provider } from '../../../types';
 
 interface Props {
 	provider: Provider;
-	onAdding?: (status: boolean) => void;
-	onAdded: (id: string, account: { name: string }) => void;
+	onAdding?: ( status: boolean ) => void;
+	onAdded: ( id: string, account: { name: string } ) => void;
 	labels?: AccountsLabels;
 	fields?: AccountsAuthFields;
 	Instructions?: React.FC;
 }
 
-const Credentials: React.FC<Props> = ({
+const Credentials: React.FC< Props > = ( {
 	provider,
 	onAdding,
 	onAdded,
 	labels,
 	fields,
 	Instructions,
-}) => {
+} ) => {
 	fields = fields ?? {
 		api_key: { label: provider.label + ' API Key', type: 'text' },
 	};
 
 	// state.
-	const [inputs, setInputs] = useState({});
-	const [submitting, setSubmitting] = useState(false);
+	const [ inputs, setInputs ] = useState( {} );
+	const [ submitting, setSubmitting ] = useState( false );
 
 	// dispatch notices.
 	const { createSuccessNotice, createErrorNotice } =
-		useDispatch('core/notices');
+		useDispatch( 'core/notices' );
 
 	// submit.
 	const submit = () => {
-		setSubmitting(true);
-		if (onAdding) onAdding(true);
-		apiFetch({
-			path: `/qf/v1/addons/${provider.slug}/accounts`,
+		setSubmitting( true );
+		if ( onAdding ) onAdding( true );
+		apiFetch( {
+			path: `/qf/v1/addons/${ provider.slug }/accounts`,
 			method: 'POST',
 			data: {
 				credentials: inputs,
 			},
-		})
-			.then((res: any) => {
+		} )
+			.then( ( res: any ) => {
 				createSuccessNotice(
 					'✅ ' +
-					(labels?.singular ?? __('Account', 'quillforms')) +
-					' ' +
-					__('added successfully!', 'quillforms'),
+						( labels?.singular ?? __( 'Account', 'quillforms' ) ) +
+						' ' +
+						__( 'added successfully!', 'quillforms' ),
 					{
 						type: 'snackbar',
 						isDismissible: true,
 					}
 				);
-				onAdded(res.id, { name: res.name });
-				setInputs({});
-			})
-			.catch((err) => {
+				onAdded( res.id, { name: res.name } );
+				setInputs( {} );
+			} )
+			.catch( ( err ) => {
 				createErrorNotice(
 					'⛔ ' +
-					(err.message ??
-						__('Error in adding the ', 'quillforms') +
-						(
-							labels?.singular ??
-							__('Account', 'quillforms')
-						).toLowerCase()),
+						( err.message ??
+							__( 'Error in adding the ', 'quillforms' ) +
+								(
+									labels?.singular ??
+									__( 'Account', 'quillforms' )
+								).toLowerCase() ),
 					{
 						type: 'snackbar',
 						isDismissible: true,
 					}
 				);
-			})
-			.finally(() => {
-				setSubmitting(false);
-				if (onAdding) onAdding(false);
-			});
+			} )
+			.finally( () => {
+				setSubmitting( false );
+				if ( onAdding ) onAdding( false );
+			} );
 	};
 
 	let inputsFilled = true;
-	for (const key of Object.keys(fields)) {
-		if (!inputs[key]) {
+	for ( const key of Object.keys( fields ) ) {
+		if ( ! inputs[ key ] ) {
 			inputsFilled = false;
 			break;
 		}
@@ -101,29 +105,62 @@ const Credentials: React.FC<Props> = ({
 
 	return (
 		<div className="integration-auth-credentials">
-			{Object.entries(fields).map(([key, field]) => (
-				<TextControl
-					key={key}
-					label={field.label}
-					value={inputs[key] ?? ''}
-					onChange={(value) =>
-						setInputs({ ...inputs, [key]: value })
-					}
-					disabled={submitting}
-				/>
-			))}
+			{ Object.entries( fields ).map( ( [ key, field ] ) => {
+				switch ( field.type ) {
+					case 'text':
+						return (
+							<TextControl
+								key={ key }
+								label={ field.label }
+								value={ inputs[ key ] ?? '' }
+								onChange={ ( value ) =>
+									setInputs( { ...inputs, [ key ]: value } )
+								}
+								disabled={ submitting }
+							/>
+						);
+					case 'select':
+						return (
+							<div style={ { marginBottom: '20px' } } key={ key }>
+								<SelectControl
+									label={ field.label }
+									value={
+										field.options.find(
+											( option ) =>
+												option.key === inputs[ key ]
+										) ?? field.options[ 0 ]
+									}
+									onChange={ ( { selectedItem } ) => {
+										const value =
+											selectedItem?.key &&
+											selectedItem.key !== 'select'
+												? selectedItem.key
+												: null;
+										setInputs( {
+											...inputs,
+											[ key ]: value,
+										} );
+									} }
+									options={ field.options }
+								/>
+							</div>
+						);
+					default:
+						return null;
+				}
+			} ) }
 			<Button
 				isPrimary
-				onClick={submit}
-				disabled={!inputsFilled || submitting}
+				onClick={ submit }
+				disabled={ ! inputsFilled || submitting }
 			>
-				{__('Add', 'quillforms-hubspot')}
+				{ __( 'Add', 'quillforms-hubspot' ) }
 			</Button>
-			{Instructions && (
+			{ Instructions && (
 				<div className="integration-auth-instructions">
 					<Instructions />
 				</div>
-			)}
+			) }
 		</div>
 	);
 };

@@ -6,8 +6,9 @@ export type Provider = {
 export type SetupFields = {
 	[ key: string ]: {
 		label: string;
-		type: 'text';
+		type: 'text' | 'select';
 		check: boolean;
+		options?: { key: string; name: string }[];
 	};
 };
 
@@ -19,7 +20,8 @@ export type Setup = {
 export type AccountsAuthFields = {
 	[ key: string ]: {
 		label: string;
-		type: 'text';
+		type: 'text' | 'select';
+		options?: { key: string; name: string }[];
 	};
 };
 
