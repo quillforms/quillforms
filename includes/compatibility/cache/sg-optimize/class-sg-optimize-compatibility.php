@@ -25,8 +25,25 @@ class SG_Optimize_Compatibility {
 	public static function hooks() {
 		add_filter( 'sgo_javascript_combine_exclude', array( __CLASS__, 'exclude_quillforms_pages' ) );
 		add_filter( 'sgo_js_minify_exclude', array( __CLASS__, 'exclude_quillforms_pages' ) );
+		add_filter('sgo_javascript_combine_exclude', array( __CLASS__, 'exclude_quillforms_pages'));
+		add_filter('sgo_javascript_combine_excluded_inline_content', function($excluded_inline_content){
+			$excluded_inline_content[] = 'lodash';
+			$excluded_inline_content[] = 'wp-i18n';
+			$excluded_inline_content[] = 'quillforms-renderer-core';
+			$excluded_inline_content[] = 'wp-data';
+			$excluded_inline_content[] = 'quillforms-blocks';
+			$excluded_inline_content[] = 'quillforms-config';
+			return $excluded_inline_content;
+		});
 		add_filter( 'sgo_js_async_exclude', array( __CLASS__, 'exclude_quillforms_pages' ) );
 		add_action( 'init', array( __CLASS__, 'exclude_quillforms_post_type' ) );
+		add_filter('sgo_javascript_combine_exclude_all_inline', function($exclude) {
+			if(function_exists('is_singular') && is_singular('quill_forms')) {
+				$exclude = true;
+			}
+			return $exclude;
+		});
+
 
 	}
 
@@ -41,20 +58,21 @@ class SG_Optimize_Compatibility {
 	 * @return array $exclude_list
 	 */
 	public static function exclude_quillforms_pages( $exclude_list ) {
-		if ( is_singular( 'quill_forms' ) ) {
+		if ( function_exists('is_singular') && is_singular( 'quill_forms' ) ) {
 			$exclude_list[] = 'wp-content/plugins/quillforms';
 			$exclude_list[] = 'wp-content/plugins/QuillForms';
 			$exclude_list[] = 'wp-content/plugins/quillforms-*';
 			$exclude_list[] = 'wp-includes/js/dist';
 			$exclude_list[] = 'wp-includes/js/tinymce';
-			$exclude_list[] = 'js/jquery/jquery.js';
-			$exclude_list[] = 'js/jquery/jquery.min.js';
+			// $exclude_list[] = 'wp-includes/js/dist/lodash';
+			// $exclude_list[] = 'js/jquery/jquery.js';
+			// $exclude_list[] = 'js/jquery/jquery.min.js';
 
 			$exclude_list[] = 'react';
 			$exclude_list[] = 'react-dom';
 			$exclude_list[] = 'emotion';
-			$exclude_list[] = 'jquery';
-			$exclude_list[] = 'lodash';
+			// $exclude_list[] = 'jquery';
+			// $exclude_list[] = 'lodash';
 			$exclude_list[] = 'quillforms-blocks';
 			$exclude_list[] = 'quillforms-*';
 			$exclude_list[] = 'quillforms-renderer-core';
@@ -72,6 +90,7 @@ class SG_Optimize_Compatibility {
 			$exclude_list[] = 'wp-keycodes';
 			$exclude_list[] = 'wp-is-shallow-equal';
 			$exclude_list[] = 'wp-redux-routine';
+			$exclude_list[] = 'quillforms-config';
 			$exclude_list[] = 'quillforms-blocklib-date-block-renderer-script';
 			$exclude_list[] = 'quillforms-blocklib-dropdown-block-renderer-script';
 			$exclude_list[] = 'quillforms-blocklib-email-block-renderer-script';
@@ -100,15 +119,23 @@ class SG_Optimize_Compatibility {
 			$exclude_list[] = 'quillforms-blocklib-group-block-renderer-script';
 			$exclude_list[] = 'quillforms-payment-gateways';
 			$exclude_list[] = 'wp-dom-ready';
+			$exclude_list[] = 'quillforms-blocklib-legal-block-renderer-script';
+			$exclude_list[] = 'quillforms-react-renderer-script';
 			$exclude_list[] = 'quillforms-stripe-renderer';
 			$exclude_list[] = 'quillforms-paypal-renderer';
 			$exclude_list[] = 'quillforms-logic-renderer';
 			$exclude_list[] = 'wp-element';
-			$exclude_list[] = 'quillforms-config';
 			$exclude_list[] = 'quillforms-utils';
 			$exclude_list[] = 'wp-hooks';
 			$exclude_list[] = 'wp-*';
+			$exclude_list[] = 'wp-private-apis';
 			$exclude_list[] = 'quillforms-*';
+			$exclude_list[] = 'wp-primitives';
+			$exclude_list[] = 'wp-url';
+			$exclude_list[] = 'wp-html-entities';
+			$exclude_list[] = 'wp-core-data';
+			$exclude_list[] = 'react-jsx-runtime';
+
 		}
 		return $exclude_list;
 	}
