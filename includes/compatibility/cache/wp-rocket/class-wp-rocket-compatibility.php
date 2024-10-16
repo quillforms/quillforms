@@ -55,7 +55,7 @@ class WPRocket_Compatibility {
 		return $urls;
 	}
 
-	public static function exclude_js( $excluded_js ) {
+	public static function exclude_js( $excluded_scripts ) {
 		return array_merge(
 			$excluded_scripts,
 			[
