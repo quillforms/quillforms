@@ -110,3 +110,8 @@ body.js.is-fullscreen-mode {
 #e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap .page-title-action, #e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap h1 {
 	display: block
 }
+
+.components-modal__frame {
+	max-height: 100% !important;
+	max-width: 100% !important;
+}
