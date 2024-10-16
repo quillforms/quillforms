@@ -7,6 +7,7 @@ import { TextControl, SelectControl, ControlLabel } from '@quillforms/admin-comp
  * WordPress Dependencies
  */
 import { PanelBody } from '@wordpress/components';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -22,13 +23,19 @@ const Coupon = ({ id }) => {
     const discountTypOptions = [
         {
             name: __('Percentage (%)', 'quillforms'),
-            key: 'percentage',
+            key: 'percent',
         },
         {
             name: __('Fixed Amount ($)', 'quillforms'),
             key: 'fixed',
         },
     ];
+
+    useEffect(() => {
+        if (coupon.discount_type === 'percentage') {
+            updateCoupon(id, { discount_type: 'percent' });
+        }
+    }, []);
 
     return (
         <div className="coupon">
@@ -70,13 +77,11 @@ const Coupon = ({ id }) => {
                     <div className="coupon__discount__fields">
                         <SelectControl
                             value={discountTypOptions.find(
-                                (option) => option.key === coupon.discount_type || discountTypOptions[0]
+                                (option) => option.key === coupon.discount_type
                             )}
                             onChange={({ selectedItem }) => {
                                 if (selectedItem) {
                                     const { key } = selectedItem;
-                                    console.log(selectedItem);
-
                                     updateCoupon(id, { discount_type: key })
                                 }
 

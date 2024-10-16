@@ -217,7 +217,7 @@ class Discount_Coupons {
 		$amount        = floatval( $amount );
 		$discount      = null;
 
-		if ( 'percent' === $discount_type ) {
+		if ( 'percent' === $discount_type || 'percentage' === $discount_type ) {
 			$discount = $amount * ( $this->coupon['discount_amount'] / 100 );
 		} else {
 			$discount = $this->coupon['discount_amount'];
