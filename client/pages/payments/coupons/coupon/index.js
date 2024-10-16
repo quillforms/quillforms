@@ -29,6 +29,7 @@ const Coupon = ({ id }) => {
             key: 'fixed',
         },
     ];
+
     return (
         <div className="coupon">
             <PanelBody
@@ -69,11 +70,13 @@ const Coupon = ({ id }) => {
                     <div className="coupon__discount__fields">
                         <SelectControl
                             value={discountTypOptions.find(
-                                (option) => option.key === coupon.discount_type
+                                (option) => option.key === coupon.discount_type || discountTypOptions[0]
                             )}
-                            onChange={(selectedItem) => {
+                            onChange={({ selectedItem }) => {
                                 if (selectedItem) {
                                     const { key } = selectedItem;
+                                    console.log(selectedItem);
+
                                     updateCoupon(id, { discount_type: key })
                                 }
 
