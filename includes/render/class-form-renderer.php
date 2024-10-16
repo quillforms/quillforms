@@ -323,6 +323,11 @@ class Form_Renderer
             $form_id           = $post->ID;
             $wp_scripts->queue = array( 'quillforms-renderer-core' );
             $wp_styles->queue  = array( 'quillforms-renderer-core' );
+            // Check if Weglot plugin is active.
+            if (function_exists('weglot_get_current_language') ) {
+                $wp_scripts->queue[] = 'wp-weglot-js';
+                $wp_styles->queue[]  = 'weglot-css';
+            }
 
             $blocks = Core::get_blocks($form_id);
 
