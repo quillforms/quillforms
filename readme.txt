@@ -183,6 +183,8 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 = 3.10.0 = 16 October 2024
 Fix: Fatal error with WP Rocket.
+Fix: Fixing issue with coupons.
+Fix: Fixing a CSS conflict with modal height and width.
 
 == 3.9.1 = 1 October 2024
 Fix: Fixing an issue with compatiblity with SG Optimizer plugin.
