@@ -1108,6 +1108,17 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentcrm/icon.svg',
 					),
 				),
+				'fluentsupport'             => array(
+					'name'           => esc_html__( 'FluentSupport', 'quillforms' ),
+					'description'    => esc_html__( 'FluentSupport addon allows you to create tickets in your FluentSupport account when a form is submitted.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-fluentsupport/quillforms-fluentsupport.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentsupport/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/fluentsupport/banner.png',
+					),
+				),
 				'discord'                   => array(
 					'name'           => esc_html__( 'Discord', 'quillforms' ),
 					'description'    => esc_html__( 'Discord addon allows you to send your form submissions to your discord server.', 'quillforms' ),
