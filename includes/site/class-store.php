@@ -1189,6 +1189,16 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/keap/icon.svg',
 					),
 				),
+				'listmonk'                  => array(
+					'name'           => esc_html__( 'Listmonk', 'quillforms' ),
+					'description'    => esc_html__( 'Listmonk addon allows you to connect your forms with Listmonk to send your leads to your Listmonk account.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-listmonk/quillforms-listmonk.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/listmonk/icon.png',
+					),
+				),
 				'wpuserregistration'        => array(
 					'name'           => esc_html__( 'WordPress User Registeration', 'quillforms' ),
 					'description'    => esc_html__( 'Register new WordPress users on form submission.', 'quillforms' ),
