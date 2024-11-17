@@ -26,3 +26,4 @@ export const SET_PAYMENT_DATA = 'SET_PAYMENT_DATA';
 export const SET_IS_FOCUSED = 'SET_IS_FOCUSED';
 export const SET_FOOTER_DISPLAY = 'SET_FOOTER_DISPLAY';
 export const STORE_KEY = 'quillForms/renderer-core';
+export const SET_GLOBAL_HASH = 'SET_GLOBAL_HASH';

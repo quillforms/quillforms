@@ -529,3 +529,15 @@ export function getIncorrectAnswersCount(state: State): number {
 	// access answers object and filter incorrect answers
 	return Object.values(state.answers).filter((answer) => answer.isCorrect === false).length;
 }
+
+
+/**
+ * Get global hash
+ * 
+ * @param {State} state Global application state.
+ * 
+ * @return {string} global hash
+ */
+export function getGlobalHash(state: State): string {
+	return state.submit.globalHash;
+}

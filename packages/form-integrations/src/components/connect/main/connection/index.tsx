@@ -93,6 +93,10 @@ const Connection: React.FC<Props> = ({ id, run }) => {
 								label: __('Saving the form', 'quillforms'),
 								value: 'save',
 							},
+							{
+								label: __('Partial Submission', 'quillforms'),
+								value: 'partial_submission',
+							}
 						]}
 						onChange={(value) => {
 							updateConnection(id, { run_type: value });

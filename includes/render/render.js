@@ -17,6 +17,7 @@
 						.select('quillForms/renderer-core')
 						.getAnswers(),
 					formId: qfRender.formId,
+					hash: wp.data.select('quillForms/renderer-core').getGlobalHash(),
 				};
 				const promises = wp.hooks.applyFilters(
 					'QuillForms.Renderer.PreSubmissionPromises',

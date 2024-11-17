@@ -23,7 +23,8 @@ import {
 	SET_IS_FIELD_ANSWER_CORRECT,
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
-	SET_THANKYOU_SCREENS
+	SET_THANKYOU_SCREENS,
+	SET_GLOBAL_HASH,
 } from './constants';
 export type Screen = {
 	id: string;
@@ -54,6 +55,7 @@ export type SubmissionState = {
 	isSubmitting: boolean;
 	submissionErr: string;
 	paymentData: any;
+	globalHash: string;
 };
 
 /**
@@ -216,6 +218,11 @@ type setIsFieldCorrectIncorrectScreenDisplayed = {
 	val: boolean;
 };
 
+type setGlobalHash = {
+	type: typeof SET_GLOBAL_HASH;
+	hash: string;
+};
+
 
 export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
@@ -249,6 +256,7 @@ export type SubmitActionTypes =
 	| setSumbissionErr
 	| setPaymentDataAction
 	| completeFormAction
+	| setGlobalHash
 	| ReturnType<() => { type: 'NOOP' }>;
 
 export interface CustomStoreDescriptor {

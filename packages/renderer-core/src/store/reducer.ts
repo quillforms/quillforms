@@ -45,6 +45,7 @@ import {
 	SET_IS_FIELD_ANSWER_LOCKED,
 	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
 	SET_THANKYOU_SCREENS,
+	SET_GLOBAL_HASH,
 } from './constants';
 import type {
 	SwiperState,
@@ -491,6 +492,7 @@ const submit: Reducer<SubmissionState, SubmitActionTypes> = (
 		isReviewing: false,
 		submissionErr: '',
 		paymentData: null,
+		globalHash: '',
 	},
 	action
 ) => {
@@ -536,6 +538,14 @@ const submit: Reducer<SubmissionState, SubmitActionTypes> = (
 			return {
 				...state,
 				paymentData: action.data,
+			};
+		}
+
+		case SET_GLOBAL_HASH: {
+			const { hash } = action;
+			return {
+				...state,
+				globalHash: hash,
 			};
 		}
 	}

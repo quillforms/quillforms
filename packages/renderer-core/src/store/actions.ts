@@ -24,7 +24,8 @@ import {
 	SET_FOOTER_DISPLAY,
 	SET_IS_FIELD_ANSWER_CORRECT,
 	SET_THANKYOU_SCREENS,
-	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE
+	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
+	SET_GLOBAL_HASH,
 } from './constants';
 
 import type {
@@ -319,6 +320,15 @@ export const setPaymentData = (data: any): SubmitActionTypes => {
 		data,
 	};
 };
+
+export const setGlobalHash = (
+	hash: string
+): SubmitActionTypes => {
+	return {
+		type: SET_GLOBAL_HASH,
+		hash,
+	};
+}
 
 /**
  * Set isFocused flag
