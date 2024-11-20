@@ -433,18 +433,6 @@ class Store {
 		$addons = apply_filters(
 			'quillforms_store_addons',
 			array(
-				'entries'                   => array(
-					'name'           => esc_html__( 'Entries', 'quillforms' ),
-					'description'    => esc_html__( 'Entries addon makes it easy for you to view all your leads in one place to streamline your workflow. With it, you can store, view, manage and export your form submissions.', 'quillforms' ),
-					'plugin_file'    => 'quillforms-entries/quillforms-entries.php',
-					'min_version'    => '1.2.0',
-					'plan'           => 'basic',
-					'is_integration' => false,
-					'assets'         => array(
-						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/icon.svg',
-						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
-					),
-				),
 				'advancedentries'           => array(
 					'name'           => esc_html__( 'Advanced Entries', 'quillforms' ),
 					'description'    => esc_html__( 'Advanced Entries addon allows you to view, filter, search, and export your form entries with advanced features like custom columns, custom filters, and more.', 'quillforms' ),
