@@ -445,6 +445,17 @@ class Store {
 						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
 					),
 				),
+				'advancedentries'           => array(
+					'name'           => esc_html__( 'Advanced Entries', 'quillforms' ),
+					'description'    => esc_html__( 'Advanced Entries addon allows you to view, filter, search, and export your form entries with advanced features like custom columns, custom filters, and more.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-advancedentries/quillforms-advancedentries.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/icon.svg',
+						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
+					),
+				),
 				'pdf'                       => array(
 					'name'           => esc_html__( 'PDF Entries Export', 'quillforms' ),
 					'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files and attach them to your email notifications.', 'quillforms' ),

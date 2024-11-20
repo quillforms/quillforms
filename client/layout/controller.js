@@ -108,6 +108,7 @@ registerAdminPage('results', {
 		const { params } = match;
 		return <FormAdminBar formId={params.id} />;
 	},
+	requiresInitialPayload: true,
 });
 
 registerAdminPage('payments', {

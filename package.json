@@ -113,7 +113,11 @@
 		"slate": "^0.94.1",
 		"tailwindcss": "^3.3.3",
 		"tailwindcss-animate": "^1.0.6",
-		"utility-types": "3.10.0"
+		"utility-types": "3.10.0",
+		"@mui/icons-material": "^5.14.9",
+		"react-date-range": "^1.4.0",
+		"date-fns": "^2.30.0",
+		"react-paginate": "^8.1.5"
 	},
 	"devDependencies": {
 		"@actions/core": "1.2.6",
