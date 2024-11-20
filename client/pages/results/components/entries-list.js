@@ -12,7 +12,7 @@ import { getPlainExcerpt } from '@quillforms/rich-text';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect, useMemo } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
@@ -33,6 +33,7 @@ import Popover from '@mui/material/Popover';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import DateIcon from '@mui/icons-material/DateRange';
+import { parseISO } from 'date-fns';
 
 /**
  * Internal Dependencies
@@ -136,7 +137,7 @@ export const EntriesList = ({
 			entries !== undefined && entries.findIndex((entry) => entry.ID === activeEntryId) === -1
 		)
 			setActiveEntryId(entries[0]?.ID);
-	}, [entries]);
+	}, [totalEntries]);
 
 	useEffect(() => {
 		if (activeEntryId) onEntryOpen(activeEntryId);
@@ -281,6 +282,7 @@ export const EntriesList = ({
 			key: 'desc',
 		},
 	];
+
 	return (
 		<>
 
@@ -299,7 +301,7 @@ export const EntriesList = ({
 				</div>
 			) : (
 				<>
-					{totalEntries > 0 ?
+					{entries !== undefined &&
 						<div
 							className={css`
 				.admin-components-select-control {
@@ -365,10 +367,16 @@ export const EntriesList = ({
 											months={2}
 											ranges={[
 												{
-													startDate:
-														from ?? new Date(),
-													endDate:
-														to ?? new Date(),
+													startDate: from
+														? from instanceof Date
+															? from
+															: parseISO(from) // Ensure it's a Date object
+														: new Date(),
+													endDate: to
+														? to instanceof Date
+															? to
+															: parseISO(to) // Ensure it's a Date object
+														: new Date(),
 													key: 'selection',
 												},
 											]}
@@ -376,234 +384,216 @@ export const EntriesList = ({
 									</Popover>
 								</div>
 							</div>
-							<div className="qf-entry-list__header">
-								<div
-									className={css`
+							{totalEntries > 0 && (
+								<>
+									<div className="qf-entry-list__header">
+										<div
+											className={css`
 										display: flex;
 										flex-wrap: wrap;
 										align-items: center;
 										margin-right: 60px;
 									` }
-								>
-									<div
-										className={css`
+										>
+											<div
+												className={css`
 							margin-right: 5px;
 						` }
-									>
-										Choose display question:
-									</div>
-									<SelectControl
-										className={css`
+											>
+												Choose display question:
+											</div>
+											<SelectControl
+												className={css`
 												width: 300px;
 												padding: 10px 8px;
 											` }
-										options={options}
-										value={options[selectedField]}
-										onChange={(selectedChoice) =>
-											setSelectedField(
-												selectedChoice?.selectedItem?.key
-											)
-										}
-									/>
-								</div>
-								<div
-									className={css`
+												options={options}
+												value={options[selectedField]}
+												onChange={(selectedChoice) =>
+													setSelectedField(
+														selectedChoice?.selectedItem?.key
+													)
+												}
+											/>
+										</div>
+										<div
+											className={css`
 											display: flex;
 											flex-wrap: wrap;
 											align-items: center;
 											margin-right: 50px;
 										` }
-								>
-									<div
-										className={css`
+										>
+											<div
+												className={css`
 												margin-right: 5px;
 											` }
-									>
-										Order by:
-									</div>
-									<SelectControl
-										className={css`
+											>
+												Order by:
+											</div>
+											<SelectControl
+												className={css`
 												width: 180px;
 												padding: 10px 8px;
 											` }
-										options={orderByOptions}
-										value={orderByOptions[orderBy]}
-										onChange={(selectedChoice) => {
-											setOrderBy(
-												selectedChoice.selectedItem.key === 'date'
-													? 0
-													: 1
-											);
-										}}
-									/>
-									<SelectControl
-										className={css`
+												options={orderByOptions}
+												value={orderByOptions[orderBy]}
+												onChange={(selectedChoice) => {
+													setOrderBy(
+														selectedChoice.selectedItem.key === 'date'
+															? 0
+															: 1
+													);
+												}}
+											/>
+											<SelectControl
+												className={css`
 											width: 120px;
 											padding: 10px 8px;
 										` }
-										options={orderOptions}
-										value={orderOptions[order]}
-										onChange={(selectedChoice) =>
-											setOrder(
-												selectedChoice.selectedItem.key === 'asc'
-													? 0
-													: 1
-											)
-										}
-									/>
-								</div>
-								{ /* <div className="qf-entries-list-search">
-					<input
-						className="qf-entries-list-search__input"
-						type="text"
-						placeholder="Search responses"
-						value={ searchKeyword }
-						onChange={ ( e ) => setSearchKeyword( e.target.value ) }
-					/>
-					<svg
-						focusable="false"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-					>
-						<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-					</svg>
-				</div> */ }
-							</div>
-
-							<div
-								className={css`
+												options={orderOptions}
+												value={orderOptions[order]}
+												onChange={(selectedChoice) =>
+													setOrder(
+														selectedChoice.selectedItem.key === 'asc'
+															? 0
+															: 1
+													)
+												}
+											/>
+										</div>
+									</div>
+									<div
+										className={css`
 									display: flex;
 									margin-top: 30px;
 								` }
-							>
-								<div className="qf-entry-list">
-									{list}
-									<ReactPaginate
-										// previousLabel={'Previous'}
-										// nextLabel={'Next'}
-										breakLabel={'...'}
-										marginPagesDisplayed={2}
-										pageRangeDisplayed={3}
-										pageCount={Math.ceil(totalEntries / perPage)}
-										onPageChange={(newPage) => {
-											setPage(newPage.selected + 1);
-										}}
-										forcePage={page - 1}
-										containerClassName={'qf-entries-pagination'}
-										activeClassName={'active'}
-										pageClassName={css`
+									>
+										<div className="qf-entry-list">
+											{list}
+											<ReactPaginate
+												breakLabel={'...'}
+												marginPagesDisplayed={2}
+												pageRangeDisplayed={3}
+												pageCount={Math.ceil(totalEntries / perPage)}
+												onPageChange={(newPage) => {
+													setPage(newPage.selected + 1);
+												}}
+												forcePage={page - 1}
+												containerClassName={'qf-entries-pagination'}
+												activeClassName={'active'}
+												pageClassName={css`
 												margin: 0 5px;
 												padding: 5px 10px;
 												border-radius: 3px;
 												color: #0073aa;
 												cursor: pointer;
 											` }
-										previousClassName={css`
+												previousClassName={css`
 												margin: 0 5px;
 												padding: 5px 10px;
 												border-radius: 3px;
 												color: #0073aa;
 												cursor: pointer;
 											` }
-										nextClassName={css`
+												nextClassName={css`
 												margin: 0 5px;
 												padding: 5px 10px;
 												border-radius: 3px;
 												color: #0073aa;
 												cursor: pointer;
 											` }
-										breakClassName={css`
+												breakClassName={css`
 												margin: 0 5px;
 												padding: 5px 10px;
 												border-radius: 3px;
 												color: #0073aa;
 												cursor: pointer;
 										`}
-									/>
+											/>
 
-									<div
-										className={classnames('qf-entry-list__footer', {
-											'with-selected-entries': selectedEntries.length > 0,
-										})}
-									>
-										{!selectedEntries || selectedEntries.length === 0 ? (
-											applyFilters('QuillForms.Entries.ExportButton.Render', (
-												<EntriesExportButton formId={formId} from={from} to={to} />
-											), { formId, selectedEntries: [], from, to })
+											<div
+												className={classnames('qf-entry-list__footer', {
+													'with-selected-entries': selectedEntries.length > 0,
+												})}
+											>
+												{!selectedEntries || selectedEntries.length === 0 ? (
+													applyFilters('QuillForms.Entries.ExportButton.Render', (
+														<EntriesExportButton formId={formId} from={from} to={to} />
+													), { formId, selectedEntries: [], from, to })
 
-										) : (
-											<>
-												<div
-													className={css`
+												) : (
+													<>
+														<div
+															className={css`
 										width: 70px;
 									` }
-												>
-													{selectedEntries.length} selected
-												</div>
-												{applyFilters('QuillForms.Entries.ExportButton.Render', (
-													<EntriesExportButton
-														formId={formId}
-														selectedIds={selectedEntries}
-													/>
-												), { formId, selectedEntries, from, to })}
-												<Button
-													isDanger
-													isButton
-													onClick={() => setDeleteModalOpen(true)}
-												>
-													Delete
-												</Button>
-											</>
-										)}
+														>
+															{selectedEntries.length} selected
+														</div>
+														{applyFilters('QuillForms.Entries.ExportButton.Render', (
+															<EntriesExportButton
+																formId={formId}
+																selectedIds={selectedEntries}
+															/>
+														), { formId, selectedEntries, from, to })}
+														<Button
+															isDanger
+															isButton
+															onClick={() => setDeleteModalOpen(true)}
+														>
+															Delete
+														</Button>
+													</>
+												)}
+											</div>
+										</div>
+										<EntryDetails
+											recordsInfo={recordsInfo}
+											deleteEntry={($activeEntryId) => {
+												setSelectedEntries(
+													selectedEntries.filter(
+														(a) => a !== $activeEntryId
+													)
+												);
+												deleteEntries([$activeEntryId]);
+											}}
+											formId={formId}
+											entry={
+												entries?.find(
+													(entry) => entry.ID === activeEntryId
+												) ?? null
+											}
+										/>
 									</div>
-								</div>
-								<EntryDetails
-									recordsInfo={recordsInfo}
-									deleteEntry={($activeEntryId) => {
-										setSelectedEntries(
-											selectedEntries.filter(
-												(a) => a !== $activeEntryId
-											)
-										);
-										deleteEntries([$activeEntryId]);
-									}}
-									formId={formId}
-									entry={
-										entries?.find(
-											(entry) => entry.ID === activeEntryId
-										) ?? null
-									}
-								/>
-							</div>
-							{deleteModelOpen && (
-								<DeleteAlertModal
-									isDeleting={isDeleting}
-									closeModal={() => {
-										setDeleteModalOpen(false);
-									}}
-									approve={() => {
-										onDelete();
-									}}
-								/>
+									{deleteModelOpen && (
+										<DeleteAlertModal
+											isDeleting={isDeleting}
+											closeModal={() => {
+												setDeleteModalOpen(false);
+											}}
+											approve={() => {
+												onDelete();
+											}}
+										/>
+									)}
+								</>
 							)}
-						</div> : (
-							(
-								<div className="qf-entry-list__no-entries">
-									<EmptyEntries />
-									<p
-										className={css`
-									font-size: 22px;
-									margin-bottom: 0;
-								` }
-									>
-										No Entries found!
-									</p>
-									<p>This form doesn’t have any responses yet.</p>
-								</div>
-							)
-						)
-					}
-
+						</div>}
+					{totalEntries === 0 && (
+						<div className="qf-entry-list__no-entries">
+							<EmptyEntries />
+							<p
+								className={css`
+						font-size: 22px;
+						margin-bottom: 0;
+					` }
+							>
+								No Entries found!
+							</p>
+							<p>This form doesn’t have any responses yet.</p>
+						</div>
+					)}
 				</>
 			)
 			}

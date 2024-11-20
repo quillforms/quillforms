@@ -70,7 +70,7 @@ class Entries {
 
 		// Check if entry already exists.
 		$existing_entry = apply_filters( 'quillforms_get_existing_entry', false, $_entry );
-		if ( ! $existing_entry instanceof Entry ) {
+		if ( $existing_entry instanceof Entry ) {
 			// update.
 			$result = $existing_entry->update_entry( $_entry );
 		} else {
