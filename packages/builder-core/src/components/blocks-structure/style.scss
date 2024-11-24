@@ -1,0 +1,120 @@
+.builder-core-blocks-list__wrapper {
+    background: #fff;
+    margin-right: 10px;
+    width: 330px;
+    overflow: hidden;
+    height: 100%;
+    border-radius: 10px;
+    max-height: 100%;
+    margin-bottom: 40px;
+    . {
+        padding: 20px;
+        overflow-y: auto;
+        max-height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: relative;
+          
+          .tree-item {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            position: relative;
+          }
+          
+          .tree-item__content {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            user-select: none;
+            position: relative;
+          }
+          
+          .tree-item__content:hover {
+            background-color: #f5f5f5;
+          }
+          
+          .tree-item__content--clone {
+            opacity: 0.5;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          }
+          
+          .tree-item__content--over {
+            background-color: rgba(0, 0, 0, 0.04);
+          }
+          
+          .tree-item__left-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+          }
+          
+          .tree-item__collapse-button {
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+          }
+          
+          .tree-item__spacer {
+            width: 40px;
+          }
+          
+          .tree-item__drag-handle {
+            display: flex;
+            align-items: center;
+            cursor: grab;
+          }
+          
+          .tree-item__name {
+            margin-left: 8px;
+          }
+          
+          .tree-item__actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+          
+          .icon-button {
+            padding: 4px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .icon-button:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+            border-radius: 4px;
+          }
+        
+        .builder-core-blocks-list-block.selected {
+            background: #f0f0ff !important;
+        }
+        .builder-core-blocks-list-group-label {
+            display: flex;
+            align-items: center;
+            position: relative;
+            
+            > span:last-child {
+                position: absolute;
+                right: 0;
+                top: 0px
+            }
+            .admin-components-block-icon-box {
+                margin-right: 10px
+            }
+        }
+        .admin-components-block-icon-box {
+            min-width: 55px !important;
+            max-width: 55px !important;
+        }
+    }
+}

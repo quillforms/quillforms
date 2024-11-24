@@ -67,6 +67,13 @@ body.js.is-fullscreen-mode {
 	color: #fff;
 	height: auto !important;
 }
+.quillforms-layout {
+	height: 100vh;
+	width: 100%;
+	background: #f2f4fc;
+	display: flex;
+	flex-direction: column;
+}
 .quillforms-layout h1 {
 	color: #6d78d8;
 	border-color: #6d78d83d !important;

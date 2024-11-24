@@ -29,6 +29,7 @@ import type {
 	OnDragStartResponder,
 } from 'react-beautiful-dnd';
 import { size } from 'lodash';
+import BlocksStructure from '../blocks-structure';
 
 interface Props {
 	formId: number;
@@ -268,22 +269,9 @@ const Layout: React.FC<Props> = ({ formId }) => {
 			onKeyDown={(e) => e.stopPropagation()}
 		>
 			{builderPanelsBar}
-			<DragDropContext
-				onDragStart={onDragStart}
-				onDragEnd={onDragEnd}
-				onDragUpdate={onDragUpdate}
-				onBeforeCapture={onBeforeCapture}
-			>
-				{currentPanel && panel}
-				{(!areaToShow || areaToShow === 'drop-area') && (
-					<DropArea
-						isDragging={isDragging}
-						currentPanel={currentPanel}
-						targetIndex={targetIndex}
-						areaToShow={areaToShow}
-					/>
-				)}
-			</DragDropContext>
+
+			{currentPanel && panel}
+			<BlocksStructure />
 			{(!areaToShow || areaToShow === 'preview-area') && formPreview}
 		</div>
 	);

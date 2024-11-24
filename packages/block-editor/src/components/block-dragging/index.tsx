@@ -19,40 +19,40 @@ interface Props {
 	name: string;
 	id: string;
 }
-const DraggedBlock: React.FC< Props > = ( { name, id } ) => {
-	const { blockType, block } = useSelect( ( select ) => {
+const DraggedBlock: React.FC<Props> = ({ name, id }) => {
+	const { blockType, block } = useSelect((select) => {
 		return {
-			blockType: select( 'quillForms/blocks' ).getBlockType( name ),
-			block: select( 'quillForms/block-editor' ).getBlockById( id ),
+			blockType: select('quillForms/blocks').getBlockType(name),
+			block: select('quillForms/block-editor').getBlockById(id),
 		};
-	} );
+	});
 	let icon = blockType?.icon;
-	if ( ( ( icon as IconDescriptor )?.src as IconType ) === 'block-default' ) {
+	if (((icon as IconDescriptor)?.src as IconType) === 'block-default') {
 		icon = {
 			src: blockDefault,
 		};
 	}
-	if ( ! icon ) {
+	if (!icon) {
 		icon = plus;
 	}
 
 	const renderedIcon = (
 		<Icon
 			icon={
-				( ( icon as IconDescriptor )?.src as IconType )
-					? ( ( icon as IconDescriptor ).src as IconType )
-					: ( icon as Dashicon.Icon )
+				((icon as IconDescriptor)?.src as IconType)
+					? ((icon as IconDescriptor).src as IconType)
+					: (icon as Dashicon.Icon)
 			}
 		/>
 	);
 
-	const blockLabel = getPlainExcerpt( block?.attributes?.label );
+	const blockLabel = getPlainExcerpt(block?.attributes?.label);
 	return (
 		<div className="block-editor-block-dragging__wrapper">
 			<div className="block-editor-block-dragging">
 				<div
 					className="block-editor-block-dragging__icon-box"
-					style={ {
+					style={{
 						background: blockType?.color
 							? blockType.color
 							: '#bb426f',
@@ -60,13 +60,13 @@ const DraggedBlock: React.FC< Props > = ( { name, id } ) => {
 							blockType?.color === '#fff'
 								? '1px solid #e3e3e3'
 								: 'none',
-					} }
+					}}
 				>
-					{ renderedIcon }
+					{renderedIcon}
 				</div>
 				<div
 					className="block-editor-block-dragging__title-excerpt"
-					dangerouslySetInnerHTML={ { __html: blockLabel } }
+					dangerouslySetInnerHTML={{ __html: blockLabel }}
 				/>
 			</div>
 		</div>

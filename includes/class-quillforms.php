@@ -108,10 +108,17 @@ final class QuillForms {
 
 		// client assets.
 		include_once QUILLFORMS_PLUGIN_DIR . 'lib/client-assets.php';
+
+		// Caching plugins compatibility.
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/autoptimize/class-autoptimize-compatibility.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/wpoptimize/class-wpoptimize-compatibility.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/sg-optimize/class-sg-optimize-compatibility.php';
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/cache/wp-rocket/class-wp-rocket-compatibility.php';
+
+		// Translation plugins compatibility.
+		if ( defined( 'WEGLOT_VERSION' ) ) {
+			include_once QUILLFORMS_PLUGIN_DIR . 'includes/compatibility/translation/weglot/class-weglot-compatability.php';
+		}
 
 		// Form Templates
 		include_once QUILLFORMS_PLUGIN_DIR . 'includes/templates/simple-contact-form/class-simple-contact-form-template.php';

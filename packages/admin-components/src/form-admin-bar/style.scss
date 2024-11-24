@@ -1,52 +1,57 @@
-.admin-components-form-admin-bar {
-	position: relative;
-	height: 55px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: #ffffff;
+.admin-components-form-admin-bar__wrapper {
+	padding: 10px;
 
-	a {
-		text-decoration: none;
-		display: inline-flex;
-		align-items: center;
-		cursor: pointer;
-		margin: 10px;
-		padding: 10px;
-		color: #363434;
-		font-size: 15px;
-		text-transform: uppercase;
-		outline: none !important;
-		box-shadow: none !important;
-
-		&.selected {
-			border-bottom: 1px solid;
-			color: #a443ff;
-		}
-	}
-
-	.admin-components-form-admin-bar__home-link {
+	.admin-components-form-admin-bar {
+		position: relative;
+		height: 55px;
 		display: flex;
-		flex-wrap: wrap;
-		position: absolute;
-		left: 55px;
-		align-items: center;
-		text-decoration: none;
-		text-transform: capitalize;
-		color: #333;
-
-		svg {
-			margin-right: 5px;
-		}
-	}
-
-	.admin-components-form-admin-bar__logo {
-		position: absolute;
-		left: 0;
-		width: 55px;
-		display: flex;
-		align-items: center;
 		justify-content: center;
-		border-right: 1px solid #d8d8d8;
+		align-items: center;
+		background: #ffffff;
+		border-radius: 10px;
+
+		a {
+			text-decoration: none;
+			display: inline-flex;
+			align-items: center;
+			cursor: pointer;
+			margin: 10px;
+			padding: 10px;
+			color: #363434;
+			font-size: 15px;
+			text-transform: uppercase;
+			outline: none !important;
+			box-shadow: none !important;
+
+			&.selected {
+				border-bottom: 1px solid;
+				color: #a443ff;
+			}
+		}
+
+		.admin-components-form-admin-bar__home-link {
+			display: flex;
+			flex-wrap: wrap;
+			position: absolute;
+			left: 55px;
+			align-items: center;
+			text-decoration: none;
+			text-transform: capitalize;
+			color: #333;
+
+			svg {
+				margin-right: 5px;
+			}
+		}
+
+		.admin-components-form-admin-bar__logo {
+			position: absolute;
+			left: 0;
+			width: 55px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-right: 1px solid #d8d8d8;
+		}
 	}
 }

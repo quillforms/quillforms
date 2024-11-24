@@ -4,70 +4,73 @@
 		left: 0;
 		top: 0;
 		bottom: 0;
-		width: 55px;
+		width: 70px;
 		height: 100%;
-		background: #322d44;
-	}
+		margin-left:10px;
+		margin-right: 10px;
+		background: #fff;
+		border-radius: 10px;
+	 	
+		.builder-core-builder-panel-nav-item {
 
-
-	.builder-core-builder-panel-nav-item {
-
-		& {
-			text-align: center;
-			height: 55px;
-			display: flex;
-			flex-wrap: wrap;
-			align-items: center;
-			justify-content: center;
-			color: #000;
-			cursor: pointer;
-		}
-
-		&.active .builder-core-builder-panel-nav-item__icon {
-			background: #8640e3;
-			svg {
-				fill: #fff;
-			}
-
-			span {
-				color: #fff;
-			}
-		}
-
-		&:not(.active) .builder-core-builder-panel-nav-item__icon:hover {
-			background: #606565;
-		}
-
-		.builder-core-builder-panel-nav-item__icon {
 			& {
+				text-align: center;
+				height: 55px;
 				display: flex;
 				flex-wrap: wrap;
-				justify-content: center;
 				align-items: center;
-				border-radius: 8px;
-				border: none;
-				width: 40px;
-				height: 40px;
+				justify-content: center;
+				color: #000;
+				cursor: pointer;
 			}
 
-			svg {
-				width: 24px;
-				height: 25px;
-				fill: #b7b6b5;
-				font-size: 24px;
+			&.active .builder-core-builder-panel-nav-item__icon {
+				background: #d9d9fe;
+				
+				span {
+					color: #fff;
+				}
 			}
-			
-			span {
-				color: #b7b6b5
+			.builder-core-builder-panel-nav-item__icon {
+				svg {
+					fill: #4a4a54 !important;
+				}
+				span {
+					color: #4a4a54
+				}
 			}
+
+			.builder-core-builder-panel-nav-item__icon {
+				& {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: center;
+					align-items: center;
+					border-radius: 8px;
+					border: none;
+					width: 40px;
+					height: 40px;
+				}
+
+				svg {
+					width: 24px;
+					height: 25px;
+					fill: #b7b6b5;
+					font-size: 24px;
+				}
+				
+				span {
+					color: #b7b6b5
+				}
+			}
+
 		}
 
-	}
-
-	.builder-core-panel-navbar__separator {
-		height: 1px;
-		width: 70%;
-		margin: 10px auto;
-		border: 0.2px solid #504e4e;
+		.builder-core-panel-navbar__separator {
+			height: 1px;
+			width: 70%;
+			margin: 0px auto 10px;
+			border: 0.2px solid #d9d9d9;
+		}
 	}
 }

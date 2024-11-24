@@ -13,7 +13,7 @@ import type { CustomNode } from '@quillforms/admin-components';
 /**
  * WordPress Dependencies
  */
-import { Fragment, useEffect, useState, useMemo } from 'react';
+import { Fragment, useRef, useEffect, useState, useMemo } from 'react';
 import { useSelect, AsyncModeProvider } from '@wordpress/data';
 
 /**
@@ -57,10 +57,16 @@ const BlockListItem: React.FC<Props> = ({
 }) => {
 	const [ref, inView] = useInView({
 		/* Optional options */
-		threshold: 0,
+		threshold: 0.1,
 		trackVisibility: true,
 		delay: 200
 	});
+	const blockRef = useRef<HTMLDivElement>(null);
+
+	// const [isVisible, setIsVisible] = useState<boolean>(false);
+	// const [blockHeight, setBlockHeight] = useState<number>(0);
+
+
 	const { isSelected, block, blockType } = useSelect((select) => {
 		return {
 			block: select('quillForms/block-editor').getBlockById(
@@ -103,6 +109,16 @@ const BlockListItem: React.FC<Props> = ({
 			],
 		},
 	]);
+
+	// useEffect(() => {
+	// 	if (blockRef.current && inView) {
+	// 		setBlockHeight(blockRef.current.offsetHeight);
+	// 		setIsVisible(true);
+	// 	} else if (!inView) {
+	// 		setIsVisible(false);
+	// 	}
+	// }, [inView, blockRef]);
+
 
 	const [focusedEl, setFocusedEl] = useState<FocusedEl>(undefined);
 	// Handling the error state
@@ -157,7 +173,8 @@ const BlockListItem: React.FC<Props> = ({
 								parentId={parentId}
 								isSelected={isSelected}
 							>
-								<div className="block-editor-block-edit-box__content-wrapper">
+								<div className="block-editor-block-edit-box__content-wrapper" ref={blockRef}
+								>
 									<div
 										className="block-editor-block-edit-box__content"
 										{...provided.draggableProps}
@@ -225,12 +242,12 @@ const BlockListItem: React.FC<Props> = ({
 												/>
 											</Fragment>
 										) : (
-											<Fragment>
+											<>
 												<BlockIconWrapper
 													color={blockType?.color}
 												/>
 												<BlockPlaceholder />
-											</Fragment>
+											</>
 										)}
 									</div>
 								</div>

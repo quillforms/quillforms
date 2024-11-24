@@ -327,6 +327,8 @@ class Form_Renderer
             if (function_exists('weglot_get_current_language') ) {
                 $wp_scripts->queue[] = 'wp-weglot-js';
                 $wp_styles->queue[]  = 'weglot-css';
+                $wp_styles->queue[]  = 'new-flag-css';
+                $wp_styles->queue[]  = 'custom-flag-handle';
             }
 
             $blocks = Core::get_blocks($form_id);
