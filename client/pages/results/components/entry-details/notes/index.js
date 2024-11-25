@@ -12,7 +12,7 @@ import { size, keys } from 'lodash';
 
 const Notes = ({ entry }) => {
     if (!entry.meta?.notes) {
-        return <p>{__('No notes yet.', 'quillforms-entries')}</p>;
+        return <p>{__('No notes yet.', 'quillforms')}</p>;
     }
     const paymenyDetials = entry.meta.payments.value;
     const paymentId = size(keys(paymenyDetials.transactions)) > 0 ? keys(paymenyDetials.transactions)[0] : null;
@@ -37,33 +37,33 @@ const Notes = ({ entry }) => {
                         }
                     `
                     )}>
-                        <h3>{__('Payment Detials', 'quillforms-entries')}</h3>
+                        <h3>{__('Payment Detials', 'quillforms')}</h3>
                         <div className="qf-entry-details__payment-details">
                             {paymentId && (
                                 <div className="qf-entry-details__payment-details__transaction-id">
                                     <span>
-                                        {__('Transaction ID', 'quillforms-entries')}:{' '}
+                                        {__('Transaction ID', 'quillforms')}:{' '}
                                     </span>
                                     {paymentId}
                                 </div>
                             )}
                             <div className="qf-entry-details__payment-details__payment-type">
                                 <span>
-                                    {__('Payment Type', 'quillforms-entries')}:{' '}
+                                    {__('Payment Type', 'quillforms')}:{' '}
                                 </span>
-                                {paymenyDetials?.recurring ? __('Recurring', 'quillforms-entries') : __('One Time', 'quillforms-entries')}
+                                {paymenyDetials?.recurring ? __('Recurring', 'quillforms') : __('One Time', 'quillforms')}
                             </div>
                             {paymenyDetials?.recurring && (
                                 <>
                                     <div className="qf-entry-details__payment-details__recurring-unit">
                                         <span>
-                                            {__('Recurring Unit', 'quillforms-entries')}:{' '}
+                                            {__('Recurring Unit', 'quillforms')}:{' '}
                                         </span>
                                         {paymenyDetials.recurring.interval_unit}
                                     </div>
                                     <div className="qf-entry-details__payment-details__recurring-interval">
                                         <span>
-                                            {__('Recurring Interval', 'quillforms-entries')}:{' '}
+                                            {__('Recurring Interval', 'quillforms')}:{' '}
                                         </span>
                                         {paymenyDetials.recurring.interval_count}
                                     </div>
@@ -73,25 +73,25 @@ const Notes = ({ entry }) => {
                                 <>
                                     <div className="qf-entry-details__payment-details__payment-status">
                                         <span>
-                                            {__('Payment Status', 'quillforms-entries')}:{' '}
+                                            {__('Payment Status', 'quillforms')}:{' '}
                                         </span>
                                         {paymenyDetials.transactions[paymentId].status}
                                     </div>
                                     <div className="qf-entry-details__payment-details__payment-amount">
                                         <span>
-                                            {__('Payment Amount', 'quillforms-entries')}:{' '}
+                                            {__('Payment Amount', 'quillforms')}:{' '}
                                         </span>
                                         {paymenyDetials.transactions[paymentId].amount}
                                     </div>
                                     <div className="qf-entry-details__payment-details__payment-currency">
                                         <span>
-                                            {__('Payment Currency', 'quillforms-entries')}:{' '}
+                                            {__('Payment Currency', 'quillforms')}:{' '}
                                         </span>
                                         {paymenyDetials.transactions[paymentId].currency}
                                     </div>
                                     <div className="qf-entry-details__payment-details__payment-mode">
                                         <span>
-                                            {__('Payment Mode', 'quillforms-entries')}:{' '}
+                                            {__('Payment Mode', 'quillforms')}:{' '}
                                         </span>
                                         {paymenyDetials.transactions[paymentId].mode}
                                     </div>
@@ -122,7 +122,7 @@ const Notes = ({ entry }) => {
                             >
                                 <div className="qf-entry-details__note-source">
                                     <span>
-                                        {__('Source', 'quillforms-entries')}
+                                        {__('Source', 'quillforms')}
                                         :{' '}
                                     </span>
                                     {note.source}
@@ -131,7 +131,7 @@ const Notes = ({ entry }) => {
                                     <span>
                                         {__(
                                             'Message',
-                                            'quillforms-entries'
+                                            'quillforms'
                                         )}
                                         :{' '}
                                     </span>
@@ -139,7 +139,7 @@ const Notes = ({ entry }) => {
                                 </div>
                                 <div className="qf-entry-details__note-date">
                                     <span>
-                                        {__('Date', 'quillforms-entries')}:{' '}
+                                        {__('Date', 'quillforms')}:{' '}
                                     </span>
                                     {note.date}
                                 </div>

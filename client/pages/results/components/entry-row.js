@@ -66,7 +66,7 @@ const EntryRow = ({ index, data, style }) => {
 					'partial': entry.status === 'partial',
 				})}>
 					<p className='qf-entry-list-item__status-content'>
-						{entry.status === 'completed' ? __('Completed', 'quillforms-entries') : __('Partial', 'quillforms-entries')}
+						{entry.status === 'completed' ? __('Completed', 'quillforms') : __('Partial', 'quillforms')}
 					</p>
 				</div>
 				<div className="qf-entry-list-item-date">

@@ -44,15 +44,15 @@ export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
 
     const Tabs = applyFilters('QuillForms.Entires.EntryDetails.Tabs', {
         details: {
-            title: __('Details', 'quillforms-entries'),
+            title: __('Details', 'quillforms'),
             render: <Details recordsInfo={recordsInfo} entry={entry} />,
         },
         notes: {
-            title: __('Notes', 'quillforms-entries'),
+            title: __('Notes', 'quillforms'),
             render: <Notes entry={entry} />,
         },
         pdf_export: {
-            title: __('PDF Export', 'quillforms-entries'),
+            title: __('PDF Export', 'quillforms'),
             render: <__experimentalAddonFeatureAvailability
                 featureName={__("PDF Export", "quillforms")}
                 addonSlug={"pdf"}
@@ -133,7 +133,7 @@ export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
                     >
                         {(tab) => (
                             <div>
-                                {Tabs[tab.name]?.render ?? <div>{__('Not Found', 'quillforms-entries')}</div>}
+                                {Tabs[tab.name]?.render ?? <div>{__('Not Found', 'quillforms')}</div>}
                             </div>
                         )}
                     </TabPanel>

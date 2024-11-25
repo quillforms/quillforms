@@ -90,38 +90,38 @@ class REST_Entry_Controller extends REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'           => array(
-					'description' => __( 'Unique identifier for the entry.', 'quillforms-entries' ),
+					'description' => __( 'Unique identifier for the entry.', 'quillforms' ),
 					'type'        => 'integer',
 					'readonly'    => true,
 				),
 				'form_id'      => array(
-					'description' => __( 'The Form ID for the entry.', 'quillforms-entries' ),
+					'description' => __( 'The Form ID for the entry.', 'quillforms' ),
 					'type'        => 'integer',
 					'required'    => true,
 					'readonly'    => false,
 				),
 				'is_starred'   => array(
-					'description' => __( 'Whether the entry is starred.', 'quillforms-entries' ),
+					'description' => __( 'Whether the entry is starred.', 'quillforms' ),
 					'type'        => 'integer',
 					'readonly'    => false,
 				),
 				'is_read'      => array(
-					'description' => __( 'Whether the entry has been read.', 'quillforms-entries' ),
+					'description' => __( 'Whether the entry has been read.', 'quillforms' ),
 					'type'        => 'integer',
 					'readonly'    => false,
 				),
 				'status'       => array(
-					'description' => __( 'The status of the entry.', 'quillforms-entries' ),
+					'description' => __( 'The status of the entry.', 'quillforms' ),
 					'type'        => 'string',
 					'readonly'    => false,
 				),
 				'date_created' => array(
-					'description' => __( 'The date the entry was created, in UTC.', 'quillforms-entries' ),
+					'description' => __( 'The date the entry was created, in UTC.', 'quillforms' ),
 					'type'        => 'date-time',
 					'readonly'    => false,
 				),
 				'date_updated' => array(
-					'description' => __( 'The date the entry was updated, in UTC.', 'quillforms-entries' ),
+					'description' => __( 'The date the entry was updated, in UTC.', 'quillforms' ),
 					'type'        => 'date-time',
 					'readonly'    => false,
 				),
@@ -284,7 +284,7 @@ class REST_Entry_Controller extends REST_Controller {
 		$updated = $entry->update( $data );
 
 		if ( ! $updated ) {
-			return new WP_Error( 'quillforms_entries_db_error_on_updating_entry', __( 'Error on updating entry in db!', 'quillforms-entries' ), array( 'status' => 422 ) );
+			return new WP_Error( 'quillforms_entries_db_error_on_updating_entry', __( 'Error on updating entry in db!', 'quillforms' ), array( 'status' => 422 ) );
 		}
 
 		return new WP_REST_Response( $data, 200 );
@@ -319,7 +319,7 @@ class REST_Entry_Controller extends REST_Controller {
 		$deleted   = $entry->delete();
 
 		if ( ! $deleted ) {
-			return new WP_Error( 'quillforms_entries_db_error_on_deleting_entry', __( 'Error on deleting entry in db!', 'quillforms-entries' ), array( 'status' => 422 ) );
+			return new WP_Error( 'quillforms_entries_db_error_on_deleting_entry', __( 'Error on deleting entry in db!', 'quillforms' ), array( 'status' => 422 ) );
 		}
 
 		return new WP_REST_Response( true, 200 );
