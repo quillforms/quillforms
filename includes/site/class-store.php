@@ -1231,7 +1231,7 @@ class Store {
 		foreach ( $addons as $slug => $addon ) {
 			$full_plugin_file = $plugins_dir . $addon['plugin_file'];
 			$plugin_exists    = file_exists( $full_plugin_file );
-			$plugin_data      = $plugin_exists ? get_plugin_data( $full_plugin_file ) : array();
+			$plugin_data      = $plugin_exists ? get_plugin_data( $full_plugin_file, true, false ) : array();
 
 			$addons[ $slug ]['full_plugin_file'] = $full_plugin_file;
 			$addons[ $slug ]['is_installed']     = $plugin_exists;
