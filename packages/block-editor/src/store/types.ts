@@ -8,10 +8,11 @@ import {
 	SET_CURRENT_BLOCK,
 	SET_CURRENT_CHILD_BLOCK,
 	REORDER_BLOCKS,
+	SET_BLOCKS,
 } from './constants';
 
 export type BlocksCache = {
-	[ x: string ]: {};
+	[x: string]: {};
 };
 
 /**
@@ -40,7 +41,7 @@ interface setupStoreAction {
 
 interface setBlockAttributesAction {
 	type: typeof SET_BLOCK_ATTRIBUTES;
-	attributes: Record< string, unknown >;
+	attributes: Record<string, unknown>;
 	blockId: string;
 	parentId?: string;
 }
@@ -52,6 +53,8 @@ interface __experimentalReorderBlocksAction {
 	parentSourceIndex?: number;
 	parentDestIndex?: number;
 }
+
+
 
 export type DraggedBlockDestination = {
 	index?: number;
@@ -67,6 +70,11 @@ interface __experimentalInsertBlockAction {
 interface setCurrentBlockAction {
 	type: typeof SET_CURRENT_BLOCK;
 	blockId: string;
+}
+
+interface setBlocksAction {
+	type: typeof SET_BLOCKS;
+	blocks: FormBlocks;
 }
 
 interface setCurrentChildBlockAction {
@@ -88,4 +96,5 @@ export type BlockEditorActionTypes =
 	| setCurrentBlockAction
 	| setCurrentChildBlockAction
 	| deleteBlockAction
-	| ReturnType< () => { type: 'NOOP' } >;
+	| setBlocksAction
+	| ReturnType<() => { type: 'NOOP' }>;

@@ -1,0 +1,12 @@
+
+.builder-core-block-controls-panel {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    .richtext__editor > div {
+        overflow-wrap: anywhere
+    }
+}

@@ -256,6 +256,7 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 		}
 
 		case GO_NEXT: {
+			console.log('GO_NEXT');
 			if (isAnimating || correctIncorrectDisplay) return state;
 			const nextFieldType = walkPath.find(
 				(block) => block.id === nextBlockId

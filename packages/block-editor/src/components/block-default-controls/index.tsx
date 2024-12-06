@@ -38,11 +38,11 @@ interface Props {
 	blockName: string;
 	attributes?: BlockAttributes;
 	setAttributes: (x: Record<string, unknown>) => void;
-	parentId?: String;
+	isChild?: boolean;
 }
 const DefaultControls: React.FC<Props> = ({
 	blockName,
-	parentId,
+	isChild,
 	attributes,
 	setAttributes,
 }) => {
@@ -111,7 +111,7 @@ const DefaultControls: React.FC<Props> = ({
 				</BaseControl>
 			)}
 
-			{attachmentSupport && !parentId && (
+			{attachmentSupport && !isChild && (
 				<>
 					<BaseControl>
 						<ControlWrapper>
@@ -404,7 +404,7 @@ const DefaultControls: React.FC<Props> = ({
 					</>
 				</BaseControl>
 			)}
-			{!parentId && (
+			{!isChild && (
 				<>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">

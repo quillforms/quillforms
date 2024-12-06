@@ -1,0 +1,15 @@
+.block-editor-block-edit__skeleton {
+	border: 1px solid #e3e3e3;
+	background: #fff;
+	border-left: none;
+	flex: 1;
+	flex-wrap: wrap;
+	position: relative;
+	height: 100%;
+	border-radius: 10px;
+
+	input, textarea {
+		// make them disabled
+		pointer-events: none;
+	}
+}

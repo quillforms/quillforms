@@ -169,19 +169,37 @@ export function setProperty<T extends keyof TreeItem>(
     id: UniqueIdentifier,
     property: T,
     setter: (value: TreeItem[T]) => TreeItem[T]
-) {
-    for (const item of items) {
+): TreeItems {
+    let updated = false; // Track whether any changes were made
+
+    const newItems = items.map((item) => {
         if (item.id === id) {
-            item[property] = setter(item[property]);
-            continue;
+            // Apply the setter function to the matching item's property
+            updated = true;
+            return {
+                ...item,
+                [property]: setter(item[property]),
+            };
         }
 
-        if (item.children.length) {
-            item.children = setProperty(item.children, id, property, setter);
-        }
-    }
+        if (item.innerBlocks.length) {
+            // Recursively update children
+            const newInnerBlocks = setProperty(item.innerBlocks, id, property, setter);
 
-    return [...items];
+            // Update `innerBlocks` only if changes were made
+            if (newInnerBlocks !== item.innerBlocks) {
+                updated = true;
+                return {
+                    ...item,
+                    innerBlocks: newInnerBlocks,
+                };
+            }
+        }
+
+        return item; // Return the item unchanged if no updates were made
+    });
+
+    return updated ? newItems : items; // Return the original array if no changes were made
 }
 
 function countChildren(items: TreeItem[], count = 0): number {

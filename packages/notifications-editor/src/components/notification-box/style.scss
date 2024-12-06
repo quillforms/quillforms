@@ -1,32 +1,118 @@
 .notifications-editor-notification-box {
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 5px;
-	background: #e5e5e5;
-	margin: 10px 0;
-	box-shadow: 0px 0px 0 1px #dcdbdb inset;
-
-	.notifications-editor-notification-box__actions,
-	.notifications-editor-notification-box__title,
-	.notifications-editor-notification-edit__back {
+	background: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	padding: 12px;
+	margin-bottom: 12px;
+	display: flex;
+	flex-direction: column; // Stack content vertically
+	gap: 8px;
+	align-items: flex-start;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  
+	&__title {
+	  display: flex;
+	  flex-direction: row-reverse;
+	  justify-content: space-between;
+	  align-items: center; // Align toggle control and title vertically
+	  width: 100%;
+	  color: #374151;
+	  font-size: 14px;
+	  line-height: 1.4;
+	  font-weight: 500;
+	  overflow: hidden;
+	  white-space: normal; // Allow wrapping for narrow content
+	  word-wrap: break-word;
+  
+	  .toggle-control-wrapper {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
+		gap: 8px;
+		margin-left: 23px;
+  
+		span {
+		  font-size: 12px;
+		  color: #6b7280;
+		}
+	  }
 	}
-
-	.notifications-editor-notification-box__status {
-		margin-right: 10px
-	}
-
-	.notifications-editor-notification-box__actions-edit {
-		margin-right: 10px;
-		color: #208787;
+  
+	&__actions {
+	  display: flex;
+	  justify-content: flex-start; // Align actions to the left
+	  gap: 8px;
+	  flex-wrap: wrap; // Allow wrapping for narrow content
+  
+	  &-edit,
+	  &-delete {
+		padding: 6px 8px;
+		border-radius: 4px;
+		font-size: 12px;
+		font-weight: 500;
 		cursor: pointer;
+		transition: all 0.2s;
+		border: 1px solid transparent;
+	  }
+  
+	  &-edit {
+		color: #2563eb;
+		background-color: #eff6ff;
+  
+		&:hover {
+		  background-color: #dbeafe;
+		}
+	  }
+  
+	  &-delete {
+		color: #dc2626;
+		background-color: #fee2e2;
+  
+		&:hover {
+		  background-color: #fecaca;
+		}
+	  }
 	}
-	.notifications-editor-notification-box__actions-delete {
-		color: #b26767;
-		cursor: pointer;
+  }
+  
+  .status-badge {
+	font-size: 12px;
+	font-weight: 500;
+	padding: 4px 8px;
+	border-radius: 4px;
+	text-transform: capitalize;
+  
+	&.active {
+	  background-color: #dcfce7;
+	  color: #16a34a;
 	}
-}
+  
+	&.inactive {
+	  background-color: #f3f4f6;
+	  color: #6b7280;
+	}
+  }
+  
+  // Responsive styles
+  @media (max-width: 768px) {
+	.notifications-editor-notification-box {
+	  gap: 8px;
+	  flex-direction: column;
+	}
+  
+	.notifications-editor-notification-box__actions {
+	  gap: 6px;
+	}
+  
+	.is-button.is-default.is-primary.is-large {
+	  font-size: 12px;
+	  padding: 8px 12px;
+	}
+  }
+  
+  // Ensure the email input takes full width
+  .react-multi-email {
+	> input {
+	  width: 100% !important;
+	}
+  }

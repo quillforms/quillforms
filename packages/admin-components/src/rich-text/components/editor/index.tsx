@@ -25,16 +25,18 @@ import type {
 	MergeTag,
 	allowedFormats,
 } from '../../types';
+import classNames from 'classnames';
 interface Props {
 	editor: ReactEditor & HistoryEditor;
 	placeholder?: string;
 	color?: string;
 	value: SlateNode[];
 	onChange: (value: SlateNode[]) => void;
-	onFocus: React.FocusEventHandler;
+	onFocus?: React.FocusEventHandler;
 	mergeTags?: MergeTags;
 	mergeTagsSections?: MergeTagsSections;
 	allowedFormats?: allowedFormats;
+	className?: string;
 }
 const TextEditor: React.FC<Props> = (props) => {
 	const {
@@ -153,7 +155,8 @@ const TextEditor: React.FC<Props> = (props) => {
 		},
 		[index, search, target]
 	);
-
+	console.log('TextEditor Rendered!');
+	console.log('initial value:', value);
 	// useEffect( () => {
 	// 	if ( target && $mergeTags.length > 0 ) {
 	// 		const el: HTMLDivElement | null = ref.current;
@@ -198,7 +201,7 @@ const TextEditor: React.FC<Props> = (props) => {
 	return (
 		<Fragment>
 			<div
-				className="richtext__editor"
+				className={classNames("richtext__editor", props.className)}
 				style={{ width: '100%' }}
 				ref={wrapperRef}
 			>
@@ -206,6 +209,7 @@ const TextEditor: React.FC<Props> = (props) => {
 					editor={editor}
 					initialValue={value}
 					onChange={(val) => {
+						console.log('On change called!');
 						onChange(val);
 						const { selection } = editor;
 

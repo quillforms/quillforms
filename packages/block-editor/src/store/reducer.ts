@@ -16,6 +16,7 @@ import {
 	SET_CURRENT_BLOCK,
 	SET_CURRENT_CHILD_BLOCK,
 	SETUP_STORE,
+	SET_BLOCKS,
 } from './constants';
 import type { BlockEditorActionTypes, BlockEditorPureState } from './types';
 import type { FormBlocks, FormBlock } from '@quillforms/types';
@@ -134,6 +135,14 @@ const BlockEditorReducer: Reducer<
 			};
 		}
 
+		case SET_BLOCKS: {
+			const { blocks } = action;
+			return {
+				...state,
+				blocks,
+			};
+		}
+
 		// SET BLOCK ATTRIBUTES
 		case SET_BLOCK_ATTRIBUTES: {
 			const { blockId, attributes, parentId } = action;
@@ -143,7 +152,7 @@ const BlockEditorReducer: Reducer<
 			if (!$blocks) {
 				return state;
 			}
-			if (typeof parentId !== 'undefined') {
+			if (typeof parentId !== 'undefined' && parentId !== blockId) {
 				parentIndex = $blocks.findIndex((block) => {
 					return block.id === parentId;
 				});

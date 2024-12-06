@@ -1,8 +1,26 @@
-const Icon = () => {
-	return (
-		<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"></path>
-		</svg>
-	);
-};
-export default Icon;
+const LongTextIcon = () => (
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+		<path
+			d="M4 7H20"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+		/>
+		<path
+			d="M4 10.5H20"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+		/>
+		<path
+			d="M4 14H20"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+		/>
+		<path
+			d="M4 17.5H14"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+		/>
+	</svg>
+);
+
+export default LongTextIcon;

@@ -1,9 +1,10 @@
-const Icon = () => {
-	return (
-		<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-		</svg>
-	);
-};
-
-export default Icon;
+const EmailIcon = () => (
+	<svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+		<path
+			fillRule="evenodd"
+			clipRule="evenodd"
+			d="M4 4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4H4ZM3.5 6C3.5 5.72386 3.72386 5.5 4 5.5H20C20.2761 5.5 20.5 5.72386 20.5 6V6.79521L12 11.7952L3.5 6.79521V6ZM3.5 8.45179V18C3.5 18.2761 3.72386 18.5 4 18.5H20C20.2761 18.5 20.5 18.2761 20.5 18V8.45179L12.5741 13.1771C12.2295 13.3904 11.7705 13.3904 11.4259 13.1771L3.5 8.45179Z"
+		/>
+	</svg>
+);
+export default EmailIcon;

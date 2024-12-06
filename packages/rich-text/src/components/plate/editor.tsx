@@ -108,7 +108,7 @@ export default function Editor({ value, onChange, customMergeTags = [] }) {
                         autoFocus: false,
                         className: cn(
                           'relative max-w-full leading-[1.4] outline-none [&_strong]:font-bold',
-                          '!min-h-[600px] w-[900px] px-[96px] py-[20px]'
+                          '!min-h-[200px] w-[900px] px-[96px] py-[20px]'
                         )
                       }}
                     >

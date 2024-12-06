@@ -20,15 +20,15 @@ import FormatBoldIcon from './bold-icon';
 import FormatItalicIcon from './italic-icon';
 interface Props {
 	className: string;
-	[ key: string ]: unknown;
+	[key: string]: unknown;
 }
 
-const Menu = forwardRef< HTMLDivElement, React.PropsWithChildren< Props > >(
-	( { className, ...props }, ref ) => (
+const Menu = forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
+	({ className, ...props }, ref) => (
 		<div
-			{ ...props }
-			ref={ ref }
-			className={ cx(
+			{...props}
+			ref={ref}
+			className={cx(
 				className,
 				css`
 					& > * {
@@ -38,61 +38,59 @@ const Menu = forwardRef< HTMLDivElement, React.PropsWithChildren< Props > >(
 						margin-left: 15px;
 					}
 				`
-			) }
+			)}
 		/>
 	)
 );
 
-const HoveringToolbar = ( {
+const HoveringToolbar = ({
 	toggleFormat,
 	isFormatActive,
 	formattingControls,
-} ) => {
-	const ref = useRef< HTMLDivElement | null >( null );
+}) => {
+	const ref = useRef<HTMLDivElement | null>(null);
 	const editor = useSlate();
 	const inFocus = useFocused();
-	useEffect( () => {
+	useEffect(() => {
 		const el = ref.current;
 		const { selection } = editor;
 
-		if ( ! el ) {
+		if (!el) {
 			return;
 		}
 
 		if (
-			! selection ||
-			! inFocus ||
-			Range.isCollapsed( selection ) ||
-			Editor.string( editor, selection ) === ''
+			!selection ||
+			!inFocus ||
+			Range.isCollapsed(selection) ||
+			Editor.string(editor, selection) === ''
 		) {
-			el.removeAttribute( 'style' );
+			el.removeAttribute('style');
 			return;
 		}
 
 		const domSelection = window.getSelection();
-		const domRange = domSelection?.getRangeAt( 0 );
+		const domRange = domSelection?.getRangeAt(0);
 		const rect = domRange?.getBoundingClientRect();
 		el.style.opacity = '1';
-		if ( rect ) {
-			el.style.top = `${
-				rect.top + window.pageYOffset - el.offsetHeight
-			}px`;
-			el.style.left = `${
-				rect.left +
+		if (rect) {
+			el.style.top = `${rect.top + window.pageYOffset - el.offsetHeight
+				}px`;
+			el.style.left = `${rect.left +
 				window.pageXOffset -
 				el.offsetWidth / 2 +
 				rect.width / 2
-			}px`;
+				}px`;
 		}
-	} );
+	});
 
 	return createPortal(
 		<Menu
-			ref={ ref }
-			className={ css`
+			ref={ref}
+			className={css`
 				padding: 8px 7px 6px;
 				position: absolute;
-				z-index: 1;
+				z-index: 22222;
 				top: -10000px;
 				left: -10000px;
 				margin-top: -6px;
@@ -106,29 +104,29 @@ const HoveringToolbar = ( {
 				}
 			` }
 		>
-			{ !! formattingControls && formattingControls.includes( 'bold' ) && (
+			{!!formattingControls && formattingControls.includes('bold') && (
 				<FormatButton
 					format="bold"
-					toggleFormat={ () => toggleFormat( 'bold' ) }
-					isFormatActive={ () => isFormatActive( 'bold' ) }
+					toggleFormat={() => toggleFormat('bold')}
+					isFormatActive={() => isFormatActive('bold')}
 				>
 					<FormatBoldIcon />
 				</FormatButton>
-			) }
-			{ !! formattingControls &&
-				formattingControls.includes( 'italic' ) && (
+			)}
+			{!!formattingControls &&
+				formattingControls.includes('italic') && (
 					<FormatButton
 						format="italic"
-						toggleFormat={ () => toggleFormat( 'italic' ) }
-						isFormatActive={ () => isFormatActive( 'italic' ) }
+						toggleFormat={() => toggleFormat('italic')}
+						isFormatActive={() => isFormatActive('italic')}
 					>
 						<FormatItalicIcon />
 					</FormatButton>
-				) }
-			{ !! formattingControls &&
-				formattingControls.includes( 'link' ) && (
-					<Link editor={ editor } />
-				) }
+				)}
+			{!!formattingControls &&
+				formattingControls.includes('link') && (
+					<Link editor={editor} />
+				)}
 		</Menu>,
 		document.body
 	);

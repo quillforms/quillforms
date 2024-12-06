@@ -45,6 +45,7 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 		innerBlocks,
 	} = __experimentalUseFieldRenderContext();
 	const theme = useBlockTheme(attributes?.themeId);
+	const { editor } = useFormContext();
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 
 	const isTouchScreen =
@@ -97,12 +98,14 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 	};
 
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		clearTimers();
 		setIsShaking(false);
 		if (shakingErr) setShakingErr(null);
 	}, [answerValue]);
 
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		if (!isActive) {
 			clearTimers();
 			setIsShaking(false);
@@ -127,6 +130,7 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 	};
 
 	useEffect(() => {
+		if (editor.mode === 'on' || isPreview) return;
 		if (isAnswered) {
 			const action = isActive
 				? 'QuillForms.RendererCore.FieldAnsweredActive'
@@ -140,6 +144,7 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 	}, [isAnswered, isActive]);
 
 	useEffect(() => {
+		if (editor.mode === 'on' || isPreview) return;
 		if (isActive) {
 			doAction('QuillForms.RendererCore.FieldActive', {
 				formId,

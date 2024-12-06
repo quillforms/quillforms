@@ -9,10 +9,12 @@ import classnames from 'classnames';
 import HtmlParser from '../html-parser';
 import { __experimentalUseFieldRenderContext } from '../field-render/context';
 import useBlockTheme from '../../hooks/use-block-theme';
-import { useFormSettings } from '../../hooks';
+import { useFormContext, useFormSettings } from '../../hooks';
 
 const BlockLabel: React.FC = () => {
 	const formSettings = useFormSettings();
+	const FormContext = useFormContext();
+	const { editor } = FormContext;
 	const { attributes } = __experimentalUseFieldRenderContext();
 	let label = '...';
 	if (attributes?.label) label = attributes.label;
@@ -41,7 +43,7 @@ const BlockLabel: React.FC = () => {
 				`
 			)}
 		>
-			<HtmlParser value={label} />
+			{editor?.mode === 'on' ? <editor.editLabel /> : <HtmlParser value={label} />}
 		</div>
 	);
 };

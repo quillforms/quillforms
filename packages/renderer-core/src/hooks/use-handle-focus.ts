@@ -1,87 +1,88 @@
 /**
  * WordPress Dependencies
  */
-import { useEffect, findDOMNode } from '@wordpress/element';
+import { useEffect, useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
+import useFormContext from './use-form-context';
 
-let focusTimer;
+let focusTimer: ReturnType<typeof setTimeout>;
+
 const useHandleFocus = (
-	inputRef,
+	inputRef: React.RefObject<any>,
 	isActive: boolean,
 	isTouchScreen: boolean
 ) => {
-	const { isAnimating, currentBlockId } = useSelect( ( select ) => {
+	const formContext = useFormContext();
+	if (formContext.editor.mode === 'on') return;
+	const { isAnimating, currentBlockId } = useSelect((select) => {
 		return {
-			isAnimating: select( 'quillForms/renderer-core' ).isAnimating(),
-			currentBlockId: select(
-				'quillForms/renderer-core'
-			).getCurrentBlockId(),
+			isAnimating: select('quillForms/renderer-core').isAnimating(),
+			currentBlockId: select('quillForms/renderer-core').getCurrentBlockId(),
 		};
-	} );
+	});
 
-	const { isFocused } = useSelect( ( select ) => {
+	const { isFocused } = useSelect((select) => {
 		return {
-			isFocused: select( 'quillForms/renderer-core' ).isFocused(),
+			isFocused: select('quillForms/renderer-core').isFocused(),
 		};
-	} );
+	});
 
-	const isVisible = ( ref ) => {
-		if ( ! ref?.current ) return false;
-		const current = ref?.current?.inputElement
-			? ref.current.inputElement
-			: ref.current;
-		const rect = (
-			findDOMNode( current ) as Element
-		 )?.getBoundingClientRect();
+	const isVisible = useCallback((ref: React.RefObject<any>) => {
+		if (!ref?.current) return false;
+
+		const element = ref.current.inputElement || ref.current;
+		if (!element) return false;
+
+		// Use native Element.getBoundingClientRect() directly on the element
+		const rect = element.getBoundingClientRect();
+		const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+		const viewWidth = window.innerWidth || document.documentElement.clientWidth;
 
 		return (
 			rect.top >= 0 &&
 			rect.left >= 0 &&
-			rect.bottom <=
-				( window.innerHeight ||
-					document.documentElement
-						.clientHeight ) /* or $(window).height() */ &&
-			rect.right <=
-				( window.innerWidth ||
-					document.documentElement
-						.clientWidth ) /* or $(window).width() */
+			rect.bottom <= viewHeight &&
+			rect.right <= viewWidth
 		);
-	};
+	}, []);
 
-	useEffect( () => {
-		if ( ! isTouchScreen && isFocused && isActive && ! isAnimating ) {
-			if ( isVisible( inputRef ) ) {
-				focusTimer = setTimeout( () => {
-					if ( inputRef?.current?.focus ) {
-						inputRef.current.focus();
-					} else if ( inputRef?.current?.inputElement?.focus ) {
-						inputRef.current.inputElement.focus();
+	useEffect(() => {
+		if (!isTouchScreen && isFocused && isActive && !isAnimating) {
+			if (isVisible(inputRef)) {
+				focusTimer = setTimeout(() => {
+					const element = inputRef?.current;
+					if (element?.focus) {
+						element.focus();
+					} else if (element?.inputElement?.focus) {
+						element.inputElement.focus();
 					}
-				}, 30 );
-			} else if ( currentBlockId ) {
+				}, 30);
+			} else if (currentBlockId) {
 				const el = document?.querySelector(
-					`#block-${ currentBlockId } .renderer-components-field-wrapper__content-wrapper`
+					`#block-${currentBlockId} .renderer-components-field-wrapper__content-wrapper`
 				) as HTMLElement;
 
-				focusTimer = setTimeout( () => {
-					if ( document.activeElement !== el ) el.focus();
-				}, 50 );
+				focusTimer = setTimeout(() => {
+					if (document.activeElement !== el) el.focus();
+				}, 50);
 			}
 		}
-	}, [ isFocused, isActive, isAnimating ] );
+	}, [isFocused, isActive, isAnimating, isTouchScreen, currentBlockId, inputRef, isVisible]);
 
-	useEffect( () => {
-		if ( ! isActive ) {
-			clearTimeout( focusTimer );
+	useEffect(() => {
+		if (!isActive) {
+			clearTimeout(focusTimer);
 		}
+
+		const element = inputRef?.current;
 		if (
-			inputRef?.current?.blur &&
-			! isActive &&
-			document.activeElement === inputRef.current
+			element?.blur &&
+			!isActive &&
+			document.activeElement === element
 		) {
-			inputRef.current.blur();
+			element.blur();
 		}
-	}, [ inputRef, isActive ] );
+	}, [inputRef, isActive]);
 };
 
 export default useHandleFocus;

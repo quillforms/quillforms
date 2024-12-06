@@ -1,5 +1,6 @@
 .admin-components-button {
 	display: inline-flex;
+	align-items: center;
 	text-decoration: none;
 	font-size: 11px;
 	margin: 0;
@@ -14,7 +15,6 @@
 
 	&.is-button {
 		padding: 0 10px 1px;
-		line-height: 26px;
 		height: 28px;
 		border-radius: 3px;
 		white-space: nowrap;
@@ -27,18 +27,24 @@
 		color: #333;
 		background: #d9d9d9;
 
-		&:hover {
-			background: #e6e6e6;
-		}
 	}
 
 	// Default button style
 	&.is-primary {
-		background: #6d78d8;
+		background: linear-gradient(135deg, #b027e4, #8778ff);
+		color: white;
+		padding: 8px 16px;
+		border-radius: 6px;
+		border: none;
+		font-size: 14px;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s;		
+
 		color: #fff;
 
 		&:hover {
-			background: #646fd4;
+			opacity: 0.9;
 		}
 
 	}

@@ -41,6 +41,7 @@ export const getDefaultBlockSupports = (): BlockSupportedFeatures => {
 	};
 };
 
+
 /**
  * Registers a new block provided a unique name and an object defining its
  * behavior. Once registered, the block is made available as an option to any
@@ -57,18 +58,18 @@ export const registerBlockType = (
 	settings: BlockTypeSettings
 ): BlockTypeSettings | undefined => {
 
-	if ( typeof name !== 'string' ) {
-		console.error( 'Block names must be strings.' );
+	if (typeof name !== 'string') {
+		console.error('Block names must be strings.');
 		return;
 	}
 
 	const isWPEnv = ConfigAPI.isWPEnv();
-	if( name === 'file' && !isWPEnv && window?.quillformsSaasManagerAdmin?.plan?.plan === 'free' ) {
+	if (name === 'file' && !isWPEnv && window?.quillformsSaasManagerAdmin?.plan?.plan === 'free') {
 		return;
 	}
 
-	if ( select( 'quillForms/blocks' ).getBlockType( name ) ) {
-		console.error( 'Block "' + name + '" is already registered.' );
+	if (select('quillForms/blocks').getBlockType(name)) {
+		console.error('Block "' + name + '" is already registered.');
 		return;
 	}
 
@@ -80,10 +81,10 @@ export const registerBlockType = (
 	let { attributes } = settings;
 	const { supports } = settings;
 
-	if ( ! attributes || ! isPlainObject( attributes ) ) {
+	if (!attributes || !isPlainObject(attributes)) {
 		attributes = {};
 	}
-	if ( supports.required ) {
+	if (supports.required) {
 		attributes.required = {
 			type: 'boolean',
 			default: false,
@@ -91,7 +92,7 @@ export const registerBlockType = (
 	}
 
 	attributes.nextBtnLabel = {
-		type: [ 'string', 'boolean' ],
+		type: ['string', 'boolean'],
 		default: false,
 	};
 
@@ -100,13 +101,13 @@ export const registerBlockType = (
 		default: '',
 	};
 
-	if ( supports.placeholder ) {
+	if (supports.placeholder) {
 		attributes.placeholder = {
-			type: [ 'string', 'boolean' ],
+			type: ['string', 'boolean'],
 			default: false,
 		};
 	}
-	if ( supports.attachment ) {
+	if (supports.attachment) {
 		attributes.attachment = {
 			type: 'object',
 			properties: {
@@ -117,28 +118,28 @@ export const registerBlockType = (
 		};
 	}
 
-	if ( supports.defaultValue ) {
+	if (supports.defaultValue) {
 		attributes.defaultValue = {
 			type: 'string',
 			default: '',
 		};
 	}
 
-	if ( supports.description ) {
+	if (supports.description) {
 		attributes.description = {
 			type: 'string',
 			default: '',
 		};
 	}
-	if ( supports.theme ) {
+	if (supports.theme) {
 		attributes.themeId = {
 			type: 'number',
 		};
 	}
 
-	if ( name === 'dropdown' ||
-		 name === 'multiple-choice' ||
-		 name === 'picture-choice' 
+	if (name === 'dropdown' ||
+		name === 'multiple-choice' ||
+		name === 'picture-choice'
 	) {
 		attributes.randomize = {
 			type: 'boolean',
@@ -182,12 +183,13 @@ export const registerBlockType = (
 
 	settings.attributes = attributes;
 
-	dispatch( 'quillForms/blocks' ).addBlockTypes( {
+	dispatch('quillForms/blocks').addBlockTypes({
 		name,
-		...pick( settings, [ 'attributes', 'supports', 'logicalOperators' ] ),
-	} );
-	setBlockRendererSettings( name, settings );
-	setBlockAdminSettings( name, settings );
+		...pick(settings, ['attributes', 'supports', 'logicalOperators']),
+	});
+	setBlockRendererSettings(name, settings);
+
+	setBlockAdminSettings(name, settings);
 	return settings;
 };
 
@@ -198,6 +200,6 @@ export const registerBlockType = (
  *
  * @return {?BlockTypeSettingss} Block type.
  */
-export function getBlockType( name: string ): BlockTypeSettings | undefined {
-	return select( 'quillForms/blocks' ).getBlockType( name );
+export function getBlockType(name: string): BlockTypeSettings | undefined {
+	return select('quillForms/blocks').getBlockType(name);
 }

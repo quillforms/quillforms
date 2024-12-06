@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { __experimentalDragDropContext as DragDropContext } from '@quillforms/admin-components';
+import { BlockEditSkeleton } from '@quillforms/block-editor';
 /**
  * WordPress Dependencies
  */
@@ -30,6 +30,7 @@ import type {
 } from 'react-beautiful-dnd';
 import { size } from 'lodash';
 import BlocksStructure from '../blocks-structure';
+import BlockControlsPanel from '../block-controls-panel';
 
 interface Props {
 	formId: number;
@@ -270,9 +271,10 @@ const Layout: React.FC<Props> = ({ formId }) => {
 		>
 			{builderPanelsBar}
 
-			{currentPanel && panel}
-			<BlocksStructure />
-			{(!areaToShow || areaToShow === 'preview-area') && formPreview}
+			{currentPanel ? panel : <BlocksStructure />}
+			{(!areaToShow) && <BlockEditSkeleton />}
+			{!areaToShow &&
+				<BlockControlsPanel />}
 		</div>
 	);
 };

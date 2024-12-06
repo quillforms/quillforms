@@ -8,7 +8,7 @@ import entryDetails from './entry-details';
 import getChoices from './get-choices';
 
 const blockAdminSettings = {
-	color: '#9e5210',
+	color: '#9B89B3',
 	icon: Icon,
 	entryDetails,
 	controls,

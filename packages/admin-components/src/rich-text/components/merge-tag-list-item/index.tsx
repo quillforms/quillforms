@@ -14,43 +14,43 @@ import { css } from 'emotion';
  */
 import getPlainExcerpt from '../../get-plain-excerpt';
 
-const MergeTagListItem = ( {
+const MergeTagListItem = ({
 	mergeTag,
 	onClick,
 	onMouseEnter,
 	isSelected,
-} ) => {
+}) => {
 	return (
 		<div
 			role="presentation"
-			className={ classnames( 'rich-text-merge-tag-list-item', {
+			className={classnames('rich-text-merge-tag-list-item', {
 				isSelected,
-			} ) }
-			onClick={ onClick }
-			onMouseEnter={ onMouseEnter }
+			})}
+			onClick={onClick}
+			onMouseEnter={onMouseEnter}
 		>
 			<div
-				className={ classnames(
+				className={classnames(
 					'rich-text-merge-tag-list-item__hidden-bg',
 					css`
-						background: ${ mergeTag?.color
+						background: ${mergeTag?.color
 							? mergeTag.color
-							: '#bb426f' };
+							: '#bb426f'};
 					`
-				) }
+				)}
 			/>
 			<BlockIconBox
-				color={ mergeTag?.color }
-				icon={ mergeTag?.icon ? mergeTag.icon : null }
-				order={ mergeTag?.order ? mergeTag.order : null }
+				color={mergeTag?.color}
+				icon={mergeTag?.icon ? mergeTag.icon : null}
+				order={mergeTag?.order ? mergeTag.order : null}
 			/>
 			<div
 				className="rich-text-merge-tag-list-item__title"
-				dangerouslySetInnerHTML={ {
+				dangerouslySetInnerHTML={{
 					__html: mergeTag?.label
-						? getPlainExcerpt( mergeTag.label )
+						? getPlainExcerpt(mergeTag.label)
 						: '',
-				} }
+				}}
 			/>
 		</div>
 	);

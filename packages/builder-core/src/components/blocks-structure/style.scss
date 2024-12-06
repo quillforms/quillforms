@@ -1,120 +1,208 @@
-.builder-core-blocks-list__wrapper {
-    background: #fff;
+.builder-core-blocks-list {
+  &__wrapper {
+    background: #ffffff;
     margin-right: 10px;
-    width: 330px;
+    width: 300px;
+    height: 100%; /* Set a fixed height for the container */
     overflow: hidden;
-    height: 100%;
-    border-radius: 10px;
-    max-height: 100%;
-    margin-bottom: 40px;
-    . {
-        padding: 20px;
-        overflow-y: auto;
-        max-height: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        position: relative;
-          
-          .tree-item {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            position: relative;
-          }
-          
-          .tree-item__content {
-            display: flex;
-            align-items: center;
-            padding: 8px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
-            user-select: none;
-            position: relative;
-          }
-          
-          .tree-item__content:hover {
-            background-color: #f5f5f5;
-          }
-          
-          .tree-item__content--clone {
-            opacity: 0.5;
-            background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-          }
-          
-          .tree-item__content--over {
-            background-color: rgba(0, 0, 0, 0.04);
-          }
-          
-          .tree-item__left-section {
-            flex: 1;
-            display: flex;
-            align-items: center;
-          }
-          
-          .tree-item__collapse-button {
-            margin-right: 8px;
-            display: flex;
-            align-items: center;
-          }
-          
-          .tree-item__spacer {
-            width: 40px;
-          }
-          
-          .tree-item__drag-handle {
-            display: flex;
-            align-items: center;
-            cursor: grab;
-          }
-          
-          .tree-item__name {
-            margin-left: 8px;
-          }
-          
-          .tree-item__actions {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-          }
-          
-          .icon-button {
-            padding: 4px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-          
-          .icon-button:hover {
-            background-color: rgba(0, 0, 0, 0.04);
-            border-radius: 4px;
-          }
-        
-        .builder-core-blocks-list-block.selected {
-            background: #f0f0ff !important;
-        }
-        .builder-core-blocks-list-group-label {
-            display: flex;
-            align-items: center;
-            position: relative;
-            
-            > span:last-child {
-                position: absolute;
-                right: 0;
-                top: 0px
-            }
-            .admin-components-block-icon-box {
-                margin-right: 10px
-            }
-        }
-        .admin-components-block-icon-box {
-            min-width: 55px !important;
-            max-width: 55px !important;
-        }
+    /* Smooth scrolling for a better UX */
+    scroll-behavior: smooth;
+
+    &:hover {
+      transition: box-shadow 0.3s ease;
     }
+  }
+
+  & {
+    padding: 20px;
+    height: 100%; /* Take full height of the wrapper */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background: #ffffff;
+    border-radius: 8px;
+
+    /* Scrollbar styles */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f9fafb; /* Light background for scrollbar track */
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #d1d5db; /* Subtle gray for the scrollbar thumb */
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #a1a1aa; /* Darker gray on hover for the scrollbar thumb */
+    }
+  }
+
+  .block-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 12px;
+    padding-left: 12px !important;
+    min-height: 62px !important;
+    margin: 8px 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      border-color: #cbd5e1;
+      transition: border 0.15s ease-in-out;
+      box-shadow: 0 2px 4px rgba(148, 163, 184, 0.05);
+    }
+
+    &.selected {
+      border-color: #60a5fa; /* Highlight the selected block */
+      background: #eaf4ff; /* Light blue background for the selected block */
+      box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); /* Subtle blue glow */
+    }
+
+    &.dragging {
+      cursor: grabbing;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      max-height: 62px;
+      border-color: #94a3b8;
+      opacity: 0.9;
+    }
+
+    // Group block styling
+    &.group-block {
+      position: relative;
+      padding: 16px;
+      background: #f9fafb; /* Default background for expanded group blocks */
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 16px; /* Add spacing for group blocks */
+
+      &[data-expanded="true"] {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Shadow for expanded blocks */
+      }
+
+      &[data-expanded="false"] {
+        background: #f1f5f9; /* Collapsed background */
+        box-shadow: none;
+      }
+
+      &.selected {
+        border-color: #60a5fa; /* Highlight the selected group block */
+        background: #eaf4ff; /* Light blue background */
+        box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); /* Subtle blue glow */
+      }
+    }
+
+    // Child block styling
+    &.child-block {
+      background: #ffffff;
+      margin-left: 24px;
+      border-left: 2px solid #60a5fa; /* Add a colored border to visually show hierarchy */
+
+      &.last-in-group {
+        margin-bottom: 30px; /* Add spacing for the last child block in a group */
+      }
+      &:hover {
+        border-left-color: #94a3b8;
+      }
+
+      &.selected {
+        border-color: #60a5fa;
+        background: #eaf4ff; /* Light blue background for selected child blocks */
+        box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); /* Subtle blue glow */
+      }
+    }
+
+    // Drop target indication
+    &[data-rbd-droppable-state="hover"] {
+      background: #f8fafc;
+      border-color: #64748b;
+    }
+
+    // Ghost item when dragging
+    &[data-rbd-placeholder] {
+      background: #f1f5f9;
+      border: 1px dashed #94a3b8;
+      margin: 8px 0;
+    }
+  }
+
+  // Block content styling
+  .block-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  // Block label styling
+  .block-label {
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.4;
+  }
+
+  // Admin components block icon box
+  .admin-components-block-icon-box {
+    width: 50px;
+    height: 28px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  // Group children wrapper
+  .group-children {
+    margin-top: 8px;
+    margin-left: 16px;
+    padding: 8px;
+    background: #ffffff; /* White background for group children */
+    border: 1px solid #e2e8f0; /* Border around group children */
+    border-radius: 8px;
+
+    &.selected {
+      border-color: #60a5fa; /* Highlight the selected group and its children */
+      background: #eaf4ff; /* Light blue background */
+      box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); /* Subtle blue glow */
+    }
+  }
+
+  // Collapse/expand icon
+  .collapse-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #64748b;
+    transition: all 0.2s ease;
+    margin-left: auto;
+    order: 99;
+
+    &:hover {
+      background: rgba(100, 116, 139, 0.08);
+      color: #475569;
+    }
+
+    .icon {
+      transition: transform 0.2s ease;
+
+      &.expanded {
+        transform: rotate(90deg);
+      }
+    }
+  }
 }

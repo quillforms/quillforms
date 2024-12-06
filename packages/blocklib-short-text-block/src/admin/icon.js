@@ -1,9 +1,15 @@
-const Icon = () => {
-	return (
-		<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M4 9h16v2H4V9zm0 4h10v2H4v-2z"></path>
-		</svg>
-	);
-};
-
-export default Icon;
+const ShortTextIcon = () => (
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+		<path
+			d="M4 9H20"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+		/>
+		<path
+			d="M4 14H12"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+		/>
+	</svg>
+);
+export default ShortTextIcon;

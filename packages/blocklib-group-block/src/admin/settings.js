@@ -4,7 +4,7 @@
 import Icon from './icon';
 
 const blockAdminSettings = {
-	color: '#27aec3',
+	color: '#6C5CE7',
 	icon: Icon,
 	title: 'Email',
 	order: 1,

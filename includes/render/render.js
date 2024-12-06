@@ -9,6 +9,9 @@
 			formObj: formObject,
 			formId: qfRender.formId,
 			applyLogic: true,
+			editor: {
+				mode: 'off'
+			},
 			customFonts: qfRender.customFonts,
 			onSubmit() {
 				const ajaxurl = qfRender.ajaxurl;

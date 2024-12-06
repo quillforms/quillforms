@@ -5,7 +5,7 @@ import controls from './controls';
 import Icon from './icon';
 
 const blockAdminSettings = {
-	color: '#709a2d',
+	color: '#98DFAF',
 	icon: Icon,
 	controls,
 	title: 'Short text',
