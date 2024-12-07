@@ -94,13 +94,15 @@ const ChoicesWrapper =
 				} else {
 					$val = [newValue];
 				}
-				setVal($val);
 				setChoiceClicked(false);
+				setVal($val);
+				checkfieldValidation($val);
 				setTimeout(() => {
 					setChoiceClicked(true);
-				}, 0);
+
+				}, 10);
+
 			}
-			checkfieldValidation($val);
 		};
 
 		const handleClick = useCallback(
