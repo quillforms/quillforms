@@ -155,8 +155,6 @@ const TextEditor: React.FC<Props> = (props) => {
 		},
 		[index, search, target]
 	);
-	console.log('TextEditor Rendered!');
-	console.log('initial value:', value);
 	// useEffect( () => {
 	// 	if ( target && $mergeTags.length > 0 ) {
 	// 		const el: HTMLDivElement | null = ref.current;

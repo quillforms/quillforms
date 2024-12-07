@@ -1,9 +1,8 @@
 import { useSelect, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
+import { autop } from '@wordpress/autop';
 import { Editor, Transforms } from 'slate';
-
-import { useState, useCallback, useMemo, useEffect } from '@wordpress/element';
-
+import { useState, useMemo, useEffect } from '@wordpress/element';
 
 /**
  * QuillForms Dependencies
@@ -14,253 +13,177 @@ import {
     __unstableReactEditor as ReactEditor,
     __unstableCreateEditor as createEditor,
     __unstableHtmlDeserialize as deserialize,
-
 } from '@quillforms/admin-components';
-import { useBlockTheme } from '@quillforms/renderer-core';
-import type { CustomNode } from '@quillforms/admin-components';
-
-
 
 /**
  * External Dependencies
  */
-import { debounce } from 'lodash';
 import { css } from 'emotion';
 
-const BlockEditor = ({ type }) => {
+/**
+ * BlockEditor Component
+ */
+const BlockEditor = ({ type }: { type: 'label' | 'description' }) => {
+    // Selectors and Dispatch
+    const { currentBlock, isAnimating } = useSelect((select) => ({
+        currentBlock: select('quillForms/block-editor').getCurrentBlock(),
+        isAnimating: select('quillForms/renderer-core').isAnimating(),
+    }));
 
-    const { currentBlock, isAnimating } = useSelect(select => {
-        return {
-            currentBlock: select('quillForms/block-editor').getCurrentBlock(),
-            isAnimating: select('quillForms/renderer-core').isAnimating(),
+    const { setBlockAttributes } = useDispatch('quillForms/block-editor');
+
+    // Destructure current block attributes
+    const { attributes, id } = currentBlock || {};
+    const label = attributes?.label || '';
+    const description = attributes?.description || '';
+
+    // Dynamically Initialize Editor and State Based on Type
+    const editor = useMemo(() => createEditor(), []); // Single editor instance for both label and description
+    const [editorValue, setEditorValue] = useState(() => {
+        if (type === 'label') {
+            return deserialize(label);
         }
+        if (type === 'description') {
+            return deserialize(autop(description));
+        }
+        return [];
     });
 
-    const { attributes, id } = currentBlock;
-
-    const label = attributes?.label ? attributes.label : '';
-    const description = attributes?.description ? attributes.description : '';
-    const getDeserializedValue = (val) => {
-        return deserialize(val);
-    };
-
-    const [labelJsonVal, setLabelJsonVal] = useState<CustomNode[]>(getDeserializedValue(label));
-
-    const [descJsonVal, setDescJsonVal] = useState<CustomNode[]>(getDeserializedValue(description));
-
-    // Handling the error state
-
-
-    // Deserialize value on mount
+    // Handle State Changes When `type` Changes
     useEffect(() => {
-        setLabelJsonVal(getDeserializedValue(label));
-        if (!!description)
-            setDescJsonVal(getDeserializedValue(description));
-    }, []);
-
-
-
-    // @ts-expect-error
-    const labelEditor: ReactEditor & HistoryEditor = useMemo(
-        () => createEditor(),
-        []
-    );
-
-    //@ts-expect-error
-    const descEditor: ReactEditor & HistoryEditor = useMemo(
-        () => createEditor(),
-        []
-    );
-
-
-    useEffect(() => {
-        if (!isAnimating) {
-            setTimeout(() => {
-                ReactEditor.focus(labelEditor);
-                // Move selection to end of editor
-                const point = Editor.end(labelEditor, []);
-                Transforms.select(labelEditor, point);
-            }, 50)
+        if (type === 'label') {
+            setEditorValue(deserialize(label));
+        } else if (type === 'description') {
+            setEditorValue(deserialize(autop(description)));
         }
-    }, [isAnimating]);
+    }, [type, label, description]);
 
-    const { setBlockAttributes } =
-        useDispatch('quillForms/block-editor');
+    // Merge Tags
+    const { blockTypes, correctIncorrectQuiz, prevFields } = useSelect((select) => ({
+        blockTypes: select('quillForms/blocks').getBlockTypes(),
+        correctIncorrectQuiz: select('quillForms/quiz-editor').getState(),
+        prevFields: select('quillForms/block-editor').getPreviousEditableFieldsWithOrder(id),
+    }));
 
-    const { blockTypes, correctIncorrectQuiz, prevFields } = useSelect((select) => {
-        return {
-            blockTypes: select('quillForms/blocks').getBlockTypes(),
-            correctIncorrectQuiz: select('quillForms/quiz-editor').getState(),
-            prevFields: select(
-                'quillForms/block-editor'
-            ).getPreviousEditableFieldsWithOrder(id),
-        };
-    });
-
-    // Serialize label is a debounced function that updates the store with serialized html value
-    const serializeLabel = () => {
-        setBlockAttributes(
-            id,
-            { label: serialize(labelJsonVal) },
-            undefined
-        );
-    }
-
-    // Serialize description is a debounced function that updates the store with serialized html value
-    const serializeDesc = () => {
-        setBlockAttributes(
-            id,
-            { description: serialize(descJsonVal) },
-            undefined
-        );
-    }
-
-
-
-    let mergeTags = prevFields.map((field) => {
-        return {
+    const mergeTags = useMemo(() => {
+        let tags = prevFields.map((field) => ({
             type: 'field',
             label: field?.attributes?.label,
             modifier: field.id,
             icon: blockTypes[field.name]?.icon,
             color: blockTypes[field.name]?.color,
             order: field.order,
-        };
-    });
-    mergeTags = mergeTags.concat(
-        applyFilters('QuillForms.Builder.MergeTags', []) as any[]
-    );
+        }));
 
-    if (correctIncorrectQuiz?.enabled) {
-        mergeTags = mergeTags.concat([
-            {
-                type: 'quiz',
-                label: 'Correct Answers Count',
-                modifier: 'correct_answers_count',
-                icon: 'yes',
-                color: '#4caf50',
-                order: undefined,
-            },
-            {
-                type: 'quiz',
-                label: 'Incorrect Answers Count',
-                modifier: 'incorrect_answers_count',
-                icon: 'no-alt',
-                color: '#f44336',
-                order: undefined,
-            },
-            {
-                type: 'quiz',
-                label: 'Quiz Summary',
-                modifier: 'summary',
-                icon: 'editor-table',
-                color: '#4caf50',
-                order: undefined,
+        tags = tags.concat(applyFilters('QuillForms.Builder.MergeTags', []) as any[]);
+
+        if (correctIncorrectQuiz?.enabled) {
+            tags = tags.concat([
+                {
+                    type: 'quiz',
+                    label: 'Correct Answers Count',
+                    modifier: 'correct_answers_count',
+                    icon: 'yes',
+                    color: '#4caf50',
+                },
+                {
+                    type: 'quiz',
+                    label: 'Incorrect Answers Count',
+                    modifier: 'incorrect_answers_count',
+                    icon: 'no-alt',
+                    color: '#f44336',
+                },
+                {
+                    type: 'quiz',
+                    label: 'Quiz Summary',
+                    modifier: 'summary',
+                    icon: 'editor-table',
+                    color: '#4caf50',
+                },
+            ]);
+        }
+
+        return tags;
+    }, [prevFields, blockTypes, correctIncorrectQuiz]);
+
+    // Focus on Editor When Animation Ends or Type Changes
+    useEffect(() => {
+        if (!isAnimating) {
+            setTimeout(() => {
+                ReactEditor.focus(editor); // Focus the editor
+                const point = Editor.end(editor, []); // Move cursor to the end
+                Transforms.select(editor, point);
+            }, 50); // Slight delay to ensure the editor is mounted
+        }
+    }, [isAnimating, type, editor]);
+
+    // Handle Editor Change
+    const handleEditorChange = (value: CustomNode[]) => {
+        if (JSON.stringify(value) !== JSON.stringify(editorValue)) {
+            setEditorValue(value);
+
+            // Update block attributes in the store
+            if (type === 'label') {
+                setBlockAttributes(id, { label: serialize(value) });
+            } else if (type === 'description') {
+                setBlockAttributes(id, { description: serialize(value) });
             }
-        ]);
-    }
-
-    // Title Change Handler
-    const labelChangeHandler = (value: Node[]) => {
-        if (JSON.stringify(value) !== JSON.stringify(label)) {
-            setLabelJsonVal(value);
-            serializeLabel(value);
         }
     };
 
-    // // Description Change Handler
-    const descChangeHandler = (value) => {
-        if (JSON.stringify(value) !== JSON.stringify(description)) {
-            setDescJsonVal(value);
-            serializeDesc(value);
+    // Editor Styling
+    const editorStyle = css`
+        p {
+            color: inherit !important;
+            font-family: inherit !important;
+            margin: 0;
+            @media (min-width: 768px) {
+                font-size: inherit !important;
+                line-height: inherit !important;
+            }
+            @media (max-width: 767px) {
+                font-size: inherit !important;
+                line-height: inherit !important;
+            }
         }
+    `;
+
+    const descriptionStyle = css`
+        margin-top: 12px;
+        p {
+            opacity: 0.7;
+            color: inherit !important;
+            font-family: inherit !important;
+            @media (min-width: 768px) {
+                font-size: inherit !important;
+                line-height: inherit !important;
+            }
+            @media (max-width: 767px) {
+                font-size: inherit !important;
+                line-height: inherit !important;
+            }
+        }
+    `;
+
+    const handleFocus = () => {
+        ReactEditor.focus(editor);
     };
 
-
-    // Title Rich Text Editor
-    const LabelEditor = useMemo(() => (
-        <div className="block-editor-block-edit__title-editor">
+    // Render Editor Based on Type
+    return (
+        <div className="block-editor-block-edit__editor">
             <TextEditor
-                editor={labelEditor}
-                placeholder="Type question here..."
-                className={
-                    css`
-                        p {
-                            color: inherit !important;
-                            font-family:inherit !important;
-                            margin: 0;
-                            @media ( min-width: 768px ) {
-                                font-size: inherit !important;
-                                line-height: inherit !important;
-                            }
-                            @media ( max-width: 767px ) {
-                                font-size: inherit !important;
-                                line-height: inherit !important;
-                            }
-                        }
-				    `
-                }
+                editor={editor}
+                placeholder={type === 'label' ? 'Type question here...' : 'Add a description'}
+                className={type === 'label' ? editorStyle : descriptionStyle}
                 mergeTags={mergeTags}
-                value={labelJsonVal}
-                onChange={(value) => labelChangeHandler(value)}
+                value={editorValue}
+                onFocus={handleFocus}
+                onChange={handleEditorChange}
                 allowedFormats={['bold', 'italic', 'link']}
             />
         </div>
-    ), [JSON.stringify(labelJsonVal), JSON.stringify(mergeTags), id]
     );
-
-    const DescEditor = useMemo(
-        () => (
-            <div className="block-editor-block-edit__title-editor">
-                <TextEditor
-                    editor={descEditor}
-                    placeholder="Add a description"
-                    className={
-                        css`
-                            margin-top: 12px;
-
-                            p {
-                                opacity: 0.7;
-
-                                color: inherit !important;
-                                font-family:inherit !important;
-                                @media ( min-width: 768px ) {
-                                    font-size:inherit
-                                .lg} !important;
-                                    line-height: inherit !important;
-                                }
-                                @media ( max-width: 767px ) {
-                                    font-size: inherit !important;
-                                    line-height: inherit !important;
-                                }
-                            }
-                        `
-                    }
-                    mergeTags={mergeTags}
-                    value={descJsonVal}
-                    onChange={(value) => descChangeHandler(value)}
-                    onFocus={() => {
-                        // if (parentId) {
-                        //     setCurrentBlock(parentId);
-                        //     setCurrentChildBlock(id);
-                        // } else {
-                        //     setCurrentBlock(id);
-                        // }
-                    }}
-                    allowedFormats={['bold', 'italic', 'link']}
-                />
-            </div>
-        ),
-        [JSON.stringify(descJsonVal), JSON.stringify(mergeTags), id]
-    );
-    return (
-
-        <>
-            {type === 'label' && LabelEditor}
-            {/* {type === 'description' && DescEditor} */}
-        </>
-    )
-}
+};
 
 export default BlockEditor;
-

@@ -90,6 +90,7 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 	} = state;
 	switch (action.type) {
 		case SET_SWIPER_STATE: {
+			console.log('SET_SWIPER_STATE');
 			const newSwiperState = action.swiperState;
 			let validBlocksStructure = true;
 			forEach(
@@ -221,7 +222,8 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 			const isLastField =
 				newWalkPath?.length > 0 &&
 				newWalkPath[newWalkPath.length - 1].id == newCurrentBlockId;
-
+			console.log('isLastField', isLastField);
+			console.log(newSwiperState)
 			return {
 				...state,
 				...newSwiperState,

@@ -167,7 +167,9 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 
 	const props = {
 		id,
-		next,
+		next: () => {
+			next();
+		},
 		attributes,
 		isValid,
 		isPending,
