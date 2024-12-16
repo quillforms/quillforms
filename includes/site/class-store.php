@@ -501,7 +501,7 @@ class Store {
 					'description'    => esc_html__( 'Google Tag Manager addon allows you to add Google Tag Manager to your forms and track user activity and form submissions.', 'quillforms' ),
 					'plugin_file'    => 'quillforms-googletagmanager/quillforms-googletagmanager.php',
 					'plan'           => 'basic',
-					'is_integration' => false,
+					'is_integration' => true,
 					'assets'         => array(
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googletagmanager/icon.svg',
 					),
@@ -726,7 +726,7 @@ class Store {
 					'description'    => esc_html__( 'Track your users activity and behavior by google analytics.', 'quillforms' ),
 					'plugin_file'    => 'quillforms-googleanalytics/quillforms-googleanalytics.php',
 					'plan'           => 'basic',
-					'is_integration' => false,
+					'is_integration' => true,
 					'assets'         => array(
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/googleanalytics/icon.svg',
 					),
@@ -736,7 +736,7 @@ class Store {
 					'description'    => esc_html__( 'Track your users activity and behavior by facebook pixel.', 'quillforms' ),
 					'plugin_file'    => 'quillforms-facebookpixel/quillforms-facebookpixel.php',
 					'plan'           => 'basic',
-					'is_integration' => false,
+					'is_integration' => true,
 					'assets'         => array(
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/facebookpixel/icon.svg',
 					),
