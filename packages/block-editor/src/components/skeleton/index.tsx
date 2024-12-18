@@ -20,19 +20,20 @@ import { TailSpin as Loader } from 'react-loader-spinner';
 import classnames from 'classnames';
 import { css } from 'emotion';
 
-const editLabel = () => {
-    return <Editor type="label" />;
+const editLabel = ({ childId, childIndex, parentId }) => {
+    return <Editor childId={childId} childIndex={childIndex} parentId={parentId} type="label" />;
 }
 const editDescription = () => {
     return <Editor type="description" />;
 }
 const Skeleton = () => {
 
-    //     const { currentBlockId } = useSelect(select => {
-    //         return {
-    //             currentBlockId: select('quillForms/block-editor').getCurrentBlockId()
-    //         }
-    //     });
+    const { currentChildBlockId } = useSelect(select => {
+        return {
+            currentChildBlockId: select('quillForms/block-editor').getCurrentChildBlockId()
+        }
+    });
+
     //     const [readyToRender, setReadyToRender] = useState(false);
 
     //     useEffect(() => {
@@ -87,7 +88,8 @@ const Skeleton = () => {
         };
     });
 
-    const { setSwiper } = useDispatch('quillForms/renderer-core');
+    const { goToBlock, setSwiper } = useDispatch('quillForms/renderer-core');
+    const { setCurrentBlock, setCurrentChildBlock } = useDispatch('quillForms/block-editor');
 
     const $themesList = cloneDeep(themesList);
     if (themeId) {
@@ -100,9 +102,6 @@ const Skeleton = () => {
     }
 
 
-    const { goToBlock } = useDispatch(
-        'quillForms/renderer-core'
-    );
 
     useEffect(() => {
         if (!hasThemesFinishedResolution) return;
@@ -139,8 +138,32 @@ const Skeleton = () => {
         currentBlockBeingEdited,
         hasThemesFinishedResolution,
     ]);
+
+
+    // Ensure the active child block is visible on the screen
+    useEffect(() => {
+        if (currentChildBlockId) {
+            const blockElement = document.querySelector(`.renderer-core-child-block-${currentChildBlockId}`);
+            if (blockElement) {
+                const rect = blockElement.getBoundingClientRect();
+                const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+                if (!isVisible) {
+                    blockElement.scrollIntoView({
+                        behavior: 'smooth', // Smooth scrolling
+                        block: 'end', // Scroll to the center of the viewport
+                        inline: 'nearest',
+                    });
+
+                }
+            }
+        }
+    }, [currentChildBlockId]);
+
     return (
-        <div className="block-editor-block-edit__skeleton">
+        <div className={classnames("block-editor-block-edit__skeleton", {
+            'is-child-active': currentChildBlockId
+        })}>
             {!hasThemesFinishedResolution || !hasFontsFinishedResolution ? (
                 <div
                     className={classnames(
@@ -177,7 +200,13 @@ const Skeleton = () => {
                             editor={{
                                 mode: 'on',
                                 editLabel,
-                                editDescription
+                                editDescription,
+                                isChildActive: (id) => id === currentChildBlockId,
+                                setIsChildActive: (id) => setCurrentChildBlock(id),
+                                onClick: (id) => {
+                                    setCurrentBlock(id);
+                                    setCurrentChildBlock(null);
+                                },
                             }}
                             isPreview={true}
                         />

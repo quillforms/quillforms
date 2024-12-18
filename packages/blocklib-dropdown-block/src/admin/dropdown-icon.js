@@ -1,15 +1,15 @@
-const DropdownIcon = () => (
-	<svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
-		<path
-			fillRule="evenodd"
-			clipRule="evenodd"
-			d="M4 5C2.89543 5 2 5.89543 2 7V17C2 18.1046 2.89543 19 4 19H20C21.1046 19 22 18.1046 22 17V7C22 5.89543 21.1046 5 20 5H4ZM3.5 7C3.5 6.72386 3.72386 6.5 4 6.5H20C20.2761 6.5 20.5 6.72386 20.5 7V17C20.5 17.2761 20.2761 17.5 20 17.5H4C3.72386 17.5 3.5 17.2761 3.5 17V7Z"
-		/>
-		<path
-			fillRule="evenodd"
-			clipRule="evenodd"
-			d="M16.5303 10.9697C16.8232 11.2626 16.8232 11.7374 16.5303 12.0303L12.5303 16.0303C12.2374 16.3232 11.7626 16.3232 11.4697 16.0303L7.46967 12.0303C7.17678 11.7374 7.17678 11.2626 7.46967 10.9697C7.76256 10.6768 8.23744 10.6768 8.53033 10.9697L12 14.4393L15.4697 10.9697C15.7626 10.6768 16.2374 10.6768 16.5303 10.9697Z"
-		/>
-	</svg>
-);
-export default DropdownIcon;
+const DropdownArrow = ({ color = "currentColor", size = 24 }) => {
+	return (
+		<svg
+			width={size}
+			height={size}
+			viewBox="0 0 24 24"
+			fill={color}
+		>
+			<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
+		</svg>
+	);
+};
+
+export default DropdownArrow;
+

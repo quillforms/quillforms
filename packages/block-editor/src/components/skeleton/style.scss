@@ -7,9 +7,38 @@
 	position: relative;
 	height: 100%;
 	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+
+	.renderer-core-block-scroller {
+		scrollbar-width: none; /* For Firefox */
+		&::-webkit-scrollbar {
+			display: none; /* For Chrome, Safari, and Edge */
+		}
+	}
+
+	
+
 
 	input, textarea {
 		// make them disabled
 		pointer-events: none;
+		user-select: none;
 	}
+
+	.renderer-core-child-block {
+		opacity: 0.3;
+		transition: opacity 0.3s;
+
+	}
+	
+	.renderer-core-child-block.renderer-core-child-block-editor-active {
+		opacity: 1;
+	}
+}
+
+
+.block-editor-block-edit__skeleton.is-child-active .blocktype-group-block .renderer-components-question-header {
+    opacity: 0.3 !important
 }

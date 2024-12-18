@@ -35,7 +35,7 @@ const MergeTagListItem = ({
 					css`
 						background: ${mergeTag?.color
 							? mergeTag.color
-							: '#bb426f'};
+							: '#ffc5db'};
 					`
 				)}
 			/>

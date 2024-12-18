@@ -1,3 +1,45 @@
+.builder-core-panel-modal {
+    & {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 11111;;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        z-index: 11111;
+        justify-content: center;
+    }
+
+    .admin-components-control-label {
+        max-width: none;
+    }
+    .builder-core-panel {
+        & {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+    }
+}
+.builder-core-full-screen-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 10px;
+    bottom: 0;
+    min-height: 100% !important;
+    z-index: 11111;
+}
+.builder-core-full-screen-panel .builder-core-panel {
+    height: 100%
+}
 .builder-core-panel {
     & {
         overflow: hidden;
@@ -12,9 +54,10 @@
 
     }
 
+
     .builder-core-panel__content-wrapper {
 		position: static;
-        padding: 24px;
+        padding: 20px;
         overflow-y: auto;
         height: 100%;
         padding-bottom: 24px;

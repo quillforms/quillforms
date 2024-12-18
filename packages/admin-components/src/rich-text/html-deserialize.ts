@@ -79,6 +79,13 @@ const deserialize = (el: HTMLElement | ChildNode) => {
 				},
 			],
 		}),
+		SPAN: () => {
+			// Check if the `<span>` has a `style="color: ..."` attribute
+			const style = (el as HTMLElement).getAttribute('style');
+			const colorMatch = style?.match(/color:\s*([^;]+);?/);
+			const textColor = colorMatch ? colorMatch[1] : undefined;
+			return textColor ? { textColor } : {};
+		},
 		A: () => ({
 			type: 'link',
 			url: (el as HTMLElement).getAttribute('href'),

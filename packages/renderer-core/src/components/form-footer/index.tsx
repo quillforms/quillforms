@@ -21,9 +21,9 @@ import { useCurrentTheme, useFormContext, useMessages } from '../../hooks';
 import { random, size } from 'lodash';
 import { useEffect } from 'react';
 
-const FormFooter: React.FC = memo( () => {
+const FormFooter: React.FC = memo(() => {
 	const theme = useCurrentTheme();
-	const { formObj } = useFormContext();
+	const { formObj, editor } = useFormContext();
 	const messages = useMessages();
 	const {
 		currentBlockId,
@@ -31,7 +31,7 @@ const FormFooter: React.FC = memo( () => {
 		isThankyouScreenActive,
 		shouldFooterBeDisplayed,
 		correctIncorrectDisplay,
-	} = useSelect( ( select ) => {
+	} = useSelect((select) => {
 		return {
 			currentBlockId: select(
 				'quillForms/renderer-core'
@@ -49,49 +49,47 @@ const FormFooter: React.FC = memo( () => {
 				'quillForms/renderer-core'
 			).getCorrectIncorrectDisplay(),
 		};
-	} );
+	});
 
-	const { isCurrentFieldAnswerCorrect } = useSelect( ( select ) => {
+	const { isCurrentFieldAnswerCorrect } = useSelect((select) => {
 		return {
 			isCurrentFieldAnswerCorrect: select(
 				'quillForms/renderer-core'
-			)?.isFieldAnswerCorrect( currentBlockId ),
+			)?.isFieldAnswerCorrect(currentBlockId),
 		};
-	} );
+	});
 
-	if ( ! currentBlockId ) return null;
+	if (!currentBlockId || editor.mode === 'on') return null;
 	return (
 		<div
-			className={ classnames(
+			className={classnames(
 				'renderer-components-form-footer',
 				{
 					hidden: isWelcomeScreenActive || isThankyouScreenActive,
 				},
 				css`
-					@media ( min-width: 768px ) {
-						background: ${ theme.formFooterBgColor.lg } !important;
-					}
+
 					@media ( max-width: 767px ) {
-						background: ${ theme.formFooterBgColor.sm } !important;
+						background: ${theme.formFooterBgColor.sm} !important;
 					}
 				`
-			) }
-			tabIndex={ -1 }
+			)}
+			tabIndex={-1}
 		>
 			<div className="renderer-components-form-footer__inner">
 				<SaveBtn />
-				{ ! formObj?.settings?.disableProgressBar && <ProgressBar /> }
-				{ ! formObj?.settings?.disableNavigationArrows && (
+				{!formObj?.settings?.disableProgressBar && <ProgressBar />}
+				{!formObj?.settings?.disableNavigationArrows && (
 					<FieldNavigation
-						shouldFooterBeDisplayed={ shouldFooterBeDisplayed }
+						shouldFooterBeDisplayed={shouldFooterBeDisplayed}
 					/>
-				) }
-				{ formObj?.settings?.displayBranding && (
+				)}
+				{formObj?.settings?.displayBranding && (
 					<div
-						className={ classnames(
-							`renderer-core-powered-by-branding-${ random(
+						className={classnames(
+							`renderer-core-powered-by-branding-${random(
 								100
-							) }`,
+							)}`,
 							css`
 								display: block !important;
 								visibility: visible !important;
@@ -101,12 +99,12 @@ const FormFooter: React.FC = memo( () => {
 									visibility: visible !important;
 								}
 							`
-						) }
+						)}
 					>
 						<a
-							className={ css`
-								background: ${ theme.buttonsBgColor } !important;
-								color: ${ theme.buttonsFontColor } !important;
+							className={css`
+								background: ${theme.buttonsBgColor} !important;
+								color: ${theme.buttonsFontColor} !important;
 								box-shadow: none !important;
 								text-decoration: none !important;
 								padding: 5px 8px;
@@ -121,29 +119,30 @@ const FormFooter: React.FC = memo( () => {
 							Powered By Quill Forms
 						</a>
 					</div>
-				) }
-
-				<div
-					className={ classnames(
-						`renderer-core-correct-incorrect-result`,
-						{
-							active: correctIncorrectDisplay,
-						},
-						css`
+				)}
+				{editor.mode === 'off' && formObj.correctIncorrectQuiz?.enabled && (
+					< div
+						className={classnames(
+							`renderer-core-correct-incorrect-result`,
+							{
+								active: correctIncorrectDisplay,
+							},
+							css`
 							z-index: 999999999;
 							color: #fff;
-							background: ${ isCurrentFieldAnswerCorrect
-								? '#5bc68a'
-								: '#d93148' };
+							background: ${isCurrentFieldAnswerCorrect
+									? '#5bc68a'
+									: '#d93148'};
 						`
-					) }
-				>
-					{ isCurrentFieldAnswerCorrect
-						? messages[ 'label.correct' ]
-						: messages[ 'label.incorrect' ] }
-				</div>
+						)}
+					>
+						{isCurrentFieldAnswerCorrect
+							? messages['label.correct']
+							: messages['label.incorrect']}
+					</div>
+				)}
 			</div>
-		</div>
+		</div >
 	);
-} );
+});
 export default FormFooter;

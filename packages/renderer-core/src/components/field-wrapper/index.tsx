@@ -408,6 +408,7 @@ const FieldWrapper: React.FC = () => {
 								tabIndex={0}
 								// @ts-expect-error
 								onKeyDown={(e: KeyboardEvent): void => {
+									if (editor.mode === 'on') return;
 									const isShiftPressed = e.shiftKey;
 									if (isAnimating) {
 										e.preventDefault();

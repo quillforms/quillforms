@@ -122,3 +122,52 @@ body.js.is-fullscreen-mode {
 	max-height: 100% !important;
 	max-width: 100% !important;
 }
+
+.builder-core-settings-code-subpanel{
+	height: 100%;
+}
+
+.logic-editor-calculator-calculator-action .logic-editor-calculator-calculator-action__calculation {
+    align-items:baseline !important;
+}
+
+.logic-conditions .admin-components-button.is-button {
+    height: auto !important;
+    font-size: 12px;
+    font-weight: 400;
+    display: inline-flex;
+    justify-content: center;
+    padding: 8px 5px;
+    width: 60px;
+    text-transform:uppercase !important;
+}
+.points-block-body .points-block-choice-label-key {
+    min-width: 30px;
+    min-height: 30px;
+    color: #333;
+    font-size: 14px
+}
+.points-block-body .points-block-choice {
+    align-items: baseline;
+}
+.points-block-choice-label-wrapper {
+    width: 600px !important;
+    height: 50px !important;
+}
+.points-block-body .components-text-control__input {
+    height: 50px !important
+}
+.builder-core-jump-logic-panel .builder-core-panel__content-wrapper > div {
+    inset: 0px;
+}
+.builder-core-jump-logic-panel .react-flow__node > div {
+    border: 1px solid #ebe9e9
+
+}
+.jump-logic-modal .components-modal__header {
+	background: #fff !important;
+	border-bottom: 1px solid #e7e7e7
+}
+ .jump-logic-modal .components-modal__header .components-modal__header-heading {
+	color: #333 !important;
+}

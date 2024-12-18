@@ -8,14 +8,17 @@ import BlockControlsHeader from '../block-controls-header';
  * Internal Dependencies
  */
 import DefaultControls from '../block-default-controls';
+import { size } from 'lodash';
 
 const BlockControls = () => {
+	// Get the block editor dispatcher
 	const { setBlockAttributes } = useDispatch('quillForms/block-editor');
 
-	let {
+	// Select necessary block editor state
+	const {
 		currentBlockId,
-		currentChildBlockIndex,
 		currentChildBlockId,
+		currentChildBlockIndex,
 		currentFormBlock,
 		blockTypes,
 	} = useSelect((select) => {
@@ -27,57 +30,63 @@ const BlockControls = () => {
 		} = select('quillForms/block-editor');
 		return {
 			currentBlockId: getCurrentBlockId(),
-			currentChildBlockIndex: getCurrentChildBlockIndex(),
 			currentChildBlockId: getCurrentChildBlockId(),
+			currentChildBlockIndex: getCurrentChildBlockIndex(),
 			currentFormBlock: getCurrentBlock(),
 			blockTypes: select('quillForms/blocks').getBlockTypes(),
 		};
 	});
 
-	if (!currentBlockId || !currentFormBlock) return null;
-	if (
-		currentChildBlockId &&
-		typeof currentChildBlockIndex !== 'undefined'
-	) {
-		currentFormBlock =
-			currentFormBlock?.innerBlocks?.[currentChildBlockIndex];
-		currentBlockId = currentChildBlockId;
-	}
+	// Return null if no block is selected
 	if (!currentBlockId || !currentFormBlock) return null;
 
-	const parentId = currentFormBlock?.id;
-	const blockType = blockTypes[currentFormBlock.name];
+	// Determine if the current block is a child block
+	const isChildBlock = !!currentChildBlockId && currentChildBlockIndex !== undefined && size(currentFormBlock.innerBlocks) > 0;
 
-	const { name } = currentFormBlock;
+	// Get the relevant block attributes and name
+	const parentId = currentFormBlock.id;
+	const activeBlock = isChildBlock
+		? currentFormBlock?.innerBlocks[currentChildBlockIndex]
+		: currentFormBlock;
+	const { attributes, name: blockName } = activeBlock;
+	const blockType = blockTypes[activeBlock.name];
+
+	// Utility function to set attributes
+	const handleSetAttributes = (val) => {
+		if (isChildBlock) {
+			setBlockAttributes(currentChildBlockId, val, parentId);
+		} else {
+			setBlockAttributes(currentBlockId, val);
+		}
+	};
 
 	return (
 		<div className="block-editor-block-controls">
+			{/* Block Controls Header */}
 			<BlockControlsHeader
-				id={currentBlockId}
-				blockName={currentFormBlock.name}
+				id={isChildBlock ? currentChildBlockId : currentBlockId}
+				blockName={blockName}
 			/>
+
+			{/* Default Controls */}
 			<DefaultControls
-				blockName={name}
-				isChild={currentChildBlockId ? true : false}
-				attributes={currentFormBlock.attributes}
-				setAttributes={(val) => {
-					if (currentBlockId)
-						setBlockAttributes(currentBlockId, val, parentId);
-				}}
+				blockName={blockName}
+				isChild={isChildBlock}
+				attributes={attributes}
+				setAttributes={handleSetAttributes}
 			/>
+
+			{/* Custom Controls (if any) */}
 			{blockType?.controls && (
 				<blockType.controls
-					id={currentBlockId}
-					parentId={currentChildBlockId ? currentFormBlock.id : null}
-					// @ts-expect-error
-					attributes={currentFormBlock.attributes}
-					setAttributes={(val) => {
-						if (currentBlockId)
-							setBlockAttributes(currentBlockId, val, parentId);
-					}}
+					id={isChildBlock ? currentChildBlockId : currentBlockId}
+					parentId={isChildBlock ? parentId : null}
+					attributes={attributes}
+					setAttributes={handleSetAttributes}
 				/>
 			)}
 		</div>
 	);
 };
+
 export default BlockControls;

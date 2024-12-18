@@ -118,6 +118,7 @@ const BlockEditorReducer: Reducer<
 	BlockEditorPureState,
 	BlockEditorActionTypes
 > = (state = initialState, action): BlockEditorPureState => {
+	console.log(action);
 	switch (action.type) {
 		// SET UP STORE
 		case SETUP_STORE: {
@@ -340,6 +341,7 @@ const BlockEditorReducer: Reducer<
 		// SET CURRENT BLOCK
 		case SET_CURRENT_BLOCK: {
 			const { blockId } = action;
+
 			const blockIndex = state.blocks.findIndex(
 				(item) => item.id === blockId
 			);
@@ -347,6 +349,9 @@ const BlockEditorReducer: Reducer<
 			if (blockIndex === -1) {
 				return state;
 			}
+
+			if (blockId === state.currentBlockId)
+				return state;
 			return {
 				...state,
 				currentBlockId: blockId,

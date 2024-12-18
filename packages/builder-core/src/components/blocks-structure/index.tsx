@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import Tree, {
     mutateTree,
@@ -13,9 +13,14 @@ import Tree, {
 import { identAlphabetically } from "@quillforms/utils";
 
 import { BlockIconBox, getPlainExcerpt } from "@quillforms/admin-components";
+import { BlockActions } from "@quillforms/block-editor";
+
 
 import { useSelect, useDispatch } from "@wordpress/data";
 import { de } from "date-fns/locale";
+import { FormBlock, FormBlocks } from "@quillforms/types";
+import { size } from "lodash";
+
 
 // Your custom block structure
 type Attributes = {
@@ -26,82 +31,10 @@ type Block = {
     id: ItemId;
     name: string;
     attributes: Attributes;
-    innerBlocks?: Block[];
+    innerBlocks?: FormBlocks
 };
 
-// Helper function to get alphabetical identifier
-const getAlphabeticalIdentifier = (index: number): string => {
-    return String.fromCharCode(97 + index); // 97 is 'a' in ASCII
-};
 
-// Transform `blocks` array into `TreeData`
-const transformBlocksToTree = (blocks: Block[]): TreeData => {
-    const rootId = "root";
-    const items: Record<ItemId, TreeItem> = {};
-
-    items[rootId] = {
-        id: rootId,
-        children: blocks.map((block) => block.id),
-        hasChildren: true,
-        isExpanded: true,
-        data: { title: "Root" },
-    };
-
-    const processBlocks = (blocks: Block[], parentId: ItemId = rootId, parentOrder?: string) => {
-        blocks.forEach((block, index) => {
-            let blockOrder: string;
-            if (parentId === rootId) {
-                blockOrder = (index + 1).toString();
-            } else {
-                blockOrder = `${parentOrder}${identAlphabetically(index)}`;
-            }
-
-            items[block.id] = {
-                id: block.id,
-                children: block.innerBlocks ? block.innerBlocks.map((b) => b.id) : [],
-                hasChildren: !!block.innerBlocks?.length,
-                isExpanded: true,
-                data: {
-                    name: block.name,
-                    attributes: block.attributes,
-                    blockOrder: blockOrder,
-                },
-            };
-
-            if (block.innerBlocks) {
-                processBlocks(block.innerBlocks, block.id, blockOrder);
-            }
-        });
-    };
-
-    processBlocks(blocks);
-    return { rootId, items };
-};
-
-// Utility to rebuild `blocks` from `TreeData`
-const rebuildBlocksFromTree = (tree: TreeData, rootId: ItemId = "root"): Block[] => {
-    const rebuild = (id: ItemId, parentOrder = ""): Block[] => {
-        const item = tree.items[id];
-
-        return item.children.map((childId, index) => {
-            const child = tree.items[childId];
-
-            // Recalculate the block order dynamically
-            const blockOrder = parentOrder
-                ? `${parentOrder}${identAlphabetically(index)}`
-                : (index + 1).toString();
-
-            return {
-                id: child.id,
-                ...child.data,
-                blockOrder, // Update blockOrder
-                innerBlocks: child.hasChildren ? rebuild(child.id, blockOrder) : undefined,
-            } as Block;
-        });
-    };
-
-    return rebuild(rootId);
-};
 
 // Styles
 const PADDING_PER_LEVEL = 16;
@@ -114,20 +47,227 @@ const PreTextIcon = styled.span({
 
 
 
-// Main Functional Component
-const PureTree: React.FC = () => {
-    const { blocks, blockTypes } = useSelect((select) => {
-        return {
-            blocks: select("quillForms/block-editor").getBlocks(),
-            blockTypes: select("quillForms/blocks").getBlockTypes(),
+// Types
+type BlockCategory = 'WELCOME_SCREENS' | 'OTHERS' | 'THANKYOU_SCREENS';
+
+// Utility functions moved to separate concerns
+const blockUtils = {
+    getCategory(block: FormBlock): BlockCategory {
+        switch (block.name) {
+            case 'welcome-screen':
+                return 'WELCOME_SCREENS';
+            case 'thankyou-screen':
+                return 'THANKYOU_SCREENS';
+            default:
+                return 'OTHERS';
+        }
+    },
+
+    sortBlocks(blocks: FormBlocks): FormBlocks {
+        const priorityOrder: BlockCategory[] = ['WELCOME_SCREENS', 'OTHERS', 'THANKYOU_SCREENS'];
+        return [...blocks].sort((a, b) => {
+            const categoryA = blockUtils.getCategory(a);
+            const categoryB = blockUtils.getCategory(b);
+            return priorityOrder.indexOf(categoryA) - priorityOrder.indexOf(categoryB);
+        });
+    },
+
+    isValidMove(
+        source: TreeSourcePosition,
+        destination: TreeDestinationPosition,
+        tree: TreeData,
+        blocks: FormBlocks
+    ): boolean {
+        if (!destination) return false;
+
+        const sourceItem = tree.items[tree.items[source.parentId].children[source.index]];
+        const destinationParentItem = tree.items[destination.parentId];
+        const sourceBlockName = sourceItem.data.name;
+        const destinationParentBlockName = destinationParentItem.data.name;
+
+        const invalidConditions = [
+            // Non-root and non-group nesting
+            destination.parentId !== "root" && destinationParentBlockName !== "group",
+
+            // Welcome screen restrictions
+            (destination.index === 0 &&
+                destination.parentId === "root" &&
+                blocks[0].name === "welcome-screen"),
+
+            (source.index === 0 &&
+                source.parentId === "root" &&
+                blocks[0].name === "welcome-screen"),
+
+            // Group blocks must be at root level
+            sourceBlockName === "group" && destination.parentId !== "root",
+
+            // Thank you screen cannot be in group
+            sourceBlockName === 'thankyou-screen' && destinationParentBlockName === 'group'
+        ];
+
+        return !invalidConditions.some(condition => condition === true);
+    }
+};
+
+const treeUtils = {
+    processBlocks(
+        blocks: FormBlocks,
+        items: Record<ItemId, TreeItem>,
+        parentId: ItemId = "root",
+        parentOrder = ""
+    ): void {
+        blocks.forEach((block, index) => {
+            const blockOrder = parentId === "root"
+                ? (index + 1).toString()
+                : `${parentOrder}${identAlphabetically(index)}`;
+
+            items[block.id] = {
+                id: block.id,
+                children: block.innerBlocks?.map(b => b.id) || [],
+                hasChildren: !!block.innerBlocks?.length,
+                isExpanded: true,
+                data: {
+                    name: block.name,
+                    attributes: block.attributes,
+                    blockOrder,
+                },
+            };
+
+            if (block.innerBlocks?.length) {
+                treeUtils.processBlocks(block.innerBlocks, items, block.id, blockOrder);
+            }
+        });
+    },
+
+    transformBlocksToTree(blocks: FormBlocks): TreeData {
+        const items: Record<ItemId, TreeItem> = {
+            root: {
+                id: "root",
+                children: blocks.map(block => block.id),
+                hasChildren: true,
+                isExpanded: true,
+                data: { title: "Root" },
+            },
         };
-    });
 
-    const { setBlocks } = useDispatch("quillForms/block-editor");
-    const [tree, setTree] = useState<TreeData>(transformBlocksToTree(blocks)); // Convert blocks to TreeData
-    const { setCurrentBlock, setCurrentChildBlock } = useDispatch("quillForms/block-editor");
+        treeUtils.processBlocks(blocks, items);
+        return { rootId: "root", items };
+    },
+
+    rebuildBlocks(tree: TreeData, parentId: ItemId = "root", parentOrder = ""): Block[] {
+        const item = tree.items[parentId];
+        return item.children.map((childId, index) => {
+            const child = tree.items[childId];
+            const blockOrder = parentOrder
+                ? `${parentOrder}${identAlphabetically(index)}`
+                : (index + 1).toString();
+
+            return {
+                id: child.id,
+                ...child.data,
+                blockOrder,
+                innerBlocks: child.hasChildren
+                    ? treeUtils.rebuildBlocks(tree, child.id, blockOrder)
+                    : undefined,
+            } as Block;
+        });
+    },
+
+    recalculateBlockOrder(
+        tree: TreeData,
+        parentId: ItemId = "root",
+        parentOrder = ""
+    ): void {
+        const item = tree.items[parentId];
+        item.children.forEach((childId, index) => {
+            const child = tree.items[childId];
+            const blockOrder = parentOrder
+                ? `${parentOrder}${identAlphabetically(index)}`
+                : (index + 1).toString();
+
+            child.data.blockOrder = blockOrder;
+
+            if (child.hasChildren) {
+                treeUtils.recalculateBlockOrder(tree, child.id, blockOrder);
+            }
+        });
+    },
+    sortTreeItems(tree: TreeData): TreeData {
+        const rootItem = tree.items.root;
+        const priorityOrder = {
+            'welcome-screen': 0,
+            'thankyou-screen': 2,
+            default: 1
+        };
+
+        // Sort children at root level only
+        const sortedChildren = [...rootItem.children].sort((aId, bId) => {
+            const blockA = tree.items[aId];
+            const blockB = tree.items[bId];
+
+            const priorityA = priorityOrder[blockA.data.name] ?? priorityOrder.default;
+            const priorityB = priorityOrder[blockB.data.name] ?? priorityOrder.default;
+
+            return priorityA - priorityB;
+        });
+
+        // Create new tree with sorted children
+        const newTree = {
+            ...tree,
+            items: {
+                ...tree.items,
+                root: {
+                    ...rootItem,
+                    children: sortedChildren
+                }
+            }
+        };
+
+        // Recalculate block orders for the entire tree
+        treeUtils.recalculateBlockOrder(newTree);
+
+        return newTree;
+    }
+};
 
 
+
+const PureTree: React.FC = () => {
+
+    const { blocks, currentPanel, blockTypes, currentBlock, currentBlockId, currentChildBlockId } = useSelect((select) => ({
+        blocks: select("quillForms/block-editor").getBlocks(),
+        blockTypes: select("quillForms/blocks").getBlockTypes(),
+        currentBlockId: select("quillForms/block-editor").getCurrentBlockId(),
+        currentChildBlockId: select("quillForms/block-editor").getCurrentChildBlockId(),
+        currentBlock: select('quillForms/block-editor').getCurrentBlock(),
+        currentPanel: select("quillForms/builder-panels").getCurrentPanel(),
+    }));
+    const [triggerTreeCalculation, setTriggerTreeCalculation] = useState(false);
+    if (!currentBlock) return null;
+
+    const currentBlockLabel = currentBlock?.attributes?.label
+    let currentChildBlockLabel;
+    if (currentChildBlockId) {
+        const childBlock = currentBlock?.innerBlocks?.find(b => b.id === currentChildBlockId);
+        currentChildBlockLabel = childBlock?.attributes?.label;
+    }
+    useEffect(() => {
+        if (triggerTreeCalculation) {
+            setTree(treeUtils.transformBlocksToTree(blocks));
+            setTriggerTreeCalculation(false);
+        }
+    }, [triggerTreeCalculation]);
+
+    useEffect(() => {
+        setTriggerTreeCalculation(true);
+    }, [currentBlockLabel, currentChildBlockLabel, currentPanel]);
+
+    const { setBlocks, setCurrentBlock, setCurrentChildBlock } = useDispatch("quillForms/block-editor");
+
+    // Initialize tree state with memoized transformation
+    const [tree, setTree] = useState<TreeData>(() =>
+        treeUtils.transformBlocksToTree(blocks)
+    );
 
     // Updated renderItem with better styling for group children
     const renderItem = useCallback(
@@ -177,10 +317,11 @@ const PureTree: React.FC = () => {
                         }
                         else {
                             setCurrentBlock(item.id);
+                            setCurrentChildBlock(undefined);
                         }
                     }}
                     className={`block-item ${isGroup ? "group-block" : ""} ${isChildBlock ? "child-block" : ""
-                        } ${isLastInGroup ? "last-in-group" : ""}`}
+                        } ${isLastInGroup ? "last-in-group" : ""}` + (currentBlockId === item.id && !currentChildBlockId ? " active" : "") + (currentChildBlockId === item.id ? " active" : "")}
                     style={{
                         ...provided.draggableProps.style,
                         ...(isGroup ? groupWrapperStyles : {}),
@@ -190,10 +331,21 @@ const PureTree: React.FC = () => {
                     }}
                 >
                     <div className="block-content">
+
                         {isGroup && item.children.length > 0 && (
                             <div
                                 className="collapse-icon"
-                                onClick={() => (item.isExpanded ? onCollapse(item.id) : onExpand(item.id))}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (item.isExpanded) {
+                                        onCollapse(item.id)
+                                    }
+                                    else {
+                                        onExpand(item.id)
+
+                                    }
+                                }
+                                }
                             >
                                 <svg
                                     className={`icon ${item.isExpanded ? "expanded" : ""}`}
@@ -223,113 +375,73 @@ const PureTree: React.FC = () => {
                                 }}
                             />
                         )}
+                        <BlockActions onAction={() => {
+                            setTriggerTreeCalculation(true);
+                        }} id={item.id} parentId={parentId} />
                     </div>
-                    {hasNoChildren && (
-                        <div
-                            className="group-placeholder"
-                            style={{
-                                width: '100%',
-                                height: "40px",
-                                margin: "8px 0",
-                                border: `2px dashed ${snapshot.isDragging ? '#60a5fa' : '#cbd5e1'}`,
-                                borderRadius: "6px",
-                                background: snapshot.isDragging ? '#f0f9ff' : '#ffffff',
-                                textAlign: "center",
-                                color: "#64748b",
-                                fontSize: "14px",
-                                transition: 'all 0.2s ease',
-                            }}
-                        >
+                    {
+                        hasNoChildren && (
+                            <div
+                                className="group-placeholder"
+                                style={{
+                                    width: '100%',
+                                    height: "40px",
+                                    margin: "8px 0",
+                                    border: `2px dashed ${snapshot.isDragging ? '#60a5fa' : '#cbd5e1'}`,
+                                    borderRadius: "6px",
+                                    background: snapshot.isDragging ? '#f0f9ff' : '#ffffff',
+                                    textAlign: "center",
+                                    color: "#64748b",
+                                    fontSize: "14px",
+                                    transition: 'all 0.2s ease',
+                                }}
+                            >
 
-                        </div>
-                    )}
-                </div>
+                            </div>
+                        )
+                    }
+                </div >
             );
         },
-        [blockTypes, tree]
+        [blockTypes, tree, blocks]
     );
 
-    // Expand handler
-    const onExpand = useCallback(
-        (itemId: ItemId) => {
-            setTree((prevTree) => mutateTree(prevTree, itemId, { isExpanded: true }));
-        },
-        []
-    );
-
-    // Collapse handler
-    const onCollapse = useCallback(
-        (itemId: ItemId) => {
-            setTree((prevTree) => mutateTree(prevTree, itemId, { isExpanded: false }));
-        },
-        []
-    );
-
-    // Drag end handler
-    // Drag end handler
     const onDragEnd = useCallback(
         (source: TreeSourcePosition, destination?: TreeDestinationPosition) => {
-            if (!destination) {
+            if (!destination || !blockUtils.isValidMove(source, destination, tree, blocks)) {
                 return;
             }
 
             const sourceItem = tree.items[tree.items[source.parentId].children[source.index]];
-            const sourceBlockName = sourceItem.data.name;
+            const destinationItem = tree.items[destination.parentId];
 
-            // Get the destination parent's block name
-            const destinationParentItem = tree.items[destination.parentId];
-            const destinationParentBlockName = destinationParentItem.data.name;
+            // Move items and sort in one go
+            const newTree = treeUtils.sortTreeItems(
+                moveItemOnTree(tree, source, destination)
+            );
 
-            // Prevent nesting if:
-            // 1. Destination parent is not root AND not a group block
-            // 2. Welcome screen movement restrictions
-            // 3. Group blocks can only be at root level
-            if (
-                // Prevent nesting in non-group blocks
-                (destination.parentId !== "root" && destinationParentBlockName !== "group") ||
-                // Welcome screen restrictions
-                (destination.index === 0 &&
-                    destination.parentId === "root" &&
-                    blocks[0].name === "welcome-screen") ||
-                (source.index === 0 &&
-                    source.parentId === "root" &&
-                    blocks[0].name === "welcome-screen") ||
-                // Group blocks can only be at root level
-                (sourceBlockName === "group" && destination.parentId !== "root")
-            ) {
-                return;
+            if (source.parentId !== 'root' && currentChildBlockId === sourceItem.id) {
+                if (destination.parentId === 'root') {
+                    setCurrentChildBlock(undefined);
+                    setCurrentBlock(sourceItem.id);
+                }
+                else {
+                    setCurrentBlock(destinationItem.id);
+                }
             }
-
-            // Move the item on the tree
-            const newTree = moveItemOnTree(tree, source, destination);
-
-            // Recalculate block order dynamically after the move
-            const recalculateBlockOrder = (tree: TreeData, parentId: ItemId = "root", parentOrder = "") => {
-                const item = tree.items[parentId];
-
-                item.children.forEach((childId, index) => {
-                    const child = tree.items[childId];
-                    const blockOrder = parentOrder
-                        ? `${parentOrder}${identAlphabetically(index)}`
-                        : (index + 1).toString();
-                    child.data.blockOrder = blockOrder;
-
-                    if (child.hasChildren) {
-                        recalculateBlockOrder(tree, child.id, blockOrder);
-                    }
-                });
-            };
-
-            recalculateBlockOrder(newTree);
-
-            // Rebuild the blocks array from the updated tree
-            const newBlocks = rebuildBlocksFromTree(newTree);
-
-            // Update the state and the blocks in the editor
+            // Update blocks state once
+            setBlocks(treeUtils.rebuildBlocks(newTree));
             setTree(newTree);
-            setBlocks(newBlocks);
+
+            // Handle current block selection
+            if (sourceItem.id === currentBlockId &&
+                source.parentId === 'root' &&
+                destination.parentId !== 'root') {
+                setCurrentBlock(destinationItem.id);
+                setCurrentChildBlock(sourceItem.id);
+            }
         },
-        [tree, blocks, setBlocks]
+        [tree, blocks, currentBlockId, currentChildBlockId, setBlocks, setCurrentBlock, setCurrentChildBlock]
     );
 
     return (
@@ -338,11 +450,35 @@ const PureTree: React.FC = () => {
                 <Tree
                     tree={tree}
                     renderItem={renderItem}
-                    onExpand={onExpand}
-                    onCollapse={onCollapse}
+                    onExpand={useCallback((itemId: ItemId) => {
+                        setTree(prevTree => mutateTree(prevTree, itemId, { isExpanded: true }));
+                    }, [])}
+                    onCollapse={useCallback((itemId: ItemId) => {
+                        setTree(prevTree => mutateTree(prevTree, itemId, { isExpanded: false }));
+                    }, [])}
                     onDragEnd={onDragEnd}
+                    onDragStart={(itemId) => {
+                        // check if the item i welcome screen block
+                        const item = tree.items[itemId];
+                        if (item.data.name === 'welcome-screen') return;
+                    }}
                     offsetPerLevel={PADDING_PER_LEVEL}
-                    isDragEnabled
+                    isDragEnabled={(item) => {
+                        // Get parent item if exists
+                        const parentId = Object.keys(tree.items).find(key =>
+                            tree.items[key].children.includes(item.id)
+                        );
+                        const parent = parentId ? tree.items[parentId] : null;
+
+                        // Disable dragging if:
+                        // 1. Item is a welcome-screen block OR
+                        // 2. Item is the only child in a group block
+                        return !(
+                            item.data.name === "welcome-screen" ||
+                            (parent?.data.name === "group" && parent.children.length === 1)
+                        );
+                    }}
+
                 />
             </div>
         </div>

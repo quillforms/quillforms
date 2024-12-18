@@ -30,7 +30,7 @@ import classNames from 'classnames';
  */
 import MeasureControl from '../measure-control';
 
-const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
+const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 	const {
 		fontSize,
 		typographyPreset,
@@ -222,42 +222,41 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 		},
 	};
 	return (
-		<PanelBody title="Typography and Spacing" initialOpen={ false }>
+		<PanelBody title="Typography and Spacing" initialOpen={false}>
 			<BaseControl>
-				<ControlWrapper orientation="horizontal">
+				<ControlWrapper orientation="vertical">
 					<ControlLabel
 						label="Select a presest for Typography"
-						isNew={ true }
 					></ControlLabel>
 					<div className="typography-presets">
 						<span
-							className={ classNames( {
+							className={classNames({
 								selected: typographyPreset === 'lg',
-							} ) }
-							onClick={ () => {
-								setCurrentThemeProperties( { ...lg } );
-							} }
+							})}
+							onClick={() => {
+								setCurrentThemeProperties({ ...lg });
+							}}
 						>
 							LG
 						</span>
 						<span
-							className={ classNames( {
+							className={classNames({
 								selected: typographyPreset === 'md',
-							} ) }
-							onClick={ () => {
-								setCurrentThemeProperties( { ...md } );
-							} }
+							})}
+							onClick={() => {
+								setCurrentThemeProperties({ ...md });
+							}}
 						>
 							MD
 						</span>
 
 						<span
-							className={ classNames( {
+							className={classNames({
 								selected: typographyPreset === 'sm',
-							} ) }
-							onClick={ () => {
-								setCurrentThemeProperties( { ...sm } );
-							} }
+							})}
+							onClick={() => {
+								setCurrentThemeProperties({ ...sm });
+							}}
 						>
 							SM
 						</span>
@@ -266,36 +265,36 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Base Font Size(px)" isNew={ true } />
+					<ControlLabel label="Base Font Size(px)" />
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
-									fontSize.lg.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									fontSize.lg.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										fontSize: {
 											...fontSize,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
-									fontSize.sm.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									fontSize.sm.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										fontSize: {
 											...fontSize,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -305,37 +304,36 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
 						label="Base Font Line Height(px)"
-						isNew={ true }
 					/>
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
-									fontLineHeight.lg.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									fontLineHeight.lg.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										fontLineHeight: {
 											...fontLineHeight,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
-									fontLineHeight.sm.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									fontLineHeight.sm.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										fontLineHeight: {
 											...fontLineHeight,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -345,43 +343,42 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
 						label="Questions Label Font Size(px)"
-						isNew={ true }
 					/>
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsLabelFontSize.lg.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsLabelFontSize: {
 											...questionsLabelFontSize,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsLabelFontSize.sm.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsLabelFontSize: {
 											...questionsLabelFontSize,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -391,43 +388,42 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
 						label="Questions Label Line Height(px)"
-						isNew={ true }
 					/>
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsLabelLineHeight.lg.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsLabelLineHeight: {
 											...questionsLabelLineHeight,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsLabelLineHeight.sm.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsLabelLineHeight: {
 											...questionsLabelLineHeight,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -437,43 +433,42 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
 						label="Questions Description Font Size(px)"
-						isNew={ true }
 					/>
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsDescriptionFontSize.lg.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsDescriptionFontSize: {
 											...questionsDescriptionFontSize,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsDescriptionFontSize.sm.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsDescriptionFontSize: {
 											...questionsDescriptionFontSize,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -483,43 +478,42 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
 						label="Questions Description Line Height(px)"
-						isNew={ true }
 					/>
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsDescriptionLineHeight.lg.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsDescriptionLineHeight: {
 											...questionsDescriptionLineHeight,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
+								val={parseInt(
 									questionsDescriptionLineHeight.sm.replace(
 										'px',
 										''
 									)
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										questionsDescriptionLineHeight: {
 											...questionsDescriptionLineHeight,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -529,37 +523,36 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
 						label="Text input answers font size(px)"
-						isNew={ true }
 					/>
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
-									textInputAnswers.lg.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									textInputAnswers.lg.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										textInputAnswers: {
 											...textInputAnswers,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
-									textInputAnswers.sm.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									textInputAnswers.sm.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										textInputAnswers: {
 											...textInputAnswers,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -569,37 +562,36 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
 						label="Buttons Font Size(px)"
-						isNew={ true }
 					/>
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
-								val={ parseInt(
-									buttonsFontSize.lg.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									buttonsFontSize.lg.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										buttonsFontSize: {
 											...buttonsFontSize,
-											lg: `${ val }px`,
+											lg: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 						mobileChildren={
 							<MeasureControl
-								val={ parseInt(
-									buttonsFontSize.sm.replace( 'px', '' )
-								) }
-								onChange={ ( val ) => {
-									setCurrentThemeProperties( {
+								val={parseInt(
+									buttonsFontSize.sm.replace('px', '')
+								)}
+								onChange={(val) => {
+									setCurrentThemeProperties({
 										buttonsFontSize: {
 											...buttonsFontSize,
-											sm: `${ val }px`,
+											sm: `${val}px`,
 										},
-									} );
-								} }
+									});
+								}}
 							/>
 						}
 					/>
@@ -607,11 +599,11 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
-					<ControlLabel label="Buttons Padding(px)" isNew={ true } />
+					<ControlLabel label="Buttons Padding(px)" />
 					<ResponsiveControl
 						desktopChildren={
 							<div
-								className={ css`
+								className={css`
 									display: flex;
 									align-items: center;
 									div {
@@ -623,94 +615,94 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 								` }
 							>
 								<TextControl
-									label={ 'Top' }
+									label={'Top'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.top.lg.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												top: {
 													...buttonsPadding.top,
-													lg: `${ val }px`,
+													lg: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 								<TextControl
-									label={ 'Right' }
+									label={'Right'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.right.lg.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												right: {
 													...buttonsPadding.right,
-													lg: `${ val }px`,
+													lg: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 								<TextControl
-									label={ 'Bottom' }
+									label={'Bottom'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.bottom.lg.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												bottom: {
 													...buttonsPadding.bottom,
-													lg: `${ val }px`,
+													lg: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 								<TextControl
-									label={ 'Left' }
+									label={'Left'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.left.lg.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												left: {
 													...buttonsPadding.left,
-													lg: `${ val }px`,
+													lg: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 							</div>
 						}
 						mobileChildren={
 							<div
-								className={ css`
+								className={css`
 									display: flex;
 									align-items: center;
 									div {
@@ -722,88 +714,88 @@ const TypographyPanel = ( { properties, setCurrentThemeProperties } ) => {
 								` }
 							>
 								<TextControl
-									label={ 'Top' }
+									label={'Top'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.top.sm.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												top: {
 													...buttonsPadding.top,
-													sm: `${ val }px`,
+													sm: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 								<TextControl
-									label={ 'Right' }
+									label={'Right'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.right.sm.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												right: {
 													...buttonsPadding.right,
-													sm: `${ val }px`,
+													sm: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 								<TextControl
-									label={ 'Bottom' }
+									label={'Bottom'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.bottom.sm.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												bottom: {
 													...buttonsPadding.bottom,
-													sm: `${ val }px`,
+													sm: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 								<TextControl
-									label={ 'Left' }
+									label={'Left'}
 									type="number"
-									value={ parseInt(
+									value={parseInt(
 										buttonsPadding.left.sm.replace(
 											'px',
 											''
 										)
-									) }
-									onChange={ ( val ) => {
-										setCurrentThemeProperties( {
+									)}
+									onChange={(val) => {
+										setCurrentThemeProperties({
 											buttonsPadding: {
 												...buttonsPadding,
 												left: {
 													...buttonsPadding.left,
-													sm: `${ val }px`,
+													sm: `${val}px`,
 												},
 											},
-										} );
-									} }
+										});
+									}}
 								/>
 							</div>
 						}

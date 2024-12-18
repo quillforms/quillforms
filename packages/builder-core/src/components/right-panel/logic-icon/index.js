@@ -1,6 +1,6 @@
 const JumpLogicIcon = () => {
 	return (
-		<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+		<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">
 			{/* Source - emphasized start point */}
 			<circle
 				cx="12"

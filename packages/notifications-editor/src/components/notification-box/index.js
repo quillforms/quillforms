@@ -54,7 +54,6 @@ const NotificationBox = ({ notification, onEdit, index }) => {
 								});
 							}}
 						/>
-						<span>{active ? 'Active' : 'Inactive'}</span>
 					</label>
 				</div>
 				{/* Notification Title */}

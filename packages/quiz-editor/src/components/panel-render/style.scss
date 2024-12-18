@@ -9,7 +9,8 @@
 
     &-tag {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
         gap: 8px;
         padding: 12px;
         border-bottom: 1px solid #f0f0f0;
@@ -84,7 +85,6 @@
                 .quiz-editor-block-choice-label-wrapper {
                     border: none;
                     background: #f8fafc;
-					max-width: 165px;
 					display: flex;
 					align-items: center;
                 }
@@ -93,6 +93,7 @@
             &-label {
                 &-wrapper {
                     width: 100%;
+                    display: flex;
                     min-height: 40px;
                     border-radius: 6px;
                     border: 1px solid #e2e8f0;

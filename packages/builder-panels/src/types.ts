@@ -12,7 +12,8 @@ export type PanelSettings = {
 	title: string;
 	render?: FC | JSX.Element | Component;
 	mode: 'single' | 'parent';
-	areaToShow?: 'preview-area' | 'drop-area' | undefined | 'no-area';
+	// areaToShow?: 'preview-area' | 'drop-area' | undefined | 'no-area';
+	type: 'modal' | 'full-screen';
 	isHidden?: boolean;
 	position?: number;
 };
@@ -45,7 +46,7 @@ export type PanelsState = {
 
 interface anyAction {
 	type: string;
-	[ x: string ]: unknown;
+	[x: string]: unknown;
 }
 
 interface setCurrentPanelAction extends anyAction {
@@ -76,4 +77,4 @@ export type PanelActionTypes =
 	| setCurrentSubPanelAction
 	| registerBuilderPanelAction
 	| registerBuilderSubPanelAction
-	| ReturnType< () => { type: 'NOOP' } >;
+	| ReturnType<() => { type: 'NOOP' }>;

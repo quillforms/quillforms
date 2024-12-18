@@ -90,7 +90,6 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 	} = state;
 	switch (action.type) {
 		case SET_SWIPER_STATE: {
-			console.log('SET_SWIPER_STATE');
 			const newSwiperState = action.swiperState;
 			let validBlocksStructure = true;
 			forEach(
@@ -586,6 +585,7 @@ const answers: Reducer<RendererAnswersState, RendererAnswersActionTypes> = (
 		// SET FIELD ANSWER
 		case SET_FIELD_ANSWER: {
 			const { id, val } = action;
+			console.log(val, state)
 			// If the field id is incorrect or the value passed is the same value, return same state.
 			if (val === state[id]?.value) {
 				return state;

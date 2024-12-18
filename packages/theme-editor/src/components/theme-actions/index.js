@@ -6,7 +6,7 @@ import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { moreHorizontal } from '@wordpress/icons';
 
 const ThemeActions = ({ id, themeTitle, themeProperties }) => {
-	const { setCurrentSubPanel } = useDispatch('quillForms/builder-panels');
+	const { setCurrentTab } = useDispatch('quillForms/theme-editor');
 	const { deleteTheme, addNewTheme, setCurrentThemeId, setShouldBeSaved } =
 		useDispatch('quillForms/theme-editor');
 
@@ -29,7 +29,7 @@ const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 							className="theme-editor-theme-actions__menu-item"
 							onClick={() => {
 								setCurrentThemeId(id);
-								setCurrentSubPanel('theme/customize');
+								setCurrentTab('customize');
 								setShouldBeSaved(false);
 							}}
 						>

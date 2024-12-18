@@ -13,6 +13,9 @@ interface EditorOnConfig {
 	mode: "on";
 	editLabel: React.FC;
 	editDescription: React.FC;
+	onClick: (id: string) => void;
+	onChildClick: (id: string) => void;
+	isChildActive: (id: string) => boolean;
 }
 
 

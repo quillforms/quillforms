@@ -25,6 +25,10 @@
 	.components-custom-select-control__item {
 		border-radius: 3px;
 		cursor: pointer;
+		padding: 5px 10px;
+		display: flex;
+		width: 100%;
+		align-items: center;
 	}
 
 	.components-custom-select-control__item.is-highlighted {

@@ -166,6 +166,11 @@ export const registerBlockType = (
 		},
 	};
 
+	attributes.width = {
+		type: 'string',
+		default: '100%',
+	};
+
 	attributes.attachmentFancyBorderRadius = {
 		type: 'boolean',
 		default: false,

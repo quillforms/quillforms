@@ -31,12 +31,12 @@ const BuilderPanelsBar = () => {
 	return (
 		<div className="builder-core-builder-panels-bar">
 			<div
-				className={classnames('builder-core-builder-panel-nav-item')}>
+				className={classnames('builder-core-builder-panel-nav-item builder-panel-add-blocks')}>
 				<Tooltip text={'Add'} position="middle right">
 					<div
 						role="presentation"
 						onClick={() => {
-							setCurrentPanel('');
+							setCurrentPanel('add-questions');
 						}}
 						className="builder-core-builder-panel-nav-item__icon"
 					>

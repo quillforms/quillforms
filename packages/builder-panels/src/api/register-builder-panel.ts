@@ -37,91 +37,86 @@ export const registerBuilderPanel = (
 		name
 	) as PanelSettings;
 
-	if ( typeof name !== 'string' ) {
-		console.error( 'Builder panel "name" must be string.' );
+	if (typeof name !== 'string') {
+		console.error('Builder panel "name" must be string.');
 		return;
 	}
 
-	const panels = select( 'quillForms/builder-panels' ).getPanels();
-	if ( some( panels, ( panel ) => panel.name === name ) ) {
-		console.error( `The panel ${ name } is already registered` );
+	if (typeof settings.type !== 'string') {
+		settings.type = 'modal';
+	}
+
+
+
+	const panels = select('quillForms/builder-panels').getPanels();
+	if (some(panels, (panel) => panel.name === name)) {
+		console.error(`The panel ${name} is already registered`);
 		return;
 	}
 
-	if ( ! settings.title ) {
-		console.error( "The 'title' property must be passed" );
+	if (!settings.title) {
+		console.error("The 'title' property must be passed");
 		return;
 	}
 
-	if ( typeof settings.title !== 'string' ) {
-		console.error( 'Builder panel "title" must be string.' );
+	if (typeof settings.title !== 'string') {
+		console.error('Builder panel "title" must be string.');
 		return;
 	}
 
-	if ( settings.isHidden && typeof settings.isHidden !== 'boolean' ) {
-		console.error( 'The "isHidden" property must be boolean' );
+	if (settings.isHidden && typeof settings.isHidden !== 'boolean') {
+		console.error('The "isHidden" property must be boolean');
 		return;
 	}
 
 	if (
 		settings.position &&
 		typeof settings.position !== 'number' &&
-		! settings.isHidden
+		!settings.isHidden
 	) {
-		console.error( 'The "position" property must be a number' );
+		console.error('The "position" property must be a number');
 		return;
 	}
 
-	if ( settings.position !== 0 && ! settings.position ) {
+	if (settings.position !== 0 && !settings.position) {
 		// Default position
 		settings.position = 10;
 	}
 
-	if (
-		settings.areaToShow &&
-		settings.areaToShow !== 'drop-area' &&
-		settings.areaToShow !== 'preview-area' &&
-		settings.areaToShow !== 'no-area'
-	) {
-		console.error(
-			'The "areaToShow" property must be either of "drop-area" or "preview-area" or undefined.'
-		);
+
+	settings.icon = normalizeIconObject(settings.icon);
+
+	if (!isValidIcon(settings.icon.src)) {
+		console.error('The "icon" property must be a valid function!');
 		return;
 	}
 
-	settings.icon = normalizeIconObject( settings.icon );
-
-	if ( ! isValidIcon( settings.icon.src ) ) {
-		console.error( 'The "icon" property must be a valid function!' );
-		return;
-	}
-
-	if ( settings.mode !== 'parent' ) {
+	if (settings.mode !== 'parent') {
 		settings.mode = 'single';
 	}
-	if ( settings.mode === 'single' && ! settings.render ) {
+	if (settings.mode === 'single' && !settings.render) {
 		console.error(
 			'The "render" property should be defined in case of single panels'
 		);
 		return;
 	}
 
-	if ( settings.render && ! isFunction( settings.render ) ) {
-		console.error( "The 'render' property must be a valid function" );
+	if (settings.render && !isFunction(settings.render)) {
+		console.error("The 'render' property must be a valid function");
 		return;
 	}
 
-	settings = pick( settings, [
+	settings = pick(settings, [
 		'icon',
 		'title',
 		'render',
 		'isHidden',
 		'mode',
-		'areaToShow',
 		'position',
-	] );
+		'type'
+	]);
 
-	dispatch( 'quillForms/builder-panels' ).registerBuilderPanel(
+	dispatch('quillForms/builder-panels').registerBuilderPanel(
 		name,
 		settings
 	);

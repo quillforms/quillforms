@@ -1,24 +1,52 @@
 .qf-notification-delete-dialog {
 
-	.notifications-delete-dialog__body {
-		font-size: 15px;
-	}
-	.components-modal__content {
-		padding-bottom: 0;
-	}
-	.notifications-delete-dialog__actions {
-		display: flex;
-		flex-wrap: wrap;
-		margin: 30px -24px 0;
+  .qf-notification-delete-dialog__content {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+  }
 
-		.admin-components-button {
-			width: 50%;
-			border-radius: 0;
-			height: 40px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-	}
+  .qf-notification-delete-dialog__content h2 {
+	font-size: 20px;
+	font-weight: 500;
+  }
+
+  .qf-notification-delete-dialog__content p {
+	font-size: 16px;
+	color: #6b7280;
+  }
+
+  .qf-notification-delete-dialog__actions {
+	display: flex;
+	gap: 10px;
+  }
+
+  .qf-notification-delete-dialog__actions button {
+	padding: 8px 16px;
+	font-size: 14px;
+	font-weight: 500;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: all 0.2s;
+  }
+  .notifications-delete-dialog__actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content:end;
+}
+  .qf-notification-delete-dialog__actions button.qf-notification-delete-dialog__actions-cancel {
+	color: #6b7280;
+	background-color: #f3f4f6;
+  }
+
+  .qf-notification-delete-dialog__actions button.qf-notification-delete-dialog__actions-cancel:hover {
+	background-color: #e5e7eb;
+  }
+
 
 }

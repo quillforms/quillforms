@@ -15,7 +15,22 @@ import {
 	SET_IS_SAVING,
 	SETUP_THEMES,
 	ADD_GALLERY_THEMES,
+	SET_CURRENT_TAB
 } from './constants';
+
+/**
+ * Set Current Tab
+ * 
+ * @param {string} tab Current tab.
+ * 
+ * @return {Object} Action object.
+ */
+export const setCurrentTab = (tab) => {
+	return {
+		type: SET_CURRENT_TAB,
+		tab,
+	};
+}
 
 /**
  * Set current theme properties.
@@ -25,7 +40,7 @@ import {
  *
  * @return {Object} Action object.
  */
-export const setCurrentThemeProperties = ( properties ) => {
+export const setCurrentThemeProperties = (properties) => {
 	return {
 		type: SET_CURRENT_THEME_PROPERTIES,
 		payload: { properties },
@@ -39,7 +54,7 @@ export const setCurrentThemeProperties = ( properties ) => {
  *
  * @returns {Object} Action object.
  */
-export const setCurrentThemeTitle = ( title ) => {
+export const setCurrentThemeTitle = (title) => {
 	return {
 		type: SET_CURRENT_THEME_TITLE,
 		title,
@@ -54,7 +69,7 @@ export const setCurrentThemeTitle = ( title ) => {
  *
  * @return {Object} Action object.
  */
-export const setShouldBeSaved = ( shouldBeSaved ) => {
+export const setShouldBeSaved = (shouldBeSaved) => {
 	return {
 		type: SET_SHOULD_BE_SAVED,
 		payload: { shouldBeSaved },
@@ -68,7 +83,7 @@ export const setShouldBeSaved = ( shouldBeSaved ) => {
  *
  * @return {Object} Action object.
  */
-export const addGalleryThemes = ( themes ) => {
+export const addGalleryThemes = (themes) => {
 	return {
 		type: ADD_GALLERY_THEMES,
 		themes,
@@ -82,7 +97,7 @@ export const addGalleryThemes = ( themes ) => {
  *
  * @return {Object} Action object.
  */
-export const setCurrentThemeId = ( currentThemeId ) => {
+export const setCurrentThemeId = (currentThemeId) => {
 	return {
 		type: SET_CURRENT_THEME_ID,
 		payload: { currentThemeId },
@@ -96,7 +111,7 @@ export const setCurrentThemeId = ( currentThemeId ) => {
  *
  * @return {Object} Action object.
  */
-export const setUpThemes = ( themes ) => {
+export const setUpThemes = (themes) => {
 	return {
 		type: SETUP_THEMES,
 		payload: { themes },
@@ -110,7 +125,7 @@ export const setUpThemes = ( themes ) => {
  *
  * @return {Object} Action object.
  */
-export const addNewThemes = ( themes ) => {
+export const addNewThemes = (themes) => {
 	return {
 		type: ADD_NEW_THEMES,
 		payload: { themes },
@@ -124,15 +139,15 @@ export const addNewThemes = ( themes ) => {
  * @param {Object} properties  Theme properties.
  *
  */
-export function* addNewTheme( title, properties ) {
+export function* addNewTheme(title, properties) {
 	const path = '/qf/v1/themes';
-	yield __unstableSetIsSaving( true );
+	yield __unstableSetIsSaving(true);
 	try {
-		const newThemeId = yield apiFetch( {
+		const newThemeId = yield apiFetch({
 			path,
 			method: 'POST',
 			data: { title, properties },
-		} );
+		});
 
 		yield dispatch(
 			'core/notices',
@@ -143,8 +158,8 @@ export function* addNewTheme( title, properties ) {
 				isDismissible: true,
 			}
 		);
-		yield __unstableAddNewThemeSuccess( newThemeId, title, properties );
-	} catch ( error ) {
+		yield __unstableAddNewThemeSuccess(newThemeId, title, properties);
+	} catch (error) {
 		yield dispatch(
 			'core/notices',
 			'createErrorNotice',
@@ -155,7 +170,7 @@ export function* addNewTheme( title, properties ) {
 			}
 		);
 	}
-	yield __unstableSetIsSaving( false );
+	yield __unstableSetIsSaving(false);
 }
 
 /**
@@ -183,14 +198,14 @@ export const __unstableAddNewThemeSuccess = (
  * @param {number} themeId  Theme id
  *
  */
-export function* deleteTheme( themeId ) {
-	const path = `/qf/v1/themes/${ themeId }`;
+export function* deleteTheme(themeId) {
+	const path = `/qf/v1/themes/${themeId}`;
 
 	try {
-		yield apiFetch( {
+		yield apiFetch({
 			path,
 			method: 'DELETE',
-		} );
+		});
 		yield dispatch(
 			'core/notices',
 			'createSuccessNotice',
@@ -200,8 +215,8 @@ export function* deleteTheme( themeId ) {
 				isDismissible: true,
 			}
 		);
-		yield __unstableDeleteThemeSuccess( themeId );
-	} catch ( err ) {
+		yield __unstableDeleteThemeSuccess(themeId);
+	} catch (err) {
 		yield dispatch(
 			'core/notices',
 			'createErrorNotice',
@@ -221,7 +236,7 @@ export function* deleteTheme( themeId ) {
  *
  * @return {Object} Action object
  */
-export function __unstableDeleteThemeSuccess( themeId ) {
+export function __unstableDeleteThemeSuccess(themeId) {
 	return {
 		type: DELETE_THEME_SUCCESS,
 		payload: { themeId },
@@ -236,20 +251,20 @@ export function __unstableDeleteThemeSuccess( themeId ) {
  * @param {Object} themeProperties  Theme properties.
  *
  */
-export function* updateTheme( themeId, themeTitle, themeProperties ) {
-	yield __unstableSetIsSaving( true );
+export function* updateTheme(themeId, themeTitle, themeProperties) {
+	yield __unstableSetIsSaving(true);
 
-	const path = `/qf/v1/themes/${ themeId }`;
+	const path = `/qf/v1/themes/${themeId}`;
 
 	try {
-		yield apiFetch( {
+		yield apiFetch({
 			path,
 			method: 'PUT',
 			data: {
 				title: themeTitle,
 				properties: themeProperties,
 			},
-		} );
+		});
 		yield dispatch(
 			'core/notices',
 			'createSuccessNotice',
@@ -264,7 +279,7 @@ export function* updateTheme( themeId, themeTitle, themeProperties ) {
 			themeTitle,
 			themeProperties
 		);
-	} catch ( err ) {
+	} catch (err) {
 		yield dispatch(
 			'core/notices',
 			'createErrorNotice',
@@ -275,7 +290,7 @@ export function* updateTheme( themeId, themeTitle, themeProperties ) {
 			}
 		);
 	}
-	yield __unstableSetIsSaving( false );
+	yield __unstableSetIsSaving(false);
 }
 
 /**
@@ -298,7 +313,7 @@ export const __unstableUpdateThemeSuccess = (
 	};
 };
 
-export const __unstableSetIsSaving = ( flag ) => {
+export const __unstableSetIsSaving = (flag) => {
 	return {
 		type: SET_IS_SAVING,
 		payload: { flag },

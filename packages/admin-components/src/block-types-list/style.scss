@@ -1,7 +1,11 @@
 .admin-components-block-types-list {
 	overflow-y: auto;
-	max-height: 300px;
-	.admin-components-blocks-list__item-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	> div {
+		width: 33%;
+	}
+ 	.admin-components-blocks-list__item-wrapper {
 		& {
 			outline: none;
 			user-select: none;
@@ -15,5 +19,12 @@
 	.admin-components-blocks-list-item__icon {
 		width: 24px;
 		height: 24px;
+		svg {
+			fill : #333 !important;
+		}
+
+		i {
+			color: #333 !important;
+		}
 	}
 }

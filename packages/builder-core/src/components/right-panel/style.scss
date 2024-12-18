@@ -1,0 +1,122 @@
+.builder-core-block-right-panel {
+    position: relative;
+    width: 280px;
+    background: #fff;
+    height: 100%;
+    border-radius: 10px;
+    margin: 0px 10px 20px;
+    overflow: hidden;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    font-family: Arial, sans-serif;
+
+    .tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px 24px 0;
+        gap: 35px;
+        scrollbar-width: none;
+        border-bottom: 1px solid #f0f0f0;
+        background: #f2f2f2;
+    }
+    
+    .tab {
+        display: inline-flex;
+        justify-content: center;
+        padding: 12px 0;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: #666666;
+        letter-spacing: 0.3px;
+        position: relative;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+    
+    .tab:hover {
+        color: #333;
+    }
+    
+    .tab.active {
+        color: #333;
+        &:after {    
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #333333;
+            border-radius: 2px 2px 0 0;
+        }
+    }
+    
+    .tab-content {
+        padding: 10px;
+        font-size: 14px;
+        color: #444;
+        max-height: calc(100% - 53px);
+        overflow-y: auto;
+        &.has-sticky-footer {
+            margin-bottom: 48px;
+        }
+    }
+    .logic-tab-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px; /* Space between buttons */
+        margin-top: 16px;
+    }
+    
+    .logic-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px; /* Space between icon and text */
+        padding: 10px 16px;
+        background: #f9f9f9; /* Light gray background for a neutral look */
+        color: #333; /* Dark gray text color */
+        border: 1px solid #ddd; /* Light border to add structure */
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    
+    .logic-button .button-icon {
+        width: 20px;
+        height: 20px;
+        fill: #666; /* Icon color matches the text */
+        transition: fill 0.3s ease;
+    }
+    
+    .logic-button:hover {
+        background: #f2f2f2; /* Slightly darker background on hover */
+        border-color: #ccc; /* Slightly darker border on hover */
+        color: #111; /* Darker text color on hover */
+    }
+    
+    .logic-button:hover .button-icon {
+        fill: #111; /* Darker icon color on hover */
+    }
+    
+    .logic-button:active {
+        background: #eaeaea; /* Subtle pressed effect */
+        transform: scale(0.98); /* Slightly shrink button on click */
+    }
+    
+    // .logic-button:focus {
+    //     outline: 2px solid #007cba; /* Accessible focus outline */
+    //     outline-offset: 2px;
+    // }
+    .richtext__editor > div {
+        overflow-wrap: anywhere;
+    }
+}
+
+

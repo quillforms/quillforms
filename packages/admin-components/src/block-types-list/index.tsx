@@ -4,6 +4,7 @@
  */
 import { NavLink } from '@quillforms/navigation';
 import ConfigApi from '@quillforms/config';
+import { blockColors } from '@quillforms/blocks';
 
 /**
  * Internal Dependencies
@@ -13,7 +14,7 @@ import BlockTypesListItem from '../block-types-list-item';
 /**
  * WordPress Dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -50,6 +51,7 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 			).getWelcomeScreensLength(),
 		};
 	});
+
 	const license = ConfigApi.getLicense();
 
 	if (parent) {
@@ -63,42 +65,42 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 	const proBlocks = {
 		file: {
 			title: 'File',
-			color: '#ff9381',
+			color: blockColors.file,
 			icon: <FileIcon />,
 		},
 		'calendar-picker': {
 			title: 'Calendar Picker',
-			color: '#28354c',
+			color: blockColors['calendar-picker'],
 			icon: <CalendarPickerIcon />,
 		},
 		phone: {
 			title: 'Phone',
-			color: '#2cc31a',
+			color: blockColors.phone,
 			icon: <PhoneIcon />,
 		},
 		'picture-choice': {
 			title: 'Picture Choice',
-			color: '#0d775f',
+			color: blockColors['picture-choice'],
 			icon: <PictureChoiceIcon />,
 		},
 		signature: {
 			title: 'Signature',
-			color: '#2eaf8b',
+			color: blockColors.signature,
 			icon: <SignatureIcon />,
 		},
 		'thankyou-screen': {
 			title: 'Custom Thank You Screen & Redirect',
-			color: '#bf5c73',
+			color: blockColors['thankyou-screen'],
 			icon: <ThankYouIcon />,
 		},
 		'opinion-scale': {
 			title: 'Opinion Scale',
-			color: '#5d4096',
+			color: blockColors['opinion-scale'],
 			icon: <OpinionScaleIcon />,
 		},
 		rating: {
 			title: 'Rating',
-			color: '#ffd010',
+			color: blockColors.rating,
 			icon: <RatingIcon />,
 		},
 		calendly: {
@@ -106,9 +108,26 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 			color: '#fff',
 			icon: <CaledlyIcon />,
 		},
+		"cal.com": {
+			title: 'Cal.com',
+			color: '#fff',
+			icon: () => {
+				return (
+					<i
+						style={{
+							verticalAlign: 'text-bottom',
+							fontWeight: 'bold',
+							color: '#fff',
+						}}
+					>
+						Cal
+					</i>
+				);
+			}
+		},
 		"input-mask": {
 			title: 'Input Mask',
-			color: "#be9b7b",
+			color: blockColors['input-mask'],
 			icon: <InputMaskIcon />
 
 		}
@@ -127,9 +146,6 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 				return (
 					<div
 						key={blockName}
-						style={{
-							overflow: 'auto',
-						}}
 					>
 						<div
 							className={classnames(
@@ -137,9 +153,6 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 							)}
 						>
 							<BlockTypesListItem
-								destinationIndex={destinationIndex}
-								parent={parent}
-								index={index}
 								blockName={blockName}
 								disabled={isDragDisabled}
 							/>
@@ -180,13 +193,16 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 											isButton
 											className={css`
 												padding: 0 !important;
-												background-color: #1e87f0;
-
+												height: auto !important;
 												a {
+													background: inherit;
+													padding: 5px 8px;
+													font-size: 13px;
+													font-weight: normal;
+													border-radius: 4px;
+													overflow: hidden;
 													text-decoration: none;
 													color: #fff;
-													padding: 2px 8px;
-													background-color: #1e87f0;
 												}
 											` }
 										>

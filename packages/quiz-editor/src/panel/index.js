@@ -12,5 +12,6 @@ registerBuilderPanel('quiz', {
     icon,
     mode: 'single',
     areaToShow: 'drop-area',
-    render
+    render,
+    hasIcon: true
 });

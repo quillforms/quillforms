@@ -87,6 +87,7 @@ const EmailOutput = (props) => {
 						border: none !important;
 						outline: none;
 						padding-bottom: 8px !important;
+						padding-top: 0;
 						padding-left: 0 !important;
 						padding-right: 0 !important;
 						border-radius: 0 !important;

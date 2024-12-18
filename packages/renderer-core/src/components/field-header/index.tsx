@@ -13,36 +13,39 @@ import BlockCustomHTML from '../field-custom-html';
 import { __experimentalUseFieldRenderContext } from '../field-render';
 import { useBlockTypes, useFormContext, useFormSettings } from '../../hooks';
 
-const QuestionHeader: React.FC = memo( () => {
+const QuestionHeader: React.FC = memo(() => {
 	const { blockName, id, attributes } = __experimentalUseFieldRenderContext();
-	const { deviceWidth } = useFormContext();
+	const { deviceWidth, editor } = useFormContext();
 	const blockTypes = useBlockTypes();
 	const showQuestionsNumbers =
 		useFormSettings()?.showQuestionsNumbers ?? true;
 
-	if ( ! blockName || ! id ) return null;
+	if (!blockName || !id) return null;
 
-	const blockType = blockTypes[ blockName ];
+	const blockType = blockTypes[blockName];
 
 	const layout = attributes?.layout ?? 'stack';
 	return (
-		<div className="renderer-components-question-header">
-			{ ( showQuestionsNumbers || blockType?.counterIcon ) && (
+		<div className="renderer-components-question-header" onClick={() => {
+			if (editor.mode === 'on' && editor.onClick)
+				editor.onClick(id)
+		}}>
+			{(showQuestionsNumbers || blockType?.counterIcon) && (
 				<BlockCounter
-					id={ id }
-					attributes={ attributes }
-					blockType={ blockType }
+					id={id}
+					attributes={attributes}
+					blockType={blockType}
 				/>
-			) }
+			)}
 			<BlockTitle />
 			<BlockDescription />
-			{ ( layout === 'stack' ||
-				( deviceWidth === 'mobile' &&
-					( layout === 'float-left' ||
-						layout === 'float-right' ) ) ) && <BlockAttachment /> }
+			{(layout === 'stack' ||
+				(deviceWidth === 'mobile' &&
+					(layout === 'float-left' ||
+						layout === 'float-right'))) && <BlockAttachment />}
 			<BlockCustomHTML />
 		</div>
 	);
-} );
+});
 
 export default QuestionHeader;

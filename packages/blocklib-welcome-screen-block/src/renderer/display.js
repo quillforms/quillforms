@@ -23,7 +23,8 @@ import classNames from 'classnames';
 import Attachment from './attachment';
 
 const WelcomeScreenOutput = ({ attributes }) => {
-	const { isPreview, deviceWidth } = useFormContext();
+	const { isPreview, deviceWidth, editor } = useFormContext();
+
 	const [isActive, setIsActive] = useState(false);
 	const [stickyFooter, setStickyFooter] = useState(false);
 	const theme = useBlockTheme(attributes.themeId);
@@ -188,11 +189,11 @@ const WelcomeScreenOutput = ({ attributes }) => {
 									`
 									)}
 								>
-									<HTMLParser value={attributes.label} />
+									{editor?.mode === 'on' ? <editor.editLabel /> : <HTMLParser value={attributes?.label ?? ''} />}
 								</div>
 							)}
-							{attributes?.description &&
-								attributes.description !== '' && (
+							{((attributes?.description &&
+								attributes.description !== '') || editor.mode === 'on') && (
 									<div
 										className={classNames(
 											'renderer-components-block-description',
@@ -218,9 +219,7 @@ const WelcomeScreenOutput = ({ attributes }) => {
 											`
 										)}
 									>
-										<HTMLParser
-											value={attributes.description}
-										/>
+										{editor?.mode === 'on' ? <editor.editDescription /> : <HTMLParser value={attributes.description ?? ''} />}
 									</div>
 								)}
 							{attributes.customHTML && (

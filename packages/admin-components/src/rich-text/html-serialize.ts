@@ -27,6 +27,11 @@ const serialize = (node: CustomNode) => {
 		nodeText = nodeText.replace(/\n\n+/g, '<br /><br />'); // Two or more breaks
 		nodeText = nodeText.replace(/\n/g, '<br />'); // Single breaks
 
+		// Wrap the text with color if `textColor` is set
+		if (node.textColor) {
+			nodeText = `<span style="color: ${node.textColor};">${nodeText}</span>`;
+		}
+
 		if (node.bold) {
 			nodeText = `<strong>${nodeText}</strong>`;
 		}

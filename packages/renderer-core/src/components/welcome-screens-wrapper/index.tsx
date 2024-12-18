@@ -10,10 +10,10 @@ import { doAction } from '@wordpress/hooks';
  */
 import { useBlockTypes, useFormContext } from '../../hooks';
 const WelcomeScreensWrapper = () => {
-	const { formId } = useFormContext();
+	const { formId, editor } = useFormContext();
 	const blockTypes = useBlockTypes();
 
-	const { welcomeScreens, currentBlockId } = useSelect( ( select ) => {
+	const { welcomeScreens, currentBlockId } = useSelect((select) => {
 		return {
 			welcomeScreens: select(
 				'quillForms/renderer-core'
@@ -22,35 +22,39 @@ const WelcomeScreensWrapper = () => {
 				'quillForms/renderer-core'
 			).getCurrentBlockId(),
 		};
-	} );
+	});
 
-	useEffect( () => {
+	useEffect(() => {
 		// fire event on unmount.
 		return () => {
-			doAction( 'QuillForms.RendererCore.WelcomeScreenPassed', {
+			doAction('QuillForms.RendererCore.WelcomeScreenPassed', {
 				formId,
 				id: currentBlockId,
-			} );
+			});
 		};
-	}, [] );
+	}, []);
 
-	const { goNext } = useDispatch( 'quillForms/renderer-core' );
+	const { goNext } = useDispatch('quillForms/renderer-core');
 	return (
 		<>
-			{ welcomeScreens?.length > 0 &&
-				welcomeScreens.map( ( screen ) => {
-					const blockType = blockTypes[ 'welcome-screen' ];
+			{welcomeScreens?.length > 0 &&
+				welcomeScreens.map((screen) => {
+					const blockType = blockTypes['welcome-screen'];
 					return (
 						//@ts-expect-error
 						<blockType.display
-							next={ goNext }
-							isActive={ currentBlockId === screen.id }
-							key={ screen.id }
-							id={ screen.id }
-							attributes={ screen.attributes }
+							next={() => {
+								if (editor.mode === 'off') {
+									goNext()
+								}
+							}}
+							isActive={currentBlockId === screen.id}
+							key={screen.id}
+							id={screen.id}
+							attributes={screen.attributes}
 						/>
 					);
-				} ) }
+				})}
 		</>
 	);
 };

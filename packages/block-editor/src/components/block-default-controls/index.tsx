@@ -8,6 +8,7 @@ import {
 	ControlWrapper,
 	ControlLabel,
 	TextControl,
+	SelectControl,
 } from '@quillforms/admin-components';
 
 // @ts-expect-error
@@ -93,6 +94,12 @@ const DefaultControls: React.FC<Props> = ({
 		blockTheme = attributes.themeId;
 		defaultValue = attributes.defaultValue ?? '';
 	}
+
+	const widthOptions = [
+		{ key: '100%', name: '100%' },
+		{ key: '50%', name: '50%' },
+		{ key: '33%', name: '33%' },
+	]
 	return (
 		<Fragment>
 			{editableSupport && requiredSupport && (
@@ -301,7 +308,7 @@ const DefaultControls: React.FC<Props> = ({
 			{defaultValueSupport && (
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
-						<ControlLabel label="Default Value" isNew />
+						<ControlLabel label="Default Value" />
 						<div
 							className={css`
 								.combobox-control-rich-text-back {
@@ -371,12 +378,38 @@ const DefaultControls: React.FC<Props> = ({
 					</ControlWrapper>
 				</BaseControl>
 			)}
+			{isChild && (
+				<BaseControl>
+					<ControlWrapper orientation='vertical'>
+						<ControlLabel label={'Width'} isNew />
+						<SelectControl
+							value={
+								widthOptions.find((option) => option.key === attributes?.width)
+							}
+							options={widthOptions}
+							onChange={({ selectedItem }) => {
+								if (selectedItem) {
+									const selectedWidth =
+										widthOptions.find(
+											(option) => option.key === selectedItem.key
+										) ?? '';
+									setAttributes({
+										width: selectedWidth?.key ?? '100%',
+									});
+								}
+							}}
+
+
+						/>
+
+					</ControlWrapper>
+				</BaseControl>
+			)}
 			{placeholderSupport && (
 				<BaseControl>
 					<ControlWrapper>
 						<ControlLabel
 							label={'Override default placeholder'}
-							isNew
 						/>
 						<ToggleControl
 							checked={attributes?.placeholder !== false}
@@ -432,7 +465,7 @@ const DefaultControls: React.FC<Props> = ({
 			) && (
 					<BaseControl>
 						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Randomize" isNew></ControlLabel>
+							<ControlLabel label="Randomize"></ControlLabel>
 							<ToggleControl
 								checked={attributes?.randomize ?? false}
 								onChange={() => {

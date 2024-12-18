@@ -79,20 +79,13 @@ const MentionElement = forwardRef<
               classnames(
                 'rich-text-merge-tag__node-wrapper',
                 css`
-							color: ${item?.iconBox?.color
+                color: #333;
+                bordercolor: ${item?.iconBox?.color
                     ? item?.iconBox?.color
-                    : '#bb426f'
-                  };
-              bordercolor: ${item?.iconBox?.color
-                    ? item?.iconBox.color
-                    : '#bb426f'
-                  };
-              fill: ${item?.iconBox?.color
-                    ? item?.iconBox.color
-                    : '#bb426f'
-                  };
-              padding: 1.5px 8px;
-`
+                    : '#bb426f'};
+                fill: #333;
+              `
+
               )}
           >
             <span
@@ -101,9 +94,9 @@ const MentionElement = forwardRef<
                 css`
                 background: ${item?.iconBox?.color
                     ? item?.iconBox.color
-                    : '#bb426f'
+                    : '#ffc5db'
                   };
-`
+          `
               )}
             />
             <span className="rich-text-merge-tag__icon-box">
@@ -118,7 +111,7 @@ const MentionElement = forwardRef<
           </span>
           {children}
 
-        </PlateElement> :
+        </PlateElement > :
         (
           <span><span>{element.value}</span> {children} </span>
         )

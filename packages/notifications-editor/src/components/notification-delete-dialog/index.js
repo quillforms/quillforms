@@ -13,26 +13,26 @@ import { Modal } from '@wordpress/components';
 import classnames from 'classnames';
 import { css } from 'emotion';
 
-const NotificationDeleteDialog = ( { proceed, closeModal } ) => {
+const NotificationDeleteDialog = ({ proceed, closeModal }) => {
 	return (
 		<Modal
-			className={ classnames(
+			className={classnames(
 				'qf-notification-delete-dialog',
 				css`
 					border: none !important;
 				`
-			) }
+			)}
 			title="Delete notification"
-			onRequestClose={ closeModal }
+			onRequestClose={closeModal}
 		>
 			<div className="notifications-delete-dialog__body">
 				Are you sure you would like to delete this notification?
 			</div>
 			<div className="notifications-delete-dialog__actions">
-				<Button isDefault onClick={ closeModal }>
+				<Button isDefault onClick={closeModal}>
 					Cancel
 				</Button>
-				<Button isDanger onClick={ proceed }>
+				<Button isDanger onClick={proceed}>
 					Delete
 				</Button>
 			</div>

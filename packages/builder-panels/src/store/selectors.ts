@@ -13,11 +13,12 @@ import type { PanelsState, Panel, SubPanel } from '../types';
  * @return {Panel[]} Builder Panels.
  */
 export const getPanels = createSelector(
-	( state: PanelsState ): Panel[] => {
+	(state: PanelsState): Panel[] => {
 		return state.panels;
 	},
-	( state: PanelsState ) => [ state.panels.length ]
+	(state: PanelsState) => [state.panels.length]
 );
+
 
 /**
  * Get all panels which have parent mode.
@@ -27,10 +28,10 @@ export const getPanels = createSelector(
  * @return {Panel[]} Parent panels.
  */
 export const getParentPanels = createSelector(
-	( state: PanelsState ): Panel[] => {
-		return filter( state.panels, ( panel ) => panel.mode === 'parent' );
+	(state: PanelsState): Panel[] => {
+		return filter(state.panels, (panel) => panel.mode === 'parent');
 	},
-	( state: PanelsState ) => [ state.panels.length ]
+	(state: PanelsState) => [state.panels.length]
 );
 
 /**
@@ -45,8 +46,8 @@ export const getPanelByName = (
 	state: PanelsState,
 	panelName: string
 ): Panel | undefined => {
-	const panels = getPanels( state );
-	return panels.find( ( panel ) => panel.name === panelName );
+	const panels = getPanels(state);
+	return panels.find((panel) => panel.name === panelName);
 };
 
 /**
@@ -57,10 +58,10 @@ export const getPanelByName = (
  * @return {Panel[]} Registered panels
  */
 export const getVisiblePanels = createSelector(
-	( state: PanelsState ): Panel[] => {
-		return state.panels.filter( ( panel ) => panel.isHidden !== true );
+	(state: PanelsState): Panel[] => {
+		return state.panels.filter((panel) => panel.isHidden !== true);
 	},
-	( state: PanelsState ) => [ state.panels.length ]
+	(state: PanelsState) => [state.panels.length]
 );
 
 /**
@@ -70,7 +71,7 @@ export const getVisiblePanels = createSelector(
  *
  * @return {?string} Current panel
  */
-export function getCurrentPanelName( state: PanelsState ): string | undefined {
+export function getCurrentPanelName(state: PanelsState): string | undefined {
 	return state.currentPanel;
 }
 
@@ -82,17 +83,17 @@ export function getCurrentPanelName( state: PanelsState ): string | undefined {
  * @return {?Panel} Current panel object
  */
 export const getCurrentPanel = createSelector(
-	( state: PanelsState ): Panel | undefined => {
-		const currentPanelName = getCurrentPanelName( state );
-		if ( currentPanelName ) {
+	(state: PanelsState): Panel | undefined => {
+		const currentPanelName = getCurrentPanelName(state);
+		if (currentPanelName) {
 			return find(
 				state?.panels,
-				( panel ) => panel.name === currentPanelName
+				(panel) => panel.name === currentPanelName
 			);
 		}
 		return undefined;
 	},
-	( state: PanelsState ) => [ state?.panels.length, state?.currentPanel ]
+	(state: PanelsState) => [state?.panels.length, state?.currentPanel]
 );
 
 /**
@@ -103,21 +104,29 @@ export const getCurrentPanel = createSelector(
  * @return {Object} Current sub panel object
  */
 export const getCurrentSubPanel = createSelector(
-	( state: PanelsState ): SubPanel | undefined => {
-		const currentPanel = getCurrentPanel( state );
-		if ( state.currentSubPanel && currentPanel ) {
+	(state: PanelsState): SubPanel | undefined => {
+		const currentPanel = getCurrentPanel(state);
+		if (state.currentSubPanel && currentPanel) {
 			return currentPanel?.subPanels?.find(
-				( subPanel ) => subPanel.name === state.currentSubPanel
+				(subPanel) => subPanel.name === state.currentSubPanel
 			);
 		}
 		return undefined;
 	},
-	( state: PanelsState ) => [
+	(state: PanelsState) => [
 		state?.panels.length,
 		state?.currentSubPanel,
 		state?.currentPanel,
 	]
 );
+
+/**
+ * Get current panel type.
+ */
+export function getCurrentPanelType(state: PanelsState): string | undefined {
+	const currentPanel = getCurrentPanel(state);
+	return currentPanel?.type;
+}
 
 /**
  * Get current sub panel.
@@ -139,6 +148,6 @@ export function getCurrentSubPanelName(
  *
  * @return {?string} Area to show
  */
-export function getAreaToShow( state: PanelsState ): string | undefined {
-	return getCurrentPanel( state )?.areaToShow;
+export function getAreaToShow(state: PanelsState): string | undefined {
+	return getCurrentPanel(state)?.areaToShow;
 }

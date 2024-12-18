@@ -1,4 +1,9 @@
 .block-editor-block-actions__dropdown {
+	transform: rotate(90deg);
+	
+	.dashicons {
+		font-size: 14px;
+	}
 	button {
 		height: 28px;
 		padding: 2px;

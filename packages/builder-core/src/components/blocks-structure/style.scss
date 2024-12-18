@@ -60,16 +60,14 @@
     position: relative;
     cursor: pointer;
 
+    &.active {
+      background: #eaf4ff !important; /* Light blue background for the selected block */
+      box-shadow: 0 0 8px rgba(96, 165, 250, 0.4) !important; /* Subtle blue glow */
+    }
     &:hover {
       border-color: #cbd5e1;
       transition: border 0.15s ease-in-out;
       box-shadow: 0 2px 4px rgba(148, 163, 184, 0.05);
-    }
-
-    &.selected {
-      border-color: #60a5fa; /* Highlight the selected block */
-      background: #eaf4ff; /* Light blue background for the selected block */
-      box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); /* Subtle blue glow */
     }
 
     &.dragging {
@@ -89,27 +87,13 @@
       border-radius: 8px;
       margin-bottom: 16px; /* Add spacing for group blocks */
 
-      &[data-expanded="true"] {
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Shadow for expanded blocks */
-      }
 
-      &[data-expanded="false"] {
-        background: #f1f5f9; /* Collapsed background */
-        box-shadow: none;
-      }
-
-      &.selected {
-        border-color: #60a5fa; /* Highlight the selected group block */
-        background: #eaf4ff; /* Light blue background */
-        box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); /* Subtle blue glow */
-      }
     }
 
     // Child block styling
     &.child-block {
       background: #ffffff;
       margin-left: 24px;
-      border-left: 2px solid #60a5fa; /* Add a colored border to visually show hierarchy */
 
       &.last-in-group {
         margin-bottom: 30px; /* Add spacing for the last child block in a group */
@@ -118,11 +102,6 @@
         border-left-color: #94a3b8;
       }
 
-      &.selected {
-        border-color: #60a5fa;
-        background: #eaf4ff; /* Light blue background for selected child blocks */
-        box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); /* Subtle blue glow */
-      }
     }
 
     // Drop target indication
@@ -142,6 +121,7 @@
   // Block content styling
   .block-content {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     flex: 1;
@@ -149,7 +129,7 @@
 
   // Block label styling
   .block-label {
-    font-size: 13px;
+    font-size: 12px;
     color: #334155;
     line-height: 1.4;
   }
@@ -181,6 +161,8 @@
   // Collapse/expand icon
   .collapse-icon {
     display: flex;
+    position: absolute;
+    right: 40px;
     align-items: center;
     justify-content: center;
     width: 24px;

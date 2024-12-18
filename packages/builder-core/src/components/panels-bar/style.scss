@@ -9,7 +9,10 @@
 		margin-right: 10px;
 		background: #fff;
 		border-radius: 10px;
-	 	
+		padding: 10px;
+		box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+		border: 1px solid #e0e0e0;
+		
 		.builder-core-builder-panel-nav-item {
 
 			& {
@@ -21,6 +24,14 @@
 				justify-content: center;
 				color: #000;
 				cursor: pointer;
+
+				&.builder-panel-add-blocks .builder-core-builder-panel-nav-item__icon {
+					background: linear-gradient(135deg, #b027e4, #8778ff);
+		
+					svg {
+						fill: #fff !important;
+					}
+				}
 			}
 
 			&.active .builder-core-builder-panel-nav-item__icon {
@@ -61,6 +72,8 @@
 				span {
 					color: #b7b6b5
 				}
+
+				
 			}
 
 		}
@@ -68,7 +81,7 @@
 		.builder-core-panel-navbar__separator {
 			height: 1px;
 			width: 70%;
-			margin: 0px auto 10px;
+			margin: 15px auto 10px;
 			border: 0.2px solid #d9d9d9;
 		}
 	}

@@ -94,7 +94,7 @@ const EditorMergeTag: React.FC<Props> = ({
 							css`
 								background: ${mergeTag?.color
 									? mergeTag.color
-									: '#bb426f'};
+									: '#ffc5db'};
 							`
 						)}
 					/>

@@ -111,6 +111,7 @@
 		"framer-motion": "^7.0.0",
 		"qs": "6.9.4",
 		"react-beautiful-dnd": "^13.1.1",
+		"react-color": "^2.19.3",
 		"react-confirm-alert": "^2.7.0",
 		"react-dnd": "^15.1.2",
 		"react-dnd-html5-backend": "^15.1.3",
