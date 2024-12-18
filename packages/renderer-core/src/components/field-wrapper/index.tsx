@@ -287,6 +287,7 @@ const FieldWrapper: React.FC = () => {
 			settings?.disableWheelSwiping ||
 			settings?.animationDirection === 'horizontal' ||
 			!ref.current
+			|| isAnimating
 		) {
 			return;
 		}
@@ -302,6 +303,9 @@ const FieldWrapper: React.FC = () => {
 			element.scrollTop
 		) <= tolerance;
 
+		console.log(isAtTop, isAtBottom);
+		console.log(element.scrollTop)
+		console.log(element.scrollTop)
 		// Update swipe permissions immediately for better UX
 		setCanSwipePrev(isAtTop);
 		setCanSwipeNext(isAtBottom);
