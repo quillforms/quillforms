@@ -50,7 +50,6 @@ const SaveBtn: React.FC = () => {
 		setFieldValidationErr,
 		setIsFieldValid,
 		setIsReviewing,
-		setGlobalHash,
 	} = useDispatch('quillForms/renderer-core');
 
 	useEffect(() => {

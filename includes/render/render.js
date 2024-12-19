@@ -30,7 +30,7 @@
 					formData = wp.hooks.applyFilters(
 						'QuillForms.Renderer.SaveSubmissionFormData',
 						formData,
-						{ formObject: formObj }
+						{ formObject: formObject }
 					)
 					var data = new FormData();
 					data.append('action', 'quillforms_form_partial_submission');
@@ -52,7 +52,7 @@
 						})
 						.then(function (res) {
 							if (res && res.success) {
-								wp.data.dispatch('quillForms/renderer-core').setGlobalHash(responseData.data.hash);
+								wp.data.dispatch('quillForms/renderer-core').setGlobalHash(res.data.hash);
 
 							}
 						}

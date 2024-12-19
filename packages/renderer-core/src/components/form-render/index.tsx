@@ -62,6 +62,7 @@ interface Props {
 		currentBlockId: string;
 		answers: Record<string, unknown>;
 	}) => void;
+	onPartialSubmit?: (data: Object) => void;	// Add onPartialSubmit prop
 	applyLogic: boolean;
 	isPreview?: boolean;
 	editor: Editor;
@@ -72,6 +73,7 @@ interface Props {
 	formObj: FormObj;
 	customFonts?: CustomFont[];
 	onSubmit: (data: Object, dispatchers: SubmissionDispatchers) => void;
+	onPartialSubmit?: (data: Object) => void;
 	beforeGoingNext?: ({
 		setIsFieldValid,
 		setIsPending,
@@ -92,6 +94,7 @@ interface Props {
 		answers: Record<string, unknown>;
 	}) => void;
 	applyLogic: boolean;
+
 	isPreview?: boolean;
 
 }
@@ -103,7 +106,8 @@ const Form: React.FC<Props> = ({
 	applyLogic = false,
 	beforeGoingNext,
 	isPreview = false,
-	customFonts
+	customFonts,
+	onPartialSubmit
 }) => {
 	const [deviceWidth, setDeviceWidth] = useState('');
 
@@ -211,7 +215,8 @@ const Form: React.FC<Props> = ({
 				formId,
 				beforeGoingNext,
 				deviceWidth,
-				customFonts
+				customFonts,
+				onPartialSubmit
 			}}
 		>
 			<FormWrapper applyLogic={applyLogic} />

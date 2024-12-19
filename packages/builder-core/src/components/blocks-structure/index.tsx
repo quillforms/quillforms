@@ -15,11 +15,14 @@ import { identAlphabetically } from "@quillforms/utils";
 import { BlockIconBox, getPlainExcerpt } from "@quillforms/admin-components";
 import { BlockActions } from "@quillforms/block-editor";
 
+import { doAction, applyFilters } from '@wordpress/hooks';
 
 import { useSelect, useDispatch } from "@wordpress/data";
-import { de } from "date-fns/locale";
+import DragAlert from '../drag-alert';
 import { FormBlock, FormBlocks } from "@quillforms/types";
 import { size } from "lodash";
+import { confirmAlert } from 'react-confirm-alert';
+
 
 
 // Your custom block structure
@@ -408,37 +411,106 @@ const PureTree: React.FC = () => {
 
     const onDragEnd = useCallback(
         (source: TreeSourcePosition, destination?: TreeDestinationPosition) => {
+            // Early return if move is invalid
             if (!destination || !blockUtils.isValidMove(source, destination, tree, blocks)) {
                 return;
             }
 
             const sourceItem = tree.items[tree.items[source.parentId].children[source.index]];
+            let sourceParentIndex = undefined;
+            let destinationParentIndex = undefined;
+            if (source.parentId !== 'root') {
+                //sourceParentIndex = tree.items[tree.items[source.parentId].children[source.index]].data.blockOrder;
+                // the previous is wrong
+                sourceParentIndex = blocks.findIndex((block) => block.id === source.parentId);
+            }
+            if (destination.parentId !== 'root') {
+                destinationParentIndex = blocks.findIndex((block) => block.id === destination.parentId);
+            }
+
             const destinationItem = tree.items[destination.parentId];
 
-            // Move items and sort in one go
-            const newTree = treeUtils.sortTreeItems(
-                moveItemOnTree(tree, source, destination)
-            );
+            const handleBlockMove = () => {
+                // Move items and sort the tree
+                const newTree = treeUtils.sortTreeItems(
+                    moveItemOnTree(tree, source, destination)
+                );
 
-            if (source.parentId !== 'root' && currentChildBlockId === sourceItem.id) {
-                if (destination.parentId === 'root') {
-                    setCurrentChildBlock(undefined);
-                    setCurrentBlock(sourceItem.id);
+                // Update states
+                updateBlockSelections(source, destination, sourceItem, destinationItem);
+                setBlocks(treeUtils.rebuildBlocks(newTree));
+                setTree(newTree);
+            };
+
+            const updateBlockSelections = (
+                source: TreeSourcePosition,
+                destination: TreeDestinationPosition,
+                sourceItem: TreeItem,
+                destinationItem: TreeItem
+            ) => {
+                // Handle child block movement
+                if (source.parentId !== 'root' && currentChildBlockId === sourceItem.id) {
+                    if (destination.parentId === 'root') {
+                        setCurrentChildBlock(undefined);
+                        setCurrentBlock(sourceItem.id);
+                    } else {
+                        setCurrentBlock(destinationItem.id);
+                    }
                 }
-                else {
+
+                // Handle current block selection
+                if (sourceItem.id === currentBlockId &&
+                    source.parentId === 'root' &&
+                    destination.parentId !== 'root') {
                     setCurrentBlock(destinationItem.id);
+                    setCurrentChildBlock(sourceItem.id);
                 }
-            }
-            // Update blocks state once
-            setBlocks(treeUtils.rebuildBlocks(newTree));
-            setTree(newTree);
+            };
 
-            // Handle current block selection
-            if (sourceItem.id === currentBlockId &&
-                source.parentId === 'root' &&
-                destination.parentId !== 'root') {
-                setCurrentBlock(destinationItem.id);
-                setCurrentChildBlock(sourceItem.id);
+            const handleDragAlerts = () => {
+                let dragAlerts: string[] = [];
+                dragAlerts = dragAlerts.concat(
+                    applyFilters(
+                        'QuillForms.BuilderCore.BlockReorderAlerts',
+                        [],
+                        source.index,
+                        destination.index,
+                        sourceParentIndex,
+                        destinationParentIndex
+                    ) as string[]
+                );
+                return dragAlerts;
+            };
+
+            const showDragAlert = (dragAlerts: string[]) => {
+                confirmAlert({
+                    customUI: ({ onClose }) => (
+                        <DragAlert
+                            messages={dragAlerts}
+                            approve={() => {
+                                doAction(
+                                    'QuillForms.BuilderCore.BlockReorder',
+                                    source.index,
+                                    destination.index,
+                                    sourceParentIndex,
+                                    destinationParentIndex
+                                );
+                                handleBlockMove();
+                                onClose();
+                            }}
+                            reject={onClose}
+                            closeModal={onClose}
+                        />
+                    ),
+                });
+            };
+
+            // Main execution flow
+            const dragAlerts = handleDragAlerts();
+            if (dragAlerts.length > 0) {
+                showDragAlert(dragAlerts);
+            } else {
+                handleBlockMove();
             }
         },
         [tree, blocks, currentBlockId, currentChildBlockId, setBlocks, setCurrentBlock, setCurrentChildBlock]

@@ -241,7 +241,7 @@ class Form_Renderer
                 $partial_submission_point = $blocks[$partial_submission_index -1]['id'];
             }
             $filtered_blocks =  array_values( array_filter($blocks, function($block) use ($partial_submission_point) {
-                return $block['name'] !== 'partial-submission-point' && $block['id'] !== $partial_submission_point;
+                return $block['name'] !== 'partial-submission-point';
             }));
        
             $this->form_object = apply_filters(
