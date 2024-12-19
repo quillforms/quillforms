@@ -5,7 +5,7 @@
  *
  * @return {Object} Default theme
  */
-export function getCurrentTheme( state ) {
+export function getCurrentTheme(state) {
 	return {
 		title: state?.currentTheme?.title ? state.currentTheme.title : '',
 		properties: state?.currentTheme?.properties
@@ -15,17 +15,28 @@ export function getCurrentTheme( state ) {
 }
 
 /**
+ * Get current tab.
+ *
+ * @param {Object} state    Global application state.
+ * 
+ * @return {string} Current tab
+ */
+export function getCurrentTab(state) {
+	return state.currentTab;
+}
+
+/**
  * Get current theme id.
  *
  * @param {Object} state    Global application state.
  *
  * @return {number} Current theme id
  */
-export function getCurrentThemeId( state ) {
+export function getCurrentThemeId(state) {
 	return state.currentThemeId;
 }
 
-export function getGalleryThemes( state ) {
+export function getGalleryThemes(state) {
 	return state.galleryThemes;
 }
 /**
@@ -35,7 +46,7 @@ export function getGalleryThemes( state ) {
  *
  * @return {Object} Default theme
  */
-export function getThemesList( state ) {
+export function getThemesList(state) {
 	return state.themesList;
 }
 
@@ -46,7 +57,7 @@ export function getThemesList( state ) {
  *
  * @return {boolean} Should theme be saved
  */
-export function shouldThemeBeSaved( state ) {
+export function shouldThemeBeSaved(state) {
 	return state.shouldBeSaved;
 }
 
@@ -57,6 +68,6 @@ export function shouldThemeBeSaved( state ) {
  *
  * @return {boolean} Should theme be saved
  */
-export function isSaving( state ) {
+export function isSaving(state) {
 	return state.isSaving;
 }

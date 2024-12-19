@@ -38,7 +38,7 @@ const multipleChoiceControls = (props) => {
 				<>
 					<BaseControl>
 						<ControlWrapper orientation='horizontal'>
-							<ControlLabel label="Minimum limit for choices" isNew />
+							<ControlLabel label="Minimum limit for choices" />
 							<ToggleControl checked={min} onChange={() => {
 								setAttributes({ min: min === false ? 1 : false });
 							}} />
@@ -56,7 +56,7 @@ const multipleChoiceControls = (props) => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation='horizontal'>
-							<ControlLabel label="Maximum limit for choices" isNew />
+							<ControlLabel label="Maximum limit for choices" />
 							<ToggleControl checked={max} onChange={() => {
 								setAttributes({ max: max === false ? 5 : false });
 							}} />

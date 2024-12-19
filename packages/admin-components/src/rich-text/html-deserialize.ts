@@ -11,11 +11,11 @@ import { autop } from '@wordpress/autop';
 import createEditor from './create-editor';
 import { MergeTag } from './types';
 
-const deserializeHTML = ( htmlString: string ): SlateNode[] => {
+const deserializeHTML = (htmlString: string): SlateNode[] => {
 	return normalize(
 		deserialize(
 			new DOMParser().parseFromString(
-				formatBeforeDeserializing( autop( htmlString ) ),
+				formatBeforeDeserializing(autop(htmlString)),
 				'text/html'
 			).body
 		)
@@ -24,41 +24,50 @@ const deserializeHTML = ( htmlString: string ): SlateNode[] => {
 
 // Normalize to fix invalid JSON that may result from deserializing
 // This custom normalizer should be called one time only after the component mounting
-const normalize = ( val: SlateNode[] ): SlateNode[] => {
+const normalize = (val: SlateNode[]): SlateNode[] => {
 	// Create temp editor for normalizing
 	const editor = createEditor();
 	editor.children = val;
-	Editor.normalize( editor, { force: true } );
+	console.log('before normalizing')
+	Editor.normalize(editor, { force: true });
+	console.log('after normalizing')
 	return editor.children;
 };
 
-const formatBeforeDeserializing = ( value: string ): string => {
-	if ( ! value ) {
+const formatBeforeDeserializing = (value: string): string => {
+	if (!value) {
 		return '<p></p>';
 	}
-	const $value = value.replace(
+
+	// First handle merge tags
+	let $value = value.replace(
 		/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
 		"<mergetag data-type='$1' data-modifier='$2'>_____</mergetag>"
 	);
+
+	// Handle line breaks before autop
+	$value = $value.replace(/\n\n/g, '<br /><br />');
+	$value = $value.replace(/\n/g, '<br />');
+
 	return $value;
 };
 
-const deserialize = ( el: HTMLElement | ChildNode ) => {
+const deserialize = (el: HTMLElement | ChildNode) => {
 	const TEXT_TAGS = {
 		// CODE: () => ({ code: true }),
 		// DEL: () => ({ strikethrough: true }),
-		EM: () => ( { italic: true } ),
-		I: () => ( { italic: true } ),
+		EM: () => ({ italic: true }),
+		I: () => ({ italic: true }),
 		// S: () => ({ strikethrough: true }),
-		STRONG: () => ( { bold: true } ),
+		STRONG: () => ({ bold: true }),
 	};
 	const ELEMENT_TAGS = {
-		P: () => ( { type: 'paragraph' } ),
-		MERGETAG: () => ( {
+		P: () => ({ type: 'paragraph' }),
+		MERGETAG: () => ({
 			type: 'mergeTag',
 			data: {
-				type: ( ( el as HTMLElement ).dataset as MergeTag ).type,
-				modifier: ( ( el as HTMLElement ).dataset as MergeTag )
+				type: ((el as HTMLElement).dataset as MergeTag).type,
+				modifier: ((el as HTMLElement).dataset as MergeTag)
 					.modifier,
 			},
 			children: [
@@ -69,11 +78,18 @@ const deserialize = ( el: HTMLElement | ChildNode ) => {
 					underline: false,
 				},
 			],
-		} ),
-		A: () => ( {
+		}),
+		SPAN: () => {
+			// Check if the `<span>` has a `style="color: ..."` attribute
+			const style = (el as HTMLElement).getAttribute('style');
+			const colorMatch = style?.match(/color:\s*([^;]+);?/);
+			const textColor = colorMatch ? colorMatch[1] : undefined;
+			return textColor ? { textColor } : {};
+		},
+		A: () => ({
 			type: 'link',
-			url: ( el as HTMLElement ).getAttribute( 'href' ),
-		} ),
+			url: (el as HTMLElement).getAttribute('href'),
+		}),
 
 		// H1: () => ({ type: "heading-one" }),
 		// H2: () => ({ type: "heading-two" }),
@@ -84,15 +100,15 @@ const deserialize = ( el: HTMLElement | ChildNode ) => {
 		// IMG: el => ({ type: "image", url: el.getAttribute("src") })
 	};
 
-	if ( el.nodeType === Node.TEXT_NODE ) {
-		if ( el.textContent !== '\n' ) {
+	if (el.nodeType === Node.TEXT_NODE) {
+		if (el.textContent !== '\n') {
 			return el.textContent;
 		}
 	}
-	if ( el.nodeType !== 1 ) {
+	if (el.nodeType !== 1) {
 		return undefined;
 	}
-	if ( el.nodeName === 'BR' ) {
+	if (el.nodeName === 'BR') {
 		return '\n';
 	}
 
@@ -107,31 +123,31 @@ const deserialize = ( el: HTMLElement | ChildNode ) => {
 	// 	[ parent ] = el.childNodes;
 	// }
 
-	const children = Array.from( parent.childNodes ).map( deserialize ).flat();
+	const children = Array.from(parent.childNodes).map(deserialize).flat();
 
 	let descendants = children as Descendant[];
-	if ( ! descendants.length ) {
-		descendants = [ { text: '' } ];
+	if (!descendants.length) {
+		descendants = [{ text: '' }];
 	}
 
-	if ( el.nodeName === 'BODY' ) {
-		return jsx( 'fragment', descendants );
+	if (el.nodeName === 'BODY') {
+		return jsx('fragment', descendants);
 	}
 
-	if ( ELEMENT_TAGS[ nodeName ] ) {
-		const attrs = ELEMENT_TAGS[ nodeName ]( el );
+	if (ELEMENT_TAGS[nodeName]) {
+		const attrs = ELEMENT_TAGS[nodeName](el);
 
-		return jsx( 'element', { ...attrs }, descendants );
+		return jsx('element', { ...attrs }, descendants);
 	}
 
-	if ( TEXT_TAGS[ nodeName ] ) {
-		const attrs = TEXT_TAGS[ nodeName ]( el );
-		return children.map( ( child: Descendant ): void | Text => {
+	if (TEXT_TAGS[nodeName]) {
+		const attrs = TEXT_TAGS[nodeName](el);
+		return children.map((child: Descendant): void | Text => {
 			// This condition is to prevent throwing error when we have a string like this: <strong> {{type:modifier}} </strong>
-			if ( child?.type !== 'mergeTag' ) {
-				return jsx( 'text', { ...attrs }, child );
+			if (child?.type !== 'mergeTag') {
+				return jsx('text', { ...attrs }, child);
 			}
-		} );
+		});
 	}
 
 	return children;

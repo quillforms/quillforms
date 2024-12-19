@@ -39,7 +39,7 @@ export function setupStore(
  */
 export const setBlockAttributes = (
 	blockId: string,
-	attributes: Record< string, unknown >,
+	attributes: Record<string, unknown>,
 	parentId: string | undefined = undefined
 ): BlockEditorActionTypes => {
 	return {
@@ -99,6 +99,12 @@ export const __experimentalInsertBlock = (
 	};
 };
 
+export const setBlocks = (blocks: FormBlock[]): BlockEditorActionTypes => {
+	return {
+		type: 'SET_BLOCKS',
+		blocks,
+	};
+}
 /**
  * Set current block
  *
@@ -106,7 +112,7 @@ export const __experimentalInsertBlock = (
  *
  * @return {BlockEditorActionTypes} Action object.
  */
-export const setCurrentBlock = ( blockId: string ): BlockEditorActionTypes => {
+export const setCurrentBlock = (blockId: string): BlockEditorActionTypes => {
 	return {
 		type: SET_CURRENT_BLOCK,
 		blockId,

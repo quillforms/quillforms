@@ -15,49 +15,65 @@ import classnames from 'classnames';
  */
 import NavItem from '../panel-item';
 import MainPanelIcon from '../../panel/icon';
+import PlusIcon from './plus-icon';
 
 const BuilderPanelsBar = () => {
-	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
-	const { currentPanelName, panels } = useSelect( ( select ) => {
+	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
+	const { currentPanelName, panels } = useSelect((select) => {
 		return {
 			currentPanelName: select(
 				'quillForms/builder-panels'
 			).getCurrentPanelName(),
-			panels: select( 'quillForms/builder-panels' ).getVisiblePanels(),
+			panels: select('quillForms/builder-panels').getVisiblePanels(),
 		};
-	} );
+	});
 
 	return (
 		<div className="builder-core-builder-panels-bar">
 			<div
-				className={ classnames( 'builder-core-builder-panel-nav-item', {
-					active: ! currentPanelName ? true : false,
-				} ) }
-			>
-				<Tooltip text={ 'Main' } position="middle right">
+				className={classnames('builder-core-builder-panel-nav-item builder-panel-add-blocks')}>
+				<Tooltip text={'Add'} position="middle right">
 					<div
 						role="presentation"
-						onClick={ () => {
-							setCurrentPanel( '' );
-						} }
+						onClick={() => {
+							setCurrentPanel('add-questions');
+						}}
 						className="builder-core-builder-panel-nav-item__icon"
 					>
-						<Icon icon={ MainPanelIcon } />
+						<PlusIcon />
 					</div>
 				</Tooltip>
 			</div>
-			{ sortBy( panels, [ 'position' ] ).map( ( panel, index ) => {
+			<div className="builder-core-panel-navbar__separator"></div>
+
+			<div
+				className={classnames('builder-core-builder-panel-nav-item', {
+					active: !currentPanelName ? true : false,
+				})}
+			>
+				<Tooltip text={'Main'} position="middle right">
+					<div
+						role="presentation"
+						onClick={() => {
+							setCurrentPanel('');
+						}}
+						className="builder-core-builder-panel-nav-item__icon"
+					>
+						<Icon icon={MainPanelIcon} />
+					</div>
+				</Tooltip>
+			</div>
+			{sortBy(panels, ['position']).map((panel, index) => {
 				const isSelected = panel.name === currentPanelName;
 				return (
 					<NavItem
-						index={ index }
-						key={ panel.name }
-						panelName={ panel.name }
-						isSelected={ isSelected }
+						index={index}
+						key={panel.name}
+						panelName={panel.name}
+						isSelected={isSelected}
 					/>
 				);
-			} ) }
-			<div className="builder-core-panel-navbar__separator"></div>
+			})}
 		</div>
 	);
 };

@@ -5,4 +5,5 @@ export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SET_CURRENT_CHILD_BLOCK = 'SET_CURRENT_CHILD_BLOCK';
 export const SETUP_STORE = 'SETUP_STORE';
+export const SET_BLOCKS = 'SET_BLOCKS';
 export const STORE_KEY = 'quillForms/block-editor';

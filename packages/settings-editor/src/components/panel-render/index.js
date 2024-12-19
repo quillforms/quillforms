@@ -178,7 +178,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Hide asterisks on required fields'} isNew />
+					<ControlLabel label={'Hide asterisks on required fields'} />
 					<ToggleControl
 						checked={shouldAstreisksOnRequiredFieldsBeHidden}
 						onChange={() =>

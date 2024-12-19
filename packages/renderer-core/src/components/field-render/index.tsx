@@ -11,6 +11,7 @@ import {
 	__experimentalUseFieldRenderContext,
 } from './context';
 import FieldWrapper from '../field-wrapper';
+import { useFormContext } from '../../hooks';
 
 export { __experimentalUseFieldRenderContext };
 
@@ -34,7 +35,7 @@ const FieldRender: React.FC<Props> =
 	}) => {
 		const [isSubmitBtnVisible, showNextBtn] = useState<boolean>(true);
 		const [isErrMsgVisible, showErrMsg] = useState<boolean>(false);
-
+		const { editor } = useFormContext();
 		const {
 			isReviewing,
 			isValid,
@@ -61,6 +62,7 @@ const FieldRender: React.FC<Props> =
 		);
 
 		useEffect(() => {
+			if (editor.mode === 'on') return;
 			if (isActive && !isReviewing && !isErrMsgVisible) {
 				showErrMsg(false);
 				setIsCurrentBlockSafeToSwipe(true);
@@ -68,11 +70,13 @@ const FieldRender: React.FC<Props> =
 		}, [isActive, isErrMsgVisible, isReviewing]);
 
 		useEffect(() => {
+			if (editor.mode === 'on') return;
 			if (!isCurrentBlockSafeToSwipe) {
 				showErrMsg(true);
 			}
 		}, [isCurrentBlockSafeToSwipe]);
 		useEffect(() => {
+			if (editor.mode === 'on') return;
 			if (isReviewing && !isValid) {
 				showErrMsg(true);
 			}
@@ -94,7 +98,9 @@ const FieldRender: React.FC<Props> =
 			isSubmitBtnVisible,
 			showNextBtn,
 			next: () => {
+				console.log('next1');
 				if (!isReviewing) {
+					console.log('next2');
 					next();
 				} else if (firstInvalidFieldId) {
 					goToBlock(firstInvalidFieldId);

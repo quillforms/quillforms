@@ -187,7 +187,7 @@ const ToolbarGroup = React.forwardRef<
         </div>
       )}
 
-      <div className="mx-1 flex items-center gap-1">{children}</div>
+      <div className="mx-1 flex flex-wrap items-center gap-1">{children}</div>
     </div>
   );
 });

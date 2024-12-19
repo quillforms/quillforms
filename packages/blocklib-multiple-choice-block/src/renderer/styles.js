@@ -30,7 +30,11 @@ export const MultipleChoiceOptions = css`
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+		align-items: stretch;
 		width: 100%;
+		margin-block-end: -8px; */
+		margin-inline-end: 8px;
+		column-gap: 8px;
 	}
 	&.valigned {
 		display: inline-flex;
@@ -42,10 +46,17 @@ export const MultipleChoiceOptions = css`
 	&:not(.valigned) {
 
 		.multipleChoice__optionWrapper {
-			max-width: 215px;
+			width: calc(33% - 7px);
+			min-width: 160px;
+			flex: 1 0 31%;
+   		 	max-width: calc(33% - 3px);
 			@media(max-width: $break-small) {
-				max-width: 480px;
+				width: calc(50% - 7px);
+				min-width: 160px;
+			ZZZZZZZZZZZZZ	flex: 1 0 48%;
+				max-width: calc(50% - 3px);
 			}
+
 		}
 	}
 
@@ -59,7 +70,7 @@ export const MultipleChoiceOptions = css`
 			border-radius: 5px;
 			cursor: pointer;
 			padding: 10px;
-			margin: 0 16px 16px 0;
+			margin-bottom: 7px;
 			box-shadow: none;
 			outline: none;
 			position: relative;
@@ -114,7 +125,7 @@ export const MultipleChoiceOptions = css`
 			flex-grow: 1;
 			padding-right: 12px;
 			overflow-wrap: break-word;
-			max-width: calc(100% - 27px);
+			// max-width: calc(100% - 27px);
 		}
 
 		.multipleChoice__optionKey {
@@ -122,6 +133,9 @@ export const MultipleChoiceOptions = css`
 				position: relative;
 				width: 27px;
 				height: 27px;
+				min-width: 27px;
+   				min-height: 27px;
+				line-height: 0;
 				display: flex;
 				flex-wrap: wrap;
 				align-items: center;
@@ -136,6 +150,7 @@ export const MultipleChoiceOptions = css`
 				position: absolute;
 				top: -25px;
 				font-size: 10px;
+				line-height: 1em;
 				font-weight: bold;
 				text-transform: uppercase;
 				padding: 2px 3px;

@@ -43,7 +43,7 @@ const FieldWrapper: React.FC = () => {
 		attributes,
 		blockName,
 	} = __experimentalUseFieldRenderContext();
-	const { deviceWidth } = useFormContext();
+	const { editor, deviceWidth } = useFormContext();
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const settings = useFormSettings();
 	if (!id || !blockName) return null;
@@ -89,6 +89,7 @@ const FieldWrapper: React.FC = () => {
 		}
 	})
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		if (correctIncorrectDisplay) {
 			if (currentBlockId)
 				setIsFieldAnswerLocked(currentBlockId, true);
@@ -133,31 +134,53 @@ const FieldWrapper: React.FC = () => {
 
 
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		if (isActive && !isReviewing) {
 			setTimeout(() => {
 				setIsCurrentBlockSafeToSwipe(true);
 			}, 40);
 		}
 	}, [isActive, isReviewing]);
+
 	useEffect(() => {
-		if (isActive) {
-			if (ref?.current) {
-				setTimeout(() => {
-					if (ref?.current) {
-						ref.current.scrollTo(0, 0);
-					}
-					setCanSwipePrev(true);
-				}, 0);
-			}
-		} else {
+		if (editor.mode === 'on') return;
+		if (!ref?.current) return;
+
+		const element = ref.current;
+
+		// Scroll to top when question becomes active
+		element.scrollTo(0, 0);
+
+		// Check if content is scrollable
+		const isScrollable = element.scrollHeight > element.clientHeight;
+
+		// If content is scrollable, disable next swipe until scrolled to bottom
+		setCanSwipeNext(!isScrollable);
+		setCanSwipePrev(true);
+
+		return () => {
 			clearTimeout(tabTimer);
 			clearTimeout(scrollTimer);
-			setCanSwipeNext(true);
-			setCanSwipePrev(true);
-		}
+		};
 	}, [isActive]);
 
 	useEffect(() => {
+		if (!ref?.current) return;
+
+		const element = ref.current;
+		const resizeObserver = new ResizeObserver(() => {
+			const isScrollable = element.scrollHeight > element.clientHeight;
+			setCanSwipeNext(!isScrollable);
+		});
+
+		resizeObserver.observe(element);
+
+		return () => resizeObserver.disconnect();
+	}, []);
+
+
+	useEffect(() => {
+		if (editor.mode === 'on') return;
 		if (isAnimating) clearTimeout(tabTimer);
 	}, [isAnimating]);
 
@@ -190,7 +213,7 @@ const FieldWrapper: React.FC = () => {
 	}
 
 	function processTab(isShiftPressed) {
-		if (isAnimating) {
+		if (isAnimating || editor.mode === 'on') {
 			return;
 		}
 		const activeElement = document.activeElement;
@@ -249,6 +272,7 @@ const FieldWrapper: React.FC = () => {
 	 * @param  isShiftPressed
 	 */
 	function onTab(e, isShiftPressed) {
+		if (editor.mode === 'on') return;
 		clearTimeout(tabTimer);
 		if (isAnimating) return;
 		e.preventDefault();
@@ -259,36 +283,34 @@ const FieldWrapper: React.FC = () => {
 
 	const scrollHandler = (e) => {
 		if (
+			editor.mode === 'on' ||
 			settings?.disableWheelSwiping ||
-			settings?.animationDirection === 'horizontal'
+			settings?.animationDirection === 'horizontal' ||
+			!ref.current
+			|| isAnimating
 		) {
 			return;
 		}
-		e.preventDefault();
-		if (!ref.current) return;
-		if (ref.current.scrollTop <= 0) {
-			scrollTimer = setTimeout(() => {
-				setCanSwipePrev(true);
-			}, 500);
-		} else {
-			setCanSwipePrev(false);
-		}
-		// Adding tolerance to detect scroll end.
-		// It was a problem with mobile devices.
-		if (
-			Math.abs(
-				ref.current.scrollHeight -
-				ref.current.clientHeight -
-				ref.current.scrollTop
-			) <= 3.0
-		) {
-			scrollTimer = setTimeout(() => {
-				setCanSwipeNext(true);
-			}, 500);
-		} else {
-			setCanSwipeNext(false);
-		}
+
+		const element = ref.current;
+		const tolerance = 3.0; // Tolerance for mobile devices
+
+		// Calculate scroll positions
+		const isAtTop = element.scrollTop <= 0;
+		const isAtBottom = Math.abs(
+			element.scrollHeight -
+			element.clientHeight -
+			element.scrollTop
+		) <= tolerance;
+
+		console.log(isAtTop, isAtBottom);
+		console.log(element.scrollTop)
+		console.log(element.scrollTop)
+		// Update swipe permissions immediately for better UX
+		setCanSwipePrev(isAtTop);
+		setCanSwipeNext(isAtBottom);
 	};
+
 	const isTouchScreen =
 		(typeof window !== 'undefined' && 'ontouchstart' in window) ||
 		(typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) ||
@@ -390,6 +412,7 @@ const FieldWrapper: React.FC = () => {
 								tabIndex={0}
 								// @ts-expect-error
 								onKeyDown={(e: KeyboardEvent): void => {
+									if (editor.mode === 'on') return;
 									const isShiftPressed = e.shiftKey;
 									if (isAnimating) {
 										e.preventDefault();

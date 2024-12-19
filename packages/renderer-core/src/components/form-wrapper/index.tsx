@@ -35,6 +35,7 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 			blockTypes: select('quillForms/blocks').getBlockTypes(),
 		};
 	});
+	const { editor } = useFormContext();
 	const blocks = useBlocks();
 	const {
 		isPreview,

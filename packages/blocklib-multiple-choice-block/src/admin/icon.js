@@ -1,14 +1,13 @@
-const Icon = () => {
-	return (
-		<svg
-			className="MuiSvgIcon-root jss79"
-			focusable="false"
-			viewBox="0 0 24 24"
-			aria-hidden="true"
-		>
-			<path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path>
-		</svg>
-	);
-};
+const MultipleChoiceIcon = () => (
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+		{/* Choice A */}
+		<text x="2" y="8" fontSize="7" fontWeight="bold" fill="currentColor" textAnchor="middle">A</text>
+		<rect x="7" y="5.2" width="8" height="1.6" rx="0.8" fill="currentColor" />
 
-export default Icon;
+		{/* Choice B */}
+		<text x="2" y="15" fontSize="7" fontWeight="bold" fill="currentColor" textAnchor="middle">B</text>
+		<rect x="7" y="11.2" width="8" height="1.6" rx="0.8" fill="currentColor" />
+	</svg>
+);
+
+export default MultipleChoiceIcon;

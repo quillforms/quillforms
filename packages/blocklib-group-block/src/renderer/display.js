@@ -7,7 +7,8 @@ import {
 	__experimentalUseFieldRenderContext,
 	FieldRenderContextProvider,
 	ErrMsg,
-	useFormSettings
+	useFormSettings,
+	useFormContext
 } from '@quillforms/renderer-core';
 
 /**
@@ -30,6 +31,7 @@ import zenScroll from './zen-scroll';
 
 const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 	const { isErrMsgVisible, isActive } = __experimentalUseFieldRenderContext();
+	const { editor } = useFormContext();
 	const formSettings = useFormSettings();
 	// By Default, the focus will be on the first item on the group.
 	const [refIndex, setRefIndex] = useState(0);
@@ -53,7 +55,7 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 	} = useDispatch('quillForms/renderer-core');
 
 	useEffect(() => {
-		if (isErrMsgVisible) {
+		if (isErrMsgVisible && editor.mode === 'off') {
 			let firstInvalidBlock = null;
 			if (size(innerBlocks) > 0) {
 				innerBlocks.forEach((block, index) => {
@@ -79,7 +81,7 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 					edgeOffset
 				);
 				const target = document.getElementById(
-					`renderer-components-child-block-${firstInvalidBlock.id}`
+					`renderer-core-child-block-${firstInvalidBlock.id}`
 				);
 				myScroller.center(target);
 
@@ -105,7 +107,12 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 		}
 	}, [isErrMsgVisible, isActive, isAnimating]);
 	return (
-		<>
+		<div className={classnames("renderer-core-group-children-wrapper", css`
+			display: flex;
+			flex-wrap: wrap;
+			margin-right: -20px; 
+
+		`)}>
 			{size(innerBlocks) > 0 &&
 				innerBlocks.map((block, index) => {
 					const blockType = blockTypes[block.name];
@@ -144,6 +151,7 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 					};
 
 					refAssigned = true;
+					const isFullWidth = block.attributes?.width === '100%' || !block.attributes?.width;
 
 					return (
 						<FieldRenderContextProvider
@@ -151,13 +159,32 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 							value={context}
 						>
 							<div
-								className={css`
-									margin-bottom: 48px;
-									&:last-child {
-										margin-bottom: 0;
-									}
-								` }
-								id={`renderer-components-child-block-${block?.id}`}
+								className={classnames(
+									'renderer-core-child-block',
+									`renderer-core-child-block-${block.id}`,
+									editor.mode === 'on' &&
+									editor.isChildActive(block.id) &&
+									'renderer-core-child-block-editor-active',
+									css`
+										margin-bottom: 48px;
+										&:last-child {
+											margin-bottom: 0;
+										}
+										width: ${isFullWidth ? '100%' : `calc(${block.attributes.width} - 20px)`} !important;
+										margin-right: 20px;
+									`
+								)}
+								id={`renderer-core-child-block-${block.id}`}
+								onClick={() => {
+									console.log('clicked');
+									if (editor.mode === 'on') editor.setIsChildActive(block.id);
+								}}
+
+								onFocus={() => {
+									if (editor.mode === 'on') editor.setIsChildActive(block.id);
+								}}
+
+
 							>
 								<div
 									className={classnames(
@@ -184,7 +211,11 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 										`
 									)}
 								>
-									<HTMLParser value={blockLabel} />
+									{editor.mode === 'on' ? (
+										<editor.editLabel childId={block.id} childIndex={index} parentId={id} />
+									) : (
+										<HTMLParser value={blockLabel} />
+									)}
 								</div>
 								<>
 									{blockType?.display && (
@@ -211,7 +242,8 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 						</FieldRenderContextProvider>
 					);
 				})}
-		</>
+
+		</div>
 	);
 };
 export default GroupDisplay;

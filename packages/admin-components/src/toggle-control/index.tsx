@@ -5,18 +5,19 @@ import classnames from 'classnames';
 import { noop } from 'lodash';
 import { FC } from 'react';
 
-interface props {
+interface Props {
 	className?: string | undefined;
 	checked?: boolean;
 	onChange?: () => void;
-	[ x: string ]: unknown;
+	[x: string]: unknown;
 }
-const ToggleControl: FC< props > = ( {
+
+const ToggleControl: FC<Props> = ({
 	className,
-	checked,
+	checked = false,
 	onChange = noop,
 	...props
-} ) => {
+}) => {
 	const wrapperClasses = classnames(
 		'admin-components-toggle-control',
 		className,
@@ -26,21 +27,17 @@ const ToggleControl: FC< props > = ( {
 	);
 
 	return (
-		<span className={ wrapperClasses }>
-			<span className="admin-components-toggle-control__base">
-				<span className="admin-components-toggle-control__input-wrapper">
-					<input
-						className="admin-components-toggle-control__input"
-						type="checkbox"
-						checked={ checked }
-						onChange={ onChange }
-						{ ...props }
-					/>
-					<span className="admin-components-toggle-control__thumb"></span>
-				</span>
-			</span>
+		<label className={wrapperClasses}>
+			<input
+				className="admin-components-toggle-control__input"
+				type="checkbox"
+				checked={checked}
+				onChange={onChange}
+				{...props}
+			/>
+			<span className="admin-components-toggle-control__thumb"></span>
 			<span className="admin-components-toggle-control__track"></span>
-		</span>
+		</label>
 	);
 };
 

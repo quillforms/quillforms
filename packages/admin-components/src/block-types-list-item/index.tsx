@@ -13,7 +13,7 @@ import { sanitizeBlockAttributes } from '@quillforms/blocks';
 /**
  * WordPress Dependencies
  */
-import { memo, useState, useEffect } from 'react';
+import { memo, useState, useEffect, use } from 'react';
 // @ts-expect-error
 import { Icon, Dashicon } from '@wordpress/components';
 import { blockDefault, plus } from '@wordpress/icons';
@@ -26,6 +26,7 @@ import { FC } from 'react';
 import classNames from 'classnames';
 import { css } from 'emotion';
 import tinycolor from 'tinycolor2';
+import { findIndex } from 'lodash';
 
 const areEqual = (prevProps: Props, nextProps: Props): boolean => {
 	if (prevProps.disabled === nextProps.disabled) return true;
@@ -43,24 +44,31 @@ const BlockTypesListItem: FC<Props> = memo(
 	({
 		disabled,
 		blockName,
-		index,
 		disableAnimation,
-		destinationIndex,
-		parent,
 	}) => {
-		const [isMounted, setIsMounted] = useState(false);
-
-		useEffect(() => {
-			setTimeout(() => {
-				setIsMounted(true);
-			}, 50);
-		}, []);
+		const { formBlocks, currentBlockId, currentChildBlockId, currentBlockIndex } = useSelect((select) => {
+			return {
+				formBlocks: select('quillForms/block-editor').getBlocks(),
+				currentBlockId: select('quillForms/block-editor').getCurrentBlockId(),
+				currentChildBlockId: select('quillForms/block-editor').getCurrentChildBlockId(),
+				currentBlockIndex: select('quillForms/block-editor').getCurrentBlockIndex(),
+			};
+		}
+		);
+		let currentChildBlockIndex = -1;
+		if (currentChildBlockId && currentBlockId && currentBlockIndex > -1 && formBlocks[currentBlockIndex]?.innerBlocks) {
+			currentChildBlockIndex = findIndex(formBlocks[currentBlockIndex].innerBlocks, {
+				id: currentChildBlockId,
+			});
+		}
 		const { blockType } = useSelect((select) => {
 			return {
 				blockType:
 					select('quillForms/blocks').getBlockType(blockName),
 			};
 		});
+
+		const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
 
 		if (!blockType) return null;
 		let { icon } = blockType;
@@ -83,7 +91,7 @@ const BlockTypesListItem: FC<Props> = memo(
 		const { insertEmptyFieldAnswer } = useDispatch(
 			'quillForms/renderer-core'
 		);
-		const { __experimentalInsertBlock, setCurrentBlock } = useDispatch(
+		const { __experimentalInsertBlock, setCurrentBlock, setCurrentChildBlock } = useDispatch(
 			'quillForms/block-editor'
 		);
 		const generateBlockId = (): string => {
@@ -105,13 +113,22 @@ const BlockTypesListItem: FC<Props> = memo(
 		): FormBlock | void => {
 			// Blocks are stored with a unique ID, the assigned type name, the block
 			// attributes.
-			return {
-				id: generateBlockId(),
+
+			let createdBlock = {
+				id: name === 'partial-submission-point' ? 'partial-submission-point' : generateBlockId(),
 				name,
 				attributes: sanitizeBlockAttributes(name, attributes),
 			};
+
+			if (name === 'group') {
+				createdBlock.innerBlocks = [createBlock('short-text', {})]
+			}
+
+			return createdBlock;
 		};
 
+		// const for blocks that couldn't be children
+		const nonChildBlocks = ['welcome-screen', 'thankyou-screen', 'partial-submission-point', 'group'];
 		return (
 			<div
 				onClick={(e) => {
@@ -127,49 +144,33 @@ const BlockTypesListItem: FC<Props> = memo(
 							);
 						__experimentalInsertBlock(
 							blockToInsert,
-							destinationIndex,
-							parent
+							currentChildBlockIndex > -1 && !nonChildBlocks.includes(blockName) ? currentChildBlockIndex + 1 : currentBlockIndex + 1,
+							currentChildBlockIndex > -1 && !nonChildBlocks.includes(blockName) ? currentBlockId : undefined
 						);
+						setCurrentPanel('');
 						setTimeout(() => {
-							if (
-								!document.querySelector(
-									`#block-editor-box-wrapper-${blockToInsert.id} .block-editor-block-edit`
-								)
-							) {
-								setCurrentBlock(blockToInsert.id);
-								document
-									?.getElementById(
-										`block-editor-box-wrapper-${blockToInsert.id}`
-									)
-									?.scrollIntoView({ behavior: 'smooth' });
+							if (currentChildBlockIndex > -1 && !nonChildBlocks.includes(blockName)) {
+								setCurrentChildBlock(blockToInsert.id);
 							}
+							else {
+								setCurrentBlock(blockToInsert.id);
+							}
+
 						}, 80);
 					}
 				}}
 				className={classNames(
 					'admin-components-blocks-list-item',
 					css`
-						&:not( .animation-disabled ) {
-							opacity: 0;
-							transform: translateX( -15px );
-							transition: transform 0.3s ease ${index * 0.1}s,
-								opacity 0.3s ease ${index * 0.1}s;
-
-							&.mounted {
-								opacity: 1;
-								transform: scale( 1 );
-							}
-						}
 						&:hover {
 							background: ${tinycolor(blockType?.color)
-							.setAlpha(0.1)
+							.setAlpha(0.4)
 							.toString()};
 							cursor: pointer;
 						}
 					`,
 					{
 						disabled: disabled ? true : false,
-						mounted: isMounted,
 						'animation-disabled': disableAnimation,
 					}
 				)}
@@ -189,7 +190,7 @@ const BlockTypesListItem: FC<Props> = memo(
 				<span className="admin-components-blocks-list-item__block-name">
 					{blockType?.title}
 				</span>
-				{(blockType?.name === 'group' || blockType?.name === 'slider') && (
+				{blockType?.name === 'partial-submission-point' && (
 					<div className="admin-components-control-label__new-feature">
 						NEW
 					</div>

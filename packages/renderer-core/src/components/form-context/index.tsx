@@ -5,11 +5,29 @@ import { createContext, useMemo } from '@wordpress/element';
 import { noop } from 'lodash';
 import { FormObj, CustomFont, SubmissionDispatchers } from '../../types';
 
+interface EditorOffConfig {
+	mode: "off";
+}
+
+interface EditorOnConfig {
+	mode: "on";
+	editLabel: React.FC;
+	editDescription: React.FC;
+	onClick: (id: string) => void;
+	onChildClick: (id: string) => void;
+	isChildActive: (id: string) => boolean;
+}
+
+
+// Create a union type for Editor
+type Editor = EditorOnConfig | EditorOffConfig;
+
 interface FormContext {
 	formObj: FormObj;
 	onSubmit: (data: object, dispatchers: SubmissionDispatchers) => void;
 	isPreview: boolean;
 	deviceWidth?: string;
+	editor: Editor;
 	customFonts?: CustomFont[];
 	formId?: number | string;
 	beforeGoingNext?: ({
@@ -48,6 +66,9 @@ const FormContext: React.Context<FormContext> = createContext<FormContext>({
 	},
 	onSubmit: noop,
 	isPreview: false,
+	editor: {
+		mode: 'off',
+	},
 });
 
 const FormContextProvider = ({ children, value }) => {

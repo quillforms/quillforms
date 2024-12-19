@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 /**
  * WordPress Dependencies
  */
@@ -25,17 +24,37 @@ import type {
 	MergeTag,
 	allowedFormats,
 } from '../../types';
+import classNames from 'classnames';
+
+// Add these type definitions
+interface CustomText {
+	bold?: boolean;
+	italic?: boolean;
+	textColor?: string;
+	text: string;
+}
+
+declare module 'slate' {
+	interface CustomTypes {
+		Editor: BaseEditor & ReactEditor & HistoryEditor;
+		Element: CustomElement;
+		Text: CustomText;
+	}
+}
+
 interface Props {
 	editor: ReactEditor & HistoryEditor;
 	placeholder?: string;
 	color?: string;
 	value: SlateNode[];
 	onChange: (value: SlateNode[]) => void;
-	onFocus: React.FocusEventHandler;
+	onFocus?: React.FocusEventHandler;
 	mergeTags?: MergeTags;
 	mergeTagsSections?: MergeTagsSections;
 	allowedFormats?: allowedFormats;
+	className?: string;
 }
+
 const TextEditor: React.FC<Props> = (props) => {
 	const {
 		editor,
@@ -45,11 +64,6 @@ const TextEditor: React.FC<Props> = (props) => {
 		value,
 		onFocus,
 		mergeTags = [],
-		// mergeTagsSections = [
-		// 	{ key: 'field', label: 'Fields' },
-		// 	{ key: 'variable', label: 'Variables' },
-		// 	{ key: 'hidden_field', label: 'Hidden Fields' },
-		// ],
 		allowedFormats = [],
 	} = props;
 
@@ -59,6 +73,7 @@ const TextEditor: React.FC<Props> = (props) => {
 	const [target, setTarget] = useState<Range | undefined>();
 	const [index, setIndex] = useState(0);
 	const [search, setSearch] = useState('');
+	const [currentColor, setCurrentColor] = useState('#000000');
 
 	const $mergeTags = mergeTags.filter((c) => {
 		if (search) {
@@ -69,7 +84,14 @@ const TextEditor: React.FC<Props> = (props) => {
 		return true;
 	});
 
-	const isFormatActive = (format) => {
+	const isFormatActive = (format: string) => {
+		if (format === 'textColor') {
+			const [match] = Editor.nodes(editor, {
+				match: n => Text.isText(n) && n.textColor !== undefined,
+				mode: 'all',
+			});
+			return !!match;
+		}
 		const [match] = Editor.nodes(editor, {
 			match: (n) => n[format] === true,
 			mode: 'all',
@@ -77,21 +99,31 @@ const TextEditor: React.FC<Props> = (props) => {
 		return !!match;
 	};
 
+	const toggleFormat = (format: string, value?: string) => {
+		if (format === 'textColor') {
+			Transforms.setNodes(
+				editor,
+				{ textColor: value },
+				{ match: Text.isText, split: true }
+			);
+			setCurrentColor(value || '#000000');
+		} else {
+			const active = isFormatActive(format);
+			Transforms.setNodes(
+				editor,
+				{ [format]: active ? null : true },
+				{ match: Text.isText, split: true }
+			);
+		}
+	};
+
 	const renderElement = useCallback(props => {
 		return <Element {...props} editor={editor} mergeTags={mergeTags} />;
 	}, [mergeTags, value]);
 
-
-	const toggleFormat = (editor: Editor, format) => {
-		const active = isFormatActive(format);
-		Transforms.setNodes(
-			editor,
-			{ [format]: active ? null : true },
-			{ match: Text.isText, split: true }
-		);
-	};
-
 	const Leaf = ({ attributes, children, leaf }) => {
+		const style = { color: leaf.textColor || 'inherit' };
+
 		if (leaf.bold) {
 			children = <strong>{children}</strong>;
 		}
@@ -100,10 +132,11 @@ const TextEditor: React.FC<Props> = (props) => {
 			children = <em>{children}</em>;
 		}
 
-		return <span {...attributes}>{children}</span>;
+		return <span {...attributes} style={style}>{children}</span>;
 	};
 
-	// Insert Variable
+	// Rest of your existing code for merge tags and other functionality...
+
 	const insertMergeTag = (mergeTag: MergeTag) => {
 		Transforms.insertNodes(editor, {
 			type: 'mergeTag',
@@ -154,24 +187,7 @@ const TextEditor: React.FC<Props> = (props) => {
 		[index, search, target]
 	);
 
-	// useEffect( () => {
-	// 	if ( target && $mergeTags.length > 0 ) {
-	// 		const el: HTMLDivElement | null = ref.current;
-	// 		const domRange = ReactEditor.toDOMRange( editor, target );
-	// 		const rect = domRange.getBoundingClientRect();
-	// 		if ( el ) {
-	// 			el.style.top = `${ rect.top + window.pageYOffset + 24 }px`;
-	// 			el.style.left = `${ rect.left + window.pageXOffset }px`;
-	// 		}
-	// 	}
-	// }, [ $mergeTags.length, editor, index, search, target ] );
-
 	useEffect(() => {
-		/**
-		 * Alert if clicked on outside of element
-		 *
-		 * @param  event
-		 */
 		function handleClickOutsidePortal(event: MouseEvent): void {
 			if (
 				PopoverRef.current &&
@@ -184,21 +200,16 @@ const TextEditor: React.FC<Props> = (props) => {
 			}
 		}
 
-		// Bind the event listener
 		document.addEventListener('mousedown', handleClickOutsidePortal);
 		return () => {
-			// Unbind the event listener on clean up
-			document.removeEventListener(
-				'mousedown',
-				handleClickOutsidePortal
-			);
+			document.removeEventListener('mousedown', handleClickOutsidePortal);
 		};
 	}, [PopoverRef]);
 
 	return (
 		<Fragment>
 			<div
-				className="richtext__editor"
+				className={classNames("richtext__editor", props.className)}
 				style={{ width: '100%' }}
 				ref={wrapperRef}
 			>
@@ -212,26 +223,13 @@ const TextEditor: React.FC<Props> = (props) => {
 						if (selection && Range.isCollapsed(selection)) {
 							const [start] = Range.edges(selection);
 							const wordBefore = selection;
-							const before =
-								wordBefore &&
-								Editor.before(editor, wordBefore);
-							const beforeRange =
-								before && Editor.range(editor, before, start);
-							const beforeText =
-								beforeRange &&
-								Editor.string(editor, beforeRange);
-							const beforeMatch =
-								beforeText && beforeText.endsWith('@');
+							const before = wordBefore && Editor.before(editor, wordBefore);
+							const beforeRange = before && Editor.range(editor, before, start);
+							const beforeText = beforeRange && Editor.string(editor, beforeRange);
+							const beforeMatch = beforeText && beforeText.endsWith('@');
 							const after = Editor.after(editor, start);
-							const afterRange = Editor.range(
-								editor,
-								start,
-								after
-							);
-							const afterText = Editor.string(
-								editor,
-								afterRange
-							);
+							const afterRange = Editor.range(editor, start, after);
+							const afterText = Editor.string(editor, afterRange);
 							const afterMatch = afterText.match(/^(\s|$)/);
 
 							if (beforeMatch && afterMatch) {
@@ -247,12 +245,9 @@ const TextEditor: React.FC<Props> = (props) => {
 					{allowedFormats?.length > 0 && (
 						<HoveringToolbar
 							formattingControls={allowedFormats}
-							toggleFormat={(format) =>
-								toggleFormat(editor, format)
-							}
-							isFormatActive={(format) =>
-								isFormatActive(format)
-							}
+							toggleFormat={toggleFormat}
+							isFormatActive={isFormatActive}
+							currentColor={currentColor}
 						/>
 					)}
 					<Editable
@@ -279,9 +274,9 @@ const TextEditor: React.FC<Props> = (props) => {
 						onDOMBeforeInput={(event: Event) => {
 							switch ((event as InputEvent).inputType) {
 								case 'formatBold':
-									return toggleFormat(editor, 'bold');
+									return toggleFormat('bold');
 								case 'formatItalic':
-									return toggleFormat(editor, 'italic');
+									return toggleFormat('italic');
 							}
 						}}
 					/>
@@ -289,22 +284,22 @@ const TextEditor: React.FC<Props> = (props) => {
 						<Popover
 							ref={PopoverRef}
 							className={css`
-								z-index: 1111111111111111111;
-								.components-popover__content {
-									padding: 3px;
-									border: none;
-									border-radius: 4px;
-									box-shadow: 0 1px 5px rgba( 0, 0, 0, 0.2 );
-									z-index: 111111111111111111;
-								}
-							` }
+                                z-index: 1111111111111111111;
+                                .components-popover__content {
+                                    padding: 3px;
+                                    border: none;
+                                    border-radius: 4px;
+                                    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+                                    z-index: 111111111111111111;
+                                }
+                            `}
 							onKeyDown={onKeyDown}
 						>
 							<div
 								className={css`
-									padding: 5px 25px;
-									font-weight: bold;
-								` }
+                                    padding: 5px 25px;
+                                    font-weight: bold;
+                                `}
 							>
 								Recall Information from...
 							</div>
@@ -334,7 +329,4 @@ const TextEditor: React.FC<Props> = (props) => {
 	);
 };
 
-/**
- * Export.
- */
 export default TextEditor;

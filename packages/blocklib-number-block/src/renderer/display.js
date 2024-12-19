@@ -97,6 +97,7 @@ const NumberOutput = (props) => {
 						border: none !important;
 						outline: none;
 						padding-bottom: 8px;
+						padding-top:0;
 						border-radius: 0 !important;
 						background: transparent;
 						background-color: transparent !important;

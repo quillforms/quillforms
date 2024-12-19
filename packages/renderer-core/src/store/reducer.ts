@@ -221,7 +221,8 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 			const isLastField =
 				newWalkPath?.length > 0 &&
 				newWalkPath[newWalkPath.length - 1].id == newCurrentBlockId;
-
+			console.log('isLastField', isLastField);
+			console.log(newSwiperState)
 			return {
 				...state,
 				...newSwiperState,
@@ -256,6 +257,7 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 		}
 
 		case GO_NEXT: {
+			console.log('GO_NEXT');
 			if (isAnimating || correctIncorrectDisplay) return state;
 			const nextFieldType = walkPath.find(
 				(block) => block.id === nextBlockId
@@ -583,6 +585,7 @@ const answers: Reducer<RendererAnswersState, RendererAnswersActionTypes> = (
 		// SET FIELD ANSWER
 		case SET_FIELD_ANSWER: {
 			const { id, val } = action;
+			console.log(val, state)
 			// If the field id is incorrect or the value passed is the same value, return same state.
 			if (val === state[id]?.value) {
 				return state;

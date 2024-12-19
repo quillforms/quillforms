@@ -127,7 +127,7 @@ $payments_schema = array(
 					),
 					'discount_type'   => array(
 						'type'     => 'string',
-						'enum'     => array( 'percent', 'fixed' ),
+						'enum'     => array( 'percent', 'percentage', 'fixed' ),
 						'required' => true,
 					),
 					'discount_amount' => array(

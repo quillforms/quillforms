@@ -68,7 +68,7 @@ const DeleteAlertModal: React.FC<Props> = ({
 			<div
 				className={css`
 					display: flex;
-					margin-top: 10px;
+					margin-top: 20px;
 					justify-content: flex-end;
 				` }
 			>
@@ -86,6 +86,7 @@ const DeleteAlertModal: React.FC<Props> = ({
 				</Button>
 				<Button
 					isLarge
+					isDanger
 					className={css`
 						width: 70px;
 						display: flex;

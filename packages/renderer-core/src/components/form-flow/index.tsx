@@ -38,7 +38,7 @@ interface Props {
 }
 const FormFlow: React.FC<Props> = ({ applyLogic }) => {
 	const blocks = useBlocks();
-	const { formObj, customFonts } = useFormContext();
+	const { formObj, customFonts, editor } = useFormContext();
 	const generalTheme = useGeneralTheme();
 	const currentTheme = useCurrentTheme();
 	const fonts = configApi.getFonts();
@@ -142,6 +142,7 @@ const FormFlow: React.FC<Props> = ({ applyLogic }) => {
 		});
 
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		/**
 		 * Alert if clicked on outside of element
 		 *
@@ -169,6 +170,7 @@ const FormFlow: React.FC<Props> = ({ applyLogic }) => {
 	};
 
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		window.addEventListener('keydown', keydownHandler);
 
 		return () => {

@@ -8,6 +8,11 @@ import { forEach, size } from 'lodash';
 import { css } from 'emotion';
 import classnames from 'classnames';
 
+/**
+ * Internal Dependencies
+ */
+import InfoBox from './info-box';
+
 const PanelRender = () => {
     const { blocks, blockTypes, correctAnswers, enabled, displayAnswersDuringQuiz } = useSelect((select) => {
         return {
@@ -109,31 +114,17 @@ const PanelRender = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={css`  
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                height: 100px;
-                                margin-top: 30px;
-                                background: #ffeec1;
-                                color: #85855b;
-                                font-size: 14px;`}>
-                                Assingning points can be done from "Calculator" panel then click on "Points" subpanel.
-                            </div>
+                            <InfoBox type="calculator">
+                                Assigning points can be done from "Calculator" panel then click on "Points" subpanel.
+                            </InfoBox>
                         </ControlWrapper>
                     </BaseControl>
                     <BaseControl>
                         <ControlWrapper orientation='vertical'>
                             <ControlLabel label="Set Correct Answers" />
-                            {size(supportedBlocks) === 0 ? (<div className={css`
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                height: 100px;
-                                background: #ffeec1;
-                                color: #85855b;
-                                font-size: 14px;
-                            `}>Please add at least one multiple choice question or a picture choice one</div>
+                            {size(supportedBlocks) === 0 ? (<InfoBox type="info">
+                                Please add at least one multiple choice question or a picture choice one
+                            </InfoBox>
                             ) : (
 
                                 <>
@@ -197,7 +188,8 @@ const PanelRender = () => {
 															align-items: center;
 															font-size: 11px;
 															background: ${blockType.color};
-															width: 24px;
+															min-width: 24px;
+                                                            max-width: 24px;
 															height: 24px;
 															border-radius: 3px;
 															color: #fff;
@@ -209,9 +201,9 @@ const PanelRender = () => {
                                                                                     index
                                                                                 ).toUpperCase()}
                                                                             </div>
-                                                                            <div className='points-block-choice-label'>
-                                                                                {label}
-                                                                            </div>
+                                                                            <div className='points-block-choice-label'
+                                                                                dangerouslySetInnerHTML={{ __html: label }}
+                                                                            />
                                                                         </div>
                                                                         <div>
                                                                             <ToggleControl

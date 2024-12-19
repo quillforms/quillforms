@@ -22,6 +22,22 @@ import type { FormObj, SubmissionDispatchers, CustomFont } from '../../types';
  */
 import { map, shuffle, size } from 'lodash';
 
+// Define the editor properties when mode is "off"
+interface EditorOffConfig {
+	mode: "off";
+}
+
+interface EditorOnConfig {
+	mode: "on";
+	editLabel: React.FC;
+	editDescription: React.FC;
+}
+
+
+// Create a union type for Editor
+type Editor = EditorOnConfig | EditorOffConfig;
+
+// Update the main Props interface
 interface Props {
 	formId?: number;
 	formObj: FormObj;
@@ -48,11 +64,42 @@ interface Props {
 	}) => void;
 	applyLogic: boolean;
 	isPreview?: boolean;
+	editor: Editor;
+}
+
+interface Props {
+	formId?: number;
+	formObj: FormObj;
+	customFonts?: CustomFont[];
+	onSubmit: (data: Object, dispatchers: SubmissionDispatchers) => void;
+	beforeGoingNext?: ({
+		setIsFieldValid,
+		setIsPending,
+		currentBlockId,
+		answers,
+		setFieldValidationErr,
+		setIsCurrentBlockSafeToSwipe,
+		goToBlock,
+		goNext,
+	}: {
+		setIsFieldValid: (id: string, flag: boolean) => void;
+		setFieldValidationErr: (id: string, err: string) => void;
+		setIsPending: (flag: boolean) => void;
+		setIsCurrentBlockSafeToSwipe: (flag: boolean) => void;
+		goToBlock: (id: string) => void;
+		goNext: () => void;
+		currentBlockId: string;
+		answers: Record<string, unknown>;
+	}) => void;
+	applyLogic: boolean;
+	isPreview?: boolean;
+
 }
 const Form: React.FC<Props> = ({
 	formObj,
 	formId,
 	onSubmit,
+	editor,
 	applyLogic = false,
 	beforeGoingNext,
 	isPreview = false,
@@ -158,6 +205,7 @@ const Form: React.FC<Props> = ({
 		<FormContextProvider
 			value={{
 				formObj: formatFormObj(),
+				editor,
 				onSubmit,
 				isPreview,
 				formId,

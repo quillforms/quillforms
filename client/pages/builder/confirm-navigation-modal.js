@@ -1,30 +1,30 @@
 import { Modal } from '@wordpress/components';
 import { css } from 'emotion';
 import { Button } from '@quillforms/admin-components';
-const ConfirmNavigationModal = ( { onCancel, onConfirm } ) => {
+const ConfirmNavigationModal = ({ onCancel, onConfirm }) => {
 	return (
 		<Modal
-			className={ css`
+			className={css`
 				border: none !important;
 				border-radius: 9px;
 
 				.components-modal__header {
-					background: #c5152b;
 					h1 {
-						color: #fff;
+						color: #c5152b;
+
 					}
 					svg {
-						fill: #fff;
+						fill: #333;
 					}
 				}
 			` }
-			title="Leave Page"
-			focusOnMount={ true }
-			onRequestClose={ onCancel }
+			title="Leave Page?"
+			focusOnMount={true}
+			onRequestClose={onCancel}
 		>
 			<div> You have unsaved changes, leave page?</div>
 			<div
-				className={ css`
+				className={css`
 					display: flex;
 					justify-content: flex-end;
 					margin-top: 30px;
@@ -32,22 +32,22 @@ const ConfirmNavigationModal = ( { onCancel, onConfirm } ) => {
 			>
 				<Button
 					isDefault
-					className={ css`
+					className={css`
 						margin-right: 10px !important;
 					` }
-					onClick={ onCancel }
+					onClick={onCancel}
 				>
 					Cancel
 				</Button>
 				<Button
-					className={ css`
+					className={css`
 						width: 70px;
 						display: flex;
 						justify-content: center;
 						align-items: center;
 					` }
-					onClick={ onConfirm }
-					isPrimary
+					onClick={onConfirm}
+					isDanger
 				>
 					Leave
 				</Button>

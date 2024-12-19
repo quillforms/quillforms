@@ -205,8 +205,7 @@ const General = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Disable Indexing for your forms" isNew={true}
-							/>
+							<ControlLabel label="Disable Indexing for your forms" />
 							<ToggleControl
 								checked={settings?.disable_indexing}
 								onChange={() => {

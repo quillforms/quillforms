@@ -39,14 +39,13 @@ interface Props {
 }
 
 const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
-	const { beforeGoingNext, isPreview, formId } = useFormContext();
+	const { beforeGoingNext, isPreview, formId, formObj, editor, onPartialSubmit } = useFormContext();
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
 	const hiddenFields = useHiddenFields();
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const settings = useFormSettings();
-	const { formObj } = useFormContext();
 	// @ts-ignore saveandcontinue is a property of formObj.
 	const { saveandcontinue = {} } = formObj;
 	// @ts-ignore saved_data is a property of formObj.
@@ -155,24 +154,28 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		(typeof navigator !== 'undefined' && navigator.msMaxTouchPoints > 0);
 
 	const getFieldsToRender = (): string[] => {
-		const fieldIds: string[] = [];
-		const filteredBlocks = walkPath.filter(
-			(block) =>
-				answers[block.id]?.isPending ||
-				block.id === currentBlockId ||
-				(!isTouchScreen && block.id === nextBlockId) ||
-				(!isTouchScreen && block.id === prevBlockId) ||
-				(!isTouchScreen && block.id === lastActiveBlockId)
-		);
-		filteredBlocks.forEach((block) => {
-			if (
-				block.name !== 'welcome-screen' &&
-				block.name !== 'thankyou-screen'
-			) {
-				fieldIds.push(block.id);
-			}
-		});
-		return fieldIds;
+		if (currentBlockId) {
+			if (editor?.mode === 'on') return [currentBlockId];
+			const fieldIds: string[] = [];
+			const filteredBlocks = walkPath.filter(
+				(block) =>
+					answers[block.id]?.isPending ||
+					block.id === currentBlockId ||
+					(!isTouchScreen && block.id === nextBlockId) ||
+					(!isTouchScreen && block.id === prevBlockId) ||
+					(!isTouchScreen && block.id === lastActiveBlockId)
+			);
+			filteredBlocks.forEach((block) => {
+				if (
+					block.name !== 'welcome-screen' &&
+					block.name !== 'thankyou-screen'
+				) {
+					fieldIds.push(block.id);
+				}
+			});
+			return fieldIds;
+		}
+		return [];
 	};
 
 	const fieldsToRender = getFieldsToRender();
@@ -182,6 +185,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	);
 
 	const goNextReally = async () => {
+		if (editor?.mode === 'on') return;
 		if (answers[currentBlockIndex]?.isPending) return;
 		if (beforeGoingNext && currentBlockId) {
 			await beforeGoingNext({
@@ -210,6 +214,9 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 				);
 				return;
 			}
+			if (formObj?.partialSubmissionPoint === currentBlockId) {
+				onPartialSubmit();
+			}
 			goNext();
 		}
 	};
@@ -230,6 +237,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		};
 	});
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		if (isCurrentBlockSafeToSwipe) setIsCurrentBlockSafeToSwipe(true);
 	}, [isCurrentBlockValid]);
 
@@ -255,7 +263,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		e: React.WheelEvent | SwipeEventData,
 		touch = false
 	) => {
-		if (settings?.disableWheelSwiping) return;
+		if (settings?.disableWheelSwiping || editor?.mode === 'on') return;
 		let delta = e.deltaY;
 		if (settings?.animationDirection === 'horizontal') {
 			delta = e.deltaX;
@@ -301,6 +309,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	};
 
 	useEffect((): void | (() => void) => {
+		// if (editor.mode === 'on') return;
 		if (isAnimating) {
 			const timer = setTimeout(() => {
 				setSwiper({
@@ -312,6 +321,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	}, [swiper]);
 
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		if (applyLogic && isActive) {
 			doAction(
 				'QuillForms.RendererCore.LogicApply',
@@ -324,6 +334,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	}, [answers, currentBlockId]);
 
 	useEffect(() => {
+		if (editor.mode === 'on') return;
 		if (applyLogic && isActive) {
 			setSwiper({
 				currentBlockId: blocks[0].id,
@@ -348,9 +359,12 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	// 	fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
 	const handleNext = () => {
+		console.log('handleNext');
 		if (isCurrentBlockValid) {
+			console.log('isCurrentBlockValid');
 			goNextReally();
 		} else {
+			console.log('isCurrentBlockNotValid');
 			setIsCurrentBlockSafeToSwipe(false);
 		}
 	};

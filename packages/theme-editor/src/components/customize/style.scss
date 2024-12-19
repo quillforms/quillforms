@@ -1,4 +1,14 @@
 .theme-editor-customize  {
+	.theme-editor-customize__back {
+		margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		font-weight: bold;
+		cursor: pointer;
+		svg {
+			transform: rotate(180deg);
+		}
+	}
 	.components-panel__body {
 		border: none;
 		margin-bottom: 15px;

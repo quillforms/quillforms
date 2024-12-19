@@ -69,7 +69,7 @@ const CustomizeThemePanel = () => {
 		...getDefaultThemeProperties(),
 		...properties,
 	};
-
+	const { setCurrentTab } = useDispatch('quillForms/theme-editor');
 	const {
 		backgroundColor,
 		backgroundImage,
@@ -93,6 +93,29 @@ const CustomizeThemePanel = () => {
 	} = $properties;
 	return (
 		<div className="theme-editor-customize">
+			<div
+				className="theme-editor-customize__back"
+				onClick={() => {
+					setCurrentTab('themes-list');
+				}}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+				>
+					<path
+						fill="none"
+						d="M0 0h24v24H0z"
+					/>
+					<path
+						d="M10 17l5-5-5-5v10z"
+					/>
+				</svg>
+				<span>Back</span>
+
+			</div>
 			<PanelBody title="Theme Title" initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
@@ -277,7 +300,6 @@ const CustomizeThemePanel = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
 							label="Questions Description Font"
-							isNew={true}
 						/>
 						<FontPicker
 							fonts={{

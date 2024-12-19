@@ -89,6 +89,7 @@ const WebsiteOutput = (props) => {
 						width: 100%;
 						border: none;
 						outline: none;
+						padding-top:0;
 						padding-bottom: 8px;
 						background: transparent;
 						transition: box-shadow 0.1s ease-out 0s;

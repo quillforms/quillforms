@@ -25,7 +25,7 @@
 		"@quillforms/admin-components": "^3.0.36",
 		"@quillforms/config": "^3.0.20",
 		"react-ace": "^10.1.0",
-		"react-dnd": "15.1.2"
+		"ace-builds": "^1.36.5"
 	},
 	"peerDependencies": {
 		"react": "^16.8.5 || ^17.0.0 || ^18.0.0",

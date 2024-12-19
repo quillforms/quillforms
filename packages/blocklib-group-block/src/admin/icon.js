@@ -1,19 +1,17 @@
-const Icon = () => {
-	return (
-		<svg
-			stroke="currentColor"
-			fill="currentColor"
-			strokeWidth="0"
-			version="1.1"
-			viewBox="0 0 17 17"
-			height="1em"
-			width="1em"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<g></g>
-			<path d="M0 0v4h17v-4h-17zM16 3h-15v-2h15v2zM0 10h17v-4h-17v4zM1 7h15v2h-15v-2zM0 16h17v-4h-17v4zM1 13h15v2h-15v-2z"></path>
-		</svg>
-	);
-};
+const GroupBlockIcon = () => (
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+		{/* Top Block */}
+		<rect x="6" y="2" width="8" height="3" rx="1" fill="currentColor" />
+		<rect x="6.2" y="2.2" width="7.6" height="2.6" rx="0.8" fill="white" />
 
-export default Icon;
+		{/* Bottom Block */}
+		<rect x="6" y="10" width="8" height="3" rx="1" fill="currentColor" />
+		<rect x="6.2" y="10.2" width="7.6" height="2.6" rx="0.8" fill="white" />
+
+		{/* Left Dots - Redesigned as Rounded Buttons */}
+		<circle cx="3" cy="3.5" r="1" fill="currentColor" />
+		<circle cx="3" cy="11.5" r="1" fill="currentColor" />
+	</svg>
+);
+
+export default GroupBlockIcon;

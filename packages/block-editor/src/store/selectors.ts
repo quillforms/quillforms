@@ -31,7 +31,7 @@ import { State } from './reducer';
  *
  * @return {FormBlocks} Form blocks.
  */
-export const getBlocks = ( state: State ): FormBlocks => {
+export const getBlocks = (state: State): FormBlocks => {
 	return state.blocks;
 };
 
@@ -43,18 +43,18 @@ export const getBlocks = ( state: State ): FormBlocks => {
  *
  * @return {FormBlocks} Form blocks.
  */
-export const getAllBlocks = ( state: State ): FormBlocks => {
+export const getAllBlocks = (state: State): FormBlocks => {
 	const blocks = state.blocks;
 	const allBlocks: FormBlocks = [];
-	if ( size( blocks ) > 0 ) {
-		forEach( blocks, ( block ) => {
-			allBlocks.push( block );
-			if ( size( block?.innerBlocks ) > 0 ) {
-				forEach( block.innerBlocks, ( innerBlock ) => {
-					allBlocks.push( innerBlock );
-				} );
+	if (size(blocks) > 0) {
+		forEach(blocks, (block) => {
+			allBlocks.push(block);
+			if (size(block?.innerBlocks) > 0) {
+				forEach(block.innerBlocks, (innerBlock) => {
+					allBlocks.push(innerBlock);
+				});
 			}
-		} );
+		});
 	}
 
 	return allBlocks;
@@ -67,9 +67,21 @@ export const getAllBlocks = ( state: State ): FormBlocks => {
  *
  * @return {number} Welcome screens length
  */
-export function getWelcomeScreensLength( state: State ): number {
-	return state.blocks.filter( ( block ) => block.name === 'welcome-screen' )
+export function getWelcomeScreensLength(state: State): number {
+	return state.blocks.filter((block) => block.name === 'welcome-screen')
 		.length;
+}
+
+/**
+ * Does Partial Submission Point Exist
+ * 
+ * @param {State} state Global application state.
+ * 
+ * @return {Boolean} Partial Submission Point
+ * 
+ */
+export const doesPartialSubmissionPointExist = (state: State): boolean => {
+	return state.blocks.some((block) => block.name === 'partial-submission-point');
 }
 
 /**
@@ -87,23 +99,23 @@ export const getBlockById = (
 	blockId: string,
 	parentIndex: number | undefined = undefined
 ): FormBlock | undefined => {
-	if ( typeof parentIndex === 'undefined' ) {
-		const block = state.blocks.find( ( $block ) => $block.id === blockId );
-		if ( ! block ) return undefined;
+	if (typeof parentIndex === 'undefined') {
+		const block = state.blocks.find(($block) => $block.id === blockId);
+		if (!block) return undefined;
 		return block;
 	}
 
 	if (
-		! state.blocks ||
-		! state.blocks[ parentIndex ] ||
-		! state.blocks[ parentIndex ].innerBlocks
+		!state.blocks ||
+		!state.blocks[parentIndex] ||
+		!state.blocks[parentIndex].innerBlocks
 	) {
 		return undefined;
 	}
-	const block = state.blocks[ parentIndex ].innerBlocks?.find(
-		( $block ) => $block.id === blockId
+	const block = state.blocks[parentIndex].innerBlocks?.find(
+		($block) => $block.id === blockId
 	);
-	if ( ! block ) return undefined;
+	if (!block) return undefined;
 	return block;
 };
 
@@ -121,10 +133,10 @@ export const getBlockOrderById = (
 	id: string,
 	parentIndex: number | undefined = undefined
 ): BlockOrder => {
-	const formBlock = getBlockById( state, id, parentIndex );
-	if ( ! formBlock ) return undefined;
+	const formBlock = getBlockById(state, id, parentIndex);
+	if (!formBlock) return undefined;
 	const blockType =
-		select( 'quillForms/blocks' ).getBlockTypes()[ formBlock.name ];
+		select('quillForms/blocks').getBlockTypes()[formBlock.name];
 	const orderableFields = select(
 		'quillForms/block-editor'
 	).getBlocksByCriteria(
@@ -136,29 +148,29 @@ export const getBlockOrderById = (
 	);
 
 	let itemOrder: BlockOrder;
-	if ( typeof parentIndex === 'undefined' ) {
+	if (typeof parentIndex === 'undefined') {
 		if (
 			blockType.supports.editable === true ||
 			blockType.supports.innerBlocks === true
 		) {
 			const fieldIndex = orderableFields.findIndex(
-				( field ) => field.id === id
+				(field) => field.id === id
 			);
 			itemOrder = fieldIndex + 1;
 		} else {
 			const fieldIndex = state.blocks
-				.filter( ( block ) => block.name === formBlock.name )
-				.findIndex( ( block ) => block.id === id );
-			itemOrder = identAlphabetically( fieldIndex );
+				.filter((block) => block.name === formBlock.name)
+				.findIndex((block) => block.id === id);
+			itemOrder = identAlphabetically(fieldIndex);
 		}
 	} else {
 		const fieldIndex = state.blocks?.[
 			parentIndex
-		]?.innerBlocks?.findIndex( ( block ) => block.id === id );
-		if ( typeof fieldIndex !== 'undefined' && fieldIndex > -1 ) {
-			const parentBlockId = state.blocks[ parentIndex ].id;
-			const parentBlockOrder = getBlockOrderById( state, parentBlockId );
-			itemOrder = parentBlockOrder + identAlphabetically( fieldIndex );
+		]?.innerBlocks?.findIndex((block) => block.id === id);
+		if (typeof fieldIndex !== 'undefined' && fieldIndex > -1) {
+			const parentBlockId = state.blocks[parentIndex].id;
+			const parentBlockOrder = getBlockOrderById(state, parentBlockId);
+			itemOrder = parentBlockOrder + identAlphabetically(fieldIndex);
 		}
 	}
 	return itemOrder;
@@ -171,13 +183,13 @@ export const getBlockOrderById = (
  *
  * @return {FormBlock[]} Editable fields
  */
-export function getEditableFields( state: State ): FormBlock[] {
-	const blocks = getBlocks( state );
-	return blocks.filter( ( block ) => {
+export function getEditableFields(state: State): FormBlock[] {
+	const blocks = getBlocks(state);
+	return blocks.filter((block) => {
 		const blockType =
-			select( 'quillForms/blocks' ).getBlockTypes()[ block.name ];
+			select('quillForms/blocks').getBlockTypes()[block.name];
 		return blockType.supports.editable === true;
-	} );
+	});
 }
 
 /**
@@ -194,8 +206,8 @@ export const getBlocksByCriteria = (
 	criteria,
 	operator = 'and'
 ) => {
-	const blocks = getBlocks( state );
-	const filteredCriteria = pick( criteria, [
+	const blocks = getBlocks(state);
+	const filteredCriteria = pick(criteria, [
 		'logic',
 		'required',
 		'attachment',
@@ -203,22 +215,22 @@ export const getBlocksByCriteria = (
 		'editable',
 		'numeric',
 		'innerBlocks',
-	] );
+	]);
 
-	return blocks.filter( ( block ) => {
+	return blocks.filter((block) => {
 		const blockType =
-			select( 'quillForms/blocks' ).getBlockTypes()[ block.name ];
-		if ( operator === 'and' )
-			return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+			select('quillForms/blocks').getBlockTypes()[block.name];
+		if (operator === 'and')
+			return Object.entries(filteredCriteria).every(([key, val]) =>
 				typeof val === 'boolean'
-					? blockType.supports[ key ] === val
+					? blockType.supports[key] === val
 					: true
 			);
 
-		return Object.entries( filteredCriteria ).some( ( [ key, val ] ) =>
-			typeof val === 'boolean' ? blockType.supports[ key ] === val : true
+		return Object.entries(filteredCriteria).some(([key, val]) =>
+			typeof val === 'boolean' ? blockType.supports[key] === val : true
 		);
-	} );
+	});
 };
 
 /**
@@ -238,8 +250,8 @@ export const getPreviousBlocksByCriteria = (
 	includeCurrentBlock: boolean = false,
 	relation: 'and' | 'or' = 'and'
 ) => {
-	const blocks = getBlocks( state );
-	const filteredCriteria = pick( criteria, [
+	const blocks = getBlocks(state);
+	const filteredCriteria = pick(criteria, [
 		'logic',
 		'required',
 		'attachment',
@@ -249,32 +261,32 @@ export const getPreviousBlocksByCriteria = (
 		'correctAnswers',
 		'points',
 		'numeric',
-	] );
+	]);
 
-	const blockIndex = findIndex( blocks, ( block ) => block.id === id );
-	if ( blockIndex > 0 ) {
+	const blockIndex = findIndex(blocks, (block) => block.id === id);
+	if (blockIndex > 0) {
 		const prevFormBlocks = slice(
 			blocks,
 			0,
 			includeCurrentBlock ? blockIndex + 1 : blockIndex
 		);
 
-		return prevFormBlocks.filter( ( block ) => {
+		return prevFormBlocks.filter((block) => {
 			const blockType =
-				select( 'quillForms/blocks' ).getBlockTypes()[ block.name ];
-			if ( relation === 'and' )
-				return Object.entries( filteredCriteria ).every( ( [ key, val ] ) =>
+				select('quillForms/blocks').getBlockTypes()[block.name];
+			if (relation === 'and')
+				return Object.entries(filteredCriteria).every(([key, val]) =>
 					typeof val === 'boolean'
-						? blockType.supports[ key ] === val
+						? blockType.supports[key] === val
 						: true
 				);
-			return Object.entries( filteredCriteria ).some( ( [ key, val ] ) =>
+			return Object.entries(filteredCriteria).some(([key, val]) =>
 				typeof val === 'boolean'
-					? blockType.supports[ key ] === val
+					? blockType.supports[key] === val
 					: true
 			);
 
-		} );
+		});
 	}
 	return [];
 };
@@ -296,29 +308,29 @@ export const getPreviousEditableFieldsWithOrder = (
 
 	const blocks = state.blocks;
 
-	const blockIndex = findIndex( blocks, ( block ) => block.id === id );
-	if ( blockIndex > 0 ) {
-		const prevFormBlocks = slice( blocks, 0, blockIndex );
-		forEach( prevFormBlocks, ( block, $prevBlockIndex ) => {
-			const blockType = getBlockType( block.name );
-			if ( blockType?.supports?.editable ) {
-				prevEditableFields.push( {
+	const blockIndex = findIndex(blocks, (block) => block.id === id);
+	if (blockIndex > 0) {
+		const prevFormBlocks = slice(blocks, 0, blockIndex);
+		forEach(prevFormBlocks, (block, $prevBlockIndex) => {
+			const blockType = getBlockType(block.name);
+			if (blockType?.supports?.editable) {
+				prevEditableFields.push({
 					...block,
-					order: getBlockOrderById( state, block.id ),
-				} );
+					order: getBlockOrderById(state, block.id),
+				});
 			}
-			if(blockType?.supports?.innerBlocks) {
-				forEach( block.innerBlocks, ( innerBlock ) => {
-					const innerBlockType = getBlockType( innerBlock.name );
-					if ( innerBlockType?.supports?.editable ) {
-						prevEditableFields.push( {
+			if (blockType?.supports?.innerBlocks) {
+				forEach(block.innerBlocks, (innerBlock) => {
+					const innerBlockType = getBlockType(innerBlock.name);
+					if (innerBlockType?.supports?.editable) {
+						prevEditableFields.push({
 							...innerBlock,
-							order: getBlockOrderById( state, innerBlock.id, $prevBlockIndex ),
-						} );
+							order: getBlockOrderById(state, innerBlock.id, $prevBlockIndex),
+						});
 					}
-				} );
+				});
 			}
-		} );
+		});
 	}
 	return prevEditableFields;
 };
@@ -330,8 +342,8 @@ export const getPreviousEditableFieldsWithOrder = (
  *
  * @return {number} Editable fields length
  */
-export function getEditableFieldsLength( state: State ): number {
-	return getEditableFields( state ).length;
+export function getEditableFieldsLength(state: State): number {
+	return getEditableFields(state).length;
 }
 
 /**
@@ -342,7 +354,7 @@ export function getEditableFieldsLength( state: State ): number {
  * @param         parent
  * @return {?string} Current block id
  */
-export function getCurrentBlockId( state: State ): string | undefined {
+export function getCurrentBlockId(state: State): string | undefined {
 	return state.currentBlockId;
 }
 
@@ -353,7 +365,7 @@ export function getCurrentBlockId( state: State ): string | undefined {
  *
  * @return {?string} Current child block id
  */
-export function getCurrentChildBlockId( state: State ): string | undefined {
+export function getCurrentChildBlockId(state: State): string | undefined {
 	return state.currentChildBlockId;
 }
 
@@ -364,9 +376,9 @@ export function getCurrentChildBlockId( state: State ): string | undefined {
  *
  * @return {number} Current block index
  */
-export function getCurrentBlockIndex( state: State ): number {
+export function getCurrentBlockIndex(state: State): number {
 	return state.blocks.findIndex(
-		( item ) => item.id === state.currentBlockId
+		(item) => item.id === state.currentBlockId
 	);
 }
 
@@ -377,18 +389,18 @@ export function getCurrentBlockIndex( state: State ): number {
  *
  * @return {number | undefined } Current block index
  */
-export function getCurrentChildBlockIndex( state: State ): number | undefined {
-	const parentBlockIndex = getCurrentBlockIndex( state );
+export function getCurrentChildBlockIndex(state: State): number | undefined {
+	const parentBlockIndex = getCurrentBlockIndex(state);
 	if (
-		! state.blocks ||
+		!state.blocks ||
 		state.blocks.length === 0 ||
 		typeof parentBlockIndex === 'undefined' ||
-		! state.blocks[ parentBlockIndex ]
+		!state.blocks[parentBlockIndex]
 	) {
 		return undefined;
 	}
-	return state.blocks[ parentBlockIndex ]?.innerBlocks?.findIndex(
-		( item ) => item.id === state.currentChildBlockId
+	return state.blocks[parentBlockIndex]?.innerBlocks?.findIndex(
+		(item) => item.id === state.currentChildBlockId
 	);
 }
 
@@ -399,12 +411,12 @@ export function getCurrentChildBlockIndex( state: State ): number | undefined {
  *
  * @return {FormBlock} Current block item
  */
-export function getCurrentBlock( state: State ): FormBlock | undefined {
+export function getCurrentBlock(state: State): FormBlock | undefined {
 	let currentBlock;
 	const currentBlockIndex = state.blocks.findIndex(
-		( item ) => item.id === state.currentBlockId
+		(item) => item.id === state.currentBlockId
 	);
-	if ( currentBlockIndex !== -1 )
-		currentBlock = state.blocks[ currentBlockIndex ];
+	if (currentBlockIndex !== -1)
+		currentBlock = state.blocks[currentBlockIndex];
 	return currentBlock;
 }

@@ -1,9 +1,50 @@
-const Icon = () => {
+const NotificationIcon = () => {
 	return (
-		<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path>
+		<svg
+			viewBox="0 0 24 24"
+			fill="currentColor"
+			aria-hidden="true"
+			focusable="false"
+		>
+			{/* Creative outline shape - will always show as outline */}
+			<path
+				d="M12 3.5c-3.3 0-5.7 2.4-5.7 5.7v3.8c0 .3-.1.6-.2.8l-1.8 2.5c-.4.6-.4 1.4.1 2 .4.5 1 .7 1.6.7h12c.6 0 1.2-.2 1.6-.7.5-.6.5-1.4.1-2l-1.8-2.5c-.1-.2-.2-.5-.2-.8V9.2c0-3.3-2.4-5.7-5.7-5.7z"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			/>
+
+			{/* Ring effect at top */}
+			<path
+				d="M12 3.5V2m0 1.5c-1 0-2 .2-2.8.6"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+			/>
+
+			{/* Bottom piece with style */}
+			<path
+				d="M8.5 18.2c.2 1.6 1.6 2.8 3.5 2.8s3.3-1.2 3.5-2.8"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+			/>
+
+			{/* Decorative sound waves */}
+			<path
+				d="M19 10c.5-.5 1-1.5 1-2.5M5 10c-.5-.5-1-1.5-1-2.5"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+				opacity="0.6"
+			/>
 		</svg>
 	);
 };
 
-export default Icon;
+export default NotificationIcon;

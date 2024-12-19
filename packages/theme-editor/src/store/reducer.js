@@ -10,9 +10,11 @@ import {
 	SET_CURRENT_THEME_TITLE,
 	SETUP_THEMES,
 	ADD_GALLERY_THEMES,
+	SET_CURRENT_TAB
 } from './constants';
 
 const initialState = {
+	currentTab: 'themes-list',
 	currentThemeType: 'default',
 	galleryThemes: [],
 	currentThemeId: null,
@@ -30,8 +32,18 @@ const initialState = {
  *
  * @return {Object} Updated state.
  */
-const ThemeReducer = ( state = initialState, action ) => {
-	switch ( action.type ) {
+const ThemeReducer = (state = initialState, action) => {
+	switch (action.type) {
+
+
+		// SET CURRENT TAB
+		case SET_CURRENT_TAB: {
+			const { tab } = action;
+			return {
+				...state,
+				currentTab: tab,
+			};
+		}
 		// SET THEME PROPERTIES
 		case SET_CURRENT_THEME_PROPERTIES: {
 			const { properties } = action.payload;
@@ -43,8 +55,8 @@ const ThemeReducer = ( state = initialState, action ) => {
 
 			// Skip update if nothing has been changed.
 			if (
-				JSON.stringify( nextProperties ) ===
-				JSON.stringify( state.currentTheme.properties )
+				JSON.stringify(nextProperties) ===
+				JSON.stringify(state.currentTheme.properties)
 			) {
 				return state;
 			}
@@ -61,7 +73,7 @@ const ThemeReducer = ( state = initialState, action ) => {
 		}
 
 		case SET_CURRENT_THEME_TITLE: {
-			if ( action.title === state.currentTheme.title ) {
+			if (action.title === state.currentTheme.title) {
 				return state;
 			}
 			// Otherwise replace properties in state
@@ -87,11 +99,11 @@ const ThemeReducer = ( state = initialState, action ) => {
 		// SET CURRENT THEME ID
 		case SET_CURRENT_THEME_ID: {
 			const { currentThemeId } = action.payload;
-			const $themesList = [ ...state.themesList ];
+			const $themesList = [...state.themesList];
 			const themeIndex = $themesList.findIndex(
-				( theme ) => theme.id === currentThemeId
+				(theme) => theme.id === currentThemeId
 			);
-			if ( themeIndex === -1 ) {
+			if (themeIndex === -1) {
 				return {
 					...state,
 					currentThemeId: null,
@@ -103,8 +115,8 @@ const ThemeReducer = ( state = initialState, action ) => {
 				...state,
 				currentThemeId,
 				currentTheme: {
-					title: $themesList[ themeIndex ].title,
-					properties: $themesList[ themeIndex ].properties,
+					title: $themesList[themeIndex].title,
+					properties: $themesList[themeIndex].properties,
 				},
 			};
 
@@ -120,12 +132,12 @@ const ThemeReducer = ( state = initialState, action ) => {
 
 		case ADD_NEW_THEME_SUCCESS: {
 			const { themeId, themeTitle, themeProperties } = action.payload;
-			const $themesList = [ ...state.themesList ];
-			$themesList.push( {
+			const $themesList = [...state.themesList];
+			$themesList.push({
 				id: themeId,
 				title: themeTitle,
 				properties: themeProperties,
-			} );
+			});
 			const stateClone = {
 				...state,
 				themesList: $themesList,
@@ -136,20 +148,20 @@ const ThemeReducer = ( state = initialState, action ) => {
 
 		case SETUP_THEMES: {
 			const { themes } = action.payload;
-			if ( themes?.length > 0 )
+			if (themes?.length > 0)
 				return {
 					...state,
-					themesList: [ ...themes ],
+					themesList: [...themes],
 				};
 			return state;
 		}
 
 		case ADD_NEW_THEMES: {
 			const { themes } = action.payload;
-			if ( themes?.length > 0 )
+			if (themes?.length > 0)
 				return {
 					...state,
-					themesList: [ ...state.themesList, ...themes ],
+					themesList: [...state.themesList, ...themes],
 				};
 			return state;
 		}
@@ -159,8 +171,8 @@ const ThemeReducer = ( state = initialState, action ) => {
 			const isCurrentTheme = themeId === state.currentThemeId;
 			return {
 				...state,
-				themesList: [ ...state.themesList ].filter(
-					( theme ) => theme.id !== themeId
+				themesList: [...state.themesList].filter(
+					(theme) => theme.id !== themeId
 				),
 				currentTheme: isCurrentTheme ? {} : state.currentTheme,
 				currentThemeId: isCurrentTheme ? null : state.currentThemeId,
@@ -169,13 +181,13 @@ const ThemeReducer = ( state = initialState, action ) => {
 
 		case UPDATE_THEME_SUCCESS: {
 			const { themeId, themeTitle, themeProperties } = action.payload;
-			const $themesList = [ ...state.themesList ];
+			const $themesList = [...state.themesList];
 			const themeIndex = $themesList.findIndex(
-				( theme ) => theme.id === themeId
+				(theme) => theme.id === themeId
 			);
-			if ( themeIndex === -1 ) return state;
-			$themesList[ themeIndex ].title = themeTitle;
-			$themesList[ themeIndex ].properties = themeProperties;
+			if (themeIndex === -1) return state;
+			$themesList[themeIndex].title = themeTitle;
+			$themesList[themeIndex].properties = themeProperties;
 			const stateClone = { ...state, themesList: $themesList };
 			return stateClone;
 		}

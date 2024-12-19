@@ -21,7 +21,7 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import PreviewArea from '../preview-area';
+// import PreviewArea from '../preview-area';
 import { PreviewContextProvider } from '../preview-context';
 import NoBlocks from '../no-blocks';
 
@@ -94,33 +94,10 @@ const FormPreview: React.FC<Props> = ({ formId }) => {
 		}
 	}
 
-	const [applyJumpLogic, setApplyJumpLogic] = useState(false);
-	const [selfDispatch, setSelfDispatch] = useState(false);
 	const { setSwiper, goToBlock, completeForm } = useDispatch(
 		'quillForms/renderer-core'
 	);
-	const { setCurrentBlock } = useDispatch('quillForms/block-editor');
 
-	useEffect(() => {
-		if (applyJumpLogic) {
-			setSelfDispatch(true);
-			setCurrentBlock(blocks[0].id);
-		}
-	}, [applyJumpLogic]);
-
-	useEffect(() => {
-		if (!selfDispatch && applyJumpLogic) {
-			setApplyJumpLogic(false);
-		}
-	}, [currentBlockBeingEdited]);
-
-	useEffect(() => {
-		if (selfDispatch) {
-			setTimeout(() => {
-				setSelfDispatch(false);
-			}, 100);
-		}
-	}, [selfDispatch]);
 
 	useEffect(() => {
 		if (!hasThemesFinishedResolution) return;
@@ -160,7 +137,6 @@ const FormPreview: React.FC<Props> = ({ formId }) => {
 		JSON.stringify(blocks),
 		currentBlockBeingEdited,
 		hasThemesFinishedResolution,
-		applyJumpLogic,
 	]);
 
 	return (
@@ -187,32 +163,29 @@ const FormPreview: React.FC<Props> = ({ formId }) => {
 						<PreviewContextProvider
 							value={{ applyJumpLogic, setApplyJumpLogic }}
 						>
-							{ /** @ts-expect-error */}
-							<PreviewArea.Slot>
-								{(fills) => (
-									<>
-										<Form
-											formId={formId}
-											formObj={{
-												blocks: cloneDeep(blocks),
-												theme: currentTheme?.properties,
-												messages,
-												logic,
-												hiddenFields: $hiddenFields,
-												themesList: $themesList,
-												settings,
-												customCSS,
-												correctIncorrectQuiz
-											}}
-											applyLogic={applyJumpLogic}
-											customFonts={customFontsList}
-											onSubmit={completeForm}
-											isPreview={true}
-										/>
-										{fills}
-									</>
-								)}
-							</PreviewArea.Slot>
+							<Form
+								formId={formId}
+								formObj={{
+									blocks: cloneDeep(blocks),
+									theme: currentTheme?.properties,
+									messages,
+									logic,
+									hiddenFields: $hiddenFields,
+									themesList: $themesList,
+									settings,
+									customCSS,
+									correctIncorrectQuiz
+								}}
+								applyLogic={applyJumpLogic}
+								customFonts={customFontsList}
+								onSubmit={completeForm}
+								editor={{
+									mode: 'off'
+								}
+								}
+								isPreview={true}
+							/>
+
 						</PreviewContextProvider>
 					) : (
 						<NoBlocks />

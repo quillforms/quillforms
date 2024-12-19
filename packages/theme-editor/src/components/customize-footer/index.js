@@ -20,62 +20,62 @@ import { mapValues } from 'lodash';
  */
 import IsSavingBtn from './is-saving-btn';
 
-const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
-	const { themesList } = useSelect( ( select ) => {
+const CustomizeFooter = ({ themeId, themeTitle, themeProperties }) => {
+	const { themesList } = useSelect((select) => {
 		return {
-			themesList: select( 'quillForms/theme-editor' ).getThemesList(),
+			themesList: select('quillForms/theme-editor').getThemesList(),
 		};
-	} );
-	themeProperties = mapValues( themeProperties, ( property ) => {
-		if ( property === undefined ) {
+	});
+	themeProperties = mapValues(themeProperties, (property) => {
+		if (property === undefined) {
 			return '';
 		}
 		return property;
-	} );
+	});
 
 	const {
 		addNewTheme,
 		updateTheme,
 		setCurrentThemeProperties,
 		setCurrentThemeTitle,
-	} = useDispatch( 'quillForms/theme-editor' );
+	} = useDispatch('quillForms/theme-editor');
 
-	const { isSaving } = useSelect( ( select ) => {
+	const { isSaving } = useSelect((select) => {
 		return {
-			isSaving: select( 'quillForms/theme-editor' ).isSaving(),
+			isSaving: select('quillForms/theme-editor').isSaving(),
 		};
-	} );
+	});
 
-	useEffect( () => {
+	useEffect(() => {
 		document
-			.querySelector( '.builder-core-panel__content-wrapper' )
-			.classList.add( 'has-sticky-footer' );
+			.querySelector('.builder-core-block-right-panel .tab-content')
+			.classList.add('has-sticky-footer');
 		return () => {
-			if( document.querySelector( '.builder-core-panel__content-wrapper' ) ) {
-			document
-				.querySelector( '.builder-core-panel__content-wrapper' )
-				.classList.remove( 'has-sticky-footer' );
+			if (document.querySelector('.builder-core-block-right-panel .tab-content')) {
+				document
+					.querySelector('.builder-core-block-right-panel .tab-content')
+					.classList.remove('has-sticky-footer');
 			}
 		}
-	}, [] );
+	}, []);
 
 	return (
 		<>
 			<div className="theme-editor-customize-footer">
 				<Button
 					isDefault
-					onClick={ () => {
-						if ( ! isSaving ) {
-							if ( themeId ) {
+					onClick={() => {
+						if (!isSaving) {
+							if (themeId) {
 								const themeIndex = themesList.findIndex(
-									( $theme ) => $theme.id === themeId
+									($theme) => $theme.id === themeId
 								);
-								if ( themeIndex !== -1 ) {
+								if (themeIndex !== -1) {
 									setCurrentThemeProperties(
-										themesList[ themeIndex ].properties
+										themesList[themeIndex].properties
 									);
 									setCurrentThemeTitle(
-										themesList[ themeIndex ].title
+										themesList[themeIndex].title
 									);
 									return;
 								}
@@ -83,32 +83,32 @@ const CustomizeFooter = ( { themeId, themeTitle, themeProperties } ) => {
 							setCurrentThemeProperties(
 								getDefaultThemeProperties()
 							);
-							setCurrentThemeTitle( '' );
+							setCurrentThemeTitle('');
 						}
-					} }
+					}}
 				>
 					Revert changes
 				</Button>
-				{ ! isSaving ? (
+				{!isSaving ? (
 					<Button
 						isPrimary
-						onClick={ () => {
-							if ( themeId ) {
+						onClick={() => {
+							if (themeId) {
 								updateTheme(
 									themeId,
 									themeTitle,
 									themeProperties
 								);
 							} else {
-								addNewTheme( themeTitle, themeProperties );
+								addNewTheme(themeTitle, themeProperties);
 							}
-						} }
+						}}
 					>
-						{ themeId ? 'Save changes' : 'Save as a new theme' }
+						{themeId ? 'Save changes' : 'Save as a new theme'}
 					</Button>
 				) : (
 					<IsSavingBtn />
-				) }
+				)}
 			</div>
 		</>
 	);

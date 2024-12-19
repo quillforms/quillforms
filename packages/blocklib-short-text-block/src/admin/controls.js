@@ -20,7 +20,7 @@ const shortTextControl = ({ attributes, setAttributes }) => {
 		<Fragment>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Min Characters" isNew />
+					<ControlLabel label="Min Characters" />
 					<ToggleControl
 						checked={minCharacters !== false}
 						onChange={() => {

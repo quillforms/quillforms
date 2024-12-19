@@ -185,6 +185,9 @@ const FullFormPreview: React.FC<Props> = ({
 											}, 500);
 										}}
 										isPreview={true}
+										editor={{
+											mode: 'off'
+										}}
 									/>
 								) : (
 									<NoBlocks />

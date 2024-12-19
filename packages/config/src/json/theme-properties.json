@@ -1,7 +1,7 @@
 {
 	"font": {
 		"type": "string",
-		"default": "Roboto"
+		"default": "Inter"
 	},
 	"fontSize": {
 		"type": "object",
@@ -19,7 +19,7 @@
 	},
 	"backgroundColor": {
 		"type": "string",
-		"default": "#fff"
+		"default": "transparent"
 	},
 	"backgroundImage": {
 		"type": "string"
@@ -81,13 +81,13 @@
 	},
 	"answersColor": {
 		"type": "string",
-		"default": "#0aa7c2"
+		"default": "#4a4a4a"
 	},
 	"textInputAnswers": {
 		"type": "object",
 		"default": {
 			"lg": "30px",
-        	"sm": "24px"
+			"sm": "24px"
 		}
 	},
 	"buttonsFontColor": {
@@ -118,13 +118,13 @@
 			},
 			"right": {
 				"lg": "20px",
-					"sm": "20px"
+				"sm": "20px"
 			}
 		}
 	},
 	"buttonsBgColor": {
 		"type": "string",
-		"default": "#22bcaa"
+		"default": "#2563eb"
 	},
 	"buttonsBorderRadius": {
 		"type": "number",
@@ -140,25 +140,25 @@
 	},
 	"errorsFontColor": {
 		"type": "string",
-		"default": "#af0404"
+		"default": "#ef4444"
 	},
 	"errorsBgColor": {
 		"type": "string",
-		"default": "#f7e6e6"
+		"default": "#fee2e2"
 	},
 	"progressBarFillColor": {
 		"type": "string",
-		"default": "#000"
+		"default": "#2563eb"
 	},
 	"progressBarBgColor": {
 		"type": "string",
-		"default": "#ccc"
+		"default": "#e5e7eb"
 	},
 	"formFooterBgColor": {
 		"type": "object",
 		"default": {
-			"lg": "transparent",
-			"sm": "transparent"
+			"lg": "#f8fafc",
+			"sm": "#f8fafc"
 		}
 	}
 }

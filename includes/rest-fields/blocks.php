@@ -25,7 +25,7 @@ $blocks_schema = array(
 			),
 			'name'       => array(
 				'type'     => 'string',
-				'enum'     => array_keys( Blocks_Manager::instance()->get_all_registered() ),
+				'enum'     => array_merge(array_keys( Blocks_Manager::instance()->get_all_registered() ), ['partial-submission-point']),
 				'required' => true,
 			),
 		),

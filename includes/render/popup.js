@@ -12,7 +12,6 @@ jQuery(document).ready(function ($) {
         // add loader
         // $('.quillforms-popup-iframe-wrapper').append('<div class="quillforms-popup-loader"><div class="quillforms-loading-circle"></div></div>');
 
-
     });
     // exit the modal on Escape click
 

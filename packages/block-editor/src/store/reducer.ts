@@ -16,6 +16,7 @@ import {
 	SET_CURRENT_BLOCK,
 	SET_CURRENT_CHILD_BLOCK,
 	SETUP_STORE,
+	SET_BLOCKS,
 } from './constants';
 import type { BlockEditorActionTypes, BlockEditorPureState } from './types';
 import type { FormBlocks, FormBlock } from '@quillforms/types';
@@ -27,11 +28,11 @@ import type { FormBlocks, FormBlock } from '@quillforms/types';
  *
  * @return { Object } The sorted blocks
  */
-function sortBlocks( blocks: FormBlocks ): FormBlocks {
-	const priority = [ 'WELCOME_SCREENS', 'OTHERS', 'THANKYOU_SCREENS' ];
-	blocks.sort( ( a, b ) => {
-		const getCategory = ( block ) => {
-			switch ( block.name ) {
+function sortBlocks(blocks: FormBlocks): FormBlocks {
+	const priority = ['WELCOME_SCREENS', 'OTHERS', 'THANKYOU_SCREENS'];
+	blocks.sort((a, b) => {
+		const getCategory = (block) => {
+			switch (block.name) {
 				case 'welcome-screen':
 					return 'WELCOME_SCREENS';
 				case 'thankyou-screen':
@@ -41,10 +42,10 @@ function sortBlocks( blocks: FormBlocks ): FormBlocks {
 			}
 		};
 
-		const ap = priority.indexOf( getCategory( a ) );
-		const bp = priority.indexOf( getCategory( b ) );
+		const ap = priority.indexOf(getCategory(a));
+		const bp = priority.indexOf(getCategory(b));
 		return ap - bp;
-	} );
+	});
 	return blocks;
 }
 
@@ -86,20 +87,20 @@ export function flattenBlocks(
 ): FormBlocks {
 	const result = [];
 
-	const stack = [ ...blocks ];
-	while ( stack.length ) {
+	const stack = [...blocks];
+	while (stack.length) {
 		// @ts-expect-error
 		const { innerBlocks, ...block } = stack.shift();
-		if ( innerBlocks ) {
-			forEach( innerBlocks, ( $block, index ) => {
-				innerBlocks[ index ] = {
+		if (innerBlocks) {
+			forEach(innerBlocks, ($block, index) => {
+				innerBlocks[index] = {
 					...$block,
 					parentId: block.id,
 				};
-			} );
-			stack.push( ...innerBlocks );
+			});
+			stack.push(...innerBlocks);
 		}
-		result[ block.id ] = transform( block );
+		result[block.id] = transform(block);
 	}
 
 	return result;
@@ -116,15 +117,16 @@ export function flattenBlocks(
 const BlockEditorReducer: Reducer<
 	BlockEditorPureState,
 	BlockEditorActionTypes
-> = ( state = initialState, action ): BlockEditorPureState => {
-	switch ( action.type ) {
+> = (state = initialState, action): BlockEditorPureState => {
+	console.log(action);
+	switch (action.type) {
 		// SET UP STORE
 		case SETUP_STORE: {
 			const { initialPayload } = action;
-			if ( initialPayload.length > 0 && ! state.currentBlockId ) {
+			if (initialPayload.length > 0 && !state.currentBlockId) {
 				return {
 					blocks: initialPayload,
-					currentBlockId: initialPayload[ 0 ].id,
+					currentBlockId: initialPayload[0].id,
 					currentChildBlockId: undefined,
 				};
 			}
@@ -134,31 +136,39 @@ const BlockEditorReducer: Reducer<
 			};
 		}
 
+		case SET_BLOCKS: {
+			const { blocks } = action;
+			return {
+				...state,
+				blocks,
+			};
+		}
+
 		// SET BLOCK ATTRIBUTES
 		case SET_BLOCK_ATTRIBUTES: {
 			const { blockId, attributes, parentId } = action;
 			let parentIndex;
 			// Get block index within its category.
-			let $blocks = [ ...state.blocks ] as FormBlocks | undefined;
-			if ( ! $blocks ) {
+			let $blocks = [...state.blocks] as FormBlocks | undefined;
+			if (!$blocks) {
 				return state;
 			}
-			if ( typeof parentId !== 'undefined' ) {
-				parentIndex = $blocks.findIndex( ( block ) => {
+			if (typeof parentId !== 'undefined' && parentId !== blockId) {
+				parentIndex = $blocks.findIndex((block) => {
 					return block.id === parentId;
-				} );
-				$blocks = [ ...state.blocks ][ parentIndex ]?.innerBlocks;
+				});
+				$blocks = [...state.blocks][parentIndex]?.innerBlocks;
 			}
-			if ( ! $blocks ) {
+			if (!$blocks) {
 				return state;
 			}
 
-			const blockIndex = $blocks.findIndex( ( block ) => {
+			const blockIndex = $blocks.findIndex((block) => {
 				return block.id === blockId;
-			} );
+			});
 
 			// Ignore updates if block isn't known.
-			if ( blockIndex === -1 ) {
+			if (blockIndex === -1) {
 				return state;
 			}
 
@@ -179,19 +189,19 @@ const BlockEditorReducer: Reducer<
 			// 	state.blocks[ blockIndex ].attributes
 			// );
 			const nextAttributes = {
-				...cloneDeep( $blocks[ blockIndex ].attributes ),
-				...cloneDeep( attributes ),
+				...cloneDeep($blocks[blockIndex].attributes),
+				...cloneDeep(attributes),
 			};
 			// // Skip update if nothing has been changed. The reference will
 			// // match the original block if `reduce` had no changed values.
 			// if ( nextAttributes === state.blocks[ blockIndex ].attributes ) {
 			// 	return state;
 			// }
-			$blocks[ blockIndex ].attributes = nextAttributes;
+			$blocks[blockIndex].attributes = nextAttributes;
 
-			const blocks = [ ...state.blocks ];
-			if ( typeof parentIndex !== 'undefined' ) {
-				blocks[ parentIndex ].innerBlocks = $blocks;
+			const blocks = [...state.blocks];
+			if (typeof parentIndex !== 'undefined') {
+				blocks[parentIndex].innerBlocks = $blocks;
 				$blocks = blocks;
 			}
 			return {
@@ -199,8 +209,6 @@ const BlockEditorReducer: Reducer<
 				blocks: $blocks,
 			};
 		}
-
-		// REORDER FORM BLOCKS
 		case REORDER_BLOCKS: {
 			const {
 				sourceIndex,
@@ -208,68 +216,67 @@ const BlockEditorReducer: Reducer<
 				parentSourceIndex,
 				parentDestIndex,
 			} = action;
-			const blocks = [ ...state.blocks ];
-			const result = Array.from( blocks );
+
+			// Create deep copy of blocks
+			const newBlocks = JSON.parse(JSON.stringify(state.blocks));
+
+			// Get source block and remove it from original position
 			let sourceBlock;
 
-			if ( typeof parentSourceIndex === 'undefined' ) {
-				sourceBlock = blocks[ sourceIndex ];
-				result.splice( sourceIndex, 1 );
+			if (typeof parentSourceIndex === 'undefined') {
+				sourceBlock = { ...newBlocks[sourceIndex] };
+				newBlocks.splice(sourceIndex, 1);
 			} else {
-				const innerBlocks =
-					blocks?.[ parentSourceIndex ]?.innerBlocks ?? [];
-				sourceBlock =
-					blocks?.[ parentSourceIndex ]?.innerBlocks?.[ sourceIndex ];
-				innerBlocks.splice( sourceIndex, 1 );
-				result[ parentSourceIndex ].innerBlocks = innerBlocks;
+				sourceBlock = { ...newBlocks[parentSourceIndex].innerBlocks[sourceIndex] };
+				newBlocks[parentSourceIndex].innerBlocks.splice(sourceIndex, 1);
 			}
 
-			if (
-				typeof parentDestIndex === 'undefined' ||
-				sourceBlock.name === 'group'
-			) {
-				result.splice( destinationIndex, 0, sourceBlock );
+			// Insert block at new position
+			if (typeof parentDestIndex === 'undefined') {
+				// Insert at root level
+				newBlocks.splice(destinationIndex, 0, sourceBlock);
 			} else {
-				const innerBlocks =
-					blocks?.[ parentDestIndex ]?.innerBlocks ?? [];
-				innerBlocks.splice( destinationIndex, 0, sourceBlock );
-				result[ parentDestIndex ].innerBlocks = innerBlocks;
+				// Insert into group
+				if (!newBlocks[parentDestIndex].innerBlocks) {
+					newBlocks[parentDestIndex].innerBlocks = [];
+				}
+				newBlocks[parentDestIndex].innerBlocks.splice(destinationIndex, 0, sourceBlock);
 			}
-			const newState = {
+
+			return {
 				...state,
-				blocks: sortBlocks( result ),
+				blocks: newBlocks,
 			};
-			return newState;
 		}
 
 		// INSERT NEW FORM BLOCK
 		case INSERT_BLOCK: {
 			const { block, destinationIndex, parent } = action;
-			const blocks = [ ...state.blocks ];
+			const blocks = [...state.blocks];
 			const index = destinationIndex;
 			let parentBlock = undefined as FormBlock | undefined;
 
-			if ( index === undefined || index < 0 ) {
+			if (index === undefined || index < 0) {
 				return state;
 			}
-			if ( ! parent ) {
-				blocks.splice( index, 0, {
+			if (!parent) {
+				blocks.splice(index, 0, {
 					...block,
-				} );
+				});
 			} else {
 				const parentIndex = blocks.findIndex(
-					( $block ) => $block.id === parent
+					($block) => $block.id === parent
 				);
-				parentBlock = blocks[ parentIndex ];
-				if ( ! blocks[ parentIndex ].innerBlocks ) {
-					blocks[ parentIndex ].innerBlocks = [];
+				parentBlock = blocks[parentIndex];
+				if (!blocks[parentIndex].innerBlocks) {
+					blocks[parentIndex].innerBlocks = [];
 				}
-				blocks[ parentIndex ]?.innerBlocks?.splice( index, 0, {
+				blocks[parentIndex]?.innerBlocks?.splice(index, 0, {
 					...block,
-				} );
+				});
 			}
 			return {
-				blocks: sortBlocks( blocks ),
+				blocks: sortBlocks(blocks),
 				currentBlockId: parentBlock ? parentBlock.id : block.id,
 				currentChildBlockId: parentBlock ? block.id : undefined,
 			};
@@ -278,40 +285,40 @@ const BlockEditorReducer: Reducer<
 		// DELETE FORM BLOCK
 		case DELETE_BLOCK: {
 			const { blockId, parentId } = action;
-			const originalBlocks = [ ...state.blocks ];
+			const originalBlocks = [...state.blocks];
 			let parentIndex;
 			let blocks = originalBlocks;
-			if ( ! blocks ) {
+			if (!blocks) {
 				return state;
 			}
-			if ( typeof parentId !== 'undefined' ) {
+			if (typeof parentId !== 'undefined') {
 				parentIndex = blocks.findIndex(
-					( item ) => item.id === parentId
+					(item) => item.id === parentId
 				);
-				if ( blocks )
-					blocks = blocks?.[ parentIndex ]?.innerBlocks ?? [];
+				if (blocks)
+					blocks = blocks?.[parentIndex]?.innerBlocks ?? [];
 			}
 			// Get block index.
 			const blockIndex = blocks.findIndex(
-				( item ) => item.id === blockId
+				(item) => item.id === blockId
 			);
 			// If block isn't found.
-			if ( blockIndex === -1 ) {
+			if (blockIndex === -1) {
 				return state;
 			}
 
-			const nextBlock = blocks[ blockIndex + 1 ];
-			const prevBlock = blocks[ blockIndex - 1 ];
-			blocks.splice( blockIndex, 1 );
+			const nextBlock = blocks[blockIndex + 1];
+			const prevBlock = blocks[blockIndex - 1];
+			blocks.splice(blockIndex, 1);
 			const newCurrentBlockId = nextBlock
 				? nextBlock.id
 				: prevBlock
-				? prevBlock.id
-				: undefined;
+					? prevBlock.id
+					: undefined;
 
-			if ( typeof parentIndex !== 'undefined' ) {
+			if (typeof parentIndex !== 'undefined') {
 				const $blocks = originalBlocks;
-				$blocks[ parentIndex ].innerBlocks = blocks;
+				$blocks[parentIndex].innerBlocks = blocks;
 
 				blocks = $blocks;
 			}
@@ -334,13 +341,17 @@ const BlockEditorReducer: Reducer<
 		// SET CURRENT BLOCK
 		case SET_CURRENT_BLOCK: {
 			const { blockId } = action;
+
 			const blockIndex = state.blocks.findIndex(
-				( item ) => item.id === blockId
+				(item) => item.id === blockId
 			);
 			// If block isn't found.
-			if ( blockIndex === -1 ) {
+			if (blockIndex === -1) {
 				return state;
 			}
+
+			if (blockId === state.currentBlockId)
+				return state;
 			return {
 				...state,
 				currentBlockId: blockId,
@@ -383,6 +394,6 @@ const BlockEditorReducer: Reducer<
 
 const BlockEditorReducerWithHigherOrder = BlockEditorReducer;
 
-export type State = ReturnType< typeof BlockEditorReducerWithHigherOrder >;
+export type State = ReturnType<typeof BlockEditorReducerWithHigherOrder>;
 
 export default BlockEditorReducerWithHigherOrder;

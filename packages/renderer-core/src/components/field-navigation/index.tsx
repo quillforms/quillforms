@@ -32,6 +32,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 	const { beforeGoingNext } = useFormContext();
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
+	const { editor } = useFormContext();
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const { currentBlockId, walkPath, blockTypes, correctIncorrectDisplay } = useSelect((select) => {
 		return {
@@ -69,6 +70,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 	});
 
 	const goNextReally = async () => {
+		if (editor.mode === 'on') return;
 		if (answers[currentBlockIndex]?.isPending) return;
 		if (beforeGoingNext && currentBlockId) {
 			await beforeGoingNext({
@@ -113,6 +115,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 					`
 				)}
 				onClick={() => {
+					if (editor.mode === 'on') return;
 					goPrev();
 				}}
 			>

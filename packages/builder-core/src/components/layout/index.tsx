@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { __experimentalDragDropContext as DragDropContext } from '@quillforms/admin-components';
+import { BlockEditSkeleton } from '@quillforms/block-editor';
 /**
  * WordPress Dependencies
  */
@@ -29,6 +29,8 @@ import type {
 	OnDragStartResponder,
 } from 'react-beautiful-dnd';
 import { size } from 'lodash';
+import BlocksStructure from '../blocks-structure';
+import BlockControlsPanel from '../right-panel';
 
 interface Props {
 	formId: number;
@@ -205,24 +207,7 @@ const Layout: React.FC<Props> = ({ formId }) => {
 		}
 	};
 
-	const onBeforeCapture: OnBeforeCaptureResponder = ({ draggableId }) => {
-		const contentListItem = formBlocks.find(
-			(block) => block.id === draggableId
-		);
-		const isDraggingContentList = !!contentListItem;
 
-		if (isDraggingContentList) {
-			setIsDraggingContent(true);
-		}
-
-		const el = document.querySelector(
-			`[data-rbd-draggable-id="${draggableId}"]`
-		) as HTMLInputElement;
-
-		if (el) {
-			el.style.height = isDraggingContentList ? '24px' : '2px';
-		}
-	};
 
 	const formPreview = useMemo(() => {
 		return <FormPreview formId={formId} />;
@@ -235,6 +220,16 @@ const Layout: React.FC<Props> = ({ formId }) => {
 	const panel = useMemo(() => {
 		return <Panel />;
 	}, []);
+
+	const [isReady, setIsReady] = useState(false);
+
+
+	useEffect(() => {
+		setIsReady(false);
+		setTimeout(() => {
+			setIsReady(true);
+		}, 100);
+	}, [])
 
 	// Setting current block id once blocks are resolved.
 	useEffect(() => {
@@ -267,24 +262,14 @@ const Layout: React.FC<Props> = ({ formId }) => {
 			className="builder-core-layout"
 			onKeyDown={(e) => e.stopPropagation()}
 		>
-			{builderPanelsBar}
-			<DragDropContext
-				onDragStart={onDragStart}
-				onDragEnd={onDragEnd}
-				onDragUpdate={onDragUpdate}
-				onBeforeCapture={onBeforeCapture}
-			>
+			{isReady && <>
+				{builderPanelsBar}
+
+				{(!currentPanel || currentPanel?.type === 'modal') && <><BlocksStructure /><BlockEditSkeleton /></>}
 				{currentPanel && panel}
-				{(!areaToShow || areaToShow === 'drop-area') && (
-					<DropArea
-						isDragging={isDragging}
-						currentPanel={currentPanel}
-						targetIndex={targetIndex}
-						areaToShow={areaToShow}
-					/>
-				)}
-			</DragDropContext>
-			{(!areaToShow || areaToShow === 'preview-area') && formPreview}
+				<BlockControlsPanel />
+			</>
+			}
 		</div>
 	);
 };

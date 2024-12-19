@@ -323,6 +323,7 @@ const DropdownDisplay = (props) => {
 							outline: none;
 							font-size: 30px;
 							padding-bottom: 8px;
+							padding-top: 0;
 							background: transparent;
 							transition: box-shadow 0.1s ease-out 0s;
 							box-shadow: ${answersColor

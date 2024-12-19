@@ -25,6 +25,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { forEach, uniq } from 'lodash';
 import { ThreeDots as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
+import classnames from 'classnames';
 
 /**
  * Internal dependencies
@@ -74,8 +75,9 @@ export const Layout = (props) => {
 				setTimeout(() => {
 					setIsLoading(false);
 				}, 100);
-				configApi.setInitialPayload(res);
 				invalidateResolutionConnectedStores();
+
+				configApi.setInitialPayload(res);
 			});
 		}
 
@@ -85,6 +87,7 @@ export const Layout = (props) => {
 		});
 
 		return () => {
+			console.log('invalidatating')
 			invalidateResolutionConnectedStores();
 		};
 	}, []);
@@ -92,7 +95,7 @@ export const Layout = (props) => {
 	return (
 		<SlotFillProvider>
 			{pluginsArea}
-			<div className="quillforms-layout">
+			<div className={classnames("quillforms-layout", `quillforms-${props.pageKey}-page-layout`)}	>
 				{!props.page.header ? (
 					<Header />
 				) : (
@@ -133,14 +136,14 @@ const _PageLayout = () => {
 		<>
 			<Router history={getHistory()}>
 				<Switch>
-					{Object.values(getAdminPages()).map((page) => {
+					{Object.entries(getAdminPages()).map(([key, page]) => {
 						return (
 							<Route
 								key={page.path}
 								path={page.path}
 								exact={page.exact}
 								render={(props) => (
-									<Layout page={page} {...props} />
+									<Layout page={page} pageKey={key} {...props} />
 								)}
 							/>
 						);

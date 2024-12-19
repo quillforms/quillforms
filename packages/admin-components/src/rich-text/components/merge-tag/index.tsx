@@ -80,15 +80,11 @@ const EditorMergeTag: React.FC<Props> = ({
 					className={classnames(
 						'rich-text-merge-tag__node-wrapper',
 						css`
-							color: ${mergeTag?.color
-								? mergeTag.color
-								: '#bb426f'};
+							color: #333;
 							bordercolor: ${mergeTag?.color
 								? mergeTag.color
 								: '#bb426f'};
-							fill: ${mergeTag?.color
-								? mergeTag.color
-								: '#bb426f'};
+							fill: #333;
 						`
 					)}
 				>
@@ -98,7 +94,7 @@ const EditorMergeTag: React.FC<Props> = ({
 							css`
 								background: ${mergeTag?.color
 									? mergeTag.color
-									: '#bb426f'};
+									: '#ffc5db'};
 							`
 						)}
 					/>

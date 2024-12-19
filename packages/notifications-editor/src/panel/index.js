@@ -10,11 +10,11 @@ import render from '../components/panel-render';
 
 import Icon from './icon';
 
-registerBuilderPanel( 'notifications', {
+registerBuilderPanel('notifications', {
 	title: 'Email Notifications',
 	icon: Icon,
 	mode: 'single',
-	areaToShow: 'drop-area',
 	render,
 	position: 3,
-} );
+	hasIcon: true,
+});
