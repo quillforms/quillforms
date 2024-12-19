@@ -40,7 +40,7 @@ const Connection: React.FC<Props> = ({ id, run }) => {
 		useConnectContext();
 	const connection = connections[id];
 	const main = useConnectMainContext();
-	const entriesAddon = ConfigApi.getStoreAddons().entries;
+	const entriesAddon = ConfigApi.getStoreAddons().advancedentries;
 	// check if active & version is >= 1.4.0.
 	const isEntriesCompatible =
 		entriesAddon.is_active &&

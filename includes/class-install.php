@@ -10,6 +10,8 @@
 namespace QuillForms;
 use QuillForms\Site\License;
 
+use QuillForms\Managers\Addons_Manager;
+
 /**
  * Class Install is responsible for main set up.
  * create needed database tables.
@@ -58,10 +60,10 @@ class Install {
 
 		Core::register_quillforms_post_type();
 		Capabilities::assign_capabilities_for_user_roles();
+		self::version_4_migration();
 		self::create_tables();
 		self::version_1_7_5_migration();
 		self::version_3_5_7_migration();
-		// self::version_2_13_4_migration();
 		self::create_cron_jobs();
 		self::update_quillforms_version();
 
@@ -98,6 +100,38 @@ class Install {
 				date_created datetime NOT NULL,
 				PRIMARY KEY  (ID),
 				KEY action_id (action_id)
+			) $charset_collate;
+			CREATE TABLE {$wpdb->prefix}quillforms_entries (
+				ID bigint(20) unsigned NOT NULL auto_increment,
+				form_id bigint(20) unsigned NOT NULL,
+				is_starred tinyint(1) DEFAULT 0,
+				is_read tinyint(1) DEFAULT 0,
+				status varchar(50) DEFAULT 'completed',
+				hash_id varchar(255) DEFAULT NULL,
+				date_created datetime NOT NULL,
+				date_updated datetime NOT NULL,
+				PRIMARY KEY  (ID),
+				KEY form_id (form_id)
+			) $charset_collate;
+			CREATE TABLE {$wpdb->prefix}quillforms_entry_records (
+				ID bigint(20) unsigned NOT NULL auto_increment,
+				form_id bigint(20) unsigned NOT NULL,
+				entry_id bigint(20) unsigned NOT NULL,
+				record_type varchar(50) NOT NULL,
+				record_id varchar(50) NOT NULL,
+				record_value longtext NOT NULL,
+				PRIMARY KEY  (ID),
+				KEY entry_id (entry_id)
+			) $charset_collate;
+			CREATE TABLE {$wpdb->prefix}quillforms_entry_meta (
+				ID bigint(20) unsigned NOT NULL auto_increment,
+				form_id bigint(20) unsigned,
+				entry_id bigint(20) unsigned NOT NULL,
+				meta_key varchar(50) NOT NULL,
+				meta_value longtext NOT NULL,
+				PRIMARY KEY  (ID),
+				KEY entry_id (entry_id),
+				KEY meta_key (meta_key)
 			) $charset_collate;
 			CREATE TABLE {$wpdb->prefix}quillforms_pending_submissions (
 				ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -171,6 +205,54 @@ class Install {
 			$sql = "ALTER TABLE {$wpdb->prefix}quillforms_pending_submissions 
 					ADD hash_id varchar(50) DEFAULT NULL";
 			dbDelta( $sql );
+		}
+	}
+
+	/**
+	 * Version next.version migration
+	 * - Add status and hash_id columns to entries table.
+	 *
+	 * @since next.version
+	 *
+	 * @return void
+	 */
+	private static function version_4_migration() {
+		global $wpdb;
+		error_log( 'version_4_migration' );
+		$version = get_option( 'quillforms_version' );
+		if ( ! $version ) {
+			return;
+		}
+
+		// deactivate old entries add-on.
+		self::deactivate_old_entries_addon();
+
+		if ( version_compare( $version, '4.0.0', '<' ) ) {
+			$entries_table = $wpdb->prefix . 'quillforms_entries';
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$entries_table'" ) !== $entries_table ) {
+				return;
+			}
+
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}quillforms_entries ADD COLUMN `status` VARCHAR(50) DEFAULT 'completed' AFTER `is_read`;" );
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}quillforms_entries ADD COLUMN `hash_id` VARCHAR(255) DEFAULT NULL AFTER `status`;" );
+		}
+	}
+
+	/**
+	 * Deactivate old entries add-on
+	 *
+	 * @since next.version
+	 *
+	 * @return void
+	 */
+	private static function deactivate_old_entries_addon() {
+		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'deactivate_plugins' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
+		$plugin_path = 'quillforms-entries/quillforms-entries.php';
+		if ( is_plugin_active( $plugin_path ) ) {
+			deactivate_plugins( $plugin_path );
 		}
 	}
 

@@ -148,11 +148,20 @@ const SaveBtn: React.FC = () => {
 				formId,
 			};
 
+			const promises = applyFilters(
+				'QuillForms.Renderer.PreSubmissionPromises',
+				[],
+				{ formObject: formObj }
+			) as Promise<void>[];
+
+			await Promise.all(promises);
+
 			formData = applyFilters(
-				'QuillForms.Renderer.SaveSubmissionFormData',
+				'QuillForms.Renderer.SavePartialSubmissionFormData',
 				formData,
 				{ formObject: formObj }
 			) as any;
+
 			const data = new FormData();
 			data.append('action', 'quillforms_form_save');
 			data.append('formData', JSON.stringify(formData));
@@ -176,7 +185,6 @@ const SaveBtn: React.FC = () => {
 
 		setIsSaving(false);
 	};
-
 	return (
 		<>
 			<Button className={classnames("renderer-core-save-button", {
