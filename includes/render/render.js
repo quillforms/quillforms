@@ -13,16 +13,65 @@
 				mode: 'off'
 			},
 			customFonts: qfRender.customFonts,
-			onSubmit() {
-				const ajaxurl = qfRender.ajaxurl;
-				let formData = {
+			onPartialSubmit: function () {
+				var qfRender = window.qfRender;
+				var ajaxurl = qfRender.ajaxurl || '';
+
+				try {
+					var formData = {
+						answers: wp.data
+							.select('quillForms/renderer-core')
+							.getAnswers(),
+						formId: qfRender.formId,
+						currentBlockId: wp.data.select('quillForms/renderer-core').getCurrentBlockId(),
+					};
+					var globalHash = wp.data.select('quillForms/renderer-core').getGlobalHash();
+
+					formData = wp.hooks.applyFilters(
+						'QuillForms.Renderer.SaveSubmissionFormData',
+						formData,
+						{ formObject: formObj }
+					)
+					var data = new FormData();
+					data.append('action', 'quillforms_form_partial_submission');
+					data.append('formData', JSON.stringify(formData));
+					data.append('quillforms_nonce', qfRender._nonce);
+					if (globalHash) {
+						data.append('hash', globalHash);
+					}
+					fetch(ajaxurl, {
+						method: 'POST',
+						credentials: 'same-origin',
+						body: data,
+					})
+						.then(function (response) {
+							if (!response.ok) {
+								return Promise.reject(response);
+							}
+							return response.json();
+						})
+						.then(function (res) {
+							if (res && res.success) {
+								wp.data.dispatch('quillForms/renderer-core').setGlobalHash(responseData.data.hash);
+
+							}
+						}
+						)
+
+				} catch (error) {
+					console.error(error);
+				}
+			},
+			onSubmit: function () {
+				var ajaxurl = qfRender.ajaxurl;
+				var formData = {
 					answers: wp.data
 						.select('quillForms/renderer-core')
 						.getAnswers(),
 					formId: qfRender.formId,
 					hash: wp.data.select('quillForms/renderer-core').getGlobalHash(),
 				};
-				const promises = wp.hooks.applyFilters(
+				var promises = wp.hooks.applyFilters(
 					'QuillForms.Renderer.PreSubmissionPromises',
 					[],
 					{ formObject }
@@ -34,7 +83,7 @@
 							formData,
 							{ formObject }
 						);
-						const data = new FormData();
+						var data = new FormData();
 						data.append('action', 'quillforms_form_submit');
 						data.append('formData', JSON.stringify(formData));
 						data.append('quillforms_nonce', window.qfRender._nonce);

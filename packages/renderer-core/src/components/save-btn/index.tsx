@@ -30,7 +30,7 @@ const SaveBtn: React.FC = () => {
 	const { saved_data = {} } = formObj;
 	const [snapshot, setSnapshot] = useState(saved_data?.snapshot || '');
 
-	const { allBlocks, answers, currentBlockId, getFieldAnswerVal, globalHash } = useSelect(
+	const { allBlocks, answers, currentBlockId, getFieldAnswerVal } = useSelect(
 		(select) => {
 			return {
 				allBlocks: select('quillForms/renderer-core').getBlocksRecursively(),
@@ -41,7 +41,6 @@ const SaveBtn: React.FC = () => {
 				isReviewing: select('quillForms/renderer-core').isReviewing(),
 				getFieldAnswerVal: select('quillForms/renderer-core')
 					.getFieldAnswerVal,
-				globalHash: select('quillForms/renderer-core').getGlobalHash(),
 			};
 		}
 	);
@@ -179,55 +178,11 @@ const SaveBtn: React.FC = () => {
 		setIsSaving(false);
 	};
 
-	const partialSubmission = async () => {
-		if (isPreview || isSaving || isDisabled) return;
-		// @ts-ignore, qfRender is a global variable.
-		const qfRender = window.qfRender;
-		const ajaxurl = qfRender.ajaxurl || '';
-		const formId = qfRender.formId;
-		setIsSaving(true);
-
-		try {
-			let formData = {
-				answers,
-				currentBlockId,
-				formId,
-			};
-
-			formData = applyFilters(
-				'QuillForms.Renderer.SaveSubmissionFormData',
-				formData,
-				{ formObject: formObj }
-			) as any;
-			const data = new FormData();
-			data.append('action', 'quillforms_form_partial_submission');
-			data.append('formData', JSON.stringify(formData));
-			data.append('quillforms_nonce', qfRender._nonce);
-			if (globalHash) {
-				data.append('hash', globalHash);
-			}
-			const response = await fetch(ajaxurl, {
-				method: 'POST',
-				credentials: 'same-origin',
-				body: data,
-			});
-			const responseData = await response.json();
-			if (responseData.success) {
-				setSaved(true);
-				setGlobalHash(responseData.data.hash);
-			}
-		} catch (error) {
-			console.error(error);
-		}
-
-		setIsSaving(false);
-	};
-
 	return (
 		<>
 			<Button className={classnames("renderer-core-save-button", {
 				disabled: isDisabled,
-			})} disableIcon={true} onClick={partialSubmission}>
+			})} disableIcon={true} onClick={saveHandler}>
 
 				{saveAndContinue?.buttonLabel ?? "Save"}
 				{isSaving && (

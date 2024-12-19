@@ -108,7 +108,8 @@ const Skeleton = () => {
         const formFields = blocks.filter(
             (block) =>
                 block.name !== 'thankyou-screen' &&
-                block.name !== 'welcome-screen'
+                block.name !== 'welcome-screen' &&
+                block.name !== 'partial-submission-point'
         );
 
         const $thankyouScreens = blocks
@@ -123,6 +124,8 @@ const Skeleton = () => {
             (block) => omit(block, ['name'])
         );
 
+
+
         const $currentPath = cloneDeep(formFields);
         setSwiper({
             walkPath: $currentPath,
@@ -130,7 +133,9 @@ const Skeleton = () => {
             thankyouScreens: $thankyouScreens,
         });
 
-        if (currentBlockBeingEdited)
+        console.log(currentBlockBeingEdited)
+
+        if (currentBlockBeingEdited && currentBlockBeingEdited !== 'partial-submission-point')
             goToBlock(currentBlockBeingEdited);
 
     }, [
@@ -159,6 +164,12 @@ const Skeleton = () => {
             }
         }
     }, [currentChildBlockId]);
+    const partialSubmissionIndex = blocks.findIndex((block) => block.name === 'partial-submission-point');
+    // we need a good name for this variable that triggers the partial submission after this block
+    let partialSubmissionPoint = undefined;
+    if (partialSubmissionIndex !== -1) {
+        partialSubmissionPoint = blocks[partialSubmissionIndex - 1].id;
+    }
 
     return (
         <div className={classnames("block-editor-block-edit__skeleton", {
@@ -186,9 +197,10 @@ const Skeleton = () => {
 
                         <Form
                             formObj={{
-                                blocks: cloneDeep(blocks),
+                                blocks: cloneDeep(blocks).filter(block => block.name !== 'partial-submission-point'),
                                 theme: currentTheme?.properties,
                                 messages,
+                                partialSubmissionPoint,
                                 themesList: $themesList,
                                 settings,
                                 customCSS,

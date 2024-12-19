@@ -42,13 +42,17 @@ interface Props {
 	parent?: string;
 }
 const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
-	let { blockTypes, welcomeScreensLength } = useSelect((select) => {
+	let { blockTypes, welcomeScreensLength, doesPartialSubmissionPointExist } = useSelect((select) => {
 		return {
 			blockTypes: select('quillForms/blocks').getBlockTypes(),
 			welcomeScreensLength: select(
 				'quillForms/block-editor'
 				// @ts-expect-error
 			).getWelcomeScreensLength(),
+			doesPartialSubmissionPointExist: select(
+				'quillForms/block-editor'
+				// @ts-expect-error
+			).doesPartialSubmissionPointExist(),
 		};
 	});
 
@@ -140,6 +144,10 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 					blockName === 'welcome-screen' &&
 					welcomeScreensLength >= 1
 				) {
+					isDragDisabled = true;
+				}
+
+				if (blockName === 'partial-submission-point' && doesPartialSubmissionPointExist) {
 					isDragDisabled = true;
 				}
 

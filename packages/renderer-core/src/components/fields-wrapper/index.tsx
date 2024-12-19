@@ -39,7 +39,7 @@ interface Props {
 }
 
 const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
-	const { beforeGoingNext, isPreview, formId, formObj, editor } = useFormContext();
+	const { beforeGoingNext, isPreview, formId, formObj, editor, onPartialSubmit } = useFormContext();
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
@@ -214,7 +214,9 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 				);
 				return;
 			}
-			console.log('beforegoNext');
+			if (formObj?.partialSubmissionPoint === currentBlockId) {
+				onPartialSubmit();
+			}
 			goNext();
 		}
 	};

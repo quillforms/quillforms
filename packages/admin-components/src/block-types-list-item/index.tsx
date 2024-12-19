@@ -115,7 +115,7 @@ const BlockTypesListItem: FC<Props> = memo(
 			// attributes.
 
 			let createdBlock = {
-				id: generateBlockId(),
+				id: name === 'partial-submission-point' ? 'partial-submission-point' : generateBlockId(),
 				name,
 				attributes: sanitizeBlockAttributes(name, attributes),
 			};
