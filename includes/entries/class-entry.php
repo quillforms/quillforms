@@ -511,11 +511,12 @@ class Entry extends Abstract_Entry {
 	 *
 	 * @since 3.6.4
 	 *
-	 * @param string $hash_id
+	 * @param string $hash_id Hash id.
+	 * @param string $status Status.
 	 *
 	 * @return self|null
 	 */
-	public static function get_by_hash_id( $hash_id ) {
+	public static function get_by_hash_id( $hash_id, $status = 'partial' ) {
 		global $wpdb;
 
 		if ( ! $hash_id ) {
@@ -527,9 +528,10 @@ class Entry extends Abstract_Entry {
 				"
 					SELECT ID
 					FROM {$wpdb->prefix}quillforms_entries
-					WHERE hash_id = %s
+					WHERE hash_id = %s AND status = %s
 				",
-				$hash_id
+				$hash_id,
+				$status
 			),
 			ARRAY_A
 		);
