@@ -15,12 +15,34 @@ defined( 'ABSPATH' ) || exit;
 function get_merged_attributes_schema() {
     $all_blocks = Blocks_Manager::instance()->get_all_registered();
     $merged_properties = array();
-    
+
     foreach ($all_blocks as $block) {
         if (method_exists($block, 'get_attributes_schema')) {
             $schema = $block->get_attributes_schema();
             if (is_array($schema)) {
-                $merged_properties = array_merge($merged_properties, $schema);
+                foreach ($schema as $key => $property) {
+                    if (isset($merged_properties[$key])) {
+                        // If the property already exists, merge the types
+                        if (isset($merged_properties[$key]['type']) && isset($property['type'])) {
+                            $existing_type = $merged_properties[$key]['type'];
+                            $new_type = $property['type'];
+
+                            // Convert to array if it's not already
+                            if (!is_array($existing_type)) {
+                                $existing_type = array($existing_type);
+                            }
+                            if (!is_array($new_type)) {
+                                $new_type = array($new_type);
+                            }
+
+                            // Merge and ensure unique values
+                            $merged_properties[$key]['type'] = array_unique(array_merge($existing_type, $new_type));
+                        }
+                    } else {
+                        // Otherwise, add the property as is
+                        $merged_properties[$key] = $property;
+                    }
+                }
             }
         }
     }
