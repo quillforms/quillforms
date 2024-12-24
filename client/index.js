@@ -8,6 +8,7 @@ import '@quillforms/payment-gateways';
 import '@quillforms/code-editor';
 import "@quillforms/quiz-editor";
 import PageLayout from './layout';
+import './partial-submission-point'
 import './style.scss';
 import './pro-panels';
 import { doAction } from '@wordpress/hooks';

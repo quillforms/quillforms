@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { cloneDeep, identity, forEach } from 'lodash';
+import { cloneDeep, size, identity, forEach } from 'lodash';
 import type { Reducer } from 'redux';
 
 /**
@@ -20,7 +20,11 @@ import {
 } from './constants';
 import type { BlockEditorActionTypes, BlockEditorPureState } from './types';
 import type { FormBlocks, FormBlock } from '@quillforms/types';
+import { sanitizeBlockAttributes } from '@quillforms/blocks';
 
+const generateBlockId = (): string => {
+	return Math.random().toString(36).substr(2, 9);
+};
 /**
  * Sort blocks. We should have welcome screens at first then others then thankyou screens.
  *
@@ -118,7 +122,6 @@ const BlockEditorReducer: Reducer<
 	BlockEditorPureState,
 	BlockEditorActionTypes
 > = (state = initialState, action): BlockEditorPureState => {
-	console.log(action);
 	switch (action.type) {
 		// SET UP STORE
 		case SETUP_STORE: {
@@ -144,6 +147,57 @@ const BlockEditorReducer: Reducer<
 			};
 		}
 
+		case 'REPLACE_BLOCK_NAME': {
+			const { blockId, name, parentId } = action;
+			const blocks = [...state.blocks];
+			let blockIndex;
+			let parentIndex;
+			if (typeof parentId !== 'undefined') {
+				parentIndex = blocks.findIndex(
+					(item) => item.id === parentId
+				);
+				if (parentIndex !== -1 && size(blocks[parentIndex]?.innerBlocks) > 0) {
+					blockIndex = blocks[parentIndex]?.innerBlocks?.findIndex(
+						(item) => item.id === blockId
+					);
+				}
+				else {
+					return state;
+				}
+			}
+			else {
+				blockIndex = blocks.findIndex(
+					(item) => item.id === blockId
+				);
+			}
+			// const blockIndex = blocks.findIndex((block) => block.id === blockId);
+			if (blockIndex === -1 || (parentId && (parentIndex === -1 || !blocks[parentIndex]?.innerBlocks))) {
+				return state;
+			}
+			if (parentId && parentIndex > -1) {
+				blocks[parentIndex].innerBlocks[blockIndex].name = name;
+				blocks[parentIndex].innerBlocks[blockIndex].attributes = sanitizeBlockAttributes(name, blocks[parentIndex].innerBlocks[blockIndex].attributes)
+
+			}
+			else {
+				blocks[blockIndex].name = name;
+				if (blocks[blockIndex].name === 'group' && size(blocks[blockIndex].innerBlocks) === 0) {
+					blocks[blockIndex].innerBlocks = [{
+						name: 'short-text',
+						id: generateBlockId(),
+						attributes: {
+
+						}
+					}]
+				}
+				blocks[blockIndex].attributes = sanitizeBlockAttributes(name, blocks[blockIndex]?.attributes);
+			}
+
+			return {
+				...state,
+				blocks,
+			};
+		}
 		// SET BLOCK ATTRIBUTES
 		case SET_BLOCK_ATTRIBUTES: {
 			const { blockId, attributes, parentId } = action;

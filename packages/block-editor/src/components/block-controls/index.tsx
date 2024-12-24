@@ -9,8 +9,9 @@ import BlockControlsHeader from '../block-controls-header';
  */
 import DefaultControls from '../block-default-controls';
 import { size } from 'lodash';
+import { withErrorBoundary } from '@quillforms/admin-components';
 
-const BlockControls = () => {
+const BlockControls = withErrorBoundary(() => {
 	// Get the block editor dispatcher
 	const { setBlockAttributes } = useDispatch('quillForms/block-editor');
 
@@ -64,8 +65,10 @@ const BlockControls = () => {
 		<div className="block-editor-block-controls">
 			{/* Block Controls Header */}
 			<BlockControlsHeader
+				isChildBlock={isChildBlock}
+				parentId={parentId}
 				id={isChildBlock ? currentChildBlockId : currentBlockId}
-				blockName={blockName}
+				currentBlockName={blockName}
 			/>
 
 			{/* Default Controls */}
@@ -87,6 +90,9 @@ const BlockControls = () => {
 			)}
 		</div>
 	);
-};
+}, {
+	title: 'Error',
+	'message': 'An error occurred while rendering the block controls. Please contact Support.',
+});
 
 export default BlockControls;

@@ -1,31 +1,23 @@
 .block-editor-block-controls-header {
-	display: flex;
-    flex-wrap: wrap;
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #e3e3e3;
-    padding: 18px 0;
-
-	.admin-components-block-icon-box {
- 	}
-
-	.block-editor-block-controls-header__block-title {
-		flex-basis: 40px;
-		flex-shrink: 0;
-		flex-grow: 0;
+	margin-bottom: 30px;
+	.admin-components-select-control {
+		width: 100%;
+		.components-button {
+			height: 45px;
+		}
 	}
-	.block-editor-block-controls-header__block-id {
-		padding: 5px 8px;
-		flex-basis: 112px;
-		flex-grow: 0;
-		flex-shrink: 0;
-		background: #332c46;
-		color: #fff;
-		border-radius: 6px;
-		height: 26px;
+	.block-controls-blocktype-select  {
 		display: flex;
 		align-items: center;
-		white-space: nowrap;
+		font-size: 12px;
+		color: #333;
+		gap: 5px;
 	}
-
+	.block-controls-blocktype-select .admin-components-block-icon-box {
+		width: 28px
+	}
 }
+

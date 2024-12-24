@@ -210,7 +210,11 @@ const FormFlow: React.FC<Props> = ({ applyLogic }) => {
 				'renderer-core-form-flow__wrapper'
 			)}
 			tabIndex={0}
-			onMouseDown={() => setIsFocused(true)}
+			onMouseDown={() => {
+				if (editor.mode === 'on') return;
+				setIsFocused(true)
+			}
+			}
 		>
 			<Global
 				styles={[...fontFace]}
@@ -293,6 +297,7 @@ const FormFlow: React.FC<Props> = ({ applyLogic }) => {
 					`
 				)}
 				onClick={() => {
+					if (editor.mode === 'on') return;
 					setIsFocused(true);
 				}}
 			>

@@ -66,29 +66,31 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 	};
 	useEffect(() => {
 		if (!isPreview) {
-			editableFields.forEach((field) => {
-				if (field?.attributes?.defaultValue || field?.attributes?.defaultValue == 0) {
-					const blockType = blockTypes[field.name];
-					if (blockType?.supports?.numeric) {
-						setFieldAnswer(
-							field.id,
-							// @ts-expect-error
-							blockType?.getNumericVal(
-								replaceHiddenFields(
-									removep(field.attributes.defaultValue)
+			if (editor.mode === 'off') {
+				editableFields.forEach((field) => {
+					if (field?.attributes?.defaultValue || field?.attributes?.defaultValue == 0) {
+						const blockType = blockTypes[field.name];
+						if (blockType?.supports?.numeric) {
+							setFieldAnswer(
+								field.id,
+								// @ts-expect-error
+								blockType?.getNumericVal(
+									replaceHiddenFields(
+										removep(field.attributes.defaultValue)
+									)
 								)
-							)
-						);
+							);
+						} else {
+							setFieldAnswer(
+								field.id,
+								replaceHiddenFields(removep(field.attributes.defaultValue))
+							);
+						}
 					} else {
-						setFieldAnswer(
-							field.id,
-							replaceHiddenFields(removep(field.attributes.defaultValue))
-						);
+						insertEmptyFieldAnswer(field.id, field.name);
 					}
-				} else {
-					insertEmptyFieldAnswer(field.id, field.name);
-				}
-			});
+				});
+			}
 			const welcomeScreens = map(
 				cloneDeep(blocks).filter(
 					(block) => block.name === 'welcome-screen'
@@ -119,10 +121,12 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 						? []
 						: (thankyouScreens as Screen[]),
 			});
-			if (!applyLogic && !isPreview) {
+			if (!applyLogic && !isPreview && editor.mode === 'off') {
 				if (currentBlockId) goToBlock(currentBlockId, true);
 			}
-			setIsMounted(true);
+			if (editor.mode === 'off') {
+				setIsMounted(true);
+			}
 		}
 	}, [JSON.stringify(blocks)]);
 

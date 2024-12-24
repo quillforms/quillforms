@@ -2,7 +2,7 @@ import './store';
 // import './panels';
 // import './panels/subpanels/customize';
 // import './panels/subpanels/my-themes';
-// import './panels/subpanels/custom-fonts';
+import './panels/subpanels/custom-fonts';
 
 import '@wordpress/notices';
 export { default as CustomizePanel } from './components/customize';

@@ -31,8 +31,18 @@ const AddFormTitle = ({ closeModal }) => {
 		apiFetch({
 			path: '/wp/v2/quill_forms',
 			method: 'POST',
+			// add rest field blocks with empty array
 			data: {
 				title,
+				status: 'draft',
+				blocks: [{
+					id: "dugnwd99ek",
+					name: 'short-text',
+					attributes: {
+
+					}
+				}]
+
 			},
 		}).then((res) => {
 			const { id } = res;

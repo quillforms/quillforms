@@ -1,0 +1,463 @@
+/* FormLockerPromo.css */
+.form-locker-container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 40px;
+    background: white;
+    border-radius: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Pro Badge */
+  .form-locker-pro-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    color: white;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  /* Header Styles */
+  .form-locker-title {
+    font-size: 32px;
+    color: #202124;
+    text-align: center;
+    margin: 0 0 16px;
+  }
+  
+  .form-locker-subtitle {
+    font-size: 18px;
+    color: #5f6368;
+    text-align: center;
+    margin: 0 0 48px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Features Navigation */
+  .form-locker-features-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .form-locker-feature-button {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: white;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+  
+  .form-locker-feature-button:hover {
+    background: #f8f9fa;
+    border-color: #1a73e8;
+  }
+  
+  .form-locker-feature-button.active {
+    background: #e8f0fe;
+    border-color: #1a73e8;
+    color: #1a73e8;
+  }
+  
+  .form-locker-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #f1f3f4;
+    border-radius: 8px;
+    color: #5f6368;
+  }
+  
+  .form-locker-feature-button.active .form-locker-feature-icon {
+    background: #1a73e8;
+    color: white;
+  }
+  
+  .form-locker-feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .form-locker-feature-title {
+    font-weight: 500;
+    color: #202124;
+  }
+  
+  .form-locker-feature-desc {
+    font-size: 14px;
+    color: #5f6368;
+  }
+  
+  /* Preview Section */
+  .form-locker-preview {
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 32px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  
+  .form-locker-preview-content {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Password Protection Demo */
+  .form-locker-password-prompt {
+    background: white;
+    padding: 32px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .form-locker-lock-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  
+  .form-locker-password-input {
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  
+  .form-locker-password-input input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .form-locker-password-input button {
+    padding: 12px 24px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  /* Schedule Demo */
+  .form-locker-calendar {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  
+  .form-locker-calendar-header {
+    padding: 16px;
+    background: #1a73e8;
+    color: white;
+  }
+  
+  .form-locker-calendar-header h4 {
+    margin: 0;
+  }
+  
+  .form-locker-calendar-dates {
+    padding: 24px;
+  }
+  
+  .form-locker-date-range {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  .form-locker-date {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .form-locker-date span {
+    font-size: 14px;
+    color: #5f6368;
+  }
+  
+  .form-locker-date strong {
+    color: #202124;
+  }
+  
+  .form-locker-date-arrow {
+    color: #5f6368;
+  }
+  
+  /* User Restriction Demo */
+  .form-locker-login-prompt {
+    background: white;
+    padding: 32px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .form-locker-user-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  
+  .form-locker-login-button {
+    padding: 12px 32px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-weight: 500;
+    margin-top: 24px;
+    cursor: pointer;
+  }
+  
+  /* Entry Limits Demo */
+  .form-locker-limit-status {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .form-locker-limit-progress {
+    height: 8px;
+    background: #f1f3f4;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  
+  .form-locker-limit-bar {
+    height: 100%;
+    background: #1a73e8;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+  
+  .form-locker-limit-numbers {
+    display: flex;
+    justify-content: space-between;
+    color: #5f6368;
+    font-size: 14px;
+  }
+  
+  .form-locker-limit-remaining {
+    color: #1a73e8;
+    font-weight: 500;
+  }
+  
+  /* Duplicate Prevention Demo */
+  .form-locker-duplicate-alert {
+    background: #fef7e6;
+    border: 1px solid #feefc3;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .form-locker-alert-icon {
+    font-size: 24px;
+  }
+  
+  .form-locker-alert-content h4 {
+    margin: 0 0 4px;
+    color: #202124;
+  }
+  
+  .form-locker-alert-content p {
+    margin: 0;
+    color: #5f6368;
+    font-size: 14px;
+  }
+  
+  /* IP Restriction Demo */
+  .form-locker-ip-status {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .form-locker-ip-icon {
+    font-size: 32px;
+  }
+  
+  .form-locker-ip-details {
+    flex: 1;
+  }
+  
+  .form-locker-ip-details h4 {
+    margin: 0 0 8px;
+    color: #202124;
+  }
+  
+  .form-locker-ip-address {
+    font-family: monospace;
+    color: #5f6368;
+    margin-bottom: 8px;
+  }
+  
+  .form-locker-ip-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .form-locker-ip-badge.allowed {
+    background: #e6f4ea;
+    color: #137333;
+  }
+  
+  /* Upgrade Prompt */
+  .form-locker-upgrade-prompt {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 48px 0;
+    color: white;
+    text-align: center;
+  }
+  
+  .form-locker-upgrade-content {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .form-locker-upgrade-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  
+  .form-locker-upgrade-title {
+    font-size: 24px;
+    margin: 0 0 12px;
+  }
+  
+  .form-locker-upgrade-desc {
+    font-size: 16px;
+    margin: 0 0 24px;
+    opacity: 0.9;
+  }
+  
+  .form-locker-upgrade-button {
+    padding: 12px 32px;
+    background: white;
+    color: #1a73e8;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .form-locker-upgrade-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Fixed Upgrade Banner */
+  .form-locker-upgrade-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  
+  .form-locker-banner-text {
+    font-size: 16px;
+    color: #202124;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .form-locker-banner-pro {
+    padding: 2px 8px;
+    background: #FFD700;
+    color: #202124;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .form-locker-banner-button {
+    padding: 8px 24px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .form-locker-banner-button:hover {
+    background: #1557b0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .form-locker-container {
+      padding: 20px;
+    }
+  
+    .form-locker-features-nav {
+      grid-template-columns: 1fr;
+    }
+  
+    .form-locker-feature-button {
+      padding: 12px;
+    }
+  
+    .form-locker-preview {
+      padding: 20px;
+    }
+  
+    .form-locker-password-input {
+      flex-direction: column;
+    }
+  
+    .form-locker-upgrade-banner {
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px;
+    }
+  }

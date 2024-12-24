@@ -40,6 +40,7 @@ const serialize = (node: CustomNode) => {
 			nodeText = `<em>${nodeText}</em>`;
 		}
 
+		// If the text node is empty, return <br />
 		if (nodeText === '') {
 			return '<br />';
 		}
@@ -71,6 +72,10 @@ const serializeNode = (node: CustomNode) => {
 			return `{{${(node.data as MergeTag).type}:${(node.data as MergeTag).modifier
 				}}}`;
 		case 'paragraph':
+			// Serialize empty paragraphs as <p></p>
+			if (!children.trim()) {
+				return `<p></p>`;
+			}
 			// Add double line break after paragraphs for better spacing
 			return `<p>${children}</p>\n\n`;
 		default:

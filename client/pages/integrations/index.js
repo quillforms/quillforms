@@ -125,12 +125,6 @@ const IntegrationsPage = ({ params }) => {
 					</div>
 				)}
 			</div>
-
-			<div className="quillforms-analytics-note">
-				You can connect with Google Tag manager, Google Analytics and Facebook Pixel from <NavLink
-					to={`/admin.php?page=quillforms&path=settings&tab=analytics`}
-				>Settings</NavLink> page
-			</div>
 			{modalIntegration && (
 				<IntegrationModal
 					slug={modalIntegration}

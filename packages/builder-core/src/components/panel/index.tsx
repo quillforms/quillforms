@@ -44,7 +44,7 @@ const Panel = () => {
 		}
 	}, [currentPanel]);
 
-	const className = currentPanel && currentPanel?.type === 'modal' ? 'builder-core-panel-modal' : 'builder-core-full-screen-panel';
+	const className = currentPanel && panelType === 'modal' ? 'builder-core-panel-modal' : 'builder-core-full-screen-panel';
 	return (
 
 		<div className={className} >

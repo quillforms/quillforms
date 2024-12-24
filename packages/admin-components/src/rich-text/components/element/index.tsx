@@ -22,25 +22,27 @@ const Element: React.FC<Props> = ({
 	mergeTags,
 }) => {
 	const path = ReactEditor.findPath(editor, element);
+	switch (element.type) {
 
-	if (element.type === 'mergeTag') {
-		return (
-			<MergeTagComponent
-				element={element}
-				mergeTags={mergeTags}
-				editor={editor}
-				path={path}
-				attributes={attributes}
-				children={children}
-			/>
-		);
-	} else if (element.type === 'link') {
-		return (
-			<a {...attributes} href={(element as Link).url}>
-				{children}
-			</a>
-		);
+		case 'mergeTag':
+			return (
+				<MergeTagComponent
+					element={element}
+					mergeTags={mergeTags}
+					editor={editor}
+					path={path}
+					attributes={attributes}
+					children={children}
+				/>
+			);
+		case 'link':
+			return (
+				<a {...attributes} href={(element as Link).url}>
+					{children}
+				</a>
+			);
+		default:
+			return <p {...attributes}>{children}</p>;
 	}
-	return <p {...attributes}>{children}</p>;
 };
 export default Element;

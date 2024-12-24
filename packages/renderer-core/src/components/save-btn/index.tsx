@@ -25,7 +25,7 @@ const SaveBtn: React.FC = () => {
 	const [isSaving, setIsSaving] = useState(false);
 	const [saved, setSaved] = useState(false);
 	const [isDisabled, setIsDisabled] = useState(true);
-	const { formObj, isPreview } = useFormContext();
+	const { formObj, isPreview, editor } = useFormContext();
 	// @ts-ignore saved_data is a property of formObj.
 	const { saved_data = {} } = formObj;
 	const [snapshot, setSnapshot] = useState(saved_data?.snapshot || '');
@@ -92,7 +92,7 @@ const SaveBtn: React.FC = () => {
 	};
 
 	const saveHandler = async () => {
-		if (isPreview || isSaving || isDisabled) return;
+		if (isPreview || editor.mode === 'on' || isSaving || isDisabled) return;
 		// @ts-ignore, qfRender is a global variable.
 		const qfRender = window.qfRender;
 		const ajaxurl = qfRender.ajaxurl || '';
@@ -186,24 +186,28 @@ const SaveBtn: React.FC = () => {
 		setIsSaving(false);
 	};
 	return (
-		<>
-			<Button className={classnames("renderer-core-save-button", {
-				disabled: isDisabled,
-			})} disableIcon={true} onClick={saveHandler}>
+		<> {
+			editor.mode === 'off' &&
+			<>
+				<Button className={classnames("renderer-core-save-button", {
+					disabled: isDisabled,
+				})} disableIcon={true} onClick={saveHandler}>
 
-				{saveAndContinue?.buttonLabel ?? "Save"}
-				{isSaving && (
-					<Loader
-						wrapperClass="renderer-core-save-btn__loader"
-						color="#fff"
-						height={20}
-						width={20}
-					/>
-				)}
-			</Button>
-			<span className={classnames("renderer-core-form-saved", {
-				"renderer-core-form-saved--show": saved,
-			})}>{saveAndContinue?.successMessage ?? "Form successfully saved! Check Your Inbox"}</span>
+					{saveAndContinue?.buttonLabel ?? "Save"}
+					{isSaving && (
+						<Loader
+							wrapperClass="renderer-core-save-btn__loader"
+							color="#fff"
+							height={20}
+							width={20}
+						/>
+					)}
+				</Button>
+				<span className={classnames("renderer-core-form-saved", {
+					"renderer-core-form-saved--show": saved,
+				})}>{saveAndContinue?.successMessage ?? "Form successfully saved! Check Your Inbox"}</span>
+			</>
+		}
 		</>
 	);
 };

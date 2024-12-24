@@ -1,0 +1,305 @@
+/* Add these new styles to your existing CSS */
+
+/* Demo Overlay */
+.demo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(25, 55, 125, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .demo-overlay-content {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+  
+  .demo-overlay-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 24px;
+  }
+  
+  .demo-overlay-content h3 {
+    margin: 0 0 16px;
+    color: #202124;
+    font-size: 24px;
+  }
+  
+  .demo-overlay-content p {
+    margin: 0 0 12px;
+    color: #5f6368;
+    line-height: 1.5;
+  }
+  
+  .demo-overlay-button {
+    margin-top: 24px;
+    padding: 12px 32px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .demo-overlay-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Permanent Watermark */
+  .demo-watermark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .demo-watermark-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 40px;
+    font-weight: bold;
+    color: rgba(0,0,0,0.05);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+  
+  /* Demo Controls */
+  .demo-controls {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 2;
+  }
+  
+  .demo-info-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #5f6368;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .demo-info-button:hover {
+    background: #f8f9fa;
+    border-color: #dadce0;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Make content semi-transparent when overlay is shown */
+  .analytics-demo.has-overlay > *:not(.demo-overlay):not(.demo-controls) {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+.analytics-demo {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .demo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #1a73e8, #0d47a1);
+    color: white;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+  
+  .demo-badge-icon {
+    font-size: 16px;
+  }
+  
+  h2 {
+    margin: 0 0 12px;
+    color: #202124;
+    font-size: 28px;
+  }
+  
+  .demo-subtitle {
+    color: #5f6368;
+    margin: 0 0 40px;
+  }
+  
+  .funnel-visualization {
+    position: relative;
+    margin: 0 auto 40px;
+    max-width: 600px;
+  }
+  
+  .funnel-svg {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* SVG Styles */
+  .funnel-path {
+    transition: fill 0.3s ease;
+  }
+  
+  .flow-line {
+    stroke-width: 2;
+    fill: none;
+  }
+  
+  .stage text {
+    fill: #5f6368;
+    font-size: 14px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  
+  .moving-dot {
+    opacity: 0;
+    animation: flowAnimation 3s infinite;
+  }
+  
+  .dot1 { animation-delay: 0s; }
+  .dot2 { animation-delay: 1s; }
+  .dot3 { animation-delay: 2s; }
+  
+  @keyframes flowAnimation {
+    0% {
+      opacity: 0;
+      transform: translate(200px, 10px);
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(200px, 290px);
+    }
+  }
+  
+  .analytics-insights {
+    margin-top: 32px;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+  
+  .insight-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-align: left;
+  }
+  
+  .insight-icon {
+    font-size: 24px;
+  }
+  
+  .insight-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .insight-content strong {
+    color: #202124;
+    margin-bottom: 4px;
+  }
+  
+  .insight-content span {
+    color: #5f6368;
+    font-size: 14px;
+  }
+  
+  .upgrade-section {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .upgrade-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 32px;
+    background: linear-gradient(45deg, #1a73e8, #0d47a1);
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .upgrade-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .upgrade-note {
+    margin: 12px 0 0;
+    color: #5f6368;
+    font-size: 14px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .analytics-demo {
+      padding: 24px;
+    }
+  
+    .analytics-insights {
+      flex-direction: column;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    .stage text {
+      font-size: 12px;
+    }
+  }

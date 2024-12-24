@@ -25,6 +25,7 @@ import type {
 	allowedFormats,
 } from '../../types';
 import classNames from 'classnames';
+import { noop } from 'lodash';
 
 // Add these type definitions
 interface CustomText {
@@ -49,6 +50,7 @@ interface Props {
 	value: SlateNode[];
 	onChange: (value: SlateNode[]) => void;
 	onFocus?: React.FocusEventHandler;
+	onBlur?: React.FocusEventHandler;
 	mergeTags?: MergeTags;
 	mergeTagsSections?: MergeTagsSections;
 	allowedFormats?: allowedFormats;
@@ -62,10 +64,37 @@ const TextEditor: React.FC<Props> = (props) => {
 		color,
 		onChange,
 		value,
-		onFocus,
+		onFocus = noop,
+		onBlur = noop,
 		mergeTags = [],
 		allowedFormats = [],
 	} = props;
+
+
+
+	const editorStyles = css`
+        .richtext__editor {
+            position: relative;
+        }
+
+        [data-slate-placeholder] {
+            position: absolute;
+            pointer-events: none;
+            display: inline-block;
+            color: #666;
+            opacity: 0.6;
+            width: 100%;
+            white-space: pre-wrap;
+            z-index: 0;
+            user-select: none;
+        }
+
+        [contenteditable] {
+            position: relative;
+            z-index: 1;
+            min-height: 24px;
+        }
+    `;
 
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const PopoverRef = useRef(null);
@@ -207,83 +236,70 @@ const TextEditor: React.FC<Props> = (props) => {
 	}, [PopoverRef]);
 
 	return (
-		<Fragment>
-			<div
-				className={classNames("richtext__editor", props.className)}
-				style={{ width: '100%' }}
-				ref={wrapperRef}
+		<div
+			className={classNames("richtext__editor", props.className, editorStyles)}
+			style={{ width: '100%' }}
+			ref={wrapperRef}
+		>
+			<Slate
+				editor={editor}
+				initialValue={value}
+				onChange={(val) => {
+					onChange(val);
+					const { selection } = editor;
+
+					if (selection && Range.isCollapsed(selection)) {
+						const [start] = Range.edges(selection);
+						const wordBefore = selection;
+						const before = wordBefore && Editor.before(editor, wordBefore);
+						const beforeRange = before && Editor.range(editor, before, start);
+						const beforeText = beforeRange && Editor.string(editor, beforeRange);
+						const beforeMatch = beforeText && beforeText.endsWith('@');
+						const after = Editor.after(editor, start);
+						const afterRange = Editor.range(editor, start, after);
+						const afterText = Editor.string(editor, afterRange);
+						const afterMatch = afterText.match(/^(\s|$)/);
+
+						if (beforeMatch && afterMatch) {
+							setTarget(beforeRange);
+							setSearch(beforeMatch[1]);
+							setIndex(0);
+						} else {
+							setTarget(undefined);
+						}
+					}
+				}}
 			>
-				<Slate
-					editor={editor}
-					initialValue={value}
-					onChange={(val) => {
-						onChange(val);
-						const { selection } = editor;
-
-						if (selection && Range.isCollapsed(selection)) {
-							const [start] = Range.edges(selection);
-							const wordBefore = selection;
-							const before = wordBefore && Editor.before(editor, wordBefore);
-							const beforeRange = before && Editor.range(editor, before, start);
-							const beforeText = beforeRange && Editor.string(editor, beforeRange);
-							const beforeMatch = beforeText && beforeText.endsWith('@');
-							const after = Editor.after(editor, start);
-							const afterRange = Editor.range(editor, start, after);
-							const afterText = Editor.string(editor, afterRange);
-							const afterMatch = afterText.match(/^(\s|$)/);
-
-							if (beforeMatch && afterMatch) {
-								setTarget(beforeRange);
-								setSearch(beforeMatch[1]);
-								setIndex(0);
-							} else {
-								setTarget(undefined);
-							}
+				{allowedFormats?.length > 0 && (
+					<HoveringToolbar
+						formattingControls={allowedFormats}
+						toggleFormat={toggleFormat}
+						isFormatActive={isFormatActive}
+						currentColor={currentColor}
+					/>
+				)}
+				<Editable
+					style={{ color, position: 'relative' }}
+					color={color}
+					renderLeaf={($props) => <Leaf {...$props} />}
+					renderElement={renderElement}
+					placeholder={placeholder}
+					onFocus={onFocus}
+					onBlur={onBlur}
+					onKeyDown={onKeyDown}
+					onDOMBeforeInput={(event: Event) => {
+						switch ((event as InputEvent).inputType) {
+							case 'formatBold':
+								return toggleFormat('bold');
+							case 'formatItalic':
+								return toggleFormat('italic');
 						}
 					}}
-				>
-					{allowedFormats?.length > 0 && (
-						<HoveringToolbar
-							formattingControls={allowedFormats}
-							toggleFormat={toggleFormat}
-							isFormatActive={isFormatActive}
-							currentColor={currentColor}
-						/>
-					)}
-					<Editable
-						style={{ color }}
-						color={color}
-						renderLeaf={($props) => <Leaf {...$props} />}
-						renderElement={renderElement}
-						renderPlaceholder={({ attributes, children }) => (
-							<>
-								<div
-									{...attributes}
-									style={{ opacity: 0, height: 0, position: "relative", zIndex: -1 }}
-								>
-									{children}
-								</div>
-								<div {...attributes}>
-									{children}
-								</div>
-							</>
-						)}
-						placeholder={placeholder}
-						onFocus={onFocus}
-						onKeyDown={onKeyDown}
-						onDOMBeforeInput={(event: Event) => {
-							switch ((event as InputEvent).inputType) {
-								case 'formatBold':
-									return toggleFormat('bold');
-								case 'formatItalic':
-									return toggleFormat('italic');
-							}
-						}}
-					/>
-					{target && $mergeTags.length > 0 && (
-						<Popover
-							ref={PopoverRef}
-							className={css`
+				/>
+				{target && $mergeTags.length > 0 && (
+					<Popover
+						ref={PopoverRef}
+						className={css`
                                 z-index: 1111111111111111111;
                                 .components-popover__content {
                                     padding: 3px;
@@ -293,39 +309,38 @@ const TextEditor: React.FC<Props> = (props) => {
                                     z-index: 111111111111111111;
                                 }
                             `}
-							onKeyDown={onKeyDown}
-						>
-							<div
-								className={css`
+						onKeyDown={onKeyDown}
+					>
+						<div
+							className={css`
                                     padding: 5px 25px;
                                     font-weight: bold;
                                 `}
-							>
-								Recall Information from...
-							</div>
-							<div
-								className="rich-text-merge-tag-list"
-								ref={ref}
-							>
-								{$mergeTags.map((mergeTag, i) => (
-									<MergeTagListItem
-										key={`merge-tag-${i}`}
-										mergeTag={mergeTag}
-										onClick={() => {
-											Transforms.select(editor, target);
-											insertMergeTag(mergeTag);
-											ReactEditor.focus(editor);
-										}}
-										onMouseEnter={() => setIndex(i)}
-										isSelected={index === i}
-									/>
-								))}
-							</div>
-						</Popover>
-					)}
-				</Slate>
-			</div>
-		</Fragment>
+						>
+							Recall Information from...
+						</div>
+						<div
+							className="rich-text-merge-tag-list"
+							ref={ref}
+						>
+							{$mergeTags.map((mergeTag, i) => (
+								<MergeTagListItem
+									key={`merge-tag-${i}`}
+									mergeTag={mergeTag}
+									onClick={() => {
+										Transforms.select(editor, target);
+										insertMergeTag(mergeTag);
+										ReactEditor.focus(editor);
+									}}
+									onMouseEnter={() => setIndex(i)}
+									isSelected={index === i}
+								/>
+							))}
+						</div>
+					</Popover>
+				)}
+			</Slate>
+		</div>
 	);
 };
 

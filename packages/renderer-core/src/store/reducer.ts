@@ -88,6 +88,7 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 		thankyouScreens,
 		correctIncorrectDisplay
 	} = state;
+	console.log('action', action)
 	switch (action.type) {
 		case SET_SWIPER_STATE: {
 			const newSwiperState = action.swiperState;
@@ -222,7 +223,8 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 				newWalkPath?.length > 0 &&
 				newWalkPath[newWalkPath.length - 1].id == newCurrentBlockId;
 			console.log('isLastField', isLastField);
-			console.log(newSwiperState)
+			console.log(newSwiperState);
+			console.log(state);
 			return {
 				...state,
 				...newSwiperState,

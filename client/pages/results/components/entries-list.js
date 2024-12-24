@@ -45,7 +45,7 @@ import EntryRow from './entry-row';
 import EntriesExportButton from './entries-export-button';
 import DeleteAlertModal from './delete-alert';
 import EmptyEntries from './empty-entries';
-
+import EntriesHeader from './entry-header';
 export const EntriesList = ({
 	formId
 }) => {
@@ -114,6 +114,7 @@ export const EntriesList = ({
 			});
 		}
 	};
+
 
 	const [selectedEntries, setSelectedEntries] = useState([]);
 	const [deleteModelOpen, setDeleteModalOpen] = useState(false);
@@ -316,153 +317,24 @@ export const EntriesList = ({
 				}
 			` }
 						>
-							<div className='entries__header'>
-								<div className="entries__header-section">
-									<div
-										className="entries__header-date-range"
-										onClick={() => setOpenDateRangePicker(true)}
-									>
-										<div>
-											<DateIcon />
-											<span className="entries__header-date-range-label">
-												{from ? from.toLocaleDateString() :
-													__('Start Date', 'quillforms')}
-											</span>
-										</div>
-										<span>{__('To', 'forms')}</span>
-										<div>
-											<DateIcon />
-											<span className="entries__header-date-range-label">
-												{to ? to.toLocaleDateString() :
-													__('End Date', 'quillforms')}
-											</span>
-										</div>
-									</div>
-									<MuiButton
-										sx={{
-											marginLeft: '10px',
-										}}
-										variant="outlined"
-										onClick={() => filterEntriesByDate()}
-									>
-										{__('Filter', 'quillforms')}
-									</MuiButton>
-
-									<Popover
-										open={openDateRangePicker}
-										onClose={() => setOpenDateRangePicker(false)}
-										anchorReference="anchorPosition"
-										anchorPosition={{
-											top: 200,
-											left: 400,
-										}}
-									>
-										<DateRangePicker
-											onChange={(item) => {
-												setFrom(item.selection.startDate);
-												setTo(item.selection.endDate);
-											}}
-											showSelectionPreview={true}
-											moveRangeOnFirstSelection={false}
-											months={2}
-											ranges={[
-												{
-													startDate: from
-														? from instanceof Date
-															? from
-															: parseISO(from) // Ensure it's a Date object
-														: new Date(),
-													endDate: to
-														? to instanceof Date
-															? to
-															: parseISO(to) // Ensure it's a Date object
-														: new Date(),
-													key: 'selection',
-												},
-											]}
-										/>
-									</Popover>
-								</div>
-							</div>
+							<EntriesHeader
+								from={from}
+								to={to}
+								setFrom={setFrom}
+								setTo={setTo}
+								filterEntriesByDate={filterEntriesByDate}
+								setOpenDateRangePicker={setOpenDateRangePicker}
+								selectedField={selectedField}
+								setSelectedField={setSelectedField}
+								orderBy={orderBy}
+								setOrderBy={setOrderBy}
+								order={order}
+								options={options}
+								orderByOptions={orderByOptions}
+								orderOptions={orderOptions}
+							/>
 							{totalEntries > 0 && (
 								<>
-									<div className="qf-entry-list__header">
-										<div
-											className={css`
-										display: flex;
-										flex-wrap: wrap;
-										align-items: center;
-										margin-right: 60px;
-									` }
-										>
-											<div
-												className={css`
-							margin-right: 5px;
-						` }
-											>
-												Choose display question:
-											</div>
-											<SelectControl
-												className={css`
-												width: 300px;
-												padding: 10px 8px;
-											` }
-												options={options}
-												value={options[selectedField]}
-												onChange={(selectedChoice) =>
-													setSelectedField(
-														selectedChoice?.selectedItem?.key
-													)
-												}
-											/>
-										</div>
-										<div
-											className={css`
-											display: flex;
-											flex-wrap: wrap;
-											align-items: center;
-											margin-right: 50px;
-										` }
-										>
-											<div
-												className={css`
-												margin-right: 5px;
-											` }
-											>
-												Order by:
-											</div>
-											<SelectControl
-												className={css`
-												width: 180px;
-												padding: 10px 8px;
-											` }
-												options={orderByOptions}
-												value={orderByOptions[orderBy]}
-												onChange={(selectedChoice) => {
-													setOrderBy(
-														selectedChoice.selectedItem.key === 'date'
-															? 0
-															: 1
-													);
-												}}
-											/>
-											<SelectControl
-												className={css`
-											width: 120px;
-											padding: 10px 8px;
-										` }
-												options={orderOptions}
-												value={orderOptions[order]}
-												onChange={(selectedChoice) =>
-													setOrder(
-														selectedChoice.selectedItem.key === 'asc'
-															? 0
-															: 1
-													)
-												}
-											/>
-										</div>
-									</div>
 									<div
 										className={css`
 									display: flex;

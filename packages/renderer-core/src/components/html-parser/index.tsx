@@ -18,7 +18,7 @@ interface Props {
 }
 const HtmlParser: React.FC<Props> = ({ value }) => {
 	if (!value) return null;
-
+	console.log('value:', value);
 	let processedValue = value.replace(
 		/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
 		(_match, p1, p2) => {
@@ -34,6 +34,7 @@ const HtmlParser: React.FC<Props> = ({ value }) => {
 	if (!processedValue.startsWith('<p>')) {
 		processedValue = '<p>' + processedValue + '</p>';
 	}
+
 
 	const res = (
 		<>

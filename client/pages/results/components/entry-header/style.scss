@@ -1,0 +1,419 @@
+.entries-header {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  
+    /* Date Filters Section */
+    &__section {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    &__display-field {
+            
+      .admin-components-select-control {
+        min-width: 280px !important;
+      }
+    }
+    &__display-field,
+    &__ordering {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  
+      ul {
+        margin: 0 !important;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #4b5563;
+        white-space: nowrap;
+      }
+    }
+  
+    &__filters {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  
+    &__date-filters {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  
+    &__date-picker {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+  
+      &:hover {
+        border-color: #d1d5db;
+        background: #f1f5f9;
+      }
+    }
+  
+    .date-picker__range {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  
+    .date-picker__field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  
+    .date-picker__value {
+      color: #374151;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  
+    .date-picker__separator {
+      color: #9ca3af;
+      font-weight: 500;
+    }
+  
+    &__apply-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+  
+      &:hover {
+        background: #1d4ed8;
+      }
+    }
+  
+    /* Controls Section */
+    &__controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+  
+      .ordering-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+  
+    /* SelectControl Styles */
+    .admin-components-select-control {
+      min-width: 180px;
+  
+      .components-custom-select-control__button {
+        background: #f8fafc !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 6px !important;
+        padding: 8px 12px !important;
+        height: auto !important;
+        font-size: 14px !important;
+      }
+    }
+  
+    /* Date Range Picker Styles */
+    .date-range-popover {
+      margin-top: 8px;
+    }
+  
+    .date-range-picker-wrapper {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+  
+      .rdrCalendarWrapper {
+        font-size: 14px;
+      }
+  
+      .rdrDateDisplayWrapper {
+        background-color: #f8fafc;
+      }
+  
+      .rdrDateDisplay {
+        margin: 0.8em;
+      }
+  
+      .rdrDefinedRangesWrapper {
+        border-right: 1px solid #eff2f7;
+        background: #f8fafc;
+      }
+  
+      .rdrStaticRange {
+        border: 0;
+        padding: 0.8em 1.5em;
+        background: transparent;
+  
+        &:hover .rdrStaticRangeLabel {
+          background: #eff2f7;
+        }
+      }
+  
+      .rdrInputRange {
+        padding: 0.8em 1.5em;
+      }
+  
+      .date-range-picker-actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 16px;
+        background: #f8fafc;
+        border-top: 1px solid #e5e7eb;
+        gap: 12px;
+  
+        .date-range-picker-cancel,
+        .date-range-picker-apply {
+          padding: 8px 16px;
+          border-radius: 6px;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+  
+          &.date-range-picker-cancel {
+            background: white;
+            border: 1px solid #e5e7eb;
+            color: #4b5563;
+  
+            &:hover {
+              background: #f3f4f6;
+            }
+          }
+  
+          &.date-range-picker-apply {
+            background: #2563eb;
+            border: none;
+            color: white;
+  
+            &:hover {
+              background: #1d4ed8;
+            }
+          }
+        }
+      }
+  
+      /* Custom DateRangePicker Theme */
+      .rdrDayToday .rdrDayNumber span:after {
+        background: #2563eb;
+      }
+  
+      .rdrDayHovered {
+        border-radius: 4px;
+      }
+  
+      .rdrStartEdge,
+      .rdrEndEdge {
+        border-radius: 4px;
+      }
+  
+      .rdrInRange {
+        background: #eff6ff;
+      }
+  
+      .rdrStartEdge,
+      .rdrEndEdge {
+        background: #2563eb;
+      }
+  
+      .rdrDayStartPreview,
+      .rdrDayEndPreview,
+      .rdrDayInPreview {
+        border-color: #bfdbfe;
+      }
+  
+      .rdrDateRangeWrapper {
+        border-radius: 8px;
+        overflow: hidden;
+      }
+  
+      .rdrDateDisplayItem {
+        background-color: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+  
+        input {
+          color: #374151;
+        }
+      }
+  
+      .rdrMonthAndYearPickers select {
+        color: #374151;
+  
+        &:hover {
+          background-color: #f3f4f6;
+        }
+      }
+    }
+  
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      &__controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+  
+      &__display-field,
+      &__ordering {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+  
+      .ordering-controls,
+      .admin-components-select-control {
+        width: 100%;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      padding: 16px;
+  
+      &__filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+  
+      &__date-filters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+  
+      .date-picker__range {
+        flex-direction: column;
+        gap: 8px;
+      }
+  
+      .date-picker__field {
+        justify-content: flex-start;
+        width: 100%;
+      }
+  
+      .date-picker__separator {
+        display: none;
+      }
+  
+      &__apply-btn {
+        width: 100%;
+        justify-content: center;
+      }
+  
+      .ordering-controls {
+        flex-direction: column;
+        gap: 8px;
+      }
+  
+      .date-range-picker-wrapper {
+        max-width: 100vw;
+        overflow: auto;
+  
+        .rdrCalendarWrapper {
+          font-size: 12px;
+        }
+  
+        .rdrDateDisplayWrapper {
+          padding: 0.5em;
+        }
+      }
+    }
+  
+    /* Additional Utility Classes */
+    svg {
+      color: currentColor;
+    }
+  
+    button:focus,
+    select:focus {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      ring: 2px solid #2563eb;
+      ring-offset: 2px;
+    }
+  
+    /* Custom ScrollBar for Date Picker */
+    .date-range-picker-wrapper {
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+  
+        &-track {
+          background: #f1f5f9;
+          border-radius: 4px;
+        }
+  
+        &-thumb {
+          background: #cbd5e1;
+          border-radius: 4px;
+  
+          &:hover {
+            background: #94a3b8;
+          }
+        }
+      }
+    }
+  
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    .date-range-popover {
+      animation: fadeIn 0.2s ease-out;
+    }
+  
+    /* Focus States */
+    &__date-picker:focus-visible,
+    &__apply-btn:focus-visible,
+    .date-range-picker-cancel:focus-visible,
+    .date-range-picker-apply:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+    }
+  
+    /* Status Colors */
+    &__status {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+  
+      &--active {
+        background-color: #dcfce7;
+        color: #166534;
+      }
+  
+      &--inactive {
+        background-color: #fee2e2;
+        color: #991b1b;
+      }
+    }
+  }

@@ -7,59 +7,35 @@ import { BlockEditSkeleton } from '@quillforms/block-editor';
  */
 import { useState, useMemo, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { doAction, applyFilters } from '@wordpress/hooks';
 
-/**
- * External Dependencies
- */
-import { confirmAlert } from 'react-confirm-alert';
 
 /**
  * Internal Dependencies
  */
-import DropArea from '../drop-area';
-import FormPreview from '../preview-area-wrapper';
 import Panel from '../panel';
 import BuilderPanelsBar from '../panels-bar';
-import DragAlert from '../drag-alert';
-import type {
-	OnDragUpdateResponder,
-	OnDragEndResponder,
-	OnBeforeCaptureResponder,
-	OnDragStartResponder,
-} from 'react-beautiful-dnd';
+
 import { size } from 'lodash';
 import BlocksStructure from '../blocks-structure';
 import BlockControlsPanel from '../right-panel';
+import PartialSubmissionPointContent from '../partial-submission-point-content';
 
 interface Props {
 	formId: number;
 }
 const Layout: React.FC<Props> = ({ formId }) => {
-	const [targetIndex, setTargetIndex] = useState<number>();
-	const [isDraggingContent, setIsDraggingContent] =
-		useState<boolean>(false);
-	const [sourceContentIndex, setSourceContentIndex] = useState<number>();
-	const [isDragging, setIsDragging] = useState<boolean>(false);
 
-	const { blockTypes, currentPanel, areaToShow, formBlocks } = useSelect(
+	const { formBlocks, blockTypes, currentBlockId, currentPanel } = useSelect(
 		(select) => {
-			const { getBlockTypes } = select('quillForms/blocks');
-			const { getCurrentPanel, getAreaToShow } = select(
-				'quillForms/builder-panels'
-			);
-
-			const { getBlocks } = select('quillForms/block-editor');
 			return {
-				blockTypes: getBlockTypes(),
-				currentPanel: getCurrentPanel(),
-				areaToShow: getAreaToShow(),
-				formBlocks: getBlocks(),
+				currentBlockId: select('quillForms/block-editor').getCurrentBlockId(),
+				currentPanel: select('quillForms/builder-panels').getCurrentPanel(),
+				formBlocks: select('quillForms/block-editor').getBlocks(),
+				blockTypes: select('quillForms/blocks').getBlockTypes(),
 			};
 		}
 	);
-
-	const { __experimentalReorderBlocks, setCurrentBlock } = useDispatch(
+	const { setCurrentBlock } = useDispatch(
 		'quillForms/block-editor'
 	);
 	const { insertEmptyFieldAnswer } = useDispatch(
@@ -88,130 +64,7 @@ const Layout: React.FC<Props> = ({ formId }) => {
 		return false;
 	};
 
-	const onDragStart: OnDragStartResponder = ({
-		source,
-	}: {
-		source: {
-			index?: number;
-			droppableId?: string;
-		};
-	}) => {
-		setIsDragging(true);
-		if (source?.droppableId !== 'DROP_AREA') return;
-		setSourceContentIndex(source.index);
-	};
 
-	const onDragUpdate: OnDragUpdateResponder = ({ destination }) => {
-		if (destination?.droppableId !== 'DROP_AREA') {
-			setTargetIndex(undefined);
-			return;
-		}
-		let next = destination?.index;
-
-		if (isDraggingContent && next && sourceContentIndex !== undefined) {
-			next = next >= sourceContentIndex ? next + 1 : next;
-		}
-
-		setTargetIndex(next);
-	};
-
-	const onDragEnd: OnDragEndResponder = (result) => {
-		setIsDragging(false);
-		setTargetIndex(undefined);
-		setIsDraggingContent(false);
-
-		const { source, destination } = result;
-
-		// dropped outside the list or source and destination are the same
-		if (!destination || source.index === destination.index) {
-			return;
-		}
-
-		if (source.droppableId && destination.droppableId) {
-			let dragAlerts: string[] = [];
-
-			if (source.droppableId === 'DROP_AREA') {
-				// if (
-				// 	hasIncorrectFieldMergeTags(
-				// 		source.index,
-				// 		destination.index
-				// 	) ||
-				// 	hasIncorrectFieldMergeTags(
-				// 		destination.index,
-				// 		source.index
-				// 	)
-				// ) {
-				// 	dragAlerts.push(
-				// 		// eslint-disable-next-line no-multi-str
-				// 		'This block recalls information from previous fields.\
-				// 	 This info will be lost if you proceed with this block movement.'
-				// 	);
-				// }
-				dragAlerts = dragAlerts.concat(
-					applyFilters(
-						'QuillForms.BuilderCore.BlockReorderAlerts',
-						[],
-						source.index,
-						destination.index
-					) as string[]
-				);
-			}
-			if (dragAlerts.length > 0) {
-				confirmAlert({
-					customUI: ({ onClose }) => {
-						return (
-							<DragAlert
-								messages={dragAlerts}
-								approve={() => {
-									doAction(
-										'QuillForms.BuilderCore.BlockReorder',
-										source.index,
-										destination.index
-									);
-									__experimentalReorderBlocks(
-										source.index,
-										destination.index
-									);
-									onClose();
-								}}
-								reject={() => {
-									onClose();
-								}}
-								closeModal={onClose}
-							/>
-						);
-					},
-				});
-			} else {
-				let parentSourceIndex;
-				let parentDestIndex;
-
-				if (source.droppableId !== 'DROP_AREA') {
-					parentSourceIndex = source.droppableId.substr(
-						source.droppableId.lastIndexOf('_') + 1
-					);
-				}
-
-				if (destination.droppableId !== 'DROP_AREA') {
-					parentDestIndex = destination.droppableId.substr(
-						destination.droppableId.lastIndexOf('_') + 1
-					);
-				}
-				__experimentalReorderBlocks(
-					source.index,
-					destination.index,
-					parentSourceIndex,
-					parentDestIndex
-				);
-			}
-		}
-	};
-
-
-
-	const formPreview = useMemo(() => {
-		return <FormPreview formId={formId} />;
-	}, []);
 
 	const builderPanelsBar = useMemo(() => {
 		return <BuilderPanelsBar />;
@@ -262,14 +115,21 @@ const Layout: React.FC<Props> = ({ formId }) => {
 			className="builder-core-layout"
 			onKeyDown={(e) => e.stopPropagation()}
 		>
-			{isReady && <>
-				{builderPanelsBar}
+			{isReady &&
+				<>
+					{builderPanelsBar}
 
-				{(!currentPanel || currentPanel?.type === 'modal') && <><BlocksStructure /><BlockEditSkeleton /></>}
-				{currentPanel && panel}
-				<BlockControlsPanel />
-			</>
+
+					{(!currentPanel || currentPanel?.type === 'modal') && <BlocksStructure />}
+
+					{currentBlockId === 'partial-submission-point' ? <PartialSubmissionPointContent /> : <BlockEditSkeleton />}
+					{currentPanel && panel}
+					{currentBlockId !== 'partial-submission-point' &&
+						<BlockControlsPanel />}
+
+				</>
 			}
+
 		</div>
 	);
 };

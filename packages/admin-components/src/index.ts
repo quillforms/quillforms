@@ -9,6 +9,7 @@ export { default as ChoicesBulkBtn } from './choices-bulk-btn';
 export { default as ChoicesInserter } from './choices-inserter';
 export { default as ControlWrapper } from './control-wrapper';
 export { default as ControlLabel } from './control-label';
+export { withErrorBoundary, ErrorBoundary } from './error-boundary';
 export { default as __experimentalDragDropContext } from './drag-drop-context';
 export { default as __experimentalDraggable } from './draggable';
 export { default as __experimentalDroppable } from './droppable';

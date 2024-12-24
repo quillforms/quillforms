@@ -20,6 +20,8 @@ import { css } from 'emotion';
  */
 import './styles.scss';
 import { EntriesList } from './components/entries-list';
+import Insights from './insights';
+import FormAnalyticsDemo from './analytics';
 
 const ResultsPage = ({ params }) => {
 	let { id } = params;
@@ -36,22 +38,14 @@ const ResultsPage = ({ params }) => {
 		insights: {
 			title: __('Insights', 'quillforms'),
 			render: applyFilters('QuillForms.Entries.Insights.Render', (
-				<__experimentalAddonFeatureAvailability
-					featureName="Results"
-					addonSlug="advancedentries"
-					showLockIcon={true}
-				/>
+				<Insights />
 			), id),
 		},
 		reports: {
 			title: __('Analyze Results', 'quillforms'),
 			render: (
 				applyFilters('QuillForms.Entries.AnalyzeResults.Render', (
-					<__experimentalAddonFeatureAvailability
-						featureName="Results"
-						addonSlug="advancedentries"
-						showLockIcon={true}
-					/>
+					<FormAnalyticsDemo />
 				), id)
 			),
 		},
@@ -75,8 +69,6 @@ const ResultsPage = ({ params }) => {
 				{(tab) => (
 					<div
 						className={css`
-							background: #f8f9fa;
-							border-top: 1px solid #eee;
 						` }
 					>
 						<div className="qf-entries-container">

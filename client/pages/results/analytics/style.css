@@ -1,0 +1,255 @@
+/* Container */
+.form-analytics-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Demo Overlay */
+.form-analytics-demo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(25, 55, 125, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.form-analytics-demo-overlay-content {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.form-analytics-demo-overlay-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.form-analytics-demo-overlay-button {
+    background: #1a73e8;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.form-analytics-demo-overlay-button:hover {
+    background: #174ea6;
+}
+
+/* Watermark */
+.form-analytics-demo-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 80px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.03);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Header */
+.form-analytics-demo-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.form-analytics-pro-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #1a73e8, #0d47a1);
+    color: white;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+/* Questions Grid */
+.form-analytics-questions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 32px;
+    margin-bottom: 48px;
+}
+
+/* Question Card */
+.form-analytics-question-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.form-analytics-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.form-analytics-question-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #202124;
+}
+
+.form-analytics-total-responses {
+    color: #5f6368;
+    font-size: 14px;
+}
+
+/* Chart Container */
+.form-analytics-chart-container {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 24px;
+}
+
+.form-analytics-donut-chart {
+    width: 200px;
+    height: 200px;
+}
+
+.form-analytics-chart-segment {
+    transition: opacity 0.3s;
+}
+
+.form-analytics-chart-segment:hover {
+    opacity: 0.8;
+}
+
+.form-analytics-chart-total {
+    font-size: 24px;
+    font-weight: 500;
+    fill: #202124;
+}
+
+/* Chart Legend */
+.form-analytics-chart-legend {
+    flex: 1;
+}
+
+.form-analytics-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.form-analytics-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.form-analytics-legend-label {
+    flex: 1;
+    font-size: 14px;
+    color: #202124;
+}
+
+.form-analytics-legend-percentage {
+    font-weight: 500;
+    color: #5f6368;
+}
+
+/* Insights Section */
+.form-analytics-question-insights {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+}
+
+.form-analytics-insight-icon {
+    font-size: 20px;
+}
+
+.form-analytics-insight-content {
+    font-size: 14px;
+    color: #5f6368;
+}
+
+/* Footer */
+.form-analytics-demo-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.form-analytics-demo-info-button,
+.form-analytics-upgrade-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.form-analytics-demo-info-button {
+    background: white;
+    border: 1px solid #e0e0e0;
+    color: #5f6368;
+}
+
+.form-analytics-upgrade-button {
+    background: linear-gradient(45deg, #1a73e8, #0d47a1);
+    border: none;
+    color: white;
+}
+
+.form-analytics-demo-info-button:hover,
+.form-analytics-upgrade-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .form-analytics-container {
+        padding: 16px;
+    }
+
+    .form-analytics-questions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-analytics-chart-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-analytics-demo-watermark {
+        font-size: 40px;
+    }
+}

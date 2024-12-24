@@ -28,11 +28,15 @@ import { State } from './reducer';
  * on changes to blocks associated with the given entity
  *
  * @param {State} state Editor state.
+ * @param {boolean} withPartialSubmission Whether to include partial submission point or not.
  *
  * @return {FormBlocks} Form blocks.
  */
-export const getBlocks = (state: State): FormBlocks => {
-	return state.blocks;
+export const getBlocks = (state: State, withPartialSubmission = false): FormBlocks => {
+	return state.blocks.filter((block) => {
+		if (withPartialSubmission) return true;
+		return block.name !== 'partial-submission-point';
+	});
 };
 
 /**

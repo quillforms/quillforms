@@ -8,6 +8,7 @@ import ConfigAPI from '@quillforms/config';
  * WordPress Dependencies
  */
 import { select, dispatch } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * External Dependencies
@@ -62,6 +63,9 @@ export const registerBlockType = (
 		console.error('Block names must be strings.');
 		return;
 	}
+
+	settings = applyFilters('quillForms.blockTypeSettings', settings, name) as BlockTypeSettings;
+
 
 	const isWPEnv = ConfigAPI.isWPEnv();
 	if (name === 'file' && !isWPEnv && window?.quillformsSaasManagerAdmin?.plan?.plan === 'free') {

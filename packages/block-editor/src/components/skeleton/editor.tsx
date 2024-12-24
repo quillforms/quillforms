@@ -19,6 +19,7 @@ import {
  * External Dependencies
  */
 import { css } from 'emotion';
+import classNames from 'classnames';
 
 /**
  * BlockEditor Component
@@ -30,6 +31,8 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
         isAnimating: select("quillForms/renderer-core").isAnimating(),
         currentChildBlockId: select("quillForms/block-editor").getCurrentChildBlockId(),
     }));
+
+    const [isFocused, setIsFocused] = useState(false);
 
     const { prevFields, correctIncorrectQuiz, blockTypes } = useSelect((select) => {
         return {
@@ -104,16 +107,18 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
     // Handle Editor Change
     const handleEditorChange = (value: CustomNode[]) => {
         if (JSON.stringify(value) !== JSON.stringify(editorValue)) {
+            console.log('value:', value);
             setEditorValue(value);
-
+            const serizlizedValue = serialize(value);
+            console.log('serizlizedValue:', serizlizedValue);
             if (type === "label") {
                 if (isChildBlock) {
-                    setBlockAttributes(childId, { label: serialize(value) }, parentId); // Update child block label
+                    setBlockAttributes(childId, { label: serizlizedValue }, parentId); // Update child block label
                 } else {
-                    setBlockAttributes(id, { label: serialize(value) }); // Update parent block label
+                    setBlockAttributes(id, { label: serizlizedValue }); // Update parent block label
                 }
             } else if (type === "description") {
-                setBlockAttributes(id, { description: serialize(value) }); // Always update parent block description
+                setBlockAttributes(id, { description: serizlizedValue }); // Always update parent block description
             }
         }
     };
@@ -133,9 +138,9 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
                 line-height: inherit !important;
             }
         }
+       
     `;
     const descriptionStyle = css`
-        margin-top: 12px;
         p {
             color: inherit !important;
             font-family: inherit !important;
@@ -192,21 +197,50 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
         ]);
     }
 
+    // Add wrapper styles
+    const wrapperStyles = css`
+        &.block-editor-block-edit-label__editor:not(.is-focused) {
+            [data-slate-placeholder="true"] {
+                color: #757575 !important; // Customize this color as needed
+                opacity: 0.87 !important; // Customize this opacity as needed
+            }
+        }
+
+        // Ensure proper layering of placeholder and content
+        .richtext__editor {
+            position: relative;
+        }
+
+        [contenteditable] {
+            position: relative;
+            z-index: 1;
+        }
+    `;
     return (
-        <div className="block-editor-block-edit__editor">
+        <div className={classNames(
+            "block-editor-block-edit__editor",
+            `block-editor-block-edit-${type}__editor`,
+            { 'is-focused': isFocused },
+            wrapperStyles
+        )}
+            onBlur={() => {
+                setIsFocused(false);
+            }}
+        >
             <TextEditor
                 editor={editor}
-                placeholder={type === "label" ? "Type question here..." : "Add a description"}
+                placeholder={type === "label" ? "Type question here. Recall infoamtion with @." : "Add a description"}
                 className={type === "label" ? editorStyle : descriptionStyle}
                 mergeTags={mergeTags}
                 value={editorValue}
                 onFocus={() => {
                     ReactEditor.focus(editor);
+                    setIsFocused(true);
                 }}
                 onChange={handleEditorChange}
                 allowedFormats={["bold", "italic", "link", "color"]}
             />
-        </div>
+        </div >
     );
 };
 

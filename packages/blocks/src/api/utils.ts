@@ -14,27 +14,27 @@ export function sanitizeBlockAttributes(
 	attributes: BlockAttributes
 ) {
 	// Get the block type
-	const blockType = getBlockType( blockName );
+	const blockType = getBlockType(blockName);
 
-	if ( undefined === blockType ) {
-		throw new Error( `Block type '${ blockName }' is not registered.` );
+	if (undefined === blockType) {
+		throw new Error(`Block type '${blockName}' is not registered.`);
 	}
 	// Ensure attributes contains only values defined by block type, and merge
 	// default values for missing attributes.
 	return reduce(
 		blockType.attributes,
-		( accumulator, schema, key ) => {
-			const value = attributes[ key ];
+		(accumulator, schema, key) => {
+			const value = attributes[key];
 
-			if ( undefined !== value ) {
-				accumulator[ key ] = value;
-			} else if ( schema.hasOwnProperty( 'default' ) ) {
-				accumulator[ key ] = schema.default;
+			if (undefined !== value) {
+				accumulator[key] = value;
+			} else if (schema.hasOwnProperty('default')) {
+				accumulator[key] = schema.default;
 			}
 
 			return accumulator;
 		},
-		{} as Record< string, unknown >
+		{} as Record<string, unknown>
 	);
 }
 
@@ -46,21 +46,21 @@ export function sanitizeBlockAttributes(
  *
  * @return {FormBlocks} The sanitized blocks
  */
-export const sanitizeBlocks = ( blocks: FormBlocks ): FormBlocks => {
-	if ( isEmpty( blocks ) ) {
+export const sanitizeBlocks = (blocks: FormBlocks): FormBlocks => {
+	if (isEmpty(blocks)) {
 		return [];
 	}
 
-	return map( blocks, ( block ) => {
-		if ( getBlockType( block.name ) ) {
-			if( typeof( block?.innerBlocks ) !== 'undefined' && size( block?.innerBlocks ) > 0 ) { 
+	return map(blocks, (block) => {
+		if (getBlockType(block.name)) {
+			if (typeof (block?.innerBlocks) !== 'undefined' && size(block?.innerBlocks) > 0) {
 				return {
 					...block,
 					attributes: sanitizeBlockAttributes(
 						block.name,
 						block.attributes ? block.attributes : {}
 					),
-					innerBlocks: sanitizeBlocks( block.innerBlocks )
+					innerBlocks: sanitizeBlocks(block.innerBlocks)
 				}
 			}
 			return {
@@ -79,5 +79,5 @@ export const sanitizeBlocks = ( blocks: FormBlocks ): FormBlocks => {
 				block.attributes ? block.attributes : {}
 			),
 		};
-	} );
+	});
 };

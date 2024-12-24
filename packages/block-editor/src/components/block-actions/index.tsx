@@ -22,12 +22,15 @@ interface Props {
 	id: string;
 	parentIndex?: number;
 	parentId?: string;
+	disableDelete?: boolean;
 	onAction: () => void;
 }
 const BlockActions: React.FC<Props> = ({
 	id,
 	parentId,
-	onAction
+	onAction,
+	disableDelete
+
 }) => {
 	const { deleteBlock, __experimentalInsertBlock } = useDispatch(
 		'quillForms/block-editor'
@@ -122,7 +125,7 @@ const BlockActions: React.FC<Props> = ({
 				)}
 			>
 				{({ onClose }) => (
-					<MenuGroup className="block-editor-block-actions__menu-group">
+					<MenuGroup className="block-editor-block-actions__menu-group" >
 						{block.name !== 'welcome-screen' && (
 							<MenuItem
 								onClick={() => {
@@ -163,21 +166,23 @@ const BlockActions: React.FC<Props> = ({
 								Duplicate
 							</MenuItem>
 						)}
-						<MenuItem
-							onClick={(
-								e: React.MouseEvent<HTMLButtonElement>
-							) => {
-								onClose();
-								handleDelete(e);
-							}}
-							className={css`
+						{!disableDelete && (
+							<MenuItem
+								onClick={(
+									e: React.MouseEvent<HTMLButtonElement>
+								) => {
+									onClose();
+									handleDelete(e);
+								}}
+								className={css`
 							.components-menu-item__item {
 								color: #b71717 !important;
 							}
 						` }
-						>
-							Delete
-						</MenuItem>
+							>
+								Delete
+							</MenuItem>
+						)}
 					</MenuGroup>
 				)}
 			</DropdownMenu>

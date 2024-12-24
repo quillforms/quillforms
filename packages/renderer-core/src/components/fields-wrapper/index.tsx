@@ -112,6 +112,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	} = useDispatch('quillForms/renderer-core');
 
 	useEffect(() => {
+		if (isPreview || editor.mode === 'on') return;
 		if (saveandcontinue?.enable && saved_data?.snapshot) {
 			const fields = saved_data?.fields || {};
 
@@ -122,7 +123,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 			return;
 		}
 
-		if (settings?.saveAnswersInBrowser && !isPreview && !formObj?.snapshot) {
+		if (settings?.saveAnswersInBrowser && !formObj?.snapshot) {
 			// replace localstorage with cookies.
 			const answers = localStorage.getItem(`quillforms-answers-${formId}`)
 				// @ts-ignore  
@@ -137,7 +138,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	}, []);
 
 	useEffect(() => {
-		if (!isPreview && settings?.saveAnswersInBrowser && !formObj?.snapshot) {
+		if (!isPreview && editor.mode === 'off' && settings?.saveAnswersInBrowser && !formObj?.snapshot) {
 			// replace localstorage with cookies which will expire in 30 days.
 			localStorage.setItem(
 				`quillforms-answers-${formId}`,

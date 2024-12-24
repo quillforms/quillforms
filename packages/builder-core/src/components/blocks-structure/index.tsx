@@ -11,6 +11,7 @@ import Tree, {
     type TreeDestinationPosition,
 } from "@atlaskit/tree";
 import { identAlphabetically } from "@quillforms/utils";
+import { Popover } from '@wordpress/components';
 
 import { BlockIconBox, getPlainExcerpt } from "@quillforms/admin-components";
 import { BlockActions } from "@quillforms/block-editor";
@@ -22,6 +23,7 @@ import DragAlert from '../drag-alert';
 import { FormBlock, FormBlocks } from "@quillforms/types";
 import { size } from "lodash";
 import { confirmAlert } from 'react-confirm-alert';
+import BlockTreeErrorBoundary from "../block-tree-error-boundary";
 
 
 
@@ -103,9 +105,10 @@ const blockUtils = {
 
             // Group blocks must be at root level
             sourceBlockName === "group" && destination.parentId !== "root",
+            sourceBlockName === "partial-submission-point" && destination.parentId !== "root",
 
             // Thank you screen cannot be in group
-            sourceBlockName === 'thankyou-screen' && destinationParentBlockName === 'group'
+            sourceBlockName === 'thankyou-screen' && destination.parentId !== 'root'
         ];
 
         return !invalidConditions.some(condition => condition === true);
@@ -115,20 +118,48 @@ const blockUtils = {
 const treeUtils = {
     processBlocks(
         blocks: FormBlocks,
+        blockTypes,
         items: Record<ItemId, TreeItem>,
         parentId: ItemId = "root",
-        parentOrder = ""
+        parentOrder = "",
+        counters = {
+            editable: { count: 0 },
+            blockCounts: {} as Record<string, number>
+        },
+        prevItems?: Record<ItemId, TreeItem>
     ): void {
         blocks.forEach((block, index) => {
-            const blockOrder = parentId === "root"
-                ? (index + 1).toString()
-                : `${parentOrder}${identAlphabetically(index)}`;
+            const blockType = blockTypes[block.name];
+            const isEditable = blockType?.supports?.editable;
+
+            if (parentId === "root" && !counters.blockCounts[block.name]) {
+                counters.blockCounts[block.name] = 0;
+            }
+
+            const blockOrder = (() => {
+                if (block.name === 'partial-submission-point') return '';
+                if (parentId === "root") {
+                    if (block.name === "welcome-screen") {
+                        return "A";
+                    }
+
+                    if (isEditable || blockType?.supports?.innerBlocks) {
+                        counters.editable.count++;
+                        return counters.editable.count.toString();
+                    }
+
+                    counters.blockCounts[block.name]++;
+                    return identAlphabetically(counters.blockCounts[block.name] - 1);
+                }
+
+                return `${parentOrder}${identAlphabetically(index)}`;
+            })();
 
             items[block.id] = {
                 id: block.id,
                 children: block.innerBlocks?.map(b => b.id) || [],
                 hasChildren: !!block.innerBlocks?.length,
-                isExpanded: true,
+                isExpanded: prevItems?.[block.id]?.isExpanded ?? true, // Preserve expansion state
                 data: {
                     name: block.name,
                     attributes: block.attributes,
@@ -137,12 +168,20 @@ const treeUtils = {
             };
 
             if (block.innerBlocks?.length) {
-                treeUtils.processBlocks(block.innerBlocks, items, block.id, blockOrder);
+                treeUtils.processBlocks(
+                    block.innerBlocks,
+                    blockTypes,
+                    items,
+                    block.id,
+                    blockOrder,
+                    counters,
+                    prevItems
+                );
             }
         });
     },
 
-    transformBlocksToTree(blocks: FormBlocks): TreeData {
+    transformBlocksToTree(blocks: FormBlocks, blockTypes, prevTree?: TreeData): TreeData {
         const items: Record<ItemId, TreeItem> = {
             root: {
                 id: "root",
@@ -153,9 +192,14 @@ const treeUtils = {
             },
         };
 
-        treeUtils.processBlocks(blocks, items);
+        treeUtils.processBlocks(blocks, blockTypes, items, "root", "", {
+            editable: { count: 0 },
+            blockCounts: {}
+        }, prevTree?.items);
+
         return { rootId: "root", items };
     },
+
 
     rebuildBlocks(tree: TreeData, parentId: ItemId = "root", parentOrder = ""): Block[] {
         const item = tree.items[parentId];
@@ -178,24 +222,60 @@ const treeUtils = {
 
     recalculateBlockOrder(
         tree: TreeData,
+        blockTypes,
         parentId: ItemId = "root",
-        parentOrder = ""
+        counters = {
+            editable: { count: 0 },
+            blockCounts: {} as Record<string, number>
+        }
     ): void {
         const item = tree.items[parentId];
-        item.children.forEach((childId, index) => {
+
+        item.children.forEach((childId) => {
             const child = tree.items[childId];
-            const blockOrder = parentOrder
-                ? `${parentOrder}${identAlphabetically(index)}`
-                : (index + 1).toString();
+            const blockType = blockTypes[child.data.name];
+            const isEditable = blockType?.supports?.editable;
 
-            child.data.blockOrder = blockOrder;
+            // Initialize counter for root level blocks
+            if (parentId === "root" && !counters.blockCounts[child.data.name]) {
+                counters.blockCounts[child.data.name] = 0;
+            }
 
+            // Calculate block order
+            let blockOrder = '';
+            if (parentId === "root") {
+                if (child.data.name === "welcome-screen") {
+                    blockOrder = "A";
+                } else if (child.data.name === "partial-submission-point") {
+                    blockOrder = "";
+                } else if (isEditable || blockType?.supports?.innerBlocks) {
+                    counters.editable.count++;
+                    blockOrder = counters.editable.count.toString();
+                } else {
+                    counters.blockCounts[child.data.name]++;
+                    blockOrder = identAlphabetically(counters.blockCounts[child.data.name] - 1);
+                }
+            } else {
+                // For nested blocks, use parent's order + alphabetical index
+                const parentOrder = tree.items[parentId].data.blockOrder;
+                const indexInParent = item.children.indexOf(childId);
+                blockOrder = `${parentOrder}${identAlphabetically(indexInParent)}`;
+            }
+
+            // Update the block order
+            child.data = {
+                ...child.data,
+                blockOrder
+            };
+
+            // Recursively process children
             if (child.hasChildren) {
-                treeUtils.recalculateBlockOrder(tree, child.id, blockOrder);
+                treeUtils.recalculateBlockOrder(tree, blockTypes, childId, counters);
             }
         });
     },
-    sortTreeItems(tree: TreeData): TreeData {
+
+    sortTreeItems(tree: TreeData, blockTypes): TreeData {
         const rootItem = tree.items.root;
         const priorityOrder = {
             'welcome-screen': 0,
@@ -226,8 +306,8 @@ const treeUtils = {
             }
         };
 
-        // Recalculate block orders for the entire tree
-        treeUtils.recalculateBlockOrder(newTree);
+        // Reset and recalculate all block orders
+        treeUtils.recalculateBlockOrder(newTree, blockTypes);
 
         return newTree;
     }
@@ -238,7 +318,7 @@ const treeUtils = {
 const PureTree: React.FC = () => {
 
     const { blocks, currentPanel, blockTypes, currentBlock, currentBlockId, currentChildBlockId } = useSelect((select) => ({
-        blocks: select("quillForms/block-editor").getBlocks(),
+        blocks: select("quillForms/block-editor").getBlocks(true),
         blockTypes: select("quillForms/blocks").getBlockTypes(),
         currentBlockId: select("quillForms/block-editor").getCurrentBlockId(),
         currentChildBlockId: select("quillForms/block-editor").getCurrentChildBlockId(),
@@ -249,27 +329,30 @@ const PureTree: React.FC = () => {
     if (!currentBlock) return null;
 
     const currentBlockLabel = currentBlock?.attributes?.label
+    const currentBlockName = currentBlock?.name;
     let currentChildBlockLabel;
+    let currentChildBlockName;
     if (currentChildBlockId) {
         const childBlock = currentBlock?.innerBlocks?.find(b => b.id === currentChildBlockId);
         currentChildBlockLabel = childBlock?.attributes?.label;
+        currentChildBlockName = childBlock?.name;
     }
     useEffect(() => {
         if (triggerTreeCalculation) {
-            setTree(treeUtils.transformBlocksToTree(blocks));
+            setTree(prevTree => treeUtils.transformBlocksToTree(blocks, blockTypes, prevTree));
             setTriggerTreeCalculation(false);
         }
     }, [triggerTreeCalculation]);
 
     useEffect(() => {
         setTriggerTreeCalculation(true);
-    }, [currentBlockLabel, currentChildBlockLabel, currentPanel]);
+    }, [currentBlockLabel, currentChildBlockLabel, currentBlockName, currentChildBlockName, currentPanel]);
 
     const { setBlocks, setCurrentBlock, setCurrentChildBlock } = useDispatch("quillForms/block-editor");
 
     // Initialize tree state with memoized transformation
     const [tree, setTree] = useState<TreeData>(() =>
-        treeUtils.transformBlocksToTree(blocks)
+        treeUtils.transformBlocksToTree(blocks, blockTypes)
     );
 
     // Updated renderItem with better styling for group children
@@ -279,6 +362,7 @@ const PureTree: React.FC = () => {
             const blockType = blockTypes[itemName];
             const isGroup = itemName === "group";
             const isChildBlock = depth > 0;
+
             const hasNoChildren = isGroup && (!item.children || item.children.length === 0);
             let parentId;
             if (isChildBlock) {
@@ -286,6 +370,7 @@ const PureTree: React.FC = () => {
                     tree.items[key].children.includes(item.id)
                 );
             }
+
             const isLastInGroup = (() => {
 
                 if (!parentId) return false;
@@ -294,6 +379,29 @@ const PureTree: React.FC = () => {
                 const isParentGroup = tree.items[parentId]?.data?.name === 'group';
                 return isParentGroup && parent.children[parent.children.length - 1] === item.id;
             })();
+
+            const isPartialSubmissionPoint = itemName === 'partial-submission-point';
+            const rootChildren = tree.items.root.children;
+
+            // Get actual index excluding welcome and thank you screens
+            const getEffectiveIndex = (itemId: ItemId) => {
+                const filteredBlocks = rootChildren.filter(id => {
+                    const blockName = tree.items[id].data.name;
+                    return blockName !== 'welcome-screen' && blockName !== 'thankyou-screen';
+                });
+                return filteredBlocks.indexOf(itemId);
+            };
+
+            const effectiveIndex = isPartialSubmissionPoint ? getEffectiveIndex(item.id) : -1;
+            const isFirstOrLast = effectiveIndex === 0 ||
+                (effectiveIndex === getEffectiveIndex(rootChildren[rootChildren.length - 1]));
+
+
+
+            // Calculate disableDelete prop
+            const isOnlyBlock = tree.items.root.children.length === 1;
+            const isOnlyChildInGroup = isChildBlock && parentId && tree.items[parentId].children.length === 1;
+            const disableDelete = isOnlyBlock || isOnlyChildInGroup;
 
             const groupWrapperStyles = isGroup
                 ? {
@@ -378,9 +486,50 @@ const PureTree: React.FC = () => {
                                 }}
                             />
                         )}
-                        <BlockActions onAction={() => {
-                            setTriggerTreeCalculation(true);
-                        }} id={item.id} parentId={parentId} />
+                        {blockType?.name === 'partial-submission-point' && (
+                            <span className="block-label">Partial Submission Point</span>
+                        )}
+                        {isPartialSubmissionPoint && isFirstOrLast && (
+                            <div
+                                className="warning-icon"
+                                style={{
+                                    marginLeft: 'auto',
+                                    marginRight: '8px',
+                                    color: '#f59e0b'
+                                }}
+                            >
+                                <Popover
+                                    position="top"
+                                    trigger="click"
+                                    content={
+                                        <div style={{ padding: '8px', maxWidth: '200px' }}>
+                                            {effectiveIndex === 0 ? (
+                                                "This partial submission point needs at least one field before it"
+                                            ) : (
+                                                "This partial submission point cannot be the last field"
+                                            )}
+                                        </div>
+                                    }
+                                >
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                    >
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-10v6h2V7h-2z" />
+                                    </svg>
+                                </Popover>
+                            </div>
+                        )}
+                        <BlockActions
+                            onAction={() => {
+                                setTriggerTreeCalculation(true);
+                            }}
+                            id={item.id}
+                            parentId={parentId}
+                            disableDelete={disableDelete} // Add this prop
+                        />
                     </div>
                     {
                         hasNoChildren && (
@@ -431,16 +580,18 @@ const PureTree: React.FC = () => {
             const destinationItem = tree.items[destination.parentId];
 
             const handleBlockMove = () => {
-                // Move items and sort the tree
-                const newTree = treeUtils.sortTreeItems(
-                    moveItemOnTree(tree, source, destination)
-                );
+                // First move the items
+                let newTree = moveItemOnTree(tree, source, destination);
+
+                // Then sort and recalculate orders
+                newTree = treeUtils.sortTreeItems(newTree, blockTypes);
 
                 // Update states
                 updateBlockSelections(source, destination, sourceItem, destinationItem);
                 setBlocks(treeUtils.rebuildBlocks(newTree));
                 setTree(newTree);
             };
+
 
             const updateBlockSelections = (
                 source: TreeSourcePosition,
@@ -516,42 +667,65 @@ const PureTree: React.FC = () => {
         [tree, blocks, currentBlockId, currentChildBlockId, setBlocks, setCurrentBlock, setCurrentChildBlock]
     );
 
+    // Fix for group expansion
+    const onExpand = useCallback((itemId: ItemId) => {
+        setTree(prevTree => {
+            const newTree = { ...prevTree };
+            newTree.items = { ...prevTree.items };
+            newTree.items[itemId] = {
+                ...prevTree.items[itemId],
+                isExpanded: true
+            };
+            return newTree;
+        });
+    }, []);
+
+    const onCollapse = useCallback((itemId: ItemId) => {
+        setTree(prevTree => {
+            const newTree = { ...prevTree };
+            newTree.items = { ...prevTree.items };
+            newTree.items[itemId] = {
+                ...prevTree.items[itemId],
+                isExpanded: false
+            };
+            return newTree;
+        });
+    }, []);
+
     return (
         <div className="builder-core-blocks-list__wrapper">
             <div className="builder-core-blocks-list">
-                <Tree
-                    tree={tree}
-                    renderItem={renderItem}
-                    onExpand={useCallback((itemId: ItemId) => {
-                        setTree(prevTree => mutateTree(prevTree, itemId, { isExpanded: true }));
-                    }, [])}
-                    onCollapse={useCallback((itemId: ItemId) => {
-                        setTree(prevTree => mutateTree(prevTree, itemId, { isExpanded: false }));
-                    }, [])}
-                    onDragEnd={onDragEnd}
-                    onDragStart={(itemId) => {
-                        // check if the item i welcome screen block
-                        const item = tree.items[itemId];
-                        if (item.data.name === 'welcome-screen') return;
-                    }}
-                    offsetPerLevel={PADDING_PER_LEVEL}
-                    isDragEnabled={(item) => {
-                        // Get parent item if exists
-                        const parentId = Object.keys(tree.items).find(key =>
-                            tree.items[key].children.includes(item.id)
-                        );
-                        const parent = parentId ? tree.items[parentId] : null;
+                <BlockTreeErrorBoundary>
+                    <Tree
+                        tree={tree}
+                        renderItem={renderItem}
+                        onExpand={onExpand}
+                        onCollapse={onCollapse}
+                        onDragEnd={onDragEnd}
+                        onDragStart={(itemId) => {
+                            // check if the item i welcome screen block
+                            const item = tree.items[itemId];
+                            if (item.data.name === 'welcome-screen') return;
+                        }}
+                        offsetPerLevel={PADDING_PER_LEVEL}
+                        isDragEnabled={(item) => {
+                            // Get parent item if exists
+                            const parentId = Object.keys(tree.items).find(key =>
+                                tree.items[key].children.includes(item.id)
+                            );
+                            const parent = parentId ? tree.items[parentId] : null;
 
-                        // Disable dragging if:
-                        // 1. Item is a welcome-screen block OR
-                        // 2. Item is the only child in a group block
-                        return !(
-                            item.data.name === "welcome-screen" ||
-                            (parent?.data.name === "group" && parent.children.length === 1)
-                        );
-                    }}
+                            // Disable dragging if:
+                            // 1. Item is a welcome-screen block OR
+                            // 2. Item is the only child in a group block
+                            return !(
+                                item.data.name === "welcome-screen" ||
+                                (parent?.data.name === "group" && parent.children.length === 1)
+                            );
+                        }}
 
-                />
+                    />
+                </BlockTreeErrorBoundary>
             </div>
         </div>
     );

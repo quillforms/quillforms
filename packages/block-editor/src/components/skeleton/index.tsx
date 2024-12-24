@@ -19,14 +19,25 @@ import { cloneDeep, omit, map } from 'lodash';
 import { TailSpin as Loader } from 'react-loader-spinner';
 import classnames from 'classnames';
 import { css } from 'emotion';
+import { ErrorBoundary, withErrorBoundary } from "@quillforms/admin-components";
 
-const editLabel = ({ childId, childIndex, parentId }) => {
+const editLabel = withErrorBoundary(({ childId, childIndex, parentId }) => {
     return <Editor childId={childId} childIndex={childIndex} parentId={parentId} type="label" />;
-}
-const editDescription = () => {
+}, {
+    title: 'Builder Editor Error',
+    message: 'Error happened in the builder.',
+    actionLabel: 'Retry',
+    showDetails: true
+})
+const editDescription = withErrorBoundary(() => {
     return <Editor type="description" />;
-}
-const Skeleton = () => {
+}, {
+    title: 'Builder  Editor Error',
+    message: 'Error happened in the builder.',
+    actionLabel: 'Retry',
+    showDetails: true
+});
+const Skeleton = withErrorBoundary(() => {
 
     const { currentChildBlockId } = useSelect(select => {
         return {
@@ -34,24 +45,6 @@ const Skeleton = () => {
         }
     });
 
-    //     const [readyToRender, setReadyToRender] = useState(false);
-
-    //     useEffect(() => {
-    //         setReadyToRender(false);
-    //         if (currentBlockId) {
-    //             setTimeout(() => {
-
-    //                 setReadyToRender(true);
-    //             }, 50);
-    //         }
-    //     }, [currentBlockId]);
-
-    //     return (
-    //         <div className="block-editor-block-edit__skeleton">
-    //             {readyToRender && <BlockEdit id={currentBlockId} />}
-    //         </div>
-    //     )
-    // }
     const themeId = useCurrentThemeId();
     const currentTheme = useCurrentTheme();
     const {
@@ -80,7 +73,7 @@ const Skeleton = () => {
             customFontsList: customFontsSelector?.getFontsList() ?? [],
             currentBlockBeingEdited: select(
                 'quillForms/block-editor'
-            ).getCurrentBlockId(),
+            ).getCurrentBlock(),
             blocks: select('quillForms/block-editor').getBlocks(),
             messages: select('quillForms/messages-editor').getMessages(),
             settings: select('quillForms/settings-editor').getSettings(),
@@ -104,42 +97,41 @@ const Skeleton = () => {
 
 
     useEffect(() => {
-        if (!hasThemesFinishedResolution) return;
-        const formFields = blocks.filter(
-            (block) =>
-                block.name !== 'thankyou-screen' &&
-                block.name !== 'welcome-screen' &&
-                block.name !== 'partial-submission-point'
-        );
+        if (!hasThemesFinishedResolution || currentBlockBeingEdited?.name === 'partial-submission-point') return;
+        // const formFields = blocks.filter(
+        //     (block) =>
+        //         block.name !== 'thankyou-screen' &&
+        //         block.name !== 'welcome-screen' &&
+        //         block.name !== 'partial-submission-point'
+        // );
 
-        const $thankyouScreens = blocks
-            .filter((block) => block.name === 'thankyou-screen')
-            .concat({
-                id: 'default_thankyou_screen',
-                name: 'thankyou-screen',
-            });
+        // // const $thankyouScreens = blocks
+        // //     .filter((block) => block.name === 'thankyou-screen')
+        // //     .concat({
+        // //         id: 'default_thankyou_screen',
+        // //         name: 'thankyou-screen',
+        // //     });
 
-        const $welcomeScreens = map(
-            blocks.filter((block) => block.name === 'welcome-screen'),
-            (block) => omit(block, ['name'])
-        );
+        // // const $welcomeScreens = map(
+        // //     blocks.filter((block) => block.name === 'welcome-screen'),
+        // //     (block) => omit(block, ['name'])
+        // // );
 
 
 
-        const $currentPath = cloneDeep(formFields);
-        setSwiper({
-            walkPath: $currentPath,
-            welcomeScreens: $welcomeScreens,
-            thankyouScreens: $thankyouScreens,
-        });
+        // // const $currentPath = cloneDeep(formFields);
+        // // // setSwiper({
+        // // //     walkPath: $currentPath,
+        // // //     welcomeScreens: $welcomeScreens,
+        // // //     thankyouScreens: $thankyouScreens,
+        // // //     currentBlockId: currentBlockBeingEdited?.id,
+        // // // });
 
-        console.log(currentBlockBeingEdited)
-
-        if (currentBlockBeingEdited && currentBlockBeingEdited !== 'partial-submission-point')
-            goToBlock(currentBlockBeingEdited);
+        if (currentBlockBeingEdited && currentBlockBeingEdited.id !== 'partial-submission-point')
+            goToBlock(currentBlockBeingEdited.id);
 
     }, [
-        blocks,
+        // blocks,
         currentBlockBeingEdited,
         hasThemesFinishedResolution,
     ]);
@@ -164,12 +156,7 @@ const Skeleton = () => {
             }
         }
     }, [currentChildBlockId]);
-    const partialSubmissionIndex = blocks.findIndex((block) => block.name === 'partial-submission-point');
-    // we need a good name for this variable that triggers the partial submission after this block
-    let partialSubmissionPoint = undefined;
-    if (partialSubmissionIndex !== -1) {
-        partialSubmissionPoint = blocks[partialSubmissionIndex - 1].id;
-    }
+
 
     return (
         <div className={classnames("block-editor-block-edit__skeleton", {
@@ -194,18 +181,17 @@ const Skeleton = () => {
             ) : (
                 <>
                     {blocks.length > 0 && (
-
                         <Form
                             formObj={{
                                 blocks: cloneDeep(blocks).filter(block => block.name !== 'partial-submission-point'),
                                 theme: currentTheme?.properties,
                                 messages,
-                                partialSubmissionPoint,
+                                // partialSubmissionPoint,
                                 themesList: $themesList,
                                 settings,
                                 customCSS,
-                            }
-                            }
+
+                            }}
                             applyLogic={false}
                             customFonts={customFontsList}
                             onSubmit={() => { }}
@@ -220,14 +206,21 @@ const Skeleton = () => {
                                     setCurrentChildBlock(null);
                                 },
                             }}
-                            isPreview={true}
                         />
                     )}
                 </>
             )}
         </div>
-    );
-};
+    )
+}, {
+    title: 'Builder Error',
+    message: 'Error happened in the builder.',
+    actionLabel: 'Retry',
+    showDetails: true
+});
+
+
+
 
 
 export default Skeleton;

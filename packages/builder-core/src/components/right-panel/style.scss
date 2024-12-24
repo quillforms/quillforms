@@ -115,7 +115,7 @@
     //     outline-offset: 2px;
     // }
     .richtext__editor > div {
-        overflow-wrap: anywhere;
+        overflow-wrap:break-word;
     }
 }
 

@@ -16,7 +16,9 @@
     &:hover {
       transition: box-shadow 0.3s ease;
     }
+
   }
+
 
   & {
     padding: 20px;
@@ -59,6 +61,11 @@
     border-radius: 8px;
     position: relative;
     cursor: pointer;
+    &:hover .block-editor-block-actions__dropdown-wrapper {
+      visibility: visible;
+      opacity: 1;
+   
+    }
 
     &.active {
       background: #eaf4ff !important; /* Light blue background for the selected block */
@@ -87,6 +94,10 @@
       border-radius: 8px;
       margin-bottom: 16px; /* Add spacing for group blocks */
 
+      .block-label {
+        max-width: 120px !important;
+      }
+
 
     }
 
@@ -100,6 +111,10 @@
       }
       &:hover {
         border-left-color: #94a3b8;
+      }
+
+      .block-label {
+        max-width: 110px !important;
       }
 
     }
@@ -121,10 +136,25 @@
   // Block content styling
   .block-content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 12px;
     flex: 1;
+    .block-editor-block-actions__dropdown-wrapper {
+      position: absolute;
+      right: 0;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      .components-dropdown.components-dropdown-menu .components-button:hover {
+        background: rgba(100, 116, 139, 0.08) !important;
+      }
+      
+      .components-dropdown.components-dropdown-menu  button span  {
+          color: #475569 !important
+      }
+    } 
+
+    
   }
 
   // Block label styling
@@ -132,6 +162,8 @@
     font-size: 12px;
     color: #334155;
     line-height: 1.4;
+    max-width: 145px;
+    overflow-wrap: anywhere;
   }
 
   // Admin components block icon box
@@ -162,7 +194,7 @@
   .collapse-icon {
     display: flex;
     position: absolute;
-    right: 40px;
+    right: 30px;
     align-items: center;
     justify-content: center;
     width: 24px;

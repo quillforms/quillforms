@@ -55,7 +55,7 @@ const WelcomeScreenOutput = ({ attributes }) => {
 	}, []);
 	let next = noop;
 
-	if (walkPath[0] && walkPath[0].id) {
+	if (walkPath[0] && walkPath[0].id && editor.mode === 'off') {
 		next = () => goToBlock(walkPath[0].id);
 	}
 

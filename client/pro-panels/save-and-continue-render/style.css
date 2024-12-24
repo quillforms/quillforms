@@ -1,0 +1,403 @@
+/* SaveContinuePromo.css - Complete Styles */
+.save-continue-container {
+    width: 800px;
+    padding: 40px;
+    background: white;
+    border-radius: 16px;
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  /* Pro Badge */
+  .save-continue-pro-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    color: white;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  /* Header Styles */
+  .save-continue-title {
+    font-size: 28px;
+    color: #1a73e8;
+    text-align: center;
+    margin: 0 0 16px;
+  }
+  
+  .save-continue-subtitle {
+    font-size: 16px;
+    color: #5f6368;
+    text-align: center;
+    margin: 0 0 40px;
+  }
+  
+  /* Demo Container */
+  .save-continue-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  /* Flow Animation Container */
+  .save-continue-flow {
+    height: 300px;
+    position: relative;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 24px;
+  }
+  
+  .save-continue-step {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Form Setup Section */
+  .save-continue-form-setup {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  
+  .save-continue-setup-header {
+    padding: 16px;
+    background: #1a73e8;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .save-continue-field-required {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .save-continue-field-icon {
+    font-size: 24px;
+  }
+  
+  .save-continue-field-details {
+    flex: 1;
+  }
+  
+  .save-continue-field-details h4 {
+    margin: 0 0 4px;
+    color: #202124;
+  }
+  
+  .save-continue-field-details p {
+    margin: 0;
+    color: #5f6368;
+    font-size: 14px;
+  }
+  
+  .save-continue-field-status {
+    color: #34A853;
+  }
+  
+  /* Form Display */
+  .save-continue-form {
+    width: 100%;
+    max-width: 500px;
+    padding: 24px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .save-continue-progress {
+    margin-bottom: 24px;
+  }
+  
+  .save-continue-progress-bar {
+    height: 8px;
+    background: #1a73e8;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  
+  .save-continue-progress-text {
+    font-size: 14px;
+    color: #5f6368;
+  }
+  
+  .save-continue-form-fields {
+    margin: 24px 0;
+  }
+  
+  .save-continue-form-field {
+    margin-bottom: 16px;
+  }
+  
+  .save-continue-form-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #5f6368;
+    font-size: 14px;
+  }
+  
+  .save-continue-form-field input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .save-continue-form-field-placeholder {
+    height: 20px;
+    background: #f1f3f4;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  
+  .save-continue-save-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: white;
+    border: 1px solid #dadce0;
+    border-radius: 24px;
+    color: #1a73e8;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .save-continue-save-button:hover {
+    background: #f8f9fa;
+  }
+  
+  /* Email Preview */
+  .save-continue-email-sent {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .save-continue-email-preview {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  
+  .save-continue-email-header {
+    padding: 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dadce0;
+  }
+  
+  .save-continue-email-subject {
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 4px;
+  }
+  
+  .save-continue-email-meta {
+    font-size: 12px;
+    color: #5f6368;
+  }
+  
+  .save-continue-email-body {
+    padding: 24px;
+  }
+  
+  .save-continue-email-body p {
+    margin: 0 0 16px;
+    color: #202124;
+  }
+  
+  .save-continue-resume-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    margin: 24px 0;
+    cursor: pointer;
+  }
+  
+  .save-continue-email-note {
+    font-size: 12px;
+    color: #5f6368;
+  }
+  
+  /* Features Section */
+  .save-continue-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .save-continue-feature {
+    text-align: center;
+    padding: 24px;
+    position: relative;
+  }
+  
+  .save-continue-feature::before {
+    content: 'PRO';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 2px 8px;
+    background: #FFD700;
+    color: #202124;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .save-continue-feature-icon {
+    margin-bottom: 16px;
+  }
+  
+  .save-continue-feature-title {
+    font-size: 16px;
+    color: #202124;
+    margin: 0 0 8px;
+  }
+  
+  .save-continue-feature-desc {
+    font-size: 14px;
+    color: #5f6368;
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  /* Upgrade Prompt */
+  .save-continue-upgrade-prompt {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 24px 0;
+    color: white;
+    text-align: center;
+  }
+  
+  .save-continue-upgrade-content {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .save-continue-upgrade-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  
+  .save-continue-upgrade-title {
+    font-size: 24px;
+    margin: 0 0 12px;
+  }
+  
+  .save-continue-upgrade-desc {
+    font-size: 16px;
+    margin: 0 0 24px;
+    opacity: 0.9;
+  }
+  
+  .save-continue-upgrade-button {
+    padding: 12px 32px;
+    background: white;
+    color: #1a73e8;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .save-continue-upgrade-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Fixed Upgrade Banner */
+  .save-continue-upgrade-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  
+  .save-continue-banner-text {
+    font-size: 16px;
+    color: #202124;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .save-continue-banner-pro {
+    padding: 2px 8px;
+    background: #FFD700;
+    color: #202124;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .save-continue-banner-button {
+    padding: 8px 24px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .save-continue-banner-button:hover {
+    background: #1557b0;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .save-continue-container {
+      width: 100%;
+      padding: 20px;
+    }
+  
+    .save-continue-features {
+      grid-template-columns: 1fr;
+    }
+  
+    .save-continue-upgrade-banner {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }

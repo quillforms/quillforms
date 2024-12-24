@@ -99,6 +99,31 @@ export const __experimentalInsertBlock = (
 	};
 };
 
+/**
+ * Replace Block Name
+ * 
+ * @param {string} blockId Block id
+ * @param {string} name Block name
+ * 
+ * @return {BlockEditorActionTypes} Action object.
+ */
+export const replaceBlockName = (
+	blockId: string,
+	name: string,
+	parentId?: string
+): BlockEditorActionTypes => {
+	return {
+		type: 'REPLACE_BLOCK_NAME',
+		blockId,
+		name,
+		parentId,
+	};
+};
+/**
+ * Set blocks
+ * @param blocks 
+ * @returns 
+ */
 export const setBlocks = (blocks: FormBlock[]): BlockEditorActionTypes => {
 	return {
 		type: 'SET_BLOCKS',

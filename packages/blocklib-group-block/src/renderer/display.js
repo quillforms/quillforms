@@ -131,16 +131,24 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 						attributes: block.attributes,
 						innerBlocks,
 						val: answers?.[block.id]?.value,
-						setIsValid: (val) => setIsFieldValid(block.id, val),
+						setIsValid: (val) => {
+							if (editor.mode === 'on') return;
+							setIsFieldValid(block.id, val)
+						},
 						setIsAnswered: (val) =>
 							setIsFieldAnswered(block.id, val),
 						setIsPending: (val) =>
 							setIsFieldPending(block.id, val),
 						setPendingMsg: (val) =>
 							setFieldPendingMsg(block.id, val),
-						setValidationErr: (val) =>
-							setFieldValidationErr(block.id, val),
-						setVal: (val) => setFieldAnswer(block.id, val),
+						setValidationErr: (val) => {
+							if (editor.mode === 'on') return;
+							setFieldValidationErr(block.id, val)
+						},
+						setVal: (val) => {
+							if (editor.mode === 'on') return;
+							setFieldAnswer(block.id, val)
+						},
 						showNextBtn: noop,
 						showErrMsg: noop,
 					};
@@ -176,7 +184,6 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 								)}
 								id={`renderer-core-child-block-${block.id}`}
 								onClick={() => {
-									console.log('clicked');
 									if (editor.mode === 'on') editor.setIsChildActive(block.id);
 								}}
 
@@ -217,12 +224,18 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 										<HTMLParser value={blockLabel} />
 									)}
 								</div>
-								<>
-									{blockType?.display && (
-										/* @ts-expect-error */
-										<blockType.display {...blockProps} />
-									)}
-								</>
+								<div className={css`
+								    ${editor.mode === 'on' && 'pointer-events: none;'}
+								`}>
+									<div className="renderer-core-child-block__display" onClick={() => {
+										if (editor.mode === 'on') editor.setIsChildActive(block.id);
+									}}>
+										{blockType?.display && (
+											/* @ts-expect-error */
+											<blockType.display {...blockProps} />
+										)}
+									</div>
+								</div>
 								{isErrMsgVisible &&
 									answers?.[block?.id]?.validationErr && (
 										<div
@@ -243,7 +256,7 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 					);
 				})}
 
-		</div>
+		</div >
 	);
 };
 export default GroupDisplay;

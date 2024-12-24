@@ -177,13 +177,28 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 		isReviewing,
 		isAnswerLocked,
 		val: answerValue,
-		setIsValid: (val: boolean) => setIsFieldValid(id, val),
-		setIsAnswered: (val: boolean) => setIsFieldAnswered(id, val),
+		setIsValid: (val: boolean) => {
+			if (editor.mode === 'on') return;
+			setIsFieldValid(id, val)
+		},
+		setIsAnswered: (val: boolean) => {
+			if (editor.mode === 'on') return;
+			setIsFieldAnswered(id, val)
+		},
 		setIsPending: (val: boolean) => setIsFieldPending(id, val),
 		setPendingMsg: (val: string) => setFieldPendingMsg(id, val),
-		setValidationErr: (val: string) => setFieldValidationErr(id, val),
-		setIsAnswerCorrect: (val: boolean) => setIsFieldAnswerCorrect(id, val),
-		setVal: (val: string) => setFieldAnswer(id, val),
+		setValidationErr: (val: string) => {
+			if (editor.mode === 'on') return;
+			setFieldValidationErr(id, val)
+		},
+		setIsAnswerCorrect: (val: boolean) => {
+			if (editor.mode === 'on') return;
+			setIsFieldAnswerCorrect(id, val)
+		},
+		setVal: (val: string) => {
+			if (editor.mode === 'on') return;
+			setFieldAnswer(id, val)
+		},
 		showNextBtn,
 		blockWithError: (err: string) => shakeWithError(err),
 		showErrMsg,

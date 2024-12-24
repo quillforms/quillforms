@@ -1,8 +1,7 @@
 const getChoices = ({ attributes }) => {
-	return {
-		yes: attributes.yesLabel,
-		no: attributes.noLabel,
-	};
+	return [{ label: attributes.yesLabel, value: 'yes' }, {
+		label: attributes.noLabel, value: 'no'
+	}]
 };
 
 export default getChoices;
