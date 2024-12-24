@@ -70,8 +70,11 @@ const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChi
 
 			// Exclude specific blocks
 			const excludedBlocks = ['partial-submission-point', 'group'];
-			if (welcomeScreensLength > 0) {
+			if (welcomeScreensLength > 0 || isChildBlock) {
 				excludedBlocks.push('welcome-screen');
+			}
+			if (isChildBlock) {
+				excludedBlocks.push('thankyou-screen');
 			}
 			if (excludedBlocks.includes($blockName)) {
 				return false;
