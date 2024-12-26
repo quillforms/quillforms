@@ -249,11 +249,15 @@ export const EntriesList = ({
 								className={css`
 									margin-left: 5px;
 								` }
+								dangerouslySetInnerHTML={{
+									__html: field.label
+										? getPlainExcerpt(field.label)
+										: '...'
+								}}
+
 							>
-								{field.label
-									? getPlainExcerpt(field.label)
-									: '...'}
 							</div>
+
 						</div>
 					),
 					key: id,
@@ -327,8 +331,9 @@ export const EntriesList = ({
 								selectedField={selectedField}
 								setSelectedField={setSelectedField}
 								orderBy={orderBy}
-								setOrderBy={setOrderBy}
 								order={order}
+								setOrder={setOrder}
+								setOrderBy={setOrderBy}
 								options={options}
 								orderByOptions={orderByOptions}
 								orderOptions={orderOptions}

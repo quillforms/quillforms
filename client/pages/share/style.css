@@ -51,3 +51,32 @@
     display: flex;
     align-items: center;
 }
+
+.quillforms-shortcode-settings {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+.quillforms-shortcode-setting-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.quillforms-shortcode-setting-row label {
+    width: 150px;
+    font-weight: 500;
+}
+.quillforms-shortcode-setting-input {
+    display: flex;
+    gap: 10px;
+}
+.quillforms-shortcode-setting-input input {
+    width: 100px;
+}
+.quillforms-shortcode-setting-input select {
+    width: 80px;
+}
+.quillforms-share-modal-generated-code {
+    margin-top: 20px;
+}

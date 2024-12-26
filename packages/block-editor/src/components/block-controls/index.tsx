@@ -77,6 +77,7 @@ const BlockControls = withErrorBoundary(() => {
 				isChild={isChildBlock}
 				attributes={attributes}
 				setAttributes={handleSetAttributes}
+				parentBlock={currentFormBlock}
 			/>
 
 			{/* Custom Controls (if any) */}

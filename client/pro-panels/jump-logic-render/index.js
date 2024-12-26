@@ -1,4 +1,5 @@
 import "./style.css";
+import { ProFeatureBanner } from "@quillforms/admin-components";
 const JumpLogicPreview = () => {
 	return (
 		<div className="jump-logic-preview-wrapper">
@@ -24,9 +25,10 @@ const JumpLogicPreview = () => {
 						</div>
 					</div>
 
-					<button className="jump-logic-preview-upgrade-btn">
-						Upgrade to Pro
-					</button>
+					<ProFeatureBanner
+						featureName="Jump Logic"
+						addonSlug="logic"
+					/>
 				</div>
 
 				<div className="jump-logic-preview-right">

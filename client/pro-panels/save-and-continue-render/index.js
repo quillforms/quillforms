@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ProFeatureBanner } from "@quillforms/admin-components";
 import { motion, AnimatePresence } from 'framer-motion';
 import "./style.css";
 
@@ -166,7 +167,7 @@ const SaveContinuePromo = () => {
                         </p>
                     </div>
                 </div>
-
+                {/* 
                 <div className="save-continue-upgrade-prompt">
                     <div className="save-continue-upgrade-content">
                         <div className="save-continue-upgrade-icon">🚀</div>
@@ -178,18 +179,13 @@ const SaveContinuePromo = () => {
                             Unlock Save & Continue
                         </button>
                     </div>
-                </div>
+                </div> */}
             </div>
 
-            <div className="save-continue-upgrade-banner">
-                <div className="save-continue-banner-text">
-                    <span className="save-continue-banner-pro">PRO</span>
-                    Save & Continue is a Pro feature
-                </div>
-                <button className="save-continue-banner-button">
-                    Upgrade Now
-                </button>
-            </div>
+            <ProFeatureBanner
+                featureName="Save & Continue"
+                addonSlug="saveandcontinue"
+            />
         </div>
     );
 };

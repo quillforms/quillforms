@@ -1,6 +1,5 @@
 /* SaveContinuePromo.css - Complete Styles */
 .save-continue-container {
-    width: 800px;
     padding: 40px;
     background: white;
     border-radius: 16px;
@@ -259,7 +258,7 @@
     position: relative;
   }
   
-  .save-continue-feature::before {
+  /* .save-continue-feature::before {
     content: 'PRO';
     position: absolute;
     top: -8px;
@@ -271,7 +270,7 @@
     font-size: 12px;
     font-weight: 600;
   }
-  
+   */
   .save-continue-feature-icon {
     margin-bottom: 16px;
   }

@@ -1,6 +1,7 @@
 // FormLockerPromo.jsx
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ProFeatureBanner } from "@quillforms/admin-components";
 import './style.css';
 
 const FormLockerPromo = () => {
@@ -197,7 +198,7 @@ const FormLockerPromo = () => {
 					</AnimatePresence>
 				</div>
 			</div>
-
+			{/* 
 			<div className="form-locker-upgrade-prompt">
 				<div className="form-locker-upgrade-content">
 					<div className="form-locker-upgrade-icon">🛡️</div>
@@ -209,17 +210,12 @@ const FormLockerPromo = () => {
 						Unlock Form Locker
 					</button>
 				</div>
-			</div>
+			</div> */}
 
-			<div className="form-locker-upgrade-banner">
-				<div className="form-locker-banner-text">
-					<span className="form-locker-banner-pro">PRO</span>
-					Form Locker is a Pro feature
-				</div>
-				<button className="form-locker-banner-button">
-					Upgrade Now
-				</button>
-			</div>
+			<ProFeatureBanner
+				featureName="Form Locker"
+				addonSlug="formlocker"
+			/>
 		</div >
 	);
 };

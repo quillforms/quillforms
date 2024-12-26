@@ -1,6 +1,8 @@
 // UTMParametersPromo.jsx
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ProFeatureBanner } from "@quillforms/admin-components";
+
 import './style.css';
 
 const UTMParametersPromo = () => {
@@ -181,9 +183,10 @@ const UTMParametersPromo = () => {
 				</AnimatePresence>
 			</div>
 
-			<button className="utm-feature-upgrade-button">
-				Upgrade to Pro
-			</button>
+			<ProFeatureBanner
+				featureName="URL Parameters Tracking"
+				addonSlug="hiddenfields"
+			/>
 		</div>
 	);
 };

@@ -606,23 +606,42 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 								className={css`
 									display: flex;
 									align-items: center;
+									gap: 4px;
+									width: 100%;
+									
 									div {
-										text-align: center;
+									text-align: center;
+									flex: 1;
+									min-width: 0; /* Prevents flex items from overflowing */
 									}
+									
 									input {
-										width: 60px !important;
+									width: 100% !important;
+									min-width: 0 !important;
+									padding: 4px !important;
+									font-size: 12px !important;
 									}
-								` }
+									
+									/* Make labels smaller */
+									label {
+									font-size: 11px;
+									margin-bottom: 4px !important;
+									}
+									
+									/* Adjust spacing */
+									.components-base-control {
+									margin-bottom: 0 !important;
+									}
+									
+									.components-base-control__field {
+									margin-bottom: 0 !important;
+									}
+      						`}
 							>
 								<TextControl
 									label={'Top'}
 									type="number"
-									value={parseInt(
-										buttonsPadding.top.lg.replace(
-											'px',
-											''
-										)
-									)}
+									value={parseInt(buttonsPadding.top.lg.replace('px', ''))}
 									onChange={(val) => {
 										setCurrentThemeProperties({
 											buttonsPadding: {
@@ -638,12 +657,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 								<TextControl
 									label={'Right'}
 									type="number"
-									value={parseInt(
-										buttonsPadding.right.lg.replace(
-											'px',
-											''
-										)
-									)}
+									value={parseInt(buttonsPadding.right.lg.replace('px', ''))}
 									onChange={(val) => {
 										setCurrentThemeProperties({
 											buttonsPadding: {
@@ -659,12 +673,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 								<TextControl
 									label={'Bottom'}
 									type="number"
-									value={parseInt(
-										buttonsPadding.bottom.lg.replace(
-											'px',
-											''
-										)
-									)}
+									value={parseInt(buttonsPadding.bottom.lg.replace('px', ''))}
 									onChange={(val) => {
 										setCurrentThemeProperties({
 											buttonsPadding: {
@@ -680,12 +689,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 								<TextControl
 									label={'Left'}
 									type="number"
-									value={parseInt(
-										buttonsPadding.left.lg.replace(
-											'px',
-											''
-										)
-									)}
+									value={parseInt(buttonsPadding.left.lg.replace('px', ''))}
 									onChange={(val) => {
 										setCurrentThemeProperties({
 											buttonsPadding: {
@@ -705,35 +709,36 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 								className={css`
 									display: flex;
 									align-items: center;
+									gap: 4px;
+									width: 100%;
+									
 									div {
-										text-align: center;
+									text-align: center;
+									flex: 1;
+									min-width: 0;
 									}
+									
 									input {
-										width: 60px !important;
+									width: 100% !important;
+									min-width: 0 !important;
+									padding: 4px !important;
+									font-size: 12px !important;
 									}
-								` }
+									
+									label {
+									font-size: 11px;
+									margin-bottom: 4px !important;
+									}
+									
+									.components-base-control {
+									margin-bottom: 0 !important;
+									}
+									
+									.components-base-control__field {
+									margin-bottom: 0 !important;
+									}
+								`}
 							>
-								<TextControl
-									label={'Top'}
-									type="number"
-									value={parseInt(
-										buttonsPadding.top.sm.replace(
-											'px',
-											''
-										)
-									)}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												top: {
-													...buttonsPadding.top,
-													sm: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
 								<TextControl
 									label={'Right'}
 									type="number"

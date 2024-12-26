@@ -1,7 +1,6 @@
 /* CalculatorFeaturePromo.css */
 .calculator-feature-container {
     width: 100%;
-    padding: 20px;
     background: white;
     border-radius: 16px;
     box-sizing: border-box;
@@ -20,13 +19,12 @@
     font-size: 16px;
     color: #5f6368;
     text-align: center;
-    margin: 0 0 40px;
+    margin-bottom: 15px;
   }
   
   .calculator-feature-animation-container {
-    height: 400px;
     position: relative;
-    margin-bottom: 32px;
+    margin-bottom: 10px;
   }
   
   .calculator-feature-section {
@@ -39,7 +37,7 @@
   }
   
   .calculator-feature-icon {
-    margin-bottom: 24px;
+    margin-bottom: 8px;
   }
   
   .calculator-feature-section-title {

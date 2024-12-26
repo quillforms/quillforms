@@ -30,7 +30,7 @@ const Layout: React.FC<Props> = ({ formId }) => {
 			return {
 				currentBlockId: select('quillForms/block-editor').getCurrentBlockId(),
 				currentPanel: select('quillForms/builder-panels').getCurrentPanel(),
-				formBlocks: select('quillForms/block-editor').getBlocks(),
+				formBlocks: select('quillForms/block-editor').getBlocksWithPartialSubmission(),
 				blockTypes: select('quillForms/blocks').getBlockTypes(),
 			};
 		}
@@ -110,26 +110,43 @@ const Layout: React.FC<Props> = ({ formId }) => {
 		}
 	}, []);
 
+
 	return (
 		<div
 			className="builder-core-layout"
 			onKeyDown={(e) => e.stopPropagation()}
 		>
-			{isReady &&
+			{isReady && (
 				<>
+					{/* Builder Panels Bar */}
 					{builderPanelsBar}
 
+					{/* Main Content */}
+					{currentPanel?.type !== 'full-screen' && (
+						<>
+							{/* Blocks Structure */}
+							{(!currentPanel || currentPanel?.type === 'modal') && (
+								<BlocksStructure />
+							)}
 
-					{(!currentPanel || currentPanel?.type === 'modal') && <BlocksStructure />}
+							{/* Content Area */}
+							{currentBlockId === 'partial-submission-point'
+								? <PartialSubmissionPointContent />
+								: <BlockEditSkeleton />
+							}
+						</>
+					)}
 
-					{currentBlockId === 'partial-submission-point' ? <PartialSubmissionPointContent /> : <BlockEditSkeleton />}
+					{/* Current Panel */}
 					{currentPanel && panel}
-					{currentBlockId !== 'partial-submission-point' &&
-						<BlockControlsPanel />}
 
+					{/* Controls Panel */}
+					{currentPanel?.type !== 'full-screen' &&
+						currentBlockId !== 'partial-submission-point' && (
+							<BlockControlsPanel />
+						)}
 				</>
-			}
-
+			)}
 		</div>
 	);
 };

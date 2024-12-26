@@ -330,6 +330,7 @@ const BlockEditorReducer: Reducer<
 				});
 			}
 			return {
+				...state,
 				blocks: sortBlocks(blocks),
 				currentBlockId: parentBlock ? parentBlock.id : block.id,
 				currentChildBlockId: parentBlock ? block.id : undefined,

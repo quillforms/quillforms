@@ -39,6 +39,10 @@ export const getBlocks = (state: State, withPartialSubmission = false): FormBloc
 	});
 };
 
+export const getBlocksWithPartialSubmission = (state: State): FormBlocks => {
+	return state.blocks;
+}
+
 /**
  * Returns all form blocks including inner blocks.
  *

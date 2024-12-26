@@ -8,8 +8,8 @@ import { select } from '@wordpress/data';
  */
 import { registerRestField } from '../../api';
 
-registerRestField( 'blocks', {
+registerRestField('blocks', {
 	selectValue: () => {
-		return select( 'quillForms/block-editor' ).getBlocks();
+		return select('quillForms/block-editor').getBlocksWithPartialSubmission();
 	},
-} );
+});

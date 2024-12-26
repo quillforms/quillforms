@@ -24,62 +24,62 @@ import SaveButton from './save-button';
 import './style.scss';
 import FullPreviewIcon from './full-preview';
 
-const Builder = ( { params } ) => {
-	const [ fullPreviewMode, setFullPreviewMode ] = useState( false );
+const Builder = ({ params }) => {
+	const [fullPreviewMode, setFullPreviewMode] = useState(false);
 	const { id } = params;
 
-	const { setCurrentPanel } = useDispatch( 'quillForms/builder-panels' );
-	const { resetAnswers } = useDispatch( 'quillForms/renderer-core' );
+	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
+	const { resetAnswers } = useDispatch('quillForms/renderer-core');
 
-	const [ isResolving, setIsResolving ] = useState( true );
-	const [ unknownBlocks, setUnknownBlocks ] = useState( undefined );
+	const [isResolving, setIsResolving] = useState(true);
+	const [unknownBlocks, setUnknownBlocks] = useState(undefined);
 
 	// Making sure all stores are set up already
 	// We pick one store only (any store would work) "The  block editor store" to make sure all resolvers depending on builder initial payload has finished resolution.
 	// what would make this would work is that we have the save button components rendered already while fetching.
 	// The save button component has observers for all rest fields changes so here we would be notified if the resolution has finished.
 	const { hasBlockEditorFinishedResolution, blockTypes } = useSelect(
-		( select ) => {
+		(select) => {
 			return {
 				hasBlockEditorFinishedResolution: select(
 					'quillForms/block-editor'
-				).hasFinishedResolution( 'getBlocks' ),
-				blockTypes: select( 'quillForms/blocks' ).getBlockTypes()
+				).hasFinishedResolution('getBlocksWithPartialSubmission'),
+				blockTypes: select('quillForms/blocks').getBlockTypes()
 			};
 		}
 	);
 
-	useEffect( () => {
+	useEffect(() => {
 		const initialPayload = configApi.getInitialPayload();
-		if ( initialPayload?.blocks?.length ) {
+		if (initialPayload?.blocks?.length) {
 			const unKnownBlocks = initialPayload.blocks.filter(
-				( block ) => ! blockTypes[ block.name ]
+				(block) => !blockTypes[block.name]
 			);
 
-			if ( unKnownBlocks?.length ) {
+			if (unKnownBlocks?.length) {
 				setUnknownBlocks(
-					uniq( map( unKnownBlocks, ( block ) => block.name ) )
+					uniq(map(unKnownBlocks, (block) => block.name))
 				);
 			}
 		}
 
 		return () => {
-			setCurrentPanel( '' );
+			setCurrentPanel('');
 			resetAnswers();
 		};
-	}, [] );
+	}, []);
 
-	useEffect( () => {
-		if ( hasBlockEditorFinishedResolution ) {
-			setIsResolving( false );
+	useEffect(() => {
+		if (hasBlockEditorFinishedResolution) {
+			setIsResolving(false);
 		}
-	}, [ hasBlockEditorFinishedResolution ] );
+	}, [hasBlockEditorFinishedResolution]);
 
 	return (
 		<div id="quillforms-builder-page">
-			{ isResolving ? (
+			{isResolving ? (
 				<div
-					className={ css`
+					className={css`
 						display: flex;
 						flex-wrap: wrap;
 						width: 100%;
@@ -88,13 +88,13 @@ const Builder = ( { params } ) => {
 						align-items: center;
 					` }
 				>
-					<Loader color="#8640e3" height={ 50 } width={ 50 } />
+					<Loader color="#8640e3" height={50} width={50} />
 				</div>
 			) : (
 				<>
-					{ unknownBlocks?.length ? (
+					{unknownBlocks?.length ? (
 						<div
-							className={ css`
+							className={css`
 								margin: auto;
 								padding: 20px;
 								max-width: 400px;
@@ -104,34 +104,34 @@ const Builder = ( { params } ) => {
 						>
 							The following blocks aren't known:
 							<ul
-								className={ css`
+								className={css`
 									list-style: auto;
 									margin-left: 20px;
 								` }
 							>
-								{ unknownBlocks.map( ( blockname ) => (
-									<li key={ blockname }> { blockname } </li>
-								) ) }
+								{unknownBlocks.map((blockname) => (
+									<li key={blockname}> {blockname} </li>
+								))}
 							</ul>
 						</div>
 					) : (
 						<>
-							{ fullPreviewMode ? (
+							{fullPreviewMode ? (
 								<FullPreviewLayout
-									setFullPreviewMode={ setFullPreviewMode }
+									setFullPreviewMode={setFullPreviewMode}
 								/>
 							) : (
-								<BuilderLayout formId={ id } />
-							) }
+								<BuilderLayout formId={id} />
+							)}
 						</>
-					) }
+					)}
 				</>
-			) }
+			)}
 			<FullPreviewIcon
-				isResolving={ isResolving }
-				setFullPreviewMode={ setFullPreviewMode }
+				isResolving={isResolving}
+				setFullPreviewMode={setFullPreviewMode}
 			/>
-			<SaveButton formId={ id } isResolving={ isResolving } />
+			<SaveButton formId={id} isResolving={isResolving} />
 		</div>
 	);
 };

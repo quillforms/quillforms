@@ -13,7 +13,7 @@ import {
 
 // @ts-expect-error
 import { ThemeCard, ThemeListItem } from '@quillforms/theme-editor';
-import type { BlockAttributes } from '@quillforms/types';
+import type { BlockAttributes, FormBlock } from '@quillforms/types';
 
 /**
  * WordPress Dependencies
@@ -40,12 +40,14 @@ interface Props {
 	attributes?: BlockAttributes;
 	setAttributes: (x: Record<string, unknown>) => void;
 	isChild?: boolean;
+	parentBlock: FormBlock;
 }
 const DefaultControls: React.FC<Props> = ({
 	blockName,
 	isChild,
 	attributes,
 	setAttributes,
+	parentBlock
 }) => {
 	const {
 		editableSupport,
@@ -378,7 +380,7 @@ const DefaultControls: React.FC<Props> = ({
 					</ControlWrapper>
 				</BaseControl>
 			)}
-			{isChild && (
+			{isChild && parentBlock.attributes?.layout === 'stack' && (
 				<BaseControl>
 					<ControlWrapper orientation='vertical'>
 						<ControlLabel label={'Width'} isNew />

@@ -20,42 +20,41 @@ interface Props {
 	reject: () => void;
 	closeModal: () => void;
 }
-const DragAlertModal: React.FC< Props > = ( {
+const DragAlertModal: React.FC<Props> = ({
 	messages,
 	approve,
 	reject,
 	closeModal,
-} ) => {
+}) => {
 	return (
 		<Modal
-			className={ classnames(
+			className={classnames(
 				'builder-core-drag-alert-modal',
 				css`
 					border: none !important;
-					min-width: 420px !important;
-					max-width: 470px !important;
+					width: 420px !important;
 					border-radius: 10px;
 					z-index: 1111111;
 				`
-			) }
+			)}
 			// Because focus on editor is causing the click handler to be triggered
-			shouldCloseOnClickOutside={ false }
+			shouldCloseOnClickOutside={false}
 			title="Warning!"
-			onRequestClose={ closeModal }
+			onRequestClose={closeModal}
 		>
 			<div>
 				<div>
-					{ messages.length === 1
-						? messages[ 0 ]
-						: messages.map( ( message, index ) => (
-								<div>{ `${ index + 1 }. ${ message }` }</div>
-						  ) ) }
+					{messages.length === 1
+						? messages[0]
+						: messages.map((message, index) => (
+							<div>{`${index + 1}. ${message}`}</div>
+						))}
 				</div>
 				<br />
 				<div>Are you sure you want to proceed?</div>
 			</div>
 			<div
-				className={ css`
+				className={css`
 					display: flex;
 					margin-top: 10px;
 					justify-content: flex-end;
@@ -64,27 +63,27 @@ const DragAlertModal: React.FC< Props > = ( {
 				<Button
 					isDefault
 					isLarge
-					className={ css`
+					className={css`
 						margin-right: 10px !important;
 					` }
-					onClick={ () => {
+					onClick={() => {
 						reject();
-					} }
+					}}
 				>
 					Cancel
 				</Button>
 				<Button
 					isLarge
-					className={ css`
+					className={css`
 						width: 70px;
 						display: flex;
 						justify-content: center;
 						align-items: center;
 					` }
-					onClick={ () => {
+					onClick={() => {
 						approve();
-					} }
-					isPrimary
+					}}
+					isDanger
 				>
 					Proceed
 				</Button>

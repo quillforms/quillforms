@@ -5,9 +5,10 @@ import ConfigAPI from '@quillforms/config';
  */
 import { setupStore } from './actions';
 
-export const getBlocks = () => {
+export const getBlocksWithPartialSubmission = () => {
 	const initialPayload = ConfigAPI.getInitialPayload();
+	console.log('initial payload', initialPayload);
 	return setupStore(
-		initialPayload?.blocks ? sanitizeBlocks( initialPayload.blocks ) : []
+		initialPayload?.blocks ? sanitizeBlocks(initialPayload.blocks) : []
 	);
 };

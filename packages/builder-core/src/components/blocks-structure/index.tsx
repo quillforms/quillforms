@@ -11,7 +11,7 @@ import Tree, {
     type TreeDestinationPosition,
 } from "@atlaskit/tree";
 import { identAlphabetically } from "@quillforms/utils";
-import { Popover } from '@wordpress/components';
+import { Modal } from '@wordpress/components';
 
 import { BlockIconBox, getPlainExcerpt } from "@quillforms/admin-components";
 import { BlockActions } from "@quillforms/block-editor";
@@ -325,6 +325,8 @@ const PureTree: React.FC = () => {
         currentBlock: select('quillForms/block-editor').getCurrentBlock(),
         currentPanel: select("quillForms/builder-panels").getCurrentPanel(),
     }));
+    const partialSubmissionIndex = blocks.findIndex(block => block.name === 'partial-submission-point');
+    const [showPartialSubmissionPointAlert, setShowPartialSubmissionPointAlert] = useState(false);
     const [triggerTreeCalculation, setTriggerTreeCalculation] = useState(false);
     if (!currentBlock) return null;
 
@@ -370,7 +372,7 @@ const PureTree: React.FC = () => {
                     tree.items[key].children.includes(item.id)
                 );
             }
-
+            console.log('parentId', parentId);
             const isLastInGroup = (() => {
 
                 if (!parentId) return false;
@@ -381,20 +383,20 @@ const PureTree: React.FC = () => {
             })();
 
             const isPartialSubmissionPoint = itemName === 'partial-submission-point';
-            const rootChildren = tree.items.root.children;
+
+            const filteredBlocks = blocks.filter(block => {
+                return block['name'] !== 'welcome-screen' && block['name'] !== 'thankyou-screen';
+            });
 
             // Get actual index excluding welcome and thank you screens
             const getEffectiveIndex = (itemId: ItemId) => {
-                const filteredBlocks = rootChildren.filter(id => {
-                    const blockName = tree.items[id].data.name;
-                    return blockName !== 'welcome-screen' && blockName !== 'thankyou-screen';
-                });
-                return filteredBlocks.indexOf(itemId);
+
+                return filteredBlocks.findIndex(block => block.id === itemId);
             };
 
             const effectiveIndex = isPartialSubmissionPoint ? getEffectiveIndex(item.id) : -1;
             const isFirstOrLast = effectiveIndex === 0 ||
-                (effectiveIndex === getEffectiveIndex(rootChildren[rootChildren.length - 1]));
+                (effectiveIndex === filteredBlocks.length - 1);
 
 
 
@@ -493,33 +495,33 @@ const PureTree: React.FC = () => {
                             <div
                                 className="warning-icon"
                                 style={{
-                                    marginLeft: 'auto',
-                                    marginRight: '8px',
-                                    color: '#f59e0b'
+                                    marginLeft: "auto",
+                                    marginRight: "22px",
+                                    color: "#f59e0b",
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                                onClick={() => {
+                                    setShowPartialSubmissionPointAlert(true);
                                 }}
                             >
-                                <Popover
-                                    position="top"
-                                    trigger="click"
-                                    content={
-                                        <div style={{ padding: '8px', maxWidth: '200px' }}>
-                                            {effectiveIndex === 0 ? (
-                                                "This partial submission point needs at least one field before it"
-                                            ) : (
-                                                "This partial submission point cannot be the last field"
-                                            )}
-                                        </div>
-                                    }
+
+                                <svg
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <svg
-                                        width="16"
-                                        height="16"
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-10v6h2V7h-2z" />
-                                    </svg>
-                                </Popover>
+                                    <circle cx="12" cy="12" r="10" stroke="#f59e0b" strokeWidth="2" />
+                                    <path
+                                        d="M12 8V12"
+                                        stroke="#f59e0b"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                    />
+                                    <circle cx="12" cy="16" r="1" fill="#f59e0b" />
+                                </svg>
                             </div>
                         )}
                         <BlockActions
@@ -528,7 +530,7 @@ const PureTree: React.FC = () => {
                             }}
                             id={item.id}
                             parentId={parentId}
-                            disableDelete={disableDelete} // Add this prop
+                            disableDelete={disableDelete}
                         />
                     </div>
                     {
@@ -564,6 +566,8 @@ const PureTree: React.FC = () => {
             if (!destination || !blockUtils.isValidMove(source, destination, tree, blocks)) {
                 return;
             }
+
+
 
             const sourceItem = tree.items[tree.items[source.parentId].children[source.index]];
             let sourceParentIndex = undefined;
@@ -618,18 +622,47 @@ const PureTree: React.FC = () => {
                 }
             };
 
+            let dragSourceIndex = source.index;
+            let dragSourceParentIndex = sourceParentIndex;
+            let dragDestinationIndex = destination.index;
+            let dragDestinationParentIndex = destinationParentIndex;
+
+            // Handle partial submission point
+            if (partialSubmissionIndex !== -1) {
+                if (source.parentId === 'root') {
+                    dragSourceIndex = source.index > partialSubmissionIndex ? source.index - 1 : source.index;
+                }
+                else if (typeof sourceParentIndex === 'number') {
+                    dragSourceParentIndex = sourceParentIndex > partialSubmissionIndex ? sourceParentIndex - 1 : sourceParentIndex;
+                }
+                if (destination.parentId === 'root') {
+                    if (typeof destination.index === 'number') {
+                        dragDestinationIndex = destination?.index > partialSubmissionIndex ? destination.index - 1 : destination.index;
+                    }
+                }
+                else if (typeof destinationParentIndex === 'number') {
+                    dragDestinationParentIndex = destinationParentIndex > partialSubmissionIndex ? destinationParentIndex - 1 : destinationParentIndex;
+                }
+
+
+
+            }
+
             const handleDragAlerts = () => {
+
                 let dragAlerts: string[] = [];
-                dragAlerts = dragAlerts.concat(
-                    applyFilters(
-                        'QuillForms.BuilderCore.BlockReorderAlerts',
-                        [],
-                        source.index,
-                        destination.index,
-                        sourceParentIndex,
-                        destinationParentIndex
-                    ) as string[]
-                );
+                if (sourceItem.id !== 'partial-submission-point') {
+                    dragAlerts = dragAlerts.concat(
+                        applyFilters(
+                            'QuillForms.BuilderCore.BlockReorderAlerts',
+                            [],
+                            dragSourceIndex,
+                            dragDestinationIndex,
+                            dragSourceParentIndex,
+                            dragDestinationParentIndex
+                        ) as string[]
+                    );
+                }
                 return dragAlerts;
             };
 
@@ -641,10 +674,10 @@ const PureTree: React.FC = () => {
                             approve={() => {
                                 doAction(
                                     'QuillForms.BuilderCore.BlockReorder',
-                                    source.index,
-                                    destination.index,
-                                    sourceParentIndex,
-                                    destinationParentIndex
+                                    dragSourceIndex,
+                                    dragDestinationIndex,
+                                    dragSourceParentIndex,
+                                    dragDestinationParentIndex
                                 );
                                 handleBlockMove();
                                 onClose();
@@ -727,6 +760,18 @@ const PureTree: React.FC = () => {
                     />
                 </BlockTreeErrorBoundary>
             </div>
+            {showPartialSubmissionPointAlert && (
+                <Modal
+                    title="Partial Submission Point Alert"
+                    onRequestClose={() => setShowPartialSubmissionPointAlert(false)}
+                >
+                    <div>
+                        <p>
+                            <strong>Partial Submission Point</strong> shouldn't be the first or the last field.
+                        </p>
+                    </div>
+                </Modal>
+            )}
         </div>
     );
 };

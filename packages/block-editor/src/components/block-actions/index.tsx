@@ -38,9 +38,13 @@ const BlockActions: React.FC<Props> = ({
 
 	const { blocks } = useSelect((select) => {
 		return {
-			blocks: select('quillForms/block-editor').getBlocks()
+			blocks: select('quillForms/block-editor').getBlocks(true)
 		}
 	});
+	console.log("#############")
+	console.log(blocks);
+	console.log(parentId);
+	console.log(id)
 
 	let parentIndex;
 
@@ -50,6 +54,10 @@ const BlockActions: React.FC<Props> = ({
 	else {
 		parentIndex = blocks.findIndex((block) => block.id === parentId);
 	}
+
+	console.log(parentIndex);
+
+	console.log("#############")
 	let index;
 
 	if (!parentId || parentIndex === -1) {

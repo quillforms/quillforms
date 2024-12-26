@@ -35,6 +35,10 @@
         transition: all 0.2s ease;
         white-space: nowrap;
     }
+
+    .admin-components-control-label {
+        max-width: 160px;
+    }
     
     .tab:hover {
         color: #333;
@@ -94,6 +98,8 @@
         fill: #666; /* Icon color matches the text */
         transition: fill 0.3s ease;
     }
+
+
     
     .logic-button:hover {
         background: #f2f2f2; /* Slightly darker background on hover */

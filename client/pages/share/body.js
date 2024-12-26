@@ -12,6 +12,7 @@ import QRCode from "react-qr-code";
 import QRCodeIcon from "./qrcode-icon";
 
 import configApi from "@quillforms/config";
+import { size } from "lodash";
 
 const ShareBody = ({ payload }) => {
 
@@ -39,6 +40,44 @@ const ShareBody = ({ payload }) => {
         popupMaxHeightUnit: '%',
 
     });
+    // Add this shortcodeSettings state
+    const [shortcodeSettings, setShortcodeSettings] = useState({
+        width: { value: 100, unit: '%' },
+        minHeight: { value: 500, unit: 'px' },
+        maxHeight: { value: 0, unit: 'auto' }
+    });
+
+    const [fieldValues, setFieldValues] = useState({});
+    const [routingType, setRoutingType] = useState('query');
+
+    const generateURL = () => {
+        console.log(payload)
+        const baseURL = payload?.url || '';
+        const filledFields = Object.entries(fieldValues)
+            .filter(([_, value]) => value)
+            .map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
+            .join('&');
+
+        if (!filledFields) return baseURL;
+
+        if (routingType === 'query') {
+            return `${baseURL}${baseURL.includes('?') ? '&' : '?'}${filledFields}`;
+        } else {
+            return `${baseURL}#${filledFields}`;
+        }
+    };
+
+
+    const generateShortcode = () => {
+        const width = `${shortcodeSettings.width.value}${shortcodeSettings.width.unit}`;
+        const minHeight = `${shortcodeSettings.minHeight.value}${shortcodeSettings.minHeight.unit}`;
+        const maxHeight = shortcodeSettings.maxHeight.unit === 'auto'
+            ? 'auto'
+            : `${shortcodeSettings.maxHeight.value}${shortcodeSettings.maxHeight.unit}`;
+
+        return `[quillforms id="${payload?.id}" width="${width}" min_height="${minHeight}" max_height="${maxHeight}"]`;
+    };
+
 
     const downloadQR = () => {
         const svg = document.querySelector(".quillforms-qr-share-modal svg");
@@ -195,20 +234,62 @@ const ShareBody = ({ payload }) => {
                     }}
                 >
                     <div className="quillforms-share-modal">
-                        <p>Copy the link below and share it with your audience.</p>
-                        <div className="quillforms-share-modal-link">
-                            <input type="text" style={{ minWidth: "400px" }} value={payload?.link} readOnly />
-                            {isCopied ? (
-                                <Button isPrimary>Copied!</Button>
-                            ) : (
+                        {size(hiddenFields) > 0 && (
+                            <>
+                                <div className="quillforms-hidden-fields-settings">
 
-                                <Button isPrimary onClick={() => {
-                                    navigator.clipboard.writeText(payload?.link);
-                                    setIsCopied(true);
-                                }}>Copy</Button>
-                            )}
+
+                                    <h4>Hidden Fields</h4>
+                                    {hiddenFields.map((field) => (
+                                        <div key={field.name} className="quillforms-hidden-field-row">
+                                            <label>{field.name}</label>
+                                            <input
+                                                type="text"
+                                                value={fieldValues[field.name] || ''}
+                                                placeholder={`Enter value for ${field.name}`}
+                                                onChange={(e) => {
+                                                    setFieldValues(prev => ({
+                                                        ...prev,
+                                                        [field.name]: e.target.value
+                                                    }));
+                                                }}
+                                            />
+                                        </div>
+                                    ))}
+
+                                    <div className="quillforms-routing-type">
+                                        <label>Parameter Type:</label>
+                                        <select
+                                            value={routingType}
+                                            onChange={(e) => setRoutingType(e.target.value)}
+                                        >
+                                            <option value="query">Query String (?param=value)</option>
+                                            <option value="hash">Hash (#param=value)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                        <div className="quillforms-share-modal-generated-link">
+                            <h4>Generated URL</h4>
+                            <div className="quillforms-share-modal-link">
+                                <input
+                                    type="text"
+                                    style={{ minWidth: "400px" }}
+                                    value={generateURL()}
+                                    readOnly
+                                />
+                                <Button
+                                    isPrimary
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(generateURL());
+                                        setIsCopied(true);
+                                    }}
+                                >
+                                    {isCopied ? 'Copied!' : 'Copy'}
+                                </Button>
+                            </div>
                         </div>
-                        <p> Please note that you can customize the slug from the builder on settings panel.</p>
                     </div>
                 </Modal>
             )}
@@ -221,23 +302,139 @@ const ShareBody = ({ payload }) => {
                     }}
                 >
                     <div className="quillforms-share-modal">
-                        <p>Copy the shortcode below and insert it in your WordPress page or post.</p>
-                        <div className="quillforms-share-modal-link">
-                            <input type="text" style={{ minWidth: "400px" }} value={`[quillforms id="${payload?.id}" width="100%" ]`} readOnly />
-                            {isCopied ? (
-                                <Button isPrimary>Copied!</Button>
-                            ) : (
+                        <p>Customize your form display settings and copy the generated shortcode.</p>
 
-                                <Button isPrimary onClick={() => {
-                                    navigator.clipboard.writeText(`[quillforms id="${payload?.id}" width="100%" ]`);
-                                    setIsCopied(true);
-                                }}>Copy</Button>
-                            )}
+                        {/* Shortcode Settings */}
+                        <div className="quillforms-shortcode-settings">
+                            <div className="quillforms-shortcode-setting-row">
+                                <label>Width</label>
+                                <div className="quillforms-shortcode-setting-input">
+                                    <input
+                                        type="number"
+                                        value={shortcodeSettings.width.value}
+                                        onChange={(e) => {
+                                            setShortcodeSettings(prev => ({
+                                                ...prev,
+                                                width: {
+                                                    ...prev.width,
+                                                    value: e.target.value
+                                                }
+                                            }));
+                                        }}
+                                    />
+                                    <select
+                                        value={shortcodeSettings.width.unit}
+                                        onChange={(e) => {
+                                            setShortcodeSettings(prev => ({
+                                                ...prev,
+                                                width: {
+                                                    ...prev.width,
+                                                    unit: e.target.value
+                                                }
+                                            }));
+                                        }}
+                                    >
+                                        <option value="%">%</option>
+                                        <option value="px">px</option>
+                                        <option value="vw">vw</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="quillforms-shortcode-setting-row">
+                                <label>Minimum Height</label>
+                                <div className="quillforms-shortcode-setting-input">
+                                    <input
+                                        type="number"
+                                        value={shortcodeSettings.minHeight.value}
+                                        onChange={(e) => {
+                                            setShortcodeSettings(prev => ({
+                                                ...prev,
+                                                minHeight: {
+                                                    ...prev.minHeight,
+                                                    value: e.target.value
+                                                }
+                                            }));
+                                        }}
+                                    />
+                                    <select
+                                        value={shortcodeSettings.minHeight.unit}
+                                        onChange={(e) => {
+                                            setShortcodeSettings(prev => ({
+                                                ...prev,
+                                                minHeight: {
+                                                    ...prev.minHeight,
+                                                    unit: e.target.value
+                                                }
+                                            }));
+                                        }}
+                                    >
+                                        <option value="px">px</option>
+                                        <option value="vh">vh</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="quillforms-shortcode-setting-row">
+                                <label>Maximum Height</label>
+                                <div className="quillforms-shortcode-setting-input">
+                                    <input
+                                        type="number"
+                                        value={shortcodeSettings.maxHeight.value}
+                                        onChange={(e) => {
+                                            setShortcodeSettings(prev => ({
+                                                ...prev,
+                                                maxHeight: {
+                                                    ...prev.maxHeight,
+                                                    value: e.target.value
+                                                }
+                                            }));
+                                        }}
+                                    />
+                                    <select
+                                        value={shortcodeSettings.maxHeight.unit}
+                                        onChange={(e) => {
+                                            setShortcodeSettings(prev => ({
+                                                ...prev,
+                                                maxHeight: {
+                                                    ...prev.maxHeight,
+                                                    unit: e.target.value
+                                                }
+                                            }));
+                                        }}
+                                    >
+                                        <option value="px">px</option>
+                                        <option value="vh">vh</option>
+                                        <option value="auto">auto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Generated Shortcode */}
+                        <div className="quillforms-share-modal-generated-code">
+                            <h4>Generated Shortcode</h4>
+                            <div className="quillforms-share-modal-link">
+                                <input
+                                    type="text"
+                                    style={{ minWidth: "400px" }}
+                                    value={generateShortcode()}
+                                    readOnly
+                                />
+                                <Button
+                                    isPrimary
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(generateShortcode());
+                                        setIsCopied(true);
+                                    }}
+                                >
+                                    {isCopied ? 'Copied!' : 'Copy'}
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </Modal>
-            )
-            }
+            )}
             {modalState === 'embed' && (
                 <Modal
                     title="Embed Code"

@@ -1,6 +1,7 @@
 // CalculatorFeaturePromo.jsx
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ProFeatureBanner } from "@quillforms/admin-components";
 import './style.css';
 
 const CalculatorFeaturePromo = () => {
@@ -121,9 +122,10 @@ const CalculatorFeaturePromo = () => {
 				</AnimatePresence>
 			</div>
 
-			<button className="calculator-feature-upgrade-button">
-				Upgrade to Pro
-			</button>
+			<ProFeatureBanner
+				featureName="Calculator and Points"
+				addonSlug="logic"
+			/>
 		</div>
 	);
 };

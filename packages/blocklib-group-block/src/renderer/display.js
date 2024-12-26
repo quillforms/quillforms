@@ -159,7 +159,7 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 					};
 
 					refAssigned = true;
-					const isFullWidth = block.attributes?.width === '100%' || !block.attributes?.width;
+					const isFullWidth = block.attributes?.width === '100%' || !block.attributes?.width || props.attributes.layout !== 'stack';
 
 					return (
 						<FieldRenderContextProvider
@@ -179,6 +179,16 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 											margin-bottom: 0;
 										}
 										width: ${isFullWidth ? '100%' : `calc(${block.attributes.width} - 20px)`} !important;
+										${block.attributes.width === '33%' && !isFullWidth &&
+										`
+											@media(max-width: 767px) {
+												width: clac(50% - 20px) !important;
+											}
+										`}
+
+										@media(max-width: 480px) {
+											width: 100% !important;
+										}
 										margin-right: 20px;
 									`
 								)}
