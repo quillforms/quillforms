@@ -6,6 +6,7 @@
     border-radius: 16px;
     box-sizing: border-box;
     min-height: 600px;
+    text-align: center;
   }
   
   .utm-feature-title {

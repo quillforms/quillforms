@@ -1,0 +1,28 @@
+{
+	"title": {
+		"type": "string"
+	},
+	"active": {
+		"type": "boolean"
+	},
+	"toType": {
+		"type": "string",
+		"enum": [ "email", "field" ]
+	},
+	"recipients": {
+		"type": "array",
+		"items": {
+			"type": "string"
+		}
+	},
+	"replyTo": {
+		"type": "string"
+	},
+	"subject": {
+		"type": "string"
+	},
+	"message": {
+		"type": "string",
+		"default": "{{form:all_answers}}"
+	}
+}

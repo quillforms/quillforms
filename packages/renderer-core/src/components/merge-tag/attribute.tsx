@@ -3,12 +3,17 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 interface Props {
 	modifier: string;
 }
-const AttributeMergeTag: React.FC< Props > = ( { modifier } ) => {
+const AttributeMergeTag: React.FC<Props> = ({ modifier }) => {
 	const { attributes } = __experimentalUseFieldRenderContext();
 	let modifierRender: React.ReactNode = <>_ _ _ _ _</>;
-	if ( attributes && attributes[ modifier ] ) {
-		modifierRender = <> { attributes[ modifier ] } </>;
+	if (attributes && attributes[modifier]) {
+		if (Array.isArray(attributes[modifier])) {
+			// join with ","
+			modifierRender = <> {attributes[modifier].join(", ")} </>;
+		} else {
+			modifierRender = <> {attributes[modifier]} </>;
+		}
 	}
-	return <>{ modifierRender } </>;
+	return <>{modifierRender} </>;
 };
 export default AttributeMergeTag;

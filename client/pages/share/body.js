@@ -14,7 +14,108 @@ import QRCodeIcon from "./qrcode-icon";
 import configApi from "@quillforms/config";
 import { size } from "lodash";
 
+const hiddenFieldsContainer = css`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin: 20px 0;
+`;
+
+const hiddenFieldRow = css`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+    label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 4px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #1F2937;
+        background-color: #FFFFFF;
+        transition: all 0.2s ease;
+        
+        &::placeholder {
+            color: #9CA3AF;
+        }
+        
+        &:hover {
+            border-color: #D1D5DB;
+        }
+        
+        &:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        /* Prevent gray background on autofill */
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+            box-shadow: 0 0 0 30px white inset !important;
+            -webkit-text-fill-color: #1F2937 !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    }
+`;
+
+const routingTypeSelect = css`
+    margin-top: 20px;
+
+    label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #1F2937;
+        background-color: #FFFFFF;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 40px;
+
+        &:hover {
+            border-color: #D1D5DB;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+    }
+`;
+
+
 const ShareBody = ({ payload }) => {
+
+
 
     const isWPEnv = configApi.isWPEnv();
 
@@ -51,8 +152,8 @@ const ShareBody = ({ payload }) => {
     const [routingType, setRoutingType] = useState('query');
 
     const generateURL = () => {
-        console.log(payload)
-        const baseURL = payload?.url || '';
+        // Remove trailing slash from baseURL
+        const baseURL = (payload?.link || '').replace(/\/+$/, '');
         const filledFields = Object.entries(fieldValues)
             .filter(([_, value]) => value)
             .map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
@@ -118,15 +219,7 @@ const ShareBody = ({ payload }) => {
         }
     }, [isCopied]);
 
-    const { hiddenFields } = useSelect((select) => {
-        return {
-            hiddenFields:
-                select(
-                    'quillForms/hidden-fields-editor'
-                    //@ts-expect-error
-                )?.getHiddenFields() ?? [],
-        };
-    });
+    const hiddenFields = payload.hidden_fields
 
     return (
         <div className="quillforms-share-page">
@@ -240,24 +333,32 @@ const ShareBody = ({ payload }) => {
 
 
                                     <h4>Hidden Fields</h4>
-                                    {hiddenFields.map((field) => (
-                                        <div key={field.name} className="quillforms-hidden-field-row">
-                                            <label>{field.name}</label>
-                                            <input
-                                                type="text"
-                                                value={fieldValues[field.name] || ''}
-                                                placeholder={`Enter value for ${field.name}`}
-                                                onChange={(e) => {
-                                                    setFieldValues(prev => ({
-                                                        ...prev,
-                                                        [field.name]: e.target.value
-                                                    }));
-                                                }}
-                                            />
-                                        </div>
-                                    ))}
 
-                                    <div className="quillforms-routing-type">
+                                    <div className={hiddenFieldsContainer}>
+                                        {hiddenFields.map((field) => {
+                                            if (field.name.trim()) {
+                                                return (
+                                                    <div key={field.name} className={hiddenFieldRow}>
+                                                        <label>{field.name}</label>
+                                                        <input
+                                                            type="text"
+                                                            value={fieldValues[field.name] || ''}
+                                                            placeholder={`Enter value for ${field.name}`}
+                                                            onChange={(e) => {
+                                                                setFieldValues(prev => ({
+                                                                    ...prev,
+                                                                    [field.name]: e.target.value
+                                                                }));
+                                                            }}
+                                                        />
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}
+                                    </div>
+
+                                    <div className={routingTypeSelect}>
                                         <label>Parameter Type:</label>
                                         <select
                                             value={routingType}
@@ -267,6 +368,7 @@ const ShareBody = ({ payload }) => {
                                             <option value="hash">Hash (#param=value)</option>
                                         </select>
                                     </div>
+
                                 </div>
                             </>
                         )}

@@ -1,0 +1,34 @@
+{
+	"name": "@quillforms/config",
+	"version": "3.0.20",
+	"description": "",
+	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"quillforms",
+		"config"
+	],
+	"sideEffects": false,
+	"homepage": "https://github.com/quillforms/quillforms/tree/master/packages/config/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/quillforms/quillforms.git",
+		"directory": "packages/config"
+	},
+	"bugs": {
+		"url": "https://github.com/quillforms/quillforms/issues"
+	},
+	"main": "build/index.js",
+	"module": "build-module/index.js",
+	"quillforms:src": "src/index.ts",
+	"types": "build-types",
+	"dependencies": {
+		"@babel/runtime": "^7.16.0",
+		"@quillforms/types": "^3.0.19",
+		"react-dnd": "15.1.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
+}

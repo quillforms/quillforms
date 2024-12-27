@@ -195,7 +195,7 @@ const BlockEditorReducer: Reducer<
 
 			return {
 				...state,
-				blocks,
+				blocks: sortBlocks(blocks),
 			};
 		}
 		// SET BLOCK ATTRIBUTES

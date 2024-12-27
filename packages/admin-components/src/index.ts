@@ -17,6 +17,7 @@ export { default as __experimentalFeatureAvailability } from './feature-availabi
 export { default as useAddonStatus } from './addon-feature-availability/use-addon-status';
 export { default as ProFeatureBanner } from './pro-feature-banner';
 export { default as ProButton } from './pro-button';
+export { default as EnhancedProLabel } from "./enhanced-pro-label";
 export { default as __experimentalAddonFeatureAvailability } from './addon-feature-availability';
 export { default as FontPicker } from './font-picker';
 export { default as FormAdminBar } from './form-admin-bar';

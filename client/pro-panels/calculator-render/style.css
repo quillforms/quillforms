@@ -6,6 +6,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    margin-bottom: 150px;
   }
   
   .calculator-feature-title {
@@ -24,7 +25,8 @@
   
   .calculator-feature-animation-container {
     position: relative;
-    margin-bottom: 10px;
+    padding-bottom: 100px;
+    margin-bottom: 250px;
   }
   
   .calculator-feature-section {

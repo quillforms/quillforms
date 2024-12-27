@@ -1,12 +1,12 @@
 import "./style.css";
-import { ProFeatureBanner } from "@quillforms/admin-components";
+import { EnhancedProLabel, ProFeatureBanner } from "@quillforms/admin-components";
 const JumpLogicPreview = () => {
 	return (
 		<div className="jump-logic-preview-wrapper">
 			<div className="jump-logic-preview-content">
 				<div className="jump-logic-preview-left">
 					<div className="jump-logic-preview-header">
-						<div className="jump-logic-preview-badge">Pro Feature</div>
+						<EnhancedProLabel />
 						<h2>Smart Jump Logic</h2>
 						<p className="jump-logic-preview-subtitle">Create conditional paths by dragging between fields</p>
 					</div>

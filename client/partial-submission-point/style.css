@@ -110,6 +110,8 @@
 }
 
 .partial-submission-upgrade-btn {
+    display: inline-flex;
+    justify-content: center;
     padding: 16px 40px;
     background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
     color: white;
@@ -127,6 +129,7 @@
     background: linear-gradient(135deg, #0052a3 0%, #004080 100%);
     transform: translateY(-1px);
     box-shadow: 0 6px 25px rgba(0, 102, 204, 0.25);
+    color: white;
 }
 
 .partial-submission-right {

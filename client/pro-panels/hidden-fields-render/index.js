@@ -1,7 +1,7 @@
 // UTMParametersPromo.jsx
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ProFeatureBanner } from "@quillforms/admin-components";
+import { EnhancedProLabel, ProFeatureBanner } from "@quillforms/admin-components";
 
 import './style.css';
 
@@ -11,6 +11,8 @@ const UTMParametersPromo = () => {
 
 	return (
 		<div className="utm-feature-container">
+			<EnhancedProLabel />
+
 			<h1 className="utm-feature-title">Advanced URL Parameter Tracking</h1>
 			<p className="utm-feature-subtitle">Capture and track URL parameters effortlessly</p>
 

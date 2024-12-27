@@ -57,7 +57,8 @@ const ProButton = ({ addonSlug, className = '' }: ProButtonProps) => {
 
     const buttonStyles = css`
         padding: 8px 24px;
-        background: #1a73e8;
+        background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+        box-shadow: 0 4px 20px rgba(0, 102, 204, 0.15);
         color: white;
         border: none;
         border-radius: 16px;
@@ -71,7 +72,10 @@ const ProButton = ({ addonSlug, className = '' }: ProButtonProps) => {
         justify-content: center;
 
         &:hover {
-            background: #1557b0;
+            background: linear-gradient(135deg, #0052a3 0%, #004080 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 25px rgba(0, 102, 204, 0.25);
+            color: white;
         }
 
         &:focus {

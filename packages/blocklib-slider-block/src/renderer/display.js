@@ -15,6 +15,7 @@ import tinyColor from 'tinycolor2';
 import { css } from 'emotion';
 import classnames from 'classnames';
 import Slider from '@mui/material/Slider';
+
 const singleRangeSliderDisplay = (props) => {
 	const {
 		id,
@@ -33,6 +34,7 @@ const singleRangeSliderDisplay = (props) => {
 		isPreview,
 		isReviewing,
 	} = props;
+
 	const messages = useMessages();
 	const theme = useBlockTheme(attributes.themeId);
 	const answersColor = tinyColor(theme.answersColor);
@@ -47,69 +49,83 @@ const singleRangeSliderDisplay = (props) => {
 		required,
 	} = attributes;
 
+	// Convert min/max/step to numbers once
+	const minValue = parseFloat(min !== '' ? min : 0);
+	const maxValue = parseFloat(max !== '' ? max : 100);
+	const stepValue = parseFloat(step !== '' ? step : 1);
+
 	const checkfieldValidation = (value) => {
-		if (required === true && (!value || value === '') && value !== 0) {
+		// Convert value to number for consistent comparison
+		const numValue = parseFloat(value);
+
+		if (required === true && (value === null || value === undefined || value === '')) {
 			setIsValid(false);
 			setValidationErr(messages['label.errorAlert.required']);
 		} else {
 			setIsValid(true);
 			setValidationErr(null);
 		}
+
+		// Update answered state
+		setIsAnswered(value !== null && value !== undefined && value !== '');
 	};
 
+	// Handle initial value
 	useEffect(() => {
-		if (!val && val !== 0) {
-			setVal(min);
+		// Check if val is undefined, null, or empty string (not 0)
+		if (val === undefined || val === null || val === '') {
+			setVal(minValue);
 		}
 	}, []);
 
+	// Validation check on attributes change
 	useEffect(() => {
-		if (isPreview || !isReviewing) checkfieldValidation(val);
+		if (isPreview || !isReviewing) {
+			checkfieldValidation(val);
+		}
 	}, [attributes]);
+
+	// Value change handler
+	const handleValueChange = (event, newValue) => {
+		const numValue = parseFloat(newValue);
+		setVal(numValue);
+		checkfieldValidation(numValue);
+	};
 
 	return (
 		<div className={css`
-			margin: 40px 0 0;
+            margin: 40px 0 0;
 
-			.MuiSlider-root  {
-				color: ${theme.answersColor};
-			}
+            .MuiSlider-root  {
+                color: ${theme.answersColor};
+            }
 
-			.MuiSlider-mark {
-				width: 10px;
-				height: 10px;
-				border-radius: 50%;
-			}
-		   .css-14pt78w-MuiSlider-rail {
-			   height: 10px
-		   }
-		   .MuiSlider-track {
-			   height: 10px
-		   }
-
-		`}>
+            .MuiSlider-mark {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
+            .css-14pt78w-MuiSlider-rail {
+                height: 10px
+            }
+            .MuiSlider-track {
+                height: 10px
+            }
+        `}>
 			<Slider
-				min={parseFloat(min !== '' ? min : 0)}
-				max={parseFloat(max !== '' ? max : 0)}
-				step={parseFloat(step !== '' ? step : 1)}
-				renderMark={mark => {
-					return prefix + mark + suffix;
-				}}
+				min={minValue}
+				max={maxValue}
+				step={stepValue}
+				renderMark={mark => `${prefix}${mark}${suffix}`}
 				valueLabelDisplay="on"
-				valueLabelFormat={val => {
-					return prefix + val + suffix;
-				}}
+				valueLabelFormat={value => `${prefix}${value}${suffix}`}
 				marks={marks === 'yes' ? true : marks === 'no' ? false : customMarks}
-				renderTooltip={mark => {
-					return prefix + mark + suffix;
-				}}
-				value={typeof val === 'undefined' ? 0 : parseFloat(val)}
-				onChange={e => {
-					setVal(e.target.value);
-					checkfieldValidation(e.target.value);
-				}}
+				renderTooltip={mark => `${prefix}${mark}${suffix}`}
+				value={val ?? minValue} // Use nullish coalescing to handle 0
+				onChange={handleValueChange}
 			/>
 		</div>
 	);
 };
+
 export default singleRangeSliderDisplay;

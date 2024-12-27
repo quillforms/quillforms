@@ -1,0 +1,18 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"declarationDir": "build-types",
+		"resolveJsonModule": true,
+		// Some errors in Reakit types with TypeScript 4.3
+		// Remove the following line when they've been addressed.
+		"skipLibCheck": true,
+		"strictNullChecks": true
+	},
+	"references": [
+		{"path": "../types" }
+	],
+	"include": [
+		"src/**/*", "src/*", "src/json/*.json"
+	],
+}

@@ -63,6 +63,24 @@
         font-size: 14px;
         color: #444;
         max-height: calc(100% - 53px);
+        &::-webkit-scrollbar {
+            width: 6px;
+         }
+      
+        &::-webkit-scrollbar-track {
+        background: #f9fafb; /* Light background for scrollbar track */
+        border-radius: 3px;
+        }
+    
+        &::-webkit-scrollbar-thumb {
+        background: #d1d5db; /* Subtle gray for the scrollbar thumb */
+        border-radius: 3px;
+        }
+    
+        &::-webkit-scrollbar-thumb:hover {
+        background: #a1a1aa; /* Darker gray on hover for the scrollbar thumb */
+        }
+
         overflow-y: auto;
         &.has-sticky-footer {
             margin-bottom: 48px;

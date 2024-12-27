@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ProFeatureBanner } from "@quillforms/admin-components";
+import { EnhancedProLabel, ProFeatureBanner } from "@quillforms/admin-components";
 import { motion, AnimatePresence } from 'framer-motion';
 import "./style.css";
 
@@ -16,13 +16,7 @@ const SaveContinuePromo = () => {
 
     return (
         <div className="save-continue-container">
-            <div className="save-continue-pro-badge">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M10 1L2 5v5c0 5 3.5 8.5 8 9.5 4.5-1 8-4.5 8-9.5V5l-8-4z" fill="#FFD700" />
-                    <path d="M7 9l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-                Pro Feature
-            </div>
+            <EnhancedProLabel />
 
             <h1 className="save-continue-title">Save & Continue Later</h1>
             <p className="save-continue-subtitle">

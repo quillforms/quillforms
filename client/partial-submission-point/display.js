@@ -1,10 +1,12 @@
+import { EnhancedProLabel, ProButton } from "@quillforms/admin-components";
+
 const PartialSubmissionContent = () => {
     return (
         <div className="partial-submission-wrapper">
             <div className="partial-submission-content">
                 <div className="partial-submission-left">
                     <div className="partial-submission-header-section">
-                        <div className="partial-submission-premium-badge">Premium Feature</div>
+                        <EnhancedProLabel />
                         <h2>Capture Every Potential Lead</h2>
                         <p className="partial-submission-subtitle">Get valuable responses even if users don't complete your form</p>
                     </div>
@@ -20,11 +22,7 @@ const PartialSubmissionContent = () => {
                         </div>
                     }
 
-                    <div className="partial-submission-action-section">
-                        <button className="partial-submission-upgrade-btn" onClick={() => window.location.href = '/upgrade'}>
-                            Upgrade to Basic Plan
-                        </button>
-                    </div>
+                    <ProButton className="partial-submission-upgrade-btn" addonSlug="advancedentries" />
                 </div>
 
                 <div className="partial-submission-right">
