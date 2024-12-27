@@ -61,6 +61,7 @@ const ChoiceItem = ({
 
 						border-color: ${theme.answersColor};
 						color: ${theme.answersColor};
+						border-radius: ${theme.buttonsBorderRadius}px;
 
 						&:hover {
 							background: ${answersColor.setAlpha(0.2).toString()};

@@ -3,7 +3,7 @@ import './store';
 // import './panels/subpanels/customize';
 // import './panels/subpanels/my-themes';
 import './panels/subpanels/custom-fonts';
-
+import "@quillforms/settings-editor";
 import '@wordpress/notices';
 export { default as CustomizePanel } from './components/customize';
 export { default as MyThemesPanel } from './components/themes-list';

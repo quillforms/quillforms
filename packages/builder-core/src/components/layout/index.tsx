@@ -15,7 +15,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import Panel from '../panel';
 import BuilderPanelsBar from '../panels-bar';
 
-import { size } from 'lodash';
+import { set, size } from 'lodash';
 import BlocksStructure from '../blocks-structure';
 import BlockControlsPanel from '../right-panel';
 import PartialSubmissionPointContent from '../partial-submission-point-content';
@@ -90,8 +90,10 @@ const Layout: React.FC<Props> = ({ formId }) => {
 			setCurrentBlock(formBlocks[0].id);
 			formBlocks.forEach((block) => {
 				let blockType = blockTypes[block.name];
-				if (blockType.supports.editable)
+				if (blockType.supports.editable) {
 					insertEmptyFieldAnswer(block.id, block.name);
+				}
+
 
 				if (
 					blockType.supports.innerBlocks &&
@@ -99,11 +101,12 @@ const Layout: React.FC<Props> = ({ formId }) => {
 				) {
 					block?.innerBlocks.forEach((childBlock) => {
 						blockType = blockTypes[childBlock.name];
-						if (blockType?.supports?.editable)
+						if (blockType?.supports?.editable) {
 							insertEmptyFieldAnswer(
 								childBlock.id,
 								childBlock.name
 							);
+						}
 					});
 				}
 			});

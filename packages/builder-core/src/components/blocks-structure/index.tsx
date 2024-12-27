@@ -13,7 +13,7 @@ import Tree, {
 import { identAlphabetically } from "@quillforms/utils";
 import { Modal } from '@wordpress/components';
 
-import { BlockIconBox, getPlainExcerpt } from "@quillforms/admin-components";
+import { BlockIconBox, getPlainExcerpt, withErrorBoundary } from "@quillforms/admin-components";
 import { BlockActions } from "@quillforms/block-editor";
 
 import { doAction, applyFilters } from '@wordpress/hooks';
@@ -182,6 +182,7 @@ const treeUtils = {
     },
 
     transformBlocksToTree(blocks: FormBlocks, blockTypes, prevTree?: TreeData): TreeData {
+        console.log('blocks', blocks);
         const items: Record<ItemId, TreeItem> = {
             root: {
                 id: "root",
@@ -315,7 +316,7 @@ const treeUtils = {
 
 
 
-const PureTree: React.FC = () => {
+const PureTree: React.FC = withErrorBoundary(() => {
 
     const { blocks, currentPanel, blockTypes, currentBlock, currentBlockId, currentChildBlockId } = useSelect((select) => ({
         blocks: select("quillForms/block-editor").getBlocks(true),
@@ -328,8 +329,6 @@ const PureTree: React.FC = () => {
     const partialSubmissionIndex = blocks.findIndex(block => block.name === 'partial-submission-point');
     const [showPartialSubmissionPointAlert, setShowPartialSubmissionPointAlert] = useState(false);
     const [triggerTreeCalculation, setTriggerTreeCalculation] = useState(false);
-    if (!currentBlock) return null;
-
     const currentBlockLabel = currentBlock?.attributes?.label
     const currentBlockName = currentBlock?.name;
     let currentChildBlockLabel;
@@ -339,16 +338,6 @@ const PureTree: React.FC = () => {
         currentChildBlockLabel = childBlock?.attributes?.label;
         currentChildBlockName = childBlock?.name;
     }
-    useEffect(() => {
-        if (triggerTreeCalculation) {
-            setTree(prevTree => treeUtils.transformBlocksToTree(blocks, blockTypes, prevTree));
-            setTriggerTreeCalculation(false);
-        }
-    }, [triggerTreeCalculation]);
-
-    useEffect(() => {
-        setTriggerTreeCalculation(true);
-    }, [currentBlockLabel, currentChildBlockLabel, currentBlockName, currentChildBlockName, currentPanel]);
 
     const { setBlocks, setCurrentBlock, setCurrentChildBlock } = useDispatch("quillForms/block-editor");
 
@@ -356,6 +345,21 @@ const PureTree: React.FC = () => {
     const [tree, setTree] = useState<TreeData>(() =>
         treeUtils.transformBlocksToTree(blocks, blockTypes)
     );
+
+
+    useEffect(() => {
+        console.log('triggerTreeCalculation', triggerTreeCalculation);
+        if (triggerTreeCalculation) {
+            setTree(prevTree => treeUtils.transformBlocksToTree(blocks, blockTypes, prevTree));
+            setTriggerTreeCalculation(false);
+        }
+    }, [triggerTreeCalculation]);
+
+
+    useEffect(() => {
+        setTriggerTreeCalculation(true);
+    }, [currentBlockLabel, currentChildBlockLabel, currentBlockName, currentChildBlockName, currentPanel]);
+
 
     // Updated renderItem with better styling for group children
     const renderItem = useCallback(
@@ -725,6 +729,9 @@ const PureTree: React.FC = () => {
         });
     }, []);
 
+    if (!currentBlock) return null;
+
+
     return (
         <div className="builder-core-blocks-list__wrapper">
             <div className="builder-core-blocks-list">
@@ -774,6 +781,10 @@ const PureTree: React.FC = () => {
             )}
         </div>
     );
-};
+}, {
+    title: 'Error in Block Tree',
+    message: 'An error occurred while rendering the block tree. Please click on "Try again" or try refreshing the page.',
+    showDetails: true
+});
 
 export default PureTree;

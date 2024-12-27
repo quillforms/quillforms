@@ -435,7 +435,7 @@ class Store {
 			array(
 				'advancedentries'           => array(
 					'name'           => esc_html__( 'Advanced Entries', 'quillforms' ),
-					'description'    => esc_html__( 'Advanced Entries addon allows you to view, filter, search, and export your form entries with advanced features like custom columns, custom filters, and more.', 'quillforms' ),
+					'description'    => esc_html__( 'Advanced Entries addon allows you to collect partial submissions, view analytics and drop off rate for each question, visualize results with charts and exporting the results', 'quillforms' ),
 					'plugin_file'    => 'quillforms-advancedentries/quillforms-advancedentries.php',
 					'plan'           => 'basic',
 					'is_integration' => false,

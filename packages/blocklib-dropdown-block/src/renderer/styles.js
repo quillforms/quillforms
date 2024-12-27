@@ -8,38 +8,37 @@ import { isRTL } from '@wordpress/i18n';
  */
 import { css, keyframes } from '@quillforms/utils';
 
-const moveUp = keyframes( {
+const moveUp = keyframes({
 	'0%': {
 		transform: 'translateY(100%)',
 	},
 	'100%': {
 		transform: 'translateY(0%)',
 	},
-} );
+});
 
-const moveDown = keyframes( {
+const moveDown = keyframes({
 	'0%': {
 		transform: 'translateY(0%)',
 	},
 	'100%': {
 		transform: 'translateY(100%)',
 	},
-} );
+});
 
-const getBackgroundImageCSS = ( theme ) => {
+const getBackgroundImageCSS = (theme) => {
 	let backgroundImageCSS = '';
-	if ( theme.backgroundImage && theme.backgroundImage ) {
-		backgroundImageCSS = `background-image: url('${
-			theme.backgroundImage
-		}');
+	if (theme.backgroundImage && theme.backgroundImage) {
+		backgroundImageCSS = `background-image: url('${theme.backgroundImage
+			}');
 			background-size: cover;
 			background-position: ${
-				// @ts-expect-error
-				parseFloat( theme.backgroundImageFocalPoint?.x ) * 100
+			// @ts-expect-error
+			parseFloat(theme.backgroundImageFocalPoint?.x) * 100
 			}%
 			${
-				// @ts-expect-error
-				parseFloat( theme.backgroundImageFocalPoint?.y ) * 100
+			// @ts-expect-error
+			parseFloat(theme.backgroundImageFocalPoint?.y) * 100
 			}%;
 
 			background-repeat: no-repeat;
@@ -48,7 +47,7 @@ const getBackgroundImageCSS = ( theme ) => {
 	return backgroundImageCSS;
 };
 
-export const FixedDropdown = ( theme ) => css`
+export const FixedDropdown = (theme) => css`
 	position: fixed;
 	inset: 0;
 	height: 100% !important;
@@ -59,16 +58,16 @@ export const FixedDropdown = ( theme ) => css`
 
 	&.show {
 		transform: translateY(100%);
-		animation: ${ moveUp } 0.5s ease-in-out 1 forwards;
+		animation: ${moveUp} 0.5s ease-in-out 1 forwards;
 	}
 
 	&.hide {
 		transform: translateY(0%);
-		animation: ${ moveDown } 0.5s ease-in-out 1 forwards;
+		animation: ${moveDown} 0.5s ease-in-out 1 forwards;
 	}
 	> div {
-		background: ${ theme.backgroundColor };
-		${ getBackgroundImageCSS( theme ) };
+		background: ${theme.backgroundColor};
+		${getBackgroundImageCSS(theme)};
 		padding: 20px 10px;
 		overflow-y: auto;
 		height: 100% !important;
@@ -77,11 +76,11 @@ export const FixedDropdown = ( theme ) => css`
 		width: 20px;
 		height: 20px;
 		margin-right: 5px;
-		fill: ${ theme.questionsColor } !important
+		fill: ${theme.questionsColor} !important
 	}
 }`;
 
-const vibrate = keyframes( {
+const vibrate = keyframes({
 	'0%': {
 		transform: 'scale( 1 )',
 	},
@@ -101,7 +100,7 @@ const vibrate = keyframes( {
 	'100%': {
 		transform: 'scale( 1 )',
 	},
-} );
+});
 
 export const DropdownChoices = css`
 	& {
@@ -152,12 +151,12 @@ export const DropdownChoiceWrapper = css`
 	}
 
 	&.isBeingSelected {
-		animation: ${ vibrate } 0.4s linear forwards;
+		animation: ${vibrate} 0.4s linear forwards;
 	}
 }`;
 export const iconStyles = css`
 	position: absolute;
-	${ isRTL() ? `left: 0` : `right: 0` };
+	${isRTL() ? `left: 0` : `right: 0`};
 	bottom: 4px;
 	cursor: pointer;
 

@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { useBlockTheme } from '@quillforms/renderer-core';
+import { useBlockTheme, useFormContext } from '@quillforms/renderer-core';
 import { useCx } from '@quillforms/utils';
 
 /**
@@ -32,6 +32,8 @@ const ChoicesWrapper =
 		setChoiceClicked,
 		checkfieldValidation,
 	}) => {
+		const { editor } = useFormContext();
+
 		const { verticalAlign, multiple, choices, themeId, max, min } = attributes;
 		const cx = useCx();
 
@@ -119,7 +121,7 @@ const ChoicesWrapper =
 		);
 		let mappedKeyboardTicks = {}
 		const handleKeyDown = (e) => {
-			if (!isAnswerLocked) {
+			if (!isAnswerLocked && editor.mode === 'off') {
 				mappedKeyboardTicks[e.code] = String.fromCharCode(e.keyCode);
 				handleClick(mappedKeyboardTicks);
 			}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./style.css";
+import { ProFeatureBanner } from "@quillforms/admin-components";
 
 const FormAnalyticsDemo = () => {
     const [showDemoOverlay, setShowDemoOverlay] = useState(true);
@@ -133,9 +134,8 @@ const FormAnalyticsDemo = () => {
                 >
                     ℹ️ About This Demo
                 </button>
-                <button className="form-analytics-upgrade-button">
-                    <span>⭐</span> Upgrade to Pro
-                </button>
+                <ProFeatureBanner featureName="Advanced Entries" addonSlug="advancedentries" />
+
             </div>
         </div>
     );

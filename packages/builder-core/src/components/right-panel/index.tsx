@@ -23,6 +23,9 @@ const BlockControlsPanel = () => {
 
     useEffect(() => {
         setIsReady(false);
+        if (activeTab === 'logic') {
+            setActiveTab('question');
+        }
         setTimeout(() => {
             setIsReady(true);
         }, 50);

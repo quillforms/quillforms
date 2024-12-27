@@ -112,6 +112,54 @@ const routingTypeSelect = css`
     }
 `;
 
+const generatedLinkContainer = css`
+    margin-top: 24px;
+    
+    h4 {
+        font-size: 16px;
+        font-weight: 500;
+        color: #374151;
+        margin: 0 0 12px 0;
+    }
+`;
+
+const linkRow = css`
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    input {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #1F2937;
+        background-color: #FFFFFF;
+        min-width: 400px;
+        cursor: text;
+        
+        &:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+    }
+
+    button {
+        min-width: 80px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+            transform: translateY(-1px);
+        }
+        
+        &:active {
+            transform: translateY(0);
+        }
+    }
+`;
 
 const ShareBody = ({ payload }) => {
 
@@ -372,12 +420,11 @@ const ShareBody = ({ payload }) => {
                                 </div>
                             </>
                         )}
-                        <div className="quillforms-share-modal-generated-link">
+                        <div className={generatedLinkContainer}>
                             <h4>Generated URL</h4>
-                            <div className="quillforms-share-modal-link">
+                            <div className={linkRow}>
                                 <input
                                     type="text"
-                                    style={{ minWidth: "400px" }}
                                     value={generateURL()}
                                     readOnly
                                 />
@@ -514,12 +561,11 @@ const ShareBody = ({ payload }) => {
                         </div>
 
                         {/* Generated Shortcode */}
-                        <div className="quillforms-share-modal-generated-code">
+                        <div className={generatedLinkContainer}>
                             <h4>Generated Shortcode</h4>
-                            <div className="quillforms-share-modal-link">
+                            <div className={linkRow}>
                                 <input
                                     type="text"
-                                    style={{ minWidth: "400px" }}
                                     value={generateShortcode()}
                                     readOnly
                                 />

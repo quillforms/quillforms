@@ -13,7 +13,7 @@ import { sanitizeBlockAttributes } from '@quillforms/blocks';
 /**
  * WordPress Dependencies
  */
-import { memo, useState, useEffect, use } from 'react';
+import { memo, useState, useEffect, useCallback } from 'react';
 // @ts-expect-error
 import { Icon, Dashicon } from '@wordpress/components';
 import { blockDefault, plus } from '@wordpress/icons';
@@ -48,7 +48,7 @@ const BlockTypesListItem: FC<Props> = memo(
 	}) => {
 		const { formBlocks, currentBlockId, currentChildBlockId, currentBlockIndex } = useSelect((select) => {
 			return {
-				formBlocks: select('quillForms/block-editor').getBlocks(),
+				formBlocks: select('quillForms/block-editor').getBlocks(true),
 				currentBlockId: select('quillForms/block-editor').getCurrentBlockId(),
 				currentChildBlockId: select('quillForms/block-editor').getCurrentChildBlockId(),
 				currentBlockIndex: select('quillForms/block-editor').getCurrentBlockIndex(),
@@ -127,8 +127,20 @@ const BlockTypesListItem: FC<Props> = memo(
 			return createdBlock;
 		};
 
-		// const for blocks that couldn't be children
 		const nonChildBlocks = ['welcome-screen', 'thankyou-screen', 'partial-submission-point', 'group'];
+
+
+		const handleBlockInsertion = useCallback((blockToInsert) => {
+			setTimeout(() => {
+				if (currentChildBlockIndex > -1 && !nonChildBlocks.includes(blockName)) {
+					setCurrentChildBlock(blockToInsert.id);
+				} else {
+					setCurrentBlock(blockToInsert.id);
+				}
+			}, 80);
+		}, [currentChildBlockIndex, blockName, setCurrentChildBlock, setCurrentBlock]);
+
+		// const for blocks that couldn't be children
 		return (
 			<div
 				onClick={(e) => {
@@ -137,26 +149,19 @@ const BlockTypesListItem: FC<Props> = memo(
 					const blockToInsert = createBlock(blockName);
 					if (blockToInsert) {
 						// blockToInsert.id = generateBlockId();
-						if (blockType.supports.editable)
+						if (blockType.supports.editable) {
 							insertEmptyFieldAnswer(
 								blockToInsert.id,
 								blockName
 							);
+						}
 						__experimentalInsertBlock(
 							blockToInsert,
 							currentChildBlockIndex > -1 && !nonChildBlocks.includes(blockName) ? currentChildBlockIndex + 1 : currentBlockIndex + 1,
 							currentChildBlockIndex > -1 && !nonChildBlocks.includes(blockName) ? currentBlockId : undefined
 						);
 						setCurrentPanel('');
-						setTimeout(() => {
-							if (currentChildBlockIndex > -1 && !nonChildBlocks.includes(blockName)) {
-								setCurrentChildBlock(blockToInsert.id);
-							}
-							else {
-								setCurrentBlock(blockToInsert.id);
-							}
-
-						}, 80);
+						handleBlockInsertion(blockToInsert);
 					}
 				}}
 				className={classNames(

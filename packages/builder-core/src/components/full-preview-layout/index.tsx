@@ -88,7 +88,12 @@ const FullFormPreview: React.FC<Props> = ({
 	});
 
 	useEffect(() => {
-		resetAnswers();
+		return () => {
+			resetAnswers();
+		}
+	}, []);
+
+	useEffect(() => {
 		if (blocks?.length > 0) {
 			goToBlock(blocks[0].id);
 		}
