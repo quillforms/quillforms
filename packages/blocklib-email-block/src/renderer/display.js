@@ -38,22 +38,29 @@ const EmailOutput = (props) => {
 	const theme = useBlockTheme(attributes.themeId);
 	const messages = useMessages();
 	const answersColor = tinyColor(theme.answersColor);
-	const { required, placeholder } = attributes;
+	const { required, placeholder, restrictDomains, allowedDomains } = attributes;
 
 	const checkFieldValidation = (value) => {
-		if (
-			required === true &&
-			(!value || value === '' || value.length === 0)
-		) {
+		if (required === true && (!value || value === '' || value.length === 0)) {
 			setIsValid(false);
 			setValidationErr(messages['label.errorAlert.required']);
-		} else if (
-			value &&
-			!EmailValidator.validate(value) &&
-			value.length > 0
-		) {
+		} else if (value && !EmailValidator.validate(value) && value.length > 0) {
 			setIsValid(false);
 			setValidationErr(messages['label.errorAlert.email']);
+		} else if (
+			restrictDomains &&
+			value &&
+			value.length > 0 &&
+			EmailValidator.validate(value)
+		) {
+			const domain = value.split('@')[1].toLowerCase();
+			if (!allowedDomains?.includes(domain)) {
+				setIsValid(false);
+				setValidationErr(messages['label.errorAlert.emailRestrictedDomains']);
+			} else {
+				setIsValid(true);
+				setValidationErr(null);
+			}
 		} else {
 			setIsValid(true);
 			setValidationErr(null);

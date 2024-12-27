@@ -10,7 +10,16 @@
 		"logic": true,
 		"theme": true
 	},
-	"attributes": {},
+	"attributes": {
+		"restrictDomains": {
+			"type": "boolean",
+			"default": false
+		},
+		"allowedDomains": {
+			"type": "array",
+			"default": []
+		}
+	},
 	"logicalOperators": [
 		"is",
 		"is_not",
