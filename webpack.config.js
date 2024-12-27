@@ -7,6 +7,8 @@ const RtlCssPlugin = require('rtlcss-webpack-plugin');
 
 const TerserPlugin = require('terser-webpack-plugin');
 
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const postcss = require('postcss');
@@ -370,6 +372,16 @@ module.exports = {
 		]),
 	},
 	plugins: [
+		new CleanWebpackPlugin({
+			cleanOnceBeforeBuildPatterns: [
+				'**/*',
+				'!**/*.php',
+				'!**/*.txt',
+				'!**/assets/**',
+			],
+			cleanStaleWebpackAssets: false,
+			protectWebpackAssets: true,
+		}),
 		new DefinePlugin({
 			'process.env.FORCE_REDUCED_MOTION': JSON.stringify(
 				process.env.FORCE_REDUCED_MOTION

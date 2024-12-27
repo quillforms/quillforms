@@ -2,10 +2,11 @@
  * External dependencies
  */
 const fs = require('fs');
-const watch = require('node-watch');
-const { spawn } = require('child_process');
 const path = require('path');
 const chalk = require('chalk');
+const chokidar = require('chokidar'); // Add this to your dependencies
+const { spawn } = require('child_process');
+const debounce = require('lodash/debounce');
 
 /**
  * Internal dependencies
@@ -15,13 +16,13 @@ const BUILD_SCRIPT = path.resolve(__dirname, './build.js');
 const PACKAGES_DIR = path.resolve(__dirname, '../../packages');
 const modulePackages = getPackages();
 
-let filesToBuild = new Map();
+// Keep track of file operations
+const fileOperations = new Map();
 
 /**
  * Determines whether a file exists.
  *
  * @param {string} filename
- *
  * @return {boolean} True if a file exists.
  */
 function exists(filename) {
@@ -35,7 +36,6 @@ function exists(filename) {
  * Is the path name a directory?
  *
  * @param {string} pathname
- *
  * @return {boolean} True if the given path is a directory.
  */
 function isDirectory(pathname) {
@@ -48,20 +48,11 @@ function isDirectory(pathname) {
 /**
  * Determine if a file is source code.
  *
- * Exclude test files including .js files inside of __tests__ or test folders
- * and files with a suffix of .test or .spec (e.g. blocks.test.js),
- * and deceitful source-like files, such as editor swap files.
- *
  * @param {string} filename
- *
  * @return {boolean} True if the file a source file.
  */
 function isSourceFile(filename) {
-	// Only run this regex on the relative path, otherwise we might run
-	// into some false positives when eg. the project directory contains `src`
 	let relativePath = path.relative(process.cwd(), filename);
-
-	// normalize path for widnows
 	relativePath = relativePath.replace(/\\/g, '/');
 
 	return (
@@ -76,89 +67,38 @@ function isSourceFile(filename) {
 /**
  * Determine if a file is in a module package.
  *
- * getPackages only returns packages that have a package.json with the module
- * field. Only build these packages.
- *
  * @param {string} filename
- *
  * @return {boolean} True if the file is in a module package.
  */
 function isModulePackage(filename) {
-	return modulePackages.some((packagePath) => {
-		return filename.indexOf(packagePath) > -1;
-	});
-}
-
-/**
- * Is the file something the watch task should monitor or skip?
- *
- * @param {string} filename
- * @param {symbol} skip
- *
- * @return {boolean | symbol} True if the file should be watched.
- */
-function isWatchableFile(filename, skip) {
-	// Recursive file watching is not available on a Linux-based OS. If this is the case,
-	// the watcher library falls back to watching changes in the subdirectories
-	// and passes the directories to this filter callback instead.
-	if (isDirectory(filename)) {
-		return true;
-	}
-
-	return isSourceFile(filename) && isModulePackage(filename)
-		? true
-		: skip;
+	return modulePackages.some((packagePath) =>
+		filename.indexOf(packagePath) > -1
+	);
 }
 
 /**
  * Returns the associated file in the build folder for a given source file.
  *
  * @param {string} srcFile
- *
  * @return {string} Path to the build file.
  */
 function getBuildFile(srcFile) {
-	// Could just use string.replace, but the user might have the project
-	// checked out and nested under another src folder.
 	const packageDir = srcFile.substr(0, srcFile.lastIndexOf('/src/'));
 	const filePath = srcFile.substr(srcFile.lastIndexOf('/src/') + 5);
 	return path.resolve(packageDir, 'build', filePath);
 }
 
 /**
- * Adds a build file to the set of files that should be rebuilt.
+ * Safe file removal with logging
  *
- * @param {'update'} event    The event name
- * @param {string}   filename
+ * @param {string} filename
  */
-function updateBuildFile(event, filename) {
-	if (exists(filename)) {
-		try {
-			console.log(chalk.green('->'), `${event}: ${filename}`);
-			filesToBuild.set(filename, true);
-		} catch (e) {
-			console.log(
-				chalk.red('Error:'),
-				`Unable to update file: ${filename} - `,
-				e
-			);
-		}
-	}
-}
-
-/**
- * Removes a build file from the build folder
- * (usually triggered the associated source file was deleted)
- *
- * @param {'remove'} event    The event name
- * @param {string}   filename
- */
-function removeBuildFile(event, filename) {
+function safeRemoveFile(filename) {
 	const buildFile = getBuildFile(filename);
-	if (exists(buildFile)) {
+	if (buildFile && buildFile.includes('/build/') && exists(buildFile)) {
 		try {
 			fs.unlink(buildFile, () => {
-				console.log(chalk.red('<-'), `${event}: ${filename}`);
+				console.log(chalk.red('<-'), `removed: ${filename}`);
 			});
 		} catch (e) {
 			console.log(
@@ -170,40 +110,79 @@ function removeBuildFile(event, filename) {
 	}
 }
 
-// Start watching packages.
-watch(
-	PACKAGES_DIR,
-	{ recursive: true, delay: 500, filter: isWatchableFile },
-	(event, filename) => {
-		// Double check whether we're dealing with a file that needs watching, to accomodate for
-		// the inability to watch recursively on linux-based operating systems.
-		if (!isSourceFile(filename) || !isModulePackage(filename) ||
-			filename?.includes('node_modules')
-		) {
-			return;
-		}
-
-		switch (event) {
-			case 'update':
-				updateBuildFile(event, filename);
-				break;
-			case 'remove':
-				removeBuildFile(event, filename);
-				break;
-		}
-	}
-);
-
-// Run a separate interval that calls the build script.
-// This effectively acts as a throttle for building files.
-setInterval(() => {
-	const files = Array.from(filesToBuild.keys());
+/**
+ * Process file changes in batches
+ */
+const processFileChanges = debounce(() => {
+	const files = Array.from(fileOperations.keys());
 	if (files.length) {
-		filesToBuild = new Map();
 		try {
-			spawn('node', [BUILD_SCRIPT, ...files], { stdio: [0, 1, 2] });
-		} catch (e) { }
+			console.log(chalk.cyan('Building files:'), files.length);
+			spawn('node', [BUILD_SCRIPT, ...files], {
+				stdio: 'inherit',
+				env: { ...process.env, FORCE_COLOR: true }
+			});
+		} catch (e) {
+			console.error(chalk.red('Build error:'), e);
+		}
+		fileOperations.clear();
 	}
-}, 100);
+}, 300);
 
-//console.log(chalk.red('->'), chalk.cyan('Watching for changes...'));
+/**
+ * Handle file changes
+ *
+ * @param {string} filepath
+ * @param {'add' | 'change' | 'unlink'} event
+ */
+function handleFileChange(filepath, event) {
+	if (!isSourceFile(filepath) || !isModulePackage(filepath) ||
+		filepath?.includes('node_modules')) {
+		return;
+	}
+
+	if (event === 'unlink') {
+		safeRemoveFile(filepath);
+		return;
+	}
+
+	if (exists(filepath)) {
+		console.log(chalk.green('->'), `${event}: ${filepath}`);
+		fileOperations.set(filepath, event);
+		processFileChanges();
+	}
+}
+
+// Initialize watcher
+const watcher = chokidar.watch(PACKAGES_DIR, {
+	ignored: [
+		'**/node_modules/**',
+		'**/build/**',
+		'**/build-module/**',
+		'**/build-style/**',
+		'**/*.d.ts',
+		'**/.*'
+	],
+	persistent: true,
+	ignoreInitial: true,
+	awaitWriteFinish: {
+		stabilityThreshold: 500,
+		pollInterval: 100
+	}
+});
+
+// Bind events
+watcher
+	.on('add', filepath => handleFileChange(filepath, 'add'))
+	.on('change', filepath => handleFileChange(filepath, 'change'))
+	.on('unlink', filepath => handleFileChange(filepath, 'unlink'))
+	.on('error', error => console.error(chalk.red('Watcher error:'), error));
+
+// Initial console message
+console.log(chalk.cyan('Watching for changes...'));
+
+// Clean up on exit
+process.on('SIGINT', () => {
+	console.log(chalk.yellow('Closing file watcher...'));
+	watcher.close().then(() => process.exit(0));
+});
