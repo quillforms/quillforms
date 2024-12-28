@@ -8,7 +8,7 @@ import { withMention } from './withMention';
 export const ELEMENT_MENTION = 'mention';
 export const ELEMENT_MENTION_INPUT = 'mention_input';
 
-import { size } from 'lodash';  
+import { size } from 'lodash';
 /**
  * Enables support for autocompleting @mentions.
  */
@@ -29,7 +29,7 @@ export const createMentionPlugin = createPluginFactory<MentionPlugin>({
   deserializeHtml: {
 
     getNode: (el, node) => {
-      // console.log(el);
+      // //console.log(el);
       // let styles = {};
       // if(el?.style?.lineHeight) {
       //   styles = { ...styles, lineHeight: el.style.lineHeight };
@@ -50,7 +50,7 @@ export const createMentionPlugin = createPluginFactory<MentionPlugin>({
       //     children: [{ text: el.textContent }]
       //   }
       // }
-      if(el.nodeName === 'MENTION') {
+      if (el.nodeName === 'MENTION') {
         return {
           type: 'mention',
           value: `{{${el.dataset.type}:${el.dataset.modifier}}}`,

@@ -182,7 +182,7 @@ const treeUtils = {
     },
 
     transformBlocksToTree(blocks: FormBlocks, blockTypes, prevTree?: TreeData): TreeData {
-        console.log('blocks', blocks);
+        //console.log('blocks', blocks);
         const items: Record<ItemId, TreeItem> = {
             root: {
                 id: "root",
@@ -348,7 +348,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
 
 
     useEffect(() => {
-        console.log('triggerTreeCalculation', triggerTreeCalculation);
+        //console.log('triggerTreeCalculation', triggerTreeCalculation);
         if (triggerTreeCalculation) {
             setTree(prevTree => treeUtils.transformBlocksToTree(blocks, blockTypes, prevTree));
             setTriggerTreeCalculation(false);
@@ -376,7 +376,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
                     tree.items[key].children.includes(item.id)
                 );
             }
-            console.log('parentId', parentId);
+            //console.log('parentId', parentId);
             const isLastInGroup = (() => {
 
                 if (!parentId) return false;

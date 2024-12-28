@@ -54,7 +54,7 @@ const RunModal: React.FC<Props> = ({ id, name, close }) => {
 				setEntries(res?.items);
 			})
 			.catch(() => {
-				//console.log( 'Error: ', err );
+				////console.log( 'Error: ', err );
 				setEntries(false);
 			});
 	}, []);

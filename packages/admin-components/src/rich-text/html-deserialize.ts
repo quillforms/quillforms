@@ -85,9 +85,9 @@ const normalize = (val: SlateNode[]): SlateNode[] => {
 	// Create temp editor for normalizing
 	const editor = createEditor();
 	editor.children = val;
-	console.log('before normalizing')
+	//console.log('before normalizing')
 	Editor.normalize(editor, { force: true });
-	console.log('after normalizing')
+	//console.log('after normalizing')
 	return editor.children;
 };
 

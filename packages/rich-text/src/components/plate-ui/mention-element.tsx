@@ -32,7 +32,7 @@ const MentionElement = forwardRef<
 >(({ prefix, renderLabel, className, onClick, ...props }, ref) => {
   const { children, element } = props;
   const items = useItemsContext();
-  // console.log(items)
+  // //console.log(items)
   const { mentionType, mentionModifier } = element;
   // Now depending on the mentionType and mentionModifier we will get the item
   // from the fields or variable or hidden_field

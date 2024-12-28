@@ -88,7 +88,7 @@ const MultipleChoiceOutput = (props) => {
 		clearTimeout(multipleChoiceTimer);
 		if (choiceClicked && val?.length > 0 && !multiple) {
 			multipleChoiceTimer = setTimeout(() => {
-				console.log('next calling')
+				//console.log('next calling')
 				next();
 			}, 600);
 		}

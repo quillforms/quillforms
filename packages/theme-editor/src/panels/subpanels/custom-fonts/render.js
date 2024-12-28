@@ -2,9 +2,9 @@ import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-compon
 import { css } from 'emotion';
 
 const CustomFontsRender = () => {
-	return (
-		<div
-			className={ css`
+    return (
+        <div
+            className={css`
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -12,14 +12,14 @@ const CustomFontsRender = () => {
 				font-size: 16px;
 				line-height: 1.5em;
 			` }
-		>
-			<__experimentalAddonFeatureAvailability
-				featureName="Custom Fonts"
-				addonSlug={ 'customfonts' }
-				showLockIcon={ true }
-			/>
-		</div>
-	);
+        >
+            <__experimentalAddonFeatureAvailability
+                featureName="Custom Fonts"
+                addonSlug={'customfonts'}
+                showLockIcon={true}
+            />
+        </div>
+    );
 };
 
 export default CustomFontsRender;

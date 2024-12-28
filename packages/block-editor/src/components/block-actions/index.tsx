@@ -41,10 +41,10 @@ const BlockActions: React.FC<Props> = ({
 			blocks: select('quillForms/block-editor').getBlocks(true)
 		}
 	});
-	console.log("#############")
-	console.log(blocks);
-	console.log(parentId);
-	console.log(id)
+	//console.log("#############")
+	//console.log(blocks);
+	//console.log(parentId);
+	//console.log(id)
 
 	let parentIndex;
 
@@ -55,9 +55,9 @@ const BlockActions: React.FC<Props> = ({
 		parentIndex = blocks.findIndex((block) => block.id === parentId);
 	}
 
-	console.log(parentIndex);
+	//console.log(parentIndex);
 
-	console.log("#############")
+	//console.log("#############")
 	let index;
 
 	if (!parentId || parentIndex === -1) {

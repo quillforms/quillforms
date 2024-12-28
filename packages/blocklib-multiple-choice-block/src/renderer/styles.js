@@ -67,6 +67,7 @@ export const MultipleChoiceOptions = css`
 			align-items: center;
 			min-width: 215px;
 			flex: 1 1 0%;
+			border-radius: 5px;
 			cursor: pointer;
 			padding: 10px;
 			margin-bottom: 7px;

@@ -7,7 +7,7 @@ import { setupStore } from './actions';
 
 export const getBlocksWithPartialSubmission = () => {
 	const initialPayload = ConfigAPI.getInitialPayload();
-	console.log('initial payload', initialPayload);
+	//console.log('initial payload', initialPayload);
 	return setupStore(
 		initialPayload?.blocks ? sanitizeBlocks(initialPayload.blocks) : []
 	);

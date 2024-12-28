@@ -199,7 +199,7 @@ export const setBlockAdminSettings = (
 		};
 	}
 	if (blockColors[name]) {
-		console.log('setting color');
+		//console.log('setting color');
 		settings.color = blockColors[name];
 	}
 

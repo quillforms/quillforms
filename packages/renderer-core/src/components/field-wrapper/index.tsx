@@ -303,9 +303,9 @@ const FieldWrapper: React.FC = () => {
 			element.scrollTop
 		) <= tolerance;
 
-		console.log(isAtTop, isAtBottom);
-		console.log(element.scrollTop)
-		console.log(element.scrollTop)
+		//console.log(isAtTop, isAtBottom);
+		//console.log(element.scrollTop)
+		//console.log(element.scrollTop)
 		// Update swipe permissions immediately for better UX
 		setCanSwipePrev(isAtTop);
 		setCanSwipeNext(isAtBottom);

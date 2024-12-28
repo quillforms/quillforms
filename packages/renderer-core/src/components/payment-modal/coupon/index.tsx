@@ -59,7 +59,7 @@ const Coupon: React.FC<Props> = ({ data }) => {
 				setError(result.data);
 			}
 		} catch (e) {
-			console.log('applyCoupon: error throwed', e);
+			//console.log('applyCoupon: error throwed', e);
 			return {
 				success: false,
 				message:

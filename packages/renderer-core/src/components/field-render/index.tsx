@@ -83,7 +83,7 @@ const FieldRender: React.FC<Props> =
 		}, [isReviewing, isValid]);
 
 		if (!block) return null;
-		//console.log( block );
+		////console.log( block );
 		const { name, attributes, innerBlocks } = block;
 
 		const context = {
@@ -98,9 +98,9 @@ const FieldRender: React.FC<Props> =
 			isSubmitBtnVisible,
 			showNextBtn,
 			next: () => {
-				console.log('next1');
+				//console.log('next1');
 				if (!isReviewing) {
-					console.log('next2');
+					//console.log('next2');
 					next();
 				} else if (firstInvalidFieldId) {
 					goToBlock(firstInvalidFieldId);

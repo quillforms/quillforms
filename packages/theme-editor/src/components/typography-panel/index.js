@@ -204,12 +204,12 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 		},
 		buttonsPadding: {
 			top: {
-				lg: '6px',
-				sm: '6px',
+				lg: '10px',
+				sm: '10px',
 			},
 			bottom: {
-				lg: '6px',
-				sm: '6px',
+				lg: '10px',
+				sm: '10px',
 			},
 			left: {
 				lg: '23px',

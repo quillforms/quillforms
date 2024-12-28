@@ -235,11 +235,7 @@ class Form_Renderer
         }
         if (! $this->form_object ) {
             $blocks = Core::get_blocks($this->form_id);
-            $partial_submission_index  = array_search('partial-submission-point', array_column($blocks, 'name'));
-            $partial_submission_point = null;
-            if( $partial_submission_index !== false && $partial_submission_index !== 0 ) {
-                $partial_submission_point = $blocks[$partial_submission_index -1]['id'];
-            }
+           
             $filtered_blocks =  array_values( array_filter($blocks, function($block) use ($partial_submission_point) {
                 return $block['name'] !== 'partial-submission-point';
             }));
@@ -248,7 +244,6 @@ class Form_Renderer
                 'quillforms_renderer_form_object',
                 array(
                     'blocks'     => $filtered_blocks,
-                    'partialSubmissionPoint' => $partial_submission_point,
                     'messages'   => array_merge(
                         array_map(
                             function ( $value ) {

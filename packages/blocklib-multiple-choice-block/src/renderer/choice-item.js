@@ -22,7 +22,7 @@ const ChoiceItem = ({
 	blockId,
 	correctIncorrectQuiz
 }) => {
-	const { answersColor, buttonsBorderRadius } = theme;
+	const { answersColor } = theme;
 
 	const messages = useMessages();
 	const [isClicked, setIsClicked] = useState(false);
@@ -51,7 +51,7 @@ const ChoiceItem = ({
 						.setAlpha(0.2)
 						.toString()};
 					}`}
-					border-radius: ${buttonsBorderRadius}px;
+
 					&.selected {
 						background: ${tinyColor(answersColor)
 						.setAlpha(0.75)

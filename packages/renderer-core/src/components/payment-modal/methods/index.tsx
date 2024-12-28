@@ -84,7 +84,7 @@ const Methods: React.FC<Props> = ({ data }) => {
 				throw new Error(result.message);
 			}
 		} catch (e) {
-			console.log('completePendingSubmission: error throwed', e);
+			//console.log('completePendingSubmission: error throwed', e);
 			return {
 				success: false,
 				message:

@@ -107,10 +107,10 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
     // Handle Editor Change
     const handleEditorChange = (value: CustomNode[]) => {
         if (JSON.stringify(value) !== JSON.stringify(editorValue)) {
-            console.log('value:', value);
+            //console.log('value:', value);
             setEditorValue(value);
             const serizlizedValue = serialize(value);
-            console.log('serizlizedValue:', serizlizedValue);
+            //console.log('serizlizedValue:', serizlizedValue);
             if (type === "label") {
                 if (isChildBlock) {
                     setBlockAttributes(childId, { label: serizlizedValue }, parentId); // Update child block label

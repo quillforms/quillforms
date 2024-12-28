@@ -63,7 +63,7 @@ const Info: React.FC<Props> = ({ data }) => {
 				setPaymentData(UpdatedData);
 			}
 		} catch (e) {
-			console.log('deleteCoupon: error throwed', e);
+			//console.log('deleteCoupon: error throwed', e);
 			return {
 				success: false,
 				message:

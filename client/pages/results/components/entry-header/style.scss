@@ -1,3 +1,40 @@
+.date-range-picker-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+  gap: 12px;
+  
+  .date-range-picker-cancel {
+    background: white;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+
+    &:hover {
+      background: #f3f4f6;
+    }
+  }
+
+  .date-range-picker-apply {
+    background: #2563eb;
+    border: none;
+    color: white;
+
+    &:hover {
+      background: #1d4ed8;
+    }
+  }
+  .date-range-picker-cancel,
+  .date-range-picker-apply {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  } 
+}
 .entries-header {
     background: #ffffff;
     border-radius: 12px;
@@ -41,7 +78,8 @@
       align-items: center;
       gap: 16px;
     }
-  
+    
+
     &__date-filters {
       display: flex;
       align-items: center;
@@ -61,6 +99,8 @@
         background: #f1f5f9;
       }
     }
+
+
   
     .date-picker__range {
       display: flex;
@@ -85,7 +125,7 @@
       font-weight: 500;
     }
   
-    &__apply-btn {
+    .date-range-picker-apply  {
       display: inline-flex;
       align-items: center;
       padding: 8px 16px;
@@ -172,45 +212,7 @@
         padding: 0.8em 1.5em;
       }
   
-      .date-range-picker-actions {
-        display: flex;
-        justify-content: flex-end;
-        padding: 16px;
-        background: #f8fafc;
-        border-top: 1px solid #e5e7eb;
-        gap: 12px;
-  
-        .date-range-picker-cancel,
-        .date-range-picker-apply {
-          padding: 8px 16px;
-          border-radius: 6px;
-          font-size: 14px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s ease;
-  
-          &.date-range-picker-cancel {
-            background: white;
-            border: 1px solid #e5e7eb;
-            color: #4b5563;
-  
-            &:hover {
-              background: #f3f4f6;
-            }
-          }
-  
-          &.date-range-picker-apply {
-            background: #2563eb;
-            border: none;
-            color: white;
-  
-            &:hover {
-              background: #1d4ed8;
-            }
-          }
-        }
-      }
-  
+      
       /* Custom DateRangePicker Theme */
       .rdrDayToday .rdrDayNumber span:after {
         background: #2563eb;

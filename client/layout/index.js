@@ -87,7 +87,7 @@ export const Layout = (props) => {
 		});
 
 		return () => {
-			console.log('invalidatating')
+			//console.log('invalidatating')
 			invalidateResolutionConnectedStores();
 		};
 	}, []);

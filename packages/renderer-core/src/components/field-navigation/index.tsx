@@ -135,7 +135,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 					if (
 						walkPath[walkPath.length - 1].id !== currentBlockId
 					) {
-						console.log(isCurrentBlockValid);
+						//console.log(isCurrentBlockValid);
 						if (isCurrentBlockValid) {
 							goNextReally();
 						} else {

@@ -22,39 +22,39 @@ interface Props {
 	provider: Provider;
 	Instructions: React.FC;
 	fields: SetupFields;
-	Controls: React.FC< { submit: () => void } >;
-	onFinish: ( app: any ) => void;
+	Controls: React.FC<{ submit: () => void }>;
+	onFinish: (app: any) => void;
 }
 
-const Setup: React.FC< Props > = ( {
+const Setup: React.FC<Props> = ({
 	provider,
 	Instructions,
 	fields,
 	Controls,
 	onFinish,
-} ) => {
-	const [ inputs, setInputs ] = useState( {} );
+}) => {
+	const [inputs, setInputs] = useState({});
 
 	const submit = () => {
-		apiFetch( {
-			path: `/qf/v1/addons/${ provider.slug }/settings`,
+		apiFetch({
+			path: `/qf/v1/addons/${provider.slug}/settings`,
 			method: 'POST',
 			data: {
 				app: inputs,
 			},
-		} )
-			.then( () => {
+		})
+			.then(() => {
 				const app = {};
-				for ( const [ key, field ] of Object.entries( fields ) ) {
-					if ( field.check ) {
-						app[ key ] = inputs[ key ];
+				for (const [key, field] of Object.entries(fields)) {
+					if (field.check) {
+						app[key] = inputs[key];
 					}
 				}
-				onFinish( app );
-			} )
-			.catch( () => {
-				//console.log( 'Error: ', err );
-			} );
+				onFinish(app);
+			})
+			.catch(() => {
+				////console.log( 'Error: ', err );
+			});
 	};
 
 	return (
@@ -64,58 +64,58 @@ const Setup: React.FC< Props > = ( {
 					<Instructions />
 				</div>
 
-				{ Object.entries( fields ).map( ( [ key, field ] ) => {
-					switch ( field.type ) {
+				{Object.entries(fields).map(([key, field]) => {
+					switch (field.type) {
 						case 'text':
 							return (
 								<TextControl
-									key={ key }
-									label={ field.label }
-									value={ inputs[ key ] ?? '' }
-									onChange={ ( value ) =>
-										setInputs( {
+									key={key}
+									label={field.label}
+									value={inputs[key] ?? ''}
+									onChange={(value) =>
+										setInputs({
 											...inputs,
-											[ key ]: value,
-										} )
+											[key]: value,
+										})
 									}
 								/>
 							);
 						case 'select':
 							return (
 								<div
-									style={ { marginBottom: '20px' } }
-									key={ key }
+									style={{ marginBottom: '20px' }}
+									key={key}
 								>
 									<SelectControl
-										label={ field.label }
+										label={field.label}
 										value={
 											field.options.find(
-												( option ) =>
-													option.key === inputs[ key ]
-											) ?? field.options[ 0 ]
+												(option) =>
+													option.key === inputs[key]
+											) ?? field.options[0]
 										}
-										onChange={ ( { selectedItem } ) => {
+										onChange={({ selectedItem }) => {
 											const value =
 												selectedItem?.key &&
-												selectedItem.key !== 'select'
+													selectedItem.key !== 'select'
 													? selectedItem.key
 													: null;
-											setInputs( {
+											setInputs({
 												...inputs,
-												[ key ]: value,
-											} );
-										} }
-										options={ field.options }
+												[key]: value,
+											});
+										}}
+										options={field.options}
 									/>
 								</div>
 							);
 						default:
 							return null;
 					}
-				} ) }
+				})}
 			</div>
 
-			<Controls submit={ submit } />
+			<Controls submit={submit} />
 		</div>
 	);
 };

@@ -169,7 +169,7 @@ const FormActions = ({ form, formId, setIsLoading }) => {
 							onClick={async () => {
 								setIsLoading(true);
 								const newStatus = form.status === 'publish' ? 'draft' : 'publish';
-								console.log(editEntityRecord)
+								//console.log(editEntityRecord)
 								editEntityRecord('postType', 'quill_forms', formId, { status: newStatus });
 								const res = await saveEditedEntityRecord('postType', 'quill_forms', formId);
 								if (!res) {

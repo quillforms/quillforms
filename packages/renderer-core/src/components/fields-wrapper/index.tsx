@@ -39,7 +39,8 @@ interface Props {
 }
 
 const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
-	const { beforeGoingNext, isPreview, formId, formObj, editor, onPartialSubmit } = useFormContext();
+	const formContext = useFormContext();
+	const { beforeGoingNext, isPreview, formId, formObj, editor, onPartialSubmit } = formContext;
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
@@ -215,9 +216,8 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 				);
 				return;
 			}
-			if (formObj?.partialSubmissionPoint === currentBlockId) {
-				onPartialSubmit();
-			}
+
+			doAction('QuillForms.RendererCore.BeforeNext', currentBlockId, formContext);
 			goNext();
 		}
 	};
@@ -360,12 +360,12 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	// 	fields.filter( ( field ) => field.id === nextBlockId ).length === 0;
 
 	const handleNext = () => {
-		console.log('handleNext');
+		//console.log('handleNext');
 		if (isCurrentBlockValid) {
-			console.log('isCurrentBlockValid');
+			//console.log('isCurrentBlockValid');
 			goNextReally();
 		} else {
-			console.log('isCurrentBlockNotValid');
+			//console.log('isCurrentBlockNotValid');
 			setIsCurrentBlockSafeToSwipe(false);
 		}
 	};
