@@ -175,6 +175,20 @@ const CustomizeThemePanel = () => {
 							</Button>
 						)}
 					</ControlWrapper>
+					<div className={
+						css`
+						margin-top: 10px;
+						padding: 10px;
+						background: #5a5a5a;
+						color: #fff;
+						border-radius: 5px;
+					`
+
+					}>
+						<p>
+							To add a background image, clear the background overlay color or add opacity to it.
+						</p>
+					</div>
 				</BaseControl>
 
 				{!isEmpty(backgroundImage) && (
@@ -254,11 +268,8 @@ const CustomizeThemePanel = () => {
 
 			<PanelBody title="Font Families" initialOpen={false}>
 				<div className="fonts-hint">
-					<div className="admin-components-control-label__new-feature">
-						NEW
-					</div>
 					<p>
-						Now, you can add your custom font from the custom fonts panel at the top.
+						Now, you can add your custom font from settings icon at left bar and then click on custom fonts.
 					</p>
 				</div>
 				<BaseControl>
