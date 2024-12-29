@@ -205,7 +205,7 @@ const FormFlow: React.FC<Props> = ({ applyLogic }) => {
 					width: 100%;
 					-webkit-font-smoothing: antialiased;
 					${backgroundImageCSS}
-					${formObj?.customCSS}
+					${editor.mode === 'off' && formObj?.customCSS}
 				`,
 				'renderer-core-form-flow__wrapper'
 			)}
