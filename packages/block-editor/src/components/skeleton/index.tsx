@@ -202,8 +202,8 @@ const Skeleton = withErrorBoundary(() => {
                                 isChildActive: (id) => id === currentChildBlockId,
                                 setIsChildActive: (id) => setCurrentChildBlock(id),
                                 onClick: (id) => {
-                                    setCurrentBlock(id);
                                     setCurrentChildBlock(null);
+                                    setCurrentBlock(id);
                                 },
                             }}
                         />

@@ -417,6 +417,9 @@ const BlockEditorReducer: Reducer<
 		// SET CURRENT CHILD BLOCK
 		case SET_CURRENT_CHILD_BLOCK: {
 			const { blockId } = action;
+			if (blockId === state.currentChildBlockId) {
+				return state;
+			}
 			// const parentblockIndex = state.blocks.findIndex(
 			// 	( item ) => item.id === state.currentBlockId
 			// );

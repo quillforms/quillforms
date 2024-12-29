@@ -1,8 +1,7 @@
 import { useSelect, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { autop } from '@wordpress/autop';
 import { Editor, Transforms } from 'slate';
-import { useState, useMemo, useEffect } from '@wordpress/element';
+import { useState, useMemo, useEffect, useCallback, useRef } from '@wordpress/element';
 
 /**
  * QuillForms Dependencies
@@ -32,7 +31,12 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
         currentChildBlockId: select("quillForms/block-editor").getCurrentChildBlockId(),
     }));
 
+    const lastFocusedRef = useRef<boolean>(false);
+
+
+
     const [isFocused, setIsFocused] = useState(false);
+
 
     const { prevFields, correctIncorrectQuiz, blockTypes } = useSelect((select) => {
         return {
@@ -41,6 +45,7 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
             correctIncorrectQuiz: select('quillForms/quiz-editor').getState(),
         };
     });
+
 
 
     const { setBlockAttributes } = useDispatch("quillForms/block-editor");
@@ -75,6 +80,27 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
         return [];
     });
 
+    // Handle focus state changes
+    useEffect(() => {
+        const editorNode = ReactEditor.toDOMNode(editor, editor);
+
+        const handleEditorFocus = () => {
+            lastFocusedRef.current = true;
+        };
+
+        const handleEditorBlur = () => {
+            lastFocusedRef.current = false;
+        };
+
+        editorNode.addEventListener('focusin', handleEditorFocus);
+        editorNode.addEventListener('focusout', handleEditorBlur);
+
+        return () => {
+            editorNode.removeEventListener('focusin', handleEditorFocus);
+            editorNode.removeEventListener('focusout', handleEditorBlur);
+        };
+    }, [editor])
+
     // Update Editor Value When `type` or Attributes Change
     useEffect(() => {
         if (type === "label") {
@@ -82,28 +108,45 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
         } else if (type === "description") {
             setEditorValue(deserialize((description))); // Always use parent description
         }
-    }, [type, label, description, attributes, isChildBlock]);
+    }, []);
 
-    // Focus on Editor When Animation Ends
-    // useEffect(() => {
-    //     if (!isAnimating && type === "label") {
-    //         if (currentChildBlockId === childId) {
-    //             // setTimeout(() => {
-    //             //     ReactEditor.focus(editor);
-    //             //     const point = Editor.end(editor, []);
-    //             //     Transforms.select(editor, point);
-    //             // }, 50);
-    //         }
-    //         else if (!isChildBlock && !currentChildBlockId) {
-    //             // setTimeout(() => {
-    //             ReactEditor.focus(editor);
-    //             const point = Editor.end(editor, []);
-    //             Transforms.select(editor, point);
-    //             // }, 50);
-    //         }
-    //     }
-    // }, [isAnimating, type, editor, isChildBlock, currentChildBlockId]);
 
+
+    useEffect(() => {
+        let timeoutId;
+
+        if (!isAnimating && type === "label") {
+            if (currentChildBlockId === childId || (!isChildBlock && !currentChildBlockId)) {
+                timeoutId = setTimeout(() => {
+                    const editorEl = ReactEditor.toDOMNode(editor, editor);
+                    const rect = editorEl.getBoundingClientRect();
+                    const isInViewport = (
+                        rect.top >= 0 &&
+                        rect.left >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                    );
+
+                    if (!isInViewport) {
+                        editorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    } else {
+                        // ReactEditor.focus(editor);
+                        // // Only set cursor to end if there's no existing selection
+                        // if (!editor.selection) {
+                        //     const point = Editor.end(editor, []);
+                        //     Transforms.select(editor, point);
+                        // }
+                    }
+                }, 100);
+            }
+        }
+
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        };
+    }, [isAnimating, currentChildBlockId]);
     // Handle Editor Change
     const handleEditorChange = (value: CustomNode[]) => {
         if (JSON.stringify(value) !== JSON.stringify(editorValue)) {
@@ -122,6 +165,21 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
             }
         }
     };
+
+    const editorRef = useRef(null);
+
+    const handleFocus = useCallback(() => {
+        if (!ReactEditor.isFocused(editor)) {
+            ReactEditor.focus(editor);
+
+            // // Only move cursor to end if there's no existing selection
+            // if (!editor.selection) {
+            //     const point = Editor.end(editor, []);
+            //     Transforms.select(editor, point);
+            // }
+        }
+    }, [editor]);
+
 
     // Styling
     const editorStyle = css`
@@ -226,6 +284,9 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
             onBlur={() => {
                 setIsFocused(false);
             }}
+            onClick={handleFocus}
+
+            ref={editorRef}
         >
             <TextEditor
                 editor={editor}
@@ -233,10 +294,8 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
                 className={type === "label" ? editorStyle : descriptionStyle}
                 mergeTags={mergeTags}
                 value={editorValue}
-                onFocus={() => {
-                    ReactEditor.focus(editor);
-                    setIsFocused(true);
-                }}
+                onFocus={handleFocus}
+
                 onChange={handleEditorChange}
                 allowedFormats={["bold", "italic", "link", "color"]}
             />
