@@ -156,12 +156,12 @@ class Shortcode
             $atts,
             'quillforms-popup'
         );
-
+    
         $id = (int) $atts['id'];
         if ('quill_forms' !== get_post_type($id)) {
             return esc_html__('Invalid form ID', 'quillforms');
         }
-
+    
         $buttonTitle = esc_html($atts['buttontitle']);
         $buttonBackgroundColor = esc_attr($atts['buttonbackgroundcolor']);
         $buttonTextColor = esc_attr($atts['buttontextcolor']);
@@ -174,89 +174,71 @@ class Shortcode
         $popupMaxWidthUnit = esc_attr($atts['popupmaxwidthunit']);
         $popupMaxHeight = esc_attr($atts['popupmaxheight']);
         $popupMaxHeightUnit = esc_attr($atts['popupmaxheightunit']);
-
+    
         $src = esc_url(
             add_query_arg(
                 array(
                     'quillforms-shortcode'   => true,
-                    'quillforms-redirection' => 'top', // @deprecated 1.11.1
+                    'quillforms-redirection' => 'top',
                 ),
                 get_permalink($id)
             )
         );
-
+    
         wp_enqueue_script('quillforms-popup');
         wp_enqueue_style('quillforms-popup-style');
-
-        return sprintf(
-            '<div class="quillforms-popup-button-wrapper">
-                <a class="quillforms-popup-button" style="
-                    background-color: %s;
-                    color: %s;
-                    border-radius: %dpx;
-                    border-width: %dpx;
-                    border-color: %s;
-                    font-size: %dpx;
-                    padding: %s;
-                    text-decoration: none;
-                    cursor: pointer;
-                "
-                data-url="%s"
-                data-formId="%d"
-                >
-                    %s
-                </a>
-                <div class="quillforms-popup-overlay" style="
-                    position: fixed;
-                    top: 0;
-                    left: 0;
+    
+        return '<div class="quillforms-popup-button-wrapper">
+            <a class="quillforms-popup-button" style="
+                background-color: ' . $buttonBackgroundColor . ';
+                color: ' . $buttonTextColor . ';
+                border-radius: ' . $buttonBorderRadius . 'px;
+                border-width: ' . $buttonBorderWidth . 'px;
+                border-color: ' . $buttonBorderColor . ';
+                font-size: ' . $buttonFontSize . 'px;
+                padding: ' . $buttonPadding . ';
+                text-decoration: none;
+                cursor: pointer;
+            "
+            data-url="' . $src . '"
+            data-formId="' . $id . '"
+            >
+                ' . $buttonTitle . '
+            </a>
+            <div class="quillforms-popup-overlay" style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+                pointer-events: none;
+                visibility: hidden;
+            " data-formId="' . $id . '">
+                <div class="quillforms-popup-container" style="
+                    max-width: ' . $popupMaxWidth . $popupMaxWidthUnit . ';
+                    max-height: ' . $popupMaxHeight . $popupMaxHeightUnit . ';
                     width: 100%;
                     height: 100%;
-                    background-color: rgba(0, 0, 0, 0.8);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: -1;
-                    opacity: 0;
-                    transition: opacity 0.3s ease-in-out;
-                    pointer-events: none;
-                    visibility: hidden;
-                " data-formId="%d">
-                    <div class="quillforms-popup-container" style="
-                        max-width: %s%s;
-                        max-height: %s%s;
-                        width: 100%;
-                        height: 100%;
-                    ">
-                        <div class="quillforms-popup-close">
-                            <svg fill="currentColor" height="32" width="32" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                            </svg>
-                        </div>
-                        <div class="quillforms-popup-iframe-wrapper">
-                            <iframe data-no-lazy="true" src="%s" width="100%%" height="100%%" style="border:0;max-height:auto !important; max-width:auto !important;"></iframe>
-                            <div class="quillforms-popup-loader"><div class="quillforms-loading-circle"></div></div>
-                        </div>
+                ">
+                    <div class="quillforms-popup-close">
+                        <svg fill="currentColor" height="32" width="32" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                        </svg>
+                    </div>
+                    <div class="quillforms-popup-iframe-wrapper">
+                        <iframe data-no-lazy="true" src="' . $src . '" width="100%" height="100%" style="border:0;max-height:auto !important; max-width:auto !important;"></iframe>
+                        <div class="quillforms-popup-loader"><div class="quillforms-loading-circle"></div></div>
                     </div>
                 </div>
-            </div>',
-            $buttonBackgroundColor,
-            $buttonTextColor,
-            $buttonBorderRadius,
-            $buttonBorderWidth,
-            $buttonBorderColor,
-            $buttonFontSize,
-            $buttonPadding,
-            $src,
-            $id,
-            $buttonTitle,
-            $id,
-            $popupMaxWidth,
-            $popupMaxWidthUnit,
-            $popupMaxHeight,
-            $popupMaxHeightUnit,
-            $src
-        );
+            </div>
+        </div>';
     }
 }
