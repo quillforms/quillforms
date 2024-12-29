@@ -37,6 +37,7 @@ class Install {
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
+		self::deactivate_old_entries_addon();
 		if ( version_compare( get_option( 'quillforms_version' ), QUILLFORMS_VERSION, '<' ) ) {
 			self::install();
 			do_action( 'quillforms_updated' );
