@@ -19,7 +19,7 @@
 	},
 	"backgroundColor": {
 		"type": "string",
-		"default": "transparent"
+		"default": "#fff"
 	},
 	"backgroundImage": {
 		"type": "string"

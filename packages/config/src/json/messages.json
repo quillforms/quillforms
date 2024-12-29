@@ -219,7 +219,14 @@
 			"italic"
 		],
 		"default": "Only email addresses from the following domains are allowed: {{attribute:allowedDomains}}",
-		"category": "alerts"
+		"category": "alerts",
+		"mergeTags": [
+			{
+				"label": "allowedDomains",
+				"type": "attribute",
+				"modifier": "allowedDomains"
+			}
+		]
 	},
 	"label.errorAlert.url": {
 		"title": "If url is wrong",
