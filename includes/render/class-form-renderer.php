@@ -236,7 +236,7 @@ class Form_Renderer
         if (! $this->form_object ) {
             $blocks = Core::get_blocks($this->form_id);
            
-            $filtered_blocks =  array_values( array_filter($blocks, function($block) use ($partial_submission_point) {
+            $filtered_blocks =  array_values( array_filter($blocks, function($block) {
                 return $block['name'] !== 'partial-submission-point';
             }));
        
