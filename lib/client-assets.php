@@ -246,13 +246,6 @@ function quillforms_register_packages_scripts( $scripts )
     );
 
     quillforms_override_script(
-        $scripts, 'quillforms-popup', QUILLFORMS_PLUGIN_URL . '/includes/render/popup.js',
-        array('jquery'),
-        QUILLFORMS_VERSION,
-        true
-    );
-
-    quillforms_override_script(
         $scripts,
         'quillforms-google-maps-places',
         'https://maps.googleapis.com/maps/api/js?key=' . Settings::get('google_maps_api_key') . '&libraries=places',
