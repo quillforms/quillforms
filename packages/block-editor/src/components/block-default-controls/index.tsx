@@ -35,6 +35,95 @@ import BlockThemeControl from '../block-theme';
 import CustomHTML from '../block-custom-html';
 import BlockLayout from '../block-layout';
 import BorderRadiusTemplates from '../border-radius-templates';
+
+
+const WidthControl = ({ value, onChange }) => {
+	const widthOptions = [
+		{
+			key: '100%',
+			name: 'Full Width',
+			icon: (
+				<svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="4" width="36" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="4" y="6" width="32" height="16" rx="1" stroke="currentColor" strokeWidth="2" />
+					<rect x="8" y="10" width="24" height="2" fill="currentColor" />
+					<rect x="8" y="16" width="16" height="2" fill="currentColor" />
+				</svg>
+			)
+		},
+		{
+			key: '50%',
+			name: 'Half Width',
+			icon: (
+				<svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="4" width="36" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="4" y="6" width="16" height="16" rx="1" stroke="currentColor" strokeWidth="2" />
+					<rect x="8" y="10" width="8" height="2" fill="currentColor" />
+					<rect x="8" y="16" width="6" height="2" fill="currentColor" />
+				</svg>
+			)
+		},
+		{
+			key: '33%',
+			name: 'One Third',
+			icon: (
+				<svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="4" width="36" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="4" y="6" width="11" height="16" rx="1" stroke="currentColor" strokeWidth="2" />
+					<rect x="7" y="10" width="5" height="2" fill="currentColor" />
+					<rect x="7" y="16" width="4" height="2" fill="currentColor" />
+				</svg>
+			)
+		}
+	];
+
+	return (
+		<div className={css`
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        `}>
+			{widthOptions.map((option) => (
+				<button
+					key={option.key}
+					className={css`
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 8px;
+                        padding: 12px 8px;
+                        background: #fff;
+                        color: ${value === option.key ? 'var(--wp-admin-theme-color)' : '#1e1e1e'};
+                        border: 2px solid ${value === option.key ? 'var(--wp-admin-theme-color)' : '#e2e4e7'};
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+
+                        &:hover {
+                            border-color: var(--wp-admin-theme-color);
+                            color: var(--wp-admin-theme-color);
+                        }
+
+                        svg {
+                            width: 40px;
+                            height: 28px;
+                        }
+
+                        span {
+                            font-size: 11px;
+                            font-weight: 500;
+                        }
+                    `}
+					onClick={() => onChange(option.key)}
+				>
+					{option.icon}
+					<span>{option.name}</span>
+				</button>
+			))}
+		</div>
+	);
+};
 interface Props {
 	blockName: string;
 	attributes?: BlockAttributes;
@@ -384,24 +473,11 @@ const DefaultControls: React.FC<Props> = ({
 				<BaseControl>
 					<ControlWrapper orientation='vertical'>
 						<ControlLabel label={'Width'} isNew />
-						<SelectControl
-							value={
-								widthOptions.find((option) => option.key === attributes?.width)
-							}
-							options={widthOptions}
-							onChange={({ selectedItem }) => {
-								if (selectedItem) {
-									const selectedWidth =
-										widthOptions.find(
-											(option) => option.key === selectedItem.key
-										) ?? '';
-									setAttributes({
-										width: selectedWidth?.key ?? '100%',
-									});
-								}
+						<WidthControl
+							value={attributes?.width ?? '100%'}
+							onChange={(width) => {
+								setAttributes({ width });
 							}}
-
-
 						/>
 
 					</ControlWrapper>

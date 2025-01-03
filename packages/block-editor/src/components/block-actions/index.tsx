@@ -106,7 +106,7 @@ const BlockActions: React.FC<Props> = ({
 							);
 							deleteBlock(id, parentId);
 							onClose();
-							onAction();
+							handleBlockModification();
 						}}
 						reject={() => {
 							onClose();
@@ -117,6 +117,12 @@ const BlockActions: React.FC<Props> = ({
 			},
 		});
 	};
+	const handleBlockModification = () => {
+		// Ensure synchronous execution of block modification and tree recalculation
+		setTimeout(() => {
+			onAction();
+		}, 0);
+	};
 
 	return (
 		<div className='block-editor-block-actions__dropdown-wrapper' onClick={e => e.stopPropagation()}>
@@ -126,10 +132,10 @@ const BlockActions: React.FC<Props> = ({
 				className={classnames(
 					'block-editor-block-actions__dropdown',
 					css`
-					.components-menu-item__item {
-						min-width: auto;
-					}
-				`
+                        .components-menu-item__item {
+                            min-width: auto;
+                        }
+                    `
 				)}
 			>
 				{({ onClose }) => (
@@ -138,29 +144,20 @@ const BlockActions: React.FC<Props> = ({
 							<MenuItem
 								onClick={() => {
 									onClose();
-
 									const newBlock = {
 										...block,
-										id: Math.random()
-											.toString(36)
-											.substr(2, 9),
+										id: Math.random().toString(36).substr(2, 9),
 									};
 
 									if (size(newBlock?.innerBlocks) > 0) {
 										newBlock.innerBlocks = map(
 											newBlock.innerBlocks,
-											(childBlock) => {
-												return {
-													...childBlock,
-													id: Math.random()
-														.toString(36)
-														.substr(2, 9),
-												};
-											}
+											(childBlock) => ({
+												...childBlock,
+												id: Math.random().toString(36).substr(2, 9),
+											})
 										);
 									}
-
-
 
 									__experimentalInsertBlock(
 										{ ...newBlock },
@@ -168,7 +165,7 @@ const BlockActions: React.FC<Props> = ({
 										parentId
 									);
 
-									onAction();
+									handleBlockModification();
 								}}
 							>
 								Duplicate
@@ -176,17 +173,15 @@ const BlockActions: React.FC<Props> = ({
 						)}
 						{!disableDelete && (
 							<MenuItem
-								onClick={(
-									e: React.MouseEvent<HTMLButtonElement>
-								) => {
+								onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 									onClose();
 									handleDelete(e);
 								}}
 								className={css`
-							.components-menu-item__item {
-								color: #b71717 !important;
-							}
-						` }
+                                    .components-menu-item__item {
+                                        color: #b71717 !important;
+                                    }
+                                `}
 							>
 								Delete
 							</MenuItem>

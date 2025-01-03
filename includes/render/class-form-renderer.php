@@ -506,11 +506,27 @@ class Form_Renderer
      * @param  string $src    The script's source URL.
      * @return string
      */
-	public function add_script_data_attributes( $tag, $handle, $src ) 	{ // phpcs:ignore
-        if (is_singular('quill_forms') ) {
-            $tag =  str_replace( '<script', '<script data-no-optimize="1" data-two-no-delay="true" data-two-no-defer="true" data-pagespeed-no-defer="true"', $tag );
-        }
+    public function add_script_data_attributes($tag, $handle, $src) {
+        if (is_singular('quill_forms')) {
+            // Skip if this is the inline script containing window.qfRender
+            if (strpos($tag, 'window.qfRender') !== false) {
+                return $tag;
+            }
+            
+            // Skip if this is any inline script containing JSON
+            if (strpos($tag, '<script>') === 0 && (
+                strpos($tag, '{') !== false || 
+                strpos($tag, '[') !== false
+            )) {
+                return $tag;
+            }
 
+            $tag = str_replace(
+                '<script',
+                '<script data-no-optimize="1" data-two-no-delay="true" data-two-no-defer="true" data-pagespeed-no-defer="true"',
+                $tag
+            );
+        }
         return $tag;
     }
 }

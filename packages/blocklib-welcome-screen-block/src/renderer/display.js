@@ -163,7 +163,7 @@ const WelcomeScreenOutput = ({ attributes }) => {
 								margin-top: 25px;
 							` }
 						>
-							{attributes?.label && (
+							{(attributes?.label || editor.mode === 'on') && (
 								<div
 									className={classNames(
 										'renderer-components-block-label',

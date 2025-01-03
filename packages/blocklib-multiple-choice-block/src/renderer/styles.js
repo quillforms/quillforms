@@ -124,7 +124,7 @@ export const MultipleChoiceOptions = css`
 		.multipleChoice__optionLabel {
 			flex-grow: 1;
 			padding-right: 12px;
-			overflow-wrap: break-word;
+			overflow-wrap: anywhere;
 			// max-width: calc(100% - 27px);
 		}
 

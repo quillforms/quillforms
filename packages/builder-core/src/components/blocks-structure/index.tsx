@@ -318,8 +318,9 @@ const treeUtils = {
 
 const PureTree: React.FC = withErrorBoundary(() => {
 
-    const { blocks, currentPanel, blockTypes, currentBlock, currentBlockId, currentChildBlockId } = useSelect((select) => ({
+    const { blocks, allBlocks, currentPanel, blockTypes, currentBlock, currentBlockId, currentChildBlockId } = useSelect((select) => ({
         blocks: select("quillForms/block-editor").getBlocks(true),
+        allBlocks: select("quillForms/block-editor").getAllBlocks(),
         blockTypes: select("quillForms/blocks").getBlockTypes(),
         currentBlockId: select("quillForms/block-editor").getCurrentBlockId(),
         currentChildBlockId: select("quillForms/block-editor").getCurrentChildBlockId(),
@@ -339,6 +340,8 @@ const PureTree: React.FC = withErrorBoundary(() => {
         currentChildBlockName = childBlock?.name;
     }
 
+    const allBlocksLength = allBlocks.length;
+
     const { setBlocks, setCurrentBlock, setCurrentChildBlock } = useDispatch("quillForms/block-editor");
 
     // Initialize tree state with memoized transformation
@@ -346,20 +349,30 @@ const PureTree: React.FC = withErrorBoundary(() => {
         treeUtils.transformBlocksToTree(blocks, blockTypes)
     );
 
+    let timeFn;
+    // Add a blocks dependency to trigger recalculation
+    useEffect(() => {
+        clearTimeout(timeFn)
+        timeFn = setTimeout(() => {
+            setTriggerTreeCalculation(true);
+
+        }, 50)
+    }, [currentBlockLabel, currentChildBlockLabel, currentBlockName, currentChildBlockName, currentPanel, allBlocksLength]);
+
+    // Modify the tree transformation to preserve expansion state
+    const updateTree = useCallback(() => {
+        setTree(prevTree => {
+            const newTree = treeUtils.transformBlocksToTree(blocks, blockTypes, prevTree);
+            return treeUtils.sortTreeItems(newTree, blockTypes);
+        });
+    }, [blocks, blockTypes]);
 
     useEffect(() => {
-        //console.log('triggerTreeCalculation', triggerTreeCalculation);
         if (triggerTreeCalculation) {
-            setTree(prevTree => treeUtils.transformBlocksToTree(blocks, blockTypes, prevTree));
+            updateTree();
             setTriggerTreeCalculation(false);
         }
-    }, [triggerTreeCalculation]);
-
-
-    useEffect(() => {
-        setTriggerTreeCalculation(true);
-    }, [currentBlockLabel, currentChildBlockLabel, currentBlockName, currentChildBlockName, currentPanel]);
-
+    }, [triggerTreeCalculation, updateTree]);
 
     // Updated renderItem with better styling for group children
     const renderItem = useCallback(

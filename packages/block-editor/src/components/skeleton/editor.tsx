@@ -108,7 +108,7 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
         } else if (type === "description") {
             setEditorValue(deserialize((description))); // Always use parent description
         }
-    }, []);
+    }, [attributes, type, childIndex]);
 
 
 

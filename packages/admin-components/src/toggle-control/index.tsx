@@ -12,7 +12,7 @@ interface Props {
 	[x: string]: unknown;
 }
 
-const ToggleControl: FC<Props> = ({
+const ToggleControl = ({
 	className,
 	checked = false,
 	onChange = noop,

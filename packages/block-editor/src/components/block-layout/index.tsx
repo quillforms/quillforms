@@ -1,194 +1,124 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import { css } from 'emotion';
+import { css } from "emotion";
+const BlockLayout = ({ layout, setAttributes }) => {
+	const layouts = [
+		{
+			key: 'stack',
+			name: 'Stack',
+			icon: (
+				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="6" y="6" width="20" height="2" fill="currentColor" />
+					<rect x="6" y="10" width="20" height="6" fill="currentColor" />
+					<rect x="6" y="18" width="12" height="2" fill="currentColor" />
+				</svg>
+			)
+		},
+		{
+			key: 'float-right',
+			name: 'Float Right',
+			icon: (
+				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="6" y="6" width="14" height="2" fill="currentColor" />
+					<rect x="22" y="6" width="4" height="12" fill="currentColor" />
+					<rect x="6" y="10" width="14" height="2" fill="currentColor" />
+					<rect x="6" y="14" width="10" height="2" fill="currentColor" />
+				</svg>
+			)
+		},
+		{
+			key: 'float-left',
+			name: 'Float Left',
+			icon: (
+				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="12" y="6" width="14" height="2" fill="currentColor" />
+					<rect x="6" y="6" width="4" height="12" fill="currentColor" />
+					<rect x="12" y="10" width="14" height="2" fill="currentColor" />
+					<rect x="12" y="14" width="10" height="2" fill="currentColor" />
+				</svg>
+			)
+		},
+		{
+			key: 'split-right',
+			name: 'Split Right',
+			icon: (
+				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="6" y="6" width="10" height="2" fill="currentColor" />
+					<rect x="18" y="4" width="8" height="16" fill="currentColor" />
+					<rect x="6" y="10" width="10" height="2" fill="currentColor" />
+					<rect x="6" y="14" width="8" height="2" fill="currentColor" />
+				</svg>
+			)
+		},
+		{
+			key: 'split-left',
+			name: 'Split Left',
+			icon: (
+				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
+					<rect x="16" y="6" width="10" height="2" fill="currentColor" />
+					<rect x="6" y="4" width="8" height="16" fill="currentColor" />
+					<rect x="16" y="10" width="10" height="2" fill="currentColor" />
+					<rect x="16" y="14" width="8" height="2" fill="currentColor" />
+				</svg>
+			)
+		}
+	];
 
-const BlockLayout = ( { layout, setAttributes } ) => {
-	layout = layout ?? 'stack';
 	return (
-		<div className="block-editor-block-layouts">
-			<BoxWrapper
-				onClick={ () => {
-					setAttributes( {
-						layout: 'stack',
-					} );
-				} }
-				isSelected={ layout === 'stack' }
-			>
-				<div
-					className={ css`
-						padding: 0 11px;
-					` }
+		<div className={css`
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding: 4px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            width: 100%;
+        `}>
+			{layouts.map((option) => (
+				<button
+					key={option.key}
+					className={css`
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 6px 4px;
+                        background: ${layout === option.key ? '#fff' : 'transparent'};
+                        color: ${layout === option.key ? 'var(--wp-admin-theme-color)' : '#1e1e1e'};
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                        box-shadow: ${layout === option.key ? '0 1px 2px rgba(0, 0, 0, 0.05)' : 'none'};
+
+                        &:hover {
+                            background: ${layout === option.key ? '#fff' : 'rgba(255, 255, 255, 0.5)'};
+                            color: var(--wp-admin-theme-color);
+                        }
+
+                        svg {
+                            width: 32px;
+                            height: 24px;
+                            margin-bottom: 3px;
+                        }
+
+                        span {
+                            font-size: 9px;
+                            font-weight: 500;
+                            white-space: nowrap;
+                            line-height: 1;
+                        }
+                    `}
+					onClick={() => setAttributes({ layout: option.key })}
 				>
-					<TextSymbol isHeading={ true } />
-					<div
-						className={ css`
-							width: 24px;
-							height: 15px;
-							background: #7c7c7c;
-							margin: 4px 0;
-						` }
-					></div>
-					<TextSymbol />
-				</div>
-			</BoxWrapper>
-			<BoxWrapper
-				onClick={ () => {
-					setAttributes( {
-						layout: 'float-right',
-					} );
-				} }
-				isSelected={ layout === 'float-right' }
-			>
-				<FloatingBox />
-			</BoxWrapper>
-			<BoxWrapper
-				onClick={ () => {
-					setAttributes( {
-						layout: 'float-left',
-					} );
-				} }
-				isSelected={ layout === 'float-left' }
-			>
-				<FloatingBox direction="left" />
-			</BoxWrapper>
-
-			<BoxWrapper
-				onClick={ () => {
-					setAttributes( {
-						layout: 'split-right',
-					} );
-				} }
-				isSelected={ layout === 'split-right' }
-			>
-				<SplitBox />
-			</BoxWrapper>
-			<BoxWrapper
-				onClick={ () => {
-					setAttributes( {
-						layout: 'split-left',
-					} );
-				} }
-				isSelected={ layout === 'split-left' }
-			>
-				<SplitBox direction="left" />
-			</BoxWrapper>
+					{option.icon}
+					<span>{option.name}</span>
+				</button>
+			))}
 		</div>
 	);
 };
 
-const BoxWrapper = ( { children, isSelected, onClick } ) => {
-	return (
-		<div
-			className={ css`
-				width: 56px;
-				height: 40px;
-				border: 1px solid ${ isSelected ? '#a120f1' : '#7c7c7c' };
-				border-radius: 5px;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				cursor: pointer;
-				${ ! isSelected &&
-				`&:hover {
-					border-color: #424141;
-				 > div div {
-					background: #424141;
-				}` }
-				${ isSelected &&
-				` > div div {
-					background: #a120f1
-				}` }
-			` }
-			onClick={ onClick }
-		>
-			{ children }
-		</div>
-	);
-};
-const TextSymbol = ( { isHeading }: { isHeading?: boolean } ) => {
-	return (
-		<div
-			className={ css`
-				height: 2px;
-				width: ${ isHeading ? `16px` : `12px` };
-				background: #7c7c7c;
-			` }
-		></div>
-	);
-};
-
-const FloatingBox = ( { direction = 'right' } ) => {
-	return (
-		<div
-			className={ css`
-				display: flex;
-				align-items: center;
-				justify-content: space-evenly;
-				flex-direction: ${ direction === 'right'
-					? 'row'
-					: 'row-reverse' };
-			` }
-		>
-			<div
-				className={ css`
-					background: transparent !important;
-				` }
-			>
-				<TextSymbol isHeading={ true } />
-				<div
-					className={ css`
-						margin: 4px 0;
-						background: transparent !important;
-					` }
-				></div>
-				<TextSymbol />
-			</div>
-			<div
-				className={ css`
-					width: 16px;
-					height: 12px;
-					background: #7c7c7c;
-				` }
-			></div>
-		</div>
-	);
-};
-
-const SplitBox = ( { direction = 'right' } ) => {
-	return (
-		<div
-			className={ css`
-				display: flex;
-				align-items: center;
-				justify-content: space-evenly;
-				flex-direction: ${ direction === 'right'
-					? 'row'
-					: 'row-reverse' };
-			` }
-		>
-			<div
-				className={ css`
-					background: transparent !important;
-				` }
-			>
-				<TextSymbol isHeading={ true } />
-				<div
-					className={ css`
-						margin: 4px 0;
-						background: transparent !important;
-					` }
-				></div>
-				<TextSymbol />
-			</div>
-			<div
-				className={ css`
-					width: 50%;
-					min-height: 36px;
-					border-radius: 3px;
-					background: #7c7c7c;
-				` }
-			></div>
-		</div>
-	);
-};
 export default BlockLayout;
