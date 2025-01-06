@@ -420,7 +420,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
             // Calculate disableDelete prop
             const isOnlyBlock = tree.items.root.children.length === 1;
             const isOnlyChildInGroup = isChildBlock && parentId && tree.items[parentId].children.length === 1;
-            const disableDelete = isOnlyBlock || isOnlyChildInGroup;
+            const disableDelete = (!isChildBlock && isOnlyBlock) || isOnlyChildInGroup;
 
             const groupWrapperStyles = isGroup
                 ? {
