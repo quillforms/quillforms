@@ -140,7 +140,7 @@ const BlockActions: React.FC<Props> = ({
 			>
 				{({ onClose }) => (
 					<MenuGroup className="block-editor-block-actions__menu-group" >
-						{block.name !== 'welcome-screen' && (
+						{(block.name !== 'welcome-screen' && block.name !== 'partial-submission-point') && (
 							<MenuItem
 								onClick={() => {
 									onClose();
