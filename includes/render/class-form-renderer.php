@@ -183,6 +183,13 @@ class Form_Renderer
             wpfc_exclude_current_page();
         }
 
+        // Lite Speed Cache.
+        do_action('litespeed_control_set_nocache', 'quillforms_no_cache');
+
+         // Set no-cache headers just to be sure
+         header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+         header('Cache-Control: post-check=0, pre-check=0', false);
+         header('Pragma: no-cache');
 
     }
 
