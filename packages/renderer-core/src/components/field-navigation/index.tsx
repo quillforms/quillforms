@@ -32,7 +32,8 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 	const { beforeGoingNext } = useFormContext();
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
-	const { editor } = useFormContext();
+	const formContext = useFormContext();
+	const { editor } = formContext;
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const { currentBlockId, walkPath, blockTypes, correctIncorrectDisplay } = useSelect((select) => {
 		return {
@@ -94,6 +95,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 				setIsFieldCorrectIncorrectScreenDisplayed(currentBlockId, true);
 				return;
 			}
+			doAction('QuillForms.RendererCore.BeforeNext', currentBlockId, formContext);
 			goNext();
 		}
 	};
