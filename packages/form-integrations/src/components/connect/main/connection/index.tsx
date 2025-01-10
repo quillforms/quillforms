@@ -40,20 +40,14 @@ const Connection: React.FC<Props> = ({ id, run }) => {
 		useConnectContext();
 	const connection = connections[id];
 	const main = useConnectMainContext();
-	const entriesAddon = ConfigApi.getStoreAddons().advancedentries;
 	// check if active & version is >= 1.4.0.
-	const isEntriesCompatible =
-		entriesAddon.is_active &&
-		(parseInt(entriesAddon?.version?.split('.')?.[1] ?? '0', 10) >=
-			4 ||
-			parseInt(entriesAddon?.version?.split('.')?.[0] ?? '0', 10) >=
-			2);
+
 	const runable = main.connection.runable ?? true;
 
 	return (
 		<div className="integration-connection">
 			<div className="connection-header-buttons">
-				{isEntriesCompatible && runable && (
+				{runable && (
 					<Tooltip
 						text={
 							'Use this option if you would like to test your connection or to run the connection for some entries manually.'
