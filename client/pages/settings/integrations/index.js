@@ -20,35 +20,38 @@ const Integrations = () => {
 	return (
 		<div className="quillforms-integrations-tab">
 			<Panel>
-				{ Object.entries( integrationsModules ).map(
-					( [ slug, integration ] ) => {
+				{Object.entries(integrationsModules).filter(
+
+					([slug, integration]) => slug !== 'googleanalytics' && slug !== 'facebookpixel' && slug !== 'googletagmanager'
+				).map(
+					([slug, integration]) => {
 						const icon = integration.icon;
 						const header = (
 							<div className="quillforms-integrations-tab-addon-header">
-								{ typeof icon === 'string' ? (
-									<img src={ icon } />
+								{typeof icon === 'string' ? (
+									<img src={icon} />
 								) : (
 									<IconComponent
-										icon={ icon?.src ? icon.src : icon }
+										icon={icon?.src ? icon.src : icon}
 									/>
-								) }
-								<div>{ integration.title }</div>
+								)}
+								<div>{integration.title}</div>
 							</div>
 						);
 						return (
 							<PanelBody
-								key={ slug }
-								title={ header }
-								initialOpen={ false }
+								key={slug}
+								title={header}
+								initialOpen={false}
 								className="quillforms-integrations-tab-addon"
 							>
 								<div className="quillforms-integrations-tab-addon-body">
-									<integration.settingsRender slug={ slug } />
+									<integration.settingsRender slug={slug} />
 								</div>
 							</PanelBody>
 						);
 					}
-				) }
+				)}
 			</Panel>
 		</div>
 	);
