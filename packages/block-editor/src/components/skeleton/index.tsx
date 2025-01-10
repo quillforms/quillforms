@@ -53,6 +53,7 @@ const Skeleton = withErrorBoundary(() => {
         themesList,
         customFontsList,
         currentBlockBeingEdited,
+        currentBlockBeingEditedId,
         blocks,
         messages,
         settings,
@@ -74,6 +75,7 @@ const Skeleton = withErrorBoundary(() => {
             currentBlockBeingEdited: select(
                 'quillForms/block-editor'
             ).getCurrentBlock(),
+            currentChildBlockId: select('quillForms/block-editor').getCurrentChildBlockId(),
             blocks: select('quillForms/block-editor').getBlocks(),
             messages: select('quillForms/messages-editor').getMessages(),
             settings: select('quillForms/settings-editor').getSettings(),
@@ -132,6 +134,8 @@ const Skeleton = withErrorBoundary(() => {
 
     }, [
         // blocks,
+        currentBlockBeingEditedId,
+        currentChildBlockId,
         currentBlockBeingEdited,
         hasThemesFinishedResolution,
     ]);
