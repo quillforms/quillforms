@@ -168,6 +168,18 @@ class Entry_Record_Types {
 		if ( ! $block_type ) {
 			return null;
 		}
+		else {
+			if($block_type->is_value_array()) {
+				if(!is_array($raw_value)) {
+					$raw_value = (array) $raw_value;
+				}
+			}
+			else {
+				if(is_array($raw_value)) {
+					$raw_value = '';
+				}
+			}
+		}
 
 		return apply_filters('quillforms_get_field_readable_value', $block_type->get_readable_value( $raw_value, $form_data, $context ), $field_id, $block_type, $raw_value, $entry, $form_data, $context );
 	}
