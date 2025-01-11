@@ -47,9 +47,16 @@ const Panel = () => {
 	const className = currentPanel && panelType === 'modal' ? 'builder-core-panel-modal' : 'builder-core-full-screen-panel';
 	return (
 
-		<div className={className} >
+		<div className={className} tabIndex={0} // Makes the div focusable
+			onKeyDown={(e) => {
+				if (e.key === 'Escape') {
+					setCurrentPanel('');
+				}
+			}} >
 			<div
 				className={`builder-core-panel builder-core-${currentPanel?.name}-panel`}
+			// exit on clicking escape
+
 			>
 				<PanelHeader />
 				{currentPanel && (
