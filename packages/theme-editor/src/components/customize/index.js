@@ -269,7 +269,7 @@ const CustomizeThemePanel = () => {
 			<PanelBody title="Font Families" initialOpen={false}>
 				<div className="fonts-hint">
 					<p>
-						Now, you can add your custom font from settings icon at left bar and then click on custom fonts.
+						You can add your custom font from settings icon at left bar and then click on custom fonts.
 					</p>
 				</div>
 				<BaseControl>
@@ -290,7 +290,6 @@ const CustomizeThemePanel = () => {
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
 							label="Questions Label Font"
-							isNew={true}
 						/>
 						<FontPicker
 							fonts={{
