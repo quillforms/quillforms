@@ -99,7 +99,7 @@ const Skeleton = withErrorBoundary(() => {
 
 
     useEffect(() => {
-        if (!hasThemesFinishedResolution || currentBlockBeingEdited?.name === 'partial-submission-point') return;
+        if (currentBlockBeingEdited?.name === 'partial-submission-point') return;
         // const formFields = blocks.filter(
         //     (block) =>
         //         block.name !== 'thankyou-screen' &&
