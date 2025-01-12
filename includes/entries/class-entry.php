@@ -46,12 +46,12 @@ class Entry extends Abstract_Entry {
 	public $status;
 
 	/**
-	 * Hash id
-	 *
-	 * @since 3.6.4
-	 *
-	 * @var string
-	 */
+ 	* Hash id
+	*
+	* @since 3.6.4
+	*
+	* @var string|null
+	*/
 	public $hash_id;
 
 	/**
