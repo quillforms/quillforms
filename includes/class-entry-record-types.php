@@ -169,7 +169,7 @@ class Entry_Record_Types {
 			return null;
 		}
 		else {
-			if($block_type->is_value_array()) {
+			if($block_type->is_value_array() || $block_data['name'] === 'phone') {
 				if(!is_array($raw_value)) {
 					$raw_value = (array) $raw_value;
 				}
