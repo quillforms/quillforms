@@ -4,23 +4,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Quill Forms 4.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/quillforms\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: \n"
+"Language-Team: French (France)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-01-13T06:18:22+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"PO-Revision-Date: 2025-01-13 06:30+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Domain: quillforms\n"
+"Language: fr-FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Loco-Version: 2.6.14; wp-6.7.1"
 
 #. Plugin Name of the plugin
-#: quillforms.php
-#: includes/admin/class-admin.php:127
-#: includes/admin/class-admin.php:128
-#: includes/admin/class-admin.php:150
+#: quillforms.php includes/admin/class-admin.php:127 
+#: includes/admin/class-admin.php:128 includes/admin/class-admin.php:150
 msgid "Quill Forms"
-msgstr ""
+msgstr "Plume Formes"
 
 #. Plugin URI of the plugin
 #: quillforms.php
@@ -30,12 +31,12 @@ msgstr ""
 #. Description of the plugin
 #: quillforms.php
 msgid "Conversational Forms Builder for WordPress"
-msgstr ""
+msgstr "La conversation Forms Builder pour WordPress"
 
 #. Author of the plugin
 #: quillforms.php
 msgid "quillforms.com"
-msgstr ""
+msgstr "quillforms.com"
 
 #. Author URI of the plugin
 #: quillforms.php
@@ -44,1615 +45,1795 @@ msgstr ""
 
 #: includes/addon/class-addon.php:219
 msgid "Addon deactivated due to incompatible dependencies"
-msgstr ""
+msgstr "Addon désactivé en raison d'une incompatibilité avec dépendances"
 
 #: includes/addon/class-addon.php:243
 msgid "Cannot register a Quill Forms addon"
-msgstr ""
+msgstr "Ne peuvent s'inscrire qu'une Plume d'oie Formes addon"
 
 #: includes/addon/provider/class-accounts.php:150
-msgid "Some integration connections are deleted due to deleting the related account."
+msgid ""
+"Some integration connections are deleted due to deleting the related account."
 msgstr ""
+"Certains d'intégration connexions sont supprimés en raison de la suppression "
+"du compte correspondant."
 
 #: includes/addon/provider/class-accounts.php:177
 msgid "Cannot find account data"
-msgstr ""
+msgstr "Impossible de trouver les données de compte"
 
 #: includes/addon/provider/class-accounts.php:186
 msgid "Cannot connect to account api"
-msgstr ""
+msgstr "Impossible de se connecter au compte de l'api"
 
 #: includes/addon/provider/class-accounts.php:225
 msgid "Account id already exists"
-msgstr ""
+msgstr "Id de compte existe déjà"
 
 #: includes/addon/provider/class-accounts.php:251
 msgid "Cannot find account to update"
-msgstr ""
+msgstr "Ne peut pas trouver votre compte pour mettre à jour"
 
 #: includes/addon/provider/class-entry-process.php:190
 msgid "Connection processed successfully"
-msgstr ""
+msgstr "Connexion traitée avec succès"
 
 #: includes/addon/provider/class-entry-process.php:195
 msgid "Cannot process connection"
-msgstr ""
+msgstr "Ne peut pas traiter de connexion"
 
 #: includes/addon/provider/class-entry-process.php:200
 msgid "Connection process skipped"
-msgstr ""
+msgstr "Processus de connexion sauté"
 
 #: includes/addon/provider/rest/traits/class-account-controller-creatable.php:118
 msgid "Cannot save account"
-msgstr ""
+msgstr "Impossible d'enregistrer le compte"
 
 #: includes/addon/rest/class-form-data-controller.php:140
 msgid "Cannot update form data"
-msgstr ""
+msgstr "Impossible de mettre à jour les données de formulaire"
 
 #: includes/addon/rest/class-settings-controller.php:150
 msgid "Cannot update settings"
-msgstr ""
+msgstr "Impossible de mettre à jour les paramètres"
 
-#: includes/admin/class-admin.php:85
-#: includes/site/class-license.php:488
+#: includes/admin/class-admin.php:85 includes/site/class-license.php:488 
 #: includes/site/class-store.php:1254
 msgid "Invalid nonce"
-msgstr ""
+msgstr "Non valide pour l'instant"
 
 #: includes/admin/class-admin.php:150
 msgid "All Forms"
-msgstr ""
+msgstr "Toutes Les Formes"
 
 #: includes/admin/class-admin.php:153
 msgid "Addons"
-msgstr ""
+msgstr "Addons"
 
 #: includes/admin/class-admin.php:156
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: includes/admin/class-admin.php:159
 msgid "License"
-msgstr ""
+msgstr "Licence"
 
 #: includes/admin/class-admin.php:162
 msgid "System"
-msgstr ""
+msgstr "Système"
 
 #: includes/admin/class-admin.php:165
 msgid "Import/Export"
-msgstr ""
+msgstr "Import/Export"
 
 #: includes/admin/class-admin.php:168
 msgid "Support"
-msgstr ""
+msgstr "Soutien"
 
 #: includes/class-core.php:106
 msgid "Forms"
-msgstr ""
+msgstr "Les formes"
 
 #: includes/class-core.php:107
 msgid "Form"
-msgstr ""
+msgstr "Formulaire"
 
-#: includes/class-core.php:108
-#: includes/class-core.php:109
+#: includes/class-core.php:108 includes/class-core.php:109 
 #: includes/class-core.php:111
 msgid "Add Form"
-msgstr ""
+msgstr "Ajouter Un Formulaire"
 
 #: includes/class-core.php:110
 msgid "Edit Form"
-msgstr ""
+msgstr "Formulaire D'Édition"
 
 #: includes/class-core.php:112
 msgid "View Form"
-msgstr ""
+msgstr "Afficher Le Formulaire"
 
 #: includes/class-core.php:113
 msgid "Search Forms"
-msgstr ""
+msgstr "Formulaires De Recherche"
 
 #: includes/class-core.php:114
 msgid "No forms found"
-msgstr ""
+msgstr "L'absence de formes trouvé"
 
 #: includes/class-core.php:115
 msgid "No forms found in trash"
-msgstr ""
+msgstr "L'absence de formes trouvées dans la corbeille"
 
 #: includes/class-core.php:116
 msgid "Form Featured Image"
-msgstr ""
+msgstr "Forme Image En Vedette"
 
 #: includes/class-core.php:117
 msgid "Set featured image"
-msgstr ""
+msgstr "Set image en vedette"
 
 #: includes/class-core.php:118
 msgid "Remove featured image"
-msgstr ""
+msgstr "Supprimer image en vedette"
 
 #: includes/class-core.php:119
 msgid "Use as featured image"
-msgstr ""
+msgstr "Utiliser comme image en vedette"
 
-#: includes/class-discount-coupons.php:136
+#: includes/class-discount-coupons.php:136 
 #: includes/class-discount-coupons.php:143
 msgid "Coupon not found"
-msgstr ""
+msgstr "Coupon pas trouvé"
 
 #: includes/class-discount-coupons.php:155
 msgid "Coupon deleted successfully"
-msgstr ""
+msgstr "Coupon supprimé avec succès"
 
 #: includes/class-discount-coupons.php:194
 msgid "Coupon applied successfully"
-msgstr ""
+msgstr "Coupon appliquée avec succès"
 
 #: includes/class-discount-coupons.php:249
 msgid "Coupon not found!"
-msgstr ""
+msgstr "Coupon pas trouvé!!!"
 
-#: includes/class-discount-coupons.php:267
-#: includes/class-discount-coupons.php:278
+#: includes/class-discount-coupons.php:267 
+#: includes/class-discount-coupons.php:278 
 #: includes/class-discount-coupons.php:288
 msgid "Coupon expired!"
-msgstr ""
+msgstr "Coupon expiré!"
 
-#: includes/class-discount-coupons.php:333
+#: includes/class-discount-coupons.php:333 
 #: includes/class-form-submission.php:132
 msgid "Cannot retrieve from submission"
-msgstr ""
+msgstr "Ne peut pas récupérer de soumission"
 
-#: includes/class-discount-coupons.php:339
+#: includes/class-discount-coupons.php:339 
 #: includes/class-form-submission.php:138
 msgid "Invalid submission"
-msgstr ""
+msgstr "Soumission invalide"
 
 #: includes/class-form-submission.php:150
 msgid "Something went wrong"
-msgstr ""
+msgstr "Quelque chose s'est mal passé"
 
 #. translators: %s for payment id
 #: includes/class-form-submission.php:169
 msgid "Payment for submission %s is completed."
-msgstr ""
+msgstr "Le paiement pour la soumission %s est achevé."
 
 #. translators: %s - form name.
 #: includes/class-form-submission.php:830
 msgid "New %s Entry"
-msgstr ""
+msgstr "Nouveau %s Entrée"
 
 #. translators: 1: class name 2: Log_Handler_Interface
 #: includes/class-logger.php:66
 msgid "The provided handler %1$s does not implement %2$s."
-msgstr ""
+msgstr "La condition gestionnaire de %1$s ne pas mettre en œuvre de %2$s."
 
 #. translators: 1: Logger::log 2: level
 #: includes/class-logger.php:146
 msgid "%1$s was called with an invalid level \"%2$s\"."
-msgstr ""
+msgstr "%1$s a été appelée avec un niveau non valide \"%2$s\"."
 
-#: includes/class-shortcode.php:103
-#: includes/class-shortcode.php:168
+#: includes/class-shortcode.php:103 includes/class-shortcode.php:168
 msgid "Invalid form ID"
-msgstr ""
+msgstr "Formulaire non valide ID"
 
 #: includes/class-tasks.php:170
 msgid "Cannot find task meta"
-msgstr ""
+msgstr "Impossible de trouver tâche meta"
 
 #: includes/class-tasks.php:185
 msgid "Task threw an exception"
-msgstr ""
+msgstr "La tâche a déclenché une exception"
 
-#: includes/emails/class-emails.php:534
-#: includes/emails/class-emails.php:574
+#: includes/emails/class-emails.php:534 includes/emails/class-emails.php:574
 msgid "(empty)"
-msgstr ""
+msgstr "(vide)"
 
 #. translators: %d - field ID.
-#: includes/emails/class-emails.php:538
-#: includes/emails/class-emails.php:578
+#: includes/emails/class-emails.php:538 includes/emails/class-emails.php:578
 msgid "Field ID #%s"
 msgstr ""
 
 #: includes/emails/class-emails.php:590
 msgid "An empty form was submitted."
-msgstr ""
+msgstr "Vide le formulaire a été soumis."
 
 #. translators: %s - link to a site.
 #: includes/emails/templates/footer-default.php:45
 msgid "Sent from %s"
-msgstr ""
+msgstr "Envoyé à partir de %s"
 
 #. translators: 1: class name 2: quillforms_logging_class 3: Logger_Interface
 #: includes/functions.php:209
 msgid "The class %1$s provided by %2$s filter must implement %3$s."
 msgstr ""
+"La classe de %1$s fournis par %2$s filtre doit mettre en œuvre de %3$s."
 
 #: includes/import-export/class-exporter.php:57
 msgid "No forms found."
-msgstr ""
+msgstr "Pas de formes."
 
 #: includes/import-export/class-importer.php:88
 msgid "Form insertion failed."
-msgstr ""
+msgstr "Formulaire d'insertion échoué."
 
 #: includes/log-handlers/class-log-handler-db.php:160
 msgid "Core"
-msgstr ""
+msgstr "De base"
 
 #: includes/managers/class-blocks-manager.php:53
 msgid "Block type names must not contain uppercase characters."
-msgstr ""
+msgstr "Type de bloc noms ne doivent pas contenir de caractères en majuscules."
 
 #. translators: %s: Block name.
 #: includes/managers/class-blocks-manager.php:61
 msgid "Block type \"%s\" is already registered."
-msgstr ""
+msgstr "Bloc de type \"%s\" est déjà enregistré."
 
 #. translators: %s: Block name.
 #: includes/managers/class-blocks-manager.php:91
 msgid "Block type \"%s\" is not registered."
-msgstr ""
+msgstr "Bloc de type \"%s\" n'est pas enregistré."
 
 #. translators: %s for block type
 #: includes/managers/class-blocks-manager.php:120
 msgid "Block type %s is not defined."
-msgstr ""
+msgstr "Type de bloc de %s n'est pas défini."
 
 #: includes/models/class-form-theme-model.php:174
 msgid "Invalid theme ID."
-msgstr ""
+msgstr "Non valide ID de thème."
 
 #: includes/models/class-form-theme-model.php:184
 msgid "Invalid date."
-msgstr ""
+msgstr "Date non valide."
 
 #: includes/models/class-form-theme-model.php:202
 msgid "Could not update theme in the database."
-msgstr ""
+msgstr "Impossible de mettre à jour le thème dans la base de données."
 
 #: includes/models/class-form-theme-model.php:210
 msgid "Could not insert theme into the database."
-msgstr ""
+msgstr "Ne pouvait pas insérer thème dans la base de données."
 
-#: includes/models/class-form-theme-model.php:235
+#: includes/models/class-form-theme-model.php:235 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:188
 msgid "Theme not found"
-msgstr ""
+msgstr "Thème pas trouvé"
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:93
 msgid "Unique identifier for the entry."
-msgstr ""
+msgstr "Identifiant Unique pour l'entrée."
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:98
 msgid "The Form ID for the entry."
-msgstr ""
+msgstr "L'ID du Formulaire pour l'entrée."
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:104
 msgid "Whether the entry is starred."
-msgstr ""
+msgstr "Si l'entrée est joué."
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:109
 msgid "Whether the entry has been read."
-msgstr ""
+msgstr "Si l'entrée a été lu."
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:114
 msgid "The status of the entry."
-msgstr ""
+msgstr "L'état de l'entrée."
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:119
 msgid "The date the entry was created, in UTC."
-msgstr ""
+msgstr "La date de l'entrée a été créé, en UTC."
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:124
 msgid "The date the entry was updated, in UTC."
-msgstr ""
+msgstr "La date de l'entrée a été mis à jour en temps UTC."
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:287
 msgid "Error on updating entry in db!"
-msgstr ""
+msgstr "Erreur sur la mise à jour de l'entrée en db!"
 
 #: includes/rest-api/controllers/v1/class-rest-entry-controller.php:322
 msgid "Error on deleting entry in db!"
-msgstr ""
+msgstr "Erreur lors de la suppression d'entrée en db!"
 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:128
 msgid "Invalid theme author ID."
-msgstr ""
+msgstr "Non valide thème de l'ID de l'auteur."
 
-#: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:210
+#: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:210 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:255
 msgid "Error on insertion in DB!"
-msgstr ""
+msgstr "Erreur lors de l'insertion dans la bd!"
 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:369
 msgid "Unique identifier for the theme."
-msgstr ""
+msgstr "Identificateur Unique pour le thème."
 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:374
 msgid "Theme title."
-msgstr ""
+msgstr "Thème titre."
 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:379
 msgid "Theme author"
-msgstr ""
+msgstr "Thème de l'auteur"
 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:383
 msgid "Theme properties."
-msgstr ""
+msgstr "Propriétés du thème."
 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:388
 msgid "The date the theme was created"
-msgstr ""
+msgstr "La date, le thème a été créé"
 
 #: includes/rest-api/controllers/v1/class-rest-form-theme-controller.php:392
 msgid "The date the theme was updated"
-msgstr ""
+msgstr "La date, le thème a été mis à jour"
 
 #: includes/rest-api/controllers/v1/class-rest-import-export-controller.php:84
 msgid "Invalid forms."
-msgstr ""
+msgstr "Non valide les formes."
 
 #: includes/rest-api/controllers/v1/class-rest-import-export-controller.php:106
 msgid "Invalid file."
-msgstr ""
+msgstr "Fichier non valide."
 
 #: includes/rest-api/controllers/v1/class-rest-import-export-controller.php:117
 msgid "Invalid file type."
-msgstr ""
+msgstr "Type de fichier non valide."
 
 #: includes/rest-api/controllers/v1/class-rest-log-controller.php:123
 msgid "Cannot find any logs"
-msgstr ""
+msgstr "Ne peut pas trouver tous les journaux"
 
 #: includes/rest-api/controllers/v1/class-rest-log-controller.php:143
 msgid "Unknown export format"
-msgstr ""
+msgstr "Inconnu format d'exportation"
 
 #: includes/rest-api/controllers/v1/class-rest-log-controller.php:154
 msgid "Logs export"
-msgstr ""
+msgstr "Les journaux de l'exportation"
 
 #: includes/rest-api/controllers/v1/class-rest-log-controller.php:229
 msgid "Error on deleting log in db!"
-msgstr ""
+msgstr "Erreur lors de la suppression du journal en db!"
 
 #: includes/rest-api/controllers/v1/class-rest-system-status-controller.php:70
 msgid "Cannot generate system status report"
-msgstr ""
+msgstr "Impossible de générer un système de rapport d'état de l'"
 
 #: includes/rest-api/controllers/v1/class-rest-system-status-controller.php:80
 msgid "Cannot generate system status report, check log"
-msgstr ""
+msgstr "Impossible de générer un rapport état du système, vérifiez le journal"
 
-#: includes/rest-fields/blocks.php:110
-#: includes/rest-fields/messages.php:41
+#: includes/rest-fields/blocks.php:110 includes/rest-fields/messages.php:41
 msgid "Failed to update blocks."
-msgstr ""
+msgstr "Impossible de mettre à jour les blocs."
 
 #: includes/rest-fields/blocks.php:119
 msgid "Blocks"
-msgstr ""
+msgstr "Les blocs"
 
-#: includes/rest-fields/custom-css.php:39
-#: includes/rest-fields/quiz.php:39
+#: includes/rest-fields/custom-css.php:39 includes/rest-fields/quiz.php:39 
 #: includes/rest-fields/settings.php:42
 msgid "Failed to update settings."
-msgstr ""
+msgstr "Impossible de mettre à jour les paramètres."
 
 #: includes/rest-fields/notifications.php:41
 msgid "Failed to update notifications."
-msgstr ""
+msgstr "Impossible de mettre à jour les notifications."
 
 #: includes/rest-fields/payments.php:184
 msgid "Failed to update payments."
-msgstr ""
+msgstr "Impossible de mettre à jour des paiements."
 
 #: includes/rest-fields/payments.php:193
 msgid "Payments"
-msgstr ""
+msgstr "Les paiements"
 
 #: includes/rest-fields/payments.php:202
 msgid "Error on sanitizing payments settings"
-msgstr ""
+msgstr "Erreur sur la désinfection des paiements paramètres"
 
 #. translators: %s for gateway:method
 #: includes/rest-fields/payments.php:242
 msgid "Gateway %s is not active."
-msgstr ""
+msgstr "Passerelle %s n'est pas active."
 
 #. translators: %s for gateway
 #: includes/rest-fields/payments.php:251
 msgid "Currency is not supported by %s."
-msgstr ""
+msgstr "La monnaie n'est pas pris en charge par %s."
 
 #. translators: %s for gateway
 #: includes/rest-fields/payments.php:261
 msgid "Recurring interval is not supported by %s."
-msgstr ""
+msgstr "Intervalle régulier n'est pas pris en charge par %s."
 
 #: includes/rest-fields/products.php:76
 msgid "Failed to update products."
-msgstr ""
+msgstr "Impossible de mettre à jour les produits."
 
 #: includes/rest-fields/products.php:85
 msgid "Products"
-msgstr ""
+msgstr "Produits"
 
 #: includes/rest-fields/products.php:94
 msgid "Error on sanitizing products"
-msgstr ""
+msgstr "Erreur sur les produits désinfectants"
 
 #: includes/rest-fields/products.php:115
 msgid "Error on validating products"
-msgstr ""
+msgstr "Erreur sur la validation des produits"
 
 #: includes/rest-fields/theme.php:38
 msgid "Failed to update theme."
-msgstr ""
+msgstr "Échec de mise à jour de thème."
 
 #: includes/site/class-license.php:78
 msgid "Basic"
-msgstr ""
+msgstr "De base"
 
 #: includes/site/class-license.php:81
 msgid "Plus"
-msgstr ""
+msgstr "Plus"
 
 #: includes/site/class-license.php:84
 msgid "Enterprise"
-msgstr ""
+msgstr "L'entreprise"
 
 #: includes/site/class-license.php:87
 msgid "Plus LTD"
-msgstr ""
+msgstr "Plus LTD"
 
 #: includes/site/class-license.php:185
 msgid "No license key found"
-msgstr ""
+msgstr "Aucune clé de licence n'a trouvé"
 
-#: includes/site/class-license.php:203
-#: includes/site/class-license.php:340
+#: includes/site/class-license.php:203 includes/site/class-license.php:340 
 #: includes/site/class-license.php:351
 msgid "An error occurred, please try again"
-msgstr ""
+msgstr "Une erreur s'est produite, veuillez essayer de nouveau"
 
 #: includes/site/class-license.php:289
 msgid "License update task done"
-msgstr ""
+msgstr "Licence de mise à jour de la tâche effectuée"
 
 #: includes/site/class-license.php:297
 msgid "License update task failed"
-msgstr ""
+msgstr "Licence tâche de mise à jour a échoué"
 
 #: includes/site/class-license.php:319
 msgid "Current license must be deactivated first"
-msgstr ""
+msgstr "Licence actuelle doit être désactivé le premier"
 
 #: includes/site/class-license.php:326
 msgid "License key is required"
-msgstr ""
+msgstr "Clé de licence est requise"
 
 #: includes/site/class-license.php:349
 msgid "License error"
-msgstr ""
+msgstr "Erreur de licence"
 
 #: includes/site/class-license.php:358
 msgid "Invalid license"
-msgstr ""
+msgstr "De licence non valide"
 
 #: includes/site/class-license.php:364
 msgid "Server error, please contact the support"
-msgstr ""
+msgstr "Erreur du serveur, veuillez contacter le support"
 
 #: includes/site/class-license.php:435
 msgid "License removed successfully"
-msgstr ""
+msgstr "Licence supprimée avec succès"
 
 #: includes/site/class-license.php:449
 msgid "Valid"
-msgstr ""
+msgstr "Valide"
 
 #: includes/site/class-license.php:452
 msgid "Expired"
-msgstr ""
+msgstr "Expiré"
 
 #: includes/site/class-license.php:456
 msgid "Disabled"
-msgstr ""
+msgstr "Désactivé"
 
 #: includes/site/class-license.php:460
 msgid "Invalid"
-msgstr ""
+msgstr "Non valide"
 
 #: includes/site/class-license.php:464
 msgid "Not active for this website"
-msgstr ""
+msgstr "Pas actif sur ce site web"
 
 #: includes/site/class-license.php:467
 msgid "Invalid key for a plan"
-msgstr ""
+msgstr "Clé non valide pour un plan"
 
 #: includes/site/class-license.php:470
 msgid "Key reached its activation limit"
-msgstr ""
+msgstr "Clé a atteint sa limite de l'activation"
 
-#: includes/site/class-license.php:494
-#: includes/site/class-store.php:1260
+#: includes/site/class-license.php:494 includes/site/class-store.php:1260
 msgid "Forbidden"
-msgstr ""
+msgstr "Interdit"
 
-#: includes/site/class-store.php:113
-#: includes/site/class-store.php:278
+#: includes/site/class-store.php:113 includes/site/class-store.php:278
 msgid "Cannot find addon"
-msgstr ""
+msgstr "Impossible de trouver l'addon"
 
 #: includes/site/class-store.php:121
 msgid "Addon is already installed"
-msgstr ""
+msgstr "Addon est déjà installé"
 
 #: includes/site/class-store.php:130
 msgid "No license found"
-msgstr ""
+msgstr "Aucune licence trouvé"
 
 #: includes/site/class-store.php:136
 msgid "Please upgrade your plan to install this addon"
-msgstr ""
+msgstr "Veuillez mettre à jour votre plan pour installer cet addon"
 
 #: includes/site/class-store.php:154
 msgid "Cannot get addon info"
-msgstr ""
+msgstr "Ne peut pas obtenir de l'addon info"
 
 #: includes/site/class-store.php:163
 msgid "Cannot get addon info, please check your license"
-msgstr ""
+msgstr "Ne peut pas obtenir de l'addon info, veuillez vérifier votre licence"
 
 #: includes/site/class-store.php:171
 msgid "Please check addon requirements at quillforms.com."
-msgstr ""
+msgstr "Veuillez vérifier addon à des exigences de quillforms.com."
 
 #: includes/site/class-store.php:185
-msgid "Cannot install addon automatically, please download it and install it manually"
+msgid ""
+"Cannot install addon automatically, please download it and install it "
+"manually"
 msgstr ""
+"Impossible d'installer addon automatiquement, veuillez le télécharger et "
+"l'installer manuellement"
 
-#: includes/site/class-store.php:195
-#: includes/site/class-store.php:215
+#: includes/site/class-store.php:195 includes/site/class-store.php:215
 msgid "Cannot install addon plugin"
-msgstr ""
+msgstr "Impossible d'installer addon plugin"
 
-#: includes/site/class-store.php:208
-#: includes/site/class-store.php:224
+#: includes/site/class-store.php:208 includes/site/class-store.php:224 
 #: includes/site/class-store.php:247
 msgid "Cannot install addon plugin, check log for details"
 msgstr ""
+"Impossible d'installer addon plugin, consultez le journal pour plus de "
+"détails"
 
 #: includes/site/class-store.php:235
 msgid "Invalid addon installation detected"
-msgstr ""
+msgstr "Non valide addon installation détecté"
 
-#: includes/site/class-store.php:253
-#: includes/site/class-store.php:262
+#: includes/site/class-store.php:253 includes/site/class-store.php:262 
 #: includes/site/class-store.php:365
 msgid "Addon plugin installed successfully"
-msgstr ""
+msgstr "Addon plugin installé avec succès"
 
 #: includes/site/class-store.php:286
 msgid "Addon isn't installed"
-msgstr ""
+msgstr "Addon n'est pas installé"
 
 #: includes/site/class-store.php:294
 msgid "Addon is already active"
-msgstr ""
+msgstr "Addon est déjà active"
 
 #: includes/site/class-store.php:309
 msgid "Unexpected output on activating the addon plugin"
-msgstr ""
+msgstr "Inattendus de sortie sur l'activation de l'addon plugin"
 
 #: includes/site/class-store.php:322
 msgid "Fatal error on activating the addon plugin"
-msgstr ""
+msgstr "Erreur fatale sur l'activation de l'addon plugin"
 
-#: includes/site/class-store.php:351
-#: includes/site/class-store.php:383
+#: includes/site/class-store.php:351 includes/site/class-store.php:383
 msgid "Addon slug is required"
-msgstr ""
+msgstr "Addon slug est nécessaire"
 
 #: includes/site/class-store.php:357
 msgid "Addon installation result"
-msgstr ""
+msgstr "Addon résultat d'installation"
 
 #: includes/site/class-store.php:367
 msgid "Cannot install the addon plugin, please check the log for details"
 msgstr ""
+"Impossible d'installer l'addon plugin, veuillez consulter le journal pour "
+"plus de détails"
 
-#: includes/site/class-store.php:399
-#: includes/site/class-store.php:422
+#: includes/site/class-store.php:399 includes/site/class-store.php:422
 msgid "Cannot activate the addon plugin, please check the log for details"
 msgstr ""
+"Ne peut pas activer l'addon plugin, veuillez consulter le journal pour plus "
+"de détails"
 
 #: includes/site/class-store.php:414
 msgid "Fatal error occurred on activating the addon plugin"
-msgstr ""
+msgstr "Erreur irrécupérable s'est produite sur l'activation de l'addon plugin"
 
 #: includes/site/class-store.php:420
 msgid "Addon plugin activated successfully"
-msgstr ""
+msgstr "Addon plugin activé avec succès"
 
 #: includes/site/class-store.php:437
 msgid "Advanced Entries"
-msgstr ""
+msgstr "Les Entrées Avancées"
 
 #: includes/site/class-store.php:438
-msgid "Advanced Entries addon allows you to collect partial submissions, view analytics and drop off rate for each question, visualize results with charts and exporting the results"
+msgid ""
+"Advanced Entries addon allows you to collect partial submissions, view "
+"analytics and drop off rate for each question, visualize results with charts "
+"and exporting the results"
 msgstr ""
+"Les Entrées avancées addon vous permet de collecter partielle observations, "
+"analyses d'affichage et de dépôt des taux pour chaque question, de "
+"visualiser les résultats avec des graphiques et d'exporter les résultats"
 
 #: includes/site/class-store.php:448
 msgid "PDF Entries Export"
-msgstr ""
+msgstr "PDF Entrées à l'Exportation"
 
 #: includes/site/class-store.php:449
-msgid "PDF Entries Export addon allows you to export your form entries as PDF files and attach them to your email notifications."
+msgid ""
+"PDF Entries Export addon allows you to export your form entries as PDF files "
+"and attach them to your email notifications."
 msgstr ""
+"PDF Entrées à l'Exportation addon vous permet d'exporter vos entrées de "
+"formulaire en tant que fichiers PDF et de les joindre à votre e-mail les "
+"notifications."
 
 #: includes/site/class-store.php:458
 msgid "Save and Continue Later"
-msgstr ""
+msgstr "Enregistrer et Continuer plus Tard"
 
 #: includes/site/class-store.php:459
-msgid "Save and Continue Later addon allows your users to save their progress and continue filling out the form later."
+msgid ""
+"Save and Continue Later addon allows your users to save their progress and "
+"continue filling out the form later."
 msgstr ""
+"Enregistrer et Continuer plus Tard addon permet à vos utilisateurs "
+"d'enregistrer leurs progrès et de continuer de remplir le formulaire plus "
+"tard."
 
 #: includes/site/class-store.php:468
 msgid "Logic"
-msgstr ""
+msgstr "La logique"
 
 #: includes/site/class-store.php:469
-msgid "Jump logic and calculator. With jump logic, respondents can jump to different questions based on their answers. With calculator, you can add advanced calculations to your form."
+msgid ""
+"Jump logic and calculator. With jump logic, respondents can jump to "
+"different questions based on their answers. With calculator, you can add "
+"advanced calculations to your form."
 msgstr ""
+"Saut logique et calculateur. Avec saut logique, les répondants peuvent "
+"passer à différentes questions en fonction de leurs réponses. Avec la "
+"calculatrice, vous pouvez ajouter des calculs avancés à votre formulaire."
 
 #: includes/site/class-store.php:480
 msgid "Hidden Fields"
-msgstr ""
+msgstr "Les Champs Cachés"
 
 #: includes/site/class-store.php:481
-msgid "Hidden fields are custom url parameters you can set up in your form to access the query string in the url and also it can track the UTM parameters that are useful for your campaigns tracking."
+msgid ""
+"Hidden fields are custom url parameters you can set up in your form to "
+"access the query string in the url and also it can track the UTM parameters "
+"that are useful for your campaigns tracking."
 msgstr ""
+"Les champs masqués sont de l'url personnalisée paramètres que vous pouvez "
+"définir dans votre formulaire pour accéder à la chaîne de requête dans l'url "
+"et aussi il peut suivre l'UTM paramètres qui sont utiles pour vos campagnes "
+"de suivi."
 
 #: includes/site/class-store.php:490
 msgid "Form Locker"
-msgstr ""
+msgstr "Formulaire De Casier"
 
 #: includes/site/class-store.php:491
-msgid "Form Locker enables you to lock your forms with password, restrict access to logged in users or specific user roles, form accessability between start date and end date and restriction on the submission with the same email, phone, user id or with entries limit"
+msgid ""
+"Form Locker enables you to lock your forms with password, restrict access to "
+"logged in users or specific user roles, form accessability between start "
+"date and end date and restriction on the submission with the same email, "
+"phone, user id or with entries limit"
 msgstr ""
+"Forme Locker vous permet de verrouiller vos formes avec un mot de passe, "
+"restreindre l'accès à des utilisateurs spécifiques ou des rôles "
+"d'utilisateur, le formulaire accessability entre la date de début et date de "
+"fin et la restriction de la présentation avec le même e-mail, téléphone, nom "
+"d'utilisateur ou avec des entrées de limite"
 
 #: includes/site/class-store.php:500
 msgid "Google Tag Manager"
-msgstr ""
+msgstr "Google Tag Manager"
 
 #: includes/site/class-store.php:501
-msgid "Google Tag Manager addon allows you to add Google Tag Manager to your forms and track user activity and form submissions."
+msgid ""
+"Google Tag Manager addon allows you to add Google Tag Manager to your forms "
+"and track user activity and form submissions."
 msgstr ""
+"Google Tag Manager addon vous permet d'ajouter à Google Gestionnaire de "
+"balises pour vos formulaires et suivre l'activité de l'utilisateur et les "
+"soumissions de formulaire."
 
 #: includes/site/class-store.php:510
 msgid "Rating Block"
-msgstr ""
+msgstr "La Cote De Bloc"
 
 #: includes/site/class-store.php:511
-msgid "Add rating question type to your form. You can use stars, hearts, thumbs, thunderbolts, trophies, circles, ...etc in this rating question"
+msgid ""
+"Add rating question type to your form. You can use stars, hearts, thumbs, "
+"thunderbolts, trophies, circles, ...etc in this rating question"
 msgstr ""
+"Ajouter notation type de question à votre formulaire. Vous pouvez utiliser "
+"des étoiles, des coeurs, des pouces, des coups de foudre, des trophées, des "
+"cercles, ...etc dans cette question de classement"
 
 #: includes/site/class-store.php:520
 msgid "reCAPTCHA"
-msgstr ""
+msgstr "reCAPTCHA"
 
 #: includes/site/class-store.php:521
 msgid "Google reCAPTCHA protects your website from fraud and abuse."
-msgstr ""
+msgstr "Google reCAPTCHA protège votre site web à partir de fraude et d'abus."
 
 #: includes/site/class-store.php:530
 msgid "Custom Fonts"
-msgstr ""
+msgstr "Polices Personnalisées"
 
 #: includes/site/class-store.php:531
 msgid "Upload your own custom fonts to use them in Quill Forms!"
 msgstr ""
+"Télécharger vos propres polices de caractères à utiliser dans la Plume "
+"Formes!"
 
 #: includes/site/class-store.php:540
 msgid "Calendly Block"
-msgstr ""
+msgstr "Calendly Bloc"
 
 #: includes/site/class-store.php:541
-msgid "Calendly Block allows your customers to schedule appointments with calendly."
+msgid ""
+"Calendly Block allows your customers to schedule appointments with calendly."
 msgstr ""
+"Calendly Bloc permet à vos clients de planifier des rendez-vous avec "
+"calendly."
 
 #: includes/site/class-store.php:550
 msgid "Input Mask Block"
-msgstr ""
+msgstr "Masque De Saisie Bloc"
 
 #: includes/site/class-store.php:551
-msgid "Input mask block that allows you to define your own mask with ability to set up complex masks with regex"
+msgid ""
+"Input mask block that allows you to define your own mask with ability to set "
+"up complex masks with regex"
 msgstr ""
+"Masque de saisie bloc qui vous permet de définir votre propre masque avec "
+"possibilité de définir des masques complexes avec la regex"
 
 #: includes/site/class-store.php:560
 msgid "File Block"
-msgstr ""
+msgstr "Fichier De Bloc"
 
 #: includes/site/class-store.php:561
-msgid "Enable users to upload files with different extensions. You can also allow people to upload multiple files and control the allowed extensions."
+msgid ""
+"Enable users to upload files with different extensions. You can also allow "
+"people to upload multiple files and control the allowed extensions."
 msgstr ""
+"Permettre aux utilisateurs de télécharger des fichiers avec des extensions "
+"différentes. Vous pouvez également permettre aux internautes de télécharger "
+"plusieurs fichiers de contrôle et les extensions autorisées."
 
 #: includes/site/class-store.php:571
 msgid "Date Calendar Picker Block"
-msgstr ""
+msgstr "Calendrier Pour La Date De Sélecteur De Bloc"
 
 #: includes/site/class-store.php:572
-msgid "Date Calendar picker with advanced feature to set minimum date, maximum date and disable some dates"
+msgid ""
+"Date Calendar picker with advanced feature to set minimum date, maximum date "
+"and disable some dates"
 msgstr ""
+"Calendrier pour la Date picker avec des fonctionnalités avancées pour "
+"définir la date minimale, maximale de la date et de désactiver certaines "
+"dates"
 
 #: includes/site/class-store.php:581
 msgid "Phone Block"
-msgstr ""
+msgstr "Téléphone De Bloc"
 
 #: includes/site/class-store.php:582
 msgid "Add phone question type to your form with international format."
 msgstr ""
+"Ajouter de téléphone type de question à votre forme avec le format "
+"international."
 
 #: includes/site/class-store.php:591
 msgid "Opinion Scale Block"
-msgstr ""
+msgstr "Avis Échelle De Bloquer"
 
 #: includes/site/class-store.php:592
-msgid "An Opinion Scale lets people select an opinion on the scale you provide them. Easy to understand and quick to use, it is a nice way to collect opinions."
+msgid ""
+"An Opinion Scale lets people select an opinion on the scale you provide them."
+" Easy to understand and quick to use, it is a nice way to collect opinions."
 msgstr ""
+"Un Avis de l'Échelle permet de sélectionner un avis sur l'échelle que vous "
+"les fournir. Facile à comprendre et rapide à utiliser, c'est une belle façon "
+"de recueillir l'avis."
 
 #: includes/site/class-store.php:602
 msgid "Picture Choice Block"
-msgstr ""
+msgstr "Photo Choix"
 
 #: includes/site/class-store.php:603
-msgid "Make your survey more interesting with the use of suitable images to select as answers. It is a type of multiple choice question type, only with images instead of text."
+msgid ""
+"Make your survey more interesting with the use of suitable images to select "
+"as answers. It is a type of multiple choice question type, only with images "
+"instead of text."
 msgstr ""
+"Faire votre enquête plus intéressant avec l'utilisation d'images appropriées "
+"pour sélectionner les réponses. C'est un type de question à choix multiples "
+"de type, seulement avec des images au lieu de texte."
 
 #: includes/site/class-store.php:622
 msgid "Signature Block"
-msgstr ""
+msgstr "Bloc De Signature"
 
 #: includes/site/class-store.php:623
 msgid "Collect signature directly from your users on your forms."
 msgstr ""
+"Recueillir la signature directement à partir de vos internautes sur vos "
+"formulaires."
 
 #: includes/site/class-store.php:633
 msgid "Custom Thank You Screen"
-msgstr ""
+msgstr "Personnalisé Merci Écran"
 
 #: includes/site/class-store.php:634
-msgid "Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic."
+msgid ""
+"Custom thank you screen with advanced features like attachment and buttons "
+"to reload the form or redirect to external link. Works great with jump logic."
 msgstr ""
+"Personnalisé merci d'écran avec des fonctionnalités avancées comme "
+"l'attachement et les boutons pour recharger la forme ou le rediriger vers un "
+"lien externe. Fonctionne très bien avec le saut de la logique."
 
 #: includes/site/class-store.php:644
 msgid "Stripe"
-msgstr ""
+msgstr "Bande"
 
 #: includes/site/class-store.php:645
 msgid "Accept payments through stripe gateway."
-msgstr ""
+msgstr "Accepter les paiements par le biais de bande de la passerelle."
 
 #: includes/site/class-store.php:654
 msgid "PayPal"
-msgstr ""
+msgstr "PayPal"
 
 #: includes/site/class-store.php:655
 msgid "Accept payments through paypal gateway."
-msgstr ""
+msgstr "Accepter les paiements via paypal passerelle."
 
 #: includes/site/class-store.php:664
 msgid "Authorize.Net"
-msgstr ""
+msgstr "Authorize.Net"
 
 #: includes/site/class-store.php:665
 msgid "Accept payments through authorize.net gateway."
-msgstr ""
+msgstr "Accepter les paiements par le biais authorize.net la passerelle."
 
 #: includes/site/class-store.php:674
 msgid "Square"
-msgstr ""
+msgstr "Carré"
 
 #: includes/site/class-store.php:675
 msgid "Accept payments through square gateway."
-msgstr ""
+msgstr "Accepter les paiements par le biais de square de la passerelle."
 
 #: includes/site/class-store.php:684
 msgid "BTCPay Server"
-msgstr ""
+msgstr "BTCPay Serveur"
 
 #: includes/site/class-store.php:685
 msgid "Accept payments through BTCPay Server gateway."
-msgstr ""
+msgstr "Accepter les paiements par BTCPay Serveur de passerelle."
 
 #: includes/site/class-store.php:694
 msgid "Razorpay"
-msgstr ""
+msgstr "Razorpay"
 
 #: includes/site/class-store.php:695
 msgid "Accept payments through razorpay gateway."
-msgstr ""
+msgstr "Accepter les paiements par razorpay de la passerelle."
 
 #: includes/site/class-store.php:704
 msgid "Mollie"
-msgstr ""
+msgstr "Mollie"
 
 #: includes/site/class-store.php:705
 msgid "Accept payments through mollie gateway."
-msgstr ""
+msgstr "Accepter les paiements par mollie passerelle."
 
 #: includes/site/class-store.php:714
 msgid "2Checkout"
-msgstr ""
+msgstr "2Checkout"
 
 #: includes/site/class-store.php:715
-msgid "2Checkout addon allows you to accept payments through 2Checkout payment gateway."
+msgid ""
+"2Checkout addon allows you to accept payments through 2Checkout payment "
+"gateway."
 msgstr ""
+"2Checkout addon vous permet d'accepter des paiements par le biais de "
+"2Checkout de la passerelle de paiement."
 
 #: includes/site/class-store.php:725
 msgid "Google Analytics"
-msgstr ""
+msgstr "Google Analytics"
 
 #: includes/site/class-store.php:726
 msgid "Track your users activity and behavior by google analytics."
 msgstr ""
+"Le suivi de vos utilisateurs l'activité et le comportement de google "
+"analytics."
 
 #: includes/site/class-store.php:735
 msgid "Facebook Pixel"
-msgstr ""
+msgstr "Facebook Pixel"
 
 #: includes/site/class-store.php:736
 msgid "Track your users activity and behavior by facebook pixel."
 msgstr ""
+"Le suivi de vos utilisateurs l'activité et le comportement de l'facebook "
+"pixel."
 
 #: includes/site/class-store.php:745
 msgid "ActiveCampaign"
-msgstr ""
+msgstr "ActiveCampaign"
 
 #: includes/site/class-store.php:746
 msgid "Send new contacts to your ActiveCampaign account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre ActiveCampaign compte."
 
 #: includes/site/class-store.php:756
 msgid "AWeber"
-msgstr ""
+msgstr "AWeber"
 
 #: includes/site/class-store.php:757
 msgid "Send new contacts to your AWeber account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre compte AWeber."
 
 #: includes/site/class-store.php:766
 msgid "Constant Contact"
-msgstr ""
+msgstr "Contact Constant"
 
 #: includes/site/class-store.php:767
 msgid "Send new contacts to your Constant Contact lists."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre Constante des listes de Contacts."
 
 #: includes/site/class-store.php:778
 msgid "MailChimp"
-msgstr ""
+msgstr "MailChimp"
 
 #: includes/site/class-store.php:779
 msgid "Send new contacts to your MailChimp lists."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre MailChimp listes."
 
 #: includes/site/class-store.php:790
 msgid "MailerLite"
-msgstr ""
+msgstr "MailerLite"
 
 #: includes/site/class-store.php:791
 msgid "Send new contacts to your MailerLite account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre compte MailerLite."
 
 #: includes/site/class-store.php:800
 msgid "MailPoet"
-msgstr ""
+msgstr "MailPoet"
 
 #: includes/site/class-store.php:801
 msgid "Send new contacts to your MailPoet lists."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre MailPoet listes."
 
 #: includes/site/class-store.php:810
 msgid "monday.com"
-msgstr ""
+msgstr "monday.com"
 
 #: includes/site/class-store.php:811
 msgid "Send new items to your monday.com boards."
 msgstr ""
+"Envoyer de nouveaux éléments à votre monday.com les conseils "
+"d'administration."
 
 #: includes/site/class-store.php:820
 msgid "Notion"
-msgstr ""
+msgstr "Notion"
 
 #: includes/site/class-store.php:821
 msgid "Send new entry data to your Notion databases."
 msgstr ""
+"Envoyer de nouvelles données d'entrée pour votre Notion de bases de données."
 
 #: includes/site/class-store.php:830
 msgid "Pipedrive"
-msgstr ""
+msgstr "Pipedrive"
 
 #: includes/site/class-store.php:831
 msgid "Create Pipedrive leads on form submission."
-msgstr ""
+msgstr "Créer Pipedrive conduit sur le formulaire de soumission."
 
 #: includes/site/class-store.php:840
 msgid "GetResponse"
-msgstr ""
+msgstr "GetResponse"
 
 #: includes/site/class-store.php:841
 msgid "Send new contacts to your GetResponse lists."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre GetResponse listes."
 
 #: includes/site/class-store.php:852
 msgid "Google Sheets"
-msgstr ""
+msgstr "Des Feuilles De Calcul Google"
 
 #: includes/site/class-store.php:853
-msgid "Send your submission to Google Sheets. Syncs automatically when a new form is submitted!"
+msgid ""
+"Send your submission to Google Sheets. Syncs automatically when a new form "
+"is submitted!"
 msgstr ""
+"Envoyer votre soumission à des Feuilles de calcul Google. Synchronise "
+"automatiquement lorsqu'un formulaire est envoyé!"
 
 #: includes/site/class-store.php:864
 msgid "HubSpot"
-msgstr ""
+msgstr "HubSpot"
 
 #: includes/site/class-store.php:865
 msgid "Send new contacts to your HubSpot account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre HubSpot compte."
 
 #: includes/site/class-store.php:875
 msgid "Klaviyo"
-msgstr ""
+msgstr "Klaviyo"
 
 #: includes/site/class-store.php:876
 msgid "Send new profiles to your Klaviyo account."
-msgstr ""
+msgstr "Envoyer de nouveaux profils à votre Klaviyo compte."
 
 #: includes/site/class-store.php:885
 msgid "Salesforce"
-msgstr ""
+msgstr "Salesforce"
 
 #: includes/site/class-store.php:886
-msgid "Send new accounts, contacts, leads, cases or any other object to your Salesforce account."
+msgid ""
+"Send new accounts, contacts, leads, cases or any other object to your "
+"Salesforce account."
 msgstr ""
+"Envoyer de nouveaux comptes, des contacts, des prospects, des cas ou tout "
+"autre objet à votre compte Salesforce."
 
 #: includes/site/class-store.php:896
 msgid "Sendinblue"
-msgstr ""
+msgstr "Sendinblue"
 
 #: includes/site/class-store.php:897
 msgid "Send new contacts to your Sendinblue account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre Sendinblue compte."
 
 #: includes/site/class-store.php:906
 msgid "Slack"
-msgstr ""
+msgstr "Mou"
 
 #: includes/site/class-store.php:907
 msgid "Send new entries to your Slack workspaces."
-msgstr ""
+msgstr "Envoyer de nouvelles entrées dans votre Slack espaces de travail."
 
 #: includes/site/class-store.php:916
 msgid "Webhooks"
-msgstr ""
+msgstr "Webhooks"
 
 #: includes/site/class-store.php:917
 msgid "Send new entries data to any external service or application."
 msgstr ""
+"Envoyer de nouvelles entrées de données à un service externe ou de "
+"l'application."
 
 #: includes/site/class-store.php:926
 msgid "Make"
-msgstr ""
+msgstr "Faire"
 
 #: includes/site/class-store.php:927
 msgid "Send your submission to Make (formerly integromat) scenarios."
-msgstr ""
+msgstr "Envoyer votre proposition à Faire (anciennement integromat) scénarios."
 
 #: includes/site/class-store.php:936
 msgid "Zapier"
-msgstr ""
+msgstr "Zapier"
 
 #: includes/site/class-store.php:937
 msgid "Send your submission to Zapier configured zaps."
-msgstr ""
+msgstr "Envoyer votre proposition de Zapier configuré zappe."
 
 #: includes/site/class-store.php:948
 msgid "Bitrix24"
-msgstr ""
+msgstr "Bitrix24"
 
 #: includes/site/class-store.php:949
-msgid "Send new accounts, contacts, leads or any other crm to your Bitrix24 account."
+msgid ""
+"Send new accounts, contacts, leads or any other crm to your Bitrix24 account."
 msgstr ""
+"Envoyer de nouveaux comptes, contacts, prospects ou de tout autre crm à "
+"votre Bitrix24 compte."
 
 #: includes/site/class-store.php:958
 msgid "Asana"
-msgstr ""
+msgstr "Asana"
 
 #: includes/site/class-store.php:959
 msgid "Add Tasks to your Asana account."
-msgstr ""
+msgstr "Ajouter des Tâches à votre Asana compte."
 
 #: includes/site/class-store.php:968
 msgid "ClickUp"
-msgstr ""
+msgstr "ClickUp"
 
 #: includes/site/class-store.php:969
 msgid "Add Tasks to your ClickUp account."
-msgstr ""
+msgstr "Ajouter des Tâches à votre ClickUp compte."
 
 #: includes/site/class-store.php:978
 msgid "Mautic"
-msgstr ""
+msgstr "Mautic"
 
 #: includes/site/class-store.php:979
 msgid "Send new contacts to your Mautic account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre Mautic compte."
 
 #: includes/site/class-store.php:988
 msgid "ZohoCRM"
-msgstr ""
+msgstr "ZohoCRM"
 
 #: includes/site/class-store.php:989
-msgid "Send new accounts, contacts, leads or any other module to your ZohoCRM account."
+msgid ""
+"Send new accounts, contacts, leads or any other module to your ZohoCRM "
+"account."
 msgstr ""
+"Envoyer de nouveaux comptes, contacts, prospects ou de tout autre module à "
+"votre ZohoCRM compte."
 
 #: includes/site/class-store.php:998
 msgid "Convertkit"
-msgstr ""
+msgstr "Convertkit"
 
 #: includes/site/class-store.php:999
 msgid "Send new contacts to your Convertkit account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre Convertkit compte."
 
 #: includes/site/class-store.php:1008
 msgid "Freshsales"
-msgstr ""
+msgstr "Freshsales"
 
 #: includes/site/class-store.php:1009
 msgid "Send new contacts to your Freshsales account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts à votre Freshsales compte."
 
 #: includes/site/class-store.php:1018
 msgid "Airtable"
-msgstr ""
+msgstr "Airtable"
 
 #: includes/site/class-store.php:1019
 msgid "Send new records to your Airtable account."
-msgstr ""
+msgstr "Envoyer de nouveaux enregistrements à votre Airtable compte."
 
 #: includes/site/class-store.php:1028
 msgid "Trello"
-msgstr ""
+msgstr "Trello"
 
 #: includes/site/class-store.php:1029
-msgid "Trello addon allows you to send your form submissions to your Trello boards and lists."
+msgid ""
+"Trello addon allows you to send your form submissions to your Trello boards "
+"and lists."
 msgstr ""
+"Trello addon vous permet d'envoyer vos soumissions de formulaire à votre "
+"Trello conseils et des listes."
 
 #: includes/site/class-store.php:1038
 msgid "AgileCRM"
-msgstr ""
+msgstr "AgileCRM"
 
 #: includes/site/class-store.php:1039
 msgid "Send new contacts, tasks to your AgileCRM account."
-msgstr ""
+msgstr "Envoyer de nouveaux contacts, des tâches à votre AgileCRM compte."
 
 #: includes/site/class-store.php:1048
 msgid "Capsule CRM"
-msgstr ""
+msgstr "Capsule CRM"
 
 #: includes/site/class-store.php:1049
-msgid "Capsule CRM addon allows you to automatically create contacts and tasks in your Capsule CRM account when a form is submitted."
+msgid ""
+"Capsule CRM addon allows you to automatically create contacts and tasks in "
+"your Capsule CRM account when a form is submitted."
 msgstr ""
+"Capsule CRM addon vous permet de créer automatiquement des contacts et des "
+"tâches dans votre Capsule CRM compte lorsqu'un formulaire est soumis."
 
 #: includes/site/class-store.php:1058
 msgid "Drip"
-msgstr ""
+msgstr "Goutte à goutte"
 
 #: includes/site/class-store.php:1059
-msgid "Drip addon allows you to connect your forms with Drip email marketing service. It allows you to add subscribers to your Drip account."
+msgid ""
+"Drip addon allows you to connect your forms with Drip email marketing "
+"service. It allows you to add subscribers to your Drip account."
 msgstr ""
+"Goutte à goutte addon vous permet de vous connecter à vos formes avec ce "
+"système de marketing par courriel service. Il vous permet d'ajouter des "
+"abonnés à votre compte goutte à Goutte."
 
 #: includes/site/class-store.php:1068
 msgid "Salesflare"
-msgstr ""
+msgstr "Salesflare"
 
 #: includes/site/class-store.php:1069
-msgid "Salesflare addon makes it easy for you to connect your forms with your Salesflare account. With it, you can create contacts and tasks from your form submissions."
+msgid ""
+"Salesflare addon makes it easy for you to connect your forms with your "
+"Salesflare account. With it, you can create contacts and tasks from your "
+"form submissions."
 msgstr ""
+"Salesflare addon, il est facile pour vous connecter à vos formes avec votre "
+"Salesflare compte. Avec elle, vous pouvez créer des contacts et des tâches à "
+"partir de votre formulaire de soumission."
 
 #: includes/site/class-store.php:1078
 msgid "EmailOctopus"
-msgstr ""
+msgstr "EmailOctopus"
 
 #: includes/site/class-store.php:1079
-msgid "EmailOctopus addon allows you to connect your forms with EmailOctopus to create subscribers."
+msgid ""
+"EmailOctopus addon allows you to connect your forms with EmailOctopus to "
+"create subscribers."
 msgstr ""
+"EmailOctopus addon vous permet de vous connecter à vos formes avec "
+"EmailOctopus créer des abonnés."
 
 #: includes/site/class-store.php:1091
 msgid "Moosend"
-msgstr ""
+msgstr "Moosend"
 
 #: includes/site/class-store.php:1092
-msgid "Moosend addon allows you to connect your forms with Moosend to grow your email list."
+msgid ""
+"Moosend addon allows you to connect your forms with Moosend to grow your "
+"email list."
 msgstr ""
+"Moosend addon vous permet de vous connecter à vos formes avec Moosend à la "
+"croissance de votre liste d'email."
 
 #: includes/site/class-store.php:1101
 msgid "FluentCRM"
-msgstr ""
+msgstr "FluentCRM"
 
 #: includes/site/class-store.php:1102
-msgid "FluentCRM addon allows you to add contacts to your FluentCRM lists when a form is submitted."
+msgid ""
+"FluentCRM addon allows you to add contacts to your FluentCRM lists when a "
+"form is submitted."
 msgstr ""
+"FluentCRM addon vous permet d'ajouter des contacts à votre FluentCRM listes "
+"quand un formulaire est soumis."
 
 #: includes/site/class-store.php:1111
 msgid "FluentSupport"
-msgstr ""
+msgstr "FluentSupport"
 
 #: includes/site/class-store.php:1112
-msgid "FluentSupport addon allows you to create tickets in your FluentSupport account when a form is submitted."
+msgid ""
+"FluentSupport addon allows you to create tickets in your FluentSupport "
+"account when a form is submitted."
 msgstr ""
+"FluentSupport addon vous permet de créer des tickets dans votre "
+"FluentSupport compte lorsqu'un formulaire est soumis."
 
 #: includes/site/class-store.php:1122
 msgid "Discord"
-msgstr ""
+msgstr "La discorde"
 
 #: includes/site/class-store.php:1123
-msgid "Discord addon allows you to send your form submissions to your discord server."
+msgid ""
+"Discord addon allows you to send your form submissions to your discord "
+"server."
 msgstr ""
+"La discorde addon vous permet d'envoyer vos soumissions de formulaire à "
+"votre discorde serveur."
 
 #: includes/site/class-store.php:1132
 msgid "CleverReach"
-msgstr ""
+msgstr "CleverReach"
 
 #: includes/site/class-store.php:1133
-msgid "CleverReach addon allows you to connect your forms with CleverReach to send your leads to your CleverReach account."
+msgid ""
+"CleverReach addon allows you to connect your forms with CleverReach to send "
+"your leads to your CleverReach account."
 msgstr ""
+"CleverReach addon vous permet de vous connecter à vos formes avec "
+"CleverReach pour envoyer vos prospects à votre CleverReach compte."
 
 #: includes/site/class-store.php:1142
 msgid "GoHighLevel"
-msgstr ""
+msgstr "GoHighLevel"
 
 #: includes/site/class-store.php:1143
-msgid "GoHighLevel addon allows you to connect your forms with GoHighLevel to send your leads to your GoHighLevel account."
+msgid ""
+"GoHighLevel addon allows you to connect your forms with GoHighLevel to send "
+"your leads to your GoHighLevel account."
 msgstr ""
+"GoHighLevel addon vous permet de vous connecter à vos formes avec "
+"GoHighLevel pour envoyer vos prospects à votre GoHighLevel compte."
 
 #: includes/site/class-store.php:1152
 msgid "FunnelKit"
-msgstr ""
+msgstr "FunnelKit"
 
 #: includes/site/class-store.php:1153
-msgid "FunnelKit addon allows you to connect your forms with FunnelKit Automations."
+msgid ""
+"FunnelKit addon allows you to connect your forms with FunnelKit Automations."
 msgstr ""
+"FunnelKit addon vous permet de vous connecter à vos formes avec FunnelKit "
+"Automatismes."
 
 #: includes/site/class-store.php:1162
 msgid "Groundhogg"
-msgstr ""
+msgstr "Groundhogg"
 
 #: includes/site/class-store.php:1163
-msgid "Groundhogg addon allows you to connect your forms with Groundhogg to send your leads to your Groundhogg."
+msgid ""
+"Groundhogg addon allows you to connect your forms with Groundhogg to send "
+"your leads to your Groundhogg."
 msgstr ""
+"Groundhogg addon vous permet de vous connecter à vos formes avec Groundhogg "
+"pour envoyer vos prospects à votre Groundhogg."
 
 #: includes/site/class-store.php:1172
 msgid "Twilio"
-msgstr ""
+msgstr "Twilio"
 
 #: includes/site/class-store.php:1173
 msgid "Twilio addon allows you to send SMS notifications to your users."
 msgstr ""
+"Twilio addon vous permet d'envoyer des notifications par SMS à vos "
+"utilisateurs."
 
 #: includes/site/class-store.php:1182
 msgid "Keap"
-msgstr ""
+msgstr "Keap"
 
 #: includes/site/class-store.php:1183
 msgid "Keap addon allows you to connect your forms with Keap CRM."
-msgstr ""
+msgstr "Keap addon vous permet de vous connecter à vos formes avec Keap CRM."
 
 #: includes/site/class-store.php:1192
 msgid "Listmonk"
-msgstr ""
+msgstr "Listmonk"
 
 #: includes/site/class-store.php:1193
-msgid "Listmonk addon allows you to connect your forms with Listmonk to send your leads to your Listmonk account."
+msgid ""
+"Listmonk addon allows you to connect your forms with Listmonk to send your "
+"leads to your Listmonk account."
 msgstr ""
+"Listmonk addon vous permet de vous connecter à vos formes avec Listmonk pour "
+"envoyer vos prospects à votre Listmonk compte."
 
 #: includes/site/class-store.php:1202
 msgid "WordPress User Registeration"
-msgstr ""
+msgstr "Utilisateur De WordPress Internet"
 
 #: includes/site/class-store.php:1203
 msgid "Register new WordPress users on form submission."
 msgstr ""
+"Inscrire de nouveaux utilisateurs de WordPress sur le formulaire de "
+"soumission."
 
 #: includes/site/class-store.php:1212
 msgid "Advanced WordPress Post Creation"
-msgstr ""
+msgstr "Avancée De WordPress Post Création"
 
 #: includes/site/class-store.php:1213
-msgid "Create a new WordPress page, post or any available custom post type on form submission."
+msgid ""
+"Create a new WordPress page, post or any available custom post type on form "
+"submission."
 msgstr ""
+"Créer une nouvelle page WordPress, par la poste ou toute disposition des "
+"custom post type sur le formulaire de soumission."
 
 #: includes/site/class-updater.php:212
 msgid "Enter valid license key for automatic updates."
-msgstr ""
+msgstr "Entrez clé de licence valide pour les mises à jour automatiques."
 
 #: includes/site/class-updater.php:218
 msgid "Upgrade your license for automatic updates."
-msgstr ""
+msgstr "Mise à niveau de votre licence pour les mises à jour automatiques."
 
 #: includes/system-status/class-quillforms-environment.php:66
 msgid "QuillForms"
-msgstr ""
+msgstr "QuillForms"
 
-#: includes/system-status/class-quillforms-environment.php:70
-#: includes/system-status/class-quillforms-environment.php:132
-#: includes/system-status/class-quillforms-environment.php:177
-#: includes/system-status/class-quillforms-environment.php:195
-#: includes/system-status/class-server-environment.php:95
-#: includes/system-status/class-server-environment.php:174
-#: includes/system-status/class-wordpress-environment.php:108
+#: includes/system-status/class-quillforms-environment.php:70 
+#: includes/system-status/class-quillforms-environment.php:132 
+#: includes/system-status/class-quillforms-environment.php:177 
+#: includes/system-status/class-quillforms-environment.php:195 
+#: includes/system-status/class-server-environment.php:95 
+#: includes/system-status/class-server-environment.php:174 
+#: includes/system-status/class-wordpress-environment.php:108 
 #: includes/system-status/class-wordpress-environment.php:226
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
-#: includes/system-status/class-quillforms-environment.php:75
+#: includes/system-status/class-quillforms-environment.php:75 
 #: includes/system-status/class-wordpress-environment.php:113
 msgid "Locale"
-msgstr ""
+msgstr "Paramètres régionaux"
 
 #: includes/system-status/class-quillforms-environment.php:80
 msgid "Upload folder"
-msgstr ""
+msgstr "Le dossier de téléchargement"
 
 #: includes/system-status/class-quillforms-environment.php:85
 msgid "Upload folder permissions"
-msgstr ""
+msgstr "Télécharger des autorisations de dossier"
 
 #: includes/system-status/class-quillforms-environment.php:87
 msgid "Writable"
-msgstr ""
+msgstr "Accessible en écriture"
 
 #: includes/system-status/class-quillforms-environment.php:87
 msgid "Not writable"
-msgstr ""
+msgstr "Pas accessible en écriture"
 
 #: includes/system-status/class-quillforms-environment.php:91
 msgid "Log level"
-msgstr ""
+msgstr "Le niveau de journal"
 
 #: includes/system-status/class-quillforms-environment.php:98
 msgid "QuillForms database"
-msgstr ""
+msgstr "QuillForms base de données"
 
 #: includes/system-status/class-quillforms-environment.php:103
 msgid "Registered Addons"
-msgstr ""
+msgstr "Enregistré Addons"
 
 #: includes/system-status/class-quillforms-environment.php:108
 msgid "Action Scheduler"
-msgstr ""
+msgstr "Action Planificateur"
 
 #: includes/system-status/class-quillforms-environment.php:182
 msgid "Path"
-msgstr ""
+msgstr "Chemin"
 
 #: includes/system-status/class-quillforms-environment.php:187
 msgid "Data Store"
-msgstr ""
+msgstr "Magasin De Données"
 
 #: includes/system-status/class-quillforms-environment.php:197
 msgid "Not Installed"
-msgstr ""
+msgstr "Il N'Est Pas Installé"
 
 #: includes/system-status/class-server-environment.php:70
 msgid "Web Server"
-msgstr ""
+msgstr "Serveur Web"
 
 #: includes/system-status/class-server-environment.php:74
 msgid "Software"
-msgstr ""
+msgstr "Logiciel"
 
 #: includes/system-status/class-server-environment.php:79
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: includes/system-status/class-server-environment.php:84
 msgid "Document Root"
-msgstr ""
+msgstr "La Racine Du Document"
 
 #: includes/system-status/class-server-environment.php:91
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
-#: includes/system-status/class-server-environment.php:100
+#: includes/system-status/class-server-environment.php:100 
 #: includes/system-status/class-wordpress-environment.php:124
 msgid "Memory Limit"
-msgstr ""
+msgstr "Limite De Mémoire"
 
 #: includes/system-status/class-server-environment.php:105
 msgid "Maximum Execution Time"
-msgstr ""
+msgstr "Délai D'Exécution Maximal"
 
 #: includes/system-status/class-server-environment.php:110
 msgid "Maximum File Upload Size"
-msgstr ""
+msgstr "Maximale De Téléchargement De Fichiers Taille"
 
 #: includes/system-status/class-server-environment.php:115
 msgid "Maximum File Uploads"
-msgstr ""
+msgstr "Maximum Les Uploads De Fichier"
 
 #: includes/system-status/class-server-environment.php:120
 msgid "Maximum Post Size"
-msgstr ""
+msgstr "La Taille De Message Maximale"
 
 #: includes/system-status/class-server-environment.php:125
 msgid "Maximum Input Variables"
-msgstr ""
+msgstr "Maximum De Variables D'Entrée"
 
-#: includes/system-status/class-server-environment.php:130
+#: includes/system-status/class-server-environment.php:130 
 #: includes/system-status/class-server-environment.php:189
 msgid "UTC Time"
-msgstr ""
+msgstr "L'Heure UTC"
 
-#: includes/system-status/class-server-environment.php:135
+#: includes/system-status/class-server-environment.php:135 
 #: includes/system-status/class-server-environment.php:194
 msgid "Local Time"
-msgstr ""
+msgstr "Heure Locale"
 
 #: includes/system-status/class-server-environment.php:140
 msgid "cURL"
-msgstr ""
+msgstr "cURL"
 
 #: includes/system-status/class-server-environment.php:142
 msgid "Installed but cannot get version"
-msgstr ""
+msgstr "Installé, mais ne peut pas obtenir la version"
 
 #: includes/system-status/class-server-environment.php:142
 msgid "Not installed"
-msgstr ""
+msgstr "Il n'est pas installé"
 
 #: includes/system-status/class-server-environment.php:146
 msgid "Mcrypt"
-msgstr ""
+msgstr "Mcrypt"
 
 #: includes/system-status/class-server-environment.php:152
 msgid "Mbstring"
-msgstr ""
+msgstr "Mbstring"
 
 #: includes/system-status/class-server-environment.php:158
 msgid "Loaded Extensions"
-msgstr ""
+msgstr "Chargé Des Extensions"
 
 #: includes/system-status/class-server-environment.php:165
 msgid "MySQL"
-msgstr ""
+msgstr "MySQL"
 
 #: includes/system-status/class-server-environment.php:169
 msgid "Server"
-msgstr ""
+msgstr "Serveur"
 
 #: includes/system-status/class-server-environment.php:179
 msgid "Database Character Set"
-msgstr ""
+msgstr "Jeu De Caractères De La Base De Données"
 
 #: includes/system-status/class-server-environment.php:184
 msgid "Database Collation"
-msgstr ""
+msgstr "Classement De Base De Données"
 
 #: includes/system-status/class-system-status.php:60
 msgid "QuillForms Environment"
-msgstr ""
+msgstr "QuillForms Environnement"
 
 #: includes/system-status/class-system-status.php:65
 msgid "Wordpress Environment"
-msgstr ""
+msgstr "Wordpress Environnement"
 
 #: includes/system-status/class-system-status.php:70
 msgid "Server Environment"
-msgstr ""
+msgstr "Environnement De Serveur"
 
 #: includes/system-status/class-wordpress-environment.php:94
 msgid "WordPress"
-msgstr ""
+msgstr "WordPress"
 
 #: includes/system-status/class-wordpress-environment.php:98
 msgid "Home URL"
-msgstr ""
+msgstr "La maison de l'URL"
 
 #: includes/system-status/class-wordpress-environment.php:103
 msgid "Site URL"
-msgstr ""
+msgstr "URL du Site"
 
 #: includes/system-status/class-wordpress-environment.php:118
 msgid "Multisite"
-msgstr ""
+msgstr "Multisite"
 
-#: includes/system-status/class-wordpress-environment.php:120
-#: includes/system-status/class-wordpress-environment.php:141
-#: includes/system-status/class-wordpress-environment.php:147
-#: includes/system-status/class-wordpress-environment.php:153
-#: includes/system-status/class-wordpress-environment.php:159
+#: includes/system-status/class-wordpress-environment.php:120 
+#: includes/system-status/class-wordpress-environment.php:141 
+#: includes/system-status/class-wordpress-environment.php:147 
+#: includes/system-status/class-wordpress-environment.php:153 
+#: includes/system-status/class-wordpress-environment.php:159 
 #: includes/system-status/class-wordpress-environment.php:165
 msgid "ON"
-msgstr ""
+msgstr "SUR"
 
-#: includes/system-status/class-wordpress-environment.php:120
-#: includes/system-status/class-wordpress-environment.php:141
-#: includes/system-status/class-wordpress-environment.php:147
-#: includes/system-status/class-wordpress-environment.php:153
-#: includes/system-status/class-wordpress-environment.php:159
+#: includes/system-status/class-wordpress-environment.php:120 
+#: includes/system-status/class-wordpress-environment.php:141 
+#: includes/system-status/class-wordpress-environment.php:147 
+#: includes/system-status/class-wordpress-environment.php:153 
+#: includes/system-status/class-wordpress-environment.php:159 
 #: includes/system-status/class-wordpress-environment.php:165
 msgid "OFF"
-msgstr ""
+msgstr "OFF"
 
 #: includes/system-status/class-wordpress-environment.php:129
 msgid "GMT Offset"
-msgstr ""
+msgstr "Le Décalage GMT"
 
 #: includes/system-status/class-wordpress-environment.php:134
 msgid "Timezone"
-msgstr ""
+msgstr "Fuseau horaire"
 
 #: includes/system-status/class-wordpress-environment.php:139
 msgid "Debug Mode"
-msgstr ""
+msgstr "Le Mode De Débogage"
 
 #: includes/system-status/class-wordpress-environment.php:145
 msgid "Debug Log"
-msgstr ""
+msgstr "Journal De Débogage"
 
 #: includes/system-status/class-wordpress-environment.php:151
 msgid "Script Debug Mode"
-msgstr ""
+msgstr "Script De Debug Mode"
 
 #: includes/system-status/class-wordpress-environment.php:157
 msgid "Cron"
-msgstr ""
+msgstr "Cron"
 
 #: includes/system-status/class-wordpress-environment.php:163
 msgid "Alternate Cron"
-msgstr ""
+msgstr "Suppléant Cron"
 
 #: includes/system-status/class-wordpress-environment.php:171
 msgid "Active Theme"
-msgstr ""
+msgstr "Thème Actif"
 
 #: includes/system-status/class-wordpress-environment.php:176
 msgid "Drop-in Plugins"
-msgstr ""
+msgstr "Drop-in Plugins"
 
 #: includes/system-status/class-wordpress-environment.php:181
 msgid "MU Plugins"
-msgstr ""
+msgstr "MU Plugins"
 
 #: includes/system-status/class-wordpress-environment.php:186
 msgid "Active Plugins"
-msgstr ""
+msgstr "Active Les Plugins"
 
 #: includes/system-status/class-wordpress-environment.php:191
 msgid "Inactive Plugins"
-msgstr ""
+msgstr "Inactif Plugins"
 
 #: includes/system-status/class-wordpress-environment.php:196
 msgid "WordPress Database"
-msgstr ""
+msgstr "Base De Données WordPress"
 
 #: includes/system-status/class-wordpress-environment.php:221
 msgid "Theme"
-msgstr ""
+msgstr "Thème"
 
 #: includes/system-status/class-wordpress-environment.php:231
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: includes/system-status/class-wordpress-environment.php:236
 msgid "Author URL"
-msgstr ""
+msgstr "Auteur URL"
 
 #: includes/system-status/class-wordpress-environment.php:247
 msgid "Parent theme"
-msgstr ""
+msgstr "Thème Parent"
 
 #: includes/system-status/class-wordpress-environment.php:252
 msgid "Parent version"
-msgstr ""
+msgstr "Version Parent"
 
 #: includes/system-status/class-wordpress-environment.php:257
 msgid "Parent URL"
-msgstr ""
+msgstr "URL Parent"
 
 #: includes/system-status/class-wordpress-environment.php:262
 msgid "Parent author URL"
-msgstr ""
+msgstr "Parent auteur de l'URL"
 
 #: includes/system-status/class-wordpress-environment.php:285
 msgid "Visit plugin homepage"
-msgstr ""
+msgstr "Visitez le plugin page d'accueil"
 
 #: includes/system-status/class-wordpress-environment.php:295
 msgid "Network enabled"
-msgstr ""
+msgstr "Compatible réseau"
 
 #: includes/system-status/class-wordpress-environment.php:328
 msgid "Prefix"
-msgstr ""
+msgstr "Préfixe"
 
 #: includes/system-status/class-wordpress-environment.php:333
 msgid "Total Database Size"
-msgstr ""
+msgstr "Total Taille De Base De Données"
 
 #: includes/system-status/class-wordpress-environment.php:338
 msgid "Database Data Size"
-msgstr ""
+msgstr "La Base De Données De Taille"
 
 #: includes/system-status/class-wordpress-environment.php:343
 msgid "Database Index Size"
-msgstr ""
+msgstr "La Taille De L'Index De La Base De Données"
 
 #. Translators: %1$f: Table size, %2$f: Index size, %3$s Engine.
 #: includes/system-status/class-wordpress-environment.php:352
 msgid "Data: %1$.2fMB + Index: %2$.2fMB + Engine %3$s"
-msgstr ""
+msgstr "Données: %1$.2fMB + Indice: %2$.2fMB + Moteur de %3$s"
 
 #: includes/templates/course-evaluation-survey/class-course-evaluation-survey-template.php:27
 msgid "Course Evaluation Survey"
-msgstr ""
+msgstr "L'Évaluation Du Cours De L'Enquête"
 
 #: includes/templates/customer-satisfaction-survey/class-customer-satisfaction-survey-template.php:27
 msgid "Customer Satisfaction Survey"
-msgstr ""
+msgstr "Enquête De Satisfaction Client"
 
 #: includes/templates/customer-satisfaction-survey/class-customer-satisfaction-survey-template.php:38
 msgid "Get feedback from your customers about your products or services."
-msgstr ""
+msgstr "Obtenir la rétroaction de vos clients sur vos produits ou services."
 
 #: includes/templates/event-registration/class-event-registration-template.php:27
 msgid "Event Registration"
-msgstr ""
+msgstr "L'Enregistrement D'Un Événement"
 
 #: includes/templates/job-application-form/class-job-application-form-template.php:27
 msgid "Job Application Form"
-msgstr ""
+msgstr "Formulaire De Demande D'Emploi"
 
 #: includes/templates/newsletter-subscription-form/class-newsletter-subscription-form-template.php:27
 msgid "Newsletter Subscription Form"
-msgstr ""
+msgstr "Formulaire D'Abonnement À La Newsletter"
 
 #: includes/templates/paid-workshop-registration/class-paid-workshop-registration-template.php:36
 msgid "Paid Workshop Registration"
-msgstr ""
+msgstr "Payés D'Inscription Aux Ateliers"
 
 #: includes/templates/personality-quiz/class-personality-quiz-template.php:27
 msgid "Personality Quiz"
-msgstr ""
+msgstr "Test De Personnalité"
 
 #: includes/templates/science-quiz/class-science-quiz-template.php:27
 msgid "Correct and Incorrect Science Quiz"
-msgstr ""
+msgstr "Correcte et Incorrecte de la Science Quiz"
 
 #: includes/templates/simple-contact-form/class-simple-contact-form-template.php:27
 msgid "Simple Contact Form"
-msgstr ""
+msgstr "Simple Formulaire De Contact"
 
 #: includes/templates/simple-donation-form/class-simple-donation-form-template.php:27
 msgid "Simple Donation Form"
-msgstr ""
+msgstr "Simple Formulaire De Don"
 
 #: includes/templates/trivia-quiz/class-trivia-quiz-template.php:27
 msgid "Trivia Quiz"
-msgstr ""
+msgstr "Trivia Quiz"
 
 #: includes/templates/web-design-cost-calculator/class-web-design-cost-calculator-template.php:27
 msgid "Web Design Cost Calculator"
-msgstr ""
+msgstr "Web Design Calculateur De Coût"
