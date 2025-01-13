@@ -7,13 +7,14 @@ import { BlockIconBox } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
  */
 import classnames from 'classnames';
 
-const EntryField = ( {
+const EntryField = ({
 	order,
 	name,
 	label,
@@ -21,46 +22,46 @@ const EntryField = ( {
 	rawValue,
 	id,
 	attributes,
-} ) => {
-	const { blockType } = useSelect( ( select ) => {
+}) => {
+	const { blockType } = useSelect((select) => {
 		return {
-			blockType: select( 'quillForms/blocks' ).getBlockType( name ),
+			blockType: select('quillForms/blocks').getBlockType(name),
 		};
-	} );
+	});
 
 	return (
 		<li>
 			<div className="qf-entry-field-header">
 				<BlockIconBox
-					icon={ blockType?.icon }
-					color={ blockType?.color }
+					icon={blockType?.icon}
+					color={blockType?.color}
 				/>
 				<div
 					className="qf-entry-field-header-label"
-					dangerouslySetInnerHTML={ {
+					dangerouslySetInnerHTML={{
 						__html: label ?? '...',
-					} }
+					}}
 				></div>
 			</div>
 
 			<div
-				className={ classnames( 'qf-entry-field-value', {
-					empty: ! value,
-				} ) }
+				className={classnames('qf-entry-field-value', {
+					empty: !value,
+				})}
 			>
-				{ value && blockType?.entryDetails ? (
+				{value && blockType?.entryDetails ? (
 					<blockType.entryDetails
-						value={ rawValue }
-						id={ id }
-						attributes={ attributes }
+						value={rawValue}
+						id={id}
+						attributes={attributes}
 					/>
 				) : (
 					<div
-						dangerouslySetInnerHTML={ {
-							__html: value ?? 'No response',
-						} }
+						dangerouslySetInnerHTML={{
+							__html: value ?? __('No response', 'quillforms'),
+						}}
 					></div>
-				) }
+				)}
 			</div>
 		</li>
 	);

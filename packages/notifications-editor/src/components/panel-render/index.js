@@ -3,6 +3,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies

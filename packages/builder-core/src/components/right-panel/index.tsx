@@ -5,6 +5,7 @@ import { ThemesRender } from "@quillforms/theme-editor";
 import JumpLogicIcon from './logic-icon';
 import CalculatorIcon from './calculator-icon';
 import { useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 const BlockControlsPanel = () => {
     const [activeTab, setActiveTab] = useState('question');
@@ -38,19 +39,19 @@ const BlockControlsPanel = () => {
                     className={`tab ${activeTab === 'question' ? 'active' : ''}`}
                     onClick={() => setActiveTab('question')}
                 >
-                    Question
+                    {__('Question', 'quillforms')}
                 </div>
                 <div
                     className={`tab ${activeTab === 'design' ? 'active' : ''}`}
                     onClick={() => setActiveTab('design')}
                 >
-                    Design
+                    {__('Design', 'quillforms')}
                 </div>
                 <div
                     className={`tab ${activeTab === 'logic' ? 'active' : ''}`}
                     onClick={() => setActiveTab('logic')}
                 >
-                    Logic
+                    {__('Logic', 'quillforms')}
                 </div>
             </div>
 
@@ -67,13 +68,13 @@ const BlockControlsPanel = () => {
                                     }
                                 }>
                                     <JumpLogicIcon />
-                                    Jump Logic
+                                    {__('Jump Logic', 'quillforms')}
                                 </button>
                                 <button className="logic-button" onClick={() => {
                                     setCurrentPanel('calculator');
                                 }}>
                                     <CalculatorIcon />
-                                    Calculator
+                                    {__('Calculator', 'quillforms')}
                                 </button>
                             </div>
                         )}

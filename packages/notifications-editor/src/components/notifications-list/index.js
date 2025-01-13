@@ -14,6 +14,7 @@ import { useSelect } from '@wordpress/data';
 import { Icon, arrowRight } from '@wordpress/icons';
 import { useState } from 'react';
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -54,12 +55,12 @@ const NotificationsList = ({
 				<AlertMessageWrapper type={"info"}>
 					{!qfAdmin.is_quill_smtp_installed &&
 						<>
-							Email Notifications requires Quill SMTP plugin to be installed and activated. Please install and activate <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">Quill SMTP</a> plugin to make sure that your email notifications are delivered successfully.
+							{__('Email Notifications requires Quill SMTP plugin to be installed and activated. Please install and activate', 'quillforms')} <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">{__('Quill SMTP', 'quillforms')}</a> {__('plugin to make sure that your email notifications are delivered successfully.', 'quillforms')}
 						</>
 					}
 					{qfAdmin.is_quill_smtp_installed && !qfAdmin.is_quill_smtp_active &&
 						<>
-							Email Notifications requires Quill SMTP plugin to be activated. Please activate <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">Quill SMTP</a> plugin to make sure that your email notifications are delivered successfully.
+							{__('Email Notifications requires Quill SMTP plugin to be activated. Please activate', 'quillforms')} <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">{__('Quill SMTP', 'quillforms')}</a> {__('plugin to make sure that your email notifications are delivered successfully.', 'quillforms')}
 						</>
 					}
 				</AlertMessageWrapper>
@@ -70,7 +71,7 @@ const NotificationsList = ({
 						font-size: 15px;
 					` }
 				>
-					Notifications List
+					{__('Notifications List', 'quillforms')}
 				</h4>
 
 				<Button
@@ -94,7 +95,7 @@ const NotificationsList = ({
 					}}
 					isLarge
 				>
-					Add New Notification
+					{__('Add New Notification', 'quillforms')}
 					<Icon
 						className={css`
 							fill: #fff;
@@ -122,7 +123,7 @@ const NotificationsList = ({
 					})
 				) : (
 					<div className="notifications-editor-no-notifications-msg">
-						There are no notifications.
+						{__('There are no notifications.', 'quillforms')}
 					</div>
 				)}
 			</>
@@ -152,7 +153,7 @@ const NotificationsList = ({
 								}
 							`
 						)}
-						title="Multiple notifications is a pro feature"
+						title={__('Multiple notifications is a pro feature', 'quillforms')}
 						onRequestClose={() => {
 							setDisplayProModal(false);
 						}}

@@ -10,6 +10,7 @@ import { Button } from "@quillforms/admin-components";
 import { css } from "emotion";
 import QRCode from "react-qr-code";
 import QRCodeIcon from "./qrcode-icon";
+import { __ } from "@wordpress/i18n";
 
 import configApi from "@quillforms/config";
 import { size } from "lodash";
@@ -274,9 +275,9 @@ const ShareBody = ({ payload }) => {
             <div className="quillforms-share-page-header">
                 <ShareIcon />
                 <div className="quillforms-share-page-heading">
-                    <p>Share Your Form with Others using Multiple Options </p>
+                    <p>{__('Share Your Form with Others using Multiple Options', 'quillforms')}</p>
                     <p>
-                        To share your form with others, you have several options available. You can share it via a direct link, shortcode, embed code, or pop-up. Choose the method that best suits your needs and preferences to ensure easy and convenient access for your audience.
+                        {__('To share your form with others, you have several options available. You can share it via a direct link, shortcode, embed code, or pop-up. Choose the method that best suits your needs and preferences to ensure easy and convenient access for your audience.', 'quillforms')}
                     </p>
                 </div>
             </div>
@@ -286,10 +287,10 @@ const ShareBody = ({ payload }) => {
                 }}>
                     <div className="quillforms-share-card-header">
                         <LinkIcon />
-                        <h3>Direct Link</h3>
+                        <h3>{__('Direct Link', 'quillforms')}</h3>
                     </div>
                     <div className="quillforms-share-card-body">
-                        <p>Copy the form link and share it with your audience.</p>
+                        <p>{__('Copy the form link and share it with your audience.', 'quillforms')}</p>
                     </div>
                 </div>
                 {isWPEnv && (
@@ -302,10 +303,10 @@ const ShareBody = ({ payload }) => {
                                 fontSize: "22px",
                                 marginBottom: "34px"
                             }}>[ / ]</h3>
-                            <h3>Shortcode</h3>
+                            <h3>{__('Shortcode', 'quillforms')}</h3>
                         </div>
                         <div className="quillforms-share-card-body">
-                            <p>Copy the shortcode and paste it into your post or page.</p>
+                            <p>{__('Copy the shortcode and paste it into your post or page.', 'quillforms')}</p>
                         </div>
                     </div>
                 )}
@@ -314,10 +315,10 @@ const ShareBody = ({ payload }) => {
                 }}>
                     <div className="quillforms-share-card-header">
                         <CodeIcon />
-                        <h3>Embed Code</h3>
+                        <h3>{__('Embed Code', 'quillforms')}</h3>
                     </div>
                     <div className="quillforms-share-card-body">
-                        <p>Embed code is useful to share the form in an external web page. Copy the code and paste it into your external post or page.</p>
+                        <p>{__('Embed code is useful to share the form in an external web page. Copy the code and paste it into your external post or page.', 'quillforms')}</p>
                     </div>
                 </div>
                 {isWPEnv && (
@@ -332,7 +333,7 @@ const ShareBody = ({ payload }) => {
                             `}>
                                 <div>
                                     <PopupIcon />
-                                    <h3>Popup</h3>
+                                    <h3>{__('Popup', 'quillforms')}</h3>
                                 </div>
                                 <div className="admin-components-control-label__new-feature">
                                     NEW
@@ -340,7 +341,7 @@ const ShareBody = ({ payload }) => {
                             </div>
                         </div>
                         <div className="quillforms-share-card-body">
-                            <p>Display your form on a popup upon clicking a desinated button. Copy the shortcode and paste it into your post or page.</p>
+                            <p>{__('Display your form on a popup upon clicking a desinated button. Copy the shortcode and paste it into your post or page.', 'quillforms')}</p>
                         </div>
                     </div>
                 )}
@@ -355,7 +356,7 @@ const ShareBody = ({ payload }) => {
                         `}>
                             <div>
                                 <QRCodeIcon />
-                                <h3>QR Code</h3>
+                                <h3>{__('QR Code', 'quillforms')}</h3>
                             </div>
                             <div className="admin-components-control-label__new-feature">
                                 NEW
@@ -363,13 +364,13 @@ const ShareBody = ({ payload }) => {
                         </div>
                     </div>
                     <div className="quillforms-share-card-body">
-                        <p>Share your form with others by scanning the QR code.</p>
+                        <p>{__('Share your form with others by scanning the QR code.', 'quillforms')}</p>
                     </div>
                 </div>
             </div>
             {modalState === 'link' && (
                 <Modal
-                    title="Direct Link"
+                    title={__('Direct Link', 'quillforms')}
                     onRequestClose={() => {
                         setModalState(false);
                     }}
@@ -380,7 +381,7 @@ const ShareBody = ({ payload }) => {
                                 <div className="quillforms-hidden-fields-settings">
 
 
-                                    <h4>Hidden Fields</h4>
+                                    <h4>{__('Hidden Fields', 'quillforms')}</h4>
 
                                     <div className={hiddenFieldsContainer}>
                                         {hiddenFields.map((field) => {
@@ -391,7 +392,7 @@ const ShareBody = ({ payload }) => {
                                                         <input
                                                             type="text"
                                                             value={fieldValues[field.name] || ''}
-                                                            placeholder={`Enter value for ${field.name}`}
+                                                            placeholder={__('Enter value for ', 'quillforms') + field.name}
                                                             onChange={(e) => {
                                                                 setFieldValues(prev => ({
                                                                     ...prev,
@@ -407,13 +408,13 @@ const ShareBody = ({ payload }) => {
                                     </div>
 
                                     <div className={routingTypeSelect}>
-                                        <label>Parameter Type:</label>
+                                        <label>{__('Parameter Type:', 'quillforms')}</label>
                                         <select
                                             value={routingType}
                                             onChange={(e) => setRoutingType(e.target.value)}
                                         >
-                                            <option value="query">Query String (?param=value)</option>
-                                            <option value="hash">Hash (#param=value)</option>
+                                            <option value="query">{__('Query String (?param=value)', 'quillforms')}</option>
+                                            <option value="hash">{__('Hash (#param=value)', 'quillforms')}</option>
                                         </select>
                                     </div>
 
@@ -421,7 +422,7 @@ const ShareBody = ({ payload }) => {
                             </>
                         )}
                         <div className={generatedLinkContainer}>
-                            <h4>Generated URL</h4>
+                            <h4>{__('Generated URL', 'quillforms')}</h4>
                             <div className={linkRow}>
                                 <input
                                     type="text"
@@ -435,7 +436,7 @@ const ShareBody = ({ payload }) => {
                                         setIsCopied(true);
                                     }}
                                 >
-                                    {isCopied ? 'Copied!' : 'Copy'}
+                                    {isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
                                 </Button>
                             </div>
                         </div>
@@ -445,18 +446,18 @@ const ShareBody = ({ payload }) => {
 
             {modalState === 'shortcode' && (
                 <Modal
-                    title="Shortcode"
+                    title={__('Shortcode', 'quillforms')}
                     onRequestClose={() => {
                         setModalState(false);
                     }}
                 >
                     <div className="quillforms-share-modal">
-                        <p>Customize your form display settings and copy the generated shortcode.</p>
+                        <p>{__('Customize your form display settings and copy the generated shortcode.', 'quillforms')}</p>
 
                         {/* Shortcode Settings */}
                         <div className="quillforms-shortcode-settings">
                             <div className="quillforms-shortcode-setting-row">
-                                <label>Width</label>
+                                <label>{__('Width', 'quillforms')}</label>
                                 <div className="quillforms-shortcode-setting-input">
                                     <input
                                         type="number"
@@ -491,7 +492,7 @@ const ShareBody = ({ payload }) => {
                             </div>
 
                             <div className="quillforms-shortcode-setting-row">
-                                <label>Minimum Height</label>
+                                <label>{__('Minimum Height', 'quillforms')}</label>
                                 <div className="quillforms-shortcode-setting-input">
                                     <input
                                         type="number"
@@ -525,7 +526,7 @@ const ShareBody = ({ payload }) => {
                             </div>
 
                             <div className="quillforms-shortcode-setting-row">
-                                <label>Maximum Height</label>
+                                <label>{__('Maximum Height', 'quillforms')}</label>
                                 <div className="quillforms-shortcode-setting-input">
                                     <input
                                         type="number"
@@ -562,7 +563,7 @@ const ShareBody = ({ payload }) => {
 
                         {/* Generated Shortcode */}
                         <div className={generatedLinkContainer}>
-                            <h4>Generated Shortcode</h4>
+                            <h4>{__('Generated Shortcode', 'quillforms')}</h4>
                             <div className={linkRow}>
                                 <input
                                     type="text"
@@ -576,7 +577,7 @@ const ShareBody = ({ payload }) => {
                                         setIsCopied(true);
                                     }}
                                 >
-                                    {isCopied ? 'Copied!' : 'Copy'}
+                                    {isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
                                 </Button>
                             </div>
                         </div>
@@ -585,24 +586,24 @@ const ShareBody = ({ payload }) => {
             )}
             {modalState === 'embed' && (
                 <Modal
-                    title="Embed Code"
+                    title={__('Embed Code', 'quillforms')}
                     onRequestClose={() => {
                         setModalState(false);
                     }}
                 >
                     <div className="quillforms-share-modal">
-                        <p>Copy the embed code below and insert it in your external page.</p>
+                        <p>{__('Copy the embed code below and insert it in your external page.', 'quillforms')}</p>
                         <div className="quillforms-share-modal-link">
                             <input type="text" style={{ minWidth: "400px" }}
                                 value={`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`} readOnly />
                             {isCopied ? (
-                                <Button isPrimary>Copied!</Button>
+                                <Button isPrimary>{__('Copied!', 'quillforms')}</Button>
                             ) : (
 
                                 <Button isPrimary onClick={() => {
                                     navigator.clipboard.writeText(`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`);
                                     setIsCopied(true);
-                                }}>Copy</Button>
+                                }}>{__('Copy', 'quillforms')}</Button>
                             )}
                         </div>
                     </div>
@@ -612,7 +613,7 @@ const ShareBody = ({ payload }) => {
 
             {modalState === 'popup' && (
                 <Modal
-                    title="Popup"
+                    title={__('Popup', 'quillforms')}
                     onRequestClose={() => {
                         setModalState(false);
                     }}
@@ -655,9 +656,9 @@ const ShareBody = ({ payload }) => {
 
                         <div className="quillforms-share-popup-settings">
                             <div>
-                                <h3>Popup Settings</h3>
+                                <h3>{__('Popup Settings', 'quillforms')}</h3>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button title</label>
+                                    <label>{__('Button title', 'quillforms')}</label>
                                     <input type="text" value={popupSettings.buttonTitle} onChange={(e) => {
                                         setPopupSettings({
                                             ...popupSettings,
@@ -666,7 +667,7 @@ const ShareBody = ({ payload }) => {
                                     }} />
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button background color</label>
+                                    <label>{__('Button background color', 'quillforms')}</label>
                                     <ComboColorPicker
                                         color={popupSettings.buttonBackgroundColor}
                                         setColor={(color) => {
@@ -679,7 +680,7 @@ const ShareBody = ({ payload }) => {
 
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button text color</label>
+                                    <label>{__('Button text color', 'quillforms')}</label>
                                     <ColorPicker
                                         value={popupSettings.buttonTextColor}
                                         onChange={(color) => {
@@ -691,7 +692,7 @@ const ShareBody = ({ payload }) => {
                                     />
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button border radius(px)</label>
+                                    <label>{__('Button border radius(px)', 'quillforms')}</label>
                                     <input type="number" value={popupSettings.buttonBorderRadius} onChange={(e) => {
                                         setPopupSettings({
                                             ...popupSettings,
@@ -700,7 +701,7 @@ const ShareBody = ({ payload }) => {
                                     }} />
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button border width(px)</label>
+                                    <label>{__('Button border width(px)', 'quillforms')}</label>
                                     <input type="number" value={popupSettings.buttonBorderWidth} onChange={(e) => {
                                         setPopupSettings({
                                             ...popupSettings,
@@ -709,7 +710,7 @@ const ShareBody = ({ payload }) => {
                                     }} />
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button border color</label>
+                                    <label>{__('Button border color', 'quillforms')}</label>
                                     <ColorPicker
                                         value={popupSettings.buttonBorderColor}
                                         onChange={(color) => {
@@ -721,7 +722,7 @@ const ShareBody = ({ payload }) => {
                                     />
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button font size(px)</label>
+                                    <label>{__('Button font size(px)', 'quillforms')}</label>
                                     <input type="number" value={popupSettings.buttonFontSize} onChange={(e) => {
                                         setPopupSettings({
                                             ...popupSettings,
@@ -730,10 +731,10 @@ const ShareBody = ({ payload }) => {
                                     }} />
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Button padding(px)</label>
+                                    <label>{__('Button padding(px)', 'quillforms')}</label>
                                     <div className="quillforms-share-popup-settings-row-padding-group">
                                         <div>
-                                            <span>Top</span>
+                                            <span>{__('Top', 'quillforms')}</span>
                                             <input type="number" value={popupSettings.buttonPadding.top} onChange={(e) => {
                                                 setPopupSettings({
                                                     ...popupSettings,
@@ -745,7 +746,7 @@ const ShareBody = ({ payload }) => {
                                             }} />
                                         </div>
                                         <div>
-                                            <span>Right</span>
+                                            <span>{__('Right', 'quillforms')}</span>
                                             <input type="number" value={popupSettings.buttonPadding.right} onChange={(e) => {
                                                 setPopupSettings({
                                                     ...popupSettings,
@@ -757,7 +758,7 @@ const ShareBody = ({ payload }) => {
                                             }} />
                                         </div>
                                         <div>
-                                            <span>Bottom</span>
+                                            <span>{__('Bottom', 'quillforms')}</span>
                                             <input type="number" value={popupSettings.buttonPadding.bottom} onChange={(e) => {
                                                 setPopupSettings({
                                                     ...popupSettings,
@@ -769,7 +770,7 @@ const ShareBody = ({ payload }) => {
                                             }} />
                                         </div>
                                         <div>
-                                            <span>Left</span>
+                                            <span>{__('Left', 'quillforms')}</span>
 
                                             <input type="number" value={popupSettings.buttonPadding.left} onChange={(e) => {
                                                 setPopupSettings({
@@ -785,7 +786,7 @@ const ShareBody = ({ payload }) => {
                                     </div>
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Popup max width</label>
+                                    <label>{__('Popup max width', 'quillforms')}</label>
                                     <div className="quillforms-share-popup-settings-row-max-width-group">
                                         <div>
                                             <input type="number" value={popupSettings.popupMaxWidth} onChange={(e) => {
@@ -807,7 +808,7 @@ const ShareBody = ({ payload }) => {
                                     </div>
                                 </div>
                                 <div className="quillforms-share-popup-settings-row">
-                                    <label>Popup max height</label>
+                                    <label>{__('Popup max height', 'quillforms')}</label>
                                     <div className="quillforms-share-popup-settings-row-max-height-group">
                                         <div>
                                             <input type="number" value={popupSettings.popupMaxHeight} onChange={(e) => {
@@ -834,7 +835,7 @@ const ShareBody = ({ payload }) => {
                                 right: 318px;
                                 top: 100px;
                             `}>
-                                <h3>Preview</h3>
+                                <h3>{__('Preview', 'quillforms')}</h3>
                                 <div className="quillforms-share-popup-preview">
                                     <a className={css`
                                     display: inline-block;
@@ -848,7 +849,7 @@ const ShareBody = ({ payload }) => {
                                         {popupSettings.buttonTitle}
                                     </a>
                                 </div>
-                                <p>Copy the shortcode below and insert it in your WordPress page or post.</p>
+                                <p>{__('Copy the shortcode below and insert it in your WordPress page or post.', 'quillforms')}</p>
                                 <div style={{
                                     minWidth: "100%", height: "140px", maxHeight: "150px", minHeight: "150px", maxWidth: "400px",
                                     padding: "10px",
@@ -859,13 +860,13 @@ const ShareBody = ({ payload }) => {
                                     {popupShortcode}
                                 </div>
                                 {isCopied ? (
-                                    <Button isPrimary>Copied!</Button>
+                                    <Button isPrimary>{__('Copied!', 'quillforms')}</Button>
                                 ) : (
 
                                     <Button isPrimary onClick={() => {
                                         navigator.clipboard.writeText(`${popupShortcode}`);
                                         setIsCopied(true);
-                                    }}>Copy</Button>
+                                    }}>{__('Copy', 'quillforms')}</Button>
                                 )}
                             </div>
                         </div>
@@ -878,7 +879,7 @@ const ShareBody = ({ payload }) => {
 
             {modalState === 'qr' && (
                 <Modal
-                    title="QR Code"
+                    title={__('QR Code', 'quillforms')}
                     onRequestClose={() => {
                         setModalState(null);
                     }}
@@ -913,13 +914,13 @@ const ShareBody = ({ payload }) => {
                         padding: 0 20px;
                     `}>
                         <div className="quillforms-qr-share-modal">
-                            <p>Simply scan the code to initiate your Quill Forms, which function seamlessly both online and offline (printer required naturally).
+                            <p>{__('Simply scan the code to initiate your Quill Forms, which function seamlessly both online and offline (printer required naturally).', 'quillforms')}
                             </p>
                             <p className={css`
                                 background: #ffaef7;
                                 padding: 5px 10px;
                                 border-radius: 5px;
-                            `}>Changing the slug of your form within the builder will result in a corresponding alteration of the QR code.
+                            `}>{__('Changing the slug of your form within the builder will result in a corresponding alteration of the QR code.', 'quillforms')}
                             </p>
                             <div className={css`
                                 text-align: center;
@@ -931,7 +932,7 @@ const ShareBody = ({ payload }) => {
                                 <QRCode value={payload?.link} />
                                 <Button className={css`
                                     margin-top: 20px;
-                                `} isPrimary isLarge onClick={() => downloadQR()}>Download</Button>
+                                `} isPrimary isLarge onClick={() => downloadQR()}>{__('Download', 'quillforms')}</Button>
 
                             </div>
 

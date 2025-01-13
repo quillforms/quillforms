@@ -14,6 +14,7 @@ import { getPlainExcerpt } from '@quillforms/rich-text';
 import { Icon, Dashicon } from '@wordpress/components';
 import { blockDefault, plus } from '@wordpress/icons';
 import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 interface Props {
 	name: string;

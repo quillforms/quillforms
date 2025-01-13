@@ -1,9 +1,10 @@
 import { css } from "emotion";
+import { __ } from '@wordpress/i18n';
 const BlockLayout = ({ layout, setAttributes }) => {
 	const layouts = [
 		{
 			key: 'stack',
-			name: 'Stack',
+			name: __('Stack', 'quillforms'),
 			icon: (
 				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
@@ -15,7 +16,7 @@ const BlockLayout = ({ layout, setAttributes }) => {
 		},
 		{
 			key: 'float-right',
-			name: 'Float Right',
+			name: __('Float Right', 'quillforms'),
 			icon: (
 				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
@@ -28,7 +29,7 @@ const BlockLayout = ({ layout, setAttributes }) => {
 		},
 		{
 			key: 'float-left',
-			name: 'Float Left',
+			name: __('Float Left', 'quillforms'),
 			icon: (
 				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
@@ -41,7 +42,7 @@ const BlockLayout = ({ layout, setAttributes }) => {
 		},
 		{
 			key: 'split-right',
-			name: 'Split Right',
+			name: __('Split Right', 'quillforms'),
 			icon: (
 				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
@@ -54,7 +55,7 @@ const BlockLayout = ({ layout, setAttributes }) => {
 		},
 		{
 			key: 'split-left',
-			name: 'Split Left',
+			name: __('Split Left', 'quillforms'),
 			icon: (
 				<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect x="2" y="2" width="28" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />

@@ -15,6 +15,8 @@ const postcss = require('postcss');
 const { compact } = require('lodash');
 const { basename } = require('path');
 const path = require('path');
+const PotFilePlugin = require('./PotFilePlugin');
+
 
 const defaultConfig = require('./packages/scripts/config/webpack.config');
 
@@ -62,7 +64,8 @@ const quillformsPackages = Object.keys(dependencies)
 		(packageName) =>
 			packageName.startsWith(QUILLFORMS_NAMESPACE) &&
 			packageName !== '@quillforms/scripts' &&
-			packageName !== '@quillforms/dependency-extraction-webpack-plugin'
+			packageName !== '@quillforms/dependency-extraction-webpack-plugin' &&
+			packageName !== '@quillforms/babel-plugin-makepot'
 	)
 	.map((packageName) => packageName.replace(QUILLFORMS_NAMESPACE, ''));
 
@@ -271,16 +274,16 @@ module.exports = {
 								require.resolve(
 									'@babel/plugin-transform-react-jsx'
 								),
-								require.resolve(
-									'@babel/plugin-proposal-async-generator-functions'
-								),
-								require.resolve(
-									'@babel/plugin-transform-runtime'
-								),
-								require.resolve(
-									'@babel/plugin-proposal-class-properties'
-								),
+								['@quillforms/babel-plugin-makepot', {
+									output: 'languages/quillforms-js.pot',
+									headers: {
+										'Project-Id-Version': 'QuillForms 2.0.0',
+										'Last-Translator': 'Mohamed Magdy',
+										'Report-Msgid-Bugs-To': 'https://github.com/quillforms/quillforms/issues'
+									}
+								}]
 							].filter(Boolean),
+
 						},
 					},
 				],
@@ -370,6 +373,12 @@ module.exports = {
 				],
 			},
 		]),
+	},
+	resolve: {
+		fallback: {
+			"fs": false,
+			"path": require.resolve("path-browserify")
+		}
 	},
 	plugins: [
 		new CleanWebpackPlugin({

@@ -3,6 +3,7 @@
  */
 import { Button } from '@quillforms/admin-components';
 import { getIntegrationModules } from '@quillforms/form-integrations';
+import { __ } from '@wordpress/i18n';
 
 /**
  * WordPress Dependencies
@@ -37,11 +38,9 @@ const IntegrationsPage = ({ params }) => {
 			<div className="quillforms-integrations-page-header">
 				<Icon />
 				<div className="quillforms-integrations-page-heading">
-					<p>Connect your form to your best-loved apps </p>
+					<p>{__('Connect your form to your best-loved apps', 'quillforms')} </p>
 					<p>
-						Establish workflows that work for you. Automate your
-						marketing, sales, and service processes to make your
-						form more efficient
+						{__('Establish workflows that work for you. Automate your marketing, sales, and service processes to make your form more efficient', 'quillforms')}
 					</p>
 				</div>
 			</div>
@@ -51,7 +50,7 @@ const IntegrationsPage = ({ params }) => {
 					className="quillforms-integrations-page-search__input"
 					type="text"
 					value={searchKeyword}
-					placeholder={'Search Integrations'}
+					placeholder={__('Search for an integration', 'quillforms')}
 					onChange={(e) => {
 						setSearchKeyword(e.target.value);
 					}}
@@ -99,9 +98,13 @@ const IntegrationsPage = ({ params }) => {
 										}
 									>
 										{connected ? (
-											<span>Edit Connections</span>
+											<span>
+												{__('Edit Connection', 'quillforms')}
+											</span>
 										) : (
-											<span>Connect</span>
+											<span>
+												{__('Connect', 'quillforms')}
+											</span>
 										)}
 									</Button>
 								</div>
@@ -121,7 +124,7 @@ const IntegrationsPage = ({ params }) => {
 							margin-top: 100px;
 						` }
 					>
-						No integrations found!
+						{__('No integrations available', 'quillforms')}
 					</div>
 				)}
 			</div>

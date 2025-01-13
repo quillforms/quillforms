@@ -2,6 +2,7 @@
  * QuillForms Dependencies.
  */
 import { Button } from '@quillforms/admin-components';
+import { __ } from '@wordpress/i18n';
 
 interface Props {
 	save: {
@@ -15,24 +16,24 @@ interface Props {
 	};
 }
 
-const Footer: React.FC< Props > = ( { save, close } ) => {
+const Footer: React.FC<Props> = ({ save, close }) => {
 	return (
 		<div className="integration-connect-footer">
 			<div className="integration-connect-footer__wrapper">
 				<Button
 					isDanger
 					className="integration-connect-footer__cancel"
-					onClick={ close.onClick }
+					onClick={close.onClick}
 				>
-					{ close.label }
+					{__(close.label, 'quillforms')}
 				</Button>
 				<Button
 					className="integration-connect-footer__save"
 					isPrimary
-					onClick={ save.onClick }
-					disabled={ save.disabled }
+					onClick={save.onClick}
+					disabled={save.disabled}
 				>
-					{ save.label }
+					{__(save.label, 'quillforms')}
 				</Button>
 			</div>
 		</div>

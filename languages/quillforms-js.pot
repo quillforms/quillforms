@@ -1,0 +1,4350 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: QuillForms 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
+"POT-Creation-Date: 2025-01-13T05:15:21.340Z\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mohamed Magdy\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: quillforms-babel-plugin-makepot\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: client/pages/payments/coupons/coupon/index.js:96
+#: coupons/coupon/index.js:96
+msgid "10"
+msgstr ""
+
+#: admin-components/src/choices-bulk-btn/index.tsx:49
+#: packages/admin-components/src/choices-bulk-btn/index.tsx:49
+#: src/choices-bulk-btn/index.tsx:49
+msgid "Bulk Answers"
+msgstr ""
+
+#: blocklib-date-block/src/admin/settings.js:10
+#: client/pages/home/home-content.js:291
+#: client/pages/results/components/entry-details/notes/index.js:142
+#: entry-details/notes/index.js:142
+#: packages/blocklib-date-block/src/admin/settings.js:10
+#: pages/home/home-content.js:291
+#: src/admin/settings.js:10
+msgid "Date"
+msgstr ""
+
+#: builder-core/src/components/right-panel/index.tsx:42
+#: client/pages/results/insights/index.js:118
+#: components/right-panel/index.tsx:42
+#: packages/builder-core/src/components/right-panel/index.tsx:42
+#: results/insights/index.js:118
+msgid "Question"
+msgstr ""
+
+#: admin-components/src/form-admin-bar/index.tsx:49
+#: builder-core/src/components/right-panel/index.tsx:48
+#: components/right-panel/index.tsx:48
+#: packages/admin-components/src/form-admin-bar/index.tsx:49
+#: packages/builder-core/src/components/right-panel/index.tsx:48
+#: src/form-admin-bar/index.tsx:49
+msgid "Design"
+msgstr ""
+
+#: builder-core/src/components/right-panel/index.tsx:54
+#: components/right-panel/index.tsx:54
+#: packages/builder-core/src/components/right-panel/index.tsx:54
+msgid "Logic"
+msgstr ""
+
+#: builder-core/src/components/right-panel/index.tsx:71
+#: client/pro-panels/jump-logic-render/index.js:31
+#: components/right-panel/index.tsx:71
+#: packages/builder-core/src/components/right-panel/index.tsx:71
+#: pro-panels/jump-logic-render/index.js:31
+msgid "Jump Logic"
+msgstr ""
+
+#: builder-core/src/components/right-panel/index.tsx:77
+#: components/right-panel/index.tsx:77
+#: packages/builder-core/src/components/right-panel/index.tsx:77
+msgid "Calculator"
+msgstr ""
+
+#: account-auth/credentials/index.tsx:66
+#: account-auth/credentials/index.tsx:84
+#: account-auth/oauth/index.tsx:41
+#: connection/account-select/index.tsx:135
+#: form-integrations/src/components/shared/account-auth/credentials/index.tsx:66
+#: form-integrations/src/components/shared/account-auth/credentials/index.tsx:84
+#: form-integrations/src/components/shared/account-auth/oauth/index.tsx:41
+#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:135
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:66
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:84
+msgid "Account"
+msgstr ""
+
+#: account-auth/credentials/index.tsx:68
+#: account-auth/oauth/index.tsx:44
+#: form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
+#: form-integrations/src/components/shared/account-auth/oauth/index.tsx:44
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
+msgid "added successfully!"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:58
+#: main/connection/index.tsx:58
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:58
+msgid "Run Manually"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:67
+#: main/connection/index.tsx:67
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:67
+msgid "Delete Connection"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:79
+#: main/connection/index.tsx:79
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:79
+msgid "Run Connection after:"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:83
+#: main/connection/index.tsx:83
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:83
+msgid "Submission"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:87
+#: main/connection/index.tsx:87
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:87
+msgid "Saving the form"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:91
+#: main/connection/index.tsx:91
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:91
+msgid "Partial Submission"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:102
+#: main/connection/index.tsx:102
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:102
+msgid "Connection Name"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/connection/index.tsx:121
+#: main/connection/index.tsx:121
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:121
+msgid ""
+"Previously selected account isn't found, please reauthorize it or select "
+"another one!"
+msgstr ""
+
+#: connection/account-select/index.tsx:66
+#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:66
+msgid "Select "
+msgstr ""
+
+#: connection/account-select/index.tsx:69
+#: connection/account-select/index.tsx:82
+#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:69
+#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:82
+msgid "account"
+msgstr ""
+
+#: connection/account-select/index.tsx:79
+#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:79
+msgid "Add new "
+msgstr ""
+
+#: admin-components/src/responsive-control/index.tsx:45
+#: packages/admin-components/src/responsive-control/index.tsx:45
+#: src/responsive-control/index.tsx:45
+msgid "Device"
+msgstr ""
+
+#: admin-components/src/pro-button/index.tsx:27
+#: packages/admin-components/src/pro-button/index.tsx:27
+#: src/pro-button/index.tsx:27
+msgid "Renew License"
+msgstr ""
+
+#: admin-components/src/pro-button/index.tsx:30
+#: admin-components/src/pro-button/index.tsx:44
+#: client/pages/license/index.js:195
+#: packages/admin-components/src/pro-button/index.tsx:30
+#: packages/admin-components/src/pro-button/index.tsx:44
+#: pages/license/index.js:195
+#: src/pro-button/index.tsx:30
+#: src/pro-button/index.tsx:44
+msgid "Upgrade to"
+msgstr ""
+
+#: admin-components/src/pro-button/index.tsx:34
+#: packages/admin-components/src/pro-button/index.tsx:34
+#: src/pro-button/index.tsx:34
+msgid "Activate Addon"
+msgstr ""
+
+#: admin-components/src/pro-button/index.tsx:40
+#: packages/admin-components/src/pro-button/index.tsx:40
+#: src/pro-button/index.tsx:40
+msgid "Install Addon"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:39
+#: packages/blocklib-email-block/src/admin/controls.js:39
+#: src/admin/controls.js:39
+msgid "Domain cannot be empty"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:48
+#: packages/blocklib-email-block/src/admin/controls.js:48
+#: src/admin/controls.js:48
+msgid "Domain already exists"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:54
+#: packages/blocklib-email-block/src/admin/controls.js:54
+#: src/admin/controls.js:54
+msgid "Invalid domain format (e.g., example.com)"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:81
+#: packages/blocklib-email-block/src/admin/controls.js:81
+#: src/admin/controls.js:81
+msgid "Restrict Email Domains"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:99
+#: packages/blocklib-email-block/src/admin/controls.js:99
+#: src/admin/controls.js:99
+msgid "Add Allowed Domain"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:149
+#: packages/blocklib-email-block/src/admin/controls.js:149
+#: src/admin/controls.js:149
+msgid "Add Domain"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:158
+#: packages/blocklib-email-block/src/admin/controls.js:158
+#: src/admin/controls.js:158
+msgid "Allowed Domains"
+msgstr ""
+
+#: blocklib-email-block/src/admin/controls.js:184
+#: components/customize/index.js:174
+#: components/customize/index.js:262
+#: packages/blocklib-email-block/src/admin/controls.js:184
+#: src/admin/controls.js:184
+#: theme-editor/src/components/customize/index.js:174
+#: theme-editor/src/components/customize/index.js:262
+msgid "Remove"
+msgstr ""
+
+#: blocklib-dropdown-block/src/admin/controls.js:28
+#: blocklib-multiple-choice-block/src/admin/controls.js:91
+#: packages/blocklib-dropdown-block/src/admin/controls.js:28
+#: packages/blocklib-multiple-choice-block/src/admin/controls.js:91
+#: src/admin/controls.js:28
+#: src/admin/controls.js:91
+msgid "Choices"
+msgstr ""
+
+#: admin-components/src/enhanced-pro-label/index.tsx:35
+#: client/pages/results/analytics/index.js:54
+#: packages/admin-components/src/enhanced-pro-label/index.tsx:35
+#: results/analytics/index.js:54
+#: src/enhanced-pro-label/index.tsx:35
+msgid "Pro Feature"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:97
+#: packages/admin-components/src/combobox-control/index.tsx:97
+#: src/combobox-control/index.tsx:97
+msgid "Fields"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:105
+#: packages/admin-components/src/combobox-control/index.tsx:105
+#: src/combobox-control/index.tsx:105
+msgid "Variables"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:113
+#: client/pages/share/body.js:384
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packages/admin-components/src/combobox-control/index.tsx:113
+#: pages/share/body.js:384
+#: pro-panels/hidden-fields-render/index.js:24
+#: src/combobox-control/index.tsx:113
+msgid "Hidden Fields"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:121
+#: packages/admin-components/src/combobox-control/index.tsx:121
+#: src/combobox-control/index.tsx:121
+msgid "Entry ID"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:125
+#: packages/admin-components/src/combobox-control/index.tsx:125
+#: src/combobox-control/index.tsx:125
+msgid "Form ID"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:129
+#: packages/admin-components/src/combobox-control/index.tsx:129
+#: src/combobox-control/index.tsx:129
+msgid "Entry Date (YYYY-MM-DD)"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:133
+#: packages/admin-components/src/combobox-control/index.tsx:133
+#: src/combobox-control/index.tsx:133
+msgid "User ID"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:137
+#: packages/admin-components/src/combobox-control/index.tsx:137
+#: src/combobox-control/index.tsx:137
+msgid "User IP Address"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:141
+#: packages/admin-components/src/combobox-control/index.tsx:141
+#: src/combobox-control/index.tsx:141
+msgid "HTTP User Agent"
+msgstr ""
+
+#: admin-components/src/combobox-control/index.tsx:146
+#: packages/admin-components/src/combobox-control/index.tsx:146
+#: src/combobox-control/index.tsx:146
+msgid "Entry Properties"
+msgstr ""
+
+#: admin-components/src/form-admin-bar/index.tsx:31
+#: packages/admin-components/src/form-admin-bar/index.tsx:31
+#: src/form-admin-bar/index.tsx:31
+msgid "Back to home"
+msgstr ""
+
+#: admin-components/src/form-admin-bar/index.tsx:64
+#: client/pages/home/form-card.js:225
+#: packages/admin-components/src/form-admin-bar/index.tsx:64
+#: pages/home/form-card.js:225
+#: src/form-admin-bar/index.tsx:64
+msgid "Share"
+msgstr ""
+
+#: admin-components/src/form-admin-bar/index.tsx:79
+#: client/pages/home/form-card.js:205
+#: packages/admin-components/src/form-admin-bar/index.tsx:79
+#: pages/home/form-card.js:205
+#: src/form-admin-bar/index.tsx:79
+msgid "Results"
+msgstr ""
+
+#: admin-components/src/form-admin-bar/index.tsx:95
+#: client/pages/home/form-card.js:215
+#: packages/admin-components/src/form-admin-bar/index.tsx:95
+#: pages/home/form-card.js:215
+#: src/form-admin-bar/index.tsx:95
+msgid "Integrations"
+msgstr ""
+
+#: admin-components/src/form-admin-bar/index.tsx:110
+#: packages/admin-components/src/form-admin-bar/index.tsx:110
+#: src/form-admin-bar/index.tsx:110
+msgid "Payments"
+msgstr ""
+
+#: admin-components/src/select-control/index.tsx:130
+#: packages/admin-components/src/select-control/index.tsx:130
+#: src/select-control/index.tsx:130
+msgid "No selection"
+msgstr ""
+
+#: admin-components/src/select-control/index.tsx:134
+#: packages/admin-components/src/select-control/index.tsx:134
+#: src/select-control/index.tsx:134
+msgid "Currently selected: %s"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:30
+#: packages/blocklib-slider-block/src/admin/controls.js:30
+#: src/admin/controls.js:30
+msgid "No"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:33
+#: packages/blocklib-slider-block/src/admin/controls.js:33
+#: src/admin/controls.js:33
+msgid "Yes"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:36
+#: packages/blocklib-slider-block/src/admin/controls.js:36
+#: src/admin/controls.js:36
+msgid "Custom"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:73
+#: packages/blocklib-slider-block/src/admin/controls.js:73
+#: src/admin/controls.js:73
+msgid "Min"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:84
+#: packages/blocklib-slider-block/src/admin/controls.js:84
+#: src/admin/controls.js:84
+msgid "Max"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:96
+#: packages/blocklib-slider-block/src/admin/controls.js:96
+#: src/admin/controls.js:96
+msgid "Step"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:107
+#: packages/blocklib-slider-block/src/admin/controls.js:107
+#: src/admin/controls.js:107
+msgid "Marks"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:128
+#: packages/blocklib-slider-block/src/admin/controls.js:128
+#: src/admin/controls.js:128
+msgid "value"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:134
+#: packages/blocklib-slider-block/src/admin/controls.js:134
+#: src/admin/controls.js:134
+msgid "label"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:164
+#: packages/blocklib-slider-block/src/admin/controls.js:164
+#: src/admin/controls.js:164
+msgid "Prefix"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/controls.js:170
+#: packages/blocklib-slider-block/src/admin/controls.js:170
+#: src/admin/controls.js:170
+msgid "Suffix"
+msgstr ""
+
+#: blocklib-date-block/src/admin/controls.js:31
+#: packages/blocklib-date-block/src/admin/controls.js:31
+#: src/admin/controls.js:31
+msgid "MMDDYYYY"
+msgstr ""
+
+#: blocklib-date-block/src/admin/controls.js:35
+#: packages/blocklib-date-block/src/admin/controls.js:35
+#: src/admin/controls.js:35
+msgid "DDMMYYYY"
+msgstr ""
+
+#: blocklib-date-block/src/admin/controls.js:39
+#: packages/blocklib-date-block/src/admin/controls.js:39
+#: src/admin/controls.js:39
+msgid "YYYYMMDD"
+msgstr ""
+
+#: blocklib-date-block/src/admin/controls.js:45
+#: packages/blocklib-date-block/src/admin/controls.js:45
+#: src/admin/controls.js:45
+msgid "/"
+msgstr ""
+
+#: blocklib-date-block/src/admin/controls.js:49
+#: packages/blocklib-date-block/src/admin/controls.js:49
+#: src/admin/controls.js:49
+msgid "-"
+msgstr ""
+
+#: blocklib-date-block/src/admin/controls.js:53
+#: packages/blocklib-date-block/src/admin/controls.js:53
+#: src/admin/controls.js:53
+msgid "."
+msgstr ""
+
+#: blocklib-date-block/src/admin/controls.js:65
+#: packages/blocklib-date-block/src/admin/controls.js:65
+#: src/admin/controls.js:65
+msgid "Date Format"
+msgstr ""
+
+#: blocklib-number-block/src/admin/settings.js:14
+#: packages/blocklib-number-block/src/admin/settings.js:14
+#: src/admin/settings.js:14
+msgid "Number"
+msgstr ""
+
+#: blocklib-long-text-block/src/admin/controls.js:25
+#: blocklib-short-text-block/src/admin/controls.js:24
+#: packages/blocklib-long-text-block/src/admin/controls.js:25
+#: packages/blocklib-short-text-block/src/admin/controls.js:24
+#: src/admin/controls.js:24
+#: src/admin/controls.js:25
+msgid "Min Characters"
+msgstr ""
+
+#: blocklib-long-text-block/src/admin/controls.js:49
+#: blocklib-short-text-block/src/admin/controls.js:49
+#: packages/blocklib-long-text-block/src/admin/controls.js:49
+#: packages/blocklib-short-text-block/src/admin/controls.js:49
+#: src/admin/controls.js:49
+msgid "Max Characters"
+msgstr ""
+
+#: blocklib-legal-block/src/admin/controls.js:28
+#: packages/blocklib-legal-block/src/admin/controls.js:28
+#: src/admin/controls.js:28
+msgid "Yes Label"
+msgstr ""
+
+#: blocklib-legal-block/src/admin/controls.js:35
+#: packages/blocklib-legal-block/src/admin/controls.js:35
+#: src/admin/controls.js:35
+msgid "No Label"
+msgstr ""
+
+#: builder-core/src/add-blocks-panel/index.ts:14
+#: packages/builder-core/src/add-blocks-panel/index.ts:14
+#: src/add-blocks-panel/index.ts:14
+msgid "Add Questions"
+msgstr ""
+
+#: blocklib-number-block/src/admin/controls.js:46
+#: packages/blocklib-number-block/src/admin/controls.js:46
+#: src/admin/controls.js:46
+msgid "Set min number"
+msgstr ""
+
+#: blocklib-number-block/src/admin/controls.js:69
+#: packages/blocklib-number-block/src/admin/controls.js:69
+#: src/admin/controls.js:69
+msgid "Set max number"
+msgstr ""
+
+#: blocklib-long-text-block/src/admin/settings.js:12
+#: packages/blocklib-long-text-block/src/admin/settings.js:12
+#: src/admin/settings.js:12
+msgid "Long text"
+msgstr ""
+
+#: blocklib-multiple-choice-block/src/admin/controls.js:29
+#: packages/blocklib-multiple-choice-block/src/admin/controls.js:29
+#: src/admin/controls.js:29
+msgid "Multiple"
+msgstr ""
+
+#: blocklib-multiple-choice-block/src/admin/controls.js:42
+#: packages/blocklib-multiple-choice-block/src/admin/controls.js:42
+#: src/admin/controls.js:42
+msgid "Minimum limit for choices"
+msgstr ""
+
+#: blocklib-multiple-choice-block/src/admin/controls.js:60
+#: packages/blocklib-multiple-choice-block/src/admin/controls.js:60
+#: src/admin/controls.js:60
+msgid "Maximum limit for choices"
+msgstr ""
+
+#: blocklib-multiple-choice-block/src/admin/controls.js:80
+#: packages/blocklib-multiple-choice-block/src/admin/controls.js:80
+#: src/admin/controls.js:80
+msgid "Vertical Align"
+msgstr ""
+
+#: code-editor/src/panel/index.tsx:12
+#: packages/code-editor/src/panel/index.tsx:12
+#: src/panel/index.tsx:12
+msgid "Custom CSS"
+msgstr ""
+
+#: blocklib-short-text-block/src/admin/settings.js:12
+#: packages/blocklib-short-text-block/src/admin/settings.js:12
+#: src/admin/settings.js:12
+msgid "Short text"
+msgstr ""
+
+#: blocklib-slider-block/src/admin/settings.js:12
+#: packages/blocklib-slider-block/src/admin/settings.js:12
+#: src/admin/settings.js:12
+msgid "Slider"
+msgstr ""
+
+#: blocklib-statement-block/src/admin/controls.js:25
+#: packages/blocklib-statement-block/src/admin/controls.js:25
+#: src/admin/controls.js:25
+msgid "Quotation marks"
+msgstr ""
+
+#: blocklib-statement-block/src/admin/controls.js:38
+#: packages/blocklib-statement-block/src/admin/controls.js:38
+#: src/admin/controls.js:38
+msgid "Button text"
+msgstr ""
+
+#: blocklib-statement-block/src/admin/controls.js:40
+#: blocklib-welcome-screen-block/src/admin/controls.js:21
+#: packages/blocklib-statement-block/src/admin/controls.js:40
+#: packages/blocklib-welcome-screen-block/src/admin/controls.js:21
+#: src/admin/controls.js:21
+#: src/admin/controls.js:40
+msgid "Button Text"
+msgstr ""
+
+#: src/add-blocks-panel/index.ts:14
+msgid "Add Que"
+msgstr ""
+
+#: blocklib-multiple-choice-block/src/admin/settings.js:17
+#: packages/blocklib-multiple-choice-block/src/admin/settings.js:17
+#: src/admin/settings.js:17
+msgid "Multiple Choice"
+msgstr ""
+
+#: block-editor/src/components/block-actions/index.tsx:172
+#: client/pages/home/form-card.js:238
+#: components/block-actions/index.tsx:172
+#: components/theme-actions/index.js:49
+#: packages/block-editor/src/components/block-actions/index.tsx:172
+#: packages/theme-editor/src/components/theme-actions/index.js:49
+#: pages/home/form-card.js:238
+#: theme-editor/src/components/theme-actions/index.js:49
+msgid "Duplicate"
+msgstr ""
+
+#: block-editor/src/components/block-actions/index.tsx:187
+#: client/pages/results/components/entries-list.js:422
+#: components/block-actions/index.tsx:187
+#: components/block-layout/inds/components/entries-list.js:422
+#: components/notification-box/index.js:88
+#: components/notification-delete-dialog/index.js:37
+#: components/theme-actions/index.js:58
+#: notifications-editor/src/components/notification-box/index.js:88
+#: notifications-editor/src/components/notification-delete-dialog/index.js:37
+#: packages/block-editor/src/components/block-actions/index.tsx:187
+#: packages/notifications-editor/src/components/notification-box/index.js:88
+#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:37
+#: packages/theme-editor/src/components/theme-actions/index.js:58
+#: results/components/entries-list.js:422
+#: theme-editor/src/components/theme-actions/index.js:58
+msgid "Delete"
+msgstr ""
+
+#: admin-components/src/combobox-control/select/index.tsx:46
+#: admin-components/src/mapping-row/key-control/select/index.tsx:33
+#: combobox-control/select/index.tsx:46
+#: key-control/select/index.tsx:33
+#: packages/admin-components/src/combobox-control/select/index.tsx:46
+#: packages/admin-components/src/mapping-row/key-control/select/index.tsx:33
+msgid "Choose an option"
+msgstr ""
+
+#: admin-components/src/combobox-control/select/index.tsx:99
+#: combobox-control/select/index.tsx:99
+#: packages/admin-components/src/combobox-control/select/index.tsx:99
+msgid "Custom Value"
+msgstr ""
+
+#: block-editor/src/components/block-layout/index.tsx:7
+#: components/block-layout/index.tsx:7
+#: packages/block-editor/src/components/block-layout/index.tsx:7
+msgid "Stack"
+msgstr ""
+
+#: block-editor/src/components/block-layout/index.tsx:19
+#: components/block-layout/index.tsx:19
+#: packages/block-editor/src/components/block-layout/index.tsx:19
+msgid "Float Right"
+msgstr ""
+
+#: block-editor/src/components/block-layout/index.tsx:32
+#: components/block-layout/index.tsx:32
+#: packages/block-editor/src/components/block-layout/index.tsx:32
+msgid "Float Left"
+msgstr ""
+
+#: block-editor/src/components/block-layout/index.tsx:45
+#: components/block-layout/index.tsx:45
+#: packages/block-editor/src/components/block-layout/index.tsx:45
+msgid "Split Right"
+msgstr ""
+
+#: block-editor/src/components/block-layout/index.tsx:58
+#: components/block-layout/index.tsx:58
+#: packages/block-editor/src/components/block-layout/index.tsx:58
+msgid "Split Left"
+msgstr ""
+
+#: block-editor/src/components/block-controls/index.tsx:96
+#: client/pages/license/index.js:122
+#: client/pages/license/index.js:129
+#: client/pages/license/index.js:54
+#: client/pages/license/index.js:61
+#: client/pages/license/index.js:88
+#: client/pages/license/index.js:95
+#: client/pages/system/logs/index.js:100
+#: components/block-controls/index.tsx:96
+#: packages/block-editor/src/components/block-controls/index.tsx:96
+#: pages/license/index.js:122
+#: pages/license/index.js:129
+#: pages/license/index.js:54
+#: pages/license/index.js:61
+#: pages/license/index.js:88
+#: pages/license/index.js:95
+#: system/logs/index.js:100
+msgid "Error"
+msgstr ""
+
+#: block-editor/src/components/block-controls/index.tsx:97
+#: components/block-controls/index.tsx:97
+#: packages/block-editor/src/components/block-controls/index.tsx:97
+msgid ""
+"An error occurred while rendering the block controls. Please contact "
+"Support."
+msgstr ""
+
+#: block-editor/src/components/block-custom-html/index.tsx:21
+#: components/block-custom-html/index.tsx:21
+#: packages/block-editor/src/components/block-custom-html/index.tsx:21
+msgid "Write HTML…"
+msgstr ""
+
+#: block-editor/src/components/block-custom-html/index.tsx:22
+#: components/block-custom-html/index.tsx:22
+#: packages/block-editor/src/components/block-custom-html/index.tsx:22
+msgid "HTML"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:191
+#: components/block-default-controls/index.tsx:191
+#: packages/block-editor/src/components/block-default-controls/index.tsx:191
+msgid "100%"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:192
+#: components/block-default-controls/index.tsx:192
+#: packages/block-editor/src/components/block-default-controls/index.tsx:192
+msgid "50%"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:193
+#: components/block-default-controls/index.tsx:193
+#: packages/block-editor/src/components/block-default-controls/index.tsx:193
+msgid "33%"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:200
+#: components/block-default-controls/index.tsx:200
+#: packages/block-editor/src/components/block-default-controls/index.tsx:200
+msgid "Required"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:217
+#: components/block-default-controls/index.tsx:217
+#: index.tsx:3ts/block-default-controls/index.tsx:217
+#: packages/block-editor/src/components/block-default-controls/index.tsx:217
+msgid "Image"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:255
+#: components/block-default-controls/index.tsx:255
+#: packages/block-editor/src/components/block-default-controls/index.tsx:255
+msgid "Layout"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:268
+#: components/block-default-controls/index.tsx:268
+#: components/customize/index.js:202
+#: packages/block-editor/src/components/block-default-controls/index.tsx:268
+#: theme-editor/src/components/customize/index.js:202
+msgid "Focal Point Picker"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:307
+#: components/block-default-controls/index.tsx:307
+#: packages/block-editor/src/components/block-default-controls/index.tsx:307
+msgid "Set Maximum Width for attachment"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:335
+#: components/block-default-controls/index.tsx:335
+#: packages/block-editor/src/components/block-default-controls/index.tsx:335
+msgid "Maximum Width(px)"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:358
+#: components/block-default-controls/index.tsx:358
+#: packages/block-editor/src/components/block-default-controls/index.tsx:358
+msgid "Use Fancy Border Radius"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:381
+#: components/block-default-controls/index.tsx:381
+#: packages/block-editor/src/components/block-default-controls/index.tsx:381
+msgid "Choose your favorite fancy border radius"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:403
+#: components/block-default-controls/index.tsx:403
+#: packages/block-editor/src/components/block-default-controls/index.tsx:403
+msgid "Default Value"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:476
+#: client/pages/share/body.js:460
+#: components/block-default-controls/index.tsx:476
+#: packages/block-editor/src/components/block-default-controls/index.tsx:476
+#: pages/share/body.js:460
+msgid "Width"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:491
+#: components/block-default-controls/index.tsx:491
+#: packages/block-editor/src/components/block-default-controls/index.tsx:491
+msgid "Override default placeholder"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:523
+#: components/block-default-controls/index.tsx:523
+#: packages/block-editor/src/components/block-default-controls/index.tsx:523
+msgid "Custom HTML"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:547
+#: components/block-default-controls/index.tsx:547
+#: packages/block-editor/src/components/block-default-controls/index.tsx:547
+msgid "Randomize"
+msgstr ""
+
+#: block-editor/src/components/block-default-controls/index.tsx:568
+#: components/block-default-controls/index.tsx:568
+#: packages/block-editor/src/components/block-default-controls/index.tsx:568
+msgid "Please note that randomization doesn't work in the preview mode!"
+msgstr ""
+
+#: builder-core/src/components/no-blocks/index.tsx:118
+#: components/no-blocks/index.tsx:118
+#: packages/builder-core/src/components/no-blocks/index.tsx:118
+msgid "No Preview Available Yet!"
+msgstr ""
+
+#: builder-core/src/components/no-blocks/index.tsx:125
+#: components/no-blocks/index.tsx:125
+#: packages/builder-core/src/components/no-blocks/index.tsx:125
+msgid "Please insert at lease one block."
+msgstr ""
+
+#: builder-core/src/components/drag-alert/index.tsx:43
+#: client/pages/builder/save-button.js:164
+#: client/pages/results/components/delete-alert.js:43
+#: components/drag-alert/index.tsx:43
+#: packages/builder-core/src/components/drag-alert/index.tsx:43
+#: pages/builder/save-button.js:164
+#: results/components/delete-alert.js:43
+msgid "Warning!"
+msgstr ""
+
+#: builder-core/src/components/drag-alert/index.tsx:55
+#: client/pages/results/components/delete-alert.js:46
+#: components/drag-alert/index.tsx:55
+#: packages/builder-core/src/components/drag-alert/index.tsx:55
+#: results/components/delete-alert.js:46
+msgid "Are you sure you want to proceed?"
+msgstr ""
+
+#: builder-core/src/components/drag-alert/index.tsx:74
+#: client/pages/results/components/delete-alert.js:64
+#: client/pages/results/components/entry-header/index.js:151
+#: components/drag-alert/index.tsx:74
+#: components/entry-header/index.js:151
+#: components/notification-delete-dialog/index.js:34
+#: connect/main/index.tsx:191
+#: form-integrations/src/components/connect/main/index.tsx:191
+#: notifications-editor/src/components/notification-delete-dialog/index.js:34
+#: packages/builder-core/src/components/drag-alert/index.tsx:74
+#: packages/form-integrations/src/components/connect/main/index.tsx:191
+#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:34
+#: results/components/delete-alert.js:64
+msgid "Cancel"
+msgstr ""
+
+#: builder-core/src/components/drag-alert/index.tsx:89
+#: client/pages/results/components/delete-alert.js:93
+#: components/drag-alert/index.tsx:89
+#: packages/builder-core/src/components/drag-alert/index.tsx:89
+#: results/components/delete-alert.js:93
+msgid "Proceed"
+msgstr ""
+
+#: builder-core/src/components/blocks-structure/index.tsx:786
+#: components/blocks-structure/index.tsx:786
+#: packages/builder-core/src/components/blocks-structure/index.tsx:786
+msgid "Partial Submission Point Alert"
+msgstr ""
+
+#: builder-core/src/components/blocks-structure/index.tsx:791
+#: components/blocks-structure/index.tsx:791
+#: packages/builder-core/src/components/blocks-structure/index.tsx:791
+msgid "Partial Submission Point"
+msgstr "activate"
+
+#: builder-core/src/components/blocks-structure/index.tsx:791
+#: components/blocks-structure/index.tsx:791
+#: packages/builder-core/src/components/blocks-structure/index.tsx:791
+msgid "shouldn't be the first or the last field."
+msgstr ""
+
+#: builder-core/src/components/drop-area-placeholder/index.tsx:23
+#: components/drop-area-placeholder/index.tsx:23
+#: packages/builder-core/src/components/drop-area-placeholder/index.tsx:23
+msgid "Add your first question"
+msgstr ""
+
+#: block-editor/src/components/block-theme/index.tsx:50
+#: components/block-theme/index.tsx:50
+#: packages/block-editor/src/components/block-theme/index.tsx:50
+msgid "Inherit"
+msgstr ""
+
+#: block-editor/src/components/block-theme/index.tsx:54
+#: components/block-theme/index.tsx:54
+#: packages/block-editor/src/components/block-theme/index.tsx:54
+msgid "Override"
+msgstr ""
+
+#: block-editor/src/components/block-theme/index.tsx:61
+#: components/block-theme/index.tsx:61
+#: packages/block-editor/src/components/block-theme/index.tsx:61
+msgid "Theme"
+msgstr ""
+
+#: block-editor/src/components/block-theme/index.tsx:87
+#: components/block-theme/index.tsx:87
+#: packages/block-editor/src/components/block-theme/index.tsx:87
+msgid "Select theme"
+msgstr ""
+
+#: block-editor/src/components/block-theme/index.tsx:97
+#: components/block-theme/index.tsx:97
+#: packages/block-editor/src/components/block-theme/index.tsx:97
+msgid "Create a theme first!"
+msgstr ""
+
+#: block-editor/src/components/block-theme/index.tsx:108
+#: components/block-theme/index.tsx:108
+#: packages/block-editor/src/components/block-theme/index.tsx:108
+msgid "Select a theme"
+msgstr ""
+
+#: block-editor/src/components/block-theme/index.tsx:141
+#: components/block-theme/index.tsx:141
+#: packages/block-editor/src/components/block-theme/index.tsx:141
+msgid "Select a theme!"
+msgstr ""
+
+#: client/pages/home/home-content.js:26
+#: client/pages/home/home-content.js:294
+#: components/customize/index.js:122
+#: components/notification-title/index.js:17
+#: components/post-title/index.js:20
+#: document-editor/src/components/post-title/index.js:20
+#: notifications-editor/src/components/notification-title/index.js:17
+#: packages/document-editor/src/components/post-title/index.js:20
+#: packages/notifications-editor/src/components/notification-title/index.js:17
+#: pages/home/home-content.js:26
+#: pages/home/home-content.js:294
+#: theme-editor/src/components/customize/index.js:122
+msgid "Title"
+msgstr ""
+
+#: components/email-select/index.js:68
+#: notifications-editor/src/components/email-select/index.js:68
+#: packages/notifications-editor/src/components/email-select/index.js:68
+msgid "To select an email, you should have at least one email question"
+msgstr ""
+
+#: components/email-select/index.js:73
+#: notifications-editor/src/components/email-select/index.js:73
+#: packages/notifications-editor/src/components/email-select/index.js:73
+msgid "Choose Email"
+msgstr ""
+
+#: components/notification-box/index.js:61
+#: notifications-editor/src/components/notification-box/index.js:61
+#: packages/notifications-editor/src/components/notification-box/index.js:61
+msgid "Untitled"
+msgstr ""
+
+#: client/pages/home/form-card.js:195
+#: components/notification-box/index.js:69
+#: notifications-editor/src/components/notification-box/index.js:69
+#: packages/notifications-editor/src/components/notification-box/index.js:69
+#: pages/home/form-card.js:195
+msgid "Edit"
+msgstr ""
+
+#: components/notification-delete-dialog/index.js:26
+#: notifications-editor/src/components/notification-delete-dialog/index.js:26
+#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:26
+msgid "Delete notification"
+msgstr ""
+
+#: components/notification-delete-dialog/index.js:30
+#: notifications-editor/src/components/notification-delete-dialog/index.js:30
+#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:30
+msgid "Are you sure you would like to delete this notification?"
+msgstr ""
+
+#: components/notification-editor-footer/index.js:50
+#: notifications-editor/src/components/notification-editor-footer/index.js:50
+#: packages/notifications-editor/src/components/notification-editor-footer/index.js:50
+msgid "Cancel and go back"
+msgstr ""
+
+#: components/notification-editor-footer/index.js:53
+#: notifications-editor/src/components/notification-editor-footer/index.js:53
+#: packages/notifications-editor/src/components/notification-editor-footer/index.js:53
+msgid "Some fields aren't valid"
+msgstr ""
+
+#: components/customize-footer/index.js:108
+#: components/notification-editor-footer/index.js:73
+#: notifications-editor/src/components/notification-editor-footer/index.js:73
+#: packages/notifications-editor/src/components/notification-editor-footer/index.js:73
+#: packages/theme-editor/src/components/customize-footer/index.js:108
+#: theme-editor/src/components/customize-footer/index.js:108
+msgid "Save changes"
+msgstr ""
+
+#: components/notification-editor-footer/index.js:73
+#: notifications-editor/src/components/notification-editor-footer/index.js:73
+#: packages/notifications-editor/src/components/notification-editor-footer/index.js:73
+msgid "Add new notification"
+msgstr ""
+
+#: components/notification-editor-wrapper/index.js:109
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:109
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:109
+msgid "Edit Notification"
+msgstr ""
+
+#: components/notification-editor-wrapper/index.js:110
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:110
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:110
+msgid "Create a new notification"
+msgstr ""
+
+#: client/pages/addons/index.js:191
+#: components/notification-editor-wrapper/index.js:123
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:123
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:123
+#: pages/addons/index.js:191
+msgid "Active"
+msgstr ""
+
+#: components/notification-editor-wrapper/index.js:156
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:156
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:156
+msgid "Reply to"
+msgstr ""
+
+#: components/notification-editor-wrapper/index.js:161
+#: components/notification-to/index.js:63
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:161
+#: notifications-editor/src/components/notification-to/index.js:63
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:161
+#: packages/notifications-editor/src/components/notification-to/index.js:63
+msgid "Email"
+msgstr ""
+
+#: components/notification-editor-wrapper/index.js:165
+#: components/notification-to/index.js:67
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:165
+#: notifications-editor/src/components/notification-to/index.js:67
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:165
+#: packages/notifications-editor/src/components/notification-to/index.js:67
+msgid "Field"
+msgstr ""
+
+#: components/notification-editor-wrapper/index.js:284
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:284
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:284
+msgid "Conditional Logic"
+msgstr ""
+
+#: components/notification-editor-wrapper/index.js:298
+#: notifications-editor/src/components/notification-editor-wrapper/index.js:298
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:298
+msgid "Process this notification if the following conditions are met:"
+msgstr ""
+
+#: components/notification-subject/index.js:31
+#: notifications-editor/src/components/notification-subject/index.js:31
+#: packages/notifications-editor/src/components/notification-subject/index.js:31
+msgid "Subject"
+msgstr ""
+
+#: components/notification-message/index.js:138
+#: components/notification-subject/index.js:38
+#: notifications-editor/src/components/notification-message/index.js:138
+#: notifications-editor/src/components/notification-subject/index.js:38
+#: packages/notifications-editor/src/components/notification-message/index.js:138
+#: packages/notifications-editor/src/components/notification-subject/index.js:38
+msgid "This field is required!"
+msgstr ""
+
+#: components/notifications-list/index.js:58
+#: notifications-editor/src/components/notifications-list/index.js:58
+#: packages/notifications-editor/src/components/notifications-list/index.js:58
+msgid ""
+"Email Notifications requires Quill SMTP plugin to be installed and "
+"activated. Please install and activate"
+msgstr ""
+
+#: components/notifications-list/index.js:58
+#: components/notifications-list/index.js:63
+#: notifications-editor/src/components/notifications-list/index.js:58
+#: notifications-editor/src/components/notifications-list/index.js:63
+#: packages/notifications-editor/src/components/notifications-list/index.js:58
+#: packages/notifications-editor/src/components/notifications-list/index.js:63
+msgid "Quill SMTP"
+msgstr ""
+
+#: components/notifications-list/index.js:58
+#: components/notifications-list/index.js:63
+#: notifications-editor/src/components/notifications-list/index.js:58
+#: notifications-editor/src/components/notifications-list/index.js:63
+#: packages/notifications-editor/src/components/notifications-list/index.js:58
+#: packages/notifications-editor/src/components/notifications-list/index.js:63
+msgid ""
+"plugin to make sure that your email notifications are delivered "
+"successfully."
+msgstr ""
+
+#: components/notifications-list/index.js:63
+#: notifications-editor/src/components/notifications-list/index.js:63
+#: packages/notifications-editor/src/components/notifications-list/index.js:63
+msgid ""
+"Email Notifications requires Quill SMTP plugin to be activated. Please "
+"activate"
+msgstr ""
+
+#: components/notifications-list/index.js:74
+#: notifications-editor/src/components/notifications-list/index.js:74
+#: packages/notifications-editor/src/components/notifications-list/index.js:74
+msgid "Notifications List"
+msgstr ""
+
+#: components/notifications-list/index.js:98
+#: notifications-editor/src/components/notifications-list/index.js:98
+#: packages/notifications-editor/src/components/notifications-list/index.js:98
+msgid "Add New Notification"
+msgstr ""
+
+#: components/notifications-list/index.js:126
+#: notifications-editor/src/components/notifications-list/index.js:126
+#: packages/notifications-editor/src/components/notifications-list/index.js:126
+msgid "There are no notifications."
+msgstr ""
+
+#: components/notifications-list/index.js:156
+#: notifications-editor/src/components/notifications-list/index.js:156
+#: packages/notifications-editor/src/components/notifications-list/index.js:156
+msgid "Multiple notifications is a pro feature"
+msgstr ""
+
+#: components/notification-to/index.js:55
+#: notifications-editor/src/components/notification-to/index.js:55
+#: packages/notifications-editor/src/components/notification-to/index.js:55
+msgid "Send a notification to"
+msgstr ""
+
+#: components/notification-to/index.js:82
+#: notifications-editor/src/components/notification-to/index.js:82
+#: packages/notifications-editor/src/components/notification-to/index.js:82
+msgid "Type an email then hit a space"
+msgstr ""
+
+#: components/notification-to/index.js:144
+#: notifications-editor/src/components/notification-to/index.js:144
+#: packages/notifications-editor/src/components/notification-to/index.js:144
+msgid "Please insert at least one correct email!"
+msgstr ""
+
+#: blocklib-website-block/src/admin/settings.js:10
+#: client/pages/support/index.js:30
+#: packages/blocklib-website-block/src/admin/settings.js:10
+#: pages/support/index.js:30
+#: src/admin/settings.js:10
+msgid "Website"
+msgstr ""
+
+#: block-editor/src/components/skeleton/editor.tsx:294
+#: components/skeleton/editor.tsx:294
+#: packages/block-editor/src/components/skeleton/editor.tsx:294
+msgid "Type question here. Recall information with @."
+msgstr ""
+
+#: block-editor/src/components/skeleton/editor.tsx:294
+#: components/skeleton/editor.tsx:294
+#: packages/block-editor/src/components/skeleton/editor.tsx:294
+msgid "Add a description"
+msgstr ""
+
+#: components/post-slug/index.js:21
+#: document-editor/src/components/post-slug/index.js:21
+#: packages/document-editor/src/components/post-slug/index.js:21
+msgid "Slug"
+msgstr ""
+
+#: components/notification-message/index.js:75
+#: notifications-editor/src/components/notification-message/index.js:75
+#: packages/notifications-editor/src/components/notification-message/index.js:75
+msgid "all_answers"
+msgstr ""
+
+#: components/notification-message/index.js:82
+#: notifications-editor/src/components/notification-message/index.js:82
+#: packages/notifications-editor/src/components/notification-message/index.js:82
+msgid "Correct Answers Count"
+msgstr ""
+
+#: components/notification-message/index.js:91
+#: notifications-editor/src/components/notification-message/index.js:91
+#: packages/notifications-editor/src/components/notification-message/index.js:91
+msgid "Incorrect Answers Count"
+msgstr ""
+
+#: compone.js:100
+#: components/notification-message/index.js:100
+#: notifications-editor/src/components/notification-message/index.js:100
+#: packages/notifications-editor/src/components/notification-message/index.js:100
+msgid "Quiz Summary"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:132
+#: components/notification-message/index.js:117
+#: entry-details/notes/index.js:132
+#: notifications-editor/src/components/notification-message/index.js:117
+#: packages/notifications-editor/src/components/notification-message/index.js:117
+msgid "Message"
+msgstr ""
+
+#: code-editor/src/components/panel-render/index.js:38
+#: components/panel-render/index.js:38
+#: packages/code-editor/src/components/panel-render/index.js:38
+msgid ""
+"Custom css won't be applied to the form builder directly. Please click on "
+"the preview icon on the top right corner to see the changes."
+msgstr ""
+
+#: components/notifications-list/index.js:74
+msgid "Notifiur first question"
+msgstr ""
+
+#: components/customize-footer/index.js:91
+#: packages/theme-editor/src/components/customize-footer/index.js:91
+#: theme-editor/src/components/customize-footer/index.js:91
+msgid "Revert changes"
+msgstr ""
+
+#: components/customize-footer/index.js:108
+#: packages/theme-editor/src/components/customize-footer/index.js:108
+#: theme-editor/src/components/customize-footer/index.js:108
+msgid "Save as a new theme"
+msgstr ""
+
+#: components/add-new-theme/index.js:27
+#: packages/theme-editor/src/components/add-new-theme/index.js:27
+#: theme-editor/src/components/add-new-theme/index.js:27
+msgid "New Theme"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:14
+#: components/color-picker/index.tsx:7
+#: components/gradient-picker/index.js:12
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:14
+#: packages/theme-editor/src/components/color-picker/index.tsx:7
+#: packages/theme-editor/src/components/gradient-picker/index.js:12
+#: theme-editor/src/components/alpha-color-picker/index.tsx:14
+#: theme-editor/src/components/color-picker/index.tsx:7
+#: theme-editor/src/components/gradient-picker/index.js:12
+msgid "Pale pink"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:19
+#: components/color-picker/index.tsx:11
+#: components/gradient-picker/index.js:16
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:19
+#: packages/theme-editor/src/components/color-picker/index.tsx:11
+#: packages/theme-editor/src/components/gradient-picker/index.js:16
+#: theme-editor/src/components/alpha-color-picker/index.tsx:19
+#: theme-editor/src/components/color-picker/index.tsx:11
+#: theme-editor/src/components/gradient-picker/index.js:16
+msgid "Vivid red"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:24
+#: components/color-picker/index.tsx:13
+#: components/gradient-picker/index.js:18
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:24
+#: packages/theme-editor/src/components/color-picker/index.tsx:13
+#: packages/theme-editor/src/components/gradient-picker/index.js:18
+#: theme-editor/src/components/alpha-color-picker/index.tsx:24
+#: theme-editor/src/components/color-picker/index.tsx:13
+#: theme-editor/src/components/gradient-picker/index.js:18
+msgid "Luminous vivid orange"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:29
+#: components/color-picker/index.tsx:18
+#: components/gradient-picker/index.js:23
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:29
+#: packages/theme-editor/src/components/color-picker/index.tsx:18
+#: packages/theme-editor/src/components/gradient-picker/index.js:23
+#: theme-editor/src/components/alpha-color-picker/index.tsx:29
+#: theme-editor/src/components/color-picker/index.tsx:18
+#: theme-editor/src/components/gradient-picker/index.js:23
+msgid "Luminous vivid amber"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:34
+#: components/color-picker/index.tsx:23
+#: components/gradient-picker/index.js:28
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:34
+#: packages/theme-editor/src/components/color-picker/index.tsx:23
+#: packages/theme-editor/src/components/gradient-picker/index.js:28
+#: theme-editor/src/components/alpha-color-picker/index.tsx:34
+#: theme-editor/src/components/color-picker/index.tsx:23
+#: theme-editor/src/components/gradient-picker/index.js:28
+msgid "Light green cyan"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:39
+#: components/color-picker/index.tsx:28
+#: components/gradient-picker/index.js:33
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:39
+#: packages/theme-editor/src/components/color-picker/index.tsx:28
+#: packages/theme-editor/src/components/gradient-picker/index.js:33
+#: theme-editor/src/components/alpha-color-picker/index.tsx:39
+#: theme-editor/src/components/color-picker/index.tsx:28
+#: theme-editor/src/components/gradient-picker/index.js:33
+msgid "Vivid green cyan"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:44
+#: components/color-picker/index.tsx:33
+#: components/gradient-picker/index.js:38
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:44
+#: packages/theme-editor/src/components/color-picker/index.tsx:33
+#: packages/theme-editor/src/components/gradient-picker/index.js:38
+#: theme-editor/src/components/alpha-color-picker/index.tsx:44
+#: theme-editor/src/components/color-picker/index.tsx:33
+#: theme-editor/src/components/gradient-picker/index.js:38
+msgid "Pale cyan blue"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:49
+#: components/color-picker/index.tsx:38
+#: components/gradient-picker/index.js:43
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:49
+#: packages/theme-editor/src/components/color-picker/index.tsx:38
+#: packages/theme-editor/src/components/gradient-picker/index.js:43
+#: theme-editor/src/components/alpha-color-picker/index.tsx:49
+#: theme-editor/src/components/color-picker/index.tsx:38
+#: theme-editor/src/components/gradient-picker/index.js:43
+msgid "Vivid cyan blue"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:54
+#: components/color-picker/index.tsx:43
+#: components/gradient-picker/index.js:48
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:54
+#: packages/theme-editor/src/components/color-picker/index.tsx:43
+#: packages/theme-editor/src/components/gradient-picker/index.js:48
+#: theme-editor/src/components/alpha-color-picker/index.tsx:54
+#: theme-editor/src/components/color-picker/index.tsx:43
+#: theme-editor/src/components/gradient-picker/index.js:48
+msgid "Vivid purple"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:59
+#: components/color-picker/index.tsx:48
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:59
+#: packages/theme-editor/src/components/color-picker/index.tsx:48
+#: theme-editor/src/components/alpha-color-picker/index.tsx:59
+#: theme-editor/src/components/color-picker/index.tsx:48
+msgid "Dark Magenta"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:64
+#: components/color-picker/index.tsx:53
+#: components/gradient-picker/index.js:58
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:64
+#: packages/theme-editor/src/components/color-picker/index.tsx:53
+#: packages/theme-editor/src/components/gradient-picker/index.js:58
+#: theme-editor/src/components/alpha-color-picker/index.tsx:64
+#: theme-editor/src/components/color-picker/index.tsx:53
+#: theme-editor/src/components/gradient-picker/index.js:58
+msgid "Cyan bluish gray"
+msgstr ""
+
+#: components/alpha-color-picker/index.tsx:69
+#: components/color-picker/index.tsx:58
+#: components/gradient-picker/index.js:63
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:69
+#: packages/theme-editor/src/components/color-picker/index.tsx:58
+#: packages/theme-editor/src/components/gradient-picker/index.js:63
+#: theme-editor/src/components/alpha-color-picker/index.tsx:69
+#: theme-editor/src/components/color-picker/index.tsx:58
+#: theme-editor/src/components/gradient-picker/index.js:63
+msgid "Very dark gray"
+msgstr ""
+
+#: components/panel-render/index.js:89
+#: packages/settings-editor/src/components/panel-render/index.js:89
+#: settings-editor/src/components/panel-render/index.js:89
+msgid "Horizontal"
+msgstr ""
+
+#: components/panel-render/index.js:93
+#: packages/settings-editor/src/components/panel-render/index.js:93
+#: settings-editor/src/components/panel-render/index.js:93
+msgid "Vertical"
+msgstr ""
+
+#: components/panel-render/index.js:100
+#: packages/settings-editor/src/components/panel-render/index.js:100
+#: settings-editor/src/components/panel-render/index.js:100
+msgid "Auto save progress (save answers in user browser)"
+msgstr ""
+
+#: components/panel-render/index.js:111
+#: packages/settings-editor/src/components/panel-render/index.js:111
+#: settings-editor/src/components/panel-render/index.js:111
+msgid ""
+"This feature will save the answers in the user's browser, so the user can "
+"continue the form later in same browser. To allow user to save and continue "
+"later from any device, you have to use"
+msgstr ""
+
+#: components/panel-render/index.js:115
+#: packages/settings-editor/src/components/panel-render/index.js:115
+#: settings-editor/src/components/panel-render/index.js:115
+msgid "save and continue feature"
+msgstr ""
+
+#: components/panel-render/index.js:120
+#: packages/settings-editor/src/components/panel-render/index.js:120
+#: settings-editor/src/components/panel-render/index.js:120
+msgid "Hide progress bar"
+msgstr ""
+
+#: components/panel-render/index.js:131
+#: packages/settings-editor/src/components/panel-render/index.js:131
+#: settings-editor/src/components/panel-render/index.js:131
+msgid "Disable swiping by wheel"
+msgstr ""
+
+#: components/panel-render/index.js:142
+#: packages/settings-editor/src/components/panel-render/index.js:142
+#: settings-editor/src/components/panel-render/index.js:142
+msgid "Letters on answers"
+msgstr ""
+
+#: components/panel-render/index.js:155
+#: packages/settings-editor/src/components/panel-render/index.js:155
+#: settings-editor/src/components/panel-render/index.js:155
+msgid "Questions numbers"
+msgstr ""
+
+#: components/panel-render/index.js:168
+#: packages/settings-editor/src/components/panel-render/index.js:168
+#: settings-editor/src/components/panel-render/index.js:168
+msgid "Hide navigation arrows"
+msgstr ""
+
+#: components/panel-render/index.js:181
+#: packages/settings-editor/src/components/panel-render/index.js:181
+#: settings-editor/src/components/panel-render/index.js:181
+msgid "Hide asterisks on required fields"
+msgstr ""
+
+#: components/panel-render/index.js:194
+#: packages/settings-editor/src/components/panel-render/index.js:194
+#: settings-editor/src/components/panel-render/index.js:194
+msgid "Animation direction"
+msgstr ""
+
+#: components/panel-render/index.js:211
+#: packages/settings-editor/src/components/panel-render/index.js:211
+#: settings-editor/src/components/panel-render/index.js:211
+msgid "Display Branding"
+msgstr ""
+
+#: connect/main/index.tsx:186
+#: connect/setup/index.tsx:28
+#: form-integrations/src/components/connect/main/index.tsx:186
+#: form-integrations/src/components/connect/setup/index.tsx:28
+#: packages/form-integrations/src/components/connect/main/index.tsx:186
+#: packages/form-integrations/src/components/connect/setup/index.tsx:28
+msgid "Save"
+msgstr ""
+
+#: connect/setup/index.tsx:32
+#: form-integrations/src/components/connect/setup/index.tsx:32
+#: packages/form-integrations/src/components/connect/setup/index.tsx:32
+msgid "Close"
+msgstr ""
+
+#: components/color-palette/index.js:49
+#: components/color-palette/index.js:60
+#: packages/theme-editor/src/components/color-palette/index.js:49
+#: packages/theme-editor/src/components/color-palette/index.js:60
+#: theme-editor/src/components/color-palette/index.js:49
+#: theme-editor/src/components/color-palette/index.js:60
+msgid "Color code: %s"
+msgstr ""
+
+#: components/color-palette/index.js:58
+#: packages/theme-editor/src/components/color-palette/index.js:58
+#: theme-editor/src/components/color-palette/index.js:58
+msgid "Color: %s"
+msgstr ""
+
+#: components/color-palette/index.js:90
+#: packages/theme-editor/src/components/color-palette/index.js:90
+#: theme-editor/src/components/color-palette/index.js:90
+msgid "Custom color picker"
+msgstr ""
+
+#: components/color-palette/index.js:92
+#: packages/theme-editor/src/components/color-palette/index.js:92
+#: theme-editor/src/components/color-palette/index.js:92
+msgid "Custom color"
+msgstr ""
+
+#: components/color-palette/index.js:99
+#: packages/theme-editor/src/components/color-palette/index.js:99
+#: theme-editor/src/components/color-palette/index.js:99
+msgid "Clear"
+msgstr ""
+
+#: components/customize/index.js:117
+#: theme-editor/src/components/customize/index.js:117
+msgid "Back"
+msgstr ""
+
+#: components/customize/index.js:119
+#: theme-editor/src/components/customize/index.js:119
+msgid "Theme Title"
+msgstr ""
+
+#: components/customize/index.js:132
+#: theme-editor/src/components/customize/index.js:132
+msgid "Background and Logo"
+msgstr ""
+
+#: components/customize/index.js:135
+#: theme-editor/src/components/customize/index.js:135
+msgid "Background Overlay Color"
+msgstr ""
+
+#: components/customize/index.js:149
+#: theme-editor/src/components/customize/index.js:149
+msgid "Background Image"
+msgstr ""
+
+#: account-auth/credentials/index.tsx:157
+#: client/pro-panels/calculator-render/index.js:72
+#: components/customize/index.js:160
+#: components/customize/index.js:248
+#: form-integrations/src/components/shared/account-auth/credentials/index.tsx:157
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:157
+#: pro-panels/calculator-render/index.js:72
+#: theme-editor/src/components/customize/index.js:160
+#: theme-editor/src/components/customize/index.js:248
+msgid "Add"
+msgstr ""
+
+#: components/customize/index.js:189
+#: theme-editor/src/components/customize/index.js:189
+msgid ""
+"To add a background image, clear the background overlay color or add "
+"opacity to it."
+msgstr ""
+
+#: components/customize/index.js:234
+#: theme-editor/src/components/customize/index.js:234
+msgid "logo"
+msgstr ""
+
+#: components/customize/index.js:269
+#: theme-editor/src/components/customize/index.js:269
+msgid "Font Families"
+msgstr ""
+
+#: components/customize/index.js:272
+#: theme-editor/src/components/customize/index.js:272
+msgid ""
+"You can add your custom font from settings icon at left bar and then click "
+"on custom fonts."
+msgstr ""
+
+#: components/customize/index.js:277
+#: theme-editor/src/components/customize/index.js:277
+msgid "Base Font"
+msgstr ""
+
+#: components/customize/index.js:292
+#: theme-editor/src/components/customize/index.js:292
+msgid "Questions Label Font"
+msgstr ""
+
+#: components/customize/index.js:312
+#: theme-editor/src/components/customize/index.js:312
+msgid "Questions Description Font"
+msgstr ""
+
+#: components/customize/index.js:331
+#: theme-editor/src/components/customize/index.js:331
+msgid "Colors"
+msgstr ""
+
+#: components/customize/index.js:334
+#: theme-editor/src/components/customize/index.js:334
+msgid "Questions Color"
+msgstr ""
+
+#: components/customize/index.js:348
+#: theme-editor/src/components/customize/index.js:348
+msgid "Answers Color"
+msgstr ""
+
+#: components/customize/index.js:362
+#: theme-editor/src/components/customize/index.js:362
+msgid "Buttons Font Color"
+msgstr ""
+
+#: components/customize/index.js:376
+#: theme-editor/src/components/customize/index.js:376
+msgid "Buttons Background Color"
+msgstr ""
+
+#: components/customize/index.js:390
+#: theme-editor/src/components/customize/index.js:390
+msgid "Errors Text Color"
+msgstr ""
+
+#: components/customize/index.js:404
+#: theme-editor/src/components/customize/index.js:404
+msgid "Errors Background Color"
+msgstr ""
+
+#: components/customize/index.js:419
+#: theme-editor/src/components/customize/index.js:419
+msgid "Form Footer Background Color"
+msgstr ""
+
+#: components/customize/index.js:467
+#: theme-editor/src/components/customize/index.js:467
+msgid "Progress Bar Fill Color"
+msgstr ""
+
+#: components/customize/index.js:481
+#: theme-editor/src/components/customize/index.js:481
+msgid "Progress Bar Background Color"
+msgstr ""
+
+#: components/customize/index.js:499
+#: theme-editor/src/components/customize/index.js:499
+msgid "Borders"
+msgstr ""
+
+#: components/customize/index.js:502
+#: theme-editor/src/components/customize/index.js:502
+msgid "Buttons Border Radius(px)"
+msgstr ""
+
+#: components/customize/index.js:521
+#: theme-editor/src/components/customize/index.js:521
+msgid "Buttons Border Width(px)"
+msgstr ""
+
+#: components/customize/index.js:542
+#: theme-editor/src/components/customize/index.js:542
+msgid "Buttons Border Color"
+msgstr ""
+
+#: components/themes-list/index.js:35
+#: packages/theme-editor/src/components/themes-list/index.js:35
+#: theme-editor/src/components/themes-list/index.js:35
+msgid "My Themes"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:74
+#: coupons/coupon/index.js:74
+#: packages/renderer-core/src/components/payment-modal/info/index.tsx:139
+#: payment-modal/info/index.tsx:139
+#: renderer-core/src/components/payment-modal/info/index.tsx:139
+msgid "Discount"
+msgstr ""
+
+#: connect/main/index.tsx:67
+#: form-integrations/src/components/connect/main/index.tsx:67
+#: packages/form-integrations/src/components/connect/main/index.tsx:67
+msgid "updated successfully!"
+msgstr ""
+
+#: connect/main/index.tsx:77
+#: form-integrations/src/components/connect/main/index.tsx:77
+#: packages/form-integrations/src/components/connect/main/index.tsx:77
+msgid "Error on saving!"
+msgstr ""
+
+#: connect/main/index.tsx:97
+#: form-integrations/src/components/connect/main/index.tsx:97
+#: packages/form-integrations/src/components/connect/main/index.tsx:97
+msgid "Connection name cannot be empty"
+msgstr ""
+
+#: connect/main/index.tsx:102
+#: form-integrations/src/components/connect/main/index.tsx:102
+#: packages/form-integrations/src/components/connect/main/index.tsx:102
+msgid "\"${ connection.name }\" error: please select an account"
+msgstr ""
+
+#: connect/main/index.tsx:118
+#: form-integrations/src/components/connect/main/index.tsx:118
+#: packages/form-integrations/src/components/connect/main/index.tsx:118
+msgid "\"${ connection.name }\" error: "
+msgstr ""
+
+#: connect/main/index.tsx:121
+#: form-integrations/src/components/connect/main/index.tsx:121
+#: packages/form-integrations/src/components/connect/main/index.tsx:121
+msgid "invalid options"
+msgstr ""
+
+#: connect/main/index.tsx:158
+#: form-integrations/src/components/connect/main/index.tsx:158
+#: packages/form-integrations/src/components/connect/main/index.tsx:158
+msgid "You don't have any connections!"
+msgstr ""
+
+#: connect/main/index.tsx:172
+#: form-integrations/src/components/connect/main/index.tsx:172
+#: packages/form-integrations/src/components/connect/main/index.tsx:172
+msgid "New Connection"
+msgstr ""
+
+#: connect/main/index.tsx:180
+#: form-integrations/src/components/connect/main/index.tsx:180
+#: packages/form-integrations/src/components/connect/main/index.tsx:180
+msgid "Add A New Connection"
+msgstr ""
+
+#: connect/main/index.tsx:199
+#: form-integrations/src/components/connect/main/index.tsx:199
+#: packages/form-integrations/src/components/connect/main/index.tsx:199
+msgid "unnamed"
+msgstr ""
+
+#: components/gradient-picker/index.js:53
+#: packages/theme-editor/src/components/gradient-picker/index.js:53
+#: theme-editor/src/components/gradient-picker/index.js:53
+msgid "Very light gray"
+msgstr ""
+
+#: components/gradient-picker/index.js:70
+#: packages/theme-editor/src/components/gradient-picker/index.js:70
+#: theme-editor/src/components/gradient-picker/index.js:70
+msgid "Vivid cyan blue to vivid purple"
+msgstr ""
+
+#: components/gradient-picker/index.js:76
+#: packages/theme-editor/src/components/gradient-picker/index.js:76
+#: theme-editor/src/components/gradient-picker/index.js:76
+msgid "Light green cyan to vivid green cyan"
+msgstr ""
+
+#: components/gradient-picker/index.js:82
+#: components/gradient-picker/index.js:87
+#: packages/theme-editor/src/components/gradient-picker/index.js:82
+#: packages/theme-editor/src/components/gradient-picker/index.js:87
+#: theme-editor/src/components/gradient-picker/index.js:82
+#: theme-editor/src/components/gradient-picker/index.js:87
+msgid "Custom gradient"
+msgstr ""
+
+#: components/gradient-picker/index.js:93
+#: packages/theme-editor/src/components/gradient-picker/index.js:93
+#: theme-editor/src/components/gradient-picker/index.js:93
+msgid "custom gradient"
+msgstr ""
+
+#: components/gradient-picker/index.js:98
+#: packages/theme-editor/src/components/gradient-picker/index.js:98
+#: theme-editor/src/components/gradient-picker/index.js:98
+msgid "Black with blue radial background"
+msgstr ""
+
+#: components/gradient-picker/index.js:104
+#: packages/theme-editor/src/components/gradient-picker/index.js:104
+#: theme-editor/src/components/gradient-picker/index.js:104
+msgid "Cool to warm spectrum"
+msgstr ""
+
+#: components/gradient-picker/index.js:110
+#: packages/theme-editor/src/components/gradient-picker/index.js:110
+#: theme-editor/src/components/gradient-picker/index.js:110
+msgid "Blush light purple"
+msgstr ""
+
+#: components/gradient-picker/index.js:116
+#: packages/theme-editor/src/components/gradient-picker/index.js:116
+#: theme-editor/src/components/gradient-picker/index.js:116
+msgid "pinky bordeaux"
+msgstr ""
+
+#: components/gradient-picker/index.js:121
+#: packages/theme-editor/src/components/gradient-picker/index.js:121
+#: theme-editor/src/components/gradient-picker/index.js:121
+msgid "Luminous dusk"
+msgstr ""
+
+#: components/gradient-picker/index.js:127
+#: packages/theme-editor/src/components/gradient-picker/index.js:127
+#: theme-editor/src/components/gradient-picker/index.js:127
+msgid "Pale ocean"
+msgstr ""
+
+#: components/gradient-picker/index.js:133
+#: packages/theme-editor/src/components/gradient-picker/index.js:133
+#: theme-editor/src/components/gradient-picker/index.js:133
+msgid "Electric grass"
+msgstr ""
+
+#: components/gradient-picker/index.js:139
+#: packages/theme-editor/src/components/gradient-picker/index.js:139
+#: theme-editor/src/components/gradient-picker/index.js:139
+msgid "Before Sunset"
+msgstr ""
+
+#: account-auth/credentials/index.tsx:81
+#: form-integrations/src/components/shared/account-auth/credentials/index.tsx:81
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:81
+msgid "Error in adding the "
+msgstr ""
+
+#: components/typography-panel/index.js:226
+#: packages/theme-editor/src/components/typography-panel/index.js:226
+#: theme-editor/src/components/typography-panel/index.js:226
+msgid "Typography and Spacing"
+msgstr ""
+
+#: components/typography-panel/index.js:230
+#: packages/theme-editor/src/components/typography-panel/index.js:230
+#: theme-editor/src/components/typography-panel/index.js:230
+msgid "Select a preset for Typography"
+msgstr ""
+
+#: components/typography-panel/index.js:269
+#: packages/theme-editor/src/components/typography-panel/index.js:269
+#: theme-editor/src/components/typography-panel/index.js:269
+msgid "Base Font Size(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:307
+#: packages/theme-editor/src/components/typography-panel/index.js:307
+#: theme-editor/src/components/typography-panel/index.js:307
+msgid "Base Font Line Height(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:346
+#: packages/theme-editor/src/components/typography-panel/index.js:346
+#: theme-editor/src/components/typography-panel/index.js:346
+msgid "Questions Label Font Size(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:391
+#: packages/theme-editor/src/components/typography-panel/index.js:391
+#: theme-editor/src/components/typography-panel/index.js:391
+msgid "Questions Label Line Height(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:436
+#: packages/theme-editor/src/components/typography-panel/index.js:436
+#: theme-editor/src/components/typography-panel/index.js:436
+msgid "Questions Description Font Size(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:481
+#: packages/theme-editor/src/components/typography-panel/index.js:481
+#: theme-editor/src/components/typography-panel/index.js:481
+msgid "Questions Description Line Height(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:526
+#: packages/theme-editor/src/components/typography-panel/index.js:526
+#: theme-editor/src/components/typography-panel/index.js:526
+msgid "Text input answers font size(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:565
+#: packages/theme-editor/src/components/typography-panel/index.js:565
+#: theme-editor/src/components/typography-panel/index.js:565
+msgid "Buttons Font Size(px)"
+msgstr ""
+
+#: components/typography-panel/index.js:603
+#: packages/theme-editor/src/components/typography-panel/index.js:603
+#: theme-editor/src/components/typography-panel/index.js:603
+msgid "Buttons Padding(px)"
+msgstr ""
+
+#: client/pages/share/body.js:737
+#: components/typography-panel/index.js:643
+#: packages/theme-editor/src/components/typography-panel/index.js:643
+#: pages/share/body.js:737
+#: theme-editor/src/components/typography-panel/index.js:643
+msgid "Top"
+msgstr ""
+
+#: client/pages/share/body.js:749
+#: components/typography-panel/index.js:659
+#: components/typography-panel/index.js:744
+#: packages/theme-editor/src/components/typography-panel/index.js:659
+#: packages/theme-editor/src/components/typography-panel/index.js:744
+#: pages/share/body.js:749
+#: theme-editor/src/components/typography-panel/index.js:659
+#: theme-editor/src/components/typography-panel/index.js:744
+msgid "Right"
+msgstr ""
+
+#: client/pages/share/body.js:761
+#: components/typography-panel/index.js:675
+#: components/typography-panel/index.js:765
+#: packages/theme-editor/src/components/typography-panel/index.js:675
+#: packages/theme-editor/src/components/typography-panel/index.js:765
+#: pages/share/body.js:761
+#: theme-editor/src/components/typography-panel/index.js:675
+#: theme-editor/src/components/typography-panel/index.js:765
+msgid "Bottom"
+msgstr ""
+
+#: client/pages/share/body.js:773
+#: components/typography-panel/index.js:691
+#: components/typography-panel/index.js:786
+#: packages/theme-editor/src/components/typography-panel/index.js:691
+#: packages/theme-editor/src/components/typography-panel/index.js:786
+#: pages/share/body.js:773
+#: theme-editor/src/components/typography-panel/index.js:691
+#: theme-editor/src/components/typography-panel/index.js:786
+msgid "Left"
+msgstr ""
+
+#: components/combo-color-picker/index.tsx:68
+#: packages/theme-editor/src/components/combo-color-picker/index.tsx:68
+#: theme-editor/src/components/combo-color-picker/index.tsx:68
+msgid "Solid"
+msgstr ""
+
+#: components/combo-color-picker/index.tsx:81
+#: packages/theme-editor/src/components/combo-color-picker/index.tsx:81
+#: theme-editor/src/components/combo-color-picker/index.tsx:81
+msgid "Gradient"
+msgstr ""
+
+#: packages/renderer-core/src/components/payment-modal/methods/index.tsx:163
+#: payment-modal/methods/index.tsx:163
+msgid "Pay now"
+msgstr ""
+
+#: client/partial-submission-point/display.js:11
+msgid "Capture Every Potential Lead"
+msgstr ""
+
+#: client/partial-submission-point/display.js:12
+msgid "Get valuable responses even if users don't complete your form"
+msgstr ""
+
+#: client/partial-submission-point/display.js:19
+msgid "of form visitors abandon before completion"
+msgstr ""
+
+#: client/partial-submission-point/display.js:21
+msgid ""
+"Don't lose valuable leads. Capture responses when users reach your partial "
+"submission checkpoint, even if they don't complete the entire form."
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:12
+#: pro-panels/jump-logic-render/index.js:12
+msgid "Smart Jump Logic"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:13
+#: pro-panels/jump-logic-render/index.js:13
+msgid "Create conditional paths by dragging between fields"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:18
+#: pro-panels/jump-logic-render/index.js:18
+msgid "Drag & Drop Interface"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:22
+#: pro-panels/jump-logic-render/index.js:22
+msgid "Skip Irrelevant Questions"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:26
+#: pro-panels/jump-logic-render/index.js:26
+msgid "Personalized Form Paths"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:74
+#: pro-panels/jump-logic-render/index.js:74
+msgid "What's your role?"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:169
+#: client/pro-panels/jump-logic-render/index.js:76
+#: pro-panels/jump-logic-render/index.js:169
+#: pro-panels/jump-logic-render/index.js:76
+msgid "Manager"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:77
+#: pro-panels/jump-logic-render/index.js:77
+msgid "Employee"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:96
+#: pro-panels/jump-logic-render/index.js:96
+msgid "Years of experience?"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:99
+#: pro-panels/jump-logic-render/index.js:99
+msgid "(Skipped based on condition)"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:113
+#: pro-panels/jump-logic-render/index.js:113
+msgid "Team size?"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:115
+#: pro-panels/jump-logic-render/index.js:115
+msgid "1-10"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:116
+#: pro-panels/jump-logic-render/index.js:116
+msgid "11-50"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:117
+#: pro-panels/jump-logic-render/index.js:117
+msgid "50+"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:156
+#: pro-panels/jump-logic-render/index.js:156
+msgid "IF"
+msgstr ""
+
+#: client/pro-panels/jump-logic-render/index.js:168
+#: pro-panels/jump-logic-render/index.js:168
+msgid "If Role is"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:18
+#: pro-panels/form-locker-render/index.js:18
+msgid "Password Protection"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:19
+#: pro-panels/form-locker-render/index.js:19
+msgid "Secure forms with password access"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:24
+#: pro-panels/form-locker-render/index.js:24
+msgid "This form is password protected"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:26
+#: pro-panels/form-locker-render/index.js:26
+msgid "Enter password"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:27
+#: pro-panels/form-locker-render/index.js:27
+msgid "Access Form"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:39
+#: pro-panels/form-locker-render/index.js:39
+msgid "Schedule Access"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:40
+#: pro-panels/form-locker-render/index.js:40
+msgid "Control form availability by date and time"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:45
+#: pro-panels/form-locker-render/index.js:45
+msgid "Form Availability"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:50
+#: pro-panels/form-locker-render/index.js:50
+msgid "Starts"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:55
+#: pro-panels/form-locker-render/index.js:55
+msgid "Ends"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:70
+#: pro-panels/form-locker-render/index.js:70
+msgid "User Restriction"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:71
+#: pro-panels/form-locker-render/index.js:71
+msgid "Limit access to logged-in users only"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:76
+#: pro-panels/form-locker-render/index.js:76
+msgid "Members Only"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:77
+#: pro-panels/form-locker-render/index.js:77
+msgid "Please log in to access this form"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:78
+#: pro-panels/form-locker-render/index.js:78
+msgid "Log In"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:89
+#: pro-panels/form-locker-render/index.js:89
+msgid "Entry Limits"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:90
+#: pro-panels/form-locker-render/index.js:90
+msgid "Set maximum number of submissions"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:98
+#: pro-panels/form-locker-render/index.js:98
+msgid "80 of 100 responses"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:99
+#: pro-panels/form-locker-render/index.js:99
+msgid "20 spots left"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:111
+#: pro-panels/form-locker-render/index.js:111
+msgid "Duplicate Prevention"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:112
+#: pro-panels/form-locker-render/index.js:112
+msgid "Block multiple submissions by email, phone, or IP address"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:116
+#: pro-panels/form-locker-render/index.js:116
+msgid "Submission Tracking"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:122
+#: pro-panels/form-locker-render/index.js:122
+msgid "Email Verification"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:123
+#: pro-panels/form-locker-render/index.js:123
+msgid "Prevent multiple submissions from same email address"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:129
+#: pro-panels/form-locker-render/index.js:129
+msgid "Phone Number Check"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:130
+#: pro-panels/form-locker-render/index.js:130
+msgid "Block duplicate phone numbers across submissions"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:136
+#: pro-panels/form-locker-render/index.js:136
+msgid "IP Tracking"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:137
+#: pro-panels/form-locker-render/index.js:137
+msgid "Track submissions from the same IP address"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:144
+#: pro-panels/form-locker-render/index.js:144
+msgid "Duplicate Submission Detected"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:146
+#: pro-panels/form-locker-render/index.js:146
+msgid "Email:"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:147
+#: pro-panels/form-locker-render/index.js:147
+msgid "IP:"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:160
+#: client/pro-panels/form-locker-render/index.js:211
+#: pro-panels/form-locker-render/index.js:160
+#: pro-panels/form-locker-render/index.js:211
+msgid "Form Locker"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:162
+#: pro-panels/form-locker-render/index.js:162
+msgid "Advanced access control and submission restrictions for your forms"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:16
+#: pro-panels/hidden-fields-render/index.js:16
+msgid "Advanced URL Parameter Tracking"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:17
+#: pro-panels/hidden-fields-render/index.js:17
+msgid "Capture and track URL parameters effortlessly"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:30
+#: pro-panels/hidden-fields-render/index.js:30
+msgid "UTM Parameters"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:50
+#: pro-panels/hidden-fields-render/index.js:50
+msgid "Query String"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:56
+#: pro-panels/hidden-fields-render/index.js:56
+msgid "Hash"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:63
+#: client/pro-panels/hidden-fields-render/index.js:78
+#: pro-panels/hidden-fields-render/index.js:63
+#: pro-panels/hidden-fields-render/index.js:78
+msgid "username"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:77
+#: pro-panels/hidden-fields-render/index.js:77
+msgid "Hidden Field"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:94
+#: pro-panels/hidden-fields-render/index.js:94
+msgid "Marketing Campaign URL"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:97
+#: pro-panels/hidden-fields-render/index.js:97
+msgid "utm_source"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:98
+#: pro-panels/hidden-fields-render/index.js:98
+msgid "utm_medium"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:99
+#: pro-panels/hidden-fields-render/index.js:99
+msgid "utm_campaign"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:118
+#: pro-panels/hidden-fields-render/index.js:118
+msgid "Campaign Tracking Data"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:125
+#: client/pro-panels/hidden-fields-render/index.js:128
+#: entry-details/notes/index.js:125
+#: pro-panels/hidden-fields-render/index.js:128
+msgid "Source"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:139
+#: pro-panels/hidden-fields-render/index.js:139
+msgid "Medium"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:150
+#: pro-panels/hidden-fields-render/index.js:150
+msgid "Campaign"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:161
+#: pro-panels/hidden-fields-render/index.js:161
+msgid "Track Marketing Success"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:163
+#: pro-panels/hidden-fields-render/index.js:163
+msgid "Capture UTM parameters to measure campaign effectiveness"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:168
+#: pro-panels/hidden-fields-render/index.js:168
+msgid "Automatic Detection"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:170
+#: pro-panels/hidden-fields-render/index.js:170
+msgid "Automatically captures UTM parameters from incoming traffic"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:175
+#: pro-panels/hidden-fields-render/index.js:175
+msgid "Marketing Analytics"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:177
+#: pro-panels/hidden-fields-render/index.js:177
+msgid "Connect form submissions to your marketing campaigns"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:22
+#: client/pro-panels/save-and-continue-render/index.js:87
+#: pro-panels/save-and-continue-render/index.js:22
+#: pro-panels/save-and-continue-render/index.js:87
+msgid "Save & Continue Later"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:24
+#: pro-panels/save-and-continue-render/index.js:24
+msgid "Let users save their progress and continue from any device"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:40
+#: pro-panels/save-and-continue-render/index.js:40
+msgid "Form Setup"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:45
+#: pro-panels/save-and-continue-render/index.js:45
+msgid "Email Field Required"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:46
+#: pro-panels/save-and-continue-render/index.js:46
+msgid "Add an email field to enable Save & Continue"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:69
+#: pro-panels/save-and-continue-render/index.js:69
+msgid "Progress:"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:74
+#: pro-panels/save-and-continue-render/index.js:74
+msgid "Email Address"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:105
+#: pro-panels/save-and-continue-render/index.js:105
+msgid "Continue Your Form"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:108
+#: pro-panels/save-and-continue-render/index.js:108
+msgid "Sent to:"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:112
+#: pro-panels/save-and-continue-render/index.js:112
+msgid "Hello!"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:113
+#: pro-panels/save-and-continue-render/index.js:113
+msgid "Click the button below to continue your form where you left off:"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:115
+#: pro-panels/save-and-continue-render/index.js:115
+msgid "Continue Form"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:118
+#: pro-panels/save-and-continue-render/index.js:118
+msgid "Your progress has been saved. You can continue from any device."
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:135
+#: pro-panels/save-and-continue-render/index.js:135
+msgid "Use Form Email"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:137
+#: pro-panels/save-and-continue-render/index.js:137
+msgid "Uses email field from your form - no extra popups needed"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:147
+#: pro-panels/save-and-continue-render/index.js:147
+msgid "One-Click Save"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:149
+#: pro-panels/save-and-continue-render/index.js:149
+msgid "Users can save their progress with a single click"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:159
+#: pro-panels/save-and-continue-render/index.js:159
+msgid "Any Device"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:161
+#: pro-panels/save-and-continue-render/index.js:161
+msgid "Continue form completion from any device, anywhere"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:181
+#: pro-panels/save-and-continue-render/index.js:181
+msgid "Save & Continue"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:30
+#: pro-panels/calculator-render/index.js:30
+msgid "Unlock Advanced Calculations"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:31
+#: pro-panels/calculator-render/index.js:31
+msgid "Transform your forms into powerful calculation tools"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:50
+#: pro-panels/calculator-render/index.js:50
+msgid "Mathematical Operations"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:52
+#: pro-panels/calculator-render/index.js:52
+msgid ""
+"Add values to variables based on form responses and conditions. Perfect for "
+"dynamic pricing, scoring, and calculations."
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:59
+#: pro-panels/calculator-render/index.js:59
+msgid "What is your package size?"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:62
+#: pro-panels/calculator-render/index.js:62
+msgid "Large Package Selected"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:67
+#: pro-panels/calculator-render/index.js:67
+msgid "If \"Large Package\" is selected:"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:72
+#: pro-panels/calculator-render/index.js:72
+msgid "to"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:73
+#: pro-panels/calculator-render/index.js:73
+msgid "Shipping_Cost"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:95
+#: pro-panels/calculator-render/index.js:95
+msgid "Points System"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:97
+#: pro-panels/calculator-render/index.js:97
+msgid ""
+"Assign points to multiple-choice options. Automatically calculate total "
+"scores based on responses."
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:103
+#: pro-panels/calculator-render/index.js:103
+msgid "Knowledge Check Question"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:107
+#: pro-panels/calculator-render/index.js:107
+msgid "Correct Answer"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:108
+#: pro-panels/calculator-render/index.js:108
+msgid "+10 points"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:111
+#: pro-panels/calculator-render/index.js:111
+msgid "Partial Answer"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:112
+#: pro-panels/calculator-render/index.js:112
+msgid "+5 points"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:115
+#: pro-panels/calculator-render/index.js:115
+msgid "Wrong Answer"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:116
+#: pro-panels/calculator-render/index.js:116
+msgid "+0 points"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:127
+#: pro-panels/calculator-render/index.js:127
+msgid "Calculator and Points"
+msgstr ""
+
+#: client/components/header/index.js:33
+#: components/header/index.js:33
+msgid "Back to WordPress Dashboard"
+msgstr ""
+
+#: client/components/header/index.js:38
+#: components/header/index.js:38
+msgid "Howdy,"
+msgstr ""
+
+#: client/pages/not-found/index.js:17
+#: pages/not-found/index.js:17
+msgid "Page not found"
+msgstr ""
+
+#: client/pages/builder/index.js:106
+#: pages/builder/index.js:106
+msgid "The following blocks aren't known:"
+msgstr ""
+
+#: client/pages/results/index.js:31
+#: pages/results/index.js:31
+msgid "Responses"
+msgstr ""
+
+#: client/pages/results/index.js:39
+#: pages/results/index.js:39
+msgid "Insights"
+msgstr ""
+
+#: client/pages/results/index.js:45
+#: pages/results/index.js:45
+msgid "Analyze Results"
+msgstr ""
+
+#: client/pages/integrations/index.js:41
+#: pages/integrations/index.js:41
+msgid "Connect your form to your best-loved apps"
+msgstr ""
+
+#: client/pages/integrations/index.js:43
+#: pages/integrations/index.js:43
+msgid ""
+"Establish workflows that work for you. Automate your marketing, sales, and "
+"service processes to make your form more efficient"
+msgstr ""
+
+#: client/pages/integrations/index.js:53
+#: pages/integrations/index.js:53
+msgid "Search for an integration"
+msgstr ""
+
+#: client/pages/integrations/index.js:102
+#: pages/integrations/index.js:102
+msgid "Edit Connection"
+msgstr ""
+
+#: client/pages/integrations/index.js:106
+#: pages/integrations/index.js:106
+msgid "Connect"
+msgstr ""
+
+#: client/pages/integrations/index.js:127
+#: pages/integrations/index.js:127
+msgid "No integrations available"
+msgstr ""
+
+#: client/pages/payments/index.js:114
+#: pages/payments/index.js:114
+msgid "⛔ Please select at least one payment method"
+msgstr ""
+
+#: client/pages/payments/index.js:134
+#: pages/payments/index.js:134
+msgid "⛔ "
+msgstr ""
+
+#: client/pages/payments/index.js:145
+#: pages/payments/index.js:145
+msgid "⛔ Please add at least one product"
+msgstr ""
+
+#: client/pages/payments/index.js:153
+#: pages/payments/index.js:153
+msgid "⛔ Please check highlighted errors"
+msgstr ""
+
+#: client/pages/builder/save-button.js:126
+#: client/pages/payments/index.js:176
+#: pages/builder/save-button.js:126
+#: pages/payments/index.js:176
+msgid "🚀 Saved successfully!"
+msgstr ""
+
+#: client/pages/payments/index.js:183
+#: pages/payments/index.js:183
+msgid "Error while saving!"
+msgstr ""
+
+#: client/pages/payments/index.js:201
+#: pages/payments/index.js:201
+msgid "Please select product source"
+msgstr ""
+
+#: client/pages/payments/index.js:213
+#: pages/payments/index.js:213
+msgid "Unknown form block, please select another source"
+msgstr ""
+
+#: client/pages/payments/index.js:220
+#: client/pages/payments/index.js:226
+#: client/pages/payments/index.js:233
+#: pages/payments/index.js:220
+#: pages/payments/index.js:226
+#: pages/payments/index.js:233
+msgid "Please enter product name"
+msgstr ""
+
+#: client/pages/payments/index.js:236
+#: pages/payments/index.js:236
+msgid "Please enter product price"
+msgstr ""
+
+#: client/pages/payments/index.js:239
+#: client/pages/payments/index.js:243
+#: pages/payments/index.js:239
+#: pages/payments/index.js:243
+msgid "Unknown product source"
+msgstr ""
+
+#: client/pages/payments/index.js:270
+#: pages/payments/index.js:270
+msgid "Accept payments via your forms easily!"
+msgstr ""
+
+#: client/pages/payments/index.js:272
+#: pages/payments/index.js:272
+msgid ""
+"Create orders, accept donations or get any type of payments with the most "
+"versatile form builder that integrates with your favorite payment gateways!"
+msgstr ""
+
+#: client/pages/payments/index.js:324
+#: pages/payments/index.js:324
+msgid "How to accept payments with Quill Forms?"
+msgstr ""
+
+#: client/pages/payments/index.js:114
+#: pages/payments/index.js:114
+msgid "â Please select at least one payment method"
+msgstr ""
+
+#: client/pages/payments/index.js:134
+#: pages/payments/index.js:134
+msgid "â "
+msgstr ""
+
+#: client/pages/payments/index.js:145
+#: pages/payments/index.js:145
+msgid "â Please add at least one product"
+msgstr ""
+
+#: client/pages/payments/index.js:153
+#: pages/payments/index.js:153
+msgid "â Please check highlighted errors"
+msgstr ""
+
+#: client/pages/builder/save-button.js:126
+#: client/pages/payments/index.js:176
+#: pages/builder/save-button.js:126
+#: pages/payments/index.js:176
+msgid "ð Saved successfully!"
+msgstr ""
+
+#: client/pages/addons/index.js:63
+#: pages/addons/index.js:63
+msgid "✅ "
+msgstr ""
+
+#: client/pages/addons/index.js:121
+#: pages/addons/index.js:121
+msgid "Addons"
+msgstr ""
+
+#: client/pages/addons/index.js:171
+#: pages/addons/index.js:171
+msgid "Installing..."
+msgstr ""
+
+#: client/pages/addons/index.js:172
+#: pages/addons/index.js:172
+msgid "Install"
+msgstr ""
+
+#: client/pages/addons/index.js:186
+#: pages/addons/index.js:186
+msgid "Activating..."
+msgstr ""
+
+#: client/pages/addons/index.js:187
+#: client/pages/license/index.js:213
+#: pages/addons/index.js:187
+#: pages/license/index.js:213
+msgid "Activate"
+msgstr ""
+
+#: client/pages/addons/index.js:224
+#: pages/addons/index.js:224
+msgid " is a pro addon"
+msgstr ""
+
+#: client/pages/addons/index.js:230
+#: pages/addons/index.js:230
+msgid " addon"
+msgstr ""
+
+#: client/pages/license/index.js:49
+#: pages/license/index.js:49
+msgid "✅ License activated successfully"
+msgstr ""
+
+#: client/pages/license/index.js:83
+#: pages/license/index.js:83
+msgid "✅ License updated"
+msgstr ""
+
+#: client/pages/license/index.js:117
+#: pages/license/index.js:117
+msgid "✅ License deactivated"
+msgstr ""
+
+#: client/pages/license/index.js:138
+#: pages/license/index.js:138
+msgid "License"
+msgstr ""
+
+#: client/pages/license/index.js:145
+#: pages/license/index.js:145
+msgid "Status"
+msgstr ""
+
+#: client/pages/license/index.js:159
+#: pages/license/index.js:159
+msgid "Plan"
+msgstr ""
+
+#: client/pages/license/index.js:163
+#: pages/license/index.js:163
+msgid "Expires"
+msgstr ""
+
+#: client/pages/license/index.js:167
+#: pages/license/index.js:167
+msgid "Last update"
+msgstr ""
+
+#: client/pages/license/index.js:171
+#: pages/license/index.js:171
+msgid "Last check"
+msgstr ""
+
+#: client/pages/license/index.js:177
+#: pages/license/index.js:177
+msgid "Update"
+msgstr ""
+
+#: client/pages/license/index.js:180
+#: pages/license/index.js:180
+msgid "Deactivate"
+msgstr ""
+
+#: client/pages/license/index.js:184
+#: pages/license/index.js:184
+msgid "Upgrades:"
+msgstr ""
+
+#: client/pages/license/index.js:195
+#: pages/license/index.js:195
+msgid "plan"
+msgstr ""
+
+#: client/pages/license/index.js:208
+#: pages/license/index.js:208
+msgid "License key"
+msgstr ""
+
+#: client/pages/addons/index.js:63
+#: pages/addons/index.js:63
+msgid "â "
+msgstr ""
+
+#: client/pages/import-export/index.js:27
+#: client/pages/results/components/entry-details/index.js:136
+#: components/entry-details/index.js:136
+#: pages/import-export/index.js:27
+msgid "Not Found"
+msgstr ""
+
+#: client/pages/import-export/index.js:34
+#: pages/import-export/index.js:34
+msgid "Import & Export"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:138
+#: client/pages/import-export/import/index.js:89
+#: client/pages/import-export/index.js:50
+#: import-export/import/index.js:138
+#: import-export/import/index.js:89
+#: pages/import-export/index.js:50
+msgid "Import"
+msgstr ""
+
+#: client/pages/import-export/export/index.js:194
+#: client/pages/import-export/index.js:55
+#: import-export/export/index.js:194
+#: pages/import-export/index.js:55
+msgid "Export"
+msgstr ""
+
+#: client/pages/license/index.js:117
+#: pages/license/index.js:117
+msgid "â License deactivated"
+msgstr ""
+
+#: client/pages/license/index.js:49
+#: pages/license/index.js:49
+msgid "â License activated successfully"
+msgstr ""
+
+#: client/pages/license/index.js:83
+#: pages/license/index.js:83
+msgid "â License updated"
+msgstr ""
+
+#: client/pages/support/index.js:20
+#: pages/support/index.js:20
+msgid "Need help? We are here for you. You can reach us via the following ways:"
+msgstr ""
+
+#: client/pages/support/index.js:45
+#: pages/support/index.js:45
+msgid "Facebook Group"
+msgstr ""
+
+#: client/pages/support/index.js:61
+#: pages/support/index.js:61
+msgid "Github"
+msgstr ""
+
+#: client/pages/support/index.js:77
+#: pages/support/index.js:77
+msgid "Discord"
+msgstr ""
+
+#: client/pages/support/index.js:96
+#: pages/support/index.js:96
+msgid "WordPress"
+msgstr ""
+
+#: client/pages/builder/save-button.js:138
+#: pages/builder/save-button.js:138
+msgid "⛔ Error while saving!"
+msgstr ""
+
+#: client/pages/builder/save-button.js:148
+#: pages/builder/save-button.js:148
+msgid "Saving"
+msgstr ""
+
+#: client/pages/builder/save-button.js:148
+#: client/pages/home/form-card.js:280
+#: pages/builder/save-button.js:148
+#: pages/home/form-card.js:280
+msgid "Publish"
+msgstr ""
+
+#: client/pages/builder/save-button.js:171
+#: pages/builder/save-button.js:171
+msgid "You have not added any notifications to this form to receive results."
+msgstr ""
+
+#: client/pages/builder/save-button.js:198
+#: pages/builder/save-button.js:198
+msgid "Let me know how!"
+msgstr ""
+
+#: client/pages/builder/save-button.js:218
+#: pages/builder/save-button.js:218
+msgid "Don't show me this message again."
+msgstr ""
+
+#: client/pages/builder/full-preview.js:28
+#: client/pages/share/body.js:838
+#: pages/builder/full-preview.js:28
+#: pages/share/body.js:838
+msgid "Preview"
+msgstr ""
+
+#: client/pages/builder/save-button.js:138
+#: pages/builder/save-button.js:138
+msgid "â Error while saving!"
+msgstr ""
+
+#: client/pages/home/home-content.js:27
+#: pages/home/home-content.js:27
+msgid "Responses Count"
+msgstr ""
+
+#: client/pages/home/home-content.js:28
+#: pages/home/home-content.js:28
+msgid "Last Modified"
+msgstr ""
+
+#: client/pages/home/home-content.js:62
+#: pages/home/home-content.js:62
+msgid "Restore Selected"
+msgstr ""
+
+#: client/pages/home/form-card.js:166
+#: client/pages/home/home-content.js:65
+#: pages/home/form-card.js:166
+#: pages/home/home-content.js:65
+msgid "Delete Permanently"
+msgstr ""
+
+#: client/pages/home/home-content.js:78
+#: pages/home/home-content.js:78
+msgid "Bulk Actions"
+msgstr ""
+
+#: client/pages/home/home-content.js:84
+#: pages/home/home-content.js:84
+msgid "Publish Selected"
+msgstr ""
+
+#: client/pages/home/home-content.js:87
+#: pages/home/home-content.js:87
+msgid "Move to Draft"
+msgstr ""
+
+#: client/pages/home/form-card.js:292
+#: client/pages/home/home-content.js:90
+#: pages/home/form-card.js:292
+#: pages/home/home-content.js:90
+msgid "Move to Trash"
+msgstr ""
+
+#: client/pages/home/home-content.js:120
+#: pages/home/home-content.js:120
+msgid "Error updating forms!"
+msgstr ""
+
+#: client/pages/home/home-content.js:159
+#: pages/home/home-content.js:159
+msgid "Error deleting forms!"
+msgstr ""
+
+#: client/pages/home/home-content.js:171
+#: pages/home/home-content.js:171
+msgid "forms restored!"
+msgstr ""
+
+#: client/pages/home/home-content.js:177
+#: pages/home/home-content.js:177
+msgid "Error restoring forms!"
+msgstr ""
+
+#: client/pages/home/home-content.js:237
+#: pages/home/home-content.js:237
+msgid "All"
+msgstr ""
+
+#: client/pages/home/form-card.js:328
+#: client/pages/home/form-card.js:477
+#: client/pages/home/home-content.js:242
+#: pages/home/form-card.js:328
+#: pages/home/form-card.js:477
+#: pages/home/home-content.js:242
+msgid "Published"
+msgstr ""
+
+#: client/pages/home/home-content.js:247
+#: pages/home/home-content.js:247
+msgid "Drafts"
+msgstr ""
+
+#: client/pages/home/home-content.js:252
+#: pages/home/home-content.js:252
+msgid "Trash"
+msgstr ""
+
+#: client/pages/home/home-content.js:261
+#: pages/home/home-content.js:261
+msgid "Forms"
+msgstr ""
+
+#: client/pages/home/home-content.js:270
+#: pages/home/home-content.js:270
+msgid "New Form"
+msgstr ""
+
+#: client/pages/home/home-content.js:278
+#: pages/home/home-content.js:278
+msgid "Search forms..."
+msgstr ""
+
+#: client/pages/home/home-content.js:285
+#: pages/home/home-content.js:285
+msgid "Sort by:"
+msgstr ""
+
+#: client/pages/share/body.js:278
+#: pages/share/body.js:278
+msgid "Share Your Form with Others using Multiple Options"
+msgstr ""
+
+#: client/pages/share/body.js:280
+#: pages/share/body.js:280
+msgid ""
+"To share your form with others, you have several options available. You can "
+"share it via a direct link, shortcode, embed code, or pop-up. Choose the "
+"method that best suits your needs and preferences to ensure easy and "
+"convenient access for your audience."
+msgstr ""
+
+#: client/pages/share/body.js:290
+#: client/pages/share/body.js:373
+#: pages/share/body.js:290
+#: pages/share/body.js:373
+msgid "Direct Link"
+msgstr ""
+
+#: client/pages/share/body.js:293
+#: pages/share/body.js:293
+msgid "Copy the form link and share it with your audience."
+msgstr ""
+
+#: client/pages/share/body.js:306
+#: client/pages/share/body.js:449
+#: pages/share/body.js:306
+#: pages/share/body.js:449
+msgid "Shortcode"
+msgstr ""
+
+#: client/pages/share/body.js:309
+#: pages/share/body.js:309
+msgid "Copy the shortcode and paste it into your post or page."
+msgstr ""
+
+#: client/pages/share/body.js:318
+#: client/pages/share/body.js:589
+#: pages/share/body.js:318
+#: pages/share/body.js:589
+msgid "Embed Code"
+msgstr ""
+
+#: client/pages/share/body.js:321
+#: pages/share/body.js:321
+msgid ""
+"Embed code is useful to share the form in an external web page. Copy the "
+"code and paste it into your external post or page."
+msgstr ""
+
+#: client/pages/share/body.js:336
+#: client/pages/share/body.js:616
+#: pages/share/body.js:336
+#: pages/share/body.js:616
+msgid "Popup"
+msgstr ""
+
+#: client/pages/share/body.js:344
+#: pages/share/body.js:344
+msgid ""
+"Display your form on a popup upon clicking a desinated button. Copy the "
+"shortcode and paste it into your post or page."
+msgstr ""
+
+#: client/pages/share/body.js:359
+#: client/pages/share/body.js:882
+#: pages/share/body.js:359
+#: pages/share/body.js:882
+msgid "QR Code"
+msgstr ""
+
+#: client/pages/share/body.js:367
+#: pages/share/body.js:367
+msgid "Share your form with others by scanning the QR code."
+msgstr ""
+
+#: client/pages/share/body.js:395
+#: pages/share/body.js:395
+msgid "Enter value for "
+msgstr ""
+
+#: client/pages/share/body.js:411
+#: pages/share/body.js:411
+msgid "Parameter Type:"
+msgstr ""
+
+#: client/pages/share/body.js:416
+#: pages/share/body.js:416
+msgid "Query String (?param=value)"
+msgstr ""
+
+#: client/pages/share/body.js:417
+#: pages/share/body.js:417
+msgid "Hash (#param=value)"
+msgstr ""
+
+#: client/pages/share/body.js:425
+#: pages/share/body.js:425
+msgid "Generated URL"
+msgstr ""
+
+#: client/pages/share/body.js:439
+#: client/pages/share/body.js:580
+#: client/pages/share/body.js:600
+#: client/pages/share/body.js:863
+#: pages/share/body.js:439
+#: pages/share/body.js:580
+#: pages/share/body.js:600
+#: pages/share/body.js:863
+msgid "Copied!"
+msgstr ""
+
+#: client/pages/share/body.js:439
+#: client/pages/share/body.js:580
+#: client/pages/share/body.js:606
+#: client/pages/share/body.js:869
+#: pages/share/body.js:439
+#: pages/share/body.js:580
+#: pages/share/body.js:606
+#: pages/share/body.js:869
+msgid "Copy"
+msgstr ""
+
+#: client/pages/share/body.js:455
+#: pages/share/body.js:455
+msgid "Customize your form display settings and copy the generated shortcode."
+msgstr ""
+
+#: client/pages/share/body.js:495
+#: pages/share/body.js:495
+msgid "Minimum Height"
+msgstr ""
+
+#: client/pages/share/body.js:529
+#: pages/share/body.js:529
+msgid "Maximum Height"
+msgstr ""
+
+#: client/pages/share/body.js:566
+#: pages/share/body.js:566
+msgid "Generated Shortcode"
+msgstr ""
+
+#: client/pages/share/body.js:595
+#: pages/share/body.js:595
+msgid "Copy the embed code below and insert it in your external page."
+msgstr ""
+
+#: client/pages/share/body.js:659
+#: pages/share/body.js:659
+msgid "Popup Settings"
+msgstr ""
+
+#: client/pages/share/body.js:661
+#: pages/share/body.js:661
+msgid "Button title"
+msgstr ""
+
+#: client/pages/share/body.js:670
+#: pages/share/body.js:670
+msgid "Button background color"
+msgstr ""
+
+#: client/pages/share/body.js:683
+#: pages/share/body.js:683
+msgid "Button text color"
+msgstr ""
+
+#: client/pages/share/body.js:695
+#: pages/share/body.js:695
+msgid "Button border radius(px)"
+msgstr ""
+
+#: client/pages/share/body.js:704
+#: pages/share/body.js:704
+msgid "Button border width(px)"
+msgstr ""
+
+#: client/pages/share/body.js:713
+#: pages/share/body.js:713
+msgid "Button border color"
+msgstr ""
+
+#: client/pages/share/body.js:725
+#: pages/share/body.js:725
+msgid "Button font size(px)"
+msgstr ""
+
+#: client/pages/share/body.js:734
+#: pages/share/body.js:734
+msgid "Button padding(px)"
+msgstr ""
+
+#: client/pages/share/body.js:789
+#: pages/share/body.js:789
+msgid "Popup max width"
+msgstr ""
+
+#: client/pages/share/body.js:811
+#: pages/share/body.js:811
+msgid "Popup max height"
+msgstr ""
+
+#: client/pages/share/body.js:852
+#: pages/share/body.js:852
+msgid "Copy the shortcode below and insert it in your WordPress page or post."
+msgstr ""
+
+#: client/pages/share/body.js:917
+#: pages/share/body.js:917
+msgid ""
+"Simply scan the code to initiate your Quill Forms, which function "
+"seamlessly both online and offline (printer required naturally)."
+msgstr ""
+
+#: client/pages/share/body.js:923
+#: pages/share/body.js:923
+msgid ""
+"Changing the slug of your form within the builder will result in a "
+"corresponding alteration of the QR code."
+msgstr ""
+
+#: client/pages/results/components/entries-export-button.js:26
+#: client/pages/share/body.js:935
+#: pages/share/body.js:935
+#: results/components/entries-export-button.js:26
+msgid "Download"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:177
+#: results/components/entries-list.js:177
+msgid "responses in total"
+msgstr ""
+
+#: client/pages/import-export/export/index.js:159
+#: client/pages/results/components/entries-list.js:198
+#: import-export/export/index.js:159
+#: results/components/entries-list.js:198
+msgid "Select All"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:271
+#: results/components/entries-list.js:271
+msgid "Submission Date"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:275
+#: results/components/entries-list.js:275
+msgid "Alphabetically"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:282
+#: results/components/entries-list.js:282
+msgid "Ascending"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:286
+#: results/components/entries-list.js:286
+msgid "Descending"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:409
+#: results/components/entries-list.js:409
+msgid "selected"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:469
+#: results/components/entries-list.js:469
+msgid "No Entries found!"
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:471
+#: results/components/entries-list.js:471
+msgid "This form doesn’t have any responses yet."
+msgstr ""
+
+#: client/pages/results/components/entries-list.js:471
+#: results/components/entries-list.js:471
+msgid "This form doesnât have any responses yet."
+msgstr ""
+
+#: client/pages/results/insights/index.js:11
+#: results/insights/index.js:11
+msgid "What's your name?"
+msgstr ""
+
+#: client/pages/results/insights/index.js:12
+#: results/insights/index.js:12
+msgid "What's your email?"
+msgstr ""
+
+#: client/pages/results/insights/index.js:13
+#: results/insights/index.js:13
+msgid "What's your age?"
+msgstr ""
+
+#: client/pages/results/insights/index.js:14
+#: results/insights/index.js:14
+msgid "Tell us about yourself"
+msgstr ""
+
+#: client/pages/results/insights/index.js:15
+#: results/insights/index.js:15
+msgid "Upload your resume"
+msgstr ""
+
+#: client/pages/results/insights/index.js:24
+#: results/insights/index.js:24
+msgid "Demo Preview"
+msgstr ""
+
+#: client/pages/results/insights/index.js:25
+#: results/insights/index.js:25
+msgid "This is a demonstration of the Form Analytics feature using sample data."
+msgstr ""
+
+#: client/pages/results/insights/index.js:26
+#: results/insights/index.js:26
+msgid "Upgrade to Pro to access real-time analytics for your forms."
+msgstr ""
+
+#: client/pages/results/insights/index.js:31
+#: results/insights/index.js:31
+msgid "Explore Demo"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:50
+#: client/pages/results/insights/index.js:39
+#: results/analytics/index.js:50
+#: results/insights/index.js:39
+msgid "DEMO PREVIEW"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:135
+#: client/pages/results/insights/index.js:48
+#: results/analytics/index.js:135
+#: results/insights/index.js:48
+msgid "About This Demo"
+msgstr ""
+
+#: client/pages/results/insights/index.js:53
+#: results/insights/index.js:53
+msgid "Pro Feature Demo"
+msgstr ""
+
+#: client/pages/results/insights/index.js:56
+#: results/insights/index.js:56
+msgid "Form Analytics & Drop-off Tracking"
+msgstr ""
+
+#: client/pages/results/insights/index.js:57
+#: results/insights/index.js:57
+msgid "See where users drop off and optimize your form completion rate"
+msgstr ""
+
+#: client/pages/results/insights/index.js:76
+#: results/insights/index.js:76
+msgid "Started (1000)"
+msgstr ""
+
+#: client/pages/results/insights/index.js:81
+#: results/insights/index.js:81
+msgid "In Progress (650)"
+msgstr ""
+
+#: client/pages/results/insights/index.js:86
+#: results/insights/index.js:86
+msgid "Completed (325)"
+msgstr ""
+
+#: client/pages/results/insights/index.js:98
+#: results/insights/index.js:98
+msgid "32.5% Completion Rate"
+msgstr ""
+
+#: client/pages/results/insights/index.js:99
+#: results/insights/index.js:99
+msgid "Form performance needs optimization"
+msgstr ""
+
+#: client/pages/results/insights/index.js:105
+#: results/insights/index.js:105
+msgid "4.5 min Average Time"
+msgstr ""
+
+#: client/pages/results/insights/index.js:106
+#: results/insights/index.js:106
+msgid "Consider simplifying longer sections"
+msgstr ""
+
+#: client/pages/results/insights/index.js:113
+#: results/insights/index.js:113
+msgid "Question-Level Performance Analytics"
+msgstr ""
+
+#: client/pages/results/insights/index.js:119
+#: results/insights/index.js:119
+msgid "Views"
+msgstr ""
+
+#: client/pages/results/insights/index.js:120
+#: results/insights/index.js:120
+msgid "Completions"
+msgstr ""
+
+#: client/pages/results/insights/index.js:121
+#: results/insights/index.js:121
+msgid "Drop-off Rate"
+msgstr ""
+
+#: client/pages/results/insights/index.js:122
+#: results/insights/index.js:122
+msgid "Avg. Time"
+msgstr ""
+
+#: client/pages/results/insights/index.js:123
+#: results/insights/index.js:123
+msgid "Performance"
+msgstr ""
+
+#: client/pages/results/insights/index.js:158
+#: results/insights/index.js:158
+msgid "Advanced Entries"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:10
+#: results/analytics/index.js:10
+msgid "What's your preferred working schedule?"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:13
+#: results/analytics/index.js:13
+msgid "9-5 Office Hours"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:14
+#: results/analytics/index.js:14
+msgid "Flexible Hours"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:15
+#: results/analytics/index.js:15
+msgid "Night Shift"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:16
+#: results/analytics/index.js:16
+msgid "Weekend Shifts"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:20
+#: results/analytics/index.js:20
+msgid "How often do you work remotely?"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:23
+#: results/analytics/index.js:23
+msgid "Full Remote"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:24
+#: results/analytics/index.js:24
+msgid "Hybrid (3-2)"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:25
+#: results/analytics/index.js:25
+msgid "Occasional"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:26
+#: results/analytics/index.js:26
+msgid "Office Only"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:37
+#: results/analytics/index.js:37
+msgid "Form Analytics Demo"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:38
+#: results/analytics/index.js:38
+msgid ""
+"See how respondents answer your multiple choice questions with interactive "
+"charts and insights."
+msgstr ""
+
+#: client/pages/results/analytics/index.js:39
+#: results/analytics/index.js:39
+msgid "This is a preview using sample data."
+msgstr ""
+
+#: client/pages/results/analytics/index.js:44
+#: results/analytics/index.js:44
+msgid "Explore Analytics Demo"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:56
+#: results/analytics/index.js:56
+msgid "Response Analytics"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:57
+#: results/analytics/index.js:57
+msgid "Analyze how people respond to your multiple choice questions"
+msgstr ""
+
+#: client/pages/home/form-card.js:333
+#: client/pages/home/form-card.js:479
+#: client/pages/results/analytics/index.js:66
+#: pages/home/form-card.js:333
+#: pages/home/form-card.js:479
+#: results/analytics/index.js:66
+msgid "responses"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:119
+#: results/analytics/index.js:119
+msgid "Most Respondents prefer"
+msgstr ""
+
+#: client/pages/payments/coupons/index.js:28
+#: payments/coupons/index.js:28
+msgid "Discount Coupons"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:16
+#: payments/labels/index.js:16
+msgid "Labels"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:20
+#: payments/labels/index.js:20
+msgid "Order details heading"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:31
+#: payments/labels/index.js:31
+msgid "Payment method selection"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:42
+#: payments/labels/index.js:42
+msgid "Order total"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:53
+#: payments/labels/index.js:53
+msgid "Pay button label"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:64
+#: payments/labels/index.js:64
+msgid "Discount question"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:75
+#: payments/labels/index.js:75
+msgid "Discount Placeholder"
+msgstr ""
+
+#: client/pages/payments/labels/index.js:87
+#: payments/labels/index.js:87
+msgid "Apply Discount"
+msgstr ""
+
+#: client/pages/payments/general/index.js:26
+#: payments/general/index.js:26
+msgid "Enable Payments"
+msgstr ""
+
+#: client/pages/settings/analytics/index.js:47
+#: settings/analytics/index.js:47
+msgid "Addon"
+msgstr ""
+
+#: client/pages/payments/general/gateways-options/index.js:54
+#: general/gateways-options/index.js:54
+msgid "Gateways Options"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:98
+#: general/methods/index.js:98
+msgid "Methods"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:100
+#: general/methods/index.js:100
+msgid "The default payment gateway is the first enabled payment gateway"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:180
+#: general/methods/index.js:180
+msgid "Doesn't support recurring payments"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:196
+#: general/methods/index.js:196
+msgid "Activate it"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:208
+#: general/methods/index.js:208
+msgid "Upgrade Your Plan"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:223
+#: general/methods/index.js:223
+msgid "Install it"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:234
+#: general/methods/index.js:234
+msgid "Upgrade your plan"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:252
+#: general/methods/index.js:252
+msgid "Configure it"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:37
+#: import-export/import/index.js:37
+msgid "⛔ Invalid file type!"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:58
+#: import-export/import/index.js:58
+msgid "✅ Imported successfully!"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:66
+#: import-export/import/index.js:66
+msgid "⛔ Something went wrong!"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:77
+#: import-export/import/index.js:77
+msgid "Something went wrong!"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:118
+#: import-export/import/index.js:118
+msgid "Choose a file"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:121
+#: import-export/import/index.js:121
+msgid "Browse"
+msgstr ""
+
+#: client/pages/import-export/export/index.js:65
+#: import-export/export/index.js:65
+msgid "⛔ Please select at least one form to export."
+msgstr ""
+
+#: client/pages/import-export/export/index.js:96
+#: import-export/export/index.js:96
+msgid "✅ Forms exported successfully."
+msgstr ""
+
+#: client/pages/import-export/export/index.js:109
+#: import-export/export/index.js:109
+msgid "⛔ Something went wrong while exporting forms."
+msgstr ""
+
+#: client/pages/import-export/export/index.js:141
+#: import-export/export/index.js:141
+msgid "No forms found."
+msgstr ""
+
+#: client/pages/import-export/export/index.js:142
+#: import-export/export/index.js:142
+msgid "Please create a form first."
+msgstr ""
+
+#: client/pages/import-export/export/index.js:147
+#: import-export/export/index.js:147
+msgid "Select forms to export"
+msgstr ""
+
+#: client/pages/import-export/export/index.js:149
+#: import-export/export/index.js:149
+msgid "Select the forms you want to export. You can export multiple forms at once."
+msgstr ""
+
+#: client/pages/import-export/import/index.js:37
+#: import-export/import/index.js:37
+msgid "â Invalid file type!"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:58
+#: import-export/import/index.js:58
+msgid "â Imported successfully!"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:66
+#: import-export/import/index.js:66
+msgid "â Something went wrong!"
+msgstr ""
+
+#: client/pages/system/logs/index.js:82
+#: system/logs/index.js:82
+msgid "Emergency"
+msgstr ""
+
+#: client/pages/system/logs/index.js:88
+#: system/logs/index.js:88
+msgid "Alert"
+msgstr ""
+
+#: client/pages/system/logs/index.js:94
+#: system/logs/index.js:94
+msgid "Critical"
+msgstr ""
+
+#: client/pages/system/logs/index.js:106
+#: system/logs/index.js:106
+msgid "Warning"
+msgstr ""
+
+#: client/pages/system/logs/index.js:112
+#: system/logs/index.js:112
+msgid "Notice"
+msgstr ""
+
+#: client/pages/system/logs/index.js:118
+#: system/logs/index.js:118
+msgid "Info"
+msgstr ""
+
+#: client/pages/system/logs/index.js:124
+#: system/logs/index.js:124
+msgid "Debug"
+msgstr ""
+
+#: client/pages/import-export/export/index.js:109
+#: import-export/export/index.js:109
+msgid "â Something went wrong while exporting forms."
+msgstr ""
+
+#: client/pages/import-export/export/index.js:65
+#: import-export/export/index.js:65
+msgid "â Please select at least one form to export."
+msgstr ""
+
+#: client/pages/import-export/export/index.js:96
+#: import-export/export/index.js:96
+msgid "â Forms exported successfully."
+msgstr ""
+
+#: client/pages/home/add-form-modal.js:88
+#: pages/home/add-form-modal.js:88
+msgid "Create new form"
+msgstr ""
+
+#: client/pages/home/add-form-modal.js:102
+#: pages/home/add-form-modal.js:102
+msgid "Start from scratch"
+msgstr ""
+
+#: client/pages/home/add-form-modal.js:108
+#: client/pages/home/choose-template.js:217
+#: pages/home/add-form-modal.js:108
+#: pages/home/choose-template.js:217
+msgid "Choose a template"
+msgstr ""
+
+#: client/pages/home/form-card.js:157
+#: pages/home/form-card.js:157
+msgid "Restore"
+msgstr ""
+
+#: client/pages/home/form-card.js:246
+#: client/pages/home/form-card.js:385
+#: client/pages/home/form-card.js:530
+#: pages/home/form-card.js:246
+#: pages/home/form-card.js:385
+#: pages/home/form-card.js:530
+msgid "Rename"
+msgstr ""
+
+#: client/pages/home/form-card.js:254
+#: pages/home/form-card.js:254
+msgid "Change slug"
+msgstr ""
+
+#: client/pages/home/form-card.js:280
+#: pages/home/form-card.js:280
+msgid "Move to draft"
+msgstr ""
+
+#: client/pages/home/form-card.js:325
+#: client/pages/home/form-card.js:470
+#: pages/home/form-card.js:325
+#: pages/home/form-card.js:470
+msgid "Untitled Form"
+msgstr ""
+
+#: client/pages/home/form-card.js:345
+#: client/pages/home/form-card.js:490
+#: pages/home/form-card.js:345
+#: pages/home/form-card.js:490
+msgid "Rename Form"
+msgstr ""
+
+#: client/pages/home/form-card.js:354
+#: client/pages/home/form-card.js:499
+#: pages/home/form-card.js:354
+#: pages/home/form-card.js:499
+msgid "⛔ Form title cannot be empty!"
+msgstr ""
+
+#: client/pages/home/form-card.js:371
+#: client/pages/home/form-card.js:516
+#: pages/home/form-card.js:371
+#: pages/home/form-card.js:516
+msgid "⛔ Error in form renaming!"
+msgstr ""
+
+#: client/pages/home/form-card.js:376
+#: client/pages/home/form-card.js:521
+#: pages/home/form-card.js:376
+#: pages/home/form-card.js:521
+msgid "✅ Form renamed successfully!"
+msgstr ""
+
+#: client/pages/home/form-card.js:392
+#: client/pages/home/form-card.js:537
+#: pages/home/form-card.js:392
+#: pages/home/form-card.js:537
+msgid "Change Form Slug"
+msgstr ""
+
+#: client/pages/home/form-card.js:401
+#: client/pages/home/form-card.js:546
+#: pages/home/form-card.js:401
+#: pages/home/form-card.js:546
+msgid "⛔ Form slug cannot be empty!"
+msgstr ""
+
+#: client/pages/home/form-card.js:418
+#: client/pages/home/form-card.js:563
+#: pages/home/form-card.js:418
+#: pages/home/form-card.js:563
+msgid "⛔ Error in form slug changing!"
+msgstr ""
+
+#: client/pages/home/form-card.js:423
+#: client/pages/home/form-card.js:568
+#: pages/home/form-card.js:423
+#: pages/home/form-card.js:568
+msgid "✅ Form slug changed successfully!"
+msgstr ""
+
+#: client/pages/home/form-card.js:432
+#: client/pages/home/form-card.js:577
+#: pages/home/form-card.js:432
+#: pages/home/form-card.js:577
+msgid "Change"
+msgstr ""
+
+#: client/pages/home/form-card.js:589
+#: pages/home/form-card.js:589
+msgid "Create your first form"
+msgstr ""
+
+#: client/pages/home/form-card.js:590
+#: pages/home/form-card.js:590
+msgid "Get started by creating a new form from scratch or using a template."
+msgstr ""
+
+#: client/pages/home/form-card.js:591
+#: client/pages/home/form-card.js:601
+#: client/pages/home/form-card.js:606
+#: pages/home/form-card.js:591
+#: pages/home/form-card.js:601
+#: pages/home/form-card.js:606
+msgid "Create Form"
+msgstr ""
+
+#: client/pages/home/form-card.js:594
+#: pages/home/form-card.js:594
+msgid "Trash is empty"
+msgstr ""
+
+#: client/pages/home/form-card.js:595
+#: pages/home/form-card.js:595
+msgid "No forms in trash."
+msgstr ""
+
+#: client/pages/home/form-card.js:599
+#: pages/home/form-card.js:599
+msgid "No draft forms"
+msgstr ""
+
+#: client/pages/home/form-card.js:600
+#: pages/home/form-card.js:600
+msgid "Draft forms will appear here."
+msgstr ""
+
+#: client/pages/home/form-card.js:604
+#: pages/home/form-card.js:604
+msgid "No published forms"
+msgstr ""
+
+#: client/pages/home/form-card.js:605
+#: pages/home/form-card.js:605
+msgid "Published forms will appear here."
+msgstr ""
+
+#: client/pages/home/form-card.js:499
+#: pages/home/form-card.js:499
+msgid "â Form title cannot be empty!"
+msgstr ""
+
+#: client/pages/home/form-card.js:516
+#: pages/home/form-card.js:516
+msgid "â Error in form renaming!"
+msgstr ""
+
+#: client/pages/home/form-card.js:521
+#: pages/home/form-card.js:521
+msgid "â Form renamed successfully!"
+msgstr ""
+
+#: client/pages/home/form-card.js:546
+#: pages/home/form-card.js:546
+msgid "â Form slug cannot be empty!"
+msgstr ""
+
+#: client/pages/home/form-card.js:563
+#: pages/home/form-card.js:563
+msgid "â Error in form slug changing!"
+msgstr ""
+
+#: client/pages/home/form-card.js:568
+#: pages/home/form-card.js:568
+msgid "â Form slug changed successfully!"
+msgstr ""
+
+#: client/pages/results/components/entry-row.js:69
+#: results/components/entry-row.js:69
+msgid "Completed"
+msgstr ""
+
+#: client/pages/results/components/entry-row.js:69
+#: results/components/entry-row.js:69
+msgid "Partial"
+msgstr ""
+
+#: client/pages/results/components/entries-export-button.js:27
+#: results/components/entries-export-button.js:27
+msgid "Download all responses"
+msgstr ""
+
+#: client/pages/results/components/entries-export-button.js:52
+#: results/components/entries-export-button.js:52
+msgid "Export responses is a pro feature"
+msgstr ""
+
+#: client/pages/results/components/entries-export-button.js:58
+#: results/components/entries-export-button.js:58
+msgid "Export Responses"
+msgstr ""
+
+#: client/pages/results/components/delete-alert.js:77
+#: results/components/delete-alert.js:77
+msgid "Deleting..."
+msgstr ""
+
+#: client/pages/results/components/entry-header/index.js:104
+#: components/entry-header/index.js:104
+msgid "Start date"
+msgstr ""
+
+#: client/pages/results/components/entry-header/index.js:115
+#: components/entry-header/index.js:115
+msgid "End date"
+msgstr ""
+
+#: client/pages/results/components/entry-header/index.js:160
+#: components/entry-header/index.js:160
+msgid "Apply"
+msgstr ""
+
+#: client/pages/results/components/entry-header/index.js:171
+#: components/entry-header/index.js:171
+msgid "Display Question:"
+msgstr ""
+
+#: client/pages/results/components/entry-header/index.js:180
+#: components/entry-header/index.js:180
+msgid "Order by:"
+msgstr ""
+
+#: client/pages/results/components/entry-details/index.js:47
+#: components/entry-details/index.js:47
+msgid "Details"
+msgstr ""
+
+#: client/pages/results/components/entry-details/index.js:51
+#: components/entry-details/index.js:51
+msgid "Notes"
+msgstr ""
+
+#: client/pages/results/components/entry-details/index.js:55
+#: client/pages/results/components/entry-details/index.js:57
+#: components/entry-details/index.js:55
+#: components/entry-details/index.js:57
+msgid "PDF Export"
+msgstr ""
+
+#: client/pages/payments/products/add-button/index.js:28
+#: products/add-button/index.js:28
+msgid "Add Product"
+msgstr ""
+
+#: client/pages/payments/coupons/add-button/index.js:28
+#: coupons/add-button/index.js:28
+msgid "Add Coupon"
+msgstr ""
+
+#: client/pages/payments/models/add-model/index.js:29
+#: models/add-model/index.js:29
+msgid "Add Another Model"
+msgstr ""
+
+#: client/pages/payments/general/currency/index.js:59
+#: general/currency/index.js:59
+msgid "Currency"
+msgstr ""
+
+#: client/pages/payments/general/currency/index.js:97
+#: general/currency/index.js:97
+msgid "Currency Format"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:25
+#: coupons/coupon/index.js:25
+msgid "Percentage (%)"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:29
+#: coupons/coupon/index.js:29
+msgid "Fixed Amount ($)"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:43
+#: coupons/coupon/index.js:43
+msgid "New Coupon"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:48
+#: coupons/coupon/index.js:48
+msgid "Coupon Name"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:54
+#: coupons/coupon/index.js:54
+msgid "10% off"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:55
+#: coupons/coupon/index.js:55
+msgid "Enter a name for the coupon here. This is for internal reference only."
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:61
+#: coupons/coupon/index.js:61
+msgid "Coupon Code"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:67
+#: coupons/coupon/index.js:67
+msgid "10OFF"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:68
+#: coupons/coupon/index.js:68
+msgid "Enter the code customers will enter to apply the coupon."
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:101
+#: coupons/coupon/index.js:101
+msgid "Start Date"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:107
+#: coupons/coupon/index.js:107
+msgid "End Date"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:113
+#: coupons/coupon/index.js:113
+msgid "Usage Limit"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:117
+#: coupons/coupon/index.js:117
+msgid "How many times the coupon can be used before it is void."
+msgstr ""
+
+#: client/pages/home/choose-template.js:28
+#: pages/home/choose-template.js:28
+msgid "Back to template selection"
+msgstr ""
+
+#: client/pages/home/choose-template.js:105
+#: pages/home/choose-template.js:105
+msgid "Use this template"
+msgstr ""
+
+#: client/pages/home/choose-template.js:138
+#: pages/home/choose-template.js:138
+msgid "requires pro license"
+msgstr ""
+
+#: client/pages/home/choose-template.js:145
+#: pages/home/choose-template.js:145
+msgid "template"
+msgstr ""
+
+#: client/pages/home/choose-template.js:163
+#: pages/home/choose-template.js:163
+msgid "Required Addons"
+msgstr ""
+
+#: client/pages/home/choose-template.js:167
+#: pages/home/choose-template.js:167
+msgid "This template requires the following addons to be installed and activated:"
+msgstr ""
+
+#: client/pages/home/choose-template.js:219
+#: pages/home/choose-template.js:219
+msgid "Start with a template to save time and be more productive."
+msgstr ""
+
+#: client/pages/results/components/partial-submission-banner/index.js:13
+#: components/partial-submission-banner/index.js:13
+msgid "Enable Partial Form Submissions"
+msgstr ""
+
+#: client/pages/results/components/partial-submission-banner/index.js:14
+#: components/partial-submission-banner/index.js:14
+msgid ""
+"Capture incomplete form data by setting partial submission points in your "
+"form blocks. This helps track where users drop off and collect valuable "
+"partial responses."
+msgstr ""
+
+#: client/pages/results/components/partial-submission-banner/index.js:18
+#: components/partial-submission-banner/index.js:18
+msgid "Learn More"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:15
+#: entry-details/notes/index.js:15
+msgid "No notes yet."
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:40
+#: entry-details/notes/index.js:40
+msgid "Payment Detials"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:45
+#: entry-details/notes/index.js:45
+msgid "Transaction ID"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:52
+#: entry-details/notes/index.js:52
+msgid "Payment Type"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:54
+#: entry-details/notes/index.js:54
+msgid "Recurring"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:54
+#: entry-details/notes/index.js:54
+msgid "One Time"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:60
+#: entry-details/notes/index.js:60
+msgid "Recurring Unit"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:66
+#: entry-details/notes/index.js:66
+msgid "Recurring Interval"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:76
+#: entry-details/notes/index.js:76
+msgid "Payment Status"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:82
+#: entry-details/notes/index.js:82
+msgid "Payment Amount"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:88
+#: entry-details/notes/index.js:88
+msgid "Payment Currency"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:94
+#: entry-details/notes/index.js:94
+msgid "Payment Mode"
+msgstr ""
+
+#: client/pages/payments/models/model/recurring/index.js:34
+#: model/recurring/index.js:34
+msgid "Day/s"
+msgstr ""
+
+#: client/pages/payments/models/model/recurring/index.js:38
+#: model/recurring/index.js:38
+msgid "Week/s"
+msgstr ""
+
+#: client/pages/payments/models/model/recurring/index.js:42
+#: model/recurring/index.js:42
+msgid "Month/s"
+msgstr ""
+
+#: client/pages/payments/models/model/recurring/index.js:46
+#: model/recurring/index.js:46
+msgid "Year/s"
+msgstr ""
+
+#: client/pages/results/components/entry-field.js:61
+#: results/components/entry-field.js:61
+msgid "No response"
+msgstr ""
+
+#: client/pages/payments/products/product/source-selector/index.js:36
+#: product/source-selector/index.js:36
+msgid "Select product source"
+msgstr ""
+
+#: results/components/entries-list.js:471
+msgid "T"
+msgstr ""
+
+#: components/panel-render/index.js:38
+msgid "Custom css won't be applied to the form builder"
+msgstr ""
+
+#: form-integrations/src/components/connect/main/run-modal/index.tsx:203
+#: main/run-modal/index.tsx:203
+#: packages/form-integrations/src/components/connect/main/run-modal/index.tsx:203
+msgid "Entry ID:"
+msgstr ""
+
+#: product/source-selector/index.js:36
+msgid "Selec"
+msgstr ""
+
+#: components/partial-submission-banner/index.js:14
+msgid ""
+"Capture incomplete form data by setting partial submission points in your "
+"form blocks. This helps track where users drop off and collect valu"
+msgstr ""
+
+#: components/partial-submission-banner/index.js:14
+msgid "Capture incomplete form data"
+msgstr ""
+
+#: components/partial-submission-banner/index.js:14
+msgid "Capture incomplete form data by setting partial submission po"
+msgstr ""
+
+#: components/typography-panel/index.js:526
+#: packages/theme-editor/src/components/typography-panel/index.js:526
+#: theme-editor/src/components/typography-panel/index.js:526
+msgid "Text input answers font"
+msgstr ""

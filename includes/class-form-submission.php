@@ -79,6 +79,15 @@ class Form_Submission {
 	private static $instance = null;
 
 	/**
+	 * Thankyou screens
+	 * 
+	 * @since next.version
+	 * 
+	 * @var array
+	 */
+	private $thankyou_screens;
+
+	/**
 	 * Get class instance
 	 *
 	 * @since 1.0.0

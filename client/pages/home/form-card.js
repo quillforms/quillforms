@@ -17,12 +17,13 @@ import { trashEmptyIcon, formsEmptyIcon, moreVertical } from './icons';
 import classnames from 'classnames';
 import { Icon } from '@wordpress/icons';
 import { css } from "emotion";
+import { __ } from '@wordpress/i18n';
 
 const MoreVerticalIcon = () => (
 	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 		<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-		<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+		<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 12 20 12 20Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 	</svg>
 );
 
@@ -153,7 +154,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							handleRestore();
 							onClose();
 						}}>
-							Restore
+							{__('Restore', 'quillforms')}
 						</MenuItem>
 						<MenuItem
 							onClick={() => {
@@ -162,7 +163,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							}}
 							isDestructive
 						>
-							Delete Permanently
+							{__('Delete Permanently', 'quillforms')}
 						</MenuItem>
 					</MenuGroup>
 				)}
@@ -191,7 +192,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Edit
+								{__('Edit', 'quillforms')}
 							</MenuItem>
 							<MenuItem
 								onClick={() => {
@@ -201,7 +202,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Results
+								{__('Results', 'quillforms')}
 							</MenuItem>
 							<MenuItem
 								onClick={() => {
@@ -211,7 +212,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Integrations
+								{__('Integrations', 'quillforms')}
 							</MenuItem>
 							<MenuItem
 								onClick={() => {
@@ -221,7 +222,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Share
+								{__('Share', 'quillforms')}
 							</MenuItem>
 						</MenuGroup>
 
@@ -234,7 +235,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Duplicate
+								{__('Duplicate', 'quillforms')}
 							</MenuItem>
 							<MenuItem
 								onClick={() => {
@@ -242,7 +243,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Rename
+								{__('Rename', 'quillforms')}
 							</MenuItem>
 							<MenuItem
 								onClick={() => {
@@ -250,7 +251,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Change slug
+								{__('Change slug', 'quillforms')}
 							</MenuItem>
 							<MenuItem
 								onClick={async () => {
@@ -276,7 +277,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								{form.status === 'publish' ? 'Move to draft' : 'Publish'}
+								{form.status === 'publish' ? __('Move to draft', 'quillforms') : __('Publish', 'quillforms')}
 							</MenuItem>
 						</MenuGroup>
 
@@ -288,7 +289,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
-								Move to Trash
+								{__('Move to Trash', 'quillforms')}
 							</MenuItem>
 						</MenuGroup>
 					</>
@@ -321,15 +322,15 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 								}
 								}
 							>
-								{form.title.rendered || 'Untitled Form'}
+								{form.title.rendered || __('Untitled Form', 'quillforms')}
 							</div>
 							<span className={`status-indicator status-${form.status}`}>
-								{form.status === 'publish' ? 'Published' : form.status}
+								{form.status === 'publish' ? __('Published', 'quillforms') : form.status}
 							</span>
 						</div>
 					</div>
 					<div className="responses-count-column">
-						{form.responses_count} responses
+						{form.responses_count} {__('responses', 'quillforms')}
 					</div>
 					<div className="date-column">
 						{lastModified}
@@ -341,7 +342,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 
 				{showRenameForm && (
 					<Modal
-						title="Rename Form"
+						title={__('Rename Form', 'quillforms')}
 						onRequestClose={() => setShowRenameForm(false)}
 					>
 						<TextControl
@@ -350,7 +351,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							value={formTitle}
 							onChange={(val) => {
 								if (!val) {
-									createErrorNotice('⛔ Form title cannot be empty!', {
+									createErrorNotice(__('⛔ Form title cannot be empty!', 'quillforms'), {
 										type: 'snackbar',
 										isDismissible: true,
 									});
@@ -367,12 +368,12 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 								setIsLoading(true);
 								const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
 								if (!res) {
-									createErrorNotice('⛔ Error in form renaming!', {
+									createErrorNotice(__('⛔ Error in form renaming!', 'quillforms'), {
 										type: 'snackbar',
 										isDismissible: true,
 									});
 								} else {
-									createSuccessNotice('✅ Form renamed successfully!', {
+									createSuccessNotice(__('✅ Form renamed successfully!', 'quillforms'), {
 										type: 'snackbar',
 										isDismissible: true,
 									});
@@ -381,14 +382,14 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 								setShowRenameForm(false);
 							}}
 						>
-							Rename
+							{__('Rename', 'quillforms')}
 						</Button>
 					</Modal>
 				)}
 
 				{editSlug && (
 					<Modal
-						title="Change Form Slug"
+						title={__('Change Form Slug', 'quillforms')}
 						onRequestClose={() => setEditSlug(false)}
 					>
 						<TextControl
@@ -397,7 +398,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							value={formSlug}
 							onChange={(val) => {
 								if (!val) {
-									createErrorNotice('⛔ Form slug cannot be empty!', {
+									createErrorNotice(__('⛔ Form slug cannot be empty!', 'quillforms'), {
 										type: 'snackbar',
 										isDismissible: true,
 									});
@@ -414,12 +415,12 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 								setIsLoading(true);
 								const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
 								if (!res) {
-									createErrorNotice('⛔ Error in form slug changing!', {
+									createErrorNotice(__('⛔ Error in form slug changing!', 'quillforms'), {
 										type: 'snackbar',
 										isDismissible: true,
 									});
 								} else {
-									createSuccessNotice('✅ Form slug changed successfully!', {
+									createSuccessNotice(__('✅ Form slug changed successfully!', 'quillforms'), {
 										type: 'snackbar',
 										isDismissible: true,
 									});
@@ -428,7 +429,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 								setEditSlug(false);
 							}}
 						>
-							Change
+							{__('Change', 'quillforms')}
 						</Button>
 					</Modal>
 				)}
@@ -466,16 +467,16 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 
 
 					>
-						{form.title.rendered || 'Untitled Form'}
+						{form.title.rendered || __('Untitled Form', 'quillforms')}
 					</div>
 				</div>
 
 				<div className="form-card__footer">
 					<div className="form-card__meta">
 						<span className={`status-indicator status-${form.status}`}>
-							{form.status === 'publish' ? 'Published' : form.status}
+							{form.status === 'publish' ? __('Published', 'quillforms') : form.status}
 						</span>
-						<span>{responsesCount} responses</span>
+						<span>{responsesCount} {__('responses', 'quillforms')}</span>
 						<div className="form-card__actions">
 							{renderActions()}
 						</div>
@@ -486,7 +487,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 
 			{showRenameForm && (
 				<Modal
-					title="Rename Form"
+					title={__('Rename Form', 'quillforms')}
 					onRequestClose={() => setShowRenameForm(false)}
 				>
 					<TextControl
@@ -495,7 +496,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 						value={formTitle}
 						onChange={(val) => {
 							if (!val) {
-								createErrorNotice('⛔ Form title cannot be empty!', {
+								createErrorNotice(__('⛔ Form title cannot be empty!', 'quillforms'), {
 									type: 'snackbar',
 									isDismissible: true,
 								});
@@ -512,12 +513,12 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							setIsLoading(true);
 							const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
 							if (!res) {
-								createErrorNotice('⛔ Error in form renaming!', {
+								createErrorNotice(__('⛔ Error in form renaming!', 'quillforms'), {
 									type: 'snackbar',
 									isDismissible: true,
 								});
 							} else {
-								createSuccessNotice('✅ Form renamed successfully!', {
+								createSuccessNotice(__('✅ Form renamed successfully!', 'quillforms'), {
 									type: 'snackbar',
 									isDismissible: true,
 								});
@@ -526,14 +527,14 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							setShowRenameForm(false);
 						}}
 					>
-						Rename
+						{__('Rename', 'quillforms')}
 					</Button>
 				</Modal>
 			)}
 
 			{editSlug && (
 				<Modal
-					title="Change Form Slug"
+					title={__('Change Form Slug', 'quillforms')}
 					onRequestClose={() => setEditSlug(false)}
 				>
 					<TextControl
@@ -542,7 +543,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 						value={formSlug}
 						onChange={(val) => {
 							if (!val) {
-								createErrorNotice('⛔ Form slug cannot be empty!', {
+								createErrorNotice(__('⛔ Form slug cannot be empty!', 'quillforms'), {
 									type: 'snackbar',
 									isDismissible: true,
 								});
@@ -559,12 +560,12 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							setIsLoading(true);
 							const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
 							if (!res) {
-								createErrorNotice('⛔ Error in form slug changing!', {
+								createErrorNotice(__('⛔ Error in form slug changing!', 'quillforms'), {
 									type: 'snackbar',
 									isDismissible: true,
 								});
 							} else {
-								createSuccessNotice('✅ Form slug changed successfully!', {
+								createSuccessNotice(__('✅ Form slug changed successfully!', 'quillforms'), {
 									type: 'snackbar',
 									isDismissible: true,
 								});
@@ -573,7 +574,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							setEditSlug(false);
 						}}
 					>
-						Change
+						{__('Change', 'quillforms')}
 					</Button>
 				</Modal>
 			)}
@@ -585,24 +586,24 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 export const EmptyState = ({ status, onCreateNew }) => {
 	const messages = {
 		all: {
-			title: 'Create your first form',
-			description: 'Get started by creating a new form from scratch or using a template.',
-			action: 'Create Form'
+			title: __('Create your first form', 'quillforms'),
+			description: __('Get started by creating a new form from scratch or using a template.', 'quillforms'),
+			action: __('Create Form', 'quillforms')
 		},
 		trash: {
-			title: 'Trash is empty',
-			description: 'No forms in trash.',
+			title: __('Trash is empty', 'quillforms'),
+			description: __('No forms in trash.', 'quillforms'),
 			action: null
 		},
 		draft: {
-			title: 'No draft forms',
-			description: 'Draft forms will appear here.',
-			action: 'Create Form'
+			title: __('No draft forms', 'quillforms'),
+			description: __('Draft forms will appear here.', 'quillforms'),
+			action: __('Create Form', 'quillforms')
 		},
 		publish: {
-			title: 'No published forms',
-			description: 'Published forms will appear here.',
-			action: 'Create Form'
+			title: __('No published forms', 'quillforms'),
+			description: __('Published forms will appear here.', 'quillforms'),
+			action: __('Create Form', 'quillforms')
 		}
 	};
 

@@ -8,6 +8,7 @@ import ConfigApi from '@quillforms/config';
  * Internal Dependencies
  */
 import './style.scss';
+import { __ } from '@wordpress/i18n';
 
 const Support = () => {
 	const isWPEnv = ConfigApi.isWPEnv();
@@ -16,8 +17,7 @@ const Support = () => {
 		<div className="quillforms-support-page">
 			<h1 className="quillforms-support-page__heading">Support</h1>
 			<p>
-				In case you need to submit a feature or report a bug, you can
-				reach out us here:
+				{__('Need help? We are here for you. You can reach us via the following ways:', 'quillforms')}
 			</p>
 
 			<div className="quillforms-support-page__via">
@@ -27,15 +27,12 @@ const Support = () => {
 							<Logo />
 						</div>
 						<div className="quillforms-support-page__website-title">
-							Website
+							{__('Website', 'quillforms')}
 						</div>
 					</a>
 
 				</div>
 				<div className="quillforms-support-page__via-facebook">
-					<div className="admin-components-control-label__new-feature">
-						NEW
-					</div>
 					<a
 						href="https://www.facebook.com/groups/quillforms"
 						target="_blank"
@@ -45,7 +42,7 @@ const Support = () => {
 							<svg fill="currentColor" height="32" width="32" viewBox="0 0 1024 1792"><path d="M959 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"></path></svg>
 						</div>
 						<div className="quillforms-support-page__facebook-title">
-							Facebook Group
+							{__('Facebook Group', 'quillforms')}
 						</div>
 					</a>
 				</div>
@@ -61,7 +58,23 @@ const Support = () => {
 							</svg>
 						</div>
 						<div className="quillforms-support-page__github-title">
-							Github
+							{__('Github', 'quillforms')}
+						</div>
+					</a>
+				</div>
+				<div className="quillforms-support-page__via-discord">
+					<a
+
+						href="https://discord.gg/a5PDrzu8dE"
+						target="_blank"
+					>
+						<div className="quillforms-support-page__discord-icon">
+							{ /* The icon copied from Fontawesome icons */}
+							<svg fill="currentColor" height="32" width="32" viewBox="0 0 448 512"><path d="M224 0C100.3 0 0 102.2 0 226.7c0 50.5 20.6 96.2 53.8 133.7-3.3 8.7-5 17.9-5 27.3 0 26.5 21.5 48 48 48 8.7 0 16.6-2.3 23.7-6.2 13.3 11.3 29.9 20.2 48.5 26.3-7.3 13.3-11.5 28.6-11.5 44.7 0 53 43.1 96 96 96 53 0 96-43 96-96 0-16.1-4.2-31.4-11.5-44.7 18.6-6.1 35.2-15 48.5-26.3 7.1 3.9 15 6.2 23.7 6.2 26.5 0 48-21.5 48-48 0-9.4-1.7-18.6-5-27.3 33.2-37.5 53.8-83.2 53.8-133.7C448 102.2 347.7 0 224 0zm-96 352c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm96-96c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm96 96c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48
+							 48z"></path></svg>
+						</div>
+						<div className="quillforms-support-page__discord-title">
+							{__('Discord', 'quillforms')}
 						</div>
 					</a>
 				</div>
@@ -80,7 +93,7 @@ const Support = () => {
 								</svg>
 							</div>
 							<div className="quillforms-support-page__wordpress-title">
-								WordPress
+								{__('WordPress', 'quillforms')}
 							</div>
 						</a>
 					</div>

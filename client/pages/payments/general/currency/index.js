@@ -9,6 +9,7 @@ import {
 	ControlLabel,
 	SelectControl,
 } from '@quillforms/admin-components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -25,29 +26,29 @@ const Currency = () => {
 
 	const Currencies = ConfigApi.getCurrencies();
 	const CurrencyOptions = [];
-	for ( const [ key, currency ] of Object.entries( Currencies ) ) {
-		CurrencyOptions.push( {
+	for (const [key, currency] of Object.entries(Currencies)) {
+		CurrencyOptions.push({
 			key,
 			name: currency.name,
-		} );
+		});
 	}
-	const CurrencySymbol = Currencies[ general.currency.code ].symbol;
+	const CurrencySymbol = Currencies[general.currency.code].symbol;
 	const CurrencySymbolPosOptions = [
 		{
 			key: 'left',
-			name: formatMoney( 1, CurrencySymbol, 'left' ),
+			name: formatMoney(1, CurrencySymbol, 'left'),
 		},
 		{
 			key: 'left_space',
-			name: formatMoney( 1, CurrencySymbol, 'left_space' ),
+			name: formatMoney(1, CurrencySymbol, 'left_space'),
 		},
 		{
 			key: 'right',
-			name: formatMoney( 1, CurrencySymbol, 'right' ),
+			name: formatMoney(1, CurrencySymbol, 'right'),
 		},
 		{
 			key: 'right_space',
-			name: formatMoney( 1, CurrencySymbol, 'right_space' ),
+			name: formatMoney(1, CurrencySymbol, 'right_space'),
 		},
 	];
 
@@ -55,9 +56,9 @@ const Currency = () => {
 		<>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Currency" />
+					<ControlLabel label={__('Currency', 'quillforms')} />
 					<SelectControl
-						className={ css`
+						className={css`
 							width: 225px;
 							.components-custom-select-control__label {
 								margin-bottom: 0;
@@ -69,33 +70,33 @@ const Currency = () => {
 								margin: 0;
 							}
 						` }
-						options={ CurrencyOptions }
-						value={ CurrencyOptions.find(
-							( option ) => option.key === general.currency.code
-						) }
-						onChange={ ( { selectedItem } ) => {
-							if ( selectedItem ) {
+						options={CurrencyOptions}
+						value={CurrencyOptions.find(
+							(option) => option.key === general.currency.code
+						)}
+						onChange={({ selectedItem }) => {
+							if (selectedItem) {
 								updateGeneral(
 									{
 										currency: {
 											code: selectedItem.key,
 											symbol_pos:
-												Currencies[ selectedItem.key ]
+												Currencies[selectedItem.key]
 													.symbol_pos,
 										},
 									},
 									'recursive'
 								);
 							}
-						} }
+						}}
 					/>
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Currency Format" />
+					<ControlLabel label={__('Currency Format', 'quillforms')} />
 					<SelectControl
-						className={ css`
+						className={css`
 							margin-left: 0.25rem;
 							.components-custom-select-control__label {
 								margin-bottom: 0;
@@ -107,15 +108,15 @@ const Currency = () => {
 								margin: 0;
 							}
 						` }
-						options={ CurrencySymbolPosOptions }
+						options={CurrencySymbolPosOptions}
 						value={
 							CurrencySymbolPosOptions.find(
-								( option ) =>
+								(option) =>
 									option.key === general.currency.symbol_pos
-							) ?? CurrencySymbolPosOptions[ 0 ]
+							) ?? CurrencySymbolPosOptions[0]
 						}
-						onChange={ ( { selectedItem } ) => {
-							if ( selectedItem ) {
+						onChange={({ selectedItem }) => {
+							if (selectedItem) {
 								updateGeneral(
 									{
 										currency: {
@@ -125,7 +126,7 @@ const Currency = () => {
 									'recursive'
 								);
 							}
-						} }
+						}}
 					/>
 				</ControlWrapper>
 			</BaseControl>

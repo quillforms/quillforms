@@ -14,6 +14,7 @@ import {
  */
 import { useEffect } from 'react';
 import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -64,13 +65,12 @@ const EmailSelect = ({ isRequired, value, setValue, emailFields, label }) => {
 		<>
 			{emailFields.length === 0 ? (
 				<AlertMessageWrapper type={isRequired ? 'error' : ''}>
-					To select an email, you should have at least one email
-					question
+					{__('To select an email, you should have at least one email question', 'quillforms')}
 				</AlertMessageWrapper>
 			) : (
 				<SelectControl
 					className="notifications-editor-email-select"
-					placeholder="Choose Email"
+					placeholder={__('Choose Email', 'quillforms')}
 					value={emailFieldsOptions.find(
 						(option) => option.key === value
 					)}

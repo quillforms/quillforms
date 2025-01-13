@@ -1,4 +1,3 @@
-
 /**
  * QuillForms Dependencies
  */
@@ -102,7 +101,7 @@ const EntriesHeader = ({
                                             <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                         <span className="date-picker__value">
-                                            {formatDate(from) || 'Start date'}
+                                            {formatDate(from) || __('Start date', 'quillforms')}
                                         </span>
                                     </div>
 
@@ -113,7 +112,7 @@ const EntriesHeader = ({
                                             <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                         <span className="date-picker__value">
-                                            {formatDate(to) || 'End date'}
+                                            {formatDate(to) || __('End date', 'quillforms')}
                                         </span>
                                     </div>
                                 </div>
@@ -149,7 +148,7 @@ const EntriesHeader = ({
                                             className="date-range-picker-cancel"
                                             onClick={handleDatePickerClose}
                                         >
-                                            Cancel
+                                            {__('Cancel', 'quillforms')}
                                         </button>
                                         <button
                                             className="date-range-picker-apply"
@@ -158,7 +157,7 @@ const EntriesHeader = ({
                                                 handleDatePickerClose();
                                             }}
                                         >
-                                            Apply
+                                            {__('Apply', 'quillforms')}
                                         </button>
                                     </div>
                                 </div>
@@ -169,7 +168,7 @@ const EntriesHeader = ({
 
                 <div className="entries-header__controls">
                     <div className="entries-header__display-field">
-                        <label>Display Question:</label>
+                        <label>{__('Display Question:', 'quillforms')}</label>
                         <SelectControl
                             options={options}
                             value={options[selectedField]}
@@ -178,7 +177,7 @@ const EntriesHeader = ({
                     </div>
 
                     <div className="entries-header__ordering">
-                        <label>Order by:</label>
+                        <label>{__('Order by:', 'quillforms')}</label>
                         <div className="ordering-controls">
                             <SelectControl
                                 options={orderByOptions}

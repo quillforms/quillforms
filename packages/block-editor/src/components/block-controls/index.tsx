@@ -3,6 +3,7 @@
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import BlockControlsHeader from '../block-controls-header';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -92,8 +93,8 @@ const BlockControls = withErrorBoundary(() => {
 		</div>
 	);
 }, {
-	title: 'Error',
-	'message': 'An error occurred while rendering the block controls. Please contact Support.',
+	title: __('Error', 'quillforms'),
+	'message': __('An error occurred while rendering the block controls. Please contact Support.', 'quillforms'),
 });
 
 export default BlockControls;

@@ -12,6 +12,7 @@ import { NavLink } from '@quillforms/navigation';
 import { Button, Icon as IconComponent } from '@wordpress/components';
 import { chevronUp, chevronDown, warning } from '@wordpress/icons';
 import { useEffect } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -94,9 +95,9 @@ const Methods = () => {
 	// loop over the enabled methods then other methods.
 	return (
 		<div className="quillforms-payments-page-settings__methods">
-			<h3>Methods</h3>
+			<h3>{__('Methods', 'quillforms')}</h3>
 			<div className="quillforms-payments-page-settings__methods-info">
-				The default payment gateway is the first enabled payment gateway
+				{__('The default payment gateway is the first enabled payment gateway', 'quillforms')}
 			</div>
 			<div className="quillforms-payments-page-settings__methods-content">
 				{Object.keys(general.methods).map((key, index) => {
@@ -176,7 +177,7 @@ const Methods = () => {
 						notice = (
 							<div className="method-warning">
 								<IconComponent icon={warning} />
-								<i>Doesn't support recurring payments</i>
+								<i>{__('Doesn\'t support recurring payments', 'quillforms')}</i>
 							</div>
 						);
 					}
@@ -192,7 +193,7 @@ const Methods = () => {
 									<NavLink
 										to={`/admin.php?page=quillforms&path=addons`}
 									>
-										Activate it
+										{__('Activate it', 'quillforms')}
 									</NavLink>
 								</i>
 							);
@@ -204,7 +205,7 @@ const Methods = () => {
 											to={`/admin.php?page=quillforms&path=checkout`}
 											className="upgrade-plan"
 										>
-											Upgrade Your Plan
+											{__('Upgrade Your Plan', 'quillforms')}
 										</NavLink>
 									</i>
 								);
@@ -219,7 +220,7 @@ const Methods = () => {
 											<NavLink
 												to={`/admin.php?page=quillforms&path=addons`}
 											>
-												Install it
+												{__('Install it', 'quillforms')}
 											</NavLink>
 										</i>
 									);
@@ -230,7 +231,7 @@ const Methods = () => {
 												className="upgrade-plan"
 												href="https://quillforms.com"
 											>
-												Upgrade your plan
+												{__('Upgrade your plan', 'quillforms')}
 											</a>
 										</i>
 									);
@@ -248,7 +249,7 @@ const Methods = () => {
 								<NavLink
 									to={`/admin.php?page=quillforms&path=settings&tab=payments`}
 								>
-									Configure it
+									{__('Configure it', 'quillforms')}
 								</NavLink>
 							</i>
 						);

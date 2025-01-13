@@ -23,6 +23,7 @@ import {
 	FocalPointPicker,
 } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -113,13 +114,12 @@ const CustomizeThemePanel = () => {
 						d="M10 17l5-5-5-5v10z"
 					/>
 				</svg>
-				<span>Back</span>
-
+				<span>{__('Back', 'quillforms')}</span>
 			</div>
-			<PanelBody title="Theme Title" initialOpen={false}>
+			<PanelBody title={__('Theme Title', 'quillforms')} initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Title" />
+						<ControlLabel label={__('Title', 'quillforms')} />
 						<TextControl
 							value={title}
 							onChange={(val) => {
@@ -129,10 +129,10 @@ const CustomizeThemePanel = () => {
 					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
-			<PanelBody title="Background and Logo" initialOpen={false}>
+			<PanelBody title={__('Background and Logo', 'quillforms')} initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Background Overlay Color" />
+						<ControlLabel label={__('Background Overlay Color', 'quillforms')} />
 						<ColorPreview color={backgroundColor} />
 					</ControlWrapper>
 					<ComboColorPicker
@@ -146,7 +146,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Background Image" />
+						<ControlLabel label={__('Background Image', 'quillforms')} />
 						{isEmpty(backgroundImage) ? (
 							<MediaUpload
 								onSelect={(media) =>
@@ -157,7 +157,7 @@ const CustomizeThemePanel = () => {
 								allowedTypes={['image']}
 								render={({ open }) => (
 									<Button isSmall onClick={open}>
-										Add
+										{__('Add', 'quillforms')}
 									</Button>
 								)}
 							/>
@@ -171,7 +171,7 @@ const CustomizeThemePanel = () => {
 									})
 								}
 							>
-								Remove
+								{__('Remove', 'quillforms')}
 							</Button>
 						)}
 					</ControlWrapper>
@@ -186,7 +186,7 @@ const CustomizeThemePanel = () => {
 
 					}>
 						<p>
-							To add a background image, clear the background overlay color or add opacity to it.
+							{__('To add a background image, clear the background overlay color or add opacity to it.', 'quillforms')}
 						</p>
 					</div>
 				</BaseControl>
@@ -199,7 +199,7 @@ const CustomizeThemePanel = () => {
 					>
 						<BaseControl>
 							<ControlWrapper orientation="vertical">
-								<ControlLabel label="Focal Point Picker"></ControlLabel>
+								<ControlLabel label={__('Focal Point Picker', 'quillforms')}></ControlLabel>
 								<div
 									className={css`
 										max-width: 300px;
@@ -231,7 +231,7 @@ const CustomizeThemePanel = () => {
 				)}
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="logo" />
+						<ControlLabel label={__('logo', 'quillforms')} />
 						{isEmpty(logo) ? (
 							<MediaUpload
 								onSelect={(media) =>
@@ -245,7 +245,7 @@ const CustomizeThemePanel = () => {
 								allowedTypes={['image']}
 								render={({ open }) => (
 									<Button isSmall onClick={open}>
-										Add
+										{__('Add', 'quillforms')}
 									</Button>
 								)}
 							/>
@@ -259,22 +259,22 @@ const CustomizeThemePanel = () => {
 									})
 								}
 							>
-								Remove
+								{__('Remove', 'quillforms')}
 							</Button>
 						)}
 					</ControlWrapper>
 				</BaseControl>
 			</PanelBody>
 
-			<PanelBody title="Font Families" initialOpen={false}>
+			<PanelBody title={__('Font Families', 'quillforms')} initialOpen={false}>
 				<div className="fonts-hint">
 					<p>
-						You can add your custom font from settings icon at left bar and then click on custom fonts.
+						{__('You can add your custom font from settings icon at left bar and then click on custom fonts.', 'quillforms')}
 					</p>
 				</div>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Base Font" />
+						<ControlLabel label={__('Base Font', 'quillforms')} />
 						<FontPicker
 							fonts={allFonts}
 							selectedFont={font}
@@ -289,7 +289,7 @@ const CustomizeThemePanel = () => {
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
-							label="Questions Label Font"
+							label={__('Questions Label Font', 'quillforms')}
 						/>
 						<FontPicker
 							fonts={{
@@ -309,7 +309,7 @@ const CustomizeThemePanel = () => {
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
-							label="Questions Description Font"
+							label={__('Questions Description Font', 'quillforms')}
 						/>
 						<FontPicker
 							fonts={{
@@ -328,10 +328,10 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 			</PanelBody>
 
-			<PanelBody title="Colors" initialOpen={false}>
+			<PanelBody title={__('Colors', 'quillforms')} initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Questions Color" />
+						<ControlLabel label={__('Questions Color', 'quillforms')} />
 						<ColorPreview color={questionsColor} />
 					</ControlWrapper>
 					<ColorPicker
@@ -345,7 +345,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Answers Color" />
+						<ControlLabel label={__('Answers Color', 'quillforms')} />
 						<ColorPreview color={answersColor} />
 					</ControlWrapper>
 					<ColorPicker
@@ -359,7 +359,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Buttons Font Color" />
+						<ControlLabel label={__('Buttons Font Color', 'quillforms')} />
 						<ColorPreview color={buttonsFontColor} />
 					</ControlWrapper>
 					<ColorPicker
@@ -373,7 +373,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Buttons Background Color" />
+						<ControlLabel label={__('Buttons Background Color', 'quillforms')} />
 						<ColorPreview color={buttonsBgColor} />
 					</ControlWrapper>
 					<ComboColorPicker
@@ -387,7 +387,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Erros Text Color" />
+						<ControlLabel label={__('Errors Text Color', 'quillforms')} />
 						<ColorPreview color={errorsFontColor} />
 					</ControlWrapper>
 					<ColorPicker
@@ -401,7 +401,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Errros Background Color" />
+						<ControlLabel label={__('Errors Background Color', 'quillforms')} />
 						<ColorPreview color={errorsBgColor} />
 					</ControlWrapper>
 					<ComboColorPicker
@@ -416,7 +416,7 @@ const CustomizeThemePanel = () => {
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
 						<ControlLabel
-							label="Form Footer Background Color"
+							label={__('Form Footer Background Color', 'quillforms')}
 							isNew={true}
 						/>
 						<ResponsiveControl
@@ -464,7 +464,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Progress Bar Fill Color" />
+						<ControlLabel label={__('Progress Bar Fill Color', 'quillforms')} />
 						<ColorPreview color={progressBarFillColor} />
 					</ControlWrapper>
 					<ColorPicker
@@ -478,7 +478,7 @@ const CustomizeThemePanel = () => {
 				</BaseControl>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Progress Bar Background Color" />
+						<ControlLabel label={__('Progress Bar Background Color', 'quillforms')} />
 						<ColorPreview color={progressBarBgColor} />
 					</ControlWrapper>
 					<ColorPicker
@@ -496,10 +496,10 @@ const CustomizeThemePanel = () => {
 				properties={$properties}
 				setCurrentThemeProperties={setCurrentThemeProperties}
 			/>
-			<PanelBody title="Borders" initialOpen={false}>
+			<PanelBody title={__('Borders', 'quillforms')} initialOpen={false}>
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Buttons Border Radius(px)" />
+						<ControlLabel label={__('Buttons Border Radius(px)', 'quillforms')} />
 						<RangeControl
 							className={css`
 								width: 30%;
@@ -518,7 +518,7 @@ const CustomizeThemePanel = () => {
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
-							label="Buttons Border Width(px)"
+							label={__('Buttons Border Width(px)', 'quillforms')}
 							isNew={true}
 						/>
 						<RangeControl
@@ -539,7 +539,7 @@ const CustomizeThemePanel = () => {
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
 						<ControlLabel
-							label="Buttons Border Color"
+							label={__('Buttons Border Color', 'quillforms')}
 							isNew={true}
 						/>
 						<ColorPicker

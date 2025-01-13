@@ -13,6 +13,7 @@ import {
  * WordPress Dependencies
  */
 import { Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 
 const shortTextControl = ({ attributes, setAttributes }) => {
 	const { setMaxCharacters, maxCharacters, minCharacters } = attributes;
@@ -20,7 +21,7 @@ const shortTextControl = ({ attributes, setAttributes }) => {
 		<Fragment>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Min Characters" />
+					<ControlLabel label={__('Min Characters', 'quillforms')} />
 					<ToggleControl
 						checked={minCharacters !== false}
 						onChange={() => {
@@ -45,7 +46,7 @@ const shortTextControl = ({ attributes, setAttributes }) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Max Characters" />
+					<ControlLabel label={__('Max Characters', 'quillforms')} />
 					<ToggleControl
 						checked={setMaxCharacters}
 						onChange={() => {

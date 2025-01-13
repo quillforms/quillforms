@@ -2,6 +2,7 @@
  * External Dependencies
  */
 import { css } from 'emotion';
+import { __ } from '@wordpress/i18n';
 
 const ProLabel = () => (
     <span className={css`
@@ -31,7 +32,7 @@ const ProLabel = () => (
             transition: all 0.2s ease;
         }
     `}>
-        Pro Feature
+        {__('Pro Feature', 'quillforms')}
     </span>
 );
 

@@ -174,7 +174,7 @@ export const EntriesList = ({
 		<>
 			<div className="qf_entry-list-responses-count">
 				<div>
-					{`${totalEntries} responses in total`}
+					{`${totalEntries} ${__('responses in total', 'quillforms')}`}
 				</div>
 				<div className="qf_entry-list-actions">
 					<CheckboxControl
@@ -195,7 +195,7 @@ export const EntriesList = ({
 							}
 						}}
 					/>
-					Select All
+					{__('Select All', 'quillforms')}
 				</div>
 			</div>
 
@@ -268,22 +268,22 @@ export const EntriesList = ({
 
 	const orderByOptions = [
 		{
-			name: 'Submission Date',
+			name: __('Submission Date', 'quillforms'),
 			key: 'date',
 		},
 		{
-			name: 'Alphabatically',
-			key: 'alphabatically',
+			name: __('Alphabetically', 'quillforms'),
+			key: 'alphabetically',
 		},
 	];
 
 	const orderOptions = [
 		{
-			name: 'Ascending',
+			name: __('Ascending', 'quillforms'),
 			key: 'asc',
 		},
 		{
-			name: 'Descending',
+			name: __('Descending', 'quillforms'),
 			key: 'desc',
 		},
 	];
@@ -406,7 +406,7 @@ export const EntriesList = ({
 										width: 70px;
 									` }
 														>
-															{selectedEntries.length} selected
+															{`${selectedEntries.length} ${__('selected', 'quillforms')}`}
 														</div>
 														{applyFilters('QuillForms.Entries.ExportButton.Render', (
 															<EntriesExportButton
@@ -419,7 +419,7 @@ export const EntriesList = ({
 															isButton
 															onClick={() => setDeleteModalOpen(true)}
 														>
-															Delete
+															{__('Delete', 'quillforms')}
 														</Button>
 													</>
 												)}
@@ -466,9 +466,9 @@ export const EntriesList = ({
 						margin-bottom: 0;
 					` }
 							>
-								No Entries found!
+								{__('No Entries found!', 'quillforms')}
 							</p>
-							<p>This form doesn’t have any responses yet.</p>
+							<p>{__('This form doesn’t have any responses yet.', 'quillforms')}</p>
 						</div>
 					)}
 				</>

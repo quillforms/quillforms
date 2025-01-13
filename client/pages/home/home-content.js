@@ -1,4 +1,4 @@
-// HomeContent.js
+import { __ } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
@@ -8,8 +8,7 @@ import {
 	Dropdown,
 	MenuGroup,
 	MenuItem,
-	CheckboxControl // Change from Checkbox to CheckboxControl
-
+	CheckboxControl,
 } from '@wordpress/components';
 import {
 	listIcon as list,
@@ -22,19 +21,16 @@ import AddFormModal from './add-form-modal';
 import { FormCard, EmptyState } from './form-card';
 import { FormsSkeleton, FormCardSkeleton } from './form-skeleton';
 
-
 const ListHeader = () => (
 	<div className="list-header">
-		<div className="header-cell">Title</div>
-		<div className="header-cell">Responses Count</div>
-		<div className="header-cell">Last Modified</div>
+		<div className="header-cell">{__('Title', 'quillforms')}</div>
+		<div className="header-cell">{__('Responses Count', 'quillforms')}</div>
+		<div className="header-cell">{__('Last Modified', 'quillforms')}</div>
 		<div className="header-cell"></div>
 	</div>
 );
 
-
 const HomeContent = () => {
-
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isFetchingOnMount, setIsFetchingOnMount] = useState(true);
 	const [viewMode, setViewMode] = useState('list');
@@ -44,15 +40,14 @@ const HomeContent = () => {
 	const [selectedForms, setSelectedForms] = useState([]);
 	const [selectAll, setSelectAll] = useState(false);
 
-
 	const handleSelectAll = (checked) => {
 		setSelectAll(checked);
-		setSelectedForms(checked ? forms.map(form => form.id) : []);
+		setSelectedForms(checked ? forms.map((form) => form.id) : []);
 	};
 
 	const handleSelectForm = (formId, checked) => {
-		setSelectedForms(prev =>
-			checked ? [...prev, formId] : prev.filter(id => id !== formId)
+		setSelectedForms((prev) =>
+			checked ? [...prev, formId] : prev.filter((id) => id !== formId)
 		);
 		setSelectAll(false);
 	};
@@ -63,17 +58,11 @@ const HomeContent = () => {
 		if (currentStatus === 'trash') {
 			return (
 				<div className="bulk-actions">
-					<Button
-						isSecondary
-						onClick={() => handleBulkRestore()}
-					>
-						Restore Selected ({selectedForms.length})
+					<Button isSecondary onClick={() => handleBulkRestore()}>
+						{__('Restore Selected', 'quillforms')} ({selectedForms.length})
 					</Button>
-					<Button
-						isDanger
-						onClick={() => handleBulkDelete(true)}
-					>
-						Delete Permanently ({selectedForms.length})
+					<Button isDanger onClick={() => handleBulkDelete(true)}>
+						{__('Delete Permanently', 'quillforms')} ({selectedForms.length})
 					</Button>
 				</div>
 			);
@@ -85,26 +74,20 @@ const HomeContent = () => {
 					className="bulk-actions-dropdown"
 					position="bottom left"
 					renderToggle={({ isOpen, onToggle }) => (
-						<Button
-							onClick={onToggle}
-							aria-expanded={isOpen}
-						>
-							Bulk Actions ({selectedForms.length})
+						<Button onClick={onToggle} aria-expanded={isOpen}>
+							{__('Bulk Actions', 'quillforms')} ({selectedForms.length})
 						</Button>
 					)}
 					renderContent={() => (
 						<MenuGroup>
 							<MenuItem onClick={() => handleBulkStatusChange('publish')}>
-								Publish Selected
+								{__('Publish Selected', 'quillforms')}
 							</MenuItem>
 							<MenuItem onClick={() => handleBulkStatusChange('draft')}>
-								Move to Draft
+								{__('Move to Draft', 'quillforms')}
 							</MenuItem>
-							<MenuItem
-								onClick={() => handleBulkDelete(false)}
-								isDestructive
-							>
-								Move to Trash
+							<MenuItem onClick={() => handleBulkDelete(false)} isDestructive>
+								{__('Move to Trash', 'quillforms')}
 							</MenuItem>
 						</MenuGroup>
 					)}
@@ -117,63 +100,86 @@ const HomeContent = () => {
 	const { createSuccessNotice, createErrorNotice } = useDispatch('core/notices');
 
 	const handleBulkStatusChange = async (newStatus) => {
-		const updatePromises = selectedForms.map(formId =>
+		const updatePromises = selectedForms.map((formId) =>
 			updateEntityRecord('postType', 'quill_forms', formId, { status: newStatus })
 		);
 
 		try {
 			await Promise.all(updatePromises);
 			createSuccessNotice(
-				`${selectedForms.length} forms ${newStatus === 'publish' ? 'published' : 'moved to draft'}!`,
+				__(
+					`${selectedForms.length} forms ${newStatus === 'publish' ? 'published' : 'moved to draft'
+					}!`,
+					'quillforms'
+				),
 				{ type: 'snackbar' }
 			);
 			setSelectedForms([]);
 			setSelectAll(false);
 		} catch (error) {
-			createErrorNotice('Error updating forms!', { type: 'snackbar' });
+			createErrorNotice(__('Error updating forms!', 'quillforms'), { type: 'snackbar' });
 		}
 	};
 
 	const handleBulkDelete = async (permanent = false) => {
-		if (!confirm(`Are you sure you want to ${permanent ? 'permanently delete' : 'move to trash'} ${selectedForms.length} forms?`)) {
+		if (
+			!confirm(
+				__(
+					`Are you sure you want to ${permanent ? 'permanently delete' : 'move to trash'
+					} ${selectedForms.length} forms?`,
+					'quillforms'
+				)
+			)
+		) {
 			return;
 		}
 
-		const deletePromises = selectedForms.map(formId =>
-			deleteEntityRecord('postType', 'quill_forms', formId, permanent ? { force: true } : {})
+		const deletePromises = selectedForms.map((formId) =>
+			deleteEntityRecord(
+				'postType',
+				'quill_forms',
+				formId,
+				permanent ? { force: true } : {}
+			)
 		);
 
 		try {
 			await Promise.all(deletePromises);
 			createSuccessNotice(
-				`${selectedForms.length} forms ${permanent ? 'permanently deleted' : 'moved to trash'}!`,
+				__(
+					`${selectedForms.length} forms ${permanent ? 'permanently deleted' : 'moved to trash'
+					}!`,
+					'quillforms'
+				),
 				{ type: 'snackbar' }
 			);
 			setSelectedForms([]);
 			setSelectAll(false);
 		} catch (error) {
-			createErrorNotice('Error deleting forms!', { type: 'snackbar' });
+			createErrorNotice(__('Error deleting forms!', 'quillforms'), { type: 'snackbar' });
 		}
 	};
 
 	const handleBulkRestore = async () => {
-		const restorePromises = selectedForms.map(formId =>
+		const restorePromises = selectedForms.map((formId) =>
 			updateEntityRecord('postType', 'quill_forms', formId, { status: 'draft' })
 		);
 
 		try {
 			await Promise.all(restorePromises);
-			createSuccessNotice(`${selectedForms.length} forms restored!`, { type: 'snackbar' });
+			createSuccessNotice(
+				`${selectedForms.length} ${__('forms restored!', 'quillforms')}`,
+				{ type: 'snackbar' }
+			);
 			setSelectedForms([]);
 			setSelectAll(false);
 		} catch (error) {
-			createErrorNotice('Error restoring forms!', { type: 'snackbar' });
+			createErrorNotice(__('Error restoring forms!', 'quillforms'), { type: 'snackbar' });
 		}
 	};
 
 	const { invalidateResolution } = useDispatch('core/data');
 
-	// Invalidate resolution for entity record on unmount
 	useEffect(() => {
 		return () => {
 			invalidateResolution('core', 'getEntityRecords', recordArgs);
@@ -192,63 +198,67 @@ const HomeContent = () => {
 		},
 	];
 
-	const { forms, hasFormsFinishedResolution } = useSelect((select) => ({
-		forms: select('core').getEntityRecords(...recordArgs),
-		hasFormsFinishedResolution: select('core').hasFinishedResolution(
-			'getEntityRecords',
-			recordArgs
-		),
-	}), [currentStatus, searchTerm, sortBy]);
+	const { forms, hasFormsFinishedResolution } = useSelect(
+		(select) => ({
+			forms: select('core').getEntityRecords(...recordArgs),
+			hasFormsFinishedResolution: select('core').hasFinishedResolution(
+				'getEntityRecords',
+				recordArgs
+			),
+		}),
+		[currentStatus, searchTerm, sortBy]
+	);
 
 	const stats = useSelect((select) => {
 		const allForms = select('core').getEntityRecords('postType', 'quill_forms', {
 			per_page: -1,
-			status: 'publish,draft,trash'
+			status: 'publish,draft,trash',
 		});
 
-		if (!allForms) return {
-			all: 0,
-			published: 0,
-			draft: 0,
-			trash: 0
-		};
+		if (!allForms)
+			return {
+				all: 0,
+				published: 0,
+				draft: 0,
+				trash: 0,
+			};
 
 		return {
-			all: allForms.filter(form => form.status !== 'trash').length,
-			published: allForms.filter(form => form.status === 'publish').length,
-			draft: allForms.filter(form => form.status === 'draft').length,
-			trash: allForms.filter(form => form.status === 'trash').length
+			all: allForms.filter((form) => form.status !== 'trash').length,
+			published: allForms.filter((form) => form.status === 'publish').length,
+			draft: allForms.filter((form) => form.status === 'draft').length,
+			trash: allForms.filter((form) => form.status === 'trash').length,
 		};
 	}, []);
+
 	const tabs = [
 		{
 			name: 'all',
-			title: `All (${stats.all})`,
-			className: 'tab-all'
+			title: `${__('All', 'quillforms')} (${stats.all})`,
+			className: 'tab-all',
 		},
 		{
 			name: 'publish',
-			title: `Published (${stats.published})`,
-			className: 'tab-published'
+			title: `${__('Published', 'quillforms')} (${stats.published})`,
+			className: 'tab-published',
 		},
 		{
 			name: 'draft',
-			title: `Drafts (${stats.draft})`,
-			className: 'tab-drafts'
+			title: `${__('Drafts', 'quillforms')} (${stats.draft})`,
+			className: 'tab-drafts',
 		},
 		{
 			name: 'trash',
-			title: `Trash (${stats.trash})`,
-			className: 'tab-trash'
-		}
+			title: `${__('Trash', 'quillforms')} (${stats.trash})`,
+			className: 'tab-trash',
+		},
 	];
 
 	return (
 		<div className="quillforms-home">
-
 			<div className="quillforms-home__header">
 				<div className="quillforms-home__header-left">
-					<h1>Forms</h1>
+					<h1>{__('Forms', 'quillforms')}</h1>
 					{selectedForms.length > 0 ? (
 						<BulkActions />
 					) : (
@@ -257,7 +267,7 @@ const HomeContent = () => {
 							className="add-new-form-button"
 							onClick={() => setIsModalOpen(true)}
 						>
-							<plus-icon /> New Form
+							<plus-icon /> {__('New Form', 'quillforms')}
 						</Button>
 					)}
 				</div>
@@ -265,26 +275,23 @@ const HomeContent = () => {
 					<SearchControl
 						value={searchTerm}
 						onChange={setSearchTerm}
-						placeholder="Search forms..."
+						placeholder={__('Search forms...', 'quillforms')}
 					/>
 					<Dropdown
 						className="sort-dropdown"
 						position="bottom left"
 						renderToggle={({ isOpen, onToggle }) => (
-							<Button
-								onClick={onToggle}
-								aria-expanded={isOpen}
-							>
-								Sort by: {sortBy}
+							<Button onClick={onToggle} aria-expanded={isOpen}>
+								{__('Sort by:', 'quillforms')} {sortBy}
 							</Button>
 						)}
 						renderContent={() => (
 							<MenuGroup>
 								<MenuItem onClick={() => setSortBy('date')}>
-									Date
+									{__('Date', 'quillforms')}
 								</MenuItem>
 								<MenuItem onClick={() => setSortBy('title')}>
-									Title
+									{__('Title', 'quillforms')}
 								</MenuItem>
 							</MenuGroup>
 						)}

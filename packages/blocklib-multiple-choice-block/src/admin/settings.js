@@ -6,6 +6,7 @@ import Icon from './icon';
 import logicControl from './logic-control';
 import entryDetails from './entry-details';
 import getChoices from './get-choices';
+import { __ } from '@wordpress/i18n';
 
 const blockAdminSettings = {
 	color: '#9B89B3',
@@ -13,7 +14,7 @@ const blockAdminSettings = {
 	entryDetails,
 	controls,
 	logicControl,
-	title: 'Multiple Choice',
+	title: __('Multiple Choice', 'quillforms'),
 	order: 5,
 	getChoices,
 };

@@ -17,6 +17,7 @@ import ConfigAPI from '@quillforms/config';
 import { Modal } from "@wordpress/components";
 import { useState } from "@wordpress/element";
 import { useSelect, useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -85,18 +86,18 @@ const PanelRender = () => {
 	const animationOptions = [
 		{
 			key: 'horizontal',
-			name: 'Horizontal',
+			name: __('Horizontal', 'quillforms'),
 		},
 		{
 			key: 'vertical',
-			name: 'Vertical',
+			name: __('Vertical', 'quillforms'),
 		},
 	];
 	return (
 		<div className="settings-editor-panel-render">
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Auto save progress (save answers in user browser)'} />
+					<ControlLabel label={__('Auto save progress (save answers in user browser)', 'quillforms')} />
 					<ToggleControl
 						checked={shouldAnswersBeSavedInBrowser}
 						onChange={() =>
@@ -107,17 +108,16 @@ const PanelRender = () => {
 					    background: antiquewhite;
 						padding: 10px;
 						margin-top: 16px;
-					`}>This feature will save the answers in the user's browser, so the user can continue the form later in same browser.
-						To allow user to save and continue later from any device, you have to use <a href="" onClick={e => {
+						`}>{__('This feature will save the answers in the user\'s browser, so the user can continue the form later in same browser. To allow user to save and continue later from any device, you have to use', 'quillforms')} <a href="" onClick={e => {
 							e.preventDefault();
 							setCurrentPanel('save-and-continue')
 						}}>
-							save and continue feature</a></p>
+							{__('save and continue feature', 'quillforms')}</a></p>
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Hide progress bar'} />
+					<ControlLabel label={__('Hide progress bar', 'quillforms')} />
 					<ToggleControl
 						checked={isProgressBarDisabled}
 						onChange={() =>
@@ -128,7 +128,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Disable swiping by wheel'} />
+					<ControlLabel label={__('Disable swiping by wheel', 'quillforms')} />
 					<ToggleControl
 						checked={isWheelSwipingDisabled}
 						onChange={() =>
@@ -139,7 +139,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Letters on answers'} />
+					<ControlLabel label={__('Letters on answers', 'quillforms')} />
 					<ToggleControl
 						checked={shouldLettersOnAnswersBeDisplayed}
 						onChange={() =>
@@ -152,7 +152,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Questions numbers'} />
+					<ControlLabel label={__('Questions numbers', 'quillforms')} />
 					<ToggleControl
 						checked={shouldQuestionsNumbersBeDisplayed}
 						onChange={() =>
@@ -165,7 +165,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Hide navigation arrows'} />
+					<ControlLabel label={__('Hide navigation arrows', 'quillforms')} />
 					<ToggleControl
 						checked={isNavigationArrowsDisabled}
 						onChange={() =>
@@ -178,7 +178,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Hide asterisks on required fields'} />
+					<ControlLabel label={__('Hide asterisks on required fields', 'quillforms')} />
 					<ToggleControl
 						checked={shouldAstreisksOnRequiredFieldsBeHidden}
 						onChange={() =>
@@ -191,7 +191,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Animation direction'} />
+					<ControlLabel label={__('Animation direction', 'quillforms')} />
 					<SelectControl
 						className={css`
 							margin-top: 5px;
@@ -208,7 +208,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={'Display Branding'} />
+					<ControlLabel label={__('Display Branding', 'quillforms')} />
 					<ToggleControl
 						checked={shouldBrandingBeDisplayed}
 						onChange={() => {

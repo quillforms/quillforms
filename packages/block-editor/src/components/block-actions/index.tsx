@@ -4,6 +4,7 @@
 import { useDispatch, useSelect } from '@wordpress/data';
 import { doAction, applyFilters } from '@wordpress/hooks';
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -168,7 +169,7 @@ const BlockActions: React.FC<Props> = ({
 									handleBlockModification();
 								}}
 							>
-								Duplicate
+								{__('Duplicate', 'quillforms')}
 							</MenuItem>
 						)}
 						{!disableDelete && (
@@ -183,7 +184,7 @@ const BlockActions: React.FC<Props> = ({
                                     }
                                 `}
 							>
-								Delete
+								{__('Delete', 'quillforms')}
 							</MenuItem>
 						)}
 					</MenuGroup>

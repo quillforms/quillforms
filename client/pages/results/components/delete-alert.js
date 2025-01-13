@@ -7,6 +7,7 @@ import { Button } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -14,10 +15,10 @@ import { Modal } from '@wordpress/components';
 import classnames from 'classnames';
 import { css } from 'emotion';
 
-const DeleteAlertModal = ( { approve, closeModal, isDeleting } ) => {
+const DeleteAlertModal = ({ approve, closeModal, isDeleting }) => {
 	return (
 		<Modal
-			className={ classnames(
+			className={classnames(
 				'qf-entry-delete-alert-modal',
 				css`
 					border: none !important;
@@ -36,15 +37,15 @@ const DeleteAlertModal = ( { approve, closeModal, isDeleting } ) => {
 						}
 					}
 				`
-			) }
+			)}
 			// Because focus on editor is causing the click handler to be triggered
-			shouldCloseOnClickOutside={ false }
-			title="Warning!"
-			onRequestClose={ closeModal }
+			shouldCloseOnClickOutside={false}
+			title={__('Warning!', 'quillforms')}
+			onRequestClose={closeModal}
 		>
-			<div>Are you sure you want to proceed?</div>
+			<div>{__('Are you sure you want to proceed?', 'quillforms')}</div>
 			<div
-				className={ css`
+				className={css`
 					display: flex;
 					margin-top: 10px;
 					justify-content: flex-end;
@@ -53,19 +54,19 @@ const DeleteAlertModal = ( { approve, closeModal, isDeleting } ) => {
 				<Button
 					isDefault
 					isLarge
-					className={ css`
+					className={css`
 						margin-right: 10px !important;
 					` }
-					onClick={ () => {
+					onClick={() => {
 						closeModal();
-					} }
+					}}
 				>
-					Cancel
+					{__('Cancel', 'quillforms')}
 				</Button>
-				{ isDeleting ? (
+				{isDeleting ? (
 					<Button
 						isLarge
-						className={ css`
+						className={css`
 							width: 70px;
 							display: flex;
 							justify-content: center;
@@ -73,25 +74,25 @@ const DeleteAlertModal = ( { approve, closeModal, isDeleting } ) => {
 						` }
 						isPrimary
 					>
-						Deleting...
+						{__('Deleting...', 'quillforms')}
 					</Button>
 				) : (
 					<Button
 						isLarge
-						className={ css`
+						className={css`
 							width: 70px;
 							display: flex;
 							justify-content: center;
 							align-items: center;
 						` }
-						onClick={ () => {
+						onClick={() => {
 							approve();
-						} }
+						}}
 						isPrimary
 					>
-						Proceed
+						{__('Proceed', 'quillforms')}
 					</Button>
-				) }
+				)}
 			</div>
 		</Modal>
 	);

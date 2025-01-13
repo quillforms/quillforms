@@ -15,6 +15,7 @@ import {
 import { useSelect } from '@wordpress/data';
 import { useEffect, useState } from 'react';
 import { RadioControl } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -105,8 +106,8 @@ const NotificationEditorWrapper = ({
 			<>
 				<h4 className="notifications-editor-notification-editor-wrapper__heading">
 					{notificationId
-						? 'Edit Notification'
-						: 'Create a new notification'}
+						? __('Edit Notification', 'quillforms')
+						: __('Create a new notification', 'quillforms')}
 				</h4>
 				<NotificationTitle
 					value={title}
@@ -119,7 +120,7 @@ const NotificationEditorWrapper = ({
 				/>
 				<BaseControl>
 					<ControlWrapper>
-						<ControlLabel label="Active" />
+						<ControlLabel label={__('Active', 'quillforms')} />
 						<ToggleControl
 							checked={active}
 							onChange={() => {
@@ -152,16 +153,16 @@ const NotificationEditorWrapper = ({
 				/>
 				<BaseControl>
 					<ControlWrapper orientation='vertical'>
-						<ControlLabel label="Reply to" />
+						<ControlLabel label={__('Reply to', 'quillforms')} />
 						<RadioControl
 							selected={replyToType}
 							options={[
 								{
-									label: 'Email',
+									label: __('Email', 'quillforms'),
 									value: 'email',
 								},
 								{
-									label: 'Field',
+									label: __('Field', 'quillforms'),
 									value: 'field',
 								},
 							]}
@@ -280,7 +281,7 @@ const NotificationEditorWrapper = ({
 				)}
 				<BaseControl>
 					<ControlWrapper>
-						<ControlLabel label="Conditional Logic" />
+						<ControlLabel label={__('Conditional Logic', 'quillforms')} />
 						<ToggleControl
 							checked={!!conditions}
 							onChange={() => {
@@ -294,8 +295,7 @@ const NotificationEditorWrapper = ({
 					{!!conditions && (
 						<div>
 							<div>
-								Process this notification if the following
-								conditions are met:
+								{__('Process this notification if the following conditions are met:', 'quillforms')}
 							</div>
 							<LogicConditions
 								value={conditions}

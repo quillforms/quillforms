@@ -15,6 +15,7 @@ import {
  * WordPress Dependencies
  */
 import { Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 
 const multipleChoiceControls = (props) => {
 	const {
@@ -24,14 +25,14 @@ const multipleChoiceControls = (props) => {
 	return (
 		<Fragment>
 			<BaseControl>
-				<ControlLabel label="Yes Label" />
+				<ControlLabel label={__("Yes Label", "quillforms")} />
 				<TextControl
 					value={yesLabel}
 					onChange={(value) => setAttributes({ yesLabel: value })}
 				/>
 			</BaseControl>
 			<BaseControl>
-				<ControlLabel label="No Label" />
+				<ControlLabel label={__("No Label", "quillforms")} />
 				<TextControl
 					value={noLabel}
 					onChange={(value) => setAttributes({ noLabel: value })}

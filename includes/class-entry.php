@@ -86,6 +86,14 @@ class Entry implements ArrayAccess {
 	public $meta;
 
 	/**
+ 	* Hash id
+	*
+	* @since 3.6.4
+	*
+	* @var string|null
+	*/
+	public $hash_id;
+	/**
 	 * Get record value
 	 *
 	 * @since 1.13.0

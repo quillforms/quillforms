@@ -2,11 +2,11 @@ import { __ } from '@wordpress/i18n';
 import TextareaAutosize from 'react-autosize-textarea';
 import { css } from 'emotion';
 
-const CustomHTML = ( { value, onChange } ) => {
+const CustomHTML = ({ value, onChange }) => {
 	return (
 		<>
 			<div
-				className={ css`
+				className={css`
 					textarea {
 						min-height: 100px;
 						width: 100%;
@@ -15,11 +15,11 @@ const CustomHTML = ( { value, onChange } ) => {
 				` }
 			>
 				<TextareaAutosize
-					value={ value }
+					value={value}
 					// @ts-expect-error
-					onChange={ ( e ) => onChange( e.target?.value ) }
-					placeholder={ __( 'Write HTML…' ) }
-					aria-label={ __( 'HTML' ) }
+					onChange={(e) => onChange(e.target?.value)}
+					placeholder={__('Write HTML…', 'quillforms')}
+					aria-label={__('HTML', 'quillforms')}
 				/>
 			</div>
 		</>

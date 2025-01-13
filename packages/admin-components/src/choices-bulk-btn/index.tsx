@@ -7,6 +7,7 @@ import { useState } from 'react';
  * External Dependencies
  */
 import { css } from 'emotion';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -18,41 +19,41 @@ import generateChoiceId from '../choices-inserter/generate-choice-id';
 
 interface Props {
 	choices: Choices;
-	setChoices: ( val: Choices ) => void;
+	setChoices: (val: Choices) => void;
 }
-const ChoicesBulkBtn: React.FC< Props > = ( { choices, setChoices } ) => {
-	const [ modalOpen, setModalOpen ] = useState< boolean >( false );
-	const insertBulkChoices = ( txt: string ) => {
-		const $choices = [ ...choices ];
+const ChoicesBulkBtn: React.FC<Props> = ({ choices, setChoices }) => {
+	const [modalOpen, setModalOpen] = useState<boolean>(false);
+	const insertBulkChoices = (txt: string) => {
+		const $choices = [...choices];
 
 		txt.trim()
-			.split( '\n' )
-			.forEach( ( item ) => {
-				$choices.push( { value: generateChoiceId(), label: item } );
-			} );
-		setChoices( $choices );
+			.split('\n')
+			.forEach((item) => {
+				$choices.push({ value: generateChoiceId(), label: item });
+			});
+		setChoices($choices);
 	};
 	return (
 		<div className="admin-components-choices-bulk-btn">
 			<Button
 				isDefault
-				className={ css`
+				className={css`
 					display: inline-block;
 					background: #000;
 					color: #fff;
 					padding: 5px;
 					margin-top: 12px;
 				` }
-				onClick={ () => setModalOpen( true ) }
+				onClick={() => setModalOpen(true)}
 			>
-				Bulk Answers
+				{__('Bulk Answers', 'quillforms')}
 			</Button>
-			{ modalOpen && (
+			{modalOpen && (
 				<BulkChoicesModal
-					onInsert={ ( txt: string ) => insertBulkChoices( txt ) }
-					onCloseModal={ () => setModalOpen( false ) }
+					onInsert={(txt: string) => insertBulkChoices(txt)}
+					onCloseModal={() => setModalOpen(false)}
 				/>
-			) }
+			)}
 		</div>
 	);
 };

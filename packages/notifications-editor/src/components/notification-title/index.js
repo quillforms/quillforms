@@ -7,20 +7,21 @@ import {
 	ControlLabel,
 	TextControl,
 } from '@quillforms/admin-components';
+import { __ } from '@wordpress/i18n';
 
-const NotificationTitle = ( { value, setValue } ) => {
+const NotificationTitle = ({ value, setValue }) => {
 	return (
 		<div className="notifications-editor-notification-title">
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label="Title" />
+					<ControlLabel label={__('Title', 'quillforms')} />
 					<TextControl
-						value={ value }
-						onChange={ ( val ) => {
-							setValue( {
+						value={value}
+						onChange={(val) => {
+							setValue({
 								title: val,
-							} );
-						} }
+							});
+						}}
 					/>
 				</ControlWrapper>
 			</BaseControl>

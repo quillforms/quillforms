@@ -3,6 +3,8 @@
  */
 import { css } from 'emotion';
 
+import { __ } from "@wordpress/i18n";
+
 const NoBlocks = () => {
 	return (
 		<div className="builder-core-no-blocks">
@@ -109,18 +111,18 @@ const NoBlocks = () => {
 				/>
 			</svg>
 			<p
-				className={ css`
+				className={css`
 					font-size: 18px;
 				` }
 			>
-				No Preview Available Yet!
+				{__('No Preview Available Yet!', 'quillforms')}
 			</p>
 			<p
-				className={ css`
+				className={css`
 					margin-top: 0;
 				` }
 			>
-				Please insert at lease one block.
+				{__('Please insert at lease one block.', 'quillforms')}
 			</p>
 		</div>
 	);

@@ -14,6 +14,7 @@ import { setForceReload } from '@quillforms/navigation';
 import { useState, useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -27,87 +28,87 @@ import classNames from 'classnames';
 import './style.scss';
 
 const Addons = () => {
-	const [ addons, setAddons ] = useState( ConfigApi.getStoreAddons() );
-	const [ apiAction, setApiAction ] = useState( null );
-	const [ proModalAddon, setProModalAddon ] = useState( null );
+	const [addons, setAddons] = useState(ConfigApi.getStoreAddons());
+	const [apiAction, setApiAction] = useState(null);
+	const [proModalAddon, setProModalAddon] = useState(null);
 
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
 	);
 
-	useEffect( () => {
-		if ( ! isEqual( addons, ConfigApi.getStoreAddons() ) ) {
-			ConfigApi.setStoreAddons( addons );
+	useEffect(() => {
+		if (!isEqual(addons, ConfigApi.getStoreAddons())) {
+			ConfigApi.setStoreAddons(addons);
 		}
-	}, [ addons ] );
+	}, [addons]);
 
-	const api = ( action, addon ) => {
+	const api = (action, addon) => {
 		// prevent doing 2 actions at the same time.
-		if ( apiAction ) return;
-		setApiAction( { action, addon } );
+		if (apiAction) return;
+		setApiAction({ action, addon });
 
 		const data = new FormData();
-		data.append( 'action', `quillforms_addon_${ action }` );
-		data.append( '_nonce', window[ 'qfAdmin' ].site_store_nonce );
-		data.append( 'addon', addon );
+		data.append('action', `quillforms_addon_${action}`);
+		data.append('_nonce', window['qfAdmin'].site_store_nonce);
+		data.append('addon', addon);
 
-		fetch( `${ window[ 'qfAdmin' ].adminUrl }admin-ajax.php`, {
+		fetch(`${window['qfAdmin'].adminUrl}admin-ajax.php`, {
 			method: 'POST',
 			credentials: 'same-origin',
 			body: data,
-		} )
-			.then( ( res ) => res.json() )
-			.then( ( res ) => {
-				if ( res.success ) {
-					createSuccessNotice( '✅ ' + res.data, {
+		})
+			.then((res) => res.json())
+			.then((res) => {
+				if (res.success) {
+					createSuccessNotice(__('✅ ', 'quillforms') + res.data, {
 						type: 'snackbar',
 						isDismissible: true,
-					} );
-					switch ( action ) {
+					});
+					switch (action) {
 						case 'activate':
-							setAddons( ( addons ) => {
+							setAddons((addons) => {
 								return {
 									...addons,
-									[ addon ]: {
-										...addons[ addon ],
+									[addon]: {
+										...addons[addon],
 										is_active: true,
 									},
 								};
-							} );
+							});
 							// allow the new addons to register their scripts.
-							setForceReload( true );
+							setForceReload(true);
 							break;
 						case 'install':
-							setAddons( ( addons ) => {
+							setAddons((addons) => {
 								return {
 									...addons,
-									[ addon ]: {
-										...addons[ addon ],
+									[addon]: {
+										...addons[addon],
 										is_installed: true,
 									},
 								};
-							} );
+							});
 							break;
 					}
 				} else {
-					createErrorNotice( `⛔ ${ res.data ?? 'Error' }`, {
+					createErrorNotice(`⛔ ${res.data ?? 'Error'}`, {
 						type: 'snackbar',
 						isDismissible: true,
-					} );
+					});
 				}
-			} )
-			.catch( ( err ) => {
-				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
+			})
+			.catch((err) => {
+				createErrorNotice(`⛔ ${err ?? 'Error'}`, {
 					type: 'snackbar',
 					isDismissible: true,
-				} );
-			} )
-			.finally( () => {
-				setApiAction( null );
-			} );
+				});
+			})
+			.finally(() => {
+				setApiAction(null);
+			});
 	};
 
-	const isDoingApiAction = ( action, addon ) => {
+	const isDoingApiAction = (action, addon) => {
 		return (
 			apiAction &&
 			apiAction.action === action &&
@@ -117,89 +118,89 @@ const Addons = () => {
 
 	return (
 		<div className="quillforms-addons-page">
-			<h1 className="quillforms-addons-page__heading">Addons</h1>
+			<h1 className="quillforms-addons-page__heading">{__('Addons', 'quillforms')}</h1>
 			<div className="quillforms-addons-page__body">
 				<div className="quillforms-addons-page__body-addons">
-					{ Object.entries( addons ).map( ( [ addon, data ] ) => {
+					{Object.entries(addons).map(([addon, data]) => {
 						return (
 							<div
-								key={ addon }
+								key={addon}
 								className="quillforms-addons-page_addon"
 							>
 								<div className="quillforms-addons-page_addon__header">
 									<div
-										className={ classNames(
+										className={classNames(
 											'quillforms-addons-page_addon-icon'
-										) }
+										)}
 									>
-										<img src={ data.assets.icon } />
+										<img src={data.assets.icon} />
 									</div>
 									<div className="quillforms-addons-page_addon__title">
-										{ data.name }
+										{data.name}
 									</div>
 								</div>
 
 								<div
-									key={ addon }
+									key={addon}
 									className="quillforms-addons-page__body-addon"
 								>
-									<p>{ data.description }</p>
+									<p>{data.description}</p>
 									<div className="quillforms-addons-page__body-addon-footer">
-										{ ! data.is_installed ? (
+										{!data.is_installed ? (
 											<Button
 												isPrimary
-												onClick={ () => {
+												onClick={() => {
 													if (
 														ConfigApi.isPlanAccessible(
 															data.plan
 														)
 													) {
-														api( 'install', addon );
+														api('install', addon);
 													} else {
 														setProModalAddon(
 															addon
 														);
 													}
-												} }
-												disabled={ apiAction !== null }
+												}}
+												disabled={apiAction !== null}
 											>
-												{ isDoingApiAction(
+												{isDoingApiAction(
 													'install',
 													addon
 												)
-													? 'Installing...'
-													: 'Install' }
+													? __('Installing...', 'quillforms')
+													: __('Install', 'quillforms')}
 											</Button>
-										) : ! data.is_active ? (
+										) : !data.is_active ? (
 											<Button
 												isPrimary
-												onClick={ () =>
-													api( 'activate', addon )
+												onClick={() =>
+													api('activate', addon)
 												}
-												disabled={ apiAction !== null }
+												disabled={apiAction !== null}
 											>
-												{ isDoingApiAction(
+												{isDoingApiAction(
 													'activate',
 													addon
 												)
-													? 'Activating...'
-													: 'Activate' }
+													? __('Activating...', 'quillforms')
+													: __('Activate', 'quillforms')}
 											</Button>
 										) : (
 											<span className="quillforms-addons-active">
-												Active
+												{__('Active', 'quillforms')}
 											</span>
-										) }
+										)}
 									</div>
 								</div>
 							</div>
 						);
-					} ) }
+					})}
 				</div>
 			</div>
-			{ proModalAddon && (
+			{proModalAddon && (
 				<Modal
-					className={ css`
+					className={css`
 						border: none !important;
 						border-radius: 9px;
 
@@ -220,18 +221,18 @@ const Addons = () => {
 							text-align: center;
 						}
 					` }
-					title={ addons[ proModalAddon ].name + ' is a pro addon' }
-					onRequestClose={ () => {
-						setProModalAddon( null );
-					} }
+					title={addons[proModalAddon].name + __(' is a pro addon', 'quillforms')}
+					onRequestClose={() => {
+						setProModalAddon(null);
+					}}
 				>
 					<__experimentalAddonFeatureAvailability
-						featureName={ addons[ proModalAddon ].name + ' addon' }
-						addonSlug={ proModalAddon }
-						showLockIcon={ true }
+						featureName={addons[proModalAddon].name + __(' addon', 'quillforms')}
+						addonSlug={proModalAddon}
+						showLockIcon={true}
 					/>
 				</Modal>
-			) }
+			)}
 		</div>
 	);
 };

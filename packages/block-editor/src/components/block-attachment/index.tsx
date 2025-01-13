@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -18,36 +19,36 @@ interface Props {
 	id: string;
 	parentId?: string;
 }
-const BlockAttachment: React.FC< Props > = ( {
+const BlockAttachment: React.FC<Props> = ({
 	blockColor,
 	attachment,
 	id,
 	parentId,
-} ) => {
-	const { setBlockAttributes } = useDispatch( 'quillForms/block-editor' );
+}) => {
+	const { setBlockAttributes } = useDispatch('quillForms/block-editor');
 
 	return (
 		<div
 			className="block-editor-block-attachment"
-			style={ { borderColor: blockColor } }
+			style={{ borderColor: blockColor }}
 		>
 			<img
 				alt=""
 				className="block-editor-block-attachment__image"
-				src={ attachment.url }
+				src={attachment.url}
 			/>
 			<div
 				role="presentation"
 				className="block-editor-block-attachment__delete"
-				onClick={ () => {
-					setBlockAttributes( id, { attachment: {} }, parentId );
-				} }
+				onClick={() => {
+					setBlockAttributes(id, { attachment: {} }, parentId);
+				}}
 			>
 				<div
 					className="block-editor-block-attachment__background-wrapper"
-					style={ { backgroundColor: blockColor } }
+					style={{ backgroundColor: blockColor }}
 				/>
-				<Icon icon={ close } style={ { color: blockColor } } />
+				<Icon icon={close} style={{ color: blockColor }} />
 			</div>
 		</div>
 	);

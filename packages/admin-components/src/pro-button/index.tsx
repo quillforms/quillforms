@@ -2,6 +2,7 @@
 import { NavLink } from '@quillforms/navigation';
 import ConfigApi from '@quillforms/config';
 import { css } from 'emotion';
+import { __ } from '@wordpress/i18n';
 
 interface ProButtonProps {
     addonSlug: string;
@@ -23,24 +24,24 @@ const ProButton = ({ addonSlug, className = '' }: ProButtonProps) => {
     if (isWPEnv && addon.is_installed) {
         if (addon.is_active) {
             if (license?.status !== 'valid') {
-                actionText = 'Renew License';
+                actionText = __('Renew License', 'quillforms');
                 actionLink = 'https://quillforms.com';
             } else if (!isPlanAccessible) {
-                actionText = `Upgrade to ${featurePlanLabel}`;
+                actionText = __('Upgrade to', 'quillforms') + ` ${featurePlanLabel}`;
                 actionLink = 'https://quillforms.com';
             }
         } else {
-            actionText = 'Activate Addon';
+            actionText = __('Activate Addon', 'quillforms');
             actionLink = '/admin.php?page=quillforms&path=addons';
             isExternalLink = false;
         }
     } else {
         if (license?.status === 'valid' && isPlanAccessible) {
-            actionText = 'Install Addon';
+            actionText = __('Install Addon', 'quillforms');
             actionLink = '/admin.php?page=quillforms&path=addons';
             isExternalLink = false;
         } else {
-            actionText = `Upgrade to ${featurePlanLabel}`;
+            actionText = __('Upgrade to', 'quillforms') + ` ${featurePlanLabel}`;
             actionLink = isWPEnv ? 'https://quillforms.com' : '/admin.php?page=quillforms&path=checkout';
             isExternalLink = isWPEnv;
         }

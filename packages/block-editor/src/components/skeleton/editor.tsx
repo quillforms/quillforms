@@ -2,6 +2,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { Editor, Transforms } from 'slate';
 import { useState, useMemo, useEffect, useCallback, useRef } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * QuillForms Dependencies
@@ -290,7 +291,7 @@ const BlockEditor = ({ type, childId, childIndex, parentId }: { type: "label" | 
         >
             <TextEditor
                 editor={editor}
-                placeholder={type === "label" ? "Type question here. Recall infoamtion with @." : "Add a description"}
+                placeholder={type === "label" ? __("Type question here. Recall information with @.", "quillforms") : __("Add a description", "quillforms")}
                 className={type === "label" ? editorStyle : descriptionStyle}
                 mergeTags={mergeTags}
                 value={editorValue}

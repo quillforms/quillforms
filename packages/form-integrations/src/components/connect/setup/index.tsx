@@ -16,33 +16,33 @@ interface Props {
 	close: () => void;
 }
 
-const Setup: React.FC< Props > = ( { setup, close } ) => {
+const Setup: React.FC<Props> = ({ setup, close }) => {
 	const { provider, setupApp, savePayload } = useConnectContext();
 
-	const SetupControls: React.FC< { submit: () => void } > = ( {
+	const SetupControls: React.FC<{ submit: () => void }> = ({
 		submit,
-	} ) => {
+	}) => {
 		return (
 			<Footer
-				save={ {
-					label: 'Save',
+				save={{
+					label: __('Save', 'quillforms'),
 					onClick: submit,
 					disabled: false,
-				} }
-				close={ { label: 'Close', onClick: close } }
+				}}
+				close={{ label: __('Close', 'quillforms'), onClick: close }}
 			/>
 		);
 	};
 	return (
 		<GenericSetup
-			provider={ provider }
-			Instructions={ setup.Instructions }
-			fields={ setup.fields }
-			Controls={ SetupControls }
-			onFinish={ ( app ) => {
-				setupApp( app );
-				setTimeout( () => savePayload( 'app' ) );
-			} }
+			provider={provider}
+			Instructions={setup.Instructions}
+			fields={setup.fields}
+			Controls={SetupControls}
+			onFinish={(app) => {
+				setupApp(app);
+				setTimeout(() => savePayload('app'));
+			}}
 		/>
 	);
 };

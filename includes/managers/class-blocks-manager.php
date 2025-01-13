@@ -113,6 +113,8 @@ final class Blocks_Manager
 
         $block_name = isset($properties['name']) ? $properties['name'] : '';
 
+        if($block_name === 'partial-submission-point') return false;
+
         if (empty($block_name) || ! isset($this->registered_block_types[ $block_name ]) ) {
             /* translators: %s for block type */
             $message = sprintf(esc_html__('Block type %s is not defined.', 'quillforms'), $block_name);
@@ -120,6 +122,7 @@ final class Blocks_Manager
 
             return false;
         }
+
 
         $class      = $this->registered_block_types[ $block_name ];
         $class_name = get_class($class);

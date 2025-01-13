@@ -7,6 +7,7 @@ import {
 	ControlLabel,
 } from '@quillforms/admin-components';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -18,59 +19,59 @@ const GatewaysOptions = () => {
 
 	const gateways = getPaymentGatewayModules();
 	const enabled = [];
-	for ( const key of Object.keys( general.methods ) ) {
-		const gateway = key.split( ':' )[ 0 ];
-		if ( ! enabled.includes( gateway ) ) {
-			enabled.push( gateway );
+	for (const key of Object.keys(general.methods)) {
+		const gateway = key.split(':')[0];
+		if (!enabled.includes(gateway)) {
+			enabled.push(gateway);
 		}
 	}
 
 	const elements = {};
-	for ( const gateway of enabled ) {
-		const options = gateways[ gateway ].options ?? null;
-		if ( options && options.has( settings ) ) {
-			elements[ gateway ] = (
+	for (const gateway of enabled) {
+		const options = gateways[gateway].options ?? null;
+		if (options && options.has(settings)) {
+			elements[gateway] = (
 				<options.component
-					settings={ settings }
-					onChange={ ( value ) => {
+					settings={settings}
+					onChange={(value) => {
 						const gateways_options = {
 							...general.gateways_options,
-							[ gateway ]: value,
+							[gateway]: value,
 						};
-						updateGeneral( { gateways_options } );
-					} }
+						updateGeneral({ gateways_options });
+					}}
 				/>
 			);
 		}
 	}
 
-	if ( Object.keys( elements ).length === 0 ) {
+	if (Object.keys(elements).length === 0) {
 		return null;
 	}
 
 	return (
 		<div className="quillforms-payments-page-settings__gateways-options">
-			<h3>Gateways Options</h3>
+			<h3>{__('Gateways Options', 'quillforms')}</h3>
 			<div className="quillforms-payments-page-settings__gateways-options-content">
-				{ Object.entries( elements ).map( ( [ gateway, element ] ) => {
-					const icon = gateways[ gateway ].icon.full;
+				{Object.entries(elements).map(([gateway, element]) => {
+					const icon = gateways[gateway].icon.full;
 					return (
-						<BaseControl key={ gateway }>
+						<BaseControl key={gateway}>
 							<ControlWrapper orientation="vertical">
 								<div className="gateway-option-label">
-									{ typeof icon === 'string' ? (
-										<img src={ icon } />
+									{typeof icon === 'string' ? (
+										<img src={icon} />
 									) : (
 										<IconComponent
-											icon={ icon?.src ? icon.src : icon }
+											icon={icon?.src ? icon.src : icon}
 										/>
-									) }
+									)}
 								</div>
-								{ element }
+								{element}
 							</ControlWrapper>
 						</BaseControl>
 					);
-				} ) }
+				})}
 			</div>
 		</div>
 	);

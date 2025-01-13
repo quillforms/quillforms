@@ -4,6 +4,7 @@
 import { useDispatch } from '@wordpress/data';
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { moreHorizontal } from '@wordpress/icons';
+import { __ } from '@wordpress/i18n';
 
 const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 	const { setCurrentTab } = useDispatch('quillForms/theme-editor');
@@ -45,7 +46,7 @@ const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 								onClose();
 							}}
 						>
-							Duplicate
+							{__('Duplicate', 'quillforms')}
 						</MenuItem>
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item theme-editor-theme-actions__delete-theme"
@@ -54,7 +55,7 @@ const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 								deleteTheme(id);
 							}}
 						>
-							Delete
+							{__('Delete', 'quillforms')}
 						</MenuItem>
 					</MenuGroup>
 				)}

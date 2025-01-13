@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProFeatureBanner } from "@quillforms/admin-components";
+import { __ } from '@wordpress/i18n';
 import './style.css';
 
 const CalculatorFeaturePromo = () => {
@@ -26,8 +27,8 @@ const CalculatorFeaturePromo = () => {
 
 	return (
 		<div className="calculator-feature-container">
-			<h1 className="calculator-feature-title">Unlock Advanced Calculations</h1>
-			<p className="calculator-feature-subtitle">Transform your forms into powerful calculation tools</p>
+			<h1 className="calculator-feature-title">{__('Unlock Advanced Calculations', 'quillforms')}</h1>
+			<p className="calculator-feature-subtitle">{__('Transform your forms into powerful calculation tools', 'quillforms')}</p>
 
 			<div className="calculator-feature-animation-container">
 				<AnimatePresence mode="wait">
@@ -46,30 +47,30 @@ const CalculatorFeaturePromo = () => {
 									<path d="M24 12v24M12 24h24" stroke="#2196F3" strokeWidth="4" strokeLinecap="round" />
 								</svg>
 							</div>
-							<h2 className="calculator-feature-section-title">Mathematical Operations</h2>
+							<h2 className="calculator-feature-section-title">{__('Mathematical Operations', 'quillforms')}</h2>
 							<p className="calculator-feature-section-description">
-								Add values to variables based on form responses and conditions. Perfect for dynamic pricing, scoring, and calculations.
+								{__('Add values to variables based on form responses and conditions. Perfect for dynamic pricing, scoring, and calculations.', 'quillforms')}
 							</p>
 
 							<div className="calculator-feature-example">
 								<div className="calculator-feature-math-flow">
 									<div className={`calculator-feature-step ${activeStep === 0 ? 'active' : ''}`}>
 										<div className="calculator-feature-question">
-											What is your package size?
+											{__('What is your package size?', 'quillforms')}
 										</div>
 										<div className="calculator-feature-answer">
-											Large Package Selected
+											{__('Large Package Selected', 'quillforms')}
 										</div>
 									</div>
 									<div className={`calculator-feature-step ${activeStep === 1 ? 'active' : ''}`}>
 										<div className="calculator-feature-condition">
-											If "Large Package" is selected:
+											{__('If "Large Package" is selected:', 'quillforms')}
 										</div>
 									</div>
 									<div className={`calculator-feature-step ${activeStep === 2 ? 'active' : ''}`}>
 										<div className="calculator-feature-action">
-											Add <span className="calculator-feature-value">50</span> to
-											<span className="calculator-feature-variable">Shipping_Cost</span>
+											{__('Add', 'quillforms')} <span className="calculator-feature-value">50</span> {__('to', 'quillforms')}
+											<span className="calculator-feature-variable">{__('Shipping_Cost', 'quillforms')}</span>
 										</div>
 									</div>
 								</div>
@@ -91,28 +92,28 @@ const CalculatorFeaturePromo = () => {
 									<path d="M24 30l12-6v6l-12 6-12-6v-6l12 6z" fill="#4CAF50" />
 								</svg>
 							</div>
-							<h2 className="calculator-feature-section-title">Points System</h2>
+							<h2 className="calculator-feature-section-title">{__('Points System', 'quillforms')}</h2>
 							<p className="calculator-feature-section-description">
-								Assign points to multiple-choice options. Automatically calculate total scores based on responses.
+								{__('Assign points to multiple-choice options. Automatically calculate total scores based on responses.', 'quillforms')}
 							</p>
 
 							<div className="calculator-feature-example">
 								<div className="calculator-feature-points-flow">
 									<div className="calculator-feature-question-title">
-										Knowledge Check Question
+										{__('Knowledge Check Question', 'quillforms')}
 									</div>
 									<div className="calculator-feature-points">
 										<div className="calculator-feature-option">
-											<span className="calculator-feature-option-text">Correct Answer</span>
-											<span className="calculator-feature-points-value">+10 points</span>
+											<span className="calculator-feature-option-text">{__('Correct Answer', 'quillforms')}</span>
+											<span className="calculator-feature-points-value">{__('+10 points', 'quillforms')}</span>
 										</div>
 										<div className="calculator-feature-option">
-											<span className="calculator-feature-option-text">Partial Answer</span>
-											<span className="calculator-feature-points-value">+5 points</span>
+											<span className="calculator-feature-option-text">{__('Partial Answer', 'quillforms')}</span>
+											<span className="calculator-feature-points-value">{__('+5 points', 'quillforms')}</span>
 										</div>
 										<div className="calculator-feature-option">
-											<span className="calculator-feature-option-text">Wrong Answer</span>
-											<span className="calculator-feature-points-value">+0 points</span>
+											<span className="calculator-feature-option-text">{__('Wrong Answer', 'quillforms')}</span>
+											<span className="calculator-feature-points-value">{__('+0 points', 'quillforms')}</span>
 										</div>
 									</div>
 								</div>
@@ -123,7 +124,7 @@ const CalculatorFeaturePromo = () => {
 			</div>
 
 			<ProFeatureBanner
-				featureName="Calculator and Points"
+				featureName={__('Calculator and Points', 'quillforms')}
 				addonSlug="logic"
 			/>
 		</div>

@@ -17,6 +17,7 @@ import { FullRichText } from '@quillforms/rich-text';
 import { useSelect } from '@wordpress/data';
 import { useEffect, useMemo } from 'react';
 import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -71,14 +72,14 @@ const EmailMessage = ({
 			type: 'form',
 			modifier: 'all_answers',
 			value: 'all_answers',
-			label: 'all_answers',
+			label: __('all_answers', 'quillforms'),
 		},
 	];
 	if (quizMode) {
 		mergeTags = [
 			{
 				type: 'quiz',
-				label: 'Correct Answers Count',
+				label: __('Correct Answers Count', 'quillforms'),
 				modifier: 'correct_answers_count',
 				value: 'correct_answers_count',
 				icon: 'yes',
@@ -87,7 +88,7 @@ const EmailMessage = ({
 			},
 			{
 				type: 'quiz',
-				label: 'Incorrect Answers Count',
+				label: __('Incorrect Answers Count', 'quillforms'),
 				modifier: 'incorrect_answers_count',
 				value: 'incorrect_answers_count',
 				icon: 'no-alt',
@@ -96,7 +97,7 @@ const EmailMessage = ({
 			},
 			{
 				type: 'quiz',
-				label: 'Quiz Summary',
+				label: __('Quiz Summary', 'quillforms'),
 				modifier: 'summary',
 				value: 'summary',
 				icon: 'editor-table',
@@ -113,7 +114,7 @@ const EmailMessage = ({
 	return (
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
-				<ControlLabel label="Message" showAsterisk={true} />
+				<ControlLabel label={__('Message', 'quillforms')} showAsterisk={true} />
 				<FullRichText value={value || '<p></p>'}
 					onChange={(newVal) => {
 						setValue(newVal);
@@ -134,7 +135,7 @@ const EmailMessage = ({
 			</ControlWrapper>
 			{!isValid && isReviewing && (
 				<AlertMessageWrapper type="error">
-					This field is required!
+					{__('This field is required!', 'quillforms')}
 				</AlertMessageWrapper>
 			)}
 		</BaseControl>

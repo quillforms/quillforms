@@ -4,6 +4,7 @@
 import { useDispatch } from '@wordpress/data';
 import { Icon } from '@wordpress/components';
 import { plus } from '@wordpress/icons';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -23,7 +24,7 @@ const AddNewTheme = () => {
 		>
 			<ThemeCard>
 				<Icon icon={plus} color="#fff" />
-				New Theme
+				{__('New Theme', 'quillforms')}
 			</ThemeCard>
 		</div>
 	);

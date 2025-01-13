@@ -12,6 +12,7 @@ import {
  */
 import { useEffect } from 'react';
 import { RadioControl } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 /**
  * External Dependencies
  */
@@ -51,7 +52,7 @@ const NotificationTo = ({
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
 				<ControlLabel
-					label="Send a notification to"
+					label={__('Send a notification to', 'quillforms')}
 					showAsterisk={true}
 				/>
 
@@ -59,11 +60,11 @@ const NotificationTo = ({
 					selected={toType}
 					options={[
 						{
-							label: 'Email',
+							label: __('Email', 'quillforms'),
 							value: 'email',
 						},
 						{
-							label: 'Field',
+							label: __('Field', 'quillforms'),
 							value: 'field',
 						},
 					]}
@@ -78,7 +79,7 @@ const NotificationTo = ({
 			</ControlWrapper>
 			{toType === 'email' && (
 				<ReactMultiEmail
-					placeholder="Type an email then hit a space"
+					placeholder={__('Type an email then hit a space', 'quillforms')}
 					emails={
 						recipients?.length > 0
 							? recipients.filter((recipient) =>
@@ -140,7 +141,7 @@ const NotificationTo = ({
 				(toType === 'email' ||
 					(toType === 'field' && emailFields.length > 0)) && (
 					<AlertMessageWrapper type="error">
-						Please insert at least one correct email!
+						{__('Please insert at least one correct email!', 'quillforms')}
 					</AlertMessageWrapper>
 				)}
 		</BaseControl>

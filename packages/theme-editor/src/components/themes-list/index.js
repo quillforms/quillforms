@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -31,7 +32,7 @@ const ThemesList = () => {
 				color: #000;
 				margin-bottom: 15px;
 				display: inline-block;
-				`}>My Themes</div>
+					`}>{__('My Themes', 'quillforms')}</div>
 
 			<AddNewTheme />
 

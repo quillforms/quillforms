@@ -1,0 +1,12 @@
+{
+    "plugins": [
+    ["@wordpress/babel-plugin-makepot", {
+    "output": "languages/quillforms-js.pot",
+    "headers": {
+    "Project-Id-Version": "QuillForms 2.0.0",
+    "Last-Translator": "Mohamed Magdy",
+    "Report-Msgid-Bugs-To": "https://github.com/quillforms/quillforms/issues"
+    }
+    }]
+    ]
+    }

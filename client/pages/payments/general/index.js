@@ -13,6 +13,7 @@ import {
  */
 import { usePaymentsContext } from '../state/context';
 import Currency from './currency';
+import { __ } from '@wordpress/i18n';
 const General = () => {
 	const { general, updateGeneral } = usePaymentsContext();
 
@@ -22,11 +23,13 @@ const General = () => {
 			<div className="quillforms-payments-page-settings__general-content">
 				<BaseControl>
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label="Enable Payments"></ControlLabel>
+						<ControlLabel label={__('Enable Payments', 'quillforms')}
+
+						></ControlLabel>
 						<ToggleControl
-							checked={ general.enabled }
-							onChange={ () =>
-								updateGeneral( { enabled: ! general.enabled } )
+							checked={general.enabled}
+							onChange={() =>
+								updateGeneral({ enabled: !general.enabled })
 							}
 						/>
 					</ControlWrapper>

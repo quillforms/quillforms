@@ -18,6 +18,7 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  * WordPress Dependencies
  */
 import { PanelBody } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -222,11 +223,11 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 		},
 	};
 	return (
-		<PanelBody title="Typography and Spacing" initialOpen={false}>
+		<PanelBody title={__('Typography and Spacing', 'quillforms')} initialOpen={false}>
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
 					<ControlLabel
-						label="Select a presest for Typography"
+						label={__('Select a preset for Typography', 'quillforms')}
 					></ControlLabel>
 					<div className="typography-presets">
 						<span
@@ -265,7 +266,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Base Font Size(px)" />
+					<ControlLabel label={__('Base Font Size(px)', 'quillforms')} />
 					<ResponsiveControl
 						desktopChildren={
 							<MeasureControl
@@ -303,7 +304,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
-						label="Base Font Line Height(px)"
+						label={__('Base Font Line Height(px)', 'quillforms')}
 					/>
 					<ResponsiveControl
 						desktopChildren={
@@ -342,7 +343,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
-						label="Questions Label Font Size(px)"
+						label={__('Questions Label Font Size(px)', 'quillforms')}
 					/>
 					<ResponsiveControl
 						desktopChildren={
@@ -387,7 +388,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
-						label="Questions Label Line Height(px)"
+						label={__('Questions Label Line Height(px)', 'quillforms')}
 					/>
 					<ResponsiveControl
 						desktopChildren={
@@ -432,7 +433,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
-						label="Questions Description Font Size(px)"
+						label={__('Questions Description Font Size(px)', 'quillforms')}
 					/>
 					<ResponsiveControl
 						desktopChildren={
@@ -477,7 +478,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
-						label="Questions Description Line Height(px)"
+						label={__('Questions Description Line Height(px)', 'quillforms')}
 					/>
 					<ResponsiveControl
 						desktopChildren={
@@ -522,7 +523,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
-						label="Text input answers font size(px)"
+						label={__('Text input answers font size(px)', 'quillforms')}
 					/>
 					<ResponsiveControl
 						desktopChildren={
@@ -561,7 +562,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel
-						label="Buttons Font Size(px)"
+						label={__('Buttons Font Size(px)', 'quillforms')}
 					/>
 					<ResponsiveControl
 						desktopChildren={
@@ -599,7 +600,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
-					<ControlLabel label="Buttons Padding(px)" />
+					<ControlLabel label={__('Buttons Padding(px)', 'quillforms')} />
 					<ResponsiveControl
 						desktopChildren={
 							<div
@@ -639,7 +640,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
       						`}
 							>
 								<TextControl
-									label={'Top'}
+									label={__('Top', 'quillforms')}
 									type="number"
 									value={parseInt(buttonsPadding.top.lg.replace('px', ''))}
 									onChange={(val) => {
@@ -655,7 +656,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 									}}
 								/>
 								<TextControl
-									label={'Right'}
+									label={__('Right', 'quillforms')}
 									type="number"
 									value={parseInt(buttonsPadding.right.lg.replace('px', ''))}
 									onChange={(val) => {
@@ -671,7 +672,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 									}}
 								/>
 								<TextControl
-									label={'Bottom'}
+									label={__('Bottom', 'quillforms')}
 									type="number"
 									value={parseInt(buttonsPadding.bottom.lg.replace('px', ''))}
 									onChange={(val) => {
@@ -687,7 +688,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 									}}
 								/>
 								<TextControl
-									label={'Left'}
+									label={__('Left', 'quillforms')}
 									type="number"
 									value={parseInt(buttonsPadding.left.lg.replace('px', ''))}
 									onChange={(val) => {
@@ -740,7 +741,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 								`}
 							>
 								<TextControl
-									label={'Right'}
+									label={__('Right', 'quillforms')}
 									type="number"
 									value={parseInt(
 										buttonsPadding.right.sm.replace(
@@ -761,7 +762,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 									}}
 								/>
 								<TextControl
-									label={'Bottom'}
+									label={__('Bottom', 'quillforms')}
 									type="number"
 									value={parseInt(
 										buttonsPadding.bottom.sm.replace(
@@ -782,7 +783,7 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 									}}
 								/>
 								<TextControl
-									label={'Left'}
+									label={__('Left', 'quillforms')}
 									type="number"
 									value={parseInt(
 										buttonsPadding.left.sm.replace(

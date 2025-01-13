@@ -15,6 +15,7 @@ import {
  * WordPress Dependencies
  */
 import { Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 
 const multipleChoiceControls = (props) => {
 	const {
@@ -25,7 +26,7 @@ const multipleChoiceControls = (props) => {
 		<Fragment>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Multiple" />
+					<ControlLabel label={__("Multiple", "quillforms")} />
 					<ToggleControl
 						checked={multiple}
 						onChange={() =>
@@ -38,7 +39,7 @@ const multipleChoiceControls = (props) => {
 				<>
 					<BaseControl>
 						<ControlWrapper orientation='horizontal'>
-							<ControlLabel label="Minimum limit for choices" />
+							<ControlLabel label={__("Minimum limit for choices", "quillforms")} />
 							<ToggleControl checked={min} onChange={() => {
 								setAttributes({ min: min === false ? 1 : false });
 							}} />
@@ -56,7 +57,7 @@ const multipleChoiceControls = (props) => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation='horizontal'>
-							<ControlLabel label="Maximum limit for choices" />
+							<ControlLabel label={__("Maximum limit for choices", "quillforms")} />
 							<ToggleControl checked={max} onChange={() => {
 								setAttributes({ max: max === false ? 5 : false });
 							}} />
@@ -76,7 +77,7 @@ const multipleChoiceControls = (props) => {
 			)}
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Vertical Align" />
+					<ControlLabel label={__("Vertical Align", "quillforms")} />
 					<ToggleControl
 						checked={verticalAlign}
 						onChange={() =>
@@ -87,7 +88,7 @@ const multipleChoiceControls = (props) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Choices" />
+					<ControlLabel label={__("Choices", "quillforms")} />
 					<ChoicesBulkBtn
 						choices={choices}
 						setChoices={(val) => {

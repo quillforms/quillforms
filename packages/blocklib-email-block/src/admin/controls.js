@@ -13,6 +13,7 @@ import {
  * WordPress Dependencies
  */
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -35,7 +36,7 @@ const EmailControls = (props) => {
 
     const validateDomain = (domain) => {
         if (!domain) {
-            setDomainError('Domain cannot be empty');
+            setDomainError(__('Domain cannot be empty', 'quillforms'));
             return false;
         }
 
@@ -44,13 +45,13 @@ const EmailControls = (props) => {
 
         // Check if domain already exists
         if (allowedDomains?.includes(domain)) {
-            setDomainError('Domain already exists');
+            setDomainError(__('Domain already exists', 'quillforms'));
             return false;
         }
 
         // Test against regex
         if (!domainRegex.test(domain)) {
-            setDomainError('Invalid domain format (e.g., example.com)');
+            setDomainError(__('Invalid domain format (e.g., example.com)', 'quillforms'));
             return false;
         }
 
@@ -77,7 +78,7 @@ const EmailControls = (props) => {
     return (
         <BaseControl>
             <ControlWrapper orientation="horizontal">
-                <ControlLabel label="Restrict Email Domains" isNew />
+                <ControlLabel label={__("Restrict Email Domains", "quillforms")} isNew />
                 <ToggleControl
                     checked={restrictDomains}
                     onChange={() => {
@@ -95,7 +96,7 @@ const EmailControls = (props) => {
                             margin-bottom: ${domainError ? '25px' : '10px'};
                         `}>
                             <TextControl
-                                label="Add Allowed Domain"
+                                label={__("Add Allowed Domain", "quillforms")}
                                 value={domainInput}
                                 onChange={(value) => {
                                     setDomainInput(value);
@@ -145,7 +146,7 @@ const EmailControls = (props) => {
                             `}
                             disabled={!domainInput.trim()}
                         >
-                            Add Domain
+                            {__("Add Domain", "quillforms")}
                         </button>
 
                         {allowedDomains?.length > 0 && (
@@ -154,7 +155,7 @@ const EmailControls = (props) => {
                                 border-top: 1px solid #ddd;
                                 padding-top: 10px;
                             `}>
-                                <ControlLabel label="Allowed Domains" />
+                                <ControlLabel label={__("Allowed Domains", "quillforms")} />
                                 {allowedDomains.map((domain) => (
                                     <div key={domain} className={css`
                                         display: flex;
@@ -180,7 +181,7 @@ const EmailControls = (props) => {
                                                 }
                                             `}
                                         >
-                                            Remove
+                                            {__("Remove", "quillforms")}
                                         </button>
                                     </div>
                                 ))}

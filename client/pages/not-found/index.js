@@ -1,8 +1,9 @@
 import { css } from 'emotion';
+import { __ } from "@wordpress/i18n";
 const NotFoundPage = () => {
 	return (
 		<div
-			className={ css`
+			className={css`
 				background: #e05252;
 				color: #fff;
 				padding: 10px;
@@ -13,7 +14,7 @@ const NotFoundPage = () => {
 				margin-top: 100px;
 			` }
 		>
-			Page Not found!
+			{__('Page not found', 'quillforms')}
 		</div>
 	);
 };

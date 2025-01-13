@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 const PartialSubmissionBanner = ({ onDismiss }) => (
     <div className="partial-submission-banner">
         <div className="partial-submission-banner__icon">
@@ -8,12 +10,12 @@ const PartialSubmissionBanner = ({ onDismiss }) => (
             </svg>
         </div>
         <div className="partial-submission-banner__content">
-            <h4>Enable Partial Form Submissions</h4>
-            <p>Capture incomplete form data by setting partial submission points in your form blocks. This helps track where users drop off and collect valuable partial responses.</p>
+            <h4>{__('Enable Partial Form Submissions', 'quillforms')}</h4>
+            <p>{__('Capture incomplete form data by setting partial submission points in your form blocks. This helps track where users drop off and collect valuable partial responses.', 'quillforms')}</p>
         </div>
         <div className="partial-submission-banner__actions">
             <a className="partial-submission-banner__learn-more" href="https://quillforms.com/docs/how-to-collect-partial-submissions" target="_blank">
-                Learn More
+                {__('Learn More', 'quillforms')}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M5 12H19M19 12L12 5M19 12L12 19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

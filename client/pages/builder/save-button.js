@@ -13,6 +13,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { createPortal, useState, useEffect } from '@wordpress/element';
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -122,7 +123,7 @@ const SaveButton = ({ formId, isResolving }) => {
 
 											}
 											createSuccessNotice(
-												'🚀 Saved successfully!',
+												__('🚀 Saved successfully!', 'quillforms'),
 												{
 													type: 'snackbar',
 													isDismissible: true,
@@ -134,7 +135,7 @@ const SaveButton = ({ formId, isResolving }) => {
 										})
 										.catch(() => {
 											createErrorNotice(
-												'⛔ Error while saving!',
+												__('⛔ Error while saving!', 'quillforms'),
 												{
 													type: 'snackbar',
 													isDismissible: true,
@@ -144,7 +145,7 @@ const SaveButton = ({ formId, isResolving }) => {
 										});
 								}}
 							>
-								{isSaving ? 'Saving' : 'Publish'}
+								{isSaving ? __('Saving', 'quillforms') : __('Publish', 'quillforms')}
 							</Button>
 							{displayNotificationsHint && (
 								<Modal
@@ -160,14 +161,14 @@ const SaveButton = ({ formId, isResolving }) => {
 									)}
 									// Because focus on editor is causing the click handler to be triggered
 									shouldCloseOnClickOutside={false}
-									title="Warning!"
+									title={__('Warning!', 'quillforms')}
 									onRequestClose={() => {
 										setDisplayNotificationsHint(false);
 									}}
 								>
 									<div>
 										<div>
-											You have not added any notifications to this form to receive results.
+											{__('You have not added any notifications to this form to receive results.', 'quillforms')}
 										</div>
 										<br />
 									</div>
@@ -194,7 +195,7 @@ const SaveButton = ({ formId, isResolving }) => {
 											}}
 											isPrimary
 										>
-											Let me know how!
+											{__('Let me know how!', 'quillforms')}
 										</Button>
 										<Button
 											isLarge
@@ -214,7 +215,7 @@ const SaveButton = ({ formId, isResolving }) => {
 											isButton
 											isSecondary
 										>
-											Don't show me this message again.
+											{__('Don\'t show me this message again.', 'quillforms')}
 										</Button>
 									</div>
 								</Modal>

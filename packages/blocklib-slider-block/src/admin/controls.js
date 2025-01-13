@@ -16,6 +16,7 @@ import {
 import { Fragment } from 'react';
 import { plus, closeSmall } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -26,13 +27,13 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 
 	const marksOptions = [{
 		key: 'no',
-		name: 'No',
+		name: __('No', 'quillforms'),
 	}, {
 		key: 'yes',
-		name: 'Yes',
+		name: __('Yes', 'quillforms'),
 	}, {
 		key: 'custom',
-		name: 'Custom',
+		name: __('Custom', 'quillforms'),
 	}
 	];
 	const { min, max, step, prefix, suffix, marks, customMarks } = attributes;
@@ -69,7 +70,7 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 		<Fragment>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Min" />
+					<ControlLabel label={__('Min', 'quillforms')} />
 					<TextControl type="number" value={min} onChange={val => {
 						if (!isNaN(val)) {
 							setAttributes({ min: val })
@@ -80,7 +81,7 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Max" />
+					<ControlLabel label={__('Max', 'quillforms')} />
 					<TextControl type="number" value={max}
 						onChange={val => {
 							if (!isNaN(val)) {
@@ -92,7 +93,7 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Step" />
+					<ControlLabel label={__('Step', 'quillforms')} />
 					<TextControl type="number" value={step} onChange={val => {
 						if (!isNaN(val)) {
 							setAttributes({ step: val })
@@ -103,7 +104,7 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Marks" />
+					<ControlLabel label={__('Marks', 'quillforms')} />
 					<SelectControl
 						value={marksOptions.find((option) => option.key === marks)}
 						onChange={(selectedChoice) => {
@@ -124,13 +125,13 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 									type="number"
 									value={item.value}
 									onChange={(val) => updateItem(index, "value", val)}
-									placeholder='value'
+									placeholder={__('value', 'quillforms')}
 								/>
 								<TextControl
 									type="text"
 									value={item.label}
 									onChange={(val) => updateItem(index, "label", val)}
-									placeholder='label'
+									placeholder={__('label', 'quillforms')}
 								/>
 								<div className="admin-components-choices-inserter__choice-actions">
 									<div className="admin-components-choices-inserter__choice-add">
@@ -160,13 +161,13 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Prefix" />
+					<ControlLabel label={__('Prefix', 'quillforms')} />
 					<TextControl value={prefix} onChange={val => setAttributes({ prefix: val })} />
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Suffix" />
+					<ControlLabel label={__('Suffix', 'quillforms')} />
 					<TextControl value={suffix} onChange={val => setAttributes({ suffix: val })} />
 				</ControlWrapper>
 			</BaseControl>

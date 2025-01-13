@@ -13,8 +13,9 @@ import {
  * WordPress Dependecies
  */
 import { Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 
-const DropdownControls = ( props ) => {
+const DropdownControls = (props) => {
 	const {
 		attributes: { choices },
 		setAttributes,
@@ -24,20 +25,20 @@ const DropdownControls = ( props ) => {
 		<Fragment>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Choices" />
+					<ControlLabel label={__("Choices", "quillforms")} />
 					<ChoicesBulkBtn
-						choices={ choices }
-						setChoices={ ( val ) => {
-							setAttributes( { choices: val } );
-						} }
+						choices={choices}
+						setChoices={(val) => {
+							setAttributes({ choices: val });
+						}}
 					/>
 				</ControlWrapper>
 				<ControlWrapper orientation="vertical">
 					<ChoicesInserter
-						choices={ choices }
-						setChoices={ ( val ) => {
-							setAttributes( { choices: val } );
-						} }
+						choices={choices}
+						setChoices={(val) => {
+							setAttributes({ choices: val });
+						}}
 					/>
 				</ControlWrapper>
 			</BaseControl>

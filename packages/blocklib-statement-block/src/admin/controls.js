@@ -13,33 +13,34 @@ import {
  * WordPress Dependencies
  */
 import { Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 
-const statementControls = ( props ) => {
+const statementControls = (props) => {
 	const { attributes, setAttributes } = props;
 	const { buttonText, quotationMarks } = attributes;
 	return (
 		<Fragment>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Quotation marks" />
+					<ControlLabel label={__('Quotation marks', 'quillforms')} />
 					<ToggleControl
-						checked={ quotationMarks }
-						onChange={ () =>
-							setAttributes( {
-								quotationMarks: ! quotationMarks,
-							} )
+						checked={quotationMarks}
+						onChange={() =>
+							setAttributes({
+								quotationMarks: !quotationMarks,
+							})
 						}
 					/>
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
-					<ControlLabel label="Button text" />
+					<ControlLabel label={__('Button text', 'quillforms')} />
 					<TextControl
-						placeholder="Button Text"
-						value={ buttonText }
-						onChange={ ( val ) =>
-							setAttributes( { buttonText: val } )
+						placeholder={__('Button Text', 'quillforms')}
+						value={buttonText}
+						onChange={(val) =>
+							setAttributes({ buttonText: val })
 						}
 					/>
 				</ControlWrapper>

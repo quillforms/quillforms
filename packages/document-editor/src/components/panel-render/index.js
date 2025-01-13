@@ -3,6 +3,7 @@
  */
 import PostTitle from '../post-title';
 import PostSlug from '../post-slug';
+import { __ } from '@wordpress/i18n';
 
 const PanelRender = () => {
 	return (

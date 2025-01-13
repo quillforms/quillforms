@@ -9,34 +9,35 @@ import {
 } from '@quillforms/admin-components';
 import { useEffect } from 'react';
 import AlertMessageWrapper from '../alert-message-wrapper';
+import { __ } from '@wordpress/i18n';
 
-const EmailSubject = ( {
+const EmailSubject = ({
 	value,
 	setValue,
 	isValid,
 	setIsValid,
 	isReviewing,
-} ) => {
-	useEffect( () => {
-		if ( value && value.length > 0 ) {
-			setIsValid( true );
+}) => {
+	useEffect(() => {
+		if (value && value.length > 0) {
+			setIsValid(true);
 		} else {
-			setIsValid( false );
+			setIsValid(false);
 		}
-	}, [ value ] );
+	}, [value]);
 	return (
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
-				<ControlLabel label="Subject" showAsterisk={ true } />
+				<ControlLabel label={__('Subject', 'quillforms')} showAsterisk={true} />
 				<TextControl
-					value={ value }
-					onChange={ ( newVal ) => setValue( newVal ) }
+					value={value}
+					onChange={(newVal) => setValue(newVal)}
 				/>
-				{ ! isValid && isReviewing && (
+				{!isValid && isReviewing && (
 					<AlertMessageWrapper type="error">
-						This field is required!
+						{__('This field is required!', 'quillforms')}
 					</AlertMessageWrapper>
-				) }
+				)}
 			</ControlWrapper>
 		</BaseControl>
 	);

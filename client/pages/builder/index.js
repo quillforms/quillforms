@@ -9,6 +9,7 @@ import configApi from '@quillforms/config';
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -102,7 +103,7 @@ const Builder = ({ params }) => {
 								color: #a71616;
 							` }
 						>
-							The following blocks aren't known:
+							{__('The following blocks aren\'t known:', 'quillforms')}
 							<ul
 								className={css`
 									list-style: auto;

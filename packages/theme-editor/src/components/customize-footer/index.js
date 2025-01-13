@@ -9,6 +9,7 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  */
 import { useEffect } from 'react';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -87,7 +88,7 @@ const CustomizeFooter = ({ themeId, themeTitle, themeProperties }) => {
 						}
 					}}
 				>
-					Revert changes
+					{__('Revert changes', 'quillforms')}
 				</Button>
 				{!isSaving ? (
 					<Button
@@ -104,7 +105,7 @@ const CustomizeFooter = ({ themeId, themeTitle, themeProperties }) => {
 							}
 						}}
 					>
-						{themeId ? 'Save changes' : 'Save as a new theme'}
+						{themeId ? __('Save changes', 'quillforms') : __('Save as a new theme', 'quillforms')}
 					</Button>
 				) : (
 					<IsSavingBtn />

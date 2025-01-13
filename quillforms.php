@@ -105,6 +105,28 @@ function quillforms_wordpress_version_notice() {
 
 
 /**
+ * Load plugin text domains for translations.
+ *
+ * @since 4.5.0
+ * @return void
+ */
+function quillforms_load_textdomain() {
+    // Load PHP translations
+    load_plugin_textdomain(
+        'quillforms',
+        false,
+        dirname( plugin_basename( QUILLFORMS_PLUGIN_FILE ) ) . '/languages'
+    );
+
+    // Load JavaScript translations
+    wp_set_script_translations(
+        'quillforms',
+        'quillforms',
+        QUILLFORMS_PLUGIN_DIR . 'languages'
+    );
+}
+add_action( 'init', 'quillforms_load_textdomain' );
+/**
  * Display a PHP version notice and deactivate QuillForms plugin.
  *
  * @since 1.0.0

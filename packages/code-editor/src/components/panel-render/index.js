@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -34,7 +35,7 @@ const PanelRender = () => {
 				height: 50px;
 				border-radius: 5px;
 				`}>
-				Custom css won't be applied to the form builder directly. Please click on the preview icon on the top right corner to see the changes.
+				{__("Custom css won't be applied to the form builder directly. Please click on the preview icon on the top right corner to see the changes.", 'quillforms')}
 			</div>
 			<div className={css`
 				height: calc(100% - 60px);

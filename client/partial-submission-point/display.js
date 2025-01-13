@@ -1,4 +1,5 @@
 import { EnhancedProLabel, ProButton } from "@quillforms/admin-components";
+import { __ } from '@wordpress/i18n';
 
 const PartialSubmissionContent = () => {
     return (
@@ -7,17 +8,17 @@ const PartialSubmissionContent = () => {
                 <div className="partial-submission-left">
                     <div className="partial-submission-header-section">
                         <EnhancedProLabel />
-                        <h2>Capture Every Potential Lead</h2>
-                        <p className="partial-submission-subtitle">Get valuable responses even if users don't complete your form</p>
+                        <h2>{__('Capture Every Potential Lead', 'quillforms')}</h2>
+                        <p className="partial-submission-subtitle">{__("Get valuable responses even if users don't complete your form", 'quillforms')}</p>
                     </div>
                     {
                         <div className="partial-submission-benefits-section">
                             <div className="partial-submission-value-proposition">
                                 <div className="partial-submission-stat-highlight">
                                     <span className="partial-submission-stat">47%</span>
-                                    <span className="partial-submission-stat-text">of form visitors abandon before completion</span>
+                                    <span className="partial-submission-stat-text">{__('of form visitors abandon before completion', 'quillforms')}</span>
                                 </div>
-                                <p className="partial-submission-value-text">Don't lose valuable leads. Capture responses when users reach your partial submission checkpoint, even if they don't complete the entire form.</p>
+                                <p className="partial-submission-value-text">{__("Don't lose valuable leads. Capture responses when users reach your partial submission checkpoint, even if they don't complete the entire form.", 'quillforms')}</p>
                             </div>
                         </div>
                     }

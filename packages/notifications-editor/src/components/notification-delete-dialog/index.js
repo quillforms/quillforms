@@ -6,6 +6,7 @@ import { Button } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -22,18 +23,18 @@ const NotificationDeleteDialog = ({ proceed, closeModal }) => {
 					border: none !important;
 				`
 			)}
-			title="Delete notification"
+			title={__('Delete notification', 'quillforms')}
 			onRequestClose={closeModal}
 		>
 			<div className="notifications-delete-dialog__body">
-				Are you sure you would like to delete this notification?
+				{__('Are you sure you would like to delete this notification?', 'quillforms')}
 			</div>
 			<div className="notifications-delete-dialog__actions">
 				<Button isDefault onClick={closeModal}>
-					Cancel
+					{__('Cancel', 'quillforms')}
 				</Button>
 				<Button isDanger onClick={proceed}>
-					Delete
+					{__('Delete', 'quillforms')}
 				</Button>
 			</div>
 		</Modal>

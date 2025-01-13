@@ -5,6 +5,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { css } from 'emotion';
 import classnames from 'classnames';
 import NotificationDeleteDialog from '../notification-delete-dialog';
+import { __ } from '@wordpress/i18n';
 
 const NotificationBox = ({ notification, onEdit, index }) => {
 	const [isMounted, setIsMounted] = useState(false);
@@ -57,7 +58,7 @@ const NotificationBox = ({ notification, onEdit, index }) => {
 					</label>
 				</div>
 				{/* Notification Title */}
-				{title ? title : 'Untitled'}
+				{title ? title : __('Untitled', 'quillforms')}
 			</div>
 			<div className="notifications-editor-notification-box__actions">
 				<div
@@ -65,7 +66,7 @@ const NotificationBox = ({ notification, onEdit, index }) => {
 					className="notifications-editor-notification-box__actions-edit"
 					onClick={onEdit}
 				>
-					Edit
+					{__('Edit', 'quillforms')}
 				</div>
 				<div
 					role="presentation"
@@ -84,7 +85,7 @@ const NotificationBox = ({ notification, onEdit, index }) => {
 						});
 					}}
 				>
-					Delete
+					{__('Delete', 'quillforms')}
 				</div>
 			</div>
 		</div>

@@ -7,6 +7,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { map, size } from "lodash";
 import { css } from "emotion";
 import classnames from 'classnames';
+import { __ } from '@wordpress/i18n';
 const ChooseTemplate = () => {
     const formTemplates = ConfigAPI.getFormTemplates();
     const [chosenTemplate, setChosenTemplate] = useState(null);
@@ -24,7 +25,7 @@ const ChooseTemplate = () => {
                     }}>
 
                         <Icon icon="arrow-left" />
-                        <span>Back to template selection</span>
+                        <span>{__('Back to template selection', 'quillforms')}</span>
                     </div>
                     <div className="chosen-template__header">
 
@@ -101,7 +102,7 @@ const ChooseTemplate = () => {
 
                         }
                         }>
-                            Use this template
+                            {__('Use this template', 'quillforms')}
                         </Button>
                     </div>
                     <div className="chosen-template__preview">
@@ -134,14 +135,14 @@ const ChooseTemplate = () => {
 										}
 									`
                                 )}
-                                title={`${formTemplates[chosenTemplate].title} requires pro license`}
+                                title={`${formTemplates[chosenTemplate].title} ${__('requires pro license', 'quillforms')}`}
 
                                 onRequestClose={() => {
                                     setDisplayProModal(false);
                                 }}
                             >
                                 <__experimentalFeatureAvailability
-                                    featureName={formTemplates[chosenTemplate].title + " template"}
+                                    featureName={`${formTemplates[chosenTemplate].title} ${__('template', 'quillforms')}`}
                                     planKey="basic"
                                     showLockIcon={true}
                                 />
@@ -159,11 +160,11 @@ const ChooseTemplate = () => {
                                 onRequestClose={() => {
                                     setRequiredAddons([]);
                                 }}
-                                title={`Required Addons`}
+                                title={__('Required Addons', 'quillforms')}
                             >
                                 <div>
                                     <p>
-                                        This template requires the following addons to be installed and activated:
+                                        {__('This template requires the following addons to be installed and activated:', 'quillforms')}
                                     </p>
                                     <ul>
                                         {map(requiredAddons, (addon) => {
@@ -213,9 +214,9 @@ const ChooseTemplate = () => {
             ) : (
                 <div className="choose-template">
                     <div className="choose-template__header">
-                        <h2>Choose a template</h2>
+                        <h2>{__('Choose a template', 'quillforms')}</h2>
                         <p>
-                            Start with a template to save time and be more productive.
+                            {__('Start with a template to save time and be more productive.', 'quillforms')}
                         </p>
                     </div>
                     <div className="choose-template__cards">

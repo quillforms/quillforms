@@ -9,6 +9,7 @@ import { NavLink, withRouter } from '@quillforms/navigation';
 import { useState } from 'react';
 import { Icon } from '@wordpress/components';
 import { arrowLeft } from '@wordpress/icons';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -27,7 +28,7 @@ const FormAdminBar = ({ formId }) => {
 					className="admin-components-form-admin-bar__home-link"
 					to={`/admin.php?page=quillforms`}
 				>
-					<Icon icon={arrowLeft} /> Back to home
+					<Icon icon={arrowLeft} /> {__('Back to home', 'quillforms')}
 				</NavLink>
 				{ /** @ts-expect-error */}
 				<FormAdminNav.Slot>
@@ -45,7 +46,7 @@ const FormAdminBar = ({ formId }) => {
 								activeClassName="selected"
 								to={`/admin.php?page=quillforms&path=/forms/${formId}/builder`}
 							>
-								Design
+								{__('Design', 'quillforms')}
 							</NavLink>
 							<NavLink
 								isActive={(_match, location): boolean | void => {
@@ -60,7 +61,7 @@ const FormAdminBar = ({ formId }) => {
 								activeClassName="selected"
 								to={`/admin.php?page=quillforms&path=/forms/${formId}/share`}
 							>
-								Share
+								{__('Share', 'quillforms')}
 							</NavLink>
 							<NavLink
 								isActive={(_match, location): boolean | void => {
@@ -75,7 +76,7 @@ const FormAdminBar = ({ formId }) => {
 								activeClassName="selected"
 								to={`/admin.php?page=quillforms&path=/forms/${formId}/results`}
 							>
-								Results
+								{__('Results', 'quillforms')}
 							</NavLink>
 
 							<NavLink
@@ -91,7 +92,7 @@ const FormAdminBar = ({ formId }) => {
 								activeClassName="selected"
 								to={`/admin.php?page=quillforms&path=/forms/${formId}/integrations`}
 							>
-								Integrations
+								{__('Integrations', 'quillforms')}
 							</NavLink>
 							<NavLink
 								isActive={(_match, location): boolean | void => {
@@ -106,7 +107,7 @@ const FormAdminBar = ({ formId }) => {
 								activeClassName="selected"
 								to={`/admin.php?page=quillforms&path=/forms/${formId}/payments`}
 							>
-								Payments
+								{__('Payments', 'quillforms')}
 							</NavLink>
 
 							{fills}

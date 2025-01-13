@@ -22,6 +22,7 @@ import { FocalPointPicker, RangeControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { Fragment } from 'react';
 import { MediaUpload } from '@wordpress/media-utils';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -187,16 +188,16 @@ const DefaultControls: React.FC<Props> = ({
 	}
 
 	const widthOptions = [
-		{ key: '100%', name: '100%' },
-		{ key: '50%', name: '50%' },
-		{ key: '33%', name: '33%' },
+		{ key: '100%', name: __('100%', 'quillforms') },
+		{ key: '50%', name: __('50%', 'quillforms') },
+		{ key: '33%', name: __('33%', 'quillforms') },
 	]
 	return (
 		<Fragment>
 			{editableSupport && requiredSupport && (
 				<BaseControl>
 					<ControlWrapper>
-						<ControlLabel label={'Required'} />
+						<ControlLabel label={__('Required', 'quillforms')} />
 						<ToggleControl
 							checked={required}
 							onChange={() =>
@@ -213,7 +214,7 @@ const DefaultControls: React.FC<Props> = ({
 				<>
 					<BaseControl>
 						<ControlWrapper>
-							<ControlLabel label={'Image'} />
+							<ControlLabel label={__('Image', 'quillforms')} />
 							{isEmpty(attachment) ? (
 								<MediaUpload
 									onSelect={(media) =>
@@ -251,7 +252,7 @@ const DefaultControls: React.FC<Props> = ({
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label="Layout"></ControlLabel>
+							<ControlLabel label={__('Layout', 'quillforms')}></ControlLabel>
 							<BlockLayout
 								layout={attributes?.layout}
 								setAttributes={setAttributes}
@@ -264,7 +265,7 @@ const DefaultControls: React.FC<Props> = ({
 						attributes?.attachment?.url && (
 							<BaseControl>
 								<ControlWrapper orientation="vertical">
-									<ControlLabel label="Focal Point Picker"></ControlLabel>
+									<ControlLabel label={__('Focal Point Picker', 'quillforms')}></ControlLabel>
 									<div
 										className={css`
 											max-width: 300px;
@@ -303,7 +304,7 @@ const DefaultControls: React.FC<Props> = ({
 							<>
 								<BaseControl>
 									<ControlWrapper orientation="horizontal">
-										<ControlLabel label="Set Maximum Width for attachment" />
+										<ControlLabel label={__('Set Maximum Width for attachment', 'quillforms')} />
 										<ToggleControl
 											checked={
 												attributes?.attachmentMaxWidth !==
@@ -331,7 +332,7 @@ const DefaultControls: React.FC<Props> = ({
 										{attributes.attachmentMaxWidth !==
 											'none' && (
 												<ControlWrapper orientation="vertical">
-													<ControlLabel label="Maximum Width(px)" />
+													<ControlLabel label={__('Maximum Width(px)', 'quillforms')} />
 													<RangeControl
 														value={parseInt(
 															attributes?.attachmentMaxWidth?.replace(
@@ -354,7 +355,7 @@ const DefaultControls: React.FC<Props> = ({
 								</BaseControl>
 								<BaseControl>
 									<ControlWrapper orientation="horizontal">
-										<ControlLabel label="Use Fancy Border Radius"></ControlLabel>
+										<ControlLabel label={__('Use Fancy Border Radius', 'quillforms')} />
 										<ToggleControl
 											checked={
 												attributes?.attachmentFancyBorderRadius
@@ -377,7 +378,7 @@ const DefaultControls: React.FC<Props> = ({
 									</ControlWrapper>
 									{attributes.attachmentFancyBorderRadius && (
 										<ControlWrapper orientation="vertical">
-											<ControlLabel label="Choose your favorite fancy border radius"></ControlLabel>
+											<ControlLabel label={__('Choose your favorite fancy border radius', 'quillforms')} />
 											<BorderRadiusTemplates
 												onChange={(val) => {
 													setAttributes({
@@ -399,7 +400,7 @@ const DefaultControls: React.FC<Props> = ({
 			{defaultValueSupport && (
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
-						<ControlLabel label="Default Value" />
+						<ControlLabel label={__('Default Value', 'quillforms')} />
 						<div
 							className={css`
 								.combobox-control-rich-text-back {
@@ -472,7 +473,7 @@ const DefaultControls: React.FC<Props> = ({
 			{isChild && parentBlock.attributes?.layout === 'stack' && (
 				<BaseControl>
 					<ControlWrapper orientation='vertical'>
-						<ControlLabel label={'Width'} isNew />
+						<ControlLabel label={__('Width', 'quillforms')} isNew />
 						<WidthControl
 							value={attributes?.width ?? '100%'}
 							onChange={(width) => {
@@ -487,7 +488,7 @@ const DefaultControls: React.FC<Props> = ({
 				<BaseControl>
 					<ControlWrapper>
 						<ControlLabel
-							label={'Override default placeholder'}
+							label={__('Override default placeholder', 'quillforms')}
 						/>
 						<ToggleControl
 							checked={attributes?.placeholder !== false}
@@ -519,7 +520,7 @@ const DefaultControls: React.FC<Props> = ({
 				<>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={'Custom HTML'} />
+							<ControlLabel label={__('Custom HTML', 'quillforms')} />
 							<CustomHTML
 								value={attributes?.customHTML}
 								onChange={(val) => {
@@ -543,7 +544,7 @@ const DefaultControls: React.FC<Props> = ({
 			) && (
 					<BaseControl>
 						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Randomize"></ControlLabel>
+							<ControlLabel label={__('Randomize', 'quillforms')}></ControlLabel>
 							<ToggleControl
 								checked={attributes?.randomize ?? false}
 								onChange={() => {
@@ -564,7 +565,7 @@ const DefaultControls: React.FC<Props> = ({
 						color: #c0945d;
 					`}
 								>
-									Please note that randomization doesn't work in the preview mode!
+									{__('Please note that randomization doesn\'t work in the preview mode!', 'quillforms')}
 								</div>
 							)}
 						</>

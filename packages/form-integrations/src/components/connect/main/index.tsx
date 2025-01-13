@@ -34,7 +34,7 @@ interface Props {
 	close: () => void;
 }
 
-const Main: React.FC< Props > = ( { main, close } ) => {
+const Main: React.FC<Props> = ({ main, close }) => {
 	const formId = useParams().id;
 
 	// context.
@@ -42,78 +42,83 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 		useConnectContext();
 
 	// state.
-	const [ isSubmitting, setIsSubmitting ] = useState( false );
-	const [ runModal, setRunModal ] = useState< string | null >( null );
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [runModal, setRunModal] = useState<string | null>(null);
 
 	// dispatch notices.
 	const { createSuccessNotice, createErrorNotice } =
-		useDispatch( 'core/notices' );
+		useDispatch('core/notices');
 
 	const save = () => {
 		// check validity.
-		if ( ! validate() ) {
+		if (!validate()) {
 			return;
 		}
 
 		// submit.
-		setIsSubmitting( true );
-		apiFetch( {
-			path: `/qf/v1/forms/${ formId }/addons/${ provider.slug }`,
+		setIsSubmitting(true);
+		apiFetch({
+			path: `/qf/v1/forms/${formId}/addons/${provider.slug}`,
 			method: 'POST',
 			data: { connections },
-		} )
-			.then( () => {
+		})
+			.then(() => {
 				createSuccessNotice(
-					'✅ ' + __( 'updated successfully!', 'quillforms' ),
+					'✅ ' + __('updated successfully!', 'quillforms'),
 					{
 						type: 'snackbar',
 						isDismissible: true,
 					}
 				);
-				savePayload( 'connections' );
-				setTimeout( close );
-			} )
-			.catch( ( err ) => {
-				error( err.message ?? __( 'Error on saving!', 'quillforms' ) );
-			} )
-			.finally( () => {
-				setIsSubmitting( false );
-			} );
+				savePayload('connections');
+				setTimeout(close);
+			})
+			.catch((err) => {
+				error(err.message ?? __('Error on saving!', 'quillforms'));
+			})
+			.finally(() => {
+				setIsSubmitting(false);
+			});
 	};
 
-	const error = ( message ) => {
-		createErrorNotice( '⛔ ' + message, {
+	const error = (message) => {
+		createErrorNotice('⛔ ' + message, {
 			type: 'snackbar',
 			isDismissible: true,
-		} );
+		});
 	};
 
-	const validate = ( connectionId: string | null = null ) => {
-		for ( const [ id, connection ] of Object.entries( connections ) ) {
-			if ( connectionId && connectionId !== id ) {
+	const validate = (connectionId: string | null = null) => {
+		for (const [id, connection] of Object.entries(connections)) {
+			if (connectionId && connectionId !== id) {
 				continue;
 			}
-			if ( ! connection.name ) {
-				error( 'Connection name cannot be empty' );
+			if (!connection.name) {
+				error(__('Connection name cannot be empty', 'quillforms'));
 				return false;
 			}
-			if ( main.connection.accounts && ! connection.account_id ) {
+			if (main.connection.accounts && !connection.account_id) {
 				error(
-					`"${ connection.name }" error: please select an account`
+					__(
+						'"${ connection.name }" error: please select an account',
+						'quillforms'
+					)
 				);
 				return false;
 			}
-			if ( main.connection.options.validate ) {
+			if (main.connection.options.validate) {
 				const account =
-					accounts?.[ connection.account_id ?? 0 ] ?? undefined;
-				const result = main.connection.options.validate( {
+					accounts?.[connection.account_id ?? 0] ?? undefined;
+				const result = main.connection.options.validate({
 					connection,
 					account,
-				} );
-				if ( ! result.valid ) {
+				});
+				if (!result.valid) {
 					error(
-						`"${ connection.name }" error: ` + result.message ??
-							'invalid options'
+						__(
+							'"${ connection.name }" error: ',
+							'quillforms'
+						) + result.message ?? __('invalid options', 'quillforms')
 					);
 					return false;
 				}
@@ -122,79 +127,79 @@ const Main: React.FC< Props > = ( { main, close } ) => {
 		return true;
 	};
 
-	const run = ( id ) => {
+	const run = (id) => {
 		// validate.
-		if ( ! validate( id ) ) {
+		if (!validate(id)) {
 			return;
 		}
 
 		// open modal.
-		setRunModal( id );
+		setRunModal(id);
 	};
 
-	const randomId = () => Math.random().toString( 36 ).substr( 2, 9 );
+	const randomId = () => Math.random().toString(36).substr(2, 9);
 
 	return (
 		<div className="integration-connect-main">
-			<ConnectMainContextProvider value={ main }>
+			<ConnectMainContextProvider value={main}>
 				<div className="integration-connect-main__body">
-					{ Object.keys( connections ).length ? (
-						Object.keys( connections ).map( ( id ) => (
+					{Object.keys(connections).length ? (
+						Object.keys(connections).map((id) => (
 							<Connection
-								key={ id }
-								id={ id }
-								run={ () => run( id ) }
+								key={id}
+								id={id}
+								run={() => run(id)}
 							/>
-						) )
+						))
 					) : (
 						<div className="integration-connect-main__warning">
 							<WarningIcon />
 							<div>
-								{ __(
+								{__(
 									"You don't have any connections!",
 									'quillforms'
-								) }
+								)}
 							</div>
 						</div>
-					) }
+					)}
 
 					<div>
 						<Button
 							className="integration-connect-main__add-connection"
 							isPrimary
-							onClick={ () =>
-								addConnection( randomId(), {
-									name: __( 'New Connection', 'quillforms' ),
+							onClick={() =>
+								addConnection(randomId(), {
+									name: __('New Connection', 'quillforms'),
 									...cloneDeep(
 										main.connection.options.default
 									),
-								} )
+								})
 							}
 						>
-							<Icon icon={ plusCircle } />
-							{ __( 'Add A New Connection', 'quillforms' ) }
+							<Icon icon={plusCircle} />
+							{__('Add A New Connection', 'quillforms')}
 						</Button>
 					</div>
 				</div>
 				<Footer
-					save={ {
-						label: __( 'Save', 'quillforms' ),
+					save={{
+						label: __('Save', 'quillforms'),
 						onClick: save,
 						disabled: isSubmitting,
-					} }
-					close={ {
-						label: __( 'Cancel', 'quillforms' ),
+					}}
+					close={{
+						label: __('Cancel', 'quillforms'),
 						onClick: close,
-					} }
+					}}
 				/>
 			</ConnectMainContextProvider>
-			{ runModal && (
+			{runModal && (
 				<RunModal
-					id={ runModal }
-					name={ connections[ runModal ]?.name ?? 'unnamed' }
-					close={ () => setRunModal( null ) }
+					id={runModal}
+					name={connections[runModal]?.name ?? __('unnamed', 'quillforms')}
+					close={() => setRunModal(null)}
 				/>
-			) }
+			)}
 		</div>
 	);
 };

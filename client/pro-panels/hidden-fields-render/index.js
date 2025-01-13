@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EnhancedProLabel, ProFeatureBanner } from "@quillforms/admin-components";
-
+import { __ } from '@wordpress/i18n';
 import './style.css';
 
 const UTMParametersPromo = () => {
@@ -13,21 +13,21 @@ const UTMParametersPromo = () => {
 		<div className="utm-feature-container">
 			<EnhancedProLabel />
 
-			<h1 className="utm-feature-title">Advanced URL Parameter Tracking</h1>
-			<p className="utm-feature-subtitle">Capture and track URL parameters effortlessly</p>
+			<h1 className="utm-feature-title">{__('Advanced URL Parameter Tracking', 'quillforms')}</h1>
+			<p className="utm-feature-subtitle">{__('Capture and track URL parameters effortlessly', 'quillforms')}</p>
 
 			<div className="utm-feature-tabs">
 				<button
 					className={`utm-feature-tab ${activeTab === 'hidden' ? 'active' : ''}`}
 					onClick={() => setActiveTab('hidden')}
 				>
-					Hidden Fields
+					{__('Hidden Fields', 'quillforms')}
 				</button>
 				<button
 					className={`utm-feature-tab ${activeTab === 'utm' ? 'active' : ''}`}
 					onClick={() => setActiveTab('utm')}
 				>
-					UTM Parameters
+					{__('UTM Parameters', 'quillforms')}
 				</button>
 			</div>
 
@@ -47,20 +47,20 @@ const UTMParametersPromo = () => {
 										className={`utm-feature-url-type ${urlType === 'query' ? 'active' : ''}`}
 										onClick={() => setUrlType('query')}
 									>
-										Query String
+										{__('Query String', 'quillforms')}
 									</button>
 									<button
 										className={`utm-feature-url-type ${urlType === 'hash' ? 'active' : ''}`}
 										onClick={() => setUrlType('hash')}
 									>
-										Hash
+										{__('Hash', 'quillforms')}
 									</button>
 								</div>
 
 								<div className="utm-feature-url-display">
 									<span className="utm-feature-url-base">example.com</span>
 									<span className="utm-feature-url-separator">{urlType === 'query' ? '?' : '#'}</span>
-									<span className="utm-feature-url-param">username</span>
+									<span className="utm-feature-url-param">{__('username', 'quillforms')}</span>
 									<span className="utm-feature-url-equals">=</span>
 									<span className="utm-feature-url-value">john</span>
 								</div>
@@ -74,8 +74,8 @@ const UTMParametersPromo = () => {
 								</motion.div>
 
 								<div className="utm-feature-hidden-field">
-									<div className="utm-feature-field-label">Hidden Field</div>
-									<div className="utm-feature-field-key">username</div>
+									<div className="utm-feature-field-label">{__('Hidden Field', 'quillforms')}</div>
+									<div className="utm-feature-field-key">{__('username', 'quillforms')}</div>
 									<div className="utm-feature-field-value">john</div>
 								</div>
 							</div>
@@ -91,12 +91,12 @@ const UTMParametersPromo = () => {
 							<div className="utm-feature-utm-showcase">
 								<div className="utm-feature-utm-flow">
 									<div className="utm-feature-url-example">
-										<div className="utm-feature-url-label">Marketing Campaign URL</div>
+										<div className="utm-feature-url-label">{__('Marketing Campaign URL', 'quillforms')}</div>
 										<div className="utm-feature-url-content">
 											<span className="utm-base">example.com?</span>
-											<span className="utm-param">utm_source</span>=<span className="utm-value">google</span>&
-											<span className="utm-param">utm_medium</span>=<span className="utm-value">cpc</span>&
-											<span className="utm-param">utm_campaign</span>=<span className="utm-value">spring_sale</span>
+											<span className="utm-param">{__('utm_source', 'quillforms')}</span>=<span className="utm-value">google</span>&
+											<span className="utm-param">{__('utm_medium', 'quillforms')}</span>=<span className="utm-value">cpc</span>&
+											<span className="utm-param">{__('utm_campaign', 'quillforms')}</span>=<span className="utm-value">spring_sale</span>
 										</div>
 									</div>
 
@@ -115,7 +115,7 @@ const UTMParametersPromo = () => {
 
 									<div className="utm-feature-tracking-card">
 										<div className="utm-feature-card-header">
-											Campaign Tracking Data
+											{__('Campaign Tracking Data', 'quillforms')}
 										</div>
 										<div className="utm-feature-tracking-data">
 											<div className="utm-feature-data-item">
@@ -125,7 +125,7 @@ const UTMParametersPromo = () => {
 													</svg>
 												</div>
 												<div className="utm-feature-data-content">
-													<div className="utm-feature-data-label">Source</div>
+													<div className="utm-feature-data-label">{__('Source', 'quillforms')}</div>
 													<div className="utm-feature-data-value">google</div>
 												</div>
 											</div>
@@ -136,7 +136,7 @@ const UTMParametersPromo = () => {
 													</svg>
 												</div>
 												<div className="utm-feature-data-content">
-													<div className="utm-feature-data-label">Medium</div>
+													<div className="utm-feature-data-label">{__('Medium', 'quillforms')}</div>
 													<div className="utm-feature-data-value">cpc</div>
 												</div>
 											</div>
@@ -147,7 +147,7 @@ const UTMParametersPromo = () => {
 													</svg>
 												</div>
 												<div className="utm-feature-data-content">
-													<div className="utm-feature-data-label">Campaign</div>
+													<div className="utm-feature-data-label">{__('Campaign', 'quillforms')}</div>
 													<div className="utm-feature-data-value">spring_sale</div>
 												</div>
 											</div>
@@ -158,23 +158,23 @@ const UTMParametersPromo = () => {
 								<div className="utm-feature-benefits">
 									<div className="utm-feature-benefit">
 										<div className="utm-feature-benefit-icon">📊</div>
-										<div className="utm-feature-benefit-title">Track Marketing Success</div>
+										<div className="utm-feature-benefit-title">{__('Track Marketing Success', 'quillforms')}</div>
 										<div className="utm-feature-benefit-desc">
-											Capture UTM parameters to measure campaign effectiveness
+											{__('Capture UTM parameters to measure campaign effectiveness', 'quillforms')}
 										</div>
 									</div>
 									<div className="utm-feature-benefit">
 										<div className="utm-feature-benefit-icon">🔄</div>
-										<div className="utm-feature-benefit-title">Automatic Detection</div>
+										<div className="utm-feature-benefit-title">{__('Automatic Detection', 'quillforms')}</div>
 										<div className="utm-feature-benefit-desc">
-											Automatically captures UTM parameters from incoming traffic
+											{__('Automatically captures UTM parameters from incoming traffic', 'quillforms')}
 										</div>
 									</div>
 									<div className="utm-feature-benefit">
 										<div className="utm-feature-benefit-icon">📈</div>
-										<div className="utm-feature-benefit-title">Marketing Analytics</div>
+										<div className="utm-feature-benefit-title">{__('Marketing Analytics', 'quillforms')}</div>
 										<div className="utm-feature-benefit-desc">
-											Connect form submissions to your marketing campaigns
+											{__('Connect form submissions to your marketing campaigns', 'quillforms')}
 										</div>
 									</div>
 								</div>

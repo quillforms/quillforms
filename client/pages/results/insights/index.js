@@ -1,17 +1,18 @@
 import { ProFeatureBanner } from "@quillforms/admin-components";
 import "./style.css";
 import { useState } from "react";
+import { __ } from "@wordpress/i18n";
 
 const DropOffAnalyticsDemo = () => {
     const [showDemoInfo, setShowDemoInfo] = useState(true);
 
     // Sample question analytics data
     const questionAnalytics = [
-        { id: 1, question: "What's your name?", views: 1000, completions: 980, dropOffRate: 2 },
-        { id: 2, question: "What's your email?", views: 980, completions: 890, dropOffRate: 9 },
-        { id: 3, question: "What's your age?", views: 890, completions: 845, dropOffRate: 5 },
-        { id: 4, question: "Tell us about yourself", views: 845, completions: 650, dropOffRate: 23 },
-        { id: 5, question: "Upload your resume", views: 650, completions: 325, dropOffRate: 50 },
+        { id: 1, question: __("What's your name?", "quillforms"), views: 1000, completions: 980, dropOffRate: 2 },
+        { id: 2, question: __("What's your email?", "quillforms"), views: 980, completions: 890, dropOffRate: 9 },
+        { id: 3, question: __("What's your age?", "quillforms"), views: 890, completions: 845, dropOffRate: 5 },
+        { id: 4, question: __("Tell us about yourself", "quillforms"), views: 845, completions: 650, dropOffRate: 23 },
+        { id: 5, question: __("Upload your resume", "quillforms"), views: 650, completions: 325, dropOffRate: 50 },
     ];
 
     return (
@@ -20,14 +21,14 @@ const DropOffAnalyticsDemo = () => {
                 <div className="form-insights-demo-overlay">
                     <div className="form-insights-demo-overlay-content">
                         <span className="form-insights-demo-overlay-icon">🎯</span>
-                        <h3>Demo Preview</h3>
-                        <p>This is a demonstration of the Form Analytics feature using sample data.</p>
-                        <p>Upgrade to Pro to access real-time analytics for your forms.</p>
+                        <h3>{__("Demo Preview", "quillforms")}</h3>
+                        <p>{__("This is a demonstration of the Form Analytics feature using sample data.", "quillforms")}</p>
+                        <p>{__("Upgrade to Pro to access real-time analytics for your forms.", "quillforms")}</p>
                         <button
                             className="form-insights-demo-overlay-button"
                             onClick={() => setShowDemoInfo(false)}
                         >
-                            Explore Demo
+                            {__("Explore Demo", "quillforms")}
                         </button>
                     </div>
                 </div>
@@ -35,7 +36,7 @@ const DropOffAnalyticsDemo = () => {
 
             <div className="form-insights-demo-watermark">
                 <div className="form-insights-demo-watermark-text">
-                    DEMO PREVIEW
+                    {__("DEMO PREVIEW", "quillforms")}
                 </div>
             </div>
 
@@ -44,16 +45,16 @@ const DropOffAnalyticsDemo = () => {
                     className="form-insights-demo-info-button"
                     onClick={() => setShowDemoInfo(true)}
                 >
-                    <span>ℹ️</span> About This Demo
+                    <span>ℹ️</span> {__("About This Demo", "quillforms")}
                 </button>
             </div>
 
             <div className="form-insights-demo-badge">
-                <span className="form-insights-demo-badge-icon">⭐</span> Pro Feature Demo
+                <span className="form-insights-demo-badge-icon">⭐</span> {__("Pro Feature Demo", "quillforms")}
             </div>
 
-            <h2>Form Analytics & Drop-off Tracking</h2>
-            <p className="form-insights-demo-subtitle">See where users drop off and optimize your form completion rate</p>
+            <h2>{__("Form Analytics & Drop-off Tracking", "quillforms")}</h2>
+            <p className="form-insights-demo-subtitle">{__("See where users drop off and optimize your form completion rate", "quillforms")}</p>
 
             <div className="form-insights-funnel-visualization">
                 <svg viewBox="0 0 400 300" className="form-insights-funnel-svg">
@@ -72,17 +73,17 @@ const DropOffAnalyticsDemo = () => {
 
                     <g className="form-insights-stage" transform="translate(200,60)">
                         <circle r="8" fill="#34a853" />
-                        <text x="60" y="5" className="form-insights-stage-text">Started (1000)</text>
+                        <text x="60" y="5" className="form-insights-stage-text">{__("Started (1000)", "quillforms")}</text>
                     </g>
 
                     <g className="form-insights-stage" transform="translate(200,150)">
                         <circle r="8" fill="#fbbc04" />
-                        <text x="60" y="5" className="form-insights-stage-text">In Progress (650)</text>
+                        <text x="60" y="5" className="form-insights-stage-text">{__("In Progress (650)", "quillforms")}</text>
                     </g>
 
                     <g className="form-insights-stage" transform="translate(200,240)">
                         <circle r="8" fill="#ea4335" />
-                        <text x="60" y="5" className="form-insights-stage-text">Completed (325)</text>
+                        <text x="60" y="5" className="form-insights-stage-text">{__("Completed (325)", "quillforms")}</text>
                     </g>
 
                     <circle className="form-insights-moving-dot form-insights-dot1" r="4" fill="#1a73e8" />
@@ -94,46 +95,46 @@ const DropOffAnalyticsDemo = () => {
                     <div className="form-insights-insight-item">
                         <span className="form-insights-insight-icon">📉</span>
                         <div className="form-insights-insight-content">
-                            <strong>32.5% Completion Rate</strong>
-                            <span>Form performance needs optimization</span>
+                            <strong>{__("32.5% Completion Rate", "quillforms")}</strong>
+                            <span>{__("Form performance needs optimization", "quillforms")}</span>
                         </div>
                     </div>
                     <div className="form-insights-insight-item">
                         <span className="form-insights-insight-icon">⏱️</span>
                         <div className="form-insights-insight-content">
-                            <strong>4.5 min Average Time</strong>
-                            <span>Consider simplifying longer sections</span>
+                            <strong>{__("4.5 min Average Time", "quillforms")}</strong>
+                            <span>{__("Consider simplifying longer sections", "quillforms")}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="form-insights-question-analytics">
-                <h3>Question-Level Performance Analytics</h3>
+                <h3>{__("Question-Level Performance Analytics", "quillforms")}</h3>
                 <div className="form-insights-table-container">
                     <table className="form-insights-analytics-table">
                         <thead>
                             <tr>
-                                <th>Question</th>
-                                <th>Views</th>
-                                <th>Completions</th>
-                                <th>Drop-off Rate</th>
-                                <th>Avg. Time</th>
-                                <th>Performance</th>
+                                <th>{__("Question", "quillforms")}</th>
+                                <th>{__("Views", "quillforms")}</th>
+                                <th>{__("Completions", "quillforms")}</th>
+                                <th>{__("Drop-off Rate", "quillforms")}</th>
+                                <th>{__("Avg. Time", "quillforms")}</th>
+                                <th>{__("Performance", "quillforms")}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {questionAnalytics.map((q) => (
                                 <tr key={q.id}>
                                     <td className="form-insights-question-cell">
-                                        <span className="form-insights-question-number">Q{q.id}</span>
+                                        <span className="form-insights-question-number">{`Q${q.id}`}</span>
                                         {q.question}
                                     </td>
                                     <td>{q.views.toLocaleString()}</td>
                                     <td>{q.completions.toLocaleString()}</td>
                                     <td>
                                         <span className={`form-insights-drop-off-rate ${q.dropOffRate > 20 ? 'form-insights-high-drop-off' : ''}`}>
-                                            {q.dropOffRate}%
+                                            {`${q.dropOffRate}%`}
                                         </span>
                                     </td>
                                     <td>{q.timeSpent}</td>
@@ -154,7 +155,7 @@ const DropOffAnalyticsDemo = () => {
                     </table>
                 </div>
             </div>
-            <ProFeatureBanner featureName="Advanced Entries" addonSlug="advancedentries" />
+            <ProFeatureBanner featureName={__("Advanced Entries", "quillforms")} addonSlug="advancedentries" />
         </div>
     );
 };

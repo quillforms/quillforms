@@ -178,7 +178,9 @@ abstract class Addon {
 	 * @return void
 	 */
 	protected function init() {
-		$this->load_textdomain();
+		add_action('init', function() {
+			$this->load_textdomain();
+		});
 
 		if ( ! empty( static::$classes['scripts'] ) ) {
 			new static::$classes['scripts']( $this );

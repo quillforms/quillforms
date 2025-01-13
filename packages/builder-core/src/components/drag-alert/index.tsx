@@ -7,6 +7,7 @@ import { Button } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -39,7 +40,7 @@ const DragAlertModal: React.FC<Props> = ({
 			)}
 			// Because focus on editor is causing the click handler to be triggered
 			shouldCloseOnClickOutside={false}
-			title="Warning!"
+			title={__('Warning!', 'quillforms')}
 			onRequestClose={closeModal}
 		>
 			<div>
@@ -51,7 +52,7 @@ const DragAlertModal: React.FC<Props> = ({
 						))}
 				</div>
 				<br />
-				<div>Are you sure you want to proceed?</div>
+				<div>{__('Are you sure you want to proceed?', 'quillforms')}</div>
 			</div>
 			<div
 				className={css`
@@ -70,7 +71,7 @@ const DragAlertModal: React.FC<Props> = ({
 						reject();
 					}}
 				>
-					Cancel
+					{__('Cancel', 'quillforms')}
 				</Button>
 				<Button
 					isLarge
@@ -85,7 +86,7 @@ const DragAlertModal: React.FC<Props> = ({
 					}}
 					isDanger
 				>
-					Proceed
+					{__('Proceed', 'quillforms')}
 				</Button>
 			</div>
 		</Modal>

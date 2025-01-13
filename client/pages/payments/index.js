@@ -111,7 +111,7 @@ const PaymentsPage = ({ params }) => {
 	const onSave = () => {
 		// validate selection of one method at least.
 		if (general.enabled && Object.keys(general.methods).length === 0) {
-			createErrorNotice(`⛔ Please select at least one payment method`, {
+			createErrorNotice(__('⛔ Please select at least one payment method', 'quillforms'), {
 				type: 'snackbar',
 				isDismissible: true,
 			});
@@ -131,7 +131,7 @@ const PaymentsPage = ({ params }) => {
 			if (options && options.has(settings)) {
 				const validate = options.validate(settings);
 				if (!validate.valid) {
-					createErrorNotice(`⛔ ${validate.message}`, {
+					createErrorNotice(__('⛔ ', 'quillforms') + validate.message, {
 						type: 'snackbar',
 						isDismissible: true,
 					});
@@ -142,7 +142,7 @@ const PaymentsPage = ({ params }) => {
 
 		// validate adding of one product at least.
 		if (general.enabled && Object.entries(products).length === 0) {
-			createErrorNotice(`⛔ Please add at least one product`, {
+			createErrorNotice(__('⛔ Please add at least one product', 'quillforms'), {
 				type: 'snackbar',
 				isDismissible: true,
 			});
@@ -150,7 +150,7 @@ const PaymentsPage = ({ params }) => {
 		}
 
 		if (!validate()) {
-			createErrorNotice(`⛔ Please check highlighted errors`, {
+			createErrorNotice(__('⛔ Please check highlighted errors', 'quillforms'), {
 				type: 'snackbar',
 				isDismissible: true,
 			});
@@ -173,14 +173,14 @@ const PaymentsPage = ({ params }) => {
 			},
 		})
 			.then(() => {
-				createSuccessNotice('🚀 Saved successfully!', {
+				createSuccessNotice(__('🚀 Saved successfully!', 'quillforms'), {
 					type: 'snackbar',
 					isDismissible: true,
 				});
 			})
 			.catch((error) => {
 				createErrorNotice(
-					`⛔ ${error?.message ?? 'Error while saving!'}`,
+					`⛔ ${error?.message ?? __('Error while saving!', 'quillforms')}`,
 					{
 						type: 'snackbar',
 						isDismissible: true,
@@ -198,7 +198,7 @@ const PaymentsPage = ({ params }) => {
 		for (const [id, product] of Object.entries(products)) {
 			// source
 			if (!product.source) {
-				$errors.products[id] = 'Please select product source';
+				$errors.products[id] = __('Please select product source', 'quillforms');
 				continue;
 			}
 
@@ -210,37 +210,37 @@ const PaymentsPage = ({ params }) => {
 					const blockType = blockTypes[block?.name];
 					if (!block || !blockType) {
 						$errors.products[id] =
-							'Unknown form block, please select another source';
+							__('Unknown form block, please select another source', 'quillforms');
 						break;
 					}
 
 					if (blockType.supports.numeric) {
 						if (!product.name) {
 							$errors.products[id] =
-								'Please enter product name';
+								__('Please enter product name', 'quillforms');
 						}
 					}
 					break;
 				case 'variable':
 					if (!product.name) {
-						$errors.products[id] = 'Please enter product name';
+						$errors.products[id] = __('Please enter product name', 'quillforms');
 					}
 					break;
 				case 'other':
 					if (product.source.value === 'defined') {
 						if (!product.name) {
 							$errors.products[id] =
-								'Please enter product name';
+								__('Please enter product name', 'quillforms');
 						} else if (!product.price) {
 							$errors.products[id] =
-								'Please enter product price';
+								__('Please enter product price', 'quillforms');
 						}
 					} else {
-						$errors.products[id] = 'Unknown product source';
+						$errors.products[id] = __('Unknown product source', 'quillforms');
 					}
 					break;
 				default:
-					$errors.products[id] = 'Unknown product source';
+					$errors.products[id] = __('Unknown product source', 'quillforms');
 			}
 		}
 
@@ -267,12 +267,9 @@ const PaymentsPage = ({ params }) => {
 					<div className="quillforms-payments-page-header">
 						<Icon />
 						<div className="quillforms-payments-page-heading">
-							<p>Accept payments via your forms easily!</p>
+							<p>{__('Accept payments via your forms easily!', 'quillforms')}</p>
 							<p>
-								Create orders, accept donations or get any type
-								of payments with the most versatile form builder
-								that integrates with your favorite payment
-								gateways!
+								{__('Create orders, accept donations or get any type of payments with the most versatile form builder that integrates with your favorite payment gateways!', 'quillforms')}
 							</p>
 						</div>
 					</div>
@@ -324,7 +321,7 @@ const PaymentsPage = ({ params }) => {
 								text-align: center;
 							}
 						` }
-						title={'How to accept payments with Quill Forms?'}
+						title={__('How to accept payments with Quill Forms?', 'quillforms')}
 						onRequestClose={() => {
 							setShowReleaseModal(false);
 						}}

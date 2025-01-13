@@ -13,59 +13,60 @@ import {
  * WordPress Dependencies
  */
 import { Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 
-const LongTextControl = ( { attributes, setAttributes } ) => {
+const LongTextControl = ({ attributes, setAttributes }) => {
 	const { setMaxCharacters, maxCharacters, minCharacters } = attributes;
 
 	return (
 		<Fragment>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Min Characters" isNew />
+					<ControlLabel label={__("Min Characters", "quillforms")} isNew />
 					<ToggleControl
-						checked={ minCharacters !== false }
-						onChange={ () => {
-							setAttributes( {
+						checked={minCharacters !== false}
+						onChange={() => {
+							setAttributes({
 								minCharacters:
 									minCharacters !== false ? false : 0,
-							} );
-						} }
+							});
+						}}
 					/>
 				</ControlWrapper>
-				{ minCharacters !== false && (
+				{minCharacters !== false && (
 					<TextControl
 						type="number"
-						onChange={ ( val ) => {
-							setAttributes( {
+						onChange={(val) => {
+							setAttributes({
 								minCharacters: val,
-							} );
-						} }
+							});
+						}}
 					/>
-				) }
+				)}
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label="Max Characters" />
+					<ControlLabel label={__("Max Characters", "quillforms")} />
 					<ToggleControl
-						checked={ setMaxCharacters }
-						onChange={ () => {
-							setAttributes( {
-								setMaxCharacters: ! setMaxCharacters,
-							} );
-						} }
+						checked={setMaxCharacters}
+						onChange={() => {
+							setAttributes({
+								setMaxCharacters: !setMaxCharacters,
+							});
+						}}
 					/>
 				</ControlWrapper>
-				{ setMaxCharacters && (
+				{setMaxCharacters && (
 					<TextControl
 						type="number"
-						value={ maxCharacters }
-						onChange={ ( val ) =>
-							setAttributes( {
+						value={maxCharacters}
+						onChange={(val) =>
+							setAttributes({
 								maxCharacters: val,
-							} )
+							})
 						}
 					/>
-				) }
+				)}
 			</BaseControl>
 		</Fragment>
 	);

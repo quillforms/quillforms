@@ -7,7 +7,7 @@ import ConfigApi from '@quillforms/config';
  */
 import { Icon } from '@wordpress/components';
 import { arrowLeft } from '@wordpress/icons';
-
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -30,12 +30,12 @@ const Header = () => {
 					className="qf-admin-header__dashboard-link"
 					href={qfAdmin.adminUrl}
 				>
-					<Icon icon={arrowLeft} /> Back to WordPress Dashboard
+					<Icon icon={arrowLeft} /> {__('Back to WordPress Dashboard', 'quillforms')}
 				</a>
 			</div>
 			<div className="qf-admin-header__right">
 				<div className="qf-admin-header__user-name">
-					Howdy, {qfAdmin.current_user_name}
+					{__('Howdy,', 'quillforms')} {qfAdmin.current_user_name}
 				</div>
 
 				<div className="qf-admin-header__user-image">

@@ -8,6 +8,7 @@ import { IconRenderer } from '@quillforms/types';
  */
 import { applyFilters } from '@wordpress/hooks';
 import { useEffect } from 'react';
+import { __ } from '@wordpress/i18n';
 import { allowedFormats } from '../rich-text';
 
 /**
@@ -35,7 +36,7 @@ export type Options = {
 	isMergeTag?: boolean;
 	// can hold other data for filters like block name.
 	other?: {
-		[ x: string ]: any;
+		[x: string]: any;
 	};
 }[];
 export type ComboboxControlValue = {
@@ -46,13 +47,13 @@ export type CustomizeObject = {
 	sections: Sections;
 	options: Options;
 };
-export type CustomizeFunction = ( value: CustomizeObject ) => CustomizeObject;
+export type CustomizeFunction = (value: CustomizeObject) => CustomizeObject;
 
 export type ComboboxControlProps = {
 	id?: string;
 	// if type is text, the component will load rich text editor. else the component will load the select.
 	value: ComboboxControlValue;
-	onChange: ( value: ComboboxControlValue ) => void;
+	onChange: (value: ComboboxControlValue) => void;
 	// if true, select component will have custom value option that loads rich text
 	// and rich text editor will have back/exit button to loads select. (default true)
 	isToggleEnabled?: boolean;
@@ -70,7 +71,7 @@ export type ComboboxControlProps = {
 	allowedFormats?: allowedFormats;
 };
 
-const ComboboxControl: React.FC< ComboboxControlProps > = ( {
+const ComboboxControl: React.FC<ComboboxControlProps> = ({
 	id,
 	value,
 	onChange,
@@ -81,71 +82,71 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 	selectFirstOption,
 	excerptLength = 30,
 	allowedFormats,
-} ) => {
-	const fields = useFields( { section: 'fields' } );
-	const variables = useVariables( { section: 'variables' } );
-	const hidden_fields = useHiddenFields( { section: 'hidden_fields' } );
+}) => {
+	const fields = useFields({ section: 'fields' });
+	const variables = useVariables({ section: 'variables' });
+	const hidden_fields = useHiddenFields({ section: 'hidden_fields' });
 
 	let sections: Sections = [];
 	let options: Options = [];
 
 	// fields
-	if ( fields.length ) {
-		sections.push( {
+	if (fields.length) {
+		sections.push({
 			key: 'fields',
-			label: 'Fields',
-		} );
-		options = options.concat( fields );
+			label: __('Fields', 'quillforms'),
+		});
+		options = options.concat(fields);
 	}
 	// variables
-	if ( variables.length ) {
-		sections.push( {
+	if (variables.length) {
+		sections.push({
 			key: 'variables',
-			label: 'Variables',
-		} );
-		options = options.concat( variables );
+			label: __('Variables', 'quillforms'),
+		});
+		options = options.concat(variables);
 	}
 	// hidden_fields
-	if ( hidden_fields.length ) {
-		sections.push( {
+	if (hidden_fields.length) {
+		sections.push({
 			key: 'hidden_fields',
-			label: 'Hidden Fields',
-		} );
-		options = options.concat( hidden_fields );
+			label: __('Hidden Fields', 'quillforms'),
+		});
+		options = options.concat(hidden_fields);
 	}
 	// entry properties
 	const EntryProperties = [
 		{
 			value: 'id',
-			label: 'Entry ID',
+			label: __('Entry ID', 'quillforms'),
 		},
 		{
 			value: 'form_id',
-			label: 'Form ID',
+			label: __('Form ID', 'quillforms'),
 		},
 		{
 			value: 'date_created',
-			label: 'Entry Date (YYYY-MM-DD)',
+			label: __('Entry Date (YYYY-MM-DD)', 'quillforms'),
 		},
 		{
 			value: 'user_id',
-			label: 'User ID',
+			label: __('User ID', 'quillforms'),
 		},
 		{
 			value: 'user_ip',
-			label: 'User IP Address',
+			label: __('User IP Address', 'quillforms'),
 		},
 		{
 			value: 'user_agent',
-			label: 'HTTP User Agent',
+			label: __('HTTP User Agent', 'quillforms'),
 		},
 	];
-	sections.push( {
+	sections.push({
 		key: 'entry_properties',
-		label: 'Entry Properties',
-	} );
+		label: __('Entry Properties', 'quillforms'),
+	});
 	options = options.concat(
-		EntryProperties.map( ( property ) => {
+		EntryProperties.map((property) => {
 			return {
 				type: 'property',
 				value: property.value,
@@ -153,7 +154,7 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 				section: 'entry_properties',
 				isMergeTag: true,
 			};
-		} )
+		})
 	);
 
 	// apply global customize filter to sections and options.
@@ -165,28 +166,28 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 	options = filtered.options;
 
 	// apply local customize filter to sections and options.
-	if ( customize ) {
-		const customized = customize( { sections, options } );
+	if (customize) {
+		const customized = customize({ sections, options });
 		sections = customized.sections;
 		options = customized.options;
 	}
 
 	// select first option.
-	useEffect( () => {
+	useEffect(() => {
 		if (
 			selectFirstOption &&
-			! value.type &&
-			! value.value &&
-			options[ 0 ]
+			!value.type &&
+			!value.value &&
+			options[0]
 		) {
-			onChange( { type: options[ 0 ].type, value: options[ 0 ].value } );
+			onChange({ type: options[0].type, value: options[0].value });
 		}
-	}, [] );
+	}, []);
 
 	return (
 		<div className="combobox-control">
 			<ComboboxControlContextProvider
-				value={ {
+				value={{
 					id,
 					sections,
 					options,
@@ -195,13 +196,13 @@ const ComboboxControl: React.FC< ComboboxControlProps > = ( {
 					isToggleEnabled,
 					placeholder,
 					excerptLength,
-				} }
+				}}
 			>
-				{ value.type === 'text' ? (
-					<RichText allowedFormats={ allowedFormats } />
+				{value.type === 'text' ? (
+					<RichText allowedFormats={allowedFormats} />
 				) : (
-					<Select hideChooseOption={ hideChooseOption } />
-				) }
+					<Select hideChooseOption={hideChooseOption} />
+				)}
 			</ComboboxControlContextProvider>
 		</div>
 	);

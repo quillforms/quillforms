@@ -12,6 +12,7 @@ import Tree, {
 } from "@atlaskit/tree";
 import { identAlphabetically } from "@quillforms/utils";
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 import { BlockIconBox, getPlainExcerpt, withErrorBoundary } from "@quillforms/admin-components";
 import { BlockActions } from "@quillforms/block-editor";
@@ -782,12 +783,12 @@ const PureTree: React.FC = withErrorBoundary(() => {
             </div>
             {showPartialSubmissionPointAlert && (
                 <Modal
-                    title="Partial Submission Point Alert"
+                    title={__('Partial Submission Point Alert', 'quillforms')}
                     onRequestClose={() => setShowPartialSubmissionPointAlert(false)}
                 >
                     <div>
                         <p>
-                            <strong>Partial Submission Point</strong> shouldn't be the first or the last field.
+                            <strong>{__('Partial Submission Point', 'quillforms')}</strong> {__('shouldn\'t be the first or the last field.', 'quillforms')}
                         </p>
                     </div>
                 </Modal>

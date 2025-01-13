@@ -1,29 +1,29 @@
 import { useState } from "react";
 import "./style.css";
 import { ProFeatureBanner } from "@quillforms/admin-components";
-
+import { __ } from '@wordpress/i18n';
 const FormAnalyticsDemo = () => {
     const [showDemoOverlay, setShowDemoOverlay] = useState(true);
 
     const questionData = [
         {
-            question: "What's your preferred working schedule?",
+            question: __("What's your preferred working schedule?", 'quillforms'),
             total: 1000,
             options: [
-                { label: "9-5 Office Hours", percentage: 45, color: "#4285f4" },
-                { label: "Flexible Hours", percentage: 30, color: "#34a853" },
-                { label: "Night Shift", percentage: 15, color: "#fbbc04" },
-                { label: "Weekend Shifts", percentage: 10, color: "#ea4335" }
+                { label: __("9-5 Office Hours", 'quillforms'), percentage: 45, color: "#4285f4" },
+                { label: __("Flexible Hours", 'quillforms'), percentage: 30, color: "#34a853" },
+                { label: __("Night Shift", 'quillforms'), percentage: 15, color: "#fbbc04" },
+                { label: __("Weekend Shifts", 'quillforms'), percentage: 10, color: "#ea4335" }
             ]
         },
         {
-            question: "How often do you work remotely?",
+            question: __("How often do you work remotely?", 'quillforms'),
             total: 850,
             options: [
-                { label: "Full Remote", percentage: 35, color: "#4285f4" },
-                { label: "Hybrid (3-2)", percentage: 40, color: "#34a853" },
-                { label: "Occasional", percentage: 15, color: "#fbbc04" },
-                { label: "Office Only", percentage: 10, color: "#ea4335" }
+                { label: __("Full Remote", 'quillforms'), percentage: 35, color: "#4285f4" },
+                { label: __("Hybrid (3-2)", 'quillforms'), percentage: 40, color: "#34a853" },
+                { label: __("Occasional", 'quillforms'), percentage: 15, color: "#fbbc04" },
+                { label: __("Office Only", 'quillforms'), percentage: 10, color: "#ea4335" }
             ]
         }
     ];
@@ -34,27 +34,27 @@ const FormAnalyticsDemo = () => {
                 <div className="form-analytics-demo-overlay">
                     <div className="form-analytics-demo-overlay-content">
                         <span className="form-analytics-demo-overlay-icon">📊</span>
-                        <h3>Form Analytics Demo</h3>
-                        <p>See how respondents answer your multiple choice questions with interactive charts and insights.</p>
-                        <p>This is a preview using sample data.</p>
+                        <h3>{__("Form Analytics Demo", 'quillforms')}</h3>
+                        <p>{__("See how respondents answer your multiple choice questions with interactive charts and insights.", 'quillforms')}</p>
+                        <p>{__("This is a preview using sample data.", 'quillforms')}</p>
                         <button
                             className="form-analytics-demo-overlay-button"
                             onClick={() => setShowDemoOverlay(false)}
                         >
-                            Explore Analytics Demo
+                            {__("Explore Analytics Demo", 'quillforms')}
                         </button>
                     </div>
                 </div>
             )}
 
-            <div className="form-analytics-demo-watermark">DEMO PREVIEW</div>
+            <div className="form-analytics-demo-watermark">{__("DEMO PREVIEW", 'quillforms')}</div>
 
             <div className="form-analytics-demo-header">
                 <div className="form-analytics-pro-badge">
-                    <span>⭐</span> Pro Feature
+                    <span>⭐</span> {__("Pro Feature", 'quillforms')}
                 </div>
-                <h2>Response Analytics</h2>
-                <p>Analyze how people respond to your multiple choice questions</p>
+                <h2>{__("Response Analytics", 'quillforms')}</h2>
+                <p>{__("Analyze how people respond to your multiple choice questions", 'quillforms')}</p>
             </div>
 
             <div className="form-analytics-questions-grid">
@@ -63,7 +63,7 @@ const FormAnalyticsDemo = () => {
                         <div className="form-analytics-question-header">
                             <h3>{question.question}</h3>
                             <div className="form-analytics-total-responses">
-                                {question.total} responses
+                                {question.total} {__("responses", 'quillforms')}
                             </div>
                         </div>
 
@@ -116,7 +116,7 @@ const FormAnalyticsDemo = () => {
                         <div className="form-analytics-question-insights">
                             <div className="form-analytics-insight-icon">💡</div>
                             <div className="form-analytics-insight-content">
-                                Most respondents prefer {
+                                {__('Most Respondents prefer', 'quillforms')} {
                                     question.options.reduce((prev, current) =>
                                         prev.percentage > current.percentage ? prev : current
                                     ).label.toLowerCase()
@@ -132,7 +132,7 @@ const FormAnalyticsDemo = () => {
                     className="form-analytics-demo-info-button"
                     onClick={() => setShowDemoOverlay(true)}
                 >
-                    ℹ️ About This Demo
+                    ℹ️ {__('About This Demo', 'quillforms')}
                 </button>
                 <ProFeatureBanner featureName="Advanced Entries" addonSlug="advancedentries" />
 

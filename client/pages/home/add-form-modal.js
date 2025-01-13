@@ -3,6 +3,7 @@
  */
 import { Modal } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies.
@@ -84,7 +85,7 @@ const AddFormModal = ({ closeModal }) => {
 				`
 
 			)}
-			title="Create new form"
+			title={__('Create new form', 'quillforms')}
 			onRequestClose={closeModal}
 			shouldCloseOnClickOutside={false}
 
@@ -98,13 +99,13 @@ const AddFormModal = ({ closeModal }) => {
 						<div class="create-form-cards">
 							<div className="create-from-scratch-card" onClick={() => { setFormTitleScreen(true) }}>
 								<ScratchIcon />
-								Start from scratch
+								{__('Start from scratch', 'quillforms')}
 							</div>
 							<div className='choose-template-card' onClick={() => {
 								setFormTemplateScreen(true)
 							}}>
 								<TemplateIcon />
-								Choose a template
+								{__('Choose a template', 'quillforms')}
 							</div>
 						</div>
 					)

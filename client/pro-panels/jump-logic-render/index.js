@@ -1,5 +1,7 @@
 import "./style.css";
 import { EnhancedProLabel, ProFeatureBanner } from "@quillforms/admin-components";
+import { __ } from '@wordpress/i18n';
+
 const JumpLogicPreview = () => {
 	return (
 		<div className="jump-logic-preview-wrapper">
@@ -7,26 +9,26 @@ const JumpLogicPreview = () => {
 				<div className="jump-logic-preview-left">
 					<div className="jump-logic-preview-header">
 						<EnhancedProLabel />
-						<h2>Smart Jump Logic</h2>
-						<p className="jump-logic-preview-subtitle">Create conditional paths by dragging between fields</p>
+						<h2>{__('Smart Jump Logic', 'quillforms')}</h2>
+						<p className="jump-logic-preview-subtitle">{__('Create conditional paths by dragging between fields', 'quillforms')}</p>
 					</div>
 					<div className="jump-logic-preview-features">
 						<div className="jump-logic-preview-feature">
 							<span className="jump-logic-preview-checkmark">✓</span>
-							Drag & Drop Interface
+							{__('Drag & Drop Interface', 'quillforms')}
 						</div>
 						<div className="jump-logic-preview-feature">
 							<span className="jump-logic-preview-checkmark">✓</span>
-							Skip Irrelevant Questions
+							{__('Skip Irrelevant Questions', 'quillforms')}
 						</div>
 						<div className="jump-logic-preview-feature">
 							<span className="jump-logic-preview-checkmark">✓</span>
-							Personalized Form Paths
+							{__('Personalized Form Paths', 'quillforms')}
 						</div>
 					</div>
 
 					<ProFeatureBanner
-						featureName="Jump Logic"
+						featureName={__('Jump Logic', 'quillforms')}
 						addonSlug="logic"
 					/>
 				</div>
@@ -69,10 +71,10 @@ const JumpLogicPreview = () => {
 									stroke="#0066cc"
 									strokeWidth="2"
 								/>
-								<text x="20" y="35" fill="#1a1a1a" fontSize="16">What's your role?</text>
+								<text x="20" y="35" fill="#1a1a1a" fontSize="16">{__('What\'s your role?', 'quillforms')}</text>
 								<g className="jump-logic-preview-options" transform="translate(20, 45)">
-									<text x="0" y="20" fill="#666666" fontSize="14">○ Manager</text>
-									<text x="100" y="20" fill="#666666" fontSize="14">○ Employee</text>
+									<text x="0" y="20" fill="#666666" fontSize="14">○ {__('Manager', 'quillforms')}</text>
+									<text x="100" y="20" fill="#666666" fontSize="14">○ {__('Employee', 'quillforms')}</text>
 								</g>
 							</g>
 
@@ -91,10 +93,10 @@ const JumpLogicPreview = () => {
 									strokeWidth="2"
 								/>
 								<text x="20" y="35" fill="#a1a1a1" fontSize="16">
-									Years of experience?
+									{__('Years of experience?', 'quillforms')}
 								</text>
 								<text x="20" y="60" fill="#a1a1a1" fontSize="14">
-									(Skipped based on condition)
+									{__('(Skipped based on condition)', 'quillforms')}
 								</text>
 							</g>
 
@@ -108,11 +110,11 @@ const JumpLogicPreview = () => {
 									stroke="#0066cc"
 									strokeWidth="2"
 								/>
-								<text x="20" y="35" fill="#1a1a1a" fontSize="16">Team size?</text>
+								<text x="20" y="35" fill="#1a1a1a" fontSize="16">{__('Team size?', 'quillforms')}</text>
 								<g className="jump-logic-preview-options" transform="translate(20, 45)">
-									<text x="0" y="20" fill="#666666" fontSize="14">○ 1-10</text>
-									<text x="80" y="20" fill="#666666" fontSize="14">○ 11-50</text>
-									<text x="160" y="20" fill="#666666" fontSize="14">○ 50+</text>
+									<text x="0" y="20" fill="#666666" fontSize="14">○ {__('1-10', 'quillforms')}</text>
+									<text x="80" y="20" fill="#666666" fontSize="14">○ {__('11-50', 'quillforms')}</text>
+									<text x="160" y="20" fill="#666666" fontSize="14">○ {__('50+', 'quillforms')}</text>
 								</g>
 							</g>
 
@@ -142,7 +144,6 @@ const JumpLogicPreview = () => {
 							</defs>
 
 							{/* Condition Indicator */}
-							{/* Condition Indicator */}
 							<g className="jump-logic-preview-condition" transform="translate(380, 220)">
 								<circle r="16" fill="white" stroke="#0066cc" strokeWidth="2" />
 								<text
@@ -152,7 +153,7 @@ const JumpLogicPreview = () => {
 									textAnchor="middle"
 									fill="#0066cc"
 									className="jump-logic-preview-condition-icon"
-								>IF</text>
+								>{__('IF', 'quillforms')}</text>
 
 								{/* Condition Popup */}
 								<g className="jump-logic-preview-condition-popup" transform="translate(30, 0)">
@@ -164,8 +165,8 @@ const JumpLogicPreview = () => {
 										stroke="#0066cc"
 										strokeWidth="1"
 									/>
-									<text x="10" y="20" fontSize="12" fill="#666666">If Role is</text>
-									<text x="10" y="40" fontSize="14" fill="#1a1a1a" fontWeight="500">Manager</text>
+									<text x="10" y="20" fontSize="12" fill="#666666">{__('If Role is', 'quillforms')}</text>
+									<text x="10" y="40" fontSize="14" fill="#1a1a1a" fontWeight="500">{__('Manager', 'quillforms')}</text>
 								</g>
 							</g>
 
