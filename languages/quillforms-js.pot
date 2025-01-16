@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-01-13T05:15:21.340Z\n"
+"POT-Creation-Date: 2025-01-16T05:37:03.987Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,6 +81,7 @@ msgstr ""
 #: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:135
 #: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:66
 #: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:84
+#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:41
 msgid "Account"
 msgstr ""
 
@@ -89,6 +90,7 @@ msgstr ""
 #: form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
 #: form-integrations/src/components/shared/account-auth/oauth/index.tsx:44
 #: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
+#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:44
 msgid "added successfully!"
 msgstr ""
 
@@ -240,6 +242,8 @@ msgstr ""
 #: components/customize/index.js:174
 #: components/customize/index.js:262
 #: packages/blocklib-email-block/src/admin/controls.js:184
+#: packages/theme-editor/src/components/customize/index.js:174
+#: packages/theme-editor/src/components/customize/index.js:262
 #: src/admin/controls.js:184
 #: theme-editor/src/components/customize/index.js:174
 #: theme-editor/src/components/customize/index.js:262
@@ -770,6 +774,7 @@ msgstr ""
 #: components/block-default-controls/index.tsx:268
 #: components/customize/index.js:202
 #: packages/block-editor/src/components/block-default-controls/index.tsx:268
+#: packages/theme-editor/src/components/customize/index.js:202
 #: theme-editor/src/components/customize/index.js:202
 msgid "Focal Point Picker"
 msgstr ""
@@ -965,6 +970,7 @@ msgstr ""
 #: notifications-editor/src/components/notification-title/index.js:17
 #: packages/document-editor/src/components/post-title/index.js:20
 #: packages/notifications-editor/src/components/notification-title/index.js:17
+#: packages/theme-editor/src/components/customize/index.js:122
 #: pages/home/home-content.js:26
 #: pages/home/home-content.js:294
 #: theme-editor/src/components/customize/index.js:122
@@ -1545,26 +1551,31 @@ msgid "Clear"
 msgstr ""
 
 #: components/customize/index.js:117
+#: packages/theme-editor/src/components/customize/index.js:117
 #: theme-editor/src/components/customize/index.js:117
 msgid "Back"
 msgstr ""
 
 #: components/customize/index.js:119
+#: packages/theme-editor/src/components/customize/index.js:119
 #: theme-editor/src/components/customize/index.js:119
 msgid "Theme Title"
 msgstr ""
 
 #: components/customize/index.js:132
+#: packages/theme-editor/src/components/customize/index.js:132
 #: theme-editor/src/components/customize/index.js:132
 msgid "Background and Logo"
 msgstr ""
 
 #: components/customize/index.js:135
+#: packages/theme-editor/src/components/customize/index.js:135
 #: theme-editor/src/components/customize/index.js:135
 msgid "Background Overlay Color"
 msgstr ""
 
 #: components/customize/index.js:149
+#: packages/theme-editor/src/components/customize/index.js:149
 #: theme-editor/src/components/customize/index.js:149
 msgid "Background Image"
 msgstr ""
@@ -1575,6 +1586,8 @@ msgstr ""
 #: components/customize/index.js:248
 #: form-integrations/src/components/shared/account-auth/credentials/index.tsx:157
 #: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:157
+#: packages/theme-editor/src/components/customize/index.js:160
+#: packages/theme-editor/src/components/customize/index.js:248
 #: pro-panels/calculator-render/index.js:72
 #: theme-editor/src/components/customize/index.js:160
 #: theme-editor/src/components/customize/index.js:248
@@ -1582,6 +1595,7 @@ msgid "Add"
 msgstr ""
 
 #: components/customize/index.js:189
+#: packages/theme-editor/src/components/customize/index.js:189
 #: theme-editor/src/components/customize/index.js:189
 msgid ""
 "To add a background image, clear the background overlay color or add "
@@ -1589,16 +1603,19 @@ msgid ""
 msgstr ""
 
 #: components/customize/index.js:234
+#: packages/theme-editor/src/components/customize/index.js:234
 #: theme-editor/src/components/customize/index.js:234
 msgid "logo"
 msgstr ""
 
 #: components/customize/index.js:269
+#: packages/theme-editor/src/components/customize/index.js:269
 #: theme-editor/src/components/customize/index.js:269
 msgid "Font Families"
 msgstr ""
 
 #: components/customize/index.js:272
+#: packages/theme-editor/src/components/customize/index.js:272
 #: theme-editor/src/components/customize/index.js:272
 msgid ""
 "You can add your custom font from settings icon at left bar and then click "
@@ -1606,86 +1623,103 @@ msgid ""
 msgstr ""
 
 #: components/customize/index.js:277
+#: packages/theme-editor/src/components/customize/index.js:277
 #: theme-editor/src/components/customize/index.js:277
 msgid "Base Font"
 msgstr ""
 
 #: components/customize/index.js:292
+#: packages/theme-editor/src/components/customize/index.js:292
 #: theme-editor/src/components/customize/index.js:292
 msgid "Questions Label Font"
 msgstr ""
 
 #: components/customize/index.js:312
+#: packages/theme-editor/src/components/customize/index.js:312
 #: theme-editor/src/components/customize/index.js:312
 msgid "Questions Description Font"
 msgstr ""
 
 #: components/customize/index.js:331
+#: packages/theme-editor/src/components/customize/index.js:331
 #: theme-editor/src/components/customize/index.js:331
 msgid "Colors"
 msgstr ""
 
 #: components/customize/index.js:334
+#: packages/theme-editor/src/components/customize/index.js:334
 #: theme-editor/src/components/customize/index.js:334
 msgid "Questions Color"
 msgstr ""
 
 #: components/customize/index.js:348
+#: packages/theme-editor/src/components/customize/index.js:348
 #: theme-editor/src/components/customize/index.js:348
 msgid "Answers Color"
 msgstr ""
 
 #: components/customize/index.js:362
+#: packages/theme-editor/src/components/customize/index.js:362
 #: theme-editor/src/components/customize/index.js:362
 msgid "Buttons Font Color"
 msgstr ""
 
 #: components/customize/index.js:376
+#: packages/theme-editor/src/components/customize/index.js:376
 #: theme-editor/src/components/customize/index.js:376
 msgid "Buttons Background Color"
 msgstr ""
 
 #: components/customize/index.js:390
+#: packages/theme-editor/src/components/customize/index.js:390
 #: theme-editor/src/components/customize/index.js:390
 msgid "Errors Text Color"
 msgstr ""
 
 #: components/customize/index.js:404
+#: packages/theme-editor/src/components/customize/index.js:404
 #: theme-editor/src/components/customize/index.js:404
 msgid "Errors Background Color"
 msgstr ""
 
 #: components/customize/index.js:419
+#: packages/theme-editor/src/components/customize/index.js:419
 #: theme-editor/src/components/customize/index.js:419
 msgid "Form Footer Background Color"
 msgstr ""
 
 #: components/customize/index.js:467
+#: packages/theme-editor/src/components/customize/index.js:467
 #: theme-editor/src/components/customize/index.js:467
 msgid "Progress Bar Fill Color"
 msgstr ""
 
 #: components/customize/index.js:481
+#: packages/theme-editor/src/components/customize/index.js:481
 #: theme-editor/src/components/customize/index.js:481
 msgid "Progress Bar Background Color"
 msgstr ""
 
 #: components/customize/index.js:499
+#: packages/theme-editor/src/components/customize/index.js:499
 #: theme-editor/src/components/customize/index.js:499
 msgid "Borders"
 msgstr ""
 
 #: components/customize/index.js:502
+#: packages/theme-editor/src/components/customize/index.js:502
 #: theme-editor/src/components/customize/index.js:502
 msgid "Buttons Border Radius(px)"
 msgstr ""
 
 #: components/customize/index.js:521
+#: packages/theme-editor/src/components/customize/index.js:521
 #: theme-editor/src/components/customize/index.js:521
 msgid "Buttons Border Width(px)"
 msgstr ""
 
 #: components/customize/index.js:542
+#: packages/theme-editor/src/components/customize/index.js:542
 #: theme-editor/src/components/customize/index.js:542
 msgid "Buttons Border Color"
 msgstr ""
@@ -4347,4 +4381,12 @@ msgstr ""
 #: packages/theme-editor/src/components/typography-panel/index.js:526
 #: theme-editor/src/components/typography-panel/index.js:526
 msgid "Text input answers font"
+msgstr ""
+
+#: blocklib-long-text-block/src/admin/controls.js:49
+#: blocklib-short-text-block/src/admin/controls.js:49
+#: packages/blocklib-long-text-block/src/admin/controls.js:49
+#: packages/blocklib-short-text-block/src/admin/controls.js:49
+#: src/admin/controls.js:49
+msgid "Max Chara"
 msgstr ""

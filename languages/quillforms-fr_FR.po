@@ -21,7 +21,7 @@ msgstr ""
 #: quillforms.php includes/admin/class-admin.php:127 
 #: includes/admin/class-admin.php:128 includes/admin/class-admin.php:150
 msgid "Quill Forms"
-msgstr "Plume Formes"
+msgstr "Quill Forms"
 
 #. Plugin URI of the plugin
 #: quillforms.php
