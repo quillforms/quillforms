@@ -155,6 +155,10 @@ module.exports = {
 		alias: {
 			"react/jsx-runtime.js": "react/jsx-runtime",
 			"react/jsx-dev-runtime.js": "react/jsx-dev-runtime"
+		},
+		fallback: {
+			"fs": false,
+			"path": require.resolve("path-browserify")
 		}
 	},
 
@@ -372,12 +376,6 @@ module.exports = {
 				],
 			},
 		]),
-	},
-	resolve: {
-		fallback: {
-			"fs": false,
-			"path": require.resolve("path-browserify")
-		}
 	},
 	plugins: [
 		new CleanWebpackPlugin({
