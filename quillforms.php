@@ -3,7 +3,7 @@
  * Plugin Name:       Quill Forms
  * Plugin URI:        https://www.quillforms.com/
  * Description:       Conversational Forms Builder for WordPress
- * Version:           4.5.0
+ * Version:           4.6.1
  * Author:            quillforms.com
  * Author URI:        http://www.quillforms.com
  * Text Domain:       quillforms
@@ -22,7 +22,7 @@ if ( ! defined( 'QUILLFORMS_PLUGIN_FILE' ) ) {
 
 // Plugin version.
 if ( ! defined( 'QUILLFORMS_VERSION' ) ) {
-	define( 'QUILLFORMS_VERSION', '4.5.0' );
+	define( 'QUILLFORMS_VERSION', '4.6.1' );
 }
 
 // Plugin Folder Path.
@@ -118,14 +118,16 @@ function quillforms_load_textdomain() {
         dirname( plugin_basename( QUILLFORMS_PLUGIN_FILE ) ) . '/languages'
     );
 
-    // Load JavaScript translations
-    wp_set_script_translations(
-        'quillforms',
-        'quillforms',
-        QUILLFORMS_PLUGIN_DIR . 'languages'
-    );
+    // Handle JavaScript translations
+    $locale = determine_locale();
+	wp_set_script_translations(
+		'quillforms-js',
+		'quillforms',
+		QUILLFORMS_PLUGIN_DIR . 'languages'
+	);
 }
 add_action( 'init', 'quillforms_load_textdomain' );
+
 /**
  * Display a PHP version notice and deactivate QuillForms plugin.
  *

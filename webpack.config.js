@@ -15,7 +15,6 @@ const postcss = require('postcss');
 const { compact } = require('lodash');
 const { basename } = require('path');
 const path = require('path');
-const PotFilePlugin = require('./PotFilePlugin');
 
 
 const defaultConfig = require('./packages/scripts/config/webpack.config');
