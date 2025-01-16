@@ -76,7 +76,7 @@ const Skeleton = withErrorBoundary(() => {
                 'quillForms/block-editor'
             ).getCurrentBlock(),
             currentChildBlockId: select('quillForms/block-editor').getCurrentChildBlockId(),
-            blocks: select('quillForms/block-editor').getBlocks(),
+            blocks: select('quillForms/block-editor').getBlocks(true),
             messages: select('quillForms/messages-editor').getMessages(),
             settings: select('quillForms/settings-editor').getSettings(),
             customCSS: select('quillForms/code-editor').getCustomCSS(),
@@ -95,6 +95,13 @@ const Skeleton = withErrorBoundary(() => {
             ...currentTheme,
         };
     }
+
+    useEffect(() => {
+        if (hasThemesFinishedResolution && blocks?.length > 0 && !currentBlockBeingEditedId) {
+            setCurrentBlock(blocks[0].id)
+        }
+
+    }, [hasThemesFinishedResolution]);
 
 
 
