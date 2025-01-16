@@ -2,7 +2,7 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-
+import { doAction } from '@wordpress/hooks';
 /**
  * External Dependencies
  */
