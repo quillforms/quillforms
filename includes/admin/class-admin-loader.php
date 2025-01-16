@@ -133,7 +133,17 @@ class Admin_Loader {
 		if ( self::is_admin_page() ) {
 			$wp_scripts->queue = array( 'jquery', 'media-audiovideo' );
 			wp_enqueue_media();
+
+			// filter the scripts so they don't have this script: elementor-ai-media-library
+			$wp_scripts->queue = array_filter(
+				$wp_scripts->queue,
+				function( $script ) {
+					return 'elementor-ai-media-library' !== $script;
+				}
+			);
 		}
+
+
 	}
 
 	/**
