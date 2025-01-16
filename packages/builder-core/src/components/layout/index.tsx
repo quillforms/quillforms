@@ -84,34 +84,6 @@ const Layout: React.FC<Props> = ({ formId }) => {
 		}, 100);
 	}, [])
 
-	// Setting current block id once blocks are resolved.
-	useEffect(() => {
-		if (formBlocks?.length > 0) {
-			setCurrentBlock(formBlocks[0].id);
-			formBlocks.forEach((block) => {
-				let blockType = blockTypes[block.name];
-				if (blockType.supports.editable) {
-					insertEmptyFieldAnswer(block.id, block.name);
-				}
-
-
-				if (
-					blockType.supports.innerBlocks &&
-					size(block?.innerBlocks) > 0
-				) {
-					block?.innerBlocks.forEach((childBlock) => {
-						blockType = blockTypes[childBlock.name];
-						if (blockType?.supports?.editable) {
-							insertEmptyFieldAnswer(
-								childBlock.id,
-								childBlock.name
-							);
-						}
-					});
-				}
-			});
-		}
-	}, []);
 
 
 	return (
