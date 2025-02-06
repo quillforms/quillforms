@@ -34,3 +34,7 @@ export function shouldBrandingBeDisplayed(state) {
 export function shouldAstreisksOnRequiredFieldsBeHidden(state) {
 	return state.disableAstreisksOnRequiredFields;
 }
+
+export function shouldAutoSubmitBeEnabled(state) {
+	return state.enableAutoSubmit;
+}

@@ -7,6 +7,7 @@ import {
 	SHOW_LETTERS_ON_ANSWERS,
 	DISABLE_ASTREISKS_ON_REQUIRED_FIELDS,
 	SAVE_ANSWERS_IN_BROWSER,
+	ENABLE_AUTO_SUBMIT,
 	SETUP_STORE,
 	DISPLAY_BRANDING,
 } from './constants';
@@ -231,7 +232,20 @@ export function disableAstreisksOnRequiredFields(state = false, action) {
 	return state;
 }
 
+export function enableAutoSubmit(state = false, action) {
+	switch (action.type) {
+		case ENABLE_AUTO_SUBMIT:
+			return action.flag;
 
+		case SETUP_STORE: {
+			return action.initialPayload?.enableAutoSubmit
+				? action.initialPayload?.enableAutoSubmit
+				: false;
+		}
+	}
+
+	return state;
+}
 
 export default combineReducers({
 	disableProgressBar,
@@ -242,5 +256,6 @@ export default combineReducers({
 	showQuestionsNumbers,
 	saveAnswersInBrowser,
 	displayBranding,
+	enableAutoSubmit,
 	disableAstreisksOnRequiredFields
 });

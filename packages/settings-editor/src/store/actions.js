@@ -8,7 +8,8 @@ import {
 	SHOW_LETTERS_ON_ANSWERS,
 	SHOW_QUESTIONS_NUMBERS,
 	DISPLAY_BRANDING,
-	SAVE_ANSWERS_IN_BROWSER
+	SAVE_ANSWERS_IN_BROWSER,
+	ENABLE_AUTO_SUBMIT
 } from './constants';
 export const setUpStore = (initialPayload) => {
 	return {
@@ -74,6 +75,13 @@ export const displayBranding = (flag) => {
 export const disableAstreisksOnRequiredFields = (flag) => {
 	return {
 		type: DISABLE_ASTREISKS_ON_REQUIRED_FIELDS,
+		flag
+	}
+}
+
+export const enableAutoSubmit = (flag) => {
+	return {
+		type: ENABLE_AUTO_SUBMIT,
 		flag
 	}
 }

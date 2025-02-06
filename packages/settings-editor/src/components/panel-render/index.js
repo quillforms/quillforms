@@ -39,6 +39,7 @@ const PanelRender = () => {
 		saveAnswersInBrowser,
 		displayBranding,
 		disableAstreisksOnRequiredFields,
+		enableAutoSubmit
 	} = useDispatch('quillForms/settings-editor');
 
 	const {
@@ -51,6 +52,7 @@ const PanelRender = () => {
 		shouldAstreisksOnRequiredFieldsBeHidden,
 		shouldBrandingBeDisplayed,
 		animationDirection,
+		shouldAutoSubmitBeEnabled
 	} = useSelect((select) => {
 		return {
 			isProgressBarDisabled: select(
@@ -80,6 +82,9 @@ const PanelRender = () => {
 			shouldAstreisksOnRequiredFieldsBeHidden: select(
 				'quillForms/settings-editor'
 			).shouldAstreisksOnRequiredFieldsBeHidden(),
+			shouldAutoSubmitBeEnabled: select(
+				'quillForms/settings-editor'
+			).shouldAutoSubmitBeEnabled(),
 		};
 	});
 
@@ -203,6 +208,17 @@ const PanelRender = () => {
 						value={animationOptions.find(
 							(option) => option.key === animationDirection
 						)}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel label={__('Auto Submit the form after answering the last question', 'quillforms')} />
+					<ToggleControl
+						checked={shouldAutoSubmitBeEnabled}
+						onChange={() => {
+							enableAutoSubmit(!shouldAutoSubmitBeEnabled);
+						}}
 					/>
 				</ControlWrapper>
 			</BaseControl>
