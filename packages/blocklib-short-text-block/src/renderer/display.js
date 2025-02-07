@@ -157,7 +157,6 @@ const ShortTextOutput = (props) => {
 					setFooterDisplay(true);
 				}
 			}}
-			autoComplete="off"
 		/>
 	);
 };

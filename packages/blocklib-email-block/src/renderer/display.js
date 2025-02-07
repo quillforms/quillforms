@@ -153,7 +153,6 @@ const EmailOutput = (props) => {
 					setFooterDisplay(true);
 				}
 			}}
-			autoComplete="off"
 		/>
 	);
 };

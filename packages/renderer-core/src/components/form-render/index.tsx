@@ -154,6 +154,7 @@ const Form: React.FC<Props> = ({
 			saveAnswersInBrowser: false,
 			displayBranding: false,
 			disableAstreisksOnRequiredFields: false,
+			enableAutoSubmit: false,
 			...formObj.settings,
 		};
 

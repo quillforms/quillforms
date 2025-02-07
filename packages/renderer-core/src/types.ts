@@ -29,6 +29,7 @@ export type FormObj = {
 		saveAnswersInBrowser?: boolean;
 		displayBranding?: boolean;
 		disableAstreisksOnRequiredFields?: boolean;
+		enableAutoSubmit?: boolean;
 	};
 	hiddenFields?: Object;
 	customCSS?: string;

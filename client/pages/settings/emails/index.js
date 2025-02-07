@@ -26,62 +26,62 @@ import { ThreeDots as Loader } from 'react-loader-spinner';
 import { isEmpty } from 'lodash';
 
 const Emails = () => {
-	const [ settings, setSettings ] = useState( null );
-	const [ isSaving, setIsSaving ] = useState( false );
+	const [settings, setSettings] = useState(null);
+	const [isSaving, setIsSaving] = useState(false);
 	const { createErrorNotice, createSuccessNotice } =
-		useDispatch( 'core/notices' );
+		useDispatch('core/notices');
 
-	const setSettingField = ( key, value ) => {
-		setSettings( ( settings ) => {
+	const setSettingField = (key, value) => {
+		setSettings((settings) => {
 			return {
 				...settings,
-				[ key ]: value,
+				[key]: value,
 			};
-		} );
+		});
 	};
 
-	useEffect( () => {
-		apiFetch( {
+	useEffect(() => {
+		apiFetch({
 			path: `/qf/v1/settings?groups=emails`,
 			method: 'GET',
-		} )
-			.then( ( res ) => {
-				setSettings( res.emails );
-			} )
-			.catch( () => {
-				setSettings( false );
-			} );
-	}, [] );
+		})
+			.then((res) => {
+				setSettings(res.emails);
+			})
+			.catch(() => {
+				setSettings(false);
+			});
+	}, []);
 
 	const save = () => {
-		setIsSaving( true );
-		apiFetch( {
+		setIsSaving(true);
+		apiFetch({
 			path: `/qf/v1/settings`,
 			method: 'POST',
 			data: settings,
-		} )
-			.then( () => {
-				createSuccessNotice( '✅ Settings saved', {
+		})
+			.then(() => {
+				createSuccessNotice('✅ Settings saved', {
 					type: 'snackbar',
 					isDismissible: true,
-				} );
-				setIsSaving( false );
+				});
+				setIsSaving(false);
 				// To reinitialize google maps scripts
-				setForceReload( true );
-			} )
-			.catch( ( err ) => {
-				createErrorNotice( `⛔ ${ err ?? 'Error' }`, {
+				setForceReload(true);
+			})
+			.catch((err) => {
+				createErrorNotice(`⛔ ${err ?? 'Error'}`, {
 					type: 'snackbar',
 					isDismissible: true,
-				} );
-				setIsSaving( false );
-			} );
+				});
+				setIsSaving(false);
+			});
 	};
 	return (
 		<div className="quillforms-settings-emails-tab">
-			{ settings === null ? (
+			{settings === null ? (
 				<div
-					className={ css`
+					className={css`
 						display: flex;
 						flex-wrap: wrap;
 						width: 100%;
@@ -90,58 +90,72 @@ const Emails = () => {
 						align-items: center;
 					` }
 				>
-					<Loader color="#8640e3" height={ 50 } width={ 50 } />
+					<Loader color="#8640e3" height={50} width={50} />
 				</div>
-			) : ! settings ? (
+			) : !settings ? (
 				<div className="error">Cannot load settings</div>
 			) : (
 				<div>
 					<BaseControl>
 						<ControlWrapper orientation="horizontal">
 							<div
-								className={ css`
+								className={css`
 									width: 150px;
 									display: flex;
 									align-items: center;
 								` }
 							>
 								<ControlLabel label="Header Image" />
-								{ settings.emails_header_image && (
+								{settings.emails_header_image && (
 									<img
-										src={ settings.emails_header_image }
-										className={ css`
+										src={settings.emails_header_image}
+										className={css`
 											width: 40px;
 											height: 40px;
 											objec-fit: cover;
 											margin-left: 10px;
 										` }
 									/>
-								) }
+								)}
 							</div>
 							<MediaUpload
-								onSelect={ ( media ) =>
+								onSelect={(media) =>
 									setSettingField(
 										'emails_header_image',
 										media.url
 									)
 								}
-								allowedTypes={ [ 'image' ] }
-								render={ ( { open } ) => (
+								allowedTypes={['image']}
+								render={({ open }) => (
 									<button
 										className="media-upload-btn"
-										onClick={ open }
+										onClick={open}
 									>
-										{ isEmpty(
+										{isEmpty(
 											settings.emails_header_image
 										)
 											? 'Upload Image'
-											: 'Replace Image' }
+											: 'Replace Image'}
 									</button>
-								) }
+								)}
 							/>
+							{!isEmpty(settings.emails_header_image) && (
+								<Button
+									isButton
+									isDanger
+									onClick={() =>
+										setSettingField(
+											'emails_header_image',
+											''
+										)
+									}
+								>
+									Remove
+								</Button>
+							)}
 						</ControlWrapper>
 						<p
-							className={ css`
+							className={css`
 								color: #8e8989;
 							` }
 						>
@@ -154,18 +168,18 @@ const Emails = () => {
 						<ControlWrapper orientation="vertical">
 							<ControlLabel label="Background Color" />
 							<ColorPalette
-								colors={ [] }
-								value={ settings.emails_background_color }
-								onChange={ ( val ) => {
+								colors={[]}
+								value={settings.emails_background_color}
+								onChange={(val) => {
 									setSettingField(
 										'emails_background_color',
 										val
 									);
-								} }
+								}}
 							/>
 						</ControlWrapper>
 						<p
-							className={ css`
+							className={css`
 								color: #8e8989;
 							` }
 						>
@@ -174,23 +188,23 @@ const Emails = () => {
 						</p>
 					</BaseControl>
 					<div
-						className={ css`
+						className={css`
 							text-align: left;
 							margin-top: 20px;
 						` }
 					>
-						{ isSaving ? (
+						{isSaving ? (
 							<Button isLarge isSecondary>
 								Saving
 							</Button>
 						) : (
-							<Button isLarge isPrimary onClick={ save }>
+							<Button isLarge isPrimary onClick={save}>
 								Save
 							</Button>
-						) }
+						)}
 					</div>
 				</div>
-			) }
+			)}
 		</div>
 	);
 };

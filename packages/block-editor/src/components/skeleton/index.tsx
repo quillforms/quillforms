@@ -97,10 +97,9 @@ const Skeleton = withErrorBoundary(() => {
     }
 
     useEffect(() => {
-        if (hasThemesFinishedResolution && blocks?.length > 0 && !currentBlockBeingEditedId) {
-            setCurrentBlock(blocks[0].id)
+        if (!currentBlockBeingEditedId) {
+            setCurrentBlock(blocks[0].id);
         }
-
     }, [hasThemesFinishedResolution]);
 
 
@@ -173,53 +172,33 @@ const Skeleton = withErrorBoundary(() => {
         <div className={classnames("block-editor-block-edit__skeleton", {
             'is-child-active': currentChildBlockId
         })}>
-            {!hasThemesFinishedResolution || !hasFontsFinishedResolution ? (
-                <div
-                    className={classnames(
-                        'builder-core-preview-area-wrapper__loader',
-                        css`
-							display: flex;
-							width: 100%;
-							height: 100%;
-							background: #fff;
-							align-items: center;
-							justify-content: center;
-						`
-                    )}
-                >
-                    <Loader color="#333" height={30} width={30} />
-                </div>
-            ) : (
-                <>
-                    {blocks.length > 0 && (
-                        <Form
-                            formObj={{
-                                blocks: cloneDeep(blocks).filter(block => block.name !== 'partial-submission-point'),
-                                theme: currentTheme?.properties,
-                                messages,
-                                // partialSubmissionPoint,
-                                themesList: $themesList,
-                                settings,
-                                customCSS,
+            {blocks.length > 0 && (
+                <Form
+                    formObj={{
+                        blocks: cloneDeep(blocks).filter(block => block.name !== 'partial-submission-point'),
+                        theme: currentTheme?.properties,
+                        messages,
+                        // partialSubmissionPoint,
+                        themesList: $themesList,
+                        settings,
+                        customCSS,
 
-                            }}
-                            applyLogic={false}
-                            customFonts={customFontsList}
-                            onSubmit={() => { }}
-                            editor={{
-                                mode: 'on',
-                                editLabel,
-                                editDescription,
-                                isChildActive: (id) => id === currentChildBlockId,
-                                setIsChildActive: (id) => setCurrentChildBlock(id),
-                                onClick: (id) => {
-                                    setCurrentChildBlock(null);
-                                    setCurrentBlock(id);
-                                },
-                            }}
-                        />
-                    )}
-                </>
+                    }}
+                    applyLogic={false}
+                    customFonts={customFontsList}
+                    onSubmit={() => { }}
+                    editor={{
+                        mode: 'on',
+                        editLabel,
+                        editDescription,
+                        isChildActive: (id) => id === currentChildBlockId,
+                        setIsChildActive: (id) => setCurrentChildBlock(id),
+                        onClick: (id) => {
+                            setCurrentChildBlock(null);
+                            setCurrentBlock(id);
+                        },
+                    }}
+                />
             )}
         </div>
     )

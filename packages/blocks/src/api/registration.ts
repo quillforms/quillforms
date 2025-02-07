@@ -67,10 +67,10 @@ export const registerBlockType = (
 	settings = applyFilters('quillForms.blockTypeSettings', settings, name) as BlockTypeSettings;
 
 
-	const isWPEnv = ConfigAPI.isWPEnv();
-	if (name === 'file' && !isWPEnv && window?.quillformsSaasManagerAdmin?.plan?.plan === 'free') {
-		return;
-	}
+	// const isWPEnv = ConfigAPI.isWPEnv();
+	// // if (name === 'file' && !isWPEnv && window?.quillformsSaasManagerAdmin?.plan?.plan === 'free') {
+	// // 	return;
+	// // }
 
 	if (select('quillForms/blocks').getBlockType(name)) {
 		console.error('Block "' + name + '" is already registered.');

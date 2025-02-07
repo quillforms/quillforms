@@ -40,7 +40,7 @@ interface Props {
 
 const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	const formContext = useFormContext();
-	const { beforeGoingNext, isPreview, formId, formObj, editor, onPartialSubmit } = formContext;
+	const { beforeGoingNext, isPreview, formId, formObj, editor, onSubmit } = formContext;
 	const blocks = useBlocks();
 	const blockTypes = useBlockTypes();
 	const logic = useLogic();
@@ -110,6 +110,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 		setFieldAnswer,
 		setCorrectIncorrectDisplay,
 		setIsFieldCorrectIncorrectScreenDisplayed,
+		setIsSubmitting,
 	} = useDispatch('quillForms/renderer-core');
 
 	useEffect(() => {
@@ -218,7 +219,13 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 			}
 
 			doAction('QuillForms.RendererCore.BeforeNext', currentBlockId, formContext);
-			goNext();
+			if (settings?.enableAutoSubmit && currentBlockId === fields[fields.length - 1].id) {
+				setIsSubmitting(true);
+				onSubmit();
+			}
+			else {
+				goNext();
+			}
 		}
 	};
 

@@ -557,6 +557,8 @@ const answers: Reducer<RendererAnswersState, RendererAnswersActionTypes> = (
 	state = {},
 	action
 ) => {
+	console.log(action);
+
 	switch (action.type) {
 		// Insert Empty Field Answer
 		case INSERT_EMPTY_FIELD_ANSWER: {
