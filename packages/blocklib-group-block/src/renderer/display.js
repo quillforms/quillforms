@@ -59,7 +59,9 @@ const GroupDisplay = ({ id, innerBlocks, isTouchScreen, ...props }) => {
 			let firstInvalidBlock = null;
 			if (size(innerBlocks) > 0) {
 				innerBlocks.forEach((block, index) => {
-					if (!answers[block.id]?.isValid) {
+					const blockType = blockTypes[block.name];
+
+					if (!answers[block.id]?.isValid && blockType.supports.editable) {
 						if (!firstInvalidBlock) {
 							setRefIndex(index);
 							firstInvalidBlock = block;

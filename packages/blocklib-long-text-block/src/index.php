@@ -157,8 +157,8 @@ class Long_Text_Block_Type extends Block_Type {
 				$this->is_valid       = false;
 				$this->validation_err = 'Invalid value passed!';
 			} else {
-				$set_max_characters = $this->attributes['setMaxCharacters'];
-				$max_characters     = $this->attributes['maxCharacters'];
+				$set_max_characters = $this->attributes['setMaxCharacters'] ?? null;
+				$max_characters     = $this->attributes['maxCharacters'] ?? null;
 				if ( $set_max_characters && $max_characters && mb_strlen( str_replace( "\r\n", "\n", $value ) ) > $max_characters ) {
 					$this->is_valid       = false;
 					$this->validation_err = $messages['label.errorAlert.maxCharacters'];

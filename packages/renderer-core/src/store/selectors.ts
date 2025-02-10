@@ -393,9 +393,12 @@ export function hasValidFields(state: State, id: string): boolean {
 	let isValid = true;
 	if (size(block?.innerBlocks) > 0) {
 		forEach(block.innerBlocks, ($block) => {
-			const $blockId = $block.id;
-			if (!state.answers?.[$blockId]?.isValid) {
-				isValid = false;
+			const blockType = select('quillForms/blocks').getBlockType($block.name);
+			if (blockType?.supports?.editable) {
+				const $blockId = $block.id;
+				if (!state.answers?.[$blockId]?.isValid) {
+					isValid = false;
+				}
 			}
 		});
 	}

@@ -118,41 +118,43 @@ const Emails = () => {
 									/>
 								)}
 							</div>
-							<MediaUpload
-								onSelect={(media) =>
-									setSettingField(
-										'emails_header_image',
-										media.url
-									)
-								}
-								allowedTypes={['image']}
-								render={({ open }) => (
-									<button
-										className="media-upload-btn"
-										onClick={open}
-									>
-										{isEmpty(
-											settings.emails_header_image
-										)
-											? 'Upload Image'
-											: 'Replace Image'}
-									</button>
-								)}
-							/>
-							{!isEmpty(settings.emails_header_image) && (
-								<Button
-									isButton
-									isDanger
-									onClick={() =>
+							<div>
+								<MediaUpload
+									onSelect={(media) =>
 										setSettingField(
 											'emails_header_image',
-											''
+											media.url
 										)
 									}
-								>
-									Remove
-								</Button>
-							)}
+									allowedTypes={['image']}
+									render={({ open }) => (
+										<button
+											className="media-upload-btn"
+											onClick={open}
+										>
+											{isEmpty(
+												settings.emails_header_image
+											)
+												? 'Upload Image'
+												: 'Replace Image'}
+										</button>
+									)}
+								/>
+								{!isEmpty(settings.emails_header_image) && (
+									<Button
+										isButton
+										isDanger
+										onClick={() =>
+											setSettingField(
+												'emails_header_image',
+												''
+											)
+										}
+									>
+										Remove
+									</Button>
+								)}
+							</div>
 						</ControlWrapper>
 						<p
 							className={css`

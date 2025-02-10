@@ -213,7 +213,7 @@ const PanelRender = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={__('Auto Submit the form after answering the last question', 'quillforms')} />
+					<ControlLabel isNew label={__('Auto Submit the form after answering the last question', 'quillforms')} />
 					<ToggleControl
 						checked={shouldAutoSubmitBeEnabled}
 						onChange={() => {

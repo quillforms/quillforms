@@ -113,7 +113,7 @@ function quillforms_override_script( $scripts, $handle, $src, $deps = array(), $
     * See: https://core.trac.wordpress.org/ticket/46089
     */
     if ('wp-i18n' !== $handle && 'wp-polyfill' !== $handle ) {
-        $scripts->set_translations($handle, $text_domain, $domain_path);
+        $scripts->set_translations($handle, 'quillforms', QUILLFORMS_PLUGIN_DIR . 'languages');
     }
 }
 

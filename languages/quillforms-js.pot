@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-02-06T23:35:31.531Z\n"
+"POT-Creation-Date: 2025-02-10T21:03:41.506Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2364,6 +2364,7 @@ msgstr ""
 msgid "Quiz Summary"
 msgstr ""
 
+#: packages/block-editor/src/components/block-layout/index.tsx:7otifications-editor/src/components/notification-subject/index.js:38
 #: packages/notifications-editor/src/components/notification-message/index.js:138
 #: packages/notifications-editor/src/components/notification-subject/index.js:38
 msgid "This field is required!"
@@ -2553,18 +2554,22 @@ msgid "Select the forms you want to export. Yo"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:89
+#: packages/settings-editor/src/components/panel-render/index.js:94
 msgid "Horizontal"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:93
+#: packages/settings-editor/src/components/panel-render/index.js:98
 msgid "Vertical"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:100
+#: packages/settings-editor/src/components/panel-render/index.js:105
 msgid "Auto save progress (save answers in user browser)"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:111
+#: packages/settings-editor/src/components/panel-render/index.js:116
 msgid ""
 "This feature will save the answers in the user's browser, so the user can "
 "continue the form later in same browser. To allow user to save and continue "
@@ -2572,38 +2577,47 @@ msgid ""
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:115
+#: packages/settings-editor/src/components/panel-render/index.js:120
 msgid "save and continue feature"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:120
+#: packages/settings-editor/src/components/panel-render/index.js:125
 msgid "Hide progress bar"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:131
+#: packages/settings-editor/src/components/panel-render/index.js:136
 msgid "Disable swiping by wheel"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:142
+#: packages/settings-editor/src/components/panel-render/index.js:147
 msgid "Letters on answers"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:155
+#: packages/settings-editor/src/components/panel-render/index.js:160
 msgid "Questions numbers"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:168
+#: packages/settings-editor/src/components/panel-render/index.js:173
 msgid "Hide navigation arrows"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:181
+#: packages/settings-editor/src/components/panel-render/index.js:186
 msgid "Hide asterisks on required fields"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:194
+#: packages/settings-editor/src/components/panel-render/index.js:199
 msgid "Animation direction"
 msgstr ""
 
 #: packages/settings-editor/src/components/panel-render/index.js:211
+#: packages/settings-editor/src/components/panel-render/index.js:227
 msgid "Display Branding"
 msgstr ""
 
@@ -3168,4 +3182,14 @@ msgstr ""
 
 #: packages/theme-editor/src/components/customize/index.js:499
 msgid "Bord"
+msgstr ""
+
+#: packages/settings-editor/src/components/panel-render/index.js:216
+msgid "Auto Submit the form after answering the last question"
+msgstr ""
+
+#: packages/code-editor/src/components/panel-render/index.js:38
+msgid ""
+"Custom css won't be applied to the form builder directly. Please click on "
+"the p"
 msgstr ""

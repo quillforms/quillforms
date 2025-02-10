@@ -69,6 +69,8 @@ class Admin_Loader {
 		add_filter( 'admin_body_class', array( __CLASS__, 'add_admin_body_class' ), PHP_INT_MAX );
 	}
 
+
+
 	/**
 	 * Add admin body class.
 	 *

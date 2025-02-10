@@ -207,7 +207,7 @@ abstract class Entry_Process {
 			'source'          => static::class . '->execute',
 			'code'            => $code,
 			'connection_id'   => $connection_id,
-			'connection_name' => $connection['name'],
+			'connection_name' => $connection['name'] ?? '',
 		);
 
 		// add result details to context.

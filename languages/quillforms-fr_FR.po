@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Quill Forms plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Quill Forms 4.5.0\n"
+"Project-Id-Version: Quill Forms\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/quillforms\n"
 "Last-Translator: \n"
 "Language-Team: French (France)\n"
