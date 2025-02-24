@@ -83,9 +83,15 @@ class License {
 			'enterprise' => array(
 				'label' => esc_html__( 'Enterprise', 'quillforms' ),
 			),
+			'basic-ltd'  => array(
+				'label' => esc_html__( 'Basic LTD', 'quillforms' ),
+			),
 			'plus-ltd' => array(
 				'label' => esc_html__( 'Plus LTD', 'quillforms' ),
-			)
+			),
+			'enterprise-ltd' => array(
+				'label' => esc_html__( 'Enterprise LTD', 'quillforms' ),
+			),
 		);
 	}
 

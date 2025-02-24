@@ -21,7 +21,7 @@ const Support = () => {
 			</p>
 
 			<div className="quillforms-support-page__via">
-				<div className="quillforms-support-page__via-website">
+				<div className="quillforms-support-page__via-provider quillforms-support-page__via-website">
 					<a href="https://quillforms.com/forms/support-form/" target="_blank">
 						<div className="quillforms-support-page__website-icon">
 							<Logo />
@@ -32,7 +32,7 @@ const Support = () => {
 					</a>
 
 				</div>
-				<div className="quillforms-support-page__via-facebook">
+				<div className="quillforms-support-page__via-provider quillforms-support-page__via-facebook">
 					<a
 						href="https://www.facebook.com/groups/quillforms"
 						target="_blank"
@@ -46,7 +46,7 @@ const Support = () => {
 						</div>
 					</a>
 				</div>
-				<div className="quillforms-support-page__via-github">
+				<div className="quillforms-support-page__via-provider quillforms-support-page__via-github">
 					<a
 						href="https://www.github.com/quillforms/quillforms"
 						target="_blank"
@@ -62,7 +62,7 @@ const Support = () => {
 						</div>
 					</a>
 				</div>
-				<div className="quillforms-support-page__via-discord">
+				<div className="quillforms-support-page__via-provider quillforms-support-page__via-discord">
 					<a
 
 						href="https://discord.gg/a5PDrzu8dE"
@@ -79,7 +79,7 @@ const Support = () => {
 					</a>
 				</div>
 				{isWPEnv && (
-					<div className="quillforms-support-page__via-wordpress">
+					<div className="quillforms-support-page__via-provider quillforms-support-page__via-wordpress">
 						<a
 							href="https://wordpress.org/support/plugin/quillforms/"
 							target="_blank"

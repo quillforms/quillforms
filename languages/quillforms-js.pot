@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-02-10T21:03:41.506Z\n"
+"POT-Creation-Date: 2025-02-24T08:52:36.608Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,34 @@ msgstr ""
 
 #: client/pages/payments/coupons/coupon/index.js:96
 msgid "10"
+msgstr ""
+
+#: packages/admin-components/src/form-admin-bar/index.tsx:31
+msgid "Back to home"
+msgstr ""
+
+#: packages/admin-components/src/form-admin-bar/index.tsx:49
+#: packages/builder-core/src/components/right-panel/index.tsx:48
+msgid "Design"
+msgstr ""
+
+#: client/pages/home/form-card.js:225
+#: packages/admin-components/src/form-admin-bar/index.tsx:64
+msgid "Share"
+msgstr ""
+
+#: client/pages/home/form-card.js:205
+#: packages/admin-components/src/form-admin-bar/index.tsx:79
+msgid "Results"
+msgstr ""
+
+#: client/pages/home/form-card.js:215
+#: packages/admin-components/src/form-admin-bar/index.tsx:95
+msgid "Integrations"
+msgstr ""
+
+#: packages/admin-components/src/form-admin-bar/index.tsx:110
+msgid "Payments"
 msgstr ""
 
 #: client/components/header/index.js:33
@@ -161,21 +189,6 @@ msgstr ""
 #: client/pages/home/form-card.js:195
 #: packages/notifications-editor/src/components/notification-box/index.js:69
 msgid "Edit"
-msgstr ""
-
-#: client/pages/home/form-card.js:205
-#: packages/admin-components/src/form-admin-bar/index.tsx:79
-msgid "Results"
-msgstr ""
-
-#: client/pages/home/form-card.js:215
-#: packages/admin-components/src/form-admin-bar/index.tsx:95
-msgid "Integrations"
-msgstr ""
-
-#: client/pages/home/form-card.js:225
-#: packages/admin-components/src/form-admin-bar/index.tsx:64
-msgid "Share"
 msgstr ""
 
 #: client/pages/home/form-card.js:238
@@ -349,9 +362,13 @@ msgstr ""
 msgid "Sort by:"
 msgstr ""
 
+#: client/pages/home/home-content.js:26
 #: client/pages/home/home-content.js:291
+#: client/pages/home/home-content.js:294
 #: client/pages/results/components/entry-details/notes/index.js:142
 #: packages/blocklib-date-block/src/admin/settings.js:10
+#: packages/document-editor/src/components/post-title/index.js:20
+#: packages/notifications-ntent.js:291
 msgid "Date"
 msgstr ""
 
@@ -1040,6 +1057,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
+#: client/pages/resulent/pages/results/components/entry-header/index.js:171
 #: client/pages/results/components/entry-header/index.js:171
 msgid "Display Question:"
 msgstr ""
@@ -1390,6 +1408,7 @@ msgstr ""
 
 #: client/pages/share/body.js:359
 #: client/pages/share/body.js:882
+#: client/pages/share/body.js:t/pages/share/body.js:882
 msgid "QR Code"
 msgstr ""
 
@@ -1706,6 +1725,7 @@ msgid "Medium"
 msgstr ""
 
 #: client/pro-panels/hidden-fields-render/index.js:150
+#: client/pro-panels/hidden-fields-render/tr ""
 msgid "Campaign"
 msgstr ""
 
@@ -2064,10 +2084,6 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: packages/admin-components/src/form-admin-bar/index.tsx:110
-msgid "Payments"
-msgstr ""
-
 #: packages/blocklib-number-block/src/admin/controls.js:46
 msgid "Set min number"
 msgstr ""
@@ -2082,15 +2098,6 @@ msgstr ""
 
 #: packages/blocklib-multiple-choice-block/src/admin/settings.js:17
 msgid "Multiple Choice"
-msgstr ""
-
-#: packages/admin-components/src/form-admin-bar/index.tsx:31
-msgid "Back to home"
-msgstr ""
-
-#: packages/admin-components/src/form-admin-bar/index.tsx:49
-#: packages/builder-core/src/components/right-panel/index.tsx:48
-msgid "Design"
 msgstr ""
 
 #: packages/blocklib-slider-block/src/admin/controls.js:30
@@ -2364,6 +2371,7 @@ msgstr ""
 msgid "Quiz Summary"
 msgstr ""
 
+#: packages/block-editor/src/components/block-layout/index.tsx:7otifications-editor/src/components/notification-subject/index.js7otifications-editor/src/components/notification-subject/index.js:38
 #: packages/block-editor/src/components/block-layout/index.tsx:7otifications-editor/src/components/notification-subject/index.js:38
 #: packages/notifications-editor/src/components/notification-message/index.js:138
 #: packages/notifications-editor/src/components/notification-subject/index.js:38
@@ -3192,4 +3200,12 @@ msgstr ""
 msgid ""
 "Custom css won't be applied to the form builder directly. Please click on "
 "the p"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:272
+msgid "You can add your custom font from settings icon at"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:272
+msgid "Yo"
 msgstr ""

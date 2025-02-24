@@ -131,6 +131,8 @@ class Admin_Loader {
 	 */
 	public static function remove_all_scripts() {
 		global $wp_scripts;
+		global $wp_styles;
+
 
 		if ( self::is_admin_page() ) {
 			$wp_scripts->queue = array( 'jquery', 'media-audiovideo' );
@@ -144,8 +146,6 @@ class Admin_Loader {
 				}
 			);
 		}
-
-
 	}
 
 	/**

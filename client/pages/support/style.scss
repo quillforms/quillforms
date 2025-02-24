@@ -5,7 +5,8 @@
 .quillforms-support-page__github-icon svg,
 .quillforms-support-page__wordpress-icon svg,
 .quillforms-support-page__facebook-icon svg,
-.quillforms-support-page__via-website svg {
+.quillforms-support-page__via-website svg,
+.quillforms-support-page__via-discord svg {
 	width: 50px;
     height: 50px;
 }
@@ -21,10 +22,7 @@
     top: 8px;
     right: 8px;
 }
-.quillforms-support-page__via .quillforms-support-page__via-github,
- .quillforms-support-page__via .quillforms-support-page__via-wordpress,
- .quillforms-support-page__via .quillforms-support-page__via-facebook,
- .quillforms-support-page__via .quillforms-support-page__via-website {
+.quillforms-support-page__via .quillforms-support-page__via-provider {
     width: 150px;
     height: 150px;
     border-radius: 15px;
@@ -38,7 +36,8 @@
 
 .quillforms-support-page__via .quillforms-support-page__via-wordpress,
 .quillforms-support-page__via .quillforms-support-page__via-github,
-.quillforms-support-page__via .quillforms-support-page__via-facebook  {
+.quillforms-support-page__via .quillforms-support-page__via-facebook,
+.quillforms-support-page__via .quillforms-support-page__via-discord{
     margin-left: 50px
 }
 

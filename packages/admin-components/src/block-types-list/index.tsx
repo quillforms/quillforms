@@ -33,6 +33,7 @@ import {
 	ThankYouIcon,
 	CalendarPickerIcon,
 	InputMaskIcon,
+	AutoCompleteAddressIcon,
 } from './pro-blocks-icons';
 import ProLabel from '../pro-label';
 import { Button } from '../button';
@@ -112,6 +113,11 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 			color: '#fff',
 			icon: <CaledlyIcon />,
 		},
+		// 'auto-complete-address': {
+		// 	title: 'Auto Complete Address',
+		// 	color: blockColors['auto-complete-address'],
+		// 	icon: <AutoCompleteAddressIcon />,
+		// },
 		"cal.com": {
 			title: 'Cal.com',
 			color: '#fff',

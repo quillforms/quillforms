@@ -86,19 +86,20 @@ class Shortcode
         $height = esc_attr($atts['height']);
         $min_height = esc_attr($atts['min_height']);
         $max_height = esc_attr($atts['max_height']);
+        if (!$min_height && !$height) {
+            $min_height = "500px";
+        }
 
         if (!$min_height && $height) {
             $min_height = $height;
         }
-        if (!$min_height) {
-            $min_height = "500px";
+        if (!$max_height) {
+            $max_height = 'auto';
         }
         if (!$max_height && $height) {
             $max_height = $height;
         }
-        if (!$max_height) {
-            $max_height = 'auto';
-        }
+        
         if ('quill_forms' !== get_post_type($id)) {
             return esc_html__('Invalid form ID', 'quillforms');
         }
@@ -118,7 +119,7 @@ class Shortcode
         wp_enqueue_script('quillforms-iframe-resizer-implementer');
 
         return sprintf(
-            "<iframe data-max-height='%s' class='quillforms-iframe' scrolling='no' src='%s' width='%s' style='border:0;min-height:%s;max-height:%s'></iframe>",
+            "<iframe data-max-height='%s' class='quillforms-iframe' scrolling='no' src='%s' width='%s' style='border:0;min-height:%s;width: 100%; min-width: 100%;max-height:%s'></iframe>",
             esc_attr($max_height),
             $src,
             esc_attr($width),
