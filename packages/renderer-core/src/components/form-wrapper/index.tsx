@@ -66,7 +66,6 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 		return newVal;
 	};
 	useEffect(() => {
-		console.log(blocksJson);
 		if (!isPreview) {
 			if (editor.mode === 'off') {
 				editableFields.forEach((field) => {

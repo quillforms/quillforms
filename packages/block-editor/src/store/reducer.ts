@@ -122,7 +122,6 @@ const BlockEditorReducer: Reducer<
 	BlockEditorPureState,
 	BlockEditorActionTypes
 > = (state = initialState, action): BlockEditorPureState => {
-	console.log(action);
 	switch (action.type) {
 		// SET UP STORE
 		case SETUP_STORE: {

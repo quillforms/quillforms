@@ -33,7 +33,6 @@ import classnames from 'classnames';
 import { Controller } from './controller';
 import Sidebar from '../components/sidebar';
 import Header from '../components/header';
-import { useHiddenFields, useVariables } from '@quillforms/admin-components';
 
 export const Layout = (props) => {
 	const { params } = props.match;
