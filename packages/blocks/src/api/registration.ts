@@ -1,8 +1,4 @@
 /* eslint-disable no-console */
-/**
- * QuillForms Dependencies
- */
-import ConfigAPI from '@quillforms/config';
 
 /**
  * WordPress Dependencies

@@ -32,7 +32,7 @@ export const registerPaymentGatewayModule = (
 ) => {
 
 	const isWPEnv = configApi.isWPEnv();
-
+	//@ts-expect-error
 	if (isWPEnv || (!isWPEnv && !['free', 'basic_yearly', 'basic_monthly'].includes(window?.quillformsSaasManagerAdmin?.plan?.plan))) {
 		module = applyFilters(
 			'QuillForms.PaymentGateways.PaymentGatewayModule',

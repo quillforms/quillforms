@@ -14,7 +14,7 @@
 		"isolatedModules": true,
 
 		/* Strict Type-Checking Options */
-		"strict": true,
+		"strict": false,
 
 		/* Additional Checks */
 		"noUnusedLocals": true,

@@ -149,5 +149,5 @@ export function getCurrentSubPanelName(
  * @return {?string} Area to show
  */
 export function getAreaToShow(state: PanelsState): string | undefined {
-	return getCurrentPanel(state)?.areaToShow;
+	return state?.areaToShow;
 }

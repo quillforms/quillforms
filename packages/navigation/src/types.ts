@@ -2,10 +2,10 @@ import React from 'react';
 export type PageSettings = {
 	path: string;
 	exact?: boolean;
-	component: React.FC | JSX.Element | React.Component;
+	component: React.FC | React.Component;
 	template: 'default' | 'full-screen';
-	header: React.FC | JSX.Element | React.Component;
+	header: React.FC | React.Component;
 	requiresInitialPayload: boolean;
 	connectedStores: string[];
 };
-export type Pages = Record< string, PageSettings >;
+export type Pages = Record<string, PageSettings>;

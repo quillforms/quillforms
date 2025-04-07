@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-export type Icon = JSX.Element | ComponentType | string;
+export type Icon = ComponentType | string;
 
 export type IconDescriptor = {
 	src: Icon;
