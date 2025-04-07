@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-02-24T08:52:36.608Z\n"
+"POT-Creation-Date: 2025-04-07T05:08:45.692Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,16 @@ msgstr ""
 
 #: client/pages/payments/coupons/coupon/index.js:96
 msgid "10"
+msgstr ""
+
+#: packages/block-editor/src/components/skeleton/editor.tsx:294
+#: packages/block-editor/src/components/skeleton/editor.tsx:324
+msgid "Type question here. Recall information with @."
+msgstr ""
+
+#: packages/block-editor/src/components/skeleton/editor.tsx:294
+#: packages/block-editor/src/components/skeleton/editor.tsx:324
+msgid "Add a description"
 msgstr ""
 
 #: packages/admin-components/src/form-admin-bar/index.tsx:31
@@ -362,6 +372,7 @@ msgstr ""
 msgid "Sort by:"
 msgstr ""
 
+#: client/pagentent.js:26
 #: client/pages/home/home-content.js:26
 #: client/pages/home/home-content.js:291
 #: client/pages/home/home-content.js:294
@@ -1363,8 +1374,10 @@ msgid "Top"
 msgstr ""
 
 #: client/pages/share/body.js:749
+#: client/pages/share/body.js:761
 #: packages/theme-editor/src/components/typography-panel/index.js:659
 #: packages/theme-editor/src/components/typography-panel/index.js:744
+#: packagey-panel/index.js:744
 msgid "Right"
 msgstr ""
 
@@ -2042,6 +2055,7 @@ msgstr ""
 msgid "-"
 msgstr ""
 
+#: packages/blocklib-date-block/src/admin/controls.jin/controls.js:53
 #: packages/blocklib-date-block/src/admin/controls.js:53
 msgid "."
 msgstr ""
@@ -2317,14 +2331,6 @@ msgstr ""
 
 #: packages/builder-core/src/components/no-blocks/index.tsx:125
 msgid "Please insert at lease one block."
-msgstr ""
-
-#: packages/block-editor/src/components/skeleton/editor.tsx:294
-msgid "Type question here. Recall information with @."
-msgstr ""
-
-#: packages/block-editor/src/components/skeleton/editor.tsx:294
-msgid "Add a description"
 msgstr ""
 
 #: packages/block-editor/src/components/block-theme/index.tsx:50
@@ -3208,4 +3214,24 @@ msgstr ""
 
 #: packages/theme-editor/src/components/customize/index.js:272
 msgid "Yo"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:118
+msgid "C"
+msgstr ""
+
+#: client/pages/payments/index.js:114
+msgid "â Please select at least on"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:90
+msgid "Set maxi"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:189
+msgid "To add"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:89
+msgid "En"
 msgstr ""

@@ -88,6 +88,7 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 		thankyouScreens,
 		correctIncorrectDisplay
 	} = state;
+	console.log(action);
 	switch (action.type) {
 		case SET_SWIPER_STATE: {
 			const newSwiperState = action.swiperState;

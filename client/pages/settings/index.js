@@ -23,6 +23,8 @@ import Analytics from './analytics';
 import Integrations from './integrations';
 import Emails from './emails';
 import ReCAPTCHA from './recaptcha';
+import Geolocation from './geolocation';
+
 
 const Settings = () => {
 	const isWPEnv = ConfigAPI.isWPEnv();
@@ -54,6 +56,10 @@ const Settings = () => {
 		analytics: {
 			title: 'Tracking & Analytics',
 			render: <Analytics />,
+		},
+		geolocation: {
+			title: 'Geolocation',
+			render: <Geolocation />,
 		},
 	};
 	// if (!isWPEnv) {

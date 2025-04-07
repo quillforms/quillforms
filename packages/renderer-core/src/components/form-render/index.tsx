@@ -174,7 +174,7 @@ const Form: React.FC<Props> = ({
 					$block.name === 'picture-choice'
 				) &&
 				$block?.attributes?.randomize
-				&& !isPreview
+				&& !isPreview && editor?.mode === 'off'
 			) {
 				return {
 					...$block,

@@ -33,6 +33,7 @@ import classnames from 'classnames';
 import { Controller } from './controller';
 import Sidebar from '../components/sidebar';
 import Header from '../components/header';
+import { useHiddenFields, useVariables } from '@quillforms/admin-components';
 
 export const Layout = (props) => {
 	const { params } = props.match;
@@ -41,9 +42,12 @@ export const Layout = (props) => {
 		return <PluginArea />;
 	}, []);
 
-	const { notices } = useSelect((select) => {
+	const { notices, formBlocks, hiddenFields, variables } = useSelect((select) => {
 		return {
 			notices: select('core/notices').getNotices(),
+			formBlocks: select('quillForms/block-editor').getBlocksWithPartialSubmission(),
+			hiddenFields: select('quillForms/hidden-fields-editor')?.getHiddenFields(),
+			variables: select('quillForms/logic-editor')?.getLogicVariables(),
 		};
 	});
 

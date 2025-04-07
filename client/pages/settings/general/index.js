@@ -266,39 +266,7 @@ const General = () => {
 							/>
 						</ControlWrapper>
 					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="vertical">
-							<ControlLabel label="Google Maps api key"></ControlLabel>
-							<TextControl
-								value={settings.google_maps_api_key}
-								onChange={(value) => {
-									setSettingField(
-										'google_maps_api_key',
-										value
-									);
-								}}
-							/>
-							<p
-								className={css`
-									background: rgb( 246 246 246 );
-									padding: 12px;
-									border-radius: 10px;
-								` }
-							>
-								To get your API key <br />
-								1-{' '}
-								<a href="https://developers.google.com/maps/documentation/javascript/places#enable_apis">
-									Enable GoogleMaps Places API.
-								</a>
-								<br />
-								2-{' '}
-								<a href="https://developers.google.com/maps/documentation/javascript/get-api-key">
-									Get an API key.
-								</a>
-								<br />
-							</p>
-						</ControlWrapper>
-					</BaseControl>
+
 
 					<div
 						className={css`

@@ -84,8 +84,6 @@ const Layout: React.FC<Props> = ({ formId }) => {
 		}, 100);
 	}, [])
 
-
-
 	return (
 		<div
 			className="builder-core-layout"

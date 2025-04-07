@@ -8,8 +8,8 @@ import { select } from '@wordpress/data';
  */
 import { registerRestField } from '../../api';
 
-registerRestField( 'customCSS', {
+registerRestField('customCSS', {
 	selectValue: () => {
-		return select( 'quillForms/code-editor' ).getCustomCSS();
+		return select('quillForms/code-editor').getCustomCSS();
 	},
-} );
+});

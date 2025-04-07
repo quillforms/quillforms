@@ -22,7 +22,7 @@ type RestFieldSettings = {
  * Defined behavior of a rest field.
  */
 
-type RestFields = Record< string, RestFieldSettings >;
+type RestFields = Record<string, RestFieldSettings>;
 /**
  * Rest fields definitions keyed by rest field name.
  *
@@ -44,22 +44,22 @@ export const registerRestField = (
 	name: string,
 	settings: RestFieldSettings
 ): RestFieldSettings | undefined => {
-	if ( typeof name !== 'string' ) {
-		console.error( 'Rest field key must be string.' );
+	if (typeof name !== 'string') {
+		console.error('Rest field key must be string.');
 		return;
 	}
 
-	if ( ! settings.selectValue ) {
-		console.error( '"selectValue" setting is missing!' );
+	if (!settings.selectValue) {
+		console.error('"selectValue" setting is missing!');
 		return;
 	}
 
-	if ( ! isFunction( settings.selectValue ) ) {
-		console.error( 'The "selectValue" property must be a valid function.' );
+	if (!isFunction(settings.selectValue)) {
+		console.error('The "selectValue" property must be a valid function.');
 		return;
 	}
-	if ( restFields[ name ] ) {
-		console.error( `Rest field "${ name }" is already registered.` );
+	if (restFields[name]) {
+		console.error(`Rest field "${name}" is already registered.`);
 	}
 
 	settings = applyFilters(
@@ -68,11 +68,11 @@ export const registerRestField = (
 		name
 	) as RestFieldSettings;
 
-	restFields[ name ] = {
+	restFields[name] = {
 		...settings,
 	};
 
-	doAction( 'QuillForms.RestFields.RestFieldRegistered', settings, name );
+	doAction('QuillForms.RestFields.RestFieldRegistered', settings, name);
 
 	return settings;
 };
@@ -83,8 +83,8 @@ export const registerRestField = (
  * @param {string} name Rest field name.
  *
  */
-export function getRestField( name: string ): RestFieldSettings {
-	return restFields[ name ];
+export function getRestField(name: string): RestFieldSettings {
+	return restFields[name];
 }
 
 /**

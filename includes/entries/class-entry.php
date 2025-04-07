@@ -95,7 +95,7 @@ class Entry extends Abstract_Entry {
 	 * @param integer $id Entry ID.
 	 * @return boolean
 	 */
-	public function load( $id ) {
+	public function load( $id, $load_records = false, $load_meta = false ) {
 		global $wpdb;
 
 		$result = $wpdb->get_row(
@@ -110,6 +110,7 @@ class Entry extends Abstract_Entry {
 			ARRAY_A
 		);
 
+		quillforms_get_logger()->info( 'Load entry', array( 'id' => $id, 'result' => $result ) );
 		if ( ! $result ) {
 			return false;
 		}
@@ -118,6 +119,15 @@ class Entry extends Abstract_Entry {
 		$this->update_properties( $result );
 		$this->records = null;
 		$this->meta    = null;
+
+		if( $load_records ) {
+			$this->load_records();
+			quillforms_get_logger()->info( 'Load entry records', array( 'id' => $id, 'entry' => $this ) );
+
+		}
+		if( $load_meta ) {
+			$this->load_meta();
+		}
 		return true;
 	}
 
@@ -500,9 +510,9 @@ class Entry extends Abstract_Entry {
 	 * @param int $id
 	 * @return self|null
 	 */
-	public static function get( $id ) {
+	public static function get( $id, $with_records = false, $with_meta = false ) {
 		$instance = new self();
-		$load     = $instance->load( $id );
+		$load     = $instance->load( $id, $with_records, $with_meta );
 		return $load ? $instance : null;
 	}
 
@@ -536,11 +546,13 @@ class Entry extends Abstract_Entry {
 			ARRAY_A
 		);
 
+		quillforms_get_logger()->info( 'Get entry by hash id', array( 'hash_id' => $hash_id, 'result' => $result ) );
+
 		if ( ! $result ) {
 			return null;
 		}
 
-		return self::get( $result['ID'] );
+		return self::get( $result['ID'], true, true );
 	}
 
 	/**

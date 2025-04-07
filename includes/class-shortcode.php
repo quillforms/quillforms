@@ -119,13 +119,14 @@ class Shortcode
         wp_enqueue_script('quillforms-iframe-resizer-implementer');
 
         return sprintf(
-            "<iframe data-max-height='%s' class='quillforms-iframe' scrolling='no' src='%s' width='%s' style='border:0;min-height:%s;width: 100%; min-width: 100%;max-height:%s'></iframe>",
+            "<iframe data-max-height='%s' class='quillforms-iframe' scrolling='no' src='%s' width='%s' style='border:0;min-height:%s;width: 100%%; min-width: 100%%; max-height:%s'></iframe>",
             esc_attr($max_height),
-            $src,
+            esc_url($src),
             esc_attr($width),
             esc_attr($min_height),
             esc_attr($max_height)
         );
+        
     }
 
     /**

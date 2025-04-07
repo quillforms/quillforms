@@ -441,7 +441,7 @@ class Form_Submission {
 		switch ( $this->step ) {
 			case 'payment':
 				$this->process_entry();
-				do_action( 'quillforms_entry_payment_processed', $this->submission_id, $this->entry, $this->form_data );
+				do_action( 'quillforms_entry_processed', $this->submission_id, $this->entry, $this->form_data );
 				$this->delete_pending_submission( $this->submission_id );
 				break;
 		}

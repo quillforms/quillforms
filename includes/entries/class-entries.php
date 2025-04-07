@@ -62,6 +62,7 @@ class Entries {
 	 * @return array
 	 */
 	public function save_entry( $entry ) {
+		quillforms_get_logger()->info( 'Saving entry', array( 'entry' => $entry ) );
 		// copy entry properties.
 		$_entry = new Entry();
 		foreach ( $entry as $key => $value ) {
@@ -73,12 +74,13 @@ class Entries {
 		if ( $existing_entry instanceof Entry ) {
 			// update.
 			$result = $existing_entry->update_entry( $_entry );
+			return $result ? $existing_entry : $_entry; 
 		} else {
 			// insert.
 			$result = $_entry->insert();
+			return $result ? $_entry : $entry;
 		}
 
-		return $result ? $_entry : $entry;
 	}
 
 	/**

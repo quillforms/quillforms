@@ -37,6 +37,7 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 	});
 	const { editor } = useFormContext();
 	const blocks = useBlocks();
+	const blocksJson = JSON.stringify(blocks);
 	const {
 		isPreview,
 		formObj: { hiddenFields, initialData },
@@ -65,6 +66,7 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 		return newVal;
 	};
 	useEffect(() => {
+		console.log(blocksJson);
 		if (!isPreview) {
 			if (editor.mode === 'off') {
 				editableFields.forEach((field) => {
@@ -128,7 +130,7 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 				setIsMounted(true);
 			}
 		}
-	}, [JSON.stringify(blocks)]);
+	}, [blocksJson]);
 
 	useEffect(() => {
 		if (isMounted) {

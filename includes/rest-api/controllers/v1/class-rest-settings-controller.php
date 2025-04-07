@@ -105,10 +105,6 @@ class REST_Settings_Controller extends REST_Controller {
 							'type'    => 'boolean',
 							'default' => false,
 						),
-						'google_maps_api_key'           => array(
-							'type'    => 'string',
-							'default' => '',
-						),
 					),
 				),
 
@@ -126,6 +122,16 @@ class REST_Settings_Controller extends REST_Controller {
 						)
 					),
 				),
+				'geolocation' => array(
+					'type'                 => 'object',
+					'additionalProperties' => false,
+					'properties'           => array(
+						'google_maps_api_key'           => array(
+								'type'    => 'string',
+								'default' => '',
+						)
+					),
+				)
 			),
 		);
 		return $schema;
