@@ -644,5 +644,69 @@ function quillforms_register_packages_styles( $styles )
     );
 
 }
+
+// Add this function to your QuillForms plugin
+function quillforms_force_essential_styles() {
+    // Only run on QuillForms admin pages
+    $screen = get_current_screen();
+    if ($screen && 'toplevel_page_quillforms' === $screen->id) {
+        // Check if Adopt plugin is active
+        if (!function_exists('is_plugin_active')) {
+            include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+        }
+        
+        // Only apply fix if Adopt is active
+        if (is_plugin_active('adopt/index.php')) {
+            // Define the essential styles for QuillForms
+            $quillforms_styles = [
+                'quillforms-client' => 'style.css',
+                'quillforms-builder-core' => 'builder-core/style.css',
+                'quillforms-admin-components' => 'admin-components/style.css',
+                'quillforms-block-editor' => 'block-editor/style.css',
+                'quillforms-renderer-core' => 'renderer-core/style.css',
+                'quillforms-theme-editor' => 'theme-editor/style.css',
+                'quillforms-notifications-editor' => 'notifications-editor/style.css',
+                'quillforms-messages-editor' => 'messages-editor/style.css',
+                'quillforms-form-integrations' => 'form-integrations/style.css',
+                'quillforms-quiz-editor' => 'quiz-editor/style.css',
+                'quillforms-rich-text' => 'rich-text/style.css',
+            ];
+            
+            // Get the QuillForms plugin base URL
+            $base_url = plugins_url('build/', dirname(__FILE__));
+            
+            // Output direct style tags for QuillForms styles
+            echo "<!-- QuillForms Emergency Style Loading -->\n";
+            foreach ($quillforms_styles as $handle => $path) {
+                echo '<link rel="stylesheet" id="' . esc_attr($handle) . '-css" href="' 
+                     . esc_url($base_url . $path) . '" media="all" />' . "\n";
+            }
+            
+            // WordPress components styles
+            $wp_components_url = includes_url('css/dist/components/style.min.css');
+            echo '<link rel="stylesheet" id="wp-components-css" href="' 
+                 . esc_url($wp_components_url) . '" media="all" />' . "\n";
+            
+            // Common WordPress admin styles needed for QuillForms
+            $common_url = admin_url('css/common.min.css');
+            echo '<link rel="stylesheet" id="common-css" href="' 
+                 . esc_url($common_url) . '" media="all" />' . "\n";
+            
+            // Add any other WordPress core styles needed
+            // Example: Admin menu styles
+            $admin_menu_url = admin_url('css/admin-menu.min.css');
+            echo '<link rel="stylesheet" id="admin-menu-css" href="' 
+                 . esc_url($admin_menu_url) . '" media="all" />' . "\n";
+            
+            // Force JavaScript to run after styles are loaded
+            echo "<script>console.log('QuillForms emergency style loading activated due to Adopt plugin conflict');</script>";
+        }
+    }
+}
+
+// Add with highest priority
+add_action('admin_head', 'quillforms_force_essential_styles', PHP_INT_MAX);
+
 add_action('wp_default_scripts', 'quillforms_register_packages_scripts');
 add_action('wp_default_styles', 'quillforms_register_packages_styles');
+
