@@ -17,7 +17,7 @@
 		"prebuild": "npm run check-engines",
 		"prebuild:packages": "npm run clean:packages && lerna run build",
 		"init-pot": "node init-pot.js",
-		"build": "cross-env WP_POT_FILE=languages/quillforms-js.pot npm run build:packages && qf-scripts build",
+		"build": "npm run build:packages && qf-scripts build",
 		"build:packages": "node ./bin/packages/build.js",
 		"build:package-types": "node ./bin/packages/validate-typescript-version.js && tsc --build",
 		"clean": "npm run clean:packages && npm run clean:package-types",

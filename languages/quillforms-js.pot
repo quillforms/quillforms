@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-04-07T05:08:45.692Z\n"
+"POT-Creation-Date: 2025-04-08T02:12:00.761Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,6 +352,7 @@ msgstr ""
 msgid "Forms"
 msgstr ""
 
+#: client/pages/home/home-contennt.js:27
 #: client/pages/home/home-content.js:27
 msgid "Responses Count"
 msgstr ""
@@ -2052,6 +2053,7 @@ msgid "/"
 msgstr ""
 
 #: packages/blocklib-date-block/src/admin/controls.js:49
+#: packages/blocklibs:49
 msgid "-"
 msgstr ""
 
@@ -2358,6 +2360,7 @@ msgid "Select a theme"
 msgstr ""
 
 #: packages/block-editor/src/components/block-theme/index.tsx:141
+#: packages/notifications-editor/src/components/notification-message/index.jssgstr ""
 msgid "Select a theme!"
 msgstr ""
 
@@ -3234,4 +3237,22 @@ msgstr ""
 
 #: client/pro-panels/form-locker-render/index.js:89
 msgid "En"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:58
+msgid "Run"
+msgstr ""
+
+#: packages/settings-editor/src/components/panel-render/index.js:131
+#: packages/settings-editor/src/components/panel-render/index.js:136
+msgid "Disab"
+msgstr ""
+
+#: packages/settings-editor/src/components/panel-render/index.js:131
+#: packages/settings-editor/src/components/panel-render/index.js:136
+msgid "Disable swiping "
+msgstr ""
+
+#: packages/document-editor/src/components/post-slug/index.js:21
+msgid "Sl"
 msgstr ""

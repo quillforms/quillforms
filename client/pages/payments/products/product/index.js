@@ -19,7 +19,7 @@ const Product = ({ id }) => {
 
 	const { blocks, blockTypes, variables } = useSelect((select) => {
 		return {
-			blocks: select('quillForms/block-editor').getBlocks() ?? [],
+			blocks: select('quillForms/block-editor').getAllBlocks() ?? [],
 			blockTypes: select('quillForms/blocks').getBlockTypes() ?? {},
 			variables: select('quillForms/logic-editor')?.getLogic()?.variables ?? [],
 		};
