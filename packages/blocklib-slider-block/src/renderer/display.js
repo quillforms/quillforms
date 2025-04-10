@@ -50,9 +50,10 @@ const singleRangeSliderDisplay = (props) => {
 	} = attributes;
 
 	// Convert min/max/step to numbers once
-	const minValue = parseFloat(min !== '' ? min : 0);
-	const maxValue = parseFloat(max !== '' ? max : 100);
-	const stepValue = parseFloat(step !== '' ? step : 1);
+	const minValue = !isNaN(parseFloat(min)) ? parseFloat(min) : 0;
+	const maxValue = !isNaN(parseFloat(max)) ? parseFloat(max) : 100;
+	const stepValue = !isNaN(parseFloat(step)) ? parseFloat(step) : 1;
+
 
 	const checkfieldValidation = (value) => {
 		// Convert value to number for consistent comparison
@@ -72,9 +73,11 @@ const singleRangeSliderDisplay = (props) => {
 
 	// Handle initial value
 	useEffect(() => {
-		// Check if val is undefined, null, or empty string (not 0)
+		// Check if val is undefined, null, or empty string
 		if (val === undefined || val === null || val === '') {
-			setVal(minValue);
+			// Make sure minValue is a valid number before setting
+			const initialValue = isNaN(minValue) ? 0 : minValue;
+			setVal(initialValue);
 		}
 	}, []);
 
@@ -118,10 +121,10 @@ const singleRangeSliderDisplay = (props) => {
 				step={stepValue}
 				renderMark={mark => `${prefix}${mark}${suffix}`}
 				valueLabelDisplay="on"
-				valueLabelFormat={value => `${prefix}${value}${suffix}`}
+				valueLabelFormat={value => `${prefix}${!isNaN(value) ? value : minValue}${suffix}`}
 				marks={marks === 'yes' ? true : marks === 'no' ? false : customMarks}
 				renderTooltip={mark => `${prefix}${mark}${suffix}`}
-				value={val ?? minValue} // Use nullish coalescing to handle 0
+				value={val !== undefined && val !== null && val !== '' ? parseFloat(val) : minValue}
 				onChange={handleValueChange}
 			/>
 		</div>

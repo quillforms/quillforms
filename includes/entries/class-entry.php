@@ -110,7 +110,6 @@ class Entry extends Abstract_Entry {
 			ARRAY_A
 		);
 
-		quillforms_get_logger()->info( 'Load entry', array( 'id' => $id, 'result' => $result ) );
 		if ( ! $result ) {
 			return false;
 		}
@@ -122,8 +121,6 @@ class Entry extends Abstract_Entry {
 
 		if( $load_records ) {
 			$this->load_records();
-			quillforms_get_logger()->info( 'Load entry records', array( 'id' => $id, 'entry' => $this ) );
-
 		}
 		if( $load_meta ) {
 			$this->load_meta();
@@ -193,6 +190,34 @@ class Entry extends Abstract_Entry {
 				$this->meta[ $result['meta_key'] ] = array(
 					'value' => maybe_unserialize( $result['meta_value'] ),
 				);
+				if('user_id' === $result['meta_key'] && $result['meta_value']) {
+					$user_id = $result['meta_value'];
+					$user_data = get_userdata( $user_id );
+					if ( ! $user_data ) {
+						return;
+					}
+					$this->meta['user_email'] = array(
+						'value' => $user_data->user_email,
+					);
+					$this->meta['user_name'] = array(
+						'value' => $user_data->display_name,
+					);
+					$this->meta['user_login'] = array(
+						'value' => $user_data->user_login,
+					);
+					$this->meta['user_first_name'] = array(
+						'value' => $user_data->first_name,
+					);
+					$this->meta['user_last_name'] = array(
+						'value' => $user_data->last_name,
+					);
+					$this->meta['user_nicename'] = array(
+						'value' => $user_data->user_nicename,
+					);
+					$this->meta['edit_user_url'] = array(
+						'value' => admin_url('user-edit.php?user_id=' . $user_id)
+					);
+				}
 			}
 		}
 	}

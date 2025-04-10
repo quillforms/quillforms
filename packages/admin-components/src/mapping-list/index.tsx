@@ -10,12 +10,12 @@ import { useState, useEffect, useMemo } from 'react';
  */
 import MappingRow from '../mapping-row';
 
-type Options = ( Option & {
+type Options = (Option & {
 	required?: boolean; // makes the option disabled and added by default.
 	combobox?: {
 		customize?: CustomizeFunction;
 	};
-} )[];
+})[];
 
 type MappingRowValue = {
 	key: string;
@@ -26,134 +26,131 @@ type MappingRowValue = {
 };
 
 type Fields = {
-	[ key: string ]: { type: string; value: string };
+	[key: string]: { type: string; value: string };
 };
 
 interface Props {
 	sections?: Sections; // key sections.
 	options?: Options; // key options.
 	initial?: Fields; // used for setup initial mapping rows state.
-	onChange: ( fields: Fields ) => void; // fields contain only the data of valid rows.
+	onChange: (fields: Fields) => void; // fields contain only the data of valid rows.
 }
 
-const MappingList: React.FC< Props > = ( {
+const MappingList: React.FC<Props> = ({
 	sections,
 	options,
 	initial,
 	onChange,
-} ) => {
+}) => {
 	// initial mapping rows.
-	const initialMappingRows: MappingRowValue[] = useMemo( () => {
+	const initialMappingRows: MappingRowValue[] = useMemo(() => {
 		const result: MappingRowValue[] = [];
 		// first add the initial fields.
-		for ( const [ key, value ] of Object.entries( initial ?? {} ) ) {
-			result.push( {
+		for (const [key, value] of Object.entries(initial ?? {})) {
+			result.push({
 				key,
 				value,
-			} );
+			});
 		}
 		// then add the required options.
-		for ( const option of options ?? [] ) {
+		for (const option of options ?? []) {
 			if (
 				option.required &&
-				! result.find( ( item ) => item.key === option.value )
+				!result.find((item) => item.key === option.value)
 			) {
-				result.push( {
+				result.push({
 					key: option.value,
 					value: {},
-				} );
+				});
 			}
 		}
 		// add an empty option if there is no options added.
-		if ( result.length === 0 ) {
-			result.push( {
+		if (result.length === 0) {
+			result.push({
 				key: '',
 				value: {},
-			} );
+			});
 		}
 		return result;
-	}, [] );
+	}, []);
 
 	// mapping rows state.
-	const [ mappingRows, setMappingRows ] =
-		useState< MappingRowValue[] >( initialMappingRows );
-	const selectedKeys = mappingRows.map( ( row ) => row.key );
+	const [mappingRows, setMappingRows] =
+		useState<MappingRowValue[]>(initialMappingRows);
+	const selectedKeys = mappingRows.map((row) => row.key);
 
 	// call onChange
-	useEffect( () => {
+	useEffect(() => {
 		const fields = {};
-		for ( const { key, value } of mappingRows ) {
-			if ( key && value.type && value.value ) {
-				fields[ key ] = value;
+		for (const { key, value } of mappingRows) {
+			if (key && value.type && value.value) {
+				fields[key] = value;
 			}
 		}
-		onChange( fields );
-	}, [ mappingRows ] );
+		onChange(fields);
+	}, [mappingRows]);
 
 	return (
 		<div>
-			{ mappingRows.map( ( fieldRow, index ) => {
+			{mappingRows.map((fieldRow, index) => {
 				const option = options?.find(
-					( option ) => option.value === fieldRow.key
+					(option) => option.value === fieldRow.key
 				);
 				return (
 					<MappingRow
-						key={ index }
-						keyProps={ {
+						key={index}
+						keyProps={{
 							sections: sections,
 							options: options?.filter(
-								( option ) =>
+								(option) =>
 									option.value === fieldRow.key ||
-									! selectedKeys.includes( option.value )
+									!selectedKeys.includes(option.value)
 							),
 							value: fieldRow.key,
-							onChange: ( key ) => {
-								setMappingRows( ( state ) => {
-									const newState = [ ...state ];
-									newState[ index ] = {
-										key,
-										value: {},
-									};
+							onChange: (key) => {
+								setMappingRows((state) => {
+									const newState = [...state];
+									newState[index]['key'] = key;
 									return newState;
-								} );
+								});
 							},
 							disabled: option?.required,
-						} }
-						valueProps={ {
+						}}
+						valueProps={{
 							value: fieldRow.value,
-							onChange: ( value ) => {
-								setMappingRows( ( state ) => {
-									const newState = [ ...state ];
-									newState[ index ].value = value;
+							onChange: (value) => {
+								setMappingRows((state) => {
+									const newState = [...state];
+									newState[index].value = value;
 									return newState;
-								} );
+								});
 							},
 							customize: option?.combobox?.customize,
-						} }
-						onAddClick={ () => {
-							setMappingRows( ( state ) => {
-								const newState = [ ...state ];
-								newState.splice( index + 1, 0, {
+						}}
+						onAddClick={() => {
+							setMappingRows((state) => {
+								const newState = [...state];
+								newState.splice(index + 1, 0, {
 									key: '',
 									value: {},
-								} );
+								});
 								return newState;
-							} );
-						} }
+							});
+						}}
 						onRemoveClick={
 							option?.required || mappingRows.length === 1
 								? undefined
 								: () => {
-										setMappingRows( ( state ) => {
-											const newState = [ ...state ];
-											newState.splice( index, 1 );
-											return newState;
-										} );
-								  }
+									setMappingRows((state) => {
+										const newState = [...state];
+										newState.splice(index, 1);
+										return newState;
+									});
+								}
 						}
 					/>
 				);
-			} ) }
+			})}
 		</div>
 	);
 };

@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-components';
+import ConfigAPI from "@quillforms/config";
 
 /**
  * WordPress Dependencies
@@ -24,10 +25,12 @@ import DeleteIcon from '../delete-icon';
 import DeleteAlertModal from '../delete-alert';
 import Details from './details';
 import Notes from './notes';
+import UserSubmissionInfo from './user-submission-info';
 
 export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [modelOpen, setModalOpen] = useState(false);
+    const isWPEnv = ConfigAPI.isWPEnv();
     const onDelete = () => {
         setIsDeleting(true);
         apiFetch({
@@ -112,6 +115,10 @@ export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
                             </div>
                         </div>
                     </div>
+                    {isWPEnv &&
+                        <UserSubmissionInfo entry={entry} />
+                    }
+
                     <TabPanel
                         className={css`
 						.components-tab-panel__tabs-item {

@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quill Forms is the best WordPress form plugin that focuses on having better UI/UX for forms.
 
 == Description ==
-https://www.youtube.com/watch?v=GjmLUTDIdFc
+https://www.youtube.com/watch?v=ftdH8O2jvBU
 
 A new revolution in WordPress forms, surveys and quizzes with focus on UI/UX to generate more leads on your WordPress site.
 Quill Forms is more than just a form. You can build forms, surveys, quizzes and cost estimation forms easily with Quill Forms.
@@ -178,6 +178,12 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+= 4.7.1 = 10 April 2025
+Fix: Fixing integrations issue with partial submission
+Fix: Fixing range slider issue
+Fix: Fix hook duplication in entry processing after payments
+Feature: Add the user details in entry if the submission is from a logged in user.
+
 
 = 4.7.0 = 7 April 2025
 Fix: Fix major issue with the builder when any of choices questions has the randmize option enabled.

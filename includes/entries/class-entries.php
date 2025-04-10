@@ -73,8 +73,8 @@ class Entries {
 		$existing_entry = apply_filters( 'quillforms_get_existing_entry', false, $_entry );
 		if ( $existing_entry instanceof Entry ) {
 			// update.
-			$result = $existing_entry->update_entry( $_entry );
-			return $result ? $existing_entry : $_entry; 
+			$_entry->ID = $existing_entry->ID;
+			return $_entry;
 		} else {
 			// insert.
 			$result = $_entry->insert();
