@@ -18,6 +18,10 @@
 		"allowedDomains": {
 			"type": "array",
 			"default": []
+		},
+		"disallowedDomains": {
+			"type": "array",
+			"default": []
 		}
 	},
 	"logicalOperators": [

@@ -38,7 +38,7 @@ const EmailOutput = (props) => {
 	const theme = useBlockTheme(attributes.themeId);
 	const messages = useMessages();
 	const answersColor = tinyColor(theme.answersColor);
-	const { required, placeholder, restrictDomains, allowedDomains } = attributes;
+	const { required, placeholder, restrictDomains, allowedDomains, disallowedDomains } = attributes;
 
 	const checkFieldValidation = (value) => {
 		if (required === true && (!value || value === '' || value.length === 0)) {
@@ -54,9 +54,12 @@ const EmailOutput = (props) => {
 			EmailValidator.validate(value)
 		) {
 			const domain = value.split('@')[1].toLowerCase();
-			if (!allowedDomains?.includes(domain)) {
+			if (allowedDomains?.length > 0 && !allowedDomains?.includes(domain)) {
 				setIsValid(false);
 				setValidationErr(messages['label.errorAlert.emailRestrictedDomains']);
+			} else if (disallowedDomains?.length > 0 && disallowedDomains?.includes(domain)) {
+				setIsValid(false);
+				setValidationErr(messages['label.errorAlert.emailDisallowedDomains'] || 'This email domain is not allowed.');
 			} else {
 				setIsValid(true);
 				setValidationErr(null);
