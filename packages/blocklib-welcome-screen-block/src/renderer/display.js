@@ -244,36 +244,32 @@ const WelcomeScreenOutput = ({ attributes }) => {
 						/>
 					</div>
 				</div>
-				{((attributes.layout !== 'stack' &&
-					deviceWidth !== 'mobile') ||
-					(deviceWidth === 'mobile' &&
-						(attributes.layout === 'split-left' ||
-							attributes.layout === 'split-right'))) && (
-						<div
-							className={classNames(
-								'renderer-core-block-attachment-wrapper',
-								css`
+				{attributes.layout !== 'stack' && (
+					<div
+						className={classNames(
+							'renderer-core-block-attachment-wrapper',
+							css`
 								img {
 									object-position: ${
-									// @ts-expect-error
-									attributes?.attachmentFocalPoint
-										?.x * 100
-									}%
+								// @ts-expect-error
+								attributes?.attachmentFocalPoint
+									?.x * 100
+								}%
 										${
-									// @ts-expect-error
-									attributes?.attachmentFocalPoint
-										?.y * 100
-									}%;
+								// @ts-expect-error
+								attributes?.attachmentFocalPoint
+									?.y * 100
+								}%;
 								}
 							`
-							)}
-						>
-							<Attachment
-								isPreview={isPreview}
-								attributes={attributes}
-							/>
-						</div>
-					)}
+						)}
+					>
+						<Attachment
+							isPreview={isPreview}
+							attributes={attributes}
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	);
