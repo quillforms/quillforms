@@ -9,20 +9,31 @@
 	border-radius: 10px;
 	overflow: hidden;
 	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
+	border: 1px solid #e0e0e0;
 
 	.renderer-core-block-scroller {
-		scrollbar-width: none; /* For Firefox */
+		scrollbar-width: none;
+
+		/* For Firefox */
 		&::-webkit-scrollbar {
-			display: none; /* For Chrome, Safari, and Edge */
+			display: none;
+			/* For Chrome, Safari, and Edge */
 		}
 	}
 
-	.renderer-core-field-display-wrapper, .blocktype-group-block .renderer-core-field-footer{
+	.renderer-core-field-display-wrapper,
+	.blocktype-group-block .renderer-core-field-footer {
 		pointer-events: none;
 		user-select: none;
 		/* Optional: Remove from tab order */
 		tabindex: -1;
+	}
+
+	.renderer-core-block-float-left-layout,
+	.renderer-core-block-float-right-layout {
+		.renderer-core-block-attachment-wrapper {
+			padding-inline: 20px;
+		}
 	}
 
 	// except group block
@@ -31,10 +42,11 @@
 	}
 
 
-	
 
 
-	input, textarea {
+
+	input,
+	textarea {
 		// make them disabled
 		pointer-events: none;
 		user-select: none;
@@ -47,7 +59,7 @@
 		transition: opacity 0.3s;
 
 	}
-	
+
 	.renderer-core-child-block.renderer-core-child-block-editor-active {
 		opacity: 1;
 	}
@@ -55,5 +67,5 @@
 
 
 .block-editor-block-edit__skeleton.is-child-active .blocktype-group-block .renderer-components-question-header {
-    opacity: 0.3 !important
+	opacity: 0.3 !important
 }

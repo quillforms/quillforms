@@ -15,11 +15,9 @@ import Editor from './editor';
 /**
  * External Dependencies
  */
-import { cloneDeep, omit, map } from 'lodash';
-import { TailSpin as Loader } from 'react-loader-spinner';
+import { cloneDeep } from 'lodash';
 import classnames from 'classnames';
-import { css } from 'emotion';
-import { ErrorBoundary, withErrorBoundary } from "@quillforms/admin-components";
+import { withErrorBoundary } from "@quillforms/admin-components";
 
 const editLabel = withErrorBoundary(({ childId, childIndex, parentId }) => {
     return <Editor childId={childId} childIndex={childIndex} parentId={parentId} type="label" />;
@@ -76,6 +74,7 @@ const Skeleton = withErrorBoundary(() => {
                 'quillForms/block-editor'
             ).getCurrentBlock(),
             currentChildBlockId: select('quillForms/block-editor').getCurrentChildBlockId(),
+            currentBlockBeingEditedId: select('quillForms/block-editor').getCurrentBlockId(),
             blocks: select('quillForms/block-editor').getBlocks(true),
             messages: select('quillForms/messages-editor').getMessages(),
             settings: select('quillForms/settings-editor').getSettings(),
@@ -97,7 +96,7 @@ const Skeleton = withErrorBoundary(() => {
     }
 
     useEffect(() => {
-        if (!currentBlockBeingEditedId) {
+        if (!currentBlockBeingEditedId && blocks.length > 0) {
             setCurrentBlock(blocks[0].id);
         }
     }, [hasThemesFinishedResolution]);
@@ -135,8 +134,8 @@ const Skeleton = withErrorBoundary(() => {
         // // //     currentBlockId: currentBlockBeingEdited?.id,
         // // // });
 
-        if (currentBlockBeingEdited && currentBlockBeingEdited.id !== 'partial-submission-point')
-            goToBlock(currentBlockBeingEdited.id);
+        if (currentBlockBeingEditedId !== undefined && currentBlockBeingEditedId !== 'partial-submission-point')
+            goToBlock(currentBlockBeingEditedId);
 
     }, [
         // blocks,

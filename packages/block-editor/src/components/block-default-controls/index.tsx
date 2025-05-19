@@ -214,187 +214,246 @@ const DefaultControls: React.FC<Props> = ({
 				<>
 					<BaseControl>
 						<ControlWrapper>
-							<ControlLabel label={__('Image', 'quillforms')} />
-							{isEmpty(attachment) ? (
-								<MediaUpload
-									onSelect={(media) =>
-										setAttributes({
-											attachment: {
-												type: 'image',
-												url: media.url,
-											},
-										})
+							<ControlLabel label={__('Show Attachment', 'quillforms')} />
+							<ToggleControl
+								checked={!!attachment}
+								onChange={() => {
+									if (attachment) {
+										setAttributes({ attachment: undefined });
+									} else {
+										setAttributes({ attachment: { type: 'image', url: '' } });
 									}
-									allowedTypes={['image']}
-									render={({ open }) => (
-										<button
-											className="media-upload-btn"
-											onClick={open}
-										>
-											Add
-										</button>
-									)}
-								/>
-							) : (
-								<button
-									className="remove-media-btn"
-									onClick={() =>
-										setAttributes({
-											attachment: {},
-										})
-									}
-									color="secondary"
-								>
-									Remove
-								</button>
-							)}
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="vertical">
-							<ControlLabel label={__('Layout', 'quillforms')}></ControlLabel>
-							<BlockLayout
-								layout={attributes?.layout}
-								setAttributes={setAttributes}
+								}}
 							/>
 						</ControlWrapper>
 					</BaseControl>
-
-					{(attributes?.layout === 'split-left' ||
-						attributes?.layout === 'split-right') &&
-						attributes?.attachment?.url && (
+					{!!attachment && (
+						<>
 							<BaseControl>
-								<ControlWrapper orientation="vertical">
-									<ControlLabel label={__('Focal Point Picker', 'quillforms')}></ControlLabel>
-									<div
-										className={css`
-											max-width: 300px;
-										` }
-									>
-										<FocalPointPicker
-											url={attributes?.attachment?.url}
-											value={
-												attributes?.attachmentFocalPoint
+								<ControlWrapper>
+									<ControlLabel label={__('Attachment Type', 'quillforms')} />
+									<SelectControl
+										value={[
+											{ key: 'image', name: __('Image', 'quillforms') },
+											{ key: 'video', name: __('Video (YouTube)', 'quillforms') },
+										].find((option) => option.key === (attachment?.type || 'image'))}
+										onChange={(selectedChoice) => {
+											if (selectedChoice && selectedChoice.selectedItem) {
+												const type = selectedChoice.selectedItem.key;
+												if (type === 'video') {
+													setAttributes({ attachment: { type: 'video', url: '' } });
+												} else {
+													setAttributes({ attachment: { type: 'image', url: '' } });
+												}
 											}
-											onDragStart={(val) => {
-												setAttributes({
-													attachmentFocalPoint: val,
-												});
-											}}
-											onDrag={(val) => {
-												setAttributes({
-													attachmentFocalPoint: val,
-												});
-											}}
-											onChange={(val) => {
-												setAttributes({
-													attachmentFocalPoint: val,
-												});
-											}}
-										/>
-									</div>
+										}}
+										options={[
+											{ key: 'image', name: __('Image', 'quillforms') },
+											{ key: 'video', name: __('Video', 'quillforms') },
+										]}
+									/>
 								</ControlWrapper>
 							</BaseControl>
-						)}
-
-					{(attributes?.layout === 'float-left' ||
-						attributes?.layout === 'float-right' ||
-						attributes?.layout === 'stack') &&
-						attributes?.attachment?.url && (
-							<>
+							{attachment?.type === 'video' ? (
 								<BaseControl>
-									<ControlWrapper orientation="horizontal">
-										<ControlLabel label={__('Set Maximum Width for attachment', 'quillforms')} />
-										<ToggleControl
-											checked={
-												attributes?.attachmentMaxWidth !==
-												'none'
-											}
-											onChange={() => {
-												if (
-													attributes?.attachmentMaxWidth ===
-													'none'
-												) {
-													setAttributes({
-														attachmentMaxWidth:
-															'200px',
-													});
-												} else {
-													setAttributes({
-														attachmentMaxWidth:
-															'none',
-													});
-												}
-											}}
+									<ControlWrapper>
+										<ControlLabel label={__('YouTube Video URL', 'quillforms')} />
+										<TextControl
+											value={attachment?.url || ''}
+											onChange={(val) => setAttributes({ attachment: { type: 'video', url: val } })}
+											placeholder={__('Paste YouTube video URL here', 'quillforms')}
 										/>
 									</ControlWrapper>
+								</BaseControl>
+							) : (
+								<BaseControl>
+									<ControlWrapper>
+										<ControlLabel label={__('Image', 'quillforms')} />
+										{isEmpty(attachment) ? (
+											<MediaUpload
+												onSelect={(media) =>
+													setAttributes({
+														attachment: {
+															type: 'image',
+															url: media.url,
+														},
+													})
+												}
+												allowedTypes={['image']}
+												render={({ open }) => (
+													<button
+														className="media-upload-btn"
+														onClick={open}
+													>
+														Add
+													</button>
+												)}
+											/>
+										) : (
+											<button
+												className="remove-media-btn"
+												onClick={() =>
+													setAttributes({
+														attachment: {},
+													})
+												}
+												color="secondary"
+											>
+												Remove
+											</button>
+										)}
+									</ControlWrapper>
+								</BaseControl>
+							)}
+							<BaseControl>
+								<ControlWrapper orientation="vertical">
+									<ControlLabel label={__('Layout', 'quillforms')}></ControlLabel>
+									<BlockLayout
+										layout={attributes?.layout}
+										setAttributes={setAttributes}
+									/>
+								</ControlWrapper>
+							</BaseControl>
+
+							{(attributes?.layout === 'split-left' ||
+								attributes?.layout === 'split-right') &&
+								attributes?.attachment?.url && (
+									<BaseControl>
+										<ControlWrapper orientation="vertical">
+											<ControlLabel label={__('Focal Point Picker', 'quillforms')}></ControlLabel>
+											<div
+												className={css`
+													max-width: 300px;
+												` }
+											>
+												<FocalPointPicker
+													url={attributes?.attachment?.url}
+													value={
+														attributes?.attachmentFocalPoint
+													}
+													onDragStart={(val) => {
+														setAttributes({
+															attachmentFocalPoint: val,
+														});
+													}}
+													onDrag={(val) => {
+														setAttributes({
+															attachmentFocalPoint: val,
+														});
+													}}
+													onChange={(val) => {
+														setAttributes({
+															attachmentFocalPoint: val,
+														});
+													}}
+												/>
+											</div>
+										</ControlWrapper>
+									</BaseControl>
+								)}
+
+							{(attributes?.layout === 'float-left' ||
+								attributes?.layout === 'float-right' ||
+								attributes?.layout === 'stack') &&
+								attributes?.attachment?.url && (
 									<>
-										{attributes.attachmentMaxWidth !==
-											'none' && (
-												<ControlWrapper orientation="vertical">
-													<ControlLabel label={__('Maximum Width(px)', 'quillforms')} />
-													<RangeControl
-														value={parseInt(
-															attributes?.attachmentMaxWidth?.replace(
-																'px',
-																''
-															) ?? '0'
-														)}
-														onChange={(value) =>
+										<BaseControl>
+											<ControlWrapper orientation="horizontal">
+												<ControlLabel label={__('Set Maximum Width for attachment', 'quillforms')} />
+												<ToggleControl
+													checked={
+														attributes?.attachmentMaxWidth !==
+														'none'
+													}
+													onChange={() => {
+														if (
+															attributes?.attachmentMaxWidth ===
+															'none'
+														) {
 															setAttributes({
 																attachmentMaxWidth:
-																	value + 'px',
-															})
+																	'200px',
+															});
+														} else {
+															setAttributes({
+																attachmentMaxWidth:
+																	'none',
+															});
 														}
-														min={50}
-														max={900}
+													}}
+												/>
+											</ControlWrapper>
+											<>
+												{attributes.attachmentMaxWidth !==
+													'none' && (
+														<ControlWrapper orientation="vertical">
+															<ControlLabel label={__('Maximum Width(px)', 'quillforms')} />
+															<RangeControl
+																value={parseInt(
+																	attributes?.attachmentMaxWidth?.replace(
+																		'px',
+																		''
+																	) ?? '0'
+																)}
+																onChange={(value) =>
+																	setAttributes({
+																		attachmentMaxWidth:
+																			value + 'px',
+																	})
+																}
+																min={50}
+																max={900}
+															/>
+														</ControlWrapper>
+													)}
+											</>
+										</BaseControl>
+										{attachment?.attachmentType !== 'video' && (
+											<BaseControl>
+												<ControlWrapper orientation="horizontal">
+													<ControlLabel label={__('Use Fancy Border Radius', 'quillforms')} />
+													<ToggleControl
+														checked={
+															attributes?.attachmentFancyBorderRadius
+														}
+														onChange={() => {
+															if (
+																attributes.attachmentFancyBorderRadius
+															) {
+																setAttributes({
+																	attachmentBorderRadius:
+																		'0px',
+																});
+															}
+															setAttributes({
+																attachmentFancyBorderRadius:
+																	!attributes.attachmentFancyBorderRadius,
+															});
+														}}
 													/>
 												</ControlWrapper>
-											)}
+												{attributes.attachmentFancyBorderRadius && (
+													<ControlWrapper orientation="vertical">
+														<ControlLabel label={__('Choose your favorite fancy border radius', 'quillforms')} />
+														<BorderRadiusTemplates
+															onChange={(val) => {
+																setAttributes({
+																	attachmentBorderRadius:
+																		val,
+																});
+															}}
+															attachmentBorderRadius={
+																attributes.attachmentBorderRadius
+															}
+														/>
+													</ControlWrapper>
+												)}
+											</BaseControl>
+										)}
 									</>
-								</BaseControl>
-								<BaseControl>
-									<ControlWrapper orientation="horizontal">
-										<ControlLabel label={__('Use Fancy Border Radius', 'quillforms')} />
-										<ToggleControl
-											checked={
-												attributes?.attachmentFancyBorderRadius
-											}
-											onChange={() => {
-												if (
-													attributes.attachmentFancyBorderRadius
-												) {
-													setAttributes({
-														attachmentBorderRadius:
-															'0px',
-													});
-												}
-												setAttributes({
-													attachmentFancyBorderRadius:
-														!attributes.attachmentFancyBorderRadius,
-												});
-											}}
-										/>
-									</ControlWrapper>
-									{attributes.attachmentFancyBorderRadius && (
-										<ControlWrapper orientation="vertical">
-											<ControlLabel label={__('Choose your favorite fancy border radius', 'quillforms')} />
-											<BorderRadiusTemplates
-												onChange={(val) => {
-													setAttributes({
-														attachmentBorderRadius:
-															val,
-													});
-												}}
-												attachmentBorderRadius={
-													attributes.attachmentBorderRadius
-												}
-											/>
-										</ControlWrapper>
-									)}
-								</BaseControl>
-							</>
-						)}
+								)}
+						</>
+					)}
 				</>
 			)}
 			{defaultValueSupport && (
