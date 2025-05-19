@@ -27,6 +27,7 @@ import { filter, findIndex } from 'lodash';
 import useFormSettings from '../../hooks/use-form-settings';
 import BlockAttachment from '../field-attachment';
 import { useCorrectIncorrectQuiz, useFormContext } from '../../hooks';
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 import { size } from 'lodash';
 
@@ -44,6 +45,8 @@ const FieldWrapper: React.FC = () => {
 		blockName,
 	} = __experimentalUseFieldRenderContext();
 	const { editor, deviceWidth } = useFormContext();
+	const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const settings = useFormSettings();
 	if (!id || !blockName) return null;
@@ -320,7 +323,7 @@ const FieldWrapper: React.FC = () => {
 	const layout =
 		blockType?.displayLayout && blockType?.displayLayout !== 'default'
 			? blockType.displayLayout
-			: attributes?.layout ?? 'stack';
+			: attributes?.layout && !isSmallDevice ? attributes?.layout : 'stack';
 	const theme = useBlockTheme(attributes?.themeId);
 	let backgroundImageCSS = '';
 	if (theme.backgroundImage && theme.backgroundImage) {
@@ -446,36 +449,31 @@ const FieldWrapper: React.FC = () => {
 									<FieldContent />
 								</div>
 							</div>
-							{((layout !== 'stack' &&
-								deviceWidth !== 'mobile') ||
-								(deviceWidth === 'mobile' &&
-									(layout === 'split-left' ||
-										layout === 'split-right'))) &&
-								blockType?.supports?.attachment && (
-									<div
-										className={classnames(
-											'renderer-core-block-attachment-wrapper',
-											css`
+							{layout !== 'stack' && blockType?.supports?.attachment && (
+								<div
+									className={classnames(
+										'renderer-core-block-attachment-wrapper',
+										css`
 											img {
 												object-position: ${
-												// @ts-expect-error
-												attributes
-													?.attachmentFocalPoint
-													?.x * 100
-												}%
+											// @ts-expect-error
+											attributes
+												?.attachmentFocalPoint
+												?.x * 100
+											}%
 													${
-												// @ts-expect-error
-												attributes
-													?.attachmentFocalPoint
-													?.y * 100
-												}%;
+											// @ts-expect-error
+											attributes
+												?.attachmentFocalPoint
+												?.y * 100
+											}%;
 											}
 										`
-										)}
-									>
-										<BlockAttachment />
-									</div>
-								)}
+									)}
+								>
+									<BlockAttachment />
+								</div>
+							)}
 						</section>
 
 					</>

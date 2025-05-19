@@ -11,11 +11,13 @@ import BlockDescription from '../field-description';
 import BlockAttachment from '../field-attachment';
 import BlockCustomHTML from '../field-custom-html';
 import { __experimentalUseFieldRenderContext } from '../field-render';
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { useBlockTypes, useFormContext, useFormSettings } from '../../hooks';
 
 const QuestionHeader: React.FC = memo(() => {
 	const { blockName, id, attributes } = __experimentalUseFieldRenderContext();
-	const { deviceWidth, editor } = useFormContext();
+	const { editor } = useFormContext();
+	const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
 	const blockTypes = useBlockTypes();
 	const showQuestionsNumbers =
 		useFormSettings()?.showQuestionsNumbers ?? true;
@@ -24,7 +26,7 @@ const QuestionHeader: React.FC = memo(() => {
 
 	const blockType = blockTypes[blockName];
 
-	const layout = attributes?.layout ?? 'stack';
+	const layout = isSmallDevice ? 'stack' : attributes?.layout ?? 'stack';
 	return (
 		<div className="renderer-components-question-header" onClick={() => {
 			if (editor.mode === 'on' && editor.onClick)
@@ -39,10 +41,7 @@ const QuestionHeader: React.FC = memo(() => {
 			)}
 			<BlockTitle />
 			<BlockDescription />
-			{(layout === 'stack' ||
-				(deviceWidth === 'mobile' &&
-					(layout === 'float-left' ||
-						layout === 'float-right'))) && <BlockAttachment />}
+			{(layout === 'stack' && <BlockAttachment />)}
 			<BlockCustomHTML />
 		</div>
 	);
