@@ -1,173 +1,138 @@
- === Quill Forms | The Best Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
+ === Quill Forms | Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
-Tested up to: 6.7.1
-Stable tag: 4.7.0
+Tested up to: 6.8.1
+Stable tag: 4.8.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
-Tags: quill, typeform plugin, conversational, forms, typeform, conversation, chat, contact, survey, quiz, typeform wordpress, typeform alternative, wp forms, multi step form, form builder, mailchimp, mailchimp form, getresponse, getresponse form, googlesheets form, forms creator, forms builder, form manager, best contact form plugin, best survey plugin, best quiz plugin, typeform wordpress plugin, email form, wpforms, interactive form, nice form, contact us, typeform wordpress plugin, fullpage, full page, slider, best wordpress form plugin
+Tags: quill, typeform, conversational, forms, survey, quiz
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A new revolution for WordPress forms and surveys that enables you to create forms similar to Typeform. Quill Forms is the best WordPress form plugin that focuses on having better UI/UX for forms.
+# Quill Forms - Conversational WordPress Form Builder
 
-== Description ==
+## Description
+Quill Forms introduces a revolutionary approach to WordPress forms, surveys, and quizzes with a focus on enhanced UI/UX to maximize lead generation on your WordPress site.
+
+Our conversational form plugin enables you to create engaging, Typeform-style interactive forms that guide users through a seamless question-by-question experience. Quill Forms transforms traditional form completion into a natural conversation, significantly improving completion rates and user satisfaction.
+
 https://www.youtube.com/watch?v=ftdH8O2jvBU
 
-A new revolution in WordPress forms, surveys and quizzes with focus on UI/UX to generate more leads on your WordPress site.
-Quill Forms is more than just a form. You can build forms, surveys, quizzes and cost estimation forms easily with Quill Forms.
+## Core Features (Free Version)
+Quill Forms provides essential tools to create effective conversational forms:
 
-=== Demos ===
-[Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey)
-[Correct and Incorrect Science Quiz](https://quillforms.com/forms/correct-and-incorrect-science-quiz/)
-[Personality Quiz](https://quillforms.com/forms/personality-quiz)
-[Trivia Quiz](https://quillforms.com/forms/trivia-quiz)
-[Donation Form](https://quillforms.com/forms/simple-donation-form)
-[Job Application Form](https://quillforms.com/forms/job-application-form)
-[Course Evaluation Survey](https://quillforms.com/forms/course-evaluation-survey)
-[Web Design Cost Calculator](https://quillforms.com/forms/web-design-cost-calculator)
-[Event Registration](https://quillforms.com/forms/event-registration)
-[Paid Workshop Registration](https://quillforms.com/forms/paid-workshop-registration)
+- **Intuitive Interface**: Drag-and-drop question types for effortless form creation
+- **Conversational Flow**: Ask one question at a time in a natural, engaging format
+- **Customizable Themes**: Personalize fonts, colors, and backgrounds with ease
+- **Custom CSS Support**: Add your own CSS code for advanced customization
 
-Quill Forms is the best free Typeform alternative for WordPress.
-With QuillForms Wordpress plugin, you can build surveys that seem less like a game of 20 questions and more like a casual conversation.
-By asking one question at a time in a friendly tone, you nudge the respondents to complete the desired forms and boost your conversion rate.
-What’s more, QuillForms offers loads of hip features that make creating forms as much fun as filling them!
-·  Drag and drop question types
-·  Humanize your conversation
-·  Personalize your themes
-·  Change font, colors and backgrounds with a single click
-.  Custom css to add your own css code
+### Available Blocks in Free Version:
+1. Welcome Screen Block
+2. Date Block
+3. Email Block
+4. Dropdown Block
+5. Multiple Choice Block
+6. Statement Block
+7. Range Slider Block
+8. Website Block
+9. Short Text Block
+10. Long Text Block
+11. Thank You Screen
+12. Group Block (for multiple questions on one page)
 
-If you are looking for conversational and interactive forms, surveys or quizzes, then Quill Forms should be your choice without any doubt!
-QuillForms free version comes with variety of blocks:
-1- Welcome screen block
-2- Date block
-3- Email block
-4- Dropdown block
-5- Multiple choice block
-6- Statement block
-7- Website block
-8- Short text block
-9- Long text block
-10- Default thank you screen
-11- Group block to gather different questions at same page
+### Results Management (Free Version)
+Set up email notifications to receive submission data after each form completion.
 
-= How to get results in the free version? =
+## Interactive Form Demos
+Experience Quill Forms in action with our sample forms:
+- [Customer Satisfaction Survey](https://quillforms.com/forms/course-evaluation-survey)
+- [Science Quiz with Feedback](https://quillforms.com/forms/correct-and-incorrect-science-quiz/)
+- [Personality Quiz](https://quillforms.com/forms/personality-quiz)
+- [Trivia Quiz](https://quillforms.com/forms/trivia-quiz)
+- [Donation Form](https://quillforms.com/forms/simple-donation-form)
+- [Job Application Form](https://quillforms.com/forms/job-application-form)
+- [Course Evaluation Survey](https://quillforms.com/forms/course-evaluation-survey)
+- [Web Design Cost Calculator](https://quillforms.com/forms/web-design-cost-calculator)
+- [Event Registration](https://quillforms.com/forms/event-registration)
+- [Paid Workshop Registration](https://quillforms.com/forms/paid-workshop-registration)
 
-By set up email notifications, you can get an email after each submission with the submission data. For
+## Professional Features (Pro Version)
+Upgrade to access advanced functionality:
 
-
-
-= Features in Pro version =
-- File upload block
-- Partial Submission
-- Phone block
-- Drop off rate analysis
-- Jump logic to jump between questions based on a set of conditions
-- Calculator for quizzes and cost estimations
-- Hidden fields and custom URL parameters
-- Track UTM Parameters
-- Zapier integration to connect with 3000+ apps
-- Webhooks
-- Export entries to PDF or attach pdf to emails
-- One time payment and subscriptions with Stripe checkout and Stripe elements
-- One time payment and subscriptions with Paypal checkout and Credit card payments by Paypal
-- One time payment and subscriptions with authorize.net
-- One time payment and subscriptions with Square
-- One time payment and subscriptions with Mollie
-- One time payment and subscriptions with Razorpay
-- one time payments and subscriptions with 2checkout
-- one time payments with BTCPay Server
-- Discount coupons
-- GoogleSheets integration
-- MailChimp integration
-- Constant Contact integration
-- Klaviyo integration
-- Sendinblue integration
-- Slack integration
-- MailPoet integration
-- GetResponse integration
-- Hubspot integration
-- SalesForce integration
-- GoHighLevel integration
-- FunnelKit integration
-- GroundHogg integration
-- Aweber integration
-- ActiveCampaign integration
-- Notion integration
-- Make integration
-- Monday.com integration
-- Zoho CRM integration
-- Freshsales CRM integration
-- ClickUp integration
-- Airtable integration
-- Moosend integration
-- CleverReach integration
-- FluentCRM integration
-- Discord integration 
-- Custom fonts
-- Convertkit integration
-- Asana integration
-- SalesFlare integration
-- Capsule CRM integration
-- EmailOctopus integration
-- Drip integration
-- Mautic integration
-- AgileCRM integration
-- Trello integration
-- Bitrix24 integration
-- MailerLite integration
-- Calendly integration
-- Pipedrive integration
-- Twilio integration
-- Keap integration
-- Tracking with Google Tag Manager
-- Tracking with Google Analytics
-- Tracking with Facebook Pixel
-- Opinion scale block
+### Enhanced Form Elements
+- File Upload Block
+- Phone Block
+- Opinion Scale Block
+- Rating Block
 - Date Calendar Picker
-- Signature block
-- Form locker to restrict access to your form with a lot of options.
-- Custom thank you screen with auto redirect and custom buttons
-- Google Recaptcha
-- Rating block
-- WP User Registration
-- Advanced Post Creation to create any page, post or any custom post type after form submission with integration with ACF
+- Signature Block
+
+### Advanced Logic & Analytics
+- Jump Logic
+- Calculation Engine
+- Partial Submission Tracking
+- Drop-off Rate Analysis
+- Hidden Fields
+- Custom URL Parameters
+- UTM Parameter Tracking
+
+### Payment Processing
+- Multiple Payment Gateway Integrations:
+  - Stripe (Checkout & Elements)
+  - PayPal
+  - Authorize.net
+  - Square
+  - Mollie
+  - Razorpay
+  - 2Checkout
+  - BTCPay Server
+- Discount Coupon Support
+
+### Integrations
+Seamlessly connect with popular services:
+- CRM Systems: HubSpot, Salesforce, Zoho, Freshsales, SalesFlare, Capsule, Bitrix24, Pipedrive, Keap
+- Email Marketing: MailChimp, Constant Contact, Klaviyo, Sendinblue, MailPoet, GetResponse, AWeber, ActiveCampaign, Moosend, CleverReach, FluentCRM, EmailOctopus, Drip, Mautic, MailerLite
+- Project Management: Asana, ClickUp, Trello, Monday.com
+- Automation: Zapier, Webhooks, Make
+- Other Tools: Google Sheets, Notion, Airtable, Discord, Calendly, Twilio
+
+### Security & Tracking
+- Google reCAPTCHA
+- Form Access Restrictions
+- Google Tag Manager
+- Google Analytics
+- Facebook Pixel
+
+### Advanced WordPress Integration
+- User Registration
+- Advanced Post Creation
+- ACF Integration
 
 [Purchase The Pro Version](https://quillforms.com)
 
-= Compare Quill Forms With Others =
-[Compare Quill Forms with Typeform](https://quillforms.com/typeform-alternative)
+## Compatibility
+Quill Forms works seamlessly with major WordPress page builders including Elementor, Gutenberg, Divi, Visual Composer, and Oxygen through simple iframe embedding.
 
-= Be a contributor =
-If you want to contribute, go to our [QuillForms GitHub Repository](https://github.com/quillforms/quillforms) and see where you can help.
+## Open Source
+Quill Forms is an [open source project](https://github.com/quillforms/quillforms). Developers are welcome to contribute to our GitHub repository.
 
+## FAQ
 
-== Frequently Asked Questions ==
+**Is the project open source?**
+Yes, Quill Forms is open source and available on [GitHub](https://github.com/quillforms/quillforms).
 
-= Is the project open source? =
+**Does the free version include branding?**
+No, the free version does not contain any branding.
 
-Yes, Quill Forms is an [open source Typeform alternative](https://github.com/quillforms/quillforms)
-
-= Does the free version has any branding? =
-
-No, the free version doesn't contain any branding.
-
-= How many forms can I create with the free version? =
-
+**How many forms can I create with the free version?**
 You can build unlimited forms with the free version.
 
-= Can I use jump logic with your form? =
+**Can I use conditional logic in my forms?**
+Yes, jump logic is available in our pro version.
 
-Absoletely yes, but you need to upgrade first to our pro version
+**Can I create quizzes or cost estimations?**
+Yes, our pro version includes a calculator feature for quizzes and advanced calculations.
 
-= Can I use calculator for creating quizzes, cost estimation or advacned calculations? =
-
-Absoletely yes, but you need to upgrade first to our pro version
-
-= Does it work with Elementor, Gutenberg, Divi, Visual Composer and Oxygen builders?
-
-Yes, with iframe embedding, you can just copy the iframe code provided by us and insert it in your builder. That's it!
-
+**Is it compatible with page builders?**
+Yes, Quill Forms works with all major WordPress page builders through iframe embedding.
 == Screenshots ==
 
 1. QuillForms Builder
@@ -178,6 +143,16 @@ Yes, with iframe embedding, you can just copy the iframe code provided by us and
 
 
 == Changelog ==
+= 4.8.0 = 19 May 2025
+Feature: Add option for emails to have disallowed email domains.
+Feature: Add video option in the attachment.
+
+= 4.7.3 = 9 May 2025
+Fix: Fix the plugin name and description to comply with WP standards.
+
+= 4.7.2 = 11 April 2025
+Fix: Fix partial submission entries when it is completed already.
+
 = 4.7.1 = 10 April 2025
 Fix: Fixing integrations issue with partial submission
 Fix: Fixing range slider issue
