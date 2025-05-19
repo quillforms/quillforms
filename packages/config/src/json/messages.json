@@ -228,6 +228,16 @@
 			}
 		]
 	},
+	"label.errorAlert.emailDisallowedDomains": {
+		"title": "If email domain is disallowed",
+		"allowedFormats": [
+			"bold",
+			"link",
+			"italic"
+		],
+		"default": "This email domain is not allowed.",
+		"category": "alerts"
+	},
 	"label.errorAlert.url": {
 		"title": "If url is wrong",
 		"allowedFormats": [
