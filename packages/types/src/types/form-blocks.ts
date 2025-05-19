@@ -1,5 +1,5 @@
 type BlockAttachment = {
-	type: 'image';
+	type: 'image' | 'video';
 	url: string;
 };
 export type DefaultAttributes = {
@@ -22,14 +22,14 @@ export type DefaultAttributes = {
 	themeId?: number;
 	radomize?: boolean;
 	layout?:
-		| 'stack'
-		| 'float-left'
-		| 'float-right'
-		| 'split-left'
-		| 'split-right';
+	| 'stack'
+	| 'float-left'
+	| 'float-right'
+	| 'split-left'
+	| 'split-right';
 };
 export interface BlockAttributes extends DefaultAttributes {
-	[ x: string ]: unknown;
+	[x: string]: unknown;
 }
 
 export type FormBlock = {
