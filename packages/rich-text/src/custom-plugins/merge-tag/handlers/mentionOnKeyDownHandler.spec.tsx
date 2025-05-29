@@ -1,5 +1,3 @@
-/** @jsx jsx */
-
 import { jsx } from '@udecode/plate-test-utils';
 import * as isHotkey from 'is-hotkey';
 

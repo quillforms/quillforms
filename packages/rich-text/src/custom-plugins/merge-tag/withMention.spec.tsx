@@ -1,5 +1,3 @@
-/** @jsx jsx */
-
 import {
   comboboxActions,
   comboboxSelectors,
