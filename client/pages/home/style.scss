@@ -1077,4 +1077,69 @@ body {
         display: flex;
         align-items: center;
     }
+
+
+    .create-form-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+      
+      .create-from-scratch-card,
+      .choose-template-card,
+      .ai-form-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        width: 200px;
+        height: 150px;
+        border-radius: 8px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .ai-form-card {
+        border: 2px solid #8c69ff;
+      }
+      
+      .ai-form-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(140, 105, 255, 0.3);
+      }
+      
+      .ai-form-card svg {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 15px;
+        color: #8c69ff;
+      }
+      
+      .quillforms-ai-form-generator {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .quillforms-ai-form-generator .form-field {
+        margin-bottom: 20px;
+      }
+      
+      .quillforms-ai-form-generator .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 30px;
+      }
+      
+      .quillforms-ai-form-generator .error-message {
+        color: #d63638;
+        margin-top: 15px;
+        padding: 10px;
+        background: #ffeeee;
+        border-radius: 4px;
+      }
 }

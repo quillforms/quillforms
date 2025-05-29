@@ -15,10 +15,14 @@ import { Icon } from '@wordpress/components';
 import ScratchIcon from './scratch-icon';
 import TemplateIcon from './template-icon';
 import ChooseTemplate from './choose-template';
+import GenerateAIForm from './generate-ai-form';
+import AIIcon from './ai-icon';
 
 const AddFormModal = ({ closeModal }) => {
 	const [formTitleScreen, setFormTitleScreen] = useState(false);
 	const [formTemplateScreen, setFormTemplateScreen] = useState(false);
+	const [aiFormScreen, setAiFormScreen] = useState(false);
+
 	return (
 		<Modal
 			className={classnames(
@@ -92,10 +96,12 @@ const AddFormModal = ({ closeModal }) => {
 		>
 			{formTitleScreen ? (
 				<AddFormTitle closeModal={closeModal} />
+				// ) : aiFormScreen ? (
+				// 	<GenerateAIForm closeModal={closeModal} /> // New component we'll create
+				// ) 
 			) : (
 				<>
 					{formTemplateScreen ? <ChooseTemplate /> : (
-
 						<div class="create-form-cards">
 							<div className="create-from-scratch-card" onClick={() => { setFormTitleScreen(true) }}>
 								<ScratchIcon />
@@ -107,9 +113,15 @@ const AddFormModal = ({ closeModal }) => {
 								<TemplateIcon />
 								{__('Choose a template', 'quillforms')}
 							</div>
+							{/* Add AI option */}
+							{/* <div className='ai-form-card' onClick={() => {
+								setAiFormScreen(true)
+							}}>
+								<AIIcon />
+								{__('Generate with AI', 'quillforms')}
+							</div> */}
 						</div>
-					)
-					}
+					)}
 				</>
 			)}
 		</Modal>
