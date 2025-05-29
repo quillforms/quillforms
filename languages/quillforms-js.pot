@@ -1,17 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
-"Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-04-10T04:45:07.598Z\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: quillforms-babel-plugin-makepot\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
+"Content-Type: text/plain;\n"
 
 #: client/pages/payments/coupons/coupon/index.js:96
 msgid "10"
@@ -47,7 +39,6 @@ msgid "Activate"
 msgstr ""
 
 #: client/pages/addons/index.js:191
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:123
 msgid "Active"
 msgstr ""
 
@@ -60,7 +51,7 @@ msgid " addon"
 msgstr ""
 
 #: client/pages/addons/index.js:63
-msgid "â "
+msgid "✅ "
 msgstr ""
 
 #: client/pages/builder/full-preview.js:28
@@ -74,11 +65,11 @@ msgstr ""
 
 #: client/pages/builder/save-button.js:126
 #: client/pages/payments/index.js:176
-msgid "ð Saved successfully!"
+msgid "🚀 Saved successfully!"
 msgstr ""
 
 #: client/pages/builder/save-button.js:138
-msgid "â Error while saving!"
+msgid "⛔ Error while saving!"
 msgstr ""
 
 #: client/pages/builder/save-button.js:148
@@ -92,7 +83,6 @@ msgstr ""
 
 #: client/pages/builder/save-button.js:164
 #: client/pages/results/components/delete-alert.js:43
-#: packages/builder-core/src/components/drag-alert/index.tsx:43
 msgid "Warning!"
 msgstr ""
 
@@ -108,45 +98,78 @@ msgstr ""
 msgid "Don't show me this message again."
 msgstr ""
 
-#: client/pages/home/add-form-modal.js:102
+#: client/pages/home/add-form-modal.js:316
+msgid "Create New Form"
+msgstr ""
+
+#: client/pages/home/add-form-modal.js:370
+msgid "Choose how you`d like to build your Form"
+msgstr ""
+
+#: client/pages/home/add-form-modal.js:388
+msgid "Blank Page"
+msgstr ""
+
+#: client/pages/home/add-form-modal.js:397
 msgid "Start from scratch"
 msgstr ""
 
-#: client/pages/home/add-form-modal.js:108
-#: client/pages/home/choose-template.js:217
-msgid "Choose a template"
+#: client/pages/home/add-form-modal.js:424
+msgid "Choose A Pre-built Template"
 msgstr ""
 
-#: client/pages/home/add-form-modal.js:88
-msgid "Create new form"
+#: client/pages/home/add-form-modal.js:452
+msgid "Generate With AI"
 msgstr ""
 
-#: client/pages/home/choose-template.js:105
-msgid "Use this template"
+#: client/pages/home/add-form-modal.js:466
+msgid "Beta"
 msgstr ""
 
-#: client/pages/home/choose-template.js:138
-msgid "requires pro license"
+#: client/pages/home/add-form-modal.js:493
+msgid "Back"
 msgstr ""
 
-#: client/pages/home/choose-template.js:145
-msgid "template"
+#: client/pages/home/add-form-modal.js:120
+#: client/pages/home/add-form-title.js:40
+msgid "Create Blank Form"
 msgstr ""
 
-#: client/pages/home/choose-template.js:163
+#: client/pages/home/add-form-title.js:101
+msgid "Form Title"
+msgstr ""
+
+#: client/pages/home/add-form-title.js:110
+msgid "Insert Form Title here!"
+msgstr ""
+
+#: client/pages/home/add-form-title.js:93
+msgid "Start From Scratch"
+msgstr ""
+
+#: client/pages/home/choose-template.js:1024
 msgid "Required Addons"
 msgstr ""
 
-#: client/pages/home/choose-template.js:167
+#: client/pages/home/choose-template.js:1028
 msgid "This template requires the following addons to be installed and activated:"
 msgstr ""
 
-#: client/pages/home/choose-template.js:219
+#: client/pages/home/choose-template.js:153
+msgid "Choose A Template"
+msgstr ""
+
+#: client/pages/home/choose-template.js:155
 msgid "Start with a template to save time and be more productive."
 msgstr ""
 
-#: client/pages/home/choose-template.js:28
-msgid "Back to template selection"
+#: client/pages/home/choose-template.js:67
+msgid "Use Selected Template"
+msgstr ""
+
+#: client/pages/home/add-form-title.js:40
+#: client/pages/home/form-card.js:606
+msgid "Create Form"
 msgstr ""
 
 #: client/pages/home/form-card.js:157
@@ -159,28 +182,22 @@ msgid "Delete Permanently"
 msgstr ""
 
 #: client/pages/home/form-card.js:195
-#: packages/notifications-editor/src/components/notification-box/index.js:69
 msgid "Edit"
 msgstr ""
 
 #: client/pages/home/form-card.js:205
-#: packages/admin-components/src/form-admin-bar/index.tsx:79
 msgid "Results"
 msgstr ""
 
 #: client/pages/home/form-card.js:215
-#: packages/admin-components/src/form-admin-bar/index.tsx:95
 msgid "Integrations"
 msgstr ""
 
 #: client/pages/home/form-card.js:225
-#: packages/admin-components/src/form-admin-bar/index.tsx:64
 msgid "Share"
 msgstr ""
 
 #: client/pages/home/form-card.js:238
-#: packages/block-editor/src/components/block-actions/index.tsx:172
-#: packages/theme-editor/src/components/theme-actions/index.js:49
 msgid "Duplicate"
 msgstr ""
 
@@ -197,64 +214,56 @@ msgstr ""
 msgid "Move to Trash"
 msgstr ""
 
-#: client/pages/home/form-card.js:325
 #: client/pages/home/form-card.js:470
 msgid "Untitled Form"
 msgstr ""
 
-#: client/pages/home/form-card.js:328
 #: client/pages/home/form-card.js:477
 #: client/pages/home/home-content.js:242
 msgid "Published"
 msgstr ""
 
-#: client/pages/home/form-card.js:333
 #: client/pages/home/form-card.js:479
 #: client/pages/results/analytics/index.js:66
 msgid "responses"
 msgstr ""
 
-#: client/pages/home/form-card.js:345
 #: client/pages/home/form-card.js:490
 msgid "Rename Form"
 msgstr ""
 
 #: client/pages/home/form-card.js:499
-msgid "â Form title cannot be empty!"
+msgid "⛔ Form title cannot be empty!"
 msgstr ""
 
 #: client/pages/home/form-card.js:516
-msgid "â Error in form renaming!"
+msgid "⛔ Error in form renaming!"
 msgstr ""
 
 #: client/pages/home/form-card.js:521
-msgid "â Form renamed successfully!"
+msgid "✅ Form renamed successfully!"
 msgstr ""
 
-#: client/pages/home/form-card.js:246
-#: client/pages/home/form-card.js:385
 #: client/pages/home/form-card.js:530
 msgid "Rename"
 msgstr ""
 
-#: client/pages/home/form-card.js:392
 #: client/pages/home/form-card.js:537
 msgid "Change Form Slug"
 msgstr ""
 
 #: client/pages/home/form-card.js:546
-msgid "â Form slug cannot be empty!"
+msgid "⛔ Form slug cannot be empty!"
 msgstr ""
 
 #: client/pages/home/form-card.js:563
-msgid "â Error in form slug changing!"
+msgid "⛔ Error in form slug changing!"
 msgstr ""
 
 #: client/pages/home/form-card.js:568
-msgid "â Form slug changed successfully!"
+msgid "✅ Form slug changed successfully!"
 msgstr ""
 
-#: client/pages/home/form-card.js:432
 #: client/pages/home/form-card.js:577
 msgid "Change"
 msgstr ""
@@ -291,10 +300,169 @@ msgstr ""
 msgid "Published forms will appear here."
 msgstr ""
 
-#: client/pages/home/form-card.js:591
-#: client/pages/home/form-card.js:601
-#: client/pages/home/form-card.js:606
-msgid "Create Form"
+#: client/pages/home/generate-ai-form.js:244
+msgid "Generating input fields..."
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:256
+msgid "Please wait..."
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:311
+msgid "Generate Form With AI"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:342
+msgid "Describe the form you want to create"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:369
+msgid ""
+"E.g., create a job application form with personal details, education, work "
+"experience, and Skills sections"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:384
+msgid "You can edit and customize the result later."
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:419
+msgid "Form Type"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:454
+msgid "e.g., Contact, survey, registration"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:460
+msgid "Contact Form"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:463
+msgid "Survey"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:466
+msgid "Registration"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:469
+msgid "Application"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:472
+msgid "Feedback"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:475
+msgid "Booking"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:478
+msgid "Quiz"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:481
+msgid "Order Form"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:49
+msgid "Generate Form"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:502
+msgid "Industry"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:537
+msgid "E.g., healthcare, education, real estate"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:543
+msgid "Healthcare"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:546
+msgid "Education"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:549
+msgid "Real Estate"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:552
+msgid "Technology"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:555
+msgid "Finance"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:558
+msgid "Retail"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:561
+msgid "Hospitality"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:564
+msgid "Non-Profit"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:567
+msgid "Government"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:570
+msgid "Other"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:592
+msgid "Complexity"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:617
+msgid "Simple"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:620
+#: client/pages/home/generate-ai-form.js:592
+#: client/pages/home/generate-ai-form.js:591
+#: client/pages/home/generate-ai-form.js:653
+#: client/pages/home/generate-ai-form.js:644
+#: client/pages/home/generate-ai-form.js:420
+#: client/pages/home/generate-ai-form.js:418
+#: client/pages/home/generate-ai-form.js:417
+#: client/pages/home/generate-ai-form.js:414
+#: client/pages/home/generate-ai-form.js:355
+#: client/pages/home/generate-ai-form.js:354
+#: client/pages/home/generate-ai-form.js:353
+#: client/pages/home/generate-ai-form.js:352
+#: client/pages/home/generate-ai-form.js:351
+#: client/pages/home/generate-ai-form.js:350
+#: client/pages/home/generate-ai-form.js:356
+#: client/pages/home/generate-ai-form.js:358
+#: client/pages/home/generate-ai-form.js:385
+#: client/pages/home/generate-ai-form.js:343
+#: client/pro-panels/hidden-fields-render/index.js:139
+msgid "Medium"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:623
+msgid "Complex"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:644
+msgid "Additional instructions"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:653
+msgid "Optional"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:678
+msgid "Any specific requirements or details"
 msgstr ""
 
 #: client/pages/home/home-content.js:120
@@ -351,15 +519,10 @@ msgstr ""
 
 #: client/pages/home/home-content.js:291
 #: client/pages/results/components/entry-details/notes/index.js:142
-#: packages/blocklib-date-block/src/admin/settings.js:10
 msgid "Date"
 msgstr ""
 
-#: client/pages/home/home-content.js:26
 #: client/pages/home/home-content.js:294
-#: packages/document-editor/src/components/post-title/index.js:20
-#: packages/notifications-editor/src/components/notification-title/index.js:17
-#: packages/theme-editor/src/components/customize/index.js:122
 msgid "Title"
 msgstr ""
 
@@ -380,7 +543,7 @@ msgid "Move to Draft"
 msgstr ""
 
 #: client/pages/import-export/export/index.js:109
-msgid "â Something went wrong while exporting forms."
+msgid "⛔ Something went wrong while exporting forms."
 msgstr ""
 
 #: client/pages/import-export/export/index.js:141
@@ -401,7 +564,6 @@ msgstr ""
 
 #: client/pages/import-export/export/index.js:159
 #: client/pages/results/components/entries-list.js:198
-#: client/pagess/components/entries-list.js:198
 msgid "Select All"
 msgstr ""
 
@@ -411,11 +573,11 @@ msgid "Export"
 msgstr ""
 
 #: client/pages/import-export/export/index.js:65
-msgid "â Please select at least one form to export."
+msgid "⛔ Please select at least one form to export."
 msgstr ""
 
 #: client/pages/import-export/export/index.js:96
-msgid "â Forms exported successfully."
+msgid "✅ Forms exported successfully."
 msgstr ""
 
 #: client/pages/import-export/import/index.js:118
@@ -427,21 +589,20 @@ msgid "Browse"
 msgstr ""
 
 #: client/pages/import-export/import/index.js:138
-#: client/pages/import-export/import/index.js:89
 #: client/pages/import-export/index.js:50
 msgid "Import"
 msgstr ""
 
 #: client/pages/import-export/import/index.js:37
-msgid "â Invalid file type!"
+msgid "⛔ Invalid file type!"
 msgstr ""
 
 #: client/pages/import-export/import/index.js:58
-msgid "â Imported successfully!"
+msgid "✅ Imported successfully!"
 msgstr ""
 
 #: client/pages/import-export/import/index.js:66
-msgid "â Something went wrong!"
+msgid "⛔ Something went wrong!"
 msgstr ""
 
 #: client/pages/import-export/import/index.js:77
@@ -484,17 +645,11 @@ msgid "Search for an integration"
 msgstr ""
 
 #: client/pages/license/index.js:117
-msgid "â License deactivated"
+msgid "✅ License deactivated"
 msgstr ""
 
-#: client/pages/license/index.js:122
 #: client/pages/license/index.js:129
-#: client/pages/license/index.js:54
-#: client/pages/license/index.js:61
-#: client/pages/license/index.js:88
-#: client/pages/license/index.js:95
 #: client/pages/system/logs/index.js:100
-#: packages/block-editor/src/components/block-controls/index.tsx:96
 msgid "Error"
 msgstr ""
 
@@ -535,8 +690,6 @@ msgid "Upgrades:"
 msgstr ""
 
 #: client/pages/license/index.js:195
-#: packages/admin-components/src/pro-button/index.tsx:30
-#: packages/admin-components/src/pro-button/index.tsx:44
 msgid "Upgrade to"
 msgstr ""
 
@@ -549,11 +702,11 @@ msgid "License key"
 msgstr ""
 
 #: client/pages/license/index.js:49
-msgid "â License activated successfully"
+msgid "✅ License activated successfully"
 msgstr ""
 
 #: client/pages/license/index.js:83
-msgid "â License updated"
+msgid "✅ License updated"
 msgstr ""
 
 #: client/pages/not-found/index.js:17
@@ -617,7 +770,6 @@ msgid "Enter the code customers will enter to apply the coupon."
 msgstr ""
 
 #: client/pages/payments/coupons/coupon/index.js:74
-#: packages/renderer-core/src/components/payment-modal/info/index.tsx:139
 msgid "Discount"
 msgstr ""
 
@@ -674,19 +826,19 @@ msgid "Methods"
 msgstr ""
 
 #: client/pages/payments/index.js:114
-msgid "â Please select at least one payment method"
+msgid "⛔ Please select at least one payment method"
 msgstr ""
 
 #: client/pages/payments/index.js:134
-msgid "â "
+msgid "⛔ "
 msgstr ""
 
 #: client/pages/payments/index.js:145
-msgid "â Please add at least one product"
+msgid "⛔ Please add at least one product"
 msgstr ""
 
 #: client/pages/payments/index.js:153
-msgid "â Please check highlighted errors"
+msgid "⛔ Please check highlighted errors"
 msgstr ""
 
 #: client/pages/payments/index.js:183
@@ -701,8 +853,6 @@ msgstr ""
 msgid "Unknown form block, please select another source"
 msgstr ""
 
-#: client/pages/payments/index.js:220
-#: client/pages/payments/index.js:226
 #: client/pages/payments/index.js:233
 msgid "Please enter product name"
 msgstr ""
@@ -711,7 +861,6 @@ msgstr ""
 msgid "Please enter product price"
 msgstr ""
 
-#: client/pages/payments/index.js:239
 #: client/pages/payments/index.js:243
 msgid "Unknown product source"
 msgstr ""
@@ -863,7 +1012,6 @@ msgid "DEMO PREVIEW"
 msgstr ""
 
 #: client/pages/results/analytics/index.js:54
-#: packages/admin-components/src/enhanced-pro-label/index.tsx:35
 msgid "Pro Feature"
 msgstr ""
 
@@ -875,16 +1023,35 @@ msgstr ""
 msgid "Analyze how people respond to your multiple choice questions"
 msgstr ""
 
-#: client/pages/results/components/delete-alert.js:46
-#: packages/builder-core/src/components/drag-alert/index.tsx:55
-msgid "Are you sure you want to proceed?"
-msgstr ""
-
+#: client/pages/home/choose-template.js:436
+#: client/pages/home/choose-template.js:705
+#: client/pages/home/choose-template.js:434
+#: client/pages/home/choose-template.js:440
+#: client/pages/home/choose-template.js:437
+#: client/pages/home/choose-template.js:329
+#: client/pages/home/choose-template.js:328
+#: client/pages/home/choose-template.js:327
+#: client/pages/home/choose-template.js:326
+#: client/pages/home/choose-template.js:321
+#: client/pages/home/choose-template.js:320
+#: client/pages/home/choose-template.js:319
+#: client/pages/home/choose-template.js:318
+#: client/pages/home/choose-template.js:269
+#: client/pages/home/choose-template.js:278
+#: client/pages/home/choose-template.js:316
+#: client/pages/home/choose-template.js:315
+#: client/pages/home/choose-template.js:276
+#: client/pages/home/choose-template.js:277
+#: client/pages/home/choose-template.js:268
+#: client/pages/home/choose-template.js:267
+#: client/pages/home/choose-template.js:264
 #: client/pages/results/components/delete-alert.js:64
 #: client/pages/results/components/entry-header/index.js:151
-#: packages/builder-core/src/components/drag-alert/index.tsx:74
-#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:34
 msgid "Cancel"
+msgstr ""
+
+#: client/pages/results/components/delete-alert.js:46
+msgid "Are you sure you want to proceed?"
 msgstr ""
 
 #: client/pages/results/components/delete-alert.js:77
@@ -892,7 +1059,6 @@ msgid "Deleting..."
 msgstr ""
 
 #: client/pages/results/components/delete-alert.js:93
-#: packages/builder-core/src/components/drag-alert/index.tsx:89
 msgid "Proceed"
 msgstr ""
 
@@ -938,10 +1104,6 @@ msgid "selected"
 msgstr ""
 
 #: client/pages/results/components/entries-list.js:422
-#: packages/block-editor/src/components/block-actions/index.tsx:187
-#: packages/notifications-editor/src/components/notification-box/index.js:88
-#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:37
-#: packages/theme-editor/src/components/theme-actions/index.js:58
 msgid "Delete"
 msgstr ""
 
@@ -950,7 +1112,7 @@ msgid "No Entries found!"
 msgstr ""
 
 #: client/pages/results/components/entries-list.js:471
-msgid "This form doesnât have any responses yet."
+msgid "This form doesn’t have any responses yet."
 msgstr ""
 
 #: client/pages/results/components/entry-details/index.js:50
@@ -961,7 +1123,6 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: client/pages/results/components/entry-details/index.js:58
 #: client/pages/results/components/entry-details/index.js:60
 msgid "PDF Export"
 msgstr ""
@@ -972,7 +1133,6 @@ msgid "Source"
 msgstr ""
 
 #: client/pages/results/components/entry-details/notes/index.js:132
-#: packages/notifications-editor/src/components/notification-message/index.js:117
 msgid "Message"
 msgstr ""
 
@@ -1112,7 +1272,6 @@ msgid "Question-Level Performance Analytics"
 msgstr ""
 
 #: client/pages/results/insights/index.js:118
-#: packages/builder-core/src/components/right-panel/index.tsx:42
 msgid "Question"
 msgstr ""
 
@@ -1244,14 +1403,12 @@ msgstr ""
 msgid "Share your form with others by scanning the QR code."
 msgstr ""
 
-#: client/pages/share/body.js:290
 #: client/pages/share/body.js:373
 msgid "Direct Link"
 msgstr ""
 
 #: client/pages/share/body.js:384
 #: client/pro-panels/hidden-fields-render/index.js:24
-#: packages/admin-components/src/combobox-control/index.tsx:113
 msgid "Hidden Fields"
 msgstr ""
 
@@ -1275,7 +1432,6 @@ msgstr ""
 msgid "Generated URL"
 msgstr ""
 
-#: client/pages/share/body.js:306
 #: client/pages/share/body.js:449
 msgid "Shortcode"
 msgstr ""
@@ -1285,7 +1441,6 @@ msgid "Customize your form display settings and copy the generated shortcode."
 msgstr ""
 
 #: client/pages/share/body.js:460
-#: packages/block-editor/src/components/block-default-controls/index.tsx:476
 msgid "Width"
 msgstr ""
 
@@ -1301,7 +1456,6 @@ msgstr ""
 msgid "Generated Shortcode"
 msgstr ""
 
-#: client/pages/share/body.js:318
 #: client/pages/share/body.js:589
 msgid "Embed Code"
 msgstr ""
@@ -1310,7 +1464,6 @@ msgstr ""
 msgid "Copy the embed code below and insert it in your external page."
 msgstr ""
 
-#: client/pages/share/body.js:336
 #: client/pages/share/body.js:616
 msgid "Popup"
 msgstr ""
@@ -1352,25 +1505,18 @@ msgid "Button padding(px)"
 msgstr ""
 
 #: client/pages/share/body.js:737
-#: packages/theme-editor/src/components/typography-panel/index.js:643
 msgid "Top"
 msgstr ""
 
 #: client/pages/share/body.js:749
-#: packages/theme-editor/src/components/typography-panel/index.js:659
-#: packages/theme-editor/src/components/typography-panel/index.js:744
 msgid "Right"
 msgstr ""
 
 #: client/pages/share/body.js:761
-#: packages/theme-editor/src/components/typography-panel/index.js:675
-#: packages/theme-editor/src/components/typography-panel/index.js:765
 msgid "Bottom"
 msgstr ""
 
 #: client/pages/share/body.js:773
-#: packages/theme-editor/src/components/typography-panel/index.js:691
-#: packages/theme-editor/src/components/typography-panel/index.js:786
 msgid "Left"
 msgstr ""
 
@@ -1386,21 +1532,14 @@ msgstr ""
 msgid "Copy the shortcode below and insert it in your WordPress page or post."
 msgstr ""
 
-#: client/pages/share/body.js:439
-#: client/pages/share/body.js:580
-#: client/pages/share/body.js:600
 #: client/pages/share/body.js:863
 msgid "Copied!"
 msgstr ""
 
-#: client/pages/share/body.js:439
-#: client/pages/share/body.js:580
-#: client/pages/share/body.js:606
 #: client/pages/share/body.js:869
 msgid "Copy"
 msgstr ""
 
-#: client/pages/share/body.js:359
 #: client/pages/share/body.js:882
 msgid "QR Code"
 msgstr ""
@@ -1422,7 +1561,6 @@ msgid "Need help? We are here for you. You can reach us via the following ways:"
 msgstr ""
 
 #: client/pages/support/index.js:30
-#: packages/blocklib-website-block/src/admin/settings.js:10
 msgid "Website"
 msgstr ""
 
@@ -1551,9 +1689,6 @@ msgid "If \"Large Package\" is selected:"
 msgstr ""
 
 #: client/pro-panels/calculator-render/index.js:72
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:157
-#: packages/theme-editor/src/components/customize/index.js:160
-#: packages/theme-editor/src/components/customize/index.js:248
 msgid "Add"
 msgstr ""
 
@@ -1635,7 +1770,6 @@ msgstr ""
 msgid "Secure forms with password access"
 msgstr ""
 
-#: client/pro-panels/form-locker-render/index.js:160
 #: client/pro-panels/form-locker-render/index.js:211
 msgid "Form Locker"
 msgstr ""
@@ -1712,10 +1846,6 @@ msgstr ""
 msgid "Campaign Tracking Data"
 msgstr ""
 
-#: client/pro-panels/hidden-fields-render/index.js:139
-msgid "Medium"
-msgstr ""
-
 #: client/pro-panels/hidden-fields-render/index.js:150
 msgid "Campaign"
 msgstr ""
@@ -1768,7 +1898,6 @@ msgstr ""
 msgid "Hidden Field"
 msgstr ""
 
-#: client/pro-panels/hidden-fields-render/index.js:63
 #: client/pro-panels/hidden-fields-render/index.js:78
 msgid "username"
 msgstr ""
@@ -1822,7 +1951,6 @@ msgid "If Role is"
 msgstr ""
 
 #: client/pro-panels/jump-logic-render/index.js:169
-#: client/pro-panels/jump-logic-render/index.js:76
 msgid "Manager"
 msgstr ""
 
@@ -1839,7 +1967,6 @@ msgid "Personalized Form Paths"
 msgstr ""
 
 #: client/pro-panels/jump-logic-render/index.js:31
-#: packages/builder-core/src/components/right-panel/index.tsx:71
 msgid "Jump Logic"
 msgstr ""
 
@@ -1935,1149 +2062,6 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: client/pro-panels/save-and-continue-render/index.js:22
 #: client/pro-panels/save-and-continue-render/index.js:87
 msgid "Save & Continue Later"
-msgstr ""
-
-#: packages/admin-components/src/form-admin-bar/index.tsx:31
-msgid "Back to home"
-msgstr ""
-
-#: packages/admin-components/src/form-admin-bar/index.tsx:49
-#: packages/builder-core/src/components/right-panel/index.tsx:48
-msgid "Design"
-msgstr ""
-
-#: packages/admin-components/src/form-admin-bar/index.tsx:110
-msgid "Payments"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:97
-msgid "Fields"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:105
-msgid "Variables"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:121
-msgid "Entry ID"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:125
-msgid "Form ID"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:129
-msgid "Entry Date (YYYY-MM-DD)"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:133
-msgid "User ID"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:137
-msgid "User IP Address"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:141
-msgid "HTTP User Agent"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/index.tsx:146
-msgid "Entry Properties"
-msgstr ""
-
-#: packages/blocklib-dropdown-block/src/admin/controls.js:28
-#: packages/blocklib-multiple-choice-block/src/admin/controls.js:91
-msgid "Choices"
-msgstr ""
-
-#: packages/admin-components/src/pro-button/index.tsx:27
-msgid "Renew License"
-msgstr ""
-
-#: packages/admin-components/src/pro-button/index.tsx:34
-msgid "Activate Addon"
-msgstr ""
-
-#: packages/admin-components/src/pro-button/index.tsx:40
-msgid "Install Addon"
-msgstr ""
-
-#: packages/admin-components/src/choices-bulk-btn/index.tsx:49
-msgid "Bulk Answers"
-msgstr ""
-
-#: packages/admin-components/src/responsive-control/index.tsx:45
-msgid "Device"
-msgstr ""
-
-#: client/pages/payments/models/model/recurring/index.js:46
-msgid "Year"
-msgstr ""
-
-#: packages/admin-components/src/select-control/index.tsx:130
-msgid "No selection"
-msgstr ""
-
-#: packages/admin-components/src/select-control/index.tsx:134
-msgid "Currently selected: %s"
-msgstr ""
-
-#: packages/blocklib-legal-block/src/admin/controls.js:28
-msgid "Yes Label"
-msgstr ""
-
-#: packages/blocklib-legal-block/src/admin/controls.js:35
-msgid "No Label"
-msgstr ""
-
-#: packages/blocklib-number-block/src/admin/controls.js:46
-msgid "Set min number"
-msgstr ""
-
-#: packages/blocklib-number-block/src/admin/controls.js:69
-msgid "Set max number"
-msgstr ""
-
-#: client/pages/results/insights/index.js:14
-msgid "Tell us abo"
-msgstr ""
-
-#: packages/blocklib-date-block/src/admin/controls.js:31
-msgid "MMDDYYYY"
-msgstr ""
-
-#: packages/blocklib-date-block/src/admin/controls.js:35
-msgid "DDMMYYYY"
-msgstr ""
-
-#: packages/blocklib-date-block/src/admin/controls.js:39
-msgid "YYYYMMDD"
-msgstr ""
-
-#: packages/blocklib-date-block/src/admin/controls.js:45
-msgid "/"
-msgstr ""
-
-#: packages/blocklib-date-block/src/admin/controls.js:49
-msgid "-"
-msgstr ""
-
-#: packages/blocklib-date-block/src/admin/controls.js:53
-msgid "."
-msgstr ""
-
-#: packages/blocklib-date-block/src/admin/controls.js:65
-msgid "Date Format"
-msgstr ""
-
-#: packages/blocklib-number-block/src/admin/settings.js:14
-msgid "Number"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/settings.js:12
-msgid "Slider"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:39
-msgid "Domain cannot be empty"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:48
-msgid "Domain already exists"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:54
-msgid "Invalid domain format (e.g., example.com)"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:81
-msgid "Restrict Email Domains"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:99
-msgid "Add Allowed Domain"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:149
-msgid "Add Domain"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:158
-msgid "Allowed Domains"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:184
-#: packages/theme-editor/src/components/customize/index.js:174
-#: packages/theme-editor/src/components/customize/index.js:262
-msgid "Remove"
-msgstr ""
-
-#: packages/blocklib-multiple-choice-block/src/admin/controls.js:29
-msgid "Multiple"
-msgstr ""
-
-#: packages/blocklib-multiple-choice-block/src/admin/controls.js:42
-msgid "Minimum limit for choices"
-msgstr ""
-
-#: packages/blocklib-multiple-choice-block/src/admin/controls.js:60
-msgid "Maximum limit for choices"
-msgstr ""
-
-#: packages/blocklib-multiple-choice-block/src/admin/controls.js:80
-msgid "Vertical Align"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:30
-msgid "No"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:33
-msgid "Yes"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:36
-msgid "Custom"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:73
-msgid "Min"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:84
-msgid "Max"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:96
-msgid "Step"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:107
-msgid "Marks"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:128
-msgid "value"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:134
-msgid "label"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:164
-msgid "Prefix"
-msgstr ""
-
-#: packages/blocklib-slider-block/src/admin/controls.js:170
-msgid "Suffix"
-msgstr ""
-
-#: packages/blocklib-multiple-choice-block/src/admin/settings.js:17
-msgid "Multiple Choice"
-msgstr ""
-
-#: packages/blocklib-long-text-block/src/admin/settings.js:12
-msgid "Long text"
-msgstr ""
-
-#: packages/blocklib-long-text-block/src/admin/controls.js:25
-#: packages/blocklib-short-text-block/src/admin/controls.js:24
-msgid "Min Characters"
-msgstr ""
-
-#: packages/blocklib-long-text-block/src/admin/controls.js:49
-#: packages/blocklib-short-text-block/src/admin/controls.js:49
-msgid "Max Characters"
-msgstr ""
-
-#: packages/blocklib-statement-block/src/admin/controls.js:40
-#: packages/blocklib-welcome-screen-block/src/admin/controls.js:21
-msgid "Button Text"
-msgstr ""
-
-#: packages/blocklib-statement-block/src/admin/controls.js:25
-msgid "Quotation marks"
-msgstr ""
-
-#: packages/blocklib-statement-block/src/admin/controls.js:38
-msgid "Button text"
-msgstr ""
-
-#: packages/code-editor/src/panel/index.tsx:12
-msgid "Custom CSS"
-msgstr ""
-
-#: client/pro-panels/save-and-continue-render/index.js:118
-msgid "Your progress has been saved. You can continue from any "
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/select/index.tsx:46
-#: packages/admin-components/src/mapping-row/key-control/select/index.tsx:33
-msgid "Choose an option"
-msgstr ""
-
-#: packages/admin-components/src/combobox-control/select/index.tsx:99
-msgid "Custom Value"
-msgstr ""
-
-#: packages/block-editor/src/components/skeleton/editor.tsx:294
-msgid "Type question here. Recall information with @."
-msgstr ""
-
-#: packages/block-editor/src/components/skeleton/editor.tsx:294
-msgid "Add a description"
-msgstr ""
-
-#: packages/builder-core/src/add-blocks-panel/index.ts:14
-msgid "Add Questions"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:191
-msgid "100%"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:192
-msgid "50%"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:193
-msgid "33%"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:200
-msgid "Required"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:217
-msgid "Image"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:255
-msgid "Layout"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:268
-#: packages/theme-editor/src/components/customize/index.js:202
-msgid "Focal Point Picker"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:307
-msgid "Set Maximum Width for attachment"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:335
-msgid "Maximum Width(px)"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:358
-msgid "Use Fancy Border Radius"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:381
-msgid "Choose your favorite fancy border radius"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:403
-msgid "Default Value"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:491
-msgid "Override default placeholder"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:523
-msgid "Custom HTML"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:547
-msgid "Randomize"
-msgstr ""
-
-#: packages/block-editor/src/components/block-default-controls/index.tsx:568
-msgid "Please note that randomization doesn't work in the preview mode!"
-msgstr ""
-
-#: packages/blocklib-short-text-block/src/admin/settings.js:12
-msgid "Short text"
-msgstr ""
-
-#: packages/block-editor/src/components/block-controls/index.tsx:97
-msgid ""
-"An error occurred while rendering the block controls. Please contact "
-"Support."
-msgstr ""
-
-#: packages/builder-core/src/components/drop-area-placeholder/index.tsx:23
-msgid "Add your first question"
-msgstr ""
-
-#: packages/notifications-editor/src/components/email-select/index.js:68
-msgid "To select an email, you should have at least one email question"
-msgstr ""
-
-#: packages/notifications-editor/src/components/email-select/index.js:73
-msgid "Choose Email"
-msgstr ""
-
-#: client/pages/import-export/export/index.js:149
-msgid "Select the forms you want to export"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-box/index.js:61
-msgid "Untitled"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:26
-msgid "Delete notification"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:30
-msgid "Are you sure you would like to delete this notification?"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-footer/index.js:50
-msgid "Cancel and go back"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-footer/index.js:53
-msgid "Some fields aren't valid"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-footer/index.js:73
-#: packages/theme-editor/src/components/customize-footer/index.js:108
-msgid "Save changes"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-footer/index.js:73
-msgid "Add new notification"
-msgstr ""
-
-#: packages/builder-core/src/components/blocks-structure/index.tsx:786
-msgid "Partial Submission Point Alert"
-msgstr ""
-
-#: packages/builder-core/src/components/blocks-structure/index.tsx:791
-msgid "Partial Submission Point"
-msgstr ""
-
-#: packages/builder-core/src/components/blocks-structure/index.tsx:791
-msgid "shouldn't be the first or the last field."
-msgstr ""
-
-#: packages/block-editor/src/components/block-layout/index.tsx:7
-msgid "Stack"
-msgstr ""
-
-#: packages/block-editor/src/components/block-layout/index.tsx:19
-msgid "Float Right"
-msgstr ""
-
-#: packages/block-editor/src/components/block-layout/index.tsx:32
-msgid "Float Left"
-msgstr ""
-
-#: packages/block-editor/src/components/block-layout/index.tsx:45
-msgid "Split Right"
-msgstr ""
-
-#: packages/block-editor/src/components/block-layout/index.tsx:58
-msgid "Split Left"
-msgstr ""
-
-#: packages/block-editor/src/components/block-theme/index.tsx:50
-msgid "Inherit"
-msgstr ""
-
-#: packages/block-editor/src/components/block-theme/index.tsx:54
-msgid "Override"
-msgstr ""
-
-#: packages/block-editor/src/components/block-theme/index.tsx:61
-msgid "Theme"
-msgstr ""
-
-#: packages/block-editor/src/components/block-theme/index.tsx:87
-msgid "Select theme"
-msgstr ""
-
-#: packages/block-editor/src/components/block-theme/index.tsx:97
-msgid "Create a theme first!"
-msgstr ""
-
-#: packages/block-editor/src/components/block-theme/index.tsx:108
-msgid "Select a theme"
-msgstr ""
-
-#: packages/block-editor/src/components/block-theme/index.tsx:141
-msgid "Select a theme!"
-msgstr ""
-
-#: packages/block-editor/src/components/block-custom-html/index.tsx:21
-msgid "Write HTML…"
-msgstr ""
-
-#: packages/block-editor/src/components/block-custom-html/index.tsx:22
-msgid "HTML"
-msgstr ""
-
-#: packages/builder-core/src/components/right-panel/index.tsx:54
-msgid "Logic"
-msgstr ""
-
-#: packages/builder-core/src/components/right-panel/index.tsx:77
-msgid "Calculator"
-msgstr ""
-
-#: packages/builder-core/src/components/no-blocks/index.tsx:118
-msgid "No Preview Available Yet!"
-msgstr ""
-
-#: packages/builder-core/src/components/no-blocks/index.tsx:125
-msgid "Please insert at lease one block."
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:58
-msgid ""
-"Email Notifications requires Quill SMTP plugin to be installed and "
-"activated. Please install and activate"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:58
-#: packages/notifications-editor/src/components/notifications-list/index.js:63
-msgid "Quill SMTP"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:58
-#: packages/notifications-editor/src/components/notifications-list/index.js:63
-msgid ""
-"plugin to make sure that your email notifications are delivered "
-"successfully."
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:63
-msgid ""
-"Email Notifications requires Quill SMTP plugin to be activated. Please "
-"activate"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:74
-msgid "Notifications List"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:98
-msgid "Add New Notification"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:126
-msgid "There are no notifications."
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:156
-msgid "Multiple notifications is a pro feature"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-to/index.js:55
-msgid "Send a notification to"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:161
-#: packages/notifications-editor/src/components/notification-to/index.js:63
-msgid "Email"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:165
-#: packages/notifications-editor/src/components/notification-to/index.js:67
-msgid "Field"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-to/index.js:82
-msgid "Type an email then hit a space"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-to/index.js:144
-msgid "Please insert at least one correct email!"
-msgstr ""
-
-#: packages/document-editor/src/components/post-slug/index.js:21
-msgid "Slug"
-msgstr ""
-
-#: packages/code-editor/src/components/panel-render/index.js:38
-msgid ""
-"Custom css won't be applied to the form builder directly. Please click on "
-"the preview icon on the top right corner to see the changes."
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:109
-msgid "Edit Notification"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:110
-msgid "Create a new notification"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:156
-msgid "Reply to"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:284
-msgid "Conditional Logic"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:298
-msgid "Process this notification if the following conditions are met:"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-message/index.js:82
-msgid "Correct Answers Count"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-message/index.js:91
-msgid "Incorrect Answers Count"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-message/index.js:100
-msgid "Quiz Summary"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-message/index.js:138
-#: packages/notifications-editor/src/components/notification-subject/index.js:38
-msgid "This field is required!"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-subject/index.js:31
-msgid "Subject"
-msgstr ""
-
-#: client/pages/results/insights/index.js:105
-msgid "4.5 min Averag"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notification-message/index.js:75
-msgid "all_answers"
-msgstr ""
-
-#: packages/notifications-editor/src/components/email-select/index.js:68
-msgid ""
-"To select an email, you should have at least onens requires Quill SMTP "
-"plugin to be activated. Please activate"
-msgstr ""
-
-#: packages/theme-editor/src/components/color-palette/index.js:49
-#: packages/theme-editor/src/components/color-palette/index.js:60
-msgid "Color code: %s"
-msgstr ""
-
-#: packages/theme-editor/src/components/color-palette/index.js:58
-msgid "Color: %s"
-msgstr ""
-
-#: packages/theme-editor/src/components/color-palette/index.js:90
-msgid "Custom color picker"
-msgstr ""
-
-#: packages/theme-editor/src/components/color-palette/index.js:92
-msgid "Custom color"
-msgstr ""
-
-#: packages/theme-editor/src/components/color-palette/index.js:99
-msgid "Clear"
-msgstr ""
-
-#: packages/theme-editor/src/components/combo-color-picker/index.tsx:68
-msgid "Solid"
-msgstr ""
-
-#: packages/theme-editor/src/components/combo-color-picker/index.tsx:81
-msgid "Gradient"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:14
-#: packages/theme-editor/src/components/color-picker/index.tsx:7
-#: packages/theme-editor/src/components/gradient-picker/index.js:12
-msgid "Pale pink"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:19
-#: packages/theme-editor/src/components/color-picker/index.tsx:11
-#: packages/theme-editor/src/components/gradient-picker/index.js:16
-msgid "Vivid red"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:24
-#: packages/theme-editor/src/components/color-picker/index.tsx:13
-#: packages/theme-editor/src/components/gradient-picker/index.js:18
-msgid "Luminous vivid orange"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:29
-#: packages/theme-editor/src/components/color-picker/index.tsx:18
-#: packages/theme-editor/src/components/gradient-picker/index.js:23
-msgid "Luminous vivid amber"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:34
-#: packages/theme-editor/src/components/color-picker/index.tsx:23
-#: packages/theme-editor/src/components/gradient-picker/index.js:28
-msgid "Light green cyan"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:39
-#: packages/theme-editor/src/components/color-picker/index.tsx:28
-#: packages/theme-editor/src/components/gradient-picker/index.js:33
-msgid "Vivid green cyan"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:44
-#: packages/theme-editor/src/components/color-picker/index.tsx:33
-#: packages/theme-editor/src/components/gradient-picker/index.js:38
-msgid "Pale cyan blue"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:49
-#: packages/theme-editor/src/components/color-picker/index.tsx:38
-#: packages/theme-editor/src/components/gradient-picker/index.js:43
-msgid "Vivid cyan blue"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:54
-#: packages/theme-editor/src/components/color-picker/index.tsx:43
-#: packages/theme-editor/src/components/gradient-picker/index.js:48
-msgid "Vivid purple"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:59
-#: packages/theme-editor/src/components/color-picker/index.tsx:48
-msgid "Dark Magenta"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:64
-#: packages/theme-editor/src/components/color-picker/index.tsx:53
-#: packages/theme-editor/src/components/gradient-picker/index.js:58
-msgid "Cyan bluish gray"
-msgstr ""
-
-#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:69
-#: packages/theme-editor/src/components/color-picker/index.tsx:58
-#: packages/theme-editor/src/components/gradient-picker/index.js:63
-msgid "Very dark gray"
-msgstr ""
-
-#: packages/theme-editor/src/components/add-new-theme/index.js:27
-msgid "New Theme"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize-footer/index.js:91
-msgid "Revert changes"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize-footer/index.js:108
-msgid "Save as a new theme"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:226
-msgid "Typography and Spacing"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:230
-msgid "Select a preset for Typography"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:269
-msgid "Base Font Size(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:307
-msgid "Base Font Line Height(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:346
-msgid "Questions Label Font Size(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:391
-msgid "Questions Label Line Height(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:436
-msgid "Questions Description Font Size(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:481
-msgid "Questions Description Line Height(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:526
-msgid "Text input answers font size(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:565
-msgid "Buttons Font Size(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/typography-panel/index.js:603
-msgid "Buttons Padding(px)"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/run-modal/index.tsx:203
-msgid "Entry ID:"
-msgstr ""
-
-#: packages/theme-editor/src/components/themes-list/index.js:35
-msgid "My Themes"
-msgstr ""
-
-#: packages/notifications-editor/src/components/notifications-list/index.js:58
-#: packages/notifications-editor/src/components/notifications-list/index.js:63
-msgid "plugin to make sure that your email notification"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:94
-msgid "Horizontal"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:98
-msgid "Vertical"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:105
-msgid "Auto save progress (save answers in user browser)"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:116
-msgid ""
-"This feature will save the answers in the user's browser, so the user can "
-"continue the form later in same browser. To allow user to save and continue "
-"later from any device, you have to use"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:120
-msgid "save and continue feature"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:125
-msgid "Hide progress bar"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:136
-msgid "Disable swiping by wheel"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:147
-msgid "Letters on answers"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:160
-msgid "Questions numbers"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:173
-msgid "Hide navigation arrows"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:186
-msgid "Hide asterisks on required fields"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:199
-msgid "Animation direction"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:216
-msgid "Auto Submit the form after answering the last question"
-msgstr ""
-
-#: packages/settings-editor/src/components/panel-render/index.js:227
-msgid "Display Branding"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:117
-msgid "Back"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:119
-msgid "Theme Title"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:132
-msgid "Background and Logo"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:135
-msgid "Background Overlay Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:149
-msgid "Background Image"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:189
-msgid ""
-"To add a background image, clear the background overlay color or add "
-"opacity to it."
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:234
-msgid "logo"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:269
-msgid "Font Families"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:272
-msgid ""
-"You can add your custom font from settings icon at left bar and then click "
-"on custom fonts."
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:277
-msgid "Base Font"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:292
-msgid "Questions Label Font"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:312
-msgid "Questions Description Font"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:331
-msgid "Colors"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:334
-msgid "Questions Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:348
-msgid "Answers Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:362
-msgid "Buttons Font Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:376
-msgid "Buttons Background Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:390
-msgid "Errors Text Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:404
-msgid "Errors Background Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:419
-msgid "Form Footer Background Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:467
-msgid "Progress Bar Fill Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:481
-msgid "Progress Bar Background Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:499
-msgid "Borders"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:502
-msgid "Buttons Border Radius(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:521
-msgid "Buttons Border Width(px)"
-msgstr ""
-
-#: packages/theme-editor/src/components/customize/index.js:542
-msgid "Buttons Border Color"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:53
-msgid "Very light gray"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:70
-msgid "Vivid cyan blue to vivid purple"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:76
-msgid "Light green cyan to vivid green cyan"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:82
-#: packages/theme-editor/src/components/gradient-picker/index.js:87
-msgid "Custom gradient"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:93
-msgid "custom gradient"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:98
-msgid "Black with blue radial background"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:104
-msgid "Cool to warm spectrum"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:110
-msgid "Blush light purple"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:116
-msgid "pinky bordeaux"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:121
-msgid "Luminous dusk"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:127
-msgid "Pale ocean"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:133
-msgid "Electric grass"
-msgstr ""
-
-#: packages/theme-editor/src/components/gradient-picker/index.js:139
-msgid "Before Sunset"
-msgstr ""
-
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:66
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:84
-#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:41
-msgid "Account"
-msgstr ""
-
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
-#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:44
-msgid "added successfully!"
-msgstr ""
-
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:81
-msgid "Error in adding the "
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/setup/index.tsx:28
-msgid "Save"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/setup/index.tsx:32
-msgid "Close"
-msgstr ""
-
-#: packages/renderer-core/src/components/payment-modal/methods/index.tsx:163
-msgid "Pay now"
-msgstr ""
-
-#: client/pages/payments/index.js:114
-msgid "⛔ Please select at least one payment method"
-msgstr ""
-
-#: client/pages/payments/index.js:134
-msgid "⛔ "
-msgstr ""
-
-#: client/pages/payments/index.js:145
-msgid "⛔ Please add at least one product"
-msgstr ""
-
-#: client/pages/payments/index.js:153
-msgid "⛔ Please check highlighted errors"
-msgstr ""
-
-#: client/pages/builder/save-button.js:126
-#: client/pages/payments/index.js:176
-msgid "🚀 Saved successfully!"
-msgstr ""
-
-#: client/pages/addons/index.js:63
-msgid "✅ "
-msgstr ""
-
-#: client/pages/license/index.js:49
-msgid "✅ License activated successfully"
-msgstr ""
-
-#: client/pages/license/index.js:83
-msgid "✅ License updated"
-msgstr ""
-
-#: client/pages/license/index.js:117
-msgid "✅ License deactivated"
-msgstr ""
-
-#: client/pages/builder/save-button.js:138
-msgid "⛔ Error while saving!"
-msgstr ""
-
-#: client/pages/results/components/entries-list.js:471
-msgid "This form doesn’t have any responses yet."
-msgstr ""
-
-#: client/pages/import-export/import/index.js:37
-msgid "⛔ Invalid file type!"
-msgstr ""
-
-#: client/pages/import-export/import/index.js:58
-msgid "✅ Imported successfully!"
-msgstr ""
-
-#: client/pages/import-export/import/index.js:66
-msgid "⛔ Something went wrong!"
-msgstr ""
-
-#: client/pages/import-export/export/index.js:65
-msgid "⛔ Please select at least one form to export."
-msgstr ""
-
-#: client/pages/import-export/export/index.js:96
-msgid "✅ Forms exported successfully."
-msgstr ""
-
-#: client/pages/import-export/export/index.js:109
-msgid "⛔ Something went wrong while exporting forms."
-msgstr ""
-
-#: client/pages/home/form-card.js:354
-#: client/pages/home/form-card.js:499
-msgid "⛔ Form title cannot be empty!"
-msgstr ""
-
-#: client/pages/home/form-card.js:371
-#: client/pages/home/form-card.js:516
-msgid "⛔ Error in form renaming!"
-msgstr ""
-
-#: client/pages/home/form-card.js:376
-#: client/pages/home/form-card.js:521
-msgid "✅ Form renamed successfully!"
-msgstr ""
-
-#: client/pages/home/form-card.js:401
-#: client/pages/home/form-card.js:546
-msgid "⛔ Form slug cannot be empty!"
-msgstr ""
-
-#: client/pages/home/form-card.js:418
-#: client/pages/home/form-card.js:563
-msgid "⛔ Error in form slug changing!"
-msgstr ""
-
-#: client/pages/home/form-card.js:423
-#: client/pages/home/form-card.js:568
-msgid "✅ Form slug changed successfully!"
 msgstr ""
