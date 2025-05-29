@@ -7,7 +7,7 @@ import useBlockTheme from '../../hooks/use-block-theme';
 /**
  * WordPress Dependencies
  */
-import { useRef, useEffect, useState } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -15,8 +15,6 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
-import tinyColor from 'tinycolor2';
-
 
 /**
  * Internal Dependencies

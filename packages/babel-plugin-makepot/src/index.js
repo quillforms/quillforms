@@ -120,7 +120,6 @@ function writePOTFile(outputFile, headers) {
 
         // Write to file
         fs.writeFileSync(outputFile, output);
-        console.log(`Successfully merged translations into: ${outputFile} (Total: ${globalTranslations.size} translations)`);
 
     } catch (error) {
         console.error('Error processing POT file:', error);

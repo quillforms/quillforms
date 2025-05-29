@@ -47,12 +47,13 @@ const MultipleChoiceOutput = (props) => {
 			setIsValid(false);
 			setValidationErr(messages['label.errorAlert.required']);
 		} else {
-			if (size($val) > 0 && correctIncorrectQuiz?.enabled && correctIncorrectQuiz?.showAnswersDuringQuiz) {
+			if (size($val) > 0 && correctIncorrectQuiz?.enabled) {
 				// $val is array of selected choices
 				// const isCorrect = correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes($val);
 				// if each value from $val includes any answer from those in the correctAnswers array, then it is correct, not the opposite.
 
 				const isCorrect = $val.every((answer) => correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes(answer));
+				console.log(isCorrect)
 				// const isCorrect = correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.every((answer) => $val.includes(answer));
 				setIsAnswerCorrect(isCorrect);
 			}

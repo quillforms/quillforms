@@ -20,6 +20,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { noop } from 'lodash';
 import { css } from 'emotion';
 import classNames from 'classnames';
+import { useMediaQuery } from "@uidotdev/usehooks";
 import Attachment from './attachment';
 
 const WelcomeScreenOutput = ({ attributes }) => {
@@ -30,6 +31,8 @@ const WelcomeScreenOutput = ({ attributes }) => {
 	const theme = useBlockTheme(attributes.themeId);
 	const screenWrapperRef = useRef();
 	const screenContentRef = useRef();
+	const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+	const layout = isSmallDevice ? 'stack' : attributes?.layout ?? 'stack';
 
 	const { goToBlock } = useDispatch('quillForms/renderer-core');
 	const { walkPath } = useSelect((select) => {
@@ -93,11 +96,7 @@ const WelcomeScreenOutput = ({ attributes }) => {
 							bottom: 0;
 							z-index: 6;
 							display: flex;
-							${(attributes.layout === 'stack' ||
-							(deviceWidth === 'mobile' &&
-								(attributes.layout === 'float-left' ||
-									attributes.layout ===
-									'float-right'))) &&
+							${layout === 'stack' &&
 						`flex-direction: column;
 							.qf-welcome-screen-block__content-wrapper {
 
@@ -148,16 +147,12 @@ const WelcomeScreenOutput = ({ attributes }) => {
 						className="qf-welcome-screen-block__content"
 						ref={screenContentRef}
 					>
-						{(attributes.layout === 'stack' ||
-							(deviceWidth === 'mobile' &&
-								(attributes.layout === 'float-left' ||
-									attributes.layout ===
-									'float-right'))) && (
-								<Attachment
-									isPreview={isPreview}
-									attributes={attributes}
-								/>
-							)}
+						{layout === 'stack' && (
+							<Attachment
+								isPreview={isPreview}
+								attributes={attributes}
+							/>
+						)}
 						<div
 							className={css`
 								margin-top: 25px;
@@ -244,7 +239,7 @@ const WelcomeScreenOutput = ({ attributes }) => {
 						/>
 					</div>
 				</div>
-				{attributes.layout !== 'stack' && (
+				{layout !== 'stack' && (
 					<div
 						className={classNames(
 							'renderer-core-block-attachment-wrapper',
