@@ -1,65 +1,304 @@
-/**
- * AI Icon Component for Quill Forms
- * 
- * Follows the same styling pattern as ScratchIcon and TemplateIcon
- */
-const AIIcon = () => {
-    return (
-        <svg
-            width="40"
-            height="40"
-            viewBox="0 0 40 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="quillforms-ai-icon"
-        >
-            {/* Brain circuit design */}
-            <circle cx="20" cy="20" r="16" stroke="#6B54DE" strokeWidth="2" fill="none" />
-
-            {/* Brain left hemisphere */}
-            <path
-                d="M16 12C14.5 12.5 13 14 13 16C13 18 14 19 13 21C12 23 14 25 16 25"
-                stroke="#6B54DE"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-            />
-
-            {/* Brain right hemisphere */}
-            <path
-                d="M24 12C25.5 12.5 27 14 27 16C27 18 26 19 27 21C28 23 26 25 24 25"
-                stroke="#6B54DE"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-            />
-
-            {/* Brain connections */}
-            <path
-                d="M16 16H24M16 20H24M16 24H24"
-                stroke="#6B54DE"
-                strokeWidth="2"
-                strokeLinecap="round"
-            />
-
-            {/* Circuit dots */}
-            <circle cx="16" cy="16" r="1.5" fill="#6B54DE" />
-            <circle cx="24" cy="16" r="1.5" fill="#6B54DE" />
-            <circle cx="16" cy="20" r="1.5" fill="#6B54DE" />
-            <circle cx="24" cy="20" r="1.5" fill="#6B54DE" />
-            <circle cx="16" cy="24" r="1.5" fill="#6B54DE" />
-            <circle cx="24" cy="24" r="1.5" fill="#6B54DE" />
-
-            {/* Electricity/spark element */}
-            <path
-                d="M20 8L21 14L19 16L21 19L19 22L21 28"
-                stroke="#6B54DE"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
+const AiIcon = () => {
+	return (
+		<svg
+			width="300"
+			height="183"
+			viewBox="0 0 300 183"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<g filter="url(#filter0_di_27_2084)">
+				<g clip-path="url(#clip0_27_2084)">
+					<rect
+						x="6.7771"
+						y="4.62402"
+						width="286.141"
+						height="169.084"
+						rx="8.67095"
+						fill="white"
+					/>
+					<circle
+						cx="26.9537"
+						cy="23.1329"
+						r="7.33696"
+						fill="#5C22CA"
+					/>
+					<rect
+						x="37.9592"
+						y="21.2988"
+						width="33.0163"
+						height="5.50272"
+						rx="2.75136"
+						fill="#5C22CA"
+					/>
+					<g filter="url(#filter1_di_27_2084)">
+						<rect
+							x="212.212"
+							y="18.667"
+							width="34.3783"
+							height="9.83189"
+							rx="1.57073"
+							fill="white"
+						/>
+						<rect
+							x="212.487"
+							y="18.9421"
+							width="33.828"
+							height="9.28162"
+							rx="1.2956"
+							stroke="#1F1F1F"
+							stroke-opacity="0.12"
+							stroke-width="0.550272"
+						/>
+					</g>
+					<g filter="url(#filter2_di_27_2084)">
+						<rect
+							x="248.554"
+							y="18.667"
+							width="31.511"
+							height="9.83189"
+							rx="1.57073"
+							fill="#5C22CA"
+						/>
+					</g>
+					<rect
+						x="83.8152"
+						y="21.2988"
+						width="23.8451"
+						height="5.50272"
+						rx="2.75136"
+						fill="#EAECF0"
+					/>
+					<rect
+						x="116.832"
+						y="21.2988"
+						width="23.8451"
+						height="5.50272"
+						rx="2.75136"
+						fill="#EAECF0"
+					/>
+					<rect
+						x="149.848"
+						y="21.2988"
+						width="23.8451"
+						height="5.50272"
+						rx="2.75136"
+						fill="#EAECF0"
+					/>
+					<rect
+						x="6.7771"
+						y="39.6411"
+						width="286.141"
+						height="0.91712"
+						fill="#F2F4F7"
+					/>
+					<path
+						d="M6.7771 39.6411H292.918V173.541H6.7771V39.6411Z"
+						fill="#E6D9FF"
+					/>
+					<path
+						d="M158.746 82.7728C158.611 82.4248 158.782 82.0288 159.134 81.894L162.075 80.75L163.215 77.8088C163.286 77.6348 163.425 77.4924 163.603 77.4248C163.686 77.392 163.774 77.376 163.863 77.3775C163.952 77.3791 164.04 77.3983 164.122 77.434C164.204 77.4697 164.278 77.5212 164.339 77.5855C164.401 77.6498 164.449 77.7257 164.482 77.8088L165.626 80.75L168.566 81.894C168.745 81.9612 168.883 82.1036 168.954 82.278C169.089 82.63 168.915 83.022 168.566 83.1608L165.626 84.3048L164.482 87.2416C164.449 87.3298 164.397 87.41 164.331 87.4769C164.265 87.5438 164.185 87.5959 164.098 87.6296C163.929 87.6951 163.741 87.691 163.576 87.6182C163.41 87.5455 163.28 87.41 163.215 87.2416L162.075 84.3048L159.134 83.1608C159.045 83.1266 158.965 83.0745 158.899 83.0077C158.832 82.9409 158.78 82.8609 158.746 82.7728ZM148.653 107.622C148.788 107.97 148.617 108.366 148.265 108.5L145.328 109.644L144.184 112.586C144.149 112.673 144.097 112.752 144.03 112.818C143.963 112.884 143.884 112.936 143.796 112.97C143.713 113.002 143.624 113.018 143.535 113.017C143.446 113.015 143.358 112.996 143.277 112.96C143.195 112.925 143.121 112.873 143.059 112.809C142.998 112.745 142.949 112.669 142.917 112.586L141.773 109.644L138.832 108.5C138.744 108.466 138.664 108.414 138.597 108.347C138.531 108.28 138.479 108.2 138.444 108.112C138.31 107.764 138.484 107.368 138.832 107.234L141.773 106.09L142.917 103.149C142.951 103.061 143.002 102.982 143.068 102.916C143.134 102.85 143.214 102.798 143.301 102.765C143.384 102.732 143.473 102.716 143.563 102.717C143.652 102.719 143.74 102.738 143.822 102.774C143.904 102.809 143.978 102.861 144.04 102.925C144.102 102.99 144.151 103.066 144.184 103.149L145.328 106.09L148.265 107.234C148.443 107.301 148.586 107.444 148.653 107.622ZM160.284 92.152C160.284 92.5176 160.062 92.8424 159.722 92.9764L153.79 95.2804L151.481 101.212C151.439 101.321 151.377 101.42 151.296 101.504C151.216 101.588 151.12 101.655 151.014 101.702C150.908 101.749 150.793 101.775 150.677 101.777C150.561 101.78 150.445 101.759 150.337 101.717C150.223 101.672 150.119 101.604 150.032 101.517C149.945 101.43 149.877 101.326 149.832 101.212L147.528 95.28L141.596 92.9764C141.378 92.8906 141.203 92.7223 141.108 92.5081C141.014 92.294 141.008 92.0512 141.091 91.8324C141.136 91.7178 141.204 91.6137 141.291 91.5268C141.378 91.4398 141.482 91.3719 141.596 91.3272L147.528 89.0184L149.832 83.0916C149.918 82.8723 150.087 82.6959 150.302 82.6011C150.518 82.5064 150.762 82.5011 150.982 82.5864C151.095 82.6312 151.199 82.6993 151.285 82.7863C151.371 82.8733 151.438 82.9773 151.482 83.0916L153.79 89.0184L159.722 91.3272C159.887 91.3931 160.029 91.5068 160.129 91.6537C160.229 91.8007 160.283 91.9742 160.284 92.152ZM164.638 102.36L162.799 103.074L162.084 104.913C162.059 104.975 162.017 105.029 161.961 105.066C161.906 105.104 161.841 105.124 161.774 105.124C161.707 105.124 161.642 105.104 161.586 105.066C161.531 105.029 161.488 104.975 161.464 104.913L160.749 103.074L158.912 102.36C158.85 102.335 158.796 102.292 158.759 102.237C158.721 102.182 158.701 102.117 158.701 102.05C158.701 101.983 158.721 101.917 158.759 101.862C158.796 101.807 158.85 101.764 158.912 101.74L160.749 101.025L161.464 99.186C161.481 99.1434 161.507 99.1046 161.539 99.0723C161.572 99.04 161.611 99.0147 161.654 98.998C161.694 98.9819 161.738 98.974 161.781 98.9748C161.825 98.9755 161.868 98.9849 161.908 99.0024C161.948 99.0199 161.984 99.0451 162.014 99.0766C162.045 99.1081 162.068 99.1453 162.084 99.186L162.799 101.025L164.638 101.74C164.7 101.764 164.754 101.807 164.791 101.862C164.829 101.917 164.849 101.983 164.849 102.05C164.849 102.117 164.829 102.182 164.791 102.237C164.754 102.293 164.7 102.335 164.638 102.36ZM136.069 89.6932C135.986 89.726 135.897 89.7421 135.808 89.7405C135.719 89.7389 135.631 89.7197 135.549 89.684C135.468 89.6484 135.394 89.5969 135.332 89.5325C135.271 89.4682 135.222 89.3923 135.19 89.3092L134.137 86.602L131.433 85.5532C131.345 85.5184 131.266 85.466 131.199 85.3993C131.132 85.3326 131.08 85.2529 131.045 85.1652C130.911 84.8168 131.085 84.4212 131.433 84.2864L134.137 83.2332L135.19 80.53C135.223 80.4416 135.275 80.3612 135.342 80.2943C135.409 80.2275 135.489 80.1755 135.578 80.142C135.926 80.0072 136.318 80.1816 136.457 80.53L137.506 83.2332L140.213 84.2864C140.34 84.3364 140.45 84.4235 140.527 84.5365C140.604 84.6495 140.645 84.7831 140.645 84.9198C140.645 85.0566 140.604 85.1902 140.527 85.3031C140.45 85.4161 140.34 85.5033 140.213 85.5532L137.506 86.602L136.457 89.3096C136.422 89.3968 136.369 89.4759 136.303 89.542C136.236 89.6081 136.156 89.6593 136.069 89.6932Z"
+						fill="#5C22CA"
+					/>
+				</g>
+				<rect
+					x="7.31903"
+					y="5.16596"
+					width="285.057"
+					height="168"
+					rx="8.12901"
+					stroke="#1F1F1F"
+					stroke-opacity="0.12"
+					stroke-width="1.08387"
+				/>
+			</g>
+			<defs>
+				<filter
+					id="filter0_di_27_2084"
+					x="0.273888"
+					y="0.288549"
+					width="299.148"
+					height="182.09"
+					filterUnits="userSpaceOnUse"
+					color-interpolation-filters="sRGB"
+				>
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset dy="2.16774" />
+					<feGaussianBlur stdDeviation="3.25161" />
+					<feComposite in2="hardAlpha" operator="out" />
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="BackgroundImageFix"
+						result="effect1_dropShadow_27_2084"
+					/>
+					<feBlend
+						mode="normal"
+						in="SourceGraphic"
+						in2="effect1_dropShadow_27_2084"
+						result="shape"
+					/>
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset />
+					<feGaussianBlur stdDeviation="1.08387" />
+					<feComposite
+						in2="hardAlpha"
+						operator="arithmetic"
+						k2="-1"
+						k3="1"
+					/>
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="shape"
+						result="effect2_innerShadow_27_2084"
+					/>
+				</filter>
+				<filter
+					id="filter1_di_27_2084"
+					x="211.034"
+					y="17.8816"
+					width="36.7343"
+					height="12.1879"
+					filterUnits="userSpaceOnUse"
+					color-interpolation-filters="sRGB"
+				>
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset dy="0.392683" />
+					<feGaussianBlur stdDeviation="0.589024" />
+					<feComposite in2="hardAlpha" operator="out" />
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="BackgroundImageFix"
+						result="effect1_dropShadow_27_2084"
+					/>
+					<feBlend
+						mode="normal"
+						in="SourceGraphic"
+						in2="effect1_dropShadow_27_2084"
+						result="shape"
+					/>
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset />
+					<feGaussianBlur stdDeviation="0.196341" />
+					<feComposite
+						in2="hardAlpha"
+						operator="arithmetic"
+						k2="-1"
+						k3="1"
+					/>
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="shape"
+						result="effect2_innerShadow_27_2084"
+					/>
+				</filter>
+				<filter
+					id="filter2_di_27_2084"
+					x="247.376"
+					y="17.8816"
+					width="33.8671"
+					height="12.1879"
+					filterUnits="userSpaceOnUse"
+					color-interpolation-filters="sRGB"
+				>
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset dy="0.392683" />
+					<feGaussianBlur stdDeviation="0.589024" />
+					<feComposite in2="hardAlpha" operator="out" />
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="BackgroundImageFix"
+						result="effect1_dropShadow_27_2084"
+					/>
+					<feBlend
+						mode="normal"
+						in="SourceGraphic"
+						in2="effect1_dropShadow_27_2084"
+						result="shape"
+					/>
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset />
+					<feGaussianBlur stdDeviation="0.196341" />
+					<feComposite
+						in2="hardAlpha"
+						operator="arithmetic"
+						k2="-1"
+						k3="1"
+					/>
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="shape"
+						result="effect2_innerShadow_27_2084"
+					/>
+				</filter>
+				<clipPath id="clip0_27_2084">
+					<rect
+						x="6.7771"
+						y="4.62402"
+						width="286.141"
+						height="169.084"
+						rx="8.67095"
+						fill="white"
+					/>
+				</clipPath>
+			</defs>
+		</svg>
+	);
 };
-
-export default AIIcon;
+export default AiIcon;

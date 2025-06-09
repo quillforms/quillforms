@@ -15,6 +15,7 @@ use QuillForms\REST_API\Controllers\V1\REST_Settings_Controller;
 use QuillForms\REST_API\Controllers\V1\REST_System_Status_Controller;
 use QuillForms\REST_API\Controllers\V1\REST_Import_Export_Controller;
 use QuillForms\REST_API\Controllers\V1\REST_Entry_Controller;
+use QuillForms\REST_API\Controllers\V1\REST_AI_Controller;
 
 /**
  * REST_API class is mainly responsible for registering routes.
@@ -75,6 +76,7 @@ class REST_API {
 			REST_Log_Controller::class,
 			REST_Import_Export_Controller::class,
 			REST_Entry_Controller::class,
+			REST_AI_Controller::class,
 		);
 
 		foreach ( $controllers as $controller ) {

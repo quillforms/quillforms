@@ -107,17 +107,13 @@ const SelectControl: React.FC<Props> = ({
 		highlightedIndex,
 		selectedItem,
 	} = useSelect({
-		// @ts-expect-error
-		initialSelectedItem: items[0],
-		// @ts-expect-error
-		items,
+		initialSelectedItem: items && items.length > 0 ? items[0] : null,
+		items: items || [],
 		itemToString,
 		onSelectedItemChange,
 		...(typeof _selectedItem !== 'undefined' && _selectedItem !== null
 			? { selectedItem: _selectedItem }
 			: undefined),
-
-		// @ts-ignore
 		stateReducer,
 	});
 
@@ -209,25 +205,26 @@ const SelectControl: React.FC<Props> = ({
 				{ /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
 				<ul {...menuProps} onKeyDown={onKeyDownHandler}>
 					{isOpen &&
-						// @ts-expect-error
+						items &&
 						items.map((item, index) => {
+							// Ensure item exists and has required properties
+							if (!item) return null;
+
+							const itemKey = item.key || `item-${index}`;
+
 							return (
-								// eslint-disable-next-line react/jsx-key
 								<li
+									key={itemKey}
 									{...getItemProps({
 										item,
 										index,
-										key: item.key,
 										className: classnames(
 											item.className,
 											'components-custom-select-control__item',
 											{
-												'is-highlighted':
-													index === highlightedIndex,
-												'has-hint':
-													!!item.__experimentalHint,
-												'is-next-36px-default-size':
-													__next36pxDefaultSize,
+												'is-highlighted': index === highlightedIndex,
+												'has-hint': !!item.__experimentalHint,
+												'is-next-36px-default-size': __next36pxDefaultSize,
 											}
 										),
 										style: item.style,
@@ -250,7 +247,7 @@ const SelectControl: React.FC<Props> = ({
 						})}
 				</ul>
 			</div>
-		</div>
+		</div >
 	);
 };
 export default SelectControl;

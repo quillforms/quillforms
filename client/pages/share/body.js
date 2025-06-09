@@ -190,6 +190,54 @@ const ShareBody = ({ payload }) => {
         popupMaxHeightUnit: '%',
 
     });
+
+    const copyToClipboard = async (text) => {
+        try {
+            // Try modern clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                setIsCopied(true);
+                return;
+            }
+
+            // Fallback for older browsers or non-HTTPS
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            if (successful) {
+                setIsCopied(true);
+            } else {
+                console.error('Copy failed');
+                // Optionally show an error message to user
+            }
+        } catch (err) {
+            console.error('Copy failed:', err);
+            // Fallback: create a temporary input for manual copy
+            const input = document.createElement('input');
+            input.value = text;
+            input.style.position = 'fixed';
+            input.style.opacity = '0';
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+
+            // Show a message to manually copy
+            alert('Please manually copy the text: Ctrl+C (Cmd+C on Mac)');
+
+            setTimeout(() => {
+                document.body.removeChild(input);
+            }, 100);
+        }
+    };
     // Add this shortcodeSettings state
     const [shortcodeSettings, setShortcodeSettings] = useState({
         width: { value: 100, unit: '%' },
@@ -432,7 +480,7 @@ const ShareBody = ({ payload }) => {
                                 <Button
                                     isPrimary
                                     onClick={() => {
-                                        navigator.clipboard.writeText(generateURL());
+                                        copyToClipboard(generateURL());
                                         setIsCopied(true);
                                     }}
                                 >
@@ -573,7 +621,7 @@ const ShareBody = ({ payload }) => {
                                 <Button
                                     isPrimary
                                     onClick={() => {
-                                        navigator.clipboard.writeText(generateShortcode());
+                                        copyToClipboard(generateShortcode());
                                         setIsCopied(true);
                                     }}
                                 >
@@ -864,7 +912,7 @@ const ShareBody = ({ payload }) => {
                                 ) : (
 
                                     <Button isPrimary onClick={() => {
-                                        navigator.clipboard.writeText(`${popupShortcode}`);
+                                        copyToClipboard(popupShortcode);
                                         setIsCopied(true);
                                     }}>{__('Copy', 'quillforms')}</Button>
                                 )}

@@ -1,0 +1,74 @@
+.qf-thankyou-screen-block__action-wrapper {
+	& {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-top: 20px;
+		width: 100%;
+	}
+	// &.is-sticky {
+	// 	position: absolute;
+	// 	bottom: 0;
+	// 	right: 0;
+	// 	left: 0;
+	// 	width: 100%;
+	// 	background-color: rgba(0, 0, 0, 0.05);
+	// 	box-shadow: rgba(0, 0, 0, 0.1) 0 -1px;
+	// 	height: 70px;
+	// 	display: flex;
+	// 	align-items: center;
+	// 	justify-content: center;
+
+	// 	.qf-thankyou-screen-block__action {
+	// 		margin: 0 auto;
+	// 	}
+	// }
+
+	.qf-thankyou-screen-block__action {
+		width: 100%;
+		text-align: center;
+	}
+	
+	.qf-thankyou-screen-block__action-helper-text {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+/* Additional styles to ensure content is properly centered */
+.qf-thankyou-screen-block__wrapper {
+	.qf-thankyou-screen-block__content-wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		width: 100%;
+	}
+	
+	.qf-thankyou-screen-block__content {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.renderer-components-block-label,
+	.renderer-components-block-description,
+	.renderer-components-block-custom-html {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+/* Handle scrollable content while keeping centering */
+.qf-thankyou-screen-block__wrapper.active {
+	&.has-scroll {
+		.qf-thankyou-screen-block__content-wrapper {
+			margin: auto;
+			width: 100%;
+			max-width: 700px;
+		}
+	}
+}

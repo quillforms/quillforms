@@ -35,9 +35,6 @@ const Layout: React.FC<Props> = ({ formId }) => {
 			};
 		}
 	);
-	const { setCurrentBlock } = useDispatch(
-		'quillForms/block-editor'
-	);
 	const { insertEmptyFieldAnswer } = useDispatch(
 		'quillForms/renderer-core'
 	);

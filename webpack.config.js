@@ -54,6 +54,7 @@ const quillFormsBlocklibPackagesNames = [
 	'statement',
 	'website',
 	'welcome-screen',
+	'thankyou-screen'
 ];
 const quillFormsBlocklibPackages = quillFormsBlocklibPackagesNames.map(
 	(name) => `@quillforms/blocklib-${name}-block`
@@ -247,6 +248,10 @@ module.exports = {
 						__dirname,
 						'packages/blocklib-welcome-screen-block'
 					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-thankyou-screen-block'
+					),
 					path.resolve(__dirname, 'packages/types'),
 				],
 				enforce: 'pre',
@@ -331,6 +336,10 @@ module.exports = {
 					path.resolve(
 						__dirname,
 						'packages/blocklib-welcome-screen-block'
+					),
+					path.resolve(
+						__dirname,
+						'packages/blocklib-thankyou-screen-block'
 					),
 				],
 				exclude: /node_modules/,

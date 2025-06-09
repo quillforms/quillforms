@@ -1,4 +1,4 @@
-const ScratchIcon = () => {
+const LoadingIcon = () => {
 	return (
 		<svg
 			width="420"
@@ -7,8 +7,8 @@ const ScratchIcon = () => {
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
-			<g filter="url(#filter0_di_43_1170)">
-				<g clip-path="url(#clip0_43_1170)">
+			<g filter="url(#filter0_di_43_959)">
+				<g clip-path="url(#clip0_43_959)">
 					<rect
 						x="10"
 						y="7"
@@ -18,17 +18,37 @@ const ScratchIcon = () => {
 						fill="white"
 					/>
 					<rect
-						x="45.8973"
-						y="32.8757"
+						x="45.8975"
+						y="32.8745"
 						width="328.205"
 						height="156.41"
 						rx="10.2564"
 						fill="#F9FAFB"
 					/>
-					<g filter="url(#filter1_di_43_1170)">
+					<g filter="url(#filter1_di_43_959)">
 						<rect
-							x="188.533"
-							y="143.131"
+							x="123"
+							y="136.131"
+							width="130.769"
+							height="17.9487"
+							rx="2.57665"
+							fill="white"
+						/>
+						<rect
+							x="123.161"
+							y="136.292"
+							width="130.447"
+							height="17.6266"
+							rx="2.41561"
+							stroke="#1F1F1F"
+							stroke-opacity="0.12"
+							stroke-width="0.322081"
+						/>
+					</g>
+					<g filter="url(#filter2_di_43_959)">
+						<rect
+							x="256.99"
+							y="136.131"
 							width="39.8503"
 							height="17.9738"
 							rx="2.57665"
@@ -41,35 +61,28 @@ const ScratchIcon = () => {
 						width="417.949"
 						height="89.7436"
 						rx="10.2564"
-						fill="#F7F5FD"
+						fill="#EDE6FF"
 					/>
 					<rect
-						x="106.917"
-						y="101.51"
-						width="200.926"
-						height="9.45536"
+						x="152.487"
+						y="95.1052"
+						width="112.821"
+						height="7.69231"
 						fill="#EAECF0"
 					/>
 					<rect
-						x="106.917"
-						y="82.5994"
-						width="200.926"
-						height="7.09152"
-						fill="#EAECF0"
-					/>
-					<rect
-						x="186.923"
-						y="58.5154"
+						x="188.385"
+						y="69.1819"
 						width="41.0256"
 						height="7.69231"
 						rx="3.84615"
 						fill="#8243EA"
 					/>
 					<rect
-						x="142.375"
-						y="118.057"
-						width="127.647"
-						height="7.09152"
+						x="173"
+						y="110.49"
+						width="71.7949"
+						height="7.69231"
 						fill="#EAECF0"
 					/>
 				</g>
@@ -86,7 +99,7 @@ const ScratchIcon = () => {
 			</g>
 			<defs>
 				<filter
-					id="filter0_di_43_1170"
+					id="filter0_di_43_959"
 					x="0.909091"
 					y="0.939394"
 					width="418.182"
@@ -111,12 +124,12 @@ const ScratchIcon = () => {
 					<feBlend
 						mode="normal"
 						in2="BackgroundImageFix"
-						result="effect1_dropShadow_43_1170"
+						result="effect1_dropShadow_43_959"
 					/>
 					<feBlend
 						mode="normal"
 						in="SourceGraphic"
-						in2="effect1_dropShadow_43_1170"
+						in2="effect1_dropShadow_43_959"
 						result="shape"
 					/>
 					<feColorMatrix
@@ -140,15 +153,15 @@ const ScratchIcon = () => {
 					<feBlend
 						mode="normal"
 						in2="shape"
-						result="effect2_innerShadow_43_1170"
+						result="effect2_innerShadow_43_959"
 					/>
 				</filter>
 				<filter
-					id="filter1_di_43_1170"
-					x="186.601"
-					y="141.843"
-					width="43.7152"
-					height="21.8389"
+					id="filter1_di_43_959"
+					x="121.068"
+					y="134.843"
+					width="134.634"
+					height="21.8137"
 					filterUnits="userSpaceOnUse"
 					color-interpolation-filters="sRGB"
 				>
@@ -169,12 +182,12 @@ const ScratchIcon = () => {
 					<feBlend
 						mode="normal"
 						in2="BackgroundImageFix"
-						result="effect1_dropShadow_43_1170"
+						result="effect1_dropShadow_43_959"
 					/>
 					<feBlend
 						mode="normal"
 						in="SourceGraphic"
-						in2="effect1_dropShadow_43_1170"
+						in2="effect1_dropShadow_43_959"
 						result="shape"
 					/>
 					<feColorMatrix
@@ -198,10 +211,68 @@ const ScratchIcon = () => {
 					<feBlend
 						mode="normal"
 						in2="shape"
-						result="effect2_innerShadow_43_1170"
+						result="effect2_innerShadow_43_959"
 					/>
 				</filter>
-				<clipPath id="clip0_43_1170">
+				<filter
+					id="filter2_di_43_959"
+					x="255.057"
+					y="134.843"
+					width="43.7151"
+					height="21.8389"
+					filterUnits="userSpaceOnUse"
+					color-interpolation-filters="sRGB"
+				>
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset dy="0.644163" />
+					<feGaussianBlur stdDeviation="0.966244" />
+					<feComposite in2="hardAlpha" operator="out" />
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="BackgroundImageFix"
+						result="effect1_dropShadow_43_959"
+					/>
+					<feBlend
+						mode="normal"
+						in="SourceGraphic"
+						in2="effect1_dropShadow_43_959"
+						result="shape"
+					/>
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+					/>
+					<feOffset />
+					<feGaussianBlur stdDeviation="0.322081" />
+					<feComposite
+						in2="hardAlpha"
+						operator="arithmetic"
+						k2="-1"
+						k3="1"
+					/>
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"
+					/>
+					<feBlend
+						mode="normal"
+						in2="shape"
+						result="effect2_innerShadow_43_959"
+					/>
+				</filter>
+				<clipPath id="clip0_43_959">
 					<rect
 						x="10"
 						y="7"
@@ -216,4 +287,4 @@ const ScratchIcon = () => {
 	);
 };
 
-export default ScratchIcon;
+export default LoadingIcon;

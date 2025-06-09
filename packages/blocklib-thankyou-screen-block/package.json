@@ -1,0 +1,40 @@
+{
+    "name": "@quillforms/blocklib-thankyou-screen-block",
+    "version": "3.0.49",
+    "description": "thankyou-screen block for quillforms",
+    "author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
+    "license": "GPL-2.0-or-later",
+    "keywords": [
+        "quillforms",
+        "thankyou-screen",
+        "block"
+    ],
+    "homepage": "https://github.com/quillforms/quillforms/tree/master/packages/blocklib-thankyou-screen-block/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/quillforms/quillforms.git",
+        "directory": "packages/blocklib-thankyou-screen-block"
+    },
+    "bugs": {
+        "url": "https://github.com/quillforms/quillforms/issues"
+    },
+    "main": "build/index.js",
+    "module": "build-module/index.js",
+    "sideEffects": false,
+    "dependencies": {
+        "@babel/runtime": "^7.16.0",
+        "@quillforms/admin-components": "^3.0.36",
+        "@quillforms/renderer-core": "^5.9.0",
+        "classnames": "^2.3.1",
+        "emotion": "10.0.27",
+        "tinycolor2": "^1.4.2"
+    },
+    "peerDependencies": {
+        "react": "^16.8.5 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^16.8.5 || ^17.0.0 || ^18.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
+}

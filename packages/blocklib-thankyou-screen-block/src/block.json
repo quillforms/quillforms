@@ -1,0 +1,46 @@
+{
+	"name":"thankyou-screen",
+	"attributes": {
+		"autoRedirect": {
+			"type": "boolean",
+			"default": false
+		},
+		"autoRedirectUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"autoRedirectLag": {
+			"type": "number",
+			"default": 0.5
+		},
+		"showButton": {
+			"type": "boolean",
+			"default": true
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Again"
+		},
+		"buttonMode": {
+			"type": "string",
+			"default": "reload",
+			"enum": [ "reload", "redirect" ]
+		},
+		"redirectUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"redirectOnSameWindow": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"editable": false,
+		"required": false,
+		"attachment": true,
+		"description": true,
+		"logic": false
+	}
+}
+

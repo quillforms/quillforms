@@ -357,7 +357,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
         timeFn = setTimeout(() => {
             setTriggerTreeCalculation(true);
 
-        }, 50)
+        }, 200)
     }, [currentBlockLabel, currentChildBlockLabel, currentBlockName, currentChildBlockName, currentPanel, allBlocksLength]);
 
     // Modify the tree transformation to preserve expansion state
