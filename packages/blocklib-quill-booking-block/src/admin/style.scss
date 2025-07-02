@@ -1,0 +1,10 @@
+// Admin styles for quill-booking block
+.event-select-section {
+    cursor: default !important;
+    font-weight: bold;
+    text-decoration: underline;
+    
+    &:hover {
+        background: #fff !important;
+    }
+}

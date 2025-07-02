@@ -1,0 +1,47 @@
+.blocktype-quill-booking-block .renderer-core-field-display-wrapper > div:first-child {
+    @media (min-width: 768px) {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+
+        .quill-booking-container {
+            height: 100%;
+        }
+
+        .quill-booking-inline-widget-wrapper {
+            height: calc(100% - 60px);
+        }
+        .quill-booking-popup-button-wrapper {
+            display: none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .quill-booking-inline-widget-wrapper {
+            display: none;
+        }
+        .quill-booking-popup-button-wrapper {
+            display: block;
+            cursor: pointer;
+        }
+    }
+
+    .quill-booking-spinner {
+        display: flex;
+        transform: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+    }
+
+    .quill-booking-spinner div {
+        width: 15px;
+        height: 15px;
+    }
+}
