@@ -1877,14 +1877,6 @@ msgstr ""
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: client/pages/results/components/delete-alert.js:64
-#: client/pages/results/components/entry-header/index.js:151
-#: packages/builder-core/src/components/drag-alert/index.tsx:74
-#: packages/form-integrations/src/components/connect/main/index.tsx:191
-#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:34
-msgid "Cancel"
-msgstr ""
-
 #: client/pages/results/components/delete-alert.js:77
 msgid "Deleting..."
 msgstr ""
@@ -4090,22 +4082,6 @@ msgstr ""
 
 #: packages/theme-editor/src/components/customize-footer/index.js:108
 msgid "Save as a new theme"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:135
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:66
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:84
-#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:41
-msgid "Account"
-msgstr ""
-
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
-#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:44
-msgid "added successfully!"
-msgstr ""
-
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:81
-msgid "Error in adding the "
 msgstr ""
 
 #: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:66
