@@ -1218,6 +1218,16 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/postcreation/icon.svg',
 					),
 				),
+				'nethuntcrm'                => array(
+					'name'           => esc_html__( 'NethuntCRM', 'quillforms' ),
+					'description'    => esc_html__( 'Create a new record on NethuntCRM.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-nethunt/quillforms-nethuntcrm.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/nethuntcrm/icon.svg',
+					),
+				),
 			)
 		);
 

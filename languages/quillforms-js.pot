@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-06-09T05:14:53.876Z\n"
+"POT-Creation-Date: 2025-07-02T12:44:58.191Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,138 @@ msgstr ""
 
 #: client/pages/payments/coupons/coupon/index.js:96
 msgid "10"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:135
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:66
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:67
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:84
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:85
+#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:41
+msgid "Account"
+msgstr ""
+
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:69
+#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:44
+msgid "added successfully!"
+msgstr ""
+
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:81
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:82
+msgid "Error in adding the "
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:72
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:157
+#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:158
+#: packages/notifications-editor/sotifications-list/index.js:98
+#: packages/notifications-editor/src/components/notifications-list/index.js:98
+#: packages/theme-editor/src/components/customize/index.js:160
+#: packages/theme-editor/src/components/customize/index.js:248
+msgid "Add"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:58
+msgid "Run Manually"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:67
+msgid "Delete Connection"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:79
+msgid "Run Connection after:"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:83
+msgid "Submission"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:87
+msgid "Saving the form"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:91
+msgid "Partial Submission"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:102
+msgid "Connection Name"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:115
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:116
+#: packages/form-integrations/src/components/connect/main/connection/index.tsx:121
+msgid ""
+"Previously selected account isn't found, please reauthorize it or select "
+"another one!"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:67
+msgid "updated successfully!"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:77
+msgid "Error on saving!"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:97
+msgid "Connection name cannot be empty"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:102
+msgid "\"${ connection.name }\" error: please select an account"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:118
+msgid "\"${ connection.name }\" error: "
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:120
+#: packages/form-integrations/src/components/connect/main/index.tsx:121
+msgid "invalid options"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:153
+#: packages/form-integrations/src/components/connect/main/index.tsx:154
+#: packages/form-integrations/src/components/connect/main/index.tsx:158
+msgid "You don't have any connections!"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:167
+#: packages/form-integrations/src/components/connect/main/index.tsx:168
+#: packages/form-integrations/src/components/connect/main/index.tsx:172
+msgid "New Connection"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:175
+#: packages/form-integrations/src/components/connect/main/index.tsx:176
+#: packages/form-integrations/src/components/connect/main/index.tsx:180
+msgid "Add A New Connection"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:181
+#: packages/form-integrations/src/components/connect/main/index.tsx:182
+#: packages/form-integrations/src/components/connect/main/index.tsx:186
+#: packages/form-integrations/src/components/connect/setup/index.tsx:28
+msgid "Save"
+msgstr ""
+
+#: client/pages/results/components/delete-alert.js:64
+#: client/pages/results/components/entry-header/index.js:151
+#: packages/builder-core/src/components/drag-alert/index.tsx:74
+#: packages/form-integrations/src/components/connect/main/index.tsx:186
+#: packages/form-integrations/src/components/connect/main/index.tsx:187
+#: packages/form-integrations/src/components/connect/main/index.tsx:191
+#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:34
+msgid "Cancel"
+msgstr ""
+
+#: packages/form-integrations/src/components/connect/main/index.tsx:196
+#: packages/form-integrations/src/components/connect/main/index.tsx:197
+#: packages/form-integrations/src/components/connect/main/index.tsx:199
+msgid "unnamed"
 msgstr ""
 
 #: packages/block-editor/src/components/skeleton/editor.tsx:293
@@ -1116,14 +1248,6 @@ msgstr ""
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: client/pages/results/components/delete-alert.js:64
-#: client/pages/results/components/entry-header/index.js:151
-#: packages/builder-core/src/components/drag-alert/index.tsx:74
-#: packages/form-integrations/src/components/connect/main/index.tsx:191
-#: packages/notifications-editor/src/components/notification-delete-dialog/index.js:34
-msgid "Cancel"
-msgstr ""
-
 #: client/pages/results/components/delete-alert.js:77
 msgid "Deleting..."
 msgstr ""
@@ -1785,15 +1909,6 @@ msgstr ""
 
 #: client/pro-panels/calculator-render/index.js:67
 msgid "If \"Large Package\" is selected:"
-msgstr ""
-
-#: client/pro-panels/calculator-render/index.js:72
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:157
-#: packages/notifications-editor/sotifications-list/index.js:98
-#: packages/notifications-editor/src/components/notifications-list/index.js:98
-#: packages/theme-editor/src/components/customize/index.js:160
-#: packages/theme-editor/src/components/customize/index.js:248
-msgid "Add"
 msgstr ""
 
 #: client/pro-panels/calculator-render/index.js:72
@@ -2738,51 +2853,6 @@ msgstr ""
 msgid "50%"
 msgstr ""
 
-#: packages/form-integrations/src/components/connect/main/index.tsx:67
-msgid "updated successfully!"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:77
-msgid "Error on saving!"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:97
-msgid "Connection name cannot be empty"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:102
-msgid "\"${ connection.name }\" error: please select an account"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:118
-msgid "\"${ connection.name }\" error: "
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:121
-msgid "invalid options"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:158
-msgid "You don't have any connections!"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:172
-msgid "New Connection"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:180
-msgid "Add A New Connection"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:186
-#: packages/form-integrations/src/components/connect/setup/index.tsx:28
-msgid "Save"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/index.tsx:199
-msgid "unnamed"
-msgstr ""
-
 #: client/pages/home/generate-ai-form.js:497
 msgid ""
 "Example: \"Create a job application form with personal details, work "
@@ -3289,62 +3359,12 @@ msgstr ""
 msgid "Please insert at least one correct email!"
 msgstr ""
 
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:58
-msgid "Run Manually"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:67
-msgid "Delete Connection"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:79
-msgid "Run Connection after:"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:83
-msgid "Submission"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:87
-msgid "Saving the form"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:91
-msgid "Partial Submission"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:102
-msgid "Connection Name"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/index.tsx:121
-msgid ""
-"Previously selected account isn't found, please reauthorize it or select "
-"another one!"
-msgstr ""
-
 #: packages/theme-editor/src/components/customize-footer/index.js:91
 msgid "Revert changes"
 msgstr ""
 
 #: packages/theme-editor/src/components/customize-footer/index.js:108
 msgid "Save as a new theme"
-msgstr ""
-
-#: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:135
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:66
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:84
-#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:41
-msgid "Account"
-msgstr ""
-
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:68
-#: packages/form-integrations/src/components/shared/account-auth/oauth/index.tsx:44
-msgid "added successfully!"
-msgstr ""
-
-#: packages/form-integrations/src/components/shared/account-auth/credentials/index.tsx:81
-msgid "Error in adding the "
 msgstr ""
 
 #: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:66
@@ -3491,4 +3511,16 @@ msgstr ""
 
 #: packages/notifications-editor/src/components/notifications-list/index.js:63
 msgid "Email Notific"
+msgstr ""
+
+#: client/pages/results/insights/index.js:15
+msgid "Upload your "
+msgstr ""
+
+#: client/pages/home/form-card.js:600
+msgid "Draft forms wi"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:865
+msgid "Perfect"
 msgstr ""
