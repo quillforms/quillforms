@@ -1,0 +1,39 @@
+{
+	"name": "quill-booking",
+	"attributes": {
+		"eventId": {
+			"type": "string",
+			"default": ""
+		},
+		"username": {
+			"type": "object",
+			"default": {}
+		},
+		"email": {
+			"type": "object",
+			"default": {}
+		},
+		"scheduleText": {
+			"type": "string",
+			"default": "Schedule"
+		},
+		"alreadyScheduledText": {
+			"type": "string",
+			"default": "Your Quill Booking is scheduled successfully!"
+		}
+	},
+	"supports": {
+		"editable": true,
+		"required": true,
+		"description": true,
+		"theme": true,
+		"logic": false,
+		"attachment": false
+	},
+	"logicalOperators": [
+		"is",
+		"is_not",
+		"greater_than",
+		"lower_than"
+	]
+}

@@ -16,7 +16,7 @@ import { Icon as IconComponent } from '@wordpress/components';
  * External Dependencies
  */
 import { css } from 'emotion';
-import { map, keys, size } from 'lodash';
+import { map, keys, size, filter } from 'lodash';
 
 /**
  * Internal Dependencies
@@ -32,6 +32,23 @@ const IntegrationsPage = ({ params }) => {
 	const [searchKeyword, setSearchKeyword] = useState('');
 
 	const integrationsModules = getIntegrationModules();
+
+	// Filter integrations based on search keyword
+	const filteredIntegrationKeys = filter(keys(integrationsModules), (slug) => {
+		if (!searchKeyword.trim()) {
+			return true; // Show all integrations if no search keyword
+		}
+
+		const integration = integrationsModules[slug];
+		const searchTerm = searchKeyword.toLowerCase();
+
+		// Search in title, description, and slug
+		return (
+			integration.title.toLowerCase().includes(searchTerm) ||
+			integration.description.toLowerCase().includes(searchTerm) ||
+			slug.toLowerCase().includes(searchTerm)
+		);
+	});
 
 	return (
 		<div className="quillforms-integrations-page">
@@ -59,58 +76,76 @@ const IntegrationsPage = ({ params }) => {
 			</div>
 			<div className="quillforms-integrations-page__integrations-list">
 				{size(integrationsModules) > 0 ? (
-					map(keys(integrationsModules), (slug) => {
-						const icon = integrationsModules[slug].icon;
-						const connected = applyFilters(
-							'QuillForms.Integrations.IsConnected',
-							false,
-							slug
-						);
-						return (
-							<div
-								key={slug}
-								className="quillforms-integrations-page__integration-list-item"
-							>
-								<div className="quillforms-integrations-page__integration-module-header">
-									<div className="quillforms-integrations-page__integration-module-icon">
-										{typeof icon === 'string' ? (
-											<img src={icon} />
-										) : (
-											<IconComponent
-												icon={
-													icon?.src ? icon.src : icon
-												}
-											/>
-										)}
+					size(filteredIntegrationKeys) > 0 ? (
+						map(filteredIntegrationKeys, (slug) => {
+							const icon = integrationsModules[slug].icon;
+							const connected = applyFilters(
+								'QuillForms.Integrations.IsConnected',
+								false,
+								slug
+							);
+							return (
+								<div
+									key={slug}
+									className="quillforms-integrations-page__integration-list-item"
+								>
+									<div className="quillforms-integrations-page__integration-module-header">
+										<div className="quillforms-integrations-page__integration-module-icon">
+											{typeof icon === 'string' ? (
+												<img src={icon} />
+											) : (
+												<IconComponent
+													icon={
+														icon?.src ? icon.src : icon
+													}
+												/>
+											)}
+										</div>
+										<div className="quillforms-integrations-page__integration-module-title">
+											{integrationsModules[slug].title}
+										</div>
 									</div>
-									<div className="quillforms-integrations-page__integration-module-title">
-										{integrationsModules[slug].title}
+									<div className="quillforms-integrations-page__integration-module-desc">
+										{integrationsModules[slug].description}
+									</div>
+									<div className="quillforms-integrations-page__integration-module-footer">
+										<Button
+											isPrimary
+											onClick={() =>
+												setModalIntegration(slug)
+											}
+										>
+											{connected ? (
+												<span>
+													{__('Edit Connection', 'quillforms')}
+												</span>
+											) : (
+												<span>
+													{__('Connect', 'quillforms')}
+												</span>
+											)}
+										</Button>
 									</div>
 								</div>
-								<div className="quillforms-integrations-page__integration-module-desc">
-									{integrationsModules[slug].description}
-								</div>
-								<div className="quillforms-integrations-page__integration-module-footer">
-									<Button
-										isPrimary
-										onClick={() =>
-											setModalIntegration(slug)
-										}
-									>
-										{connected ? (
-											<span>
-												{__('Edit Connection', 'quillforms')}
-											</span>
-										) : (
-											<span>
-												{__('Connect', 'quillforms')}
-											</span>
-										)}
-									</Button>
-								</div>
-							</div>
-						);
-					})
+							);
+						})
+					) : (
+						<div
+							className={css`
+								background: #f0f0f0;
+								color: #666;
+								padding: 20px;
+								border-radius: 5px;
+								max-width: 400px;
+								margin: auto;
+								text-align: center;
+								margin-top: 50px;
+								border: 1px solid #ddd;
+							`}
+						>
+							{__('No integrations found matching your search.', 'quillforms')}
+						</div>
+					)
 				) : (
 					<div
 						className={css`
@@ -122,7 +157,7 @@ const IntegrationsPage = ({ params }) => {
 							margin: auto;
 							text-align: center;
 							margin-top: 100px;
-						` }
+						`}
 					>
 						{__('No integrations available', 'quillforms')}
 					</div>

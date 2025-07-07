@@ -54,7 +54,8 @@ const quillFormsBlocklibPackagesNames = [
 	'statement',
 	'website',
 	'welcome-screen',
-	'thankyou-screen'
+	'thankyou-screen',
+	'quill-booking'
 ];
 const quillFormsBlocklibPackages = quillFormsBlocklibPackagesNames.map(
 	(name) => `@quillforms/blocklib-${name}-block`
@@ -214,6 +215,7 @@ module.exports = {
 						'packages/blocklib-dropdown-block'
 					),
 					path.resolve(__dirname, 'packages/blocklib-email-block'),
+					path.resolve(__dirname, 'packages/blocklib-quill-booking-block'),
 					path.resolve(
 						__dirname,
 						'packages/blocklib-long-text-block'
@@ -303,6 +305,7 @@ module.exports = {
 						'packages/blocklib-dropdown-block'
 					),
 					path.resolve(__dirname, 'packages/blocklib-email-block'),
+					path.resolve(__dirname, 'packages/blocklib-quill-booking-block'),
 					path.resolve(
 						__dirname,
 						'packages/blocklib-long-text-block'
