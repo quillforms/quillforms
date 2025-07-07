@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QuillForms 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/quillforms/quillforms/issues\n"
-"POT-Creation-Date: 2025-07-02T10:51:24.575Z\n"
+"POT-Creation-Date: 2025-07-07T13:45:56.205Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mohamed Magdy\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,8 +13,277 @@ msgstr ""
 "X-Generator: quillforms-babel-plugin-makepot\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: client/pages/results/insights/index.js:105
+msgid "4"
+msgstr ""
+
 #: client/pages/payments/coupons/coupon/index.js:96
 msgid "10"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:64
+msgid "Failed to load countries. Please try again."
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:111
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:195
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:195
+msgid "Please select a country"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:115
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:199
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:199
+msgid "Country already exists"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:144
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:228
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:228
+msgid "Enable Address Autocomplete"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:160
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:244
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:244
+msgid "Restrict to Specific Countries"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:191
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:262
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:262
+msgid "Add Allowed Country"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:201
+msgid "Select Country"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:209
+msgid "Loading countries..."
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:209
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:271
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:277
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:271
+msgid "Select a country..."
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:212
+msgid "Search countries..."
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:248
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:250
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:309
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:315
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:309
+msgid "Add Country"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:257
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:259
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:318
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:324
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:318
+msgid "Allowed Countries"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:284
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:286
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:345
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:351
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:345
+#: packages/blocklib-email-block copy/skages/blocklib-email-block/src/admin/controls.js:219
+#: packages/blocklib-email-block copy/src/admin/controls.js:219
+#: packages/blocklib-email-block copy/src/admin/controls.js:316
+#: packages/blocklib-email-block/src/admin/controls.js:219
+#: packages/blocklib-email-block/src/admin/controls.js:316
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:180
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:386
+#: packages/theme-editor/src/components/customize/index.js:174
+#: packages/theme-editor/src/components/customize/index.js:262
+msgid "Remove"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:301
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:303
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:362
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:368
+msgid "Display Mode"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:330
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:332
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:391
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:397
+msgid "Shows separate fields for street, city, state, etc. (like Google example)"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:331
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:333
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:392
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:398
+msgid "Shows a single autocomplete input field"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:342
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:344
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:403
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:409
+msgid "Form Fields to Display"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:361
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:363
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:422
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:428
+msgid "Street Address"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:376
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:378
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:437
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:443
+msgid "Apartment/Unit"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:391
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:393
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:452
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:458
+msgid "City"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:406
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:408
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:467
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:473
+msgid "State/Province"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:421
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:423
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:482
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:488
+msgid "Postal Code"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:436
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:438
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:497
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:503
+msgid "Country"
+msgstr ""
+
+#: packages/bljs:411
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:370
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:411
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:460
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:497
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:499
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:558
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:564
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.k/src/admin/controls.js:411
+#: packages/blocklib-address-autocomplete-bock/src/admin/controls.js:370
+msgid ""
+"Note: Address autocomplete requires a valid Google Maps API key to be "
+"configured in the Geolocation settings."
+msgstr ""
+
+#: packages/admin-components/src/choices-bulk-btn/index.tsx:49
+msgid "Bulk Answers"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:362
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:448
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:450
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:509
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:515
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.ocklib-address-autocomplete-block/src/admin/controls.js:509
+msgid "Output Format"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:391
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:477
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:479
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:538
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:544
+msgid "Returns detailed address components (street, city, state, etc.) as JSON"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:392
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:478
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:480
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:539
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:545
+msgid "Returns only the formatted address string"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:41
+#: packages/blocklib-email-block copy/src/admin/controls.js:63
+#: packages/blocklib-email-block/src/admin/controls.js:41
+#: packages/blocklib-email-block/src/admin/controls.js:63
+msgid "Domain cannot be empty"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:46
+#: packages/blocklib-email-block copy/src/admin/controls.js:68
+#: packages/blocklib-email-block/src/admin/controls.js:46
+#: packages/blocklib-email-block/src/admin/controls.js:68
+msgid "Domain already exists"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:50
+#: packages/blocklib-email-block copy/src/admin/controls.js:72
+#: packages/blocklib-email-block/src/admin/controls.js:50
+#: packages/blocklib-email-block/src/admin/controls.js:72
+msgid "Domain cannot be in both allowed and disallowed lists"
+msgstr ""
+
+#: packages/block"
+#: packages/blocklib-email-block copy/src/admin/controls.js:54
+#: packages/blocklib-email-block copy/src/admin/controls.js:76
+#: packages/blocklib-email-block/src/admin/controls.js:50
+#: packages/blocklib-email-block/src/admin/controls.js:54
+#: packages/blocklib-email-block/src/admin/controls.js:76
+msgid "Invalid domain format (e.g., example.com)"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:116
+#: packages/blocklib-email-block/src/admin/controls.js:116
+msgid "Restrict Email Domains"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:134
+#: packages/blocklib-email-block/src/admin/controls.js:134
+msgid "Add Allowed Domain"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:184
+#: packages/blocklib-email-block copy/src/admin/controls.js:282
+#: packages/blocklib-email-block/src/admin/controls.js:184
+#: packages/blocklib-email-block/src/admin/controls.js:282
+msgid "Add Domain"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:193
+#: packages/blocklib-email-block copy/src/admin/controls.js:41
+#: packages/blocklib-email-block copy/src/admin/controls.js:63
+#: packages/blocklib-email-block/src/admin/controls.js:193
+#: packages/blocklib-email-block/src/admin/controlscklib-email-block copy/src/admin/controls.js:193
+msgid "Allowed Domains"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:233
+#: packages/blocklib-email-block/src/admin/controls.js:233
+msgid "Add Disallowed Domain"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:290
+#: packages/blocklib-email-block/src/admin/controls.js:290
+msgid "Disallowed Domains"
 msgstr ""
 
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:105
@@ -43,8 +312,15 @@ msgstr ""
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:120
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:129
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:154
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:157
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:162
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:165
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:182
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:183
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:189
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:194
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:210
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:21controls.js:165
 msgid "No calendars or events found"
 msgstr ""
 
@@ -56,6 +332,7 @@ msgstr ""
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:165
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:173
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:176
+#: packages/blocklib-quill-booking-block/src/admin/controls.ng-block/src/admin/controls.js:122
 msgid "Create calendar and event"
 msgstr ""
 
@@ -86,15 +363,18 @@ msgstr ""
 
 #: packages/block-editor/src/components/blocstr ""
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:162
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:162booking-block/src/admin/controls.js:188
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:187
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:188
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:189
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:194
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:199
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:218
+#: src/components/blocstr ""
 msgid "QuillBooking plugin is not installed"
 msgstr ""
 
+#: packages/blocklib-quill-booking-block/src/adb-quill-booking-block/src/admin/controls.js:195
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:163
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:188
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:189
@@ -385,10 +665,6 @@ msgstr ""
 msgid "Event URL"
 msgstr ""
 
-#: packages/admin-components/src/choices-bulk-btn/index.tsx:49
-msgid "Bulk Answers"
-msgstr ""
-
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:159
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:62
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:65
@@ -429,6 +705,7 @@ msgid "Iframe Width"
 msgstr ""
 
 #: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           -block/src/admin/controls.js:178
 #: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        -block/src/admin/controls.js:178
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:105
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:115
@@ -1165,22 +1442,27 @@ msgid "Import & Export"
 msgstr ""
 
 #: client/pages/integrations/index.js:102
+#: client/pages/integrations/index.js:120
 msgid "Edit Connection"
 msgstr ""
 
 #: client/pages/integrations/index.js:106
+#: client/pages/integrations/index.js:124
 msgid "Connect"
 msgstr ""
 
 #: client/pages/integrations/index.js:127
+#: client/pages/integrations/index.js:162
 msgid "No integrations available"
 msgstr ""
 
 #: client/pages/integrations/index.js:41
+#: client/pages/integrations/index.js:58
 msgid "Connect your form to your best-loved apps"
 msgstr ""
 
 #: client/pages/integrations/index.js:43
+#: client/pages/integrations/index.js:60
 msgid ""
 "Establish workflows that work for you. Automate your marketing, sales, and "
 "service processes to make your form more efficient"
@@ -1188,6 +1470,7 @@ msgstr ""
 
 #: client/pages/import-export/import/index.js:ns/index.js:53
 #: client/pages/integrations/index.js:53
+#: client/pages/integrations/index.js:70
 msgid "Search for an integration"
 msgstr ""
 
@@ -1520,6 +1803,7 @@ msgid "About This Demo"
 msgstr ""
 
 #: client/pages/results/analytics/index.js:14
+#: client/pages/results/analytics/ults/analytics/index.js:14
 msgid "Flexible Hours"
 msgstr ""
 
@@ -2036,6 +2320,9 @@ msgid "Popup"
 msgstr ""
 
 #: client/pages/share/body.js:707
+#: client/pages/share/body.js:809
+#: packages/theme-editor/src/components/tymsgstr ""
+#: packages/theme-editor/src/components/typography-panel/index.js:675
 msgid "Popup Settings"
 msgstr ""
 
@@ -2334,6 +2621,8 @@ msgstr ""
 msgid "IP Tracking"
 msgstr ""
 
+#: client/pro-panels/form-locker-render/inde client/pro-panels/form-locker-render/index.js:137
+#: client/pro-panels/form-locker-render/index.jer-render/index.js:136
 #: client/pro-panels/form-locker-render/index.js:137
 msgid "Track submissions from the same IP address"
 msgstr ""
@@ -2785,6 +3074,7 @@ msgid "Maximum limit for choices"
 msgstr ""
 
 #: packages/blocklib-multiple-choice-block/src/admin/controls.js:80
+#: packages/blocklib-multipleages/blocklib-multiple-choice-block/src/admin/controls.js:80
 msgid "Vertical Align"
 msgstr ""
 
@@ -2792,6 +3082,7 @@ msgstr ""
 msgid "Slider"
 msgstr ""
 
+#: client/pages/results/components/entry-details/index.js:54
 #: packages/blocklib-slider-block/src/admin/controls.js:30
 msgid "No"
 msgstr ""
@@ -2822,6 +3113,7 @@ msgid "Marks"
 msgstr ""
 
 #: packages/blocklib-slider-block/src/admin/controls.js:128
+#: packages/blocklib-slider-bloges/blocklib-slider-block/src/admin/controls.js:128
 msgid "value"
 msgstr ""
 
@@ -2880,62 +3172,6 @@ msgstr ""
 
 #: client/pages/share/body.js:503
 msgid "Cust"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:41
-#: packages/blocklib-email-block/src/admin/controls.js:63
-msgid "Domain cannot be empty"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:46
-#: packages/blocklib-email-block/src/admin/controls.js:68
-msgid "Domain already exists"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:50
-#: packages/blocklib-email-block/src/admin/controls.js:72
-msgid "Domain cannot be in both allowed and disallowed lists"
-msgstr ""
-
-#: packages/block"
-#: packages/blocklib-email-block/src/admin/controls.js:50
-#: packages/blocklib-email-block/src/admin/controls.js:54
-#: packages/blocklib-email-block/src/admin/controls.js:76
-msgid "Invalid domain format (e.g., example.com)"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:116
-msgid "Restrict Email Domains"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:134
-msgid "Add Allowed Domain"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:184
-#: packages/blocklib-email-block/src/admin/controls.js:282
-msgid "Add Domain"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:193
-msgid "Allowed Domains"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:219
-#: packages/blocklib-email-block/src/admin/controls.js:316
-#: packages/blocklib-quill-booking-block/src/admin/controls.js:180
-#: packages/blocklib-quill-booking-block/src/admin/controls.js:386
-#: packages/theme-editor/src/components/customize/index.js:174
-#: packages/theme-editor/src/components/customize/index.js:262
-msgid "Remove"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:233
-msgid "Add Disallowed Domain"
-msgstr ""
-
-#: packages/blocklib-email-block/src/admin/controls.js:290
-msgid "Disallowed Domains"
 msgstr ""
 
 #: packages/blocklib-legal-block/src/admin/controls.js:28
@@ -3033,6 +3269,7 @@ msgid "Set Maximum Width for attachment"
 msgstr ""
 
 #: packages/block-editor/src/components/block-default-controls/index.tsx:390
+#: packages/block-editor/src/components/bls/block-default-controls/index.tsx:390
 msgid "Maximum Width(px)"
 msgstr ""
 
@@ -3146,11 +3383,13 @@ msgstr ""
 msgid "Field"
 msgstr ""
 
+#: packages/notifications-editor/ges/notifications-editor/src/components/notification-editor-wrapper/index.js:284
 #: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:284
 msgid "Conditional Logic"
 msgstr ""
 
 #: packages/notifications-editor/src/components/nifications-editor/src/components/notification-editor-wrapper/index.js:298
+#: packages/notifications-editor/src/components/notification-boxs/notifications-editor/src/components/nifications-editor/src/components/notification-editor-wrapper/index.js:298
 #: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:298
 msgid "Process this notification if the following conditions are met:"
 msgstr ""
@@ -3258,6 +3497,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: packages/block-editor/src/components/block-layo packages/form-integrations/src/components/connect/main/index.tsx:1components/block-layout/ndex.tsx:199
 #: packages/block-editor/src/components/block-layout/ndex.tsx:199
 #: packages/form- ""
 #: packages/form-integrations/s ""
@@ -3395,6 +3635,7 @@ msgstr ""
 #: packages/theme-editor/src/components/alpha-color-picker/index.tsx:29
 #: packages/theme-editor/src/components/alpha-color-ponents/gradient-picker/index.js:23
 #: packages/theme-editor/src/components/color-picker/index.tsx:18
+#: packages/theme-editor/src/components/cols/alpha-color-picker/index.tsx:29
 #: packages/theme-editor/src/components/gradient-picker/index.js:23
 msgid "Luminous vivid amber"
 msgstr ""
@@ -3592,6 +3833,7 @@ msgstr ""
 msgid "⛔ "
 msgstr ""
 
+#: client/paex.js:145
 #: client/pages/payments/index.js:145
 msgid "⛔ Please add at least one product"
 msgstr ""
@@ -3680,6 +3922,13 @@ msgstr ""
 
 #: client/pages/home/form-card.js:423
 #: client/pages/home/form-card.js:568
+#: client/pages/license/index.js:122
+#: client/pages/license/index.js:129
+#: client/pages/license/index.js:54
+#: client/pages/license/index.js:61
+#: client/pages/license/index.js:88
+#: client/pages/license/index.js:95
+#: client/pages/system/lom-card.js:423
 msgid "✅ Form slug changed successfully!"
 msgstr ""
 
@@ -3786,6 +4035,7 @@ msgstr ""
 #: packages/notifications-editor/src/components/notification-to/index.js:ditor/src/components/notificatios-editor/src/components/notification-to/index.js:55
 #: packages/notifications-editor/src/components/notificatios-editor/src/components/notification-to/index.js:55
 #: packages/notificomponents/notificatios-editor/src/components/notification-to/index.js:55
+#: packages/notifn-to/index.js:55
 msgid "Send a notification to"
 msgstr ""
 
@@ -3814,13 +4064,16 @@ msgid "Submission"
 msgstr ""
 
 #: packages/form-integrations/src/components/connect/main/connection/index.tsx:87
+#: packages/theme-editor/src/components/color-palette/indexx.tsx:87
 msgid "Saving the form"
 msgstr ""
 
+#: packages/builder-core/src/components/blocks-structure/index.tsx:786
 #: packages/form-integrations/src/components/connect/main/connection/index.tsx:91
 msgid "Partial Submission"
 msgstr ""
 
+#: packages/form-integform-integrations/src/components/connect/main/connection/index.tsx:102
 #: packages/form-integrations/src/components/connect/main/connection/index.tsx:102
 msgid "Connection Name"
 msgstr ""
@@ -3880,6 +4133,7 @@ msgstr ""
 msgid "Background and Logo"
 msgstr ""
 
+#: packageges/theme-editor/src/components/customize/iomize/index.js:135
 #: packages/theme-editor/src/components/customize/index.js:135
 msgid "Background Overlay Color"
 msgstr ""
@@ -3899,6 +4153,9 @@ msgstr ""
 msgid "logo"
 msgstr ""
 
+#: pa packages/theme-editor/src/components/customize/index.js:269
+#: packages/theme-editor/src/co-editor/src/components/customize/index.js:269
+#: packages/theme-editor/src/components/customize/index.js:189
 #: packages/theme-editor/src/components/customize/index.js:269
 msgid "Font Families"
 msgstr ""
@@ -3960,6 +4217,7 @@ msgid "Progress Bar Fill Color"
 msgstr ""
 
 #: packages/theme-editor/src/components/customize/index.js:481
+#: packages/thgstr ""
 msgid "Progress Bar Background Color"
 msgstr ""
 
@@ -4010,6 +4268,16 @@ msgstr ""
 msgid "Draft forms wi"
 msgstr ""
 
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:151
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:156
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:181
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:182
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:188
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:193
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:209
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:214
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:223
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:228
 #: packages/notifications-editor/src/components/notifications-list/index.js:58
 #: packages/notifications-editor/src/components/notifications-list/index.js:63
 #: packages/theme-editor/src/components/customize/index.js:312
@@ -4089,6 +4357,7 @@ msgstr ""
 msgid "Email Notifications requires Quill SMTP plugin to be installe"
 msgstr ""
 
+#: client/pages/home/generate-ai-form.js:396
 #: client/pages/results/insights/index.js:14
 msgid "Te"
 msgstr ""
@@ -4122,6 +4391,7 @@ msgid "PostMessage Integration"
 msgstr ""
 
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:235
+#: rc/admin/controls.js:235
 msgid ""
 "Target for postMessage. Use 'parent' for parent window or CSS selector for "
 "iframe"
@@ -4141,6 +4411,7 @@ msgstr ""
 msgid "Select the field that contains the customer's name"
 msgstr ""
 
+#: client/pages/payme-booking-block/src/admin/controls.js:274
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:274
 msgid "Email Field"
 msgstr ""
@@ -4252,6 +4523,7 @@ msgstr ""
 msgid "Select a f"
 msgstr ""
 
+#: client/pages/results/insights/index.jions-editor/src/components/notification-editor-footer/index.js:73
 #: packages/notifications-editor/src/components/notification-editor-footer/index.js:73
 #: packages/theme-editor/src/components/customize-footer/index.js:108
 msgid "Save ch"
@@ -4308,6 +4580,7 @@ msgstr ""
 msgid "Advanced access control and submi"
 msgstr ""
 
+#: packa317
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:105
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:115
 #: packages/blocklib-quill-booking-block/src/admin/controls.js:130
@@ -4559,7 +4832,9 @@ msgstr ""
 msgid "Email Notifications req"
 msgstr ""
 
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:61
 #: packages/form-integrations/src/components/connect/main/connection/account-select/index.tsx:66
+#: packages/theme-editor/src/components/typography-panel/index.js:230
 msgid "Se"
 msgstr ""
 
@@ -5087,6 +5362,7 @@ msgstr ""
 msgid "The default paymen"
 msgstr ""
 
+#: client/pagesrols.js:40
 #: packages/blocklib-statement-block/src/admin/controls.js:40
 #: packages/blocklib-welcome-screen-block/src/admin/controls.js:21
 msgid "Button T"
@@ -5163,6 +5439,7 @@ msgid "An error occurred while rendering the block"
 msgstr ""
 
 #: packages/block-editor/src/components/block-default-controls/index.tsx:260
+#: packages/theme-editor/src/components/customize/index.js:272
 msgid "Yo"
 msgstr ""
 
@@ -5194,10 +5471,12 @@ msgstr ""
 "Example: \"Create a job application form with personal details, work "
 "experienc"
 
+#: packages/block-editor/src/components/block-controx:18
 #: packages/theme-editor/src/components/alpha-color-picker/index.tsx:29
 #: packages/theme-editor/src/components/alpha-color-ponents/gradient-picker/index.js:23
 #: packages/theme-editor/src/components/color-picker/index.tsx:18
 #: packages/theme-editor/src/components/gradient-picker/index.js:23
+#: pponents/alpha-color-ponents/gradient-picker/index.js:23
 msgid "Luminous vivi"
 msgstr ""
 
@@ -5253,4 +5532,574 @@ msgstr ""
 #: client/pages/payments/coupons/coupon/index.js:74
 #: packages/renderer-core/src/components/payment-modal/info/index.tsx:139
 msgid "Disethods"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:55
+msgid "Enter a name fo"
+msgstr ""
+
+#: client/pages/results/components/entry-details/notes/index.js:40
+#: client/pages/results/components/entry-details/notes/index.js:82
+msgid "P"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:272
+msgid "You can add your custom font from settings icon at left b"
+msgstr ""
+
+#: client/pages/integrations/index.js:146
+msgid "No integrations found matching your search."
+msgstr ""
+
+#: packages/notifications-editor/src/components/nifications-editor/src/components/notification-editor-wrapper/index.js:298
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:298
+msgid "Process t"
+msgstr ""
+
+#: client/pages/ges/admin-components/src/combobox-control/index.tsx:113
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packady.js:432
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid "Hidden , you have several options available. You can share it via a direct "
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:100
+msgid "The def"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:285
+msgid "Select the field t"
+msgstr ""
+
+#: packages/block-editor/src/components/block-controls/index.tsx:97
+msgid "An er"
+msgstr ""
+
+#: client/pages/home/form-card.js:292
+#: client/pages/home/home-content.js:90
+msgid "Move "
+msgstr ""
+
+#: packages/admin-components/src/combobox-control/index.tsx:146
+msgid "Entry Proper"
+msgstr ""
+
+#: client/pro-panels/calculator-render/index.js:107
+msgid "Corr"
+msgstr ""
+
+#: packages/theme-editor/src/components/alpha-color-picker/index.tsx:64
+#: packages/theme-editor/src/components/color-picker/index.tsx:53
+#: packages/theme-editor/src/components/gradient-picker/index.js:58
+#: packages/theme-edittheme-editor/src/components/alpha-color-picker/index.tsx:64
+msgid "Cyan b"
+msgstr ""
+
+#: client/pages/ges/admin-components/src/combobox-control/index.tsx:113
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packady.js:432
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid "Hidden , you have several options "
+msgstr ""
+
+#: client/pro-panels/s61
+#: client/pro-panels/save-and-continue-render/index.js:161
+msgid "Continue form completion from any device, anywh"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:118
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:121
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:122
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:131
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:140
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:165
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:173
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:176
+msgid "Create calenda"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:116
+msgid "Submission T"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:331
+msgid "Colo"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:497
+#: packages/block-editor/src/components/block-layout/ndex.tsx:199
+#: packages/form-int497
+msgid "Example: \"Create a "
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:100
+msgid "The default payment gateway is the first"
+msgstr ""
+
+#: packages/blocklib-email-block copy/src/admin/controls.js:41
+#: packages/blocklib-email-block copy/src/admin/controls.js:63
+#: packages/blocklib-email-block/src/admin/controls.js:41
+#: packages/blocklib-email-block/src/admin/controls.js:63
+msgid "Domain cannot be"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:58
+msgid "✅ Imported"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:101
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:165
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:167
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:169
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:171
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:178
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:206
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:207
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:210
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:214
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:215
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:216
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:218
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:230
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:263
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:288
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:289
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:291
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:300
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:306
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:320
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:76
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:86
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:89
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:92
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:93
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:94
+msgid "Prefill "
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:497
+msgid "Example: \"Create a job application form with pe"
+msgstr ""
+
+#: packages/theme-editor/src/components/gradient-picker/index.js:70
+msgid "Vivid cyan blue to vivid purp"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:20
+msgid "How often do nalyti"
+msgstr ""
+
+#: client/pages/import-export/import/index.js:37
+msgid "⛔ Invalid f"
+msgstr ""
+
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid "Hidden , you have sever"
+msgstr ""
+
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid ""
+"Hidden , you have several options available. You can share it via a direct "
+"link, shortcode, embed code, or pop-up. Choose the method that best suits "
+"your needs and preferences to ensure easy and conven"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:100
+msgid "The default paym"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:330
+msgid "Tip: The AI analyzes your description "
+msgstr ""
+
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid "Hidden , you have"
+msgstr ""
+
+#: packages/notifications-editor/src/components/notifications-list/index.js:58
+msgid "Email Notifications requires Quill SMTP plugin t"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:16
+msgid "Advanced URL Parameter Tra"
+msgstr ""
+
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        -block/src/admin/controls.js:178
+#: packages/blocklib-quill                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     -block/src/admin/controls.js:178
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:105
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:115
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:130
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:162
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:173
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:178
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:194
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:196
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:198
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:200
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:207
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:235
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:236
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:239
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:243
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:244
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:245
+msgid "Iframe Heigh"
+msgstr ""
+
+#: packages/notifications-editor/src/components/notifications-list/index.js:63
+msgid "Email Notifications requires Quill SMTP "
+msgstr ""
+
+#: packages/notifications-editor/src/components/notification-to/index.js:82
+msgid "Type "
+msgstr ""
+
+#: client/pages/home/form-card.js:292
+#: client/pages/home/home-content.js:90
+msgid "Move"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:497
+msgid ""
+"Example: \"Create a job application form with personal details, work "
+"experience, education background, and f"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:497
+msgid "Example: \"Cre"
+msgstr ""
+
+#: packages/theme-editor/src/components/typography-panel/index.js:346
+msgid "Questions "
+msgstr ""
+
+#: client/pages/results/analytics/index.js:39
+msgid "This is a preview usin"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/irc/combobox-control/index.tsx:105
+#: packages/admin-components/src/combobox-control/index.tsx:105
+msgid "Var"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:172
+msgid "URL to open for booking (if n"
+msgstr ""
+
+#: client/pages/share/body.js:328
+msgid "To share"
+msgstr ""
+
+#: client/pages/results/insights/index.js:24
+msgid "D"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:172
+msgid "URL to ot using postMessage)"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:172
+msgid "URL to "
+msgstr ""
+
+#: packages/notifications-editor/src/components/notifications-list/index.js:58
+msgid "Email Notifications requires Quill SMTP plugin u"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:690
+msgid "8+ ad"
+msgstr ""
+
+#: packages/theme-editor/src/components/typography-panel/index.js:307
+msgid "Base Font Line Heig"
+msgstr ""
+
+#: client/pages/share/body.js:326
+msgid "Share Your Form with"
+msgstr ""
+
+#: client/pages/payments/general/methods/index.js:234
+msgid "Upgr"
+msgstr ""
+
+#: packages/theme-editor/src/components/typography-panel/index.js:269
+msgid "Base F"
+msgstr ""
+
+#: client/pages/share/body.js:392
+msgid "Display"
+msgstr ""
+
+#: client/pages/payments/index.js:272
+msgid "Create orders, accept donations or get "
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:18
+msgid "Password Protect"
+msgstr ""
+
+#: client/pages/results/insights/index.js:14
+msgid "Tell us"
+msgstr ""
+
+#: client/pages/share/body.js:508
+#: packages/block-editor/src/components/block-default-controls/index.tsx:535
+msgid "W"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:55
+msgid "Enter a name for the coupon hrecur"
+msgstr ""
+
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid ""
+"Hidden , you have several options available. You can share it via a direct "
+"link, shortcode, embed code, or pop-up. Choos"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:94
+msgid "Marketing Ca"
+msgstr ""
+
+#: client/pages/integrations/index.js:41
+#: client/pages/integrations/index.js:58
+msgid "Connect your form"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:497
+msgid "Example: \"Create a job applicatio"
+msgstr ""
+
+#: client/pages/support/index.js:96
+msgid "Word"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:16
+msgid "Weeke"
+msgstr ""
+
+#: client/pro-panels/hidden-fields-render/index.js:94
+msgid "Market"
+msgstr ""
+
+#: client/pages/integrations/index.js:41
+#: client/pages/integrations/index.js:58
+msgid "Connect you"
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:55
+msgid "Enter a name for the coupon "
+msgstr ""
+
+#: packages/notifications-editor/src/components/nifications-editor/src/components/notification-editor-wrapper/index.js:298
+#: packages/notifications-editor/src/components/notification-editor-wrapper/index.js:298
+msgid "Process this noti"
+msgstr ""
+
+#: client/pages/ges/admin-components/src/combobox-control/index.tsx:113
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packady.js:432
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid ""
+"Hidden , you have several options available. You can share it via a direct "
+"link, s"
+msgstr ""
+
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid ""
+"Hidden , you have several options available. You can share it via a direct "
+"link, shortcode, embed code, or pop-up."
+msgstr ""
+
+#: client/pages/payments/index.js:272
+msgid "Create orders, accept donati"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:137
+msgid "Track submissions from the same IP ad"
+msgstr ""
+
+#: client/pages/results/insights/index.js:113
+msgid "Question-Level Perf"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:272
+msgid "You can add your custom font from settings icon at left ba"
+msgstr ""
+
+#: packages/notifications-editor/src/components/notifications-list/index.js:58
+msgid "Email Notifications requires Quill "
+msgstr ""
+
+#: client/pages/payments/coupons/coupon/index.js:55
+msgid "Enter a name for the coupon hrecurring paymene"
+msgstr ""
+
+#: client/pages/payments/index.js:272
+msgid "Create orders,"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:235
+msgid ""
+"Targebrowser, so the user can continue the form later in same browser. To "
+"allow user to save and continue late"
+msgstr ""
+
+#: client/pages/results/analytics/index.js:20
+msgid "H"
+msgstr ""
+
+#: packages/block-editor/src/components/block-default-controls/index.tsx:362
+msgid "Set Maximum Width for "
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:277
+msgid "Base "
+msgstr ""
+
+#: client/pages/results/analytics/index.js:15
+msgid "Ni"
+msgstr ""
+
+#: client/pro-panels/save-and-continue-render/index.js:24
+msgid "L"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:177
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:189
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:203
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:208
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:240
+msgid "PostMessag"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:272
+msgid "You can add your custom font"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:151
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:156
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:181
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:182
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:188
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:193
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:209
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:214
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:223
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:228
+msgid "QuillBooking plugin is "
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:235
+msgid ""
+"Targebrowser, so the user can continue the form later in same browser. To "
+"allow use"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:461
+msgid "Configure Geolocation Settings"
+msgstr ""
+
+#: packages/blocklib-quill-booking-block/src/admin/controls.js:235
+msgid "Targebrowser, so the user can continue the form late"
+msgstr ""
+
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid ""
+"Hidden , you have several options available. You can share it via a direct "
+"link,"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:497
+msgid "Example:"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:782
+msgid "Any specific styling, conditional logic, or"
+msgstr ""
+
+#: client/pages/home/choose-template.js:176
+msgid "Start with a template to "
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:272
+msgid "You can add your custom font from settings i"
+msgstr ""
+
+#: client/pages/home/form-card.js:376
+#: client/pages/home/form-card.js:521
+msgid "✅ For"
+msgstr ""
+
+#: packages/notifications-editor/src/components/notifications-list/index.js:63
+msgid "Email Notifications requires Quill SMTP pl"
+msgstr ""
+
+#: client/pro-panels/form-locker-render/index.js:137
+msgid "Track submission"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:497
+#: packages/block-editor/src/components/block-layout/ndex.tsx:199
+#: packages/form-int497
+msgid "Example: \"Create a job applica"
+msgstr ""
+
+#: packages/theme-editor/src/co-editor/src/components/customize/index.js:269
+#: packages/theme-editor/src/components/customize/index.js:189
+#: packages/theme-editor/src/components/customize/index.js:269
+msgid "Fon"
+msgstr ""
+
+#: packages/blocklib-address-autocomplete-block/src/admin/controls.js:461
+msgid "Configure Geolocati"
+msgstr ""
+
+#: client/pages/ges/admin-components/src/combobox-control/index.tsx:113
+#: client/pages/share/body.js:432
+#: client/pro-panels/hidden-fields-render/index.js:24
+#: packady.js:432
+#: packages/admin-components/src/combobox-control/index.tsx:113
+msgid "Hidden , you have several options available. You can share"
+msgstr ""
+
+#: packages/theme-editor/src/components/customize/index.js:234
+msgid "log"
+msgstr ""
+
+#: packages/block-editor/src/components/block-controls/index.tsx:97
+msgid "An error occurred while rendering the block co"
+msgstr ""
+
+#: packageges/theme-editor/src/components/customize/iomize/index.js:135
+#: packages/theme-editor/src/components/customize/index.js:135
+msgid "Background Overlay"
+msgstr ""
+
+#: client/pages/home/generate-ai-form.js:822
+msgid "AI requests a"
 msgstr ""

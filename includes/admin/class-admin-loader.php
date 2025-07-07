@@ -11,6 +11,7 @@ namespace QuillForms\Admin;
 
 use QuillForms\Core;
 use QuillForms\Managers\Blocks_Manager;
+use QuillForms\Settings;
 
 /**
  * Register the scripts, styles, and includes needed for pieces of the QuillForms Admin experience.
@@ -53,14 +54,13 @@ class Admin_Loader {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localize_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'remove_all_scripts' ), 999 );
 
-
 		/*
 		* Remove the emoji script.
 		* We have faced an issue when using emojis with Slate React rich text editor; they were converted to images.
 		* Now after removing this action, they are working correctly.
 		*/
-		//remove_action( 'wp_head', 'print_emoji_detection_script', 20 );
-		//add_action( 'admin_init', [ $this, 'disable_admin_emojis' ] );
+		// remove_action( 'wp_head', 'print_emoji_detection_script', 20 );
+		// add_action( 'admin_init', [ $this, 'disable_admin_emojis' ] );
 		// Remove DNS prefetch s.w.org (used for emojis, since WP 4.7)
 
 		add_action( 'admin_head', array( __CLASS__, 'remove_notices' ) );
@@ -100,17 +100,16 @@ class Admin_Loader {
 		$full_smtp_plugin_file = $plugins_dir . 'quill-smtp/quillsmtp.php';
 		$smtp_plugin_exists    = file_exists( $full_smtp_plugin_file );
 
-
 		wp_localize_script(
 			'quillforms-client',
 			'qfAdmin',
 			array(
 				'adminUrl'                => admin_url(),
 				'assetsBuildUrl'          => QUILLFORMS_PLUGIN_URL,
-				'submenuPages'            => $submenu['quillforms'] ?? [],
+				'submenuPages'            => $submenu['quillforms'] ?? array(),
 				'site_store_nonce'        => wp_create_nonce( 'quillforms_site_store' ),
 				'license_nonce'           => wp_create_nonce( 'quillforms_license' ),
-				'duplicate_nonce'		  => wp_create_nonce( 'quillforms_duplicate' ),
+				'duplicate_nonce'         => wp_create_nonce( 'quillforms_duplicate' ),
 				'current_user_name'       => $user->display_name,
 				'current_user_avatar_url' => esc_url(
 					get_avatar_url( $user->ID )
@@ -119,7 +118,7 @@ class Admin_Loader {
 				'is_quill_smtp_installed' => $smtp_plugin_exists,
 				// check if Quill SMTP plugin with slug quill-smtp is active
 				'is_quill_smtp_active'    => is_plugin_active( 'quill-smtp/quillsmtp.php' ),
-
+				'settings'                => Settings::get_all(),
 			)
 		);
 	}
@@ -132,7 +131,6 @@ class Admin_Loader {
 	public static function remove_all_scripts() {
 		global $wp_scripts;
 		global $wp_styles;
-
 
 		if ( self::is_admin_page() ) {
 			$wp_scripts->queue = array( 'jquery', 'media-audiovideo' );
@@ -220,8 +218,7 @@ class Admin_Loader {
 		<?php
 		// add_filter( 'emoji_svg_url', '__return_false' );
 		// if ( get_site_option( 'initial_db_version' ) >= 32453 )
-		// 	remove_action( 'init', 'smilies_init', 5 ); // This re
-
+		// remove_action( 'init', 'smilies_init', 5 ); // This re
 
 		// Load client script and style. Client is main app entry.
 		wp_enqueue_script( 'quillforms-client' );
@@ -471,7 +468,7 @@ class Admin_Loader {
 	}
 
 	public function disable_emojis_tinymce( $plugins ) {
-		return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
+		return is_array( $plugins ) ? array_diff( $plugins, array( 'wpemoji' ) ) : array();
 	}
 
 	public function disable_admin_emojis() {

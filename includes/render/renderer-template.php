@@ -11,8 +11,8 @@ use QuillForms\Site\License;
 use QuillForms\Settings;
 
 defined( 'ABSPATH' ) || exit;
-$form_object = Form_Renderer::instance()->prepare_form_object( get_the_ID() );
-$license = License::instance()->get_license_info();
+$form_object      = Form_Renderer::instance()->prepare_form_object( get_the_ID() );
+$license          = License::instance()->get_license_info();
 $disable_indexing = Settings::get( 'disable_indexing' );
 
 ?>
@@ -20,7 +20,7 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>" 
 	lang="<?php echo get_locale(); ?>" >
 	<head>
-		<link rel="shortcut icon" href="<?php echo apply_filters('quillforms_favicon', esc_url( get_site_icon_url() ) ); ?>" />
+		<link rel="shortcut icon" href="<?php echo apply_filters( 'quillforms_favicon', esc_url( get_site_icon_url() ) ); ?>" />
 		<style>
 			html, body {
 				position: relative !important;
@@ -51,7 +51,7 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 				width: 100%;
 				height: 100%;
 			}
-			#quillforms-renderer ~ *:not(#qf-recaptcha):not(.razorpay-container):not(.weglot-dropdown) {
+			#quillforms-renderer ~ *:not(#qf-recaptcha):not(.razorpay-container):not(.weglot-dropdown):not(.pac-container) {
 				display: none !important;
 			}
 			* {
@@ -112,19 +112,21 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 		<title><?php echo get_the_title(); ?></title> 
 		<?php echo do_action( 'quillforms_head' ); ?>
 		<?php do_action( 'wp_enqueue_scripts' ); ?>
-		<?php if( defined ( 'WEGLOT_VERSION' ) ) {
+		<?php
+		if ( defined( 'WEGLOT_VERSION' ) ) {
 			 $api_key = weglot_get_option( 'api_key' );
-			 ?>
+			?>
 			 <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
 			 <script>
-				 Weglot.on("initialized", () => Weglot.switchTo( "<?php echo esc_js(weglot_get_current_language()); ?>"))
+				 Weglot.on("initialized", () => Weglot.switchTo( "<?php echo esc_js( weglot_get_current_language() ); ?>"))
 	 
 				 Weglot.initialize({
-					 api_key: '<?php echo esc_js($api_key); ?>',
+					 api_key: '<?php echo esc_js( $api_key ); ?>',
 				 });
 			 </script>
 			 <?php
-		} ?>
+		}
+		?>
 	</head>
 	<body>
 		<div id="quillforms-renderer">
