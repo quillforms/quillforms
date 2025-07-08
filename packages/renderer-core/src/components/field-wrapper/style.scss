@@ -211,10 +211,6 @@
 		-webkit-box-pack: start;
 		justify-content: flex-start;
 
-		@media(max-width: 999px) {
-			padding-inline: 20px;
-		}
-
 		.renderer-core-block-attachment {
 			width: 100%;
 
