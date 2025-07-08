@@ -19,7 +19,7 @@ import { __ } from '@wordpress/i18n';
 
 const multipleChoiceControls = (props) => {
 	const {
-		attributes: { multiple, verticalAlign, choices, min, max },
+		attributes: { multiple, verticalAlign, choices, min, max, other },
 		setAttributes,
 	} = props;
 	return (
@@ -82,6 +82,17 @@ const multipleChoiceControls = (props) => {
 						checked={verticalAlign}
 						onChange={() =>
 							setAttributes({ verticalAlign: !verticalAlign })
+						}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper orientation="horizontal">
+					<ControlLabel label={__("Other Option", "quillforms")} />
+					<ToggleControl
+						checked={other}
+						onChange={() =>
+							setAttributes({ other: !other })
 						}
 					/>
 				</ControlWrapper>

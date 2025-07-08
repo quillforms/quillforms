@@ -53,6 +53,10 @@
 		},
 		"multiple": {
 			"type": "boolean"
+		},
+		"other": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"logicalOperators": [

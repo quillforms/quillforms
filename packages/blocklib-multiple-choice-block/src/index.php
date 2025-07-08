@@ -201,6 +201,18 @@ class Multiple_Choice_Block_Type extends Block_Type {
 			}
 		}
 
+		// Handle "Other" option
+		if ( is_array( $value ) ) {
+			foreach ( $value as $item ) {
+				if ( is_array( $item ) && isset( $item['type'] ) && $item['type'] === 'other' && isset( $item['value'] ) ) {
+					$other_text = trim( $item['value'] );
+					if ( ! empty( $other_text ) ) {
+						$choice_labels[] = 'Other: ' . $other_text;
+					}
+				}
+			}
+		}
+
 		switch ( $context ) {
 			case 'raw':
 				return $choice_labels;

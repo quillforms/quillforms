@@ -38,30 +38,43 @@ const MultipleChoiceOutput = (props) => {
 		isReviewing,
 		setIsAnswerCorrect
 	} = props;
-	const { multiple, required, min, max } = attributes;
+	const { multiple, required, min, max, other } = attributes;
 	const messages = useMessages();
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const [choiceClicked, setChoiceClicked] = useState(null);
+
 	const checkfieldValidation = ($val) => {
 		if (required === true && (!$val || $val.length === 0)) {
 			setIsValid(false);
 			setValidationErr(messages['label.errorAlert.required']);
 		} else {
 			if (size($val) > 0 && correctIncorrectQuiz?.enabled) {
-				// $val is array of selected choices
-				// const isCorrect = correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes($val);
-				// if each value from $val includes any answer from those in the correctAnswers array, then it is correct, not the opposite.
+				// Handle "Other" option in quiz validation
+				const regularChoices = $val.filter(item => typeof item !== 'object' || item.type !== 'other');
+				const otherChoice = $val.find(item => typeof item === 'object' && item.type === 'other');
 
-				const isCorrect = $val.every((answer) => correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes(answer));
-				console.log(isCorrect)
-				// const isCorrect = correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.every((answer) => $val.includes(answer));
-				setIsAnswerCorrect(isCorrect);
+				// For quiz validation, we only consider regular choices
+				if (regularChoices.length > 0) {
+					const isCorrect = regularChoices.every((answer) => correctIncorrectQuiz?.questions?.[id]?.correctAnswers?.includes(answer));
+					setIsAnswerCorrect(isCorrect);
+				} else {
+					setIsAnswerCorrect(false);
+				}
 			}
-			if (multiple && min && size($val) < min) {
+
+			// Count valid selections (including "Other" with text)
+			const validSelections = $val.filter(item => {
+				if (typeof item === 'object' && item.type === 'other') {
+					return item.value && item.value.trim() !== '';
+				}
+				return true;
+			});
+
+			if (multiple && min && size(validSelections) < min) {
 				setIsValid(false);
 				setValidationErr(messages['label.errorAlert.minChoices']);
 			}
-			else if (multiple && max && size($val) > max) {
+			else if (multiple && max && size(validSelections) > max) {
 				setIsValid(false);
 				setValidationErr(messages['label.errorAlert.maxChoices']);
 			}
@@ -88,25 +101,42 @@ const MultipleChoiceOutput = (props) => {
 	useEffect(() => {
 		clearTimeout(multipleChoiceTimer);
 		if (choiceClicked && val?.length > 0 && !multiple) {
-			multipleChoiceTimer = setTimeout(() => {
-				//console.log('next calling')
-				next();
-			}, 600);
+			// For single choice, check if we have a valid selection
+			const hasValidSelection = val.some(item => {
+				if (typeof item === 'object' && item.type === 'other') {
+					return item.value && item.value.trim() !== '';
+				}
+				return true;
+			});
+
+			if (hasValidSelection) {
+				multipleChoiceTimer = setTimeout(() => {
+					next();
+				}, 600);
+			}
 		}
-	}, [choiceClicked]);
+	}, [choiceClicked, val]);
 
 	useEffect(() => {
 		if (isPreview || !isReviewing) checkfieldValidation(val);
 	}, [attributes, correctIncorrectQuiz]);
 
 	useEffect(() => {
-		if (val?.length > 0) {
+		// Check if we have valid selections
+		const hasValidSelections = val && val.length > 0 && val.some(item => {
+			if (typeof item === 'object' && item.type === 'other') {
+				return item.value && item.value.trim() !== '';
+			}
+			return true;
+		});
+
+		if (hasValidSelections) {
 			setIsAnswered(true);
 		} else {
 			setIsAnswered(false);
 		}
 		if (multiple) {
-			if (val?.length > 0) {
+			if (hasValidSelections) {
 				showNextBtn(true);
 			}
 		}

@@ -34,7 +34,7 @@ const ChoicesWrapper =
 	}) => {
 		const { editor } = useFormContext();
 
-		const { verticalAlign, multiple, choices, themeId, max, min } = attributes;
+		const { verticalAlign, multiple, choices, themeId, max, min, other } = attributes;
 		const cx = useCx();
 
 		const theme = useBlockTheme(themeId);
@@ -63,7 +63,7 @@ const ChoicesWrapper =
 		};
 
 		const $verticalAlign = verticalAlign;
-		const $choices = cloneDeep(choices).map(($choice, index) => {
+		let $choices = cloneDeep(choices).map(($choice, index) => {
 			if (!$choice.label) $choice.label = 'Choice ' + (index + 1);
 			// if ( ! verticalAlign && $choice.label.length > 26 )
 			// 	$verticalAlign = true;
@@ -75,6 +75,18 @@ const ChoicesWrapper =
 			return $choice;
 		});
 
+		// Add "Other" option if enabled
+		if (other) {
+			const otherChoice = {
+				value: 'other',
+				label: 'Other',
+				selected: val && val.length > 0 && val.some(item => typeof item === 'object' && item.type === 'other'),
+				order: identName($choices.length),
+				isOther: true
+			};
+			$choices.push(otherChoice);
+		}
+
 		const clickHandler = (newValue, selected) => {
 			let $val;
 			if (val?.length > 0) {
@@ -84,10 +96,15 @@ const ChoicesWrapper =
 			}
 			if (selected) {
 				if (!correctIncorrectQuiz?.enabled || !correctIncorrectQuiz?.showAnswersDuringQuiz) {
-					$val.splice(
-						$val.findIndex((item) => item === newValue),
-						1
-					);
+					// Remove the selected value
+					if (typeof newValue === 'object' && newValue.type === 'other') {
+						$val = $val.filter(item => !(typeof item === 'object' && item.type === 'other'));
+					} else {
+						$val.splice(
+							$val.findIndex((item) => item === newValue),
+							1
+						);
+					}
 					setVal($val);
 				}
 			} else {
@@ -158,6 +175,10 @@ const ChoicesWrapper =
 									selected={choice.selected}
 									correctIncorrectQuiz={correctIncorrectQuiz}
 									multiple={multiple}
+									isOther={choice.isOther}
+									val={val}
+									setVal={setVal}
+									checkfieldValidation={checkfieldValidation}
 									clickHandler={() => {
 										clickHandler(
 											choice.value,
