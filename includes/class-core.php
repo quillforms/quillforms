@@ -191,7 +191,11 @@ class Core {
 	 */
 	public static function get_blocks( $form_id ) {
 		 $blocks = get_post_meta( $form_id, 'blocks', true );
-		$blocks  = $blocks ? $blocks : array();
+		 if( is_string($blocks) ) {
+			$blocks = json_decode($blocks, true);
+		 } else {
+			$blocks = $blocks ?? array();
+		 }
 		return $blocks;
 	}
 

@@ -8,7 +8,7 @@
  */
 
 use QuillForms\Managers\Blocks_Manager;
-
+use QuillForms\Core;
 defined( 'ABSPATH' ) || exit;
 
 // Create merged attributes schema from all registered blocks
@@ -82,8 +82,7 @@ register_rest_field(
     array(
         'get_callback'    => function( $object ) {
             $form_id = $object['id'];
-            $blocks = get_post_meta( $form_id, 'blocks', true );
-            $blocks = $blocks ? $blocks : array();
+            $blocks = Core::get_blocks($form_id);
 
             if ( ! empty( $blocks ) ) {
                 foreach ( $blocks as $index => $block ) {
