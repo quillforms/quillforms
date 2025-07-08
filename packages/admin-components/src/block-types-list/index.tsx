@@ -24,6 +24,7 @@ import { keys, map, pickBy } from 'lodash';
 import { css } from 'emotion';
 import {
 	CaledlyIcon,
+	GeolocationIcon,
 	FileIcon,
 	OpinionScaleIcon,
 	PhoneIcon,
@@ -32,8 +33,7 @@ import {
 	SignatureIcon,
 	ThankYouIcon,
 	CalendarPickerIcon,
-	InputMaskIcon,
-	AutoCompleteAddressIcon,
+	InputMaskIcon
 } from './pro-blocks-icons';
 import ProLabel from '../pro-label';
 import { Button } from '../button';
@@ -77,6 +77,11 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 			title: 'Calendar Picker',
 			color: blockColors['calendar-picker'],
 			icon: <CalendarPickerIcon />,
+		},
+		'auto-complete-address': {
+			title: 'Auto Complete Address',
+			color: blockColors['auto-complete-address'],
+			icon: <GeolocationIcon />,
 		},
 		phone: {
 			title: 'Phone',
