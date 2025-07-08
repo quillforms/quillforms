@@ -1,4 +1,4 @@
-.blocktype-quill-booking-block .renderer-core-field-display-wrapper > div:first-child {
+.blocktype-quill-booking-block .renderer-core-field-display-wrapper>div:first-child {
     @media (min-width: 768px) {
         position: absolute;
         top: 0;
@@ -15,6 +15,7 @@
         .quill-booking-inline-widget-wrapper {
             height: calc(100% - 60px);
         }
+
         .quill-booking-popup-button-wrapper {
             display: none;
         }
@@ -24,6 +25,7 @@
         .quill-booking-inline-widget-wrapper {
             display: none;
         }
+
         .quill-booking-popup-button-wrapper {
             display: block;
             cursor: pointer;

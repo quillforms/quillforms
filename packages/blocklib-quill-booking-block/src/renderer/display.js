@@ -533,7 +533,8 @@ const Display = (props) => {
 					borderRadius: '8px',
 					color: textColor,
 					textAlign: 'center',
-					padding: '20px'
+					padding: '20px',
+					pointerEvents: 'all'
 				}}>
 					<div>
 						<h3 style={{ margin: '0 0 10px 0', color: textColor }}>{title}</h3>
