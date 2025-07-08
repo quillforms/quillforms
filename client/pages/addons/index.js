@@ -11,7 +11,7 @@ import { setForceReload } from '@quillforms/navigation';
 /**
  * WordPress Dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -31,6 +31,10 @@ const Addons = () => {
 	const [addons, setAddons] = useState(ConfigApi.getStoreAddons());
 	const [apiAction, setApiAction] = useState(null);
 	const [proModalAddon, setProModalAddon] = useState(null);
+	const [highlightedAddon, setHighlightedAddon] = useState(null);
+
+	// Create refs for each addon element
+	const addonRefs = useRef({});
 
 	const { createErrorNotice, createSuccessNotice } = useDispatch(
 		'core/notices'
@@ -41,6 +45,25 @@ const Addons = () => {
 			ConfigApi.setStoreAddons(addons);
 		}
 	}, [addons]);
+
+	useEffect(() => {
+		// Get the integration parameter from URL
+		const urlParams = new URLSearchParams(window.location.search);
+		const integration = urlParams.get('integration');
+		if (integration) {
+			setHighlightedAddon(integration);
+
+			// Wait for the component to render before scrolling
+			setTimeout(() => {
+				if (addonRefs.current[integration]) {
+					addonRefs.current[integration].scrollIntoView({
+						behavior: 'smooth',
+						block: 'center',
+					});
+				}
+			}, 300);
+		}
+	}, []);
 
 	const api = (action, addon) => {
 		// prevent doing 2 actions at the same time.
@@ -122,10 +145,19 @@ const Addons = () => {
 			<div className="quillforms-addons-page__body">
 				<div className="quillforms-addons-page__body-addons">
 					{Object.entries(addons).map(([addon, data]) => {
+						const isHighlighted = highlightedAddon === addon;
 						return (
 							<div
 								key={addon}
-								className="quillforms-addons-page_addon"
+								ref={el => addonRefs.current[addon] = el}
+								className={classNames(
+									"quillforms-addons-page_addon",
+									{ "quillforms-addons-page_addon--highlighted": isHighlighted }
+								)}
+								style={isHighlighted ? {
+									border: '3px solid #2271b1',
+									boxShadow: '0 0 10px rgba(34, 113, 177, 0.5)'
+								} : {}}
 							>
 								<div className="quillforms-addons-page_addon__header">
 									<div
