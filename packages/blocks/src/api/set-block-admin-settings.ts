@@ -79,6 +79,7 @@ export const blockColors = {
 	'signature': '#E4DFF3',          // Soft neutral beige (calm and clean)
 	'calendar-picker': '#E4DFF3',    // Soft neutral beige (calm and clean)
 	'legal': '#E4DFF3',              // Soft neutral beige (calm and clean)
+	'auto-complete-address': '#E4DFF3', // Soft neutral beige (calm and clean)
 };
 
 // const blockColors = {
