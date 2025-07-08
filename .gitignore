@@ -8,6 +8,7 @@ node_modules
 chunks
 includes/blocks
 includes/json
+languages
 
 # Directories/files that may appear in your environment
 .DS_Store
