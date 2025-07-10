@@ -161,7 +161,7 @@ const FieldWrapper: React.FC = () => {
 
 		return () => {
 			clearTimeout(tabTimer);
-			clearTimeout(scrollTimer);
+			// clearTimeout(scrollTimer);
 		};
 	}, [isActive]);
 

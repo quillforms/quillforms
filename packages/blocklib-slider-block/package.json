@@ -25,8 +25,8 @@
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
 		"@mui/material": "^5.14.1",
-		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/renderer-core": "file:../renderer-core",
+		"@quillforms/admin-components": "^4.0.0",
+		"@quillforms/renderer-core": "^6.0.0",
 		"classnames": "^2.3.1",
 		"emotion": "10.0.27",
 		"react-dnd": "15.1.2",
@@ -41,5 +41,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
+	"gitHead": "fe6674489420ff9c91aee89469552ff02dcb0bf1"
 }

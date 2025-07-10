@@ -23,13 +23,13 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/block-editor": "file:../block-editor",
-		"@quillforms/blocks": "file:../blocks",
-		"@quillforms/builder-panels": "file:../builder-panels",
-		"@quillforms/renderer-core": "file:../renderer-core",
-		"@quillforms/theme-editor": "file:../theme-editor",
-		"@quillforms/types": "file:../types",
+		"@quillforms/admin-components": "^4.0.0",
+		"@quillforms/block-editor": "^4.0.0",
+		"@quillforms/blocks": "^5.0.0",
+		"@quillforms/builder-panels": "^5.0.0",
+		"@quillforms/renderer-core": "^6.0.0",
+		"@quillforms/theme-editor": "^4.0.0",
+		"@quillforms/types": "^4.0.0",
 		"@wordpress/data": "^10.26.0",
 		"@wordpress/element": "^6.26.0",
 		"classnames": "^2.3.1",
@@ -48,5 +48,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"gitHead": "e2f333fc81da3009a1f5556e67cec7051a6e706c"
+	"gitHead": "fe6674489420ff9c91aee89469552ff02dcb0bf1"
 }

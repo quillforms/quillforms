@@ -217,7 +217,8 @@ const DefaultControls: React.FC<Props> = ({
 						<ControlWrapper>
 							<ControlLabel label={__('Show Attachment', 'quillforms')} />
 							<ToggleControl
-								checked={attachment !== undefined }
+								className='attachment-toggle-control'
+								checked={attachment !== undefined}
 								onChange={() => {
 									if (attachment) {
 										setAttributes({ attachment: undefined });
