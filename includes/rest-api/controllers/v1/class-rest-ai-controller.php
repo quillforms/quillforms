@@ -119,6 +119,10 @@ class REST_AI_Controller extends REST_Controller {
 					'description' => __( 'Additional instructions for form generation.', 'quillforms' ),
 					'type'        => 'string',
 				),
+				'availableBlocks' => array(
+					'description' => __( 'The blocks that are available for the form.', 'quillforms' ),
+					'type'        => 'array',
+				),
 			),
 		);
 		return $schema;
@@ -164,6 +168,10 @@ class REST_AI_Controller extends REST_Controller {
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_textarea_field',
 			),
+			'availableBlocks' => array(
+				'description'       => __( 'The blocks that are available for the form.', 'quillforms' ),
+				'type'              => 'array',
+			),
 		);
 	}
 
@@ -183,6 +191,7 @@ class REST_AI_Controller extends REST_Controller {
 		$form_type                = $request->get_param( 'formType' );
 		$industry                 = $request->get_param( 'industry' );
 		$additional_instructions  = $request->get_param( 'additionalInstructions' );
+		$available_blocks         = $request->get_param( 'availableBlocks' );
 
 		// Prepare request data
 		$request_data = array(
@@ -201,6 +210,10 @@ class REST_AI_Controller extends REST_Controller {
 
 		if ( ! empty( $additional_instructions ) ) {
 			$request_data['additionalInstructions'] = trim( $additional_instructions );
+		}
+
+		if ( ! empty( $available_blocks ) ) {
+			$request_data['availableBlocks'] = $available_blocks;
 		}
 
 		// Get AI API key from settings or use default
@@ -223,7 +236,7 @@ class REST_AI_Controller extends REST_Controller {
 				'body'        => wp_json_encode( $request_data ),
 			)
 		);
-
+		
 		// Check for WP error
 		if ( is_wp_error( $response ) ) {
 			return new WP_Error(
@@ -236,9 +249,11 @@ class REST_AI_Controller extends REST_Controller {
 		// Get response code
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$response_body = wp_remote_retrieve_body( $response );
+	
 
 		// Try to decode response
 		$data = json_decode( $response_body, true );
+	
 
 		// Check for non-200 response codes
 		if ( $response_code !== 200 ) {
