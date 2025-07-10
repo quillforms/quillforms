@@ -76,9 +76,6 @@ const AddFormModal = ({ closeModal }) => {
 	};
 
 	const handleNextClick = async () => {
-		console.log('🔘 Next button clicked, current screen:', currentScreen);
-		console.log('🔘 Child state:', childState);
-		console.log('🔘 Action ref:', nextButtonActionRef.current);
 
 		if (currentScreen === SCREENS.CARD_SELECTION) {
 			// Navigate to appropriate screen based on selected card
@@ -90,7 +87,6 @@ const AddFormModal = ({ closeModal }) => {
 			setCurrentScreen(screenMap[selectedCard]);
 		} else {
 			// Execute the action from child component
-			console.log('🚀 Executing child action...');
 
 			// Try the ref first, then fallback to state
 			const actionToExecute = nextButtonActionRef.current || childState.nextButtonAction;
@@ -506,33 +502,6 @@ const AddFormModal = ({ closeModal }) => {
 				</div>
 			</div>
 
-			{/* Debug Information */}
-			{process.env.NODE_ENV === 'development' && (
-				<div
-					style={{
-						position: 'fixed',
-						bottom: '100px',
-						right: '20px',
-						background: 'rgba(0,0,0,0.8)',
-						color: 'white',
-						padding: '10px',
-						borderRadius: '5px',
-						fontSize: '12px',
-						maxWidth: '300px',
-						zIndex: 999999,
-					}}
-				>
-					<strong>Debug Modal:</strong><br />
-					Screen: {currentScreen}<br />
-					Selected Card: {selectedCard}<br />
-					Can Proceed: {String(childState.canProceed)}<br />
-					Is Loading: {String(childState.isLoading)}<br />
-					Button Text: {childState.nextButtonText}<br />
-					Action Type (state): {typeof childState.nextButtonAction}<br />
-					Action Type (ref): {typeof nextButtonActionRef.current}<br />
-					Button Disabled: {String(isNextButtonDisabled)}
-				</div>
-			)}
 		</Modal>
 	);
 };

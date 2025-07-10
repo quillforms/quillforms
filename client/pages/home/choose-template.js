@@ -155,7 +155,7 @@ const ChooseTemplate = ({
 			// Always enable the button and allow viewing any template
 			setCanProceed(true);
 			setNextButtonText(__('View Selected Template', 'quillforms'));
-			
+
 			// Always show the template modal when button is clicked
 			setNextButtonAction(() => {
 				setShowTemplateModal(true);
@@ -325,7 +325,7 @@ const ChooseTemplate = ({
 											`}
 										>
 											<Icon icon="admin-plugins" size={12} />
-											{template.required_addons.length === 1 
+											{template.required_addons.length === 1
 												? __('Requires 1 addon', 'quillforms')
 												: __(`Requires ${template.required_addons.length} addons`, 'quillforms')
 											}
@@ -487,11 +487,7 @@ const ChooseTemplate = ({
 											line-height: 1.4;
 										`}
 									>
-										A free template designed to be used to
-										collect new information. A comprehensive
-										solution for capturing essential contact
-										details and registration data
-										efficiently.
+										{formTemplates[chosenTemplate]?.short_description}
 									</p>
 
 									{/* Required Addons Section in Modal */}
@@ -519,7 +515,7 @@ const ChooseTemplate = ({
 												<Icon icon="admin-plugins" size={16} />
 												{__('Required Addons', 'quillforms')}
 											</h4>
-											
+
 											<div
 												className={css`
 													display: flex;
@@ -550,8 +546,8 @@ const ChooseTemplate = ({
 																	gap: 8px;
 																`}
 															>
-																<Icon 
-																	icon={isInstalled ? 'yes-alt' : 'dismiss'} 
+																<Icon
+																	icon={isInstalled ? 'yes-alt' : 'dismiss'}
 																	size={16}
 																	className={css`
 																		color: ${isInstalled ? '#2e7d32' : '#c62828'};
@@ -567,7 +563,7 @@ const ChooseTemplate = ({
 																	{StoreAddons[addon]?.name || addon}
 																</span>
 															</div>
-															
+
 															<span
 																className={css`
 																	font-size: 12px;
@@ -606,7 +602,7 @@ const ChooseTemplate = ({
 															font-weight: 500;
 														`}
 													>
-														{getTemplateMissingAddons(chosenTemplate).length === 1 
+														{getTemplateMissingAddons(chosenTemplate).length === 1
 															? __('Please install the missing addon to use this template.', 'quillforms')
 															: __('Please install the missing addons to use this template.', 'quillforms')
 														}
@@ -622,8 +618,8 @@ const ChooseTemplate = ({
 										className={css`
 											width: 100%;
 											height: 45px !important;
-											background: ${getTemplateMissingAddons(chosenTemplate).length > 0 
-												? '#9e9e9e !important' 
+											background: ${getTemplateMissingAddons(chosenTemplate).length > 0
+												? '#9e9e9e !important'
 												: '#5c22ca !important'};
 											border: none !important;
 											color: white !important;
@@ -639,9 +635,9 @@ const ChooseTemplate = ({
 											cursor: pointer !important;
 
 											&:hover {
-												background: ${getTemplateMissingAddons(chosenTemplate).length > 0 
-													? '#757575 !important' 
-													: '#5856eb !important'};
+												background: ${getTemplateMissingAddons(chosenTemplate).length > 0
+												? '#757575 !important'
+												: '#5856eb !important'};
 											}
 
 											&:disabled {
@@ -712,7 +708,7 @@ const ChooseTemplate = ({
 								</div>
 
 								{/* Categories Section */}
-								<div
+								{/* <div
 									className={css`
 										padding-top: 2rem;
 									`}
@@ -761,7 +757,7 @@ const ChooseTemplate = ({
 											</span>
 										))}
 									</div>
-								</div>
+								</div> */}
 							</div>
 						</div>
 
@@ -811,73 +807,8 @@ const ChooseTemplate = ({
 											margin: 0 0 16px 0;
 										`}
 									>
-										You'll be able to change that old with
-										your business, your website, and your
-										customer's expectations with your
-										business.
+										{formTemplates[chosenTemplate]?.long_description}
 									</p>
-
-									<p
-										className={css`
-											font-size: 16px;
-											font-weight: 500;
-											color: #4c4c4c;
-											line-height: 1.5;
-											margin: 0 0 16px 0;
-										`}
-									>
-										Transform this template by modifying
-										forms to related opportunities,
-										modifying questions, and adding your
-										brand to make it more personalized for
-										your customers.
-									</p>
-
-									<p
-										className={css`
-											font-size: 16px;
-											font-weight: 500;
-											color: #4c4c4c;
-											line-height: 1.5;
-											margin: 0;
-										`}
-									>
-										With use of adaptive forms for this
-										template, you can collect responsive
-										information and online information. You
-										process information and customer builds
-										on your business.
-									</p>
-								</div>
-
-								{/* Details Section */}
-								<div
-									className={css`
-										padding: 24px 32px;
-										width: 33.333%;
-										flex: 1;
-									`}
-								>
-									<h3
-										className={css`
-											font-size: 20px;
-											font-weight: 600;
-											color: #1a1a1a;
-											margin: 0 0 16px 0;
-										`}
-									>
-										Details
-									</h3>
-
-									<span
-										className={css`
-											font-size: 16px;
-											color: #4c4c4c;
-											font-weight: 500;
-										`}
-									>
-										1,047,369 Clone
-									</span>
 								</div>
 							</div>
 						</div>

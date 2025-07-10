@@ -78,11 +78,10 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 			color: blockColors['calendar-picker'],
 			icon: <CalendarPickerIcon />,
 		},
-		'auto-complete-address': {
-			title: 'Auto Complete Address',
-			color: blockColors['auto-complete-address'],
-			icon: <GeolocationIcon />,
-		},
+		// 'autocomplete-google-address': {
+		// 	title: 'Auto Complete Google Address',
+		// 	icon: <GeolocationIcon />,
+		// },
 		phone: {
 			title: 'Phone',
 			color: blockColors.phone,

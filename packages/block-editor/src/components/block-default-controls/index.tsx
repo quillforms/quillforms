@@ -27,7 +27,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * External Dependencies
  */
-import { isEmpty } from 'lodash';
+import { isEmpty, size } from 'lodash';
 import { css } from 'emotion';
 /**
  * Internal Dependencies
@@ -186,6 +186,8 @@ const DefaultControls: React.FC<Props> = ({
 		blockTheme = attributes.themeId;
 		defaultValue = attributes.defaultValue ?? '';
 	}
+
+	console.log(attachment);
 
 	const widthOptions = [
 		{ key: '100%', name: __('100%', 'quillforms') },

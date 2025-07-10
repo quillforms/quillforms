@@ -31,6 +31,7 @@ const Builder = ({ params }) => {
 
 	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
 	const { resetAnswers } = useDispatch('quillForms/renderer-core');
+	const { setCurrentBlock } = useDispatch('quillForms/block-editor');
 
 	const [isResolving, setIsResolving] = useState(true);
 	const [unknownBlocks, setUnknownBlocks] = useState(undefined);
@@ -62,11 +63,15 @@ const Builder = ({ params }) => {
 					uniq(map(unKnownBlocks, (block) => block.name))
 				);
 			}
+			else {
+				setCurrentBlock(initialPayload.blocks[0]);
+			}
 		}
 
 		return () => {
 			setCurrentPanel('');
 			resetAnswers();
+
 		};
 	}, []);
 

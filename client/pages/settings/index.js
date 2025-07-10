@@ -57,10 +57,10 @@ const Settings = () => {
 			title: 'Tracking & Analytics',
 			render: <Analytics />,
 		},
-		geolocation: {
-			title: 'Geolocation',
-			render: <Geolocation />,
-		},
+		// geolocation: {
+		// 	title: 'Geolocation',
+		// 	render: <Geolocation />,
+		// },
 	};
 	// if (!isWPEnv) {
 	// 	// keep all tabs but we need general tab to be the last one in case of non WP env 

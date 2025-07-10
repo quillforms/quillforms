@@ -18,17 +18,17 @@ import { Oval as Loader } from 'react-loader-spinner';
 import { css } from 'emotion';
 import ScratchIcon from './scratch-icon';
 
-const AddFormTitle = ({ 
-	closeModal, 
-	setCanProceed, 
-	setNextButtonText, 
+const AddFormTitle = ({
+	closeModal,
+	setCanProceed,
+	setNextButtonText,
 	setNextButtonAction,
-	setIsLoading 
+	setIsLoading
 }) => {
 	const [title, setTitle] = useState('');
 
 	const ref = useRef(null);
-	
+
 	useEffect(() => {
 		if (ref && ref.current) ref.current.focus();
 	}, [ref.current]);
@@ -36,9 +36,9 @@ const AddFormTitle = ({
 	const createNewForm = async () => {
 		console.log('createNewForm called with title:', title);
 		if (!title.trim()) return;
-		
+
 		setIsLoading(true);
-		
+
 		try {
 			const res = await apiFetch({
 				path: '/wp/v2/quill_forms',
@@ -52,10 +52,19 @@ const AddFormTitle = ({
 							name: 'short-text',
 							attributes: {},
 						},
+						{
+							id: 'q1erc10kab',
+							name: 'thankyou-screen',
+							attributes: {
+								'label': 'Thank you for your submission!',
+							}
+						},
+
+
 					],
 				},
 			});
-			
+
 			const { id } = res;
 			getHistory().push(getNewPath({}, `/forms/${id}/builder`));
 		} catch (error) {
@@ -70,13 +79,13 @@ const AddFormTitle = ({
 		const canProceed = title.trim().length > 0;
 		setCanProceed(canProceed);
 		setNextButtonText(__('Create Blank Form', 'quillforms'));
-		
+
 		// Set the action for the next button
 		const actionFunction = () => {
 			console.log('Button action function called');
 			createNewForm();
 		};
-		
+
 		setNextButtonAction(actionFunction);
 		console.log('Set next button action to:', actionFunction);
 	}, [title]);
