@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/renderer-core",
-	"version": "6.0.1",
+	"version": "6.0.2",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -26,10 +26,10 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/blocks": "^5.0.1",
-		"@quillforms/config": "^4.0.1",
-		"@quillforms/payment-gateways": "^4.0.1",
-		"@quillforms/utils": "^4.0.1",
+		"@quillforms/blocks": "^5.0.2",
+		"@quillforms/config": "^4.0.2",
+		"@quillforms/payment-gateways": "^4.0.2",
+		"@quillforms/utils": "^4.0.2",
 		"@wordpress/autop": "^4.26.0",
 		"@wordpress/data": "^10.26.0",
 		"@wordpress/element": "^6.26.0",

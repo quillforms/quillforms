@@ -1,6 +1,6 @@
 {
     "name": "@quillforms/babel-plugin-makepot",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "main": "src/index.js",
     "dependencies": {
         "deepmerge": "^4.3.1",

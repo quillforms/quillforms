@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-checkbox-block",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"description": "Checkbox block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -26,8 +26,8 @@
 		"@emotion/css": "^11.10.5",
 		"@emotion/react": "^11.10.5",
 		"@emotion/styled": "^11.10.5",
-		"@quillforms/admin-components": "^4.0.1",
-		"@quillforms/renderer-core": "^6.0.1",
+		"@quillforms/admin-components": "^4.0.2",
+		"@quillforms/renderer-core": "^6.0.2",
 		"classnames": "^2.3.1",
 		"tinycolor2": "^1.4.2"
 	},
