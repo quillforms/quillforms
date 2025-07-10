@@ -7,6 +7,11 @@ import { select, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
+ * Quill Forms Dependencies
+ */
+import configApi from '@quillforms/config';
+
+/**
  * External Dependencies
  */
 import { pick, isPlainObject } from 'lodash';
@@ -54,6 +59,11 @@ export const registerBlockType = (
 	name: string,
 	settings: BlockTypeSettings
 ): BlockTypeSettings | undefined => {
+	const isWPEnv = configApi.isWPEnv();
+
+	if (name === 'quill-booking' && !isWPEnv) {
+		return;
+	}
 
 	if (typeof name !== 'string') {
 		console.error('Block names must be strings.');
