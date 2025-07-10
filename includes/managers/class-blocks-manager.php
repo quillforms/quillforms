@@ -59,7 +59,10 @@ final class Blocks_Manager
         if ($this->is_registered($block_name) ) {
             /* translators: %s: Block name. */
             $message = sprintf(__('Block type "%s" is already registered.', 'quillforms'), $block_name);
-            _doing_it_wrong(__METHOD__, $message, '1.0.0');
+            quillforms_get_logger()->error('block-type-already-registered', [
+                'block_name' => $block_name,
+                'message' => $message
+            ]);
 
             return false;
         }
