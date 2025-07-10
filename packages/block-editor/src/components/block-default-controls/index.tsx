@@ -187,7 +187,6 @@ const DefaultControls: React.FC<Props> = ({
 		defaultValue = attributes.defaultValue ?? '';
 	}
 
-	console.log(attachment);
 
 	const widthOptions = [
 		{ key: '100%', name: __('100%', 'quillforms') },
@@ -218,7 +217,7 @@ const DefaultControls: React.FC<Props> = ({
 						<ControlWrapper>
 							<ControlLabel label={__('Show Attachment', 'quillforms')} />
 							<ToggleControl
-								checked={!!attachment}
+								checked={attachment !== undefined }
 								onChange={() => {
 									if (attachment) {
 										setAttributes({ attachment: undefined });

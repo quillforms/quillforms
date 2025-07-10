@@ -223,7 +223,6 @@ abstract class Block_Type extends stdClass {
 						'type' => 'string',
 					),
 				),
-				'default'    => array(),
 			);
 
 			$attributes_schema['layout'] = array(
