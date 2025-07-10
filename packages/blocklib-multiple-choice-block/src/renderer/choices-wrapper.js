@@ -7,7 +7,7 @@ import { useCx } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 
 /**
  * External Dependencies
@@ -111,7 +111,12 @@ const ChoicesWrapper =
 				if (multiple) {
 					$val.push(newValue);
 				} else {
-					$val = [newValue];
+					// If selecting 'Other', set value directly
+					if (typeof newValue === 'object' && newValue.type === 'other') {
+						$val = [newValue];
+					} else {
+						$val = [newValue];
+					}
 				}
 				setChoiceClicked(false);
 				setVal($val);
@@ -137,8 +142,14 @@ const ChoicesWrapper =
 			[$choices]
 		);
 		let mappedKeyboardTicks = {}
+		const valRef = useRef(val);
+		useEffect(() => {
+			valRef.current = val;
+		}, [val]);
+
 		const handleKeyDown = (e) => {
-			if (!isAnswerLocked && editor.mode === 'off') {
+			console.log(valRef.current);
+			if (!isAnswerLocked && editor.mode === 'off' && !valRef.current?.some(item => typeof item === 'object' && item.type === 'other')) {
 				mappedKeyboardTicks[e.code] = String.fromCharCode(e.keyCode);
 				handleClick(mappedKeyboardTicks);
 			}
@@ -146,7 +157,9 @@ const ChoicesWrapper =
 
 		useEffect(() => {
 			document.getElementById(`block-${id}`)?.addEventListener('keydown', handleKeyDown);
-
+			return () => {
+				document.getElementById(`block-${id}`)?.removeEventListener('keydown', handleKeyDown);
+			};
 		}, []);
 
 		return (

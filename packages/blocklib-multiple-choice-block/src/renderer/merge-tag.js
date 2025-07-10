@@ -1,15 +1,18 @@
 import { join } from 'lodash';
-const DropdownMergeTag = ( { val, attributes } ) => {
+const DropdownMergeTag = ({ val, attributes }) => {
 	const { choices } = attributes;
-	const mergedChoices = val.map( ( item ) => {
-		const choiceIndex = choices.findIndex( ( a ) => a.value === item );
-		let choiceLabel = 'Choice ' + ( choiceIndex + 1 );
-		if ( choices[ choiceIndex ].label ) {
-			choiceLabel = choices[ choiceIndex ].label;
+	const mergedChoices = val.map((item) => {
+		if (typeof item === 'object' && item.type === 'other') {
+			// Show 'Other: ...' or just the value
+			return item.value ? `Other: ${item.value}` : 'Other';
 		}
-		return choiceLabel;
-	} );
-	return <>{ join( mergedChoices, ',' ) }</>;
+		const choiceIndex = choices.findIndex((a) => a.value === item);
+		if (choiceIndex !== -1) {
+			return choices[choiceIndex].label || `Choice ${choiceIndex + 1}`;
+		}
+		return item; // fallback
+	});
+	return <>{join(mergedChoices, ', ')}</>;
 };
 
 export default DropdownMergeTag;

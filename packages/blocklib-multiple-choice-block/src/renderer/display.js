@@ -50,8 +50,8 @@ const MultipleChoiceOutput = (props) => {
 		} else {
 			if (size($val) > 0 && correctIncorrectQuiz?.enabled) {
 				// Handle "Other" option in quiz validation
-				const regularChoices = $val.filter(item => typeof item !== 'object' || item.type !== 'other');
-				const otherChoice = $val.find(item => typeof item === 'object' && item.type === 'other');
+				const regularChoices = $val?.filter(item => typeof item !== 'object' || item.type !== 'other');
+				const otherChoice = $val?.find(item => typeof item === 'object' && item.type === 'other');
 
 				// For quiz validation, we only consider regular choices
 				if (regularChoices.length > 0) {
@@ -63,7 +63,7 @@ const MultipleChoiceOutput = (props) => {
 			}
 
 			// Count valid selections (including "Other" with text)
-			const validSelections = $val.filter(item => {
+			const validSelections = $val?.filter(item => {
 				if (typeof item === 'object' && item.type === 'other') {
 					return item.value && item.value.trim() !== '';
 				}

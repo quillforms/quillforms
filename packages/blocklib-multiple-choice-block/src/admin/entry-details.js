@@ -2,7 +2,8 @@ import { css } from 'emotion';
 import { castArray } from 'lodash';
 const EntryDetails = ({ id, attributes, value }) => {
 	const { choices } = attributes;
-	value = castArray(value)
+	value = castArray(value);
+	console.log(value);
 	return (
 		<div
 			className={css`
@@ -16,7 +17,11 @@ const EntryDetails = ({ id, attributes, value }) => {
 				const choiceIndex = choices.findIndex((a) => a.value === x);
 				let choiceLabel;
 				if (choiceIndex === -1) {
-					choiceLabel = null;
+					if (x.type === 'other' && x.value) {
+						choiceLabel = x.value;
+					} else {
+						choiceLabel = null;
+					}
 				}
 				else {
 					choiceLabel = 'Choice ' + (choiceIndex + 1);
@@ -24,6 +29,7 @@ const EntryDetails = ({ id, attributes, value }) => {
 					if (choices[choiceIndex].label) {
 						choiceLabel = choices[choiceIndex].label;
 					}
+
 				}
 				return (
 					<div

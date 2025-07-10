@@ -8,7 +8,7 @@ import { useMessages } from '@quillforms/renderer-core';
  */
 import classnames from 'classnames';
 import { css } from 'emotion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import tinyColor from 'tinycolor2';
 
 const ChoiceItem = ({
@@ -24,13 +24,15 @@ const ChoiceItem = ({
 	isOther,
 	val,
 	setVal,
-	checkfieldValidation
+	checkfieldValidation,
+	multiple
 }) => {
 	const { answersColor } = theme;
 
 	const messages = useMessages();
 	const [isClicked, setIsClicked] = useState(false);
 	const [otherText, setOtherText] = useState('');
+	const inputRef = useRef(null);
 
 	// Initialize other text from existing value
 	useEffect(() => {
@@ -41,6 +43,13 @@ const ChoiceItem = ({
 			}
 		}
 	}, [isOther, val]);
+
+	// Focus the input when 'Other' is selected
+	useEffect(() => {
+		if (isOther && selected && inputRef.current) {
+			inputRef.current.focus();
+		}
+	}, [isOther, selected]);
 
 	const handleOtherTextChange = (text) => {
 		setOtherText(text);
@@ -66,22 +75,23 @@ const ChoiceItem = ({
 	const handleOtherClick = () => {
 		if (!isAnswerLocked) {
 			let $val = val ? [...val] : [];
-
 			if (selected) {
 				// Remove other option
 				$val = $val.filter(item => !(typeof item === 'object' && item.type === 'other'));
 				setOtherText('');
 			} else {
 				// Add other option with empty text
-				$val.push({
-					type: 'other',
-					value: ''
-				});
+				if (multiple) {
+					$val.push({
+						type: 'other',
+						value: ''
+					});
+				} else {
+					$val = [{ type: 'other', value: '' }];
+				}
 			}
-
 			setVal($val);
 			checkfieldValidation($val);
-
 			if (!selected) {
 				setIsClicked(false);
 				setTimeout(() => {
@@ -90,6 +100,8 @@ const ChoiceItem = ({
 			}
 		}
 	};
+
+	const oppositeColor = tinyColor(answersColor).isDark() ? '#fff' : '#333';
 
 	return (
 		<div
@@ -159,35 +171,30 @@ const ChoiceItem = ({
 			}}
 		>
 			<span className="multipleChoice__optionLabel">
-				{choiceLabel}
-				{isOther && selected && (
+				{isOther && selected ? (
 					<input
 						type="text"
 						value={otherText}
 						onChange={(e) => handleOtherTextChange(e.target.value)}
 						placeholder="Please specify..."
 						className={css`
-							margin-left: 8px;
-							padding: 4px 8px;
-							border: 1px solid ${tinyColor(answersColor).setAlpha(0.3).toString()};
-							border-radius: 4px;
+							border: none !important;
 							background: transparent;
-							color: inherit;
-							font-size: inherit;
-							font-family: inherit;
-							width: 200px;
-							
+							color:  ${oppositeColor} !important;
+							font-size: inherit !important;
+							font-family: inherit !important;
+							width: 100%;
+							outline: none;
 							&::placeholder {
-								color: ${tinyColor(answersColor).setAlpha(0.6).toString()};
-							}
-							
-							&:focus {
-								outline: none;
-								border-color: ${answersColor};
+								color: ${tinyColor(oppositeColor).setAlpha(0.6).toString()};
 							}
 						`}
 						onClick={(e) => e.stopPropagation()}
+						onKeyDown={e => e.stopPropagation()}
+						ref={inputRef}
 					/>
+				) : (
+					choiceLabel
 				)}
 			</span>
 			<span
@@ -209,9 +216,7 @@ const ChoiceItem = ({
 						'multipleChoice__optionKeyTip',
 						css`
 							background: ${answersColor};
-							color: ${tinyColor(answersColor).isDark()
-								? '#fff'
-								: '#333'};
+							color: ${oppositeColor};
 							${isAnswerLocked && `display: none !important;`}
 						`
 					)}

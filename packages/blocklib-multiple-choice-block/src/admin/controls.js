@@ -88,7 +88,7 @@ const multipleChoiceControls = (props) => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
-					<ControlLabel label={__("Other Option", "quillforms")} />
+					<ControlLabel label={__("Other Option", "quillforms")} isNew />
 					<ToggleControl
 						checked={other}
 						onChange={() =>

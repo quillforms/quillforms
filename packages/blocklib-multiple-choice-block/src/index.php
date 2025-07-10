@@ -189,25 +189,26 @@ class Multiple_Choice_Block_Type extends Block_Type {
 	public function get_readable_value( $value, $form_data, $context = 'html' ) {
 		$choices       = $this->attributes['choices'];
 		$choice_labels = array();
-		if ( ! empty( $choices ) ) {
-			foreach ( $choices as $index => $choice ) {
-				if ( in_array( $choice['value'], $value, true ) ) {
-					if ( ! $choice['label'] || '' === trim( $choice['label'] ) ) {
-						$choice_number   = $index + 1;
-						$choice['label'] = "Choice  $choice_number";
-					}
-					$choice_labels[] = $choice['label'];
-				}
-			}
-		}
-
-		// Handle "Other" option
+		
 		if ( is_array( $value ) ) {
 			foreach ( $value as $item ) {
+				// Handle "Other" option
 				if ( is_array( $item ) && isset( $item['type'] ) && $item['type'] === 'other' && isset( $item['value'] ) ) {
 					$other_text = trim( $item['value'] );
 					if ( ! empty( $other_text ) ) {
 						$choice_labels[] = 'Other: ' . $other_text;
+					}
+				}
+				// Handle regular choices
+				elseif ( is_string( $item ) ) {
+					$choice_index = array_search( $item, array_column( $choices, 'value' ) );
+					if ( $choice_index !== false ) {
+						$choice = $choices[ $choice_index ];
+						if ( ! $choice['label'] || '' === trim( $choice['label'] ) ) {
+							$choice_number   = $choice_index + 1;
+							$choice['label'] = "Choice $choice_number";
+						}
+						$choice_labels[] = $choice['label'];
 					}
 				}
 			}
