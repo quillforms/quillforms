@@ -217,6 +217,14 @@ const ThankyoucreenDisplay = ({ attributes }) => {
 						  width: 100%;
 						  text-align: center;
 						}
+
+						&.active.has-scroll {
+							.qf-thankyou-screen-block__content-wrapper {
+								margin: auto;
+								width: 100%;
+								max-width: 700px;
+							}
+						}
 					`)}
       >
         <div className={'qf-thankyou-screen-block__content-wrapper'}>
@@ -248,7 +256,7 @@ const ThankyoucreenDisplay = ({ attributes }) => {
                   `
                 )}
               >
-                {editor?.mode === 'on' ? <editor.editLabel /> : <HTMLParser value={autop(label)} />}
+                {editor?.mode === 'on' ? <editor.editLabel /> : <HTMLParser value={attributes?.label ?? ''} />}
               </div>
               {attributes?.description && attributes.description !== "" && (
                 <div
@@ -259,7 +267,7 @@ const ThankyoucreenDisplay = ({ attributes }) => {
                     `
                   )}
                 >
-                  {editor.mode === 'on' ? <editor.editDescription /> : <HTMLParser value={autop(attributes.description)} />}
+                  {editor.mode === 'on' ? <editor.editDescription /> : <HTMLParser value={attributes.description ?? ""} />}
                 </div>
               )}
             </div>
@@ -351,7 +359,15 @@ const ScreenAction = ({ isSticky, buttonText, next }) => {
         width: 100%;
       `)}
     >
-      <div className="qf-thankyou-screen-block__action">
+      <div
+        className={classNames(
+          "qf-thankyou-screen-block__action",
+          css`
+            width: 100%;
+            text-align: center;
+          `
+        )}
+      >
         <Button onClick={next}> {buttonText} </Button>
       </div>
 
@@ -360,6 +376,7 @@ const ScreenAction = ({ isSticky, buttonText, next }) => {
           "qf-thankyou-screen-block__action-helper-text",
           css`
             color: ${theme.questionsColor};
+            width: 100%;
             text-align: center;
           `
         )}
