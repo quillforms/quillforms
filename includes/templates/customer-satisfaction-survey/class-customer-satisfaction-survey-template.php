@@ -27,6 +27,14 @@ class Customer_Satisfaction_Survey_Template extends Form_Template {
         return __( 'Customer Satisfaction Survey', 'quillforms' );
     }
 
+    public function get_short_description() {
+        return __( 'A survey to evaluate customer satisfaction. This template includes a rating block and an opinion scale block.', 'quillforms' );
+    }
+
+    public function get_long_description() {
+        return __( 'This template is designed to gather feedback from your customers about your products or services. It includes a rating block and an opinion scale block to help you collect valuable insights from your customers.', 'quillforms' );
+    }
+
     /**
      * Get template description
      *

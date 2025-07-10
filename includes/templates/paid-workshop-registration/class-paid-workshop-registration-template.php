@@ -25,6 +25,14 @@ class Paid_Workshop_Registration_Template extends Form_Template {
         return "You have to enable payments in \"payments\" tab and select your favorite payment gateway to let the payment work.";
     }
 
+    public function get_short_description() {
+        return __( 'A form to register for a paid workshop. This template includes a multiple choice block, a phone block, and a file upload block.', 'quillforms' );
+    }
+
+    public function get_long_description() {
+        return __( 'This template is designed to gather information from participants who want to register for a paid workshop. It includes a multiple choice block, a phone block, and a file upload block to help you collect valuable insights from your participants.', 'quillforms' );
+    }
+
     /**
      * Get template title
      *

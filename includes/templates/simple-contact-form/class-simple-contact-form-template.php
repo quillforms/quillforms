@@ -27,7 +27,14 @@ class Simple_Contact_Form_Template extends Form_Template {
         return __( 'Simple Contact Form', 'quillforms' );
     }
 
+    public function get_short_description() {
+        return __( 'A simple contact form. This template includes a short text block, a email block, a phone block, and a multiple choice block.', 'quillforms' );
+    }
 
+    public function get_long_description() {
+        return __( 'This template is designed to gather information from visitors who want to contact you. It includes a short text block, a email block, a phone block, and a multiple choice block to help you collect valuable insights from your visitors.', 'quillforms' );
+    }
+    
     /**
      * Get Template Link
      * 

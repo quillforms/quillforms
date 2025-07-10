@@ -27,7 +27,13 @@ class Web_Design_Cost_Calculator_Template extends Form_Template {
         return __( 'Web Design Cost Calculator', 'quillforms' );
     }
 
+    public function get_short_description() {
+        return __( 'A form to calculate the cost of a web design. This template includes a multiple choice block, a phone block, and a file upload block.', 'quillforms' );
+    }
 
+    public function get_long_description() {
+        return __( 'This template is designed to gather information from visitors who want to calculate the cost of a web design. It includes a multiple choice block, a phone block, and a file upload block to help you collect valuable insights from your visitors.', 'quillforms' );
+    }
 
     /**
      * Get Template Link

@@ -27,7 +27,13 @@ class Course_Evaluation_Survey_Template extends Form_Template {
         return __( 'Course Evaluation Survey', 'quillforms' );
     }
 
+    public function get_short_description() {
+        return __( 'A survey to evaluate a course. This template includes a rating block and an opinion scale block.', 'quillforms' );
+    }
 
+    public function get_long_description() {
+        return __( 'This template is designed to gather feedback on a course. It includes a rating block and an opinion scale block to help you collect valuable insights from your participants.', 'quillforms' );
+    }
     /**
      * Get Template Link
      * 

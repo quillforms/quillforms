@@ -27,7 +27,13 @@ class Job_Application_Form_Template extends Form_Template {
         return __( 'Job Application Form', 'quillforms' );
     }
 
+    public function get_short_description() {
+        return __( 'A form to apply for a job. This template includes a file upload block, a multiple choice block, and a phone block.', 'quillforms' );
+    }
 
+    public function get_long_description() {
+        return __( 'This template is designed to gather information from candidates who want to apply for a job. It includes a file upload block, a multiple choice block, and a phone block to help you collect valuable insights from your candidates.', 'quillforms' );
+    }
 
     /**
      * Get Template Link

@@ -395,9 +395,13 @@ abstract class Block_Type extends stdClass {
 		if ( ! is_array( $value ) ) {
 			return sanitize_text_field( $value );
 		} else {
-			return array_map(
+			$sanitized_value = array_map(
 				function( $item ) {
-					return sanitize_text_field( $item );
+					if ( is_array( $item ) ) {
+						return $item;
+					} else {
+						return sanitize_text_field( $item );
+					}
 				},
 				$value
 			);

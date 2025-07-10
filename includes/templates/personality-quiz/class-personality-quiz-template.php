@@ -27,6 +27,14 @@ class Personality_Quiz_Template extends Form_Template {
         return __( 'Personality Quiz', 'quillforms' );
     }
 
+    public function get_short_description() {
+        return __( 'A quiz to evaluate a personality. This template includes a multiple choice block and a opinion scale block.', 'quillforms' );
+    }
+
+    public function get_long_description() {
+        return __( 'This template is designed to gather information from participants who want to take a personality quiz. It includes a multiple choice block and a opinion scale block to help you collect valuable insights from your participants.', 'quillforms' );
+    }
+    
     /**
      * Get Template Link
      * 

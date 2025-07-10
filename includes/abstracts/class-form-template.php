@@ -30,6 +30,8 @@ abstract class Form_Template extends stdClass {
         $this->data  = $this->get_template_data();
         $this->required_addons = $this->get_required_addons();
         $this->notes = $this->get_notes();
+        $this->short_description = $this->get_short_description();
+        $this->long_description = $this->get_long_description();
     }
 
 	/**
@@ -51,16 +53,22 @@ abstract class Form_Template extends stdClass {
      */
     abstract public function get_title(); 
 
-    // /**
-    //  * Get template description
-    //  *
-    //  * @since @next
-    //  *
-    //  * @return string
-    //  */
 
-    // abstract public function get_description() : string;
+    /**
+     * Get Template Short Description
+     * 
+     * @since @next
+     */
+    abstract public function get_short_description();
 
+    /**
+     * Get Template Long Description
+     * 
+     * @since @next
+     */
+    abstract public function get_long_description();
+
+    
     /**
      * Get Template Link
      * 

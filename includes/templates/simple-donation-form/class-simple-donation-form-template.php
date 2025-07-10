@@ -27,6 +27,14 @@ class Simple_Donation_Form_Template extends Form_Template {
         return __( 'Simple Donation Form', 'quillforms' );
     }
 
+    public function get_short_description() {
+        return __( 'A simple donation form. This template includes a short text block, a email block, a phone block, and a multiple choice block.', 'quillforms' );
+    }
+
+    public function get_long_description() {
+        return __( 'This template is designed to gather information from donors who want to donate to you. It includes a short text block, a email block, a phone block, and a multiple choice block to help you collect valuable insights from your donors.', 'quillforms' );
+    }
+
 
     /**
      * Get Template Link
