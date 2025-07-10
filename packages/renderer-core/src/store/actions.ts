@@ -26,6 +26,7 @@ import {
 	SET_THANKYOU_SCREENS,
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 	SET_GLOBAL_HASH,
+	SET_ANSWERS,
 } from './constants';
 
 import type {
@@ -148,7 +149,8 @@ export const setAnswers = (
 	answers: Record<string, unknown>
 ): RendererAnswersActionTypes => {
 	return {
-		type: SET_FIELD_ANSWER,
+		type: SET_ANSWERS,
+		// @ts-ignore answers is a property of answers.
 		answers,
 	};
 }

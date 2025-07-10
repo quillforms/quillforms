@@ -19,7 +19,6 @@ import FormFlow from '../form-flow';
 import useBlocks from '../../hooks/use-blocks';
 import type { Screen } from '../../store/types';
 import useFormContext from '../../hooks/use-form-context';
-import { useFormSettings } from '../../hooks';
 
 interface Props {
 	applyLogic: boolean;
@@ -40,8 +39,8 @@ const FormWrapper: React.FC<Props> = ({ applyLogic }) => {
 	const blocksJson = JSON.stringify(blocks);
 	const {
 		isPreview,
+		// @ts-ignore formObj is a property of formObj.
 		formObj: { hiddenFields, initialData },
-		formId
 	} = useFormContext();
 	const {
 		setSwiper,

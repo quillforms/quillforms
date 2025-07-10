@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { memo } from '@wordpress/element';
 
 /**
@@ -18,8 +18,7 @@ import { css } from 'emotion';
 import ProgressBar from '../progress-bar';
 import SaveBtn from '../save-btn';
 import { useCurrentTheme, useFormContext, useMessages } from '../../hooks';
-import { random, size } from 'lodash';
-import { useEffect } from 'react';
+import { random } from 'lodash';
 
 const FormFooter: React.FC = memo(() => {
 	const theme = useCurrentTheme();
@@ -55,7 +54,7 @@ const FormFooter: React.FC = memo(() => {
 		return {
 			isCurrentFieldAnswerCorrect: select(
 				'quillForms/renderer-core'
-			)?.isFieldAnswerCorrect(currentBlockId),
+			)?.isFieldAnswerCorrect(currentBlockId || ''),
 		};
 	});
 

@@ -26,7 +26,10 @@ export const getBlocksRecursively = (walkPath: FormBlocks): FormBlocks => {
 
 		if (block.name === 'group' && size(block.innerBlocks) > 0) {
 			forEach(block.innerBlocks, (childBlock) => {
-				allBlocks.push({ ...childBlock, parentId: block.id });
+				allBlocks.push({
+					...childBlock,
+					parentId: block.id
+				} as FormBlock & { parentId: string }); // Type assertion
 			});
 		}
 	});

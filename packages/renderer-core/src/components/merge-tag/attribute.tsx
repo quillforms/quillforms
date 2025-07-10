@@ -9,7 +9,7 @@ const AttributeMergeTag: React.FC<Props> = ({ modifier }) => {
 	if (attributes && attributes[modifier]) {
 		if (Array.isArray(attributes[modifier])) {
 			// join with ","
-			modifierRender = <> {attributes[modifier].join(", ")} </>;
+			modifierRender = <> {(attributes[modifier] as string[])?.join(", ")} </>;
 		} else {
 			modifierRender = <> {attributes[modifier]} </>;
 		}

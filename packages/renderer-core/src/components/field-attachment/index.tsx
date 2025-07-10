@@ -1,4 +1,3 @@
-import { Fragment } from '@wordpress/element';
 import { __experimentalUseFieldRenderContext } from '../field-render';
 import classnames from 'classnames';
 import { css } from 'emotion';
@@ -113,7 +112,7 @@ const BlockAttachment: React.FC = () => {
 		>
 			{attachment && attachment.url && (
 				<img
-					alt={attachment.alt || ''}
+					alt={(attachment as any).alt || ''}
 					src={attachment.url}
 					className={classnames(
 						'renderer-core-block-attachment__image',

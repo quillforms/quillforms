@@ -60,6 +60,7 @@ const Methods: React.FC<Props> = ({ data }) => {
 	const discountDetails = data.payments?.discount_details;
 	const discountAmount = discountDetails?.amount;
 	const [isPaying, setIsPaying] = useState(false);
+	// @ts-ignore completeForm is a property of completeForm.
 	const completeFullDiscountedOrders = async () => {
 		if (isPaying) return;
 		setIsPaying(true);

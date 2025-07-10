@@ -24,7 +24,7 @@ const BlockDesc: React.FC = () => {
 
 	if (!attributes || (size(attributes.description) === 0 && editor.mode === 'off')) return null;
 	const theme = useBlockTheme(attributes.themeId);
-	const description = removep(attributes?.description);
+	const description = removep(attributes?.description || ''); // Provide default value
 	return (
 		<Fragment>
 			<div

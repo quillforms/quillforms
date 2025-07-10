@@ -30,6 +30,7 @@ const Coupon: React.FC<Props> = ({ data }) => {
 	const [error, setError] = useState('');
 	const { setPaymentData } = useDispatch('quillForms/renderer-core');
 
+	// @ts-ignore applyCoupon is a property of applyCoupon.
 	const applyCoupon = async () => {
 		setError('');
 		setIsPaying(true);

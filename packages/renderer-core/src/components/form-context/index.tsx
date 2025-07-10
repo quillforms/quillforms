@@ -63,6 +63,7 @@ const FormContext: React.Context<FormContext> = createContext<FormContext>({
 			animationDirection: 'vertical',
 		},
 		hiddenFields: {},
+		partialSubmissionPoint: undefined, // Add missing property
 	},
 	onSubmit: noop,
 	isPreview: false,

@@ -1,7 +1,6 @@
 /**
  * Internal Dependencies
  */
-import { forEach } from 'lodash';
 import useCorrectAnswersCount from '../../hooks/use-correct-answers-count';
 import useIncorrectAnswersCount from '../../hooks/use-incorrect-answers-count';
 
@@ -10,7 +9,7 @@ import useIncorrectAnswersCount from '../../hooks/use-incorrect-answers-count';
  */
 import { useSelect } from "@wordpress/data";
 import HtmlParser from '../html-parser';
-import { useBlockTheme, useCorrectIncorrectQuiz, useMessages, useTheme } from '../../hooks';
+import { useBlockTheme, useMessages } from '../../hooks';
 
 /**
  * External Dependencies
@@ -26,7 +25,6 @@ interface Props {
 	modifier: string;
 }
 const QuizMergeTag: React.FC<Props> = ({ modifier }) => {
-	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
 	const { attributes } = __experimentalUseFieldRenderContext();
 	const theme = useBlockTheme(attributes?.themeId)
 	const messages = useMessages();
@@ -64,7 +62,7 @@ const QuizMergeTag: React.FC<Props> = ({ modifier }) => {
 								dangerouslySetInnerHTML={{
 									__html: index + 1 + "- " + field.attributes?.label?.replace(
 										/{{([a-zA-Z0-9-_]+):([a-zA-Z0-9-_]+)}}/g,
-										(_match, p1, p2) => {
+										(_match) => {
 											return `______`;
 										}
 									)

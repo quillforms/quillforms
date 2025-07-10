@@ -3,7 +3,7 @@
  * Wordpress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
 /**
@@ -13,7 +13,6 @@ import classNames from 'classnames';
 import { useSwipeable, SwipeEventData } from 'react-swipeable';
 import { Lethargy } from 'lethargy';
 import type React from 'react';
-import Cookies from 'js-cookie';
 
 /**
  * Internal Dependencies
@@ -125,6 +124,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 			return;
 		}
 
+		// @ts-ignore snapshot is a property of formObj.
 		if (settings?.saveAnswersInBrowser && !formObj?.snapshot) {
 			// replace localstorage with cookies.
 			const answers = localStorage.getItem(`quillforms-answers-${formId}`)
@@ -140,6 +140,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 	}, []);
 
 	useEffect(() => {
+		// @ts-ignore snapshot is a property of formObj.
 		if (!isPreview && editor.mode === 'off' && settings?.saveAnswersInBrowser && !formObj?.snapshot) {
 			// replace localstorage with cookies which will expire in 30 days.
 			localStorage.setItem(
@@ -208,10 +209,12 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 				swiper?.correctIncorrectDisplay === false &&
 				currentBlockType.supports.correctAnswers &&
 				correctIncorrectQuiz?.showAnswersDuringQuiz &&
+				// @ts-ignore answers is a property of answers.
 				!answers[currentBlockId]?.isCorrectIncorrectScreenDisplayed
 			) {
 				setCorrectIncorrectDisplay(true);
 				setIsFieldCorrectIncorrectScreenDisplayed(
+					// @ts-ignore currentBlockId is a property of currentBlockId.
 					currentBlockId,
 					true
 				);
@@ -221,6 +224,7 @@ const FieldsWrapper: React.FC<Props> = ({ applyLogic, isActive }) => {
 			doAction('QuillForms.RendererCore.BeforeNext', currentBlockId, formContext);
 			if (settings?.enableAutoSubmit && currentBlockId === fields[fields.length - 1].id) {
 				setIsSubmitting(true);
+				// @ts-ignore onSubmit is a property of onSubmit.
 				onSubmit();
 			}
 			else {

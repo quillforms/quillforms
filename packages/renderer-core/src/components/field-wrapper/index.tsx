@@ -42,7 +42,7 @@ const FieldWrapper: React.FC = () => {
 		attributes,
 		blockName,
 	} = __experimentalUseFieldRenderContext();
-	const { editor, deviceWidth } = useFormContext();
+	const { editor } = useFormContext();
 	const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
 
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
@@ -98,7 +98,7 @@ const FieldWrapper: React.FC = () => {
 				setCorrectIncorrectDisplay(false);
 			}, 1000);
 			setTimeout(() => {
-				if (size(correctIncorrectQuiz?.questions?.[currentBlockId]?.explanation) <= 0) {
+				if (size(correctIncorrectQuiz?.questions?.[currentBlockId || '']?.explanation) <= 0) {
 					goNext();
 				}
 			}, 1450)
@@ -282,7 +282,7 @@ const FieldWrapper: React.FC = () => {
 		}, 150);
 	}
 
-	const scrollHandler = (e) => {
+	const scrollHandler = () => {
 		if (
 			editor.mode === 'on' ||
 			settings?.disableWheelSwiping ||
@@ -442,7 +442,7 @@ const FieldWrapper: React.FC = () => {
 									ref={ref}
 									{...specialProps}
 									className="renderer-core-block-scroller"
-									onScroll={(e) => scrollHandler(e)}
+									onScroll={() => scrollHandler()}
 								>
 									<FieldContent />
 								</div>

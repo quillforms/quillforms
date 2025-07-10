@@ -38,6 +38,7 @@ const Info: React.FC<Props> = ({ data }) => {
 	const { setPaymentData } = useDispatch('quillForms/renderer-core');
 	const [isDeleting, setIsDeleting] = useState(false);
 
+	// @ts-ignore deleteCoupon is a property of deleteCoupon.
 	const deleteCoupon = async () => {
 		setIsDeleting(true);
 		try {

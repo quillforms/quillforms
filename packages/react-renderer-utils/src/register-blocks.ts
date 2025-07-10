@@ -22,6 +22,8 @@ import registerWebsiteBlock from './blocks/website';
 import registerWelcomeScreenBlock from './blocks/welcome-screen';
 //@ts-ignore
 import registerGroupBlock from './blocks/group';
+//@ts-ignore
+import registerThankYouScreenBlock from './blocks/thank-you-screen';
 
 const registerCoreBlocks = () => {
 	registerDataBlock();
@@ -36,6 +38,7 @@ const registerCoreBlocks = () => {
 	registerWelcomeScreenBlock();
 	registerGroupBlock();
 	registerSliderBlock();
+	registerThankYouScreenBlock();
 };
 
 export default registerCoreBlocks;

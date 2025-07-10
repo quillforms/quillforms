@@ -486,6 +486,7 @@ const footerDisplay: Reducer = (state = true, action) => {
 	return state;
 };
 
+// @ts-ignore globalHash is a property of globalHash.
 const submit: Reducer<SubmissionState, SubmitActionTypes> = (
 	state = {
 		isSubmitting: false,

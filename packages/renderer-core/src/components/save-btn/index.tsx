@@ -15,7 +15,7 @@ import { TailSpin as Loader } from 'react-loader-spinner';
  */
 import Button from '../button';
 import { useFormContext, useMessages } from '../../hooks';
-import { set, size } from 'lodash';
+import { size } from 'lodash';
 import classnames from "classnames";
 
 const SaveBtn: React.FC = () => {
@@ -72,7 +72,9 @@ const SaveBtn: React.FC = () => {
 	}, [answers]);
 
 
+	// @ts-ignore saveandcontinue is a property of formObj.
 	const saveAndContinue = formObj?.saveandcontinue;
+	// @ts-ignore recipients is a property of saveAndContinue.
 	const recipients = saveAndContinue?.recipients;
 
 	if (!saveAndContinue?.enable || !recipients?.length) {
@@ -110,8 +112,8 @@ const SaveBtn: React.FC = () => {
 					setIsReviewing(true);
 					const block = allBlocks.find((block) => block.id === emailBlockId);
 					if (block) {
-						if (block?.parentId) {
-							goToBlock(block.parentId);
+						if ((block as any)?.parentId) {
+							goToBlock((block as any).parentId);
 						}
 						else {
 							goToBlock(emailBlockId);
@@ -125,6 +127,7 @@ const SaveBtn: React.FC = () => {
 				return;
 			}
 
+			// @ts-ignore emailValue is a property of emailValue.
 			if (!emailValue?.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
 				setTimeout(() => {
 					setIsFieldValid(emailBlockId, false);
