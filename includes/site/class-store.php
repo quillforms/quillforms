@@ -526,16 +526,16 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
 					),
 				),
-				'geolocation'               => array(
-					'name'           => esc_html__( 'Geolocation', 'quillforms' ),
-					'description'    => esc_html__( 'Geolocation addon allows you to add autocompletion to your address fields.', 'quillforms' ),
-					'plugin_file'    => 'quillforms-geolocation/quillforms-geolocation.php',
-					'plan'           => 'basic',
-					'is_integration' => false,
-					'assets'         => array(
-						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/geolocation/icon.svg',
-					),
-				),
+				// 'geolocation'               => array(
+				// 	'name'           => esc_html__( 'Geolocation', 'quillforms' ),
+				// 	'description'    => esc_html__( 'Geolocation addon allows you to add autocompletion to your address fields.', 'quillforms' ),
+				// 	'plugin_file'    => 'quillforms-geolocation/quillforms-geolocation.php',
+				// 	'plan'           => 'basic',
+				// 	'is_integration' => false,
+				// 	'assets'         => array(
+				// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/geolocation/icon.svg',
+				// 	),
+				// ),
 				'customfonts'               => array(
 					'name'           => esc_html__( 'Custom Fonts', 'quillforms' ),
 					'description'    => esc_html__( 'Upload your own custom fonts to use them in Quill Forms!', 'quillforms' ),
@@ -636,18 +636,6 @@ class Store {
 					'is_integration' => false,
 					'assets'         => array(
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/signatureblock/icon.svg',
-					),
-				),
-
-				'customthankyouscreenblock' => array(
-					'name'           => esc_html__( 'Custom Thank You Screen', 'quillforms' ),
-					'description'    => esc_html__( 'Custom thank you screen with advanced features like attachment and buttons to reload the form or redirect to external link. Works great with jump logic.', 'quillforms' ),
-					'plugin_file'    => 'quillforms-customthankyouscreenblock/quillforms-customthankyouscreenblock.php',
-					'plan'           => 'basic',
-					'is_integration' => false,
-					'assets'         => array(
-						'icon'   => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/icon.svg',
-						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/customthankyouscreenblock/banner.png',
 					),
 				),
 				'stripe'                    => array(
