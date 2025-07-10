@@ -12,6 +12,8 @@ import { css } from 'emotion';
 import AiIcon from './ai-icon';
 import StarIcon from './stars-icon';
 import LoadingIcon from './loading-icon';
+import { useSelect } from '@wordpress/data';
+import { keys } from 'lodash';
 
 const GenerateAiForm = ({
 	closeModal,
@@ -30,6 +32,13 @@ const GenerateAiForm = ({
 	const [isGenerating, setIsGenerating] = useState(false);
 
 	const descriptionRef = useRef(null);
+	const { blockTypes } = useSelect((select) => {
+		return {
+			blockTypes: select('quillForms/blocks').getBlockTypes(),
+		};
+	}, []);
+
+	const availableBlockTypes = keys(blockTypes).filter((blockTypeName) => blockTypeName !== 'quill-booking');
 
 	useEffect(() => {
 		if (descriptionRef?.current) {
@@ -39,10 +48,8 @@ const GenerateAiForm = ({
 
 	// FIXED: Use useCallback to prevent infinite re-renders
 	const generateAiForm = useCallback(async () => {
-		console.log('🚀 generateAiForm called!');
 
 		if (isGenerating) {
-			console.log('Already generating, skipping...');
 			return;
 		}
 
@@ -71,16 +78,16 @@ const GenerateAiForm = ({
 				requestData.additionalInstructions = additionalInstructions.trim();
 			}
 
-			console.log('🤖 Sending request through WordPress API:', requestData);
+			requestData['availableBlocks'] = availableBlockTypes;
+			console.log('🚀 requestData:', requestData);
 
-			// Use WordPress apiFetch to call the AI endpoint
+			// // Use WordPress apiFetch to call the AI endpoint
 			const result = await apiFetch({
 				path: '/qf/v1/ai/generate',
 				method: 'POST',
 				data: requestData,
 			});
 
-			console.log('📡 Response data:', result);
 
 
 			if (!result.success) {
@@ -139,11 +146,10 @@ const GenerateAiForm = ({
 			};
 
 			// Include form settings if available
-			if (formData.settings) {
-				wpFormData.settings = formData.settings;
-			}
+			// if (formData.settings) {
+			// 	wpFormData.settings = formData.settings;
+			// }
 
-			console.log('📝 Creating WordPress form:', wpFormData);
 
 			// Use WordPress apiFetch to create the form
 			const createdForm = await apiFetch({
@@ -152,7 +158,6 @@ const GenerateAiForm = ({
 				data: wpFormData,
 			});
 
-			console.log('🎉 Form created successfully:', createdForm);
 
 			// Navigate to the form builder
 			const { id } = createdForm;
@@ -367,8 +372,6 @@ const GenerateAiForm = ({
 						className={css`
 							font-size: 32px;
 							font-weight: 600;
-							display: flex;
-							align-items: center;
 							gap: 12px;
 						`}
 					>
@@ -731,117 +734,7 @@ const GenerateAiForm = ({
 						</div>
 					</div>
 
-					{/* Additional Instructions */}
-					<div
-						className={css`
-							display: flex;
-							flex-direction: column;
-							gap: 0.5rem;
-						`}
-					>
-						<label
-							className={css`
-								font-size: 14px;
-								font-weight: 600;
-								color: #374151;
-								display: flex;
-								align-items: center;
-								gap: 6px;
-							`}
-							htmlFor="additional-instructions"
-						>
-							✨ {__('Special Requirements', 'quillforms')}
-							<span className={css`color: #9ca3af; font-weight: 400; font-size: 12px;`}>
-								({__('optional', 'quillforms')})
-							</span>
-						</label>
-						<textarea
-							className={css`
-								width: 100%;
-								min-height: 80px;
-								padding: 12px 16px;
-								border: 1.5px solid #e3e3e3;
-								border-radius: 8px;
-								font-size: 14px;
-								font-family: inherit;
-								resize: vertical;
-								transition: all 0.2s ease;
 
-								&:focus {
-									outline: none;
-									border-color: #8b5cf6;
-									box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-								}
-
-								&::placeholder {
-									color: #9ca3af;
-									font-style: italic;
-								}
-							`}
-							name="additional-instructions"
-							placeholder={__(
-								'Any specific styling, conditional logic, or special features?',
-								'quillforms'
-							)}
-							value={additionalInstructions}
-							onChange={(e) => setAdditionalInstructions(e.target.value)}
-						/>
-					</div>
-
-					{/* WordPress API Info */}
-					<div
-						className={css`
-							background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-							border: 1px solid #bae6fd;
-							border-radius: 8px;
-							padding: 16px;
-							display: flex;
-							align-items: center;
-							justify-content: space-between;
-							gap: 12px;
-						`}
-					>
-						<div>
-							<p
-								className={css`
-									margin: 0 0 4px 0;
-									font-size: 14px;
-									font-weight: 600;
-									color: #0c4a6e;
-								`}
-							>
-								🔐 {__('Secure WordPress Integration', 'quillforms')}
-							</p>
-							<p
-								className={css`
-									margin: 0;
-									font-size: 12px;
-									color: #0369a1;
-								`}
-							>
-								{__('AI requests are securely proxied through your WordPress backend', 'quillforms')}
-							</p>
-						</div>
-					</div>
-
-					{/* Debug Information */}
-					<div
-						className={css`
-							background: #f3f4f6;
-							border: 1px solid #d1d5db;
-							border-radius: 8px;
-							padding: 12px;
-							font-size: 12px;
-							color: #6b7280;
-						`}
-					>
-						<strong>Debug Info:</strong><br />
-						Description Length: {description.length}<br />
-						Can Proceed: {String(description.trim().length >= 5 && !isGenerating)}<br />
-						Is Generating: {String(isGenerating)}<br />
-						API Path: /qf/v1/ai/generate<br />
-						Function Ready: {String(typeof generateAiForm === 'function')}
-					</div>
 
 					{/* Ready indicator */}
 					{description.length >= 5 && (
