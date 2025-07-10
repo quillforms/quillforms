@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/scripts",
-	"version": "1.2.6",
+	"version": "2.0.0",
 	"description": "Forked from Gutenberg, collection of reusable scripts for QuillForms development.",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
