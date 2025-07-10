@@ -97,6 +97,19 @@ const multipleChoiceControls = (props) => {
 					/>
 				</ControlWrapper>
 			</BaseControl>
+			{other && (
+				<BaseControl>
+					<ControlWrapper orientation="vertical">
+						<ControlLabel label={__("Other Text", "quillforms")} />
+						<TextControl
+							value={otherText}
+							onChange={(val) => {
+								setAttributes({ otherText: val });
+							}}
+						/>
+					</ControlWrapper>
+				</BaseControl>
+			)}
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label={__("Choices", "quillforms")} />

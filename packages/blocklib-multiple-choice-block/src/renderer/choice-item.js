@@ -31,7 +31,7 @@ const ChoiceItem = ({
 
 	const messages = useMessages();
 	const [isClicked, setIsClicked] = useState(false);
-	const [otherText, setOtherText] = useState('');
+	const [otherTextValue, setOtherText] = useState('');
 	const inputRef = useRef(null);
 
 	// Initialize other text from existing value
@@ -81,14 +81,14 @@ const ChoiceItem = ({
 				setOtherText('');
 			} else {
 				// Add other option with empty text
-				if (multiple) {
-					$val.push({
-						type: 'other',
-						value: ''
-					});
-				} else {
-					$val = [{ type: 'other', value: '' }];
-				}
+				// if (multiple) {
+				// 	$val.push({
+				// 		type: 'other',
+				// 		value: ''
+				// 	});
+				// } else {
+				$val = [{ type: 'other', value: '' }];
+				// }
 			}
 			setVal($val);
 			checkfieldValidation($val);
@@ -174,7 +174,7 @@ const ChoiceItem = ({
 				{isOther && selected ? (
 					<input
 						type="text"
-						value={otherText}
+						value={otherTextValue}
 						onChange={(e) => handleOtherTextChange(e.target.value)}
 						placeholder="Please specify..."
 						className={css`
@@ -187,6 +187,9 @@ const ChoiceItem = ({
 							outline: none;
 							&::placeholder {
 								color: ${tinyColor(oppositeColor).setAlpha(0.6).toString()};
+							}
+							&:focus {
+								outline: none !important;
 							}
 						`}
 						onClick={(e) => e.stopPropagation()}

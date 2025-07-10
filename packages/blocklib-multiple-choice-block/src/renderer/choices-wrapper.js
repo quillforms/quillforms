@@ -34,7 +34,7 @@ const ChoicesWrapper =
 	}) => {
 		const { editor } = useFormContext();
 
-		const { verticalAlign, multiple, choices, themeId, max, min, other } = attributes;
+		const { verticalAlign, multiple, choices, themeId, max, min, other, otherText } = attributes;
 		const cx = useCx();
 
 		const theme = useBlockTheme(themeId);
@@ -79,7 +79,7 @@ const ChoicesWrapper =
 		if (other) {
 			const otherChoice = {
 				value: 'other',
-				label: 'Other',
+				label: otherText,
 				selected: val && val.length > 0 && val.some(item => typeof item === 'object' && item.type === 'other'),
 				order: identName($choices.length),
 				isOther: true
@@ -189,6 +189,7 @@ const ChoicesWrapper =
 									correctIncorrectQuiz={correctIncorrectQuiz}
 									multiple={multiple}
 									isOther={choice.isOther}
+									otherText={otherText}
 									val={val}
 									setVal={setVal}
 									checkfieldValidation={checkfieldValidation}

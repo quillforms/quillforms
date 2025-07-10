@@ -57,6 +57,10 @@
 		"other": {
 			"type": "boolean",
 			"default": false
+		},
+		"otherText": {
+			"type": "string",
+			"default": "Other"
 		}
 	},
 	"logicalOperators": [
