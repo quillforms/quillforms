@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/types",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Types package is to define some certain shared types between packages",
 	"author": "Mohamed Magdy <mohamed@quillforms.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",

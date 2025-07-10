@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-email-block",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Email block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,8 +23,8 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^4.0.0",
-		"@quillforms/renderer-core": "^6.0.0",
+		"@quillforms/admin-components": "^4.0.1",
+		"@quillforms/renderer-core": "^6.0.1",
 		"classnames": "^2.3.1",
 		"email-validator": "^2.0.4",
 		"emotion": "10.0.27",

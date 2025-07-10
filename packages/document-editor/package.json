@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/document-editor",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"description": "",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -22,8 +22,8 @@
 	"module": "build-module/index.js",
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^4.0.0",
-		"@quillforms/config": "^4.0.0",
+		"@quillforms/admin-components": "^4.0.1",
+		"@quillforms/config": "^4.0.1",
 		"react-dnd": "15.1.2"
 	},
 	"peerDependencies": {
