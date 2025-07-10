@@ -95,6 +95,7 @@ const blockUtils = {
             // Non-root and non-group nesting
             destination.parentId !== "root" && destinationParentBlockName !== "group",
 
+
             // Welcome screen restrictions
             (destination.index === 0 &&
                 destination.parentId === "root" &&
@@ -107,6 +108,11 @@ const blockUtils = {
             // Group blocks must be at root level
             sourceBlockName === "group" && destination.parentId !== "root",
             sourceBlockName === "partial-submission-point" && destination.parentId !== "root",
+
+            // prevent quill-booking, calendly and cal blocks from being moved to group
+            sourceBlockName === "quill-booking" && destination.parentId !== "root",
+            sourceBlockName === "calendly" && destination.parentId !== "root",
+            sourceBlockName === "cal" && destination.parentId !== "root",
 
             // Thank you screen cannot be in group
             sourceBlockName === 'thankyou-screen' && destination.parentId !== 'root'
