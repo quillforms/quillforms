@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/react-renderer-utils",
-	"version": "6.0.2",
+	"version": "6.1.0",
 	"description": "> TODO: description",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
 	"keywords": [
@@ -35,9 +35,9 @@
 		"@quillforms/blocklib-short-text-block": "file:../blocklib-short-text-block",
 		"@quillforms/blocklib-slider-block": "file:../blocklib-slider-block",
 		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
+		"@quillforms/blocklib-thankyou-screen-block": "file:../blocklib-thankyou-screen-block",
 		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
 		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
-		"@quillforms/blocklib-thankyou-screen-block": "file:../blocklib-thankyou-screen-block",
 		"@quillforms/blocks": "file:../blocks"
 	},
 	"peerDependencies": {
