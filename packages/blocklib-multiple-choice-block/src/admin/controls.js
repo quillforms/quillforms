@@ -19,7 +19,7 @@ import { __ } from '@wordpress/i18n';
 
 const multipleChoiceControls = (props) => {
 	const {
-		attributes: { multiple, verticalAlign, choices, min, max, other },
+		attributes: { multiple, verticalAlign, choices, min, max, other, otherText },
 		setAttributes,
 	} = props;
 	return (
