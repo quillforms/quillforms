@@ -1,7 +1,7 @@
  === Quill Forms | Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.8.1
-Stable tag: 4.8.0
+Stable tag: 5.0.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform, conversational, forms, survey, quiz
 License: GPLv2 or later
@@ -88,7 +88,7 @@ Upgrade to access advanced functionality:
 
 ### Integrations
 Seamlessly connect with popular services:
-- CRM Systems: HubSpot, Salesforce, Zoho, Freshsales, SalesFlare, Capsule, Bitrix24, Pipedrive, Keap
+- CRM Systems: HubSpot, Salesforce, Zoho, Freshsales, SalesFlare, Capsule, Bitrix24, Pipedrive, Keap, Nethunt
 - Email Marketing: MailChimp, Constant Contact, Klaviyo, Sendinblue, MailPoet, GetResponse, AWeber, ActiveCampaign, Moosend, CleverReach, FluentCRM, EmailOctopus, Drip, Mautic, MailerLite
 - Project Management: Asana, ClickUp, Trello, Monday.com
 - Automation: Zapier, Webhooks, Make
@@ -143,6 +143,14 @@ Yes, Quill Forms works with all major WordPress page builders through iframe emb
 
 
 == Changelog ==
+
+= 5.0.0 = 11 July 2025
+Feature: Generate Forms with AI
+Feature: Introducing Quill Booking WordPress plugin for appointments booking.
+Feature: Adding other option to multiple choice questions
+Feature: Introducing Nethunt CRM integration
+Fix: Fixing various bugs at the form builder and renderer part
+
 = 4.8.0 = 19 May 2025
 Feature: Add option for emails to have disallowed email domains.
 Feature: Add video option in the attachment.
