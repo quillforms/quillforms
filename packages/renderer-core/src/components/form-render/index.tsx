@@ -39,7 +39,7 @@ type Editor = EditorOnConfig | EditorOffConfig;
 
 // Update the main Props interface
 interface Props {
-	formId?: number;
+	formId?: number | string;
 	formObj: FormObj;
 	customFonts?: CustomFont[];
 	onSubmit: (data: Object, dispatchers: SubmissionDispatchers) => void;
@@ -69,7 +69,7 @@ interface Props {
 }
 
 interface Props {
-	formId?: number;
+	formId?: number | string;
 	formObj: FormObj;
 	customFonts?: CustomFont[];
 	onSubmit: (data: Object, dispatchers: SubmissionDispatchers) => void;

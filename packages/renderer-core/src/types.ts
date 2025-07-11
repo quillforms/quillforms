@@ -18,7 +18,7 @@ export type FormObj = {
 	theme?: Partial<FormTheme>;
 	messages?: Partial<FormMessages>;
 	logic?: FormLogic;
-	partialSubmissionPoint: string | undefined;
+	partialSubmissionPoint?: string | undefined;
 	settings?: {
 		disableProgressBar?: boolean;
 		disableWheelSwiping?: boolean;

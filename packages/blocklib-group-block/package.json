@@ -23,9 +23,9 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "file:../admin-components",
-		"@quillforms/blocks": "file:../blocks",
-		"@quillforms/renderer-core": "file:../renderer-core",
+		"@quillforms/admin-components": "^4.0.3",
+		"@quillforms/blocks": "^5.0.3",
+		"@quillforms/renderer-core": "^6.1.0",
 		"@wordpress/data": "^10.26.0",
 		"classnames": "^2.3.1",
 		"email-validator": "^2.0.4",
@@ -48,5 +48,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"gitHead": "30489a2fcbdbb9951216e12dc7517be35987fb7d"
+	"gitHead": "2ee06efaad5c2b124e65480c0360e953e0733174"
 }
