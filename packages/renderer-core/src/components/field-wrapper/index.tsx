@@ -29,7 +29,6 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 
 import { size } from 'lodash';
 
-let scrollTimer: ReturnType<typeof setTimeout>;
 let tabTimer: ReturnType<typeof setTimeout>;
 
 const FieldWrapper: React.FC = () => {

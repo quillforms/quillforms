@@ -6,7 +6,6 @@ import { useMessages, useBlockTheme } from '@quillforms/renderer-core';
 /**
  * WordPress Dependencies
  */
-import { useSelect } from '@wordpress/data';
 import { useEffect } from 'react';
 
 /**

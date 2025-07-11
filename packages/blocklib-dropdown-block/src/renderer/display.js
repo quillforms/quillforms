@@ -15,7 +15,6 @@ import {
 	useMemo
 } from 'react';
 import { createPortal } from 'react-dom';
-import { useSelect } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -313,7 +312,6 @@ const DropdownDisplay = (props) => {
 	return (
 		<div ref={wrapperRef} style={{ position: 'relative' }}>
 			<input
-				autoComplete="off"
 				ref={inputRef}
 				className={cx(
 					css`

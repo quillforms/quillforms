@@ -23,21 +23,22 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"sideEffects": false,
+	"types": "build-types",
 	"dependencies": {
-		"@quillforms/blocklib-date-block": "^4.0.2",
-		"@quillforms/blocklib-dropdown-block": "^4.0.2",
-		"@quillforms/blocklib-email-block": "^4.0.2",
-		"@quillforms/blocklib-group-block": "^4.0.2",
-		"@quillforms/blocklib-long-text-block": "^4.0.2",
-		"@quillforms/blocklib-multiple-choice-block": "^4.0.2",
-		"@quillforms/blocklib-number-block": "^4.0.2",
-		"@quillforms/blocklib-short-text-block": "^4.0.2",
-		"@quillforms/blocklib-slider-block": "^2.0.2",
-		"@quillforms/blocklib-statement-block": "^4.0.2",
-		"@quillforms/blocklib-website-block": "^4.0.2",
-		"@quillforms/blocklib-welcome-screen-block": "^4.0.2",
-		"@quillforms/blocks": "^5.0.2",
-		"react-dnd": "15.1.2"
+		"@quillforms/blocklib-date-block": "file:../blocklib-date-block",
+		"@quillforms/blocklib-dropdown-block": "file:../blocklib-dropdown-block",
+		"@quillforms/blocklib-email-block": "file:../blocklib-email-block",
+		"@quillforms/blocklib-group-block": "file:../blocklib-group-block",
+		"@quillforms/blocklib-long-text-block": "file:../blocklib-long-text-block",
+		"@quillforms/blocklib-multiple-choice-block": "file:../blocklib-multiple-choice-block",
+		"@quillforms/blocklib-number-block": "file:../blocklib-number-block",
+		"@quillforms/blocklib-short-text-block": "file:../blocklib-short-text-block",
+		"@quillforms/blocklib-slider-block": "file:../blocklib-slider-block",
+		"@quillforms/blocklib-statement-block": "file:../blocklib-statement-block",
+		"@quillforms/blocklib-website-block": "file:../blocklib-website-block",
+		"@quillforms/blocklib-welcome-screen-block": "file:../blocklib-welcome-screen-block",
+		"@quillforms/blocklib-thankyou-screen-block": "file:../blocklib-thankyou-screen-block",
+		"@quillforms/blocks": "file:../blocks"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0 || ^19.0.0",
@@ -55,5 +56,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"gitHead": "467d03c77bc6b0d67c2797fdfc4a93cbf2bff317"
+	"gitHead": "30489a2fcbdbb9951216e12dc7517be35987fb7d"
 }
