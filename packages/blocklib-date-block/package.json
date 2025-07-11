@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/blocklib-date-block",
-	"version": "4.0.3",
+	"version": "4.0.4",
 	"description": "Date block for quillforms",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com> (https://github.com/mdmag)",
 	"license": "GPL-2.0-or-later",
@@ -23,8 +23,8 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "^7.16.0",
-		"@quillforms/admin-components": "^4.0.3",
-		"@quillforms/renderer-core": "^6.1.0",
+		"@quillforms/admin-components": "^4.0.4",
+		"@quillforms/renderer-core": "^6.2.0",
 		"@wordpress/data": "^9.2.0",
 		"classnames": "^2.3.1",
 		"dayjs": "^1.10.5",

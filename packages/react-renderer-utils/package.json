@@ -1,6 +1,6 @@
 {
 	"name": "@quillforms/react-renderer-utils",
-	"version": "6.1.0",
+	"version": "6.2.0",
 	"description": "> TODO: description",
 	"author": "Mohamed Magdy <md.magdy.sa@gmail.com>",
 	"keywords": [
@@ -25,20 +25,20 @@
 	"sideEffects": false,
 	"types": "build-types",
 	"dependencies": {
-		"@quillforms/blocklib-date-block": "^4.0.3",
-		"@quillforms/blocklib-dropdown-block": "^4.0.3",
-		"@quillforms/blocklib-email-block": "^4.0.3",
-		"@quillforms/blocklib-group-block": "^4.0.3",
-		"@quillforms/blocklib-long-text-block": "^4.0.3",
-		"@quillforms/blocklib-multiple-choice-block": "^4.0.3",
-		"@quillforms/blocklib-number-block": "^4.0.3",
-		"@quillforms/blocklib-short-text-block": "^4.0.3",
-		"@quillforms/blocklib-slider-block": "^2.0.3",
-		"@quillforms/blocklib-statement-block": "^4.0.3",
-		"@quillforms/blocklib-thankyou-screen-block": "^4.0.3",
-		"@quillforms/blocklib-website-block": "^4.0.3",
-		"@quillforms/blocklib-welcome-screen-block": "^4.0.3",
-		"@quillforms/blocks": "^5.0.3"
+		"@quillforms/blocklib-date-block": "^4.0.4",
+		"@quillforms/blocklib-dropdown-block": "^4.0.4",
+		"@quillforms/blocklib-email-block": "^4.0.4",
+		"@quillforms/blocklib-group-block": "^4.0.4",
+		"@quillforms/blocklib-long-text-block": "^4.0.4",
+		"@quillforms/blocklib-multiple-choice-block": "^4.0.4",
+		"@quillforms/blocklib-number-block": "^4.0.4",
+		"@quillforms/blocklib-short-text-block": "^4.0.4",
+		"@quillforms/blocklib-slider-block": "^2.0.4",
+		"@quillforms/blocklib-statement-block": "^4.0.4",
+		"@quillforms/blocklib-thankyou-screen-block": "^4.0.4",
+		"@quillforms/blocklib-website-block": "^4.0.4",
+		"@quillforms/blocklib-welcome-screen-block": "^4.0.4",
+		"@quillforms/blocks": "^5.0.4"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0 || ^19.0.0",
