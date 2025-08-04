@@ -164,8 +164,8 @@ const treeUtils = {
 
             items[block.id] = {
                 id: block.id,
-                children: block.innerBlocks?.map(b => b.id) || [],
-                hasChildren: !!block.innerBlocks?.length,
+                children: block.name !== 'group' ? [] : block.innerBlocks?.map(b => b.id) || [],
+                hasChildren: block.name !== 'group' ? false : !!block.innerBlocks?.length,
                 isExpanded: prevItems?.[block.id]?.isExpanded ?? true, // Preserve expansion state
                 data: {
                     name: block.name,
@@ -174,7 +174,7 @@ const treeUtils = {
                 },
             };
 
-            if (block.innerBlocks?.length) {
+            if (block.name === 'group' && block.innerBlocks?.length) {
                 treeUtils.processBlocks(
                     block.innerBlocks,
                     blockTypes,
@@ -332,8 +332,9 @@ const PureTree: React.FC = withErrorBoundary(() => {
         currentBlockId: select("quillForms/block-editor").getCurrentBlockId(),
         currentChildBlockId: select("quillForms/block-editor").getCurrentChildBlockId(),
         currentBlock: select('quillForms/block-editor').getCurrentBlock(),
-        currentPanel: select("quillForms/builder-panels").getCurrentPanel(),
+        currentPanel: select("quillForms/builder-panels").getCurrentPanel(),        // @ts-ignore
     }));
+
     const partialSubmissionIndex = blocks.findIndex(block => block.name === 'partial-submission-point');
     const [showPartialSubmissionPointAlert, setShowPartialSubmissionPointAlert] = useState(false);
     const [triggerTreeCalculation, setTriggerTreeCalculation] = useState(false);
@@ -356,6 +357,11 @@ const PureTree: React.FC = withErrorBoundary(() => {
         treeUtils.transformBlocksToTree(blocks, blockTypes)
     );
 
+    useEffect(() => {
+        if (size(blocks) > 0) {
+            setCurrentBlock(blocks[0].id);
+        }
+    }, []);
     let timeFn;
     // Add a blocks dependency to trigger recalculation
     useEffect(() => {
@@ -749,7 +755,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
         });
     }, []);
 
-    if (!currentBlock) return null;
+    // if (!currentBlock) return null;
 
 
     return (
