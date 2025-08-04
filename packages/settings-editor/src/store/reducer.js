@@ -200,9 +200,8 @@ export function animationDirection(state = false, action) {
 			return action.direction;
 
 		case SETUP_STORE: {
-			return action.initialPayload?.changeAnimationDirection
-				? action.initialPayload?.changeAnimationDirection
-				: 'vertical';
+			return action.initialPayload?.animationDirection
+				?? 'vertical';
 		}
 	}
 
