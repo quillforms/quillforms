@@ -393,18 +393,8 @@ abstract class Block_Type extends stdClass {
 	public function sanitize_field( $value, $form_data ) { // phpcs:ignore
 		if ( ! is_array( $value ) ) {
 			return sanitize_text_field( $value );
-		} else {
-			$sanitized_value = array_map(
-				function( $item ) {
-					if ( is_array( $item ) ) {
-						return $item;
-					} else {
-						return sanitize_text_field( $item );
-					}
-				},
-				$value
-			);
 		}
+		return $value;
 	}
 
 	/**
