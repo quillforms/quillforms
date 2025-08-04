@@ -279,8 +279,8 @@ class Emails {
 
 		// Plain text email shortcut.
 		if ( false === $this->html ) {
-			$message = $this->process_tag( $message );
 			$message = str_replace( '{{form:all_answers}}', $this->html_field_value( false ), $message );
+			$message = $this->process_tag( $message );
 
 			return apply_filters( 'quillforms_email_message', quillforms_decode_string( $message ), $this );
 		}
@@ -306,13 +306,14 @@ class Emails {
 		// Hooks into the email footer.
 		do_action( 'quillforms_email_footer', $this );
 
-		$message = $this->process_tag( $message );
 		$message = nl2br( $message );
 
 		$body = ob_get_clean();
 
 		$message = str_replace( '{email}', $message, $body );
 		$message = str_replace( '{{form:all_answers}}', $this->html_field_value( true ), $message );
+		$message = $this->process_tag( $message );
+
 		$message = make_clickable( $message );
 
 		return apply_filters( 'quillforms_email_message', $message, $this );
@@ -733,6 +734,7 @@ class Emails {
 	private function get_prepared_subject( $subject ) {
 
 		$subject = $this->process_tag( $subject );
+
 
 		$subject = trim( str_replace( array( "\r\n", "\r", "\n" ), ' ', $subject ) );
 
