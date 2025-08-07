@@ -412,6 +412,14 @@ export function getCurrentChildBlockIndex(state: State): number | undefined {
 	);
 }
 
+export function getCurrentChildBlock(state: State): FormBlock | undefined {
+	const currentChildBlockIndex = getCurrentChildBlockIndex(state);
+	if (currentChildBlockIndex !== undefined) {
+		return state.blocks[currentChildBlockIndex];
+	}
+	return undefined;
+}
+
 /**
  * Returns the current form item
  *

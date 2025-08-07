@@ -10,6 +10,9 @@ import { doAction } from '@wordpress/hooks';
  * External Dependencies
  */
 import { css } from 'emotion';
+import classnames from "classnames";
+import tinyColor from 'tinycolor2';
+
 /**
  * Internal Dependencies
  */
@@ -20,8 +23,29 @@ import useFormContext from '../../hooks/use-form-context';
 import useHandleFocus from '../../hooks/use-handle-focus';
 import useBlockTheme from '../../hooks/use-block-theme';
 import { useCorrectIncorrectQuiz, useMessages } from '../../hooks';
-import tinyColor from 'tinycolor2';
-import classnames from "classnames";
+
+// Add this function for alignment styles
+const getAlignmentStyles = (align) => {
+	switch (align) {
+		case 'left':
+			return {
+				textAlign: 'left',
+				alignItems: 'flex-start',
+			};
+		case 'right':
+			return {
+				textAlign: 'right',
+				alignItems: 'flex-end',
+			};
+		case 'center':
+		default:
+			return {
+				textAlign: 'center',
+				alignItems: 'center',
+			};
+	}
+};
+
 interface Props {
 	setIsShaking: (value: boolean) => void;
 	isShaking: boolean;
@@ -47,6 +71,10 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 	const theme = useBlockTheme(attributes?.themeId);
 	const { editor } = useFormContext();
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
+
+	// Get alignment value from attributes
+	const align = attributes?.align ?? 'center';
+	const alignmentStyles = getAlignmentStyles(align);
 
 	const isTouchScreen =
 		(typeof window !== 'undefined' && 'ontouchstart' in window) ||
@@ -212,7 +240,39 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 	return (
 		<div
 			role="presentation"
-			className="renderer-core-field-display-wrapper"
+			className={classnames(
+				"renderer-core-field-display-wrapper",
+				`renderer-core-field-display-wrapper--${align}`,
+				css`
+					/* Apply alignment styles to the wrapper */
+					display: flex;
+					flex-direction: column;
+					align-items: ${alignmentStyles.alignItems};
+					text-align: ${alignmentStyles.textAlign};
+					width: 100%;
+					
+					/* Ensure all children inherit the alignment */
+					.renderer-core-field-display,
+					.renderer-core-field-footer,
+					.renderer-core-field-display-wrapper__explanation {
+						text-align: inherit;
+						align-self: ${alignmentStyles.alignItems};
+					}
+					
+					/* For input fields and interactive elements */
+					input, textarea, select, button {
+						text-align: ${align === 'center' ? 'center' : align};
+					}
+					
+					/* Special handling for buttons */
+					.renderer-core-field-footer {
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+						align-items: ${alignmentStyles.alignItems};
+					}
+				`
+			)}
 		>
 			{blockType?.display && (
 				<div
@@ -230,40 +290,48 @@ const FieldDisplayWrapper: React.FC<Props> = ({
 								? `40px`
 								: `32px`};
 						}
-					` }
+						
+						/* Ensure field display respects alignment */
+						width: 100%;
+						text-align: inherit;
+					`}
 				>
 					{
 						/* @ts-expect-error */
 						<blockType.display {...props} />
-
-
 					}
 					<>
 						{isAnswerLocked && correctIncorrectQuiz?.enabled && correctIncorrectQuiz?.questions?.[id]?.explanation?.trim() && (
 							<div className={classnames("renderer-core-field-display-wrapper__explanation", css`
-							
 								background-color: ${tinyColor(theme.questionsColor).setAlpha(0.1).toString()};
 								color: ${theme.questionsColor};
 								padding: 16px;
 								margin-top: 16px;
 								border-radius: 4px;
 								border: 1px solid ${tinyColor(theme.questionsColor).setAlpha(0.2).toString()};
+								/* Respect alignment */
+								text-align: inherit;
+								align-self: ${alignmentStyles.alignItems};
+								width: 100%;
+								max-width: 700px;
 							`)}>
 								<div className={classnames("renderer-core-field-display-wrapper__explanation__heading", css`
 									margin-bottom: 15px;
+									/* Ensure heading text respects alignment */
+									text-align: inherit;
 								`)}>
 									<strong>{messages['label.answersExplanation']}</strong>
 								</div>
 								{correctIncorrectQuiz?.questions[id].explanation}
 							</div>
-
 						)}
 					</>
-
 				</div>
-
 			)}
-			<BlockFooter shakingErr={shakingErr} isPending={isPending} />
+			<BlockFooter
+				shakingErr={shakingErr}
+				isPending={isPending}
+			/>
 		</div>
 	);
 };

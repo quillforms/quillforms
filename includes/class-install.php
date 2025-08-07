@@ -39,6 +39,7 @@ class Install {
 	public static function check_version() {
 		self::deactivate_old_entries_addon();
 		self::deactivate_old_thankyou_screen_addon();
+		self::deactivate_funnelkit_addon();
 		if ( version_compare( get_option( 'quillforms_version' ), QUILLFORMS_VERSION, '<' ) ) {
 			self::install();
 			do_action( 'quillforms_updated' );
@@ -263,6 +264,16 @@ class Install {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
 		$plugin_path = 'quillforms-customthankyouscreenblock/quillforms-customthankyouscreenblock.php';
+		if ( is_plugin_active( $plugin_path ) ) {
+			deactivate_plugins( $plugin_path );
+		}
+	}
+
+	private static function deactivate_funnelkit_addon() {
+		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'deactivate_plugins' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+		$plugin_path = 'quillforms-funnelkit/quillforms-funnelkit.php';
 		if ( is_plugin_active( $plugin_path ) ) {
 			deactivate_plugins( $plugin_path );
 		}

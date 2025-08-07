@@ -310,7 +310,7 @@ const DropdownDisplay = (props) => {
 	};
 
 	return (
-		<div ref={wrapperRef} style={{ position: 'relative' }}>
+		<div ref={wrapperRef} style={{ position: 'relative', width: '100%' }}>
 			<input
 				ref={inputRef}
 				className={cx(

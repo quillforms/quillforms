@@ -117,6 +117,12 @@ export const registerBlockType = (
 			default: false,
 		};
 	}
+	if (supports.align) {
+		attributes.align = {
+			type: 'string',
+			default: name === 'welcome-screen' || name === 'thankyou-screen' ? 'center' : 'left',
+		};
+	}
 	if (supports.attachment) {
 		attributes.attachment = {
 			type: 'object',

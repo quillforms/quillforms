@@ -1,15 +1,12 @@
+/* Remove positioning from base counter - it's now handled by the header */
 .renderer-components-block-counter {
 	& {
-		position: absolute;
-		right: 100%;
-		margin-right: 16px;
-		top: 0px;
 		display: flex;
 		align-items: center;
 		font-size: 16px;
+
 		@media (max-width: $break-small) {
 			font-size: 14px;
-			margin-right: 7px;
 		}
 	}
 
@@ -36,6 +33,63 @@
 		}
 	}
 }
+
+/* Keep RTL support */
 html[dir="rtl"] .renderer-components-block-counter__arrow-icon {
 	transform: rotate(180deg);
+}
+
+/* Header positioning styles */
+.renderer-components-question-header {
+	position: relative;
+}
+
+/* Left alignment positioning */
+.renderer-components-question-header--left .renderer-components-block-counter {
+	position: absolute;
+	right: 100%;
+	margin-right: 16px;
+	top: 0;
+}
+
+
+
+.renderer-components-question-header--center .renderer-components-block-counter {
+	flex-shrink: 0;
+	position: static;
+}
+
+.renderer-components-question-header--center .renderer-components-question-header__text-content {
+	flex: none;
+	max-width: 700px;
+}
+
+/* Right alignment positioning */
+.renderer-components-question-header--right .renderer-components-block-counter {
+	position: absolute;
+	left: 100%;
+	margin-left: 16px;
+	right: auto;
+	top: 0;
+	flex-direction: row-reverse;
+}
+
+.renderer-components-question-header--right .renderer-components-block-counter .renderer-components-block-counter__value {
+	margin-right: 0;
+	margin-left: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: $break-small) {
+	.renderer-components-question-header--left .renderer-components-block-counter {
+		margin-right: 7px;
+	}
+
+	.renderer-components-question-header--center .renderer-components-question-header__content {
+		gap: 7px;
+	}
+
+	.renderer-components-question-header--right .renderer-components-block-counter {
+		margin-left: 7px;
+	}
 }

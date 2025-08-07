@@ -19,6 +19,7 @@ interface Props {
 	id: string;
 	parentId?: string;
 }
+
 const BlockAttachment: React.FC<Props> = ({
 	blockColor,
 	attachment,
@@ -26,6 +27,11 @@ const BlockAttachment: React.FC<Props> = ({
 	parentId,
 }) => {
 	const { setBlockAttributes } = useDispatch('quillForms/block-editor');
+
+	// Don't render if there's no URL
+	if (!attachment?.url) {
+		return null;
+	}
 
 	return (
 		<div
@@ -41,7 +47,13 @@ const BlockAttachment: React.FC<Props> = ({
 				role="presentation"
 				className="block-editor-block-attachment__delete"
 				onClick={() => {
-					setBlockAttributes(id, { attachment: {} }, parentId);
+					// Set URL to empty string instead of empty object to maintain consistency
+					setBlockAttributes(id, {
+						attachment: {
+							type: attachment.type || 'image',
+							url: ''
+						}
+					}, parentId);
 				}}
 			>
 				<div
