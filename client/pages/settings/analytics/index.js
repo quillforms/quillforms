@@ -18,7 +18,7 @@ import './style.scss';
 
 const Analytics = () => {
 	const StoreAddons = ConfigAPI.getStoreAddons();
-	const AnalyticsAddons = ['googleanalytics', 'facebookpixel', 'googletagmanager'];
+	const AnalyticsAddons = ['googleanalytics', 'matomo', 'facebookpixel', 'googletagmanager'];
 
 	return (
 		<div className="quillforms-analytics-tab">

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <defs>
+    <linearGradient id="matomoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E85D00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="12" cy="12" r="11" fill="url(#matomoGradient)" stroke="#D44A00" stroke-width="0.5"/>
+  
+  <!-- Analytics chart bars representing data visualization -->
+  <g fill="#FFFFFF" opacity="0.9">
+    <!-- Bar 1 (shortest) -->
+    <rect x="6" y="16" width="2" height="4" rx="0.5"/>
+    <!-- Bar 2 (medium) -->
+    <rect x="9" y="13" width="2" height="7" rx="0.5"/>
+    <!-- Bar 3 (tallest) -->
+    <rect x="12" y="9" width="2" height="11" rx="0.5"/>
+    <!-- Bar 4 (medium-tall) -->
+    <rect x="15" y="11" width="2" height="9" rx="0.5"/>
+  </g>
+  
+  <!-- Data point indicator -->
+  <circle cx="13" cy="8" r="1.5" fill="#FFFFFF"/>
+  
+  <!-- Subtle analytics line connecting the bars -->
+  <path d="M7,17 Q10,14 13,8 Q15,10 16,12" stroke="#FFFFFF" stroke-width="1" fill="none" opacity="0.6"/>
+</svg>
