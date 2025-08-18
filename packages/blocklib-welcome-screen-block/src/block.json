@@ -11,6 +11,7 @@
 		"required": false,
 		"attachment": true,
 		"description": true,
-		"logic": false
+		"logic": false,
+		"align": true
 	}
 }

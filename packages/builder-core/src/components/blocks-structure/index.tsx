@@ -325,12 +325,13 @@ const treeUtils = {
 
 const PureTree: React.FC = withErrorBoundary(() => {
 
-    const { blocks, allBlocks, currentPanel, blockTypes, currentBlock, currentBlockId, currentChildBlockId } = useSelect((select) => ({
+    const { blocks, allBlocks, currentPanel, blockTypes, currentBlock, currentChildBlock, currentBlockId, currentChildBlockId } = useSelect((select) => ({
         blocks: select("quillForms/block-editor").getBlocks(true),
         allBlocks: select("quillForms/block-editor").getAllBlocks(),
         blockTypes: select("quillForms/blocks").getBlockTypes(),
         currentBlockId: select("quillForms/block-editor").getCurrentBlockId(),
         currentChildBlockId: select("quillForms/block-editor").getCurrentChildBlockId(),
+        currentChildBlock: select("quillForms/block-editor").getCurrentChildBlock(),
         currentBlock: select('quillForms/block-editor').getCurrentBlock(),
         currentPanel: select("quillForms/builder-panels").getCurrentPanel(),        // @ts-ignore
     }));
@@ -370,7 +371,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
             setTriggerTreeCalculation(true);
 
         }, 200)
-    }, [currentBlockLabel, currentChildBlockLabel, currentBlockName, currentChildBlockName, currentPanel, allBlocksLength]);
+    }, [currentChildBlockLabel, currentBlockLabel, currentBlock?.attributes, currentChildBlock?.attributes, currentBlockId, currentChildBlockId, currentPanel, allBlocksLength]);
 
     // Modify the tree transformation to preserve expansion state
     const updateTree = useCallback(() => {
@@ -727,7 +728,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
                 handleBlockMove();
             }
         },
-        [tree, blocks, currentBlockId, currentChildBlockId, setBlocks, setCurrentBlock, setCurrentChildBlock]
+        [tree, blocks, currentBlock, currentChildBlock, currentBlockId, currentChildBlockId, setBlocks, setCurrentBlock, setCurrentChildBlock]
     );
 
     // Fix for group expansion

@@ -95,6 +95,7 @@ abstract class Block_Type extends stdClass {
 			'editable'        => true,
 			'required'        => true,
 			'attachment'      => true,
+			'align'           => true,
 			'defaultValue'	  => false,
 			'placeholder'	  => false,
 			'description'     => true,
@@ -268,6 +269,13 @@ abstract class Block_Type extends stdClass {
 			);
 		}
 
+		if ( $this->supported_features['align'] ) {
+			$attributes_schema['align'] = array(
+				'type'    => 'string',
+				'default' => $this->name === 'welcome-screen' || $this->name === 'thankyou-screen' ? 'center' : 'left',
+			);
+		}
+
 		if ($this->name === 'dropdown' ||
 			$this->name === 'multiple-choice' ||
 			$this->name === 'picture-choice'
@@ -287,6 +295,7 @@ abstract class Block_Type extends stdClass {
 			'type'    => 'string',
 			'default' => '',
 		);
+
 
 		return $attributes_schema;
 

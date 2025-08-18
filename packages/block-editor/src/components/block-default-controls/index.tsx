@@ -36,6 +36,7 @@ import BlockThemeControl from '../block-theme';
 import CustomHTML from '../block-custom-html';
 import BlockLayout from '../block-layout';
 import BorderRadiusTemplates from '../border-radius-templates';
+import AlignControl from '../block-align';
 
 
 const WidthControl = ({ value, onChange }) => {
@@ -147,6 +148,7 @@ const DefaultControls: React.FC<Props> = ({
 		defaultValueSupport,
 		numericSupport,
 		placeholderSupport,
+		alignSupport,
 	} = useSelect((select) => {
 		return {
 			editableSupport: select('quillForms/blocks').hasBlockSupport(
@@ -176,6 +178,10 @@ const DefaultControls: React.FC<Props> = ({
 			numericSupport: select('quillForms/blocks').hasBlockSupport(
 				blockName,
 				'numeric'
+			),
+			alignSupport: select('quillForms/blocks').hasBlockSupport(
+				blockName,
+				'align'
 			),
 		};
 	});
@@ -271,7 +277,7 @@ const DefaultControls: React.FC<Props> = ({
 								<BaseControl>
 									<ControlWrapper>
 										<ControlLabel label={__('Image', 'quillforms')} />
-										{isEmpty(attachment) ? (
+										{(isEmpty(attachment) || !attachment?.url) ? (
 											<MediaUpload
 												onSelect={(media) =>
 													setAttributes({
@@ -296,7 +302,10 @@ const DefaultControls: React.FC<Props> = ({
 												className="remove-media-btn"
 												onClick={() =>
 													setAttributes({
-														attachment: {},
+														attachment: {
+															type: 'image',
+															url: '',
+														},
 													})
 												}
 												color="secondary"
@@ -458,6 +467,20 @@ const DefaultControls: React.FC<Props> = ({
 					)}
 				</>
 			)}
+			{alignSupport && (
+				<BaseControl>
+					<ControlWrapper orientation="vertical">
+						<ControlLabel label={__('Align', 'quillforms')} isNew />
+						<AlignControl
+							value={attributes?.align ?? 'left'}
+							onChange={(align) => {
+								setAttributes({ align });
+							}}
+						/>
+					</ControlWrapper>
+				</BaseControl>
+			)}
+
 			{defaultValueSupport && (
 				<BaseControl>
 					<ControlWrapper orientation="vertical">

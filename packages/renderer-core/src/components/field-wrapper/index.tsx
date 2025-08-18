@@ -124,7 +124,7 @@ const FieldWrapper: React.FC = () => {
 		($field) => $field.id === currentBlockId
 	);
 
-	const position = isActive
+	const position = isActive || editor.mode === 'on'
 		? null
 		: currentFieldIndex > fieldIndex
 			? 'is-up'

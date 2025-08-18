@@ -28,6 +28,28 @@ import classNames from "classnames";
  */
 import Attachment from "./attachment";
 
+// Add this function at the top of your component
+const getAlignmentStyles = (align) => {
+  switch (align) {
+    case 'left':
+      return {
+        textAlign: 'left',
+        alignItems: 'flex-start',
+      };
+    case 'right':
+      return {
+        textAlign: 'right',
+        alignItems: 'flex-end',
+      };
+    case 'center':
+    default:
+      return {
+        textAlign: 'center',
+        alignItems: 'center',
+      };
+  }
+};
+
 let timer;
 const ThankyoucreenDisplay = ({ attributes }) => {
   const { isPreview, deviceWidth, editor } = useFormContext();
@@ -45,23 +67,16 @@ const ThankyoucreenDisplay = ({ attributes }) => {
   const screenWrapperRef = useRef();
   const screenContentRef = useRef();
 
+  // Get alignment value from attributes
+  const align = attributes?.align ?? 'center';
+  const alignmentStyles = getAlignmentStyles(align);
+
   const { resetAnswers, goToBlock } = useDispatch("quillForms/renderer-core");
   const { walkPath } = useSelect((select) => {
     return {
       walkPath: select("quillForms/renderer-core").getWalkPath(),
     };
   });
-
-  // useLayoutEffect( () => {
-  // 	if (
-  // 		screenContentRef.current.clientHeight + 150 >
-  // 		screenWrapperRef.current.clientHeight
-  // 	) {
-  // 		setStickyFooter( true );
-  // 	} else {
-  // 		setStickyFooter( false );
-  // 	}
-  // } );
 
   const parseRedirectUrl = async (url) => {
     const span = document.createElement("span");
@@ -194,11 +209,12 @@ const ThankyoucreenDisplay = ({ attributes }) => {
 							display: flex;
 							flex-direction: column;
 							justify-content: center;
-							align-items: center;
+							/* Apply alignment styles */
+							align-items: ${alignmentStyles.alignItems};
+							text-align: ${alignmentStyles.textAlign};
 							max-width: 700px;
 							padding: 30px;
 							word-wrap: break-word;
-							text-align: center;
 							margin-right: auto;
 							margin-left: auto;
 							width: 100%;
@@ -208,14 +224,16 @@ const ThankyoucreenDisplay = ({ attributes }) => {
 						  width: 100%;
 						  display: flex;
 						  flex-direction: column;
-						  align-items: center;
+						  /* Apply alignment to content container */
+						  align-items: ${alignmentStyles.alignItems};
 						}
 						
 						.renderer-components-block-label,
 						.renderer-components-block-description,
 						.renderer-components-block-custom-html {
 						  width: 100%;
-						  text-align: center;
+						  /* Inherit text alignment */
+						  text-align: inherit;
 						}
 
 						&.active.has-scroll {
@@ -246,6 +264,8 @@ const ThankyoucreenDisplay = ({ attributes }) => {
               className={css`
 								margin-top: 25px;
 								width: 100%;
+								/* Ensure content follows the alignment */
+								text-align: inherit;
 							`}
             >
               <div
@@ -253,6 +273,8 @@ const ThankyoucreenDisplay = ({ attributes }) => {
                   "renderer-components-block-label",
                   css`
                     color: ${theme.questionsColor};
+                    /* Inherit text alignment */
+                    text-align: inherit;
                   `
                 )}
               >
@@ -264,6 +286,8 @@ const ThankyoucreenDisplay = ({ attributes }) => {
                     "renderer-components-block-description",
                     css`
                       color: ${theme.questionsColor};
+                      /* Inherit text alignment */
+                      text-align: inherit;
                     `
                   )}
                 >
@@ -279,6 +303,8 @@ const ThankyoucreenDisplay = ({ attributes }) => {
                 css`
                   color: ${theme.questionsColor};
                   width: 100%;
+                  /* Inherit text alignment */
+                  text-align: inherit;
                 `
               )}
               dangerouslySetInnerHTML={{
@@ -289,6 +315,7 @@ const ThankyoucreenDisplay = ({ attributes }) => {
           {attributes.showButton && (
             <ScreenAction
               buttonText={attributes.buttonText}
+              align={align} // Pass alignment to ScreenAction
               next={() => {
                 if (isPreview || editor.mode === 'on') return;
                 clearTimeout(timer);
@@ -338,13 +365,26 @@ const ThankyoucreenDisplay = ({ attributes }) => {
   );
 };
 
-const ScreenAction = ({ isSticky, buttonText, next }) => {
+// Updated ScreenAction component to support alignment
+const ScreenAction = ({ isSticky, buttonText, next, align = 'center' }) => {
   const messages = useMessages();
   const theme = useTheme();
   const isTouchScreen =
     "ontouchstart" in window ||
     navigator.maxTouchPoints > 0 ||
     navigator.msMaxTouchPoints > 0;
+
+  const getActionAlignment = (align) => {
+    switch (align) {
+      case 'left':
+        return 'flex-start';
+      case 'right':
+        return 'flex-end';
+      case 'center':
+      default:
+        return 'center';
+    }
+  };
 
   return (
     <div
@@ -353,10 +393,11 @@ const ScreenAction = ({ isSticky, buttonText, next }) => {
       }, css`
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: ${getActionAlignment(align)};
+        align-items: ${getActionAlignment(align)};
         margin-top: 20px;
         width: 100%;
+        text-align: ${align};
       `)}
     >
       <div
@@ -364,7 +405,7 @@ const ScreenAction = ({ isSticky, buttonText, next }) => {
           "qf-thankyou-screen-block__action",
           css`
             width: 100%;
-            text-align: center;
+            text-align: ${align};
           `
         )}
       >
@@ -377,7 +418,8 @@ const ScreenAction = ({ isSticky, buttonText, next }) => {
           css`
             color: ${theme.questionsColor};
             width: 100%;
-            text-align: center;
+            text-align: ${align};
+            margin-top: 8px;
           `
         )}
       >
