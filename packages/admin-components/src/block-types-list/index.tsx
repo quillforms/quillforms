@@ -33,7 +33,7 @@ import {
 	SignatureIcon,
 	ThankYouIcon,
 	CalendarPickerIcon,
-	InputMaskIcon
+	InputMaskIcon,
 } from './pro-blocks-icons';
 import ProLabel from '../pro-label';
 import { Button } from '../button';
@@ -43,19 +43,20 @@ interface Props {
 	parent?: string;
 }
 const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
-	let { blockTypes, welcomeScreensLength, doesPartialSubmissionPointExist } = useSelect((select) => {
-		return {
-			blockTypes: select('quillForms/blocks').getBlockTypes(),
-			welcomeScreensLength: select(
-				'quillForms/block-editor'
-				// @ts-expect-error
-			).getWelcomeScreensLength(),
-			doesPartialSubmissionPointExist: select(
-				'quillForms/block-editor'
-				// @ts-expect-error
-			).doesPartialSubmissionPointExist(),
-		};
-	});
+	let { blockTypes, welcomeScreensLength, doesPartialSubmissionPointExist } =
+		useSelect((select) => {
+			return {
+				blockTypes: select('quillForms/blocks').getBlockTypes(),
+				welcomeScreensLength: select(
+					'quillForms/block-editor'
+					// @ts-expect-error
+				).getWelcomeScreensLength(),
+				doesPartialSubmissionPointExist: select(
+					'quillForms/block-editor'
+					// @ts-expect-error
+				).doesPartialSubmissionPointExist(),
+			};
+		});
 
 	const license = ConfigApi.getLicense();
 
@@ -63,7 +64,8 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 		blockTypes = pickBy(blockTypes, (blockType) => {
 			return (
 				(blockType.supports.editable === true &&
-					!blockType.supports.innerBlocks) || blockType.name === 'statement'
+					!blockType.supports.innerBlocks) ||
+				blockType.name === 'statement'
 			);
 		});
 	}
@@ -78,10 +80,10 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 			color: blockColors['calendar-picker'],
 			icon: <CalendarPickerIcon />,
 		},
-		// 'autocomplete-google-address': {
-		// 	title: 'Auto Complete Google Address',
-		// 	icon: <GeolocationIcon />,
-		// },
+		'autocomplete-google-address': {
+			title: 'Auto Complete Google Address',
+			icon: <GeolocationIcon />,
+		},
 		phone: {
 			title: 'Phone',
 			color: blockColors.phone,
@@ -122,7 +124,7 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 		// 	color: blockColors['auto-complete-address'],
 		// 	icon: <AutoCompleteAddressIcon />,
 		// },
-		"cal.com": {
+		'cal.com': {
 			title: 'Cal.com',
 			color: '#fff',
 			icon: () => {
@@ -137,14 +139,13 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 						Cal
 					</i>
 				);
-			}
+			},
 		},
-		"input-mask": {
+		'input-mask': {
 			title: 'Input Mask',
 			color: blockColors['input-mask'],
-			icon: <InputMaskIcon />
-
-		}
+			icon: <InputMaskIcon />,
+		},
 	};
 	return (
 		<div className="admin-components-block-types-list">
@@ -157,14 +158,15 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 					isDragDisabled = true;
 				}
 
-				if (blockName === 'partial-submission-point' && doesPartialSubmissionPointExist) {
+				if (
+					blockName === 'partial-submission-point' &&
+					doesPartialSubmissionPointExist
+				) {
 					isDragDisabled = true;
 				}
 
 				return (
-					<div
-						key={blockName}
-					>
+					<div key={blockName}>
 						<div
 							className={classnames(
 								'admin-components-blocks-list__item-wrapper'
@@ -222,7 +224,7 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 													text-decoration: none;
 													color: #fff;
 												}
-											` }
+											`}
 										>
 											<NavLink
 												to={`/admin.php?page=quillforms&path=addons`}
