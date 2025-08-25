@@ -22,7 +22,7 @@ const Integrations = () => {
 			<Panel>
 				{Object.entries(integrationsModules).filter(
 
-					([slug, integration]) => slug !== 'googleanalytics' && slug !== 'facebookpixel' && slug !== 'googletagmanager'
+					([slug, integration]) => slug !== 'googleanalytics' && slug !== 'facebookpixel' && slug !== 'googletagmanager' && slug !== 'matomo'
 				).map(
 					([slug, integration]) => {
 						const icon = integration.icon;
