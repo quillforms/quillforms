@@ -109,19 +109,61 @@ const BlockTypesListItem: FC<Props> = memo(
 		 */
 		const createBlock = (
 			name: string,
-			attributes: Record<string, unknown> = {}
+			attributes: Record<string, unknown> = {},
+			forceId: string = ''
 		): FormBlock | void => {
 			// Blocks are stored with a unique ID, the assigned type name, the block
 			// attributes.
 
 			let createdBlock = {
-				id: name === 'partial-submission-point' ? 'partial-submission-point' : generateBlockId(),
+				id: forceId ? forceId : name === 'partial-submission-point' ? 'partial-submission-point' : generateBlockId(),
 				name,
 				attributes: sanitizeBlockAttributes(name, attributes),
 			};
 
 			if (name === 'group') {
 				createdBlock.innerBlocks = [createBlock('short-text', {})]
+			}
+
+			if (name === "address") {
+				createdBlock.innerBlocks = [
+					createBlock('autocomplete-address', {
+						label: 'Address',
+						placeholder: 'Enter your address',
+					},
+						createdBlock.id + '-address'
+					),
+					createBlock('short-text', {
+						label: 'Address Line 2',
+						placeholder: 'Address Line 2',
+					},
+						createdBlock.id + '-address-line-2'
+					),
+					createBlock('short-text', {
+						label: 'City',
+						placeholder: 'City',
+					},
+						createdBlock.id + '-city'
+					),
+					createBlock('short-text', {
+						label: 'State',
+						placeholder: 'State',
+					},
+						createdBlock.id + '-state'
+					),
+					createBlock('short-text', {
+						label: 'Postal Code',
+						placeholder: 'Postal Code',
+					},
+						createdBlock.id + '-postal-code'
+					),
+					createBlock('short-text', {
+						label: 'Country',
+						placeholder: 'Country',
+					},
+						createdBlock.id + '-country'
+					),
+				]
 			}
 
 			return createdBlock;
