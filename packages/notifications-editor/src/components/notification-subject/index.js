@@ -32,6 +32,7 @@ const EmailSubject = ({
 				<TextControl
 					value={value}
 					onChange={(newVal) => setValue(newVal)}
+					withMergeTags={true}
 				/>
 				{!isValid && isReviewing && (
 					<AlertMessageWrapper type="error">

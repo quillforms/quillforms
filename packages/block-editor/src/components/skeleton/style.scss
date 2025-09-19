@@ -22,7 +22,8 @@
 	}
 
 	.renderer-core-field-display-wrapper,
-	.blocktype-group-block .renderer-core-field-footer {
+	.blocktype-group-block .renderer-core-field-footer,
+	.blocktype-address-block .renderer-core-field-footer {
 		pointer-events: none;
 		user-select: none;
 		/* Optional: Remove from tab order */
@@ -37,7 +38,8 @@
 	}
 
 	// except group block
-	.blocktype-group-block .renderer-core-field-display-wrapper {
+	.blocktype-group-block .renderer-core-field-display-wrapper,
+	.blocktype-address-block .renderer-core-field-display-wrapper {
 		pointer-events: auto;
 	}
 
@@ -66,6 +68,7 @@
 }
 
 
-.block-editor-block-edit__skeleton.is-child-active .blocktype-group-block .renderer-components-question-header {
+.block-editor-block-edit__skeleton.is-child-active .blocktype-group-block .renderer-components-question-header,
+.block-editor-block-edit__skeleton.is-child-active .blocktype-address-block .renderer-components-question-header {
 	opacity: 0.3 !important
 }

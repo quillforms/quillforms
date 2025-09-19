@@ -1,7 +1,7 @@
  === Quill Forms | Typeform Alternative | Create Conversational Multi Step Form, Survey, Quiz, Cost Estimation or Donation Form on WordPress ===
 Contributors: quillforms, mdmag
 Tested up to: 6.8.1
-Stable tag: 5.2.0
+Stable tag: 5.3.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform, conversational, forms, survey, quiz
 License: GPLv2 or later
@@ -144,6 +144,15 @@ Yes, Quill Forms works with all major WordPress page builders through iframe emb
 
 
 == Changelog ==
+
+= 5.3.0 = 19 September 2025
+Feature: Adding Google Autocomplete address block
+Feature: Adding Matomo integration
+Feature: Support Merge tags for email subject
+Feature: Adding right alignment option for blocks
+Feature: Make the "next" button sticky when it is not visible
+Fix: Rename SendInBlue to be "Brevo"
+Fix: Re-adding FunnelKit Automations addon
 
 = 5.2.0 = 7 August 2025
 Feature: Add option to align the questions.

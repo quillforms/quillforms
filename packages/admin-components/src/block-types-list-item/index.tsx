@@ -169,7 +169,7 @@ const BlockTypesListItem: FC<Props> = memo(
 			return createdBlock;
 		};
 
-		const nonChildBlocks = ['welcome-screen', 'thankyou-screen', 'partial-submission-point', 'group'];
+		const nonChildBlocks = ['welcome-screen', 'thankyou-screen', 'partial-submission-point', 'group', 'address'];
 
 
 		const handleBlockInsertion = useCallback((blockToInsert) => {

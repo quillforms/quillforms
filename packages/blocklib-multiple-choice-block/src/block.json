@@ -61,6 +61,14 @@
 		"otherText": {
 			"type": "string",
 			"default": "Other"
+		},
+		"otherPlaceholder": {
+			"type": "string",
+			"default": "Please specify"
+		},
+		"deselectAllWhenOtherSelected": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"logicalOperators": [

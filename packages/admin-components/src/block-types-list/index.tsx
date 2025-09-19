@@ -117,11 +117,11 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 			color: '#fff',
 			icon: <CaledlyIcon />,
 		},
-		// 'auto-complete-address': {
-		// 	title: 'Auto Complete Address',
-		// 	color: blockColors['auto-complete-address'],
-		// 	icon: <AutoCompleteAddressIcon />,
-		// },
+		'autocomplete-address': {
+			title: 'Auto Complete Google Address',
+			color: blockColors['auto-complete-address'],
+			icon: <GeolocationIcon />,
+		},
 		"cal.com": {
 			title: 'Cal.com',
 			color: '#fff',
@@ -148,7 +148,7 @@ const BlockTypesList: React.FC<Props> = ({ destinationIndex, parent }) => {
 	};
 	return (
 		<div className="admin-components-block-types-list">
-			{map(keys(blockTypes), (blockName, index) => {
+			{map(keys(blockTypes).filter((blockName) => blockName !== 'autocomplete-address'), (blockName, index) => {
 				let isDragDisabled = false;
 				if (
 					blockName === 'welcome-screen' &&

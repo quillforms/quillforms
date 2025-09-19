@@ -192,7 +192,7 @@ export const getBlockOrderById = (
  * @return {FormBlock[]} Editable fields
  */
 export function getEditableFields(state: State): FormBlock[] {
-	const blocks = getBlocks(state);
+	const blocks = getAllBlocks(state);
 	return blocks.filter((block) => {
 		const blockType =
 			select('quillForms/blocks').getBlockTypes()[block.name];

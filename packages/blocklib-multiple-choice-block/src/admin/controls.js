@@ -19,7 +19,7 @@ import { __ } from '@wordpress/i18n';
 
 const multipleChoiceControls = (props) => {
 	const {
-		attributes: { multiple, verticalAlign, choices, min, max, other, otherText },
+		attributes: { multiple, verticalAlign, choices, min, max, other, otherText, otherPlaceholder, deselectAllWhenOtherSelected },
 		setAttributes,
 	} = props;
 	return (
@@ -98,17 +98,41 @@ const multipleChoiceControls = (props) => {
 				</ControlWrapper>
 			</BaseControl>
 			{other && (
-				<BaseControl>
-					<ControlWrapper orientation="vertical">
-						<ControlLabel label={__("Other Text", "quillforms")} />
-						<TextControl
-							value={otherText}
-							onChange={(val) => {
-								setAttributes({ otherText: val });
-							}}
-						/>
-					</ControlWrapper>
-				</BaseControl>
+				<>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<ControlLabel label={__("Other Text", "quillforms")} />
+							<TextControl
+								value={otherText}
+								onChange={(val) => {
+									setAttributes({ otherText: val });
+								}}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<ControlLabel label={__("Other Placeholder", "quillforms")} />
+							<TextControl
+								value={otherPlaceholder}
+								onChange={(val) => {
+									setAttributes({ otherPlaceholder: val });
+								}}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					{multiple && (
+						<BaseControl>
+							<ControlWrapper orientation="horizontal">
+								<ControlLabel label={__("Deselect All When Other Selected", "quillforms")} />
+								<ToggleControl
+									checked={deselectAllWhenOtherSelected}
+									onChange={() => setAttributes({ deselectAllWhenOtherSelected: !deselectAllWhenOtherSelected })}
+								/>
+							</ControlWrapper>
+						</BaseControl>
+					)}
+				</>
 			)}
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">

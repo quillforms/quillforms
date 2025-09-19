@@ -538,16 +538,16 @@ class Store
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/recaptcha/icon.svg',
 					),
 				),
-				// 'geolocation'               => array(
-				// 'name'           => esc_html__( 'Geolocation', 'quillforms' ),
-				// 'description'    => esc_html__( 'Geolocation addon allows you to add autocompletion to your address fields.', 'quillforms' ),
-				// 'plugin_file'    => 'quillforms-geolocation/quillforms-geolocation.php',
-				// 'plan'           => 'basic',
-				// 'is_integration' => false,
-				// 'assets'         => array(
-				// 'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/geolocation/icon.svg',
-				// ),
-				// ),
+				'geolocation'               => array(
+					'name'           => esc_html__( 'Autocomplete Address Block', 'quillforms' ),
+					'description'    => esc_html__( 'Autocomplete Address Block allows you to add autocompletion to your address fields.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-geolocation/quillforms-geolocation.php',
+					'plan'           => 'basic',
+					'is_integration' => false,
+					'assets'         => array(
+					'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/geolocation/icon.svg',
+					),
+				),
 				'customfonts'         => array(
 					'name'           => esc_html__('Custom Fonts', 'quillforms'),
 					'description'    => esc_html__('Upload your own custom fonts to use them in Quill Forms!', 'quillforms'),
@@ -913,8 +913,8 @@ class Store
 					),
 				),
 				'sendinblue'          => array(
-					'name'           => esc_html__('Sendinblue', 'quillforms'),
-					'description'    => esc_html__('Send new contacts to your Sendinblue account.', 'quillforms'),
+					'name'           => esc_html__('Brevo', 'quillforms'),
+					'description'    => esc_html__('Send new contacts to your Brevo account.', 'quillforms'),
 					'plugin_file'    => 'quillforms-sendinblue/quillforms-sendinblue.php',
 					'plan'           => 'basic',
 					'is_integration' => true,
@@ -1168,16 +1168,16 @@ class Store
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/gohighlevel/icon.png',
 					),
 				),
-				// 'funnelkit'                 => array(
-				// 	'name'           => esc_html__( 'FunnelKit', 'quillforms' ),
-				// 	'description'    => esc_html__( 'FunnelKit addon allows you to connect your forms with FunnelKit Automations.', 'quillforms' ),
-				// 	'plugin_file'    => 'quillforms-funnelkit/quillforms-funnelkit.php',
-				// 	'plan'           => 'plus',
-				// 	'is_integration' => true,
-				// 	'assets'         => array(
-				// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/funnelkit/icon.svg',
-				// 	),
-				// ),
+				'funnelkit'                 => array(
+					'name'           => esc_html__( 'FunnelKit', 'quillforms' ),
+					'description'    => esc_html__( 'FunnelKit addon allows you to connect your forms with FunnelKit Automations.', 'quillforms' ),
+					'plugin_file'    => 'quillforms-funnelkit/quillforms-funnelkit.php',
+					'plan'           => 'plus',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/funnelkit/icon.svg',
+					),
+				),
 				'groundhogg'                => array(
 					'name'           => esc_html__('Groundhogg', 'quillforms'),
 					'description'    => esc_html__('Groundhogg addon allows you to connect your forms with Groundhogg to send your leads to your Groundhogg.', 'quillforms'),

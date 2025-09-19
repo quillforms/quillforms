@@ -25,7 +25,9 @@ const ChoiceItem = ({
 	val,
 	setVal,
 	checkfieldValidation,
-	multiple
+	multiple,
+	otherPlaceholder,
+	deselectAllWhenOtherSelected
 }) => {
 	const { answersColor } = theme;
 
@@ -81,14 +83,14 @@ const ChoiceItem = ({
 				setOtherText('');
 			} else {
 				// Add other option with empty text
-				// if (multiple) {
-				// 	$val.push({
-				// 		type: 'other',
-				// 		value: ''
-				// 	});
-				// } else {
-				$val = [{ type: 'other', value: '' }];
-				// }
+				if (multiple && !deselectAllWhenOtherSelected) {
+					$val.push({
+						type: 'other',
+						value: ''
+					});
+				} else {
+					$val = [{ type: 'other', value: '' }];
+				}
 			}
 			setVal($val);
 			checkfieldValidation($val);
@@ -176,7 +178,7 @@ const ChoiceItem = ({
 						type="text"
 						value={otherTextValue}
 						onChange={(e) => handleOtherTextChange(e.target.value)}
-						placeholder="Please specify..."
+						placeholder={otherPlaceholder}
 						className={css`
 							border: none !important;
 							background: transparent;

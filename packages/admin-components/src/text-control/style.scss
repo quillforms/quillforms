@@ -1,5 +1,7 @@
 .admin-components-text-control {
 	width: 100%;
+	position: relative;
+
 	input {
 		position: relative;
 		margin-top: 10px;
@@ -15,5 +17,16 @@
 		padding: 0;
 		box-shadow: none !important;
 		font-size: 13px !important;
+	}
+
+	.admin-components-text-control-merge-tags {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		cursor: pointer;
+	}
+
+	.block-label {
+		margin: 0 5px;
 	}
 }

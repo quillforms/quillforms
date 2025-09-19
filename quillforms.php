@@ -3,13 +3,13 @@
  * Plugin Name:       Quill Forms
  * Plugin URI:        https://www.quillforms.com/
  * Description:       Conversational Forms Builder for WordPress
- * Version:           5.2.0
+ * Version:           5.3.0
  * Author:            quillforms.com
  * Author URI:        http://www.quillforms.com
  * Text Domain:       quillforms
  * Domain Path        /languages
  * Requires at least: 5.4
- * Tested up to:      6.7.1
+ * Tested up to:      6.8.0
  * Requires PHP: 7.1
  *
  * @package QuillForms
@@ -24,7 +24,7 @@ if ( ! defined( 'QUILLFORMS_PLUGIN_FILE' ) ) {
 
 // Plugin version.
 if ( ! defined( 'QUILLFORMS_VERSION' ) ) {
-	define( 'QUILLFORMS_VERSION', '5.2.0' );
+	define( 'QUILLFORMS_VERSION', '5.3.0' );
 }
 
 // Plugin Folder Path.

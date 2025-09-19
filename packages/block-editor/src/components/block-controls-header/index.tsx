@@ -13,15 +13,17 @@ import { memo } from 'react';
  * External Dependencies
  */
 import { css } from 'emotion';
+import { FormBlock } from '@quillforms/types';
 
 interface Props {
 	id: string;
 	isChildBlock: boolean;
 	currentBlockName: string;
 	parentId: string;
+	parentBlock: FormBlock;
 }
 
-const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChildBlock, parentId }) => {
+const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChildBlock, parentId, parentBlock }) => {
 
 	const { blockTypes, welcomeScreensLength } = useSelect((select) => {
 		return {
@@ -31,7 +33,10 @@ const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChi
 			welcomeScreensLength: select('quillForms/block-editor').getWelcomeScreensLength(),
 		};
 	});
-	if (currentBlockName === 'group') {
+	if (isChildBlock && parentBlock?.name === 'address') {
+		return <></>
+	}
+	if (currentBlockName === 'group' || currentBlockName === 'address') {
 		return (
 			<div className="block-editor-block-controls-header">
 				<div className={css`
@@ -47,10 +52,10 @@ const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChi
 				`}>
 					<div className="block-controls-blocktype-select">
 						<BlockIconBox
-							icon={blockTypes['group']?.icon}
-							color={blockTypes['group']?.color}
+							icon={blockTypes[currentBlockName]?.icon}
+							color={blockTypes[currentBlockName]?.color}
 						/>
-						<span>Group</span>
+						<span>{currentBlockName === 'group' ? 'Group' : 'Address'}</span>
 					</div>
 
 				</div>
@@ -69,7 +74,7 @@ const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChi
 			}
 
 			// Exclude specific blocks
-			const excludedBlocks = ['partial-submission-point', 'group'];
+			const excludedBlocks = ['partial-submission-point', 'group', 'address', 'autocomplete-address'];
 			if (welcomeScreensLength > 0 || isChildBlock) {
 				excludedBlocks.push('welcome-screen');
 			}

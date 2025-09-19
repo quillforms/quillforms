@@ -34,7 +34,7 @@ const ChoicesWrapper =
 	}) => {
 		const { editor } = useFormContext();
 
-		const { verticalAlign, multiple, choices, themeId, max, min, other, otherText } = attributes;
+		const { verticalAlign, multiple, choices, themeId, max, min, other, otherText, otherPlaceholder, deselectAllWhenOtherSelected } = attributes;
 		const cx = useCx();
 
 		const theme = useBlockTheme(themeId);
@@ -109,6 +109,9 @@ const ChoicesWrapper =
 				}
 			} else {
 				if (multiple) {
+					if (deselectAllWhenOtherSelected) {
+						$val = $val.filter(item => item?.type !== 'other');
+					}
 					$val.push(newValue);
 				} else {
 					// If selecting 'Other', set value directly
@@ -188,6 +191,8 @@ const ChoicesWrapper =
 									selected={choice.selected}
 									correctIncorrectQuiz={correctIncorrectQuiz}
 									multiple={multiple}
+									otherPlaceholder={otherPlaceholder}
+									deselectAllWhenOtherSelected={deselectAllWhenOtherSelected}
 									isOther={choice.isOther}
 									otherText={otherText}
 									val={val}

@@ -64,12 +64,12 @@ const BlockControls = withErrorBoundary(() => {
 
 	return (
 		<div className="block-editor-block-controls">
-			{/* Block Controls Header */}
 			<BlockControlsHeader
 				isChildBlock={isChildBlock}
 				parentId={parentId}
 				id={isChildBlock ? currentChildBlockId : currentBlockId}
 				currentBlockName={blockName}
+				parentBlock={currentFormBlock}
 			/>
 
 			{/* Default Controls */}
@@ -82,7 +82,7 @@ const BlockControls = withErrorBoundary(() => {
 			/>
 
 			{/* Custom Controls (if any) */}
-			{blockType?.controls && (
+			{blockType?.controls && (!isChildBlock || (isChildBlock && currentFormBlock.name !== 'address')) && (
 				<blockType.controls
 					id={isChildBlock ? currentChildBlockId : currentBlockId}
 					parentId={isChildBlock ? parentId : null}

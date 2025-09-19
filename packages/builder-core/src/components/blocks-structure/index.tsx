@@ -166,15 +166,19 @@ const treeUtils = {
                 id: block.id,
                 children: block.name !== 'group' ? [] : block.innerBlocks?.map(b => b.id) || [],
                 hasChildren: block.name !== 'group' ? false : !!block.innerBlocks?.length,
-                isExpanded: prevItems?.[block.id]?.isExpanded ?? true, // Preserve expansion state
+                isExpanded: prevItems?.[block.id]?.isExpanded ?? true,
                 data: {
                     name: block.name,
                     attributes: block.attributes,
                     blockOrder,
+                    // Preserve original innerBlocks for address blocks
+                    ...(block.name === 'address' && block.innerBlocks && {
+                        originalInnerBlocks: block.innerBlocks
+                    })
                 },
             };
 
-            if (block.name === 'group' && block.innerBlocks?.length) {
+            if ((block.name === 'group' || block.name === 'address') && block.innerBlocks?.length) {
                 treeUtils.processBlocks(
                     block.innerBlocks,
                     blockTypes,
@@ -189,7 +193,6 @@ const treeUtils = {
     },
 
     transformBlocksToTree(blocks: FormBlocks, blockTypes, prevTree?: TreeData): TreeData {
-        //console.log('blocks', blocks);
         const items: Record<ItemId, TreeItem> = {
             root: {
                 id: "root",
@@ -208,7 +211,6 @@ const treeUtils = {
         return { rootId: "root", items };
     },
 
-
     rebuildBlocks(tree: TreeData, parentId: ItemId = "root", parentOrder = ""): Block[] {
         const item = tree.items[parentId];
         return item.children.map((childId, index) => {
@@ -223,7 +225,7 @@ const treeUtils = {
                 blockOrder,
                 innerBlocks: child.hasChildren
                     ? treeUtils.rebuildBlocks(tree, child.id, blockOrder)
-                    : undefined,
+                    : child.data.originalInnerBlocks || undefined, // Use original inner blocks for address
             } as Block;
         });
     },
@@ -270,7 +272,7 @@ const treeUtils = {
                 blockOrder = `${parentOrder}${identAlphabetically(indexInParent)}`;
             }
 
-            // Update the block order
+            // Update the block order, preserving originalInnerBlocks
             child.data = {
                 ...child.data,
                 blockOrder
