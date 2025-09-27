@@ -10,7 +10,7 @@ import Icon from './icon';
 export const blockAdminSettings = {
     color: '#45B7D1',
     icon: Icon,
-    title: 'Quill Booking',
+    title: 'Quill Booking(Calendly Alternative)',
     controls,
     order: 3,
 };

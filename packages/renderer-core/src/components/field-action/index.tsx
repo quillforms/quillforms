@@ -17,18 +17,20 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import useMessages from '../../hooks/use-messages';
 import useBlockTheme from '../../hooks/use-block-theme';
+import { useFormContext } from '../../hooks';
 
 
 const FieldAction = ({ clickHandler, show }) => {
 	const messages = useMessages();
 	const fieldRenderContext = __experimentalUseFieldRenderContext();
+	const { editor } = useFormContext()
 	const blockTypes = useBlockTypes();
 
 	if (!fieldRenderContext || !messages || !blockTypes) {
 		return null;
 	}
 
-	const { blockName, isSubmitBtnVisible, attributes } = fieldRenderContext;
+	const { blockName, isSubmitBtnVisible, attributes, } = fieldRenderContext;
 	const theme = useBlockTheme(attributes?.themeId);
 	const [isSticky, setIsSticky] = useState(false);
 	const [hasInitialized, setHasInitialized] = useState(false);
@@ -136,6 +138,7 @@ const FieldAction = ({ clickHandler, show }) => {
 		<>
 			{/* Original container with visibility sensor */}
 			<VisibilitySensor
+				active={editor?.mode !== 'on'}
 				onChange={handleVisibilityChange}
 				throttleInterval={50} // Reduced throttle for better responsiveness
 				partialVisibility={false}
