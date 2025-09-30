@@ -382,6 +382,16 @@
 		"default": "Submit",
 		"category": "buttons-hints-placeholders"
 	},
+	"label.previous": {
+		"title": "Previous button label",
+		"default": "Previous",
+		"category": "buttons-hints-placeholders"
+	},
+	"label.next": {
+		"title": "Next button label",
+		"default": "Next",
+		"category": "buttons-hints-placeholders"
+	},
 	"label.errorAlert.noConnection": {
 		"title": "Error for no connection with server",
 		"allowedFormats": [

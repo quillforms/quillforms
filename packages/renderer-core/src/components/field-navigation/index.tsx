@@ -12,9 +12,10 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { useCurrentTheme, useFormContext, useFormSettings } from '../../hooks';
+import { useCurrentTheme, useFormContext, useFormSettings, useMessages } from '../../hooks';
 import DownIcon from './down-icon';
 import UpIcon from './up-icon';
+import Button from '../button';
 import useCorrectIncorrectQuiz from '../../hooks/use-correct-incorrect-quiz';
 
 const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
@@ -32,6 +33,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 	const { beforeGoingNext } = useFormContext();
 	const theme = useCurrentTheme();
 	const settings = useFormSettings();
+	const messages = useMessages();
 	const formContext = useFormContext();
 	const { editor } = formContext;
 	const correctIncorrectQuiz = useCorrectIncorrectQuiz();
@@ -106,48 +108,62 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 				hidden: !shouldFooterBeDisplayed,
 			})}
 		>
-			<div
-				className={classnames(
-					'renderer-core-field-navigation__up-icon',
-					{
-						rotate: settings?.animationDirection === 'horizontal',
-					},
-					css`
+			{settings?.navigationType === 'arrows' && (
+				<>
+					<div
+						className={classnames(
+							'renderer-core-field-navigation__up-icon',
+							{
+								rotate: settings?.animationDirection === 'horizontal',
+							},
+							css`
 						background: ${theme.buttonsBgColor};
 					`
-				)}
-				onClick={() => {
-					if (editor.mode === 'on') return;
-					goPrev();
-				}}
-			>
-				<UpIcon />
-			</div>
-			<div
-				className={classnames(
-					'renderer-core-field-navigation__down-icon',
-					{
-						rotate: settings?.animationDirection === 'horizontal',
-					},
-					css`
+						)}
+						onClick={() => {
+							if (editor.mode === 'on') return;
+							goPrev();
+						}}
+					>
+						<UpIcon />
+					</div>
+					<div
+						className={classnames(
+							'renderer-core-field-navigation__down-icon',
+							{
+								rotate: settings?.animationDirection === 'horizontal',
+							},
+							css`
 						background: ${theme.buttonsBgColor};
 					`
-				)}
-				onClick={() => {
-					if (
-						walkPath[walkPath.length - 1].id !== currentBlockId
-					) {
-						//console.log(isCurrentBlockValid);
-						if (isCurrentBlockValid) {
-							goNextReally();
-						} else {
-							setIsCurrentBlockSafeToSwipe(false);
-						}
-					}
-				}}
-			>
-				<DownIcon />
-			</div>
+						)}
+						onClick={() => {
+							if (
+								walkPath[walkPath.length - 1].id !== currentBlockId
+							) {
+								//console.log(isCurrentBlockValid);
+								if (isCurrentBlockValid) {
+									goNextReally();
+								} else {
+									setIsCurrentBlockSafeToSwipe(false);
+								}
+							}
+						}}
+					>
+						<DownIcon />
+					</div>
+				</>
+			)}
+			{settings?.navigationType === 'buttons' && (
+				<>
+					<Button className="renderer-core-field-navigation__up-button" onClick={() => goPrev()}>
+						{messages['label.previous']}
+					</Button>
+					<Button className="renderer-core-field-navigation__down-button" onClick={() => goNextReally()}>
+						{messages['label.next']}
+					</Button>
+				</>
+			)}
 		</div>
 	);
 };

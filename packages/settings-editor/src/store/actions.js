@@ -9,7 +9,9 @@ import {
 	SHOW_QUESTIONS_NUMBERS,
 	DISPLAY_BRANDING,
 	SAVE_ANSWERS_IN_BROWSER,
-	ENABLE_AUTO_SUBMIT
+	ENABLE_AUTO_SUBMIT,
+	NAVIGATION_TYPE,
+
 } from './constants';
 export const setUpStore = (initialPayload) => {
 	return {
@@ -83,5 +85,12 @@ export const enableAutoSubmit = (flag) => {
 	return {
 		type: ENABLE_AUTO_SUBMIT,
 		flag
+	}
+}
+
+export const setNavigationType = (navigationType) => {
+	return {
+		type: NAVIGATION_TYPE,
+		navigationType
 	}
 }

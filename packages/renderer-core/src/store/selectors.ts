@@ -547,3 +547,14 @@ export function getIncorrectAnswersCount(state: State): number {
 export function getGlobalHash(state: State): string {
 	return state.submit.globalHash;
 }
+
+/**
+ * Get is field action sticky
+ *
+ * @param {State} state Global application state.
+ * 
+ * @return {boolean} is field action sticky
+ */
+export function getIsFieldActionSticky(state: State): boolean {
+	return state.swiper.isFieldActionSticky;
+}

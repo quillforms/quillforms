@@ -25,6 +25,7 @@ import {
 	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
 	SET_THANKYOU_SCREENS,
 	SET_GLOBAL_HASH,
+	SET_IS_FIELD_ACTION_STICKY,
 } from './constants';
 export type Screen = {
 	id: string;
@@ -48,6 +49,7 @@ export type SwiperState = {
 	isCurrentBlockSafeToSwipe: boolean;
 	isThankyouScreenActive: boolean;
 	isWelcomeScreenActive: boolean;
+	isFieldActionSticky: boolean;
 };
 
 export type SubmissionState = {
@@ -223,6 +225,10 @@ type setGlobalHash = {
 	hash: string;
 };
 
+type setIsFieldActionSticky = {
+	type: typeof SET_IS_FIELD_ACTION_STICKY;
+	val: boolean;
+};
 
 export type RendererAnswersActionTypes =
 	| insertEmptyFieldAnswerAction
@@ -237,6 +243,7 @@ export type RendererAnswersActionTypes =
 	| setFieldAnswerCorrectAction
 	| resetAnswers
 	| setAnswers
+	| setIsFieldActionSticky
 	| ReturnType<() => { type: 'NOOP' }>;
 
 export type SwiperActionTypes =
@@ -248,6 +255,7 @@ export type SwiperActionTypes =
 	| setCorrectIncorrectDisplay
 	| setIsCurrentBlockSafeToSwipeAction
 	| completeFormAction
+	| setIsFieldActionSticky
 	| ReturnType<() => { type: 'NOOP' }>;
 
 export type SubmitActionTypes =

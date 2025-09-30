@@ -155,6 +155,8 @@ const Form: React.FC<Props> = ({
 			displayBranding: false,
 			disableAstreisksOnRequiredFields: false,
 			enableAutoSubmit: false,
+			navigationType: 'arrows',
+
 			...formObj.settings,
 		};
 

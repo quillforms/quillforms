@@ -10,6 +10,7 @@ import {
 	ENABLE_AUTO_SUBMIT,
 	SETUP_STORE,
 	DISPLAY_BRANDING,
+	NAVIGATION_TYPE,
 } from './constants';
 
 
@@ -246,6 +247,22 @@ export function enableAutoSubmit(state = false, action) {
 	return state;
 }
 
+export function navigationType(state = 'arrows', action) {
+	switch (action.type) {
+		case NAVIGATION_TYPE:
+			return action.navigationType;
+
+		case SETUP_STORE: {
+			return action.initialPayload?.navigationType
+				? action.initialPayload?.navigationType
+				: 'arrows';
+		}
+	}
+
+	return state;
+}
+
+
 export default combineReducers({
 	disableProgressBar,
 	disableWheelSwiping,
@@ -256,5 +273,6 @@ export default combineReducers({
 	saveAnswersInBrowser,
 	displayBranding,
 	enableAutoSubmit,
-	disableAstreisksOnRequiredFields
+	disableAstreisksOnRequiredFields,
+	navigationType
 });

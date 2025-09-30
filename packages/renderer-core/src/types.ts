@@ -30,6 +30,7 @@ export type FormObj = {
 		displayBranding?: boolean;
 		disableAstreisksOnRequiredFields?: boolean;
 		enableAutoSubmit?: boolean;
+		navigationType?: 'arrows' | 'buttons';
 	};
 	hiddenFields?: Object;
 	customCSS?: string;

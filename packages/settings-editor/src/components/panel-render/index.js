@@ -39,7 +39,8 @@ const PanelRender = () => {
 		saveAnswersInBrowser,
 		displayBranding,
 		disableAstreisksOnRequiredFields,
-		enableAutoSubmit
+		enableAutoSubmit,
+		setNavigationType
 	} = useDispatch('quillForms/settings-editor');
 
 	const {
@@ -52,7 +53,8 @@ const PanelRender = () => {
 		shouldAstreisksOnRequiredFieldsBeHidden,
 		shouldBrandingBeDisplayed,
 		animationDirection,
-		shouldAutoSubmitBeEnabled
+		shouldAutoSubmitBeEnabled,
+		navigationType
 	} = useSelect((select) => {
 		return {
 			isProgressBarDisabled: select(
@@ -85,6 +87,9 @@ const PanelRender = () => {
 			shouldAutoSubmitBeEnabled: select(
 				'quillForms/settings-editor'
 			).shouldAutoSubmitBeEnabled(),
+			navigationType: select(
+				'quillForms/settings-editor'
+			).getNavigationType(),
 		};
 	});
 
@@ -96,6 +101,16 @@ const PanelRender = () => {
 		{
 			key: 'vertical',
 			name: __('Vertical', 'quillforms'),
+		},
+	];
+	const navigationOptions = [
+		{
+			key: 'arrows',
+			name: __('Arrows', 'quillforms'),
+		},
+		{
+			key: 'buttons',
+			name: __('Buttons', 'quillforms'),
 		},
 	];
 	return (
@@ -229,6 +244,20 @@ const PanelRender = () => {
 						checked={shouldBrandingBeDisplayed}
 						onChange={() => {
 							displayBranding(!shouldBrandingBeDisplayed);
+						}}
+					/>
+				</ControlWrapper>
+			</BaseControl>
+			<BaseControl>
+				<ControlWrapper>
+					<ControlLabel isNew label={__('Navigation type', 'quillforms')} />
+					<SelectControl
+						options={navigationOptions}
+						value={navigationOptions.find(
+							(option) => option.key === navigationType
+						)}
+						onChange={({ selectedItem }) => {
+							setNavigationType(selectedItem.key);
 						}}
 					/>
 				</ControlWrapper>

@@ -46,6 +46,7 @@ import {
 	SET_IS_FIELD_CORRECT_INCORRECT_SCREEN_DISPLAYED,
 	SET_THANKYOU_SCREENS,
 	SET_GLOBAL_HASH,
+	SET_IS_FIELD_ACTION_STICKY,
 } from './constants';
 import type {
 	SwiperState,
@@ -73,6 +74,7 @@ const initialState: SwiperState = {
 	isThankyouScreenActive: false,
 	isWelcomeScreenActive: false,
 	isReviewing: false,
+	isFieldActionSticky: false,
 };
 
 const swiper: Reducer<SwiperState, SwiperActionTypes> = (
@@ -86,7 +88,8 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 		nextBlockId,
 		prevBlockId,
 		thankyouScreens,
-		correctIncorrectDisplay
+		correctIncorrectDisplay,
+		isFieldActionSticky
 	} = state;
 	switch (action.type) {
 		case SET_SWIPER_STATE: {
@@ -349,6 +352,14 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 				isCurrentBlockSafeToSwipe: val,
 			};
 		}
+		case SET_IS_FIELD_ACTION_STICKY: {
+			const { val } = action;
+			return {
+				...state,
+				isFieldActionSticky: val,
+			};
+		}
+
 		case GO_TO_BLOCK: {
 			let { id, forceUpdateState } = action;
 			if (currentBlockId === id && !forceUpdateState) return state;
@@ -427,6 +438,7 @@ const swiper: Reducer<SwiperState, SwiperActionTypes> = (
 				lastActiveBlockId: currentBlockId,
 				isWelcomeScreenActive: false,
 				isThankyouScreenActive: false,
+				isFieldActionSticky: false,
 			};
 		}
 

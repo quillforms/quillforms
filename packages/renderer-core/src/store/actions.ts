@@ -27,6 +27,7 @@ import {
 	SET_IS_CURRENT_BLOCK_SAFE_TO_SWIPE,
 	SET_GLOBAL_HASH,
 	SET_ANSWERS,
+	SET_IS_FIELD_ACTION_STICKY,
 } from './constants';
 
 import type {
@@ -443,5 +444,14 @@ export const setThankyouScreens = (
 	return {
 		type: SET_THANKYOU_SCREENS,
 		screens,
+	};
+}
+
+export const setIsFieldActionSticky = (
+	val: boolean
+): SwiperActionTypes => {
+	return {
+		type: SET_IS_FIELD_ACTION_STICKY,
+		val,
 	};
 }

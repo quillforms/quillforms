@@ -1,4 +1,8 @@
 /**
+ * WordPress dependencies
+ */
+import { useSelect, useDispatch } from '@wordpress/data';
+/**
  * External Dependencies
  */
 import classnames from 'classnames';
@@ -25,14 +29,18 @@ const FieldAction = ({ clickHandler, show }) => {
 	const fieldRenderContext = __experimentalUseFieldRenderContext();
 	const { editor } = useFormContext()
 	const blockTypes = useBlockTypes();
-
+	const { isSticky } = useSelect((select) => {
+		return {
+			isSticky: select('quillForms/renderer-core').getIsFieldActionSticky(),
+		};
+	});
+	const { setIsFieldActionSticky } = useDispatch('quillForms/renderer-core');
 	if (!fieldRenderContext || !messages || !blockTypes) {
 		return null;
 	}
 
 	const { blockName, isSubmitBtnVisible, attributes, } = fieldRenderContext;
 	const theme = useBlockTheme(attributes?.themeId);
-	const [isSticky, setIsSticky] = useState(false);
 	const [hasInitialized, setHasInitialized] = useState(false);
 
 	if (!blockName) return null;
@@ -45,7 +53,7 @@ const FieldAction = ({ clickHandler, show }) => {
 		if (!hasInitialized) {
 			setHasInitialized(true);
 		}
-		setIsSticky(!isInView);
+		setIsFieldActionSticky(!isInView);
 	};
 
 	// Memoize touch detection
@@ -70,6 +78,7 @@ const FieldAction = ({ clickHandler, show }) => {
 			box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15) !important;
 			padding: 15px 20px !important;
 			z-index: 1111111111111111111000 !important;
+			z-index: 
 			margin-bottom: 0 !important;
 			display: flex !important;
 			justify-content: center !important;

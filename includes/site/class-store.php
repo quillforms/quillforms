@@ -1158,16 +1158,16 @@ class Store {
 						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/gohighlevel/icon.png',
 					),
 				),
-				'funnelkit'                 => array(
-					'name'           => esc_html__( 'FunnelKit', 'quillforms' ),
-					'description'    => esc_html__( 'FunnelKit addon allows you to connect your forms with FunnelKit Automations.', 'quillforms' ),
-					'plugin_file'    => 'quillforms-funnelkit/quillforms-funnelkit.php',
-					'plan'           => 'plus',
-					'is_integration' => true,
-					'assets'         => array(
-						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/funnelkit/icon.svg',
-					),
-				),
+				// 'funnelkit'                 => array(
+				// 	'name'           => esc_html__( 'FunnelKit', 'quillforms' ),
+				// 	'description'    => esc_html__( 'FunnelKit addon allows you to connect your forms with FunnelKit Automations.', 'quillforms' ),
+				// 	'plugin_file'    => 'quillforms-funnelkit/quillforms-funnelkit.php',
+				// 	'plan'           => 'plus',
+				// 	'is_integration' => true,
+				// 	'assets'         => array(
+				// 		'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/funnelkit/icon.svg',
+				// 	),
+				// ),
 				'groundhogg'                => array(
 					'name'           => esc_html__('Groundhogg', 'quillforms'),
 					'description'    => esc_html__('Groundhogg addon allows you to connect your forms with Groundhogg to send your leads to your Groundhogg.', 'quillforms'),

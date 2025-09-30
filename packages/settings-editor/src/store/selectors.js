@@ -38,3 +38,7 @@ export function shouldAstreisksOnRequiredFieldsBeHidden(state) {
 export function shouldAutoSubmitBeEnabled(state) {
 	return state.enableAutoSubmit;
 }
+
+export function getNavigationType(state) {
+	return state.navigationType;
+}
