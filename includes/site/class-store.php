@@ -446,6 +446,16 @@ class Store {
 						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
 					),
 				),
+				'quillcrm'            => array(
+					'name'           => esc_html__( 'Quill CRM', 'quillforms' ),
+					'description'    => esc_html__( 'Quill CRM integration allows you to automatically create or update contacts in Quill CRM when a form is submitted.', 'quillforms' ),
+					'plugin_file'    => 'quillforms/quillforms.php',
+					'plan'           => 'basic',
+					'is_integration' => true,
+					'assets'         => array(
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/quillcrm/icon.svg',
+					),
+				),
 				'pdf'                 => array(
 					'name'           => esc_html__( 'PDF Entries Export', 'quillforms' ),
 					'description'    => esc_html__( 'PDF Entries Export addon allows you to export your form entries as PDF files and attach them to your email notifications.', 'quillforms' ),

@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { Modal } from '@wordpress/components';
+import { Modal, Icon as IconComponent } from '@wordpress/components';
 
 /**
  * External Dependencies

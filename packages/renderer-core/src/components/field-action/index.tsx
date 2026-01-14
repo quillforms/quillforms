@@ -21,20 +21,18 @@ import { __experimentalUseFieldRenderContext } from '../field-render';
 import useBlockTypes from '../../hooks/use-block-types';
 import useMessages from '../../hooks/use-messages';
 import useBlockTheme from '../../hooks/use-block-theme';
-import { useFormContext } from '../../hooks';
 
 
 const FieldAction = ({ clickHandler, show }) => {
 	const messages = useMessages();
 	const fieldRenderContext = __experimentalUseFieldRenderContext();
-	const { editor } = useFormContext()
 	const blockTypes = useBlockTypes();
-	const { isSticky } = useSelect((select) => {
-		return {
-			isSticky: select('quillForms/renderer-core').getIsFieldActionSticky(),
-		};
-	});
-	const { setIsFieldActionSticky } = useDispatch('quillForms/renderer-core');
+	// const { isSticky } = useSelect((select) => {
+	// 	return {
+	// 		isSticky: select('quillForms/renderer-core').getIsFieldActionSticky(),
+	// 	};
+	// });
+	// const { setIsFieldActionSticky } = useDispatch('quillForms/renderer-core');
 	if (!fieldRenderContext || !messages || !blockTypes) {
 		return null;
 	}
@@ -53,7 +51,7 @@ const FieldAction = ({ clickHandler, show }) => {
 		if (!hasInitialized) {
 			setHasInitialized(true);
 		}
-		setIsFieldActionSticky(!isInView);
+		// setIsFieldActionSticky(!isInView);
 	};
 
 	// Memoize touch detection
@@ -145,30 +143,25 @@ const FieldAction = ({ clickHandler, show }) => {
 
 	return (
 		<>
-			{/* Original container with visibility sensor */}
+			{/* Original container with visibility sensor
 			<VisibilitySensor
 				active={editor?.mode !== 'on'}
 				onChange={handleVisibilityChange}
 				throttleInterval={50} // Reduced throttle for better responsiveness
 				partialVisibility={false}
 				offset={{ bottom: 50 }} // Trigger a bit earlier
+			> */}
+			<div
+				className={classnames(
+					'renderer-core-field-action', { 'is-visible': isVisible }
+				)}
 			>
-				<div
-					className={classnames(
-						'renderer-core-field-action',
-						{
-							'is-visible': !isSticky,
-						}
-					)}
-				>
-					{/* Always render content in original position, hide when sticky */}
-					<div style={{ opacity: isSticky ? 0 : 1 }}>
-						{renderContent}
-					</div>
-				</div>
-			</VisibilitySensor>
+				{/* Always render content in original position, hide when sticky */}
+				{renderContent}
+			</div>
+			{/* </VisibilitySensor> */}
 
-			{/* Sticky version - only show when sticky */}
+			{/* Sticky version - only show when sticky
 			{isSticky && (
 				<div
 					className={stickyStyles}
@@ -177,7 +170,7 @@ const FieldAction = ({ clickHandler, show }) => {
 				>
 					{renderContent}
 				</div>
-			)}
+			)} */}
 		</>
 	);
 };

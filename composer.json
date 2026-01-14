@@ -23,7 +23,7 @@
 	},
 	"require": {
 		"composer/installers": "~1.0",
-		"woocommerce/action-scheduler": "^3.2"
+		"woocommerce/action-scheduler": "^3.9.3"
 	},
 	"config": {
 		"process-timeout": 0,

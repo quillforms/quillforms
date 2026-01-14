@@ -66,6 +66,8 @@ class Admin {
 	public function admin_hooks() {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
+		add_action( 'wp_ajax_quillforms_install_quillcrm', array( $this, 'install_quillcrm' ) );
+		add_action( 'wp_ajax_quillforms_activate_quillcrm', array( $this, 'activate_quillcrm' ) );
 		add_action( 'pre_get_posts', array( $this, 'include_quill_forms_post_type_in_query' ), 11 );
 		add_filter( 'post_type_link', array( $this, 'remove_cpt_slug' ), 10, 3 );
 		add_filter('rewrite_rules_array', array($this, 'rewrite_quillforms_rules') );
@@ -115,6 +117,122 @@ class Admin {
 		}
 
 		wp_send_json_success( $new_form_id );
+	}
+
+	/**
+	 * Install QuillCRM plugin from WordPress.org
+	 *
+	 * @since 3.5.0
+	 */
+	public function install_quillcrm() {
+		// Check nonce.
+		if ( ! check_ajax_referer( 'quillforms_install_quillcrm', '_nonce', false ) ) {
+			wp_send_json_error( esc_html__( 'Invalid nonce', 'quillforms' ), 403 );
+			exit;
+		}
+
+		// Check permissions.
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to install plugins.', 'quillforms' ), 403 );
+			exit;
+		}
+
+		// Include required files.
+		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		require_once ABSPATH . 'wp-admin/includes/class-wp-ajax-upgrader-skin.php';
+		require_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
+
+		// Get plugin info from WordPress.org.
+		$api = plugins_api(
+			'plugin_information',
+			array(
+				'slug'   => 'quill-crm',
+				'fields' => array(
+					'short_description' => false,
+					'sections'          => false,
+					'requires'          => false,
+					'rating'            => false,
+					'ratings'           => false,
+					'downloaded'        => false,
+					'last_updated'      => false,
+					'added'             => false,
+					'tags'              => false,
+					'compatibility'     => false,
+					'homepage'          => false,
+					'donate_link'       => false,
+				),
+			)
+		);
+
+		if ( is_wp_error( $api ) ) {
+			wp_send_json_error( $api->get_error_message() );
+			exit;
+		}
+
+		// Install the plugin.
+		$skin     = new \WP_Ajax_Upgrader_Skin();
+		$upgrader = new \Plugin_Upgrader( $skin );
+		$result   = $upgrader->install( $api->download_link );
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( $result->get_error_message() );
+			exit;
+		}
+
+		if ( is_wp_error( $skin->result ) ) {
+			wp_send_json_error( $skin->result->get_error_message() );
+			exit;
+		}
+
+		if ( $skin->get_errors()->has_errors() ) {
+			wp_send_json_error( $skin->get_error_messages() );
+			exit;
+		}
+
+		if ( is_null( $result ) ) {
+			wp_send_json_error( esc_html__( 'Unable to connect to the filesystem. Please confirm your credentials.', 'quillforms' ) );
+			exit;
+		}
+
+		wp_send_json_success( esc_html__( 'QuillCRM installed successfully.', 'quillforms' ) );
+	}
+
+	/**
+	 * Activate QuillCRM plugin
+	 *
+	 * @since 3.5.0
+	 */
+	public function activate_quillcrm() {
+		// Check nonce.
+		if ( ! check_ajax_referer( 'quillforms_activate_quillcrm', '_nonce', false ) ) {
+			wp_send_json_error( esc_html__( 'Invalid nonce', 'quillforms' ), 403 );
+			exit;
+		}
+
+		// Check permissions.
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to activate plugins.', 'quillforms' ), 403 );
+			exit;
+		}
+
+		$plugin_file = 'quill-crm/quillcrm.php';
+
+		// Check if plugin exists.
+		if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) ) {
+			wp_send_json_error( esc_html__( 'QuillCRM plugin not found.', 'quillforms' ) );
+			exit;
+		}
+
+		// Activate the plugin.
+		$result = activate_plugin( $plugin_file );
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( $result->get_error_message() );
+			exit;
+		}
+
+		wp_send_json_success( esc_html__( 'QuillCRM activated successfully.', 'quillforms' ) );
 	}
 
 	/**

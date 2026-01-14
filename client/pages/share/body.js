@@ -642,18 +642,46 @@ const ShareBody = ({ payload }) => {
                     <div className="quillforms-share-modal">
                         <p>{__('Copy the embed code below and insert it in your external page.', 'quillforms')}</p>
                         <div className="quillforms-share-modal-link">
-                            <input type="text" style={{ minWidth: "400px" }}
-                                value={`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`} readOnly />
+                            <textarea
+                                style={{
+                                    minWidth: "400px",
+                                    minHeight: isWPEnv ? "50px" : "100px",
+                                    fontFamily: "monospace",
+                                    fontSize: "13px",
+                                    padding: "10px",
+                                    resize: "vertical"
+                                }}
+                                value={isWPEnv
+                                    ? `<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+                                    : `<!-- QuillForms Embed Script (required for redirects) -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n<!-- QuillForms Form -->\n<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+                                }
+                                readOnly
+                            />
                             {isCopied ? (
                                 <Button isPrimary>{__('Copied!', 'quillforms')}</Button>
                             ) : (
 
                                 <Button isPrimary onClick={() => {
-                                    navigator.clipboard.writeText(`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`);
+                                    const embedCode = isWPEnv
+                                        ? `<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+                                        : `<!-- QuillForms Embed Script (required for redirects) -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n<!-- QuillForms Form -->\n<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`;
+                                    copyToClipboard(embedCode);
                                     setIsCopied(true);
                                 }}>{__('Copy', 'quillforms')}</Button>
                             )}
                         </div>
+                        {!isWPEnv && (
+                            <p className={css`
+                                margin-top: 16px;
+                                padding: 12px;
+                                background: #FEF3C7;
+                                border-radius: 6px;
+                                font-size: 13px;
+                                color: #92400E;
+                            `}>
+                                {__('The embed script is required for form redirects to work properly on external websites.', 'quillforms')}
+                            </p>
+                        )}
                     </div>
                 </Modal >
             )

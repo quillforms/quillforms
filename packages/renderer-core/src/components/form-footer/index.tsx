@@ -71,7 +71,7 @@ const FormFooter: React.FC = memo(() => {
 					hidden: isWelcomeScreenActive || isThankyouScreenActive,
 				},
 				css`
-					z-index: ${isFieldActionSticky ? '999' : '99999999999999999'};
+					z-index: 99999999999999999;
 					@media ( max-width: 767px ) {
 						background: ${theme.formFooterBgColor.sm} !important;
 					}

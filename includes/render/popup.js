@@ -3,14 +3,17 @@ jQuery(document).ready(function ($) {
     $('.quillforms-popup-overlay').appendTo('body');
 
     $('.quillforms-popup-button').on('click', function (e) {
-        $('body').addClass('quillforms-popup-active');
         e.preventDefault();
         var formId = $(this).attr('data-formId');
-        $('.quillforms-popup-overlay[data-formId=' + formId + ']').addClass('active');
+        var $targetOverlay = $('.quillforms-popup-overlay[data-formId="' + formId + '"]').first();
+
+        // Add active class to body and the specific overlay
+        $('body').addClass('quillforms-popup-active');
+        $targetOverlay.addClass('active');
 
         // Try to focus existing iframe immediately after modal opens
         setTimeout(function () {
-            var iframe = $('.quillforms-popup-overlay[data-formId=' + formId + '] iframe')[0];
+            var iframe = $targetOverlay.find('iframe')[0];
             if (iframe) {
                 // Focus on iframe content if accessible
                 try {
@@ -28,33 +31,40 @@ jQuery(document).ready(function ($) {
                 }
             }
         }, 400);
-
-        // Uncomment these if you need to create iframe dynamically:
-        // $('.quillforms-popup-iframe-wrapper').append('<iframe src="' + $(this).attr('data-url') + '" width="100%" height="100%" style="border:0;"></iframe>');
-        // add loader before iframe loads
-        // $('.quillforms-popup-iframe-wrapper').removeClass('active');
-        // add loader
-        // $('.quillforms-popup-iframe-wrapper').append('<div class="quillforms-popup-loader"><div class="quillforms-loading-circle"></div></div>');
     });
 
-    // exit the modal on Escape click
+    // exit the modal on Escape click - close all active popups
     $(document).keydown(function (event) {
         if (event.keyCode == 27) {
-            $('.quillforms-popup-overlay').removeClass('active');
+            $('.quillforms-popup-overlay.active').removeClass('active');
             $('body').removeClass('quillforms-popup-active');
         }
     });
 
+    // Close button - close only the parent overlay
     $('.quillforms-popup-close').on('click', function () {
-        $(this).closest('.quillforms-popup-overlay').removeClass('active');
-        $('body').removeClass('quillforms-popup-active');
+        var $overlay = $(this).closest('.quillforms-popup-overlay');
+        $overlay.removeClass('active');
+
+        // Only remove body class if no other popups are active
+        if ($('.quillforms-popup-overlay.active').length === 0) {
+            $('body').removeClass('quillforms-popup-active');
+        }
     });
 
-    // close pop up on click outside
+    // close pop up on click outside - close only the clicked overlay
     $(document).mouseup(function (e) {
-        var container = $(".quillforms-popup-overlay.active .quillforms-popup-container");
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-            container.closest('.quillforms-popup-overlay').removeClass('active');
+        var $activeOverlays = $(".quillforms-popup-overlay.active");
+
+        $activeOverlays.each(function () {
+            var $container = $(this).find(".quillforms-popup-container");
+            if (!$container.is(e.target) && $container.has(e.target).length === 0) {
+                $(this).removeClass('active');
+            }
+        });
+
+        // Only remove body class if no other popups are active
+        if ($('.quillforms-popup-overlay.active').length === 0) {
             $('body').removeClass('quillforms-popup-active');
         }
     });
@@ -104,7 +114,6 @@ jQuery(document).ready(function ($) {
     // Add keydown listener to see what happens with Tab
     $(document).on('keydown', function (e) {
         if (e.key === 'Tab') {
-
             if (document.activeElement.tagName === 'IFRAME') {
                 try {
                     var iframeDoc = document.activeElement.contentDocument;

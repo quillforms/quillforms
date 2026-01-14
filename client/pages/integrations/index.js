@@ -84,13 +84,80 @@ const IntegrationsPage = ({ params }) => {
 								false,
 								slug
 							);
+							const isQuillCRM = slug === 'quillcrm';
 							return (
 								<div
 									key={slug}
-									className="quillforms-integrations-page__integration-list-item"
+									className={`quillforms-integrations-page__integration-list-item ${isQuillCRM ? css`
+										position: relative;
+										background: linear-gradient(145deg, #ffffff 0%, #f0f7ff 100%) !important;
+										border: 2px solid transparent !important;
+										background-origin: border-box !important;
+										background-clip: padding-box !important;
+										box-shadow: 
+											0 8px 32px rgba(39, 76, 119, 0.15),
+											0 0 0 2px #458DC7,
+											inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+										transform: scale(1);
+										transition: all 0.3s ease !important;
+										overflow: visible !important;
+										
+										&:hover {
+											transform: scale(1.02);
+											box-shadow: 
+												0 12px 40px rgba(39, 76, 119, 0.2),
+												0 0 0 2px #274C77,
+												inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+										}
+										
+										.quillforms-integrations-page__integration-module-footer button {
+											background: linear-gradient(135deg, #274C77 0%, #458DC7 100%) !important;
+											border: none !important;
+											box-shadow: 0 4px 12px rgba(39, 76, 119, 0.3) !important;
+											
+											&:hover {
+												background: linear-gradient(135deg, #1a3a5c 0%, #3a7ab0 100%) !important;
+												box-shadow: 0 6px 16px rgba(39, 76, 119, 0.4) !important;
+											}
+										}
+									` : ''}`}
 								>
-									<div className="quillforms-integrations-page__integration-module-header">
-										<div className="quillforms-integrations-page__integration-module-icon">
+									{isQuillCRM && (
+										<div className={css`
+											position: absolute;
+											top: -12px;
+											left: 50%;
+											transform: translateX(-50%);
+											background: linear-gradient(135deg, #274C77 0%, #4F9EF9 100%);
+											color: white;
+											font-size: 11px;
+											font-weight: 700;
+											padding: 6px 16px;
+											border-radius: 20px;
+											text-transform: uppercase;
+											letter-spacing: 1px;
+											box-shadow: 0 4px 12px rgba(39, 76, 119, 0.4);
+											white-space: nowrap;
+											z-index: 10;
+										`}>
+											✨ {__('Built by Quill Forms', 'quillforms')}
+										</div>
+									)}
+									<div className="quillforms-integrations-page__integration-module-header" style={isQuillCRM ? { marginTop: '8px' } : {}}>
+										<div className={`quillforms-integrations-page__integration-module-icon ${isQuillCRM ? css`
+											background: linear-gradient(145deg, #e8f4fc 0%, #d0e8f7 100%) !important;
+											border-radius: 16px !important;
+											padding: 10px !important;
+											box-shadow: 
+												0 4px 12px rgba(39, 76, 119, 0.15),
+												inset 0 -2px 4px rgba(39, 76, 119, 0.05) !important;
+											
+											svg {
+												width: 36px !important;
+												height: 36px !important;
+												filter: drop-shadow(0 2px 4px rgba(39, 76, 119, 0.2));
+											}
+										` : ''}`}>
 											{typeof icon === 'string' ? (
 												<img src={icon} />
 											) : (
@@ -101,7 +168,14 @@ const IntegrationsPage = ({ params }) => {
 												/>
 											)}
 										</div>
-										<div className="quillforms-integrations-page__integration-module-title">
+										<div className={`quillforms-integrations-page__integration-module-title ${isQuillCRM ? css`
+											background: linear-gradient(135deg, #274C77 0%, #4F9EF9 100%);
+											-webkit-background-clip: text;
+											-webkit-text-fill-color: transparent;
+											background-clip: text;
+											font-weight: 700 !important;
+											font-size: 18px !important;
+										` : ''}`}>
 											{integrationsModules[slug].title}
 										</div>
 									</div>

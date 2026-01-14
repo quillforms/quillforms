@@ -13,6 +13,7 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import { useCurrentTheme, useFormContext, useFormSettings, useMessages } from '../../hooks';
+import SubmitButton from '../submit-btn';
 import DownIcon from './down-icon';
 import UpIcon from './up-icon';
 import Button from '../button';
@@ -56,7 +57,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 
 	const currentBlockType = blockTypes?.[currentBlockName];
 
-	const { isCurrentBlockValid, answers, isFieldCorrectIncorrectScreenDisplayed } = useSelect((select) => {
+	const { isCurrentBlockValid, answers, isFieldCorrectIncorrectScreenDisplayed, isLastBlock } = useSelect((select) => {
 		return {
 			answers: select('quillForms/renderer-core').getAnswers(),
 			isCurrentBlockValid: currentBlockType?.supports?.innerBlocks
@@ -68,6 +69,7 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 						currentBlockId
 					)
 					: true,
+			isLastBlock: walkPath[walkPath.length - 1].id === currentBlockId,
 			isFieldCorrectIncorrectScreenDisplayed: select('quillForms/renderer-core').isFieldCorrectIncorrectScreenDisplayed(currentBlockId)
 		};
 	});
@@ -159,9 +161,11 @@ const FieldNavigation = ({ shouldFooterBeDisplayed }) => {
 					<Button className="renderer-core-field-navigation__up-button" onClick={() => goPrev()}>
 						{messages['label.previous']}
 					</Button>
-					<Button className="renderer-core-field-navigation__down-button" onClick={() => goNextReally()}>
-						{messages['label.next']}
-					</Button>
+					{isLastBlock ? <SubmitButton /> : (
+						<Button className="renderer-core-field-navigation__down-button" onClick={() => goNextReally()}>
+							{messages['label.next']}
+						</Button>
+					)}
 				</>
 			)}
 		</div>

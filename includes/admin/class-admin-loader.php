@@ -121,6 +121,24 @@ class Admin_Loader {
 				'settings'                => Settings::get_all(),
 			)
 		);
+
+		// QuillCRM Integration - check installation and activation status
+		$plugins_dir          = trailingslashit( dirname( dirname( QUILLFORMS_PLUGIN_FILE ) ) );
+		$quillcrm_plugin_file = $plugins_dir . 'QuillCRM/quillcrm.php';
+		$quillcrm_installed   = file_exists( $quillcrm_plugin_file );
+		$quillcrm_active      = defined( 'QUILLCRM_PLUGIN_FILE' );
+
+		wp_localize_script(
+			'quillforms-client',
+			'quillformsQuillCRMIntegration',
+			array(
+				'isInstalled'   => $quillcrm_installed,
+				'isActive'      => $quillcrm_active,
+				'installNonce'  => wp_create_nonce( 'quillforms_install_quillcrm' ),
+				'activateNonce' => wp_create_nonce( 'quillforms_activate_quillcrm' ),
+				'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+			)
+		);
 	}
 
 	/**

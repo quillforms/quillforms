@@ -98,6 +98,35 @@ const ThankyoucreenDisplay = ({ attributes }) => {
     }
   };
 
+  const isInIframe = () => {
+    try {
+      return window.self !== window.top;
+    } catch (e) {
+      // If we can't access window.top, we're definitely in a cross-origin iframe
+      return true;
+    }
+  };
+
+  const isQuillFormsDomain = () => {
+    try {
+      const hostname = window.location.hostname;
+      return hostname === 'quillforms.app' || hostname.endsWith('.quillforms.app');
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const sendRedirectMessage = (url, newTab = false) => {
+    // Send message to parent window for cross-origin iframe redirect
+    const message = {
+      type: 'quillforms-redirect',
+      url: url,
+      newTab: newTab,
+    };
+    // Post to parent - the embed script will handle this
+    window.parent.postMessage(message, '*');
+  };
+
   const redirect = async (url, sameWindow = true) => {
     // parse.
     url = await parseRedirectUrl(url);
@@ -116,6 +145,20 @@ const ThankyoucreenDisplay = ({ attributes }) => {
         window.top.location.href = url;
       } else {
         window.open(url, "_blank").focus();
+      }
+    } else if (isInIframe() && !isTopAccessible()) {
+      // Cross-origin iframe
+      if (isQuillFormsDomain()) {
+        // Only use postMessage for quillforms.app domain
+        // The embed script on the parent page will handle the redirect
+        sendRedirectMessage(url, !sameWindow);
+      } else {
+        // For non-quillforms.app domains, redirect the current window (iframe)
+        if (sameWindow) {
+          window.location.href = url;
+        } else {
+          window.open(url, "_blank").focus();
+        }
       }
     } else {
       if (sameWindow) {

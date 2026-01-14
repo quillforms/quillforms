@@ -8,7 +8,7 @@
 		visibility: hidden;
 	}
 
-	>div {
+	>div:not(.renderer-core-submit-btn-wrapper) {
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
