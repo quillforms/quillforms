@@ -40,7 +40,7 @@
 		"html-react-parser": "^1.4.12",
 		"js-cookie": "^3.0.5",
 		"lethargy": "^1.0.9",
-		"lodash": "4.17.21",
+		"lodash": "4.17.23",
 		"react-dnd": "15.1.2",
 		"react-loader-spinner": "^5.1.7-beta.1",
 		"react-swipeable": "^6.1.2",
