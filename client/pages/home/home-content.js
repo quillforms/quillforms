@@ -20,12 +20,18 @@ import CustomButton from '../../components/custom-button';
 import CustomSearch from '../../components/custom-search';
 import CustomTabs from '../../components/custom-tabs';
 
-const ListHeader = () => (
+const ListHeader = ({ selectAll, handleSelectAll }) => (
 	<div className="list-header">
+		<div className="header-cell checkbox-cell">
+			<CheckboxControl
+				checked={selectAll}
+				onChange={handleSelectAll}
+			/>
+		</div>
 		<div className="header-cell">{__('Title', 'quillforms')}</div>
 		<div className="header-cell">{__('Responses Count', 'quillforms')}</div>
-		<div className="header-cell">{__('Last Modified', 'quillforms')}</div>
-		<div className="header-cell"></div>
+		<div className="header-cell">{__('Status', 'quillforms')}</div>
+		<div className="header-cell"> {__('Actions', 'quillforms')}</div>
 	</div>
 );
 

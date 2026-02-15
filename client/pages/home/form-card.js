@@ -18,6 +18,9 @@ import classnames from 'classnames';
 import { Icon } from '@wordpress/icons';
 import { css } from "emotion";
 import { __ } from '@wordpress/i18n';
+import CustomButton from '../../components/custom-button';
+import ClockIcon from './icons/colck-icon';
+// import emptyState from '../../../assets/addons/emptystate/emptyState.png';
 
 const MoreVerticalIcon = () => (
 	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -302,6 +305,12 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 		return (
 			<>
 				<div className="form-card form-card--list">
+					<div className="checkbox-column">
+						<CheckboxControl
+							checked={isSelected}
+							onChange={() => onSelect(form.id)}
+						/>
+					</div>
 					<div className="title-column">
 						<div
 							className="form-card__preview"
@@ -324,16 +333,16 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							>
 								{form.title.rendered || __('Untitled Form', 'quillforms')}
 							</div>
-							<span className={`status-indicator status-${form.status}`}>
-								{form.status === 'publish' ? __('Published', 'quillforms') : form.status}
-							</span>
+							<span className="form-card__date"><ClockIcon />{lastModified}</span>
 						</div>
 					</div>
 					<div className="responses-count-column">
-						{form.responses_count} {__('responses', 'quillforms')}
+						{form.responses_count || 0}
 					</div>
-					<div className="date-column">
-						{lastModified}
+					<div className="status-column">
+						<span className={`status-indicator status-${form.status}`}>
+							{form.status === 'publish' ? __('Published', 'quillforms') : form.status === 'draft' ? __('Draft', 'quillforms') : form.status}
+						</span>
 					</div>
 					<div className="actions-column">
 						{renderActions()}
@@ -481,7 +490,6 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							{renderActions()}
 						</div>
 					</div>
-
 				</div>
 			</Card>
 
@@ -586,9 +594,9 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 export const EmptyState = ({ status, onCreateNew }) => {
 	const messages = {
 		all: {
-			title: __('Create your first form', 'quillforms'),
-			description: __('Get started by creating a new form from scratch or using a template.', 'quillforms'),
-			action: __('Create Form', 'quillforms')
+			title: __('Your dashboard is waiting for its first form.', 'quillforms'),
+			description: __('Click “Add new form” to start from scratch or explore a ready-made template. Simple, flexible, and made for humans.', 'quillforms'),
+			action: __('Add new form', 'quillforms')
 		},
 		trash: {
 			title: __('Trash is empty', 'quillforms'),
@@ -598,29 +606,34 @@ export const EmptyState = ({ status, onCreateNew }) => {
 		draft: {
 			title: __('No draft forms', 'quillforms'),
 			description: __('Draft forms will appear here.', 'quillforms'),
-			action: __('Create Form', 'quillforms')
+			action: __('Add new form', 'quillforms')
 		},
 		publish: {
-			title: __('No published forms', 'quillforms'),
-			description: __('Published forms will appear here.', 'quillforms'),
-			action: __('Create Form', 'quillforms')
+			title: __('No published forms yet — but you’re just getting started. ', 'quillforms'),
+			description: __('You don’t have any published forms yet, but once you share your work this is where they’ll proudly appear.', 'quillforms'),
+			action: __('Add new form', 'quillforms')
 		}
 	};
 
 	const currentMessage = messages[status];
 
 	return (
-		<div className="forms-empty-state">
-			<Icon icon={status === 'trash' ? trashEmptyIcon : formsEmptyIcon} />
-			<h2>{currentMessage.title}</h2>
-			<p>{currentMessage.description}</p>
+		<div className="flex flex-col items-center justify-center gap-4 ">
+			{/* <Icon icon={status === 'trash' ? trashEmptyIcon : formsEmptyIcon} /> */}
+			{/* <img
+				src={emptyState}
+				alt="Empty state"
+				className="max-w-full h-auto"
+			/> */}
+			<h2 className="text-2xl font-bold text-[#334155]">{currentMessage.title}</h2>
+			<p className=' text-[#777] text-lg font-semibold leading-7'>{currentMessage.description}</p>
 			{currentMessage.action && (
-				<Button
-					isPrimary
+				<CustomButton
+					className=' !py-3 !px-24'
+					variant="primary"
+					text={currentMessage.action}
 					onClick={onCreateNew}
-				>
-					{currentMessage.action}
-				</Button>
+				/>
 			)}
 		</div>
 	);
