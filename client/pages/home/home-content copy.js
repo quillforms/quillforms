@@ -2,6 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
+	TabPanel,
+	SearchControl,
 	Button,
 	Dropdown,
 	MenuGroup,
@@ -17,8 +19,6 @@ import { FormCard, EmptyState } from './form-card';
 import { FormsSkeleton, FormCardSkeleton } from './form-skeleton';
 import { gridIcon, listIcon } from './icons';
 import CustomButton from '../../components/custom-button';
-import CustomSearch from '../../components/custom-search';
-import CustomTabs from '../../components/custom-tabs';
 
 const ListHeader = () => (
 	<div className="list-header">
@@ -257,12 +257,46 @@ const HomeContent = () => {
 		<div className="quillforms-home">
 			<div className="quillforms-home__header">
 				<div className="quillforms-home__header-left">
-					<h1 className="text-2xl font-bold !text-[#001D4F]">{__('Forms', 'quillforms')}</h1>
+					<h1 className="text-2xl font-bold text-[#001D4F]">{__('Forms', 'quillforms')}</h1>
 
 				</div>
 				<div className="quillforms-home__header-right">
+					<SearchControl
+						className=" border border-border-color rounded-2xl py-3 px-4"
+						value={searchTerm}
+						onChange={setSearchTerm}
+						placeholder={__('Search forms...', 'quillforms')}
+					/>
+					{selectedForms.length > 0 ? (
+						<BulkActions />
+					) : (
+						<CustomButton
+	                      text={__('New Form', 'quillforms')}
+	onClick={() => setIsModalOpen(true)}
+/>
+					)}
+					<Dropdown
+						className="sort-dropdown"
+						position="bottom left"
+						renderToggle={({ isOpen, onToggle }) => (
+							<Button onClick={onToggle} aria-expanded={isOpen}>
+								{__('Sort by:', 'quillforms')} {sortBy}
+							</Button>
+						)}
+						renderContent={() => (
+							<MenuGroup>
+								<MenuItem onClick={() => setSortBy('date')}>
+									{__('Date', 'quillforms')}
+								</MenuItem>
+								<MenuItem onClick={() => setSortBy('title')}>
+									{__('Title', 'quillforms')}
+								</MenuItem>
+							</MenuGroup>
+						)}
+					/>
 					<div className="view-mode-toggle">
 						<Button
+						    className={viewMode === 'grid' ? ' !rounded-l-lg' : ' rounded-r-lg'}
 							isPressed={viewMode === 'grid'}
 							onClick={() => setViewMode('grid')}
 							icon={
@@ -275,6 +309,7 @@ const HomeContent = () => {
 							}
 						/>
 						<Button
+							className={viewMode === 'list' ? ' !rounded-r-lg' : ' rounded-l-lg'}
 							isPressed={viewMode === 'list'}
 							onClick={() => setViewMode('list')}
 							icon={
@@ -288,63 +323,13 @@ const HomeContent = () => {
 						/>
 					</div>
 
-					{selectedForms.length > 0 ? (
-						<BulkActions />
-					) : (
-						<CustomButton
-							text={__('Add new form', 'quillforms')}
-							onClick={() => setIsModalOpen(true)}
-						/>
-					)}
 				</div>
 			</div>
-			<div className="quillforms-home__header">
-				<div className="quillforms-home__header-left">
-					<CustomSearch
-						value={searchTerm}
-						onChange={setSearchTerm}
-						placeholder={__('Search forms...', 'quillforms')}
-					/>
-				</div>
-				<div className="quillforms-home__header-right">
-					<Dropdown
-						className="sort-dropdown"
-						position="bottom left"
-						renderToggle={({ isOpen, onToggle }) => (
-							<div className="flex items-center gap-3">
-								<p className="text-lg font-semibold leading-7 text-[#334155]">
-									{__('Sort by:', 'quillforms')}
-								</p>
-								<CustomButton
-									className='!py-2'
-									variant="outline"
-									text={sortBy}
-									onClick={onToggle}
-									aria-expanded={isOpen}
-								/>
-							</div>
-						)}
-						renderContent={() => (
-							<MenuGroup
-							>
-								<MenuItem onClick={() => setSortBy('date')}>
-									{__('Date', 'quillforms')}
-								</MenuItem>
-								<MenuItem onClick={() => setSortBy('title')}>
-									{__('Title', 'quillforms')}
-								</MenuItem>
-							</MenuGroup>
-						)}
-					/>
-				</div>
 
-			</div>
-
-			<CustomTabs
+			<TabPanel
 				className="quillforms-home__tabs"
 				tabs={tabs}
 				onSelect={setCurrentStatus}
-				initialTabName={currentStatus}
 			>
 				{(tab) => (
 					<div className={`quillforms-home__forms-grid view-${viewMode}`}>
@@ -375,7 +360,7 @@ const HomeContent = () => {
 						)}
 					</div>
 				)}
-			</CustomTabs>
+			</TabPanel>
 
 			{isModalOpen && <AddFormModal closeModal={() => setIsModalOpen(false)} />}
 		</div>

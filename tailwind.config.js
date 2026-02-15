@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "./packages/rich-text/**/*.{js,jsx,ts,tsx}",
-    ],
+		"./packages/rich-text/**/*.{js,jsx,ts,tsx}",
+		"./client/**/*.{js,jsx,ts,tsx,php}",
+	],
     theme: {
         container: {
             center: true,
@@ -13,7 +14,9 @@ module.exports = {
         },
         extend: {
             colors: {
+				"quillforms-primary": "#B2328C",
                 border: "hsl(var(--border))",
+				"border-color": "#D9D9D9",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
                 background: "hsl(var(--background))",

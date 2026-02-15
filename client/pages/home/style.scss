@@ -1,10 +1,10 @@
 // Global styles
 body {
-    background-color: #f2f4fc;
+    background-color: #fff;
 }
 
 .quillforms-home {
-    padding: 24px;
+    padding: 16px;
 
 
 
@@ -12,11 +12,11 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 32px;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 24px;
+        // background: #fff;
+        // padding: 20px;
+        // border-radius: 8px;
+        // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
         &-left {
             display: flex;
@@ -571,26 +571,36 @@ body {
 
 // View Toggle Styles
 .view-mode-toggle {
-    background: #fff;
-    border: 1px solid #e2e4e7;
-    border-radius: 4px;
-    display: flex;
+	background: #fff;
+	border: 1px solid #e2e4e7;
+	border-radius: 8px;
+	display: flex;
 
-    .components-button {
-        padding: 6px;
-        height: 36px;
-        border-radius: 0;
+	.components-button {
+		padding: 8px;
+		// height: 36px;
 
-        &.is-pressed {
-            background: #1e1e1e;
-        }
+		&.is-pressed,
+		&.is-pressed:hover,
+		&:hover,
+		&:focus,
+		&:active {
+			background: #FFEEFB !important;
+			box-shadow: none !important;
+		}
 
-        &:first-child {
-            border-right: 1px solid #e2e4e7;
-        }
-    }
+		&:first-child {
+			border-right: 1px solid #D9D9D9;
+			border-top-left-radius: 7px;
+			border-bottom-left-radius: 7px;
+		}
+
+		&:last-child {
+			border-top-right-radius: 7px;
+			border-bottom-right-radius: 7px;
+		}
+	}
 }
-
 // Add Form Button
 .add-new-form-button {
     background: var(--wp-admin-theme-color);
@@ -994,7 +1004,7 @@ body {
                 border-radius: 10px;
                 font-size: 16px;
                 z-index: 0;
-                display: inline; 
+                display: inline;
             }
 
             .template-icon, .ai-icon {
@@ -1113,7 +1123,7 @@ body {
         gap: 20px;
         max-width: 1200px;
       }
-      
+
       .create-from-scratch-card,
       .choose-template-card,
       .ai-form-card {
@@ -1130,39 +1140,39 @@ body {
         cursor: pointer;
         transition: all 0.2s ease;
       }
-      
+
       .ai-form-card {
         border: 2px solid #8c69ff;
       }
-      
+
       .ai-form-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 5px 15px rgba(140, 105, 255, 0.3);
       }
-      
+
       .ai-form-card svg {
         width: 40px;
         height: 40px;
         margin-bottom: 15px;
         color: #8c69ff;
       }
-      
+
       .quillforms-ai-form-generator {
         max-width: 600px;
         margin: 0 auto;
         padding: 20px;
       }
-      
+
       .quillforms-ai-form-generator .form-field {
         margin-bottom: 20px;
       }
-      
+
       .quillforms-ai-form-generator .form-actions {
         display: flex;
         gap: 10px;
         margin-top: 30px;
       }
-      
+
       .quillforms-ai-form-generator .error-message {
         color: #d63638;
         margin-top: 15px;

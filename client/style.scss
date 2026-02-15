@@ -1,4 +1,7 @@
 @import "./layout/style.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 #qf-admin-root #qf-admin-root__loader-container > svg {
 	animation: iconPulse 1s 2s infinite;
 }
