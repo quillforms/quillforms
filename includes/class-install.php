@@ -221,6 +221,7 @@ class Install {
 	 */
 	private static function version_4_migration() {
 		global $wpdb;
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional logging for migration tracking.
 		error_log( 'version_4_migration' );
 		$version = get_option( 'quillforms_version' );
 		if ( ! $version ) {

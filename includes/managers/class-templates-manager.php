@@ -55,6 +55,7 @@ final class Templates_Manager {
 	 */
 	public function register_template( $template ) {
 		if ( ! $template instanceof Form_Template ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( '%s object is not instance of %s', get_class( $template ), Form_Template::class ),
 				self::NOT_ADDON_INSTANCE
@@ -62,6 +63,7 @@ final class Templates_Manager {
 		}
 		// empty slug.
 		if ( empty( $template->name ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( '%s template slug is empty', get_class( $template ) ),
 				self::EMPTY_SLUG
@@ -71,6 +73,7 @@ final class Templates_Manager {
 		
 		// already used slug.
 		if ( isset( $this->registered[ $template->name ] ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( '%s template slug is already used for %s', $template->name, get_class( $this->registered[ $template->name ] ) ),
 				self::ALREADY_USED_SLUG

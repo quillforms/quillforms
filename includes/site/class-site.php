@@ -42,7 +42,8 @@ class Site {
 	private function __construct() {
 		License::instance();
 		Store::instance();
-		Updater::instance();
+		// Updater disabled for WordPress.org hosted version.
+		// Updater::instance();
 	}
 
 	/**

@@ -288,7 +288,7 @@ class WordPress_Environment {
 		}
 
 		// label_raw.
-		$item['label_raw'] = strip_tags( $plugin['name'] );
+		$item['label_raw'] = wp_strip_all_tags( $plugin['name'] );
 
 		// value.
 		$network_string = ( false !== $plugin['network_activated'] )

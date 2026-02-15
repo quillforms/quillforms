@@ -202,6 +202,7 @@ function quillforms_get_logger() {
 		$threshold = Settings::get( 'log_level', 'info' );
 		$logger    = is_object( $class ) ? $class : new $class( null, $threshold );
 	} else {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- _doing_it_wrong handles escaping internally.
 		_doing_it_wrong(
 			__FUNCTION__,
 			sprintf(

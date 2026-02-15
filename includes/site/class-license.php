@@ -235,8 +235,8 @@ class License {
 		// update option.
 		update_option( 'quillforms_license', $license );
 
-		// clear addons update cache.
-		Updater::instance()->clear_addons_update_cache();
+		// Updater disabled for WordPress.org hosted version.
+		// Updater::instance()->clear_addons_update_cache();
 
 		return array( 'success' => true );
 	}
@@ -386,8 +386,8 @@ class License {
 		// update option.
 		update_option( 'quillforms_license', $license );
 
-		// clear addons update cache.
-		Updater::instance()->clear_addons_update_cache();
+		// Updater disabled for WordPress.org hosted version.
+		// Updater::instance()->clear_addons_update_cache();
 
 		// return new license info.
 		wp_send_json_success( $this->get_license_info(), 200 );
@@ -434,8 +434,8 @@ class License {
 
 			delete_option( 'quillforms_license' );
 
-			// clear addons update cache.
-			Updater::instance()->clear_addons_update_cache();
+			// Updater disabled for WordPress.org hosted version.
+			// Updater::instance()->clear_addons_update_cache();
 		}
 
 		wp_send_json_success( esc_html__( 'License removed successfully', 'quillforms' ), 200 );

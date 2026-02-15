@@ -51,6 +51,7 @@ final class Blocks_Manager
 
         if (preg_match('/[A-Z]+/', $block_name) ) {
             $message = __('Block type names must not contain uppercase characters.', 'quillforms');
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- _doing_it_wrong handles escaping internally.
             _doing_it_wrong(__METHOD__, $message, '1.0.0');
 
             return false;
@@ -92,6 +93,7 @@ final class Blocks_Manager
         if (! $this->is_registered($type) ) {
             /* translators: %s: Block name. */
             $message = sprintf(__('Block type "%s" is not registered.', 'quillforms'), $type);
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- _doing_it_wrong handles escaping internally.
             _doing_it_wrong(__METHOD__, $message, '1.0.0');
 
             return false;
@@ -121,6 +123,7 @@ final class Blocks_Manager
         if (empty($block_name) || ! isset($this->registered_block_types[ $block_name ]) ) {
             /* translators: %s for block type */
             $message = sprintf(esc_html__('Block type %s is not defined.', 'quillforms'), $block_name);
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- _doing_it_wrong handles escaping internally.
             _doing_it_wrong(__METHOD__, $message, '1.0.0');
 
             return false;

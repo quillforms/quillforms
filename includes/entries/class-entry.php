@@ -254,7 +254,7 @@ class Entry extends Abstract_Entry {
 	 * @return string
 	 */
 	public function generate_hash_key() {
-		return md5( uniqid( rand(), true ) );
+		return md5( uniqid( wp_rand(), true ) );
 	}
 
 	/**

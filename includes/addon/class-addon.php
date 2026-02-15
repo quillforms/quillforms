@@ -240,7 +240,7 @@ abstract class Addon {
 	protected function output_registration_error( $message ) {
 		?>
 		<div class="notice notice-error">
-			<p><?php echo esc_html__( 'Cannot register a Quill Forms addon', 'quillforms' ) . ': ' . $message; ?></p>
+			<p><?php echo esc_html__( 'Cannot register a Quill Forms addon', 'quillforms' ) . ': ' . esc_html( $message ); ?></p>
 		</div>
 		<?php
 	}
@@ -248,10 +248,15 @@ abstract class Addon {
 	/**
 	 * Load plugin text domain
 	 *
+	 * Note: For plugins hosted on WordPress.org, translations are loaded automatically
+	 * since WordPress 4.6. This function is kept for backwards compatibility and
+	 * for self-hosted installations.
+	 *
 	 * @return void
 	 */
 	protected function load_textdomain() {
 		$plugin_rel_path = substr( $this->plugin_dir, strlen( WP_PLUGIN_DIR ) ) . 'languages';
+		// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Kept for backwards compatibility with self-hosted installations.
 		load_plugin_textdomain( $this->textdomain, false, $plugin_rel_path );
 	}
 

@@ -154,6 +154,7 @@ class REST_Log_Controller extends REST_Controller {
 		$filename = esc_html__( 'Logs export', 'quillforms' ) . '.json';
 
 		if ( ini_get( 'display_errors' ) ) {
+			// phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Required for clean file download output.
 			ini_set( 'display_errors', '0' );
 		}
 		nocache_headers();

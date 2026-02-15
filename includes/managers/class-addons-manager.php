@@ -70,6 +70,7 @@ final class Addons_Manager {
 	 */
 	public function register( $addon ) {
 		if ( ! $addon instanceof Addon ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( '%s object is not instance of %s', get_class( $addon ), Addon::class ),
 				self::NOT_ADDON_INSTANCE
@@ -77,6 +78,7 @@ final class Addons_Manager {
 		}
 		// empty slug.
 		if ( empty( $addon->slug ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( '%s addon slug is empty', get_class( $addon ) ),
 				self::EMPTY_SLUG
@@ -84,6 +86,7 @@ final class Addons_Manager {
 		}
 		// disallowed slug characters.
 		if ( ! preg_match( '/^[a-z0-9_-]+$/', $addon->slug ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( '%s addon slug has illegal characters (only a-z0-9 is allowed)', get_class( $addon ) ),
 				self::DISALLOWED_SLUG_CHARACTERS
@@ -102,6 +105,7 @@ final class Addons_Manager {
 		}
 		// already used slug.
 		if ( isset( $this->registered[ $addon->slug ] ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( '%s addon slug is already used for %s', $addon->slug, get_class( $this->registered[ $addon->slug ] ) ),
 				self::ALREADY_USED_SLUG
@@ -109,6 +113,7 @@ final class Addons_Manager {
 		}
 		// incompatible version.
 		if ( $store_addon && ( $store_addon['min_version'] ?? null ) && version_compare( $store_addon['version'], $store_addon['min_version'], '<' ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 			throw new Exception(
 				sprintf( 'Quill Forms %s addon must be updated', $addon->slug ),
 				self::INCOMPATIBLE_VERSION
@@ -118,6 +123,7 @@ final class Addons_Manager {
 		foreach ( $addon->dependencies ?? array() as $key => $value ) {
 			if ( 'quillforms' === $key ) {
 				if ( version_compare( QUILLFORMS_VERSION, $value['version'], '<' ) ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 					throw new Exception(
 						sprintf( '%s addon requires at least Quill Forms plugin version %s', $addon->slug, $value['version'] ),
 						self::INCOMPATIBLE_DEPENDENCIES
@@ -128,6 +134,7 @@ final class Addons_Manager {
 				$dependency_addon      = $this->registered[ $dependency_addon_slug ] ?? null;
 				if ( ( ! $dependency_addon && ( $value['required'] ?? false ) )
 					|| ( $dependency_addon && version_compare( $dependency_addon->version, $value['version'], '<' ) ) ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 						throw new Exception(
 							sprintf( '%s addon requires at least %s addon version %s. please update it.', $addon->slug, $dependency_addon_slug, $value['version'] ),
 							self::INCOMPATIBLE_DEPENDENCIES
@@ -135,6 +142,7 @@ final class Addons_Manager {
 				}
 			} elseif ( 'ssl' === $key ) {
 				if ( ! $this->is_ssl() ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 					throw new Exception(
 						sprintf( '%s addon requires ssl', $addon->slug ),
 						self::INCOMPATIBLE_DEPENDENCIES
@@ -142,12 +150,14 @@ final class Addons_Manager {
 				}
 			} elseif ( 'curl' === $key ) {
 				if ( ! $this->is_curl_enabled() ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 					throw new Exception(
 						sprintf( '%s addon requires curl', $addon->slug ),
 						self::INCOMPATIBLE_DEPENDENCIES
 					);
 				}
 			} else {
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not direct output.
 				throw new Exception(
 					sprintf( '%s addon has unknown dependency %s', $addon->slug, $key ),
 					self::INCOMPATIBLE_DEPENDENCIES

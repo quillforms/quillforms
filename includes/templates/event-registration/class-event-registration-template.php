@@ -32,7 +32,7 @@ class Event_Registration_Template extends Form_Template {
     }
 
     public function get_long_description() {
-        return __( 'This template is designed to gather information from participants who want to register for an event. It includes a calendar picker block, a multiple choice block, and a phone block to help you collect valuable insights from your participants.', 'quillfozsrms' );
+        return __( 'This template is designed to gather information from participants who want to register for an event. It includes a calendar picker block, a multiple choice block, and a phone block to help you collect valuable insights from your participants.', 'quillforms' );
     }
 
 

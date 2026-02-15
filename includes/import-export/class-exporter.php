@@ -97,8 +97,9 @@ class Exporter {
 			array_push( $json, $form_array );
 		}
 
-		$filename = 'quillforms-export-' . date( 'Y-m-d' ) . '.json';
+		$filename = 'quillforms-export-' . gmdate( 'Y-m-d' ) . '.json';
 		if ( ini_get( 'display_errors' ) ) {
+			// phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Required for clean file download output.
 			ini_set( 'display_errors', '0' );
 		}
 

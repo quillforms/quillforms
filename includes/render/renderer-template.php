@@ -18,9 +18,9 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 ?>
 <!DOCTYPE html>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>" 
-	lang="<?php echo get_locale(); ?>" >
+	lang="<?php echo esc_attr( get_locale() ); ?>" >
 	<head>
-		<link rel="shortcut icon" href="<?php echo apply_filters( 'quillforms_favicon', esc_url( get_site_icon_url() ) ); ?>" />
+		<link rel="shortcut icon" href="<?php echo esc_url( apply_filters( 'quillforms_favicon', get_site_icon_url() ) ); ?>" />
 		<style>
 			html, body {
 				position: relative !important;
@@ -62,7 +62,7 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				background-color: <?php echo $form_object['theme']['backgroundColor']; ?>;
+				background-color: <?php echo esc_attr( $form_object['theme']['backgroundColor'] ); ?>;
 				justify-content: center;
 				width: 100%;
 				height: 100%
@@ -78,13 +78,13 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 
 			.qf-loader-container .quillforms-branding-powered-by {
 				margin-top: 20px;
-				font-family: "<?php echo $form_object['theme']['font']; ?>";
+				font-family: "<?php echo esc_attr( $form_object['theme']['font'] ); ?>";
 				display: 'none';
 			}
 
 			.qf-loader-container .quillforms-branding-powered-by a {
 				text-decoration: none !important;
-				color: <?php echo $form_object['theme']['questionsColor']; ?> !important;
+				color: <?php echo esc_attr( $form_object['theme']['questionsColor'] ); ?> !important;
 			}
 
 			
@@ -92,7 +92,7 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 				width: 40px;
 				height: 40px;
 				border: 4px rgba(0,0,0,0) solid;
-				border-top: 4px <?php echo $form_object['theme']['questionsColor']; ?> solid;
+				border-top: 4px <?php echo esc_attr( $form_object['theme']['questionsColor'] ); ?> solid;
 				border-radius: 50%;
 				animation: spin-circle .8s infinite linear;
 			}
@@ -109,8 +109,8 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 		</style>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" name="viewport">
 		<meta name="robots" content="<?php echo $disable_indexing ? 'noindex' : 'index'; ?>">
-		<title><?php echo get_the_title(); ?></title> 
-		<?php echo do_action( 'quillforms_head' ); ?>
+		<title><?php echo esc_html( get_the_title() ); ?></title> 
+		<?php do_action( 'quillforms_head' ); ?>
 		<?php do_action( 'wp_enqueue_scripts' ); ?>
 		<?php
 		if ( defined( 'WEGLOT_VERSION' ) ) {
@@ -133,7 +133,7 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 			<div class="qf-loader-container">
 				<?php if ( isset( $form_object['theme']['logo'] ) && isset( $form_object['theme']['logo']['src'] ) ) { ?>
 					<div class="qf-logo-container">
-						<img class="qf-logo" src="<?php echo $form_object['theme']['logo']['src']; ?>" />
+						<img class="qf-logo" src="<?php echo esc_url( $form_object['theme']['logo']['src'] ); ?>" />
 					</div>
 
 				<?php } ?>
