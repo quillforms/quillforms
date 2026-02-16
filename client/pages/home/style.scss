@@ -54,8 +54,11 @@ body {
 		&.view-grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-			gap: 24px;
-			padding: 0;
+			gap: 24px 20px;
+			padding: 24px 20px;
+			background: #F7F8FA;
+			border-radius: 20px;
+			border: 1px solid #D9D9D9;
 		}
 
 		&.view-list {
@@ -149,8 +152,10 @@ body {
 		border-radius: 4px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
+
 		.components-menu-group {
 			padding: 0;
+
 
 			&:not(:last-child) {
 				border-bottom: 1px solid #e2e4e7;
@@ -207,19 +212,19 @@ body {
 
 	.form-card__dropdown {
 		.components-button {
-			padding: 6px;
-			height: 36px;
-			min-width: 36px;
-			justify-content: center;
-			color: #1e1e1e;
+			// padding: 6px;
+			// height: 36px;
+			// min-width: 36px;
+			// justify-content: center;
+			// color: #1e1e1e;
 
 			&:hover {
 				color: var(--wp-admin-theme-color);
 			}
 
 			svg {
-				width: 20px;
-				height: 20px;
+				width: 32px;
+				height: 32px;
 			}
 		}
 	}
@@ -270,35 +275,133 @@ body {
 
 	// Grid View
 	&--grid {
-		aspect-ratio: auto;
-		height: 280px;
+		// aspect-ratio: auto;
+		border-radius: 16px;
+		border: 1px solid #D9D9D9;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
 
 		.form-card__preview {
 			flex: 1;
-			position: relative;
 			display: flex;
-			height: 220px;
-			align-items: center;
-			justify-content: center;
-			border-radius: 8px 8px 0 0;
+			align-items: flex-start;
+			padding: 20px;
 
-			.form-card__title {
-				text-align: center;
-				padding: 10px;
+			.form-card__content {
+				width: 100%;
+				cursor: pointer;
 			}
-		}
 
-		.form-card__footer {
-			background: #fff;
-			padding: 12px 16px;
-			border-radius: 0 0 8px 8px;
-			border-top: 1px solid #f0f0f0;
-
-			.form-card__meta {
+			.form-card__header-row {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
+				width: 100%;
 				margin-bottom: 8px;
+			}
+
+			.form-card__header-actions {
+				position: static;
+				display: flex;
+				align-items: center;
+			}
+
+			.form-card__title-wrapper {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.form-card__checkbox-icon {
+				flex-shrink: 0;
+				color: inherit;
+				opacity: 0.6;
+			}
+
+			.form-card__title {
+				font-size: 18px;
+				font-weight: 600;
+				color: #334155;
+				text-align: left;
+				line-height: 28px;
+				text-transform: capitalize;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding: 0;
+				margin: 0;
+			}
+
+			.form-card__date {
+				font-size: 16px;
+				font-weight: 500;
+				color: #777;
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				margin-bottom: 16px;
+			}
+		}
+
+		.form-card__meta--grid {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+		}
+
+		.form-card__responses-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 4px 8px;
+			border-radius: 8px;
+			background: #DAE5F0;
+			color: #236294;
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		.form-card__status-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 4px 8px;
+			border-radius: 8px;
+			font-size: 16px;
+			font-weight: 500;
+
+			.form-card__status-dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 9999px;
+			}
+
+			&.status-publish {
+				background: #DCFCE7;
+				color: #15803D;
+
+				.form-card__status-dot {
+					background: #22C55E;
+				}
+			}
+
+			&.status-draft {
+				background: #FEF3C7;
+				color: #92400E;
+
+				.form-card__status-dot {
+					background: #F59E0B;
+				}
+			}
+
+			&.status-trash {
+				background: #FEE2E2;
+				color: #991B1B;
+
+				.form-card__status-dot {
+					background: #EF4444;
+				}
 			}
 		}
 	}
@@ -538,6 +641,7 @@ body {
 .components-dropdown-menu__menu {
 	padding: 8px;
 	min-width: 200px;
+	// z-index: 9999;
 
 	.components-menu-item__button {
 		padding: 8px 12px;
@@ -1133,5 +1237,25 @@ body {
 		padding: 10px;
 		background: #ffeeee;
 		border-radius: 4px;
+	}
+}
+
+// Import Modal Styles
+.quillforms-import-modal {
+	.components-modal__content {
+		padding: 0;
+	}
+
+	.components-modal__header {
+		border-bottom: 1px solid #E2E8F0;
+		padding: 16px;
+		margin: 0 !important;
+		height: auto !important;
+
+		.components-modal__header-heading {
+			font-size: 28px;
+			font-weight: 600;
+			color: #334155;
+		}
 	}
 }

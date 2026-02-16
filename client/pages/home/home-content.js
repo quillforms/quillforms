@@ -13,12 +13,15 @@ import { size } from 'lodash';
 
 import './style.scss';
 import AddFormModal from './add-form-modal';
+import ImportFormModal from './import-form-modal';
 import { FormCard, EmptyState } from './form-card';
 import { FormsSkeleton, FormCardSkeleton } from './form-skeleton';
 import { gridIcon, listIcon } from './icons';
 import CustomButton from '../../components/custom-button';
 import CustomSearch from '../../components/custom-search';
 import CustomTabs from '../../components/custom-tabs';
+import ArrowButtonIcon from './icons/arrow-button';
+import ImportIcon from './icons/import-icon';
 
 const ListHeader = ({ selectAll, handleSelectAll }) => (
 	<div className="list-header">
@@ -37,6 +40,7 @@ const ListHeader = ({ selectAll, handleSelectAll }) => (
 
 const HomeContent = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 	const [isFetchingOnMount, setIsFetchingOnMount] = useState(true);
 	const [viewMode, setViewMode] = useState('list');
 	const [searchTerm, setSearchTerm] = useState('');
@@ -297,10 +301,18 @@ const HomeContent = () => {
 					{selectedForms.length > 0 ? (
 						<BulkActions />
 					) : (
-						<CustomButton
-							text={__('Add new form', 'quillforms')}
-							onClick={() => setIsModalOpen(true)}
-						/>
+						<div className="flex items-center gap-3">
+							<CustomButton
+								variant="outlineSecondary"
+								text={__('Import', 'quillforms')}
+								onClick={() => setIsImportModalOpen(true)}
+                               icon={<ImportIcon />}
+							/>
+							<CustomButton
+								text={__('Add new form', 'quillforms')}
+								onClick={() => setIsModalOpen(true)}
+							/>
+						</div>
 					)}
 				</div>
 			</div>
@@ -321,12 +333,15 @@ const HomeContent = () => {
 								<p className="text-lg font-semibold leading-7 text-[#334155]">
 									{__('Sort by:', 'quillforms')}
 								</p>
+
+
 								<CustomButton
-									className='!py-2'
+									className='!py-2 !capitalize'
 									variant="outline"
 									text={sortBy}
 									onClick={onToggle}
 									aria-expanded={isOpen}
+									icon={<ArrowButtonIcon />}
 								/>
 							</div>
 						)}
@@ -384,6 +399,10 @@ const HomeContent = () => {
 			</CustomTabs>
 
 			{isModalOpen && <AddFormModal closeModal={() => setIsModalOpen(false)} />}
+			<ImportFormModal
+				isOpen={isImportModalOpen}
+				onClose={() => setIsImportModalOpen(false)}
+			/>
 		</div>
 	);
 };

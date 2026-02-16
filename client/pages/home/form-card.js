@@ -20,15 +20,19 @@ import { css } from "emotion";
 import { __ } from '@wordpress/i18n';
 import CustomButton from '../../components/custom-button';
 import ClockIcon from './icons/colck-icon';
+import EditIcon from './icons/edit-icon';
+import ResultsIcon from './icons/result-icon';
+import IntegrationIcon from './icons/intergation-icon';
+import ShareIcon from './icons/share-icon';
+import DuplicateIcon from './icons/dublicate-icon';
+import RenameIcon from './icons/rename-icon';
+import SlugIcon from './icons/slug-icon';
+import UserIcon from './icons/user-icon';
+import MoreHorizinatialIcon from './icons/more-horizinatial';
 // import emptyState from '../../../assets/addons/emptystate/emptyState.png';
 
-const MoreVerticalIcon = () => (
-	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-		<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-		<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 12 20 12 20Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-	</svg>
-);
+// Use horizontal more icon (three dots in a row)
+const MoreVerticalIcon = () => <MoreHorizinatialIcon width={24} height={24} />;
 
 export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -148,7 +152,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 						onClick={onToggle}
 						aria-expanded={isOpen}
 					>
-						<MoreVerticalIcon />
+						<MoreHorizinatialIcon />
 					</Button>
 				)}
 				renderContent={({ onClose }) => (
@@ -187,7 +191,9 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 				renderContent={({ onClose }) => (
 					<>
 						<MenuGroup>
+							<p className='text-base !text-[#777] leading-[26px] mb-2'>{__('Content Management', 'quillforms')}</p>
 							<MenuItem
+								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/builder`)
@@ -195,9 +201,11 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
+								<EditIcon />
 								{__('Edit', 'quillforms')}
 							</MenuItem>
 							<MenuItem
+								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/results`)
@@ -205,9 +213,11 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
+								<ResultsIcon />
 								{__('Results', 'quillforms')}
 							</MenuItem>
 							<MenuItem
+								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/integrations`)
@@ -215,9 +225,11 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
+								<IntegrationIcon />
 								{__('Integrations', 'quillforms')}
 							</MenuItem>
 							<MenuItem
+								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/share`)
@@ -225,12 +237,15 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
+								<ShareIcon />
 								{__('Share', 'quillforms')}
 							</MenuItem>
 						</MenuGroup>
 
 						<MenuGroup>
+							<p className='text-base !text-[#777] leading-[26px] mb-2'>{__('Structure & Properties', 'quillforms')}</p>
 							<MenuItem
+								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
 								onClick={async () => {
 									setIsLoading(true);
 									await duplicate();
@@ -238,22 +253,27 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 									onClose();
 								}}
 							>
+								<DuplicateIcon />
 								{__('Duplicate', 'quillforms')}
 							</MenuItem>
 							<MenuItem
+								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
 								onClick={() => {
 									setShowRenameForm(true);
 									onClose();
 								}}
 							>
+								<RenameIcon />
 								{__('Rename', 'quillforms')}
 							</MenuItem>
 							<MenuItem
+								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
 								onClick={() => {
 									setEditSlug(true);
 									onClose();
 								}}
 							>
+								<SlugIcon />
 								{__('Change slug', 'quillforms')}
 							</MenuItem>
 							<MenuItem
@@ -285,6 +305,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 						</MenuGroup>
 
 						<MenuGroup>
+							<p className='text-base !text-[#777] leading-[26px] mb-2'>{__('Change Status', 'quillforms')}</p>
 							<MenuItem
 								isDestructive
 								onClick={() => {
@@ -459,35 +480,65 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 					className="form-card__preview"
 					style={{
 						backgroundColor: theme.backgroundColor,
-						backgroundImage: theme.backgroundImage ? `url(${theme.backgroundImage})` : 'none',
-						cursor: 'pointer'
+						backgroundImage: theme.backgroundImage ? `url(${theme.backgroundImage})` : 'none'
 					}}
-					onClick={
-						() => {
+				>
+					<div
+						className="form-card__content"
+						onClick={() => {
 							getHistory().push(
 								getNewPath({}, `/forms/${form.id}/builder`)
 							);
-						}
-					}
-				>
-					<div className={classnames("form-card__title", css`
-								color: ${theme.fontColor};
-							`)}
-
-
+						}}
 					>
-						{form.title.rendered || __('Untitled Form', 'quillforms')}
-					</div>
-				</div>
+						<div className="form-card__header-row">
+							<div className="form-card__title-wrapper">
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 20 20"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+									className="form-card__checkbox-icon"
+								>
+									<rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.5" fill="none" />
+								</svg>
+								<div className={classnames("form-card__title", css`
+											color: ${theme.fontColor};
+										`)}
+								>
+									{form.title.rendered || __('Untitled Form', 'quillforms')}
+								</div>
+							</div>
 
-				<div className="form-card__footer">
-					<div className="form-card__meta">
-						<span className={`status-indicator status-${form.status}`}>
-							{form.status === 'publish' ? __('Published', 'quillforms') : form.status}
-						</span>
-						<span>{responsesCount} {__('responses', 'quillforms')}</span>
-						<div className="form-card__actions">
-							{renderActions()}
+							<div
+								className="form-card__header-actions"
+								onClick={(e) => {
+									e.stopPropagation();
+								}}
+							>
+								{renderActions()}
+							</div>
+						</div>
+
+						<div className="form-card__date">
+							<ClockIcon width={24} height={24} />
+							{lastModified}
+						</div>
+
+						<div className="form-card__meta form-card__meta--grid">
+							<div className="form-card__responses-pill">
+								<UserIcon />
+								<span>Responses: {responsesCount}</span>
+							</div>
+							<span className={`form-card__status-pill status-${form.status}`}>
+								<span className="form-card__status-dot" />
+								{form.status === 'publish'
+									? __('Completed', 'quillforms')
+									: form.status === 'draft'
+										? __('Draft', 'quillforms')
+										: form.status}
+							</span>
 						</div>
 					</div>
 				</div>
