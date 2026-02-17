@@ -3,11 +3,7 @@ import { useDispatch } from '@wordpress/data';
 import {
 	Card,
 	Dropdown,
-	MenuGroup,
-	MenuItem,
-	CheckboxControl,
-	Modal,
-	TextControl
+	CheckboxControl
 } from '@wordpress/components';
 
 import { Button } from "@quillforms/admin-components";
@@ -19,6 +15,7 @@ import { Icon } from '@wordpress/icons';
 import { css } from "emotion";
 import { __ } from '@wordpress/i18n';
 import CustomButton from '../../components/custom-button';
+import CustomModal from '../../components/custom-modal';
 import ClockIcon from './icons/colck-icon';
 import EditIcon from './icons/edit-icon';
 import ResultsIcon from './icons/result-icon';
@@ -29,7 +26,12 @@ import RenameIcon from './icons/rename-icon';
 import SlugIcon from './icons/slug-icon';
 import UserIcon from './icons/user-icon';
 import MoreHorizinatialIcon from './icons/more-horizinatial';
-// import emptyState from '../../../assets/addons/emptystate/emptyState.png';
+import TrashIcon from './icons/trash-icon';
+import trashImage from '../../../assets/images/trash.png';
+import draftImage from '../../../assets/images/draft.png';
+import emptyState from '../../../assets/images/emptyState.png';
+import DraftIcon from './icons/draft-icon';
+
 
 // Use horizontal more icon (three dots in a row)
 const MoreVerticalIcon = () => <MoreHorizinatialIcon width={24} height={24} />;
@@ -37,6 +39,8 @@ const MoreVerticalIcon = () => <MoreHorizinatialIcon width={24} height={24} />;
 export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [showRenameForm, setShowRenameForm] = useState(false);
+	const [showTrashModal, setShowTrashModal] = useState(false);
+	const [showDraftModal, setShowDraftModal] = useState(false);
 	const [formTitle, setFormTitle] = useState(form.title.raw);
 	const [editSlug, setEditSlug] = useState(false);
 	const [formSlug, setFormSlug] = useState(form.slug);
@@ -189,11 +193,11 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 					</Button>
 				)}
 				renderContent={({ onClose }) => (
-					<>
-						<MenuGroup>
-							<p className='text-base !text-[#777] leading-[26px] mb-2'>{__('Content Management', 'quillforms')}</p>
-							<MenuItem
-								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
+					<div className="custom-dropdown-menu">
+						<div className="custom-dropdown-group">
+							<p className='custom-dropdown-label'>{__('Content Management', 'quillforms')}</p>
+							<div
+								className='custom-dropdown-item'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/builder`)
@@ -203,9 +207,9 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							>
 								<EditIcon />
 								{__('Edit', 'quillforms')}
-							</MenuItem>
-							<MenuItem
-								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
+							</div>
+							<div
+								className='custom-dropdown-item'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/results`)
@@ -215,9 +219,9 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							>
 								<ResultsIcon />
 								{__('Results', 'quillforms')}
-							</MenuItem>
-							<MenuItem
-								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
+							</div>
+							<div
+								className='custom-dropdown-item'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/integrations`)
@@ -227,9 +231,9 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							>
 								<IntegrationIcon />
 								{__('Integrations', 'quillforms')}
-							</MenuItem>
-							<MenuItem
-								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
+							</div>
+							<div
+								className='custom-dropdown-item'
 								onClick={() => {
 									getHistory().push(
 										getNewPath({}, `/forms/${form.id}/share`)
@@ -239,13 +243,25 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							>
 								<ShareIcon />
 								{__('Share', 'quillforms')}
-							</MenuItem>
-						</MenuGroup>
+							</div>
+							<div
+								className='custom-dropdown-item'
+								onClick={() => {
+									// Export functionality placeholder
+									onClose();
+								}}
+							>
+								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M10 3V13M10 13L6 9M10 13L14 9M3 17H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+								</svg>
+								{__('Export', 'quillforms')}
+							</div>
+						</div>
 
-						<MenuGroup>
-							<p className='text-base !text-[#777] leading-[26px] mb-2'>{__('Structure & Properties', 'quillforms')}</p>
-							<MenuItem
-								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
+						<div className="custom-dropdown-group">
+							<p className='custom-dropdown-label'>{__('Structure & Properties', 'quillforms')}</p>
+							<div
+								className='custom-dropdown-item'
 								onClick={async () => {
 									setIsLoading(true);
 									await duplicate();
@@ -255,9 +271,9 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							>
 								<DuplicateIcon />
 								{__('Duplicate', 'quillforms')}
-							</MenuItem>
-							<MenuItem
-								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
+							</div>
+							<div
+								className='custom-dropdown-item'
 								onClick={() => {
 									setShowRenameForm(true);
 									onClose();
@@ -265,58 +281,75 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							>
 								<RenameIcon />
 								{__('Rename', 'quillforms')}
-							</MenuItem>
-							<MenuItem
-								className='flex !p-0 items-center !gap-2 text-lg font-medium !text-[#334155] leading-7'
+							</div>
+							<div
+								className='custom-dropdown-item'
 								onClick={() => {
 									setEditSlug(true);
 									onClose();
 								}}
 							>
 								<SlugIcon />
-								{__('Change slug', 'quillforms')}
-							</MenuItem>
-							<MenuItem
-								onClick={async () => {
-									setIsLoading(true);
-									const newStatus = form.status === 'publish' ? 'draft' : 'publish';
-									editEntityRecord('postType', 'quill_forms', form.id, { status: newStatus });
-									const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
-									if (!res) {
-										createErrorNotice('⛔ Error!', {
-											type: 'snackbar',
-											isDismissible: true,
-										});
-									} else {
-										createSuccessNotice(
-											`✅ Form status changed to ${newStatus} successfully!`,
-											{
-												type: 'snackbar',
-												isDismissible: true,
-											}
-										);
-									}
-									setIsLoading(false);
-									onClose();
-								}}
-							>
-								{form.status === 'publish' ? __('Move to draft', 'quillforms') : __('Publish', 'quillforms')}
-							</MenuItem>
-						</MenuGroup>
+								{__('Change Slug', 'quillforms')}
+							</div>
+						</div>
 
-						<MenuGroup>
-							<p className='text-base !text-[#777] leading-[26px] mb-2'>{__('Change Status', 'quillforms')}</p>
-							<MenuItem
-								isDestructive
+						<div className="custom-dropdown-group">
+							<p className='custom-dropdown-label'>{__('Change Status', 'quillforms')}</p>
+							<div
+								className='custom-dropdown-item'
 								onClick={() => {
-									handleDelete(false);
+									if (form.status === 'publish') {
+										setShowDraftModal(true);
+									} else {
+										// Handle publish action directly (no modal)
+										(async () => {
+											setIsLoading(true);
+											const newStatus = 'publish';
+											editEntityRecord('postType', 'quill_forms', form.id, { status: newStatus });
+											const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
+											if (!res) {
+												createErrorNotice('⛔ Error!', {
+													type: 'snackbar',
+													isDismissible: true,
+												});
+											} else {
+												createSuccessNotice(
+													`✅ Form status changed to ${newStatus} successfully!`,
+													{
+														type: 'snackbar',
+														isDismissible: true,
+													}
+												);
+											}
+											setIsLoading(false);
+										})();
+									}
 									onClose();
 								}}
 							>
+								{form.status === 'publish' ? (
+									<DraftIcon />
+								) : (
+
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M4 10L8 14L16 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+									</svg>
+								)}
+								{form.status === 'publish' ? __('Move to Draft', 'quillforms') : __('Publish', 'quillforms')}
+							</div>
+							<div
+								className='custom-dropdown-item custom-dropdown-item--destructive'
+								onClick={() => {
+									setShowTrashModal(true);
+									onClose();
+								}}
+							>
+								<TrashIcon />
 								{__('Move to Trash', 'quillforms')}
-							</MenuItem>
-						</MenuGroup>
-					</>
+							</div>
+						</div>
+					</div>
 				)}
 			/>
 		)
@@ -370,99 +403,221 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 					</div>
 				</div>
 
-				{showRenameForm && (
-					<Modal
-						title={__('Rename Form', 'quillforms')}
-						onRequestClose={() => setShowRenameForm(false)}
-					>
-						<TextControl
-							type="text"
-							className="quillforms-home-form-actions__rename-input"
-							value={formTitle}
-							onChange={(val) => {
-								if (!val) {
-									createErrorNotice(__('⛔ Form title cannot be empty!', 'quillforms'), {
-										type: 'snackbar',
-										isDismissible: true,
-									});
-									return;
-								}
-								setFormTitle(val);
-								editEntityRecord('postType', 'quill_forms', form.id, { title: val });
-							}}
-						/>
-						<Button
-							isPrimary
-							className="quillforms-home-form-actions__rename-button"
-							onClick={async () => {
-								setIsLoading(true);
-								const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
-								if (!res) {
-									createErrorNotice(__('⛔ Error in form renaming!', 'quillforms'), {
-										type: 'snackbar',
-										isDismissible: true,
-									});
-								} else {
-									createSuccessNotice(__('✅ Form renamed successfully!', 'quillforms'), {
-										type: 'snackbar',
-										isDismissible: true,
-									});
-								}
-								setIsLoading(false);
-								setShowRenameForm(false);
-							}}
-						>
-							{__('Rename', 'quillforms')}
-						</Button>
-					</Modal>
-				)}
+				<CustomModal
+					isOpen={showRenameForm}
+					onClose={() => setShowRenameForm(false)}
+					title={__('Rename Form', 'quillforms')}
+				>
+					<div className="flex flex-col gap-6">
+						<div className="flex flex-col gap-2">
+							<label className="text-lg font-medium leading-7 text-[#374151]">
+								{__('Form Name', 'quillforms')} <span className="text-[#EF4444]">*</span>
+							</label>
+							<input
+								type="text"
+								className="w-full px-4 py-4 text-lg leading-7 text-[#334155] bg-white border !border-border-color rounded-2xl focus:bg-white focus:!border-[#B2328C] focus:!outline-none focus:!ring-0 "
+								value={formTitle}
+								placeholder="Enter form name"
+								style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+								onChange={(e) => {
+									const val = e.target.value;
+									if (!val) {
+										createErrorNotice(__('⛔ Form title cannot be empty!', 'quillforms'), {
+											type: 'snackbar',
+											isDismissible: true,
+										});
+										return;
+									}
+									setFormTitle(val);
+									editEntityRecord('postType', 'quill_forms', form.id, { title: val });
+								}}
+							/>
+						</div>
+						<div className="flex gap-3 justify-end">
+							<CustomButton
+								text={__('Cancel', 'quillforms')}
+								variant="outlineSecondary"
+								className="!px-8 !py-3"
+								onClick={() => setShowRenameForm(false)}
+							/>
+							<CustomButton
+								text={__('Rename', 'quillforms')}
+								variant="primary"
+								className="!px-8 !py-3"
+								onClick={async () => {
+									setIsLoading(true);
+									const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
+									if (!res) {
+										createErrorNotice(__('⛔ Error in form renaming!', 'quillforms'), {
+											type: 'snackbar',
+											isDismissible: true,
+										});
+									} else {
+										createSuccessNotice(__('✅ Form renamed successfully!', 'quillforms'), {
+											type: 'snackbar',
+											isDismissible: true,
+										});
+									}
+									setIsLoading(false);
+									setShowRenameForm(false);
+								}}
+							/>
+						</div>
+					</div>
+				</CustomModal>
 
-				{editSlug && (
-					<Modal
-						title={__('Change Form Slug', 'quillforms')}
-						onRequestClose={() => setEditSlug(false)}
-					>
-						<TextControl
-							type="text"
-							className="quillforms-home-form-actions__rename-input"
-							value={formSlug}
-							onChange={(val) => {
-								if (!val) {
-									createErrorNotice(__('⛔ Form slug cannot be empty!', 'quillforms'), {
-										type: 'snackbar',
-										isDismissible: true,
-									});
-									return;
-								}
-								setFormSlug(val);
-								editEntityRecord('postType', 'quill_forms', form.id, { slug: val });
-							}}
+				<CustomModal
+					isOpen={showTrashModal}
+					onClose={() => setShowTrashModal(false)}
+					title={__('Trash this form', 'quillforms')}
+					noBorder={true}
+					centerTitle={true}
+				>
+					<div className="flex flex-col items-center gap-6 ">
+						<img
+							src={trashImage}
+							alt="Trash"
+							className="w-32 h-32 object-contain"
 						/>
-						<Button
-							isPrimary
-							className="quillforms-home-form-actions__rename-button"
-							onClick={async () => {
-								setIsLoading(true);
-								const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
-								if (!res) {
-									createErrorNotice(__('⛔ Error in form slug changing!', 'quillforms'), {
-										type: 'snackbar',
-										isDismissible: true,
-									});
-								} else {
-									createSuccessNotice(__('✅ Form slug changed successfully!', 'quillforms'), {
-										type: 'snackbar',
-										isDismissible: true,
-									});
-								}
-								setIsLoading(false);
-								setEditSlug(false);
-							}}
-						>
-							{__('Change', 'quillforms')}
-						</Button>
-					</Modal>
-				)}
+						<p className="text-base text-[#64748B] text-center">
+							{__('Do you want to move to trash this form?', 'quillforms')}
+						</p>
+						<div className="flex gap-3 w-full justify-end">
+							<CustomButton
+								variant="outlineSecondary"
+								text={__('Cancel', 'quillforms')}
+								onClick={() => setShowTrashModal(false)}
+							/>
+							<CustomButton
+								variant="danger"
+								text={__('Delete', 'quillforms')}
+								isLoading={isLoading}
+								onClick={async () => {
+									setIsLoading(true);
+									await handleDelete(false);
+									setIsLoading(false);
+									setShowTrashModal(false);
+								}}
+							/>
+						</div>
+					</div>
+				</CustomModal>
+
+				<CustomModal
+					isOpen={showDraftModal}
+					onClose={() => setShowDraftModal(false)}
+					title={__('Move to draft', 'quillforms')}
+					noBorder={true}
+					centerTitle={true}
+				>
+					<div className="flex flex-col items-center gap-6 ">
+						<img
+							src={draftImage}
+							alt="Draft"
+							className="w-32 h-32 object-contain"
+						/>
+						<p className="text-base text-[#64748B] text-center">
+							{__('Would you like to save this form as draft?', 'quillforms')}
+						</p>
+						<div className="flex gap-3 w-full justify-end">
+							<CustomButton
+								variant="outlineSecondary"
+								text={__('Cancel', 'quillforms')}
+								onClick={() => setShowDraftModal(false)}
+							/>
+							<CustomButton
+								variant="primary"
+								text={__('Move to draft', 'quillforms')}
+								isLoading={isLoading}
+								onClick={async () => {
+									setIsLoading(true);
+									const newStatus = 'draft';
+									editEntityRecord('postType', 'quill_forms', form.id, { status: newStatus });
+									const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
+									if (!res) {
+										createErrorNotice('⛔ Error!', {
+											type: 'snackbar',
+											isDismissible: true,
+										});
+									} else {
+										createSuccessNotice(
+											`✅ Form status changed to ${newStatus} successfully!`,
+											{
+												type: 'snackbar',
+												isDismissible: true,
+											}
+										);
+									}
+									setIsLoading(false);
+									setShowDraftModal(false);
+								}}
+							/>
+						</div>
+					</div>
+				</CustomModal>
+
+				<CustomModal
+					isOpen={editSlug}
+					onClose={() => setEditSlug(false)}
+					title={__('Change Form Slug', 'quillforms')}
+				>
+					<div className="flex flex-col gap-6">
+						<div className="flex flex-col gap-2">
+							<label className="text-[15px] font-medium text-[#374151]">
+								{__('Form Slug', 'quillforms')} <span className="text-[#EF4444]">*</span>
+							</label>
+							<input
+								type="text"
+								className="w-full px-4 py-4 text-lg leading-7 text-[#334155] bg-white border !border-border-color rounded-2xl focus:bg-white focus:!border-[#B2328C] focus:!outline-none focus:!ring-0 "
+								value={formSlug}
+								placeholder="Enter form slug"
+								style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+								onChange={(e) => {
+									const val = e.target.value;
+									if (!val) {
+										createErrorNotice(__('⛔ Form slug cannot be empty!', 'quillforms'), {
+											type: 'snackbar',
+											isDismissible: true,
+										});
+										return;
+									}
+									setFormSlug(val);
+									editEntityRecord('postType', 'quill_forms', form.id, { slug: val });
+								}}
+							/>
+						</div>
+						<div className="flex gap-3 justify-end">
+							<CustomButton
+								text={__('Cancel', 'quillforms')}
+								variant="outlineSecondary"
+								className="!px-8 !py-3"
+								onClick={() => setEditSlug(false)}
+							/>
+							<CustomButton
+								text={__('Change', 'quillforms')}
+								variant="primary"
+								className="!px-8 !py-3"
+								onClick={async () => {
+									setIsLoading(true);
+									const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
+									if (!res) {
+										createErrorNotice(__('⛔ Error in form slug changing!', 'quillforms'), {
+											type: 'snackbar',
+											isDismissible: true,
+										});
+									} else {
+										createSuccessNotice(__('✅ Form slug changed successfully!', 'quillforms'), {
+											type: 'snackbar',
+											isDismissible: true,
+										});
+									}
+									setIsLoading(false);
+									setEditSlug(false);
+								}}
+							/>
+						</div>
+					</div>
+				</CustomModal>
 			</>
 		);
 	}
@@ -544,99 +699,222 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 				</div>
 			</Card>
 
-			{showRenameForm && (
-				<Modal
-					title={__('Rename Form', 'quillforms')}
-					onRequestClose={() => setShowRenameForm(false)}
-				>
-					<TextControl
-						type="text"
-						className="quillforms-home-form-actions__rename-input"
-						value={formTitle}
-						onChange={(val) => {
-							if (!val) {
-								createErrorNotice(__('⛔ Form title cannot be empty!', 'quillforms'), {
-									type: 'snackbar',
-									isDismissible: true,
-								});
-								return;
-							}
-							setFormTitle(val);
-							editEntityRecord('postType', 'quill_forms', form.id, { title: val });
-						}}
-					/>
-					<Button
-						isPrimary
-						className="quillforms-home-form-actions__rename-button"
-						onClick={async () => {
-							setIsLoading(true);
-							const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
-							if (!res) {
-								createErrorNotice(__('⛔ Error in form renaming!', 'quillforms'), {
-									type: 'snackbar',
-									isDismissible: true,
-								});
-							} else {
-								createSuccessNotice(__('✅ Form renamed successfully!', 'quillforms'), {
-									type: 'snackbar',
-									isDismissible: true,
-								});
-							}
-							setIsLoading(false);
-							setShowRenameForm(false);
-						}}
-					>
-						{__('Rename', 'quillforms')}
-					</Button>
-				</Modal>
-			)}
+			<CustomModal
+				isOpen={showRenameForm}
+				onClose={() => setShowRenameForm(false)}
+				title={__('Rename Form', 'quillforms')}
+				className='!min-w-[500px] !text-[#334155] text-2xl font-medium'
+			>
+				<div className="flex flex-col gap-6">
+					<div className="flex flex-col gap-2">
+						<label className="text-lg leading-7 font-medium text-[#334155]">
+							{__('Form Name', 'quillforms')} <span className="text-[#EF4444]">*</span>
+						</label>
+						<input
+							type="text"
+							className="w-full px-4 py-4 text-lg leading-7 text-[#1F2937] bg-white border border-[#D1D5DB] rounded-2xl focus:bg-white focus:border-[#B2328C] focus:outline-none focus:ring-0 focus:shadow-none transition-all"
+							value={formTitle}
+							placeholder="Enter form name"
+							style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+							onChange={(e) => {
+								const val = e.target.value;
+								if (!val) {
+									createErrorNotice(__('⛔ Form title cannot be empty!', 'quillforms'), {
+										type: 'snackbar',
+										isDismissible: true,
+									});
+									return;
+								}
+								setFormTitle(val);
+								editEntityRecord('postType', 'quill_forms', form.id, { title: val });
+							}}
+						/>
+					</div>
+					<div className="flex gap-3 justify-end">
+						<CustomButton
+							text={__('Cancel', 'quillforms')}
+							variant="outlineSecondary"
+							className="!px-8 !py-3"
+							onClick={() => setShowRenameForm(false)}
+						/>
+						<CustomButton
+							text={__('Rename', 'quillforms')}
+							variant="primary"
+							className="!px-8 !py-3"
+							onClick={async () => {
+								setIsLoading(true);
+								const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
+								if (!res) {
+									createErrorNotice(__('⛔ Error in form renaming!', 'quillforms'), {
+										type: 'snackbar',
+										isDismissible: true,
+									});
+								} else {
+									createSuccessNotice(__('✅ Form renamed successfully!', 'quillforms'), {
+										type: 'snackbar',
+										isDismissible: true,
+									});
+								}
+								setIsLoading(false);
+								setShowRenameForm(false);
+							}}
+						/>
+					</div>
+				</div>
+			</CustomModal>
 
-			{editSlug && (
-				<Modal
-					title={__('Change Form Slug', 'quillforms')}
-					onRequestClose={() => setEditSlug(false)}
-				>
-					<TextControl
-						type="text"
-						className="quillforms-home-form-actions__rename-input"
-						value={formSlug}
-						onChange={(val) => {
-							if (!val) {
-								createErrorNotice(__('⛔ Form slug cannot be empty!', 'quillforms'), {
-									type: 'snackbar',
-									isDismissible: true,
-								});
-								return;
-							}
-							setFormSlug(val);
-							editEntityRecord('postType', 'quill_forms', form.id, { slug: val });
-						}}
+			<CustomModal
+				isOpen={showTrashModal}
+				onClose={() => setShowTrashModal(false)}
+				title={__('Trash this form', 'quillforms')}
+				noBorder={true}
+				centerTitle={true}
+			>
+				<div className="flex flex-col items-center gap-6 py-4">
+					<img
+						src={trashImage}
+						alt="Trash"
+						className="w-32 h-32 object-contain"
 					/>
-					<Button
-						isPrimary
-						className="quillforms-home-form-actions__rename-button"
-						onClick={async () => {
-							setIsLoading(true);
-							const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
-							if (!res) {
-								createErrorNotice(__('⛔ Error in form slug changing!', 'quillforms'), {
-									type: 'snackbar',
-									isDismissible: true,
-								});
-							} else {
-								createSuccessNotice(__('✅ Form slug changed successfully!', 'quillforms'), {
-									type: 'snackbar',
-									isDismissible: true,
-								});
-							}
-							setIsLoading(false);
-							setEditSlug(false);
-						}}
-					>
-						{__('Change', 'quillforms')}
-					</Button>
-				</Modal>
-			)}
+					<p className="text-base text-[#64748B] text-center">
+						{__('Do you want to move to trash this form?', 'quillforms')}
+					</p>
+					<div className="flex gap-3 w-full justify-end">
+						<CustomButton
+							variant="outline"
+							text={__('Cancel', 'quillforms')}
+							onClick={() => setShowTrashModal(false)}
+						/>
+						<CustomButton
+							variant="danger"
+							text={__('Delete', 'quillforms')}
+							isLoading={isLoading}
+							onClick={async () => {
+								setIsLoading(true);
+								await handleDelete(false);
+								setIsLoading(false);
+								setShowTrashModal(false);
+							}}
+						/>
+					</div>
+				</div>
+			</CustomModal>
+
+			<CustomModal
+				isOpen={showDraftModal}
+				onClose={() => setShowDraftModal(false)}
+				title={__('Move to draft', 'quillforms')}
+				noBorder={true}
+				centerTitle={true}
+			>
+				<div className="flex flex-col items-center gap-6 ">
+					<img
+						src={draftImage}
+						alt="Draft"
+						className="w-32 h-32 object-contain"
+					/>
+					<p className="text-base text-[#64748B] text-center">
+						{__('Would you like to save this form as draft?', 'quillforms')}
+					</p>
+					<div className="flex gap-3 w-full justify-end">
+						<CustomButton
+							variant="outlineSecondary"
+							text={__('Cancel', 'quillforms')}
+							onClick={() => setShowDraftModal(false)}
+						/>
+						<CustomButton
+							variant="primary"
+							text={__('Move to draft', 'quillforms')}
+							isLoading={isLoading}
+							onClick={async () => {
+								setIsLoading(true);
+								const newStatus = 'draft';
+								editEntityRecord('postType', 'quill_forms', form.id, { status: newStatus });
+								const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
+								if (!res) {
+									createErrorNotice('⛔ Error!', {
+										type: 'snackbar',
+										isDismissible: true,
+									});
+								} else {
+									createSuccessNotice(
+										`✅ Form status changed to ${newStatus} successfully!`,
+										{
+											type: 'snackbar',
+											isDismissible: true,
+										}
+									);
+								}
+								setIsLoading(false);
+								setShowDraftModal(false);
+							}}
+						/>
+					</div>
+				</div>
+			</CustomModal>
+
+			<CustomModal
+				isOpen={editSlug}
+				onClose={() => setEditSlug(false)}
+				title={__('Change Form Slug', 'quillforms')}
+			>
+				<div className="flex flex-col gap-6">
+					<div className="flex flex-col gap-2">
+						<label className="text-[15px] font-medium text-[#374151]">
+							{__('Form Slug', 'quillforms')} <span className="text-[#EF4444]">*</span>
+						</label>
+						<input
+							type="text"
+							className="w-full px-4 py-4 text-lg leading-7 text-[#1F2937] bg-white border border-[#D1D5DB] rounded-2xl focus:bg-white focus:border-[#B2328C] focus:outline-none focus:ring-0 focus:shadow-none transition-all"
+							value={formSlug}
+							placeholder="Enter form slug"
+							style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+							onChange={(e) => {
+								const val = e.target.value;
+								if (!val) {
+									createErrorNotice(__('⛔ Form slug cannot be empty!', 'quillforms'), {
+										type: 'snackbar',
+										isDismissible: true,
+									});
+									return;
+								}
+								setFormSlug(val);
+								editEntityRecord('postType', 'quill_forms', form.id, { slug: val });
+							}}
+						/>
+					</div>
+					<div className="flex gap-3 justify-end">
+						<CustomButton
+							text={__('Cancel', 'quillforms')}
+							variant="outlineSecondary"
+							className="!px-8 !py-3"
+							onClick={() => setEditSlug(false)}
+						/>
+						<CustomButton
+							text={__('Change', 'quillforms')}
+							variant="primary"
+							className="!px-8 !py-3"
+							onClick={async () => {
+								setIsLoading(true);
+								const res = await saveEditedEntityRecord('postType', 'quill_forms', form.id);
+								if (!res) {
+									createErrorNotice(__('⛔ Error in form slug changing!', 'quillforms'), {
+										type: 'snackbar',
+										isDismissible: true,
+									});
+								} else {
+									createSuccessNotice(__('✅ Form slug changed successfully!', 'quillforms'), {
+										type: 'snackbar',
+										isDismissible: true,
+									});
+								}
+								setIsLoading(false);
+								setEditSlug(false);
+							}}
+						/>
+					</div>
+				</div>
+			</CustomModal>
 		</>
 	);
 };
@@ -669,13 +947,12 @@ export const EmptyState = ({ status, onCreateNew }) => {
 	const currentMessage = messages[status];
 
 	return (
-		<div className="flex flex-col items-center justify-center gap-4 ">
-			{/* <Icon icon={status === 'trash' ? trashEmptyIcon : formsEmptyIcon} /> */}
-			{/* <img
+		<div className="flex flex-col items-center justify-center gap-4 py-24 bg-[#F7F8FA] rounded-[20px] ">
+			<img
 				src={emptyState}
 				alt="Empty state"
 				className="max-w-full h-auto"
-			/> */}
+			/>
 			<h2 className="text-2xl font-bold text-[#334155]">{currentMessage.title}</h2>
 			<p className=' text-[#777] text-lg font-semibold leading-7'>{currentMessage.description}</p>
 			{currentMessage.action && (

@@ -306,7 +306,7 @@ const HomeContent = () => {
 								variant="outlineSecondary"
 								text={__('Import', 'quillforms')}
 								onClick={() => setIsImportModalOpen(true)}
-                               icon={<ImportIcon />}
+								icon={<ImportIcon />}
 							/>
 							<CustomButton
 								text={__('Add new form', 'quillforms')}
@@ -369,7 +369,8 @@ const HomeContent = () => {
 			>
 				{(tab) => (
 					<div className={`quillforms-home__forms-grid view-${viewMode}`}>
-						{viewMode === 'list' && (
+
+						{viewMode === 'list' && forms && size(forms) > 0 && (
 							<ListHeader
 								selectAll={selectAll}
 								handleSelectAll={handleSelectAll}

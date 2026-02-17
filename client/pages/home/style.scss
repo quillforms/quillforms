@@ -1,7 +1,7 @@
 // Global styles
-body {
-	background-color: #fff;
-}
+// body {
+// 	background-color: #fff;
+// }
 
 .quillforms-home {
 	padding: 16px;
@@ -59,6 +59,11 @@ body {
 			background: #F7F8FA;
 			border-radius: 20px;
 			border: 1px solid #D9D9D9;
+
+			// Empty state should span full width in grid view
+			> div:only-child {
+				grid-column: 1 / -1;
+			}
 		}
 
 		&.view-list {
@@ -147,7 +152,6 @@ body {
 	.components-dropdown-menu__menu {
 		min-width: 220px;
 		padding: 8px 0;
-		background: #fff;
 		border: 1px solid #e2e4e7;
 		border-radius: 4px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -1256,6 +1260,99 @@ body {
 			font-size: 28px;
 			font-weight: 600;
 			color: #334155;
+		}
+	}
+}
+
+// Override WordPress Popover Backgrounds
+.form-card__dropdown {
+	.components-popover__content {
+		background: transparent !important;
+		border: none !important;
+		box-shadow: none !important;
+		padding: 0 !important;
+	}
+}
+
+// Custom Dropdown Menu Styles
+.custom-dropdown-menu {
+	background: #F7F8FA !important;
+	border-radius: 16px;
+	padding: 12px;
+	min-width: 240px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+	border: none;
+
+	.custom-dropdown-group {
+		margin-bottom: 8px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&:not(:last-child) {
+			padding-bottom: 8px;
+			border-bottom: 1px solid #D1D5DB;
+		}
+	}
+
+	.custom-dropdown-label {
+		font-size: 14px;
+		color: #6B7280;
+		margin: 0 0 4px 0;
+		padding: 8px 12px 4px 12px;
+		line-height: 1.5;
+		font-weight: 400;
+	}
+
+	.custom-dropdown-item {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 8px 12px;
+		font-size: 15px;
+		font-weight: 400;
+		color: #374151;
+		cursor: pointer;
+		border-radius: 6px;
+		transition: all 0.15s ease;
+		line-height: 1.5;
+
+		svg {
+			width: 20px;
+			height: 20px;
+			flex-shrink: 0;
+			color: #6B7280;
+		}
+
+		&:hover {
+			background-color: #D1D5DB;
+			color: #1F2937;
+
+			svg {
+				color: #374151;
+			}
+		}
+
+		&:active {
+			background-color: #C4C9CF;
+		}
+
+		&--destructive {
+			color: #EF4444;
+
+			svg {
+				color: #EF4444;
+			}
+
+			&:hover {
+				background-color: #FEE2E2;
+				color: #DC2626;
+
+				svg {
+					color: #DC2626;
+				}
+			}
 		}
 	}
 }
