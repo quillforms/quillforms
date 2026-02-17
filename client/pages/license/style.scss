@@ -112,6 +112,13 @@
 
 		button {
 			margin: 0 !important;
+
+			&:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+				background: #D1D5DB !important;
+				color: #6B7280 !important;
+			}
 		}
 	}
 

@@ -209,13 +209,16 @@ const License = () => {
 						</div>
 					)}
 				</div>
-				<div className="license-button-wrapper">
-					<CustomButton
-						variant="primary"
-						text={__('Save Changes', 'quillforms')}
-						onClick={activate}
-					/>
-				</div>
+				{!license && (
+					<div className="license-button-wrapper">
+						<CustomButton
+							variant="primary"
+							text={__('Activate', 'quillforms')}
+							onClick={activate}
+							disabled={!licenseKey || licenseKey.trim() === ''}
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	);
