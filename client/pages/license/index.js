@@ -12,23 +12,17 @@ import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
- * External Dependencies
- */
-import { css } from 'emotion';
-
-/**
  * Internal Dependencies
  */
 import './style.scss';
+import CustomButton from '../../components/custom-button';
 
 const License = () => {
 	const license = configApi.getLicense();
 
-	const [count, setCount] = useState(0); // counter used for force update.
+	const [count, setCount] = useState(0);
 	const [licenseKey, setLicenseKey] = useState('');
-	const { createErrorNotice, createSuccessNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createErrorNotice, createSuccessNotice } = useDispatch('core/notices');
 
 	const activate = () => {
 		const data = new FormData();
@@ -135,85 +129,93 @@ const License = () => {
 
 	return (
 		<div className="quillforms-license-page">
-			<h1 className="quillforms-license-page__heading">{__('License', 'quillforms')}</h1>
+			<h1>{__('License', 'quillforms')}</h1>
 			<div className="quillforms-license-page__body">
-				{license ? (
-					<div>
-						<table>
-							<tbody>
-								<tr>
-									<td>{__('Status', 'quillforms')}</td>
-									<td>
-										<span
-											className={
-												license.status === 'valid'
-													? 'quillforms-license-valid'
-													: 'quillforms-license-invalid'
-											}
-										>
-											{license.status_label}
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>{__('Plan', 'quillforms')}</td>
-									<td>{license.plan_label}</td>
-								</tr>
-								<tr>
-									<td>{__('Expires', 'quillforms')}</td>
-									<td>{license.expires}</td>
-								</tr>
-								<tr>
-									<td>{__('Last update', 'quillforms')}</td>
-									<td>{license.last_update}</td>
-								</tr>
-								<tr>
-									<td>{__('Last check', 'quillforms')}</td>
-									<td>{license.last_check}</td>
-								</tr>
-							</tbody>
-						</table>
-						<Button isPrimary onClick={update}>
-							{__('Update', 'quillforms')}
-						</Button>
-						<Button isDanger onClick={deactivate}>
-							{__('Deactivate', 'quillforms')}
-						</Button>
-						{!!Object.values(license.upgrades).length && (
-							<div>
-								<h3>{__('Upgrades:', 'quillforms')}</h3>
-								<ul>
-									{Object.values(license.upgrades).map(
-										(upgrade, index) => {
-											return (
-												<li>
-													<a
-														key={index}
-														href={upgrade.url}
-														target="_blank"
-													>
-														{__('Upgrade to', 'quillforms')} {upgrade.plan_label} {__('plan', 'quillforms')}
-													</a>
-												</li>
-											);
-										}
-									)}
-								</ul>
+				<div className="quillforms-license-card">
+					{license ? (
+						<div>
+							<table>
+								<tbody>
+									<tr>
+										<td>{__('Status', 'quillforms')}</td>
+										<td>
+											<span
+												className={
+													license.status === 'valid'
+														? 'quillforms-license-valid'
+														: 'quillforms-license-invalid'
+												}
+											>
+												{license.status_label}
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td>{__('Plan', 'quillforms')}</td>
+										<td>{license.plan_label}</td>
+									</tr>
+									<tr>
+										<td>{__('Expires', 'quillforms')}</td>
+										<td>{license.expires}</td>
+									</tr>
+									<tr>
+										<td>{__('Last update', 'quillforms')}</td>
+										<td>{license.last_update}</td>
+									</tr>
+									<tr>
+										<td>{__('Last check', 'quillforms')}</td>
+										<td>{license.last_check}</td>
+									</tr>
+								</tbody>
+							</table>
+							<div className="license-actions-buttons">
+								<CustomButton
+									variant="primary"
+									text={__('Update', 'quillforms')}
+									onClick={update}
+								/>
+								<CustomButton
+									variant="danger"
+									text={__('Deactivate', 'quillforms')}
+									onClick={deactivate}
+								/>
 							</div>
-						)}
-					</div>
-				) : (
-					<div>
-						<TextControl
-							label={__('License key', 'quillforms')}
-							className={css``}
-							onChange={(value) => setLicenseKey(value)}
-						/>
-						<Button isPrimary onClick={activate}>
-							{__('Activate', 'quillforms')}
-						</Button>
-					</div>
-				)}
+							{!!Object.values(license.upgrades).length && (
+								<div>
+									<h3>{__('Upgrades:', 'quillforms')}</h3>
+									<ul>
+										{Object.values(license.upgrades).map((upgrade, index) => (
+											<li>
+												<a key={index} href={upgrade.url} target="_blank">
+													{__('Upgrade to', 'quillforms')} {upgrade.plan_label}{' '}
+													{__('plan', 'quillforms')}
+												</a>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</div>
+					) : (
+						<div>
+							<div className="license-input-wrapper">
+								<TextControl
+									label={__('License key', 'quillforms')}
+									onChange={(value) => setLicenseKey(value)}
+									placeholder={__('License key', 'quillforms')}
+									style={{ borderRadius: '16px' }}
+								/>
+							</div>
+						</div>
+					)}
+				</div>
+				<div className="license-button-wrapper">
+					<CustomButton
+						variant="primary"
+						text={__('Save Changes', 'quillforms')}
+						onClick={activate}
+					/>
+				</div>
 			</div>
 		</div>
 	);
