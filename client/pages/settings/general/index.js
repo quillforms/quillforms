@@ -4,14 +4,11 @@
  */
 import {
 	SelectControl,
-	BaseControl,
-	ControlLabel,
-	ControlWrapper,
 	ToggleControl,
 	TextControl,
-	__experimentalFeatureAvailability,
+	__experimentalAddonFeatureAvailability,
 } from '@quillforms/admin-components';
-import { setForceReload } from '@quillforms/navigation';
+import { setForceReload, NavLink } from '@quillforms/navigation';
 import ConfigAPI from '@quillforms/config';
 
 /**
@@ -19,14 +16,12 @@ import ConfigAPI from '@quillforms/config';
  */
 import { useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
-import { Modal } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
  * External Dependencies
  */
 import { css } from 'emotion';
-import classnames from 'classnames';
 import { ThreeDots as Loader } from 'react-loader-spinner';
 
 /**
@@ -34,6 +29,8 @@ import { ThreeDots as Loader } from 'react-loader-spinner';
  */
 import './style.scss';
 import CustomButton from '../../../components/custom-button';
+import CustomModal from '../../../components/custom-modal';
+import lockImage from '../../../../assets/images/lock.png';
 
 const General = () => {
 	const [settings, setSettings] = useState(null);
@@ -277,43 +274,68 @@ const General = () => {
 					</div>
 
 					{/* Pro modal */}
-					{displayProModal && (
-						<Modal
-							className={classnames(
-								css`
-									border: none !important;
-									border-radius: 9px;
-
-									.components-modal__header {
-										background: linear-gradient(
-											42deg,
-											rgb( 235 54 221 ),
-											rgb( 238 142 22 )
-										);
-										h1 {
-											color: #fff;
-										}
-										svg {
-											fill: #fff;
-										}
+					<CustomModal
+						isOpen={displayProModal}
+						onClose={() => setDisplayProModal(false)}
+						noPadding={true}
+						title="Overwrite quillforms slug is a pro feature"
+						centerTitle={true}
+					>
+						{(() => {
+							const isWPEnv = ConfigAPI.isWPEnv();
+							const featurePlanLabel = ConfigAPI.getPlans()?.['basic']?.label || 'Basic';
+							return (
+								<__experimentalAddonFeatureAvailability
+									featureName="Override quillforms slug"
+									addonSlug="quillforms-slug"
+									showLockIcon={true}
+									customIcon={
+										<img
+											src={lockImage}
+											alt="Lock icon"
+											style={{ display: 'block', margin: '0 auto' }}
+										/>
 									}
-									.components-modal__content {
-										text-align: center;
+									customDescription={
+										<p style={{ fontSize: '15px', color: '#334155', margin: '0 0 20px 0' }}>
+											{`We're sorry, Override quillforms slug is not available on your plan. Please upgrade to the `}
+											{featurePlanLabel}
+											{` plan to unlock all of `}
+											{featurePlanLabel}
+											{` features.`}
+										</p>
 									}
-								`
-							)}
-							title="Overwrite quillforms slug is a pro feature"
-							onRequestClose={() => {
-								setDisplayProModal(false);
-							}}
-						>
-							<__experimentalFeatureAvailability
-								featureName="Override quillforms slug"
-								planKey="basic"
-								showLockIcon={true}
-							/>
-						</Modal>
-					)}
+									customButton={
+										isWPEnv ? (
+											<a
+												href="https://quillforms.com"
+												target="_blank"
+												rel="noopener noreferrer"
+												style={{ textDecoration: 'none', display: 'inline-block' }}
+											>
+												<CustomButton
+													variant="primary"
+													text={`Upgrade to ${featurePlanLabel}!`}
+													className="!border-0 !border-none !py-3 !px-24"
+												/>
+											</a>
+										) : (
+											<NavLink
+												to="/admin.php?page=quillforms&path=checkout"
+												style={{ textDecoration: 'none', display: 'inline-block' }}
+											>
+												<CustomButton
+													variant="primary"
+													text={`Upgrade to ${featurePlanLabel}!`}
+													className="!border-0 !border-none !py-3 !px-24"
+												/>
+											</NavLink>
+										)
+									}
+								/>
+							);
+						})()}
+					</CustomModal>
 				</div>
 			)}
 		</div>

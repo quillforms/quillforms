@@ -37,15 +37,15 @@ const AddonFeatureAvailability: React.FC<Props> = ({
 	customDescription,
 }) => {
 	const license = ConfigApi.getLicense();
-	const addon = ConfigApi.getStoreAddons()[addonSlug];
+	const addon = ConfigApi.getStoreAddons()?.[addonSlug];
 	const isWPEnv = ConfigApi.isWPEnv();
-	const featurePlanLabel = ConfigApi.getPlans()[addon.plan].label;
-	const isPlanAccessible = ConfigApi.isPlanAccessible(addon.plan);
+	const featurePlanLabel = addon ? ConfigApi.getPlans()?.[addon.plan]?.label ?? '' : '';
+	const isPlanAccessible = addon ? ConfigApi.isPlanAccessible(addon.plan) : false;
 
 	let content = <div></div>;
 
 	// if addon installed.
-	if (isWPEnv && addon.is_installed) {
+	if (isWPEnv && addon?.is_installed) {
 		// license note in case of invalid or low level license.
 		let licenseNote = <div></div>;
 		if (license?.status !== 'valid') {
@@ -64,7 +64,7 @@ const AddonFeatureAvailability: React.FC<Props> = ({
 			);
 		}
 		// if addon is active, shouldn't be reached in most cases.
-		if (addon.is_active) {
+		if (addon?.is_active) {
 			content = (
 				<div>
 					<div>{featureName} is already available.</div>
