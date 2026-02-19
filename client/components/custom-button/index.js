@@ -10,7 +10,7 @@ const CustomButton = ({
 }) => {
 	const variantClasses = {
 		primary:
-			'bg-quillforms-primary !text-white hover:bg-quillforms-primary-dark hover:!text-white focus:!text-white active:!text-white',
+			'bg-quillforms-primary !text-white hover:bg-quillforms-primary-dark hover:!text-white focus:!text-white active:!text-white !border-0 !border-none',
 		secondary:
 			'bg-gray-500 !text-white hover:bg-gray-600 hover:!text-white focus:!text-white active:!text-white',
 		danger:

@@ -23,12 +23,18 @@ interface Props {
 	featureName: string;
 	addonSlug: string;
 	showLockIcon: boolean;
+	customIcon?: React.ReactNode;
+	customButton?: React.ReactNode;
+	customDescription?: React.ReactNode;
 }
 
 const AddonFeatureAvailability: React.FC<Props> = ({
 	featureName,
 	addonSlug,
 	showLockIcon,
+	customIcon,
+	customButton,
+	customDescription,
 }) => {
 	const license = ConfigApi.getLicense();
 	const addon = ConfigApi.getStoreAddons()[addonSlug];
@@ -106,45 +112,59 @@ const AddonFeatureAvailability: React.FC<Props> = ({
 			content = (
 				<div>
 					{showLockIcon && (
-						<Icon
-							className="addon-feature-availability-lock-icon"
-							icon={lockIcon}
-							size={120}
-						/>
+						customIcon ? (
+							<div className="addon-feature-availability-lock-icon">
+								{customIcon}
+							</div>
+						) : (
+							<Icon
+								className="addon-feature-availability-lock-icon"
+								icon={lockIcon}
+								size={120}
+							/>
+						)
 					)}
 
-					<p
-						className={css`
-							font-size: 15px;
-						`}
-					>
-						We're sorry, {featureName} is not available
-						<br />
-						on your plan. Please upgrade to the {
-							featurePlanLabel
-						}{' '}
-						plan to unlock
-						<br />
-						all of {featurePlanLabel} features.
-					</p>
-					<>
-						{isWPEnv ? (
-							<a
-								href="https://quillforms.com"
-								target="_blank"
-								className="addon-feature-availability-upgrade-button"
-							>
-								Upgrade to {featurePlanLabel}!
-							</a>
-						) : (
-							<NavLink
-								to="/admin.php?page=quillforms&path=checkout"
-								className="addon-feature-availability-upgrade-button"
-							>
-								Upgrade to {featurePlanLabel}!{' '}
-							</NavLink>
-						)}
-					</>
+					{customDescription ? (
+						customDescription
+					) : (
+						<p
+							className={css`
+								font-size: 15px;
+							`}
+						>
+							We're sorry, {featureName} is not available
+							<br />
+							on your plan. Please upgrade to the {
+								featurePlanLabel
+							}{' '}
+							plan to unlock
+							<br />
+							all of {featurePlanLabel} features.
+						</p>
+					)}
+					{customButton ? (
+						customButton
+					) : (
+						<>
+							{isWPEnv ? (
+								<a
+									href="https://quillforms.com"
+									target="_blank"
+									className="addon-feature-availability-upgrade-button "
+								>
+									Upgrade to {featurePlanLabel}!
+								</a>
+							) : (
+								<NavLink
+									to="/admin.php?page=quillforms&path=checkout"
+									className="addon-feature-availability-upgrade-button "
+								>
+									Upgrade to {featurePlanLabel}!{' '}
+								</NavLink>
+							)}
+						</>
+					)}
 				</div>
 			);
 		}

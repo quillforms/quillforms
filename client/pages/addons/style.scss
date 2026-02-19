@@ -1,71 +1,218 @@
 .quillforms-addons-page__heading {
-	border-bottom: 1px solid #d8d6d6;
-	padding-bottom: 10px !important;
-	margin-bottom: 10px !important;
+	padding-block: 24px !important;
+	font-size: 24px !important;
+	font-weight: 700 !important;
+	color: #001D4F !important;
+}
+
+.quillforms-addons-page__tabs {
+	width: 100%;
+	overflow: hidden;
+
+	// Hide scrollbar but allow scrolling
+	>div:first-child {
+		display: flex !important;
+		overflow-x: auto !important;
+		overflow-y: hidden !important;
+		scrollbar-width: none !important; // Firefox
+		-ms-overflow-style: none !important; // IE and Edge
+		flex-wrap: nowrap !important;
+		white-space: nowrap;
+		width: 100%;
+		min-width: 0;
+		-webkit-overflow-scrolling: touch;
+
+		// Webkit browsers (Chrome, Safari, Opera)
+		&::-webkit-scrollbar {
+			display: none !important;
+			width: 0 !important;
+			height: 0 !important;
+		}
+
+		// Ensure buttons don't shrink
+		button {
+			flex-shrink: 0 !important;
+			white-space: nowrap !important;
+		}
+	}
+}
+
+// .quillforms-addons-page__body {
+// 	margin-top: 16px;
+// }
+
+.quillforms-addons-page__filters {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 16px;
+}
+
+.quillforms-addons-page__filters-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.quillforms-addons-page__filter-tab {
+	border-radius: 999px;
+	border: 1px solid #e5e7eb;
+	padding: 6px 14px;
+	font-size: 12px;
+	font-weight: 500;
+	color: #4b5563;
+	background: #ffffff;
+	cursor: pointer;
+	transition: all 0.15s ease-in-out;
+
+	&:hover {
+		border-color: #a78bfa;
+		color: #111827;
+	}
+}
+
+.quillforms-addons-page__filter-tab--active {
+	background: #f4f3ff;
+	color: #111827;
+	border-color: #8b5cf6;
+}
+
+.quillforms-addons-page__search {
+	min-width: 100%;
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	svg {
+		position: absolute;
+		left: 16px;
+		width: 18px;
+		height: 18px;
+		z-index: 1;
+		pointer-events: none;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	input {
+		width: 100%;
+		padding: 12px 16px 12px 42px;
+		border-radius: 16px;
+		border: 1px solid #D9D9D9;
+		font-size: 13px;
+		color: #374151;
+		background: #ffffff;
+		outline: none;
+		transition: all 0.15s ease-in-out;
+
+		&:focus {
+			border-color: #8b5cf6;
+			box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25);
+		}
+	}
 }
 
 .quillforms-addons-page__body-addons {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 20px;
+}
+
+.quillforms-addons-page__empty-state {
+	grid-column: 1 / -1;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 60px 20px;
+	text-align: center;
 }
 
 .quillforms-addons-page_addon {
 	background: #fff;
-	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    display: flex;
-    flex-flow: column;
-    width: 290px;
-    margin: 20px 10px;
-    border-radius: 10px;
-    border: 1px solid #eee;
-    padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	border-radius: 16px;
+	border: 1px solid #D9D9D9;
+	padding: 20px;
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
+	}
 }
 
 .quillforms-addons-page_addon__header {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+
+	>div:first-child {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		// flex: 1;
+		min-width: 0;
+	}
 }
-.quillforms-addons-page_addon-icon  img {
-	width: 50px;
-	height: 50px;
+
+.quillforms-addons-page_addon-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	flex-shrink: 0;
 }
 
 .quillforms-addons-page_addon__title {
-    font-size: 20px;
-    margin-left: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-	line-height: 1.2em;
-}
-
-.quillforms-addons-page__body-addon-footer button {
-    width: 100%;
-    justify-content: center;
-	align-items: center;
-	height: 33px;
-	padding: 0;
-
-	&:hover:not(:disabled) {
-		background: #493791 !important;
-	}
-}
-.quillforms-addons-page__body-addon-footer .quillforms-addons-active {
-    display: block;
-    text-align: center
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 28px;
+	color: #334155;
 }
 
 .quillforms-addons-page__body-addon {
 	display: flex;
 	flex-direction: column;
-	min-height: 187px;
-	margin-top: 20px;
+	flex: 1;
+	margin-top: 0;
+
+	p {
+		font-size: 16px;
+		line-height: 26px;
+		color: #777;
+		// margin: 0 0 20px 0;
+		flex: 1;
+	}
 
 	.quillforms-addons-page__body-addon-footer {
 		margin-top: auto;
+		display: flex;
+		justify-content: flex-end;
 	}
+}
 
-	.quillforms-addons-active {
-		color: green;
-		font-weight: bold;
-	}
+.quillforms-addons-page_addon__header .quillforms-addons-page__body-addon-footer {
+	margin-top: 0;
+	flex-shrink: 0;
+}
+
+.quillforms-addons-page__body-addon-footer .quillforms-addons-active {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 20px;
+	color: #10b981;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.quillforms-addons-page_addon--highlighted {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px rgba(34, 113, 177, 0.15), 0 10px 25px rgba(15, 23, 42, 0.08);
 }

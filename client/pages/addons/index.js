@@ -6,32 +6,92 @@ import {
 	Button,
 	__experimentalAddonFeatureAvailability,
 } from '@quillforms/admin-components';
-import { setForceReload } from '@quillforms/navigation';
+import { setForceReload, NavLink } from '@quillforms/navigation';
 
 /**
  * WordPress Dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
  */
 import { isEqual } from 'lodash';
-import { css } from 'emotion';
 import classNames from 'classnames';
 /**
  * Internal Dependencies
  */
 import './style.scss';
+import CustomTabs from '../../components/custom-tabs';
+import SearchIcon from '../../components/icon/search-icon';
+import CustomButton from '../../components/custom-button';
+import CustomModal from '../../components/custom-modal';
+import lockImage from '../../../assets/images/lock.png';
+import noAddonImage from '../../../assets/images/no-addon.png';
+
+// Category definitions for the addons filter tabs (shape compatible with CustomTabs)
+const ADDON_CATEGORIES = [
+	{ name: 'all', title: __('All', 'quillforms') },
+	{
+		name: 'data_export',
+		title: __('Data Management & Export', 'quillforms'),
+	},
+	{
+		name: 'analytics',
+		title: __('Analytics & Tracking', 'quillforms'),
+	},
+	{
+		name: 'email_marketing',
+		title: __('Email Marketing', 'quillforms'),
+	},
+	{
+		name: 'crm',
+		title: __('CRM Integrations', 'quillforms'),
+	},
+	{
+		name: 'automation',
+		title: __('Productivity & Automation Tools', 'quillforms'),
+	},
+	{
+		name: 'communication',
+		title: __('Communication & Support', 'quillforms'),
+	},
+];
+
+// Map addon names to categories (fallbacks to "other" if not listed)
+const ADDON_CATEGORY_BY_NAME = {
+	// Data Management & Export
+	'PDF Entries Export': 'data_export',
+	'Google Sheets': 'data_export',
+	'Airtable': 'data_export',
+
+	// Analytics & Tracking
+	'Google Tag Manager': 'analytics',
+	'Google Analytics': 'analytics',
+	'Facebook Pixel': 'analytics',
+
+	// Email Marketing
+	'MailChimp': 'email_marketing',
+	'AWeber': 'email_marketing',
+	'ActiveCampaign': 'email_marketing',
+
+	// CRM / Communication & Support / Automation will use additional names as needed
+};
+
+const getAddonCategory = (data) => {
+	if (!data || !data.name) return 'other';
+	return ADDON_CATEGORY_BY_NAME[data.name] || 'other';
+};
 
 const Addons = () => {
 	const [addons, setAddons] = useState(ConfigApi.getStoreAddons());
 	const [apiAction, setApiAction] = useState(null);
 	const [proModalAddon, setProModalAddon] = useState(null);
 	const [highlightedAddon, setHighlightedAddon] = useState(null);
+	const [activeCategory, setActiveCategory] = useState('all');
+	const [searchTerm, setSearchTerm] = useState('');
 
 	// Create refs for each addon element
 	const addonRefs = useRef({});
@@ -142,129 +202,274 @@ const Addons = () => {
 	return (
 		<div className="quillforms-addons-page">
 			<h1 className="quillforms-addons-page__heading">{__('Addons', 'quillforms')}</h1>
-			<div className="quillforms-addons-page__body">
-				<div className="quillforms-addons-page__body-addons">
-					{Object.entries(addons).map(([addon, data]) => {
-						const isHighlighted = highlightedAddon === addon;
-						return (
-							<div
-								key={addon}
-								ref={el => addonRefs.current[addon] = el}
-								className={classNames(
-									"quillforms-addons-page_addon",
-									{ "quillforms-addons-page_addon--highlighted": isHighlighted }
-								)}
-								style={isHighlighted ? {
-									border: '3px solid #2271b1',
-									boxShadow: '0 0 10px rgba(34, 113, 177, 0.5)'
-								} : {}}
-							>
-								<div className="quillforms-addons-page_addon__header">
-									<div
-										className={classNames(
-											'quillforms-addons-page_addon-icon'
-										)}
-									>
-										<img src={data.assets.icon} />
-									</div>
-									<div className="quillforms-addons-page_addon__title">
-										{data.name}
-									</div>
-								</div>
 
-								<div
-									key={addon}
-									className="quillforms-addons-page__body-addon"
-								>
-									<p>{data.description}</p>
-									<div className="quillforms-addons-page__body-addon-footer">
-										{!data.is_installed ? (
-											<Button
-												isPrimary
-												onClick={() => {
-													if (
-														ConfigApi.isPlanAccessible(
-															data.plan
-														)
-													) {
-														api('install', addon);
-													} else {
-														setProModalAddon(
-															addon
-														);
-													}
-												}}
-												disabled={apiAction !== null}
-											>
-												{isDoingApiAction(
-													'install',
-													addon
-												)
-													? __('Installing...', 'quillforms')
-													: __('Install', 'quillforms')}
-											</Button>
-										) : !data.is_active ? (
-											<Button
-												isPrimary
-												onClick={() =>
-													api('activate', addon)
-												}
-												disabled={apiAction !== null}
-											>
-												{isDoingApiAction(
-													'activate',
-													addon
-												)
-													? __('Activating...', 'quillforms')
-													: __('Activate', 'quillforms')}
-											</Button>
-										) : (
-											<span className="quillforms-addons-active">
-												{__('Active', 'quillforms')}
-											</span>
+			<div className="quillforms-addons-page__body">
+				<CustomTabs
+					className="quillforms-addons-page__tabs"
+					tabs={ADDON_CATEGORIES}
+					onSelect={setActiveCategory}
+					initialTabName={activeCategory}
+				>
+					{() => (
+						< div className=" bg-[#F7F8FA] border border-border-color rounded-[20px] py-6 px-5 min-h-[calc(100vh-200px)]">
+							<div className="quillforms-addons-page__filters">
+								<div className="quillforms-addons-page__search">
+									<SearchIcon color="#9ca3af" />
+									<input
+										type="search"
+										placeholder={__(
+											'Search for an integration',
+											'quillforms'
 										)}
-									</div>
+										value={searchTerm}
+										onChange={(e) =>
+											setSearchTerm(e.target.value)
+										}
+									/>
 								</div>
 							</div>
-						);
-					})}
-				</div>
-			</div>
-			{proModalAddon && (
-				<Modal
-					className={css`
-						border: none !important;
-						border-radius: 9px;
 
-						.components-modal__header {
-							background: linear-gradient(
-								42deg,
-								rgb( 235 54 221 ),
-								rgb( 238 142 22 )
-							);
-							h1 {
-								color: #fff;
+							<div className="quillforms-addons-page__body-addons">
+								{(() => {
+									const filteredAddons = Object.entries(addons).filter(([_, data]) => {
+										// Category filter
+										if (activeCategory !== 'all') {
+											const cat =
+												getAddonCategory(data);
+											if (cat !== activeCategory)
+												return false;
+										}
+
+										// Search filter
+										if (!searchTerm) return true;
+										const term =
+											searchTerm.toLowerCase();
+										return (
+											(data.name || '')
+												.toLowerCase()
+												.includes(term) ||
+											(data.description || '')
+												.toLowerCase()
+												.includes(term)
+										);
+									});
+
+									if (filteredAddons.length === 0) {
+										return (
+											<div className="quillforms-addons-page__empty-state">
+												<img
+													src={noAddonImage}
+													alt="No addons"
+													className="block mx-auto "
+												/>
+												<h3 className="text-center mt-6 text-2xl font-bold text-[#334155]">
+													{__('Your addons list is still empty', 'quillforms')}
+												</h3>
+												<p className="text-center mt-3 text-lg font-medium leading-7 text-[#777]">
+													{__('Your dashboard has no active addons. Connect tools to streamline communication, tracking, and automation.', 'quillforms')}
+												</p>
+											</div>
+										);
+									}
+
+									return filteredAddons.map(([addon, data]) => {
+										const isHighlighted =
+											highlightedAddon === addon;
+										return (
+											<div
+												key={addon}
+												ref={(el) =>
+												(addonRefs.current[addon] =
+													el)
+												}
+												className={classNames(
+													'quillforms-addons-page_addon',
+													{
+														'quillforms-addons-page_addon--highlighted':
+															isHighlighted,
+													}
+												)}
+											>
+												<div className="quillforms-addons-page_addon__header">
+													<div>
+														<div
+															className={classNames(
+																'quillforms-addons-page_addon-icon'
+															)}
+														>
+															<img
+																src={
+																	data.assets
+																		.icon
+																}
+															/>
+														</div>
+														<div className="quillforms-addons-page_addon__title">
+															{data.name}
+														</div>
+													</div>
+													<div className="quillforms-addons-page__body-addon-footer">
+														{!data.is_installed ? (
+															<CustomButton
+																variant="outlineSecondary"
+																className='!py-2 !px-3 !rounded-[8px]'
+																text={
+																	isDoingApiAction(
+																		'install',
+																		addon
+																	)
+																		? __(
+																			'Installing...',
+																			'quillforms'
+																		)
+																		: __(
+																			'Install',
+																			'quillforms'
+																		)
+																}
+																onClick={() => {
+																	if (
+																		ConfigApi.isPlanAccessible(
+																			data.plan
+																		)
+																	) {
+																		api(
+																			'install',
+																			addon
+																		);
+																	} else {
+																		setProModalAddon(
+																			addon
+																		);
+																	}
+																}}
+																disabled={
+																	apiAction !==
+																	null
+																}
+															/>
+														) : !data.is_active ? (
+															<CustomButton
+																variant="outlineSecondary"
+																text={
+																	isDoingApiAction(
+																		'activate',
+																		addon
+																	)
+																		? __(
+																			'Activating...',
+																			'quillforms'
+																		)
+																		: __(
+																			'Activate',
+																			'quillforms'
+																		)
+																}
+																onClick={() =>
+																	api(
+																		'activate',
+																		addon
+																	)
+																}
+																disabled={
+																	apiAction !==
+																	null
+																}
+															/>
+														) : (
+															<span className="quillforms-addons-active">
+																{__(
+																	'Active',
+																	'quillforms'
+																)}
+															</span>
+														)}
+													</div>
+												</div>
+
+												<div className="quillforms-addons-page__body-addon">
+													<p>
+														{
+															data.description
+														}
+													</p>
+
+												</div>
+											</div>
+										);
+									});
+								})()}
+							</div>
+						</div>
+					)}
+				</CustomTabs>
+			</div>
+			<CustomModal
+				isOpen={!!proModalAddon}
+				onClose={() => setProModalAddon(null)}
+				noPadding={true}
+				title={proModalAddon ? addons[proModalAddon].name + __(' is a pro addon', 'quillforms') : ''}
+				centerTitle={true}
+			>
+				{proModalAddon && (() => {
+					const addon = addons[proModalAddon];
+					const featurePlanLabel = ConfigApi.getPlans()[addon.plan]?.label || 'Basic';
+					const isWPEnv = ConfigApi.isWPEnv();
+
+					return (
+						<__experimentalAddonFeatureAvailability
+							featureName={addon.name + __(' addon', 'quillforms')}
+							addonSlug={proModalAddon}
+							showLockIcon={true}
+							customIcon={
+								<img
+									src={lockImage}
+									alt="Lock icon"
+									style={{ display: 'block', margin: '0 auto' }}
+								/>
 							}
-							svg {
-								fill: #fff;
+							customDescription={
+								<p style={{ fontSize: '15px', color: '#334155', margin: '0 0 20px 0' }}>
+									{__("We're sorry, ", 'quillforms')}
+									{addon.name}
+									{__(' is not available on your plan. Please upgrade to the ', 'quillforms')}
+									{featurePlanLabel}
+									{__(' plan to unlock all of ', 'quillforms')}
+									{featurePlanLabel}
+									{__(' features.', 'quillforms')}
+								</p>
 							}
-						}
-						.components-modal__content {
-							text-align: center;
-						}
-					` }
-					title={addons[proModalAddon].name + __(' is a pro addon', 'quillforms')}
-					onRequestClose={() => {
-						setProModalAddon(null);
-					}}
-				>
-					<__experimentalAddonFeatureAvailability
-						featureName={addons[proModalAddon].name + __(' addon', 'quillforms')}
-						addonSlug={proModalAddon}
-						showLockIcon={true}
-					/>
-				</Modal>
-			)}
+							customButton={
+								isWPEnv ? (
+									<a
+										href="https://quillforms.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										style={{ textDecoration: 'none', display: 'inline-block' }}
+									>
+										<CustomButton
+											variant="primary"
+											text={__('Upgrade to ', 'quillforms') + featurePlanLabel + '!'}
+											className="!border-0 !border-none !py-3 !px-24"
+										/>
+									</a>
+								) : (
+									<NavLink
+										to="/admin.php?page=quillforms&path=checkout"
+										style={{ textDecoration: 'none', display: 'inline-block' }}
+									>
+										<CustomButton
+											variant="primary"
+											text={__('Upgrade to ', 'quillforms') + featurePlanLabel + '!'}
+											className="!border-0 !border-none !py-3 !px-24"
+										/>
+									</NavLink>
+								)
+							}
+						/>
+					);
+				})()}
+			</CustomModal>
 		</div>
 	);
 };
