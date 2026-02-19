@@ -1,5 +1,4 @@
 .quillforms-license-page {
-	padding: 24px;
 	height: calc(100vh - 48px);
 	display: flex;
 	flex-direction: column;
@@ -8,7 +7,7 @@
 		color: #001D4F !important;
 		font-size: 24px !important;
 		font-weight: 700 !important;
-		margin-bottom: 24px !important;
+		padding-block: 24px !important;
 	}
 }
 
@@ -71,7 +70,7 @@
 		font-weight: 500 !important;
 		line-height: 28px !important;
 		color: #334155 !important;
-		margin-bottom: 8px !important;
+		// margin-bottom: 8px !important;
 	}
 
 	.components-base-control {
@@ -102,7 +101,6 @@
 		right: 0;
 		background-color: #fff;
 		padding: 16px 24px;
-		border-top: 1px solid #E2E8F0;
 		border-bottom-left-radius: 20px;
 		border-bottom-right-radius: 20px;
 		box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);

@@ -4,7 +4,6 @@
  */
 import {
 	SelectControl,
-	Button,
 	BaseControl,
 	ControlLabel,
 	ControlWrapper,
@@ -34,6 +33,7 @@ import { ThreeDots as Loader } from 'react-loader-spinner';
  * Internal Dependencies
  */
 import './style.scss';
+import CustomButton from '../../../components/custom-button';
 
 const General = () => {
 	const [settings, setSettings] = useState(null);
@@ -125,18 +125,40 @@ const General = () => {
 				<div className="error">Cannot load settings</div>
 			) : (
 				<div>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Log level"></ControlLabel>
+					{/* 2-column grid of setting cards */}
+					<div className="quillforms-settings-general-tab__grid">
+
+						{/* Log level */}
+						<div className="quillforms-settings-general-tab__card">
+							<span className="quillforms-settings-general-tab__card-label">Log level</span>
 							<SelectControl
 								className={css`
-									width: 200px;
-									margin-left: 10px;
+								.components-custom-select-control__label {
+									display: none;
+								}
+								.components-custom-select-control__button {
+									width: auto;
+									min-width: 140px;
+									padding: 8px 16px;
+									border-radius: 16px !important;
+									border: 1px solid #D9D9D9 !important;
+									background: #fff !important;
+									font-size: 14px !important;
+									font-weight: 500 !important;
+									color: #334155 !important;
+									box-shadow: none !important;
+									cursor: pointer;
+									display: flex;
+									align-items: center;
+									justify-content: space-between;
+									gap: 8px;
 
-									.components-custom-select-control__label {
-										margin-bottom: 0;
+									&:focus {
+										border-color: #B2328C !important;
+										box-shadow: none !important;
 									}
-								` }
+								}
+							` }
 								value={logLevelOptions.find(
 									(option) =>
 										option.key === settings.log_level
@@ -149,18 +171,13 @@ const General = () => {
 								}}
 								options={logLevelOptions}
 							/>
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label="Override 'quillforms' slug in the url"
-							/>
-							<ToggleControl
-								checked={
-									settings?.override_quillforms_slug
+						</div>
 
-								}
+						{/* Override quillforms slug */}
+						<div className="quillforms-settings-general-tab__card">
+							<span className="quillforms-settings-general-tab__card-label">Override 'quillforms' slug in the url</span>
+							<ToggleControl
+								checked={settings?.override_quillforms_slug}
 								onChange={() => {
 									if (license?.status !== 'valid') {
 										setDisplayProModal(true);
@@ -172,40 +189,27 @@ const General = () => {
 									}
 								}}
 							/>
-						</ControlWrapper>
+						</div>
 
-						<ControlWrapper>
+						{/* New slug input (only when override is on) */}
+						{settings?.override_quillforms_slug && license?.status === 'valid' && (
+							<div className="quillforms-settings-general-tab__card quillforms-settings-general-tab__card--full">
+								<span className="quillforms-settings-general-tab__card-label">Your New Slug</span>
+								<TextControl
+									value={settings?.quillforms_slug}
+									onChange={(val) => {
+										setSettingField('quillforms_slug', val.trim());
+									}}
+								/>
+								<p className={css`color: #8e8989; margin-top: 8px; font-size: 13px;`}>
+									Please don't leave empty
+								</p>
+							</div>
+						)}
 
-						</ControlWrapper>
-						{settings?.override_quillforms_slug &&
-							license?.status === 'valid' && (
-								<>
-									<ControlWrapper orientation="vertical">
-										<ControlLabel label="Your New Slug:"></ControlLabel>
-										<TextControl
-											value={settings?.quillforms_slug}
-											onChange={(val) => {
-												setSettingField(
-													'quillforms_slug',
-													val.trim()
-												);
-											}}
-										/>
-									</ControlWrapper>
-									<p
-										className={css`
-											color: #8e8989;
-											margin-top: 0;
-										` }
-									>
-										Please don't leave empty
-									</p>
-								</>
-							)}
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Disable Indexing for your forms" />
+						{/* Disable indexing */}
+						<div className="quillforms-settings-general-tab__card">
+							<span className="quillforms-settings-general-tab__card-label">Disable Indexing for your forms</span>
 							<ToggleControl
 								checked={settings?.disable_indexing}
 								onChange={() => {
@@ -215,16 +219,13 @@ const General = () => {
 									);
 								}}
 							/>
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Process form entry for integrations synchronously" />
+						</div>
 
+						{/* Sync entry process */}
+						<div className="quillforms-settings-general-tab__card">
+							<span className="quillforms-settings-general-tab__card-label">Process form entry for integrations synchronously</span>
 							<ToggleControl
-								checked={
-									settings?.providers_sync_entry_process
-								}
+								checked={settings?.providers_sync_entry_process}
 								onChange={() => {
 									setSettingField(
 										'providers_sync_entry_process',
@@ -232,12 +233,11 @@ const General = () => {
 									);
 								}}
 							/>
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Disable collecting user ip" />
+						</div>
 
+						{/* Disable collecting user ip */}
+						<div className="quillforms-settings-general-tab__card">
+							<span className="quillforms-settings-general-tab__card-label">Disable collecting user ip</span>
 							<ToggleControl
 								checked={settings.disable_collecting_user_ip}
 								onChange={() => {
@@ -247,16 +247,13 @@ const General = () => {
 									);
 								}}
 							/>
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel label="Disable collecting user agent" />
+						</div>
 
+						{/* Disable collecting user agent */}
+						<div className="quillforms-settings-general-tab__card">
+							<span className="quillforms-settings-general-tab__card-label">Disable collecting user agent</span>
 							<ToggleControl
-								checked={
-									settings.disable_collecting_user_agent
-								}
+								checked={settings.disable_collecting_user_agent}
 								onChange={() => {
 									setSettingField(
 										'disable_collecting_user_agent',
@@ -264,65 +261,59 @@ const General = () => {
 									);
 								}}
 							/>
-						</ControlWrapper>
-					</BaseControl>
+						</div>
 
-
-					<div
-						className={css`
-							text-align: left;
-							margin-top: 20px;
-						` }
-					>
-						{isSaving ? (
-							<Button isLarge isSecondary>
-								Saving
-							</Button>
-						) : (
-							<Button isLarge isPrimary onClick={save}>
-								Save
-							</Button>
-						)}
 					</div>
-					<>
-						{displayProModal && (
-							<Modal
-								className={classnames(
-									css`
-										border: none !important;
-										border-radius: 9px;
 
-										.components-modal__header {
-											background: linear-gradient(
-												42deg,
-												rgb( 235 54 221 ),
-												rgb( 238 142 22 )
-											);
-											h1 {
-												color: #fff;
-											}
-											svg {
-												fill: #fff;
-											}
+					{/* Save button */}
+					<div className="quillforms-settings-general-tab__footer">
+						<CustomButton
+							variant="primary"
+							text={isSaving ? 'Saving...' : 'Save Changes'}
+							onClick={save}
+							disabled={isSaving}
+							className="!border-0 !border-none !py-3 !px-8"
+						/>
+					</div>
+
+					{/* Pro modal */}
+					{displayProModal && (
+						<Modal
+							className={classnames(
+								css`
+									border: none !important;
+									border-radius: 9px;
+
+									.components-modal__header {
+										background: linear-gradient(
+											42deg,
+											rgb( 235 54 221 ),
+											rgb( 238 142 22 )
+										);
+										h1 {
+											color: #fff;
 										}
-										.components-modal__content {
-											text-align: center;
+										svg {
+											fill: #fff;
 										}
-									`
-								)}
-								title="Overwrite quillforms slug is a pro feature"
-								onRequestClose={() => {
-									setDisplayProModal(false);
-								}}
-							>
-								<__experimentalFeatureAvailability
-									featureName="Override quillforms slug"
-									planKey="basic"
-									showLockIcon={true}
-								/>
-							</Modal>
-						)}
-					</>
+									}
+									.components-modal__content {
+										text-align: center;
+									}
+								`
+							)}
+							title="Overwrite quillforms slug is a pro feature"
+							onRequestClose={() => {
+								setDisplayProModal(false);
+							}}
+						>
+							<__experimentalFeatureAvailability
+								featureName="Override quillforms slug"
+								planKey="basic"
+								showLockIcon={true}
+							/>
+						</Modal>
+					)}
 				</div>
 			)}
 		</div>
