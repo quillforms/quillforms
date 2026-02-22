@@ -1,0 +1,20 @@
+.quillforms-settings-emails-tab {
+
+	.emails-color-palette-wrapper {
+		background-color: #F2F4FC;
+		border: 1px solid #D9D9D9;
+		border-radius: 8px;
+		padding: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+
+		.components-color-palette {
+			background-color: transparent !important;
+		}
+
+		.components-color-palette__body {
+			background-color: transparent !important;
+		}
+	}
+}
