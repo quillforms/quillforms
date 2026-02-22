@@ -3,7 +3,6 @@
  */
 import ConfigAPI from '@quillforms/config';
 import CustomButton from '../../../components/custom-button';
-import CustomSearch from '../../../components/custom-search';
 import CustomModal from '../../../components/custom-modal';
 
 /**
@@ -38,16 +37,6 @@ const Analytics = () => {
 
 	return (
 		<div className="quillforms-analytics-tab">
-			{/* Search bar */}
-			<div className="mb-4">
-				<CustomSearch
-					value={search}
-					onChange={setSearch}
-					placeholder={__('Search here', 'quillforms')}
-					className="!max-w-full"
-				/>
-			</div>
-
 			{/* Authentication Modal */}
 			<CustomModal
 				isOpen={!!openSlug}
