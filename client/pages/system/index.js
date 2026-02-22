@@ -1,61 +1,41 @@
 /**
- * WordPress Dependencies
- */
-import { TabPanel } from '@wordpress/components';
-
-/**
- * External Dependencies
- */
-import { css } from 'emotion';
-
-/**
  * Internal Dependencies
  */
-import './style.scss';
+import CustomTabs from '../../components/custom-tabs';
 import Status from './status';
 import Logs from './logs';
+import { __ } from '@wordpress/i18n';
 
 const System = () => {
-	const getTab = ( name ) => {
-		switch ( name ) {
-			case 'status':
-				return <Status />;
-			case 'logs':
-				return <Logs />;
-			default:
-				return <div>Not Found</div>;
-		}
+	const Tabs = {
+		status: {
+			title: 'Status',
+			render: <Status />,
+		},
+		logs: {
+			title: 'Logs',
+			render: <Logs />,
+		},
 	};
 
 	return (
 		<div className="quillforms-system-page">
-			<h1 className="quillforms-system-page__heading">System</h1>
+			<h1 className="quillforms-support-page__heading !text-2xl !text-[#001D4F] !font-bold">System</h1>
 			<div className="quillforms-system-page__body">
-				<TabPanel
-					className={ css`
-						.components-tab-panel__tabs-item {
-							font-weight: normal;
-						}
-						.active-tab {
-							font-weight: bold;
-						}
-					` }
-					activeClass="active-tab"
-					tabs={ [
-						{
-							name: 'status',
-							title: 'Status',
-							className: 'tab-status',
-						},
-						{
-							name: 'logs',
-							title: 'Logs',
-							className: 'tab-logs',
-						},
-					] }
+				<CustomTabs
+					className="quillforms-system-page__tabs"
+					tabs={Object.entries(Tabs).map(([name, tab]) => ({
+						name,
+						title: tab.title,
+					}))}
+					initialTabName="status"
 				>
-					{ ( tab ) => <div>{ getTab( tab.name ) }</div> }
-				</TabPanel>
+					{(tab) => (
+						<div className="w-full">
+							{Tabs[tab.name]?.render ?? <div>Not Found</div>}
+						</div>
+					)}
+				</CustomTabs>
 			</div>
 		</div>
 	);
