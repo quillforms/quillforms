@@ -1,6 +1,7 @@
 import { useState, useRef } from '@wordpress/element';
 import { Icon, search, closeSmall } from '@wordpress/icons';
 import { Button } from '@wordpress/components';
+import SearchIcon from '../icon/search-icon';
 
 const CustomSearch = ({
 	value = '',
@@ -44,7 +45,7 @@ const CustomSearch = ({
 				}
 			`}</style>
 			<div className="flex items-center pointer-events-none">
-				<Icon icon={search} className="text-gray-400 w-5 h-5" />
+				<SearchIcon />
 			</div>
 			<input
 				ref={inputRef}
