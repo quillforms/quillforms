@@ -344,7 +344,11 @@ const GenerateAiForm = ({
 		<div
 			className={css`
 				width: 100%;
-				padding: 0 2rem;
+				padding: 0 2rem 2rem;
+				/* Limit height so content can scroll inside the modal */
+				max-height: calc(100vh - 220px);
+				overflow-y: auto;
+				overflow-x: hidden;
 			`}
 		>
 			<div
@@ -373,18 +377,22 @@ const GenerateAiForm = ({
 							font-size: 32px;
 							font-weight: 600;
 							gap: 12px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							gap: 12px;
 						`}
 					>
 						<span
 							className={css`
-								background: linear-gradient(45deg, #8b5cf6, #06b6d4);
+								background: linear-gradient(45deg, #8B5CF6, #06B6D4);
 								-webkit-background-clip: text;
 								-webkit-text-fill-color: transparent;
 								background-clip: text;
 								font-weight: 700;
 							`}
 						>
-							{__('Describe Your Perfect Form', 'quillforms')}
+							{__('Generate Form With AI', 'quillforms')}
 						</span>
 						<StarIcon />
 					</div>
