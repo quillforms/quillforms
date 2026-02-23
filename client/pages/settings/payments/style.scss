@@ -1,37 +1,8 @@
 .quillforms-settings-payments-tab {
 
 	&__search {
-		position: relative;
-		display: flex;
-		align-items: center;
+		width: 100%;
 		margin-bottom: 20px;
-
-		svg {
-			position: absolute;
-			left: 16px;
-			width: 18px;
-			height: 18px;
-			z-index: 1;
-			pointer-events: none;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-
-		input {
-			width: 100%;
-			padding: 12px 16px 12px 42px;
-			border-radius: 16px;
-			border: 1px solid #D9D9D9;
-			font-size: 14px;
-			color: #334155;
-			background: #fff;
-			outline: none;
-			transition: border-color 0.15s;
-
-			&:focus {
-				border-color: #B2328C;
-			}
-		}
 	}
 
 	&__grid {

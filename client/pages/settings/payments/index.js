@@ -15,7 +15,7 @@ import { __ } from '@wordpress/i18n';
  * Internal Dependencies
  */
 import './style.scss';
-import SearchIcon from '../../../components/icon/search-icon';
+import CustomSearch from '../../../components/custom-search';
 import CustomButton from '../../../components/custom-button';
 
 const Payments = () => {
@@ -36,13 +36,12 @@ const Payments = () => {
 	return (
 		<div className="quillforms-settings-payments-tab">
 			{/* Search */}
-			<div className="quillforms-settings-payments-tab__search">
-				<SearchIcon color="#9ca3af" />
-				<input
-					type="search"
-					placeholder={__('Search here', 'quillforms')}
+			<div className="quillforms-settings-payments-tab__search mb-4">
+				<CustomSearch
 					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
+					onChange={setSearchTerm}
+					placeholder={__('Search here', 'quillforms')}
+					className="!max-w-full"
 				/>
 			</div>
 

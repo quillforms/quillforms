@@ -20,14 +20,19 @@ const CustomSearch = ({
 		}
 	};
 
+	const wrapperStyle = {
+		borderRadius: '16px',
+		backgroundColor: '#FFFFFF',
+		border: isFocused ? '1px solid #B2328C' : '1px solid #D9D9D9',
+		boxShadow: isFocused
+			? '0 0 0 1px rgba(178, 50, 140, 0.25)'
+			: 'none',
+	};
+
 	return (
 		<div
-			style={{
-				borderRadius: '16px',
-				backgroundColor: '#FFFFFF',
-				border: '1px solid #D9D9D9',
-			}}
-			className={`flex w-full min-w-[300px] md:max-w-[527px] !py-2 !px-4 justify-between items-center gap-1 transition-all ${className}`}
+			style={wrapperStyle}
+			className={`flex w-full min-w-[300px] max-w-full !py-2 !px-4 justify-between items-center gap-1 transition-all ${className}`}
 		>
 			<style>{`
 				input[type="search"]::-webkit-search-cancel-button {

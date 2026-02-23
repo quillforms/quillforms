@@ -25,7 +25,7 @@ import classNames from 'classnames';
  */
 import './style.scss';
 import CustomTabs from '../../components/custom-tabs';
-import SearchIcon from '../../components/icon/search-icon';
+import CustomSearch from '../../components/custom-search';
 import CustomButton from '../../components/custom-button';
 import CustomModal from '../../components/custom-modal';
 import lockImage from '../../../assets/images/lock.png';
@@ -214,17 +214,13 @@ const Addons = () => {
 						< div className=" bg-[#F7F8FA] border border-border-color rounded-[20px] py-6 px-5 min-h-[calc(100vh-200px)]">
 							<div className="quillforms-addons-page__filters">
 								<div className="quillforms-addons-page__search">
-									<SearchIcon color="#9ca3af" />
-									<input
-										type="search"
+									<CustomSearch
+										value={searchTerm}
+										onChange={setSearchTerm}
 										placeholder={__(
 											'Search for an integration',
 											'quillforms'
 										)}
-										value={searchTerm}
-										onChange={(e) =>
-											setSearchTerm(e.target.value)
-										}
 									/>
 								</div>
 							</div>
