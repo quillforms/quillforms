@@ -48,6 +48,11 @@ const Sidebar = () => {
 			<h1 className="qf-admin-sidebar-heading">Quill Forms</h1>
 			<div className="qf-admin-sidebar-nav-items">
 				{map(qfAdmin.submenuPages, (page, index) => {
+					// Hide Import/Export page from sidebar
+					if (page[2] === 'quillforms&path=import-export') {
+						return null;
+					}
+
 					if (
 						matchesRegesiteredRoutes('/' + clean(page[2]))
 					) {
@@ -83,8 +88,8 @@ const Sidebar = () => {
 									) : page[2] ===
 										'quillforms&path=system' ? (
 										<SystemIcon />
-									) : page[2] === 'quillforms&path=import-export' ? (
-										<ImportExportIcon />
+										// ) : page[2] === 'quillforms&path=import-export' ? (
+										// 	<ImportExportIcon />
 									) : (
 										<SettingsIcon />
 									)}
