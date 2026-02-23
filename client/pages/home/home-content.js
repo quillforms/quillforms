@@ -22,6 +22,9 @@ import CustomSearch from '../../components/custom-search';
 import CustomTabs from '../../components/custom-tabs';
 import ArrowButtonIcon from './icons/arrow-button';
 import ImportIcon from './icons/import-icon';
+import CustomModal from '../../components/custom-modal';
+import TrashIcon from './icons/trash-icon';
+import trashImage from '../../../assets/images/trash.png';
 
 const ListHeader = ({ selectAll, handleSelectAll }) => (
 	<div className="list-header">
@@ -48,10 +51,16 @@ const HomeContent = () => {
 	const [sortBy, setSortBy] = useState('date');
 	const [selectedForms, setSelectedForms] = useState([]);
 	const [selectAll, setSelectAll] = useState(false);
+	const [showBulkTrashModal, setShowBulkTrashModal] = useState(false);
+	const [isBulkDeleting, setIsBulkDeleting] = useState(false);
 
 	const handleSelectAll = (checked) => {
 		setSelectAll(checked);
-		setSelectedForms(checked ? forms.map((form) => form.id) : []);
+		if (checked && forms && Array.isArray(forms)) {
+			setSelectedForms(forms.map((form) => form.id));
+		} else {
+			setSelectedForms([]);
+		}
 	};
 
 	const handleSelectForm = (formId, checked) => {
@@ -131,18 +140,7 @@ const HomeContent = () => {
 	};
 
 	const handleBulkDelete = async (permanent = false) => {
-		if (
-			!confirm(
-				__(
-					`Are you sure you want to ${permanent ? 'permanently delete' : 'move to trash'
-					} ${selectedForms.length} forms?`,
-					'quillforms'
-				)
-			)
-		) {
-			return;
-		}
-
+		setIsBulkDeleting(true);
 		const deletePromises = selectedForms.map((formId) =>
 			deleteEntityRecord(
 				'postType',
@@ -167,6 +165,8 @@ const HomeContent = () => {
 		} catch (error) {
 			createErrorNotice(__('Error deleting forms!', 'quillforms'), { type: 'snackbar' });
 		}
+		setIsBulkDeleting(false);
+		setShowBulkTrashModal(false);
 	};
 
 	const handleBulkRestore = async () => {
@@ -268,7 +268,6 @@ const HomeContent = () => {
 			<div className="quillforms-home__header">
 				<div className="quillforms-home__header-left">
 					<h1 className="text-2xl font-bold !text-[#001D4F]">{__('Forms', 'quillforms')}</h1>
-
 				</div>
 				<div className="quillforms-home__header-right">
 					<div className="view-mode-toggle">
@@ -299,7 +298,35 @@ const HomeContent = () => {
 					</div>
 
 					{selectedForms.length > 0 ? (
-						<BulkActions />
+						<div className="flex items-center gap-3">
+							<button
+								type="button"
+								className="flex items-center gap-1 text-lg font-medium leading-7 text-[#E13B3B] focus:outline-none bg-transparent border-none"
+								onClick={() => {
+									setShowBulkTrashModal(true);
+								}}
+							>
+								{__('Delete all', 'quillforms')}
+								<span className="inline-flex items-center">
+									<TrashIcon width={18} height={18} />
+								</span>
+							</button>
+
+							<span className="forms-header-divider" />
+
+							<CustomButton
+								variant="outlineSecondary"
+								text={__('Export all', 'quillforms')}
+								icon={
+									<svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M10 3V13M10 13L6 9M10 13L14 9M3 17H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+									</svg>
+								}
+								onClick={() => {
+									// Export selected logic placeholder
+								}}
+							/>
+						</div>
 					) : (
 						<div className="flex items-center gap-3">
 							<CustomButton
@@ -325,6 +352,15 @@ const HomeContent = () => {
 					/>
 				</div>
 				<div className="quillforms-home__header-right">
+					<div className="flex items-center !gap-1 select-all-wrapper">
+						<CheckboxControl
+							checked={selectAll}
+							onChange={handleSelectAll}
+						/>
+						<p className="m-0 text-base font-semibold leading-7 text-[#B2328C]">
+							{__('Select all', 'quillforms')}
+						</p>
+					</div>
 					<Dropdown
 						className="sort-dropdown"
 						position="bottom left"
@@ -333,10 +369,8 @@ const HomeContent = () => {
 								<p className="text-lg font-semibold leading-7 text-[#334155]">
 									{__('Sort by:', 'quillforms')}
 								</p>
-
-
 								<CustomButton
-									className='!py-2 !capitalize'
+									className='!py-1 !px-2 !capitalize'
 									variant="outline"
 									text={sortBy}
 									onClick={onToggle}
@@ -404,6 +438,41 @@ const HomeContent = () => {
 				isOpen={isImportModalOpen}
 				onClose={() => setIsImportModalOpen(false)}
 			/>
+
+			{/* Bulk Trash Modal */}
+			<CustomModal
+				isOpen={showBulkTrashModal}
+				onClose={() => setShowBulkTrashModal(false)}
+				title={__('Move to Trash', 'quillforms')}
+				noBorder={true}
+				centerTitle={true}
+			>
+				<div className="flex flex-col items-center gap-6 py-4">
+					<img
+						src={trashImage}
+						alt="Trash"
+						className="w-32 h-32 object-contain"
+					/>
+					<p className="text-base text-[#64748B] text-center">
+						{selectedForms.length > 0
+							? `${__('Do you want to delete', 'quillforms')} ${selectedForms.length} ${__('selected forms?', 'quillforms')}`
+							: __('Do you want to delete all forms?', 'quillforms')
+						}
+					</p>
+					<div className="flex gap-3 w-full justify-end">
+						<CustomButton
+							variant="outlineSecondary"
+							text={__('Cancel', 'quillforms')}
+							onClick={() => setShowBulkTrashModal(false)}
+						/>
+						<CustomButton
+							variant="danger"
+							text={__('Delete', 'quillforms')}
+							onClick={() => handleBulkDelete(false)}
+						/>
+					</div>
+				</div>
+			</CustomModal>
 		</div>
 	);
 };

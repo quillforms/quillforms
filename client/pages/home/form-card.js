@@ -362,7 +362,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 					<div className="checkbox-column">
 						<CheckboxControl
 							checked={isSelected}
-							onChange={() => onSelect(form.id)}
+							onChange={(checked) => onSelect(form.id, checked)}
 						/>
 					</div>
 					<div className="title-column">
@@ -648,16 +648,12 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 					>
 						<div className="form-card__header-row">
 							<div className="form-card__title-wrapper">
-								<svg
-									width="20"
-									height="20"
-									viewBox="0 0 20 20"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-									className="form-card__checkbox-icon"
-								>
-									<rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.5" fill="none" />
-								</svg>
+								<CheckboxControl
+									checked={isSelected}
+									onChange={(checked) => onSelect(form.id, checked)}
+									onClick={(e) => e.stopPropagation()}
+									className="form-card__grid-checkbox"
+								/>
 								<div className={classnames("form-card__title", css`
 											color: ${theme.fontColor};
 										`)}

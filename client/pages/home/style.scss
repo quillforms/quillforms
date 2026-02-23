@@ -5,6 +5,38 @@
 
 .quillforms-home {
 	padding: 16px;
+	.components-checkbox-control__input-container {
+		margin: 0;
+
+		input[type='checkbox'] {
+			width: 18px;
+			height: 18px;
+			border-radius: 4px;
+			border: 2px solid #334155 !important; // default border like your reference
+			background-color: #fff;
+			accent-color: #B2328C !important; // color when checked
+			box-shadow: none;
+		}
+
+		input[type='checkbox']:checked {
+			background-color: #B2328C !important;
+			border-color: transparent !important; // remove visible border when selected
+			box-shadow: none !important;
+		}
+	}
+
+	// Ensure the "Select all" checkbox in the header always has B2328C border
+	&__header-right {
+		.select-all-wrapper {
+			.components-checkbox-control__input-container {
+
+				input[type='checkbox'],
+				input[type='checkbox']:checked {
+					border-color: #B2328C !important;
+				}
+			}
+		}
+	}
 
 	&__header {
 		display: flex;
@@ -28,8 +60,41 @@
 		&-right {
 			display: flex;
 			align-items: center;
-			gap: 16px;
+			gap: 20px;
 
+			.forms-header-divider {
+				width: 1px;
+				height: 45px;
+				background-color: #D9D9D9;
+			}
+
+			// "Select all" checkbox + label wrapper
+			.select-all-wrapper {
+				display: inline-flex;
+				align-items: center;
+				gap: 12px; // space between checkbox and label
+				padding-right: 24px; // space between group and Sort by
+				border-right: 1px solid #D9D9D9;
+			}
+
+			.components-checkbox-control {
+				margin: 0;
+
+				.components-checkbox-control__input-container {
+					margin-top: 10px;
+
+					input[type='checkbox'] {
+						accent-color: #B2328C;
+						border-color: #B2328C;
+					}
+
+					input[type='checkbox']:checked {
+						background-color: #B2328C;
+						border-color: #B2328C;
+						box-shadow: 0 0 0 1px #B2328C;
+					}
+				}
+			}
 
 			.components-search-control {
 				width: 240px;
@@ -61,7 +126,7 @@
 			border: 1px solid #D9D9D9;
 
 			// Empty state should span full width in grid view
-			> div:only-child {
+			>div:only-child {
 				grid-column: 1 / -1;
 			}
 		}
@@ -317,10 +382,24 @@
 				gap: 8px;
 			}
 
-			.form-card__checkbox-icon {
+			.form-card__grid-checkbox {
 				flex-shrink: 0;
-				color: inherit;
-				opacity: 0.6;
+				margin: 0;
+
+				.components-checkbox-control__input-container {
+					margin-top: 9px;
+
+					input[type='checkbox'] {
+						accent-color: #B2328C !important;
+						border-color: #334155 !important;
+					}
+
+					input[type='checkbox']:checked {
+						background-color: #B2328C;
+						border-color: #B2328C !important;
+						box-shadow: 0 0 0 1px #B2328C;
+					}
+				}
 			}
 
 			.form-card__title {
