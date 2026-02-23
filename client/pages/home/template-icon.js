@@ -52,7 +52,7 @@ const TemplateIcon = () => {
 							width="28.507"
 							height="12.8576"
 							rx="1.84322"
-							fill="#8243EA"
+							fill="#236294"
 						/>
 					</g>
 					<path
@@ -80,7 +80,7 @@ const TemplateIcon = () => {
 						width="29.3478"
 						height="5.50272"
 						rx="2.75136"
-						fill="#8243EA"
+						fill="#236294"
 					/>
 					<rect
 						x="122.117"

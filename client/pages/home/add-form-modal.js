@@ -246,6 +246,18 @@ const AddFormModal = ({ closeModal }) => {
 										<div className={iconClassName}>
 											{icon}
 										</div>
+										{key === CARD_TYPES.SCRATCH && (
+											<button
+												className="blank-page-button"
+												onClick={(e) => {
+													e.stopPropagation();
+													handleCardClick(CARD_TYPES.SCRATCH);
+													handleNextClick();
+												}}
+											>
+												{__('Blank Page', 'quillforms')}
+											</button>
+										)}
 									</div>
 									<span
 										style={{
@@ -261,8 +273,8 @@ const AddFormModal = ({ closeModal }) => {
 											<span
 												style={{
 													borderRadius: '62px',
-													background: '#5C22CA33',
-													color: '#5C22CA',
+													background: '#DAE5F0',
+													color: '#236294',
 													fontSize: '14px',
 													fontWeight: '600',
 													padding: '2px 12px',
@@ -355,18 +367,54 @@ const AddFormModal = ({ closeModal }) => {
 						margin-bottom: 100px;
 					}
 
+					.create-from-scratch-card,
+					.choose-template-card,
+					.create-ai-form {
+						border: 1px solid #e3e3e3;
+						border-radius: 12px;
+					}
+
 					.create-from-scratch-card:hover,
 					.choose-template-card:hover,
 					.create-ai-form:hover {
 						transform: translateY(-2px);
 						box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+						border-color: #d0d0d0;
 					}
 
 					.create-from-scratch-card.selected,
 					.choose-template-card.selected,
 					.create-ai-form.selected {
 						transform: scale(1.02);
-						border: 1.8px solid #5c22ca;
+						border: 1.8px solid #236294;
+					}
+
+					.create-from-scratch-card {
+						position: relative;
+					}
+
+					.blank-page-button {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						background: #236294;
+						color: white;
+						border: none;
+						border-radius: 8px;
+						padding: 8px 30px;
+						font-size: 14px;
+						font-weight: 500;
+						cursor: pointer;
+						white-space: nowrap;
+						transition: all 0.2s ease;
+						z-index: 10;
+					}
+
+					.blank-page-button:hover {
+						background: #236294;
+						transform: translate(-50%, -50%) translateY(-1px);
+						box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 					}
 
 					/* Footer Styles */
@@ -385,14 +433,14 @@ const AddFormModal = ({ closeModal }) => {
 					/* Progress Bar Styles */
 					.progress-tracker {
 						width: 100%;
-						height: 10px;
-						background-color: #e8e8e8;
+						height: 20px;
+						background-color: #F2F4FC;
 						overflow: hidden;
 					}
 
 					.progress-fill {
 						height: 100%;
-						background: #c3a6f9;
+						background: #DAE5F0;
 						transition: width 0.5s ease-in-out;
 					}
 
@@ -418,22 +466,22 @@ const AddFormModal = ({ closeModal }) => {
 						min-width: 100px;
 					}
 
-					.back-button {
-						background: white;
-						color: #5c22ca;
-						border: 1px solid #5c22ca;
-						display: flex;
-						gap: 10px;
-						align-items: center;
-					}
+					// .back-button {
+					// 	background: white;
+					// 	color: #5c22ca;
+					// 	border: 1px solid #5c22ca;
+					// 	display: flex;
+					// 	gap: 10px;
+					// 	align-items: center;
+					// }
 
-					.next-button {
-						background: #5c22ca;
-						color: white;
-						display: flex;
-						gap: 10px;
-						align-items: center;
-					}
+					// .next-button {
+					// 	background: #5c22ca;
+					// 	color: white;
+					// 	display: flex;
+					// 	gap: 10px;
+					// 	align-items: center;
+					// }
 
 					.next-button:disabled {
 						opacity: 30%;
@@ -486,14 +534,14 @@ const AddFormModal = ({ closeModal }) => {
 				{/* Navigation Buttons */}
 				<div className="footer-buttons">
 					<button
-						className="footer-button back-button"
+						className=" border border-[#B2328C] text-[#B2328C] font-medium leading-7 text-lg rounded-2xl py-2 px-6 flex items-center justify-center gap-1"
 						onClick={handleBackClick}
 					>
-						<ArrowLeftIcon /> {__('Back', 'quillforms')}
+						<ArrowLeftIcon color='#B2328C' /> {__('Back', 'quillforms')}
 					</button>
 
 					<button
-						className={`footer-button next-button ${childState.isLoading ? 'loading' : ''}`}
+						className={`bg-[#B2328C] text-white font-medium leading-7 text-lg rounded-2xl py-3 px-6 flex items-center justify-center gap-1 ${childState.isLoading ? 'loading' : ''} ${isNextButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
 						onClick={handleNextClick}
 						disabled={isNextButtonDisabled}
 					>
