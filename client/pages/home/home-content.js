@@ -187,6 +187,52 @@ const HomeContent = () => {
 		}
 	};
 
+	const handleExport = () => {
+		if (!forms || forms.length === 0) {
+			return;
+		}
+
+		const formsToExport =
+			selectedForms.length > 0
+				? forms.filter((form) => selectedForms.includes(form.id))
+				: forms;
+
+		if (formsToExport.length === 0) {
+			return;
+		}
+
+		const rows = formsToExport.map((form) => ({
+			ID: form.id,
+			Title: form.title?.rendered || __('Untitled Form', 'quillforms'),
+			Status: form.status,
+			Responses: form.responses_count ?? 0,
+			Modified: form.modified,
+		}));
+
+		const headers = Object.keys(rows[0]);
+		const escapeCell = (value) =>
+			`"${String(value ?? '')
+				.replace(/"/g, '""')
+				.replace(/\r?\n/g, ' ')}"`;
+		const csvContent = [
+			headers.join(','),
+			...rows.map((row) => headers.map((key) => escapeCell(row[key])).join(',')),
+		].join('\n');
+
+		const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download =
+			selectedForms.length > 0
+				? 'quillforms-selected-forms.csv'
+				: 'quillforms-all-forms.csv';
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
+	};
+
 	const { invalidateResolution } = useDispatch('core/data');
 
 	useEffect(() => {
@@ -322,9 +368,7 @@ const HomeContent = () => {
 										<path d="M10 3V13M10 13L6 9M10 13L14 9M3 17H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 									</svg>
 								}
-								onClick={() => {
-									// Export selected logic placeholder
-								}}
+								onClick={handleExport}
 							/>
 						</div>
 					) : (
@@ -352,7 +396,7 @@ const HomeContent = () => {
 					/>
 				</div>
 				<div className="quillforms-home__header-right">
-					<div className="flex items-center !gap-1 select-all-wrapper">
+					<div className="flex items-center !gap-1.5 select-all-wrapper">
 						<CheckboxControl
 							checked={selectAll}
 							onChange={handleSelectAll}
