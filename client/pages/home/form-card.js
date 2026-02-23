@@ -94,6 +94,40 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 		}
 	};
 
+	const exportForm = () => {
+		// Simple CSV export for a single form meta
+		const row = {
+			ID: form.id,
+			Title: form.title?.rendered || __('Untitled Form', 'quillforms'),
+			Status: form.status,
+			Responses: form.responses_count ?? 0,
+			Modified: form.modified,
+		};
+
+		const headers = Object.keys(row);
+		const escapeCell = (value) =>
+			`"${String(value ?? '')
+				.replace(/"/g, '""')
+				.replace(/\r?\n/g, ' ')}"`;
+
+		const csvContent = [
+			headers.join(','),
+			headers.map((key) => escapeCell(row[key])).join(','),
+		].join('\n');
+
+		const blob = new Blob([csvContent], {
+			type: 'text/csv;charset=utf-8;',
+		});
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = `quillforms-form-${form.id}.csv`;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
+	};
+
 	const handleDelete = async (permanent = false) => {
 		if (!confirm(`Are you sure you want to ${permanent ? 'permanently delete' : 'move to trash'} this form?`)) {
 			return;
@@ -247,7 +281,7 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							<div
 								className='custom-dropdown-item'
 								onClick={() => {
-									// Export functionality placeholder
+									exportForm();
 									onClose();
 								}}
 							>
