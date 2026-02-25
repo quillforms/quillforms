@@ -287,14 +287,12 @@ const PaymentsPage = ({ params }) => {
 						 <Labels />
 
 						</div>
-						<General />
 						<Products />
 						<Coupons />
 						<Models />
 
 						<Methods />
 						<GatewaysOptions />
-						<Labels />
 
 						<Button
 							className="quillforms-payments-page-settings-save"
