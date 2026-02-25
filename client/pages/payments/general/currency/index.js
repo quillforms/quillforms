@@ -53,21 +53,29 @@ const Currency = () => {
 	];
 
 	return (
-		<>
+		<div className=" grid grid-cols-1 md:grid-cols-2 gap-4 ">
 			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel label={__('Currency', 'quillforms')} />
+				<ControlWrapper orientation="vertical">
+					<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7'>{__('Currency', 'quillforms')}</span>} />
 					<SelectControl
 						className={css`
-							width: 225px;
+							width: 100%;
 							.components-custom-select-control__label {
-								margin-bottom: 0;
+								margin-bottom: 0 !important;
 							}
 							.components-base-control__field {
-								margin-bottom: 0;
+								margin-bottom: 0 !important;
 							}
-							.components-text-control__input {
-								margin: 0;
+							/* Style the visible select input */
+							.components-custom-select-control__button {
+								margin: 0 !important;
+								padding: 20px 16px !important;
+								border-radius: 12px !important;
+								border: 1px solid #d9d9d9 !important;
+								font-size: 16px !important;
+								color: #334155 !important;
+								line-height: 28px !important;
+								background-color: #fff;
 							}
 						` }
 						options={CurrencyOptions}
@@ -93,19 +101,28 @@ const Currency = () => {
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel label={__('Currency Format', 'quillforms')} />
+				<ControlWrapper orientation="vertical">
+					<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7'>{__('Currency Format', 'quillforms')}</span>} />
 					<SelectControl
 						className={css`
-							margin-left: 0.25rem;
+							width: 100%;
 							.components-custom-select-control__label {
-								margin-bottom: 0;
+								margin-bottom: 0 !important;
 							}
 							.components-base-control__field {
-								margin-bottom: 0;
+								margin-bottom: 0 !important;
 							}
-							.components-text-control__input {
-								margin: 0;
+							/* Style the visible select input */
+							/* Style the visible select input */
+							.components-custom-select-control__button {
+								margin: 0 !important;
+								padding: 20px 16px !important;
+								border-radius: 12px !important;
+								border: 1px solid #d9d9d9 !important;
+								font-size: 16px !important;
+								color: #334155 !important;
+								line-height: 28px !important;
+								background-color: #fff;
 							}
 						` }
 						options={CurrencySymbolPosOptions}
@@ -130,7 +147,7 @@ const Currency = () => {
 					/>
 				</ControlWrapper>
 			</BaseControl>
-		</>
+		</div>
 	);
 };
 

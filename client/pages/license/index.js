@@ -203,7 +203,7 @@ const License = () => {
 									label={__('License key', 'quillforms')}
 									onChange={(value) => setLicenseKey(value)}
 									placeholder={__('License key', 'quillforms')}
-									style={{ borderRadius: '16px' }}
+									style={{ borderRadius: '16px', padding: '16px !important' }}
 								/>
 							</div>
 						</div>

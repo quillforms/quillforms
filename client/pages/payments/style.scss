@@ -3,42 +3,40 @@
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
-	max-width: 600px;
-	margin: auto;
-}
-
-.quillforms-payments-page-header svg {
-	width: 300px;
-	height: 300px;
+	max-width: 100%;
+	margin-bottom: 20px
 }
 
 .quillforms-payments-page-heading {
 	flex: 1;
-	margin-left: 50px;
 }
 
 .quillforms-payments-page-heading p:nth-child(1) {
-	font-family: "Roboto", sans-serif;
-	font-weight: 300;
-	font-size: 24px;
+	font-family: DM Sans;
+	font-weight: 600;
+	font-size: 32px;
 	margin-bottom: 0;
+	color: #001D4F;
 	/* line-break: anywhere; */
 }
 
 .quillforms-payments-page-heading p:nth-child(2) {
-	font-size: 14px;
+	font-size: 18px;
+	line-height: 28px;
+	color: #777;
 }
 
-.quillforms-payments-page-settings {
-	max-width: 900px;
-	margin: 10px auto 10px;
-}
+// .quillforms-payments-page-settings {
+// 	max-width: 900px;
+// 	margin: 10px auto 10px;
+// }
 
 .quillforms-payments-page-settings-save {
 	position: absolute;
 	top: 15px;
 	right: 150px;
 }
+
 
 .quillforms-payments-page-settings__general-content,
 .quillforms-payments-page-settings__models-content .payment-model,
@@ -51,10 +49,14 @@
 	border-radius: 10px;
 	box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 20%);
 }
+
+
+
 .quillforms-payments-page-settings__models-content {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
+
 	.payment-model,
 	.add-payment-model {
 		width: 286px;
@@ -62,16 +64,19 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 	}
+
 	.payment-model {
 		.payment-model-conditions {
 			padding-left: 0 !important;
 			padding-right: 0 !important;
 		}
+
 		.condition-op {
 			margin-left: 0 !important;
 			width: 100%;
 		}
 	}
+
 	.add-payment-model {
 		display: flex;
 		align-items: center;
@@ -82,25 +87,28 @@
 		font-size: 16px;
 		border-radius: 10px;
 		cursor: pointer;
+
 		svg {
 			fill: #fff;
 		}
 	}
 }
+
 .quillforms-payments-page-settings__gateways-options-content {
 	.gateway-option-label {
 		display: flex;
 		align-items: center;
 		margin-bottom: 30px;
 
-		& > svg,
-		& > img {
+		&>svg,
+		&>img {
 			max-width: 86px;
 			max-height: 34px;
 			margin-right: 10px;
 		}
 	}
 }
+
 .quillforms-payments-page-settings__general h3,
 .quillforms-payments-page-settings__models h3,
 .quillforms-payments-page-settings__products h3,
@@ -113,19 +121,43 @@
 	color: #6d78d8;
 }
 
-.quillforms-payments-page-settings__general
-	.admin-components-base-control:last-child,
-.quillforms-payments-page-settings__models
-	.admin-components-base-control:last-child,
-.quillforms-payments-page-settings__products
-	.admin-components-base-control:last-child,
-.quillforms-payments-page-settings__gateways-options
-	.admin-components-base-control:last-child,
-.quillforms-payments-page-settings__labels
-	.admin-components-base-control:last-child,
-.quillforms-payments-page-settings__coupons
-	.admin-components-base-control:last-child {
+
+
+.quillforms-payments-page-settings__labels-fields .components-base-control__field {
+	margin-bottom: 0;
+}
+
+.quillforms-payments-page-settings__labels-fields .components-text-control__input {
+	margin: 0 !important;
+	padding: 20px 16px !important;
+	border-radius: 12px !important;
+	border: 1px solid #d9d9d9 !important;
+	font-size: 16px !important;
+	color: #334155 !important;
+	line-height: 28px !important;
+}
+
+/* Remove divider line under "Enable Payments" row and control vertical gap */
+.quillforms-payments-page-settings__general-header-toggle .admin-components-base-control {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+.quillforms-payments-page-settings__general .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__models .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__products .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__gateways-options .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__labels .admin-components-base-control:last-child,
+.quillforms-payments-page-settings__coupons .admin-components-base-control:last-child {
 	border: none;
+}
+
+/* Remove all row dividers inside Labels section */
+.quillforms-payments-page-settings__labels .admin-components-base-control {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding: 0;
 }
 
 .quillforms-payments-page-settings__products {
@@ -169,6 +201,7 @@
 			border-radius: 5px;
 			color: #8b7f0c;
 		}
+
 		.method-warning svg {
 			fill: #8b7f0c;
 		}
@@ -179,11 +212,13 @@
 		display: flex;
 		flex-direction: column;
 		left: -60px;
+
 		svg {
 			width: 30px;
 			height: 30px;
 			fill: #6b6b6b;
 		}
+
 		.components-button.disabled svg {
 			fill: #c5c5c5;
 		}
@@ -192,24 +227,29 @@
 	.method-label-wrapper {
 		display: flex;
 		align-items: center;
+
 		.method-label {
 			display: flex;
 			align-items: center;
 			width: 140px;
+
 			img {
 				width: 73px;
 			}
+
 			.method-label-text {
 				font-weight: bold;
 				margin-left: 10px;
 				color: #303030;
 			}
+
 			.method-label-hint {
 				color: #6e6a6a;
 				margin-top: 10px;
 				margin-bottom: 10px;
 			}
 		}
+
 		a {
 			display: inline-flex;
 			align-items: center;
@@ -234,6 +274,7 @@
 		}
 	}
 }
+
 .quillforms-payments-page-settings__methods-info,
 .quillforms-payments-page-settings__model-info {
 	background: #ebcaff;
@@ -243,6 +284,7 @@
 	border-radius: 5px;
 	margin-bottom: 20px;
 }
+
 .quillforms-payments-page-settings__models {
 	.payment-model {
 		&.payment-model-multiple {
@@ -356,6 +398,7 @@
 .quillforms-payments-page-settings__coupons-content {
 	.coupon {
 		position: relative;
+
 		.delete-coupon {
 			position: absolute;
 			top: 18px;
@@ -368,6 +411,7 @@
 			border-radius: 50%;
 			background: #b65454;
 			cursor: pointer;
+
 			svg {
 				width: 100%;
 				height: 100%;
@@ -379,6 +423,7 @@
 
 .coupon__discount {
 	margin-bottom: 20px;
+
 	label {
 		font-size: 11px;
 		font-weight: 500;
@@ -388,12 +433,15 @@
 		margin-bottom: calc(8px);
 		padding: 0px;
 	}
+
 	.coupon__discount__fields {
 		display: flex;
 		align-items: center;
-		> div {
+
+		>div {
 			flex: 1;
 			margin-right: 10px;
+
 			&:last-child {
 				margin-right: 0;
 			}

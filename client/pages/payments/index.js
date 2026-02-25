@@ -18,6 +18,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { AnimateSharedLayout } from 'framer-motion';
 import { css } from 'emotion';
+import CustomButton from '../../components/custom-button';
 
 /**
  * Internal Dependencies
@@ -36,6 +37,7 @@ import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
 import { forEach, size } from 'lodash';
 import Coupons from './coupons';
+import VideoIcon from '../../components/icon/video-icon';
 
 const PaymentsPage = ({ params }) => {
 	const [showReleaseModal, setShowReleaseModal] = useState(false);
@@ -263,17 +265,28 @@ const PaymentsPage = ({ params }) => {
 					...$actions,
 				}}
 			>
-				<div className="quillforms-payments-page">
+				<div className="quillforms-payments-page p-5 flex-col gap-5">
 					<div className="quillforms-payments-page-header">
-						<Icon />
 						<div className="quillforms-payments-page-heading">
 							<p>{__('Accept payments via your forms easily!', 'quillforms')}</p>
 							<p>
 								{__('Create orders, accept donations or get any type of payments with the most versatile form builder that integrates with your favorite payment gateways!', 'quillforms')}
 							</p>
 						</div>
+						<CustomButton
+							className=" !py-3 !px-6"
+							variant="outlineSecondary"
+							icon={<VideoIcon/>}
+							text={__('Watch tutorial', 'quillforms')}
+						/>
 					</div>
 					<div className="quillforms-payments-page-settings">
+						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						 <General />
+						 <div className=' border-b border-border-color my-6'></div>
+						 <Labels />
+
+						</div>
 						<General />
 						<Products />
 						<Coupons />
