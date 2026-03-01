@@ -4,7 +4,6 @@
 import {
 	BaseControl,
 	ControlWrapper,
-	ControlLabel,
 	ToggleControl,
 	TextControl,
 	SelectControl,
@@ -57,7 +56,9 @@ const Recurring = ({ id }) => {
 	return (
 		<BaseControl >
 			<ControlWrapper orientation="horizontal">
-				<ControlLabel label="Recurring Payment" />
+				<span style={{ fontSize: '18px', fontWeight: '500', color: '#334155', lineHeight: '28px' }}>
+					{__('Recurring Payment', 'quillforms')}
+				</span>
 				<ToggleControl
 					checked={model.recurring}
 					onChange={() =>
@@ -74,63 +75,57 @@ const Recurring = ({ id }) => {
 			</ControlWrapper>
 			{model.recurring && (
 				<div className="payment-model-recurring">
-					<span
-						className={css`
-							margin-right: 10px;
-						` }
-					>
-						Every
-					</span>
-					<TextControl
-						type="number"
-						value={model.recurring.interval_count}
-						onChange={(interval_count) =>
-							updateModel(
-								id,
-								{
-									recurring: { interval_count },
-								},
-								'recursive'
-							)
-						}
-						step={1}
-						min={1}
-						max={
-							RecurringIntervalCountMax[
-							model.recurring.interval_unit
-							]
-						}
-						className={css`
-							width: 100px;
-							margin-right: 10px;
-						` }
-					/>
-					<SelectControl
-						options={RecurringIntervalUnitOptions}
-						value={RecurringIntervalUnitOptions.find(
-							(option) =>
-								option.key === model.recurring.interval_unit
-						)}
-						onChange={({ selectedItem }) => {
-							if (selectedItem) {
-								let interval_unit = selectedItem.key;
-								let interval_count = Math.min(
-									model.recurring.interval_count,
-									RecurringIntervalCountMax[interval_unit]
-								);
+					<div className="payment-model-recurring__label">
+						{__('Every', 'quillforms')} <span className="payment-model-recurring__required">*</span>
+					</div>
+					<div className="payment-model-recurring__inputs">
+						<TextControl
+							type="number"
+							value={model.recurring.interval_count}
+							onChange={(interval_count) =>
 								updateModel(
 									id,
 									{
-										recurring: {
-											interval_unit,
-											interval_count,
-										},
+										recurring: { interval_count },
 									},
 									'recursive'
-								);
+								)
 							}
-						}}
-					/>
+							step={1}
+							min={1}
+							max={
+								RecurringIntervalCountMax[
+								model.recurring.interval_unit
+								]
+							}
+						/>
+						<SelectControl
+							options={RecurringIntervalUnitOptions}
+							value={RecurringIntervalUnitOptions.find(
+								(option) =>
+									option.key === model.recurring.interval_unit
+							)}
+							onChange={({ selectedItem }) => {
+								if (selectedItem) {
+									let interval_unit = selectedItem.key;
+									let interval_count = Math.min(
+										model.recurring.interval_count,
+										RecurringIntervalCountMax[interval_unit]
+									);
+									updateModel(
+										id,
+										{
+											recurring: {
+												interval_unit,
+												interval_count,
+											},
+										},
+										'recursive'
+									);
+								}
+							}}
+						/>
+					</div>
 				</div>
 			)}
 		</BaseControl>

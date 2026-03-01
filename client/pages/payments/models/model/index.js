@@ -27,11 +27,15 @@ const Model = ({ id, index }) => {
 				{__('Payment Model', 'quillforms')} ({index})
 			</h4>
 			{multiple && <RemoveButton id={id} />}
-			{multiple && <Name id={id} index={index} />}
-			{/* <div className='bg-[#F2F4FC] border border-border-color rounded-2xl p-5'> */}
-				<Recurring id={id} />
-			{/* </div> */}
-			<Conditions id={id} />
+			<Name id={id} index={index} />
+			<div className='flex flex-col gap-4'>
+				<div className='bg-[#F2F4FC] border border-[#D9D9D9] rounded-2xl p-5'>
+					<Recurring id={id} />
+				</div>
+				<div className='bg-[#F2F4FC] border border-[#D9D9D9] rounded-2xl p-5'>
+					<Conditions id={id} />
+				</div>
+			</div>
 		</div>
 	);
 };
