@@ -105,6 +105,7 @@ CATEGORIES.forEach((cat) => {
 
 const IntegrationsPage = ({ params }) => {
 	const [modalIntegration, setModalIntegration] = useState(null);
+	const [modalIntegrationConnected, setModalIntegrationConnected] = useState(false);
 	const [searchKeyword, setSearchKeyword] = useState('');
 
 	const integrationsModules = getIntegrationModules();
@@ -323,11 +324,10 @@ const IntegrationsPage = ({ params }) => {
 																		? 'primary'
 																		: 'outlineSecondary'
 																}
-																onClick={() =>
-																	setModalIntegration(
-																		slug
-																	)
-																}
+																onClick={() => {
+																	setModalIntegration(slug);
+																	setModalIntegrationConnected(connected);
+																}}
 																className={
 																	isQuillCRM
 																		? ''
@@ -390,7 +390,11 @@ const IntegrationsPage = ({ params }) => {
 				<IntegrationModal
 					slug={modalIntegration}
 					integration={integrationsModules[modalIntegration]}
-					onClose={() => setModalIntegration(null)}
+					isConnected={modalIntegrationConnected}
+					onClose={() => {
+						setModalIntegration(null);
+						setModalIntegrationConnected(false);
+					}}
 				/>
 			)}
 		</div>
