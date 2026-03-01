@@ -7,15 +7,84 @@ import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-compon
  * WordPress Dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+import { css } from 'emotion';
+
+/**
+ * Internal Dependencies
+ */
+import CustomButton from '../../../components/custom-button';
+import lockImage from '../../../../assets/images/lock.png';
+import './style.scss';
 
 const ReCAPTCHA = () => {
+	const customIcon = (
+		<img
+			src={lockImage}
+			alt="Lock"
+			className={css`
+				width: 300px;
+				height: 200px;
+				object-fit: contain;
+				margin: 0 auto 16px;
+				display: block;
+			`}
+		/>
+	);
+
+	const customDescription = (
+		<p
+			className={css`
+				font-size: 18px;
+				line-height: 28px;
+				color: #777;
+				margin: 0 0 16px;
+				font-weight: 500;
+			`}
+		>
+			{__(
+				"We're sorry, Google reCAPTCHA is not available on your plan. Please upgrade to the Basic plan to unlock all of Basic features",
+				'quillforms'
+			)}
+		</p>
+	);
+
+	const customButton = (
+		<div
+			className={css`
+				display: flex;
+				justify-content: center;
+				width: 100%;
+				margin-top: 16px;
+			`}
+		>
+			<CustomButton
+				text={__('Upgrade to Basic!', 'quillforms')}
+				variant="primary"
+				onClick={() => {
+					window.open('https://quillforms.com', '_blank');
+				}}
+				className={css`
+					font-size: 18px !important;
+					padding: 12px 96px !important;
+					border-radius: 16px !important;
+				`}
+			/>
+		</div>
+	);
+
 	return applyFilters(
 		'QuillForms.Settings.ReCAPTCHA.Render',
-		<__experimentalAddonFeatureAvailability
-			featureName={ 'Google reCAPTCHA' }
-			addonSlug="recaptcha"
-			showLockIcon={ true }
-		/>
+		<div className="recaptcha-feature-availability">
+			<__experimentalAddonFeatureAvailability
+				featureName={__('Google reCAPTCHA', 'quillforms')}
+				addonSlug="recaptcha"
+				showLockIcon={true}
+				customIcon={customIcon}
+				customDescription={customDescription}
+				customButton={customButton}
+			/>
+		</div>
 	);
 };
 

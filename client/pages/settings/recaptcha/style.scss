@@ -1,0 +1,27 @@
+.recaptcha-feature-availability {
+	text-align: center;
+	padding: 60px 40px;
+	max-width: 800px;
+	margin: 0 auto;
+
+	.addon-feature-availability {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		> div {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+		}
+
+		button {
+			margin: 0 auto;
+			display: flex;
+			justify-content: center;
+		}
+	}
+}
+
