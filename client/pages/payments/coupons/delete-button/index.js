@@ -13,6 +13,7 @@ import { __ } from '@wordpress/i18n';
  * Internal Dependencies
  */
 import { usePaymentsContext } from '../../state/context';
+import TrashIcon from '../../../../components/icon/trash-icon';
 
 const DeleteButton = ({ id }) => {
     const { deleteCoupon } = usePaymentsContext();
@@ -22,7 +23,7 @@ const DeleteButton = ({ id }) => {
             className="delete-coupon"
             onClick={() => deleteCoupon(id)}
         >
-            <Icon icon={closeSmall} />
+           <TrashIcon />
         </div>
     );
 };

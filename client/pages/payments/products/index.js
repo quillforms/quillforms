@@ -20,9 +20,9 @@ const Products = () => {
 				<BaseControl>
 					<ControlWrapper orientation="vertical">
 						<div>
-							{ Object.keys( products ).map( ( id ) => (
-								<Product key={ id } id={ id } />
-							) ) }
+							{Object.keys(products).map((id) => (
+								<Product key={id} id={id} />
+							))}
 						</div>
 						<AddButton />
 					</ControlWrapper>

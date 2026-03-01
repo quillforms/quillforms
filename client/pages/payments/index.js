@@ -265,7 +265,7 @@ const PaymentsPage = ({ params }) => {
 					...$actions,
 				}}
 			>
-				<div className="quillforms-payments-page p-5 flex-col gap-5">
+				<div className="quillforms-payments-page p-5">
 					<div className="quillforms-payments-page-header">
 						<div className="quillforms-payments-page-heading">
 							<p>{__('Accept payments via your forms easily!', 'quillforms')}</p>
@@ -280,18 +280,29 @@ const PaymentsPage = ({ params }) => {
 							text={__('Watch tutorial', 'quillforms')}
 						/>
 					</div>
-					<div className="quillforms-payments-page-settings">
+					<div className="quillforms-payments-page-settings flex flex-col gap-5">
 						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
 						 <General />
 						 <div className=' border-b border-border-color my-6'></div>
 						 <Labels />
 
 						</div>
-						<Products />
-						<Coupons />
-						<Models />
-
-						<Methods />
+						<div className='grid grid-cols-2 gap-5 min-h-[500px]'>
+						 <div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						  <Products />
+						 </div>
+						 <div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						 <Coupons />
+						 </div>
+						</div>
+						<div className='grid grid-cols-2 gap-5 min-h-[500px]'>
+						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						  <Models />
+						 </div>
+						 <div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						  <Methods />
+						 </div>
+						</div>
 						<GatewaysOptions />
 
 						<Button

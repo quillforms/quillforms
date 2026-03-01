@@ -25,25 +25,25 @@ import { css } from 'emotion';
  */
 import { usePaymentsContext } from '../../../state/context';
 
-const Recurring = ( { id } ) => {
+const Recurring = ({ id }) => {
 	const { models, updateModel } = usePaymentsContext();
-	const model = models[ id ];
+	const model = models[id];
 
 	const RecurringIntervalUnitOptions = [
 		{
-			name: __( 'Day/s', 'quillforms' ),
+			name: __('Day/s', 'quillforms'),
 			key: 'day',
 		},
 		{
-			name: __( 'Week/s', 'quillforms' ),
+			name: __('Week/s', 'quillforms'),
 			key: 'week',
 		},
 		{
-			name: __( 'Month/s', 'quillforms' ),
+			name: __('Month/s', 'quillforms'),
 			key: 'month',
 		},
 		{
-			name: __( 'Year/s', 'quillforms' ),
+			name: __('Year/s', 'quillforms'),
 			key: 'year',
 		},
 	];
@@ -55,27 +55,27 @@ const Recurring = ( { id } ) => {
 	};
 
 	return (
-		<BaseControl>
+		<BaseControl >
 			<ControlWrapper orientation="horizontal">
 				<ControlLabel label="Recurring Payment" />
 				<ToggleControl
-					checked={ model.recurring }
-					onChange={ () =>
-						updateModel( id, {
+					checked={model.recurring}
+					onChange={() =>
+						updateModel(id, {
 							recurring: model.recurring
 								? false
 								: {
-										interval_count: 1,
-										interval_unit: 'month',
-								  },
-						} )
+									interval_count: 1,
+									interval_unit: 'month',
+								},
+						})
 					}
 				/>
 			</ControlWrapper>
-			{ model.recurring && (
+			{model.recurring && (
 				<div className="payment-model-recurring">
 					<span
-						className={ css`
+						className={css`
 							margin-right: 10px;
 						` }
 					>
@@ -83,8 +83,8 @@ const Recurring = ( { id } ) => {
 					</span>
 					<TextControl
 						type="number"
-						value={ model.recurring.interval_count }
-						onChange={ ( interval_count ) =>
+						value={model.recurring.interval_count}
+						onChange={(interval_count) =>
 							updateModel(
 								id,
 								{
@@ -93,30 +93,30 @@ const Recurring = ( { id } ) => {
 								'recursive'
 							)
 						}
-						step={ 1 }
-						min={ 1 }
+						step={1}
+						min={1}
 						max={
 							RecurringIntervalCountMax[
-								model.recurring.interval_unit
+							model.recurring.interval_unit
 							]
 						}
-						className={ css`
+						className={css`
 							width: 100px;
 							margin-right: 10px;
 						` }
 					/>
 					<SelectControl
-						options={ RecurringIntervalUnitOptions }
-						value={ RecurringIntervalUnitOptions.find(
-							( option ) =>
+						options={RecurringIntervalUnitOptions}
+						value={RecurringIntervalUnitOptions.find(
+							(option) =>
 								option.key === model.recurring.interval_unit
-						) }
-						onChange={ ( { selectedItem } ) => {
-							if ( selectedItem ) {
+						)}
+						onChange={({ selectedItem }) => {
+							if (selectedItem) {
 								let interval_unit = selectedItem.key;
 								let interval_count = Math.min(
 									model.recurring.interval_count,
-									RecurringIntervalCountMax[ interval_unit ]
+									RecurringIntervalCountMax[interval_unit]
 								);
 								updateModel(
 									id,
@@ -129,10 +129,10 @@ const Recurring = ( { id } ) => {
 									'recursive'
 								);
 							}
-						} }
+						}}
 					/>
 				</div>
-			) }
+			)}
 		</BaseControl>
 	);
 };
