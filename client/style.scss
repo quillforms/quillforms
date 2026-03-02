@@ -2,9 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-#qf-admin-root #qf-admin-root__loader-container > svg {
+
+#qf-admin-root #qf-admin-root__loader-container>svg {
 	animation: iconPulse 1s 2s infinite;
 }
+
 @keyframes iconPulse {
 	0% {
 		transform: scaleX(1);
@@ -45,10 +47,12 @@ body.js.is-fullscreen-mode {
 	div#wpbody-content {
 		padding-bottom: 0;
 	}
+
 	#wpfooter {
 		display: none;
 	}
 }
+
 .components-tab-panel__tabs {
 	background: #f6f6f6;
 	display: flex !important;
@@ -57,6 +61,7 @@ body.js.is-fullscreen-mode {
 	padding: 15px 20px;
 	border-radius: 5px;
 }
+
 .components-tab-panel__tabs-item {
 	height: auto !important;
 	padding: 8px 10px;
@@ -65,11 +70,14 @@ body.js.is-fullscreen-mode {
 	box-shadow: none !important;
 	border: none !important;
 }
+
 .components-tab-panel__tabs-item.active-tab {
 	background: #7962d7;
 	color: #fff;
 	height: auto !important;
 }
+
+// Base app background for most inner pages
 .quillforms-layout {
 	height: 100vh;
 	width: 100%;
@@ -77,14 +85,26 @@ body.js.is-fullscreen-mode {
 	display: flex;
 	flex-direction: column;
 }
+
+// Pages that should have a pure white background wrapper
+.quillforms-home-page-layout,
+.quillforms-license-page-layout,
+.quillforms-settings-page-layout,
+.quillforms-support-page-layout,
+.quillforms-system-page-layout {
+	background: #fff;
+}
+
 .quillforms-layout h1 {
 	color: #6d78d8;
 	border-color: #6d78d83d !important;
 }
+
 .quillforms-layout #quillforms-builder-page h1 {
 	color: inherit;
 	border-color: inherit !important;
 }
+
 .components-popover .components-popover__content {
 	//position: absolute;
 	height: auto;
@@ -96,12 +116,15 @@ body.js.is-fullscreen-mode {
 	border: none;
 	min-width: 250px !important;
 }
+
 .components-popover .components-popover__content .components-menu-item__button {
 	box-shadow: none !important;
 }
+
 .components-popover .components-popover__content .components-menu-item__button .components-menu-item__item {
 	padding-left: 10px !important;
 }
+
 .components-popover .components-popover__content .components-menu-item__button:hover {
 	background: #eee;
 	color: inherit;
@@ -117,7 +140,8 @@ body.js.is-fullscreen-mode {
 }
 
 // elementor
-#e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap .page-title-action, #e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap h1 {
+#e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap .page-title-action,
+#e-admin-top-bar-root:not(.e-admin-top-bar--active)~#wpbody .wrap h1 {
 	display: block
 }
 
@@ -126,51 +150,58 @@ body.js.is-fullscreen-mode {
 	max-width: 100% !important;
 }
 
-.builder-core-settings-code-subpanel{
+.builder-core-settings-code-subpanel {
 	height: 100%;
 }
 
 .logic-editor-calculator-calculator-action .logic-editor-calculator-calculator-action__calculation {
-    align-items:baseline !important;
+	align-items: baseline !important;
 }
 
 .logic-conditions .admin-components-button.is-button {
-    height: auto !important;
-    font-size: 12px;
-    font-weight: 400;
-    display: inline-flex;
-    justify-content: center;
-    padding: 8px 5px;
-    width: 60px;
-    text-transform:uppercase !important;
+	height: auto !important;
+	font-size: 12px;
+	font-weight: 400;
+	display: inline-flex;
+	justify-content: center;
+	padding: 8px 5px;
+	width: 60px;
+	text-transform: uppercase !important;
 }
-.points-block-body .points-block-choice-label-key {
-    min-width: 30px;
-    min-height: 30px;
-    color: #333;
-    font-size: 14px
-}
-.points-block-body .points-block-choice {
-    align-items: baseline;
-}
-.points-block-choice-label-wrapper {
-    width: 600px !important;
-    height: 50px !important;
-}
-.points-block-body .components-text-control__input {
-    height: 50px !important
-}
-.builder-core-jump-logic-panel .builder-core-panel__content-wrapper > div {
-    inset: 0px;
-}
-.builder-core-jump-logic-panel .react-flow__node > div {
-    border: 1px solid #ebe9e9
 
+.points-block-body .points-block-choice-label-key {
+	min-width: 30px;
+	min-height: 30px;
+	color: #333;
+	font-size: 14px
 }
+
+.points-block-body .points-block-choice {
+	align-items: baseline;
+}
+
+.points-block-choice-label-wrapper {
+	width: 600px !important;
+	height: 50px !important;
+}
+
+.points-block-body .components-text-control__input {
+	height: 50px !important
+}
+
+.builder-core-jump-logic-panel .builder-core-panel__content-wrapper>div {
+	inset: 0px;
+}
+
+.builder-core-jump-logic-panel .react-flow__node>div {
+	border: 1px solid #ebe9e9
+}
+
 .jump-logic-modal .components-modal__header {
 	background: #fff !important;
 	border-bottom: 1px solid #e7e7e7
 }
- .jump-logic-modal .components-modal__header .components-modal__header-heading {
+
+.jump-logic-modal .components-modal__header .components-modal__header-heading {
 	color: #333 !important;
 }
