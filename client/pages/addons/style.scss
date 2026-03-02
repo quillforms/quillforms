@@ -82,7 +82,9 @@
 
 .quillforms-addons-page__body-addons {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	// Always 3 equal columns on large screens, so if there are only
+	// 1 or 2 addons they won't stretch to full width.
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 20px;
 }
 

@@ -43,7 +43,8 @@
 	}
 
 	.components-text-control__input,
-	input[type="text"].components-text-control__input {
+	input[type="text"].components-text-control__input,
+	.license-input-wrapper input {
 		padding: 16px !important;
 		font-size: 18px !important;
 		line-height: 28px !important;
@@ -92,6 +93,35 @@
 
 	.license-input-wrapper {
 		margin-bottom: 0;
+	}
+
+	.license-input-label {
+		display: block;
+		font-size: 18px;
+		font-weight: 500;
+		line-height: 28px;
+		color: #334155;
+		margin-bottom: 8px;
+	}
+
+	input.license-input,
+	input[type="text"].license-input {
+		width: 400px !important;
+		padding: 16px !important;
+		font-size: 18px;
+		line-height: 28px;
+		color: #334155;
+		background: #fff;
+		border: 1px solid #D1D5DB !important;
+		border-radius: 16px !important;
+		outline: none !important;
+		box-shadow: none !important;
+
+		&:focus {
+			border-color: #B2328C !important;
+			outline: none !important;
+			box-shadow: none !important;
+		}
 	}
 
 	.license-button-wrapper {

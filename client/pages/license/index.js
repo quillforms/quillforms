@@ -199,11 +199,15 @@ const License = () => {
 					) : (
 						<div>
 							<div className="license-input-wrapper">
-								<TextControl
-									label={__('License key', 'quillforms')}
-									onChange={(value) => setLicenseKey(value)}
+								<label className="license-input-label">
+									{__('License key', 'quillforms')}
+								</label>
+								<input
+									type="text"
+									className="license-input"
+									value={licenseKey || ''}
+									onChange={(e) => setLicenseKey(e.target.value)}
 									placeholder={__('License key', 'quillforms')}
-									style={{ borderRadius: '16px', padding: '16px !important' }}
 								/>
 							</div>
 						</div>

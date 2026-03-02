@@ -60,7 +60,7 @@ const ADDON_CATEGORIES = [
 	},
 ];
 
-// Map addon names to categories (fallbacks to "other" if not listed)
+// Map addon display names to categories (fallbacks to "other" if not listed)
 const ADDON_CATEGORY_BY_NAME = {
 	// Data Management & Export
 	'PDF Entries Export': 'data_export',
@@ -76,6 +76,43 @@ const ADDON_CATEGORY_BY_NAME = {
 	'MailChimp': 'email_marketing',
 	'AWeber': 'email_marketing',
 	'ActiveCampaign': 'email_marketing',
+
+	// More Email Marketing
+	'Constant Contact': 'email_marketing',
+	'MailerLite': 'email_marketing',
+	'MailPoet': 'email_marketing',
+	'GetResponse': 'email_marketing',
+	'Brevo': 'email_marketing',
+	'Klaviyo': 'email_marketing',
+	'CleverReach': 'email_marketing',
+	'Mautic': 'email_marketing',
+	'Convertkit': 'email_marketing',
+
+	// CRM Integrations
+	'HubSpot': 'crm',
+	'Salesforce': 'crm',
+	'Pipedrive': 'crm',
+	'Bitrix24': 'crm',
+	'AgileCRM': 'crm',
+	'Capsule CRM': 'crm',
+	'ZohoCRM': 'crm',
+	'Freshsales': 'crm',
+	'GoHighLevel': 'crm',
+
+	// Communication & Support
+	'Slack': 'communication',
+	'Discord': 'communication',
+	'Fluent Support': 'communication',
+
+	// Productivity & Automation Tools
+	'Webhooks': 'automation',
+	'Make': 'automation',
+	'Zapier': 'automation',
+	'monday.com': 'automation',
+	'Trello': 'automation',
+	'Notion': 'automation',
+	'Asana': 'automation',
+	'ClickUp': 'automation',
 
 	// CRM / Communication & Support / Automation will use additional names as needed
 };

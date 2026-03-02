@@ -147,7 +147,7 @@ const IntegrationsPage = ({ params }) => {
 		});
 
 	return (
-		<div className="quillforms-integrations-page">
+		<div className="quillforms-integrations-page m-4 bg-white rounded-2xl " style={{ boxShadow: '0 4px 40px 0 rgba(87, 3, 3, 0.06)' }}>
 			<CustomTabs
 				className="quillforms-integrations-page__tabs"
 				tabs={tabs}

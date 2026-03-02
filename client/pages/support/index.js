@@ -6,6 +6,7 @@ import ConfigApi from '@quillforms/config';
 import facebookIcon from '../../../assets/images/facebook.png';
 import discordIcon from '../../../assets/images/discord.png';
 import wordpress from '../../../assets/images/wordpress.png';
+import quillformsLogo from '../../../assets/images/logos.png';
 
 /**
  * Internal Dependencies
@@ -26,10 +27,10 @@ const Support = () => {
 				</p>
 
 				<div className="quillforms-support-page__via grid grid-cols-1 lg:grid-cols-3 gap-4">
-					<div className="p-8 flex-col gap-2 items-center justify-center rounded-2xl bg-white border-t-4 border-[#7962D7] !shadow-[0_4px_40px_0_rgba(87,3,3,0.06)]">
-						<a href="https://quillforms.com/forms/support-form/" target="_blank">
+					<div className="p-6 flex-col gap-2 items-center justify-center rounded-2xl bg-white border-t-4 border-[#7962D7] !shadow-[0_4px_40px_0_rgba(87,3,3,0.06)]">
+						<a href="https://quillforms.com/forms/support-form/" target="_blank" className="flex flex-col gap-2 items-center justify-center">
 							<div className="w-12 h-12 flex items-center justify-center mx-auto">
-								<Logo />
+								<img src={quillformsLogo} alt="QuillForms" width={48} height={48} />
 							</div>
 							<div className="text-lg font-semibold leading-7 text-[#334155]">
 								{__('QuillForms Website', 'quillforms')}
@@ -44,7 +45,7 @@ const Support = () => {
 							className="flex flex-col gap-2 items-center justify-center"
 						>
 							<div className="quillforms-support-page__facebook-icon">
-								<img src={facebookIcon} alt="Facebook" width={32} height={32} />
+								<img src={facebookIcon} alt="Facebook" width={48} height={48} />
 							</div>
 							<div className="text-lg font-semibold leading-7 text-[#334155]">
 								{__('Facebook Group', 'quillforms')}
@@ -78,7 +79,7 @@ const Support = () => {
 							className="flex flex-col gap-2 items-center justify-center"
 						>
 							<div className="w-12 h-12 flex items-center justify-center mx-auto">
-								<img src={discordIcon} alt="Discord" width={32} height={32} />
+								<img src={discordIcon} alt="Discord" width={48} height={48} />
 							</div>
 							<div className="text-lg font-semibold leading-7 text-[#334155]">
 								{__('Discord', 'quillforms')}
@@ -94,8 +95,8 @@ const Support = () => {
 								className="flex flex-col gap-2 items-center justify-center"
 							>
 								<div className="w-12 h-12 flex items-center justify-center mx-auto">
-								<img src={wordpress} alt="Discord" width={32} height={32} />
-							</div>
+									<img src={wordpress} alt="Discord" width={48} height={48} />
+								</div>
 								<div className="text-lg font-semibold leading-7 text-[#334155]">
 									{__('WordPress', 'quillforms')}
 								</div>

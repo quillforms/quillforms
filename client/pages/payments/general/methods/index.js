@@ -5,6 +5,7 @@ import ConfigApi from '@quillforms/config';
 import { getPaymentGatewayModules } from '@quillforms/payment-gateways';
 import { ControlWrapper, ToggleControl } from '@quillforms/admin-components';
 import { NavLink } from '@quillforms/navigation';
+import CustomButton from '../../../../components/custom-button';
 
 /**
  * WordPress Dependencies
@@ -95,11 +96,15 @@ const Methods = () => {
 	// loop over the enabled methods then other methods.
 	return (
 		<div className="quillforms-payments-page-settings__methods">
-			<h3>{__('Methods', 'quillforms')}</h3>
-			<div className="quillforms-payments-page-settings__methods-info">
-				{__('The default payment gateway is the first enabled payment gateway', 'quillforms')}
+			<div className=" flex flex-col gap-2.5">
+				<h3 className='!m-0 !text-[#334155] !text-2xl !font-medium'>{__('Methods', 'quillforms')}</h3>
+
+				<p className="quillforms-payments-page-settings__methods- text-lg text-[#777] leading-7 font-medium ">
+
+					{__('The default payment gateway is the first enabled payment gateway', 'quillforms')}
+				</p>
 			</div>
-			<div className="quillforms-payments-page-settings__methods-content">
+			<div className="quillforms-payments-page-settings__methods-content mt-5">
 				{Object.keys(general.methods).map((key, index) => {
 					const [gateway, method] = key.split(':');
 					const data = gateways[gateway].methods[method];
@@ -169,6 +174,7 @@ const Methods = () => {
 					const configured = data?.configured ?? false;
 
 					let notice = null;
+					let actionButton = null;
 					let available = true;
 
 					// if method doesn't support recurring.
@@ -188,52 +194,55 @@ const Methods = () => {
 
 						const addon = ConfigApi.getStoreAddons()[gateway];
 						if (isWPEnv && addon.is_installed) {
-							notice = (
-								<i>
-									<NavLink
-										to={`/admin.php?page=quillforms&path=addons`}
-									>
-										{__('Activate it', 'quillforms')}
-									</NavLink>
-								</i>
+							actionButton = (
+								<CustomButton
+									text={__('Activate it', 'quillforms')}
+									variant="outlineSecondary"
+									onClick={() => {
+										window.location.href =
+											'/admin.php?page=quillforms&path=addons';
+									}}
+								/>
 							);
 						} else {
 							if (!isWPEnv) {
-								notice = (
-									<i>
-										<NavLink
-											to={`/admin.php?page=quillforms&path=checkout`}
-											className="upgrade-plan"
-										>
-											{__('Upgrade Your Plan', 'quillforms')}
-										</NavLink>
-									</i>
+								actionButton = (
+									<CustomButton
+										text={__('Configure it', 'quillforms')}
+										variant="outlineSecondary"
+										onClick={() => {
+											window.location.href =
+												'/admin.php?page=quillforms&path=checkout';
+										}}
+									/>
 								);
-							}
-							else {
+							} else {
 								const isPlanAccessible = ConfigApi.isPlanAccessible(
 									addon.plan
 								);
 								if (isPlanAccessible) {
-									notice = (
-										<i>
-											<NavLink
-												to={`/admin.php?page=quillforms&path=addons`}
-											>
-												{__('Install it', 'quillforms')}
-											</NavLink>
-										</i>
+									actionButton = (
+										<CustomButton
+											text={__('Install it', 'quillforms')}
+											variant="outlineSecondary"
+											onClick={() => {
+												window.location.href =
+													'/admin.php?page=quillforms&path=addons';
+											}}
+										/>
 									);
 								} else {
-									notice = (
-										<i>
-											<a
-												className="upgrade-plan"
-												href="https://quillforms.com"
-											>
-												{__('Upgrade your plan', 'quillforms')}
-											</a>
-										</i>
+									actionButton = (
+										<CustomButton
+											text={__('Configure it', 'quillforms')}
+											variant="outlineSecondary"
+											onClick={() => {
+												window.open(
+													'https://quillforms.com',
+													'_blank'
+												);
+											}}
+										/>
 									);
 								}
 							}
@@ -243,15 +252,15 @@ const Methods = () => {
 					// if method is not configured.
 					if (available && !configured) {
 						available = false;
-
-						notice = (
-							<i>
-								<NavLink
-									to={`/admin.php?page=quillforms&path=settings&tab=payments`}
-								>
-									{__('Configure it', 'quillforms')}
-								</NavLink>
-							</i>
+						actionButton = (
+							<CustomButton
+								text={__('Configure it', 'quillforms')}
+								variant="outlineSecondary"
+								onClick={() => {
+									window.location.href =
+										'/admin.php?page=quillforms&path=settings&tab=payments';
+								}}
+							/>
 						);
 					}
 
@@ -263,18 +272,20 @@ const Methods = () => {
 							className="payment-method"
 						>
 							<MethodLabelWrapper data={data} notice={notice}>
-								<ToggleControl
-									checked={false}
-									disabled={!available}
-									onClick={() => {
-										updateGeneral(
-											{
-												methods: { [key]: {} },
-											},
-											'recursive'
-										);
-									}}
-								/>
+								{actionButton ? actionButton : (
+									<ToggleControl
+										checked={false}
+										disabled={!available}
+										onClick={() => {
+											updateGeneral(
+												{
+													methods: { [key]: {} },
+												},
+												'recursive'
+											);
+										}}
+									/>
+								)}
 							</MethodLabelWrapper>
 						</motion.div>
 					);

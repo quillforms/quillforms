@@ -52,9 +52,9 @@ const ResultsPage = ({ params }) => {
 	};
 
 	return (
-		<div className="qf-entries-page">
+		<div className="qf-entries-page bg-[#fff] rounded-[20px] mt-6 mx-6">
 			<TabPanel
-				className={'entries-addon-tabs'}
+				className={'entries-addon-tabs '}
 				activeClass="active-tab"
 				tabs={Object.entries(Tabs).map(
 					([name, tab]) => {
