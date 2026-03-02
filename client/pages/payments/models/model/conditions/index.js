@@ -13,6 +13,7 @@ import {
  * Internal Dependencies
  */
 import { usePaymentsContext } from '../../../state/context';
+import { __ } from '@wordpress/i18n';
 
 const Conditions = ( { id } ) => {
 	const { models, updateModel } = usePaymentsContext();
@@ -21,7 +22,9 @@ const Conditions = ( { id } ) => {
 	return (
 		<BaseControl>
 			<ControlWrapper orientation="horizontal">
-				<ControlLabel label="Conditional Logic" />
+				<span style={{ fontSize: '18px', fontWeight: '500', color: '#334155', lineHeight: '28px' }}>
+					{__('Conditional Logic', 'quillforms')}
+				</span>
 				<ToggleControl
 					checked={ !! model.conditions }
 					onChange={ () =>
