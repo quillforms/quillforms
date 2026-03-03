@@ -13,7 +13,7 @@ import NumericProduct from './numeric-product';
 import ChoicesProduct from './choices-product';
 import UnspecifiedProduct from './unspecified-product';
 
-const Product = ({ id }) => {
+const Product = ({ id, index }) => {
 	const { products, errors } = usePaymentsContext();
 	const product = products[id];
 
@@ -26,6 +26,10 @@ const Product = ({ id }) => {
 	});
 
 	let element;
+	const isDefined =
+		product.source?.type === 'other' && product.source?.value === 'defined';
+	const isField =
+		product.source?.type === 'field';
 
 	if (product.source) {
 		switch (product.source.type) {
@@ -36,18 +40,18 @@ const Product = ({ id }) => {
 				if (block) {
 					const blockType = blockTypes[block.name];
 					if (blockType.supports.numeric) {
-						element = <NumericProduct id={id} />;
+						element = <NumericProduct id={id} index={index} />;
 					} else if (blockType.supports.choices) {
-						element = <ChoicesProduct id={id} />;
+						element = <ChoicesProduct id={id} index={index} />;
 					}
 				}
 				break;
 			case 'variable':
-				element = <NumericProduct id={id} />;
+				element = <NumericProduct id={id} index={index} />;
 				break;
 			case 'other':
 				if (product.source.value === 'defined') {
-					element = <DefinedProduct id={id} />;
+					element = <DefinedProduct id={id} index={index} />;
 				}
 				break;
 		}
@@ -58,7 +62,17 @@ const Product = ({ id }) => {
 	}
 
 	return (
-		<div className="quillforms-payments-page-settings-product">
+		<div
+			className={
+				'quillforms-payments-page-settings-product' +
+				(isDefined
+					? ' quillforms-payments-page-settings-product--defined-wrapper'
+					: '') +
+				(isField
+					? ' quillforms-payments-page-settings-product--field-wrapper'
+					: '')
+			}
+		>
 			{element}
 			{errors.products[id] && (
 				<div className="quillforms-payments-page-settings-product-error">

@@ -95,8 +95,8 @@ const Support = () => {
 								className="flex flex-col gap-2 items-center justify-center"
 							>
 								<div className="w-12 h-12 flex items-center justify-center mx-auto">
-									<img src={wordpress} alt="Discord" width={48} height={48} />
-								</div>
+								<img src={wordpress} alt="Discord" width={48} height={48} />
+							</div>
 								<div className="text-lg font-semibold leading-7 text-[#334155]">
 									{__('WordPress', 'quillforms')}
 								</div>

@@ -21,7 +21,7 @@ import ControlButtons from '../control-buttons';
 import classnames from 'classnames';
 import { css } from 'emotion';
 
-const ChoicesProduct = ({ id }) => {
+const ChoicesProduct = ({ id, index }) => {
 	const { products, updateProduct } = usePaymentsContext();
 	const product = products[id];
 
@@ -73,8 +73,13 @@ const ChoicesProduct = ({ id }) => {
 	return (
 		<div className="quillforms-payments-page-settings-product-choices">
 			<div className="product-choices-header">
-				<SourceSelector id={id} />
+				<div className="product-choices-title">
+					Field {typeof index === 'number' ? `(${index + 1})` : ''}
+				</div>
 				<ControlButtons id={id} />
+			</div>
+			<div className="product-choices-source">
+				<SourceSelector id={id} />
 			</div>
 			<div className="product-choices-body">
 				{choices &&

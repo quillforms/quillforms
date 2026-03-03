@@ -1,8 +1,7 @@
 /**
  * WordPress Dependencies
  */
-import { Icon } from '@wordpress/components';
-import { closeSmall } from '@wordpress/icons';
+import TrashIcon from '../../../../../components/icon/trash-icon';
 
 /**
  * Internal Dependencies
@@ -13,14 +12,9 @@ const ControlButtons = ( { id } ) => {
 	const { deleteProduct } = usePaymentsContext();
 
 	return (
-		<div className="product-buttons">
-			<div className="product-buttons-remove">
-				<Icon
-					icon={ closeSmall }
-					onClick={ () => deleteProduct( id ) }
-				/>
+			<div className="product-buttons-remove cursor-pointer p-2 rounded-[8px] border border-[#E13B3B] bg-[#fff]" onClick={ () => deleteProduct( id ) }>
+				<TrashIcon width={24} height={24} />
 			</div>
-		</div>
 	);
 };
 

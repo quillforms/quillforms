@@ -40,7 +40,6 @@
 
 .quillforms-payments-page-settings__general-content,
 .quillforms-payments-page-settings__models-content .payment-model,
-.quillforms-payments-page-settings__products-content,
 .quillforms-payments-page-settings__gateways-options-content,
 .quillforms-payments-page-settings__labels-content,
 .quillforms-payments-page-settings__coupons-content {
@@ -170,16 +169,67 @@
 }
 
 .quillforms-payments-page-settings__products {
-	.add-product {
-		background: #353938 !important;
-		display: flex;
-		align-items: center;
-		height: 36px !important;
-		margin: 20px auto 0;
+	.qf-payments-products-section {
+		background: #fff;
+		border-radius: 16px;
+		border: 1px solid #D9D9D9;
+		padding: 20px;
+		margin-top: 0px;
+		margin-bottom: 20px;
 
-		svg {
-			fill: #fff;
-			margin-right: 7px;
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+
+		&__header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 20px;
+		}
+
+		&__title {
+			font-size: 24px;
+			font-weight: 500;
+			color: #334155;
+		}
+
+		&__add {
+			border: none;
+			background: transparent;
+			color: #b2328c;
+			font-size: 18px;
+			font-weight: 500;
+			cursor: pointer;
+			line-height: 28px;
+			padding: 0;
+			display: inline-flex;
+			align-items: center;
+		}
+
+		&__add:hover {
+			text-decoration: underline;
+		}
+
+		&__body {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		&__empty {
+			text-align: center;
+			font-size: 18px;
+			line-height: 28px;
+			color: #777;
+			padding: 16px 0 8px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 12px;
+
+
 		}
 	}
 }
