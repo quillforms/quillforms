@@ -15,9 +15,9 @@ import {
 import { usePaymentsContext } from '../../../state/context';
 import { __ } from '@wordpress/i18n';
 
-const Conditions = ({ id }) => {
+const Conditions = ( { id } ) => {
 	const { models, updateModel } = usePaymentsContext();
-	const model = models[id];
+	const model = models[ id ];
 
 	return (
 		<BaseControl>
@@ -26,32 +26,32 @@ const Conditions = ({ id }) => {
 					{__('Conditional Logic', 'quillforms')}
 				</span>
 				<ToggleControl
-					checked={!!model.conditions}
-					onChange={() =>
-						updateModel(id, {
+					checked={ !! model.conditions }
+					onChange={ () =>
+						updateModel( id, {
 							// when set to [], it will be updated instantly on LogicConditions mount.
 							conditions: model.conditions ? false : [],
-						})
+						} )
 					}
 				/>
 			</ControlWrapper>
-			{!!model.conditions && (
+			{ !! model.conditions && (
 				<div className="payment-model-conditions">
 					<div className="payment-model-conditions-instructions">
 						Use this payment model if the following conditions are
 						met:
 					</div>
 					<LogicConditions
-						value={model.conditions}
-						onChange={(conditions) =>
-							updateModel(id, { conditions })
+						value={ model.conditions }
+						onChange={ ( conditions ) =>
+							updateModel( id, { conditions } )
 						}
-						combobox={{
+						combobox={ {
 							excerptLength: 15,
-						}}
+						} }
 					/>
 				</div>
-			)}
+			) }
 		</BaseControl>
 	);
 };
