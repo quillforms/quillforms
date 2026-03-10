@@ -20,11 +20,10 @@ const UserSubmissionInfo = ({ entry }) => {
 
     return (
         <div className={css`
-            margin-top: 15px;
-            margin-bottom: 25px;
+
             padding: 12px 16px;
             background-color: #f0f6ff;
-            border-left: 4px solid #5181e0;
+            border-left: 4px solid #236294;
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -38,7 +37,7 @@ const UserSubmissionInfo = ({ entry }) => {
                 <div className={css`
                     width: 32px;
                     height: 32px;
-                    background-color: #5181e0;
+                    background-color: #DAE5F0;
                     border-radius: 50%;
                     display: flex;
                     align-items: center;
@@ -81,11 +80,11 @@ const UserSubmissionInfo = ({ entry }) => {
                     text-decoration: none;
                     transition: all 0.2s ease;
                     white-space: nowrap;
-                    
+
                     &:hover {
                         background-color: #f6f7f7;
                     }
-                    
+
                     svg {
                         margin-left: 6px;
                         height: 16px;

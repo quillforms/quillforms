@@ -195,6 +195,25 @@
 			font-weight: 500 !important;
 			color: #334155 !important;
 		}
+
+		.admin-components-block-icon-box {
+			border-radius: 8px;
+			justify-content: center;
+			gap: 4px;
+			padding: 4px;
+			background: #FFEEFB !important;
+
+			svg {
+				width: 24px;
+				height: 24px;
+				fill: #236294 !important;
+				color: #236294 !important;
+			}
+
+			.admin-components-block-icon-box__order {
+				display: none;
+			}
+		}
 	}
 
 	/* Date Range Picker Styles */

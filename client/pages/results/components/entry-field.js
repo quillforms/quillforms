@@ -44,6 +44,8 @@ const EntryField = ({
 				></div>
 			</div>
 
+			<div className=' h-[1px] bg-[#D9D9D9] w-full'></div>
+
 			<div
 				className={classnames('qf-entry-field-value', {
 					empty: !value,
