@@ -92,7 +92,7 @@ const EntryRow = ({ entry }) => {
 					dangerouslySetInnerHTML={{
 						__html: sprintf(
 							/* translators: %s: question label */
-							__(`Answer of Q${entry.ID} `, 'quillforms'),
+							__(`Answer `, 'quillforms'),
 							fieldLabel
 						),
 					}}

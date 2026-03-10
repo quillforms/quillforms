@@ -400,7 +400,9 @@ export const EntriesList = ({
 								<>
 									<div className="grid grid-cols-[1fr_2fr] items-start mt-5 gap-5 w-full h-full">
 										<div className="qf-entry-list">
-											{list}
+											<div className="qf-entry-list__scrollable">
+												{list}
+											</div>
 											<ReactPaginate
 												breakLabel={'...'}
 												marginPagesDisplayed={2}
@@ -414,9 +416,9 @@ export const EntriesList = ({
 												activeClassName={'active'}
 												pageClassName={css`
 												margin: 0 5px;
-												padding: 5px 10px;
-												border-radius: 3px;
-												color: #0073aa;
+												padding: 10px;
+												border-radius: 32px;
+												color: #B2328C;
 												cursor: pointer;
 											` }
 												previousClassName={css`
