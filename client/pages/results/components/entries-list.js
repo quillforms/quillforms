@@ -8,6 +8,8 @@ import {
 } from '@quillforms/admin-components';
 import { Button as MuiButton } from '@mui/material';
 import { getPlainExcerpt } from '@quillforms/rich-text';
+import ConfigAPI from '@quillforms/config';
+import noEntriesImage from '../../../../assets/images/no-entries.png';
 
 /**
  * WordPress Dependencies
@@ -46,6 +48,8 @@ import EntriesExportButton from './entries-export-button';
 import DeleteAlertModal from './delete-alert';
 import EmptyEntries from './empty-entries';
 import EntriesHeader from './entry-header';
+import PartialSubmissionBanner from './partial-submission-banner';
+import CustomButton from '../../../components/custom-button';
 export const EntriesList = ({
 	formId
 }) => {
@@ -119,6 +123,7 @@ export const EntriesList = ({
 	const [selectedEntries, setSelectedEntries] = useState([]);
 	const [deleteModelOpen, setDeleteModalOpen] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
+	const [showPartialSubmissionBanner, setShowPartialSubmissionBanner] = useState(true);
 	// Order entries
 	// In case of readable_value, strip it from html tags.
 	entries = entries !== undefined ? _orderBy(entries, (o) => {
@@ -151,6 +156,10 @@ export const EntriesList = ({
 			blockTypes: select('quillForms/blocks').getBlockTypes(),
 		};
 	});
+
+	const doesPartialSubmissionPointExist = ConfigAPI.getInitialPayload()?.blocks?.some(
+		(block) => block?.name === 'partial-submission-point'
+	);
 
 	const onDelete = () => {
 		setIsDeleting(true);
@@ -291,6 +300,12 @@ export const EntriesList = ({
 	return (
 		<>
 
+			{showPartialSubmissionBanner && !doesPartialSubmissionPointExist && (
+				<PartialSubmissionBanner
+					onDismiss={() => setShowPartialSubmissionBanner(false)}
+				/>
+			)}
+
 			{entries === undefined ? (
 				<div
 					className={css`
@@ -309,18 +324,22 @@ export const EntriesList = ({
 					{entries !== undefined &&
 						<div
 							className={css`
-				.admin-components-select-control {
-					flex: 1 1;
+			background: #F2F4FC;
+			border-radius: 16px;
+			padding: 20px;
+			.admin-components-select-control {
+				flex: 1 1;
 
-					.components-custom-select-control__button.components-custom-select-control__button {
-						padding: 20px 16px;
-					}
-					.components-custom-select-control__label {
-						margin-bottom: 0;
-					}
+				.components-custom-select-control__button.components-custom-select-control__button {
+					padding: 20px 16px;
 				}
-			` }
+				.components-custom-select-control__label {
+					margin-bottom: 0;
+				}
+			}
+		` }
 						>
+
 							<EntriesHeader
 								from={from}
 								to={to}
@@ -334,6 +353,7 @@ export const EntriesList = ({
 								order={order}
 								setOrder={setOrder}
 								setOrderBy={setOrderBy}
+								totalEntries={totalEntries}
 								options={options}
 								orderByOptions={orderByOptions}
 								orderOptions={orderOptions}
@@ -343,7 +363,7 @@ export const EntriesList = ({
 									<div
 										className={css`
 									display: flex;
-									margin-top: 30px;
+									margin-top: 20px;
 								` }
 									>
 										<div className="qf-entry-list">
@@ -456,21 +476,44 @@ export const EntriesList = ({
 									)}
 								</>
 							)}
-						</div>}
-					{totalEntries === 0 && (
-						<div className="qf-entry-list__no-entries">
-							<EmptyEntries />
-							<p
-								className={css`
-						font-size: 22px;
-						margin-bottom: 0;
+							{totalEntries === 0 && (
+								<div className="qf-entry-list__no-entries">
+									<img src={noEntriesImage} alt="No Entries" />
+									<p
+										className={css`
+						font-size: 24px;
+						font-weight: 700;
+						margin-bottom: 12px;
 					` }
-							>
-								{__('No Entries found!', 'quillforms')}
-							</p>
-							<p>{__('This form doesn’t have any responses yet.', 'quillforms')}</p>
-						</div>
-					)}
+									>
+										{__('No responses received yet', 'quillforms')}
+									</p>
+									<p className={css`
+									color: #777;
+									font-size: 18px;
+									font-weight: 500;
+									line-height: 28px;
+									text-align: center;
+										`}>{__("You haven’t collected any responses so far. Share your form to start seeing results", 'quillforms')}</p>
+									<div
+										className={css`
+											margin-top: 16px;
+										` }
+									>
+										<CustomButton
+											variant="outlineSecondary"
+											text={__('Share your form', 'quillforms')}
+											className="!py-3 !px-24 !rounded-[16px]"
+											onClick={() => {
+												// Open form share/settings page in a new tab
+												const shareUrl = window?.qfCurrentFormEditUrl || window?.location?.href;
+												window.open(shareUrl, '_blank');
+											}}
+										/>
+									</div>
+								</div>
+							)}
+						</div>}
 				</>
 			)
 			}
