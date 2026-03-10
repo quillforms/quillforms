@@ -36,6 +36,7 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import DateIcon from '@mui/icons-material/DateRange';
 import { parseISO } from 'date-fns';
+import TrashIcon from '../../../components/icon/trash-icon';
 
 /**
  * Internal Dependencies
@@ -182,29 +183,64 @@ export const EntriesList = ({
 	const list = Array.isArray(entries) ? (
 		<>
 			<div className="qf_entry-list-responses-count">
-				<div>
-					{`${totalEntries} ${__('responses in total', 'quillforms')}`}
-				</div>
-				<div className="qf_entry-list-actions">
-					<CheckboxControl
-						checkboxStatus={
-							size(selectedEntries) === size(entries)
-								? 'checked'
-								: size(selectedEntries) === 0
-									? 'unchecked'
-									: 'mixed'
-						}
-						clicked={() => {
-							if (size(selectedEntries) > 0) {
-								setSelectedEntries([]);
-							} else {
-								setSelectedEntries(
-									entries.map(($entry) => $entry.ID)
-								);
+				<div className='flex justify-between items-center border-b border-[#D9D9D9] pb-5'>
+					<div className="qf_entry-list-actions text-lg font-semibold leading-7 ">
+						<CheckboxControl
+							checkboxStatus={
+								size(selectedEntries) === size(entries)
+									? 'checked'
+									: size(selectedEntries) === 0
+										? 'unchecked'
+										: 'mixed'
 							}
-						}}
-					/>
-					{__('Select All', 'quillforms')}
+							clicked={() => {
+								if (size(selectedEntries) > 0) {
+									setSelectedEntries([]);
+								} else {
+									setSelectedEntries(
+										entries.map(($entry) => $entry.ID)
+									);
+								}
+							}}
+						/>
+						{__('Select all', 'quillforms')}
+					</div>
+
+					<div className="flex items-center gap-3">
+						{applyFilters(
+							'QuillForms.Entries.ExportButton.Render',
+							<EntriesExportButton
+								formId={formId}
+								selectedIds={selectedEntries}
+							/>,
+							{ formId, selectedEntries, from, to }
+						)}
+
+						{selectedEntries.length > 0 && (
+							<div className="flex items-center gap-3 pl-3 border-l border-[#D9D9D9]">
+								<button
+									type="button"
+									className={css`
+										background: transparent;
+										border: none;
+										color: #E13B3B;
+										font-size: 18px;
+										font-weight: 500;
+										line-height: 28px;
+										display: inline-flex;
+										align-items: center;
+										gap: 6px;
+										cursor: pointer;
+
+									`}
+									onClick={() => setDeleteModalOpen(true)}
+								>
+									<span>{__('Delete all', 'quillforms')}</span>
+									<TrashIcon width={24} height={24} />
+								</button>
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 
@@ -218,19 +254,21 @@ export const EntriesList = ({
 						selectedEntries,
 						activeEntryId,
 						selectedField,
+						recordsInfo,
+						deleteEntry: ($activeEntryId) => {
+							setSelectedEntries(
+								selectedEntries.filter((a) => a !== $activeEntryId)
+							);
+							deleteEntries([$activeEntryId]);
+						},
 					}
 				}
 			>
-				<List
-					className="qf_entry-list-items__wrapper"
-					height={350}
-					width={'100%'}
-					itemCount={entries.length}
-					itemSize={50}
-					itemData={entries}
-				>
-					{EntryRow}
-				</List>
+				<div className="qf_entry-list-items__wrapper">
+					{entries.map((entry) => (
+						<EntryRow key={entry.ID} entry={entry} />
+					))}
+				</div>
 			</EntryRowContextProvider>
 		</>
 	) : (
@@ -360,12 +398,7 @@ export const EntriesList = ({
 							/>
 							{totalEntries > 0 && (
 								<>
-									<div
-										className={css`
-									display: flex;
-									margin-top: 20px;
-								` }
-									>
+									<div className="grid grid-cols-[1fr_2fr] items-start mt-5 gap-5 w-full h-full">
 										<div className="qf-entry-list">
 											{list}
 											<ReactPaginate
@@ -408,42 +441,6 @@ export const EntriesList = ({
 												cursor: pointer;
 										`}
 											/>
-
-											<div
-												className={classnames('qf-entry-list__footer', {
-													'with-selected-entries': selectedEntries.length > 0,
-												})}
-											>
-												{!selectedEntries || selectedEntries.length === 0 ? (
-													applyFilters('QuillForms.Entries.ExportButton.Render', (
-														<EntriesExportButton formId={formId} from={from} to={to} />
-													), { formId, selectedEntries: [], from, to })
-
-												) : (
-													<>
-														<div
-															className={css`
-										width: 70px;
-									` }
-														>
-															{`${selectedEntries.length} ${__('selected', 'quillforms')}`}
-														</div>
-														{applyFilters('QuillForms.Entries.ExportButton.Render', (
-															<EntriesExportButton
-																formId={formId}
-																selectedIds={selectedEntries}
-															/>
-														), { formId, selectedEntries, from, to })}
-														<Button
-															isDanger
-															isButton
-															onClick={() => setDeleteModalOpen(true)}
-														>
-															{__('Delete', 'quillforms')}
-														</Button>
-													</>
-												)}
-											</div>
 										</div>
 										<EntryDetails
 											recordsInfo={recordsInfo}

@@ -1,7 +1,6 @@
 /**
  * QuillForms Dependencies
  */
-import { Button } from '@quillforms/admin-components';
 import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-components';
 
 /**
@@ -15,17 +14,38 @@ import { __ } from '@wordpress/i18n';
  * External Dependencies
  */
 import { css } from 'emotion';
+import DownloadIcon from '../../../components/icon/download-icon';
 
 const EntriesExportButton = ({ selectedIds = [] }) => {
 	const [visible, setVisible] = useState(false);
 
 	return (
 		<>
-			<Button isPrimary isButton onClick={() => setVisible(true)}>
-				{selectedIds?.length > 0
-					? __('Download', 'quillforms')
-					: __('Download all responses', 'quillforms')}
-			</Button>
+			<button
+				type="button"
+				onClick={() => setVisible(true)}
+				className={css`
+					display: inline-flex;
+					align-items: center;
+					gap: 8px;
+					padding: 0;
+					margin: 0;
+					background: transparent;
+					border: none;
+					color: #b2328c;
+					font-size: 18px;
+					font-weight: 600;
+					line-height: 28px;
+					cursor: pointer;
+
+					&:hover {
+						color: #8d246c;
+					}
+				` }
+			>
+				<span>{__('Download all', 'quillforms')}</span>
+				<DownloadIcon/>
+			</button>
 			{visible && (
 				<Modal
 					className={css`
