@@ -1,7 +1,6 @@
 import CodeIcon from "./code-icon";
 import LinkIcon from "./link-icon";
 import PopupIcon from "./popup-icon";
-import ShareIcon from "./share-icon"
 import { useEffect, useState } from "react";
 import { useSelect } from "@wordpress/data";
 import { Modal } from "@wordpress/components";
@@ -14,6 +13,11 @@ import { __ } from "@wordpress/i18n";
 
 import configApi from "@quillforms/config";
 import { size } from "lodash";
+import ShareIcon from "../../components/icon/share-icon";
+import Share from "../../../assets/images/share.png";
+import Shortcode from "../../../assets/images/shortcode.png";
+import EmdedCode from "../../../assets/images/embedcode.png";
+import QrCodeImg from "../../../assets/images/qrcode.png";
 
 const hiddenFieldsContainer = css`
     display: flex;
@@ -27,7 +31,7 @@ const hiddenFieldRow = css`
     display: flex;
     flex-direction: column;
     gap: 8px;
-    
+
     label {
         font-size: 14px;
         font-weight: 500;
@@ -45,21 +49,21 @@ const hiddenFieldRow = css`
         color: #1F2937;
         background-color: #FFFFFF;
         transition: all 0.2s ease;
-        
+
         &::placeholder {
             color: #9CA3AF;
         }
-        
+
         &:hover {
             border-color: #D1D5DB;
         }
-        
+
         &:focus {
             outline: none;
             border-color: #2563EB;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
-        
+
         /* Prevent gray background on autofill */
         &:-webkit-autofill,
         &:-webkit-autofill:hover,
@@ -115,7 +119,7 @@ const routingTypeSelect = css`
 
 const generatedLinkContainer = css`
     margin-top: 24px;
-    
+
     h4 {
         font-size: 16px;
         font-weight: 500;
@@ -140,7 +144,7 @@ const linkRow = css`
         background-color: #FFFFFF;
         min-width: 400px;
         cursor: text;
-        
+
         &:focus {
             outline: none;
             border-color: #2563EB;
@@ -151,11 +155,11 @@ const linkRow = css`
     button {
         min-width: 80px;
         transition: all 0.2s ease;
-        
+
         &:hover {
             transform: translateY(-1px);
         }
-        
+
         &:active {
             transform: translateY(0);
         }
@@ -166,512 +170,871 @@ const ShareBody = ({ payload }) => {
 
 
 
-    const isWPEnv = configApi.isWPEnv();
+	const isWPEnv = configApi.isWPEnv();
 
-    const [modalState, setModalState] = useState(false);
-    const [isCopied, setIsCopied] = useState(false);
-    const [popupSettings, setPopupSettings] = useState({
-        buttonTitle: 'Open Form',
-        buttonBackgroundColor: '#000000',
-        buttonTextColor: '#ffffff',
-        buttonBorderRadius: '24',
-        buttonBorderWidth: '0',
-        buttonBorderColor: '#000000',
-        buttonFontSize: '16',
-        buttonPadding: {
-            top: 10,
-            right: 20,
-            bottom: 10,
-            left: 20,
-        },
-        popupMaxWidth: '90',
-        popupMaxWidthUnit: '%',
-        popupMaxHeight: '100',
-        popupMaxHeightUnit: '%',
+	const [modalState, setModalState] = useState(false);
+	const [isCopied, setIsCopied] = useState(false);
+	const [popupSettings, setPopupSettings] = useState({
+		buttonTitle: 'Open Form',
+		buttonBackgroundColor: '#000000',
+		buttonTextColor: '#ffffff',
+		buttonBorderRadius: '24',
+		buttonBorderWidth: '0',
+		buttonBorderColor: '#000000',
+		buttonFontSize: '16',
+		buttonPadding: {
+			top: 10,
+			right: 20,
+			bottom: 10,
+			left: 20,
+		},
+		popupMaxWidth: '90',
+		popupMaxWidthUnit: '%',
+		popupMaxHeight: '100',
+		popupMaxHeightUnit: '%',
 
-    });
+	});
 
-    const copyToClipboard = async (text) => {
-        try {
-            // Try modern clipboard API first
-            if (navigator.clipboard && window.isSecureContext) {
-                await navigator.clipboard.writeText(text);
-                setIsCopied(true);
-                return;
-            }
+	const copyToClipboard = async (text) => {
+		try {
+			// Try modern clipboard API first
+			if (navigator.clipboard && window.isSecureContext) {
+				await navigator.clipboard.writeText(text);
+				setIsCopied(true);
+				return;
+			}
 
-            // Fallback for older browsers or non-HTTPS
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+			// Fallback for older browsers or non-HTTPS
+			const textArea = document.createElement('textarea');
+			textArea.value = text;
+			textArea.style.position = 'fixed';
+			textArea.style.left = '-999999px';
+			textArea.style.top = '-999999px';
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
 
-            const successful = document.execCommand('copy');
-            document.body.removeChild(textArea);
+			const successful = document.execCommand('copy');
+			document.body.removeChild(textArea);
 
-            if (successful) {
-                setIsCopied(true);
-            } else {
-                console.error('Copy failed');
-                // Optionally show an error message to user
-            }
-        } catch (err) {
-            console.error('Copy failed:', err);
-            // Fallback: create a temporary input for manual copy
-            const input = document.createElement('input');
-            input.value = text;
-            input.style.position = 'fixed';
-            input.style.opacity = '0';
-            document.body.appendChild(input);
-            input.select();
-            input.setSelectionRange(0, 99999); // For mobile devices
+			if (successful) {
+				setIsCopied(true);
+			} else {
+				console.error('Copy failed');
+				// Optionally show an error message to user
+			}
+		} catch (err) {
+			console.error('Copy failed:', err);
+			// Fallback: create a temporary input for manual copy
+			const input = document.createElement('input');
+			input.value = text;
+			input.style.position = 'fixed';
+			input.style.opacity = '0';
+			document.body.appendChild(input);
+			input.select();
+			input.setSelectionRange(0, 99999); // For mobile devices
 
-            // Show a message to manually copy
-            alert('Please manually copy the text: Ctrl+C (Cmd+C on Mac)');
+			// Show a message to manually copy
+			alert('Please manually copy the text: Ctrl+C (Cmd+C on Mac)');
 
-            setTimeout(() => {
-                document.body.removeChild(input);
-            }, 100);
-        }
-    };
-    // Add this shortcodeSettings state
-    const [shortcodeSettings, setShortcodeSettings] = useState({
-        width: { value: 100, unit: '%' },
-        minHeight: { value: 500, unit: 'px' },
-        maxHeight: { value: 0, unit: 'auto' }
-    });
+			setTimeout(() => {
+				document.body.removeChild(input);
+			}, 100);
+		}
+	};
+	// Add this shortcodeSettings state
+	const [shortcodeSettings, setShortcodeSettings] = useState({
+		width: { value: 100, unit: '%' },
+		minHeight: { value: 500, unit: 'px' },
+		maxHeight: { value: 0, unit: 'auto' }
+	});
 
-    const [fieldValues, setFieldValues] = useState({});
-    const [routingType, setRoutingType] = useState('query');
+	const [fieldValues, setFieldValues] = useState({});
+	const [routingType, setRoutingType] = useState('query');
 
-    const generateURL = () => {
-        // Remove trailing slash from baseURL
-        const baseURL = (payload?.link || '').replace(/\/+$/, '');
-        const filledFields = Object.entries(fieldValues)
-            .filter(([_, value]) => value)
-            .map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
-            .join('&');
+	const generateURL = () => {
+		// Remove trailing slash from baseURL
+		const baseURL = (payload?.link || '').replace(/\/+$/, '');
+		const filledFields = Object.entries(fieldValues)
+			.filter(([_, value]) => value)
+			.map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
+			.join('&');
 
-        if (!filledFields) return baseURL;
+		if (!filledFields) return baseURL;
 
-        if (routingType === 'query') {
-            return `${baseURL}${baseURL.includes('?') ? '&' : '?'}${filledFields}`;
-        } else {
-            return `${baseURL}#${filledFields}`;
-        }
-    };
-
-
-    const generateShortcode = () => {
-        const width = `${shortcodeSettings.width.value}${shortcodeSettings.width.unit}`;
-        const minHeight = `${shortcodeSettings.minHeight.value}${shortcodeSettings.minHeight.unit}`;
-        const maxHeight = shortcodeSettings.maxHeight.unit === 'auto'
-            ? 'auto'
-            : `${shortcodeSettings.maxHeight.value}${shortcodeSettings.maxHeight.unit}`;
-
-        return `[quillforms id="${payload?.id}" width="${width}" min_height="${minHeight}" max_height="${maxHeight}"]`;
-    };
+		if (routingType === 'query') {
+			return `${baseURL}${baseURL.includes('?') ? '&' : '?'}${filledFields}`;
+		} else {
+			return `${baseURL}#${filledFields}`;
+		}
+	};
 
 
-    const downloadQR = () => {
-        const svg = document.querySelector(".quillforms-qr-share-modal svg");
-        const svgData = new XMLSerializer().serializeToString(svg);
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        const img = new Image();
-        img.onload = function () {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-            const pngFile = canvas.toDataURL("image/png");
+	const generateShortcode = () => {
+		const width = `${shortcodeSettings.width.value}${shortcodeSettings.width.unit}`;
+		const minHeight = `${shortcodeSettings.minHeight.value}${shortcodeSettings.minHeight.unit}`;
+		const maxHeight = shortcodeSettings.maxHeight.unit === 'auto'
+			? 'auto'
+			: `${shortcodeSettings.maxHeight.value}${shortcodeSettings.maxHeight.unit}`;
 
-            const downloadLink = document.createElement("a");
-            downloadLink.download = "quillforms-qrcode";
-            downloadLink.href = `${pngFile}`;
-            downloadLink.click();
-        };
-
-        img.src = "data:image/svg+xml;base64," + btoa(svgData);
-    };
-
-    const popupShortcode = `[quillforms-popup id="${payload?.id}" ${Object.keys(popupSettings).map(($key) => {
-        if ($key === "buttonPadding") {
-            return `buttonPadding="${Object.keys(popupSettings[$key]).map(($paddingKey) => {
-                return `${popupSettings[$key][$paddingKey]}px`;
-            }).join(" ")}"`;
-        }
-        return `${$key}="${popupSettings[$key]}"`;
-    }).join(" ")} ]`;
+		return `[quillforms id="${payload?.id}" width="${width}" min_height="${minHeight}" max_height="${maxHeight}"]`;
+	};
 
 
-    useEffect(() => {
-        if (isCopied) {
-            setTimeout(() => {
-                setIsCopied(false);
-            }, 4000);
-        }
-    }, [isCopied]);
+	const downloadQR = () => {
+		const svg = document.querySelector(".quillforms-qr-share-modal svg");
+		const svgData = new XMLSerializer().serializeToString(svg);
+		const canvas = document.createElement("canvas");
+		const ctx = canvas.getContext("2d");
+		const img = new Image();
+		img.onload = function () {
+			canvas.width = img.width;
+			canvas.height = img.height;
+			ctx.drawImage(img, 0, 0);
+			const pngFile = canvas.toDataURL("image/png");
 
-    const hiddenFields = payload.hidden_fields
+			const downloadLink = document.createElement("a");
+			downloadLink.download = "quillforms-qrcode";
+			downloadLink.href = `${pngFile}`;
+			downloadLink.click();
+		};
 
-    return (
-        <div className="quillforms-share-page">
-            <div className="quillforms-share-page-header">
-                <ShareIcon />
-                <div className="quillforms-share-page-heading">
-                    <p>{__('Share Your Form with Others using Multiple Options', 'quillforms')}</p>
-                    <p>
-                        {__('To share your form with others, you have several options available. You can share it via a direct link, shortcode, embed code, or pop-up. Choose the method that best suits your needs and preferences to ensure easy and convenient access for your audience.', 'quillforms')}
-                    </p>
-                </div>
-            </div>
-            <div className="quillforms-share-page-body">
-                <div className="quillforms-share-card" onClick={() => {
-                    setModalState('link');
-                }}>
-                    <div className="quillforms-share-card-header">
-                        <LinkIcon />
-                        <h3>{__('Direct Link', 'quillforms')}</h3>
-                    </div>
-                    <div className="quillforms-share-card-body">
-                        <p>{__('Copy the form link and share it with your audience.', 'quillforms')}</p>
-                    </div>
-                </div>
-                {isWPEnv && (
-                    <div className="quillforms-share-card" onClick={() => {
-                        setModalState('shortcode');
-                    }}>
-                        <div className="quillforms-share-card-header">
-                            <h3 style={{
-                                marginTop: 0,
-                                fontSize: "22px",
-                                marginBottom: "34px"
-                            }}>[ / ]</h3>
-                            <h3>{__('Shortcode', 'quillforms')}</h3>
-                        </div>
-                        <div className="quillforms-share-card-body">
-                            <p>{__('Copy the shortcode and paste it into your post or page.', 'quillforms')}</p>
-                        </div>
-                    </div>
-                )}
-                <div className="quillforms-share-card" onClick={() => {
-                    setModalState('embed');
-                }}>
-                    <div className="quillforms-share-card-header">
-                        <CodeIcon />
-                        <h3>{__('Embed Code', 'quillforms')}</h3>
-                    </div>
-                    <div className="quillforms-share-card-body">
-                        <p>{__('Embed code is useful to share the form in an external web page. Copy the code and paste it into your external post or page.', 'quillforms')}</p>
-                    </div>
-                </div>
-                {isWPEnv && (
-                    <div className="quillforms-share-card" onClick={() => {
-                        setModalState('popup');
-                    }}>
-                        <div className="quillforms-share-card-header">
-                            <div className={css`
+		img.src = "data:image/svg+xml;base64," + btoa(svgData);
+	};
+
+	const popupShortcode = `[quillforms-popup id="${payload?.id}" ${Object.keys(popupSettings).map(($key) => {
+		if ($key === "buttonPadding") {
+			return `buttonPadding="${Object.keys(popupSettings[$key]).map(($paddingKey) => {
+				return `${popupSettings[$key][$paddingKey]}px`;
+			}).join(" ")}"`;
+		}
+		return `${$key}="${popupSettings[$key]}"`;
+	}).join(" ")} ]`;
+
+
+	useEffect(() => {
+		if (isCopied) {
+			setTimeout(() => {
+				setIsCopied(false);
+			}, 4000);
+		}
+	}, [isCopied]);
+
+	const hiddenFields = payload.hidden_fields;
+	const [openSection, setOpenSection] = useState('link');
+	const [previewDevice, setPreviewDevice] = useState('desktop');
+
+	const toggleSection = (key) => setOpenSection(openSection === key ? null : key);
+
+	const chevronIcon = (isOpen) => (
+		<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+			style={{ transition: 'transform 0.2s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}>
+			<polyline points="6 9 12 15 18 9" />
+		</svg>
+	);
+
+	const previewWidths = { desktop: '100%', tablet: '768px', mobile: '375px' };
+
+	return (
+		<div className="quillforms-share-layout">
+
+			{/* ── Left panel: accordion ── */}
+			<div className="quillforms-share-left">
+
+				{/* Header */}
+				<div className="quillforms-share-left__header">
+					<ShareIcon />
+					<p className="quillforms-share-left__title">
+						{__('Share Your Form with Others using Multiple Options', 'quillforms')}
+					</p>
+				</div>
+
+				{/* Accordion items */}
+				<div className="quillforms-share-accordion">
+
+					{/* Direct Link */}
+					<div className={`quillforms-share-accordion__item${openSection === 'link' ? ' quillforms-share-accordion__item--open' : ''}`}>
+						<button onClick={() => toggleSection('link')} className="quillforms-share-accordion__toggle">
+							<span className="quillforms-share-accordion__toggle-label">
+								{__('Direct Link', 'quillforms')}
+							</span>
+							{chevronIcon(openSection === 'link')}
+						</button>
+						{openSection === 'link' && (
+							<div className="quillforms-share-accordion__content">
+								<div className="quillforms-share-info-banner">
+									<div className="quillforms-share-info-banner__icon">
+										<img src={Share} alt="Link Icon" />
+									</div>
+									<p className="quillforms-share-info-banner__title">{__('Generate & Share a Direct Link', 'quillforms')}</p>
+									<p className="quillforms-share-info-banner__desc">{__('Copy the link, customize the slug, and share it wherever your audience is — fast, simple, and flexible.', 'quillforms')}</p>
+
+								</div>
+								<label className="quillforms-share-field-label">{__('Generated URL', 'quillforms')}</label>
+								<div className="quillforms-share-field-row">
+									<input type="text" value={generateURL()} readOnly className="quillforms-share-field-input" />
+									<button onClick={() => { copyToClipboard(generateURL()); setIsCopied(true); }} className="quillforms-share-copy-btn">
+										<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+										{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
+									</button>
+								</div>
+								<label className="quillforms-share-field-label">{__('Slug', 'quillforms')}</label>
+								<input type="text" placeholder={__('Slug', 'quillforms')} className="quillforms-share-slug-input" />
+								{size(hiddenFields) > 0 && (
+									<div className="quillforms-share-hidden-fields">
+										<p className="quillforms-share-hidden-fields__title">{__('Hidden Fields', 'quillforms')}</p>
+										{hiddenFields.map((field) => field.name.trim() ? (
+											<div key={field.name} className="quillforms-share-hidden-field-row">
+												<label>{field.name}</label>
+												<input type="text" value={fieldValues[field.name] || ''} placeholder={__('Enter value', 'quillforms')}
+													onChange={(e) => setFieldValues(prev => ({ ...prev, [field.name]: e.target.value }))}
+												/>
+											</div>
+										) : null)}
+									</div>
+								)}
+							</div>
+						)}
+					</div>
+
+					{/* Shortcode */}
+					{isWPEnv && (
+						<div className={`quillforms-share-accordion__item${openSection === 'shortcode' ? ' quillforms-share-accordion__item--open' : ''}`}>
+							<button onClick={() => toggleSection('shortcode')} className="quillforms-share-accordion__toggle">
+								<span className="quillforms-share-accordion__toggle-label">
+
+									{__('Shortcode', 'quillforms')}
+								</span>
+								{chevronIcon(openSection === 'shortcode')}
+							</button>
+							{openSection === 'shortcode' && (
+								<div className="quillforms-share-accordion__content">
+									{/* Info banner */}
+									<div className="quillforms-share-info-banner">
+										<div className="quillforms-share-info-banner__icon">
+											<img src={Shortcode} alt="Shortcode Icon" />
+										</div>
+										<p className="quillforms-share-info-banner__title">{__('Embed your form anywhere with a Shortcode', 'quillforms')}</p>
+										<p className="quillforms-share-info-banner__desc">{__("Configure your form's dimensions, copy the shortcode, It's flexible, responsive, and built to fit your content.", 'quillforms')}</p>
+									</div>
+
+									{/* Settings rows */}
+									{[
+										{ label: __('Width', 'quillforms'), key: 'width', units: ['%', 'px', 'vw'] },
+										{ label: __('Minimum Height', 'quillforms'), key: 'minHeight', units: ['px', 'vh'] },
+										{ label: __('Maximum Height', 'quillforms'), key: 'maxHeight', units: ['px', 'vh', 'auto'] },
+									].map(({ label, key, units }) => (
+										<div key={key} className="quillforms-share-dimension-row">
+											<label className="quillforms-share-field-label">{label}</label>
+											<div className="quillforms-share-dimension-inputs">
+												<input
+													type="number"
+													value={shortcodeSettings[key].value}
+													onChange={(e) => setShortcodeSettings(prev => ({ ...prev, [key]: { ...prev[key], value: e.target.value } }))}
+													className="quillforms-share-dimension-input"
+												/>
+												<select
+													value={shortcodeSettings[key].unit}
+													onChange={(e) => setShortcodeSettings(prev => ({ ...prev, [key]: { ...prev[key], unit: e.target.value } }))}
+													className="quillforms-share-dimension-select"
+												>
+													{units.map(u => <option key={u} value={u}>{u}</option>)}
+												</select>
+											</div>
+										</div>
+									))}
+
+									{/* Generated shortcode */}
+									<label className="quillforms-share-field-label">{__('Generated Shortcode', 'quillforms')}</label>
+									<div className="quillforms-share-field-row-mono">
+										<input type="text" value={generateShortcode()} readOnly className="quillforms-share-field-input--mono" />
+										<button onClick={() => { copyToClipboard(generateShortcode()); setIsCopied(true); }} className="quillforms-share-copy-btn">
+											<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+											{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
+										</button>
+									</div>
+								</div>
+							)}
+						</div>
+					)}
+
+					{/* Embed Code */}
+					<div className={`quillforms-share-accordion__item${openSection === 'embed' ? ' quillforms-share-accordion__item--open' : ''}`}>
+						<button onClick={() => toggleSection('embed')} className="quillforms-share-accordion__toggle">
+							<span className="quillforms-share-accordion__toggle-label">
+								{__('Embed Code', 'quillforms')}
+							</span>
+							{chevronIcon(openSection === 'embed')}
+						</button>
+						{openSection === 'embed' && (
+							<div className="quillforms-share-accordion__content">
+								{/* For WordPress environment: match design with banner + URL row */}
+								{isWPEnv ? (
+									<>
+										<div className="quillforms-share-info-banner">
+											<div className="quillforms-share-info-banner__icon">
+												{/* Re‑use shortcode image as embed icon */}
+												<img src={EmdedCode} alt={__('Embed Icon', 'quillforms')} />
+											</div>
+											<p className="quillforms-share-info-banner__title">
+												{__('Embed your form right into your page', 'quillforms')}
+											</p>
+											<p className="quillforms-share-info-banner__desc">
+												{__('Copy the code and drop it into any page — no setup needed.', 'quillforms')}
+											</p>
+										</div>
+
+										<label className="quillforms-share-field-label">
+											{__('Generated URL', 'quillforms')}
+										</label>
+										<div className="quillforms-share-field-row-mono">
+											<input
+												type="text"
+												readOnly
+												value={`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`}
+												className="quillforms-share-field-input--mono"
+											/>
+											<button
+												onClick={() => {
+													copyToClipboard(
+														`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+													);
+													setIsCopied(true);
+												}}
+												className="quillforms-share-copy-btn"
+											>
+												<svg
+													width="15"
+													height="15"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													strokeWidth="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												>
+													<rect x="9" y="9" width="13" height="13" rx="2" />
+													<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+												</svg>
+												{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
+											</button>
+										</div>
+									</>
+								) : (
+									<>
+										<p className="quillforms-share-accordion__desc">
+											{__('Copy the embed code below and insert it in your external page.', 'quillforms')}
+										</p>
+										<textarea
+											readOnly
+											rows={5}
+											value={
+												`<!-- QuillForms Embed Script -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n` +
+												`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+											}
+											className="quillforms-share-field-textarea"
+										/>
+										<button
+											onClick={() => {
+												const code =
+													`<!-- QuillForms Embed Script -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n` +
+													`<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`;
+												copyToClipboard(code);
+												setIsCopied(true);
+											}}
+											className="quillforms-share-copy-btn--full"
+										>
+											{isCopied ? __('Copied!', 'quillforms') : __('Copy Code', 'quillforms')}
+										</button>
+									</>
+								)}
+							</div>
+						)}
+					</div>
+
+					{/* Popup */}
+					{isWPEnv && (
+						<div className={`quillforms-share-accordion__item${openSection === 'popup' ? ' quillforms-share-accordion__item--open' : ''}`}>
+							<button onClick={() => toggleSection('popup')} className="quillforms-share-accordion__toggle">
+								<span className="quillforms-share-accordion__toggle-label">
+									{__('Popup', 'quillforms')}
+								</span>
+								{chevronIcon(openSection === 'popup')}
+							</button>
+							{openSection === 'popup' && (
+								<div className="quillforms-share-accordion__content">
+									{[
+										{ label: __('Button title', 'quillforms'), key: 'buttonTitle', type: 'text' },
+										{ label: __('Button border radius (px)', 'quillforms'), key: 'buttonBorderRadius', type: 'number' },
+										{ label: __('Button border width (px)', 'quillforms'), key: 'buttonBorderWidth', type: 'number' },
+										{ label: __('Button font size (px)', 'quillforms'), key: 'buttonFontSize', type: 'number' },
+									].map(({ label, key, type }) => (
+										<div key={key} className="quillforms-share-popup-field">
+											<label className="quillforms-share-field-label--sm">{label}</label>
+											<input type={type} value={popupSettings[key]}
+												onChange={(e) => setPopupSettings({ ...popupSettings, [key]: e.target.value })}
+											/>
+										</div>
+									))}
+									<label className="quillforms-share-field-label">{__('Generated Shortcode', 'quillforms')}</label>
+									<div className="quillforms-share-field-row">
+										<input type="text" value={popupShortcode} readOnly className="quillforms-share-field-input--mono" />
+										<button onClick={() => { copyToClipboard(popupShortcode); setIsCopied(true); }} className="quillforms-share-copy-btn">
+											<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+											{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
+										</button>
+									</div>
+								</div>
+							)}
+						</div>
+					)}
+
+					{/* QR Code */}
+					<div className={`quillforms-share-accordion__item${openSection === 'qr' ? ' quillforms-share-accordion__item--open' : ''}`}>
+						<button onClick={() => toggleSection('qr')} className="quillforms-share-accordion__toggle">
+							<span className="quillforms-share-accordion__toggle-label">
+								{__('QR Code', 'quillforms')}
+							</span>
+							{chevronIcon(openSection === 'qr')}
+						</button>
+						{openSection === 'qr' && (
+							<div className="quillforms-share-qr-content">
+								{/* Top icon + title + description */}
+								<div className="quillforms-share-info-banner">
+									<div className="quillforms-share-info-banner__icon">
+										<img src={QrCodeImg} alt={__('QR Icon', 'quillforms')} />
+									</div>
+									<p className="quillforms-share-info-banner__title">
+										{__('Easy access via QR code', 'quillforms')}
+									</p>
+									<p className="quillforms-share-info-banner__desc">
+										{__(
+											'Simply scan the code to initiate your Quill Forms, which function seamlessly both online and offline (printer required naturally).',
+											'quillforms'
+										)}
+									</p>
+								</div>
+
+								{/* Warning banner */}
+								<div className="quillforms-share-qr-warning">
+									<span className="quillforms-share-qr-warning__icon">⚠</span>
+									<span className="quillforms-share-qr-warning__text">
+										{__(
+											'Changing the slug of your form within the builder will result in a corresponding alteration of the QR code.',
+											'quillforms'
+										)}
+									</span>
+								</div>
+
+								{/* QR code + download button row */}
+								<div className="quillforms-share-qr-row">
+									<div className="quillforms-qr-share-modal">
+										<QRCode value={payload?.link} size={180} />
+									</div>
+									<button onClick={() => downloadQR()} className="quillforms-share-qr-download-btn">
+										{__('Download QR', 'quillforms')}
+									</button>
+								</div>
+							</div>
+						)}
+					</div>
+
+				</div>
+			</div>
+
+			{/* ── Right panel: form preview ── */}
+			<div className="quillforms-share-right">
+
+				{/* Device switcher */}
+				<div className="quillforms-share-device-switcher">
+					{[
+						{ key: 'desktop', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg> },
+						{ key: 'tablet', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="4" y="2" width="16" height="20" rx="2" /><line x1="12" y1="18" x2="12.01" y2="18" /></svg> },
+						{ key: 'mobile', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="5" y="2" width="14" height="20" rx="2" /><line x1="12" y1="18" x2="12.01" y2="18" /></svg> },
+					].map(({ key, icon }) => (
+						<button
+							key={key}
+							onClick={() => setPreviewDevice(key)}
+							className={`quillforms-share-device-btn${previewDevice === key ? ' quillforms-share-device-btn--active' : ''}`}
+						>
+							{icon}
+						</button>
+					))}
+				</div>
+
+				{/* iframe preview — padding & bg are dynamic (device-dependent) */}
+				<div
+					className="quillforms-share-preview"
+					style={{
+						padding: previewDevice === 'desktop' ? '0' : '24px',
+						background: previewDevice === 'desktop' ? '#fff' : '#F2F4FC',
+					}}
+				>
+					<div
+						className="quillforms-share-preview__frame"
+						style={{
+							width: previewWidths[previewDevice],
+							borderRadius: previewDevice === 'desktop' ? '0' : '12px',
+							boxShadow: previewDevice === 'desktop' ? 'none' : '0 4px 24px rgba(0,0,0,0.1)',
+						}}
+					>
+						<iframe
+							src={payload?.link}
+							title={__('Form Preview', 'quillforms')}
+							style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+						/>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	);
+	// removed old card/modal layout
+	return (
+		<div className="quillforms-share-page" style={{ display: 'none' }}>
+			<div className="quillforms-share-page-body">
+				<div className="quillforms-share-card" onClick={() => {
+					setModalState('link');
+				}}>
+					<div className="quillforms-share-card-header">
+						<LinkIcon />
+						<h3>{__('Direct Link', 'quillforms')}</h3>
+					</div>
+					<div className="quillforms-share-card-body">
+						<p>{__('Copy the form link and share it with your audience.', 'quillforms')}</p>
+					</div>
+				</div>
+				{isWPEnv && (
+					<div className="quillforms-share-card" onClick={() => {
+						setModalState('shortcode');
+					}}>
+						<div className="quillforms-share-card-header">
+							<h3 style={{
+								marginTop: 0,
+								fontSize: "22px",
+								marginBottom: "34px"
+							}}>[ / ]</h3>
+							<h3>{__('Shortcode', 'quillforms')}</h3>
+						</div>
+						<div className="quillforms-share-card-body">
+							<p>{__('Copy the shortcode and paste it into your post or page.', 'quillforms')}</p>
+						</div>
+					</div>
+				)}
+				<div className="quillforms-share-card" onClick={() => {
+					setModalState('embed');
+				}}>
+					<div className="quillforms-share-card-header">
+						<CodeIcon />
+						<h3>{__('Embed Code', 'quillforms')}</h3>
+					</div>
+					<div className="quillforms-share-card-body">
+						<p>{__('Embed code is useful to share the form in an external web page. Copy the code and paste it into your external post or page.', 'quillforms')}</p>
+					</div>
+				</div>
+				{isWPEnv && (
+					<div className="quillforms-share-card" onClick={() => {
+						setModalState('popup');
+					}}>
+						<div className="quillforms-share-card-header">
+							<div className={css`
                                 display: flex;
                                 align-items: flex-start;
                                 justify-content: space-between;
                             `}>
-                                <div>
-                                    <PopupIcon />
-                                    <h3>{__('Popup', 'quillforms')}</h3>
-                                </div>
-                                <div className="admin-components-control-label__new-feature">
-                                    NEW
-                                </div>
-                            </div>
-                        </div>
-                        <div className="quillforms-share-card-body">
-                            <p>{__('Display your form on a popup upon clicking a desinated button. Copy the shortcode and paste it into your post or page.', 'quillforms')}</p>
-                        </div>
-                    </div>
-                )}
-                <div className="quillforms-share-card" onClick={() => {
-                    setModalState('qr');
-                }}>
-                    <div className="quillforms-share-card-header">
-                        <div className={css`
+								<div>
+									<PopupIcon />
+									<h3>{__('Popup', 'quillforms')}</h3>
+								</div>
+								<div className="admin-components-control-label__new-feature">
+									NEW
+								</div>
+							</div>
+						</div>
+						<div className="quillforms-share-card-body">
+							<p>{__('Display your form on a popup upon clicking a desinated button. Copy the shortcode and paste it into your post or page.', 'quillforms')}</p>
+						</div>
+					</div>
+				)}
+				<div className="quillforms-share-card" onClick={() => {
+					setModalState('qr');
+				}}>
+					<div className="quillforms-share-card-header">
+						<div className={css`
                             display: flex;
                             align-items: flex-start;
                             justify-content: space-between;
                         `}>
-                            <div>
-                                <QRCodeIcon />
-                                <h3>{__('QR Code', 'quillforms')}</h3>
-                            </div>
-                            <div className="admin-components-control-label__new-feature">
-                                NEW
-                            </div>
-                        </div>
-                    </div>
-                    <div className="quillforms-share-card-body">
-                        <p>{__('Share your form with others by scanning the QR code.', 'quillforms')}</p>
-                    </div>
-                </div>
-            </div>
-            {modalState === 'link' && (
-                <Modal
-                    title={__('Direct Link', 'quillforms')}
-                    onRequestClose={() => {
-                        setModalState(false);
-                    }}
-                >
-                    <div className="quillforms-share-modal">
-                        {size(hiddenFields) > 0 && (
-                            <>
-                                <div className="quillforms-hidden-fields-settings">
+							<div>
+								<QRCodeIcon />
+								<h3>{__('QR Code', 'quillforms')}</h3>
+							</div>
+							<div className="admin-components-control-label__new-feature">
+								NEW
+							</div>
+						</div>
+					</div>
+					<div className="quillforms-share-card-body">
+						<p>{__('Share your form with others by scanning the QR code.', 'quillforms')}</p>
+					</div>
+				</div>
+			</div>
+			{modalState === 'link' && (
+				<Modal
+					title={__('Direct Link', 'quillforms')}
+					onRequestClose={() => {
+						setModalState(false);
+					}}
+				>
+					<div className="quillforms-share-modal">
+						{size(hiddenFields) > 0 && (
+							<>
+								<div className="quillforms-hidden-fields-settings">
 
 
-                                    <h4>{__('Hidden Fields', 'quillforms')}</h4>
+									<h4>{__('Hidden Fields', 'quillforms')}</h4>
 
-                                    <div className={hiddenFieldsContainer}>
-                                        {hiddenFields.map((field) => {
-                                            if (field.name.trim()) {
-                                                return (
-                                                    <div key={field.name} className={hiddenFieldRow}>
-                                                        <label>{field.name}</label>
-                                                        <input
-                                                            type="text"
-                                                            value={fieldValues[field.name] || ''}
-                                                            placeholder={__('Enter value for ', 'quillforms') + field.name}
-                                                            onChange={(e) => {
-                                                                setFieldValues(prev => ({
-                                                                    ...prev,
-                                                                    [field.name]: e.target.value
-                                                                }));
-                                                            }}
-                                                        />
-                                                    </div>
-                                                );
-                                            }
-                                            return null;
-                                        })}
-                                    </div>
+									<div className={hiddenFieldsContainer}>
+										{hiddenFields.map((field) => {
+											if (field.name.trim()) {
+												return (
+													<div key={field.name} className={hiddenFieldRow}>
+														<label>{field.name}</label>
+														<input
+															type="text"
+															value={fieldValues[field.name] || ''}
+															placeholder={__('Enter value for ', 'quillforms') + field.name}
+															onChange={(e) => {
+																setFieldValues(prev => ({
+																	...prev,
+																	[field.name]: e.target.value
+																}));
+															}}
+														/>
+													</div>
+												);
+											}
+											return null;
+										})}
+									</div>
 
-                                    <div className={routingTypeSelect}>
-                                        <label>{__('Parameter Type:', 'quillforms')}</label>
-                                        <select
-                                            value={routingType}
-                                            onChange={(e) => setRoutingType(e.target.value)}
-                                        >
-                                            <option value="query">{__('Query String (?param=value)', 'quillforms')}</option>
-                                            <option value="hash">{__('Hash (#param=value)', 'quillforms')}</option>
-                                        </select>
-                                    </div>
+									<div className={routingTypeSelect}>
+										<label>{__('Parameter Type:', 'quillforms')}</label>
+										<select
+											value={routingType}
+											onChange={(e) => setRoutingType(e.target.value)}
+										>
+											<option value="query">{__('Query String (?param=value)', 'quillforms')}</option>
+											<option value="hash">{__('Hash (#param=value)', 'quillforms')}</option>
+										</select>
+									</div>
 
-                                </div>
-                            </>
-                        )}
-                        <div className={generatedLinkContainer}>
-                            <h4>{__('Generated URL', 'quillforms')}</h4>
-                            <div className={linkRow}>
-                                <input
-                                    type="text"
-                                    value={generateURL()}
-                                    readOnly
-                                />
-                                <Button
-                                    isPrimary
-                                    onClick={() => {
-                                        copyToClipboard(generateURL());
-                                        setIsCopied(true);
-                                    }}
-                                >
-                                    {isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </Modal>
-            )}
+								</div>
+							</>
+						)}
+						<div className={generatedLinkContainer}>
+							<h4>{__('Generated URL', 'quillforms')}</h4>
+							<div className={linkRow}>
+								<input
+									type="text"
+									value={generateURL()}
+									readOnly
+								/>
+								<Button
+									isPrimary
+									onClick={() => {
+										copyToClipboard(generateURL());
+										setIsCopied(true);
+									}}
+								>
+									{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
+								</Button>
+							</div>
+						</div>
+					</div>
+				</Modal>
+			)}
 
-            {modalState === 'shortcode' && (
-                <Modal
-                    title={__('Shortcode', 'quillforms')}
-                    onRequestClose={() => {
-                        setModalState(false);
-                    }}
-                >
-                    <div className="quillforms-share-modal">
-                        <p>{__('Customize your form display settings and copy the generated shortcode.', 'quillforms')}</p>
+			{modalState === 'shortcode' && (
+				<Modal
+					title={__('Shortcode', 'quillforms')}
+					onRequestClose={() => {
+						setModalState(false);
+					}}
+				>
+					<div className="quillforms-share-modal">
+						<p>{__('Customize your form display settings and copy the generated shortcode.', 'quillforms')}</p>
 
-                        {/* Shortcode Settings */}
-                        <div className="quillforms-shortcode-settings">
-                            <div className="quillforms-shortcode-setting-row">
-                                <label>{__('Width', 'quillforms')}</label>
-                                <div className="quillforms-shortcode-setting-input">
-                                    <input
-                                        type="number"
-                                        value={shortcodeSettings.width.value}
-                                        onChange={(e) => {
-                                            setShortcodeSettings(prev => ({
-                                                ...prev,
-                                                width: {
-                                                    ...prev.width,
-                                                    value: e.target.value
-                                                }
-                                            }));
-                                        }}
-                                    />
-                                    <select
-                                        value={shortcodeSettings.width.unit}
-                                        onChange={(e) => {
-                                            setShortcodeSettings(prev => ({
-                                                ...prev,
-                                                width: {
-                                                    ...prev.width,
-                                                    unit: e.target.value
-                                                }
-                                            }));
-                                        }}
-                                    >
-                                        <option value="%">%</option>
-                                        <option value="px">px</option>
-                                        <option value="vw">vw</option>
-                                    </select>
-                                </div>
-                            </div>
+						{/* Shortcode Settings */}
+						<div className="quillforms-shortcode-settings">
+							<div className="quillforms-shortcode-setting-row">
+								<label>{__('Width', 'quillforms')}</label>
+								<div className="quillforms-shortcode-setting-input">
+									<input
+										type="number"
+										value={shortcodeSettings.width.value}
+										onChange={(e) => {
+											setShortcodeSettings(prev => ({
+												...prev,
+												width: {
+													...prev.width,
+													value: e.target.value
+												}
+											}));
+										}}
+									/>
+									<select
+										value={shortcodeSettings.width.unit}
+										onChange={(e) => {
+											setShortcodeSettings(prev => ({
+												...prev,
+												width: {
+													...prev.width,
+													unit: e.target.value
+												}
+											}));
+										}}
+									>
+										<option value="%">%</option>
+										<option value="px">px</option>
+										<option value="vw">vw</option>
+									</select>
+								</div>
+							</div>
 
-                            <div className="quillforms-shortcode-setting-row">
-                                <label>{__('Minimum Height', 'quillforms')}</label>
-                                <div className="quillforms-shortcode-setting-input">
-                                    <input
-                                        type="number"
-                                        value={shortcodeSettings.minHeight.value}
-                                        onChange={(e) => {
-                                            setShortcodeSettings(prev => ({
-                                                ...prev,
-                                                minHeight: {
-                                                    ...prev.minHeight,
-                                                    value: e.target.value
-                                                }
-                                            }));
-                                        }}
-                                    />
-                                    <select
-                                        value={shortcodeSettings.minHeight.unit}
-                                        onChange={(e) => {
-                                            setShortcodeSettings(prev => ({
-                                                ...prev,
-                                                minHeight: {
-                                                    ...prev.minHeight,
-                                                    unit: e.target.value
-                                                }
-                                            }));
-                                        }}
-                                    >
-                                        <option value="px">px</option>
-                                        <option value="vh">vh</option>
-                                    </select>
-                                </div>
-                            </div>
+							<div className="quillforms-shortcode-setting-row">
+								<label>{__('Minimum Height', 'quillforms')}</label>
+								<div className="quillforms-shortcode-setting-input">
+									<input
+										type="number"
+										value={shortcodeSettings.minHeight.value}
+										onChange={(e) => {
+											setShortcodeSettings(prev => ({
+												...prev,
+												minHeight: {
+													...prev.minHeight,
+													value: e.target.value
+												}
+											}));
+										}}
+									/>
+									<select
+										value={shortcodeSettings.minHeight.unit}
+										onChange={(e) => {
+											setShortcodeSettings(prev => ({
+												...prev,
+												minHeight: {
+													...prev.minHeight,
+													unit: e.target.value
+												}
+											}));
+										}}
+									>
+										<option value="px">px</option>
+										<option value="vh">vh</option>
+									</select>
+								</div>
+							</div>
 
-                            <div className="quillforms-shortcode-setting-row">
-                                <label>{__('Maximum Height', 'quillforms')}</label>
-                                <div className="quillforms-shortcode-setting-input">
-                                    <input
-                                        type="number"
-                                        value={shortcodeSettings.maxHeight.value}
-                                        onChange={(e) => {
-                                            setShortcodeSettings(prev => ({
-                                                ...prev,
-                                                maxHeight: {
-                                                    ...prev.maxHeight,
-                                                    value: e.target.value
-                                                }
-                                            }));
-                                        }}
-                                    />
-                                    <select
-                                        value={shortcodeSettings.maxHeight.unit}
-                                        onChange={(e) => {
-                                            setShortcodeSettings(prev => ({
-                                                ...prev,
-                                                maxHeight: {
-                                                    ...prev.maxHeight,
-                                                    unit: e.target.value
-                                                }
-                                            }));
-                                        }}
-                                    >
-                                        <option value="px">px</option>
-                                        <option value="vh">vh</option>
-                                        <option value="auto">auto</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+							<div className="quillforms-shortcode-setting-row">
+								<label>{__('Maximum Height', 'quillforms')}</label>
+								<div className="quillforms-shortcode-setting-input">
+									<input
+										type="number"
+										value={shortcodeSettings.maxHeight.value}
+										onChange={(e) => {
+											setShortcodeSettings(prev => ({
+												...prev,
+												maxHeight: {
+													...prev.maxHeight,
+													value: e.target.value
+												}
+											}));
+										}}
+									/>
+									<select
+										value={shortcodeSettings.maxHeight.unit}
+										onChange={(e) => {
+											setShortcodeSettings(prev => ({
+												...prev,
+												maxHeight: {
+													...prev.maxHeight,
+													unit: e.target.value
+												}
+											}));
+										}}
+									>
+										<option value="px">px</option>
+										<option value="vh">vh</option>
+										<option value="auto">auto</option>
+									</select>
+								</div>
+							</div>
+						</div>
 
-                        {/* Generated Shortcode */}
-                        <div className={generatedLinkContainer}>
-                            <h4>{__('Generated Shortcode', 'quillforms')}</h4>
-                            <div className={linkRow}>
-                                <input
-                                    type="text"
-                                    value={generateShortcode()}
-                                    readOnly
-                                />
-                                <Button
-                                    isPrimary
-                                    onClick={() => {
-                                        copyToClipboard(generateShortcode());
-                                        setIsCopied(true);
-                                    }}
-                                >
-                                    {isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </Modal>
-            )}
-            {modalState === 'embed' && (
-                <Modal
-                    title={__('Embed Code', 'quillforms')}
-                    onRequestClose={() => {
-                        setModalState(false);
-                    }}
-                >
-                    <div className="quillforms-share-modal">
-                        <p>{__('Copy the embed code below and insert it in your external page.', 'quillforms')}</p>
-                        <div className="quillforms-share-modal-link">
-                            <textarea
-                                style={{
-                                    minWidth: "400px",
-                                    minHeight: isWPEnv ? "50px" : "100px",
-                                    fontFamily: "monospace",
-                                    fontSize: "13px",
-                                    padding: "10px",
-                                    resize: "vertical"
-                                }}
-                                value={isWPEnv
-                                    ? `<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
-                                    : `<!-- QuillForms Embed Script (required for redirects) -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n<!-- QuillForms Form -->\n<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
-                                }
-                                readOnly
-                            />
-                            {isCopied ? (
-                                <Button isPrimary>{__('Copied!', 'quillforms')}</Button>
-                            ) : (
+						{/* Generated Shortcode */}
+						<div className={generatedLinkContainer}>
+							<h4>{__('Generated Shortcode', 'quillforms')}</h4>
+							<div className={linkRow}>
+								<input
+									type="text"
+									value={generateShortcode()}
+									readOnly
+								/>
+								<Button
+									isPrimary
+									onClick={() => {
+										copyToClipboard(generateShortcode());
+										setIsCopied(true);
+									}}
+								>
+									{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
+								</Button>
+							</div>
+						</div>
+					</div>
+				</Modal>
+			)}
+			{modalState === 'embed' && (
+				<Modal
+					title={__('Embed Code', 'quillforms')}
+					onRequestClose={() => {
+						setModalState(false);
+					}}
+				>
+					<div className="quillforms-share-modal">
+						<p>{__('Copy the embed code below and insert it in your external page.', 'quillforms')}</p>
+						<div className="quillforms-share-modal-link">
+							<textarea
+								style={{
+									minWidth: "400px",
+									minHeight: isWPEnv ? "50px" : "100px",
+									fontFamily: "monospace",
+									fontSize: "13px",
+									padding: "10px",
+									resize: "vertical"
+								}}
+								value={isWPEnv
+									? `<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+									: `<!-- QuillForms Embed Script (required for redirects) -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n<!-- QuillForms Form -->\n<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+								}
+								readOnly
+							/>
+							{isCopied ? (
+								<Button isPrimary>{__('Copied!', 'quillforms')}</Button>
+							) : (
 
-                                <Button isPrimary onClick={() => {
-                                    const embedCode = isWPEnv
-                                        ? `<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
-                                        : `<!-- QuillForms Embed Script (required for redirects) -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n<!-- QuillForms Form -->\n<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`;
-                                    copyToClipboard(embedCode);
-                                    setIsCopied(true);
-                                }}>{__('Copy', 'quillforms')}</Button>
-                            )}
-                        </div>
-                        {!isWPEnv && (
-                            <p className={css`
+								<Button isPrimary onClick={() => {
+									const embedCode = isWPEnv
+										? `<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`
+										: `<!-- QuillForms Embed Script (required for redirects) -->\n<script src="https://quillforms.app/embed/quillforms-embed.js"></script>\n\n<!-- QuillForms Form -->\n<iframe src="${payload.link}" width="100%" height="600" style="border:0;"></iframe>`;
+									copyToClipboard(embedCode);
+									setIsCopied(true);
+								}}>{__('Copy', 'quillforms')}</Button>
+							)}
+						</div>
+						{!isWPEnv && (
+							<p className={css`
                                 margin-top: 16px;
                                 padding: 12px;
                                 background: #FEF3C7;
@@ -679,22 +1042,22 @@ const ShareBody = ({ payload }) => {
                                 font-size: 13px;
                                 color: #92400E;
                             `}>
-                                {__('The embed script is required for form redirects to work properly on external websites.', 'quillforms')}
-                            </p>
-                        )}
-                    </div>
-                </Modal >
-            )
-            }
+								{__('The embed script is required for form redirects to work properly on external websites.', 'quillforms')}
+							</p>
+						)}
+					</div>
+				</Modal >
+			)
+			}
 
-            {modalState === 'popup' && (
-                <Modal
-                    title={__('Popup', 'quillforms')}
-                    onRequestClose={() => {
-                        setModalState(false);
-                    }}
-                    className={
-                        css`
+			{modalState === 'popup' && (
+				<Modal
+					title={__('Popup', 'quillforms')}
+					onRequestClose={() => {
+						setModalState(false);
+					}}
+					className={
+						css`
                             width: 100% !important;
                             height: 100% !important;
                             max-height: 100%;
@@ -714,206 +1077,206 @@ const ShareBody = ({ payload }) => {
                                 }
                                 .components-modal__header {
                                     margin: 0 0 45px;
-        
+
                                     div {
                                         justify-content: center;
                                     }
                                 }
                             }
                         `
-                    }
-                >
-                    <div className={css`
+					}
+				>
+					<div className={css`
                         display: flex;
                         flex-direction: column;
                         max-width: 1000px;
                         margin: auto;
                     `}>
 
-                        <div className="quillforms-share-popup-settings">
-                            <div>
-                                <h3>{__('Popup Settings', 'quillforms')}</h3>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button title', 'quillforms')}</label>
-                                    <input type="text" value={popupSettings.buttonTitle} onChange={(e) => {
-                                        setPopupSettings({
-                                            ...popupSettings,
-                                            buttonTitle: e.target.value
-                                        });
-                                    }} />
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button background color', 'quillforms')}</label>
-                                    <ComboColorPicker
-                                        color={popupSettings.buttonBackgroundColor}
-                                        setColor={(color) => {
-                                            setPopupSettings({
-                                                ...popupSettings,
-                                                buttonBackgroundColor: color
-                                            });
-                                        }}
-                                    />
+						<div className="quillforms-share-popup-settings">
+							<div>
+								<h3>{__('Popup Settings', 'quillforms')}</h3>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button title', 'quillforms')}</label>
+									<input type="text" value={popupSettings.buttonTitle} onChange={(e) => {
+										setPopupSettings({
+											...popupSettings,
+											buttonTitle: e.target.value
+										});
+									}} />
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button background color', 'quillforms')}</label>
+									<ComboColorPicker
+										color={popupSettings.buttonBackgroundColor}
+										setColor={(color) => {
+											setPopupSettings({
+												...popupSettings,
+												buttonBackgroundColor: color
+											});
+										}}
+									/>
 
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button text color', 'quillforms')}</label>
-                                    <ColorPicker
-                                        value={popupSettings.buttonTextColor}
-                                        onChange={(color) => {
-                                            setPopupSettings({
-                                                ...popupSettings,
-                                                buttonTextColor: color
-                                            });
-                                        }}
-                                    />
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button border radius(px)', 'quillforms')}</label>
-                                    <input type="number" value={popupSettings.buttonBorderRadius} onChange={(e) => {
-                                        setPopupSettings({
-                                            ...popupSettings,
-                                            buttonBorderRadius: e.target.value
-                                        });
-                                    }} />
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button border width(px)', 'quillforms')}</label>
-                                    <input type="number" value={popupSettings.buttonBorderWidth} onChange={(e) => {
-                                        setPopupSettings({
-                                            ...popupSettings,
-                                            buttonBorderWidth: e.target.value
-                                        });
-                                    }} />
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button border color', 'quillforms')}</label>
-                                    <ColorPicker
-                                        value={popupSettings.buttonBorderColor}
-                                        onChange={(color) => {
-                                            setPopupSettings({
-                                                ...popupSettings,
-                                                buttonBorderColor: color
-                                            });
-                                        }}
-                                    />
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button font size(px)', 'quillforms')}</label>
-                                    <input type="number" value={popupSettings.buttonFontSize} onChange={(e) => {
-                                        setPopupSettings({
-                                            ...popupSettings,
-                                            buttonFontSize: e.target.value
-                                        });
-                                    }} />
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Button padding(px)', 'quillforms')}</label>
-                                    <div className="quillforms-share-popup-settings-row-padding-group">
-                                        <div>
-                                            <span>{__('Top', 'quillforms')}</span>
-                                            <input type="number" value={popupSettings.buttonPadding.top} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    buttonPadding: {
-                                                        ...popupSettings.buttonPadding,
-                                                        top: e.target.value !== '' ? e.target.value : 0
-                                                    }
-                                                });
-                                            }} />
-                                        </div>
-                                        <div>
-                                            <span>{__('Right', 'quillforms')}</span>
-                                            <input type="number" value={popupSettings.buttonPadding.right} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    buttonPadding: {
-                                                        ...popupSettings.buttonPadding,
-                                                        right: e.target.value !== '' ? e.target.value : 0
-                                                    }
-                                                });
-                                            }} />
-                                        </div>
-                                        <div>
-                                            <span>{__('Bottom', 'quillforms')}</span>
-                                            <input type="number" value={popupSettings.buttonPadding.bottom} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    buttonPadding: {
-                                                        ...popupSettings.buttonPadding,
-                                                        bottom: e.target.value !== '' ? e.target.value : 0
-                                                    }
-                                                });
-                                            }} />
-                                        </div>
-                                        <div>
-                                            <span>{__('Left', 'quillforms')}</span>
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button text color', 'quillforms')}</label>
+									<ColorPicker
+										value={popupSettings.buttonTextColor}
+										onChange={(color) => {
+											setPopupSettings({
+												...popupSettings,
+												buttonTextColor: color
+											});
+										}}
+									/>
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button border radius(px)', 'quillforms')}</label>
+									<input type="number" value={popupSettings.buttonBorderRadius} onChange={(e) => {
+										setPopupSettings({
+											...popupSettings,
+											buttonBorderRadius: e.target.value
+										});
+									}} />
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button border width(px)', 'quillforms')}</label>
+									<input type="number" value={popupSettings.buttonBorderWidth} onChange={(e) => {
+										setPopupSettings({
+											...popupSettings,
+											buttonBorderWidth: e.target.value
+										});
+									}} />
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button border color', 'quillforms')}</label>
+									<ColorPicker
+										value={popupSettings.buttonBorderColor}
+										onChange={(color) => {
+											setPopupSettings({
+												...popupSettings,
+												buttonBorderColor: color
+											});
+										}}
+									/>
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button font size(px)', 'quillforms')}</label>
+									<input type="number" value={popupSettings.buttonFontSize} onChange={(e) => {
+										setPopupSettings({
+											...popupSettings,
+											buttonFontSize: e.target.value
+										});
+									}} />
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Button padding(px)', 'quillforms')}</label>
+									<div className="quillforms-share-popup-settings-row-padding-group">
+										<div>
+											<span>{__('Top', 'quillforms')}</span>
+											<input type="number" value={popupSettings.buttonPadding.top} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													buttonPadding: {
+														...popupSettings.buttonPadding,
+														top: e.target.value !== '' ? e.target.value : 0
+													}
+												});
+											}} />
+										</div>
+										<div>
+											<span>{__('Right', 'quillforms')}</span>
+											<input type="number" value={popupSettings.buttonPadding.right} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													buttonPadding: {
+														...popupSettings.buttonPadding,
+														right: e.target.value !== '' ? e.target.value : 0
+													}
+												});
+											}} />
+										</div>
+										<div>
+											<span>{__('Bottom', 'quillforms')}</span>
+											<input type="number" value={popupSettings.buttonPadding.bottom} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													buttonPadding: {
+														...popupSettings.buttonPadding,
+														bottom: e.target.value !== '' ? e.target.value : 0
+													}
+												});
+											}} />
+										</div>
+										<div>
+											<span>{__('Left', 'quillforms')}</span>
 
-                                            <input type="number" value={popupSettings.buttonPadding.left} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    buttonPadding: {
-                                                        ...popupSettings.buttonPadding,
-                                                        left: e.target.value !== '' ? e.target.value : 0
-                                                    }
-                                                });
-                                            }} />
-                                        </div>
+											<input type="number" value={popupSettings.buttonPadding.left} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													buttonPadding: {
+														...popupSettings.buttonPadding,
+														left: e.target.value !== '' ? e.target.value : 0
+													}
+												});
+											}} />
+										</div>
 
-                                    </div>
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Popup max width', 'quillforms')}</label>
-                                    <div className="quillforms-share-popup-settings-row-max-width-group">
-                                        <div>
-                                            <input type="number" value={popupSettings.popupMaxWidth} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    popupMaxWidth: e.target.value !== '' ? e.target.value : 0
-                                                });
-                                            }} />
-                                            <select value={popupSettings.popupMaxWidthUnit} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    popupMaxWidthUnit: e.target.value
-                                                });
-                                            }}>
-                                                <option value="px">px</option>
-                                                <option value="%">%</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="quillforms-share-popup-settings-row">
-                                    <label>{__('Popup max height', 'quillforms')}</label>
-                                    <div className="quillforms-share-popup-settings-row-max-height-group">
-                                        <div>
-                                            <input type="number" value={popupSettings.popupMaxHeight} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    popupMaxHeight: e.target.value !== '' ? e.target.value : 0
-                                                });
-                                            }} />
-                                            <select value={popupSettings.popupMaxHeightUnit} onChange={(e) => {
-                                                setPopupSettings({
-                                                    ...popupSettings,
-                                                    popupMaxHeightUnit: e.target.value
-                                                });
-                                            }}>
-                                                <option value="px">px</option>
-                                                <option value="%">%</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={css`
+									</div>
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Popup max width', 'quillforms')}</label>
+									<div className="quillforms-share-popup-settings-row-max-width-group">
+										<div>
+											<input type="number" value={popupSettings.popupMaxWidth} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													popupMaxWidth: e.target.value !== '' ? e.target.value : 0
+												});
+											}} />
+											<select value={popupSettings.popupMaxWidthUnit} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													popupMaxWidthUnit: e.target.value
+												});
+											}}>
+												<option value="px">px</option>
+												<option value="%">%</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div className="quillforms-share-popup-settings-row">
+									<label>{__('Popup max height', 'quillforms')}</label>
+									<div className="quillforms-share-popup-settings-row-max-height-group">
+										<div>
+											<input type="number" value={popupSettings.popupMaxHeight} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													popupMaxHeight: e.target.value !== '' ? e.target.value : 0
+												});
+											}} />
+											<select value={popupSettings.popupMaxHeightUnit} onChange={(e) => {
+												setPopupSettings({
+													...popupSettings,
+													popupMaxHeightUnit: e.target.value
+												});
+											}}>
+												<option value="px">px</option>
+												<option value="%">%</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div className={css`
                                 position: fixed;
                                 right: 318px;
                                 top: 100px;
                             `}>
-                                <h3>{__('Preview', 'quillforms')}</h3>
-                                <div className="quillforms-share-popup-preview">
-                                    <a className={css`
+								<h3>{__('Preview', 'quillforms')}</h3>
+								<div className="quillforms-share-popup-preview">
+									<a className={css`
                                     display: inline-block;
                                     background: ${popupSettings.buttonBackgroundColor};
                                     color: ${popupSettings.buttonTextColor} !important;
@@ -922,46 +1285,46 @@ const ShareBody = ({ payload }) => {
                                     font-size: ${popupSettings.buttonFontSize}px;
                                     padding: ${popupSettings.buttonPadding.top ?? 0}px ${popupSettings.buttonPadding.right ?? 0}px ${popupSettings.buttonPadding.bottom ?? 0}px ${popupSettings.buttonPadding.left ?? 0}px;
                                 `}>
-                                        {popupSettings.buttonTitle}
-                                    </a>
-                                </div>
-                                <p>{__('Copy the shortcode below and insert it in your WordPress page or post.', 'quillforms')}</p>
-                                <div style={{
-                                    minWidth: "100%", height: "140px", maxHeight: "150px", minHeight: "150px", maxWidth: "400px",
-                                    padding: "10px",
-                                    border: "1px solid #848282",
-                                    background: "#eee",
-                                    marginBottom: "10px",
-                                }}>
-                                    {popupShortcode}
-                                </div>
-                                {isCopied ? (
-                                    <Button isPrimary>{__('Copied!', 'quillforms')}</Button>
-                                ) : (
+										{popupSettings.buttonTitle}
+									</a>
+								</div>
+								<p>{__('Copy the shortcode below and insert it in your WordPress page or post.', 'quillforms')}</p>
+								<div style={{
+									minWidth: "100%", height: "140px", maxHeight: "150px", minHeight: "150px", maxWidth: "400px",
+									padding: "10px",
+									border: "1px solid #848282",
+									background: "#eee",
+									marginBottom: "10px",
+								}}>
+									{popupShortcode}
+								</div>
+								{isCopied ? (
+									<Button isPrimary>{__('Copied!', 'quillforms')}</Button>
+								) : (
 
-                                    <Button isPrimary onClick={() => {
-                                        copyToClipboard(popupShortcode);
-                                        setIsCopied(true);
-                                    }}>{__('Copy', 'quillforms')}</Button>
-                                )}
-                            </div>
-                        </div>
+									<Button isPrimary onClick={() => {
+										copyToClipboard(popupShortcode);
+										setIsCopied(true);
+									}}>{__('Copy', 'quillforms')}</Button>
+								)}
+							</div>
+						</div>
 
 
-                    </div>
-                </Modal >
-            )
-            }
+					</div>
+				</Modal >
+			)
+			}
 
-            {modalState === 'qr' && (
-                <Modal
-                    title={__('QR Code', 'quillforms')}
-                    onRequestClose={() => {
-                        setModalState(null);
-                    }}
-                    className={
-                        css`
-                            
+			{modalState === 'qr' && (
+				<Modal
+					title={__('QR Code', 'quillforms')}
+					onRequestClose={() => {
+						setModalState(null);
+					}}
+					className={
+						css`
+
                             min-height: 600px;
                             max-width: 600px;
 
@@ -974,50 +1337,50 @@ const ShareBody = ({ payload }) => {
                                 }
                                 .components-modal__header {
                                     margin: 0 0 45px;
-        
+
                                     div {
                                         justify-content: center;
                                     }
                                 }
                             }
                         `
-                    }
-                >
-                    <div className={css`
+					}
+				>
+					<div className={css`
                         display: flex;
                         flex-direction: column;
                         align-items: center;
                         padding: 0 20px;
                     `}>
-                        <div className="quillforms-qr-share-modal">
-                            <p>{__('Simply scan the code to initiate your Quill Forms, which function seamlessly both online and offline (printer required naturally).', 'quillforms')}
-                            </p>
-                            <p className={css`
+						<div className="quillforms-qr-share-modal">
+							<p>{__('Simply scan the code to initiate your Quill Forms, which function seamlessly both online and offline (printer required naturally).', 'quillforms')}
+							</p>
+							<p className={css`
                                 background: #ffaef7;
                                 padding: 5px 10px;
                                 border-radius: 5px;
                             `}>{__('Changing the slug of your form within the builder will result in a corresponding alteration of the QR code.', 'quillforms')}
-                            </p>
-                            <div className={css`
+							</p>
+							<div className={css`
                                 text-align: center;
                                 display: flex;
                                 flex-direction: column;
                                 align-items: center;
                                 margin-top: 40px;
                             `}>
-                                <QRCode value={payload?.link} />
-                                <Button className={css`
+								<QRCode value={payload?.link} />
+								<Button className={css`
                                     margin-top: 20px;
                                 `} isPrimary isLarge onClick={() => downloadQR()}>{__('Download', 'quillforms')}</Button>
 
-                            </div>
+							</div>
 
-                        </div>
-                    </div>
-                </Modal >
-            )}
-        </div>
-    )
+						</div>
+					</div>
+				</Modal >
+			)}
+		</div>
+	)
 };
 
 export default ShareBody;

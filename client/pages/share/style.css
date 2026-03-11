@@ -1,11 +1,519 @@
+/* ─────────────────────────────────────────
+   Share page – two-panel grid layout
+───────────────────────────────────────── */
+.quillforms-share-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    padding: 16px;
+    height: calc(100vh - 56px);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* ── Left panel (accordion card) ── */
+.quillforms-share-left {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #B2328C transparent;
+}
+.quillforms-share-left::-webkit-scrollbar {
+    width: 4px;
+}
+.quillforms-share-left::-webkit-scrollbar-thumb {
+    background: #B2328C;
+    border-radius: 4px;
+}
+
+.quillforms-share-left__header {
+    display: flex;
+    align-items:center;
+	justify-content: flex-start;
+    gap: 8px;
+    padding: 20px ;
+    border-bottom: 1px solid #D9D9D9;
+}
+.quillforms-share-left__title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #334155;
+    margin: 0;
+    line-height: 28px;
+}
+
+/* ── Accordion ── */
+.quillforms-share-accordion {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+.quillforms-share-accordion__item {
+    border: 1px solid #D9D9D9;
+    border-radius: 16px;
+    background: #F7F8FA;
+}
+
+.quillforms-share-accordion__toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    text-align: left;
+    border-radius: 12px;
+}
+.quillforms-share-accordion__toggle:hover {
+    background: #F9FAFB;
+}
+.quillforms-share-accordion__item--open .quillforms-share-accordion__toggle {
+    border-bottom: 1px solid #D9D9D9;
+	border-radius: 12px 12px 0 0;
+    color: #334155;
+	font-weight: 500;
+	line-height: 26px;
+}
+.quillforms-share-accordion__toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.quillforms-share-accordion__shortcode-bracket {
+    font-size: 18px;
+    font-weight: 700;
+    color: #B2328C;
+}
+.quillforms-share-accordion__content {
+    padding: 16px;
+}
+.quillforms-share-accordion__desc {
+    font-size: 13px;
+    color: #555;
+    margin: 0 0 12px;
+}
+
+/* ── Info banner inside accordion ── */
+.quillforms-share-info-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.quillforms-share-info-banner__icon {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    background: #fff;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 40px 0 rgba(87, 3, 3, 0.06);
+    overflow: hidden;
+}
+.quillforms-share-info-banner__icon img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+.quillforms-share-info-banner__title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    color: #334155;
+}
+.quillforms-share-info-banner__desc {
+    margin: 0;
+    font-size: 15px;
+    line-height: 24px;
+    color: #334155;
+    font-weight: 500;
+}
+
+/* ── Form field controls inside accordion ── */
+.quillforms-share-field-label {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+	line-height: 28px;
+    color: #334155;
+    margin-bottom: 8px;
+}
+.quillforms-share-field-label--sm {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+/* URL row — single card wrapping input + copy button */
+.quillforms-share-field-row, .quillforms-share-field-row-mono {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 16px;
+    border: 1px solid #D9D9D9;
+    border-radius: 16px;
+    background: #fff;
+    overflow: hidden;
+    padding:  16px;
+}
+.quillforms-share-field-row-mono {
+	margin-bottom: 0 !important;
+}
+
+.quillforms-share-field-input,
+.quillforms-share-field-input--mono {
+    flex: 1;
+    padding: 0;
+    border: none !important;
+    border-radius: 0;
+    font-size: 16px;
+    color: #334155;
+    background: transparent !important;
+    min-width: 0;
+    outline: none !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 12px;
+	line-height: 28px;
+}
+.quillforms-share-field-textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #D9D9D9;
+    border-radius: 12px;
+    font-size: 12px;
+    font-family: monospace;
+    resize: vertical;
+    background: #fff;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    outline: none;
+}
+.quillforms-share-field-textarea:focus {
+    border-color: #B2328C;
+}
+
+/* Slug input — standalone card */
+.quillforms-share-slug-input {
+    width: 100%;
+    padding: 16px !important;
+    border: 1px solid #D9D9D9 !important;
+    border-radius: 16px !important;
+    font-size: 16px;
+	line-height: 28px;
+    color: #334155;
+    background: #fff;
+    box-sizing: border-box;
+}
+.quillforms-share-slug-input::placeholder {
+    color: #777;
+}
+.quillforms-share-slug-input:focus {
+    outline: none;
+    border-color: #B2328C;
+}
+
+/* Copy button — outline pink pill style */
+.quillforms-share-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #fff;
+    color: #B2328C;
+    border: 1px solid #B2328C;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+	line-height: 26px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+}
+.quillforms-share-copy-btn:hover {
+    background: #FFEEFB;
+}
+.quillforms-share-copy-btn--full {
+    width: 100%;
+    padding: 12px;
+    background: #B2328C;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.quillforms-share-copy-btn--full:hover {
+    background: #8d246c;
+}
+
+/* ── Hidden fields block ── */
+.quillforms-share-hidden-fields {
+    margin-top: 14px;
+}
+.quillforms-share-hidden-fields__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 8px;
+}
+.quillforms-share-hidden-field-row {
+    margin-bottom: 10px;
+}
+.quillforms-share-hidden-field-row label {
+    display: block;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 4px;
+}
+.quillforms-share-hidden-field-row input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+/* ── Settings block (shortcode / popup) ── */
+.quillforms-share-settings-block {
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 14px;
+}
+.quillforms-share-settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.quillforms-share-settings-row label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+}
+.quillforms-share-settings-inputs {
+    display: flex;
+    gap: 6px;
+}
+.quillforms-share-settings-inputs input {
+    width: 60px;
+    padding: 6px 8px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    font-size: 13px;
+}
+.quillforms-share-settings-inputs select {
+    padding: 6px 4px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* ── Dimension rows (shortcode width/height settings) ── */
+.quillforms-share-dimension-row {
+    margin-bottom: 16px;
+}
+.quillforms-share-dimension-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.quillforms-share-dimension-input {
+    width: 100%;
+    padding:12px !important;
+    border: 1px solid #D9D9D9 !important;
+    border-radius: 16px !important;
+    font-size: 16px;
+	line-height: 28px;
+    color: #334155;
+    background: #fff;
+    box-sizing: border-box;
+    outline: none;
+}
+.quillforms-share-dimension-input:focus {
+    border-color: #B2328C;
+}
+.quillforms-share-dimension-select {
+    width: 100%;
+    padding: 12px !important;
+    border: 1px solid #D9D9D9 !important;
+    border-radius: 16px !important;
+    font-size: 16px;
+    color: #334155;
+	line-height: 28px;
+    background: #fff;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+}
+.quillforms-share-dimension-select:focus {
+    border-color: #B2328C;
+}
+
+/* Popup simple field row */
+.quillforms-share-popup-field {
+    margin-bottom: 10px;
+}
+.quillforms-share-popup-field input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+/* ── QR section ── */
+.quillforms-share-qr-content {
+    padding: 20px;
+}
+
+.quillforms-share-qr-warning {
+    margin: 16px 0 24px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #CB5301;
+    background: #FAEADF;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+}
+.quillforms-share-qr-warning__icon {
+    font-size: 16px;
+    line-height: 26px;
+    color: #CB5301;
+	font-weight: 500;
+}
+.quillforms-share-qr-warning__text {
+    font-size: 16px;
+    line-height: 26px;
+    color: #CB5301;
+	font-weight: 500;
+}
+
+.quillforms-share-qr-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+}
+.quillforms-qr-share-modal {
+    display: inline-block;
+}
+
+.quillforms-share-qr-download-btn {
+    padding: 12px 24px;
+    border-radius: 16px;
+    border: none;
+    background: linear-gradient(90deg, #B2328C 0%, #D23FB1 100%);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+	line-height: 28px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.quillforms-share-qr-download-btn:hover {
+    opacity: 0.95;
+}
+
+/* ── Right panel (preview card) ── */
+.quillforms-share-right {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── Device switcher ── */
+.quillforms-share-device-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 0;
+    background: #fff;
+    border-bottom: 1px solid #E5E7EB;
+}
+.quillforms-share-device-btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: #6B7280;
+    background: transparent;
+}
+.quillforms-share-device-btn:hover {
+    background: #F3F4F6;
+}
+.quillforms-share-device-btn--active {
+    color: #B2328C;
+    background: #FFEEFB;
+}
+
+/* ── Iframe preview wrapper ── */
+.quillforms-share-preview {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: auto;
+    transition: background 0.3s ease, padding 0.3s ease;
+}
+.quillforms-share-preview__frame {
+    max-width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: width 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ─────────────────────────────────────────
+   Legacy styles (kept for back-compat)
+───────────────────────────────────────── */
 .quillforms-share-card {
     cursor: pointer;
 }
 .quillforms-share-card:hover {
-    background:#f1f1f1;
-    
+    background: #f1f1f1;
 }
-
 .quillforms-share-modal-link {
     display: flex;
     align-items: center;
@@ -40,18 +548,15 @@
     overflow: hidden;
     border: 2px dashed #b4b2b2;
 }
-
 .quillforms-share-popup-settings-row-max-width-group input,
 .quillforms-share-popup-settings-row-max-height-group input {
     width: 65px;
-    
 }
 .quillforms-share-popup-settings-row-max-height-group div,
 .quillforms-share-popup-settings-row-max-width-group div {
     display: flex;
     align-items: center;
 }
-
 .quillforms-shortcode-settings {
     margin: 20px 0;
     padding: 20px;
