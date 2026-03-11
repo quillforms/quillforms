@@ -17,6 +17,8 @@
 	width: 100%;
 	max-height: 100%;
 	overflow-y: auto;
+	overflow-x: hidden;
+	box-sizing: border-box;
 }
 .qf-page-component-wrapper.has-sidebar {
 	margin-top: 55px;
