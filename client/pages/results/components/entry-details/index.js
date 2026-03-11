@@ -9,7 +9,7 @@ import ConfigAPI from "@quillforms/config";
  */
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { Modal } from '@wordpress/components';
 
 /**
@@ -114,15 +114,33 @@ export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
 					{/* ── Modals ── */}
 					{notesModalOpen && (
 						<Modal
-							title={__('Notes', 'quillforms')}
+							title={sprintf(
+								/* translators: %s: entry id */
+								__('Notes of ID: %s', 'quillforms'),
+								entry?.ID ?? ''
+							)}
 							onRequestClose={() => setNotesModalOpen(false)}
 							className={css`
 								border: none !important;
-								border-radius: 12px;
-								min-width: 480px;
+								color: #334155;
+								font-size: 24px;
+								font-weight: 500;
+								border-radius: 16px;
+								min-width: 700px;
+								.components-modal__header {
+									border-bottom: 1px solid #E2E8F0;
+									padding: 16px 24px;
+								}
+								.components-modal__content {
+									padding: 0 24px 24px;
+								}
 							`}
 						>
-							<Notes entry={entry} />
+							<div className="qf-entry-notes-modal">
+								<div className="qf-entry-notes-modal__card">
+									<Notes entry={entry} />
+								</div>
+							</div>
 						</Modal>
 					)}
 
