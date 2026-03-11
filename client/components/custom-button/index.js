@@ -14,7 +14,7 @@ const CustomButton = ({
 		secondary:
 			'bg-gray-500 !text-white hover:bg-gray-600 hover:!text-white focus:!text-white active:!text-white',
 		danger:
-			'bg-red-600 !text-white hover:bg-red-700 hover:!text-white focus:!text-white active:!text-white',
+			'bg-[#E13B3B] !text-white hover:bg-[#E13B3B] hover:!text-white focus:!text-white active:!text-white',
 		outline:
 			'bg-white p-3 border !border-border-color rounded-2xl hover:!border-border-color focus:!border-border-color active:!border-border-color focus:!outline-none !text-[#334155]',
 		outlineSecondary:

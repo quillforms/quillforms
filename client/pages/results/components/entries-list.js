@@ -255,6 +255,7 @@ export const EntriesList = ({
 						activeEntryId,
 						selectedField,
 						recordsInfo,
+						formId,
 						deleteEntry: ($activeEntryId) => {
 							setSelectedEntries(
 								selectedEntries.filter((a) => a !== $activeEntryId)

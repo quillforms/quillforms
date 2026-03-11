@@ -1,100 +1,138 @@
 /**
- * QuillForms Dependencies
- */
-import { Button } from '@quillforms/admin-components';
-
-/**
  * WordPress Dependencies
  */
-import { Modal } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
  */
-import classnames from 'classnames';
 import { css } from 'emotion';
 
-const DeleteAlertModal = ({ approve, closeModal, isDeleting }) => {
-	return (
-		<Modal
-			className={classnames(
-				'qf-entry-delete-alert-modal',
-				css`
-					border: none !important;
-					min-width: 420px !important;
-					max-width: 470px !important;
-					border-radius: 10px;
-					z-index: 1111111;
+/**
+ * Internal Dependencies
+ */
+import CustomModal from '../../../components/custom-modal';
+import CustomButton from '../../../components/custom-button';
+import trashImage from '../../../../assets/images/trash.png';
+import AlertIcon from '../../../components/icon/alert-icon';
 
-					.components-modal__header {
-						background: #c5152b;
-						.components-modal__header-heading {
-							color: #fff;
-						}
-						.components-button.has-icon svg {
-							fill: #fff;
-						}
-					}
-				`
-			)}
-			// Because focus on editor is causing the click handler to be triggered
-			shouldCloseOnClickOutside={false}
-			title={__('Warning!', 'quillforms')}
-			onRequestClose={closeModal}
+const DeleteAlertModal = ({ approve, closeModal, isDeleting }) => {
+	const [confirmText, setConfirmText] = useState('');
+	const isConfirmed = confirmText === 'Confirm';
+
+	return (
+		<CustomModal
+			isOpen={true}
+			onClose={closeModal}
+			title={__('Delete this response', 'quillforms')}
+			centerTitle={true}
+			noBorder={true}
 		>
-			<div>{__('Are you sure you want to proceed?', 'quillforms')}</div>
-			<div
-				className={css`
-					display: flex;
-					margin-top: 10px;
-					justify-content: flex-end;
-				` }
-			>
-				<Button
-					isDefault
-					isLarge
+			<div className="flex flex-col items-center text-center gap-4">
+				{/* Trash image */}
+				<img
+					src={trashImage}
+					alt={__('Delete', 'quillforms')}
 					className={css`
-						margin-right: 10px !important;
-					` }
-					onClick={() => {
-						closeModal();
-					}}
+
+						object-fit: contain;
+						margin: 0 auto;
+						display: block;
+					`}
+				/>
+
+				{/* Warning text */}
+				<p
+					className={css`
+						font-size: 18px;
+						line-height: 28px;
+						color: #777;
+						font-weight: 500;
+						margin: 0;
+
+					`}
 				>
-					{__('Cancel', 'quillforms')}
-				</Button>
-				{isDeleting ? (
-					<Button
-						isLarge
+					{__(
+						"Are you sure want to delete the selected response? This action cannot be undone.",
+						'quillforms'
+					)}
+				</p>
+
+				{/* Confirm input */}
+				<input
+					type="text"
+					value={confirmText}
+					onChange={(e) => setConfirmText(e.target.value)}
+					placeholder={__('Type here', 'quillforms')}
+					className={css`
+						width: 100%;
+						border: 1px solid #D9D9D9 !important;
+						border-radius: 16px !important;
+						padding: 12px 16px !important;
+						font-size: 16px;
+						color: #334155;
+						outline: none;
+						transition: border-color 0.2s;
+						&:focus {
+							border-color: #B2328C;
+						}
+					`}
+				/>
+
+				{/* Hint */}
+				<p
+					className={css`
+						display: flex;
+						align-items: center;
+						gap: 4px;
+						font-size: 16px;
+						line-height: 26px;
+						font-weight: 500;
+						color: #E13B3B;
+						align-self: flex-start;
+					`}
+				>
+					<AlertIcon width={24} height={24} color='#E13B3B' />
+					{__('Type "Confirm" to delete this response', 'quillforms')}
+				</p>
+
+				{/* Action buttons */}
+				<div
+					className={css`
+						display: flex;
+						justify-content: flex-end;
+						gap: 24px;
+						width: 100%;
+
+					`}
+				>
+					<CustomButton
+						text={__('Cancel', 'quillforms')}
+						variant="outlineSecondary"
+						onClick={closeModal}
 						className={css`
-							width: 70px;
-							display: flex;
-							justify-content: center;
-							align-items: center;
-						` }
-						isPrimary
-					>
-						{__('Deleting...', 'quillforms')}
-					</Button>
-				) : (
-					<Button
-						isLarge
-						className={css`
-							width: 70px;
-							display: flex;
-							justify-content: center;
-							align-items: center;
-						` }
+							padding: 8px 12px !important;
+							border-radius: 8px !important;
+						`}
+					/>
+					<CustomButton
+						text={isDeleting ? __('Deleting...', 'quillforms') : __('Delete', 'quillforms')}
+						variant="danger"
 						onClick={() => {
-							approve();
+							if (isConfirmed && !isDeleting) approve();
 						}}
-						isPrimary
-					>
-						{__('Proceed', 'quillforms')}
-					</Button>
-				)}
+						disabled={!isConfirmed || isDeleting}
+						className={css`
+							padding: 8px 12px !important;
+							border-radius: 8px !important;
+							opacity: ${!isConfirmed || isDeleting ? '0.5' : '1'};
+							cursor: ${!isConfirmed || isDeleting ? 'not-allowed' : 'pointer'};
+						`}
+					/>
+				</div>
 			</div>
-		</Modal>
+		</CustomModal>
 	);
 };
 
