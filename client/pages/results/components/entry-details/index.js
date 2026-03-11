@@ -1,7 +1,6 @@
 /**
  * QuillForms Dependencies
  */
-import { __experimentalAddonFeatureAvailability } from '@quillforms/admin-components';
 import ConfigAPI from "@quillforms/config";
 
 /**
@@ -23,6 +22,9 @@ import UserSubmissionInfo from './user-submission-info';
 import { css } from 'emotion';
 import EyeIcon from '../../../../components/icon/eye-icon';
 import UploadIcon from '../../../../components/icon/upload-icon';
+import CustomModal from '../../../../components/custom-modal';
+import CustomButton from '../../../../components/custom-button';
+import lockImage from '../../../../../assets/images/lock.png';
 
 
 export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
@@ -144,30 +146,53 @@ export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
 						</Modal>
 					)}
 
-					{pdfModalOpen && (
-						<Modal
-							title={__('PDF Export', 'quillforms')}
-							onRequestClose={() => setPdfModalOpen(false)}
-							className={css`
-								border: none !important;
-								border-radius: 12px;
-								.components-modal__header {
-									background: linear-gradient(42deg, rgb(235 54 221), rgb(238 142 22));
-									h1 { color: #fff; }
-									svg { fill: #fff; }
-								}
-								.components-modal__content {
-									text-align: center;
-								}
+					<CustomModal
+						isOpen={pdfModalOpen}
+						onClose={() => setPdfModalOpen(false)}
+						title={__('PDF Export is a pro feature', 'quillforms')}
+						centerTitle={true}
+						noBorder={true}
+					>
+						<div className="flex flex-col items-center text-center gap-4">
+							<img
+								src={lockImage}
+								alt={__('Lock', 'quillforms')}
+								className={css`
+								object-fit: contain;
+								margin: 0 auto;
+								display: block;
 							`}
-						>
-							<__experimentalAddonFeatureAvailability
-								featureName={__("PDF Export", "quillforms")}
-								addonSlug={"pdf"}
-								showLockIcon={true}
 							/>
-						</Modal>
-					)}
+							<p
+								className={css`
+								font-size: 18px;
+								line-height: 28px;
+								color: #777;
+								font-weight: 500;
+								margin: 0;
+
+							`}
+							>
+								{__(
+									"We're sorry, PDF Export is not available on your plan. Please upgrade to the Basic plan to unlock all of Basic features",
+									'quillforms'
+								)}
+							</p>
+							<CustomButton
+								text={__('Upgrade to Basic!', 'quillforms')}
+								variant="primary"
+								onClick={() => {
+									window.open('https://quillforms.com/pricing', '_blank');
+								}}
+								className={css`
+								font-size: 18px !important;
+								padding: 12px 96px !important;
+								border-radius: 16px !important;
+
+							`}
+							/>
+						</div>
+					</CustomModal>
 
 					{modelOpen && (
 						<DeleteAlertModal

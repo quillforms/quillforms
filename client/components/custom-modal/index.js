@@ -60,7 +60,7 @@ const CustomModal = ({
 				</div>
 
 				{/* Content */}
-				<div className="p-6">
+				<div className={`p-6 ${noBorder ? ' pt-0' : ' pt-6'}`}>
 					{children}
 				</div>
 			</div>
