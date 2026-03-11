@@ -184,7 +184,7 @@ export const EntriesList = ({
 		<>
 			<div className="qf_entry-list-responses-count">
 				<div className='flex justify-between items-center border-b border-[#D9D9D9] pb-5'>
-					<div className="qf_entry-list-actions text-lg font-semibold leading-7 ">
+					<div className="qf_entry-list-actions flex items-center text-lg font-semibold leading-7 ">
 						<CheckboxControl
 							checkboxStatus={
 								size(selectedEntries) === size(entries)
