@@ -18,17 +18,7 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: #B2328C transparent;
-}
-.quillforms-share-left::-webkit-scrollbar {
-    width: 4px;
-}
-.quillforms-share-left::-webkit-scrollbar-thumb {
-    background: #B2328C;
-    border-radius: 4px;
+    overflow: hidden;
 }
 
 .quillforms-share-left__header {
@@ -55,6 +45,18 @@
     flex-direction: column;
     gap: 20px;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #D4D4D8 transparent;
+}
+.quillforms-share-accordion::-webkit-scrollbar {
+    width: 4px;
+}
+.quillforms-share-accordion::-webkit-scrollbar-track {
+    background: transparent;
+}
+.quillforms-share-accordion::-webkit-scrollbar-thumb {
+    background: #D4D4D8;
+    border-radius: 9999px;
 }
 .quillforms-share-accordion__item {
     border: 1px solid #D9D9D9;
@@ -77,9 +79,7 @@
     text-align: left;
     border-radius: 12px;
 }
-.quillforms-share-accordion__toggle:hover {
-    background: #F9FAFB;
-}
+
 .quillforms-share-accordion__item--open .quillforms-share-accordion__toggle {
     border-bottom: 1px solid #D9D9D9;
 	border-radius: 12px 12px 0 0;
