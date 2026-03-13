@@ -1,7 +1,7 @@
 import CodeIcon from "./code-icon";
 import LinkIcon from "./link-icon";
 import PopupIcon from "./popup-icon";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelect } from "@wordpress/data";
 import { Modal } from "@wordpress/components";
 import { ComboColorPicker, ColorPicker } from "@quillforms/theme-editor";
@@ -18,6 +18,62 @@ import Share from "../../../assets/images/share.png";
 import Shortcode from "../../../assets/images/shortcode.png";
 import EmdedCode from "../../../assets/images/embedcode.png";
 import QrCodeImg from "../../../assets/images/qrcode.png";
+import PopupImg from "../../../assets/images/popup.png";
+
+// Shared palette colors (same as Emails settings panels)
+const BUTTON_PALETTE_COLORS = [
+	'#fce7f3', '#ef4444', '#f97316', '#f59e0b',
+	'#34d399', '#14b8a6', '#7dd3fc', '#3b82f6',
+	'#8b5cf6', '#a855f7', '#d1d5db', '#1e293b',
+];
+
+const ButtonColorPalette = ({ value, onChange, defaultColor }) => {
+	const inputRef = useRef(null);
+
+	return (
+		<div className="quillforms-share-popup-color-palette">
+			<div className="quillforms-share-popup-color-palette__row">
+				<button
+					type="button"
+					onClick={() => inputRef.current?.click()}
+					className="quillforms-share-popup-color-palette__add"
+				>
+					+
+					<input
+						ref={inputRef}
+						type="color"
+						value={value || defaultColor}
+						onChange={(e) => onChange(e.target.value)}
+						className="quillforms-share-popup-color-palette__native-input"
+					/>
+				</button>
+				{BUTTON_PALETTE_COLORS.map((color) => (
+					<button
+						type="button"
+						key={color}
+						onClick={() => onChange(color)}
+						style={{ backgroundColor: color }}
+						className={[
+							'quillforms-share-popup-color-palette__swatch',
+							value === color ? 'quillforms-share-popup-color-palette__swatch--active' : '',
+						].join(' ')}
+						aria-label={color}
+					/>
+				))}
+			</div>
+			<button
+				type="button"
+				onClick={() => onChange(defaultColor)}
+				className="quillforms-share-popup-color-palette__clear"
+			>
+				{__('Clear', 'quillforms')}
+			</button>
+		</div>
+	);
+};
+
+// Alias specifically for button background color (same UI as ButtonColorPalette)
+const ButtonBgGroundColor = (props) => <ButtonColorPalette {...props} />;
 
 const hiddenFieldsContainer = css`
     display: flex;
@@ -174,26 +230,62 @@ const ShareBody = ({ payload }) => {
 
 	const [modalState, setModalState] = useState(false);
 	const [isCopied, setIsCopied] = useState(false);
-	const [popupSettings, setPopupSettings] = useState({
+
+	const defaultPopupButtonSettings = {
 		buttonTitle: 'Open Form',
-		buttonBackgroundColor: '#000000',
+		buttonBackgroundColor: '#B2328C',
 		buttonTextColor: '#ffffff',
 		buttonBorderRadius: '24',
 		buttonBorderWidth: '0',
 		buttonBorderColor: '#000000',
 		buttonFontSize: '16',
-		buttonPadding: {
-			top: 10,
-			right: 20,
-			bottom: 10,
-			left: 20,
-		},
+		buttonPadding: { top: 12, right: 24, bottom: 12, left: 24 },
+	};
+
+	const [popupSettings, setPopupSettings] = useState({
+		...defaultPopupButtonSettings,
 		popupMaxWidth: '90',
 		popupMaxWidthUnit: '%',
-		popupMaxHeight: '100',
+		popupMaxHeight: '90',
 		popupMaxHeightUnit: '%',
-
 	});
+
+	const [popupSettingsModalOpen, setPopupSettingsModalOpen] = useState(false);
+	const [draftButtonSettings, setDraftButtonSettings] = useState({ ...defaultPopupButtonSettings });
+
+	const isButtonCustomized = JSON.stringify({
+		buttonTitle: popupSettings.buttonTitle,
+		buttonBackgroundColor: popupSettings.buttonBackgroundColor,
+		buttonTextColor: popupSettings.buttonTextColor,
+		buttonBorderRadius: popupSettings.buttonBorderRadius,
+		buttonBorderWidth: popupSettings.buttonBorderWidth,
+		buttonBorderColor: popupSettings.buttonBorderColor,
+		buttonFontSize: popupSettings.buttonFontSize,
+		buttonPadding: popupSettings.buttonPadding,
+	}) !== JSON.stringify(defaultPopupButtonSettings);
+
+	const openButtonSettings = () => {
+		setDraftButtonSettings({
+			buttonTitle: popupSettings.buttonTitle,
+			buttonBackgroundColor: popupSettings.buttonBackgroundColor,
+			buttonTextColor: popupSettings.buttonTextColor,
+			buttonBorderRadius: popupSettings.buttonBorderRadius,
+			buttonBorderWidth: popupSettings.buttonBorderWidth,
+			buttonBorderColor: popupSettings.buttonBorderColor,
+			buttonFontSize: popupSettings.buttonFontSize,
+			buttonPadding: { ...popupSettings.buttonPadding },
+		});
+		setPopupSettingsModalOpen(true);
+	};
+
+	const saveButtonSettings = () => {
+		setPopupSettings(prev => ({ ...prev, ...draftButtonSettings }));
+		setPopupSettingsModalOpen(false);
+	};
+
+	const resetButtonSettings = () => {
+		setPopupSettings(prev => ({ ...prev, ...defaultPopupButtonSettings }));
+	};
 
 	const copyToClipboard = async (text) => {
 		try {
@@ -302,14 +394,39 @@ const ShareBody = ({ payload }) => {
 		img.src = "data:image/svg+xml;base64," + btoa(svgData);
 	};
 
-	const popupShortcode = `[quillforms-popup id="${payload?.id}" ${Object.keys(popupSettings).map(($key) => {
-		if ($key === "buttonPadding") {
-			return `buttonPadding="${Object.keys(popupSettings[$key]).map(($paddingKey) => {
-				return `${popupSettings[$key][$paddingKey]}px`;
-			}).join(" ")}"`;
-		}
-		return `${$key}="${popupSettings[$key]}"`;
-	}).join(" ")} ]`;
+	// Map React state keys to the attribute names expected by the PHP shortcode handler.
+	// The backend uses all‑lowercase, no‑camelcase keys (e.g. `popupmaxwidth`, `buttontitle`).
+	const popupShortcodeAttrMap = {
+		buttonTitle: 'buttontitle',
+		buttonBackgroundColor: 'buttonbackgroundcolor',
+		buttonTextColor: 'buttontextcolor',
+		buttonBorderRadius: 'buttonborderradius',
+		buttonBorderWidth: 'buttonborderwidth',
+		buttonBorderColor: 'buttonbordercolor',
+		buttonFontSize: 'buttonfontsize',
+		buttonPadding: 'buttonpadding',
+		popupMaxWidth: 'popupmaxwidth',
+		popupMaxWidthUnit: 'popupmaxwidthunit',
+		popupMaxHeight: 'popupmaxheight',
+		popupMaxHeightUnit: 'popupmaxheightunit',
+	};
+
+	const popupShortcode = `[quillforms-popup id="${payload?.id}" ${Object.keys(popupSettings)
+		.map(($key) => {
+			const mappedKey = popupShortcodeAttrMap[$key] || $key.toLowerCase();
+
+			if ($key === 'buttonPadding') {
+				// Convert padding object to CSS shorthand with px units: "12px 24px 12px 24px"
+				const paddingValue = Object.keys(popupSettings[$key])
+					.map(($paddingKey) => `${popupSettings[$key][$paddingKey]}px`)
+					.join(' ');
+
+				return `${mappedKey}="${paddingValue}"`;
+			}
+
+			return `${mappedKey}="${popupSettings[$key]}"`;
+		})
+		.join(' ')} ]`;
 
 
 	useEffect(() => {
@@ -563,27 +680,307 @@ const ShareBody = ({ payload }) => {
 							</button>
 							{openSection === 'popup' && (
 								<div className="quillforms-share-accordion__content">
-									{[
-										{ label: __('Button title', 'quillforms'), key: 'buttonTitle', type: 'text' },
-										{ label: __('Button border radius (px)', 'quillforms'), key: 'buttonBorderRadius', type: 'number' },
-										{ label: __('Button border width (px)', 'quillforms'), key: 'buttonBorderWidth', type: 'number' },
-										{ label: __('Button font size (px)', 'quillforms'), key: 'buttonFontSize', type: 'number' },
-									].map(({ label, key, type }) => (
-										<div key={key} className="quillforms-share-popup-field">
-											<label className="quillforms-share-field-label--sm">{label}</label>
-											<input type={type} value={popupSettings[key]}
-												onChange={(e) => setPopupSettings({ ...popupSettings, [key]: e.target.value })}
-											/>
+
+									{/* Info banner */}
+									<div className="quillforms-share-info-banner">
+										<div className="quillforms-share-info-banner__icon">
+											<img src={PopupImg} alt={__('Popup Icon', 'quillforms')} />
 										</div>
-									))}
-									<label className="quillforms-share-field-label">{__('Generated Shortcode', 'quillforms')}</label>
-									<div className="quillforms-share-field-row">
-										<input type="text" value={popupShortcode} readOnly className="quillforms-share-field-input--mono" />
-										<button onClick={() => { copyToClipboard(popupShortcode); setIsCopied(true); }} className="quillforms-share-copy-btn">
-											<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-											{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
-										</button>
+										<p className="quillforms-share-info-banner__title">{__('Popup Form Made Simple', 'quillforms')}</p>
+										<p className="quillforms-share-info-banner__desc">{__('Customize the button & let your form pop up when users need it.', 'quillforms')}</p>
 									</div>
+
+									{/* Button preview card */}
+									<div className="quillforms-share-popup-preview-card">
+										<div className="quillforms-share-popup-preview-card__header">
+											<span className="quillforms-share-popup-preview-card__label">{__('Preview', 'quillforms')}</span>
+										</div>
+										<div className="quillforms-share-popup-preview-card__body">
+											<button
+												className="quillforms-share-popup-btn-preview"
+												style={{
+													background: popupSettings.buttonBackgroundColor,
+													color: popupSettings.buttonTextColor,
+													borderRadius: `${popupSettings.buttonBorderRadius}px`,
+													border: `${popupSettings.buttonBorderWidth}px solid ${popupSettings.buttonBorderColor}`,
+													fontSize: `${popupSettings.buttonFontSize}px`,
+													padding: `${popupSettings.buttonPadding.top}px ${popupSettings.buttonPadding.right}px ${popupSettings.buttonPadding.bottom}px ${popupSettings.buttonPadding.left}px`,
+												}}
+											>
+												{popupSettings.buttonTitle}
+											</button>
+										</div>
+										<div className=" h-[1px] bg-[#D9D9D9] w-full my-4"></div>
+										{/* Button settings row */}
+										<div className="quillforms-share-popup-settings-bar">
+											<span className="quillforms-share-popup-settings-bar__label">{__('Button Settings', 'quillforms')}</span>
+											<div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+												{isButtonCustomized && (
+													<button onClick={resetButtonSettings} className="quillforms-share-popup-settings-bar__btn quillforms-share-popup-settings-bar__btn--reset">
+														{__('Reset', 'quillforms')}
+													</button>
+												)}
+												<button onClick={openButtonSettings} className="quillforms-share-popup-settings-bar__btn">
+													{isButtonCustomized ? __('Edit Button', 'quillforms') : __('Customize Button', 'quillforms')}
+												</button>
+											</div>
+										</div>
+									</div>
+
+
+
+									{/* Popup max height */}
+									<div className="quillforms-share-dimension-row">
+										<label className="quillforms-share-field-label">{__('Popup max height', 'quillforms')}</label>
+										<div className="quillforms-share-dimension-inputs">
+											<input type="number" value={popupSettings.popupMaxHeight}
+												onChange={(e) => setPopupSettings(prev => ({ ...prev, popupMaxHeight: e.target.value }))}
+												className="quillforms-share-dimension-input"
+											/>
+											<select value={popupSettings.popupMaxHeightUnit}
+												onChange={(e) => setPopupSettings(prev => ({ ...prev, popupMaxHeightUnit: e.target.value }))}
+												className="quillforms-share-dimension-select"
+											>
+												<option value="px">PX</option>
+												<option value="%">%</option>
+												<option value="vh">VH</option>
+											</select>
+										</div>
+									</div>
+
+									{/* Popup max width */}
+									<div className="quillforms-share-dimension-row">
+										<label className="quillforms-share-field-label">{__('Popup max width', 'quillforms')}</label>
+										<div className="quillforms-share-dimension-inputs">
+											<input type="number" value={popupSettings.popupMaxWidth}
+												onChange={(e) => setPopupSettings(prev => ({ ...prev, popupMaxWidth: e.target.value }))}
+												className="quillforms-share-dimension-input"
+											/>
+											<select value={popupSettings.popupMaxWidthUnit}
+												onChange={(e) => setPopupSettings(prev => ({ ...prev, popupMaxWidthUnit: e.target.value }))}
+												className="quillforms-share-dimension-select"
+											>
+												<option value="px">PX</option>
+												<option value="%">%</option>
+												<option value="vw">VW</option>
+											</select>
+										</div>
+									</div>
+
+									<div className=" h-[1px] bg-[#D9D9D9] w-full my-4"></div>
+
+									{/* Generated shortcode */}
+									<p className="quillforms-share-popup-shortcode-desc">
+										{__('Copy the shortcode below and insert it in your WordPress page or post.', 'quillforms')}
+									</p>
+									<div className="quillforms-share-popup-shortcode-card">
+										<p className="quillforms-share-field-textarea !p-0 !m-0 quillforms-share-popup-shortcode-card__textarea">
+											{popupShortcode}
+										</p>
+										<div className="quillforms-share-popup-shortcode-card__footer">
+											<button
+												onClick={() => { copyToClipboard(popupShortcode); setIsCopied(true); }}
+												className="quillforms-share-copy-btn"
+											>
+												<svg
+													width="15"
+													height="15"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													strokeWidth="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												>
+													<rect x="9" y="9" width="13" height="13" rx="2" />
+													<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+												</svg>
+												{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
+											</button>
+										</div>
+									</div>
+
+									{/* Button Settings Modal */}
+									{popupSettingsModalOpen && (
+										<Modal
+											title={__('Button Settings', 'quillforms')}
+											onRequestClose={() => setPopupSettingsModalOpen(false)}
+											className="quillforms-share-popup-modal"
+										>
+											<div className="quillforms-share-popup-modal__body mt-10">
+												<div className="quillforms-share-popup-modal__left">
+
+													{/* Button title */}
+													<div className="quillforms-share-popup-modal__field">
+														<span className="quillforms-share-popup-modal__label">{__('Button title', 'quillforms')}</span>
+														<input type="text" value={draftButtonSettings.buttonTitle}
+															onChange={(e) => setDraftButtonSettings(prev => ({ ...prev, buttonTitle: e.target.value }))}
+															className="quillforms-share-popup-modal__input"
+														/>
+													</div>
+
+													{/* Border radius + border width */}
+													<div className="quillforms-share-popup-modal__row2">
+														<div className="quillforms-share-popup-modal__field">
+															<span className="quillforms-share-popup-modal__label">{__('Border Radius', 'quillforms')}</span>
+															<input type="number" value={draftButtonSettings.buttonBorderRadius}
+																onChange={(e) => setDraftButtonSettings(prev => ({ ...prev, buttonBorderRadius: e.target.value }))}
+																className="quillforms-share-popup-modal__input"
+															/>
+														</div>
+														<div className="quillforms-share-popup-modal__field">
+															<span className="quillforms-share-popup-modal__label">{__('Border Width', 'quillforms')}</span>
+															<input type="number" value={draftButtonSettings.buttonBorderWidth}
+																onChange={(e) => setDraftButtonSettings(prev => ({ ...prev, buttonBorderWidth: e.target.value }))}
+																className="quillforms-share-popup-modal__input"
+															/>
+														</div>
+													</div>
+
+													{/* Button bg color */}
+													<div className="quillforms-share-popup-modal__field">
+														<span className="quillforms-share-popup-modal__label">{__('Button bg color', 'quillforms')}</span>
+														<ButtonBgGroundColor
+															value={draftButtonSettings.buttonBackgroundColor}
+															defaultColor="#B2328C"
+															onChange={(val) =>
+																setDraftButtonSettings((prev) => ({
+																	...prev,
+																	buttonBackgroundColor: val,
+																}))
+															}
+														/>
+													</div>
+
+													{/* Button text color */}
+													<div className="quillforms-share-popup-modal__field">
+														<span className="quillforms-share-popup-modal__label">{__('Button text color', 'quillforms')}</span>
+														<ButtonColorPalette
+															value={draftButtonSettings.buttonTextColor}
+															defaultColor="#ffffff"
+															onChange={(val) =>
+																setDraftButtonSettings((prev) => ({
+																	...prev,
+																	buttonTextColor: val,
+																}))
+															}
+														/>
+													</div>
+
+													{/* Button border color */}
+													<div className="quillforms-share-popup-modal__field">
+														<span className="quillforms-share-popup-modal__label">{__('Button border color', 'quillforms')}</span>
+														<ButtonColorPalette
+															value={draftButtonSettings.buttonBorderColor}
+															defaultColor="#000000"
+															onChange={(val) =>
+																setDraftButtonSettings((prev) => ({
+																	...prev,
+																	buttonBorderColor: val,
+																}))
+															}
+														/>
+													</div>
+
+													{/* Font size */}
+													<div className="quillforms-share-popup-modal__field">
+														<span className="quillforms-share-popup-modal__label">{__('Button font size(px)', 'quillforms')}</span>
+														<input type="number" value={draftButtonSettings.buttonFontSize}
+															onChange={(e) => setDraftButtonSettings(prev => ({ ...prev, buttonFontSize: e.target.value }))}
+															className="quillforms-share-popup-modal__input"
+														/>
+													</div>
+
+													{/* Padding */}
+													<div className="quillforms-share-popup-modal__field">
+														<span className="quillforms-share-popup-modal__label">{__('Button Padding', 'quillforms')}</span>
+														{/* Visual padding widget */}
+														<div className="quillforms-share-popup-modal__padding-visual">
+															{/* Top value */}
+															<div className="quillforms-share-popup-modal__padding-row padding-row--top">
+																<span className="quillforms-share-popup-modal__pad-val">{draftButtonSettings.buttonPadding.top}</span>
+															</div>
+															{/* Center row: left value – button – right value */}
+															<div className="quillforms-share-popup-modal__padding-row padding-row--center">
+																<span className="quillforms-share-popup-modal__pad-val">{draftButtonSettings.buttonPadding.left}</span>
+																<div className="quillforms-share-popup-modal__pad-btn-wrap">
+																	<button
+																		className="quillforms-share-popup-btn-preview quillforms-share-popup-modal__pad-btn"
+																		style={{
+																			background: draftButtonSettings.buttonBackgroundColor,
+																			color: draftButtonSettings.buttonTextColor,
+																			borderRadius: `${draftButtonSettings.buttonBorderRadius}px`,
+																			border: `${draftButtonSettings.buttonBorderWidth}px solid ${draftButtonSettings.buttonBorderColor}`,
+																			fontSize: `${draftButtonSettings.buttonFontSize}px`,
+																		}}
+																	>
+																		{draftButtonSettings.buttonTitle || 'Button Text'}
+																	</button>
+																</div>
+																<span className="quillforms-share-popup-modal__pad-val">{draftButtonSettings.buttonPadding.right}</span>
+															</div>
+															{/* Bottom value */}
+															<div className="quillforms-share-popup-modal__padding-row padding-row--bottom">
+																<span className="quillforms-share-popup-modal__pad-val">{draftButtonSettings.buttonPadding.bottom}</span>
+															</div>
+														</div>
+														{/* 4-column input grid — label on top, input below */}
+														<div className="quillforms-share-popup-modal__padding-inputs">
+															{[
+																{ key: 'top', label: __('Top', 'quillforms') },
+																{ key: 'bottom', label: __('Bottom', 'quillforms') },
+																{ key: 'right', label: __('Right', 'quillforms') },
+																{ key: 'left', label: __('Left', 'quillforms') },
+															].map(({ key, label }) => (
+																<div key={key} className="quillforms-share-popup-modal__padding-col">
+																	<input
+																		type="number"
+																		value={draftButtonSettings.buttonPadding[key]}
+																		onChange={(e) => setDraftButtonSettings(prev => ({ ...prev, buttonPadding: { ...prev.buttonPadding, [key]: parseInt(e.target.value) || 0 } }))}
+																		className="quillforms-share-popup-modal__input"
+																	/>
+																	<span>{label}</span>
+																</div>
+															))}
+														</div>
+													</div>
+
+												</div>
+
+												{/* Right: live preview */}
+												<div className="quillforms-share-popup-modal__right">
+													<p className="quillforms-share-popup-modal__preview-label">{__('Preview', 'quillforms')}</p>
+													<div className="quillforms-share-popup-modal__preview-box">
+														<button
+															className="quillforms-share-popup-btn-preview"
+															style={{
+																background: draftButtonSettings.buttonBackgroundColor,
+																color: draftButtonSettings.buttonTextColor,
+																borderRadius: `${draftButtonSettings.buttonBorderRadius}px`,
+																border: `${draftButtonSettings.buttonBorderWidth}px solid ${draftButtonSettings.buttonBorderColor}`,
+																fontSize: `${draftButtonSettings.buttonFontSize}px`,
+																padding: `${draftButtonSettings.buttonPadding.top}px ${draftButtonSettings.buttonPadding.right}px ${draftButtonSettings.buttonPadding.bottom}px ${draftButtonSettings.buttonPadding.left}px`,
+															}}
+														>
+															{draftButtonSettings.buttonTitle || 'Button Text'}
+														</button>
+													</div>
+												</div>
+
+											</div>
+
+											{/* Footer */}
+											<div className="quillforms-share-popup-modal__footer">
+												<button onClick={() => setPopupSettingsModalOpen(false)} className="quillforms-share-popup-modal__cancel">
+													{__('Cancel', 'quillforms')}
+												</button>
+												<button onClick={saveButtonSettings} className="quillforms-share-popup-modal__save">
+													{__('Save Changes', 'quillforms')}
+												</button>
+											</div>
+										</Modal>
+									)}
+
 								</div>
 							)}
 						</div>
@@ -1384,3 +1781,4 @@ const ShareBody = ({ payload }) => {
 };
 
 export default ShareBody;
+

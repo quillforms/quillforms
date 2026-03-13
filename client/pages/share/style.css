@@ -1,6 +1,4 @@
-/* ─────────────────────────────────────────
-   Share page – two-panel grid layout
-───────────────────────────────────────── */
+
 .quillforms-share-layout {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -11,7 +9,7 @@
     overflow: hidden;
 }
 
-/* ── Left panel (accordion card) ── */
+/* ── Left panel */
 .quillforms-share-left {
     background: #fff;
     border-radius: 16px;
@@ -584,4 +582,525 @@
 }
 .quillforms-share-modal-generated-code {
     margin-top: 20px;
+}
+
+/* ── Popup section ── */
+.quillforms-share-popup-preview-card {
+    border: 1px solid #D9D9D9;
+    border-radius: 16px;
+    background: #fff;
+    overflow: hidden;
+    margin-bottom: 16px;
+	padding:16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.quillforms-share-popup-preview-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.quillforms-share-popup-preview-card__label {
+    font-size: 16px;
+    font-weight: 600;
+	line-height: 26px;
+    color: #334155;
+}
+.quillforms-share-popup-preview-card__external {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #94A3B8;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    transition: color 0.15s;
+}
+.quillforms-share-popup-preview-card__external:hover {
+    color: #B2328C;
+}
+.quillforms-share-popup-preview-card__body {
+    background: #F2F4FC;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+	border-radius: 16px;
+	border:1px dashed #D9D9D9
+}
+
+/* Live preview button (used in card and modal) */
+.quillforms-share-popup-btn-preview {
+    cursor: default;
+    transition: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+/* Button settings bar */
+.quillforms-share-popup-settings-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.quillforms-share-popup-settings-bar__label {
+    font-size: 16px;
+    color: #334155;
+	line-height: 26px;
+}
+.quillforms-share-popup-settings-bar__btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #B2328C;
+    background: transparent;
+    color: #B2328C;
+    font-size: 16px;
+    font-weight: 500;
+	line-height: 26px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+.quillforms-share-popup-settings-bar__btn:hover {
+    background: #FFEEFB;
+}
+.quillforms-share-popup-settings-bar__btn--reset {
+    border-color: #E53E3E;
+    color: #E53E3E;
+}
+.quillforms-share-popup-settings-bar__btn--reset:hover {
+    background: #FFF5F5;
+}
+
+/* Popup shortcode description */
+.quillforms-share-popup-shortcode-desc {
+    font-size: 16px;
+    color: #334155;
+    line-height: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.quillforms-share-popup-shortcode-card {
+    background: #FFFFFF;
+	border:1px solid #D9D9D9;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.quillforms-share-popup-shortcode-card__textarea {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.quillforms-share-popup-shortcode-card__footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Text area / pre (for popup shortcode) */
+.quillforms-share-field-textarea {
+    width: 100%;
+    /* font-family: monospace; */
+    font-size: 16px;
+    line-height: 26px;
+	border: none !important;
+    color: #334155;
+    /* box-sizing: border-box; */
+}
+.quillforms-share-field-textarea:focus {
+    outline: none !important;
+}
+
+/* Copy row bottom of popup */
+.quillforms-share-popup-copy-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.quillforms-share-popup-modal.components-modal__frame {
+    width: 990px !important;
+    max-width: 98vw !important;
+    height: 90vh !important;
+    max-height: 90vh !important;
+    margin: auto !important;
+    border-radius: 16px !important;
+    border: none !important;
+	padding: 24px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18) !important;
+    display: flex !important;
+    flex-direction: column !important;
+	gap: 16px !important;
+    overflow: hidden !important;
+}
+
+/* 2. Content area fills remaining space, NO scroll here */
+.quillforms-share-popup-modal .components-modal__content {
+    padding: 0 !important;
+    margin: 0 !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.quillforms-share-popup-modal .components-modal__content::before {
+    display: none !important;
+}
+
+/* 3. Sticky header */
+.quillforms-share-popup-modal .components-modal__header {
+    /* border-bottom: 1px solid #E2E8F0 !important; */
+    /* padding: 18px 24px !important; */
+    margin: 0 !important;
+    /* flex-shrink: 0 !important;
+    height: 60px !important;
+    box-sizing: border-box !important; */
+}
+.quillforms-share-popup-modal .components-modal__header h1,
+.quillforms-share-popup-modal .components-modal__header .components-modal__header-heading {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #334155 !important;
+    margin: 0 !important;
+}
+
+/* 4. Body: two columns — explicit height so children can scroll */
+.quillforms-share-popup-modal__body {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    height: calc(90vh - 60px - 69px) !important;
+	border-top:1px solid #D9D9D9 !important;
+}
+
+/* 5. LEFT column — scrolls */
+.quillforms-share-popup-modal__left {
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+	padding: 8px;
+    border-right: 1px solid #E2E8F0 !important;
+    overflow-y: auto !important;   /* ← THE scroll happens here */
+    overflow-x: hidden !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+    scrollbar-width: thin;
+    scrollbar-color: #D4D4D8 transparent;
+}
+.quillforms-share-popup-modal__left::-webkit-scrollbar { width: 4px; }
+.quillforms-share-popup-modal__left::-webkit-scrollbar-track { background: transparent; }
+.quillforms-share-popup-modal__left::-webkit-scrollbar-thumb { background: #D4D4D8; border-radius: 9999px; }
+
+/* 6. RIGHT column — fixed, no scroll */
+.quillforms-share-popup-modal__right {
+	padding: 8px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    border-radius: 0 0 16px 0 !important;
+    overflow: hidden !important;
+    height: 50% !important;
+    box-sizing: border-box !important;
+}
+
+/* 7. Footer — always visible */
+.quillforms-share-popup-modal__footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 12px !important;
+    padding: 0  !important;
+    flex-shrink: 0 !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+}
+
+/* ── rest of modal styles (unchanged) ── */
+.quillforms-share-popup-modal__preview-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #334155;
+	line-height: 26px;
+    margin: 0;
+}
+.quillforms-share-popup-modal__preview-box {
+    flex: 1;
+    background: #F2F4FC;
+    border: 1px dashed #D9D9D9;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    padding: 32px 16px;
+}
+.quillforms-share-popup-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.quillforms-share-popup-modal__field > label,
+.quillforms-share-popup-modal__label {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    color: #334155;
+    margin: 0;
+    padding: 0;
+    line-height: 28px;
+}
+.quillforms-share-popup-modal .components-circular-option-picker__option-wrapper {
+    width: 26px !important;
+    height: 26px !important;
+    margin: 3px !important;
+}
+.quillforms-share-popup-modal .components-circular-option-picker__option {
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
+    min-height: 26px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+}
+.quillforms-share-popup-modal .components-circular-option-picker__swatches {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    padding: 8px 0 !important;
+}
+.quillforms-share-popup-modal .components-circular-option-picker__custom-clear-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    margin-top: 4px !important;
+}
+.quillforms-share-popup-modal .components-color-palette {
+    width: 100% !important;
+}
+.quillforms-share-popup-modal .components-color-palette__colors {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+}
+.quillforms-share-popup-modal .components-color-palette__color {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    min-width: unset !important;
+}
+.quillforms-share-popup-modal .components-circular-option-picker {
+    width: 100% !important;
+    overflow: visible !important;
+}
+.quillforms-share-popup-modal .admin-components-color-picker {
+    width: 100% !important;
+}
+
+/* Color card styling for Emails & popup settings (keep default) */
+.quillforms-share-popup-modal .admin-components-combo-color-picker,
+.quillforms-share-popup-modal .admin-components-color-picker {
+    width: 100% !important;
+}
+
+/* Button Settings modal uses its own custom color card component */
+.quillforms-share-popup-color-palette {
+    background: #F2F4FC;
+    border-radius: 8px;
+    padding: 14px 16px 12px 16px;
+    border: 1px solid #D9D9D9;
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+	justify-content: center;
+    gap: 8px;
+}
+.quillforms-share-popup-color-palette__row {
+    display: flex;
+    align-items: center;
+	justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.quillforms-share-popup-color-palette__add {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #B2328C;
+    background: #fff;
+    color: #B2328C;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+.quillforms-share-popup-color-palette__native-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.quillforms-share-popup-color-palette__swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+.quillforms-share-popup-color-palette__swatch--active {
+    outline: 2px solid #B2328C;
+    outline-offset: 2px;
+}
+.quillforms-share-popup-color-palette__clear {
+    align-self: flex-end;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid #D9D9D9;
+    background: #fff;
+	color: #777;
+    font-size: 16px;
+	font-weight: 500;
+	line-height: 26px;
+    cursor: pointer;
+}
+
+.quillforms-share-popup-modal__row2 .quillforms-share-popup-modal__label {
+    font-size: 12px;
+}
+.quillforms-share-popup-modal__input {
+    padding: 12px !important;
+    border: 1px solid #D9D9D9 !important;
+    border-radius: 16px !important;
+    font-size: 18px !important;
+    line-height: 28px !important;
+    color: #334155 !important;
+    background: #fff !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+.quillforms-share-popup-modal__input:focus {
+    outline: none;
+    border-color: #B2328C;
+    box-shadow: 0 0 0 3px rgba(178, 50, 140, 0.08);
+}
+.quillforms-share-popup-modal__row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.quillforms-share-popup-modal__padding-visual {
+    background: #EBEBEB;
+    border-radius: 10px;
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 10px;
+}
+.quillforms-share-popup-modal__padding-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.quillforms-share-popup-modal__padding-row.padding-row--top,
+.quillforms-share-popup-modal__padding-row.padding-row--bottom {
+    padding: 4px 0;
+}
+.quillforms-share-popup-modal__padding-row.padding-row--center {
+    gap: 16px;
+    padding: 4px 0;
+}
+.quillforms-share-popup-modal__pad-val {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748B;
+    min-width: 16px;
+    text-align: center;
+}
+.quillforms-share-popup-modal__pad-btn-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+.quillforms-share-popup-modal__pad-btn {
+    pointer-events: none;
+}
+.quillforms-share-popup-modal__padding-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 6px;
+    margin-top: 4px;
+}
+.quillforms-share-popup-modal__padding-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.quillforms-share-popup-modal__padding-col input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #1F2937;
+    background: #fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+.quillforms-share-popup-modal__padding-col input:focus {
+    outline: none;
+    border-color: #B2328C;
+}
+.quillforms-share-popup-modal__padding-col span {
+    font-size: 12px;
+    color: #64748B;
+    font-weight: 500;
+}
+.quillforms-share-popup-modal__cancel {
+    padding: 9px 24px;
+    border-radius: 20px;
+    border: 1.5px solid #E5E7EB;
+    background: #fff;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+.quillforms-share-popup-modal__cancel:hover {
+    border-color: #B2328C;
+    color: #B2328C;
+}
+.quillforms-share-popup-modal__save {
+    padding: 9px 24px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(90deg, #B2328C 0%, #D23FB1 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.quillforms-share-popup-modal__save:hover {
+    opacity: 0.88;
 }
