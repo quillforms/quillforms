@@ -494,13 +494,13 @@
     align-items: flex-start;
     justify-content: center;
     overflow: auto;
-    transition: background 0.3s ease, padding 0.3s ease;
+    /* transition: background 0.3s ease, padding 0.3s ease; */
 }
 .quillforms-share-preview__frame {
     max-width: 100%;
     height: 100%;
     overflow: hidden;
-    transition: width 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
+    /* transition: width 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease; */
 }
 
 /* ─────────────────────────────────────────
@@ -635,7 +635,8 @@
 /* Live preview button (used in card and modal) */
 .quillforms-share-popup-btn-preview {
     cursor: default;
-    transition: none;
+    transition: none !important;
+    animation: none !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -811,6 +812,8 @@
     overflow: hidden !important;
     height: 50% !important;
     box-sizing: border-box !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 /* 7. Footer — always visible */
@@ -823,6 +826,7 @@
     flex-shrink: 0 !important;
     background: #fff !important;
     box-sizing: border-box !important;
+	height: 4% !important;
 }
 
 /* ── rest of modal styles (unchanged) ── */
@@ -843,6 +847,8 @@
     justify-content: center;
     min-height: 120px;
     padding: 32px 16px;
+    transition: none !important;
+    animation: none !important;
 }
 .quillforms-share-popup-modal__field {
     display: flex;
@@ -1076,13 +1082,14 @@
     font-weight: 500;
 }
 .quillforms-share-popup-modal__cancel {
-    padding: 9px 24px;
-    border-radius: 20px;
-    border: 1.5px solid #E5E7EB;
+    padding: 12px 24px;
+    border-radius: 16px;
+    border: 1px solid #B2328C;
     background: #fff;
-    color: #374151;
-    font-size: 14px;
-    font-weight: 600;
+    color: #B2328C;
+    font-size: 18px;
+    font-weight: 700;
+	line-height: 28px;
     cursor: pointer;
     transition: border-color 0.15s;
 }
@@ -1091,13 +1098,14 @@
     color: #B2328C;
 }
 .quillforms-share-popup-modal__save {
-    padding: 9px 24px;
-    border-radius: 20px;
+    padding: 12px 24px;
+    border-radius: 16px;
     border: none;
-    background: linear-gradient(90deg, #B2328C 0%, #D23FB1 100%);
+    background: #B2328C;
     color: #fff;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
+	line-height: 28px;
     cursor: pointer;
     transition: opacity 0.15s;
 }
