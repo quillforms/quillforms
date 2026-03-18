@@ -22,6 +22,7 @@ import { motion } from 'framer-motion';
 import NotFoundPage from '../pages/not-found';
 import Home from '../pages/home';
 import Builder from '../pages/builder';
+import LogicPage from '../pages/logic';
 import Share from '../pages/share';
 import ResultsPage from '../pages/results';
 import PaymentsPage from '../pages/payments';
@@ -91,6 +92,18 @@ const builderStores = [
 registerAdminPage('builder', {
 	component: Builder,
 	path: '/forms/:id/builder/',
+	template: 'full-screen',
+	header: ({ match }) => {
+		const { params } = match;
+		return <FormAdminBar formId={params.id} />;
+	},
+	requiresInitialPayload: true,
+	connectedStores: builderStores,
+});
+
+registerAdminPage('logic', {
+	component: LogicPage,
+	path: '/forms/:id/logic',
 	template: 'full-screen',
 	header: ({ match }) => {
 		const { params } = match;

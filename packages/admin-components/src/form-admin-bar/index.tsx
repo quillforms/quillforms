@@ -16,6 +16,8 @@ import { __ } from '@wordpress/i18n';
  */
 import Logo from '../logo';
 import FormAdminNav from './admin-nav';
+import HomeIcon from './home-icon';
+
 
 const FormAdminBar = ({ formId }) => {
 	return (
@@ -28,7 +30,7 @@ const FormAdminBar = ({ formId }) => {
 					className="admin-components-form-admin-bar__home-link"
 					to={`/admin.php?page=quillforms`}
 				>
-					<Icon icon={arrowLeft} /> {__('Back to home', 'quillforms')}
+					<HomeIcon />
 				</NavLink>
 				{ /** @ts-expect-error */}
 				<FormAdminNav.Slot>
@@ -47,6 +49,21 @@ const FormAdminBar = ({ formId }) => {
 								to={`/admin.php?page=quillforms&path=/forms/${formId}/builder`}
 							>
 								{__('Design', 'quillforms')}
+							</NavLink>
+							<NavLink
+								isActive={(_match, location): boolean | void => {
+									if (
+										location.pathname.startsWith(
+											`/forms/${formId}/logic`
+										)
+									) {
+										return true;
+									}
+								}}
+								activeClassName="selected"
+								to={`/admin.php?page=quillforms&path=/forms/${formId}/logic`}
+							>
+								{__('Logic', 'quillforms')}
 							</NavLink>
 							<NavLink
 								isActive={(_match, location): boolean | void => {
