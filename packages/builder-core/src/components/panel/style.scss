@@ -22,7 +22,7 @@
             width: 100%;
             max-width: 800px;
             height: 100%;
-            max-height: 90vh;
+            max-height: 80vh !important;
             overflow: hidden;
             border-radius: 10px;
         }
@@ -69,10 +69,10 @@
 
     .builder-core-panel__header-wrapper {
         & {
-            
+
 			min-height: 0 !important;
 			height: auto !important;
-            padding:  24px 24px 0px 24px !important;
+            padding:  24px 24px 16px 24px !important;
             background: #ffffff;
             border-bottom: 1px solid #f0f0f0;
             flex-shrink: 0;
