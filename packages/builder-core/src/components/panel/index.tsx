@@ -58,7 +58,8 @@ const Panel = () => {
 			// exit on clicking escape
 
 			>
-				<PanelHeader />
+			    {/* <PanelHeader /> */}
+				{currentPanel?.name !== 'jump-logic' && <PanelHeader />}
 				{currentPanel && (
 					<div className="builder-core-panel__content-wrapper">
 						{currentPanel.mode === 'single' ? (

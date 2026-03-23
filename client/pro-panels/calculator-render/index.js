@@ -3,9 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProFeatureBanner } from "@quillforms/admin-components";
 import { __ } from '@wordpress/i18n';
+import { useDispatch } from '@wordpress/data';
 import './style.css';
 
 const CalculatorFeaturePromo = () => {
+	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
+
 	const [activeFeature, setActiveFeature] = useState('math');
 	const [activeStep, setActiveStep] = useState(0);
 
@@ -23,6 +26,13 @@ const CalculatorFeaturePromo = () => {
 		}, 2000);
 
 		return () => clearInterval(stepTimer);
+	}, []);
+
+	// When calculator panel closes, return to jump-logic panel
+	useEffect(() => {
+		return () => {
+			setCurrentPanel('jump-logic');
+		};
 	}, []);
 
 	return (

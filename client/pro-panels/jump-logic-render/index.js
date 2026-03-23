@@ -1,8 +1,15 @@
 import "./style.css";
 import { EnhancedProLabel, ProFeatureBanner } from "@quillforms/admin-components";
 import { __ } from '@wordpress/i18n';
+import { useDispatch } from '@wordpress/data';
 
 const JumpLogicPreview = () => {
+	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
+
+	const openCalculator = () => {
+		setCurrentPanel('calculator');
+	};
+
 	return (
 		<div className="jump-logic-preview-wrapper">
 			<div className="jump-logic-preview-content">
@@ -10,7 +17,9 @@ const JumpLogicPreview = () => {
 					<div className="jump-logic-preview-header">
 						<EnhancedProLabel />
 						<h2>{__('Smart Jump Logic', 'quillforms')}</h2>
-						<p className="jump-logic-preview-subtitle">{__('Create conditional paths by dragging between fields', 'quillforms')}</p>
+						<p className="jump-logic-preview-subtitle">
+							{__('Create conditional paths by dragging between fields', 'quillforms')}
+						</p>
 					</div>
 					<div className="jump-logic-preview-features">
 						<div className="jump-logic-preview-feature">
@@ -26,6 +35,14 @@ const JumpLogicPreview = () => {
 							{__('Personalized Form Paths', 'quillforms')}
 						</div>
 					</div>
+
+					<button
+						type="button"
+						className="jump-logic-preview-upgrade-btn"
+						onClick={openCalculator}
+					>
+						{__('Open Calculator', 'quillforms')}
+					</button>
 
 					<ProFeatureBanner
 						featureName={__('Jump Logic', 'quillforms')}
