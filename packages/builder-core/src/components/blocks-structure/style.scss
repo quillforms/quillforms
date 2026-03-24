@@ -1,4 +1,55 @@
 .builder-core-blocks-list {
+  .builder-core-drag-overlay {
+    width: 280px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+    opacity: 0.95;
+    pointer-events: none;
+  }
+
+  .builder-core-drag-overlay--group {
+    background: #f9fafb;
+  }
+
+  .builder-core-drag-overlay__content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    min-height: 62px;
+  }
+
+  .builder-core-drag-overlay__label {
+    font-size: 12px;
+    color: #334155;
+    line-height: 1.4;
+    max-width: 145px;
+    overflow-wrap: anywhere;
+  }
+
+  .dnd-sortable-item {
+    &.is-dragging {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      opacity: 0.9;
+    }
+  }
+
+  .dnd-droppable-container {
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+
+    &.is-over {
+      background: rgba(59, 130, 246, 0.08);
+
+      .group-placeholder {
+        border-color: #60a5fa;
+        background: #f0f9ff;
+      }
+    }
+  }
+
   &__wrapper {
     background: #ffffff;
     margin-right: 10px;
@@ -76,6 +127,14 @@
       transform: scale(1.1);
     }
 
+    .warning-icon--partial-submission {
+      margin-left: auto;
+      margin-right: 22px;
+      color: #f59e0b;
+      display: flex;
+      align-items: center;
+    }
+
     &.active {
       background: #eaf4ff !important; /* Light blue background for the selected block */
       box-shadow: 0 0 8px rgba(96, 165, 250, 0.4) !important; /* Subtle blue glow */
@@ -102,12 +161,19 @@
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       margin-bottom: 16px; /* Add spacing for group blocks */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
       .block-label {
         max-width: 120px !important;
       }
 
 
+    }
+
+    &.group-block-collapsed {
+      background: #f1f5f9;
+      margin-bottom: 8px;
+      box-shadow: none;
     }
 
     // Child block styling
@@ -128,18 +194,19 @@
 
     }
 
-    // Drop target indication
-    &[data-rbd-droppable-state="hover"] {
-      background: #f8fafc;
-      border-color: #64748b;
-    }
+  }
 
-    // Ghost item when dragging
-    &[data-rbd-placeholder] {
-      background: #f1f5f9;
-      border: 1px dashed #94a3b8;
-      margin: 8px 0;
-    }
+  .group-placeholder {
+    width: 100%;
+    height: 40px;
+    margin: 8px 0;
+    border: 2px dashed #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    transition: all 0.2s ease;
   }
 
   // Block content styling
