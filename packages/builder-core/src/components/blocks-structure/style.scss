@@ -29,6 +29,29 @@
     overflow-wrap: anywhere;
   }
 
+  .builder-core-drag-overlay__group-children {
+    padding: 8px;
+    margin: 0 8px 8px;
+    border-radius: 8px;
+    background: #dbe5f1;
+    border: 1px solid #c8d5e6;
+  }
+
+  .builder-core-drag-overlay__group-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    border: 1px solid #d1d9e6;
+    background: #edf2f7;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   .dnd-sortable-item {
     &.is-dragging {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -136,8 +159,9 @@
     }
 
     &.active {
-      background: #eaf4ff !important; /* Light blue background for the selected block */
-      box-shadow: 0 0 8px rgba(96, 165, 250, 0.4) !important; /* Subtle blue glow */
+      background: #f2f4fc !important;
+      border-color: #236294 !important;
+      box-shadow: none !important;
     }
     &:hover {
       border-color: #cbd5e1;
@@ -156,8 +180,8 @@
     // Group block styling
     &.group-block {
       position: relative;
-      padding: 16px;
-      background: #f9fafb; /* Default background for expanded group blocks */
+      padding: 20px;
+      background: #dae5f0;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       margin-bottom: 16px; /* Add spacing for group blocks */
@@ -167,6 +191,11 @@
         max-width: 120px !important;
       }
 
+      .block-content {
+        border-bottom: 1px solid #ffffff;
+        padding-bottom: 8px;
+      }
+
 
     }
 
@@ -174,6 +203,36 @@
       background: #f1f5f9;
       margin-bottom: 8px;
       box-shadow: none;
+    }
+
+    .group-block-children-wrapper {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 0 4px 8px;
+      border-radius: 10px;
+
+      .block-item.child-block {
+        margin-left: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 8px 6px;
+        min-height: 44px !important;
+
+        .block-content {
+          border: none;
+          padding-bottom: 0;
+        }
+
+        .block-editor-block-actions__dropdown-wrapper {
+          display: none;
+        }
+      }
+    }
+
+    &.has-selected-child {
+      background: #f2f4fc;
+      border-color: #236294;
     }
 
     // Child block styling
@@ -248,6 +307,7 @@
     height: 28px;
     border-radius: 6px;
     flex-shrink: 0;
+    background: #ffeefb !important;
   }
 
   // Group children wrapper
@@ -289,6 +349,7 @@
 
     .icon {
       transition: transform 0.2s ease;
+      transform: rotate(0deg);
 
       &.expanded {
         transform: rotate(90deg);

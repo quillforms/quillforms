@@ -77,6 +77,7 @@ type RenderItemParams = {
 	item: TreeItem;
 	depth: number;
 	parentId?: ItemId;
+	childrenContent?: React.ReactNode;
 };
 
 
@@ -570,11 +571,15 @@ const PureTree: React.FC = withErrorBoundary(() => {
 	}, []);
 
 	const renderItem = useCallback(
-		({ item, depth, parentId }: RenderItemParams) => {
+		({ item, depth, parentId, childrenContent }: RenderItemParams) => {
 			const itemName = item.data.name;
 			const blockType = blockTypes[itemName];
 			const isGroup = itemName === "group";
 			const isChildBlock = depth > 0;
+			const hasSelectedChild =
+				isGroup &&
+				!!currentChildBlockId &&
+				item.children.includes(currentChildBlockId as string);
 
 			const hasNoChildren = isGroup && (!item.children || item.children.length === 0);
 			const isLastInGroup = (() => {
@@ -621,7 +626,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
 							setCurrentChildBlock(undefined as any);
 						}
 					}}
-					className={`block-item ${isGroup ? "group-block" : ""} ${isGroup && !item.isExpanded ? "group-block-collapsed" : ""} ${isChildBlock ? "child-block" : ""
+					className={`block-item ${isGroup ? "group-block" : ""} ${isGroup && !item.isExpanded ? "group-block-collapsed" : ""} ${hasSelectedChild ? " has-selected-child" : ""} ${isChildBlock ? "child-block" : ""
 						} ${isLastInGroup ? "last-in-group" : ""}` + (currentBlockId === item.id && !currentChildBlockId ? " active" : "") + (currentChildBlockId === item.id ? " active" : "")}
 				>
 					<div className="block-content">
@@ -629,8 +634,19 @@ const PureTree: React.FC = withErrorBoundary(() => {
 						{isGroup && item.children.length > 0 && (
 							<div
 								className="collapse-icon"
+								onPointerDown={(e) => {
+									// Prevent dnd-kit from treating chevron click as drag start.
+									e.stopPropagation();
+								}}
+								onMouseDown={(e) => {
+									e.stopPropagation();
+								}}
+								onTouchStart={(e) => {
+									e.stopPropagation();
+								}}
 								onClick={(e) => {
 									e.stopPropagation();
+									e.preventDefault();
 									if (item.isExpanded) {
 										onCollapse(item.id);
 									}
@@ -716,6 +732,9 @@ const PureTree: React.FC = withErrorBoundary(() => {
 							</div>
 						)
 					}
+					{isGroup && item.isExpanded && (
+						<div className="group-block-children-wrapper">{childrenContent}</div>
+					)}
 				</div >
 			);
 		},
@@ -903,21 +922,22 @@ const PureTree: React.FC = withErrorBoundary(() => {
 					{parent.children.map((childId) => {
 						const child = tree.items[childId];
 						if (!child) return null;
+						const childChildrenContent =
+							child.data.name === "group" && child.isExpanded
+								? renderTreeLevel(child.id, depth + 1)
+								: null;
 						const childItem = (
 							<SortableTreeItem key={child.id} id={child.id} disabled={!isDragEnabled(child)}>
 								<div style={{ paddingLeft: `${depth * 16}px` }}>
-									{renderItem({ item: child, depth, parentId })}
+									{renderItem({
+										item: child,
+										depth,
+										parentId,
+										childrenContent: childChildrenContent,
+									})}
 								</div>
 							</SortableTreeItem>
 						);
-						if (child.data.name === "group" && child.isExpanded) {
-							return (
-								<React.Fragment key={child.id}>
-									{childItem}
-									{renderTreeLevel(child.id, depth + 1)}
-								</React.Fragment>
-							);
-						}
 						return childItem;
 					})}
 				</DroppableContainer>
@@ -958,6 +978,31 @@ const PureTree: React.FC = withErrorBoundary(() => {
 											/>
 										)}
 									</div>
+									{activeDragItem.data.name === "group" && activeDragItem.children.length > 0 && (
+										<div className="builder-core-drag-overlay__group-children">
+											{activeDragItem.children.map((childId) => {
+												const child = tree.items[childId];
+												if (!child) return null;
+												const childType = blockTypes[child.data.name];
+												const childLabel = getItemPreviewLabel(child, childType);
+												return (
+													<div key={child.id} className="builder-core-drag-overlay__group-child">
+														<BlockIconBox
+															icon={childType?.icon}
+															order={child.data.blockOrder}
+															color={childType?.color}
+														/>
+														{childLabel && (
+															<span
+																className="builder-core-drag-overlay__label"
+																dangerouslySetInnerHTML={{ __html: childLabel }}
+															/>
+														)}
+													</div>
+												);
+											})}
+										</div>
+									)}
 								</div>
 							) : null}
 						</DragOverlay>
