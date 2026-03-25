@@ -80,6 +80,19 @@ type RenderItemParams = {
 	childrenContent?: React.ReactNode;
 };
 
+const LIST_BLOCK_ICON = {
+	src: (
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+			<path d="M3.00047 4.87941C3.02489 4.82211 3.05073 4.76528 3.07327 4.70704C3.23907 4.28434 3.6397 4.00253 4.09106 4.00159C5.61375 3.99971 7.13597 3.99924 8.65865 4.00159C9.26313 4.00253 9.74783 4.49146 9.74877 5.09969C9.75112 6.61627 9.75112 8.13286 9.74877 9.64944C9.74783 10.2577 9.2636 10.7466 8.65865 10.748C7.13597 10.7508 5.61375 10.7504 4.09106 10.748C3.6397 10.7475 3.23766 10.4643 3.0728 10.0426C3.05026 9.98479 3.02442 9.92796 3 9.87066C3 8.2066 3 6.54254 3 4.87848L3.00047 4.87941ZM6.35771 9.99747C7.0782 9.99747 7.79868 9.99794 8.51963 9.99747C8.88081 9.99747 8.99729 9.88334 8.99729 9.52873C8.99823 8.0934 8.99823 6.65808 8.99729 5.22275C8.99729 4.87331 8.88081 4.75448 8.53748 4.75401C7.09651 4.75307 5.65508 4.75307 4.21411 4.75401C3.87031 4.75401 3.7543 4.87284 3.7543 5.22228C3.75336 6.65761 3.75336 8.09294 3.7543 9.52826C3.7543 9.88334 3.87078 9.997 4.23149 9.99747C4.94023 9.99841 5.64897 9.99747 6.35818 9.99747H6.35771Z" fill="#236294"/>
+			<path d="M3.00047 13.8799C3.02489 13.8226 3.05073 13.7658 3.07327 13.7075C3.23907 13.2848 3.6397 13.003 4.09106 13.0021C5.61375 13.0002 7.13597 12.9997 8.65865 13.0021C9.26313 13.003 9.74783 13.492 9.74877 14.1002C9.75112 15.6168 9.75112 17.1333 9.74877 18.6499C9.74783 19.2582 9.2636 19.7471 8.65865 19.7485C7.13597 19.7513 5.61375 19.7508 4.09106 19.7485C3.6397 19.748 3.23766 19.4648 3.0728 19.043C3.05026 18.9853 3.02442 18.9284 3 18.8711C3 17.2071 3 15.543 3 13.879L3.00047 13.8799ZM8.99729 16.3852C8.99729 15.6586 8.9987 14.9324 8.99682 14.2059C8.99588 13.8794 8.87564 13.755 8.55485 13.755C7.10215 13.7536 5.64897 13.7536 4.19627 13.755C3.87501 13.755 3.7543 13.879 3.75383 14.2049C3.75242 15.652 3.75242 17.0991 3.75383 18.5457C3.75383 18.8777 3.87595 18.997 4.21317 18.9975C5.65414 18.9984 7.09557 18.9984 8.53654 18.9975C8.87987 18.9975 8.99635 18.8777 8.99729 18.5292C8.9987 17.8144 8.99729 17.1 8.99729 16.3852Z" fill="#236294"/>
+			<path d="M16.3026 6.24983C14.8847 6.24983 13.4672 6.2503 12.0492 6.24983C11.7369 6.24983 11.5476 6.01029 11.65 5.74681C11.7026 5.61107 11.7994 5.52418 11.9483 5.50821C12.0239 5.50023 12.1 5.49835 12.1761 5.49835C14.9354 5.49835 17.6947 5.49835 20.4546 5.49835C20.5072 5.49835 20.5602 5.49694 20.6128 5.50023C20.8571 5.51667 21.006 5.66555 21.0003 5.88677C20.9952 6.10282 20.8331 6.24936 20.5912 6.2503C19.906 6.25171 19.2202 6.25077 18.535 6.25077C17.791 6.25077 17.0471 6.25077 16.3026 6.25077V6.24983Z" fill="#236294"/>
+			<path d="M16.3015 15.2501C14.8835 15.2501 13.466 15.2506 12.0481 15.2501C11.7362 15.2501 11.5474 15.0092 11.6503 14.7461C11.7034 14.6104 11.8006 14.5245 11.949 14.5085C12.0185 14.501 12.089 14.4991 12.1594 14.4991C14.9305 14.4991 17.7016 14.4991 20.4727 14.4991C20.5253 14.4991 20.5783 14.4982 20.6305 14.5029C20.8616 14.5226 21.0053 14.6738 20.9996 14.8889C20.994 15.0984 20.8343 15.2501 20.6075 15.2511C19.8456 15.2534 19.0843 15.252 18.3225 15.252C17.649 15.252 16.975 15.252 16.3015 15.252V15.2501Z" fill="#236294"/>
+			<path d="M14.8348 8.5011C15.7596 8.5011 16.6844 8.50016 17.6092 8.50157C17.8849 8.50157 18.0512 8.67723 18.0173 8.92851C17.9943 9.09806 17.8952 9.20374 17.7285 9.23802C17.6604 9.25211 17.589 9.25258 17.519 9.25258C15.722 9.25352 13.9251 9.25305 12.1286 9.25258C12.076 9.25258 12.0229 9.25211 11.9707 9.24601C11.7617 9.22158 11.6096 9.04968 11.6218 8.85571C11.6349 8.65422 11.7941 8.50251 12.0079 8.50204C12.6692 8.49922 13.3305 8.5011 13.9922 8.5011C14.2731 8.5011 14.554 8.5011 14.8353 8.5011H14.8348Z" fill="#236294"/>
+			<path d="M14.8287 17.5015C15.7479 17.5015 16.6665 17.5015 17.5857 17.5015C17.8586 17.5015 18.0206 17.6401 18.023 17.8707C18.0253 18.1008 17.8656 18.2516 17.5951 18.2521C15.7455 18.2544 13.8959 18.2544 12.0464 18.2521C11.8101 18.2521 11.6636 18.1314 11.6265 17.9322C11.5959 17.7683 11.6983 17.587 11.866 17.5283C11.9299 17.5058 12.0031 17.5025 12.0722 17.5025C12.9909 17.5011 13.91 17.5015 14.8292 17.5015H14.8287Z" fill="#236294"/>
+		</svg>
+	),
+};
+
 
 
 // Types
@@ -576,10 +589,6 @@ const PureTree: React.FC = withErrorBoundary(() => {
 			const blockType = blockTypes[itemName];
 			const isGroup = itemName === "group";
 			const isChildBlock = depth > 0;
-			const hasSelectedChild =
-				isGroup &&
-				!!currentChildBlockId &&
-				item.children.includes(currentChildBlockId as string);
 
 			const hasNoChildren = isGroup && (!item.children || item.children.length === 0);
 			const isLastInGroup = (() => {
@@ -626,10 +635,10 @@ const PureTree: React.FC = withErrorBoundary(() => {
 							setCurrentChildBlock(undefined as any);
 						}
 					}}
-					className={`block-item ${isGroup ? "group-block" : ""} ${isGroup && !item.isExpanded ? "group-block-collapsed" : ""} ${hasSelectedChild ? " has-selected-child" : ""} ${isChildBlock ? "child-block" : ""
+					className={`block-item ${isGroup ? "group-block" : ""} ${isGroup && !item.isExpanded ? "group-block-collapsed" : ""} ${isChildBlock ? "child-block" : ""
 						} ${isLastInGroup ? "last-in-group" : ""}` + (currentBlockId === item.id && !currentChildBlockId ? " active" : "") + (currentChildBlockId === item.id ? " active" : "")}
 				>
-					<div className="block-content">
+					<div className={`block-content ${isGroup ? "group-header" : ""}`}>
 
 						{isGroup && item.children.length > 0 && (
 							<div
@@ -673,9 +682,9 @@ const PureTree: React.FC = withErrorBoundary(() => {
 							</div>
 						)}
 						<BlockIconBox
-							icon={blockType?.icon}
+							icon={isGroup ? (LIST_BLOCK_ICON as any) : blockType?.icon}
 							order={item.data.blockOrder}
-							color={blockType?.color}
+							color={"#FFEEFB"}
 						/>
 						{item.data.attributes?.label && (
 							<span
@@ -738,7 +747,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
 				</div >
 			);
 		},
-		[blockTypes, tree, blocks, onExpand, onCollapse]
+		[blockTypes, tree, blocks, onExpand, onCollapse, currentBlockId, currentChildBlockId]
 	);
 
 	const onDragEnd = useCallback(
@@ -965,9 +974,9 @@ const PureTree: React.FC = withErrorBoundary(() => {
 								<div className={`builder-core-drag-overlay ${activeDragItem.data.name === "group" ? "builder-core-drag-overlay--group" : ""}`}>
 									<div className="builder-core-drag-overlay__content block-content">
 										<BlockIconBox
-											icon={activeDragBlockType?.icon}
+											icon={activeDragItem.data.name === "group" ? (LIST_BLOCK_ICON as any) : activeDragBlockType?.icon}
 											order={activeDragItem.data.blockOrder}
-											color={activeDragBlockType?.color}
+											color={"#FFEEFB"}
 										/>
 										{activePreviewLabel && (
 											<span
@@ -988,9 +997,9 @@ const PureTree: React.FC = withErrorBoundary(() => {
 												return (
 													<div key={child.id} className="builder-core-drag-overlay__group-child">
 														<BlockIconBox
-															icon={childType?.icon}
+															icon={child.data.name === "group" ? (LIST_BLOCK_ICON as any) : childType?.icon}
 															order={child.data.blockOrder}
-															color={childType?.color}
+															color={"#FFEEFB"}
 														/>
 														{childLabel && (
 															<span

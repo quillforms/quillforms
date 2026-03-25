@@ -158,9 +158,9 @@
       align-items: center;
     }
 
-    &.active {
+    &:not(.group-block).active {
       background: #f2f4fc !important;
-      border-color: #236294 !important;
+      border: 1px solid #236294 !important;
       box-shadow: none !important;
     }
     &:hover {
@@ -181,22 +181,28 @@
     &.group-block {
       position: relative;
       padding: 20px;
+      // Override the base `.block-item { padding-left: 12px !important; }`
+      // so the whole group is truly 20px on all sides.
+      padding-left: 20px !important;
       background: #dae5f0;
-      border: 1px solid #e2e8f0;
+      border: 0;
       border-radius: 8px;
-      margin-bottom: 16px; /* Add spacing for group blocks */
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
       .block-label {
         max-width: 120px !important;
       }
+    }
 
-      .block-content {
-        border-bottom: 1px solid #ffffff;
-        padding-bottom: 8px;
-      }
+    .group-header {
+      // Padding for the header highlight should come from the selected state only.
+      padding: 0;
+    }
 
-
+    &.active .group-header {
+      background: #F2F4FC;
+      border: 1px solid #236294;
+      border-radius: 8px;
+      padding: 12px;
     }
 
     &.group-block-collapsed {
@@ -207,17 +213,20 @@
 
     .group-block-children-wrapper {
       width: 100%;
-      margin-top: 10px;
-      padding: 10px 0 4px 8px;
-      border-radius: 10px;
+      margin-top: 12px;
+      display: flex;
+      padding-top: 4px;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid #ffffff;
 
       .block-item.child-block {
         margin-left: 0;
         background: transparent;
         border: none;
         box-shadow: none;
-        padding: 8px 6px;
-        min-height: 44px !important;
+        padding: 12px 6px;
+        min-height: unset !important;
 
         .block-content {
           border: none;
@@ -230,19 +239,11 @@
       }
     }
 
-    &.has-selected-child {
-      background: #f2f4fc;
-      border-color: #236294;
-    }
-
     // Child block styling
     &.child-block {
       background: #ffffff;
       margin-left: 24px;
 
-      &.last-in-group {
-        margin-bottom: 30px; /* Add spacing for the last child block in a group */
-      }
       &:hover {
         border-left-color: #94a3b8;
       }
