@@ -490,6 +490,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
 	const allBlocksLength = allBlocks.length;
 
 	const { setBlocks, setCurrentBlock, setCurrentChildBlock } = useDispatch("quillForms/block-editor");
+	const { setCurrentPanel } = useDispatch("quillForms/builder-panels");
 
 	// Prevent "click = drag" by requiring pointer movement before drag starts.
 	const sensors = useSensors(
@@ -1040,6 +1041,17 @@ const PureTree: React.FC = withErrorBoundary(() => {
 						</DragOverlay>
 					</DndContext>
 				</BlockTreeErrorBoundary>
+			</div>
+			<div className="builder-core-blocks-list__add-question">
+				<div className="builder-core-blocks-list__add-question-separator" />
+				<button
+					type="button"
+					className="builder-core-blocks-list__add-question-btn"
+					onClick={() => setCurrentPanel("add-questions")}
+				>
+					<span className="builder-core-blocks-list__add-question-btn-plus">+</span>
+					{__("Add a question", "quillforms")}
+				</button>
 			</div>
 			{showPartialSubmissionPointAlert && (
 				<Modal

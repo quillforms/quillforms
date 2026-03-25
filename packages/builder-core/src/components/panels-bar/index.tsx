@@ -15,7 +15,6 @@ import classnames from 'classnames';
  */
 import NavItem from '../panel-item';
 import MainPanelIcon from '../../panel/icon';
-import PlusIcon from './plus-icon';
 
 const BuilderPanelsBar = () => {
 	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
@@ -30,22 +29,6 @@ const BuilderPanelsBar = () => {
 
 	return (
 		<div className="builder-core-builder-panels-bar">
-			<div
-				className={classnames('builder-core-builder-panel-nav-item builder-panel-add-blocks')}>
-				<Tooltip text={'Add'} position="middle right">
-					<div
-						role="presentation"
-						onClick={() => {
-							setCurrentPanel('add-questions');
-						}}
-						className="builder-core-builder-panel-nav-item__icon"
-					>
-						<PlusIcon />
-					</div>
-				</Tooltip>
-			</div>
-			<div className="builder-core-panel-navbar__separator"></div>
-
 			<div
 				className={classnames('builder-core-builder-panel-nav-item', {
 					active: !currentPanelName ? true : false,

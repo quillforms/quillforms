@@ -25,13 +25,7 @@
 				color: #000;
 				cursor: pointer;
 
-				&.builder-panel-add-blocks .builder-core-builder-panel-nav-item__icon {
-					background: linear-gradient(135deg, #b027e4, #8778ff);
-		
-					svg {
-						fill: #fff !important;
-					}
-				}
+				// add-blocks icon styles removed (moved to blocks list footer button)
 			}
 
 			&.active .builder-core-builder-panel-nav-item__icon {
@@ -76,13 +70,6 @@
 				
 			}
 
-		}
-
-		.builder-core-panel-navbar__separator {
-			height: 1px;
-			width: 70%;
-			margin: 15px auto 10px;
-			border: 0.2px solid #d9d9d9;
 		}
 	}
 }
