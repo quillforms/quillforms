@@ -14,6 +14,7 @@ const debounce = require('lodash/debounce');
 const getPackages = require('./get-packages');
 const BUILD_SCRIPT = path.resolve(__dirname, './build.js');
 const PACKAGES_DIR = path.resolve(__dirname, '../../packages');
+const OUTPUT_DIR = path.resolve(__dirname, '../../build');
 const modulePackages = getPackages();
 
 // Keep track of file operations
@@ -89,6 +90,38 @@ function getBuildFile(srcFile) {
 }
 
 /**
+ * Returns the package name (directory under `packages/`) for a given source file.
+ *
+ * Example:
+ * packages/builder-core/src/components/x/style.scss -> builder-core
+ */
+function getPackageNameFromSrcFile(srcFile) {
+	const relativePath = path
+		.relative(PACKAGES_DIR, srcFile)
+		.replace(/\\/g, '/');
+	return relativePath.split('/')[0];
+}
+
+/**
+ * Copies generated CSS from `packages/<pkg>/build-style/` into
+ * `build/<pkg>/` so WordPress can pick up style changes immediately.
+ */
+function copyBuildStylesToOutput(packageName) {
+	const fromDir = path.resolve(PACKAGES_DIR, packageName, 'build-style');
+	if (!isDirectory(fromDir)) return;
+
+	const toDir = path.resolve(OUTPUT_DIR, packageName);
+	fs.mkdirSync(toDir, { recursive: true });
+
+	for ( const file of fs.readdirSync(fromDir) ) {
+		if ( ! file.endsWith('.css') ) continue;
+		const from = path.resolve(fromDir, file);
+		const to = path.resolve(toDir, file);
+		fs.copyFileSync(from, to);
+	}
+}
+
+/**
  * Safe file removal with logging
  *
  * @param {string} filename
@@ -116,11 +149,29 @@ function safeRemoveFile(filename) {
 const processFileChanges = debounce(() => {
 	const files = Array.from(fileOperations.keys());
 	if (files.length) {
+		const packagesToCopy = new Set(
+			files.map((file) => getPackageNameFromSrcFile(file))
+		);
+
 		try {
 			console.log(chalk.cyan('Building files:'), files.length);
-			spawn('node', [BUILD_SCRIPT, ...files], {
+			const child = spawn('node', [BUILD_SCRIPT, ...files], {
 				stdio: 'inherit',
 				env: { ...process.env, FORCE_COLOR: true }
+			});
+
+			child.on('exit', (code) => {
+				if ( code !== 0 ) {
+					console.error(
+						chalk.red('Build error:'),
+						`Non-zero exit code: ${code}`
+					);
+					return;
+				}
+
+				for ( const packageName of packagesToCopy ) {
+					copyBuildStylesToOutput(packageName);
+				}
 			});
 		} catch (e) {
 			console.error(chalk.red('Build error:'), e);

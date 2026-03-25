@@ -18,7 +18,9 @@ const files = process.argv.slice(2);
 const PACKAGES_DIR = path.resolve(__dirname, '../../packages');
 
 const stylesheetEntryPoints = glob.sync(
-	path.resolve(PACKAGES_DIR, '*/src/*.scss')
+	path
+		.resolve(PACKAGES_DIR, '*/src/*.scss')
+		.replace(/\\/g, '/')
 );
 
 /**
@@ -115,7 +117,9 @@ function createStyleEntryTransform() {
 
 			packages.add(packageName);
 			const entries = await glob(
-				path.resolve(PACKAGES_DIR, packageName, 'src/*.scss')
+				path
+					.resolve(PACKAGES_DIR, packageName, 'src/*.scss')
+					.replace(/\\/g, '/')
 			);
 			entries.forEach((entry) => this.push(entry));
 
