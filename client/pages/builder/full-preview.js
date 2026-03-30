@@ -15,8 +15,7 @@ const FullPreviewIcon = ({ isResolving, setFullPreviewMode }) => {
 		const { hasFinishedResolution } = select('quillForms/theme-editor');
 
 		return {
-			hasThemesFinishedResolution:
-				hasFinishedResolution('getThemesList'),
+			hasThemesFinishedResolution: hasFinishedResolution('getThemesList'),
 		};
 	});
 
@@ -25,7 +24,10 @@ const FullPreviewIcon = ({ isResolving, setFullPreviewMode }) => {
 			{createPortal(
 				<>
 					{!isResolving && hasThemesFinishedResolution && (
-						<Tooltip text={__('Preview', 'quillforms')} position="bottom center">
+						<Tooltip
+							text={__('Preview', 'quillforms')}
+							position="bottom center"
+						>
 							<button
 								className="qf-builder-full-preview-button"
 								onClick={() => {

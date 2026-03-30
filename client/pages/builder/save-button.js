@@ -23,25 +23,23 @@ import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
-import PlaceholderButton from './placeholder-button';
 import ConfirmNavigationModal from './confirm-navigation-modal';
 import { size } from 'lodash';
-import { css } from "emotion";
+import { css } from 'emotion';
 
 const SaveButton = ({ formId, isResolving }) => {
 	const [isSaving, setIsSaving] = useState(false);
 	const [shouldBeSaved, setShouldBeSaved] = useState(false);
-	const [displayNotificationsHint, setDisplayNotificationsHint] = useState(false);
+	const [displayNotificationsHint, setDisplayNotificationsHint] =
+		useState(false);
 	const license = ConfigAPI.getLicense();
-	const { createErrorNotice, createSuccessNotice } = useDispatch(
-		'core/notices'
-	);
+	const { createErrorNotice, createSuccessNotice } =
+		useDispatch('core/notices');
 	const { restFields } = useSelect((_select) => {
 		let restFields = {};
 		Object.keys(getRestFields()).forEach((restFieldKey) => {
-			restFields[restFieldKey] = getRestFields()[
-				restFieldKey
-			].selectValue();
+			restFields[restFieldKey] =
+				getRestFields()[restFieldKey].selectValue();
 		});
 		return { restFields };
 	});
@@ -50,9 +48,7 @@ const SaveButton = ({ formId, isResolving }) => {
 		const { hasFinishedResolution } = select('quillForms/theme-editor');
 
 		return {
-			hasThemesFinishedResolution: hasFinishedResolution(
-				'getThemesList'
-			),
+			hasThemesFinishedResolution: hasFinishedResolution('getThemesList'),
 		};
 	});
 
@@ -90,7 +86,6 @@ const SaveButton = ({ formId, isResolving }) => {
 							</NavigationPrompt>
 							<Button
 								isPrimary={true}
-								isLarge
 								className={classnames(
 									'qf-builder-save-button',
 									{
@@ -114,16 +109,24 @@ const SaveButton = ({ formId, isResolving }) => {
 										},
 									})
 										.then(() => {
-											if (license?.status !== 'valid' &&
-												size(restFields.notifications) <= 0 &&
-												!localStorage.getItem(`qf-display-notifications-hint-${formId}`
+											if (
+												license?.status !== 'valid' &&
+												size(
+													restFields.notifications
+												) <= 0 &&
+												!localStorage.getItem(
+													`qf-display-notifications-hint-${formId}`
 												)
 											) {
-												setDisplayNotificationsHint(true);
-
+												setDisplayNotificationsHint(
+													true
+												);
 											}
 											createSuccessNotice(
-												__('🚀 Saved successfully!', 'quillforms'),
+												__(
+													'🚀 Saved successfully!',
+													'quillforms'
+												),
 												{
 													type: 'snackbar',
 													isDismissible: true,
@@ -135,7 +138,10 @@ const SaveButton = ({ formId, isResolving }) => {
 										})
 										.catch(() => {
 											createErrorNotice(
-												__('⛔ Error while saving!', 'quillforms'),
+												__(
+													'⛔ Error while saving!',
+													'quillforms'
+												),
 												{
 													type: 'snackbar',
 													isDismissible: true,
@@ -145,19 +151,21 @@ const SaveButton = ({ formId, isResolving }) => {
 										});
 								}}
 							>
-								{isSaving ? __('Saving', 'quillforms') : __('Publish', 'quillforms')}
+								{isSaving
+									? __('Saving', 'quillforms')
+									: __('Save', 'quillforms')}
 							</Button>
 							{displayNotificationsHint && (
 								<Modal
 									className={classnames(
 										'saving-alert-modal',
 										css`
-										border: none !important;
-										min-width: 420px !important;
-										max-width: 470px !important;
-										border-radius: 10px;
-										z-index: 1111111;
-									`
+											border: none !important;
+											min-width: 420px !important;
+											max-width: 470px !important;
+											border-radius: 10px;
+											z-index: 1111111;
+										`
 									)}
 									// Because focus on editor is causing the click handler to be triggered
 									shouldCloseOnClickOutside={false}
@@ -168,45 +176,56 @@ const SaveButton = ({ formId, isResolving }) => {
 								>
 									<div>
 										<div>
-											{__('You have not added any notifications to this form to receive results.', 'quillforms')}
+											{__(
+												'You have not added any notifications to this form to receive results.',
+												'quillforms'
+											)}
 										</div>
 										<br />
 									</div>
 									<div
 										className={css`
-										display: flex;
-										margin-top: 10px;
-										justify-content: center;
-									` }
+											display: flex;
+											margin-top: 10px;
+											justify-content: center;
+										`}
 									>
-
 										<Button
 											isLarge
 											className={css`
-											width: auto;
-											display: flex;
-											justify-content: center;
-											align-items: center;
-											margin: 0 10px !important;
-										` }
+												width: auto;
+												display: flex;
+												justify-content: center;
+												align-items: center;
+												margin: 0 10px !important;
+											`}
 											onClick={() => {
-												setDisplayNotificationsHint(false);
-												setCurrentPanel('notifications');
+												setDisplayNotificationsHint(
+													false
+												);
+												setCurrentPanel(
+													'notifications'
+												);
 											}}
 											isPrimary
 										>
-											{__('Let me know how!', 'quillforms')}
+											{__(
+												'Let me know how!',
+												'quillforms'
+											)}
 										</Button>
 										<Button
 											isLarge
 											className={css`
-											width: auto;
-											display: flex;
-											justify-content: center;
-											align-items: center;
-										` }
+												width: auto;
+												display: flex;
+												justify-content: center;
+												align-items: center;
+											`}
 											onClick={() => {
-												setDisplayNotificationsHint(false);
+												setDisplayNotificationsHint(
+													false
+												);
 												localStorage.setItem(
 													`qf-display-notifications-hint-${formId}`,
 													'1'
@@ -215,7 +234,10 @@ const SaveButton = ({ formId, isResolving }) => {
 											isButton
 											isSecondary
 										>
-											{__('Don\'t show me this message again.', 'quillforms')}
+											{__(
+												"Don't show me this message again.",
+												'quillforms'
+											)}
 										</Button>
 									</div>
 								</Modal>
