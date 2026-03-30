@@ -1,47 +1,15 @@
 const NotificationIcon = () => {
 	return (
 		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
 			viewBox="0 0 24 24"
-			fill="currentColor"
-			aria-hidden="true"
-			focusable="false"
+			fill="none"
 		>
-			{/* Creative outline shape - will always show as outline */}
 			<path
-				d="M12 3.5c-3.3 0-5.7 2.4-5.7 5.7v3.8c0 .3-.1.6-.2.8l-1.8 2.5c-.4.6-.4 1.4.1 2 .4.5 1 .7 1.6.7h12c.6 0 1.2-.2 1.6-.7.5-.6.5-1.4.1-2l-1.8-2.5c-.1-.2-.2-.5-.2-.8V9.2c0-3.3-2.4-5.7-5.7-5.7z"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-
-			{/* Ring effect at top */}
-			<path
-				d="M12 3.5V2m0 1.5c-1 0-2 .2-2.8.6"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-			/>
-
-			{/* Bottom piece with style */}
-			<path
-				d="M8.5 18.2c.2 1.6 1.6 2.8 3.5 2.8s3.3-1.2 3.5-2.8"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-			/>
-
-			{/* Decorative sound waves */}
-			<path
-				d="M19 10c.5-.5 1-1.5 1-2.5M5 10c-.5-.5-1-1.5-1-2.5"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				opacity="0.6"
+				d="M20.3955 13.2465L18.9721 8.1195C18.1343 5.10525 15.3645 3 12.2355 3C8.93405 3 6.12755 5.2515 5.41505 8.46L4.09055 13.4362C3.8423 14.5515 4.11005 15.7035 4.82555 16.5975C5.5418 17.4885 6.60755 18 7.75055 18H8.59205C8.94455 19.7288 10.452 21 12.2505 21C14.049 21 15.5566 19.7288 15.909 18H16.7821C17.9641 18 19.0523 17.46 19.7678 16.5187C20.4833 15.5782 20.712 14.3857 20.3955 13.2465ZM12.2513 20.25C10.8645 20.25 9.6908 19.3065 9.35555 18H15.1478C14.8118 19.3065 13.6388 20.25 12.252 20.25H12.2513ZM19.1715 16.065C18.5993 16.818 17.7285 17.25 16.7828 17.25H7.7513C6.8363 17.25 5.98355 16.8405 5.4113 16.128C4.8383 15.414 4.62455 14.4915 4.81955 13.614L6.14405 8.637C6.78305 5.76 9.28805 3.75 12.2355 3.75C15.0286 3.75 17.5013 5.6295 18.2483 8.3205L19.6718 13.4475C19.9253 14.3595 19.743 15.3127 19.1715 16.065Z"
+				fill="#334155"
 			/>
 		</svg>
 	);

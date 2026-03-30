@@ -28,21 +28,22 @@
 				// add-blocks icon styles removed (moved to blocks list footer button)
 			}
 
-			&.active .builder-core-builder-panel-nav-item__icon {
-				background: #d9d9fe;
-				
-				span {
-					color: #fff;
-				}
-			}
-			.builder-core-builder-panel-nav-item__icon {
-				svg {
-					fill: #4a4a54 !important;
-				}
-				span {
-					color: #4a4a54
-				}
-			}
+			// .builder-core-builder-panel-nav-item__icon {
+			// 	background: transparent;
+
+			// 	svg {
+			// 		fill: #334155 !important;
+			// 	}
+
+			// 	path {
+			// 		fill: #334155 !important;
+			// 		stroke: #334155 !important;
+			// 	}
+
+			// 	* {
+			// 		stroke: #334155 !important;
+			// 	}
+			// }
 
 			.builder-core-builder-panel-nav-item__icon {
 				& {
@@ -59,15 +60,27 @@
 				svg {
 					width: 24px;
 					height: 25px;
-					fill: #b7b6b5;
-					font-size: 24px;
-				}
-				
-				span {
-					color: #b7b6b5
+					fill: #334155 !important;
 				}
 
 				
+			}
+
+			&.active .builder-core-builder-panel-nav-item__icon {
+				background: #FFEEFB;
+
+				svg {
+					fill: #B2328C !important;
+				}
+
+				path {
+					fill: #B2328C !important;
+					stroke: #B2328C !important;
+				}
+
+				* {
+					stroke: #B2328C !important;
+				}
 			}
 
 		}
