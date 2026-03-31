@@ -24,6 +24,7 @@ import classnames from 'classnames';
  * Internal Dependencies
  */
 import ConfirmNavigationModal from './confirm-navigation-modal';
+import PlaceholderButton from './placeholder-button';
 import { size } from 'lodash';
 import { css } from 'emotion';
 
