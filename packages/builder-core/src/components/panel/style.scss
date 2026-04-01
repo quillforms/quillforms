@@ -6,7 +6,8 @@
         right: 0;
         bottom: 0;
         z-index: 11111;;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(15, 23, 42, 0.4) !important;
+       backdrop-filter: blur(8px);
         display: flex;
         align-items: center;
         z-index: 11111;
