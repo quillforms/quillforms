@@ -23,6 +23,7 @@ import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
+import PlaceholderButton from './placeholder-button';
 import ConfirmNavigationModal from './confirm-navigation-modal';
 import { size } from 'lodash';
 import { css } from 'emotion';
