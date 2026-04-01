@@ -44,7 +44,12 @@ const Panel = () => {
 		}
 	}, [currentPanel]);
 
-	const className = currentPanel && panelType === 'modal' ? 'builder-core-panel-modal' : 'builder-core-full-screen-panel';
+	const className =
+		currentPanel?.name === 'theme'
+			? 'builder-core-inline-panel'
+			: currentPanel && panelType === 'modal'
+				? 'builder-core-panel-modal'
+				: 'builder-core-full-screen-panel';
 	return (
 
 		<div className={className} tabIndex={0} // Makes the div focusable

@@ -95,8 +95,12 @@ const Layout: React.FC<Props> = ({ formId }) => {
 					{currentPanel?.type !== 'full-screen' && (
 						<>
 							{/* Blocks Structure */}
-							{(!currentPanel || currentPanel?.type === 'modal') && (
-								<BlocksStructure />
+							{currentPanel?.name === 'theme' ? (
+								panel
+							) : (
+								(!currentPanel || currentPanel?.type === 'modal') && (
+									<BlocksStructure />
+								)
 							)}
 
 							{/* Content Area */}
@@ -108,7 +112,7 @@ const Layout: React.FC<Props> = ({ formId }) => {
 					)}
 
 					{/* Current Panel */}
-					{currentPanel && panel}
+					{currentPanel && currentPanel?.name !== 'theme' && panel}
 
 					{/* Controls Panel */}
 					{currentPanel?.type !== 'full-screen' &&

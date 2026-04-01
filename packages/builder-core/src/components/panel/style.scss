@@ -41,6 +41,18 @@
 .builder-core-full-screen-panel .builder-core-panel {
     height: 100%
 }
+
+.builder-core-inline-panel {
+	width: 300px;
+	height: 100%;
+	margin-right: 10px;
+	flex-shrink: 0;
+
+	.builder-core-panel {
+		height: 100%;
+	}
+}
+
 .builder-core-panel {
     & {
         overflow: hidden;
