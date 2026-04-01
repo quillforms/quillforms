@@ -6,7 +6,7 @@
 			"link",
 			"italic"
 		],
-		"default": "OK",
+		"default": "Submit",
 		"category": "buttons-hints-placeholders"
 	},
 	"label.hintText.enter": {

@@ -105,30 +105,30 @@
 		"type": "object",
 		"default": {
 			"top": {
-				"lg": "10px",
-				"sm": "10px"
+				"lg": "8px",
+				"sm": "8px"
 			},
 			"bottom": {
-				"lg": "10px",
-				"sm": "10px"
+				"lg": "8px",
+				"sm": "8px"
 			},
 			"left": {
-				"lg": "23px",
-				"sm": "23px"
+				"lg": "12px",
+				"sm": "12px"
 			},
 			"right": {
-				"lg": "20px",
-				"sm": "20px"
+				"lg": "12px",
+				"sm": "12px"
 			}
 		}
 	},
 	"buttonsBgColor": {
 		"type": "string",
-		"default": "#2563eb"
+		"default": "#B2328C"
 	},
 	"buttonsBorderRadius": {
 		"type": "number",
-		"default": 25
+		"default": 8 
 	},
 	"buttonsBorderWidth": {
 		"type": "number",
