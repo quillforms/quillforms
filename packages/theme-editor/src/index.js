@@ -1,7 +1,8 @@
 import './store';
-// import './panels';
-// import './panels/subpanels/customize';
-// import './panels/subpanels/my-themes';
+import './panels';
+import './panels/subpanels/customize';
+import './panels/subpanels/my-themes';
+import './panels/subpanels/gallery';
 import "@quillforms/settings-editor";
 import './panels/subpanels/custom-fonts';
 import '@wordpress/notices';
