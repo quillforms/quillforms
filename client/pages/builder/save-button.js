@@ -23,11 +23,11 @@ import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
-import ConfirmNavigationModal from './confirm-navigation-modal';
 import PlaceholderButton from './placeholder-button';
+import ConfirmNavigationModal from './confirm-navigation-modal';
 import { size } from 'lodash';
 import { css } from 'emotion';
-
+ 
 const SaveButton = ({ formId, isResolving }) => {
 	const [isSaving, setIsSaving] = useState(false);
 	const [shouldBeSaved, setShouldBeSaved] = useState(false);
