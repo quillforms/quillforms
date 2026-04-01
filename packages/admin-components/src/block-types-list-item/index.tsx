@@ -237,11 +237,11 @@ const BlockTypesListItem: FC<Props> = memo(
 				<span className="admin-components-blocks-list-item__block-name">
 					{blockType?.title}
 				</span>
-				{blockType?.name === 'partial-submission-point' || blockType?.name === 'auto-complete-address' || blockType?.name === 'quill-booking' && (
+				{/* {blockType?.name === 'partial-submission-point' || blockType?.name === 'auto-complete-address' || blockType?.name === 'quill-booking' && (
 					<div className="admin-components-control-label__new-feature">
 						NEW
 					</div>
-				)}
+				)} */}
 			</div>
 		);
 	},
