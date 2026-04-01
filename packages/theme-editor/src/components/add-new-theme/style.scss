@@ -1,25 +1,44 @@
 .theme-editor-component-add-new-theme {
-	.theme-editor-theme-card {
+	width: 100%;
 
+	.theme-editor-theme-card {
 		& {
-			background: linear-gradient(135deg, rgb(171, 109, 202) 0%, rgb(41, 66, 186) 100%);
-			color: #fff;
-			transition: background 0.2s;
+			background: #fff;
+			color: #B2328C;
+			border: none;
 			cursor: pointer;
 			box-shadow: none;
+			position: relative;
+			width: 100%;
+			border-radius: 16px;
+			padding: 16px;
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 1.3;
 		}
 
 		&:hover {
-			background: linear-gradient(135deg, rgba(171, 109, 202, 0.9) 0%, rgba(41, 66, 186, 0.9) 100%);
+			background: #fff;
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 9px;
+			pointer-events: none;
+			background:
+				linear-gradient(to right, #B2328C 0 22px, transparent 22px 40px) top / 30px 1px repeat-x,
+				linear-gradient(to right, #B2328C 0 22px, transparent 22px 40px) bottom / 30px 1px repeat-x,
+				linear-gradient(to bottom, #B2328C 0 22px, transparent 22px 40px) left / 1px 28px repeat-y,
+				linear-gradient(to bottom, #B2328C 0 22px, transparent 22px 40px) right / 1px 28px repeat-y;
 		}
 
 		svg {
-			width: 30px;
-			height: 30px;
-			margin-bottom: 8px;
-			fill: #fff;
+			width: 24px;
+			height: 24px;
+			margin-bottom: 4px;
+			fill: #B2328C;
 		}
-
-
 	}
 }

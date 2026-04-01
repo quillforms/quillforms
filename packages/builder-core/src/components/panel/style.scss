@@ -70,7 +70,7 @@
 
     .builder-core-panel__content-wrapper {
 		position: static;
-        padding: 20px;
+        padding-inline: 20px;
         overflow-y: auto;
         height: 100%;
         padding-bottom: 24px;
@@ -85,9 +85,8 @@
 
 			min-height: 0 !important;
 			height: auto !important;
-            padding:  24px 24px 16px 24px !important;
+            padding:  20px 20px 16px 20px !important;
             background: #ffffff;
-            border-bottom: 1px solid #f0f0f0;
             flex-shrink: 0;
             width: 100%;
         }
@@ -103,7 +102,7 @@
 
             h4 {
                 margin: 0;
-                font-size: 24px !important;
+                font-size: 18px !important;
                 font-weight: 500 !important;
                 color: #334155 !important;
 

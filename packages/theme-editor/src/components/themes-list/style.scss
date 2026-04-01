@@ -1,12 +1,11 @@
 .theme-editor-themes-list{
 	display: flex;
-    flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 	justify-content: center;
-    padding-left: 13px;
-    padding-top: 10px;
 
 	> div {
-		margin-right: 21px;
-		margin-bottom: 21px;
+		margin-bottom: 20px;
 	}
 }

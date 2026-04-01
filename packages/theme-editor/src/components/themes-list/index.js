@@ -10,6 +10,7 @@ import { __ } from '@wordpress/i18n';
 import ThemeCard from '../theme-card';
 import ThemesListItem from '../themes-list-item';
 import AddNewTheme from '../add-new-theme';
+import Gallery from '../gallery';
 
 import { css } from 'emotion';
 const ThemesList = () => {
@@ -25,15 +26,6 @@ const ThemesList = () => {
 
 	return (
 		<div className="theme-editor-themes-list">
-			<div className={css`
-				font-size: 16px;
-				font-weight: 600;
-				line-height: 24px;
-				color: #000;
-				margin-bottom: 15px;
-				display: inline-block;
-					`}>{__('My Themes', 'quillforms')}</div>
-
 			<AddNewTheme />
 
 			{themesList.map((theme, index) => {
@@ -52,6 +44,7 @@ const ThemesList = () => {
 					</ThemeCard>
 				);
 			})}
+			<Gallery />
 		</div>
 	);
 };

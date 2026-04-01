@@ -1,6 +1,5 @@
 .theme-editor-theme-card {
-	width: 170px;
-    height: 185px;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
@@ -8,7 +7,8 @@
     justify-content: center;
     border-radius: 10px;
     border: 1px solid #cecece;
-	overflow: hidden;
+	//overflow: hidden;
+	padding: 16px;
 	cursor: pointer;
 
 	&.isSelected {

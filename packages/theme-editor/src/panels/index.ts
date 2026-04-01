@@ -1,10 +1,11 @@
 import { registerBuilderPanel } from '@quillforms/builder-panels';
 import Icon from './icon';
+import render from '../components/render';
 
 registerBuilderPanel( 'theme', {
-	title: 'Theme',
+	title: 'My Themes',
 	icon: Icon,
-	mode: 'parent',
-	areaToShow: 'preview-area',
+	mode: 'single',
+	render,
 	position: 1,
 } );

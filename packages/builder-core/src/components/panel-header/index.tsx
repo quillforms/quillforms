@@ -37,23 +37,25 @@ const PanelHeader = () => {
 				<div className="builder-core-panel__header-title">
 					<h4>{ currentPanel?.title }</h4>
 				</div>
-				<div className="builder-core-panel__header-close-icon">
-					<Icon
-						icon={ close }
-						onClick={ () => {
-							if (
-								currentPanel?.name === 'calculator' ||
-								currentPanel?.name === 'calculator-points' ||
-								currentPanel?.name === 'calculator-variables'
-							) {
-								setCurrentPanel( 'jump-logic' );
-							} else {
-								setCurrentPanel( '' );
-							}
-							setCurrentSubPanel( '' );
-						} }
-					/>
-				</div>
+				{ currentPanel?.name !== 'theme' && (
+					<div className="builder-core-panel__header-close-icon">
+						<Icon
+							icon={ close }
+							onClick={ () => {
+								if (
+									currentPanel?.name === 'calculator' ||
+									currentPanel?.name === 'calculator-points' ||
+									currentPanel?.name === 'calculator-variables'
+								) {
+									setCurrentPanel( 'jump-logic' );
+								} else {
+									setCurrentPanel( '' );
+								}
+								setCurrentSubPanel( '' );
+							} }
+						/>
+					</div>
+				) }
 			</div>
 			{ currentPanel?.mode === 'parent' &&
 				currentPanel?.subPanels &&

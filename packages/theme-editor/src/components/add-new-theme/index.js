@@ -23,8 +23,8 @@ const AddNewTheme = () => {
 			}}
 		>
 			<ThemeCard>
-				<Icon icon={plus} color="#fff" />
-				{__('New Theme', 'quillforms')}
+				<Icon icon={plus} color="#B2328C" />
+				{__('Create New Theme', 'quillforms')}
 			</ThemeCard>
 		</div>
 	);
