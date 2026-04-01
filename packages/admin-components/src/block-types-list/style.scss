@@ -5,11 +5,67 @@
 	> div {
 		width: 33%;
 	}
+	&__search {
+		width: 100% !important;
+		display: flex;
+		align-items: center;
+		padding: 0 12px;
+		margin: 0 8px;
+		border: 1px solid #e2e8f0;
+		border-radius: 8px;
+		background: #fff;
+		box-sizing: border-box;
+	}
+	&__search-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+	&__search-input {
+		flex: 1;
+		height: 40px;
+		border: none !important;
+		box-shadow: none !important;
+		padding: 0 10px;
+		color: #334155;
+		background: transparent;
+		outline: none;
+		-webkit-appearance: none;
+		appearance: none; 
+		box-sizing: border-box;
+
+		&:focus,
+		&:active {
+			border: none !important;
+			box-shadow: none !important;
+			outline: none !important;
+		}
+	}
+	&__group {
+		width: 33%;
+		padding: 0 8px 8px;
+		box-sizing: border-box;
+	}
+	&__group-title {
+		font-size: 18px;
+		font-weight: 500;
+		line-height: 22px;
+		color: #777777;
+		margin: 16px 0;
+	}
+	&__group-items {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
  	.admin-components-blocks-list__item-wrapper {
 		& {
 			outline: none;
+			-webkit-user-select: none;
 			user-select: none;
 			overflow: visible;
+			width: 100%;
 		}
 
 		&:last-child {
