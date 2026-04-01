@@ -7,7 +7,7 @@ const JumpLogicPreview = () => {
 	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
 
 	const openCalculator = () => {
-		setCurrentPanel('calculator');
+		setCurrentPanel('jump-logic');
 	};
 
 	return (

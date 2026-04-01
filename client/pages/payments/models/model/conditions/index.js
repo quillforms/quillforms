@@ -6,7 +6,6 @@ import {
 	ControlWrapper,
 	ControlLabel,
 	ToggleControl,
-	LogicConditions,
 } from '@quillforms/admin-components';
 
 /**
@@ -14,6 +13,7 @@ import {
  */
 import { usePaymentsContext } from '../../../state/context';
 import { __ } from '@wordpress/i18n';
+import LogicCondition from '../../../../../components/logiccondition';
 
 const Conditions = ({ id }) => {
 	const { models, updateModel } = usePaymentsContext();
@@ -37,11 +37,7 @@ const Conditions = ({ id }) => {
 			</ControlWrapper>
 			{!!model.conditions && (
 				<div className="payment-model-conditions">
-					<div className="payment-model-conditions-instructions">
-						Use this payment model if the following conditions are
-						met:
-					</div>
-					<LogicConditions
+					<LogicCondition
 						value={model.conditions}
 						onChange={(conditions) =>
 							updateModel(id, { conditions })
