@@ -11,9 +11,9 @@ import { __ } from "@wordpress/i18n";
 
 
 registerBuilderPanel('add-questions', {
-    title: __('Add Questions', 'quillforms'),
-    mode: 'single',
-    render: BlockTypesList,
-    isHidden: true,
-    type: 'modal'
+	title: __('Add form elements', 'quillforms'),
+	mode: 'single',
+	render: BlockTypesList,
+	isHidden: true,
+	type: 'modal',
 });
