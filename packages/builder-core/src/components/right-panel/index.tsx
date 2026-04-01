@@ -1,10 +1,6 @@
 import { BlockControls } from '@quillforms/block-editor';
 import { useEffect, useState } from 'react';
 import { useSelect } from '@wordpress/data';
-import { ThemesRender } from "@quillforms/theme-editor";
-import JumpLogicIcon from './logic-icon';
-import CalculatorIcon from './calculator-icon';
-import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 const BlockControlsPanel = () => {
@@ -20,13 +16,9 @@ const BlockControlsPanel = () => {
 		};
 	});
 
-	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
-
 	useEffect(() => {
 		setIsReady(false);
-		if (activeTab === 'logic') {
-			setActiveTab('question');
-		}
+		setActiveTab('question');
 		setTimeout(() => {
 			setIsReady(true);
 		}, 50);
@@ -41,43 +33,12 @@ const BlockControlsPanel = () => {
 				>
 					{__('Question', 'quillforms')}
 				</div>
-				<div
-					className={`tab ${activeTab === 'design' ? 'active' : ''}`}
-					onClick={() => setActiveTab('design')}
-				>
-					{__('Design', 'quillforms')}
-				</div>
-				<div
-					className={`tab ${activeTab === 'logic' ? 'active' : ''}`}
-					onClick={() => setActiveTab('logic')}
-				>
-					{__('Logic', 'quillforms')}
-				</div>
 			</div>
 
 			<div className="tab-content">
 				{isReady && (
 					<>
 						{activeTab === 'question' && <BlockControls />}
-						{activeTab === 'design' && <ThemesRender />}
-						{activeTab === "logic" && (
-							<div className="logic-tab-content">
-								<button className="logic-button" onClick={
-									() => {
-										setCurrentPanel('jump-logic');
-									}
-								}>
-									<JumpLogicIcon />
-									{__('Jump Logic', 'quillforms')}
-								</button>
-								<button className="logic-button" onClick={() => {
-									setCurrentPanel('calculator');
-								}}>
-									<CalculatorIcon />
-									{__('Calculator', 'quillforms')}
-								</button>
-							</div>
-						)}
 					</>
 				)}
 			</div>
