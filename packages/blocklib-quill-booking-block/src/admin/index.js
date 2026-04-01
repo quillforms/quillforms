@@ -8,11 +8,11 @@ import { name } from '../block.json';
 import Icon from './icon';
 
 export const blockAdminSettings = {
-    color: '#45B7D1',
-    icon: Icon,
-    title: 'Quill Booking(Calendly Alternative)',
-    controls,
-    order: 3,
+	color: '#F2F4FC',
+	icon: Icon,
+	title: 'Quill Booking (Calendly Alternative)',
+	controls,
+	order: 3,
 };
 
 setBlockAdminSettings(name, blockAdminSettings);
