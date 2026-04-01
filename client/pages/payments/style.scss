@@ -26,10 +26,6 @@
 	color: #777;
 }
 
-// .quillforms-payments-page-settings {
-// 	max-width: 900px;
-// 	margin: 10px auto 10px;
-// }
 
 .quillforms-payments-page-settings-save {
 	position: absolute;
@@ -67,6 +63,13 @@
 		overflow-x: hidden;
 	}
 
+	.admin-components-control-label{
+		color: #334155 !important;
+		font-size: 16px !important;
+		font-weight: 500 !important;
+		line-height: 28px !important;
+	}
+
 	.payment-model {
 		.payment-model-conditions {
 			padding-left: 0 !important;
@@ -85,21 +88,7 @@
 		}
 	}
 
-	.add-payment-model {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		background: #6d78d8;
-		color: #fff;
-		font-size: 16px;
-		border-radius: 10px;
-		cursor: pointer;
 
-		svg {
-			fill: #fff;
-		}
-	}
 }
 
 .quillforms-payments-page-settings__gateways-options-content {
@@ -501,44 +490,8 @@
 			}
 		}
 
-		// .payment-model-methods {
-		// 	padding: 0 15px;
-
-		// 	.method-label {
-		// 		display: inline-flex;
-		// 		align-items: center;
-		// 		height: 25px;
-
-		// 		& > svg,
-		// 		& > img {
-		// 			max-width: 50px;
-		// 			max-height: 25px;
-		// 			margin-right: 10px;
-		// 		}
-
-		// 		.method-label-notice {
-		// 			margin-left: 3px;
-		// 		}
-		// 	}
-		// }
 	}
 }
-
-// .quillforms-payments-page-settings__coupons {
-// 	.add-coupon {
-// 		background: #353938 !important;
-// 		display: flex;
-// 		align-items: center;
-// 		height: 36px !important;
-// 		margin: 20px auto 0;
-
-// 		svg {
-// 			fill: #fff;
-// 			margin-right: 7px;
-// 		}
-// 	}
-// }
-
 
 .qf-payments-coupons-header {
 	display: flex;
@@ -705,3 +658,4 @@
 		}
 	}
 }
+

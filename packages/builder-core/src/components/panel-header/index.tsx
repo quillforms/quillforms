@@ -41,7 +41,15 @@ const PanelHeader = () => {
 					<Icon
 						icon={ close }
 						onClick={ () => {
-							setCurrentPanel( '' );
+							if (
+								currentPanel?.name === 'calculator' ||
+								currentPanel?.name === 'calculator-points' ||
+								currentPanel?.name === 'calculator-variables'
+							) {
+								setCurrentPanel( 'jump-logic' );
+							} else {
+								setCurrentPanel( '' );
+							}
 							setCurrentSubPanel( '' );
 						} }
 					/>

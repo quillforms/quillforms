@@ -1,0 +1,271 @@
+.logic-editor-logic-conditions {
+	margin-top: 16px;
+	overflow: visible;
+}
+
+.logic-editor-logic-conditions__groups {
+	position: relative;
+}
+
+.logic-editor-logic-conditions__groups.has-or-group {
+	padding-left: 56px;
+}
+
+.logic-editor-logic-conditions__or-connector {
+	position: absolute;
+	left: 0;
+	top: 50px;
+	bottom: 50px;
+	width: 44px;
+	overflow: visible;
+	background-image:
+		repeating-linear-gradient(
+			to right,
+			#236294 0 5px,
+			transparent 5px 10px
+		),
+		repeating-linear-gradient(
+			to right,
+			#236294 0 5px,
+			transparent 5px 10px
+		);
+	background-size: calc(100% - 20px) 2px, calc(100% - 20px) 2px;
+	background-position: 20px 0, 20px 100%;
+	background-repeat: no-repeat;
+}
+
+.logic-editor-logic-conditions__or-connector::before {
+	content: '';
+	position: absolute;
+	left: 20px;
+	top: 0;
+	bottom: 0;
+	border-left: 2px dashed #236294;
+}
+
+.logic-editor-logic-conditions__group-row {
+	position: relative;
+	margin-bottom: 16px;
+}
+
+.logic-editor-logic-conditions__group-row.has-or-group {
+	margin-left: 0;
+}
+
+.logic-editor-logic-conditions__or-chip {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 8px;
+	padding: 8px 12px;
+	background: #dae5f0;
+	color: #236294;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 28px;
+	white-space: nowrap;
+	z-index: 1;
+}
+
+.logic-editor-logic-conditions__group {
+	position: relative;
+	overflow: visible;
+	border: 1px solid #d9d9d9;
+	border-radius: 16px;
+	padding: 16px 24px;
+	background: #fff;
+}
+
+.logic-editor-logic-conditions__condition-item {
+	position: relative;
+}
+
+.logic-editor-logic-conditions__group-and-connector {
+	position: absolute;
+	left: 0;
+	top: 50px;
+	bottom: 120px;
+	width: 32px;
+	overflow: visible;
+	z-index: 0;
+	background-image:
+		repeating-linear-gradient(
+			to right,
+			#236294 0 5px,
+			transparent 5px 10px
+		),
+		repeating-linear-gradient(
+			to right,
+			#236294 0 5px,
+			transparent 5px 10px
+		);
+	background-size: calc(100% - 18px) 2px, calc(100% - 18px) 2px;
+	background-position: 18px 0, 18px 100%;
+	background-repeat: no-repeat;
+}
+
+.logic-editor-logic-conditions__group-and-connector::before {
+	content: '';
+	position: absolute;
+	left: 18px;
+	top: 0;
+	bottom: 0;
+	border-left: 2px dashed #236294;
+}
+
+.logic-editor-logic-conditions__condition-item + .logic-editor-logic-conditions__condition-item {
+	margin-top: 16px;
+}
+
+.logic-editor-logic-conditions__and-chip {
+	position: absolute;
+	left: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 10px;
+	padding: 8px 10px;
+	background: #d6e5f8;
+	color: #236294;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 28px;
+	white-space: nowrap;
+	z-index: 1;
+}
+
+.logic-editor-logic-conditions__row {
+	border: 1px solid #d9d9d9;
+	border-radius: 12px;
+	padding: 16px;
+	background: #f7f8fa;
+}
+
+.logic-editor-logic-conditions__row.has-and-group {
+	margin-left: 40px;
+}
+
+.logic-editor-logic-conditions__row-top {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 180px 50px;
+	gap: 10px;
+	align-items: center;
+}
+
+.logic-editor-logic-conditions__field,
+.logic-editor-logic-conditions__operator {
+	background: #fff;
+	border-radius: 8px;
+}
+
+.logic-editor-logic-conditions__row-bottom {
+	margin-top: 10px;
+}
+
+.logic-editor-logic-conditions__row-bottom .components-text-control__input {
+	border: 1px solid #d9d9d9 !important;
+	border-radius: 16px !important;
+	padding: 24px 16px !important;
+	background: #fff !important;
+	font-size: 18px !important;
+	line-height: 28px !important;
+	color: #334155 !important;
+}
+
+.logic-editor-logic-conditions__row-bottom .components-text-control__input::placeholder {
+	color: #777 !important;
+}
+
+.logic-editor-logic-conditions__row-bottom .components-text-control__input:focus {
+	border: 1px solid #d946a3 !important;
+	outline: none !important;
+}
+
+.logic-editor-logic-conditions .combobox-control-select-option {
+	flex-wrap: nowrap !important;
+	align-items: center !important;
+}
+
+.logic-editor-logic-conditions .combobox-control-select-option-label {
+	margin-left: 8px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.logic-editor-logic-conditions__delete-one {
+	width: 44px;
+	height: 44px;
+	border: 1px solid #e13b3b;
+	border-radius: 12px;
+	background: #fff;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.logic-editor-logic-conditions__group-actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 12px;
+}
+
+.logic-editor-logic-conditions__group-actions > .components-button,
+.logic-editor-logic-conditions__group-actions > button:not(.logic-editor-logic-conditions__group-delete-all) {
+	border: 1px solid #b2328c !important;
+	background: #fff !important;
+	color: #b2328c !important;
+	border-radius: 16px !important;
+	padding: 12px 24px !important;
+	font-size: 18px !important;
+	font-weight: 500 !important;
+	line-height: 28px !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
+
+.logic-editor-logic-conditions__group-delete-all {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 4px;
+	border: none !important;
+	outline: none !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	font-size: 18px;
+	line-height: 28px;
+	font-weight: 500;
+	color: #e13b3b !important;
+	cursor: pointer;
+	padding: 0 !important;
+	border-radius: 0 !important;
+	text-decoration: none;
+}
+
+.logic-editor-logic-conditions__group-delete-all.is-single {
+	color: #777777 !important;
+}
+
+.logic-editor-logic-conditions__footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 8px;
+}
+
+.logic-editor-logic-conditions__footer > .components-button,
+.logic-editor-logic-conditions__or-btn {
+	border: 1px solid #b2328c !important;
+	background: #fff !important;
+	color: #b2328c !important;
+	border-radius: 16px !important;
+	padding: 12px 24px !important;
+	font-size: 18px !important;
+	font-weight: 500 !important;
+	line-height: 28px !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
