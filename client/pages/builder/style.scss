@@ -1,8 +1,4 @@
 .qf-builder-save-button {
-	position: absolute;
-	top: 28px;
-	right: 32px;
-	z-index: 6;
 	border-radius: 8px !important;
 	background: #B2328C;
 	padding: 8px 12px !important;
@@ -12,22 +8,18 @@
 }
 
 .qf-builder-full-preview-button {
-	position: absolute;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	top: 28px;
-	right: 106px;
-	border: none;
-	z-index: 6;
+	border: 1px solid #B2328C;
 	border-radius: 8px;
 	background: white;
-	border: 1px solid #B2328C;
 	padding: 8px;
 	cursor: pointer;
 }
 
-.qf-builder-save-button.disabled {
+.qf-builder-save-button.disabled,
+.qf-builder-save-button:disabled {
 	background: rgba(178, 50, 140, 0.45) !important;
 	color: rgba(255, 255, 255, 0.85) !important;
 	opacity: 0.85;

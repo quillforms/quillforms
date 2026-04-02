@@ -3,7 +3,7 @@
  */
 import { Button } from '@quillforms/admin-components';
 import { getRestFields } from '@quillforms/rest-fields';
-import { getHistory, NavigationPrompt } from '@quillforms/navigation';
+import { NavigationPrompt } from '@quillforms/navigation';
 import ConfigAPI from '@quillforms/config';
 
 /**
@@ -11,7 +11,7 @@ import ConfigAPI from '@quillforms/config';
  */
 import apiFetch from '@wordpress/api-fetch';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { createPortal, useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
 import { Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -23,7 +23,6 @@ import classnames from 'classnames';
 /**
  * Internal Dependencies
  */
-import PlaceholderButton from './placeholder-button';
 import ConfirmNavigationModal from './confirm-navigation-modal';
 import { size } from 'lodash';
 import { css } from 'emotion';
@@ -31,6 +30,9 @@ import { css } from 'emotion';
 const SaveButton = ({ formId, isResolving }) => {
 	const [isSaving, setIsSaving] = useState(false);
 	const [shouldBeSaved, setShouldBeSaved] = useState(false);
+	/** Serialized rest fields that match last save (or initial load) — only warn when current data differs. */
+	const cleanSnapshotRef = useRef(null);
+	const restFieldsRef = useRef(null);
 	const [displayNotificationsHint, setDisplayNotificationsHint] =
 		useState(false);
 	const license = ConfigAPI.getLicense();
@@ -44,14 +46,8 @@ const SaveButton = ({ formId, isResolving }) => {
 		});
 		return { restFields };
 	});
-
-	const { hasThemesFinishedResolution } = useSelect((select) => {
-		const { hasFinishedResolution } = select('quillForms/theme-editor');
-
-		return {
-			hasThemesFinishedResolution: hasFinishedResolution('getThemesList'),
-		};
-	});
+	restFieldsRef.current = restFields;
+	const restFieldsSerialized = JSON.stringify(restFields);
 
 	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
 
@@ -65,97 +61,92 @@ const SaveButton = ({ formId, isResolving }) => {
 		return () => (window.onbeforeunload = undefined);
 	}, [shouldBeSaved]);
 
+	// Leave-page warning only when data differs from last clean snapshot (load or successful save).
 	useEffect(() => {
-		if (!isResolving && hasThemesFinishedResolution) {
-			setShouldBeSaved(true);
+		if (isResolving) {
+			cleanSnapshotRef.current = null;
+			setShouldBeSaved(false);
+			return;
 		}
-	}, [JSON.stringify(restFields)]);
+		if (cleanSnapshotRef.current === null) {
+			cleanSnapshotRef.current = restFieldsSerialized;
+			setShouldBeSaved(false);
+			return;
+		}
+		setShouldBeSaved(restFieldsSerialized !== cleanSnapshotRef.current);
+	}, [isResolving, restFieldsSerialized]);
 
 	return (
 		<>
-			{createPortal(
-				<>
-					{!isResolving && hasThemesFinishedResolution ? (
-						<>
-							<NavigationPrompt when={shouldBeSaved}>
-								{({ onConfirm, onCancel }) => (
-									<ConfirmNavigationModal
-										onCancel={onCancel}
-										onConfirm={onConfirm}
-									/>
-								)}
-							</NavigationPrompt>
-							<Button
-								isPrimary={true}
-								className={classnames(
-									'qf-builder-save-button',
-									{
-										disabled: !shouldBeSaved,
-									}
-								)}
-								onClick={() => {
-									if (isSaving || !shouldBeSaved) return;
-									setIsSaving(true);
+			<NavigationPrompt when={shouldBeSaved}>
+				{({ onConfirm, onCancel }) => (
+					<ConfirmNavigationModal
+						onCancel={onCancel}
+						onConfirm={onConfirm}
+					/>
+				)}
+			</NavigationPrompt>
+			<Button
+				isPrimary={true}
+				className="qf-builder-save-button"
+				disabled={
+					isResolving || isSaving || !shouldBeSaved
+				}
+				onClick={() => {
+					if (isResolving || isSaving || !shouldBeSaved) return;
+					setIsSaving(true);
 
-									apiFetch({
-										// Timestamp arg allows caller to bypass browser caching, which is
-										// expected for this specific function.
-										path:
-											`/wp/v2/quill_forms/${formId}` +
-											`?context=edit&_timestamp=${Date.now()}`,
-										method: 'POST',
-										data: {
-											...restFields,
-											status: 'publish',
-										},
-									})
-										.then(() => {
-											if (
-												license?.status !== 'valid' &&
-												size(
-													restFields.notifications
-												) <= 0 &&
-												!localStorage.getItem(
-													`qf-display-notifications-hint-${formId}`
-												)
-											) {
-												setDisplayNotificationsHint(
-													true
-												);
-											}
-											createSuccessNotice(
-												__(
-													'🚀 Saved successfully!',
-													'quillforms'
-												),
-												{
-													type: 'snackbar',
-													isDismissible: true,
-												}
-											);
+					apiFetch({
+						// Timestamp arg allows caller to bypass browser caching, which is
+						// expected for this specific function.
+						path:
+							`/wp/v2/quill_forms/${formId}` +
+							`?context=edit&_timestamp=${Date.now()}`,
+						method: 'POST',
+						data: {
+							...restFields,
+							status: 'publish',
+						},
+					})
+						.then(() => {
+							if (
+								license?.status !== 'valid' &&
+								size(restFields.notifications) <= 0 &&
+								!localStorage.getItem(
+									`qf-display-notifications-hint-${formId}`
+								)
+							) {
+								setDisplayNotificationsHint(true);
+							}
+							createSuccessNotice(
+								__('🚀 Saved successfully!', 'quillforms'),
+								{
+									type: 'snackbar',
+									isDismissible: true,
+								}
+							);
 
-											setIsSaving(false);
-											setShouldBeSaved(false);
-										})
-										.catch(() => {
-											createErrorNotice(
-												__(
-													'⛔ Error while saving!',
-													'quillforms'
-												),
-												{
-													type: 'snackbar',
-													isDismissible: true,
-												}
-											);
-											setIsSaving(false);
-										});
-								}}
-							>
-								{isSaving
-									? __('Saving', 'quillforms')
-									: __('Save', 'quillforms')}
-							</Button>
+							setIsSaving(false);
+							cleanSnapshotRef.current =
+								JSON.stringify(restFieldsRef.current);
+							setShouldBeSaved(false);
+						})
+						.catch(() => {
+							createErrorNotice(
+								__('⛔ Error while saving!', 'quillforms'),
+								{
+									type: 'snackbar',
+									isDismissible: true,
+								}
+							);
+							setIsSaving(false);
+						});
+				}}
+			>
+				{isSaving
+					? __('Saving', 'quillforms')
+					: __('Save', 'quillforms')}
+			</Button>
 							{displayNotificationsHint && (
 								<Modal
 									className={classnames(
@@ -243,13 +234,6 @@ const SaveButton = ({ formId, isResolving }) => {
 									</div>
 								</Modal>
 							)}
-						</>
-					) : (
-						<PlaceholderButton />
-					)}
-				</>,
-				document.body
-			)}
 		</>
 	);
 };

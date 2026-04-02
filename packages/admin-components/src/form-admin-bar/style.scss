@@ -96,5 +96,13 @@
 			justify-content: center;
 			border-right: 1px solid #d8d8d8;
 		}
+
+		.admin-components-form-admin-bar__actions {
+			position: absolute;
+			right: 16px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
 	}
 }

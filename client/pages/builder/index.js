@@ -2,6 +2,7 @@
  * QuillForms Dependencies
  */
 import { BuilderLayout, FullPreviewLayout } from '@quillforms/builder-core';
+import { FormAdminBarActions } from '@quillforms/admin-components';
 import configApi from '@quillforms/config';
 
 /**
@@ -33,23 +34,21 @@ const Builder = ({ params }) => {
 	const { resetAnswers } = useDispatch('quillForms/renderer-core');
 	const { setCurrentBlock } = useDispatch('quillForms/block-editor');
 
-	const [isResolving, setIsResolving] = useState(true);
 	const [unknownBlocks, setUnknownBlocks] = useState(undefined);
 
-	// Making sure all stores are set up already
-	// We pick one store only (any store would work) "The  block editor store" to make sure all resolvers depending on builder initial payload has finished resolution.
-	// what would make this would work is that we have the save button components rendered already while fetching.
-	// The save button component has observers for all rest fields changes so here we would be notified if the resolution has finished.
 	const { hasBlockEditorFinishedResolution, blockTypes } = useSelect(
 		(select) => {
 			return {
 				hasBlockEditorFinishedResolution: select(
 					'quillForms/block-editor'
 				).hasFinishedResolution('getBlocksWithPartialSubmission'),
-				blockTypes: select('quillForms/blocks').getBlockTypes()
+				blockTypes: select('quillForms/blocks').getBlockTypes(),
 			};
 		}
 	);
+
+	// From store only — avoids stuck "loading" when remounting after visiting Share/Results/etc.
+	const isResolving = !hasBlockEditorFinishedResolution;
 
 	useEffect(() => {
 		const initialPayload = configApi.getInitialPayload();
@@ -62,24 +61,16 @@ const Builder = ({ params }) => {
 				setUnknownBlocks(
 					uniq(map(unKnownBlocks, (block) => block.name))
 				);
-			}
-			else {
-				setCurrentBlock(initialPayload.blocks[0]);
+			} else {
+				setCurrentBlock(initialPayload.blocks[0].id);
 			}
 		}
 
 		return () => {
 			setCurrentPanel('');
 			resetAnswers();
-
 		};
 	}, []);
-
-	useEffect(() => {
-		if (hasBlockEditorFinishedResolution) {
-			setIsResolving(false);
-		}
-	}, [hasBlockEditorFinishedResolution]);
 
 	return (
 		<div id="quillforms-builder-page">
@@ -92,7 +83,7 @@ const Builder = ({ params }) => {
 						min-height: 100vh;
 						justify-content: center;
 						align-items: center;
-					` }
+					`}
 				>
 					<Loader color="#8640e3" height={50} width={50} />
 				</div>
@@ -106,14 +97,14 @@ const Builder = ({ params }) => {
 								max-width: 400px;
 								background: #9b32324d;
 								color: #a71616;
-							` }
+							`}
 						>
 							{__('The following blocks aren\'t known:', 'quillforms')}
 							<ul
 								className={css`
 									list-style: auto;
 									margin-left: 20px;
-								` }
+								`}
 							>
 								{unknownBlocks.map((blockname) => (
 									<li key={blockname}> {blockname} </li>
@@ -133,11 +124,13 @@ const Builder = ({ params }) => {
 					)}
 				</>
 			)}
-			<FullPreviewIcon
-				isResolving={isResolving}
-				setFullPreviewMode={setFullPreviewMode}
-			/>
-			<SaveButton formId={id} isResolving={isResolving} />
+			<FormAdminBarActions>
+				<FullPreviewIcon
+					isResolving={isResolving}
+					setFullPreviewMode={setFullPreviewMode}
+				/>
+				<SaveButton formId={id} isResolving={isResolving} />
+			</FormAdminBarActions>
 		</div>
 	);
 };

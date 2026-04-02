@@ -14,6 +14,7 @@ import { __ } from '@wordpress/i18n';
  */
 import Logo from '../logo';
 import FormAdminNav from './admin-nav';
+import FormAdminBarActions from './admin-bar-actions';
 import HomeIcon from './home-icon';
 import DesignIcon from './design-icon.js';
 import LogicIcon from './logic-icon.js';
@@ -183,6 +184,10 @@ const FormAdminBar = ({ formId }) => {
 						</>
 					)}
 				</FormAdminNav.Slot>
+				<div className="admin-components-form-admin-bar__actions">
+					{ /** @ts-expect-error */}
+					<FormAdminBarActions.Slot />
+				</div>
 			</div>
 		</div>
 	);
