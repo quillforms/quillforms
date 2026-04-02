@@ -507,7 +507,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
 	);
 
 	useEffect(() => {
-		if (size(blocks) > 0) {
+		if (size(blocks) > 0 && !currentBlockId) {
 			setCurrentBlock(blocks[0].id);
 		}
 	}, []);
