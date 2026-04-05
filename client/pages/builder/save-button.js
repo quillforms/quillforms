@@ -26,13 +26,14 @@ import classnames from 'classnames';
 import ConfirmNavigationModal from './confirm-navigation-modal';
 import { size } from 'lodash';
 import { css } from 'emotion';
- 
+
 const SaveButton = ({ formId, isResolving }) => {
 	const [isSaving, setIsSaving] = useState(false);
 	const [shouldBeSaved, setShouldBeSaved] = useState(false);
-	/** Serialized rest fields that match last save (or initial load) — only warn when current data differs. */
 	const cleanSnapshotRef = useRef(null);
 	const restFieldsRef = useRef(null);
+	
+	const baselineStabilizedRef = useRef(false);
 	const [displayNotificationsHint, setDisplayNotificationsHint] =
 		useState(false);
 	const license = ConfigAPI.getLicense();
@@ -52,6 +53,12 @@ const SaveButton = ({ formId, isResolving }) => {
 	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
 
 	useEffect(() => {
+		cleanSnapshotRef.current = null;
+		baselineStabilizedRef.current = false;
+		setShouldBeSaved(false);
+	}, [formId]);
+
+	useEffect(() => {
 		if (shouldBeSaved) {
 			window.onbeforeunload = () => true;
 		} else {
@@ -62,17 +69,24 @@ const SaveButton = ({ formId, isResolving }) => {
 	}, [shouldBeSaved]);
 
 	// Leave-page warning only when data differs from last clean snapshot (load or successful save).
+	// Do not lock baseline on the first post-ready tick — stores still hydrate and JSON changes once.
 	useEffect(() => {
 		if (isResolving) {
 			cleanSnapshotRef.current = null;
+			baselineStabilizedRef.current = false;
 			setShouldBeSaved(false);
 			return;
 		}
-		if (cleanSnapshotRef.current === null) {
-			cleanSnapshotRef.current = restFieldsSerialized;
-			setShouldBeSaved(false);
-			return;
+
+		if (!baselineStabilizedRef.current) {
+			const timer = window.setTimeout(() => {
+				cleanSnapshotRef.current = JSON.stringify(restFieldsRef.current);
+				baselineStabilizedRef.current = true;
+				setShouldBeSaved(false);
+			}, 400);
+			return () => window.clearTimeout(timer);
 		}
+
 		setShouldBeSaved(restFieldsSerialized !== cleanSnapshotRef.current);
 	}, [isResolving, restFieldsSerialized]);
 
@@ -97,8 +111,7 @@ const SaveButton = ({ formId, isResolving }) => {
 					setIsSaving(true);
 
 					apiFetch({
-						// Timestamp arg allows caller to bypass browser caching, which is
-						// expected for this specific function.
+
 						path:
 							`/wp/v2/quill_forms/${formId}` +
 							`?context=edit&_timestamp=${Date.now()}`,
@@ -127,6 +140,7 @@ const SaveButton = ({ formId, isResolving }) => {
 							);
 
 							setIsSaving(false);
+							baselineStabilizedRef.current = true;
 							cleanSnapshotRef.current =
 								JSON.stringify(restFieldsRef.current);
 							setShouldBeSaved(false);
