@@ -21,6 +21,7 @@ import {
 	PanelBody,
 	RangeControl,
 	FocalPointPicker,
+	CheckboxControl,
 } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 import { __ } from '@wordpress/i18n';
@@ -29,6 +30,7 @@ import { __ } from '@wordpress/i18n';
  * External Dependencies
  */
 import { forEach, isEmpty, size } from 'lodash';
+import tinycolor from 'tinycolor2';
 import { css } from 'emotion';
 
 /**
@@ -36,26 +38,50 @@ import { css } from 'emotion';
  */
 import ColorPicker from '../color-picker';
 import ComboColorPicker from '../combo-color-picker';
+import { isGradient } from '../combo-color-picker/utils';
 import ColorPreview from '../color-preview';
 import CustomizeFooter from '../customize-footer';
 import TypographyPanel from '../typography-panel';
 
+function hasVisibleBackgroundOverlay(color) {
+	if (color === undefined || color === null) {
+		return false;
+	}
+	if (typeof color !== 'string') {
+		return true;
+	}
+	const trimmed = color.trim();
+	if (!trimmed) {
+		return false;
+	}
+	if (isGradient(trimmed)) {
+		return true;
+	}
+	const c = tinycolor(trimmed);
+	if (!c.isValid()) {
+		return false;
+	}
+	return c.getAlpha() > 0;
+}
+
 const CustomizeThemePanel = () => {
-	const { setCurrentThemeProperties, setCurrentThemeTitle } = useDispatch(
-		'quillForms/theme-editor'
+	const { setCurrentThemeProperties, setCurrentThemeTitle, setCurrentTab } =
+		useDispatch('quillForms/theme-editor');
+	const { theme, shouldBeSaved, currentThemeId, customFontsList } = useSelect(
+		(select) => {
+			return {
+				shouldBeSaved: select(
+					'quillForms/theme-editor'
+				).shouldThemeBeSaved(),
+				currentThemeId: select(
+					'quillForms/theme-editor'
+				).getCurrentThemeId(),
+				theme: select('quillForms/theme-editor').getCurrentTheme(),
+				customFontsList:
+					select('quillForms/custom-fonts')?.getFontsList() ?? [],
+			};
+		}
 	);
-	const { theme, shouldBeSaved, currentThemeId, customFontsList } = useSelect((select) => {
-		return {
-			shouldBeSaved: select(
-				'quillForms/theme-editor'
-			).shouldThemeBeSaved(),
-			currentThemeId: select(
-				'quillForms/theme-editor'
-			).getCurrentThemeId(),
-			theme: select('quillForms/theme-editor').getCurrentTheme(),
-			customFontsList: select('quillForms/custom-fonts')?.getFontsList() ?? [],
-		};
-	});
 
 	let customFonts = {};
 	if (size(customFontsList) > 0) {
@@ -70,7 +96,6 @@ const CustomizeThemePanel = () => {
 		...getDefaultThemeProperties(),
 		...properties,
 	};
-	const { setCurrentTab } = useDispatch('quillForms/theme-editor');
 	const {
 		backgroundColor,
 		backgroundImage,
@@ -85,6 +110,7 @@ const CustomizeThemePanel = () => {
 		buttonsFontColor,
 		questionsLabelFont,
 		questionsDescriptionFont,
+		applyBaseFontToAll,
 		buttonsBgColor,
 		formFooterBgColor,
 		errorsFontColor,
@@ -94,59 +120,68 @@ const CustomizeThemePanel = () => {
 	} = $properties;
 	return (
 		<div className="theme-editor-customize">
-			<div
-				className="theme-editor-customize__back"
-				onClick={() => {
-					setCurrentTab('themes-list');
-				}}
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
+			<div className="theme-editor-customize__header">
+				<button
+					type="button"
+					className="theme-editor-customize__back"
+					onClick={() => {
+						setCurrentTab('themes-list');
+					}}
+					aria-label={__('Back to My Themes', 'quillforms')}
 				>
-					<path
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
 						fill="none"
-						d="M0 0h24v24H0z"
-					/>
-					<path
-						d="M10 17l5-5-5-5v10z"
-					/>
-				</svg>
-				<span>{__('Back', 'quillforms')}</span>
-			</div>
-			<PanelBody title={__('Theme Title', 'quillforms')} initialOpen={false}>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Title', 'quillforms')} />
-						<TextControl
-							value={title}
-							onChange={(val) => {
-								setCurrentThemeTitle(val);
-							}}
+						aria-hidden="true"
+					>
+						<path
+							d="M8.98656 11.6687C8.98656 11.7892 9.00581 11.9014 9.04431 12.0052C9.08281 12.109 9.14881 12.2078 9.24231 12.3014L13.7366 16.7957C13.8751 16.934 14.0491 17.0049 14.2588 17.0082C14.4683 17.0114 14.6456 16.9405 14.7906 16.7957C14.9354 16.6507 15.0078 16.475 15.0078 16.2687C15.0078 16.0624 14.9354 15.8867 14.7906 15.7417L10.7173 11.6687L14.7906 7.5957C14.9289 7.4572 14.9997 7.28312 15.0031 7.07345C15.0062 6.86395 14.9354 6.6867 14.7906 6.5417C14.6456 6.39686 14.4699 6.32445 14.2636 6.32445C14.0572 6.32445 13.8816 6.39686 13.7366 6.5417L9.24231 11.0359C9.14881 11.1296 9.08281 11.2284 9.04431 11.3322C9.00581 11.436 8.98656 11.5482 8.98656 11.6687Z"
+							fill="#334155"
 						/>
-					</ControlWrapper>
-				</BaseControl>
-			</PanelBody>
-			<PanelBody title={__('Background and Logo', 'quillforms')} initialOpen={false}>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Background Overlay Color', 'quillforms')} />
-						<ColorPreview color={backgroundColor} />
-					</ControlWrapper>
-					<ComboColorPicker
-						color={backgroundColor}
-						setColor={(value) => {
-							setCurrentThemeProperties({
-								backgroundColor: value,
-							});
+					</svg>
+				</button>
+				<h2 className="theme-editor-customize__header-title">
+					{__('New Theme', 'quillforms')}
+				</h2>
+			</div>
+			<div className="theme-editor-customize__scroll">
+				<div className="theme-editor-customize__theme-title-section">
+					<label
+						className="theme-editor-customize__theme-title-label"
+						htmlFor="quillforms-customize-theme-title"
+					>
+						{__('Theme Title', 'quillforms')}
+					</label>
+					<TextControl
+						id="quillforms-customize-theme-title"
+						className="theme-editor-customize__theme-title-field"
+						value={title}
+						placeholder={__('Theme Title', 'quillforms')}
+						onChange={(val) => {
+							setCurrentThemeTitle(val);
 						}}
 					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Background Image', 'quillforms')} />
+				</div>
+				<PanelBody
+					title={__('Background', 'quillforms')}
+					initialOpen={false}
+				>
+					<div className="theme-editor-customize__notice">
+						<p>
+							{__(
+								'To add a background image, clear the background overlay color or add opacity to it.',
+								'quillforms'
+							)}
+						</p>
+					</div>
+
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Background Image', 'quillforms')}
+						</div>
 						{isEmpty(backgroundImage) ? (
 							<MediaUpload
 								onSelect={(media) =>
@@ -156,83 +191,169 @@ const CustomizeThemePanel = () => {
 								}
 								allowedTypes={['image']}
 								render={({ open }) => (
-									<Button isSmall onClick={open}>
-										{__('Add', 'quillforms')}
-									</Button>
+									<button
+										type="button"
+										className="theme-editor-customize__dropzone"
+										onClick={open}
+									>
+										<span
+											className="theme-editor-customize__dropzone-icon"
+											aria-hidden="true"
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="40"
+												height="40"
+												viewBox="0 0 40 40"
+												fill="none"
+											>
+												<path
+													d="M25.9304 13.0731C25.731 13.0731 25.3324 13.0731 25.133 12.8738L19.9503 7.49169L14.7676 12.6744C14.3689 13.0731 13.7709 13.0731 13.3722 12.6744C12.9736 12.2757 12.9736 11.6777 13.3722 11.2791L19.3523 5.299C19.751 4.90033 20.349 4.90033 20.7477 5.299L26.7277 11.2791C27.1264 11.6777 27.1264 12.2757 26.7277 12.6744C26.5284 13.0731 26.1297 13.0731 25.9304 13.0731Z"
+													fill="#B2328C"
+												/>
+												<path
+													d="M19.9508 24.0364C19.3528 24.0364 18.9541 23.6377 18.9541 23.0397V7.09287C18.9541 6.49486 19.3528 6.09619 19.9508 6.09619C20.5488 6.09619 20.9475 6.49486 20.9475 7.09287V23.0397C20.9475 23.6377 20.5488 24.0364 19.9508 24.0364Z"
+													fill="#B2328C"
+												/>
+												<path
+													d="M29.9169 35H9.98339C7.19269 35 5 32.8073 5 30.0166V26.0299C5 25.4319 5.39867 25.0332 5.99668 25.0332C6.59468 25.0332 6.99336 25.4319 6.99336 26.0299V30.0166C6.99336 31.6113 8.38871 33.0066 9.98339 33.0066H29.9169C31.5116 33.0066 32.907 31.6113 32.907 30.0166V26.0299C32.907 25.4319 33.3057 25.0332 33.9037 25.0332C34.5017 25.0332 34.9003 25.4319 34.9003 26.0299V30.0166C34.9003 32.8073 32.7076 35 29.9169 35Z"
+													fill="#B2328C"
+												/>
+											</svg>
+										</span>
+										<span className="theme-editor-customize__dropzone-text">
+											<span className="theme-editor-customize__dropzone-text-main">
+												{__(
+													'Click to upload an image or ',
+													'quillforms'
+												)}
+											</span>
+											<span className="theme-editor-customize__dropzone-text-accent">
+												{__(
+													'Drag & Drop',
+													'quillforms'
+												)}
+											</span>
+										</span>
+									</button>
 								)}
 							/>
 						) : (
-							<Button
-								isDanger
-								isSmall
-								onClick={() =>
-									setCurrentThemeProperties({
-										backgroundImage: '',
-									})
-								}
-							>
-								{__('Remove', 'quillforms')}
-							</Button>
-						)}
-					</ControlWrapper>
-					<div className={
-						css`
-						margin-top: 10px;
-						padding: 10px;
-						background: #5a5a5a;
-						color: #fff;
-						border-radius: 5px;
-					`
-
-					}>
-						<p>
-							{__('To add a background image, clear the background overlay color or add opacity to it.', 'quillforms')}
-						</p>
-					</div>
-				</BaseControl>
-
-				{!isEmpty(backgroundImage) && (
-					<div
-						className={css`
-							max-width: 300px;
-						` }
-					>
-						<BaseControl>
-							<ControlWrapper orientation="vertical">
-								<ControlLabel label={__('Focal Point Picker', 'quillforms')}></ControlLabel>
-								<div
-									className={css`
-										max-width: 300px;
-									` }
-								>
-									<FocalPointPicker
-										url={backgroundImage}
-										value={backgroundImageFocalPoint}
-										onDragStart={(val) => {
-											setCurrentThemeProperties({
-												backgroundImageFocalPoint: val,
-											});
-										}}
-										onDrag={(val) => {
-											setCurrentThemeProperties({
-												backgroundImageFocalPoint: val,
-											});
-										}}
-										onChange={(val) => {
-											setCurrentThemeProperties({
-												backgroundImageFocalPoint: val,
-											});
-										}}
-									/>
+							<div className="theme-editor-customize__media-block">
+								<div className="theme-editor-customize__media-preview">
+									<img src={backgroundImage} alt="" />
 								</div>
-							</ControlWrapper>
-						</BaseControl>
+								<div className="theme-editor-customize__media-actions">
+									<MediaUpload
+										onSelect={(media) =>
+											setCurrentThemeProperties({
+												backgroundImage: media.url,
+											})
+										}
+										allowedTypes={['image']}
+										render={({ open }) => (
+											<button
+												type="button"
+												className="theme-editor-customize__media-action-link"
+												onClick={open}
+											>
+												{__(
+													'Replace image',
+													'quillforms'
+												)}
+											</button>
+										)}
+									/>
+									<button
+										type="button"
+										className="theme-editor-customize__media-action-link theme-editor-customize__media-action-link--danger"
+										onClick={() =>
+											setCurrentThemeProperties({
+												backgroundImage: '',
+											})
+										}
+									>
+										{__('Remove', 'quillforms')}
+									</button>
+								</div>
+								<div className="theme-editor-customize__focal-wrap">
+									<div className="theme-editor-customize__subsection-label theme-editor-customize__subsection-label--small">
+										{__('Focal point', 'quillforms')}
+									</div>
+									<div className="theme-editor-customize__focal-picker">
+										<FocalPointPicker
+											url={backgroundImage}
+											value={backgroundImageFocalPoint}
+											onDragStart={(val) => {
+												setCurrentThemeProperties({
+													backgroundImageFocalPoint:
+														val,
+												});
+											}}
+											onDrag={(val) => {
+												setCurrentThemeProperties({
+													backgroundImageFocalPoint:
+														val,
+												});
+											}}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													backgroundImageFocalPoint:
+														val,
+												});
+											}}
+										/>
+									</div>
+								</div>
+							</div>
+						)}
 					</div>
-				)}
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('logo', 'quillforms')} />
-						{isEmpty(logo) ? (
+
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Background Overlay Color', 'quillforms')}
+						</div>
+						<div className="theme-editor-customize__overlay-color">
+							<div className="theme-editor-customize__combo-wrap">
+								<ComboColorPicker
+									color={backgroundColor}
+									setColor={(value) => {
+										setCurrentThemeProperties({
+											backgroundColor: value,
+										});
+									}}
+								/>
+							</div>
+							<div className="theme-editor-customize__subsection-clear-row">
+								<button
+									type="button"
+									className={
+										'theme-editor-customize__clear-link theme-editor-customize__clear-link--overlay' +
+										(hasVisibleBackgroundOverlay(
+											backgroundColor
+										)
+											? ' theme-editor-customize__clear-link--has-value'
+											: '')
+									}
+									onClick={() =>
+										setCurrentThemeProperties({
+											backgroundColor: 'rgba(0, 0, 0, 0)',
+										})
+									}
+								>
+									{__('Clear', 'quillforms')}
+								</button>
+							</div>
+						</div>
+					</div>
+				</PanelBody>
+
+				<PanelBody title={__('Logo', 'quillforms')} initialOpen={false}>
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Logo', 'quillforms')}
+						</div>
+						{isEmpty(logo) || !logo?.src ? (
 							<MediaUpload
 								onSelect={(media) =>
 									setCurrentThemeProperties({
@@ -244,322 +365,488 @@ const CustomizeThemePanel = () => {
 								}
 								allowedTypes={['image']}
 								render={({ open }) => (
-									<Button isSmall onClick={open}>
-										{__('Add', 'quillforms')}
-									</Button>
+									<button
+										type="button"
+										className="theme-editor-customize__dropzone"
+										onClick={open}
+									>
+										<span
+											className="theme-editor-customize__dropzone-icon"
+											aria-hidden="true"
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="40"
+												height="40"
+												viewBox="0 0 40 40"
+												fill="none"
+											>
+												<path
+													d="M25.9304 13.0731C25.731 13.0731 25.3324 13.0731 25.133 12.8738L19.9503 7.49169L14.7676 12.6744C14.3689 13.0731 13.7709 13.0731 13.3722 12.6744C12.9736 12.2757 12.9736 11.6777 13.3722 11.2791L19.3523 5.299C19.751 4.90033 20.349 4.90033 20.7477 5.299L26.7277 11.2791C27.1264 11.6777 27.1264 12.2757 26.7277 12.6744C26.5284 13.0731 26.1297 13.0731 25.9304 13.0731Z"
+													fill="#B2328C"
+												/>
+												<path
+													d="M19.9508 24.0364C19.3528 24.0364 18.9541 23.6377 18.9541 23.0397V7.09287C18.9541 6.49486 19.3528 6.09619 19.9508 6.09619C20.5488 6.09619 20.9475 6.49486 20.9475 7.09287V23.0397C20.9475 23.6377 20.5488 24.0364 19.9508 24.0364Z"
+													fill="#B2328C"
+												/>
+												<path
+													d="M29.9169 35H9.98339C7.19269 35 5 32.8073 5 30.0166V26.0299C5 25.4319 5.39867 25.0332 5.99668 25.0332C6.59468 25.0332 6.99336 25.4319 6.99336 26.0299V30.0166C6.99336 31.6113 8.38871 33.0066 9.98339 33.0066H29.9169C31.5116 33.0066 32.907 31.6113 32.907 30.0166V26.0299C32.907 25.4319 33.3057 25.0332 33.9037 25.0332C34.5017 25.0332 34.9003 25.4319 34.9003 26.0299V30.0166C34.9003 32.8073 32.7076 35 29.9169 35Z"
+													fill="#B2328C"
+												/>
+											</svg>
+										</span>
+										<span className="theme-editor-customize__dropzone-text">
+											<span className="theme-editor-customize__dropzone-text-main">
+												{__(
+													'Click to upload an image or ',
+													'quillforms'
+												)}
+											</span>
+											<span className="theme-editor-customize__dropzone-text-accent">
+												{__(
+													'Drag & Drop',
+													'quillforms'
+												)}
+											</span>
+										</span>
+									</button>
 								)}
 							/>
 						) : (
-							<Button
-								isDanger
-								isSmall
-								onClick={() =>
-									setCurrentThemeProperties({
-										logo: {},
-									})
-								}
-							>
-								{__('Remove', 'quillforms')}
-							</Button>
+							<div className="theme-editor-customize__media-block">
+								<div className="theme-editor-customize__media-preview theme-editor-customize__media-preview--logo">
+									<img src={logo.src} alt="" />
+								</div>
+								<div className="theme-editor-customize__media-actions">
+									<MediaUpload
+										onSelect={(media) =>
+											setCurrentThemeProperties({
+												logo: {
+													type: 'image',
+													src: media.url,
+												},
+											})
+										}
+										allowedTypes={['image']}
+										render={({ open }) => (
+											<button
+												type="button"
+												className="theme-editor-customize__media-action-link"
+												onClick={open}
+											>
+												{__(
+													'Replace image',
+													'quillforms'
+												)}
+											</button>
+										)}
+									/>
+									<button
+										type="button"
+										className="theme-editor-customize__media-action-link theme-editor-customize__media-action-link--danger"
+										onClick={() =>
+											setCurrentThemeProperties({
+												logo: {},
+											})
+										}
+									>
+										{__('Remove', 'quillforms')}
+									</button>
+								</div>
+							</div>
 						)}
-					</ControlWrapper>
-				</BaseControl>
-			</PanelBody>
+					</div>
+				</PanelBody>
 
-			<PanelBody title={__('Font Families', 'quillforms')} initialOpen={false}>
-				<div className="fonts-hint">
-					<p>
-						{__('You can add your custom font from settings icon at left bar and then click on custom fonts.', 'quillforms')}
-					</p>
-				</div>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Base Font', 'quillforms')} />
-						<FontPicker
-							fonts={allFonts}
-							selectedFont={font}
-							setFont={(value) => {
-								setCurrentThemeProperties({
-									font: value,
-								});
-							}}
-						/>
-					</ControlWrapper>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel
-							label={__('Questions Label Font', 'quillforms')}
-						/>
-						<FontPicker
-							fonts={{
-								Inherit: 'inherit',
-								...customFonts,
-								...configApi.getFonts(),
-							}}
-							selectedFont={questionsLabelFont}
-							setFont={(value) => {
-								setCurrentThemeProperties({
-									questionsLabelFont: value,
-								});
-							}}
-						/>
-					</ControlWrapper>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel
-							label={__('Questions Description Font', 'quillforms')}
-						/>
-						<FontPicker
-							fonts={{
-								Inherit: 'inherit',
-								...customFonts,
-								...configApi.getFonts(),
-							}}
-							selectedFont={questionsDescriptionFont}
-							setFont={(value) => {
-								setCurrentThemeProperties({
-									questionsDescriptionFont: value,
-								});
-							}}
-						/>
-					</ControlWrapper>
-				</BaseControl>
-			</PanelBody>
-
-			<PanelBody title={__('Colors', 'quillforms')} initialOpen={false}>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Questions Color', 'quillforms')} />
-						<ColorPreview color={questionsColor} />
-					</ControlWrapper>
-					<ColorPicker
-						value={questionsColor}
-						onChange={(value) => {
-							setCurrentThemeProperties({
-								questionsColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Answers Color', 'quillforms')} />
-						<ColorPreview color={answersColor} />
-					</ControlWrapper>
-					<ColorPicker
-						value={answersColor}
-						onChange={(value) => {
-							setCurrentThemeProperties({
-								answersColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Buttons Font Color', 'quillforms')} />
-						<ColorPreview color={buttonsFontColor} />
-					</ControlWrapper>
-					<ColorPicker
-						value={buttonsFontColor}
-						onChange={(value) => {
-							setCurrentThemeProperties({
-								buttonsFontColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Buttons Background Color', 'quillforms')} />
-						<ColorPreview color={buttonsBgColor} />
-					</ControlWrapper>
-					<ComboColorPicker
-						color={buttonsBgColor}
-						setColor={(value) => {
-							setCurrentThemeProperties({
-								buttonsBgColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Errors Text Color', 'quillforms')} />
-						<ColorPreview color={errorsFontColor} />
-					</ControlWrapper>
-					<ColorPicker
-						value={errorsFontColor}
-						onChange={(value) => {
-							setCurrentThemeProperties({
-								errorsFontColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Errors Background Color', 'quillforms')} />
-						<ColorPreview color={errorsBgColor} />
-					</ControlWrapper>
-					<ComboColorPicker
-						color={errorsBgColor}
-						setColor={(value) => {
-							setCurrentThemeProperties({
-								errorsBgColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="vertical">
-						<ControlLabel
-							label={__('Form Footer Background Color', 'quillforms')}
-							isNew={true}
-						/>
-						<ResponsiveControl
-							desktopChildren={
-								<ComboColorPicker
-									color={formFooterBgColor.lg}
-									setColor={(value) => {
+				<PanelBody
+					className="theme-editor-customize__font-family-panel"
+					title={__('Font Family', 'quillforms')}
+					initialOpen={false}
+				>
+					<div className="theme-editor-customize__font-family">
+						<div className="theme-editor-customize__notice">
+							<p>
+								{__(
+									'You can add your custom font from settings icon at left bar and then click on custom fonts.',
+									'quillforms'
+								)}
+							</p>
+						</div>
+						<BaseControl>
+							<ControlWrapper orientation="vertical">
+								<ControlLabel
+									label={__('Base Font', 'quillforms')}
+								/>
+								<FontPicker
+									fonts={allFonts}
+									selectedFont={font}
+									setFont={(value) => {
+										if (applyBaseFontToAll) {
+											setCurrentThemeProperties({
+												font: value,
+												questionsLabelFont: value,
+												questionsDescriptionFont:
+													value,
+											});
+										} else {
+											setCurrentThemeProperties({
+												font: value,
+											});
+										}
+									}}
+								/>
+							</ControlWrapper>
+						</BaseControl>
+						<div className="theme-editor-customize__apply-base-font">
+							<CheckboxControl
+								label={__(
+									'Apply Base Font to all',
+									'quillforms'
+								)}
+								checked={!!applyBaseFontToAll}
+								onChange={(checked) => {
+									if (checked) {
 										setCurrentThemeProperties({
-											formFooterBgColor: {
-												...formFooterBgColor,
-												lg: value,
-											},
+											applyBaseFontToAll: true,
+											questionsLabelFont: font,
+											questionsDescriptionFont: font,
+										});
+									} else {
+										setCurrentThemeProperties({
+											applyBaseFontToAll: false,
+										});
+									}
+								}}
+							/>
+						</div>
+						<BaseControl>
+							<ControlWrapper orientation="vertical">
+								<ControlLabel
+									label={__(
+										'Questions Label Font',
+										'quillforms'
+									)}
+								/>
+								<FontPicker
+									fonts={{
+										Inherit: 'inherit',
+										...customFonts,
+										...configApi.getFonts(),
+									}}
+									selectedFont={questionsLabelFont}
+									disabled={!!applyBaseFontToAll}
+									setFont={(value) => {
+										setCurrentThemeProperties({
+											questionsLabelFont: value,
 										});
 									}}
 								/>
-							}
-							tabletChildren={
-								<ComboColorPicker
-									color={formFooterBgColor.md}
-									setColor={(value) => {
+							</ControlWrapper>
+						</BaseControl>
+						<BaseControl>
+							<ControlWrapper orientation="vertical">
+								<ControlLabel
+									label={__(
+										'Questions Description Font',
+										'quillforms'
+									)}
+								/>
+								<FontPicker
+									fonts={{
+										Inherit: 'inherit',
+										...customFonts,
+										...configApi.getFonts(),
+									}}
+									selectedFont={questionsDescriptionFont}
+									disabled={!!applyBaseFontToAll}
+									setFont={(value) => {
 										setCurrentThemeProperties({
-											formFooterBgColor: {
-												...formFooterBgColor,
-												md: value,
-											},
+											questionsDescriptionFont: value,
 										});
 									}}
 								/>
-							}
-							mobileChildren={
-								<ComboColorPicker
-									color={formFooterBgColor.sm}
-									setColor={(value) => {
-										setCurrentThemeProperties({
-											formFooterBgColor: {
-												...formFooterBgColor,
-												sm: value,
-											},
-										});
-									}}
-								/>
-							}
-						/>
-					</ControlWrapper>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Progress Bar Fill Color', 'quillforms')} />
-						<ColorPreview color={progressBarFillColor} />
-					</ControlWrapper>
-					<ColorPicker
-						value={progressBarFillColor}
-						onChange={(value) => {
-							setCurrentThemeProperties({
-								progressBarFillColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Progress Bar Background Color', 'quillforms')} />
-						<ColorPreview color={progressBarBgColor} />
-					</ControlWrapper>
-					<ColorPicker
-						value={progressBarBgColor}
-						onChange={(value) => {
-							setCurrentThemeProperties({
-								progressBarBgColor: value,
-							});
-						}}
-					/>
-				</BaseControl>
-			</PanelBody>
+							</ControlWrapper>
+						</BaseControl>
+					</div>
+				</PanelBody>
 
-			<TypographyPanel
-				properties={$properties}
-				setCurrentThemeProperties={setCurrentThemeProperties}
-			/>
-			<PanelBody title={__('Borders', 'quillforms')} initialOpen={false}>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Buttons Border Radius(px)', 'quillforms')} />
-						<RangeControl
-							className={css`
-								width: 30%;
-							` }
-							value={buttonsBorderRadius}
-							onChange={(value) =>
-								setCurrentThemeProperties({
-									buttonsBorderRadius: value,
-								})
-							}
-							min={1}
-							max={30}
-						/>
-					</ControlWrapper>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel
-							label={__('Buttons Border Width(px)', 'quillforms')}
-							isNew={true}
-						/>
-						<RangeControl
-							className={css`
-								width: 30%;
-							` }
-							value={buttonsBorderWidth}
-							onChange={(value) =>
-								setCurrentThemeProperties({
-									buttonsBorderWidth: value,
-								})
-							}
-							min={0}
-							max={10}
-						/>
-					</ControlWrapper>
-				</BaseControl>
-				<BaseControl>
-					<ControlWrapper orientation="horizontal">
-						<ControlLabel
-							label={__('Buttons Border Color', 'quillforms')}
-							isNew={true}
-						/>
+				<PanelBody
+					title={__('Colors', 'quillforms')}
+					initialOpen={false}
+				>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__('Questions Color', 'quillforms')}
+							/>
+							<ColorPreview color={questionsColor} />
+						</ControlWrapper>
 						<ColorPicker
-							value={buttonsBorderColor}
+							value={questionsColor}
 							onChange={(value) => {
 								setCurrentThemeProperties({
-									buttonsBorderColor: value,
+									questionsColor: value,
 								});
 							}}
 						/>
-					</ControlWrapper>
-				</BaseControl>
-			</PanelBody>
-			{shouldBeSaved && (
-				<CustomizeFooter
-					themeTitle={title}
-					themeProperties={theme.properties}
-					themeId={currentThemeId}
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__('Answers Color', 'quillforms')}
+							/>
+							<ColorPreview color={answersColor} />
+						</ControlWrapper>
+						<ColorPicker
+							value={answersColor}
+							onChange={(value) => {
+								setCurrentThemeProperties({
+									answersColor: value,
+								});
+							}}
+						/>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__('Buttons Font Color', 'quillforms')}
+							/>
+							<ColorPreview color={buttonsFontColor} />
+						</ControlWrapper>
+						<ColorPicker
+							value={buttonsFontColor}
+							onChange={(value) => {
+								setCurrentThemeProperties({
+									buttonsFontColor: value,
+								});
+							}}
+						/>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__(
+									'Buttons Background Color',
+									'quillforms'
+								)}
+							/>
+							<ColorPreview color={buttonsBgColor} />
+						</ControlWrapper>
+						<ComboColorPicker
+							color={buttonsBgColor}
+							setColor={(value) => {
+								setCurrentThemeProperties({
+									buttonsBgColor: value,
+								});
+							}}
+						/>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__('Errors Text Color', 'quillforms')}
+							/>
+							<ColorPreview color={errorsFontColor} />
+						</ControlWrapper>
+						<ColorPicker
+							value={errorsFontColor}
+							onChange={(value) => {
+								setCurrentThemeProperties({
+									errorsFontColor: value,
+								});
+							}}
+						/>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__(
+									'Errors Background Color',
+									'quillforms'
+								)}
+							/>
+							<ColorPreview color={errorsBgColor} />
+						</ControlWrapper>
+						<ComboColorPicker
+							color={errorsBgColor}
+							setColor={(value) => {
+								setCurrentThemeProperties({
+									errorsBgColor: value,
+								});
+							}}
+						/>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<ControlLabel
+								label={__(
+									'Form Footer Background Color',
+									'quillforms'
+								)}
+								isNew={true}
+							/>
+							<ResponsiveControl
+								desktopChildren={
+									<ComboColorPicker
+										color={formFooterBgColor.lg}
+										setColor={(value) => {
+											setCurrentThemeProperties({
+												formFooterBgColor: {
+													...formFooterBgColor,
+													lg: value,
+												},
+											});
+										}}
+									/>
+								}
+								tabletChildren={
+									<ComboColorPicker
+										color={formFooterBgColor.md}
+										setColor={(value) => {
+											setCurrentThemeProperties({
+												formFooterBgColor: {
+													...formFooterBgColor,
+													md: value,
+												},
+											});
+										}}
+									/>
+								}
+								mobileChildren={
+									<ComboColorPicker
+										color={formFooterBgColor.sm}
+										setColor={(value) => {
+											setCurrentThemeProperties({
+												formFooterBgColor: {
+													...formFooterBgColor,
+													sm: value,
+												},
+											});
+										}}
+									/>
+								}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__(
+									'Progress Bar Fill Color',
+									'quillforms'
+								)}
+							/>
+							<ColorPreview color={progressBarFillColor} />
+						</ControlWrapper>
+						<ColorPicker
+							value={progressBarFillColor}
+							onChange={(value) => {
+								setCurrentThemeProperties({
+									progressBarFillColor: value,
+								});
+							}}
+						/>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__(
+									'Progress Bar Background Color',
+									'quillforms'
+								)}
+							/>
+							<ColorPreview color={progressBarBgColor} />
+						</ControlWrapper>
+						<ColorPicker
+							value={progressBarBgColor}
+							onChange={(value) => {
+								setCurrentThemeProperties({
+									progressBarBgColor: value,
+								});
+							}}
+						/>
+					</BaseControl>
+				</PanelBody>
+
+				<TypographyPanel
+					properties={$properties}
+					setCurrentThemeProperties={setCurrentThemeProperties}
 				/>
-			)}
+				<PanelBody
+					title={__('Borders', 'quillforms')}
+					initialOpen={false}
+				>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__(
+									'Buttons Border Radius(px)',
+									'quillforms'
+								)}
+							/>
+							<RangeControl
+								className={css`
+									width: 30%;
+								`}
+								value={buttonsBorderRadius}
+								onChange={(value) =>
+									setCurrentThemeProperties({
+										buttonsBorderRadius: value,
+									})
+								}
+								min={1}
+								max={30}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__(
+									'Buttons Border Width(px)',
+									'quillforms'
+								)}
+								isNew={true}
+							/>
+							<RangeControl
+								className={css`
+									width: 30%;
+								`}
+								value={buttonsBorderWidth}
+								onChange={(value) =>
+									setCurrentThemeProperties({
+										buttonsBorderWidth: value,
+									})
+								}
+								min={0}
+								max={10}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel
+								label={__('Buttons Border Color', 'quillforms')}
+								isNew={true}
+							/>
+							<ColorPicker
+								value={buttonsBorderColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										buttonsBorderColor: value,
+									});
+								}}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+				</PanelBody>
+			</div>
+			<CustomizeFooter
+				themeTitle={title}
+				themeProperties={theme.properties}
+				themeId={currentThemeId}
+				canSave={shouldBeSaved}
+			/>
 		</div>
 	);
 };
