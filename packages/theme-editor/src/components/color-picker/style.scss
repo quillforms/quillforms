@@ -9,8 +9,8 @@
 			}
 
 			.components-circular-option-picker__option::after {
-				width: auto;
-				height: auto;
+				display: none !important;
+				content: none !important;
 			}
 
 			svg {

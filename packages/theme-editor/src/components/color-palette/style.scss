@@ -1,0 +1,114 @@
+/* Square swatches + centered check (overrides WP circular color UI) */
+.admin-components-color-picker {
+	.components-circular-option-picker__option-wrapper {
+		width: 36px !important;
+		height: 36px !important;
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+		transform: none !important;
+
+		&:hover {
+			transform: none !important;
+		}
+
+		&::before {
+			display: none !important;
+		}
+	}
+
+	.components-circular-option-picker__option-inner {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.components-circular-option-picker__option-inner > *:first-child {
+		display: block !important;
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	.components-circular-option-picker__option.components-button {
+		border-radius: 8px !important;
+		box-shadow: none !important;
+		overflow: hidden;
+
+		&:hover {
+			box-shadow: none !important;
+		}
+
+		&[aria-pressed='true'],
+		&[aria-selected='true'] {
+			box-shadow: inset 0 0 0 2px rgba(51, 65, 85, 0.45) !important;
+			z-index: 1;
+		}
+
+		&::after {
+			display: none !important;
+			content: none !important;
+		}
+
+		&:focus {
+			box-shadow: none !important;
+			outline: 2px solid #334155 !important;
+			outline-offset: 2px !important;
+		}
+
+		&.components-button:focus {
+			box-shadow: none !important;
+		}
+	}
+
+	.components-circular-option-picker__selected-mark {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+	}
+
+	.theme-editor-color-palette__selected-icon {
+		display: block;
+		flex-shrink: 0;
+	}
+}
+
+/* First swatch: custom color — purple + icon */
+.theme-editor-color-palette__custom-wrapper {
+	display: flex;
+	align-items: flex-start;
+}
+
+.theme-editor-color-palette__custom-swatch.components-button {
+	width: 36px;
+	height: 36px;
+	min-width: 36px !important;
+	min-height: 36px !important;
+	padding: 0 !important;
+	border-radius: 8px !important;
+	background: #fff !important;
+	border: 1px solid #b2328c !important;
+	color: #b2328c !important;
+	box-shadow: none !important;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+
+	&:hover,
+	&:focus {
+		background: #ffeefb !important;
+		color: #b2328c !important;
+		border-color: #b2328c !important;
+		box-shadow: none !important;
+	}
+
+	svg {
+		fill: #b2328c !important;
+		color: #b2328c !important;
+		width: 24px !important;
+		height: 24px !important;
+	}
+}

@@ -12,6 +12,7 @@ import { Button, Dropdown, Tooltip } from '@wordpress/components';
 function Option( {
 	className,
 	isSelected,
+	selectedIcon,
 	selectedIconProps,
 	tooltipText,
 	...additionalProps
@@ -26,19 +27,29 @@ function Option( {
 			{ ...additionalProps }
 		/>
 	);
+	const buttonEl = tooltipText ? (
+		<Tooltip text={ tooltipText }>{ optionButton }</Tooltip>
+	) : (
+		optionButton
+	);
 	return (
 		<div className="components-circular-option-picker__option-wrapper">
-			{ tooltipText ? (
-				<Tooltip text={ tooltipText }>{ optionButton }</Tooltip>
-			) : (
-				optionButton
-			) }
-			{ isSelected && (
-				<Icon
-					icon={ check }
-					{ ...( selectedIconProps ? selectedIconProps : {} ) }
-				/>
-			) }
+			<div className="components-circular-option-picker__option-inner">
+				{ buttonEl }
+				{ isSelected && (
+					<span
+						className="components-circular-option-picker__selected-mark"
+						aria-hidden="true"
+					>
+						{ selectedIcon ?? (
+							<Icon
+								icon={ check }
+								{ ...( selectedIconProps ? selectedIconProps : {} ) }
+							/>
+						) }
+					</span>
+				) }
+			</div>
 		</div>
 	);
 }
