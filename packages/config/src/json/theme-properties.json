@@ -39,6 +39,10 @@
 		"type": "string",
 		"default": "sm"
 	},
+	"applyBaseFontToAll": {
+		"type": "boolean",
+		"default": false
+	},
 	"questionsLabelFont": {
 		"type": "string",
 		"default": "Inherit"

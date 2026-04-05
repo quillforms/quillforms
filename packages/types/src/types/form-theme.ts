@@ -17,6 +17,7 @@ export type FormTheme = {
 		src?: string;
 	};
 	questionsColor: string;
+	applyBaseFontToAll?: boolean;
 	questionsLabelFont: string;
 	questionsLabelFontSize: MediaDevices;
 	questionsLabelLineHeight: MediaDevices;

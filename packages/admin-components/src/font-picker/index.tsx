@@ -20,8 +20,14 @@ interface Props {
 	fonts: Record<string, string>;
 	selectedFont: string;
 	setFont: (font: string) => void;
+	disabled?: boolean;
 }
-const FontPicker: React.FC<Props> = ({ fonts, selectedFont, setFont }) => {
+const FontPicker: React.FC<Props> = ({
+	fonts,
+	selectedFont,
+	setFont,
+	disabled = false,
+}) => {
 	const [showList, setShowList] = useState<boolean>(false);
 	const [searchKeyword, setSearchKeyword] = useState<string>('');
 	const filteredFonts = pick(
@@ -69,15 +75,29 @@ const FontPicker: React.FC<Props> = ({ fonts, selectedFont, setFont }) => {
 		}
 	}, [showList]);
 
+	useEffect(() => {
+		if (disabled) {
+			setShowList(false);
+		}
+	}, [disabled]);
+
 	return (
-		<div className="admin-components-font-picker">
+		<div
+			className={classNames('admin-components-font-picker', {
+				'is-disabled': disabled,
+			})}
+		>
 			<div
 				role="presentation"
 				className={classNames(
 					'admin-components-font-picker__select',
 					{ hidden: showList }
 				)}
-				onClick={() => setShowList(true)}
+				onClick={() => {
+					if (!disabled) {
+						setShowList(true);
+					}
+				}}
 			>
 				<div className="admin-components-font-picker__selected-font">
 					{selectedFont}

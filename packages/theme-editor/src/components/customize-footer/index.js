@@ -7,7 +7,6 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { useEffect } from 'react';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
@@ -21,7 +20,12 @@ import { mapValues } from 'lodash';
  */
 import IsSavingBtn from './is-saving-btn';
 
-const CustomizeFooter = ({ themeId, themeTitle, themeProperties }) => {
+const CustomizeFooter = ({
+	themeId,
+	themeTitle,
+	themeProperties,
+	canSave = true,
+}) => {
 	const { themesList } = useSelect((select) => {
 		return {
 			themesList: select('quillForms/theme-editor').getThemesList(),
@@ -47,24 +51,13 @@ const CustomizeFooter = ({ themeId, themeTitle, themeProperties }) => {
 		};
 	});
 
-	useEffect(() => {
-		document
-			.querySelector('.builder-core-block-right-panel .tab-content')
-			.classList.add('has-sticky-footer');
-		return () => {
-			if (document.querySelector('.builder-core-block-right-panel .tab-content')) {
-				document
-					.querySelector('.builder-core-block-right-panel .tab-content')
-					.classList.remove('has-sticky-footer');
-			}
-		}
-	}, []);
-
 	return (
 		<>
 			<div className="theme-editor-customize-footer">
 				<Button
 					isDefault
+					className="theme-editor-customize-footer__btn theme-editor-customize-footer__btn--clear"
+					disabled={isSaving}
 					onClick={() => {
 						if (!isSaving) {
 							if (themeId) {
@@ -88,12 +81,17 @@ const CustomizeFooter = ({ themeId, themeTitle, themeProperties }) => {
 						}
 					}}
 				>
-					{__('Revert changes', 'quillforms')}
+					{__('Clear', 'quillforms')}
 				</Button>
 				{!isSaving ? (
 					<Button
 						isPrimary
+						className="theme-editor-customize-footer__btn theme-editor-customize-footer__btn--save"
+						disabled={!canSave}
 						onClick={() => {
+							if (!canSave) {
+								return;
+							}
 							if (themeId) {
 								updateTheme(
 									themeId,
@@ -105,7 +103,7 @@ const CustomizeFooter = ({ themeId, themeTitle, themeProperties }) => {
 							}
 						}}
 					>
-						{themeId ? __('Save changes', 'quillforms') : __('Save as a new theme', 'quillforms')}
+						{__('Save', 'quillforms')}
 					</Button>
 				) : (
 					<IsSavingBtn />

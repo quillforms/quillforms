@@ -4,6 +4,13 @@
 		width: 190px;
 	}
 
+	&.is-disabled .admin-components-font-picker__select {
+		background: #f1f5f9 !important;
+		border-color: #e2e8f0 !important;
+		color: #64748b !important;
+		cursor: not-allowed !important;
+	}
+
 	.admin-components-font-picker__select {
 		& {
 			position: relative;
