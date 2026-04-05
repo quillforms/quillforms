@@ -118,7 +118,14 @@ const LogicCondition = ({ value, onChange, combobox, fieldFilter }) => {
 							(safeValue.length > 1 ? ' has-or-group' : '')
 						}
 					>
-						<div className="logic-editor-logic-conditions__group">
+						<div
+							className={
+								'logic-editor-logic-conditions__group' +
+								(group.length > 1
+									? ' logic-editor-logic-conditions__group--has-and'
+									: '')
+							}
+						>
 							{group.length > 1 && (
 								<div className="logic-editor-logic-conditions__group-and-connector">
 									<span className="logic-editor-logic-conditions__and-chip">
