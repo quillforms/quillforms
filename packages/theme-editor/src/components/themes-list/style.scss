@@ -1,9 +1,13 @@
-.theme-editor-themes-list{
+.theme-editor-themes-list {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	justify-content: center;
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	justify-content: flex-start;
+	-webkit-overflow-scrolling: touch;
 
 	> div {
 		margin-bottom: 20px;

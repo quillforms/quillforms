@@ -12,27 +12,46 @@ import { sortBy } from 'lodash';
 import classnames from 'classnames';
 
 const PanelHeader = () => {
-	const { currentPanel, currentSubPanelName } = useSelect( ( select ) => {
-		return {
-			panels: select( 'quillForms/builder-panels' ).getPanels(),
-			currentPanel: select(
+	const { currentPanel, currentSubPanelName, themeEditorTab } = useSelect(
+		( select ) => {
+			const currentPanel = select(
 				'quillForms/builder-panels'
-			).getCurrentPanel(),
-			currentPanelName: select(
-				'quillForms/builder-panels'
-			).getCurrentPanelName(),
-			currentSubPanelName: select(
-				'quillForms/builder-panels'
-			).getCurrentSubPanelName(),
-		};
-	} );
+			).getCurrentPanel();
+			let themeEditorTab: string | undefined;
+			if ( currentPanel?.name === 'theme' ) {
+				themeEditorTab = select(
+					'quillForms/theme-editor'
+				).getCurrentTab();
+			}
+			return {
+				panels: select( 'quillForms/builder-panels' ).getPanels(),
+				currentPanel,
+				currentPanelName: select(
+					'quillForms/builder-panels'
+				).getCurrentPanelName(),
+				currentSubPanelName: select(
+					'quillForms/builder-panels'
+				).getCurrentSubPanelName(),
+				themeEditorTab,
+			};
+		}
+	);
+
+	const hideThemePanelTitle =
+		currentPanel?.name === 'theme' &&
+		themeEditorTab === 'customize';
 
 	const { setCurrentPanel, setCurrentSubPanel } = useDispatch(
 		'quillForms/builder-panels'
 	);
 
 	return (
-		<div className={ 'builder-core-panel__header-wrapper' }>
+		<div
+			className={ classnames( 'builder-core-panel__header-wrapper', {
+				'builder-core-panel__header-wrapper--theme-customize':
+					hideThemePanelTitle,
+			} ) }
+		>
 			<div className="builder-core-panel__header">
 				<div className="builder-core-panel__header-title">
 					<h4>{ currentPanel?.title }</h4>

@@ -55,6 +55,22 @@
 
 	.builder-core-panel {
 		height: 100%;
+		min-height: 0;
+	}
+}
+
+/* Theme panel: scroll form fields only; keep customize footer fixed at bottom */
+.builder-core-panel.builder-core-theme-panel {
+	min-height: 0;
+
+	.builder-core-panel__content-wrapper {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow: hidden;
+		height: auto;
+		padding-bottom: 0;
 	}
 }
 
@@ -94,6 +110,15 @@
             background: #ffffff;
             flex-shrink: 0;
             width: 100%;
+        }
+
+        &.builder-core-panel__header-wrapper--theme-customize {
+            padding: 0 !important;
+            min-height: 0 !important;
+
+            .builder-core-panel__header {
+                display: none;
+            }
         }
 
         .builder-core-panel__header {
