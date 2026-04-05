@@ -22,7 +22,8 @@ export default function ResponsiveControl( {
 	const devices = [
 		{
 			name: 'Desktop',
-			title: "Desktop",
+			key: 'desktop',
+			title: 'Desktop',
 			itemClass: 'qf-desk-tab',
 		},
 		{
@@ -46,7 +47,7 @@ export default function ResponsiveControl( {
 				>
 					{ map( devices, ( { name, key, title, itemClass } ) => (
 						<Button
-							key={ key }
+							key={ key ?? name }
 							className={ `responsive-btn ${ itemClass }${
 								name === deviceType ? ' is-active' : ''
 							}` }
