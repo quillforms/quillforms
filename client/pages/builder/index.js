@@ -4,6 +4,7 @@
 import { BuilderLayout, FullPreviewLayout } from '@quillforms/builder-core';
 import { FormAdminBarActions } from '@quillforms/admin-components';
 import configApi from '@quillforms/config';
+import { matchPath } from '@quillforms/navigation';
 
 /**
  * WordPress Dependencies
@@ -26,9 +27,23 @@ import SaveButton from './save-button';
 import './style.scss';
 import FullPreviewIcon from './full-preview';
 
-const Builder = ({ params }) => {
+const Builder = ({ params, path, isLogicRoute: isLogicRouteProp = false }) => {
 	const [fullPreviewMode, setFullPreviewMode] = useState(false);
 	const { id } = params;
+
+	// Prefer explicit prop (Logic page), else detect from router URL so calculator modals
+	// stack over jump logic — not over the design (blocks) view.
+	const pathForMatch =
+		typeof path === 'string' ? path.replace(/\?.*$/, '').replace(/\/+$/, '') : '';
+	const isLogicRoute =
+		isLogicRouteProp ||
+		Boolean(
+			pathForMatch &&
+				matchPath(pathForMatch, {
+					path: '/forms/:id/logic',
+					exact: true,
+				})
+		);
 
 	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
 	const { resetAnswers } = useDispatch('quillForms/renderer-core');
@@ -118,7 +133,7 @@ const Builder = ({ params }) => {
 									setFullPreviewMode={setFullPreviewMode}
 								/>
 							) : (
-								<BuilderLayout formId={id} />
+								<BuilderLayout formId={id} isLogicRoute={isLogicRoute} />
 							)}
 						</>
 					)}

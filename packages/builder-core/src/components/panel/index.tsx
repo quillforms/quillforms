@@ -18,7 +18,11 @@ import PanelHeader from '../panel-header';
 import SubPanel from '../subpanel';
 import { Modal } from '@wordpress/components';
 
-const Panel = () => {
+interface PanelProps {
+	isLogicRoute?: boolean;
+}
+
+const Panel: React.FC<PanelProps> = ({ isLogicRoute = false }) => {
 	const { panelType, currentPanel } = useSelect((select) => {
 		return {
 			currentPanel: select(
@@ -44,18 +48,34 @@ const Panel = () => {
 		}
 	}, [currentPanel]);
 
-	const className =
+	const isCalculatorFamilyOverlay =
+		currentPanel?.name === 'calculator' ||
+		currentPanel?.name === 'calculator-points' ||
+		currentPanel?.name === 'calculator-variables';
+
+	const elevateCalculatorModal =
+		isLogicRoute &&
+		isCalculatorFamilyOverlay &&
+		panelType === 'modal';
+
+	const className = classnames(
 		currentPanel?.name === 'theme'
 			? 'builder-core-inline-panel'
 			: currentPanel && panelType === 'modal'
 				? 'builder-core-panel-modal'
-				: 'builder-core-full-screen-panel';
+				: 'builder-core-full-screen-panel',
+		elevateCalculatorModal && 'builder-core-panel-modal--above-jump-logic'
+	);
 	return (
 
 		<div className={className} tabIndex={0} // Makes the div focusable
 			onKeyDown={(e) => {
 				if (e.key === 'Escape') {
-					setCurrentPanel('');
+					if (isCalculatorFamilyOverlay && isLogicRoute) {
+						setCurrentPanel('jump-logic');
+					} else {
+						setCurrentPanel('');
+					}
 				}
 			}} >
 			<div

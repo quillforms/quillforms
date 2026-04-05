@@ -14,6 +14,11 @@
         justify-content: center;
     }
 
+	/* Above jump-logic canvas / toolbars (z-index ~100050) when opened from Logic */
+	&.builder-core-panel-modal--above-jump-logic {
+		z-index: 120000 !important;
+	}
+
     .admin-components-control-label {
         max-width: none;
     }
@@ -199,4 +204,16 @@
 
 .builder-core-jump-logic-panel .builder-core-panel__content-wrapper {
 	position: relative;
+}
+
+/* Non-interactive jump logic preview behind calculator / points / variables modals */
+.builder-core-jump-logic-underlay {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	pointer-events: none;
+}
+
+.builder-core-jump-logic-underlay__screen.builder-core-full-screen-panel {
+	z-index: auto;
 }

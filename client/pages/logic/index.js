@@ -22,7 +22,7 @@ const LogicPage = ({ params }) => {
 		};
 	}, []);
 
-	return <Builder params={params} />;
+	return <Builder params={params} isLogicRoute />;
 };
 
 export default LogicPage;
