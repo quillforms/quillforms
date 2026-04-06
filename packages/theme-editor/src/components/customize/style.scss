@@ -340,7 +340,10 @@
 		margin-top: 12px;
 	}
 
-	.theme-editor-customize__clear-link {
+	/* Overlay Clear uses .theme-editor-customize__clear-link--overlay (gray / red) */
+	.theme-editor-customize__clear-link:not(
+			.theme-editor-customize__clear-link--overlay
+		) {
 		padding: 0;
 		border: none;
 		background: none;
@@ -423,8 +426,10 @@
 			}
 		}
 
+		/* One size drives wrapper, swatch button, inset ring, check, and + control */
 		.admin-components-color-picker {
 			box-sizing: border-box;
+			--theme-editor-color-swatch-size: 32px;
 		}
 
 		.components-circular-option-picker__swatches {
@@ -432,18 +437,6 @@
 			flex-wrap: wrap;
 			gap: 16px;
 			justify-content: flex-start;
-		}
-
-		.components-circular-option-picker__option-wrapper {
-			.components-button.components-circular-option-picker__option:not(
-					.theme-editor-color-palette__custom-swatch
-				) {
-				width: 36px !important;
-				height: 36px !important;
-				min-width: 36px !important;
-				border-radius: 8px !important;
-				box-shadow: none !important;
-			}
 		}
 
 		.theme-editor-customize__clear-link--overlay {

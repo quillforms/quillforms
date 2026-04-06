@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { map } from 'lodash';
+import tinycolor from 'tinycolor2';
 
 /**
  * WordPress dependencies
@@ -15,6 +16,17 @@ import { Icon, plus } from '@wordpress/icons';
  * Internal Dependencies
  */
 import CircularOptionPicker from '../circular-option-picker';
+
+function isSwatchSelected(value, swatchColor) {
+	if (value === undefined || value === null || value === '') {
+		return false;
+	}
+	const v = tinycolor(value);
+	if (!v.isValid() || v.getAlpha() === 0) {
+		return false;
+	}
+	return v.toRgbString() === tinycolor(swatchColor).toRgbString();
+}
 
 const ColorSwatchSelectedIcon = () => (
 	<svg
@@ -49,10 +61,11 @@ export default function ColorPalette({
 	const clearColor = useCallback(() => onChange(undefined), [onChange]);
 	const colorOptions = useMemo(() => {
 		const mapped = map(colors, ({ color, name }) => {
+			const selected = isSwatchSelected(value, color);
 			return (
 				<CircularOptionPicker.Option
 					key={color}
-					isSelected={value === color}
+					isSelected={selected}
 					selectedIcon={<ColorSwatchSelectedIcon />}
 					tooltipText={
 						name ||
@@ -61,7 +74,7 @@ export default function ColorPalette({
 					}
 					style={{ backgroundColor: color, color }}
 					onClick={
-						value === color ? clearColor : () => onChange(color)
+						selected ? clearColor : () => onChange(color)
 					}
 					aria-label={
 						name

@@ -1,11 +1,18 @@
 /* Square swatches + centered check (overrides WP circular color UI) */
 .admin-components-color-picker {
+	/* Change --theme-editor-color-swatch-size in a parent (e.g. overlay panel) to resize all pieces together */
+	--theme-editor-color-swatch-size: 36px;
+	--theme-editor-color-swatch-icon: calc(
+		var(--theme-editor-color-swatch-size) * 2 / 3
+	);
+
 	.components-circular-option-picker__option-wrapper {
-		width: 36px !important;
-		height: 36px !important;
+		width: var(--theme-editor-color-swatch-size) !important;
+		height: var(--theme-editor-color-swatch-size) !important;
 		margin-right: 0 !important;
 		margin-left: 0 !important;
 		transform: none !important;
+		box-sizing: border-box;
 
 		&:hover {
 			transform: none !important;
@@ -21,27 +28,33 @@
 		display: block;
 		width: 100%;
 		height: 100%;
+		box-sizing: border-box;
 	}
 
 	.components-circular-option-picker__option-inner > *:first-child {
 		display: block !important;
 		width: 100% !important;
 		height: 100% !important;
+		min-height: 0 !important;
+		box-sizing: border-box;
 	}
 
 	.components-circular-option-picker__option.components-button {
-		border-radius: 8px !important;
+		width: 100% !important;
+		height: 100% !important;
+		min-width: 0 !important;
+		min-height: 0 !important;
+		padding: 0 !important;
+		border: 2px solid transparent !important;
+		border-radius: calc(
+			var(--theme-editor-color-swatch-size) * 0.222
+		) !important;
 		box-shadow: none !important;
 		overflow: hidden;
+		box-sizing: border-box;
 
 		&:hover {
 			box-shadow: none !important;
-		}
-
-		&[aria-pressed='true'],
-		&[aria-selected='true'] {
-			box-shadow: inset 0 0 0 2px rgba(51, 65, 85, 0.45) !important;
-			z-index: 1;
 		}
 
 		&::after {
@@ -49,13 +62,42 @@
 			content: none !important;
 		}
 
-		&:focus {
+		/*
+		 * WP `.components-button:focus` adds a persistent outer ring; mouse clicks
+		 * leave :focus active. Only show our outline for keyboard (:focus-visible).
+		 */
+		&:focus:not(:focus-visible):not(:disabled) {
 			box-shadow: none !important;
-			outline: 2px solid #334155 !important;
-			outline-offset: 2px !important;
+			outline: none !important;
 		}
 
-		&.components-button:focus {
+		&:focus-visible {
+			outline: 2px solid #334155 !important;
+			outline-offset: 2px !important;
+			box-shadow: none !important;
+			z-index: 1;
+		}
+	}
+
+	/* Selected: white border + check SVG only (no inset ring). */
+	.components-circular-option-picker__option-inner:has(
+			.components-circular-option-picker__selected-mark
+		)
+		.components-circular-option-picker__option.components-button {
+		border-color: #fff !important;
+		box-shadow: none !important;
+		z-index: 1;
+
+		&:focus:not(:focus-visible):not(:disabled) {
+			border-color: #fff !important;
+			box-shadow: none !important;
+			outline: none !important;
+		}
+
+		&:focus-visible {
+			outline: 2px solid #334155 !important;
+			outline-offset: 2px !important;
+			border-color: #fff !important;
 			box-shadow: none !important;
 		}
 	}
@@ -68,47 +110,63 @@
 		align-items: center;
 		justify-content: center;
 		pointer-events: none;
+		box-sizing: border-box;
+		padding: 2px;
 	}
 
 	.theme-editor-color-palette__selected-icon {
 		display: block;
 		flex-shrink: 0;
+		width: var(--theme-editor-color-swatch-icon) !important;
+		height: var(--theme-editor-color-swatch-icon) !important;
+		max-width: 100%;
+		max-height: 100%;
 	}
-}
 
-/* First swatch: custom color — purple + icon */
-.theme-editor-color-palette__custom-wrapper {
-	display: flex;
-	align-items: flex-start;
-}
+	/* First swatch: custom color — purple + icon */
+	.theme-editor-color-palette__custom-wrapper {
+		display: flex;
+		align-items: flex-start;
+	}
 
-.theme-editor-color-palette__custom-swatch.components-button {
-	width: 36px;
-	height: 36px;
-	min-width: 36px !important;
-	min-height: 36px !important;
-	padding: 0 !important;
-	border-radius: 8px !important;
-	background: #fff !important;
-	border: 1px solid #b2328c !important;
-	color: #b2328c !important;
-	box-shadow: none !important;
-	display: inline-flex !important;
-	align-items: center;
-	justify-content: center;
-
-	&:hover,
-	&:focus {
-		background: #ffeefb !important;
+	.theme-editor-color-palette__custom-swatch.components-button {
+		width: var(--theme-editor-color-swatch-size) !important;
+		height: var(--theme-editor-color-swatch-size) !important;
+		min-width: var(--theme-editor-color-swatch-size) !important;
+		min-height: var(--theme-editor-color-swatch-size) !important;
+		padding: 0 !important;
+		border-radius: calc(
+			var(--theme-editor-color-swatch-size) * 0.222
+		) !important;
+		background: #fff !important;
+		border: 1px solid #b2328c !important;
 		color: #b2328c !important;
-		border-color: #b2328c !important;
 		box-shadow: none !important;
-	}
+		display: inline-flex !important;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
 
-	svg {
-		fill: #b2328c !important;
-		color: #b2328c !important;
-		width: 24px !important;
-		height: 24px !important;
+		&:hover,
+		&:focus-visible {
+			background: #ffeefb !important;
+			color: #b2328c !important;
+			border-color: #b2328c !important;
+			box-shadow: none !important;
+		}
+
+		&:focus:not(:focus-visible) {
+			outline: none !important;
+			box-shadow: none !important;
+		}
+
+		svg {
+			fill: #b2328c !important;
+			color: #b2328c !important;
+			width: var(--theme-editor-color-swatch-icon) !important;
+			height: var(--theme-editor-color-swatch-icon) !important;
+			max-width: 75%;
+			max-height: 75%;
+		}
 	}
 }

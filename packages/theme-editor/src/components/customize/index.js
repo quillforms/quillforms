@@ -43,7 +43,12 @@ import ColorPreview from '../color-preview';
 import CustomizeFooter from '../customize-footer';
 import TypographyPanel from '../typography-panel';
 
-function hasVisibleBackgroundOverlay(color) {
+/**
+ * Red "Clear" styling only when the user has a real overlay tint (not
+ * transparent and not the schema default background, which reads as "unset" on load).
+ */
+function shouldEmphasizeBackgroundOverlayClear(color) {
+	const defaultBg = getDefaultThemeProperties().backgroundColor;
 	if (color === undefined || color === null) {
 		return false;
 	}
@@ -61,7 +66,14 @@ function hasVisibleBackgroundOverlay(color) {
 	if (!c.isValid()) {
 		return false;
 	}
-	return c.getAlpha() > 0;
+	if (c.getAlpha() <= 0) {
+		return false;
+	}
+	const def = tinycolor(defaultBg);
+	if (def.isValid() && c.toRgbString() === def.toRgbString()) {
+		return false;
+	}
+	return true;
 }
 
 const CustomizeThemePanel = () => {
@@ -318,8 +330,14 @@ const CustomizeThemePanel = () => {
 								<ComboColorPicker
 									color={backgroundColor}
 									setColor={(value) => {
+										const next =
+											value === undefined ||
+											value === null ||
+											value === ''
+												? 'rgba(0, 0, 0, 0)'
+												: value;
 										setCurrentThemeProperties({
-											backgroundColor: value,
+											backgroundColor: next,
 										});
 									}}
 								/>
@@ -329,7 +347,7 @@ const CustomizeThemePanel = () => {
 									type="button"
 									className={
 										'theme-editor-customize__clear-link theme-editor-customize__clear-link--overlay' +
-										(hasVisibleBackgroundOverlay(
+										(shouldEmphasizeBackgroundOverlayClear(
 											backgroundColor
 										)
 											? ' theme-editor-customize__clear-link--has-value'
