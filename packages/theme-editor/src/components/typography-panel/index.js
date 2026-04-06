@@ -1,35 +1,109 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/**
- * QuillForms Dependencies
- */
-import {
-	BaseControl,
-	ControlWrapper,
-	ControlLabel,
-	FontPicker,
-	TextControl,
-	ResponsiveControl,
-} from '@quillforms/admin-components';
-import configApi from '@quillforms/config';
-import { getDefaultThemeProperties } from '@quillforms/utils';
-
 /**
  * WordPress Dependencies
  */
-import { PanelBody } from '@wordpress/components';
+import { PanelBody, TextControl as WPTextControl } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-
-/**
- * External Dependencies
- */
-import { css } from 'emotion';
-import classNames from 'classnames';
 
 /**
  * Internal Dependencies
  */
-import MeasureControl from '../measure-control';
+import {
+	IconDesktop,
+	IconFontSize,
+	IconLineHeight,
+	IconMobile,
+} from './icons';
+
+function parsePx(px) {
+	const n = parseInt(String(px).replace(/px/gi, ''), 10);
+	return Number.isFinite(n) ? n : 0;
+}
+
+function toPx(n) {
+	const v = Math.round(Number(n));
+	if (!Number.isFinite(v)) {
+		return '16px';
+	}
+	const clamped = Math.min(120, Math.max(8, v));
+	return `${clamped}px`;
+}
+
+function ViewportToggle({ value, onChange }) {
+	return (
+		<div
+			className="theme-editor-typography__viewport-toggle"
+			role="group"
+			aria-label={__('Breakpoint', 'quillforms')}
+		>
+			<button
+				type="button"
+				className={
+					'theme-editor-typography__viewport-btn' +
+					(value === 'lg' ? ' is-active' : '')
+				}
+				aria-pressed={value === 'lg'}
+				onClick={() => onChange('lg')}
+				aria-label={__('Desktop', 'quillforms')}
+			>
+				<IconDesktop />
+			</button>
+			<button
+				type="button"
+				className={
+					'theme-editor-typography__viewport-btn' +
+					(value === 'sm' ? ' is-active' : '')
+				}
+				aria-pressed={value === 'sm'}
+				onClick={() => onChange('sm')}
+				aria-label={__('Mobile', 'quillforms')}
+			>
+				<IconMobile />
+			</button>
+		</div>
+	);
+}
+
+function IconNumberField({ icon, value, onChange, ariaLabel }) {
+	const Icon = icon === 'lineHeight' ? IconLineHeight : IconFontSize;
+	return (
+		<div className="theme-editor-typography__icon-field">
+			<span className="theme-editor-typography__icon-field-icon" aria-hidden="true">
+				<Icon />
+			</span>
+			<WPTextControl
+				className="theme-editor-typography__icon-field-input"
+				type="number"
+				value={String(value)}
+				onChange={(v) => onChange(toPx(v))}
+				label={ariaLabel}
+				hideLabelFromVision
+			/>
+		</div>
+	);
+}
+
+function TypographySection({
+	title,
+	showViewport,
+	viewport,
+	setViewport,
+	children,
+}) {
+	return (
+		<div className="theme-editor-typography__section">
+			<div className="theme-editor-typography__section-head">
+				<span className="theme-editor-typography__section-title">{title}</span>
+				{showViewport ? (
+					<ViewportToggle value={viewport} onChange={setViewport} />
+				) : (
+					<span className="theme-editor-typography__section-head-spacer" />
+				)}
+			</div>
+			{children}
+		</div>
+	);
+}
 
 const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 	const {
@@ -42,8 +116,31 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 		questionsDescriptionLineHeight,
 		textInputAnswers,
 		buttonsFontSize,
-		buttonsPadding,
 	} = properties;
+
+	const [viewports, setViewports] = useState({
+		base: 'lg',
+		questionsLabel: 'lg',
+		questionsDescription: 'lg',
+		textInputAnswers: 'lg',
+		buttonsText: 'lg',
+	});
+
+	const vp = (key) => {
+		const v = viewports[key];
+		return {
+			viewport: v,
+			setViewport: (next) =>
+				setViewports((prev) => ({ ...prev, [key]: next })),
+			bk: v === 'lg' ? 'lg' : 'sm',
+		};
+	};
+
+	const baseVp = vp('base');
+	const questionsLabelVp = vp('questionsLabel');
+	const questionsDescriptionVp = vp('questionsDescription');
+	const textInputAnswersVp = vp('textInputAnswers');
+	const buttonsTextVp = vp('buttonsText');
 
 	const md = {
 		fontSize: {
@@ -222,592 +319,215 @@ const TypographyPanel = ({ properties, setCurrentThemeProperties }) => {
 			},
 		},
 	};
-	return (
-		<PanelBody title={__('Typography and Spacing', 'quillforms')} initialOpen={false}>
-			<BaseControl>
-				<ControlWrapper orientation="vertical">
-					<ControlLabel
-						label={__('Select a preset for Typography', 'quillforms')}
-					></ControlLabel>
-					<div className="typography-presets">
-						<span
-							className={classNames({
-								selected: typographyPreset === 'lg',
-							})}
-							onClick={() => {
-								setCurrentThemeProperties({ ...lg });
-							}}
-						>
-							LG
-						</span>
-						<span
-							className={classNames({
-								selected: typographyPreset === 'md',
-							})}
-							onClick={() => {
-								setCurrentThemeProperties({ ...md });
-							}}
-						>
-							MD
-						</span>
 
-						<span
-							className={classNames({
-								selected: typographyPreset === 'sm',
-							})}
-							onClick={() => {
-								setCurrentThemeProperties({ ...sm });
-							}}
-						>
-							SM
-						</span>
-					</div>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel label={__('Base Font Size(px)', 'quillforms')} />
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									fontSize.lg.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										fontSize: {
-											...fontSize,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
+	return (
+		<PanelBody
+			className="theme-editor-typography-panel"
+			title={__('Typography & Spacing', 'quillforms')}
+			initialOpen={false}
+		>
+			<div className="theme-editor-typography__block">
+				<label className="theme-editor-typography__label">
+					{__('Select a preset for Typography', 'quillforms')}
+				</label>
+				<div
+					className="theme-editor-typography__presets"
+					role="group"
+					aria-label={__('Typography preset', 'quillforms')}
+				>
+					<button
+						type="button"
+						className={
+							'theme-editor-typography__preset-btn' +
+							(typographyPreset === 'lg' ? ' is-active' : '')
 						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									fontSize.sm.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										fontSize: {
-											...fontSize,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
+						aria-pressed={typographyPreset === 'lg'}
+						onClick={() => setCurrentThemeProperties({ ...lg })}
+					>
+						LG
+					</button>
+					<button
+						type="button"
+						className={
+							'theme-editor-typography__preset-btn' +
+							(typographyPreset === 'md' ? ' is-active' : '')
 						}
-					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel
-						label={__('Base Font Line Height(px)', 'quillforms')}
-					/>
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									fontLineHeight.lg.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										fontLineHeight: {
-											...fontLineHeight,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
+						aria-pressed={typographyPreset === 'md'}
+						onClick={() => setCurrentThemeProperties({ ...md })}
+					>
+						MD
+					</button>
+					<button
+						type="button"
+						className={
+							'theme-editor-typography__preset-btn' +
+							(typographyPreset === 'sm' ? ' is-active' : '')
 						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									fontLineHeight.sm.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										fontLineHeight: {
-											...fontLineHeight,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
+						aria-pressed={typographyPreset === 'sm'}
+						onClick={() => setCurrentThemeProperties({ ...sm })}
+					>
+						SM
+					</button>
+				</div>
+			</div>
+
+			<div className="theme-editor-typography__divider" role="separator" />
+
+			<TypographySection
+				title={__('Base', 'quillforms')}
+				showViewport
+				viewport={baseVp.viewport}
+				setViewport={baseVp.setViewport}
+			>
+				<div className="theme-editor-typography__dual">
+					<IconNumberField
+						icon="fontSize"
+						value={parsePx(fontSize[baseVp.bk])}
+						ariaLabel={__('Base font size', 'quillforms')}
+						onChange={(px) =>
+							setCurrentThemeProperties({
+								fontSize: { ...fontSize, [baseVp.bk]: px },
+							})
 						}
 					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel
-						label={__('Questions Label Font Size(px)', 'quillforms')}
-					/>
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsLabelFontSize.lg.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsLabelFontSize: {
-											...questionsLabelFontSize,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
-						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsLabelFontSize.sm.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsLabelFontSize: {
-											...questionsLabelFontSize,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
+					<IconNumberField
+						icon="lineHeight"
+						value={parsePx(fontLineHeight[baseVp.bk])}
+						ariaLabel={__('Base line height', 'quillforms')}
+						onChange={(px) =>
+							setCurrentThemeProperties({
+								fontLineHeight: { ...fontLineHeight, [baseVp.bk]: px },
+							})
 						}
 					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel
-						label={__('Questions Label Line Height(px)', 'quillforms')}
-					/>
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsLabelLineHeight.lg.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsLabelLineHeight: {
-											...questionsLabelLineHeight,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
-						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsLabelLineHeight.sm.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsLabelLineHeight: {
-											...questionsLabelLineHeight,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
+				</div>
+			</TypographySection>
+
+			<div className="theme-editor-typography__divider" role="separator" />
+
+			<TypographySection
+				title={__('Questions Label', 'quillforms')}
+				showViewport
+				viewport={questionsLabelVp.viewport}
+				setViewport={questionsLabelVp.setViewport}
+			>
+				<div className="theme-editor-typography__dual">
+					<IconNumberField
+						icon="fontSize"
+						value={parsePx(questionsLabelFontSize[questionsLabelVp.bk])}
+						ariaLabel={__('Questions label font size', 'quillforms')}
+						onChange={(px) =>
+							setCurrentThemeProperties({
+								questionsLabelFontSize: {
+									...questionsLabelFontSize,
+									[questionsLabelVp.bk]: px,
+								},
+							})
 						}
 					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel
-						label={__('Questions Description Font Size(px)', 'quillforms')}
-					/>
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsDescriptionFontSize.lg.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsDescriptionFontSize: {
-											...questionsDescriptionFontSize,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
-						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsDescriptionFontSize.sm.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsDescriptionFontSize: {
-											...questionsDescriptionFontSize,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
+					<IconNumberField
+						icon="lineHeight"
+						value={parsePx(questionsLabelLineHeight[questionsLabelVp.bk])}
+						ariaLabel={__('Questions label line height', 'quillforms')}
+						onChange={(px) =>
+							setCurrentThemeProperties({
+								questionsLabelLineHeight: {
+									...questionsLabelLineHeight,
+									[questionsLabelVp.bk]: px,
+								},
+							})
 						}
 					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel
-						label={__('Questions Description Line Height(px)', 'quillforms')}
-					/>
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsDescriptionLineHeight.lg.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsDescriptionLineHeight: {
-											...questionsDescriptionLineHeight,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
-						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									questionsDescriptionLineHeight.sm.replace(
-										'px',
-										''
-									)
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										questionsDescriptionLineHeight: {
-											...questionsDescriptionLineHeight,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
+				</div>
+			</TypographySection>
+
+			<div className="theme-editor-typography__divider" role="separator" />
+
+			<TypographySection
+				title={__('Questions Description', 'quillforms')}
+				showViewport
+				viewport={questionsDescriptionVp.viewport}
+				setViewport={questionsDescriptionVp.setViewport}
+			>
+				<div className="theme-editor-typography__dual">
+					<IconNumberField
+						icon="fontSize"
+						value={parsePx(
+							questionsDescriptionFontSize[questionsDescriptionVp.bk]
+						)}
+						ariaLabel={__('Questions description font size', 'quillforms')}
+						onChange={(px) =>
+							setCurrentThemeProperties({
+								questionsDescriptionFontSize: {
+									...questionsDescriptionFontSize,
+									[questionsDescriptionVp.bk]: px,
+								},
+							})
 						}
 					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel
-						label={__('Text input answers font size(px)', 'quillforms')}
-					/>
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									textInputAnswers.lg.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										textInputAnswers: {
-											...textInputAnswers,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
-						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									textInputAnswers.sm.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										textInputAnswers: {
-											...textInputAnswers,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
+					<IconNumberField
+						icon="lineHeight"
+						value={parsePx(
+							questionsDescriptionLineHeight[questionsDescriptionVp.bk]
+						)}
+						ariaLabel={__('Questions description line height', 'quillforms')}
+						onChange={(px) =>
+							setCurrentThemeProperties({
+								questionsDescriptionLineHeight: {
+									...questionsDescriptionLineHeight,
+									[questionsDescriptionVp.bk]: px,
+								},
+							})
 						}
 					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel
-						label={__('Buttons Font Size(px)', 'quillforms')}
-					/>
-					<ResponsiveControl
-						desktopChildren={
-							<MeasureControl
-								val={parseInt(
-									buttonsFontSize.lg.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										buttonsFontSize: {
-											...buttonsFontSize,
-											lg: `${val}px`,
-										},
-									});
-								}}
-							/>
-						}
-						mobileChildren={
-							<MeasureControl
-								val={parseInt(
-									buttonsFontSize.sm.replace('px', '')
-								)}
-								onChange={(val) => {
-									setCurrentThemeProperties({
-										buttonsFontSize: {
-											...buttonsFontSize,
-											sm: `${val}px`,
-										},
-									});
-								}}
-							/>
-						}
-					/>
-				</ControlWrapper>
-			</BaseControl>
-			<BaseControl>
-				<ControlWrapper orientation="vertical">
-					<ControlLabel label={__('Buttons Padding(px)', 'quillforms')} />
-					<ResponsiveControl
-						desktopChildren={
-							<div
-								className={css`
-									display: flex;
-									align-items: center;
-									gap: 4px;
-									width: 100%;
-									
-									div {
-									text-align: center;
-									flex: 1;
-									min-width: 0; /* Prevents flex items from overflowing */
-									}
-									
-									input {
-									width: 100% !important;
-									min-width: 0 !important;
-									padding: 4px !important;
-									font-size: 12px !important;
-									}
-									
-									/* Make labels smaller */
-									label {
-									font-size: 11px;
-									margin-bottom: 4px !important;
-									}
-									
-									/* Adjust spacing */
-									.components-base-control {
-									margin-bottom: 0 !important;
-									}
-									
-									.components-base-control__field {
-									margin-bottom: 0 !important;
-									}
-      						`}
-							>
-								<TextControl
-									label={__('Top', 'quillforms')}
-									type="number"
-									value={parseInt(buttonsPadding.top.lg.replace('px', ''))}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												top: {
-													...buttonsPadding.top,
-													lg: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
-								<TextControl
-									label={__('Right', 'quillforms')}
-									type="number"
-									value={parseInt(buttonsPadding.right.lg.replace('px', ''))}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												right: {
-													...buttonsPadding.right,
-													lg: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
-								<TextControl
-									label={__('Bottom', 'quillforms')}
-									type="number"
-									value={parseInt(buttonsPadding.bottom.lg.replace('px', ''))}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												bottom: {
-													...buttonsPadding.bottom,
-													lg: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
-								<TextControl
-									label={__('Left', 'quillforms')}
-									type="number"
-									value={parseInt(buttonsPadding.left.lg.replace('px', ''))}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												left: {
-													...buttonsPadding.left,
-													lg: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
-							</div>
-						}
-						mobileChildren={
-							<div
-								className={css`
-									display: flex;
-									align-items: center;
-									gap: 4px;
-									width: 100%;
-									
-									div {
-									text-align: center;
-									flex: 1;
-									min-width: 0;
-									}
-									
-									input {
-									width: 100% !important;
-									min-width: 0 !important;
-									padding: 4px !important;
-									font-size: 12px !important;
-									}
-									
-									label {
-									font-size: 11px;
-									margin-bottom: 4px !important;
-									}
-									
-									.components-base-control {
-									margin-bottom: 0 !important;
-									}
-									
-									.components-base-control__field {
-									margin-bottom: 0 !important;
-									}
-								`}
-							>
-								<TextControl
-									label={__('Right', 'quillforms')}
-									type="number"
-									value={parseInt(
-										buttonsPadding.right.sm.replace(
-											'px',
-											''
-										)
-									)}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												right: {
-													...buttonsPadding.right,
-													sm: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
-								<TextControl
-									label={__('Bottom', 'quillforms')}
-									type="number"
-									value={parseInt(
-										buttonsPadding.bottom.sm.replace(
-											'px',
-											''
-										)
-									)}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												bottom: {
-													...buttonsPadding.bottom,
-													sm: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
-								<TextControl
-									label={__('Left', 'quillforms')}
-									type="number"
-									value={parseInt(
-										buttonsPadding.left.sm.replace(
-											'px',
-											''
-										)
-									)}
-									onChange={(val) => {
-										setCurrentThemeProperties({
-											buttonsPadding: {
-												...buttonsPadding,
-												left: {
-													...buttonsPadding.left,
-													sm: `${val}px`,
-												},
-											},
-										});
-									}}
-								/>
-							</div>
-						}
-					/>
-				</ControlWrapper>
-			</BaseControl>
+				</div>
+			</TypographySection>
+
+			<div className="theme-editor-typography__divider" role="separator" />
+
+			<TypographySection
+				title={__('Text input answers', 'quillforms')}
+				showViewport
+				viewport={textInputAnswersVp.viewport}
+				setViewport={textInputAnswersVp.setViewport}
+			>
+				<IconNumberField
+					icon="fontSize"
+					value={parsePx(textInputAnswers[textInputAnswersVp.bk])}
+					ariaLabel={__('Text input answers font size', 'quillforms')}
+					onChange={(px) =>
+						setCurrentThemeProperties({
+							textInputAnswers: {
+								...textInputAnswers,
+								[textInputAnswersVp.bk]: px,
+							},
+						})
+					}
+				/>
+			</TypographySection>
+
+			<div className="theme-editor-typography__divider" role="separator" />
+
+			<TypographySection
+				title={__('Buttons Text', 'quillforms')}
+				showViewport
+				viewport={buttonsTextVp.viewport}
+				setViewport={buttonsTextVp.setViewport}
+			>
+				<IconNumberField
+					icon="fontSize"
+					value={parsePx(buttonsFontSize[buttonsTextVp.bk])}
+					ariaLabel={__('Buttons font size', 'quillforms')}
+					onChange={(px) =>
+						setCurrentThemeProperties({
+							buttonsFontSize: {
+								...buttonsFontSize,
+								[buttonsTextVp.bk]: px,
+							},
+						})
+					}
+				/>
+			</TypographySection>
 		</PanelBody>
 	);
 };

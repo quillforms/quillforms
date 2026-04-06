@@ -181,6 +181,7 @@ const CustomizeThemePanel = () => {
 		answersColor,
 		buttonsBorderWidth,
 		buttonsBorderColor,
+		buttonsPadding,
 		buttonsFontColor,
 		questionsLabelFont,
 		questionsDescriptionFont,
@@ -1023,7 +1024,7 @@ const CustomizeThemePanel = () => {
 					setCurrentThemeProperties={setCurrentThemeProperties}
 				/>
 				<PanelBody
-					title={__('Borders', 'quillforms')}
+					title={__('Buttons', 'quillforms')}
 					initialOpen={false}
 				>
 					<BaseControl>
@@ -1086,6 +1087,238 @@ const CustomizeThemePanel = () => {
 										buttonsBorderColor: value,
 									});
 								}}
+							/>
+						</ControlWrapper>
+					</BaseControl>
+					<BaseControl>
+						<ControlWrapper orientation="vertical">
+							<ControlLabel label={__('Buttons Padding(px)', 'quillforms')} />
+							<ResponsiveControl
+								desktopChildren={
+									<div
+										className={css`
+											display: flex;
+											align-items: center;
+											gap: 4px;
+											width: 100%;
+
+											div {
+												text-align: center;
+												flex: 1;
+												min-width: 0;
+											}
+
+											input {
+												width: 100% !important;
+												min-width: 0 !important;
+												padding: 4px !important;
+												font-size: 12px !important;
+											}
+
+											label {
+												font-size: 11px;
+												margin-bottom: 4px !important;
+											}
+
+											.components-base-control {
+												margin-bottom: 0 !important;
+											}
+
+											.components-base-control__field {
+												margin-bottom: 0 !important;
+											}
+										`}
+									>
+										<TextControl
+											label={__('Top', 'quillforms')}
+											type="number"
+											value={parseInt(
+												buttonsPadding.top.lg.replace('px', ''),
+												10
+											)}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													buttonsPadding: {
+														...buttonsPadding,
+														top: {
+															...buttonsPadding.top,
+															lg: `${val}px`,
+														},
+													},
+												});
+											}}
+										/>
+										<TextControl
+											label={__('Right', 'quillforms')}
+											type="number"
+											value={parseInt(
+												buttonsPadding.right.lg.replace(
+													'px',
+													''
+												),
+												10
+											)}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													buttonsPadding: {
+														...buttonsPadding,
+														right: {
+															...buttonsPadding.right,
+															lg: `${val}px`,
+														},
+													},
+												});
+											}}
+										/>
+										<TextControl
+											label={__('Bottom', 'quillforms')}
+											type="number"
+											value={parseInt(
+												buttonsPadding.bottom.lg.replace(
+													'px',
+													''
+												),
+												10
+											)}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													buttonsPadding: {
+														...buttonsPadding,
+														bottom: {
+															...buttonsPadding.bottom,
+															lg: `${val}px`,
+														},
+													},
+												});
+											}}
+										/>
+										<TextControl
+											label={__('Left', 'quillforms')}
+											type="number"
+											value={parseInt(
+												buttonsPadding.left.lg.replace(
+													'px',
+													''
+												),
+												10
+											)}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													buttonsPadding: {
+														...buttonsPadding,
+														left: {
+															...buttonsPadding.left,
+															lg: `${val}px`,
+														},
+													},
+												});
+											}}
+										/>
+									</div>
+								}
+								mobileChildren={
+									<div
+										className={css`
+											display: flex;
+											align-items: center;
+											gap: 4px;
+											width: 100%;
+
+											div {
+												text-align: center;
+												flex: 1;
+												min-width: 0;
+											}
+
+											input {
+												width: 100% !important;
+												min-width: 0 !important;
+												padding: 4px !important;
+												font-size: 12px !important;
+											}
+
+											label {
+												font-size: 11px;
+												margin-bottom: 4px !important;
+											}
+
+											.components-base-control {
+												margin-bottom: 0 !important;
+											}
+
+											.components-base-control__field {
+												margin-bottom: 0 !important;
+											}
+										`}
+									>
+										<TextControl
+											label={__('Right', 'quillforms')}
+											type="number"
+											value={parseInt(
+												buttonsPadding.right.sm.replace(
+													'px',
+													''
+												),
+												10
+											)}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													buttonsPadding: {
+														...buttonsPadding,
+														right: {
+															...buttonsPadding.right,
+															sm: `${val}px`,
+														},
+													},
+												});
+											}}
+										/>
+										<TextControl
+											label={__('Bottom', 'quillforms')}
+											type="number"
+											value={parseInt(
+												buttonsPadding.bottom.sm.replace(
+													'px',
+													''
+												),
+												10
+											)}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													buttonsPadding: {
+														...buttonsPadding,
+														bottom: {
+															...buttonsPadding.bottom,
+															sm: `${val}px`,
+														},
+													},
+												});
+											}}
+										/>
+										<TextControl
+											label={__('Left', 'quillforms')}
+											type="number"
+											value={parseInt(
+												buttonsPadding.left.sm.replace(
+													'px',
+													''
+												),
+												10
+											)}
+											onChange={(val) => {
+												setCurrentThemeProperties({
+													buttonsPadding: {
+														...buttonsPadding,
+														left: {
+															...buttonsPadding.left,
+															sm: `${val}px`,
+														},
+													},
+												});
+											}}
+										/>
+									</div>
+								}
 							/>
 						</ControlWrapper>
 					</BaseControl>
