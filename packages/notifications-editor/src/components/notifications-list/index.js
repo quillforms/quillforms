@@ -27,6 +27,8 @@ import { css } from 'emotion';
  */
 import NotificationBox from '../notification-box';
 import AlertMessageWrapper from '../alert-message-wrapper';
+import PlusIcon from '../icons/plus';
+import NotificationIcon from '../icons/notification';
 
 const NotificationsList = ({
 	goNext,
@@ -68,19 +70,17 @@ const NotificationsList = ({
 			<div className="notifications-editor-notifciations-list__header">
 				<h4
 					className={css`
-						font-size: 15px;
+						font-size: 18px;
+						font-weight: 500;
+						line-height: 28px;
+						color: #777;
 					` }
 				>
 					{__('Notifications List', 'quillforms')}
 				</h4>
 
 				<Button
-					className={css`
-						border-radius: 8px !important;
-						display: inlinep-flex;
-						align-items: center;
-					` }
-					isPrimary
+					className= 'notifications-editor-notifciations-add-new-button'
 					onClick={() => {
 						if (
 							notifications.length > 0 &&
@@ -95,15 +95,9 @@ const NotificationsList = ({
 					}}
 					isLarge
 				>
-					{__('Add New Notification', 'quillforms')}
-					<Icon
-						className={css`
-							fill: #fff;
-							margin-left: 5px;
-						` }
-						icon={arrowRight}
-						size={15}
-					/>
+					<PlusIcon color="#fff" />
+					{__('Create a new notification', 'quillforms')}
+
 				</Button>
 			</div>
 			<>
@@ -123,7 +117,29 @@ const NotificationsList = ({
 					})
 				) : (
 					<div className="notifications-editor-no-notifications-msg">
-						{__('There are no notifications.', 'quillforms')}
+						<NotificationIcon/>
+						<p>{__('Nothing to see here yet. Notifications will show up when they’re ready', 'quillforms')}</p>
+						<Button
+					className= 'notifications-editor-notifciations-add-new-button'
+					onClick={() => {
+						if (
+							notifications.length > 0 &&
+							license?.status !== 'valid' &&
+							isWPEnv
+						) {
+							setDisplayProModal(true);
+						} else {
+							setCurrentNotificationId(null);
+							goNext();
+						}
+					}}
+					isLarge
+				>
+					<PlusIcon color="#fff" />
+					{__('Create a new notification', 'quillforms')}
+
+				</Button>
+
 					</div>
 				)}
 			</>
