@@ -19,12 +19,12 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	PanelBody,
-	RangeControl,
 	FocalPointPicker,
 	CheckboxControl,
 } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 
 /**
  * External Dependencies
@@ -37,12 +37,12 @@ import { css } from 'emotion';
  * Internal Dependencies
  */
 import AlphaColorPicker from '../alpha-color-picker';
-import ColorPicker from '../color-picker';
 import ComboColorPicker from '../combo-color-picker';
 import { isGradient } from '../combo-color-picker/utils';
 import ColorPreview from '../color-preview';
 import CustomizeFooter from '../customize-footer';
 import TypographyPanel from '../typography-panel';
+import { IconDesktop, IconMobile } from '../typography-panel/icons';
 
 /**
  * Red "Clear" styling only when the user has a real overlay tint (not
@@ -114,6 +114,46 @@ function normalizeThemeColor(value, fallback) {
 		return fallback;
 	}
 	return value;
+}
+
+function parseThemePaddingSide(padding, side, bk) {
+	const raw = padding?.[side]?.[bk];
+	if (raw === undefined || raw === null) {
+		return 0;
+	}
+	const n = parseInt(String(raw).replace(/px/gi, ''), 10);
+	return Number.isFinite(n) ? n : 0;
+}
+
+function ButtonsPaddingPreview({ padding, bk }) {
+	const t = parseThemePaddingSide(padding, 'top', bk);
+	const r = parseThemePaddingSide(padding, 'right', bk);
+	const b = parseThemePaddingSide(padding, 'bottom', bk);
+	const l = parseThemePaddingSide(padding, 'left', bk);
+	return (
+		<div
+			className="theme-editor-customize__buttons-padding-preview"
+			aria-hidden="true"
+		>
+			<div className="theme-editor-customize__buttons-padding-preview__measure theme-editor-customize__buttons-padding-preview__measure--top">
+				{t}
+			</div>
+			<div className="theme-editor-customize__buttons-padding-preview__row">
+				<span className="theme-editor-customize__buttons-padding-preview__measure theme-editor-customize__buttons-padding-preview__measure--side">
+					{l}
+				</span>
+				<div className="theme-editor-customize__buttons-padding-preview__fake-btn">
+					{__('Button Text', 'quillforms')}
+				</div>
+				<span className="theme-editor-customize__buttons-padding-preview__measure theme-editor-customize__buttons-padding-preview__measure--side">
+					{r}
+				</span>
+			</div>
+			<div className="theme-editor-customize__buttons-padding-preview__measure theme-editor-customize__buttons-padding-preview__measure--bottom">
+				{b}
+			</div>
+		</div>
+	);
 }
 
 function ThemeSolidColorCard({ color, schemaDefault, onClear, children }) {
@@ -194,6 +234,9 @@ const CustomizeThemePanel = () => {
 		progressBarFillColor,
 	} = $properties;
 	const themeDefaults = getDefaultThemeProperties();
+	const [buttonsPaddingViewport, setButtonsPaddingViewport] = useState('lg');
+	const paddingBk = buttonsPaddingViewport === 'lg' ? 'lg' : 'sm';
+
 	return (
 		<div className="theme-editor-customize">
 			<div className="theme-editor-customize__header">
@@ -1024,304 +1067,238 @@ const CustomizeThemePanel = () => {
 					setCurrentThemeProperties={setCurrentThemeProperties}
 				/>
 				<PanelBody
+					className="theme-editor-customize__buttons-panel"
 					title={__('Buttons', 'quillforms')}
 					initialOpen={false}
 				>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__(
-									'Buttons Border Radius(px)',
-									'quillforms'
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__buttons-padding-head">
+							<span className="theme-editor-customize__subsection-label">
+								{__('Button Padding', 'quillforms')}
+							</span>
+							<div
+								className="theme-editor-customize__viewport-toggle"
+								role="group"
+								aria-label={__('Breakpoint', 'quillforms')}
+							>
+								<button
+									type="button"
+									className={
+										'theme-editor-customize__viewport-btn' +
+										(buttonsPaddingViewport === 'lg'
+											? ' is-active'
+											: '')
+									}
+									aria-pressed={buttonsPaddingViewport === 'lg'}
+									onClick={() => setButtonsPaddingViewport('lg')}
+									aria-label={__('Desktop', 'quillforms')}
+								>
+									<IconDesktop />
+								</button>
+								<button
+									type="button"
+									className={
+										'theme-editor-customize__viewport-btn' +
+										(buttonsPaddingViewport === 'sm'
+											? ' is-active'
+											: '')
+									}
+									aria-pressed={buttonsPaddingViewport === 'sm'}
+									onClick={() => setButtonsPaddingViewport('sm')}
+									aria-label={__('Mobile', 'quillforms')}
+								>
+									<IconMobile />
+								</button>
+							</div>
+						</div>
+						<ButtonsPaddingPreview
+							padding={buttonsPadding}
+							bk={paddingBk}
+						/>
+						<div className="theme-editor-customize__buttons-padding-grid">
+							<TextControl
+								label={__('Top', 'quillforms')}
+								type="number"
+								value={String(
+									parseThemePaddingSide(
+										buttonsPadding,
+										'top',
+										paddingBk
+									)
 								)}
-							/>
-							<RangeControl
-								className={css`
-									width: 30%;
-								`}
-								value={buttonsBorderRadius}
-								onChange={(value) =>
+								onChange={(val) => {
+									const n = parseInt(String(val), 10);
+									if (!Number.isFinite(n)) {
+										return;
+									}
+									const clamped = Math.min(120, Math.max(0, n));
 									setCurrentThemeProperties({
-										buttonsBorderRadius: value,
-									})
-								}
-								min={1}
-								max={30}
-							/>
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__(
-									'Buttons Border Width(px)',
-									'quillforms'
-								)}
-								isNew={true}
-							/>
-							<RangeControl
-								className={css`
-									width: 30%;
-								`}
-								value={buttonsBorderWidth}
-								onChange={(value) =>
-									setCurrentThemeProperties({
-										buttonsBorderWidth: value,
-									})
-								}
-								min={0}
-								max={10}
-							/>
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__('Buttons Border Color', 'quillforms')}
-								isNew={true}
-							/>
-							<ColorPicker
-								value={buttonsBorderColor}
-								onChange={(value) => {
-									setCurrentThemeProperties({
-										buttonsBorderColor: value,
+										buttonsPadding: {
+											...buttonsPadding,
+											top: {
+												...buttonsPadding.top,
+												[paddingBk]: `${clamped}px`,
+											},
+										},
 									});
 								}}
 							/>
-						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="vertical">
-							<ControlLabel label={__('Buttons Padding(px)', 'quillforms')} />
-							<ResponsiveControl
-								desktopChildren={
-									<div
-										className={css`
-											display: flex;
-											align-items: center;
-											gap: 4px;
-											width: 100%;
-
-											div {
-												text-align: center;
-												flex: 1;
-												min-width: 0;
-											}
-
-											input {
-												width: 100% !important;
-												min-width: 0 !important;
-												padding: 4px !important;
-												font-size: 12px !important;
-											}
-
-											label {
-												font-size: 11px;
-												margin-bottom: 4px !important;
-											}
-
-											.components-base-control {
-												margin-bottom: 0 !important;
-											}
-
-											.components-base-control__field {
-												margin-bottom: 0 !important;
-											}
-										`}
-									>
-										<TextControl
-											label={__('Top', 'quillforms')}
-											type="number"
-											value={parseInt(
-												buttonsPadding.top.lg.replace('px', ''),
-												10
-											)}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													buttonsPadding: {
-														...buttonsPadding,
-														top: {
-															...buttonsPadding.top,
-															lg: `${val}px`,
-														},
-													},
-												});
-											}}
-										/>
-										<TextControl
-											label={__('Right', 'quillforms')}
-											type="number"
-											value={parseInt(
-												buttonsPadding.right.lg.replace(
-													'px',
-													''
-												),
-												10
-											)}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													buttonsPadding: {
-														...buttonsPadding,
-														right: {
-															...buttonsPadding.right,
-															lg: `${val}px`,
-														},
-													},
-												});
-											}}
-										/>
-										<TextControl
-											label={__('Bottom', 'quillforms')}
-											type="number"
-											value={parseInt(
-												buttonsPadding.bottom.lg.replace(
-													'px',
-													''
-												),
-												10
-											)}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													buttonsPadding: {
-														...buttonsPadding,
-														bottom: {
-															...buttonsPadding.bottom,
-															lg: `${val}px`,
-														},
-													},
-												});
-											}}
-										/>
-										<TextControl
-											label={__('Left', 'quillforms')}
-											type="number"
-											value={parseInt(
-												buttonsPadding.left.lg.replace(
-													'px',
-													''
-												),
-												10
-											)}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													buttonsPadding: {
-														...buttonsPadding,
-														left: {
-															...buttonsPadding.left,
-															lg: `${val}px`,
-														},
-													},
-												});
-											}}
-										/>
-									</div>
-								}
-								mobileChildren={
-									<div
-										className={css`
-											display: flex;
-											align-items: center;
-											gap: 4px;
-											width: 100%;
-
-											div {
-												text-align: center;
-												flex: 1;
-												min-width: 0;
-											}
-
-											input {
-												width: 100% !important;
-												min-width: 0 !important;
-												padding: 4px !important;
-												font-size: 12px !important;
-											}
-
-											label {
-												font-size: 11px;
-												margin-bottom: 4px !important;
-											}
-
-											.components-base-control {
-												margin-bottom: 0 !important;
-											}
-
-											.components-base-control__field {
-												margin-bottom: 0 !important;
-											}
-										`}
-									>
-										<TextControl
-											label={__('Right', 'quillforms')}
-											type="number"
-											value={parseInt(
-												buttonsPadding.right.sm.replace(
-													'px',
-													''
-												),
-												10
-											)}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													buttonsPadding: {
-														...buttonsPadding,
-														right: {
-															...buttonsPadding.right,
-															sm: `${val}px`,
-														},
-													},
-												});
-											}}
-										/>
-										<TextControl
-											label={__('Bottom', 'quillforms')}
-											type="number"
-											value={parseInt(
-												buttonsPadding.bottom.sm.replace(
-													'px',
-													''
-												),
-												10
-											)}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													buttonsPadding: {
-														...buttonsPadding,
-														bottom: {
-															...buttonsPadding.bottom,
-															sm: `${val}px`,
-														},
-													},
-												});
-											}}
-										/>
-										<TextControl
-											label={__('Left', 'quillforms')}
-											type="number"
-											value={parseInt(
-												buttonsPadding.left.sm.replace(
-													'px',
-													''
-												),
-												10
-											)}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													buttonsPadding: {
-														...buttonsPadding,
-														left: {
-															...buttonsPadding.left,
-															sm: `${val}px`,
-														},
-													},
-												});
-											}}
-										/>
-									</div>
-								}
+							<TextControl
+								label={__('Bottom', 'quillforms')}
+								type="number"
+								value={String(
+									parseThemePaddingSide(
+										buttonsPadding,
+										'bottom',
+										paddingBk
+									)
+								)}
+								onChange={(val) => {
+									const n = parseInt(String(val), 10);
+									if (!Number.isFinite(n)) {
+										return;
+									}
+									const clamped = Math.min(120, Math.max(0, n));
+									setCurrentThemeProperties({
+										buttonsPadding: {
+											...buttonsPadding,
+											bottom: {
+												...buttonsPadding.bottom,
+												[paddingBk]: `${clamped}px`,
+											},
+										},
+									});
+								}}
 							/>
-						</ControlWrapper>
-					</BaseControl>
+							<TextControl
+								label={__('Right', 'quillforms')}
+								type="number"
+								value={String(
+									parseThemePaddingSide(
+										buttonsPadding,
+										'right',
+										paddingBk
+									)
+								)}
+								onChange={(val) => {
+									const n = parseInt(String(val), 10);
+									if (!Number.isFinite(n)) {
+										return;
+									}
+									const clamped = Math.min(120, Math.max(0, n));
+									setCurrentThemeProperties({
+										buttonsPadding: {
+											...buttonsPadding,
+											right: {
+												...buttonsPadding.right,
+												[paddingBk]: `${clamped}px`,
+											},
+										},
+									});
+								}}
+							/>
+							<TextControl
+								label={__('Left', 'quillforms')}
+								type="number"
+								value={String(
+									parseThemePaddingSide(
+										buttonsPadding,
+										'left',
+										paddingBk
+									)
+								)}
+								onChange={(val) => {
+									const n = parseInt(String(val), 10);
+									if (!Number.isFinite(n)) {
+										return;
+									}
+									const clamped = Math.min(120, Math.max(0, n));
+									setCurrentThemeProperties({
+										buttonsPadding: {
+											...buttonsPadding,
+											left: {
+												...buttonsPadding.left,
+												[paddingBk]: `${clamped}px`,
+											},
+										},
+									});
+								}}
+							/>
+						</div>
+					</div>
+
+					<hr
+						className="theme-editor-customize__buttons-panel-divider"
+						aria-hidden="true"
+					/>
+
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Border Radius (px)', 'quillforms')}
+						</div>
+						<TextControl
+							type="number"
+							value={String(buttonsBorderRadius)}
+							onChange={(val) => {
+								const n = parseInt(String(val), 10);
+								if (!Number.isFinite(n)) {
+									return;
+								}
+								const clamped = Math.min(60, Math.max(0, n));
+								setCurrentThemeProperties({
+									buttonsBorderRadius: clamped,
+								});
+							}}
+						/>
+					</div>
+
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Border Width (px)', 'quillforms')}
+						</div>
+						<TextControl
+							type="number"
+							value={String(buttonsBorderWidth)}
+							onChange={(val) => {
+								const n = parseInt(String(val), 10);
+								if (!Number.isFinite(n)) {
+									return;
+								}
+								const clamped = Math.min(20, Math.max(0, n));
+								setCurrentThemeProperties({
+									buttonsBorderWidth: clamped,
+								});
+							}}
+						/>
+					</div>
+
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Border Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
+							color={buttonsBorderColor}
+							schemaDefault={themeDefaults.buttonsBorderColor}
+							onClear={() =>
+								setCurrentThemeProperties({
+									buttonsBorderColor:
+										themeDefaults.buttonsBorderColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={buttonsBorderColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										buttonsBorderColor: normalizeThemeColor(
+											value,
+											themeDefaults.buttonsBorderColor
+										),
+									});
+								}}
+							/>
+						</ThemeSolidColorCard>
+					</div>
 				</PanelBody>
 			</div>
 			<CustomizeFooter

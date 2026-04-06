@@ -145,7 +145,9 @@
 		color: #334155 !important;
 	}
 
-	.components-panel__body .components-panel__body-toggle .components-panel__icon {
+	.components-panel__body
+		.components-panel__body-toggle
+		.components-panel__icon {
 		color: #64748b !important;
 	}
 
@@ -154,7 +156,7 @@
 	}
 
 	.components-panel__body .components-panel__body-content,
-	.components-panel__body.is-opened>.components-panel__body-content {
+	.components-panel__body.is-opened > .components-panel__body-content {
 		padding: 16px 16px 20px !important;
 		margin: 0 !important;
 		border: none !important;
@@ -164,7 +166,9 @@
 		padding: 0 !important;
 	}
 
-	.components-panel__body-toggle.components-button:focus:not(:disabled):not([aria-disabled="true"]) {
+	.components-panel__body-toggle.components-button:focus:not(:disabled):not(
+			[aria-disabled="true"]
+		) {
 		outline: none !important;
 		outline-offset: 0;
 		box-shadow: none !important;
@@ -338,7 +342,9 @@
 	}
 
 	/* Overlay Clear uses .theme-editor-customize__clear-link--overlay (gray / red) */
-	.theme-editor-customize__clear-link:not(.theme-editor-customize__clear-link--overlay) {
+	.theme-editor-customize__clear-link:not(
+			.theme-editor-customize__clear-link--overlay
+		) {
 		padding: 0;
 		border: none;
 		background: none;
@@ -385,7 +391,6 @@
 		}
 
 		&.theme-editor-customize__overlay-color--footer-clear {
-
 			/* Hide duplicate Clear from circular palette (footer Clear button) */
 			.components-circular-option-picker__clear {
 				display: none !important;
@@ -558,7 +563,8 @@
 			box-sizing: border-box;
 		}
 
-		.admin-components-control-wrapper.vertical .admin-components-control-label {
+		.admin-components-control-wrapper.vertical
+			.admin-components-control-label {
 			max-width: none;
 			width: 100%;
 			margin-bottom: 10px;
@@ -585,24 +591,30 @@
 			color: #334155;
 		}
 
-		.admin-components-font-picker.is-disabled .admin-components-font-picker__select {
+		.admin-components-font-picker.is-disabled
+			.admin-components-font-picker__select {
 			background: rgba(217, 217, 217, 0.6) !important;
 			color: #777777 !important;
 			border: none !important;
 		}
 
-		.admin-components-font-picker.is-disabled .admin-components-font-picker__selected-font {
+		.admin-components-font-picker.is-disabled
+			.admin-components-font-picker__selected-font {
 			color: inherit;
 		}
 
-		.admin-components-font-picker .admin-components-font-picker__select svg {
+		.admin-components-font-picker
+			.admin-components-font-picker__select
+			svg {
 			top: 50%;
 			transform: translateY(-50%);
 			fill: currentColor;
 			color: inherit;
 		}
 
-		.admin-components-font-picker.is-disabled .admin-components-font-picker__select svg {
+		.admin-components-font-picker.is-disabled
+			.admin-components-font-picker__select
+			svg {
 			color: #777777;
 			opacity: 0.85;
 		}
@@ -616,7 +628,7 @@
 				align-items: center;
 				gap: 10px;
 
-				>div {
+				> div {
 					align-items: center;
 					justify-content: center;
 					gap: 10px;
@@ -645,6 +657,156 @@
 			input[type="checkbox"]:focus {
 				box-shadow: 0 0 0 var(--wp-admin-border-width-focus) #b2328c !important;
 			}
+		}
+	}
+
+	.theme-editor-customize__buttons-panel {
+		.theme-editor-customize__buttons-padding-head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			margin-bottom: 12px;
+
+			.theme-editor-customize__subsection-label {
+				margin-bottom: 0;
+			}
+		}
+
+		.theme-editor-customize__viewport-toggle {
+			display: inline-flex;
+			flex-direction: row;
+			flex-shrink: 0;
+		}
+
+		.theme-editor-customize__viewport-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			padding: 8px;
+			border-radius: 8px;
+			background: #fff;
+			color: #334155;
+			cursor: pointer;
+			box-sizing: border-box;
+
+			&:first-child {
+				border-radius: 8px 0 0 8px;
+			}
+
+			&:last-child {
+				border-radius: 0 8px 8px 0;
+			}
+
+			svg {
+				display: block;
+			}
+
+			&:hover {
+				background: #fafafa;
+			}
+
+			&.is-active {
+				background: #ffeefb;
+				color: #b2328c;
+				border-color: #e9d4e8;
+			}
+		}
+
+		.theme-editor-customize__buttons-padding-preview {
+			margin-bottom: 16px;
+			padding: 14px 16px;
+			background: #e2e8f0;
+			border-radius: 8px;
+			box-sizing: border-box;
+		}
+
+		.theme-editor-customize__buttons-padding-preview__measure {
+			display: block;
+			text-align: center;
+			font-size: 13px;
+			font-weight: 600;
+			color: #64748b;
+			line-height: 1.3;
+		}
+
+		.theme-editor-customize__buttons-padding-preview__measure--top {
+			margin-bottom: 8px;
+		}
+
+		.theme-editor-customize__buttons-padding-preview__measure--bottom {
+			margin-top: 8px;
+		}
+
+		.theme-editor-customize__buttons-padding-preview__row {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+		}
+
+		.theme-editor-customize__buttons-padding-preview__measure--side {
+			flex: 0 0 auto;
+			min-width: 1.5em;
+		}
+
+		.theme-editor-customize__buttons-padding-preview__fake-btn {
+			flex: 0 1 auto;
+			padding: 10px 18px;
+			background: #fff;
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 500;
+			color: #334155;
+			text-align: center;
+			box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+			box-sizing: border-box;
+		}
+
+		.theme-editor-customize__buttons-padding-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.theme-editor-customize__buttons-padding-grid
+			.admin-components-text-control,
+		.theme-editor-customize__subsection > .admin-components-text-control {
+			width: 100%;
+			margin: 0;
+
+			.components-base-control {
+				margin-bottom: 0 !important;
+			}
+
+			.components-base-control__label {
+				font-size: 18px !important;
+				font-weight: 500 !important;
+				text-transform: capitalize !important;
+			}
+
+			.components-base-control__field {
+				margin-bottom: 0 !important;
+			}
+
+			.components-text-control__input {
+				min-height: 48px !important;
+				border-radius: 8px !important;
+				font-size: 14px !important;
+				color: #334155 !important;
+			}
+		}
+
+		.theme-editor-customize__buttons-panel-divider {
+			display: block;
+			height: 1px;
+			margin: 16px 0;
+			padding: 0;
+			border: 0;
+			background: #e2e8f0;
 		}
 	}
 }
