@@ -7,9 +7,13 @@ import { moreHorizontal } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
 const ThemeActions = ({ id, themeTitle, themeProperties }) => {
-	const { setCurrentTab } = useDispatch('quillForms/theme-editor');
-	const { deleteTheme, addNewTheme, setCurrentThemeId, setShouldBeSaved } =
-		useDispatch('quillForms/theme-editor');
+	const {
+		setCurrentTab,
+		deleteTheme,
+		addNewTheme,
+		setCurrentThemeId,
+		setShouldBeSaved,
+	} = useDispatch('quillForms/theme-editor');
 
 	return (
 		<div

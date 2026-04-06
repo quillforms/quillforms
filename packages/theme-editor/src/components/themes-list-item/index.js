@@ -7,7 +7,6 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
 /**
  * WordPress Dependencies
  */
-import { useDispatch } from '@wordpress/data';
 import { useEffect } from 'react';
 
 /**
@@ -44,8 +43,7 @@ import ThemeActions from '../theme-actions';
  *
  * @param {QFTheme} theme
  */
-const ThemesListItem = ( { theme, onClick } ) => {
-	const themeId = theme.id;
+const ThemesListItem = ({ theme, onClick }) => {
 	const themeData = {
 		...getDefaultThemeProperties(),
 		...theme.properties,
@@ -53,9 +51,9 @@ const ThemesListItem = ( { theme, onClick } ) => {
 	const { font } = themeData;
 	const fonts = ConfigAPI.getFonts();
 
-	const fontType = fonts[ font ];
+	const fontType = fonts[font];
 	let fontUrl;
-	switch ( fontType ) {
+	switch (fontType) {
 		case 'googlefonts':
 			fontUrl =
 				'https://fonts.googleapis.com/css?family=' +
@@ -65,16 +63,16 @@ const ThemesListItem = ( { theme, onClick } ) => {
 			break;
 
 		case 'earlyaccess':
-			const fontLowerString = font.replace( /\s+/g, '' ).toLowerCase();
+			const fontLowerString = font.replace(/\s+/g, '').toLowerCase();
 			fontUrl =
 				'https://fonts.googleapis.com/earlyaccess/' +
 				fontLowerString +
 				'.css';
 			break;
 	}
-	useEffect( () => {
+	useEffect(() => {
 		const head = document.head;
-		const link = document.createElement( 'link' );
+		const link = document.createElement('link');
 
 		link.type = 'text/css';
 		link.rel = 'stylesheet';
@@ -82,13 +80,13 @@ const ThemesListItem = ( { theme, onClick } ) => {
 
 		if (
 			fontUrl &&
-			! document.querySelector( `link[href='${ link.href }']` )?.length
+			!document.querySelector(`link[href='${link.href}']`)?.length
 		)
-			head.appendChild( link );
-	}, [] );
+			head.appendChild(link);
+	}, []);
 	let backgroundImageCSS = '';
-	if ( theme?.properties?.backgroundImage ) {
-		backgroundImageCSS = `background: url('${ theme.properties.backgroundImage }') no-repeat;
+	if (theme?.properties?.backgroundImage) {
+		backgroundImageCSS = `background: url('${theme.properties.backgroundImage}') no-repeat;
 			background-size: cover;
 			background-position: center;
 		`;
@@ -98,67 +96,67 @@ const ThemesListItem = ( { theme, onClick } ) => {
 		<div
 			role="presentation"
 			className="theme-editor-themes-list-item"
-			onClick={ onClick }
+			onClick={onClick}
 		>
 			<div
-				className={ classnames(
+				className={classnames(
 					'theme-editor-themes-list-item__header-wrapper',
 					css`
-						${ backgroundImageCSS };
+						${backgroundImageCSS};
 					`
-				) }
+				)}
 			>
 				<div
-					className={ classnames(
+					className={classnames(
 						'theme-editor-themes-list-item__header',
 						css`
-							background: ${ themeData.backgroundColor };
-							font-family: ${ themeData.font };
+							background: ${themeData.backgroundColor};
+							font-family: ${themeData.font};
 						`
-					) }
+					)}
 				>
 					<div
-						className={ classnames(
+						className={classnames(
 							'theme-editor-themes-list-item__header-question',
 							css`
-								color: ${ themeData.questionsColor };
+								color: ${themeData.questionsColor};
 							`
-						) }
+						)}
 					>
 						Question
 					</div>
 					<div
-						className={ classnames(
+						className={classnames(
 							'theme-editor-themes-list-item__header-answer',
 							css`
-								color: ${ themeData.answersColor };
+								color: ${themeData.answersColor};
 							`
-						) }
+						)}
 					>
 						Answer
 					</div>
 					<div
-						className={ classnames(
+						className={classnames(
 							'theme-editor-themes-list-item__header-buttons',
 							css`
-								color: ${ themeData.buttonsFontColor };
-								background: ${ themeData.buttonsBgColor };
-								border-width: ${ themeData.buttonsBorderWidth }px;
-								border-color: ${ themeData.buttonsBorderColor };
+								color: ${themeData.buttonsFontColor};
+								background: ${themeData.buttonsBgColor};
+								border-width: ${themeData.buttonsBorderWidth}px;
+								border-color: ${themeData.buttonsBorderColor};
 								border-style: solid;
 							`
-						) }
+						)}
 					></div>
 				</div>
 			</div>
 			<div className="theme-editor-themes-list-item__footer">
 				<div className="theme-editor-themes-list-item__footer-title">
-					{ theme.title ? theme.title : 'Untitled' }
+					{theme.title ? theme.title : 'Untitled'}
 				</div>
 				<ThemeActions
-					id={ theme.id }
-					themeTitle={ theme.title ? theme.title : 'Untitled' }
-					themeProperties={ theme?.properties }
+					id={theme.id}
+					themeTitle={theme.title ? theme.title : 'Untitled'}
+					themeProperties={theme?.properties}
 				/>
 			</div>
 		</div>

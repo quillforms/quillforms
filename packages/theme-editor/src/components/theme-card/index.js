@@ -1,20 +1,16 @@
 /**
- * WordPress Dependencies
- */
-import { useState, useEffect } from 'react';
-/**
  * External Dependencies
  */
 import classnames from 'classnames';
 
-const ThemeCard = ( { isSelected, index, children } ) => {
+const ThemeCard = ({ isSelected, index, children }) => {
 	return (
 		<div
-			className={ classnames( 'theme-editor-theme-card', {
+			className={classnames('theme-editor-theme-card', {
 				isSelected,
-			} ) }
+			})}
 		>
-			{ children }
+			{children}
 		</div>
 	);
 };

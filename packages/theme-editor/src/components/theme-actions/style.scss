@@ -2,7 +2,6 @@
 	.theme-editor-theme-actions__dropdown {
 		button {
 			height: 28px;
-			// padding: 2px;
 			transition: background 0.3s linear;
 
 			> svg {
@@ -11,37 +10,20 @@
 		}
 
 		button:hover {
-			// border: none !important;
-			// box-shadow: none !important;
 			background: #e3e3e3 !important;
 		}
 
 		.components-dropdown-menu__popover {
-			.components-popover__content  {
-				// min-width: auto;
-				// width: 140px;
+			.components-popover__content {
 				border-radius: 7px;
 			}
-
-			// &:after, &:before {
-			// 	display: none;
-			// }
 		}
 
 		.components-menu-item__button {
 			padding-left: 1rem;
-			// outline: none !important;
-			// box-shadow: none !important;
-
-			// &:focus {
-			// 	outline: none !important;
-			// 	box-shadow: none !important;
-			// }
 		}
 
 		.theme-editor-theme-actions__menu-group {
-			// padding: 0;
-
 			.theme-editor-theme-actions__menu-item {
 				font-size: 14px;
 				margin-bottom: 5px;
@@ -52,5 +34,4 @@
 			}
 		}
 	}
-
 }
