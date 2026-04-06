@@ -14,19 +14,15 @@ const NotificationTitle = ({ value, setValue }) => {
 		<div className="notifications-editor-notification-title">
 			<BaseControl>
 				<ControlWrapper>
-					<ControlLabel label={__('Title', 'quillforms')} />
-					<TextControl
-						value={value}
-						onChange={(val) => {
-							setValue({
-								title: val,
-							});
-						}}
+					<ControlLabel
+						label={__('Title', 'quillforms')}
+						showAsterisk
 					/>
-				</ControlWrapper>
-			</BaseControl>
-		</div>
-	);
+					<TextControl placeholder={__(' title', 'quillforms')} value={value} onChange={(val) => { setValue({ title: val }); }} />
+					</ControlWrapper>
+				</BaseControl>
+			</div>
+		);
 };
 
 export default NotificationTitle;

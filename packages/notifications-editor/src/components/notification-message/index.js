@@ -6,23 +6,16 @@ import {
 	ControlLabel,
 	ControlWrapper,
 	getPlainExcerpt,
-	RichTextControl,
-
 } from '@quillforms/admin-components';
-
 import { FullRichText } from '@quillforms/rich-text';
+
 /**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useEffect, useMemo } from 'react';
-import { applyFilters } from '@wordpress/hooks';
+import { useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 
-/**
- * External Dependencies
- */
-import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
@@ -114,24 +107,16 @@ const EmailMessage = ({
 	return (
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
-				<ControlLabel label={__('Message', 'quillforms')} showAsterisk={true} />
-				<FullRichText value={value || '<p></p>'}
-					onChange={(newVal) => {
-						setValue(newVal);
-					}}
-					customMergeTags={mergeTags}
-				/>
-				{/* <RichTextControl
-					className={css`
-						min-height: 120px !important;
-					` }
-					mergeTags={mergeTags}
-					value={value}
-					setValue={(newVal) => {
-						setValue(newVal);
-					}}
-					allowedFormats={['bold', 'italic', 'link']}
-				/> */}
+				<ControlLabel label={__('Subject', 'quillforms')} showAsterisk={true} />
+				<div className="notifications-editor-rich-field notifications-editor-rich-field--message">
+					<FullRichText
+						value={value || '<p></p>'}
+						onChange={(newVal) => {
+							setValue(newVal);
+						}}
+						customMergeTags={mergeTags}
+					/>
+				</div>
 			</ControlWrapper>
 			{!isValid && isReviewing && (
 				<AlertMessageWrapper type="error">

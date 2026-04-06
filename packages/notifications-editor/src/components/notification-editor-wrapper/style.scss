@@ -1,6 +1,206 @@
-.notifications-editor-notification-editor-wrapper__heading {
-	font-size: 14px;
-	display: inline-block;
-	padding-bottom: 10px;
-	border-bottom: 1px solid;
+.notifications-editor-notification-editor-wrapper__heading-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 16px;
+
+	.notifications-editor-notification-editor-wrapper__heading {
+		font-size: 18px;
+		display: inline-block;
+		font-weight: 500;
+		line-height: 28px;
+		color: #334155;
+	}
 }
+
+.admin-components-base-control {
+	border: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	min-height: auto !important;
+}
+
+.admin-components-control-wrapper.horizontal {
+	gap: 10px !important;
+}
+
+.notifications-editor-notification-editor-wrapper__active-label {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 28px;
+	color: #777777;
+}
+
+.notifications-editor-notification-editor-wrapper__content {
+	padding: 16px 24px;
+	border-radius: 16px;
+	background-color: #F7F8FA;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* Conditional logic: below the gray card, not inside __content */
+.notifications-editor-notification-editor-wrapper__logic-outside {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 16px 0;
+	min-width: 0;
+}
+
+/* Side-by-side cards: Send to | Reply to */
+.notifications-editor-notification-editor-wrapper__to-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+	width: 100%;
+	align-items: stretch;
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.notifications-editor-notification-editor-wrapper__to-card {
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 16px 18px;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	box-sizing: border-box;
+
+	.admin-components-base-control {
+		width: 100%;
+	}
+
+	/* Email / Field radios on one row (@wordpress/components uses VStack) */
+	.notifications-editor-send-to-radio,
+	.notifications-editor-reply-to-radio {
+		border: none;
+		margin: 0;
+		padding: 0;
+		min-width: 0;
+
+		.components-radio-control__group-wrapper {
+			flex-direction: row !important;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 8px 20px;
+		}
+
+		.components-radio-control__option {
+			margin: 0;
+		}
+	}
+}
+
+/* Conditional Logic: one bordered card; expanded rules sit inside the same row */
+.notifications-editor-notification-editor-wrapper__logic-condition-sheet {
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+	background: #F7F8FA;
+	border-radius: 16px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+
+
+}
+
+.notifications-editor-notification-editor-wrapper__logic-condition-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 14px 18px;
+	min-width: 0;
+	background: #F7F8FA;
+}
+
+.notifications-editor-notification-editor-wrapper__logic-condition-start {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
+	flex: 1;
+
+	.admin-components-control-label {
+		margin: 0;
+	}
+}
+
+.notifications-editor-notification-editor-wrapper__logic-condition-toggle {
+	flex-shrink: 0;
+}
+
+.notifications-editor-notification-editor-wrapper__logic-condition-help {
+	padding: 12px 18px 0;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #64748b;
+}
+
+.notifications-editor-notification-editor-wrapper__logic-condition-panel {
+	padding: 16px 24px;
+	min-width: 0;
+	background: #F7F8FA;
+
+	.logic-editor-logic-conditions {
+		margin: 0;
+	}
+}
+
+.admin-components-control-wrapper {
+	padding: 0 !important;
+}
+
+.builder-core-panel-modal .admin-components-control-label {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 28px;
+	color: #334155;
+}
+
+.builder-core-panel-modal .admin-components-control-label span {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 28px;
+	color: #E13B3B;
+}
+
+.admin-components-text-control input {
+	border: 1px solid #D9D9D9;
+	border-radius: 16px !important;
+	padding: 24px 16px !important;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 28px;
+
+	&::placeholder {
+
+		color: #777777;
+	}
+}
+
+/* Message field only (FullRichText); Subject stays a plain TextControl */
+.notifications-editor-rich-field {
+	width: 100%;
+	min-width: 0;
+
+	.quillforms-full-rich-text {
+		border: 1px solid #d9d9d9;
+		border-radius: 16px;
+		overflow: hidden;
+		background: #fff;
+	}
+}
+
+/* Logic condition UI (styles loaded here — not via JS import; build-module has no .scss) */
+@import "../logic-condition/style.scss";
+@import "../logic-condition/confirm-delete-modal/style.scss";

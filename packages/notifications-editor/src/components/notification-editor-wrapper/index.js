@@ -6,7 +6,6 @@ import {
 	ControlWrapper,
 	ControlLabel,
 	ToggleControl,
-	LogicConditions,
 } from '@quillforms/admin-components';
 
 /**
@@ -34,6 +33,8 @@ import NotificationSubject from '../notification-subject';
 import NotificationEditorFooter from '../notification-editor-footer';
 import NotificationTitle from '../notification-title';
 import NotificationTo from '../notification-to';
+import LogicConditionIcon from '../icons/logic-condition';
+import LogicCondition from '../logic-condition';
 
 const NotificationEditorWrapper = ({
 	goBack,
@@ -47,7 +48,6 @@ const NotificationEditorWrapper = ({
 		...currentNotificationProperties,
 	});
 
-	const [isFormActive, setIsFormActive] = useState(false);
 	const [isReviewing, setIsReviewing] = useState(false);
 
 	const [validationFlags, setValidationFlags] = useState(
@@ -62,11 +62,6 @@ const NotificationEditorWrapper = ({
 			setProperties({ ...currentNotificationProperties });
 		}
 		setIsReviewing(false);
-		if (activeSlide === 1) {
-			setIsFormActive(true);
-		} else {
-			setIsFormActive(false);
-		}
 	}, [activeSlide]);
 
 	const {
@@ -89,7 +84,7 @@ const NotificationEditorWrapper = ({
 		};
 	});
 
-	// we need to have a radio control for replyToType with email and field options. 
+	// we need to have a radio control for replyToType with email and field options.
 	// if email is selected, we need to show a text control to enter the email.
 	// if field is selected, we need to show a select control with all email fields.
 	// use RadioControl from "@wordpress/components"
@@ -104,23 +99,14 @@ const NotificationEditorWrapper = ({
 			)}
 		>
 			<>
+			   <div className="notifications-editor-notification-editor-wrapper__heading-container">
 				<h4 className="notifications-editor-notification-editor-wrapper__heading">
 					{notificationId
 						? __('Edit Notification', 'quillforms')
 						: __('Create a new notification', 'quillforms')}
 				</h4>
-				<NotificationTitle
-					value={title}
-					setValue={(value) => {
-						setProperties((prevProperties) => ({
-							...prevProperties,
-							...value,
-						}));
-					}}
-				/>
 				<BaseControl>
 					<ControlWrapper>
-						<ControlLabel label={__('Active', 'quillforms')} />
 						<ToggleControl
 							checked={active}
 							onChange={() => {
@@ -130,118 +116,134 @@ const NotificationEditorWrapper = ({
 								}));
 							}}
 						/>
+						<p className="notifications-editor-notification-editor-wrapper__active-label"> {__(`${active ? 'Active' : 'Inactive'}`, 'quillforms')} </p>
 					</ControlWrapper>
 				</BaseControl>
-				<NotificationTo
-					emailFields={emailFields}
-					recipients={recipients}
-					toType={toType}
-					isValid={{ ...validationFlags }.recipients}
-					setIsValid={(value) => {
-						setValidationFlags((prevFlags) => ({
-							...prevFlags,
-							recipients: value,
-						}));
-					}}
+				</div>
+				<div className="notifications-editor-notification-editor-wrapper__content">
+				<NotificationTitle
+					value={title}
 					setValue={(value) => {
 						setProperties((prevProperties) => ({
 							...prevProperties,
 							...value,
 						}));
 					}}
-					isReviewing={isReviewing}
 				/>
-				<BaseControl>
-					<ControlWrapper orientation='vertical'>
-						<ControlLabel label={__('Reply to', 'quillforms')} />
-						<RadioControl
-							selected={replyToType}
-							options={[
-								{
-									label: __('Email', 'quillforms'),
-									value: 'email',
-								},
-								{
-									label: __('Field', 'quillforms'),
-									value: 'field',
-								},
-							]}
-							onChange={(val) => {
-								setProperties((prevProperties) => ({
-									...prevProperties,
-									replyToType: val,
+
+				<div className="notifications-editor-notification-editor-wrapper__to-row">
+					<div className="notifications-editor-notification-editor-wrapper__to-card">
+						<NotificationTo
+							emailFields={emailFields}
+							recipients={recipients}
+							toType={toType}
+							isValid={{ ...validationFlags }.recipients}
+							setIsValid={(value) => {
+								setValidationFlags((prevFlags) => ({
+									...prevFlags,
+									recipients: value,
 								}));
 							}}
-						/>
-					</ControlWrapper>
-					{replyToType === 'email' && (
-						<div className={css`
-							${replyTo && isEmail(replyTo) && `.react-multi-email input { display: none !important;}`}
-					   `}>
-							<ReactMultiEmail
-								placeholder="Enter email"
-								emails={replyTo ? [replyTo] : []}
-								// max 1 email
-								// please see the ts for enable
-								enable={() => {
-									return {
-										emailCnt: 1
-									}
-								}}
-
-								onChange={(val) => {
-									if (val.length > 0) {
-										setProperties((prevProperties) => ({
-											...prevProperties,
-											replyTo: val[0],
-										}));
-									} else {
-										setProperties((prevProperties) => ({
-											...prevProperties,
-											replyTo: '',
-										}));
-									}
-
-									// setValidationFlags((prevFlags) => ({
-									// 	...prevFlags,
-									// 	replyTo: val.length > 0,
-									// }));
-								}}
-								validateEmail={(email) => {
-									if (isEmail(email)) {
-										return true;
-									}
-									return false;
-								}}
-								getLabel={(email, index, removeEmail) => {
-									return (
-										<div data-tag key={index}>
-											{email}
-											<span
-												data-tag-handle
-												onClick={() => removeEmail(index)}
-											>
-												×
-											</span>
-										</div>
-									);
-								}}
-							/>
-						</div>
-					)}
-					{replyToType === 'field' && (
-						<EmailSelect
-							emailFields={emailFields}
-							value={replyTo}
-							setValue={(val) =>
+							setValue={(value) => {
 								setProperties((prevProperties) => ({
 									...prevProperties,
-									replyTo: `{{field:${val}}}`,
-								}))
-							}
+									...value,
+								}));
+							}}
+							isReviewing={isReviewing}
 						/>
-					)}
-				</BaseControl>
+					</div>
+					<div className="notifications-editor-notification-editor-wrapper__to-card">
+						<BaseControl>
+							<ControlWrapper orientation="vertical">
+								<ControlLabel label={__('Reply to', 'quillforms')} />
+								<RadioControl
+									className="notifications-editor-reply-to-radio"
+									selected={replyToType}
+									options={[
+										{
+											label: __('Email', 'quillforms'),
+											value: 'email',
+										},
+										{
+											label: __('Field', 'quillforms'),
+											value: 'field',
+										},
+									]}
+									onChange={(val) => {
+										setProperties((prevProperties) => ({
+											...prevProperties,
+											replyToType: val,
+										}));
+									}}
+								/>
+							</ControlWrapper>
+							{replyToType === 'email' && (
+								<div
+									className={css`
+										${replyTo &&
+										isEmail(replyTo) &&
+										`.react-multi-email input { display: none !important;}`}
+									`}
+								>
+									<ReactMultiEmail
+										placeholder="Enter email"
+										emails={replyTo ? [replyTo] : []}
+										enable={() => {
+											return {
+												emailCnt: 1,
+											};
+										}}
+										onChange={(val) => {
+											if (val.length > 0) {
+												setProperties((prevProperties) => ({
+													...prevProperties,
+													replyTo: val[0],
+												}));
+											} else {
+												setProperties((prevProperties) => ({
+													...prevProperties,
+													replyTo: '',
+												}));
+											}
+										}}
+										validateEmail={(email) => {
+											if (isEmail(email)) {
+												return true;
+											}
+											return false;
+										}}
+										getLabel={(email, index, removeEmail) => {
+											return (
+												<div data-tag key={index}>
+													{email}
+													<span
+														data-tag-handle
+														onClick={() => removeEmail(index)}
+													>
+														×
+													</span>
+												</div>
+											);
+										}}
+									/>
+								</div>
+							)}
+							{replyToType === 'field' && (
+								<EmailSelect
+									emailFields={emailFields}
+									value={replyTo}
+									setValue={(val) =>
+										setProperties((prevProperties) => ({
+											...prevProperties,
+											replyTo: `{{field:${val}}}`,
+										}))
+									}
+								/>
+							)}
+						</BaseControl>
+					</div>
+				</div>
 
 				<NotificationSubject
 					value={subject}
@@ -260,7 +262,7 @@ const NotificationEditorWrapper = ({
 					}}
 					isReviewing={isReviewing}
 				/>
-				{isFormActive && (
+				{activeSlide === 1 && (
 					<NotificationMessage
 						value={message}
 						setValue={(val) => {
@@ -279,36 +281,61 @@ const NotificationEditorWrapper = ({
 						isReviewing={isReviewing}
 					/>
 				)}
-				<BaseControl>
-					<ControlWrapper>
-						<ControlLabel label={__('Conditional Logic', 'quillforms')} />
-						<ToggleControl
-							checked={!!conditions}
-							onChange={() => {
-								setProperties((prevProperties) => ({
-									...prevProperties,
-									conditions: conditions ? undefined : [],
-								}));
-							}}
-						/>
-					</ControlWrapper>
-					{!!conditions && (
-						<div>
-							<div>
-								{__('Process this notification if the following conditions are met:', 'quillforms')}
-							</div>
-							<LogicConditions
-								value={conditions}
-								onChange={(value) =>
-									setProperties((prevProperties) => ({
-										...prevProperties,
-										conditions: value,
-									}))
+				</div>
+				<div className="notifications-editor-notification-editor-wrapper__logic-outside">
+					<BaseControl>
+						<div
+							className={classnames(
+								'notifications-editor-notification-editor-wrapper__logic-condition-sheet',
+								{
+									'is-expanded': !!conditions,
 								}
-							/>
+							)}
+						>
+							<div className="notifications-editor-notification-editor-wrapper__logic-condition-row">
+								<div className="notifications-editor-notification-editor-wrapper__logic-condition-start">
+									<LogicConditionIcon width={24} height={24} />
+									<ControlLabel
+										label={__(
+											'Conditional Logic',
+											'quillforms'
+										)}
+									/>
+								</div>
+								<ToggleControl
+									className="notifications-editor-notification-editor-wrapper__logic-condition-toggle"
+									checked={!!conditions}
+									onChange={() => {
+										setProperties((prevProperties) => ({
+											...prevProperties,
+											conditions: conditions
+												? undefined
+												: [],
+										}));
+									}}
+								/>
+							</div>
+							{!!conditions && (
+								<>
+									<div className="notifications-editor-notification-editor-wrapper__logic-condition-panel">
+										<LogicCondition
+											value={conditions}
+											onChange={(value) =>
+												setProperties((prevProperties) => ({
+													...prevProperties,
+													conditions: value,
+												}))
+											}
+											combobox={{
+												excerptLength: 30,
+											}}
+										/>
+									</div>
+								</>
+							)}
 						</div>
-					)}
-				</BaseControl>
+					</BaseControl>
+				</div>
 				{isActive && (
 					<NotificationEditorFooter
 						isReviewing={isReviewing}

@@ -57,6 +57,7 @@ const NotificationTo = ({
 				/>
 
 				<RadioControl
+					className="notifications-editor-send-to-radio"
 					selected={toType}
 					options={[
 						{
