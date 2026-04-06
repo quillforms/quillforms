@@ -145,9 +145,7 @@
 		color: #334155 !important;
 	}
 
-	.components-panel__body
-		.components-panel__body-toggle
-		.components-panel__icon {
+	.components-panel__body .components-panel__body-toggle .components-panel__icon {
 		color: #64748b !important;
 	}
 
@@ -156,18 +154,17 @@
 	}
 
 	.components-panel__body .components-panel__body-content,
-	.components-panel__body.is-opened > .components-panel__body-content {
+	.components-panel__body.is-opened>.components-panel__body-content {
 		padding: 16px 16px 20px !important;
 		margin: 0 !important;
 		border: none !important;
 	}
+
 	.components-panel__body-toggle.components-button {
 		padding: 0 !important;
 	}
 
-	.components-panel__body-toggle.components-button:focus:not(:disabled):not(
-			[aria-disabled="true"]
-		) {
+	.components-panel__body-toggle.components-button:focus:not(:disabled):not([aria-disabled="true"]) {
 		outline: none !important;
 		outline-offset: 0;
 		box-shadow: none !important;
@@ -341,9 +338,7 @@
 	}
 
 	/* Overlay Clear uses .theme-editor-customize__clear-link--overlay (gray / red) */
-	.theme-editor-customize__clear-link:not(
-			.theme-editor-customize__clear-link--overlay
-		) {
+	.theme-editor-customize__clear-link:not(.theme-editor-customize__clear-link--overlay) {
 		padding: 0;
 		border: none;
 		background: none;
@@ -376,9 +371,25 @@
 			margin-top: 16px;
 		}
 
-		/* Hide duplicate Clear from circular palette (we use footer Clear) */
-		.components-circular-option-picker__clear {
-			display: none !important;
+		.theme-editor-customize__color-panel-preview-row {
+			display: flex;
+			justify-content: flex-end;
+			margin-bottom: 12px;
+
+			.admin-components-color-preview__square {
+				width: 40px;
+				height: 40px;
+				border-radius: 8px;
+				box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12);
+			}
+		}
+
+		&.theme-editor-customize__overlay-color--footer-clear {
+
+			/* Hide duplicate Clear from circular palette (footer Clear button) */
+			.components-circular-option-picker__clear {
+				display: none !important;
+			}
 		}
 
 		.admin-components-combo-color-picker {
@@ -519,14 +530,7 @@
 		padding-top: 0 !important;
 	}
 
-	/* Font Family: no divider under title; fields spaced 16px, 8px before checkbox */
-	.components-panel__body.theme-editor-customize__font-family-panel.is-opened
-		.components-panel__body-title {
-		border-bottom: none !important;
-		padding-bottom: 0 !important;
-		margin-bottom: 16px !important;
-	}
-
+	/* Font Family: same title divider as Background / Colors (border-b when open only) */
 	.theme-editor-customize__font-family {
 		.theme-editor-customize__notice {
 			margin-bottom: 16px !important;
@@ -554,8 +558,7 @@
 			box-sizing: border-box;
 		}
 
-		.admin-components-control-wrapper.vertical
-			.admin-components-control-label {
+		.admin-components-control-wrapper.vertical .admin-components-control-label {
 			max-width: none;
 			width: 100%;
 			margin-bottom: 10px;
@@ -582,30 +585,24 @@
 			color: #334155;
 		}
 
-		.admin-components-font-picker.is-disabled
-			.admin-components-font-picker__select {
+		.admin-components-font-picker.is-disabled .admin-components-font-picker__select {
 			background: rgba(217, 217, 217, 0.6) !important;
 			color: #777777 !important;
 			border: none !important;
 		}
 
-		.admin-components-font-picker.is-disabled
-			.admin-components-font-picker__selected-font {
+		.admin-components-font-picker.is-disabled .admin-components-font-picker__selected-font {
 			color: inherit;
 		}
 
-		.admin-components-font-picker
-			.admin-components-font-picker__select
-			svg {
+		.admin-components-font-picker .admin-components-font-picker__select svg {
 			top: 50%;
 			transform: translateY(-50%);
 			fill: currentColor;
 			color: inherit;
 		}
 
-		.admin-components-font-picker.is-disabled
-			.admin-components-font-picker__select
-			svg {
+		.admin-components-font-picker.is-disabled .admin-components-font-picker__select svg {
 			color: #777777;
 			opacity: 0.85;
 		}
@@ -618,7 +615,8 @@
 				display: flex;
 				align-items: center;
 				gap: 10px;
-				> div {
+
+				>div {
 					align-items: center;
 					justify-content: center;
 					gap: 10px;
@@ -635,7 +633,7 @@
 
 			input[type="checkbox"] {
 				border-radius: 4px;
-				border-color: #cbd5e1; 
+				border-color: #cbd5e1;
 			}
 
 			input[type="checkbox"]:checked,

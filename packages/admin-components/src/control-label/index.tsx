@@ -24,7 +24,7 @@ const ControlLabel: React.FC< Props > = ( { label, showAsterisk, isNew } ) => {
 			) }
 			{ isNew && (
 				<div className="admin-components-control-label__new-feature">
-					NEW
+					New
 				</div>
 			) }
 		</div>

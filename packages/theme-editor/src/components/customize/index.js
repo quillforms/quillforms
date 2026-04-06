@@ -36,6 +36,7 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
+import AlphaColorPicker from '../alpha-color-picker';
 import ColorPicker from '../color-picker';
 import ComboColorPicker from '../combo-color-picker';
 import { isGradient } from '../combo-color-picker/utils';
@@ -74,6 +75,67 @@ function shouldEmphasizeBackgroundOverlayClear(color) {
 		return false;
 	}
 	return true;
+}
+
+/** Gray vs red Clear for theme color fields (same rules as overlay, per-schema default). */
+function shouldEmphasizeThemeColorClear(color, schemaDefault) {
+	if (color === undefined || color === null) {
+		return false;
+	}
+	if (typeof color !== 'string') {
+		return true;
+	}
+	const trimmed = color.trim();
+	if (!trimmed) {
+		return false;
+	}
+	if (isGradient(trimmed)) {
+		return true;
+	}
+	const c = tinycolor(trimmed);
+	if (!c.isValid()) {
+		return false;
+	}
+	if (c.getAlpha() <= 0) {
+		return false;
+	}
+	if (schemaDefault === undefined || schemaDefault === null) {
+		return true;
+	}
+	const def = tinycolor(schemaDefault);
+	if (!def.isValid()) {
+		return true;
+	}
+	return c.toRgbString() !== def.toRgbString();
+}
+
+function normalizeThemeColor(value, fallback) {
+	if (value === undefined || value === null || value === '') {
+		return fallback;
+	}
+	return value;
+}
+
+function ThemeSolidColorCard({ color, schemaDefault, onClear, children }) {
+	return (
+		<div className="theme-editor-customize__overlay-color theme-editor-customize__overlay-color--footer-clear">
+			<div className="theme-editor-customize__combo-wrap">{children}</div>
+			<div className="theme-editor-customize__subsection-clear-row">
+				<button
+					type="button"
+					className={
+						'theme-editor-customize__clear-link theme-editor-customize__clear-link--overlay' +
+						(shouldEmphasizeThemeColorClear(color, schemaDefault)
+							? ' theme-editor-customize__clear-link--has-value'
+							: '')
+					}
+					onClick={onClear}
+				>
+					{__('Clear', 'quillforms')}
+				</button>
+			</div>
+		</div>
+	);
 }
 
 const CustomizeThemePanel = () => {
@@ -130,6 +192,7 @@ const CustomizeThemePanel = () => {
 		progressBarBgColor,
 		progressBarFillColor,
 	} = $properties;
+	const themeDefaults = getDefaultThemeProperties();
 	return (
 		<div className="theme-editor-customize">
 			<div className="theme-editor-customize__header">
@@ -325,7 +388,7 @@ const CustomizeThemePanel = () => {
 						<div className="theme-editor-customize__subsection-label">
 							{__('Background Overlay Color', 'quillforms')}
 						</div>
-						<div className="theme-editor-customize__overlay-color">
+						<div className="theme-editor-customize__overlay-color theme-editor-customize__overlay-color--footer-clear">
 							<div className="theme-editor-customize__combo-wrap">
 								<ComboColorPicker
 									color={backgroundColor}
@@ -503,8 +566,7 @@ const CustomizeThemePanel = () => {
 											setCurrentThemeProperties({
 												font: value,
 												questionsLabelFont: value,
-												questionsDescriptionFont:
-													value,
+												questionsDescriptionFont: value,
 											});
 										} else {
 											setCurrentThemeProperties({
@@ -592,108 +654,166 @@ const CustomizeThemePanel = () => {
 					title={__('Colors', 'quillforms')}
 					initialOpen={false}
 				>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__('Questions Color', 'quillforms')}
-							/>
-							<ColorPreview color={questionsColor} />
-						</ControlWrapper>
-						<ColorPicker
-							value={questionsColor}
-							onChange={(value) => {
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Questions Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
+							color={questionsColor}
+							schemaDefault={themeDefaults.questionsColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									questionsColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__('Answers Color', 'quillforms')}
+									questionsColor:
+										themeDefaults.questionsColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={questionsColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										questionsColor: normalizeThemeColor(
+											value,
+											themeDefaults.questionsColor
+										),
+									});
+								}}
 							/>
-							<ColorPreview color={answersColor} />
-						</ControlWrapper>
-						<ColorPicker
-							value={answersColor}
-							onChange={(value) => {
+						</ThemeSolidColorCard>
+					</div>
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Answers Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
+							color={answersColor}
+							schemaDefault={themeDefaults.answersColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									answersColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__('Buttons Font Color', 'quillforms')}
+									answersColor: themeDefaults.answersColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={answersColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										answersColor: normalizeThemeColor(
+											value,
+											themeDefaults.answersColor
+										),
+									});
+								}}
 							/>
-							<ColorPreview color={buttonsFontColor} />
-						</ControlWrapper>
-						<ColorPicker
-							value={buttonsFontColor}
-							onChange={(value) => {
+						</ThemeSolidColorCard>
+					</div>
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Buttons Font Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
+							color={buttonsFontColor}
+							schemaDefault={themeDefaults.buttonsFontColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									buttonsFontColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__(
-									'Buttons Background Color',
-									'quillforms'
-								)}
+									buttonsFontColor:
+										themeDefaults.buttonsFontColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={buttonsFontColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										buttonsFontColor: normalizeThemeColor(
+											value,
+											themeDefaults.buttonsFontColor
+										),
+									});
+								}}
 							/>
-							<ColorPreview color={buttonsBgColor} />
-						</ControlWrapper>
-						<ComboColorPicker
+						</ThemeSolidColorCard>
+					</div>
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Buttons Background Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
 							color={buttonsBgColor}
-							setColor={(value) => {
+							schemaDefault={themeDefaults.buttonsBgColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									buttonsBgColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__('Errors Text Color', 'quillforms')}
+									buttonsBgColor:
+										themeDefaults.buttonsBgColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={buttonsBgColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										buttonsBgColor: normalizeThemeColor(
+											value,
+											themeDefaults.buttonsBgColor
+										),
+									});
+								}}
 							/>
-							<ColorPreview color={errorsFontColor} />
-						</ControlWrapper>
-						<ColorPicker
-							value={errorsFontColor}
-							onChange={(value) => {
+						</ThemeSolidColorCard>
+					</div>
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Errors Text Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
+							color={errorsFontColor}
+							schemaDefault={themeDefaults.errorsFontColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									errorsFontColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__(
-									'Errors Background Color',
-									'quillforms'
-								)}
+									errorsFontColor:
+										themeDefaults.errorsFontColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={errorsFontColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										errorsFontColor: normalizeThemeColor(
+											value,
+											themeDefaults.errorsFontColor
+										),
+									});
+								}}
 							/>
-							<ColorPreview color={errorsBgColor} />
-						</ControlWrapper>
-						<ComboColorPicker
+						</ThemeSolidColorCard>
+					</div>
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Errors Background Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
 							color={errorsBgColor}
-							setColor={(value) => {
+							schemaDefault={themeDefaults.errorsBgColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									errorsBgColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
+									errorsBgColor: themeDefaults.errorsBgColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={errorsBgColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										errorsBgColor: normalizeThemeColor(
+											value,
+											themeDefaults.errorsBgColor
+										),
+									});
+								}}
+							/>
+						</ThemeSolidColorCard>
+					</div>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
 							<ControlLabel
@@ -705,85 +825,197 @@ const CustomizeThemePanel = () => {
 							/>
 							<ResponsiveControl
 								desktopChildren={
-									<ComboColorPicker
+									<ThemeSolidColorCard
 										color={formFooterBgColor.lg}
-										setColor={(value) => {
+										schemaDefault={
+											themeDefaults.formFooterBgColor?.lg
+										}
+										onClear={() =>
 											setCurrentThemeProperties({
 												formFooterBgColor: {
 													...formFooterBgColor,
-													lg: value,
+													lg: themeDefaults
+														.formFooterBgColor?.lg,
 												},
-											});
-										}}
-									/>
+											})
+										}
+									>
+										<AlphaColorPicker
+											value={formFooterBgColor.lg}
+											onChange={(value) => {
+												setCurrentThemeProperties({
+													formFooterBgColor: {
+														...formFooterBgColor,
+														lg: normalizeThemeColor(
+															value,
+															themeDefaults
+																.formFooterBgColor
+																?.lg
+														),
+													},
+												});
+											}}
+										/>
+									</ThemeSolidColorCard>
 								}
 								tabletChildren={
-									<ComboColorPicker
-										color={formFooterBgColor.md}
-										setColor={(value) => {
+									<ThemeSolidColorCard
+										color={
+											formFooterBgColor.md ??
+											formFooterBgColor.lg
+										}
+										schemaDefault={
+											themeDefaults.formFooterBgColor
+												?.md ??
+											themeDefaults.formFooterBgColor?.lg
+										}
+										onClear={() =>
 											setCurrentThemeProperties({
 												formFooterBgColor: {
 													...formFooterBgColor,
-													md: value,
+													md:
+														themeDefaults
+															.formFooterBgColor
+															?.md ??
+														themeDefaults
+															.formFooterBgColor
+															?.lg,
 												},
-											});
-										}}
-									/>
+											})
+										}
+									>
+										<AlphaColorPicker
+											value={
+												formFooterBgColor.md ??
+												formFooterBgColor.lg
+											}
+											onChange={(value) => {
+												setCurrentThemeProperties({
+													formFooterBgColor: {
+														...formFooterBgColor,
+														md: normalizeThemeColor(
+															value,
+															themeDefaults
+																.formFooterBgColor
+																?.md ??
+																themeDefaults
+																	.formFooterBgColor
+																	?.lg
+														),
+													},
+												});
+											}}
+										/>
+									</ThemeSolidColorCard>
 								}
 								mobileChildren={
-									<ComboColorPicker
-										color={formFooterBgColor.sm}
-										setColor={(value) => {
+									<ThemeSolidColorCard
+										color={
+											formFooterBgColor.sm ??
+											formFooterBgColor.lg
+										}
+										schemaDefault={
+											themeDefaults.formFooterBgColor
+												?.sm ??
+											themeDefaults.formFooterBgColor?.lg
+										}
+										onClear={() =>
 											setCurrentThemeProperties({
 												formFooterBgColor: {
 													...formFooterBgColor,
-													sm: value,
+													sm:
+														themeDefaults
+															.formFooterBgColor
+															?.sm ??
+														themeDefaults
+															.formFooterBgColor
+															?.lg,
 												},
-											});
-										}}
-									/>
+											})
+										}
+									>
+										<AlphaColorPicker
+											value={
+												formFooterBgColor.sm ??
+												formFooterBgColor.lg
+											}
+											onChange={(value) => {
+												setCurrentThemeProperties({
+													formFooterBgColor: {
+														...formFooterBgColor,
+														sm: normalizeThemeColor(
+															value,
+															themeDefaults
+																.formFooterBgColor
+																?.sm ??
+																themeDefaults
+																	.formFooterBgColor
+																	?.lg
+														),
+													},
+												});
+											}}
+										/>
+									</ThemeSolidColorCard>
 								}
 							/>
 						</ControlWrapper>
 					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__(
-									'Progress Bar Fill Color',
-									'quillforms'
-								)}
-							/>
-							<ColorPreview color={progressBarFillColor} />
-						</ControlWrapper>
-						<ColorPicker
-							value={progressBarFillColor}
-							onChange={(value) => {
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Progress Bar Fill Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
+							color={progressBarFillColor}
+							schemaDefault={themeDefaults.progressBarFillColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									progressBarFillColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="horizontal">
-							<ControlLabel
-								label={__(
-									'Progress Bar Background Color',
-									'quillforms'
-								)}
+									progressBarFillColor:
+										themeDefaults.progressBarFillColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={progressBarFillColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										progressBarFillColor:
+											normalizeThemeColor(
+												value,
+												themeDefaults.progressBarFillColor
+											),
+									});
+								}}
 							/>
-							<ColorPreview color={progressBarBgColor} />
-						</ControlWrapper>
-						<ColorPicker
-							value={progressBarBgColor}
-							onChange={(value) => {
+						</ThemeSolidColorCard>
+					</div>
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-label">
+							{__('Progress Bar Background Color', 'quillforms')}
+						</div>
+						<ThemeSolidColorCard
+							color={progressBarBgColor}
+							schemaDefault={themeDefaults.progressBarBgColor}
+							onClear={() =>
 								setCurrentThemeProperties({
-									progressBarBgColor: value,
-								});
-							}}
-						/>
-					</BaseControl>
+									progressBarBgColor:
+										themeDefaults.progressBarBgColor,
+								})
+							}
+						>
+							<AlphaColorPicker
+								value={progressBarBgColor}
+								onChange={(value) => {
+									setCurrentThemeProperties({
+										progressBarBgColor: normalizeThemeColor(
+											value,
+											themeDefaults.progressBarBgColor
+										),
+									});
+								}}
+							/>
+						</ThemeSolidColorCard>
+					</div>
 				</PanelBody>
 
 				<TypographyPanel
