@@ -32,7 +32,8 @@ const EmailSubject = ({
 				<TextControl
 					value={value}
 					onChange={(newVal) => setValue(newVal)}
-					withMergeTags={true}
+					// withMergeTags={true}
+					placeholder={__(' Subject', 'quillforms')}
 				/>
 				{!isValid && isReviewing && (
 					<AlertMessageWrapper type="error">

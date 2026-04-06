@@ -1,0 +1,114 @@
+.logic-editor-confirm-delete-modal {
+	border: none !important;
+	min-width: 600px !important;
+	max-width: 660px !important;
+	border-radius: 16px !important;
+	box-shadow: 0 22px 70px rgba(15, 23, 42, 0.35) !important;
+}
+
+.logic-editor-confirm-delete-modal .components-modal__header {
+	padding: 24px 24px 0 !important;
+	border-bottom: none !important;
+	position: relative;
+	min-height: 52px;
+	margin-bottom: 24px !important;
+}
+
+.logic-editor-confirm-delete-modal .components-modal__header-heading {
+	margin: 0 !important;
+	font-size: 24px;
+	font-weight: 500;
+	color: #334155;
+	position: absolute;
+	left: 50%;
+	top: 24px;
+	transform: translateX(-50%);
+	text-align: center !important;
+	width: max-content;
+}
+
+.logic-editor-confirm-delete-modal .components-modal__header .components-button {
+	color: #334155 !important;
+	position: absolute;
+	right: 16px;
+	top: 22px;
+	transform: none;
+}
+
+.logic-editor-confirm-delete-modal .components-modal__content {
+	flex: 1;
+	margin-top: 0 !important;
+	padding: 0 24px 24px !important;
+	border-top: none !important;
+}
+
+.logic-editor-confirm-delete-modal__body {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0;
+}
+
+.logic-editor-confirm-delete-modal__illustration {
+	margin-top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.logic-editor-confirm-delete-modal__image {
+	width: 96px;
+	height: 96px;
+	display: block;
+	margin: 0 auto;
+}
+
+.logic-editor-confirm-delete-modal__message {
+	margin: 12px 0 0;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 28px;
+	color: #777777;
+}
+
+.logic-editor-confirm-delete-modal__footer {
+	width: 100%;
+	margin-top: 12px;
+	padding-top: 0;
+	border-top: none;
+}
+
+.logic-editor-confirm-delete-modal__actions {
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
+	gap: 24px;
+}
+
+.logic-editor-confirm-delete-modal__btn {
+	border-radius: 8px;
+	padding: 8px 12px;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 26px;
+	cursor: pointer;
+}
+
+.logic-editor-confirm-delete-modal__btn--cancel {
+	border: 1px solid #b2328c;
+	background: #fff;
+	color: #b2328c;
+}
+
+.logic-editor-confirm-delete-modal__btn--delete {
+	border: 1px solid #e13b3b;
+	background: #e13b3b;
+	color: #fff;
+}
+
+.components-modal__screen-overlay:has(.logic-editor-confirm-delete-modal) {
+	background: rgba(51, 65, 85, 0.3) !important;
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+}

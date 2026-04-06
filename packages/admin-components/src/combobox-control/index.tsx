@@ -114,48 +114,6 @@ const ComboboxControl: React.FC<ComboboxControlProps> = ({
 		});
 		options = options.concat(hidden_fields);
 	}
-	// entry properties
-	const EntryProperties = [
-		{
-			value: 'id',
-			label: __('Entry ID', 'quillforms'),
-		},
-		{
-			value: 'form_id',
-			label: __('Form ID', 'quillforms'),
-		},
-		{
-			value: 'date_created',
-			label: __('Entry Date (YYYY-MM-DD)', 'quillforms'),
-		},
-		{
-			value: 'user_id',
-			label: __('User ID', 'quillforms'),
-		},
-		{
-			value: 'user_ip',
-			label: __('User IP Address', 'quillforms'),
-		},
-		{
-			value: 'user_agent',
-			label: __('HTTP User Agent', 'quillforms'),
-		},
-	];
-	sections.push({
-		key: 'entry_properties',
-		label: __('Entry Properties', 'quillforms'),
-	});
-	options = options.concat(
-		EntryProperties.map((property) => {
-			return {
-				type: 'property',
-				value: property.value,
-				label: property.label,
-				section: 'entry_properties',
-				isMergeTag: true,
-			};
-		})
-	);
 
 	// apply global customize filter to sections and options.
 	const filtered = applyFilters(
