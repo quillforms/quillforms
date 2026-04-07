@@ -272,7 +272,7 @@ const CustomizeThemePanel = () => {
 					</svg>
 				</button>
 				<h2 className="theme-editor-customize__header-title">
-					{__('New Theme', 'quillforms')}
+					{__('Customize', 'quillforms')}
 				</h2>
 			</div>
 			<div className="theme-editor-customize__scroll">
