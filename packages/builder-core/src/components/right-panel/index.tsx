@@ -4,8 +4,6 @@ import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 const BlockControlsPanel = () => {
-	const [activeTab, setActiveTab] = useState('question');
-
 	// Important for the current rich text editor; unmount completely for it.
 	const [isReady, setIsReady] = useState(false);
 
@@ -18,7 +16,6 @@ const BlockControlsPanel = () => {
 
 	useEffect(() => {
 		setIsReady(false);
-		setActiveTab('question');
 		setTimeout(() => {
 			setIsReady(true);
 		}, 50);
@@ -26,21 +23,12 @@ const BlockControlsPanel = () => {
 
 	return (
 		<div className="builder-core-block-right-panel">
-			<div className="tabs">
-				<div
-					className={`tab ${activeTab === 'question' ? 'active' : ''}`}
-					onClick={() => setActiveTab('question')}
-				>
-					{__('Question', 'quillforms')}
-				</div>
-			</div>
+			<h2 className="builder-core-block-right-panel__title">
+				{__('Questions Settings', 'quillforms')}
+			</h2>
 
 			<div className="tab-content">
-				{isReady && (
-					<>
-						{activeTab === 'question' && <BlockControls />}
-					</>
-				)}
+				{isReady && <BlockControls />}
 			</div>
 		</div>
 	);
