@@ -2,19 +2,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-	margin-bottom: 30px;
+	margin-bottom: 16px;
 	.admin-components-select-control {
 		width: 100%;
 		.components-button {
-			height: 45px;
+			height: 52px;
 		}
 	}
 	.block-controls-blocktype-select  {
 		display: flex;
 		align-items: center;
-		font-size: 12px;
-		color: #333;
-		gap: 5px;
+		font-size: 16px;
+		color: #334155;
+		gap: 8px;
 	}
 	.block-controls-blocktype-select .admin-components-block-icon-box {
 		width: 28px

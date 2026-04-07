@@ -41,11 +41,11 @@ const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChi
 			<div className="block-editor-block-controls-header">
 				<div className={css`
 						background: #fff;
-						border-radius: 5px;
-						border: 1px solid #e3e3e3;
-						font-size: 14px;
+						border-radius: 14px;
+						border: 1px solid #D9D9D9;
+						font-size: 16px;
 						width: 100%;
-						height: 45px;
+						height: 52px;
 						display: inline-flex;
 						padding: 16px;
 						justify-content: space-between;
