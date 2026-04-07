@@ -53,7 +53,7 @@ const NotificationTo = ({
 			<ControlWrapper orientation="vertical">
 				<ControlLabel
 					label={__('Send a notification to', 'quillforms')}
-					showAsterisk={true}
+					
 				/>
 
 				<RadioControl
@@ -80,6 +80,7 @@ const NotificationTo = ({
 			</ControlWrapper>
 			{toType === 'email' && (
 				<ReactMultiEmail
+					className="notifications-editor-multi-email-control"
 					placeholder={__('Type an email then hit a space', 'quillforms')}
 					emails={
 						recipients?.length > 0

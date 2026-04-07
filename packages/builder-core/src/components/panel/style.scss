@@ -15,7 +15,7 @@
 		justify-content: center;
 	}
 
-	
+
 	&.builder-core-panel-modal--above-jump-logic {
 		z-index: 120000 !important;
 	}
@@ -99,7 +99,7 @@
 		padding-inline: 20px;
 		overflow-y: auto;
 		height: 100%;
-		padding-bottom: 24px;
+		// padding-bottom: 24px;
 
 		&.has-sticky-footer {
 			margin-bottom: 48px;

@@ -107,7 +107,7 @@ const EmailMessage = ({
 	return (
 		<BaseControl>
 			<ControlWrapper orientation="vertical">
-				<ControlLabel label={__('Subject', 'quillforms')} showAsterisk={true} />
+				<ControlLabel label={__('Message', 'quillforms')} showAsterisk={true} />
 				<div className="notifications-editor-rich-field notifications-editor-rich-field--message">
 					<FullRichText
 						value={value || '<p></p>'}

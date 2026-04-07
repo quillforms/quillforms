@@ -187,7 +187,8 @@ const NotificationEditorWrapper = ({
 									`}
 								>
 									<ReactMultiEmail
-										placeholder="Enter email"
+										className="notifications-editor-multi-email-control"
+										placeholder="Type an email then hit a space"
 										emails={replyTo ? [replyTo] : []}
 										enable={() => {
 											return {
