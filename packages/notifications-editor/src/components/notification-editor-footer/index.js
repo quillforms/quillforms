@@ -12,6 +12,7 @@ import { __ } from '@wordpress/i18n';
 
 const NotificationEditorFooter = ({
 	goBack,
+	onSuccess,
 	notificationId,
 	properties,
 	validationFlags,
@@ -44,19 +45,21 @@ const NotificationEditorFooter = ({
 					isPrimary
 					className="notifications-editor-notification-edit__footer-submit"
 					onClick={() => {
-						if (isFormInValid) {
-							setIsReviewing(true);
+					if (isFormInValid) {
+						setIsReviewing(true);
+					} else {
+						if (notificationId) {
+							setNotificationProperties(
+								notificationId,
+								properties
+							);
+							if (onSuccess) onSuccess(__('Changes saved successfully', 'quillforms'));
 						} else {
-							if (notificationId) {
-								setNotificationProperties(
-									notificationId,
-									properties
-								);
-							} else {
-								addNewNotification(properties);
-							}
-							goBack();
+							addNewNotification(properties);
+							if (onSuccess) onSuccess(__('Notification has been created', 'quillforms'));
 						}
+						goBack();
+					}
 					}}
 				>
 					{notificationId ? __('Save changes', 'quillforms') : __('Add new notification', 'quillforms')}

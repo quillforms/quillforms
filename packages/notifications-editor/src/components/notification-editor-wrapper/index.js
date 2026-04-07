@@ -38,6 +38,7 @@ import LogicCondition from '../logic-condition';
 
 const NotificationEditorWrapper = ({
 	goBack,
+	onSuccess,
 	currentNotificationProperties,
 	notificationId,
 	activeSlide,
@@ -338,14 +339,15 @@ const NotificationEditorWrapper = ({
 					</BaseControl>
 				</div>
 				{isActive && (
-					<NotificationEditorFooter
-						isReviewing={isReviewing}
-						setIsReviewing={setIsReviewing}
-						goBack={goBack}
-						notificationId={notificationId}
-						properties={{ ...properties }}
-						validationFlags={{ ...validationFlags }}
-					/>
+			<NotificationEditorFooter
+					isReviewing={isReviewing}
+					setIsReviewing={setIsReviewing}
+					goBack={goBack}
+					onSuccess={onSuccess}
+					notificationId={notificationId}
+					properties={{ ...properties }}
+					validationFlags={{ ...validationFlags }}
+				/>
 				)}
 			</>
 		</div>

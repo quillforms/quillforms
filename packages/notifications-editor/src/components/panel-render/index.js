@@ -12,9 +12,11 @@ import NotificationEditorWrapper from '../notification-editor-wrapper';
 import NotificationsList from '../notifications-list';
 
 let timer;
+let toastTimer;
 const PanelRender = () => {
 	const [activeSlide, setActiveSlide] = useState(0);
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [successToast, setSuccessToast] = useState(null);
 
 	const ref = useRef();
 	useEffect(() => {
@@ -70,6 +72,8 @@ const PanelRender = () => {
 				isAnimating={isAnimating}
 				isActive={activeSlide === 0}
 				setCurrentNotificationId={setCurrentNotificationId}
+				successToast={successToast}
+				onDismissToast={() => setSuccessToast(null)}
 				goNext={() => {
 					setIsAnimating(true);
 					setTimeout(() => {
@@ -85,12 +89,17 @@ const PanelRender = () => {
 				currentNotificationProperties={{
 					...currentNotificationProperties,
 				}}
-				goBack={() => {
-					setIsAnimating(true);
-					setTimeout(() => {
-						setActiveSlide(0);
-					}, 50);
-				}}
+			onSuccess={(msg) => {
+				setSuccessToast(msg);
+				clearTimeout(toastTimer);
+				toastTimer = setTimeout(() => setSuccessToast(null), 4000);
+			}}
+			goBack={() => {
+				setIsAnimating(true);
+				setTimeout(() => {
+					setActiveSlide(0);
+				}, 50);
+			}}
 			/>
 		</div>
 	);
