@@ -100,9 +100,7 @@ const EmailMessage = ({
 		];
 	}
 
-	// mergeTags = mergeTags.concat(
-	// 	applyFilters('QuillForms.Builder.MergeTags', [])
-	// );
+
 
 	return (
 		<BaseControl>

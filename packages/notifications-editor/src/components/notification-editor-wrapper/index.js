@@ -99,189 +99,189 @@ const NotificationEditorWrapper = ({
 			)}
 		>
 			<>
-			   <div className="notifications-editor-notification-editor-wrapper__heading-container">
-				<h4 className="notifications-editor-notification-editor-wrapper__heading">
-					{notificationId
-						? __('Edit Notification', 'quillforms')
-						: __('Create a new notification', 'quillforms')}
-				</h4>
-				<BaseControl>
-					<ControlWrapper>
-						<ToggleControl
-							checked={active}
-							onChange={() => {
-								setProperties((prevProperties) => ({
-									...prevProperties,
-									active: !active,
-								}));
-							}}
-						/>
-						<p className="notifications-editor-notification-editor-wrapper__active-label"> {__(`${active ? 'Active' : 'Inactive'}`, 'quillforms')} </p>
-					</ControlWrapper>
-				</BaseControl>
+				<div className="notifications-editor-notification-editor-wrapper__heading-container">
+					<h4 className="notifications-editor-notification-editor-wrapper__heading">
+						{notificationId
+							? __('Edit Notification', 'quillforms')
+							: __('Create a new notification', 'quillforms')}
+					</h4>
+					<BaseControl>
+						<ControlWrapper>
+							<ToggleControl
+								checked={active}
+								onChange={() => {
+									setProperties((prevProperties) => ({
+										...prevProperties,
+										active: !active,
+									}));
+								}}
+							/>
+							<p className="notifications-editor-notification-editor-wrapper__active-label"> {__(`${active ? 'Active' : 'Inactive'}`, 'quillforms')} </p>
+						</ControlWrapper>
+					</BaseControl>
 				</div>
 				<div className="notifications-editor-notification-editor-wrapper__content">
-				<NotificationTitle
-					value={title}
-					setValue={(value) => {
-						setProperties((prevProperties) => ({
-							...prevProperties,
-							...value,
-						}));
-					}}
-				/>
+					<NotificationTitle
+						value={title}
+						setValue={(value) => {
+							setProperties((prevProperties) => ({
+								...prevProperties,
+								...value,
+							}));
+						}}
+					/>
 
-				<div className="notifications-editor-notification-editor-wrapper__to-row">
-					<div className="notifications-editor-notification-editor-wrapper__to-card">
-						<NotificationTo
-							emailFields={emailFields}
-							recipients={recipients}
-							toType={toType}
-							isValid={{ ...validationFlags }.recipients}
-							setIsValid={(value) => {
-								setValidationFlags((prevFlags) => ({
-									...prevFlags,
-									recipients: value,
-								}));
-							}}
-							setValue={(value) => {
-								setProperties((prevProperties) => ({
-									...prevProperties,
-									...value,
-								}));
-							}}
-							isReviewing={isReviewing}
-						/>
-					</div>
-					<div className="notifications-editor-notification-editor-wrapper__to-card">
-						<BaseControl>
-							<ControlWrapper orientation="vertical">
-								<ControlLabel label={__('Reply to', 'quillforms')} />
-								<RadioControl
-									className="notifications-editor-reply-to-radio"
-									selected={replyToType}
-									options={[
-										{
-											label: __('Email', 'quillforms'),
-											value: 'email',
-										},
-										{
-											label: __('Field', 'quillforms'),
-											value: 'field',
-										},
-									]}
-									onChange={(val) => {
-										setProperties((prevProperties) => ({
-											...prevProperties,
-											replyToType: val,
-										}));
-									}}
-								/>
-							</ControlWrapper>
-							{replyToType === 'email' && (
-								<div
-									className={css`
-										${replyTo &&
-										isEmail(replyTo) &&
-										`.react-multi-email input { display: none !important;}`}
-									`}
-								>
-									<ReactMultiEmail
-										className="notifications-editor-multi-email-control"
-										placeholder="Type an email then hit a space"
-										emails={replyTo ? [replyTo] : []}
-										enable={() => {
-											return {
-												emailCnt: 1,
-											};
-										}}
+					<div className="notifications-editor-notification-editor-wrapper__to-row">
+						<div className="notifications-editor-notification-editor-wrapper__to-card">
+							<NotificationTo
+								emailFields={emailFields}
+								recipients={recipients}
+								toType={toType}
+								isValid={{ ...validationFlags }.recipients}
+								setIsValid={(value) => {
+									setValidationFlags((prevFlags) => ({
+										...prevFlags,
+										recipients: value,
+									}));
+								}}
+								setValue={(value) => {
+									setProperties((prevProperties) => ({
+										...prevProperties,
+										...value,
+									}));
+								}}
+								isReviewing={isReviewing}
+							/>
+						</div>
+						<div className="notifications-editor-notification-editor-wrapper__to-card">
+							<BaseControl>
+								<ControlWrapper orientation="vertical">
+									<ControlLabel label={__('Reply to', 'quillforms')} />
+									<RadioControl
+										className="notifications-editor-reply-to-radio"
+										selected={replyToType}
+										options={[
+											{
+												label: __('Email', 'quillforms'),
+												value: 'email',
+											},
+											{
+												label: __('Field', 'quillforms'),
+												value: 'field',
+											},
+										]}
 										onChange={(val) => {
-											if (val.length > 0) {
-												setProperties((prevProperties) => ({
-													...prevProperties,
-													replyTo: val[0],
-												}));
-											} else {
-												setProperties((prevProperties) => ({
-													...prevProperties,
-													replyTo: '',
-												}));
-											}
-										}}
-										validateEmail={(email) => {
-											if (isEmail(email)) {
-												return true;
-											}
-											return false;
-										}}
-										getLabel={(email, index, removeEmail) => {
-											return (
-												<div data-tag key={index}>
-													{email}
-													<span
-														data-tag-handle
-														onClick={() => removeEmail(index)}
-													>
-														×
-													</span>
-												</div>
-											);
+											setProperties((prevProperties) => ({
+												...prevProperties,
+												replyToType: val,
+											}));
 										}}
 									/>
-								</div>
-							)}
-							{replyToType === 'field' && (
-								<EmailSelect
-									emailFields={emailFields}
-									value={replyTo}
-									setValue={(val) =>
-										setProperties((prevProperties) => ({
-											...prevProperties,
-											replyTo: `{{field:${val}}}`,
-										}))
-									}
-								/>
-							)}
-						</BaseControl>
+								</ControlWrapper>
+								{replyToType === 'email' && (
+									<div
+										className={css`
+										${replyTo &&
+											isEmail(replyTo) &&
+											`.react-multi-email input { display: none !important;}`}
+									`}
+									>
+										<ReactMultiEmail
+											className="notifications-editor-multi-email-control"
+											placeholder="Type an email then hit a space"
+											emails={replyTo ? [replyTo] : []}
+											enable={() => {
+												return {
+													emailCnt: 1,
+												};
+											}}
+											onChange={(val) => {
+												if (val.length > 0) {
+													setProperties((prevProperties) => ({
+														...prevProperties,
+														replyTo: val[0],
+													}));
+												} else {
+													setProperties((prevProperties) => ({
+														...prevProperties,
+														replyTo: '',
+													}));
+												}
+											}}
+											validateEmail={(email) => {
+												if (isEmail(email)) {
+													return true;
+												}
+												return false;
+											}}
+											getLabel={(email, index, removeEmail) => {
+												return (
+													<div data-tag key={index}>
+														{email}
+														<span
+															data-tag-handle
+															onClick={() => removeEmail(index)}
+														>
+															×
+														</span>
+													</div>
+												);
+											}}
+										/>
+									</div>
+								)}
+								{replyToType === 'field' && (
+									<EmailSelect
+										emailFields={emailFields}
+										value={replyTo}
+										setValue={(val) =>
+											setProperties((prevProperties) => ({
+												...prevProperties,
+												replyTo: `{{field:${val}}}`,
+											}))
+										}
+									/>
+								)}
+							</BaseControl>
+						</div>
 					</div>
-				</div>
 
-				<NotificationSubject
-					value={subject}
-					setValue={(val) => {
-						setProperties((prevProperties) => ({
-							...prevProperties,
-							subject: val,
-						}));
-					}}
-					isValid={{ ...validationFlags }.subject}
-					setIsValid={(val) => {
-						setValidationFlags((prevValidationFlags) => ({
-							...prevValidationFlags,
-							subject: val,
-						}));
-					}}
-					isReviewing={isReviewing}
-				/>
-				{activeSlide === 1 && (
-					<NotificationMessage
-						value={message}
+					<NotificationSubject
+						value={subject}
 						setValue={(val) => {
 							setProperties((prevProperties) => ({
 								...prevProperties,
-								message: val,
+								subject: val,
 							}));
 						}}
-						isValid={{ ...validationFlags }.message}
-						setIsValid={(value) => {
-							setValidationFlags((prevFlags) => {
-								const $flags = { ...prevFlags, message: value };
-								return $flags;
-							});
+						isValid={{ ...validationFlags }.subject}
+						setIsValid={(val) => {
+							setValidationFlags((prevValidationFlags) => ({
+								...prevValidationFlags,
+								subject: val,
+							}));
 						}}
 						isReviewing={isReviewing}
 					/>
-				)}
+					{activeSlide === 1 && (
+						<NotificationMessage
+							value={message}
+							setValue={(val) => {
+								setProperties((prevProperties) => ({
+									...prevProperties,
+									message: val,
+								}));
+							}}
+							isValid={{ ...validationFlags }.message}
+							setIsValid={(value) => {
+								setValidationFlags((prevFlags) => {
+									const $flags = { ...prevFlags, message: value };
+									return $flags;
+								});
+							}}
+							isReviewing={isReviewing}
+						/>
+					)}
 				</div>
 				<div className="notifications-editor-notification-editor-wrapper__logic-outside">
 					<BaseControl>

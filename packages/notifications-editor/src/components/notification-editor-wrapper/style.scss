@@ -88,7 +88,8 @@
 			flex-direction: row !important;
 			justify-content: space-between;
 			align-items: center;
-			.components-radio-control__label{
+
+			.components-radio-control__label {
 				color: #334155;
 				font-size: 16px;
 				font-weight: 500;
@@ -214,7 +215,7 @@
 
 		&::placeholder {
 			font-size: 18px !important;
-		    line-height: 28px !important;
+			line-height: 28px !important;
 			color: #777 !important;
 		}
 	}
@@ -232,6 +233,20 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+	}
+}
+
+.notifications-editor-notification-editor-wrapper__to-card {
+	.notifications-editor-alert-message-wrapper.has-error {
+		margin-top: 16px;
+		padding: 12px 14px;
+		border: 1px dashed #CB5301;
+		border-radius: 12px;
+		background: #FAEADF;
+		color: #CB5301;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1.45;
 	}
 }
 
