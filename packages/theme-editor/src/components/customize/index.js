@@ -90,7 +90,14 @@ function shouldEmphasizeThemeColorClear(color, schemaDefault) {
 		return false;
 	}
 	if (isGradient(trimmed)) {
-		return true;
+		if (typeof schemaDefault !== 'string') {
+			return true;
+		}
+		const defGradient = schemaDefault.trim();
+		if (!defGradient || !isGradient(defGradient)) {
+			return true;
+		}
+		return trimmed !== defGradient;
 	}
 	const c = tinycolor(trimmed);
 	if (!c.isValid()) {
@@ -236,6 +243,8 @@ const CustomizeThemePanel = () => {
 	const themeDefaults = getDefaultThemeProperties();
 	const [buttonsPaddingViewport, setButtonsPaddingViewport] = useState('lg');
 	const paddingBk = buttonsPaddingViewport === 'lg' ? 'lg' : 'sm';
+	const [formFooterViewport, setFormFooterViewport] = useState('lg');
+	const formFooterBk = formFooterViewport === 'lg' ? 'lg' : 'sm';
 
 	return (
 		<div className="theme-editor-customize">
@@ -845,9 +854,9 @@ const CustomizeThemePanel = () => {
 								})
 							}
 						>
-							<AlphaColorPicker
-								value={errorsBgColor}
-								onChange={(value) => {
+							<ComboColorPicker
+								color={errorsBgColor}
+								setColor={(value) => {
 									setCurrentThemeProperties({
 										errorsBgColor: normalizeThemeColor(
 											value,
@@ -858,153 +867,91 @@ const CustomizeThemePanel = () => {
 							/>
 						</ThemeSolidColorCard>
 					</div>
-					<BaseControl>
-						<ControlWrapper orientation="vertical">
-							<ControlLabel
-								label={__(
-									'Form Footer Background Color',
-									'quillforms'
-								)}
-								isNew={true}
+					<div className="theme-editor-customize__subsection">
+						<div className="theme-editor-customize__subsection-head">
+							<div className="theme-editor-customize__subsection-label">
+								{__('Form Footer Bg Color', 'quillforms')}
+							</div>
+							<div
+								className="theme-editor-customize__viewport-toggle"
+								role="group"
+								aria-label={__('Breakpoint', 'quillforms')}
+							>
+								<button
+									type="button"
+									className={
+										'theme-editor-customize__viewport-btn' +
+										(formFooterViewport === 'lg'
+											? ' is-active'
+											: '')
+									}
+									aria-pressed={formFooterViewport === 'lg'}
+									onClick={() => setFormFooterViewport('lg')}
+									aria-label={__('Desktop', 'quillforms')}
+								>
+									<IconDesktop />
+								</button>
+								<button
+									type="button"
+									className={
+										'theme-editor-customize__viewport-btn' +
+										(formFooterViewport === 'sm'
+											? ' is-active'
+											: '')
+									}
+									aria-pressed={formFooterViewport === 'sm'}
+									onClick={() => setFormFooterViewport('sm')}
+									aria-label={__('Mobile', 'quillforms')}
+								>
+									<IconMobile />
+								</button>
+							</div>
+						</div>
+						<ThemeSolidColorCard
+							color={
+								formFooterBgColor[formFooterBk] ??
+								formFooterBgColor.lg
+							}
+							schemaDefault={
+								themeDefaults.formFooterBgColor?.[formFooterBk] ??
+								themeDefaults.formFooterBgColor?.lg
+							}
+							onClear={() =>
+								setCurrentThemeProperties({
+									formFooterBgColor: {
+										...formFooterBgColor,
+										[formFooterBk]:
+											themeDefaults.formFooterBgColor?.[
+												formFooterBk
+											] ??
+											themeDefaults.formFooterBgColor?.lg,
+									},
+								})
+							}
+						>
+							<ComboColorPicker
+								color={
+									formFooterBgColor[formFooterBk] ??
+									formFooterBgColor.lg
+								}
+								setColor={(value) => {
+									setCurrentThemeProperties({
+										formFooterBgColor: {
+											...formFooterBgColor,
+											[formFooterBk]: normalizeThemeColor(
+												value,
+												themeDefaults.formFooterBgColor?.[
+													formFooterBk
+												] ??
+													themeDefaults.formFooterBgColor
+														?.lg
+											),
+										},
+									});
+								}}
 							/>
-							<ResponsiveControl
-								desktopChildren={
-									<ThemeSolidColorCard
-										color={formFooterBgColor.lg}
-										schemaDefault={
-											themeDefaults.formFooterBgColor?.lg
-										}
-										onClear={() =>
-											setCurrentThemeProperties({
-												formFooterBgColor: {
-													...formFooterBgColor,
-													lg: themeDefaults
-														.formFooterBgColor?.lg,
-												},
-											})
-										}
-									>
-										<AlphaColorPicker
-											value={formFooterBgColor.lg}
-											onChange={(value) => {
-												setCurrentThemeProperties({
-													formFooterBgColor: {
-														...formFooterBgColor,
-														lg: normalizeThemeColor(
-															value,
-															themeDefaults
-																.formFooterBgColor
-																?.lg
-														),
-													},
-												});
-											}}
-										/>
-									</ThemeSolidColorCard>
-								}
-								tabletChildren={
-									<ThemeSolidColorCard
-										color={
-											formFooterBgColor.md ??
-											formFooterBgColor.lg
-										}
-										schemaDefault={
-											themeDefaults.formFooterBgColor
-												?.md ??
-											themeDefaults.formFooterBgColor?.lg
-										}
-										onClear={() =>
-											setCurrentThemeProperties({
-												formFooterBgColor: {
-													...formFooterBgColor,
-													md:
-														themeDefaults
-															.formFooterBgColor
-															?.md ??
-														themeDefaults
-															.formFooterBgColor
-															?.lg,
-												},
-											})
-										}
-									>
-										<AlphaColorPicker
-											value={
-												formFooterBgColor.md ??
-												formFooterBgColor.lg
-											}
-											onChange={(value) => {
-												setCurrentThemeProperties({
-													formFooterBgColor: {
-														...formFooterBgColor,
-														md: normalizeThemeColor(
-															value,
-															themeDefaults
-																.formFooterBgColor
-																?.md ??
-																themeDefaults
-																	.formFooterBgColor
-																	?.lg
-														),
-													},
-												});
-											}}
-										/>
-									</ThemeSolidColorCard>
-								}
-								mobileChildren={
-									<ThemeSolidColorCard
-										color={
-											formFooterBgColor.sm ??
-											formFooterBgColor.lg
-										}
-										schemaDefault={
-											themeDefaults.formFooterBgColor
-												?.sm ??
-											themeDefaults.formFooterBgColor?.lg
-										}
-										onClear={() =>
-											setCurrentThemeProperties({
-												formFooterBgColor: {
-													...formFooterBgColor,
-													sm:
-														themeDefaults
-															.formFooterBgColor
-															?.sm ??
-														themeDefaults
-															.formFooterBgColor
-															?.lg,
-												},
-											})
-										}
-									>
-										<AlphaColorPicker
-											value={
-												formFooterBgColor.sm ??
-												formFooterBgColor.lg
-											}
-											onChange={(value) => {
-												setCurrentThemeProperties({
-													formFooterBgColor: {
-														...formFooterBgColor,
-														sm: normalizeThemeColor(
-															value,
-															themeDefaults
-																.formFooterBgColor
-																?.sm ??
-																themeDefaults
-																	.formFooterBgColor
-																	?.lg
-														),
-													},
-												});
-											}}
-										/>
-									</ThemeSolidColorCard>
-								}
-							/>
-						</ControlWrapper>
-					</BaseControl>
+						</ThemeSolidColorCard>
+					</div>
 					<div className="theme-editor-customize__subsection">
 						<div className="theme-editor-customize__subsection-label">
 							{__('Progress Bar Fill Color', 'quillforms')}
@@ -1035,7 +982,7 @@ const CustomizeThemePanel = () => {
 					</div>
 					<div className="theme-editor-customize__subsection">
 						<div className="theme-editor-customize__subsection-label">
-							{__('Progress Bar Background Color', 'quillforms')}
+							{__('Progress Bar Bg Color', 'quillforms')}
 						</div>
 						<ThemeSolidColorCard
 							color={progressBarBgColor}
