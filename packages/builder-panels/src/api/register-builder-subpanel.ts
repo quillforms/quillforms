@@ -86,7 +86,7 @@ export const registerBuilderSubPanel = (
 		settings.position = 10;
 	}
 
-	settings = pick( settings, [ 'title', 'render', 'position' ] );
+	settings = pick( settings, [ 'title', 'render', 'position', 'icon' ] );
 
 	dispatch( 'quillForms/builder-panels' ).registerBuilderSubPanel(
 		name,

@@ -172,18 +172,19 @@
 				margin-top: 24px;
 				margin-right: -24px;
 				margin-left: -24px;
-				border-bottom: 1px solid #f0f0f0;
-				background: #ffffff;
+				padding-bottom: 16px;
+
 			}
 
 			.builder-core-panel__header-tabs {
 				& {
 					display: flex;
-					flex-wrap: nowrap;
+                    flex-wrap: nowrap;
 					width: 100%;
 					overflow-x: auto;
 					padding: 0 24px;
-					gap: 32px;
+					gap: 20px;
+					align-items: center;
 
 					/* Hide scrollbar but keep functionality */
 					scrollbar-width: none;
@@ -196,35 +197,53 @@
 				.builder-core-panel__header-tab {
 					& {
 						display: inline-flex;
+						flex-direction: row;
+						align-items: center;
 						justify-content: center;
-						padding: 12px 0;
+						gap: 8px;
+						padding: 8px 12px;
 						cursor: pointer;
-						font-size: 13px;
+						font-size: 16px;
 						font-weight: 500;
-						color: #666666;
-						letter-spacing: 0.3px;
+						line-height: 26px;
+						color: #334155;
+						letter-spacing: 0;
 						position: relative;
-						transition: all 0.2s ease;
+						transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 						white-space: nowrap;
+						border-radius: 8px;
+						border: 1px solid #D9D9D9;
+						background: #ffffff;
+						box-sizing: border-box;
 
 						&:hover {
-							color: #333333;
+							border-color: #cbd5e1;
+							color: #1e293b;
 						}
 					}
 
+					.builder-core-panel__header-tab-icon {
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						flex-shrink: 0;
+
+						svg {
+							fill: currentColor;
+						}
+					}
+
+					.builder-core-panel__header-tab-label {
+						line-height: 1.25;
+					}
+
 					&.active {
-						color: #333333;
-						font-weight: 600;
+						color: #B2328C;
+						background: #FFEEFB;
+						border: none;
 
 						&::after {
-							content: '';
-							position: absolute;
-							bottom: -1px;
-							left: 0;
-							right: 0;
-							height: 2px;
-							background: #333333;
-							border-radius: 2px 2px 0 0;
+							display: none;
 						}
 					}
 				}

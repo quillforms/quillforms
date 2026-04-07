@@ -1,7 +1,10 @@
 /**
  * QuillForms Dependencies
  */
-import { registerBuilderSubPanel } from '@quillforms/builder-panels';
+import {
+	registerBuilderSubPanel,
+	settingsCustomCssIcon,
+} from '@quillforms/builder-panels';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -11,6 +14,7 @@ import render from '../components/panel-render';
 registerBuilderSubPanel('settings/code', {
 	title: __('Custom CSS', 'quillforms'),
 	render,
+	position: 3,
+	icon: settingsCustomCssIcon,
 });
-
 
