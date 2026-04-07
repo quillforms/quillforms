@@ -94,13 +94,29 @@ const PanelHeader = () => {
 												active:
 													currentSubPanelName ===
 													subPanel.name,
+												'has-icon': !! subPanel.icon,
 											}
 										) }
 										onClick={ () =>
 											setCurrentSubPanel( subPanel.name )
 										}
 									>
-										{ subPanel.title }
+										{ subPanel.icon && (
+											<span className="builder-core-panel__header-tab-icon">
+												<Icon
+													icon={ subPanel.icon as any }
+													size={ 18 }
+													color={
+														currentSubPanelName === subPanel.name
+															? '#B2328C'
+															: '#334155'
+													}
+												/>
+											</span>
+										) }
+										<span className="builder-core-panel__header-tab-label">
+											{ subPanel.title }
+										</span>
 									</div>
 								);
 							} ) }

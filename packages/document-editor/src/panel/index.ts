@@ -10,4 +10,5 @@ import render from '../components/panel-render';
 registerBuilderSubPanel( 'settings/document', {
 	title: 'Document',
 	render,
+	position: 2,
 } );

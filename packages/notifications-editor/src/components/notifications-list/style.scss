@@ -51,6 +51,65 @@
 .notifications-editor-no-notifications-msg {
     animation: fadeIn 0.3s ease-out;
 }
+.notifications-editor-success-toast {
+	position: fixed;
+	bottom: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 999999;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: #f0fdf4;
+	border: 1px solid #86efac;
+	border-radius: 12px;
+	padding: 12px 18px;
+	box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+	min-width: 260px;
+	max-width: 420px;
+	animation: toastSlideUp 0.3s ease-out;
+
+	&__icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	&__text {
+		flex: 1;
+		font-size: 15px;
+		font-weight: 500;
+		color: #15803d;
+		line-height: 1.4;
+	}
+
+	&__close {
+		background: none;
+		border: none;
+		cursor: pointer;
+		color: #86efac;
+		font-size: 14px;
+		padding: 0;
+		line-height: 1;
+		flex-shrink: 0;
+
+		&:hover {
+			color: #15803d;
+		}
+	}
+}
+
+@keyframes toastSlideUp {
+	from {
+		opacity: 0;
+		transform: translateX(-50%) translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(-50%) translateY(0);
+	}
+}
+
 .notifications-editor-notifciations-add-new-button {
 	padding:  16px !important;
 	border-radius: 8px !important;

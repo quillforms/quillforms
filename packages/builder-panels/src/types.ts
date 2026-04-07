@@ -22,6 +22,7 @@ export type SubPanelSettings = {
 	title: string;
 	position?: number;
 	render: FC | JSX.Element | Component;
+	icon?: IconRenderer;
 };
 
 export interface Panel extends PanelSettings {

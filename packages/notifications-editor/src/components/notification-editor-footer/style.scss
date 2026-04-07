@@ -1,19 +1,38 @@
 .notifications-editor-notification-edit__footer	 {
-	position: absolute;
-	bottom: 0;
-	background: #ececec;
+	// position: absolute;
+	// bottom: 0;
 	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-	right: 0;
-	left: 0;
-	justify-content: space-between;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 24px;
+	// right: 0;
+	// left: 0;
+	padding:0 16px 24px;
+	box-sizing: border-box;
+	background: #fff;
+
 
 	.admin-components-button {
-		width: 50%;
-		padding: 20px !important;
+		width: auto;
+		padding: 12px 24px !important;
 		justify-content: center;
 		align-items: center;
-		border-radius: 0 !important;
+		border-radius: 16px !important;
+		height: 48px;
+		font-size: 18px;
+		font-weight: 500;
+		line-height: 28px;
+	}
+
+	.notifications-editor-notification-edit__footer-cancel {
+		background: #fff !important;
+		color: #B2328C !important;
+		border: 1px solid #B2328C !important;
+	}
+
+	.notifications-editor-notification-edit__footer-submit {
+		background: #B2328C !important;
+		color: #fff !important;
+		border: 1px solid #B2328C !important;
 	}
 }

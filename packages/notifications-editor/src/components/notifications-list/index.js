@@ -35,6 +35,8 @@ const NotificationsList = ({
 	setCurrentNotificationId,
 	isActive,
 	isAnimating,
+	successToast,
+	onDismissToast,
 }) => {
 	const [displayProModal, setDisplayProModal] = useState(false);
 	const license = ConfigAPI.getLicense();
@@ -143,8 +145,22 @@ const NotificationsList = ({
 					</div>
 				)}
 			</>
-			<>
-				{displayProModal && (
+		{successToast && (
+			<div className="notifications-editor-success-toast">
+				<span className="notifications-editor-success-toast__icon">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="10" cy="10" r="10" fill="#22c55e" fillOpacity="0.15"/>
+						<path d="M6 10.5L8.5 13L14 7.5" stroke="#16a34a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+					</svg>
+				</span>
+				<span className="notifications-editor-success-toast__text">
+					{__('Success!', 'quillforms')} {successToast}
+				</span>
+				<button className="notifications-editor-success-toast__close" onClick={onDismissToast}>✕</button>
+			</div>
+		)}
+		<>
+			{displayProModal && (
 					<Modal
 						className={classnames(
 							css`

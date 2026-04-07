@@ -1,7 +1,10 @@
 /**
  * QuillForms Dependencies
  */
-import { registerBuilderSubPanel } from '@quillforms/builder-panels';
+import {
+	registerBuilderSubPanel,
+	settingsGeneralIcon,
+} from '@quillforms/builder-panels';
 import '@quillforms/messages-editor';
 /**
  * Internal Dependencies
@@ -11,5 +14,5 @@ registerBuilderSubPanel('settings/general', {
 	title: 'General',
 	render,
 	position: 0,
-	hasIcon: true
+	icon: settingsGeneralIcon,
 });

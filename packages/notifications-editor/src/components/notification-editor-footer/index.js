@@ -8,17 +8,11 @@ import { Button } from '@quillforms/admin-components';
  */
 import { useDispatch } from '@wordpress/data';
 import { createPortal } from 'react-dom';
-import { Icon } from '@wordpress/components';
-import { arrowLeft } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-
-/**
- * External Dependencies
- */
-import { css } from 'emotion';
 
 const NotificationEditorFooter = ({
 	goBack,
+	onSuccess,
 	notificationId,
 	properties,
 	validationFlags,
@@ -37,37 +31,35 @@ const NotificationEditorFooter = ({
 		<div className="notifications-editor-notification-edit__footer">
 			<Button
 				isDefault
+				className="notifications-editor-notification-edit__footer-cancel"
 				onClick={() => {
 					goBack();
 				}}
 			>
-				<Icon
-					icon={arrowLeft}
-					className={css`
-						margin-right: 5px;
-					` }
-				/>
-				{__('Cancel and go back', 'quillforms')}
+				{__('Cancel & go back', 'quillforms')}
 			</Button>
 			{isReviewing && isFormInValid ? (
 				<Button isDanger>{__('Some fields aren\'t valid', 'quillforms')} </Button>
 			) : (
 				<Button
 					isPrimary
+					className="notifications-editor-notification-edit__footer-submit"
 					onClick={() => {
-						if (isFormInValid) {
-							setIsReviewing(true);
+					if (isFormInValid) {
+						setIsReviewing(true);
+					} else {
+						if (notificationId) {
+							setNotificationProperties(
+								notificationId,
+								properties
+							);
+							if (onSuccess) onSuccess(__('Changes saved successfully', 'quillforms'));
 						} else {
-							if (notificationId) {
-								setNotificationProperties(
-									notificationId,
-									properties
-								);
-							} else {
-								addNewNotification(properties);
-							}
-							goBack();
+							addNewNotification(properties);
+							if (onSuccess) onSuccess(__('Notification has been created', 'quillforms'));
 						}
+						goBack();
+					}
 					}}
 				>
 					{notificationId ? __('Save changes', 'quillforms') : __('Add new notification', 'quillforms')}

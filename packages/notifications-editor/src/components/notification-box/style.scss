@@ -1,114 +1,114 @@
+.notifications-editor-notification-box-container{
+	padding: 16px 24px;
+	background: #F7F8FA;
+	border-radius: 16px;
+}
 .notifications-editor-notification-box {
-	background: #ffffff;
+	background: #fff;
 	border: 1px solid #e5e7eb;
-	border-radius: 8px;
-	padding: 16px; /* Increased padding for larger screen */
-	margin-bottom: 16px; /* Increased spacing between boxes */
+	border-radius: 12px;
+	padding: 14px 16px;
+	margin-bottom: 12px;
 	display: flex;
-	flex-direction: row; /* Horizontal layout for larger screens */
-	gap: 16px; /* Increased gap for better spacing */
-	align-items: flex-start; 
-	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for better visibility */
-  }
-  
-  .notifications-editor-notification-box__title {
-	display: flex;
-	gap: 10px;
+	flex-direction: row;
 	align-items: center;
-	width: 70%; /* Allocate more space for the title */
-	color: #374151;
-	font-size: 16px; /* Slightly larger font size for better readability */
-	line-height: 1.6;
-	font-weight: 500;
-	overflow: hidden;
-	white-space: normal;
-	word-wrap: break-word;
-  }
-  
-  .notifications-editor-notification-box__title .toggle-control-wrapper {
-	display: flex;
-	flex-direction: row; /* Horizontal alignment for larger screens */
-	align-items: center;
-	gap: 10px; /* Adjusted gap for spacing */
-	margin-left: 0; /* Removed unnecessary margin */
-  }
-  
-  .notifications-editor-notification-box__title .toggle-control-wrapper span {
-	font-size: 14px; /* Slightly larger font size for better readability */
-	color: #6b7280;
-  }
-  
-  .notifications-editor-notification-box__actions {
-	display: flex;
-	justify-content: flex-end; /* Align actions to the right */
-	gap: 12px; /* Increased gap for better spacing */
-	flex-wrap: nowrap; /* No wrapping needed for larger screens */
-	width: 30%; /* Allocate space for actions */
-  }
-  
-  .notifications-editor-notification-box__actions-edit,
-  .notifications-editor-notification-box__actions-delete {
-	padding: 8px 10px; /* Increased padding for larger buttons */
-	border-radius: 4px;
-	font-size: 14px; /* Larger font size for better readability */
-	font-weight: 500;
-	cursor: pointer;
-	transition: all 0.2s;
-	border: 1px solid transparent;
-  }
-  
-  .notifications-editor-notification-box__actions-edit {
-	color: #2563eb;
-	background-color: #eff6ff;
-  }
-  
-  .notifications-editor-notification-box__actions-edit:hover {
-	background-color: #dbeafe;
-  }
-  
-  .notifications-editor-notification-box__actions-delete {
-	color: #dc2626;
-	background-color: #fee2e2;
-  }
-  
-  .notifications-editor-notification-box__actions-delete:hover {
-	background-color: #fecaca;
-  }
-  
-  .status-badge {
-	font-size: 14px; /* Slightly larger font size for visibility */
-	font-weight: 500;
-	padding: 6px 12px; /* Adjusted padding for larger badge */
-	border-radius: 4px;
-	text-transform: capitalize;
-  }
-  
-  .status-badge.active {
-	background-color: #dcfce7;
-	color: #16a34a;
-  }
-  
-  .status-badge.inactive {
-	background-color: #f3f4f6;
-	color: #6b7280;
-  }
-  
-  @media (max-width: 768px) {
-	.notifications-editor-notification-box {
-	  gap: 8px;
-	  flex-direction: column;
+	justify-content: space-between;
+	gap: 12px;
+
+	&__left {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex: 1;
+		min-width: 0;
 	}
-  
-	.notifications-editor-notification-box__actions {
-	  gap: 6px;
+
+	&__title-text {
+		color: #374151;
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 26px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
-  
-	.is-button.is-default.is-primary.is-large {
-	  font-size: 12px;
-	  padding: 8px 12px;
+
+	&__right {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-shrink: 0;
 	}
-  }
-  
-  .react-multi-email > input {
-	width: 100% !important;
-  }
+
+	&__menu-wrap {
+		position: relative;
+	}
+
+	&__dots {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 3px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 4px 6px;
+		
+
+		span {
+			display: block;
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background: #94a3b8;
+		}
+
+		&:hover span {
+			background: #334155;
+		}
+	}
+
+	&__dropdown {
+		position: absolute;
+		top: calc(100% + 6px);
+		right: 0;
+		background: #fff;
+		border: 1px solid #e5e7eb;
+		border-radius: 10px;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+		z-index: 999;
+		min-width: 120px;
+		overflow: hidden;
+	}
+
+	&__dropdown-item {
+		display: block;
+		width: 100%;
+		padding: 10px 16px;
+		background: none;
+		border: none;
+		text-align: left;
+		font-size: 14px;
+		font-weight: 500;
+		color: #374151;
+		cursor: pointer;
+
+		&:hover {
+			background: #f8fafc;
+		}
+
+		&.is-delete {
+			color: #dc2626;
+
+			&:hover {
+				background: #fef2f2;
+			}
+		}
+	}
+}
+.divider{
+	width: 1px;
+	height: 16px;
+	background: #E5E7EB;
+	margin: 0 4px;
+}
