@@ -1,23 +1,69 @@
 .block-editor-block-controls-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 12px 16px;
 	margin-bottom: 16px;
+	background: #f7f8fa;
+	border-radius: 8px;
+	border: 1px solid #d9d9d9;
+
+	&__title {
+		margin: 0;
+		font-size: 24px;
+		font-weight: 500;
+		line-height: 1.3;
+		color: #334155;
+	}
+
+	&__type-field {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+		width: 100%;
+	}
+
+	&__type-label {
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1.35;
+		color: #334155;
+	}
+
+	&__static-type-row {
+		width: 100%;
+		min-height: 52px;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		padding: 0 16px;
+		border: 1px solid #d9d9d9;
+		border-radius: 14px;
+		background: #fff;
+		font-size: 16px;
+	}
+
 	.admin-components-select-control {
 		width: 100%;
+
 		.components-button {
 			height: 52px;
 		}
 	}
-	.block-controls-blocktype-select  {
+
+	.block-controls-blocktype-select {
 		display: flex;
 		align-items: center;
 		font-size: 16px;
 		color: #334155;
 		gap: 8px;
 	}
+
 	.block-controls-blocktype-select .admin-components-block-icon-box {
-		width: 28px
+		width: 28px;
 	}
 }
-

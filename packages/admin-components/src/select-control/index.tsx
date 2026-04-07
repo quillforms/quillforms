@@ -236,12 +236,6 @@ const SelectControl: React.FC<Props> = ({
 											{item.__experimentalHint}
 										</span>
 									)}
-									{item === selectedItem && (
-										<Icon
-											icon={check}
-											className="components-custom-select-control__item-icon"
-										/>
-									)}
 								</li>
 							);
 						})}

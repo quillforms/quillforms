@@ -7,12 +7,12 @@ import { BlockIconBox, SelectControl } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 import { memo } from 'react';
 
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
 import { FormBlock } from '@quillforms/types';
 
 interface Props {
@@ -39,28 +39,26 @@ const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChi
 	if (currentBlockName === 'group' || currentBlockName === 'address') {
 		return (
 			<div className="block-editor-block-controls-header">
-				<div className={css`
-						background: #fff;
-						border-radius: 14px;
-						border: 1px solid #D9D9D9;
-						font-size: 16px;
-						width: 100%;
-						height: 52px;
-						display: inline-flex;
-						padding: 16px;
-						justify-content: space-between;
-				`}>
-					<div className="block-controls-blocktype-select">
-						<BlockIconBox
-							icon={blockTypes[currentBlockName]?.icon}
-							color={blockTypes[currentBlockName]?.color}
-						/>
-						<span>{currentBlockName === 'group' ? 'Group' : 'Address'}</span>
+				<div className="block-editor-block-controls-header__type-field">
+					<span className="block-editor-block-controls-header__type-label">
+						{__('Type of question', 'quillforms')}
+					</span>
+					<div className="block-editor-block-controls-header__static-type-row">
+						<div className="block-controls-blocktype-select">
+							<BlockIconBox
+								icon={blockTypes[currentBlockName]?.icon}
+								color={blockTypes[currentBlockName]?.color}
+							/>
+							<span>
+								{currentBlockName === 'group'
+									? __('Group', 'quillforms')
+									: __('Address', 'quillforms')}
+							</span>
+						</div>
 					</div>
-
 				</div>
 			</div>
-		)
+		);
 	}
 
 
@@ -102,25 +100,26 @@ const BlockControlsHeader: React.FC<Props> = memo(({ id, currentBlockName, isChi
 
 	return (
 		<div className="block-editor-block-controls-header">
-			<SelectControl
-				value={
-					blockTypesOptions.find((option) => option.key === currentBlockName)
-				}
-				options={blockTypesOptions}
-				onChange={({ selectedItem }) => {
-					if (selectedItem) {
-						if (isChildBlock) {
-							replaceBlockName(id, selectedItem.key, parentId);
-						} else {
-							replaceBlockName(id, selectedItem.key);
-						}
+			<div className="block-editor-block-controls-header__type-field">
+				<span className="block-editor-block-controls-header__type-label">
+					{__('Type of question', 'quillforms')}
+				</span>
+				<SelectControl
+					value={
+						blockTypesOptions.find((option) => option.key === currentBlockName)
 					}
-
-				}}
-
-
-			/>
-
+					options={blockTypesOptions}
+					onChange={({ selectedItem }) => {
+						if (selectedItem) {
+							if (isChildBlock) {
+								replaceBlockName(id, selectedItem.key, parentId);
+							} else {
+								replaceBlockName(id, selectedItem.key);
+							}
+						}
+					}}
+				/>
+			</div>
 		</div>
 	);
 });
