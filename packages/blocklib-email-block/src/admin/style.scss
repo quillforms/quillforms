@@ -1,1 +1,51 @@
-//
+/* Email domain controls — match block sidebar labels + purple primary actions */
+.block-editor-email-controls {
+	.admin-components-control-label {
+		color: #334155;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1.35;
+		text-transform: capitalize !important;
+	}
+
+	.admin-components-text-control .components-base-control__label {
+		color: #334155 !important;
+		font-size: 16px !important;
+		font-weight: 600 !important;
+		line-height: 1.35 !important;
+		text-transform: capitalize !important;
+	}
+
+	.admin-components-button.block-editor-email-controls__add-btn.is-primary {
+		margin-top: 8px;
+		padding: 8px 12px;
+		height: auto;
+		min-height: 0;
+		line-height: 1.25;
+		background: #b2328c;
+		color: #fff;
+		font-size: 16px;
+		font-weight: 500;
+		border: none;
+		border-radius: 6px;
+		box-shadow: none;
+
+		&:hover:not(:disabled) {
+			opacity: 0.92;
+			background: #b2328c;
+			color: #fff;
+		}
+
+		&:disabled {
+			opacity: 0.55;
+			cursor: not-allowed;
+			background: #b2328c;
+			color: #fff;
+		}
+
+		&:focus-visible {
+			outline: 2px solid #334155;
+			outline-offset: 2px;
+		}
+	}
+}

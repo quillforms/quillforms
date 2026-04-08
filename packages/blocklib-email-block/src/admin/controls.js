@@ -3,6 +3,7 @@
  */
 import {
     BaseControl,
+    Button,
     ControlWrapper,
     ControlLabel,
     TextControl,
@@ -112,6 +113,7 @@ const EmailControls = (props) => {
 
     return (
         <BaseControl>
+            <div className="block-editor-email-controls">
             <ControlWrapper orientation="horizontal">
                 <ControlLabel label={__("Restrict Email Domains", "quillforms")} isNew />
                 <ToggleControl
@@ -161,28 +163,17 @@ const EmailControls = (props) => {
                             )}
                         </div>
 
-                        <button
+                        <Button
+                            type="button"
+                            isPrimary
+                            isButton
+                            isDefault
+                            className="block-editor-email-controls__add-btn"
                             onClick={handleAddDomain}
-                            className={css`
-                                margin-top: 5px;
-                                padding: 5px 10px;
-                                background: #007cba;
-                                color: white;
-                                border: none;
-                                border-radius: 3px;
-                                cursor: pointer;
-                                &:hover {
-                                    background: #006ba1;
-                                }
-                                &:disabled {
-                                    background: #ccc;
-                                    cursor: not-allowed;
-                                }
-                            `}
                             disabled={!domainInput.trim()}
                         >
                             {__("Add Domain", "quillforms")}
-                        </button>
+                        </Button>
 
                         {allowedDomains?.length > 0 && (
                             <div className={css`
@@ -259,28 +250,17 @@ const EmailControls = (props) => {
                                 </div>
                             )}
                         </div>
-                        <button
+                        <Button
+                            type="button"
+                            isPrimary
+                            isButton
+                            isDefault
+                            className="block-editor-email-controls__add-btn"
                             onClick={handleAddDisallowedDomain}
-                            className={css`
-                                margin-top: 5px;
-                                padding: 5px 10px;
-                                background: #007cba;
-                                color: white;
-                                border: none;
-                                border-radius: 3px;
-                                cursor: pointer;
-                                &:hover {
-                                    background: #006ba1;
-                                }
-                                &:disabled {
-                                    background: #ccc;
-                                    cursor: not-allowed;
-                                }
-                            `}
                             disabled={!disallowedDomainInput.trim()}
                         >
                             {__("Add Domain", "quillforms")}
-                        </button>
+                        </Button>
                         {disallowedDomains?.length > 0 && (
                             <div className={css`
                                 margin-top: 15px;
@@ -321,6 +301,7 @@ const EmailControls = (props) => {
                         )}
                     </div>
                 )}
+            </div>
             </div>
         </BaseControl>
     );
