@@ -2,11 +2,13 @@
  * QuillForms Dependencies
  */
 import configApi from '@quillforms/config';
+import { Button } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
  */
 import { useSelect } from '@wordpress/data';
+import { useDispatch } from '@wordpress/data';
 import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 
@@ -16,9 +18,11 @@ import { __ } from '@wordpress/i18n';
 import MessageRow from '../message-row';
 import ArrowUpIcon from '../icons/arrow-up';
 import ArrowRightIcon from '../icons/arrow-right';
+import ResetIcon from '../icons/reset';
 
 const PanelRender = () => {
 	const messagesStructure = configApi.getMessagesStructure();
+	const { setMessage } = useDispatch( 'quillForms/messages-editor' );
 	const { messages } = useSelect( ( select ) => {
 		return {
 			messages: select( 'quillForms/messages-editor' ).getMessages(),
@@ -93,7 +97,6 @@ const PanelRender = () => {
 							</span>
 						</button>
 						{ isOpen && (
-							
 							<div className="messages-editor-panel-render__group-content">
 								{ groupedMessages[ categoryKey ].map(
 									( messageKey, index ) => (
@@ -118,6 +121,41 @@ const PanelRender = () => {
 										/>
 									)
 								) }
+								<div className="messages-editor-panel-render__group-actions">
+									<Button
+										className="messages-editor-panel-render__restore-all-btn"
+										onClick={ () => {
+											groupedMessages[ categoryKey ].forEach(
+												( messageKey ) => {
+													setMessage(
+														messageKey,
+														messagesStructure[ messageKey ].default
+													);
+												}
+											);
+										} }
+									>
+										<ResetIcon color="#B2328C"/>
+										{ __( 'Restore All Defaults', 'quillforms' ) }
+									</Button>
+									<Button
+
+										className="messages-editor-panel-render__apply-btn"
+										onClick={ () => {
+											groupedMessages[ categoryKey ].forEach(
+												( messageKey ) => {
+													setMessage(
+														messageKey,
+														messages[ messageKey ] ??
+															messagesStructure[ messageKey ].default
+													);
+												}
+											);
+										} }
+									>
+										{ __( 'Apply Changes', 'quillforms' ) }
+									</Button>
+								</div>
 							</div>
 						) }
 					</div>
