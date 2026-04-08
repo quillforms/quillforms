@@ -1,0 +1,260 @@
+.block-editor-block-default-controls__placeholder-override {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.block-editor-block-default-controls {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	> .admin-components-base-control {
+		margin-bottom: 0;
+		box-sizing: border-box !important;
+		padding: 16px 20px !important;
+		background: #f7f8fa !important;
+		border-radius: 8px !important;
+		border: 1px solid #d9d9d9 !important;
+		/* Space between toggle row and fields that open below when enabled */
+		gap: 16px;
+	}
+
+	.admin-components-control-label {
+		color: #334155;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1.35;
+	}
+}
+
+/* Upload an image/video — attachment block */
+.block-editor-default-attachment {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+}
+
+.block-editor-default-attachment__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.block-editor-default-attachment__title-wrap {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex: 1;
+	min-width: 0;
+}
+
+.block-editor-default-attachment__heading {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.35;
+	color: #334155;
+}
+
+.block-editor-default-attachment__info {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: help;
+	line-height: 0;
+	flex-shrink: 0;
+}
+
+.block-editor-default-attachment__info:focus-visible {
+	outline: 2px solid #b2328c;
+	outline-offset: 2px;
+	border-radius: 50%;
+}
+
+.block-editor-default-attachment__panel {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 12px 16px;
+	border: 1px solid #D9D9D9;
+	background: #F2F4FC;
+	border-radius: 8px;
+}
+
+/* Layout picker only — same shell as image & video attachment inner panel */
+.block-editor-default-attachment__layout-slot {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 12px 16px;
+	border: 1px solid #D9D9D9;
+	background: #F2F4FC;
+	border-radius: 8px;
+
+	/* BlockLayout root uses emotion gray; sit the grid on the lavender panel */
+	> div {
+		background: transparent !important;
+		border-radius: 6px;
+	}
+}
+
+.block-editor-default-attachment__type-row {
+	display: flex;
+	gap: 16px;
+	width: 100%;
+}
+
+.block-editor-default-attachment__type-btn {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	padding: 8px 12px;
+	box-sizing: border-box;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.25;
+	color: #334155;
+	background: #fff;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+	.block-editor-default-attachment__type-icon {
+		color: #334155;
+	}
+
+	&.is-selected {
+		color: #b2328c;
+		background: #FFEEFB;
+
+		.block-editor-default-attachment__type-icon {
+			color: #b2328c;
+		}
+	}
+}
+
+.block-editor-default-attachment__video-field {
+	width: 100%;
+}
+
+.block-editor-default-attachment__image-zone {
+	width: 100%;
+}
+
+.block-editor-default-attachment__dropzone {
+	width: 100%;
+	min-height: 160px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 16px;
+	box-sizing: border-box;
+	background: #fff;
+	border: 2px dashed #b2328c;
+	border-radius: 8px;
+	cursor: pointer;
+	font: inherit;
+	text-align: center;
+	transition: background 0.15s ease;
+
+	&:hover {
+		background: #fff8fc;
+	}
+
+	&:focus-visible {
+		outline: 2px solid #b2328c;
+		outline-offset: 2px;
+	}
+}
+
+.block-editor-default-attachment__dropzone-text {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.block-editor-default-attachment__dropzone-line1 {
+	font-size: 14px;
+	font-weight: 500;
+	color: #334155;
+	line-height: 1.4;
+}
+
+.block-editor-default-attachment__dropzone-line2 {
+	font-size: 14px;
+	font-weight: 500;
+	color: #b2328c;
+	line-height: 1.35;
+}
+
+.block-editor-default-attachment__image-preview {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.block-editor-default-attachment__image-preview-frame {
+	position: relative;
+	display: block;
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+
+	img {
+		display: block;
+		width: 100%;
+		max-height: 200px;
+		object-fit: contain;
+	}
+}
+
+.block-editor-default-attachment__remove-image {
+	position: absolute;
+	top: 8px;
+	inset-inline-end: 8px;
+	padding: 6px 12px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #E13B3B;
+	border: 1px solid #E13B3B;
+	background: #FFF;
+	border-radius: 8px;
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.15s ease;
+
+	.block-editor-default-attachment__image-preview-frame:hover &,
+	.block-editor-default-attachment__image-preview-frame:focus-within & {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	&:focus-visible {
+		opacity: 1;
+		pointer-events: auto;
+		outline: 2px solid #334155;
+		outline-offset: 2px;
+	}
+}
+
+.block-editor-block-default-controls .block-editor-default-attachment__video-field .admin-components-text-control,
+.block-editor-block-default-controls .block-editor-default-attachment__video-field input {
+	width: 100%;
+}
