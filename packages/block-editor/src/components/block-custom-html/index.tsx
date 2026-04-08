@@ -11,6 +11,9 @@ const CustomHTML = ({ value, onChange }) => {
 						min-height: 100px;
 						width: 100%;
 						margin-top: 10px;
+						padding: 12px 16px;
+						border: 1px solid #D9D9D9;
+						border-radius: 8px;
 					}
 				` }
 			>
