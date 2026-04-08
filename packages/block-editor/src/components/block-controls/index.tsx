@@ -81,14 +81,16 @@ const BlockControls = withErrorBoundary(() => {
 				parentBlock={currentFormBlock}
 			/>
 
-			{/* Custom Controls (if any) */}
+			{/* Block-type controls — same card layout as default controls */}
 			{blockType?.controls && (!isChildBlock || (isChildBlock && currentFormBlock.name !== 'address')) && (
-				<blockType.controls
-					id={isChildBlock ? currentChildBlockId : currentBlockId}
-					parentId={isChildBlock ? parentId : null}
-					attributes={attributes}
-					setAttributes={handleSetAttributes}
-				/>
+				<div className="block-editor-block-type-controls">
+					<blockType.controls
+						id={isChildBlock ? currentChildBlockId : currentBlockId}
+						parentId={isChildBlock ? parentId : null}
+						attributes={attributes}
+						setAttributes={handleSetAttributes}
+					/>
+				</div>
 			)}
 		</div>
 	);
