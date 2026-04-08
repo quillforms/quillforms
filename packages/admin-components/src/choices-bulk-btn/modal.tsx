@@ -43,18 +43,18 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 						display: flex;
 						flex-direction: column;
 						justify-content: center;
-						background: #eee;
+						background: #FFF;
 						margin-top: 54px;
 						min-height: 300px;
 					}
 
 					.components-modal__header {
-						background: #313e57;
+						background: #FFF;
 						.components-modal__header-heading {
-							color: #fff;
+							color: #334155;
 						}
 						.components-button.has-icon svg {
-							fill: #fff;
+							fill: #334155;
 						}
 					}
 				`
@@ -65,9 +65,13 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 			<p
 				className={ css`
 					marging-bottom: 10px;
+					font-size: 16px !important;
+					font-weight: 500 !important;
+					line-height: 24px !important;
+					color: #334155 !important;
 				` }
 			>
-				<strong>Insert each answer choice in a separate line </strong>
+				Insert each answer choice in a separate line
 			</p>
 			<textarea
 				ref={ ref }
@@ -76,6 +80,14 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 					height: 170px;
 					overflow-y: auto;
 					resize: none;
+					border: 1px solid #D9D9D9;
+					border-radius: 8px;
+					padding: 16px;
+					font-size: 16px;
+					font-weight: 400;
+					line-height: 24px;
+					color: #334155;
+					margin-top: 10px;
 				` }
 				onChange={ ( e ) => setBulkChoicesTxt( e.target.value ) }
 				value={ bulkChoicesTxt }
@@ -92,19 +104,32 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 					isLarge
 					className={ css`
 						margin-right: 10px !important;
+						border: 1px solid #D9D9D9 !important;
+						border-radius: 8px !important;
+						padding: 8px 12px !important;
+						height: auto !important;
+						font-size: 16px !important;
+						font-weight: 500 !important;
+						line-height: 24px !important;
+						color: #334155 !important;
 					` }
 					onClick={ onCloseModal }
 				>
 					Cancel
 				</Button>
 				<Button
-					isLarge
-					className={ css`
-						width: 70px;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-					` }
+					isPrimary
+					isButton
+					isDefault
+					className={ classnames(
+						'admin-components-choices-bulk-modal__done',
+						css`
+							display: inline-flex;
+							justify-content: center;
+							align-items: center;
+							min-width: 70px;
+						`
+					) }
 					onClick={ () => {
 						if ( isInserting ) return;
 						setIsInserting( true );
@@ -114,7 +139,6 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 							onCloseModal();
 						}, 0 );
 					} }
-					isPrimary
 				>
 					Done
 					<>
@@ -128,7 +152,7 @@ const ChoicesBulkModal: React.FC< Props > = ( { onCloseModal, onInsert } ) => {
 								` }
 							>
 								<Loader
-									color="#00BFFF"
+									color="#ffffff"
 									height={ 15 }
 									width={ 15 }
 								/>

@@ -1,0 +1,55 @@
+/* Bulk modal — Done matches purple primary */
+.admin-components-choices-bulk-modal__done.admin-components-button.is-primary {
+	margin-top: 0;
+	padding: 8px 12px;
+	height: auto;
+	min-height: 0;
+	line-height: 1.25;
+	background: #b2328c !important;
+	color: #fff !important;
+	font-size: 16px;
+	font-weight: 500;
+	border: none !important;
+	border-radius: 6px;
+	box-shadow: none;
+
+	&:hover {
+		opacity: 0.92;
+		background: #b2328c !important;
+		color: #fff !important;
+	}
+
+	&:focus-visible {
+		outline: 2px solid #334155;
+		outline-offset: 2px;
+	}
+}
+
+/* Align with other sidebar primary actions (e.g. block theme “Select a theme”) */
+.admin-components-choices-bulk-btn {
+	.admin-components-button.admin-components-choices-bulk-btn__trigger.is-primary {
+		margin-top: 0;
+		padding: 8px 12px;
+		height: auto;
+		min-height: 0;
+		line-height: 1.25;
+		background: #b2328c;
+		color: #fff;
+		font-size: 16px;
+		font-weight: 500;
+		border: none;
+		border-radius: 6px;
+		box-shadow: none;
+
+		&:hover {
+			opacity: 0.92;
+			background: #b2328c;
+			color: #fff;
+		}
+
+		&:focus-visible {
+			outline: 2px solid #334155;
+			outline-offset: 2px;
+		}
+	}
+}

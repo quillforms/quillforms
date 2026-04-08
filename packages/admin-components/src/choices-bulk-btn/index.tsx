@@ -6,7 +6,6 @@ import { useState } from 'react';
 /**
  * External Dependencies
  */
-import { css } from 'emotion';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -36,14 +35,10 @@ const ChoicesBulkBtn: React.FC<Props> = ({ choices, setChoices }) => {
 	return (
 		<div className="admin-components-choices-bulk-btn">
 			<Button
+				isPrimary
+				isButton
 				isDefault
-				className={css`
-					display: inline-block;
-					background: #000;
-					color: #fff;
-					padding: 5px;
-					margin-top: 12px;
-				` }
+				className="admin-components-choices-bulk-btn__trigger"
 				onClick={() => setModalOpen(true)}
 			>
 				{__('Bulk Answers', 'quillforms')}
