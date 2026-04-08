@@ -21,6 +21,7 @@ import {
 	PanelBody,
 	FocalPointPicker,
 	CheckboxControl,
+	Tooltip,
 } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 import { __ } from '@wordpress/i18n';
@@ -43,6 +44,11 @@ import ColorPreview from '../color-preview';
 import CustomizeFooter from '../customize-footer';
 import TypographyPanel from '../typography-panel';
 import { IconDesktop, IconMobile } from '../typography-panel/icons';
+import {
+	BgImageReplaceIcon,
+	BgImageDeleteIcon,
+	BgImageNoteIcon,
+} from './bg-image-icons';
 
 /**
  * Red "Clear" styling only when the user has a real overlay tint (not
@@ -307,9 +313,11 @@ const CustomizeThemePanel = () => {
 					</div>
 
 					<div className="theme-editor-customize__subsection">
-						<div className="theme-editor-customize__subsection-label">
-							{__('Background Image', 'quillforms')}
-						</div>
+						{isEmpty(backgroundImage) && (
+							<div className="theme-editor-customize__subsection-label">
+								{__('Background Image', 'quillforms')}
+							</div>
+						)}
 						{isEmpty(backgroundImage) ? (
 							<MediaUpload
 								onSelect={(media) =>
@@ -367,70 +375,104 @@ const CustomizeThemePanel = () => {
 								)}
 							/>
 						) : (
-							<div className="theme-editor-customize__media-block">
-								<div className="theme-editor-customize__media-preview">
-									<img src={backgroundImage} alt="" />
-								</div>
-								<div className="theme-editor-customize__media-actions">
-									<MediaUpload
-										onSelect={(media) =>
-											setCurrentThemeProperties({
-												backgroundImage: media.url,
-											})
-										}
-										allowedTypes={['image']}
-										render={({ open }) => (
+							<div className="theme-editor-customize__media-block theme-editor-customize__media-block--has-image">
+								<div className="theme-editor-customize__bg-image-header">
+									<div className="theme-editor-customize__bg-image-title">
+										{__('Bg Image', 'quillforms')}
+									</div>
+									<div className="theme-editor-customize__bg-image-actions">
+										<MediaUpload
+											onSelect={(media) =>
+												setCurrentThemeProperties({
+													backgroundImage: media.url,
+												})
+											}
+											allowedTypes={['image']}
+											render={({ open }) => (
+												<Tooltip
+													text={__(
+														'Replace',
+														'quillforms'
+													)}
+												>
+													<button
+														type="button"
+														className="theme-editor-customize__bg-image-icon-btn theme-editor-customize__bg-image-icon-btn--replace"
+														onClick={open}
+														aria-label={__(
+															'Replace',
+															'quillforms'
+														)}
+													>
+														<BgImageReplaceIcon />
+													</button>
+												</Tooltip>
+											)}
+										/>
+										<Tooltip
+											text={__('Delete', 'quillforms')}
+										>
 											<button
 												type="button"
-												className="theme-editor-customize__media-action-link"
-												onClick={open}
-											>
-												{__(
-													'Replace image',
+												className="theme-editor-customize__bg-image-icon-btn theme-editor-customize__bg-image-icon-btn--delete"
+												onClick={() =>
+													setCurrentThemeProperties({
+														backgroundImage: '',
+													})
+												}
+												aria-label={__(
+													'Delete',
 													'quillforms'
 												)}
+											>
+												<BgImageDeleteIcon />
 											</button>
-										)}
-									/>
-									<button
-										type="button"
-										className="theme-editor-customize__media-action-link theme-editor-customize__media-action-link--danger"
-										onClick={() =>
-											setCurrentThemeProperties({
-												backgroundImage: '',
-											})
-										}
-									>
-										{__('Remove', 'quillforms')}
-									</button>
-								</div>
-								<div className="theme-editor-customize__focal-wrap">
-									<div className="theme-editor-customize__subsection-label theme-editor-customize__subsection-label--small">
-										{__('Focal point', 'quillforms')}
+										</Tooltip>
 									</div>
-									<div className="theme-editor-customize__focal-picker">
-										<FocalPointPicker
-											url={backgroundImage}
-											value={backgroundImageFocalPoint}
-											onDragStart={(val) => {
-												setCurrentThemeProperties({
-													backgroundImageFocalPoint:
-														val,
-												});
-											}}
-											onDrag={(val) => {
-												setCurrentThemeProperties({
-													backgroundImageFocalPoint:
-														val,
-												});
-											}}
-											onChange={(val) => {
-												setCurrentThemeProperties({
-													backgroundImageFocalPoint:
-														val,
-												});
-											}}
-										/>
+								</div>
+								<div className="theme-editor-customize__bg-image-focal-panel">
+									<div
+										className="theme-editor-customize__bg-image-note"
+										role="note"
+									>
+										<span
+											className="theme-editor-customize__bg-image-note-icon"
+											aria-hidden="true"
+										>
+											<BgImageNoteIcon />
+										</span>
+										<p>
+											{__(
+												'You can specify focal point from this image',
+												'quillforms'
+											)}
+										</p>
+									</div>
+									<div className="theme-editor-customize__focal-wrap theme-editor-customize__focal-wrap--bg-image">
+										<div className="theme-editor-customize__focal-picker">
+											<FocalPointPicker
+												url={backgroundImage}
+												value={backgroundImageFocalPoint}
+												onDragStart={(val) => {
+													setCurrentThemeProperties({
+														backgroundImageFocalPoint:
+															val,
+													});
+												}}
+												onDrag={(val) => {
+													setCurrentThemeProperties({
+														backgroundImageFocalPoint:
+															val,
+													});
+												}}
+												onChange={(val) => {
+													setCurrentThemeProperties({
+														backgroundImageFocalPoint:
+															val,
+													});
+												}}
+											/>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -484,9 +526,11 @@ const CustomizeThemePanel = () => {
 
 				<PanelBody title={__('Logo', 'quillforms')} initialOpen={false}>
 					<div className="theme-editor-customize__subsection">
-						<div className="theme-editor-customize__subsection-label">
-							{__('Logo', 'quillforms')}
-						</div>
+						{(isEmpty(logo) || !logo?.src) && (
+							<div className="theme-editor-customize__subsection-label">
+								{__('Logo', 'quillforms')}
+							</div>
+						)}
 						{isEmpty(logo) || !logo?.src ? (
 							<MediaUpload
 								onSelect={(media) =>
@@ -547,45 +591,69 @@ const CustomizeThemePanel = () => {
 								)}
 							/>
 						) : (
-							<div className="theme-editor-customize__media-block">
-								<div className="theme-editor-customize__media-preview theme-editor-customize__media-preview--logo">
-									<img src={logo.src} alt="" />
-								</div>
-								<div className="theme-editor-customize__media-actions">
-									<MediaUpload
-										onSelect={(media) =>
-											setCurrentThemeProperties({
-												logo: {
-													type: 'image',
-													src: media.url,
-												},
-											})
-										}
-										allowedTypes={['image']}
-										render={({ open }) => (
+							<div className="theme-editor-customize__media-block theme-editor-customize__media-block--has-logo">
+								<div className="theme-editor-customize__bg-image-header">
+									<div className="theme-editor-customize__bg-image-title">
+										{__('Logo', 'quillforms')}
+									</div>
+									<div className="theme-editor-customize__bg-image-actions">
+										<MediaUpload
+											onSelect={(media) =>
+												setCurrentThemeProperties({
+													logo: {
+														type: 'image',
+														src: media.url,
+													},
+												})
+											}
+											allowedTypes={['image']}
+											render={({ open }) => (
+												<Tooltip
+													text={__(
+														'Replace',
+														'quillforms'
+													)}
+												>
+													<button
+														type="button"
+														className="theme-editor-customize__bg-image-icon-btn theme-editor-customize__bg-image-icon-btn--replace"
+														onClick={open}
+														aria-label={__(
+															'Replace',
+															'quillforms'
+														)}
+													>
+														<BgImageReplaceIcon />
+													</button>
+												</Tooltip>
+											)}
+										/>
+										<Tooltip
+											text={__(
+												'Delete',
+												'quillforms'
+											)}
+										>
 											<button
 												type="button"
-												className="theme-editor-customize__media-action-link"
-												onClick={open}
-											>
-												{__(
-													'Replace image',
+												className="theme-editor-customize__bg-image-icon-btn theme-editor-customize__bg-image-icon-btn--delete"
+												onClick={() =>
+													setCurrentThemeProperties({
+														logo: {},
+													})
+												}
+												aria-label={__(
+													'Delete',
 													'quillforms'
 												)}
+											>
+												<BgImageDeleteIcon />
 											</button>
-										)}
-									/>
-									<button
-										type="button"
-										className="theme-editor-customize__media-action-link theme-editor-customize__media-action-link--danger"
-										onClick={() =>
-											setCurrentThemeProperties({
-												logo: {},
-											})
-										}
-									>
-										{__('Remove', 'quillforms')}
-									</button>
+										</Tooltip>
+									</div>
+								</div>
+								<div className="theme-editor-customize__media-preview theme-editor-customize__media-preview--logo">
+									<img src={logo.src} alt="" />
 								</div>
 							</div>
 						)}
