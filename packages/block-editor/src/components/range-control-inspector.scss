@@ -1,0 +1,98 @@
+/* RangeControl in sidebar — labels like customize; accent #b2328c; one border + 75px value field */
+.block-editor-block-default-controls .components-range-control,
+.block-editor-block-type-controls .components-range-control {
+	.components-base-control__label {
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1.3;
+		color: #334155;
+		margin-bottom: 8px;
+	}
+
+	/* WP NumberControl: border only on container (input + backdrop stay borderless) */
+	.components-input-control {
+		border: none !important;
+		background: transparent !important;
+		box-shadow: none !important;
+	}
+
+	.components-input-control__container {
+		width: 75px !important;
+		min-width: 75px !important;
+		max-width: 75px !important;
+		min-height: 44px !important;
+		box-sizing: border-box !important;
+		border: 1px solid #d9d9d9 !important;
+		border-radius: 16px !important;
+		background: #fff !important;
+		box-shadow: none !important;
+	}
+
+	.components-input-control__container:focus-within {
+		border-color: #b2328c !important;
+		outline: none !important;
+		box-shadow: none !important;
+	}
+
+	.components-input-control__backdrop {
+		border: none !important;
+		box-shadow: none !important;
+		background: transparent !important;
+	}
+
+	input[type='number'],
+	.components-input-control__input,
+	input.components-input-control__input {
+		box-sizing: border-box !important;
+		width: 100% !important;
+		min-width: 0 !important;
+		min-height: 42px !important;
+		height: auto !important;
+		padding: 8px 10px !important;
+		font-size: 15px !important;
+		line-height: 1.4 !important;
+		color: #334155 !important;
+		background: transparent !important;
+		border: none !important;
+		border-radius: inherit !important;
+		box-shadow: none !important;
+	}
+
+	input[type='number']:focus,
+	.components-input-control__input:focus {
+		outline: none !important;
+		box-shadow: none !important;
+		border: none !important;
+	}
+
+	/* Fallback: plain number input (no InputControl wrapper) */
+	.components-base-control__field > input[type='number'] {
+		width: 75px !important;
+		min-width: 75px !important;
+		max-width: 75px !important;
+		min-height: 44px !important;
+		padding: 8px 10px !important;
+		font-size: 15px !important;
+		line-height: 1.4 !important;
+		color: #334155 !important;
+		background: #fff !important;
+		border: 1px solid #d9d9d9 !important;
+		border-radius: 16px !important;
+		box-shadow: none !important;
+	}
+
+	.components-base-control__field > input[type='number']:focus {
+		border-color: #b2328c !important;
+		outline: none !important;
+	}
+
+	/* Thumb + focus halo */
+	.components-range-control__wrapper:not(.is-marked) > span:nth-of-type(3),
+	.components-range-control__wrapper:not(.is-marked) > span:nth-of-type(3) span {
+		background: #b2328c !important;
+	}
+
+	.components-range-control__wrapper:not(.is-marked) > span:nth-of-type(3) span::before {
+		background-color: #b2328c !important;
+	}
+}
