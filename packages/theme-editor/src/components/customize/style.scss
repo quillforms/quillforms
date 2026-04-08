@@ -145,9 +145,7 @@
 		color: #334155 !important;
 	}
 
-	.components-panel__body
-		.components-panel__body-toggle
-		.components-panel__icon {
+	.components-panel__body .components-panel__body-toggle .components-panel__icon {
 		color: #64748b !important;
 	}
 
@@ -156,7 +154,7 @@
 	}
 
 	.components-panel__body .components-panel__body-content,
-	.components-panel__body.is-opened > .components-panel__body-content {
+	.components-panel__body.is-opened>.components-panel__body-content {
 		padding: 16px 16px 20px !important;
 		margin: 0 !important;
 		border: none !important;
@@ -166,9 +164,7 @@
 		padding: 0 !important;
 	}
 
-	.components-panel__body-toggle.components-button:focus:not(:disabled):not(
-			[aria-disabled="true"]
-		) {
+	.components-panel__body-toggle.components-button:focus:not(:disabled):not([aria-disabled="true"]) {
 		outline: none !important;
 		outline-offset: 0;
 		box-shadow: none !important;
@@ -395,9 +391,7 @@
 	}
 
 	/* Overlay Clear uses .theme-editor-customize__clear-link--overlay (gray / red) */
-	.theme-editor-customize__clear-link:not(
-			.theme-editor-customize__clear-link--overlay
-		) {
+	.theme-editor-customize__clear-link:not(.theme-editor-customize__clear-link--overlay) {
 		padding: 0;
 		border: none;
 		background: none;
@@ -444,6 +438,7 @@
 		}
 
 		&.theme-editor-customize__overlay-color--footer-clear {
+
 			/* Hide duplicate Clear from circular palette (footer Clear button) */
 			.components-circular-option-picker__clear {
 				display: none !important;
@@ -616,8 +611,7 @@
 			box-sizing: border-box;
 		}
 
-		.admin-components-control-wrapper.vertical
-			.admin-components-control-label {
+		.admin-components-control-wrapper.vertical .admin-components-control-label {
 			max-width: none;
 			width: 100%;
 			margin-top: 16px;
@@ -645,30 +639,24 @@
 			color: #334155;
 		}
 
-		.admin-components-font-picker.is-disabled
-			.admin-components-font-picker__select {
+		.admin-components-font-picker.is-disabled .admin-components-font-picker__select {
 			background: rgba(217, 217, 217, 0.6) !important;
 			color: #777777 !important;
 			border: none !important;
 		}
 
-		.admin-components-font-picker.is-disabled
-			.admin-components-font-picker__selected-font {
+		.admin-components-font-picker.is-disabled .admin-components-font-picker__selected-font {
 			color: inherit;
 		}
 
-		.admin-components-font-picker
-			.admin-components-font-picker__select
-			svg {
+		.admin-components-font-picker .admin-components-font-picker__select svg {
 			top: 50%;
 			transform: translateY(-50%);
 			fill: currentColor;
 			color: inherit;
 		}
 
-		.admin-components-font-picker.is-disabled
-			.admin-components-font-picker__select
-			svg {
+		.admin-components-font-picker.is-disabled .admin-components-font-picker__select svg {
 			color: #777777;
 			opacity: 0.85;
 		}
@@ -682,7 +670,7 @@
 				align-items: center;
 				gap: 10px;
 
-				> div {
+				>div {
 					align-items: center;
 					justify-content: center;
 					gap: 4px;
@@ -826,9 +814,8 @@
 			box-sizing: border-box;
 		}
 
-		.theme-editor-customize__buttons-padding-grid
-			.admin-components-text-control,
-		.theme-editor-customize__subsection > .admin-components-text-control {
+		.theme-editor-customize__buttons-padding-grid .admin-components-text-control,
+		.theme-editor-customize__subsection>.admin-components-text-control {
 			width: 100%;
 			margin: 0;
 
