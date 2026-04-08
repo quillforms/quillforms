@@ -77,6 +77,9 @@ const thnakyouScreenControls = (props) => {
 					</ControlWrapper>
 					<RangeControl
 						label="Auto redirect after (sec)"
+						color="#b2328c"
+						trackColor="#b2328c"
+						railColor="#e2e8f0"
 						value={autoRedirectLag}
 						onChange={(value) =>
 							setAttributes({
