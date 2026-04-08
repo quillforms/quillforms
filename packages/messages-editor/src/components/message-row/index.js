@@ -10,11 +10,11 @@ import { useDispatch } from '@wordpress/data';
 import classnames from 'classnames';
 import { css } from 'emotion';
 
+
 /**
  * Internal Dependencies
  */
 import MessagePreview from '../message-preview';
-import MessageBaseControl from '../base-control';
 import MessageControlWrapper from '../control-wrapper';
 import MessageControlLabel from '../control-label';
 
@@ -54,7 +54,7 @@ const MessageRow = ({
 						opacity: 1;
 						transform: scale( 1 );
 						transition-delay: 0s;
-						
+
 					}
 				`,
 				{
@@ -63,7 +63,7 @@ const MessageRow = ({
 			)}
 			role="presentation"
 		>
-			<MessageBaseControl>
+			{/* <BaseControl> */}
 				<MessageControlWrapper orientation={orientation}>
 					<MessageControlLabel label={label} />
 					<MessagePreview
@@ -79,7 +79,7 @@ const MessageRow = ({
 						}}
 					/>
 				</MessageControlWrapper>
-			</MessageBaseControl>
+			{/* </BaseControl> */}
 		</div>
 	);
 };
