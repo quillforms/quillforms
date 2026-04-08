@@ -17,69 +17,96 @@ import {
 import { Fragment } from 'react';
 import { __ } from '@wordpress/i18n';
 
+const isLimitEnabled = (value) => {
+	if (value === false || value === undefined || value === null) {
+		return false;
+	}
+	if (typeof value === 'number') {
+		return !Number.isNaN(value);
+	}
+	if (typeof value === 'string' && value !== '') {
+		return Number.isFinite(Number(value));
+	}
+	return false;
+};
+
 const multipleChoiceControls = (props) => {
 	const {
 		attributes: { multiple, verticalAlign, choices, min, max, other, otherText, otherPlaceholder, deselectAllWhenOtherSelected },
 		setAttributes,
 	} = props;
+
+	const minLimitActive = isLimitEnabled(min);
+	const maxLimitActive = isLimitEnabled(max);
+
 	return (
 		<Fragment>
 			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel label={__("Multiple", "quillforms")} />
-					<ToggleControl
-						checked={multiple}
-						onChange={() =>
-							setAttributes({ multiple: !multiple })
-						}
-					/>
-				</ControlWrapper>
+				<div className="block-editor-multiple-choice__feature">
+					<div className="block-editor-multiple-choice__feature-header">
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label={__("Multiple", "quillforms")} />
+							<ToggleControl
+								checked={!!multiple}
+								onChange={() =>
+									setAttributes({ multiple: !multiple })
+								}
+							/>
+						</ControlWrapper>
+					</div>
+					{multiple && (
+						<div className="block-editor-multiple-choice__feature-panel">
+							<div className="block-editor-multiple-choice__subcard">
+								<ControlWrapper orientation='horizontal'>
+									<ControlLabel label={__("Minimum limit for choices", "quillforms")} />
+									<ToggleControl
+										checked={minLimitActive}
+										onChange={() => {
+											setAttributes({ min: minLimitActive ? false : 1 });
+										}}
+									/>
+								</ControlWrapper>
+								{minLimitActive && (
+									<TextControl
+										type="number"
+										value={min}
+										onChange={(val) => {
+											const n = parseInt(val, 10);
+											setAttributes({ min: Number.isFinite(n) ? n : 1 });
+										}}
+									/>
+								)}
+							</div>
+							<div className="block-editor-multiple-choice__subcard">
+								<ControlWrapper orientation='horizontal'>
+									<ControlLabel label={__("Maximum limit for choices", "quillforms")} />
+									<ToggleControl
+										checked={maxLimitActive}
+										onChange={() => {
+											setAttributes({ max: maxLimitActive ? false : 5 });
+										}}
+									/>
+								</ControlWrapper>
+								{maxLimitActive && (
+									<TextControl
+										type="number"
+										value={max}
+										onChange={(val) => {
+											const n = parseInt(val, 10);
+											setAttributes({ max: Number.isFinite(n) ? n : 5 });
+										}}
+									/>
+								)}
+							</div>
+						</div>
+					)}
+				</div>
 			</BaseControl>
-			{multiple && (
-				<>
-					<BaseControl>
-						<ControlWrapper orientation='horizontal'>
-							<ControlLabel label={__("Minimum limit for choices", "quillforms")} />
-							<ToggleControl checked={min} onChange={() => {
-								setAttributes({ min: min === false ? 1 : false });
-							}} />
-						</ControlWrapper>
-						{min !== false &&
-							<TextControl
-								type="number"
-								value={min}
-								onChange={(val) => {
-									setAttributes({ min: val });
-								}
-								}
-							/>
-						}
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation='horizontal'>
-							<ControlLabel label={__("Maximum limit for choices", "quillforms")} />
-							<ToggleControl checked={max} onChange={() => {
-								setAttributes({ max: max === false ? 5 : false });
-							}} />
-						</ControlWrapper>
-						{max !== false &&
-							<TextControl
-								type="number"
-								value={max}
-								onChange={(val) => {
-									setAttributes({ max: val });
-								}
-								}
-							/>
-						}
-					</BaseControl>
-				</>
-			)}
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label={__("Vertical Align", "quillforms")} />
 					<ToggleControl
-						checked={verticalAlign}
+						checked={!!verticalAlign}
 						onChange={() =>
 							setAttributes({ verticalAlign: !verticalAlign })
 						}
@@ -87,53 +114,57 @@ const multipleChoiceControls = (props) => {
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel label={__("Other Option", "quillforms")} isNew />
-					<ToggleControl
-						checked={other}
-						onChange={() =>
-							setAttributes({ other: !other })
-						}
-					/>
-				</ControlWrapper>
-			</BaseControl>
-			{other && (
-				<>
-					<BaseControl>
-						<ControlWrapper orientation="vertical">
-							<ControlLabel label={__("Other Text", "quillforms")} />
-							<TextControl
-								value={otherText}
-								onChange={(val) => {
-									setAttributes({ otherText: val });
-								}}
+				<div className="block-editor-multiple-choice__feature">
+					<div className="block-editor-multiple-choice__feature-header">
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label={__("Other Option", "quillforms")} isNew />
+							<ToggleControl
+								checked={!!other}
+								onChange={() =>
+									setAttributes({ other: !other })
+								}
 							/>
 						</ControlWrapper>
-					</BaseControl>
-					<BaseControl>
-						<ControlWrapper orientation="vertical">
-							<ControlLabel label={__("Other Placeholder", "quillforms")} />
-							<TextControl
-								value={otherPlaceholder}
-								onChange={(val) => {
-									setAttributes({ otherPlaceholder: val });
-								}}
-							/>
-						</ControlWrapper>
-					</BaseControl>
-					{multiple && (
-						<BaseControl>
-							<ControlWrapper orientation="horizontal">
-								<ControlLabel label={__("Deselect All When Other Selected", "quillforms")} />
-								<ToggleControl
-									checked={deselectAllWhenOtherSelected}
-									onChange={() => setAttributes({ deselectAllWhenOtherSelected: !deselectAllWhenOtherSelected })}
-								/>
-							</ControlWrapper>
-						</BaseControl>
+					</div>
+					{other && (
+						<div className="block-editor-multiple-choice__feature-panel">
+							<div className="block-editor-multiple-choice__subcard">
+								<ControlWrapper orientation="vertical">
+									<ControlLabel label={__("Other Text", "quillforms")} />
+									<TextControl
+										value={otherText}
+										onChange={(val) => {
+											setAttributes({ otherText: val });
+										}}
+									/>
+								</ControlWrapper>
+							</div>
+							<div className="block-editor-multiple-choice__subcard">
+								<ControlWrapper orientation="vertical">
+									<ControlLabel label={__("Other Placeholder", "quillforms")} />
+									<TextControl
+										value={otherPlaceholder}
+										onChange={(val) => {
+											setAttributes({ otherPlaceholder: val });
+										}}
+									/>
+								</ControlWrapper>
+							</div>
+							{multiple && (
+								<div className="block-editor-multiple-choice__subcard">
+									<ControlWrapper orientation="horizontal">
+										<ControlLabel label={__("Deselect All When Other Selected", "quillforms")} />
+										<ToggleControl
+											checked={!!deselectAllWhenOtherSelected}
+											onChange={() => setAttributes({ deselectAllWhenOtherSelected: !deselectAllWhenOtherSelected })}
+										/>
+									</ControlWrapper>
+								</div>
+							)}
+						</div>
 					)}
-				</>
-			)}
+				</div>
+			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="horizontal">
 					<ControlLabel label={__("Choices", "quillforms")} />
@@ -145,12 +176,16 @@ const multipleChoiceControls = (props) => {
 					/>
 				</ControlWrapper>
 				<ControlWrapper orientation="vertical">
-					<ChoicesInserter
-						choices={choices}
-						setChoices={(val) => {
-							setAttributes({ choices: val });
-						}}
-					/>
+					<div className="block-editor-multiple-choice__choices-inserter-shell">
+						<ChoicesInserter
+							choices={choices}
+							setChoices={(val) => {
+								setAttributes({ choices: val });
+							}}
+							withAttachment={false}
+							rowItemSize={60}
+						/>
+					</div>
 				</ControlWrapper>
 			</BaseControl>
 		</Fragment>
