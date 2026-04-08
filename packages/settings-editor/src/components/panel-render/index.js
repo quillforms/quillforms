@@ -66,7 +66,7 @@ const stickyFooterStyle = css`
 	margin-top: 8px;
 	padding: 16px 0 16px;
 	background: #fff;
-	
+
 `;
 
 const cancelBtnStyle = css`
@@ -245,10 +245,10 @@ const PanelRender = () => {
 						}
 					/>
 					<p className={infoBoxStyle}>{__('This feature will save the answers in the user\'s browser, so the user can continue the form later in same browser. To allow user to save and continue later from any device, you have to use', 'quillforms')} <a href="" onClick={e => {
-							e.preventDefault();
-							setCurrentPanel('save-and-continue')
-						}}>
-							{__('save and continue feature', 'quillforms')}</a></p>
+						e.preventDefault();
+						setCurrentPanel('save-and-continue')
+					}}>
+						{__('save and continue feature', 'quillforms')}</a></p>
 				</ControlWrapper>
 			</BaseControl>
 			<BaseControl className={baseControlStyle}>

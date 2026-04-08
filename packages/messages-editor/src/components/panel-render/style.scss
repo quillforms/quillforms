@@ -1,1 +1,85 @@
-//
+.messages-editor-panel-render {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-bottom: 16px;
+}
+
+.messages-editor-panel-render__group {
+	border: 1px solid #D9D9D9;
+	border-radius: 16px;
+	overflow: hidden;
+	background: #F7F8FA;
+	padding: 16px 24px ;
+}
+
+.messages-editor-panel-render__group-header {
+	width: 100%;
+	border: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+}
+
+.messages-editor-panel-render__group-title {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 28px;
+	color: #334155;
+	text-align: left;
+}
+
+.messages-editor-panel-render__group-arrow {
+	font-size: 18px;
+	color: #334155;
+	font-weight: 500;
+	line-height: 28px;
+	transition: transform 0.2s ease;
+}
+
+.messages-editor-panel-render__group-arrow.is-open {
+	transform: rotate(180deg);
+}
+
+.messages-editor-panel-render__group-content {
+
+	border-top: 1px solid #D9D9D9;
+	margin-top: 16px;
+}
+
+
+
+.messages-editor-panel-render__group-actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+}
+
+.messages-editor-panel-render__restore-all-btn {
+	border: 1px solid #B2328C !important;
+	background: #fff !important;
+	color: #B2328C !important;
+	border-radius: 16px !important;
+	padding: 12px 24px !important;
+	font-size: 18px !important;
+	font-weight: 500 !important;
+	line-height: 28px !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+}
+
+.messages-editor-panel-render__apply-btn {
+	border-radius: 16px !important;
+	padding: 12px 24px !important;
+	background: #B2328C !important;
+	color: #fff !important;
+	border: 0 !important;
+	font-size: 18px !important;
+	font-weight: 500 !important;
+	line-height: 28px !important;
+}

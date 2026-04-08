@@ -1,3 +1,21 @@
 .messages-editor-message-edit__actions-apply-btn {
 	margin-right: 7px;
 }
+
+.messages-editor-message-edit__actions-reset-btn {
+	border: 0;
+	background: transparent;
+	color: #e53935;
+	font-size: 18px;
+	line-height: 1;
+	cursor: pointer;
+	padding: 4px 6px;
+}
+
+.messages-editor-message-edit__actions-close-btn {
+	border: 0;
+	background: transparent;
+	color: #6b7280;
+	cursor: pointer;
+	padding: 4px 6px;
+}

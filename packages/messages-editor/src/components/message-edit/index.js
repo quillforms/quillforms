@@ -1,7 +1,7 @@
 /**
  * QuillForms Dependencies
  */
-import { Button, RichTextControl } from '@quillforms/admin-components';
+import { RichTextControl } from '@quillforms/admin-components';
 
 /**
  * WordPress Dependencies
@@ -19,6 +19,7 @@ const MessageEdit = ( {
 } ) => {
 	const { setMessage } = useDispatch( 'quillForms/messages-editor' );
 	const [ val, setVal ] = useState( value );
+	const isChanged = ( val ?? '' ) !== ( defaultValue ?? '' );
 
 	return (
 		<div className="messages-editor-message-edit">
@@ -27,35 +28,38 @@ const MessageEdit = ( {
 				value={ val ? val : '' }
 				setValue={ ( newVal ) => {
 					setVal( newVal );
+					setMessage( messageKey, newVal );
 				} }
 				focusOnMount={ true }
 				allowedFormats={ allowedFormats }
 			/>
 
 			<div className="messages-editor-message-edit__actions">
-				<Button
-					className="messages-editor-message-edit__actions-apply-btn"
-					isSmall
-					isPrimary
+				{ isChanged && (
+					<button
+						type="button"
+						className="messages-editor-message-edit__actions-reset-btn"
+						onClick={ ( e ) => {
+							e.stopPropagation();
+							setVal( defaultValue );
+							setMessage( messageKey, defaultValue );
+						} }
+						aria-label="Restore default message"
+						title="Restore default message"
+					>
+						&#8634;
+					</button>
+				) }
+				<button
+					type="button"
+					className="messages-editor-message-edit__actions-close-btn"
 					onClick={ ( e ) => {
 						e.stopPropagation();
-						setMessage( messageKey, val );
 						editingComplete();
 					} }
 				>
-					Apply
-				</Button>
-				<Button
-					className="messages-editor-message-edit__actions-defaults-btn"
-					isSmall
-					onClick={ ( e ) => {
-						e.stopPropagation();
-						setMessage( messageKey, defaultValue );
-						editingComplete();
-					} }
-				>
-					Restore Defaults
-				</Button>
+					Done
+				</button>
 			</div>
 		</div>
 	);
