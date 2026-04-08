@@ -57,59 +57,62 @@ const BlockThemeControl = ({ blockTheme, setAttributes }) => {
 	return (
 		<>
 			<BaseControl>
-				<ControlWrapper orientation="horizontal">
-					<ControlLabel label={__('Theme', 'quillforms')}></ControlLabel>
-					<SelectControl
-						label=""
-						className={css`
-							margin-top: 5px;
-						` }
-						onChange={({ selectedItem }) => {
-							if (selectedItem?.key === 'inherit') {
-								setAttributes({
-									themeId: undefined,
-								});
-								setInherit(true);
-							} else {
-								setInherit(false);
-							}
-						}}
-						options={themeOptions}
-						value={themeOptions.find(
-							(option) =>
-								option.key ===
-								(inherit === true ? 'inherit' : 'override')
-						)}
-					/>
-				</ControlWrapper>
-				{!inherit && (
+				<div className="block-editor-block-theme__stack">
 					<ControlWrapper orientation="horizontal">
-						<ControlLabel label={__('Select theme', 'quillforms')}></ControlLabel>
-						{themesList?.length === 0 ? (
-							<Button
-								isSecondary
-								isButton
-								isDefault
-								onClick={() => {
-									setCurrentPanel('theme');
-								}}
-							>
-								{__('Create a theme first!', 'quillforms')}
-							</Button>
-						) : (
-							<Button
-								isPrimary
-								isButton
-								isDefault
-								onClick={() => {
-									setShowThemeModal(true);
-								}}
-							>
-								{__('Select a theme', 'quillforms')}
-							</Button>
-						)}
+						<ControlLabel label={__('Theme', 'quillforms')}></ControlLabel>
+						<SelectControl
+							label=""
+							className={css`
+								margin-top: 5px;
+							` }
+							onChange={({ selectedItem }) => {
+								if (selectedItem?.key === 'inherit') {
+									setAttributes({
+										themeId: undefined,
+									});
+									setInherit(true);
+								} else {
+									setInherit(false);
+								}
+							}}
+							options={themeOptions}
+							value={themeOptions.find(
+								(option) =>
+									option.key ===
+									(inherit === true ? 'inherit' : 'override')
+							)}
+						/>
 					</ControlWrapper>
-				)}
+					{!inherit && (
+						<ControlWrapper orientation="horizontal">
+							<ControlLabel label={__('Select theme', 'quillforms')}></ControlLabel>
+							{themesList?.length === 0 ? (
+								<Button
+									isSecondary
+									isButton
+									isDefault
+									onClick={() => {
+										setCurrentPanel('theme');
+									}}
+								>
+									{__('Create a theme first!', 'quillforms')}
+								</Button>
+							) : (
+								<Button
+									isPrimary
+									isButton
+									isDefault
+									className="block-editor-block-theme__select-theme-btn"
+									onClick={() => {
+										setShowThemeModal(true);
+									}}
+								>
+									{__('Select a theme', 'quillforms')}
+								</Button>
+							)}
+						</ControlWrapper>
+					)}
+				</div>
 			</BaseControl>
 			{showThemeModal && (
 				<Modal
@@ -122,23 +125,22 @@ const BlockThemeControl = ({ blockTheme, setAttributes }) => {
 							z-index: 1111111;
 
 							.components-modal__content {
-								background: #eee;
+								background: #FFF;
 							}
 
 							.components-modal__header {
-								background: #a120f1;
 								.components-modal__header-heading {
-									color: #fff;
+									color: #334155;
 								}
 								.components-button.has-icon svg {
-									fill: #fff;
+									fill: #334155;
 								}
 							}
 						`
 					)}
 					// Because focus on editor is causing the click handler to be triggered
 					shouldCloseOnClickOutside={false}
-					title={__('Select a theme!', 'quillforms')}
+					title={__('Select a theme', 'quillforms')}
 					onRequestClose={() => {
 						setShowThemeModal(false);
 					}}

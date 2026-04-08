@@ -1,0 +1,31 @@
+.block-editor-block-theme__stack {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.admin-components-button.block-editor-block-theme__select-theme-btn.is-primary {
+	padding: 8px 12px;
+	height: auto;
+	min-height: 0;
+	line-height: 1.25;
+	background: #b2328c;
+	color: #fff;
+	font-size: 16px;
+	font-weight: 500;
+	border: none;
+	border-radius: 6px;
+
+	&:hover {
+		opacity: 0.92;
+		background: #b2328c;
+		color: #fff;
+	}
+
+	&:focus-visible {
+		outline: 2px solid #334155;
+		outline-offset: 2px;
+	}
+}
