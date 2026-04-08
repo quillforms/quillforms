@@ -1,12 +1,14 @@
 .combobox-control-rich-text {
 	position: relative;
 	display: flex;
-	align-items: center;
+	align-items: stretch;
+	width: 100%;
+	box-sizing: border-box;
 
 	.combobox-control-rich-text-back {
 		position: absolute;
-		top: -9px;
-		left: -9px;
+		top: -5px;
+		left: -3px;
 		width: 18px;
 		padding: 1px;
 		display: flex;
@@ -19,8 +21,55 @@
 	}
 
 	.rich-text-control {
-		flex-grow: 1;
+		flex: 1;
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		min-height: 52px;
 		margin-top: 0;
 		margin-bottom: 0;
+		border: 1px solid #d9d9d9;
+		border-radius: 16px;
+		background: #fff;
+		box-shadow: none;
+		padding: 14px 40px 14px 16px;
+		box-sizing: border-box;
+
+		&:focus-within {
+			border-color: #b2328c;
+			outline: none;
+		}
+
+		p {
+			margin: 0;
+			font-size: 15px;
+			line-height: 1.4;
+			color: #334155;
+		}
+
+		[data-slate-placeholder] {
+			color: #94a3b8 !important;
+			opacity: 1 !important;
+		}
+
+		[contenteditable] {
+			min-height: 22px;
+			font-size: 15px;
+			line-height: 1.4;
+			color: #334155;
+		}
+	}
+
+	.rich-text-control__add-merge-tags {
+		position: absolute;
+		right: 8px !important;
+		top: 24px !important;
+		transform: translateY(-50%);
+		cursor: pointer;
+
+		svg {
+			fill: #58b9b0;
+		}
 	}
 }
