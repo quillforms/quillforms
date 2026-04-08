@@ -24,11 +24,14 @@ interface Props {
 	choices: Choices;
 	setChoices: ( choices: Choices ) => void;
 	withAttachment: boolean;
+	/** Row height for react-window (default 54). Increase when row content is taller. */
+	rowItemSize?: number;
 }
 const ChoicesInserter: React.FC< Props > = ( {
 	choices,
 	setChoices,
 	withAttachment,
+	rowItemSize = 54,
 } ) => {
 	const labelChangeHandler = ( val: string, index: number ) => {
 		const $choices = cloneDeep( choices );
@@ -139,7 +142,7 @@ const ChoicesInserter: React.FC< Props > = ( {
 									height={ 250 }
 									width={ '100%' }
 									itemCount={ itemCount }
-									itemSize={ 54 }
+									itemSize={ rowItemSize }
 									itemData={ choices }
 								>
 									{ ChoiceWrapper }
