@@ -34,12 +34,16 @@ const DropdownControls = (props) => {
 					/>
 				</ControlWrapper>
 				<ControlWrapper orientation="vertical">
-					<ChoicesInserter
-						choices={choices}
-						setChoices={(val) => {
-							setAttributes({ choices: val });
-						}}
-					/>
+					<div className="block-editor-dropdown__choices-inserter-shell">
+						<ChoicesInserter
+							choices={choices}
+							setChoices={(val) => {
+								setAttributes({ choices: val });
+							}}
+							withAttachment={false}
+							rowItemSize={60}
+						/>
+					</div>
 				</ControlWrapper>
 			</BaseControl>
 		</Fragment>
