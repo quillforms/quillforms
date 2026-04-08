@@ -1,7 +1,8 @@
 .messages-editor-panel-render {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 16px;
+	margin-bottom: 16px;
 }
 
 .messages-editor-panel-render__group {
@@ -48,27 +49,13 @@
 	margin-top: 16px;
 }
 
-.messages-editor-panel-render__group-content .message-editor-message-row:last-of-type {
-	.messages-editor-base-control {
-		border-bottom: none !important;
-		padding-bottom: 0 !important;
 
-	}
-}
-
-.messages-editor-panel-render__group-content
-	> .message-editor-message-row:nth-last-child(2) {
-	.messages-editor-base-control {
-		border-bottom: none !important;
-		padding-bottom: 0 !important;
-	}
-}
 
 .messages-editor-panel-render__group-actions {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	
+
 }
 
 .messages-editor-panel-render__restore-all-btn {

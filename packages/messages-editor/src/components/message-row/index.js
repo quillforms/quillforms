@@ -29,6 +29,7 @@ const MessageRow = ({
 	label,
 	mergeTags,
 	allowedFormats,
+	orientation = 'horizontal',
 }) => {
 	const [isMounted, setIsMounted] = useState(false);
 	const { setMessage } = useDispatch( 'quillForms/messages-editor' );
@@ -63,7 +64,7 @@ const MessageRow = ({
 			role="presentation"
 		>
 			<MessageBaseControl>
-				<MessageControlWrapper orientation="horizontal">
+				<MessageControlWrapper orientation={orientation}>
 					<MessageControlLabel label={label} />
 					<MessagePreview
 						format={format}

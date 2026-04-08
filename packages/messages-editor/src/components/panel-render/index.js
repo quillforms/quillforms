@@ -34,14 +34,126 @@ const PanelRender = () => {
 
 	const categoryLabels = {
 		'buttons-navigation': __( 'Buttons & Navigation', 'quillforms' ),
-		'hints-placeholders': __( 'Hints & Placeholders', 'quillforms' ),
-		alerts: __( 'Alerts', 'quillforms' ),
+		'input-constraints': __( 'Input Constraints', 'quillforms' ),
+		'format-data-integrity': __( 'Format & Data Integrity', 'quillforms' ),
+		'placeholders-field-labels': __(
+			'Placeholders & Field Labels',
+			'quillforms'
+		),
+		'instructional-hints': __( 'Instructional Hints', 'quillforms' ),
+		'success-feedback': __( 'Success & Feedback', 'quillforms' ),
+		'system-errors': __( 'System Errors', 'quillforms' ),
+		other: __( 'Other Messages', 'quillforms' ),
+	};
+
+	const buttonNavigationKeys = new Set( [
+		'label.button.ok',
+		'label.yes.default',
+		'label.no.default',
+		'label.submitBtn',
+		'label.previous',
+		'label.next',
+	] );
+
+	const inputConstraintKeys = new Set( [
+		'label.errorAlert.required',
+		'label.errorAlert.selectionRequired',
+		'label.errorAlert.range',
+		'label.errorAlert.minNum',
+		'label.errorAlert.maxNum',
+		'label.errorAlert.maxCharacters',
+		'label.errorAlert.minCharacters',
+		'label.errorAlert.minChoices',
+		'label.errorAlert.maxChoices',
+	] );
+
+	const formatDataIntegrityKeys = new Set( [
+		'label.errorAlert.date',
+		'label.errorAlert.number',
+		'label.errorAlert.email',
+		'label.errorAlert.emailRestrictedDomains',
+		'label.errorAlert.emailDisallowedDomains',
+		'label.errorAlert.url',
+	] );
+
+	const placeholdersFieldLabelsKeys = new Set( [
+		'block.shortText.placeholder',
+		'block.longText.placeholder',
+		'block.email.placeholder',
+		'block.number.placeholder',
+		'block.dropdown.placeholder',
+	] );
+
+	const instructionalHintsKeys = new Set( [
+		'label.hintText.enter',
+		'label.hintText.key',
+		'block.longText.hint',
+		'block.longText.touchHint',
+		'label.hintText.multipleSelection',
+		'block.dropdown.noSuggestions',
+		'label.progress.percent',
+	] );
+
+	const successFeedbackKeys = new Set( [
+		'block.defaultThankYouScreen.label',
+		'label.correct',
+		'label.incorrect',
+		'label.yourAnswer',
+		'label.answersExplanation',
+	] );
+
+	const systemErrorsKeys = new Set( [
+		'label.errorAlert.noConnection',
+		'label.errorAlert.serverError',
+	] );
+
+	const getGroupKey = ( messageKey ) => {
+		const messageTitle = (
+			messagesStructure[ messageKey ]?.title || ''
+		).toLowerCase();
+		if ( buttonNavigationKeys.has( messageKey ) ) {
+			return 'buttons-navigation';
+		}
+		if ( inputConstraintKeys.has( messageKey ) ) {
+			return 'input-constraints';
+		}
+		if ( formatDataIntegrityKeys.has( messageKey ) ) {
+			return 'format-data-integrity';
+		}
+		if ( placeholdersFieldLabelsKeys.has( messageKey ) ) {
+			return 'placeholders-field-labels';
+		}
+		if ( instructionalHintsKeys.has( messageKey ) ) {
+			return 'instructional-hints';
+		}
+		if ( successFeedbackKeys.has( messageKey ) ) {
+			return 'success-feedback';
+		}
+		if ( systemErrorsKeys.has( messageKey ) ) {
+			return 'system-errors';
+		}
+		if ( messageKey.includes( '.placeholder' ) ) {
+			return 'placeholders-field-labels';
+		}
+		if ( messageKey.includes( 'hint' ) || messageKey.includes( 'progress' ) ) {
+			return 'instructional-hints';
+		}
+		if ( messageKey.includes( 'errorAlert' ) ) {
+			return 'format-data-integrity';
+		}
+		if (
+			messageKey.includes( 'phone' ) ||
+			messageTitle.includes( 'phone number' ) ||
+			messageTitle.includes( 'phone' )
+		) {
+			return 'format-data-integrity';
+		}
+		return 'other';
 	};
 
 	const groupedMessages = Object.keys( messagesStructure ).reduce(
 		( groups, messageKey ) => {
-			const category = messagesStructure[ messageKey ]?.category;
-			const groupKey = category || 'general';
+			const groupKey = getGroupKey( messageKey );
 
 			if ( ! groups[ groupKey ] ) {
 				groups[ groupKey ] = [];
@@ -54,9 +166,13 @@ const PanelRender = () => {
 
 	const preferredOrder = [
 		'buttons-navigation',
-		'hints-placeholders',
-		'alerts',
-		'general',
+		'input-constraints',
+		'format-data-integrity',
+		'placeholders-field-labels',
+		'instructional-hints',
+		'success-feedback',
+		'system-errors',
+		'other',
 	];
 	const categoryKeys = [
 		...preferredOrder.filter( ( key ) => groupedMessages[ key ]?.length ),
@@ -70,6 +186,8 @@ const PanelRender = () => {
 		<div className="messages-editor-panel-render">
 			{ categoryKeys.map( ( categoryKey, categoryIndex ) => {
 				const isOpen = activeCategory === categoryKey;
+				const rowOrientation =
+					categoryKey === 'buttons-navigation' ? 'horizontal' : 'vertical';
 				const categoryTitle =
 					categoryLabels[ categoryKey ] || categoryKey.replace( /-/g, ' ' );
 
@@ -118,6 +236,7 @@ const PanelRender = () => {
 												messagesStructure[ messageKey ].allowedFormats
 											}
 											defaultValue={ messagesStructure[ messageKey ].default }
+											orientation={ rowOrientation }
 										/>
 									)
 								) }
