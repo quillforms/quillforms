@@ -18,11 +18,6 @@ import { plus, closeSmall } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-/**
- * External Dependencies
- */
-import { css } from 'emotion';
-
 const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 
 	const marksOptions = [{
@@ -118,7 +113,7 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 					/>
 				</ControlWrapper>
 				{marks === 'custom' && (
-					<>
+					<div className="block-editor-slider__custom-marks">
 						{customMarks.map((item, index) => (
 							<div className="admin-components-choices-inserter__choice-row" key={index}>
 								<TextControl
@@ -143,9 +138,6 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 									{customMarks.length > 1 && (
 										<div className="admin-components-choices-inserter__choice-remove">
 											<Icon
-												className={css`
-								fill: #fff;
-							` }
 												icon={closeSmall}
 												onClick={() => deleteItem(index)}
 											/>
@@ -154,8 +146,7 @@ const SingleRangeSliderControl = ({ attributes, setAttributes }) => {
 								</div>
 							</div>
 						))}
-
-					</>
+					</div>
 				)}
 			</BaseControl>
 
