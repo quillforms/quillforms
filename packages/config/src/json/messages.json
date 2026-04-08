@@ -7,7 +7,7 @@
 			"italic"
 		],
 		"default": "Ok",
-		"category": "buttons-hints-placeholders"
+		"category": "buttons-navigation"
 	},
 	"label.hintText.enter": {
 		"title": "Keyboard hint text for navigating to next question",
@@ -132,7 +132,7 @@
 			"italic"
 		],
 		"default": "Yes",
-		"category": "buttons-hints-placeholders"
+		"category": "buttons-navigation"
 	},
 	"label.no.default": {
 		"title": "Button to say 'No'",
@@ -142,7 +142,7 @@
 			"italic"
 		],
 		"default": "No",
-		"category": "buttons-hints-placeholders"
+		"category": "buttons-navigation"
 	},
 	"label.progress.percent": {
 		"title": "Percentage of form completed",
@@ -380,17 +380,17 @@
 			"italic"
 		],
 		"default": "Submit",
-		"category": "buttons-hints-placeholders"
+		"category": "buttons-navigation"
 	},
 	"label.previous": {
 		"title": "Previous button label",
 		"default": "Previous",
-		"category": "buttons-hints-placeholders"
+		"category": "buttons-navigation"
 	},
 	"label.next": {
 		"title": "Next button label",
 		"default": "Next",
-		"category": "buttons-hints-placeholders"
+		"category": "buttons-navigation"
 	},
 	"label.errorAlert.noConnection": {
 		"title": "Error for no connection with server",

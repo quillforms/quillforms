@@ -2,6 +2,7 @@
  * WordPress Dependencies
  */
 import { useState, useEffect } from 'react';
+import { useDispatch } from '@wordpress/data';
 
 /**
  * External Dependencies
@@ -16,7 +17,6 @@ import MessagePreview from '../message-preview';
 import MessageBaseControl from '../base-control';
 import MessageControlWrapper from '../control-wrapper';
 import MessageControlLabel from '../control-label';
-import MessageEdit from '../message-edit';
 
 const MessageRow = ({
 	index,
@@ -31,13 +31,14 @@ const MessageRow = ({
 	allowedFormats,
 }) => {
 	const [isMounted, setIsMounted] = useState(false);
+	const { setMessage } = useDispatch( 'quillForms/messages-editor' );
 
 	useEffect(() => {
 		setTimeout(() => {
 			setIsMounted(true);
 		}, 50);
 	}, []);
-	const isSelected = messageToEdit === messageKey;
+	const isChanged = ( value ?? '' ) !== ( defaultValue ?? '' );
 	return (
 		<div
 			className={classnames(
@@ -60,28 +61,22 @@ const MessageRow = ({
 				}
 			)}
 			role="presentation"
-			onClick={() => setMessageToEdit(messageKey)}
 		>
 			<MessageBaseControl>
-				<MessageControlWrapper
-					orientation={isSelected ? 'vertical' : 'horizontal'}
-				>
+				<MessageControlWrapper orientation="horizontal">
 					<MessageControlLabel label={label} />
-					{!isSelected ? (
-						<MessagePreview format={format} value={value} />
-					) : (
-						<MessageEdit
-							format={format}
-							messageKey={messageKey}
-							value={value}
-							editingComplete={() => {
-								setMessageToEdit(null);
-							}}
-							mergeTags={mergeTags}
-							defaultValue={defaultValue}
-							allowedFormats={allowedFormats}
-						/>
-					)}
+					<MessagePreview
+						format={format}
+						value={value}
+						showReset={isChanged}
+						onChange={(newValue) => {
+							setMessage(messageKey, newValue);
+						}}
+						onReset={(e) => {
+							e.stopPropagation();
+							setMessage(messageKey, defaultValue);
+						}}
+					/>
 				</MessageControlWrapper>
 			</MessageBaseControl>
 		</div>

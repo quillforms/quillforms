@@ -6,8 +6,25 @@
 
 	&.horizontal {
 		display: flex;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
 		align-items: center;
+		gap: 12px;
+
+		.messages-editor-control-label {
+			flex: 1 1 auto;
+			max-width: none;
+			min-width: 0;
+			font-size: 18px;
+	       color: #334155;
+	       font-weight: 500;
+	       line-height: 28px;
+		}
+
+		.messages-editor-message-preview__container {
+			flex: 0 0 190px;
+			max-width: 190px;
+			margin-left: auto;
+		}
 	}
 
 	&.vertical {

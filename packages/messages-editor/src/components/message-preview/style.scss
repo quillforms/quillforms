@@ -1,10 +1,32 @@
+.messages-editor-message-preview__container {
+	position: relative;
+}
+
 .messages-editor-message-preview {
+	width: 100%;
+	font-weight: 400;
+	padding: 12px !important;
+	padding-right: 44px;
+	border: 1px solid #D9D9D9 !important;
+	border-radius: 16px !important;
+	background: #fff;
+	color: #334155;
+	line-height: 28px;
+	outline: none;
 
-	font-weight: 300;
-	flex: 1;
-
-	p {
-		margin-bottom: 0;
-		margin-top: 0;
+	&:focus {
+		border-color: #B2328C !important;
+		box-shadow: none !important;
+		outline: none !important;
 	}
+}
+
+.messages-editor-message-preview__reset {
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY( -50% );
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
