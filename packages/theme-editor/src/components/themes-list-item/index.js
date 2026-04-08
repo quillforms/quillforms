@@ -8,6 +8,7 @@ import { getDefaultThemeProperties } from '@quillforms/utils';
  * WordPress Dependencies
  */
 import { useEffect } from 'react';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -96,57 +97,73 @@ const ThemesListItem = ({ theme, onClick }) => {
 		<div
 			role="presentation"
 			className="theme-editor-themes-list-item"
-			onClick={onClick}
+			onClick={ onClick }
 		>
-			<div
-				className={classnames(
-					'theme-editor-themes-list-item__header-wrapper',
-					css`
-						${backgroundImageCSS};
-					`
-				)}
-			>
+			<div className="theme-editor-themes-list-item__preview">
 				<div
-					className={classnames(
-						'theme-editor-themes-list-item__header',
+					className={ classnames(
+						'theme-editor-themes-list-item__header-wrapper',
 						css`
-							background: ${themeData.backgroundColor};
-							font-family: ${themeData.font};
+							${ backgroundImageCSS };
 						`
-					)}
+					) }
 				>
 					<div
-						className={classnames(
-							'theme-editor-themes-list-item__header-question',
+						className={ classnames(
+							'theme-editor-themes-list-item__header',
 							css`
-								color: ${themeData.questionsColor};
+								background: ${ themeData.backgroundColor };
+								font-family: ${ themeData.font };
 							`
-						)}
+						) }
 					>
-						Question
+						<div
+							className={ classnames(
+								'theme-editor-themes-list-item__header-question',
+								css`
+									color: ${ themeData.questionsColor };
+								`
+							) }
+						>
+							Question
+						</div>
+						<div
+							className={ classnames(
+								'theme-editor-themes-list-item__header-answer',
+								css`
+									color: ${ themeData.answersColor };
+								`
+							) }
+						>
+							Answer
+						</div>
+						<div
+							className={ classnames(
+								'theme-editor-themes-list-item__header-buttons',
+								css`
+									color: ${ themeData.buttonsFontColor };
+									background: ${ themeData.buttonsBgColor };
+									border-width: ${ themeData.buttonsBorderWidth }px;
+									border-color: ${ themeData.buttonsBorderColor };
+									border-style: solid;
+								`
+							) }
+						></div>
 					</div>
-					<div
-						className={classnames(
-							'theme-editor-themes-list-item__header-answer',
-							css`
-								color: ${themeData.answersColor};
-							`
-						)}
+				</div>
+				<div className="theme-editor-themes-list-item__preview-overlay">
+					<button
+						type="button"
+						className="theme-editor-themes-list-item__apply"
+						aria-label={ __( 'Apply this theme', 'quillforms' ) }
+						onClick={ ( e ) => {
+							e.preventDefault();
+							e.stopPropagation();
+							onClick?.();
+						} }
 					>
-						Answer
-					</div>
-					<div
-						className={classnames(
-							'theme-editor-themes-list-item__header-buttons',
-							css`
-								color: ${themeData.buttonsFontColor};
-								background: ${themeData.buttonsBgColor};
-								border-width: ${themeData.buttonsBorderWidth}px;
-								border-color: ${themeData.buttonsBorderColor};
-								border-style: solid;
-							`
-						)}
-					></div>
+						{ __( 'Apply', 'quillforms' ) }
+					</button>
 				</div>
 			</div>
 			<div className="theme-editor-themes-list-item__footer">

@@ -3,8 +3,12 @@
  */
 import { useDispatch } from '@wordpress/data';
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { moreHorizontal } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal Dependencies
+ */
+import ThemeActionsMenuIcon from './actions-icon';
 
 const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 	const {
@@ -22,10 +26,11 @@ const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 			onClick={(e) => e.stopPropagation()}
 		>
 			<DropdownMenu
-				popoverProps={{
+				popoverProps={ {
 					placement: 'bottom-start',
-				}}
-				icon={moreHorizontal}
+				} }
+				icon={ <ThemeActionsMenuIcon /> }
+				label={ __( 'Theme actions', 'quillforms' ) }
 				className="theme-editor-theme-actions__dropdown"
 			>
 				{({ onClose }) => (
@@ -38,7 +43,7 @@ const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 								setShouldBeSaved(false);
 							}}
 						>
-							Customize
+							{ __( 'Customize', 'quillforms' ) }
 						</MenuItem>
 						<MenuItem
 							className="theme-editor-theme-actions__menu-item"
@@ -53,7 +58,7 @@ const ThemeActions = ({ id, themeTitle, themeProperties }) => {
 							{__('Duplicate', 'quillforms')}
 						</MenuItem>
 						<MenuItem
-							className="theme-editor-theme-actions__menu-item theme-editor-theme-actions__delete-theme"
+							className="theme-editor-theme-actions__menu-item"
 							onClick={() => {
 								onClose();
 								deleteTheme(id);

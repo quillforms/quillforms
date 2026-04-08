@@ -1,55 +1,125 @@
 .theme-editor-themes-list-item {
 	display: flex;
-	flex-wrap: wrap;
 	flex-direction: column;
+	gap: 10px;
 	width: 100%;
 	height: 100%;
+	box-sizing: border-box;
+	padding: 12px;
+	background: #f7f8fa;
 	border-radius: 8px;
+	overflow: hidden;
+	cursor: pointer;
+
+	.theme-editor-themes-list-item__preview {
+		position: relative;
+		margin: 0;
+		box-sizing: border-box;
+		border-radius: 8px;
+		overflow: hidden;
+		flex-shrink: 0;
+
+		&:hover .theme-editor-themes-list-item__preview-overlay,
+		&:focus-within .theme-editor-themes-list-item__preview-overlay {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+		}
+	}
+
+	.theme-editor-themes-list-item__preview-overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		padding: 12px;
+		background: rgba(51, 65, 85, 0.18);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: opacity 0.15s ease, visibility 0.15s ease;
+	}
+
+	.theme-editor-themes-list-item__apply {
+		appearance: none;
+		margin: 0;
+		cursor: pointer;
+		padding: 8px 12px;
+		border: 1px solid #b2328c;
+		border-radius: 8px;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1.25;
+		color: #b2328c;
+		background: #fff;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+		&:hover {
+			box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+		}
+
+		&:focus-visible {
+			outline: 2px solid #b2328c;
+			outline-offset: 2px;
+		}
+	}
 
 	.theme-editor-themes-list-item__header-wrapper {
-		height: 135px;
+		height: auto; 
 		width: 100%;
 		border-radius: 8px;
+		overflow: hidden;
 
 		.theme-editor-themes-list-item__header {
 			width: 100%;
 			height: 100%;
-			padding: 20px 16px;
-			border-radius: 8px 8px 0 0;
+			padding: 16px;
+			border-radius: 8px;
+			box-sizing: border-box;
 		}
 
 		.theme-editor-themes-list-item__header-question {
 			margin-bottom: 5px;
 			font-size: 16px;
+			line-height: 1.35;
 		}
 
 		.theme-editor-themes-list-item__header-answer {
 			margin-bottom: 15px;
+			font-size: 14px;
+			line-height: 1.35;
 		}
 
 		.theme-editor-themes-list-item__header-buttons {
 			width: 60px;
 			height: 20px;
-			border-radius: 3px
+			border-radius: 3px;
 		}
 	}
 
 	.theme-editor-themes-list-item__footer {
 		display: flex;
-		height: calc(100% - 135px);
-		flex-wrap: wrap;
-		padding: 10px;
-		justify-content: space-between;
+		flex-wrap: nowrap;
 		align-items: center;
-		background: #fff;
-		border-radius: 0 0 8px 8px;
+		justify-content: space-between;
+		gap: 12px;
+		width: 100%;
+		box-sizing: border-box;
+		margin-top: 0;
+		padding: 0;
+		background: transparent;
 
 		.theme-editor-themes-list-item__footer-title {
+			flex: 1;
+			min-width: 0;
 			word-break: break-word;
-			max-width: 70%; 
 			font-size: 16px;
 			font-weight: 500;
 			color: #334155;
+			line-height: 1.35;
 		}
 	}
 }
