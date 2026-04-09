@@ -44,7 +44,7 @@ export const Layout = (props) => {
 	const { notices, formBlocks, hiddenFields, variables } = useSelect((select) => {
 		return {
 			notices: select('core/notices').getNotices(),
-			formBlocks: select('quillForms/block-editor').getBlocksWithPartialSubmission(),
+			formBlocks: select('quillForms/block-editor')?.getBlocksWithPartialSubmission(),
 			hiddenFields: select('quillForms/hidden-fields-editor')?.getHiddenFields(),
 			variables: select('quillForms/logic-editor')?.getLogicVariables(),
 		};

@@ -54,9 +54,9 @@ const Builder = ({ params, path, isLogicRoute: isLogicRouteProp = false }) => {
 	const { hasBlockEditorFinishedResolution, blockTypes } = useSelect(
 		(select) => {
 			return {
-				hasBlockEditorFinishedResolution: select(
-					'quillForms/block-editor'
-				).hasFinishedResolution('getBlocksWithPartialSubmission'),
+			hasBlockEditorFinishedResolution: select(
+				'quillForms/block-editor'
+			)?.hasFinishedResolution('getBlocksWithPartialSubmission'),
 				blockTypes: select('quillForms/blocks').getBlockTypes(),
 			};
 		}

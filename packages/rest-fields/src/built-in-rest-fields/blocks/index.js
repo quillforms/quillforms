@@ -10,6 +10,6 @@ import { registerRestField } from '../../api';
 
 registerRestField('blocks', {
 	selectValue: () => {
-		return select('quillForms/block-editor').getBlocksWithPartialSubmission();
+		return select('quillForms/block-editor')?.getBlocksWithPartialSubmission();
 	},
 });

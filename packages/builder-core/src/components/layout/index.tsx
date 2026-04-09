@@ -48,7 +48,7 @@ const Layout: React.FC<Props> = ({ formId, isLogicRoute = false }) => {
 				jumpLogicPanel: select('quillForms/builder-panels').getPanelByName(
 					'jump-logic'
 				),
-				formBlocks: select('quillForms/block-editor').getBlocksWithPartialSubmission(),
+				formBlocks: select('quillForms/block-editor')?.getBlocksWithPartialSubmission(),
 				blockTypes: select('quillForms/blocks').getBlockTypes(),
 			};
 		});
