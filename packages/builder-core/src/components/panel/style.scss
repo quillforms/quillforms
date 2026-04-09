@@ -251,6 +251,39 @@
 	}
 }
 
+/* Form Locker modal: inset, larger title */
+.builder-core-form-locker-panel {
+	padding: 24px;
+	box-sizing: border-box;
+
+	.builder-core-panel__header-wrapper {
+		padding: 0 0 16px 0 !important;
+		border-bottom: 1px solid #D9D9D9 !important;
+	}
+
+	.builder-core-panel__content-wrapper {
+		padding-inline: 0;
+		flex: 1 1 auto;
+		min-height: 0;
+		height: auto;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.builder-core-panel__header {
+		position: relative;
+	}
+
+	.builder-core-panel__header-close-icon {
+		right: 0 !important;
+	}
+
+	.builder-core-panel__header-wrapper .builder-core-panel__header h4 {
+		font-size: 24px !important;
+	}
+}
+
 .builder-core-jump-logic-panel .builder-core-panel__content-wrapper {
 	position: relative;
 }
