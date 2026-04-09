@@ -21,6 +21,7 @@ const UTMParametersPromo = () => {
 					className={`utm-feature-tab ${activeTab === 'hidden' ? 'active' : ''}`}
 					onClick={() => setActiveTab('hidden')}
 				>
+					
 					{__('Hidden Fields', 'quillforms')}
 				</button>
 				<button
