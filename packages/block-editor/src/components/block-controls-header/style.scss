@@ -24,6 +24,7 @@
 		align-items: flex-start;
 		gap: 8px;
 		width: 100%;
+		min-width: 0;
 	}
 
 	&__type-label {
@@ -35,6 +36,7 @@
 
 	&__static-type-row {
 		width: 100%;
+		min-width: 0;
 		min-height: 52px;
 		box-sizing: border-box;
 		display: flex;
@@ -48,9 +50,31 @@
 
 	.admin-components-select-control {
 		width: 100%;
+		min-width: 0;
 
-		.components-button {
+		.components-custom-select-control {
+			width: 100%;
+			min-width: 0;
+		}
+
+		.components-button,
+		.components-custom-select-control__button {
 			height: 52px;
+			min-width: 0;
+			max-width: 100%;
+			box-sizing: border-box;
+			overflow: hidden;
+			align-items: center;
+		}
+
+		.components-custom-select-control__button {
+			display: flex !important;
+			justify-content: space-between;
+			gap: 8px;
+		}
+
+		.components-custom-select-control__button-icon {
+			flex-shrink: 0;
 		}
 	}
 
@@ -60,9 +84,20 @@
 		font-size: 16px;
 		color: #334155;
 		gap: 8px;
+		min-width: 0;
+		flex: 1 1 auto;
+		overflow: hidden;
+
+		> span {
+			min-width: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	}
 
 	.block-controls-blocktype-select .admin-components-block-icon-box {
 		width: 28px;
+		flex-shrink: 0;
 	}
 }
