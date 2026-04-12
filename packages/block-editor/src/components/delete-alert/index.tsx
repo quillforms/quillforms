@@ -45,13 +45,21 @@ const DeleteAlertModal: React.FC<Props> = ({
 			onRequestClose={closeModal}
 		>
 			<div>
-				<div>
+				<div className={css`
+					font-weight: 500 !important;
+					font-size: 16px !important;
+					color: #334155 !important;
+				` }>
 					Are you sure you want to delete this item? All of its data
 					will be deleted.
 				</div>
 				{size(messages) > 0 && (
 					<>
-						<div>
+						<div className={css`
+							font-weight: 500 !important;
+							font-size: 16px !important;
+							color: #334155 !important;
+						` }>
 							{messages.length === 1
 								? messages[0]
 								: messages.map((message, index) => (
@@ -61,7 +69,11 @@ const DeleteAlertModal: React.FC<Props> = ({
 						</div>
 
 						<br />
-						<div>Are you sure you want to proceed?</div>
+						<div className={css`
+							font-weight: 500 !important;
+							font-size: 16px !important;
+							color: #334155 !important;
+						` }>Are you sure you want to proceed?</div>
 					</>
 				)}
 			</div>
@@ -77,6 +89,14 @@ const DeleteAlertModal: React.FC<Props> = ({
 					isLarge
 					className={css`
 						margin-right: 10px !important;
+						border: 1px solid #334155 !important;
+						background: #fff !important;
+						color: #334155 !important;
+						height: auto !important;
+						padding: 8px 16px !important;
+						font-weight: 500 !important;
+						font-size: 16px !important;
+						border-radius: 16px !important;
 					` }
 					onClick={() => {
 						reject();
@@ -88,10 +108,17 @@ const DeleteAlertModal: React.FC<Props> = ({
 					isLarge
 					isDanger
 					className={css`
-						width: 70px;
 						display: flex;
 						justify-content: center;
 						align-items: center;
+						border-color: #E13B3B !important;
+						background: #E13B3B !important;
+						color: #fff !important;
+						height: auto !important;
+						padding: 8px 16px !important;
+						font-weight: 500 !important;
+						font-size: 16px !important;
+						border-radius: 16px !important;
 					` }
 					onClick={() => {
 						approve();
