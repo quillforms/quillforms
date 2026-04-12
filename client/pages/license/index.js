@@ -202,6 +202,7 @@ const License = () => {
 								<label className="license-input-label">
 									{__('License key', 'quillforms')}
 								</label>
+								<div className="license-input-wrapper-with-button">
 								<input
 									type="text"
 									className="license-input"
@@ -209,11 +210,24 @@ const License = () => {
 									onChange={(e) => setLicenseKey(e.target.value)}
 									placeholder={__('License key', 'quillforms')}
 								/>
+								{!license && (
+									<div className="license-input-button-wrapper">
+									<CustomButton
+									variant="primary"
+									className=' !py-4 !px-6'
+									text={__('Save Changes', 'quillforms')}
+									onClick={activate}
+									disabled={!licenseKey || licenseKey.trim() === ''}
+								/>
+								</div>
+								)
+								}
 							</div>
+						</div>
 						</div>
 					)}
 				</div>
-				{!license && (
+				{/* {!license && (
 					<div className="license-button-wrapper">
 						<CustomButton
 							variant="primary"
@@ -222,7 +236,7 @@ const License = () => {
 							disabled={!licenseKey || licenseKey.trim() === ''}
 						/>
 					</div>
-				)}
+				)} */}
 			</div>
 		</div>
 	);

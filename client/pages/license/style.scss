@@ -90,6 +90,11 @@
 		}
 	}
 
+	.license-input-wrapper-with-button {
+		display: flex;
+		gap: 20px;
+		align-items: center;
+	}
 
 	.license-input-wrapper {
 		margin-bottom: 0;
@@ -124,19 +129,20 @@
 		}
 	}
 
-	.license-button-wrapper {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background-color: #fff;
-		padding: 16px 24px;
-		border-bottom-left-radius: 20px;
-		border-bottom-right-radius: 20px;
-		box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
-		z-index: 10;
-		display: flex;
-		justify-content: flex-end;
+	.license-button-wrapper,
+	.license-input-button-wrapper {
+		// position: absolute;
+		// bottom: 0;
+		// left: 0;
+		// right: 0;
+		// background-color: #fff;
+		// padding: 16px 24px;
+		// border-bottom-left-radius: 20px;
+		// border-bottom-right-radius: 20px;
+		// box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+		// z-index: 10;
+		// display: flex;
+		// justify-content: flex-end;
 
 		button {
 			margin: 0 !important;
