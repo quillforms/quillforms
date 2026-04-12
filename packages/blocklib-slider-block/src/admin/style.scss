@@ -49,18 +49,18 @@
 
 	.admin-components-choices-inserter__choice-actions {
 		display: flex !important;
-		flex-direction: row !important;
+		flex-direction: column !important;
 		align-items: center;
 		flex-shrink: 0;
-		gap: 8px;
+		gap: 4px;
 		margin-left: 0;
 
 		> div {
 			box-sizing: border-box;
-			width: 32px !important;
-			height: 32px !important;
-			min-width: 32px !important;
-			min-height: 32px !important;
+			width: 20px !important;
+			height: 20px !important;
+			min-width: 20px !important;
+			min-height: 20px !important;
 			padding: 0 !important;
 			margin-bottom: 0 !important;
 			border-radius: 8px;
@@ -72,7 +72,8 @@
 		}
 
 		.admin-components-choices-inserter__choice-add {
-			border: 1px solid #b2328c !important;
+			border: 1px solid #236294 !important;
+			background: #236294 !important;
 		}
 
 		.admin-components-choices-inserter__choice-remove {
@@ -80,7 +81,10 @@
 		}
 
 		.admin-components-choices-inserter__choice-add:hover {
-			background: #ffeefb !important;
+			background: transparent !important;
+			svg {
+				fill: #236294 !important;
+			}
 		}
 
 		.admin-components-choices-inserter__choice-remove:hover {
@@ -93,7 +97,7 @@
 		}
 
 		.admin-components-choices-inserter__choice-add svg {
-			fill: #b2328c !important;
+			fill: #fff !important;
 		}
 
 		.admin-components-choices-inserter__choice-remove svg {
