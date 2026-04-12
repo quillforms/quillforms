@@ -32,7 +32,7 @@ const CATEGORIES = [
 	},
 	{
 		label: 'Productivity & Automation Tools',
-		slugs: ['notion', 'pipedrive', 'slack', 'make', 'zapier'],
+		slugs: ['notion', 'slack', 'make', 'zapier'],
 	},
 	{
 		label: 'Email Marketing',
@@ -57,7 +57,7 @@ const CATEGORIES = [
 			'quillcrm', 'salesforce', 'zohocrm', 'bitrix24',
 			'freshsales', 'agilecrm', 'capsulecrm', 'groundhogg',
 			'keap', 'mautic', 'nethuntcrm', 'salesflare',
-			'hubspot', 'gohighlevel',
+			'hubspot', 'gohighlevel', 'pipedrive',
 		],
 	},
 ];

@@ -76,6 +76,7 @@ const CATEGORIES = [
 			'salesflare',
 			'hubspot',
 			'gohighlevel',
+			'pipedrive',
 		],
 	},
 	{
@@ -84,7 +85,7 @@ const CATEGORIES = [
 	},
 	{
 		label: 'Productivity & Automation Tools',
-		slugs: ['notion', 'pipedrive', 'slack', 'make', 'zapier'],
+		slugs: ['notion', 'slack', 'make', 'zapier'],
 	},
 	{
 		label: 'Communication & Support Platforms',
