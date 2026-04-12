@@ -12,9 +12,12 @@ const ControlButtons = ( { id } ) => {
 	const { deleteProduct } = usePaymentsContext();
 
 	return (
-			<div className="product-buttons-remove cursor-pointer p-2 rounded-[8px] border border-[#E13B3B] bg-[#fff]" onClick={ () => deleteProduct( id ) }>
-				<TrashIcon width={24} height={24} />
-			</div>
+		<div
+			className="product-buttons-remove cursor-pointer p-2 rounded-[8px] border border-[#E13B3B] bg-[#fff]"
+			onClick={() => deleteProduct(id)}
+		>
+			<TrashIcon width={24} height={24} />
+		</div>
 	);
 };
 

@@ -18,7 +18,7 @@ const NumericProduct = ({ id, index }) => {
 		<div className="quillforms-payments-page-settings-product-single">
 			<SourceSelector id={id} />
 			<TextControl
-				className="product-name ml-3"
+				className="product-name"
 				placeholder="Product name"
 				value={product.name ?? ''}
 				onChange={(name) => updateProduct(id, { name })}

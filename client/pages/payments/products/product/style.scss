@@ -68,6 +68,7 @@
 			justify-content: center;
 			border-radius: 50%;
 			cursor: pointer;
+			margin-left: 4px;
 
 			svg {
 				fill: #fff;
@@ -175,9 +176,25 @@
 	display: flex;
 	align-items: center;
 	flex-grow: 1;
+	gap: 16px;
+
+	/* Let the source combobox share the row; width:100% here was eating all space */
+	.product-source-selector {
+		flex: 1 1 0;
+		min-width: 0;
+		width: auto;
+	}
+
+	.product-name {
+		flex: 0 0 auto;
+	}
 
 	.admin-components-text-control {
 		width: auto;
+	}
+
+	.product-buttons-remove {
+		flex-shrink: 0;
 	}
 }
 
