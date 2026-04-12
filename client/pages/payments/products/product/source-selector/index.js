@@ -24,6 +24,14 @@ const SourceSelector = ({ id }) => {
 		};
 	});
 
+	// Field products: dropdown lists only form fields. Variable products: only variables.
+	const restrictToSection =
+		product.group === 'field' || product.source?.type === 'field'
+			? 'fields'
+			: product.group === 'variable' || product.source?.type === 'variable'
+				? 'variables'
+				: null;
+
 	return (
 		<div className="product-source-selector">
 			<ComboboxControl
@@ -40,13 +48,25 @@ const SourceSelector = ({ id }) => {
 					sections = sections.filter((section) =>
 						['fields', 'variables'].includes(section.key)
 					);
+					if (restrictToSection) {
+						sections = sections.filter(
+							(section) => section.key === restrictToSection
+						);
+					}
+
 					options = options.filter((option) => {
+						if (
+							restrictToSection &&
+							option.section !== restrictToSection
+						) {
+							return false;
+						}
 						if (option.type === 'field') {
 							const blockType =
 								blockTypes[option.other?.name ?? ''];
 							// only supports payments and current known types.
 							return (
-								blockType.supports.payments &&
+								blockType?.supports?.payments &&
 								(blockType.supports.numeric ||
 									blockType.supports.choices)
 							);
@@ -57,11 +77,13 @@ const SourceSelector = ({ id }) => {
 						}
 					});
 
-					options.push({
-						label: 'Defined Price',
-						type: 'other',
-						value: 'defined',
-					});
+					if (!restrictToSection) {
+						options.push({
+							label: 'Defined Price',
+							type: 'other',
+							value: 'defined',
+						});
+					}
 
 					return { sections, options };
 				}}
