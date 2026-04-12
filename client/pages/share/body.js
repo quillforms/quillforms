@@ -10,6 +10,7 @@ import { css } from "emotion";
 import QRCode from "react-qr-code";
 import QRCodeIcon from "./qrcode-icon";
 import { __ } from "@wordpress/i18n";
+import apiFetch from "@wordpress/api-fetch";
 
 import configApi from "@quillforms/config";
 import { size } from "lodash";
@@ -345,8 +346,7 @@ const ShareBody = ({ payload }) => {
 	const [routingType, setRoutingType] = useState('query');
 
 	const generateURL = () => {
-		// Remove trailing slash from baseURL
-		const baseURL = (payload?.link || '').replace(/\/+$/, '');
+		const baseURL = getLinkWithSlug().replace(/\/+$/, '');
 		const filledFields = Object.entries(fieldValues)
 			.filter(([_, value]) => value)
 			.map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
@@ -437,6 +437,46 @@ const ShareBody = ({ payload }) => {
 		}
 	}, [isCopied]);
 
+	const extractSlug = (link) => {
+		const url = (link || '').replace(/\/+$/, '');
+		return url.split('/').pop() || '';
+	};
+
+	const currentSlug = extractSlug(payload?.link);
+	const [slug, setSlug] = useState('');
+	const [savedSlug, setSavedSlug] = useState(currentSlug);
+	const [isSavingSlug, setIsSavingSlug] = useState(false);
+	const [slugSaveStatus, setSlugSaveStatus] = useState(null); // 'saved' | 'error' | null
+
+	const saveSlug = async () => {
+		const trimmed = (slug || currentSlug).trim();
+		if (!trimmed || trimmed === savedSlug) return;
+		setIsSavingSlug(true);
+		setSlugSaveStatus(null);
+		try {
+			await apiFetch({
+				path: `/wp/v2/quill_forms/${payload.id}`,
+				method: 'POST',
+				data: { slug: trimmed },
+			});
+			setSavedSlug(trimmed);
+			setSlugSaveStatus('saved');
+		} catch (err) {
+			console.error('Failed to save slug:', err);
+			setSlugSaveStatus('error');
+		} finally {
+			setIsSavingSlug(false);
+			setTimeout(() => setSlugSaveStatus(null), 3000);
+		}
+	};
+
+	const getLinkWithSlug = () => {
+		const link = (payload?.link || '').replace(/\/+$/, '');
+		const parts = link.split('/');
+		parts[parts.length - 1] = savedSlug;
+		return parts.join('/') + '/';
+	};
+
 	const hiddenFields = payload.hidden_fields;
 	const [openSection, setOpenSection] = useState('link');
 	const [previewDevice, setPreviewDevice] = useState('desktop');
@@ -469,6 +509,40 @@ const ShareBody = ({ payload }) => {
 				{/* Accordion items */}
 				<div className="quillforms-share-accordion">
 
+				{/* Slug card */}
+					<div className="quillforms-share-accordion__item quillforms-share-accordion__item--open">
+						<div className="quillforms-share-accordion__toggle" style={{ cursor: 'default' }}>
+							<span className="quillforms-share-accordion__toggle-label">
+								{__('Slug', 'quillforms')}
+							</span>
+						</div>
+						<div className="quillforms-share-accordion__content">
+							<div className="quillforms-share-slug-row">
+								<input
+									type="text"
+									value={slug}
+									onChange={(e) => setSlug(e.target.value)}
+									onKeyDown={(e) => e.key === 'Enter' && saveSlug()}
+									placeholder={__('Slug', 'quillforms')}
+									className="quillforms-share-slug-field-input"
+								/>
+								<button
+									onClick={saveSlug}
+									disabled={isSavingSlug || !slug.trim() || slug.trim() === savedSlug || slug.trim() === currentSlug}
+									className="quillforms-share-slug-save-btn"
+								>
+									{isSavingSlug
+										? __('Saving…', 'quillforms')
+										: slugSaveStatus === 'saved'
+											? __('Saved!', 'quillforms')
+											: slugSaveStatus === 'error'
+												? __('Error', 'quillforms')
+												: __('Save', 'quillforms')}
+								</button>
+							</div>
+						</div>
+					</div>
+
 					{/* Direct Link */}
 					<div className={`quillforms-share-accordion__item${openSection === 'link' ? ' quillforms-share-accordion__item--open' : ''}`}>
 						<button onClick={() => toggleSection('link')} className="quillforms-share-accordion__toggle">
@@ -495,9 +569,7 @@ const ShareBody = ({ payload }) => {
 										{isCopied ? __('Copied!', 'quillforms') : __('Copy', 'quillforms')}
 									</button>
 								</div>
-								<label className="quillforms-share-field-label">{__('Slug', 'quillforms')}</label>
-								<input type="text" placeholder={__('Slug', 'quillforms')} className="quillforms-share-slug-input" />
-								{size(hiddenFields) > 0 && (
+							{size(hiddenFields) > 0 && (
 									<div className="quillforms-share-hidden-fields">
 										<p className="quillforms-share-hidden-fields__title">{__('Hidden Fields', 'quillforms')}</p>
 										{hiddenFields.map((field) => field.name.trim() ? (
@@ -1086,7 +1158,7 @@ const ShareBody = ({ payload }) => {
 			</div>
 		</div>
 	);
-	
+
 };
 
 export default ShareBody;
