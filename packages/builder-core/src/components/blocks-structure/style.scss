@@ -181,12 +181,6 @@
     position: relative;
     cursor: pointer;
 
-    &:hover .block-editor-block-actions__dropdown-wrapper {
-      visibility: visible;
-      opacity: 1;
-
-    }
-
     .warning-icon svg {
       cursor: pointer;
       transition: transform 0.2s ease;
@@ -278,10 +272,7 @@
         .block-content {
           border: none;
           padding-bottom: 0;
-        }
-
-        .block-editor-block-actions__dropdown-wrapper {
-          display: none;
+          padding-right: 36px;
         }
       }
     }
@@ -322,16 +313,35 @@
     align-items: center;
     gap: 12px;
     flex: 1;
+    position: relative;
+    padding-right: 36px;
 
     .block-editor-block-actions__dropdown-wrapper {
       position: absolute;
       right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
       visibility: hidden;
       opacity: 0;
-      transition: opacity 0.2s ease;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+
+      .components-dropdown.components-dropdown-menu .components-button {
+        min-width: 28px !important;
+        width: 28px;
+        height: 28px;
+        padding: 0 !important;
+        box-shadow: none;
+      }
+
+      // WP Button often sets svg { fill: currentColor }; keep the custom menu dots visible.
+      .components-dropdown.components-dropdown-menu .components-button svg path {
+        fill: #B2328C !important;
+      }
 
       .components-dropdown.components-dropdown-menu .components-button:hover {
-        background: rgba(100, 116, 139, 0.08) !important;
+        background: rgba(178, 50, 140, 0.08) !important;
       }
 
       .components-dropdown.components-dropdown-menu button span {
@@ -340,6 +350,15 @@
     }
 
 
+  }
+
+  // dnd-kit: hover is often on `.dnd-sortable-item` or `.block-item` — show menu in both cases; keep open while toggled.
+  .block-item:hover .block-content .block-editor-block-actions__dropdown-wrapper,
+  .dnd-sortable-item:hover .block-content .block-editor-block-actions__dropdown-wrapper,
+  .block-content .block-editor-block-actions__dropdown-wrapper:has(.components-dropdown-menu__toggle.is-opened) {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   }
 
   // Block label styling
