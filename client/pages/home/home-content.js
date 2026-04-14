@@ -313,7 +313,7 @@ const HomeContent = () => {
 		<div className="quillforms-home">
 			<div className="quillforms-home__header">
 				<div className="quillforms-home__header-left">
-					<h1 className="text-2xl font-bold !text-[#001D4F]">{__('Forms', 'quillforms')}</h1>
+					<h1 className="!text-2xl !font-bold !text-[#001D4F]">{__('Forms', 'quillforms')}</h1>
 				</div>
 				<div className="quillforms-home__header-right">
 					<div className="view-mode-toggle">

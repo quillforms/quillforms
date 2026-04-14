@@ -7,12 +7,31 @@
 	display: none !important;
 }
 
+// ── Header: positioned to the right of the sidebar ──────────────────────────
+.qf-admin-header {
+	left: var(--qf-sidebar-width-expanded) !important;
+	right: 0 !important;
+	width: auto !important;
+	padding: 16px !important;
+	height: 56px !important;
+	border-bottom: 1px solid #D9D9D9 !important;
+	box-shadow: none !important;
+	transition: left 0.2s ease;
+	background-color: #F7F8FA;
+}
+
+body[data-sidebar-collapsed="true"] .qf-admin-header {
+	left: var(--qf-sidebar-width-collapsed) !important;
+}
+
+// ── Page content ─────────────────────────────────────────────────────────────
 .quillforms-layout__main {
 	-webkit-box-flex: 1;
 	flex-grow: 1;
-	overflow: auto;
+	overflow: hidden;
 	display: flex;
 }
+
 .qf-page-component-wrapper {
 	width: 100%;
 	max-height: 100%;
@@ -20,10 +39,17 @@
 	overflow-x: hidden;
 	box-sizing: border-box;
 }
+
 .qf-page-component-wrapper.has-sidebar {
-	margin-top: 55px;
-	padding: 16px;
-	margin-left: 250px;
+	margin-top: var(--qf-header-height);
+	height: calc(100vh - var(--qf-header-height));
+	padding: 24px 16px 24px;
+	margin-left: var(--qf-sidebar-width-expanded);
+	transition: margin-left 0.2s ease;
+}
+
+body[data-sidebar-collapsed="true"] .qf-page-component-wrapper.has-sidebar {
+	margin-left: var(--qf-sidebar-width-collapsed);
 }
 
 .block-wrapper {
@@ -37,6 +63,7 @@
 .drop-indicator {
     border-radius: 4px;
 }
+
 .quillforms-builder-page-layout .qf-page-component-wrapper {
 	overflow: hidden;
 }

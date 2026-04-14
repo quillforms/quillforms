@@ -88,6 +88,7 @@ body.js.is-fullscreen-mode {
 
 // Pages that should have a pure white background wrapper
 .quillforms-home-page-layout,
+.quillforms-addons-page-layout,
 .quillforms-license-page-layout,
 .quillforms-settings-page-layout,
 .quillforms-support-page-layout,
@@ -98,6 +99,12 @@ body.js.is-fullscreen-mode {
 .quillforms-layout h1 {
 	color: #6d78d8;
 	border-color: #6d78d83d !important;
+}
+
+// Keep page heading bottom spacing consistent across all pages.
+.qf-page-component-wrapper.has-sidebar h1[class*="__heading"] {
+	padding-top: 0 !important;
+	padding-bottom: 24px !important;
 }
 
 .quillforms-layout #quillforms-builder-page h1 {
