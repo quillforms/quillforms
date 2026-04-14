@@ -52,7 +52,7 @@ const ResultsPage = ({ params }) => {
 	};
 
 	return (
-		<div className="qf-entries-page bg-[#fff] rounded-[20px] mt-6 mx-6">
+		<div className="qf-entries-page bg-[#fff] rounded-[20px] mt-0 mx-4 mb-4">
 			<TabPanel
 				className={'entries-addon-tabs '}
 				activeClass="active-tab"

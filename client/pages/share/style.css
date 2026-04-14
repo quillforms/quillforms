@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 16px;
-    padding: 16px;
+    padding:0 16px 16px;
     height: calc(100vh - 56px);
     box-sizing: border-box;
     overflow: hidden;

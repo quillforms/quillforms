@@ -148,7 +148,7 @@ const IntegrationsPage = ({ params }) => {
 		});
 
 	return (
-		<div className="quillforms-integrations-page-outer p-4 box-border w-full">
+		<div className="quillforms-integrations-page-outer pt-0 px-4 pb-4 box-border w-full">
 			<div className="quillforms-integrations-page bg-white rounded-2xl w-full" style={{ boxShadow: '0 4px 40px 0 rgba(87, 3, 3, 0.06)' }}>
 				<CustomTabs
 					className="quillforms-integrations-page__tabs"
@@ -188,13 +188,10 @@ const IntegrationsPage = ({ params }) => {
 														className={`quillforms-integrations-page__integration-list-item ${isQuillCRM
 															? css`
 										position: relative;
-										background: linear-gradient(145deg, #ffffff 0%, #f0f7ff 100%) !important;
-										border: 2px solid transparent !important;
-										background-origin: border-box !important;
-										background-clip: padding-box !important;
+										background: #fff !important;
+										border: 2px solid #B2328C !important;
 										box-shadow:
-											0 8px 32px rgba(39, 76, 119, 0.15),
-											0 0 0 2px #458DC7,
+											0 8px 24px rgba(178, 50, 140, 0.12),
 											inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 									transition: all 0.3s ease !important;
 									overflow: hidden;
@@ -202,22 +199,22 @@ const IntegrationsPage = ({ params }) => {
 
 									&:hover {
 										box-shadow:
-											0 12px 40px rgba(39, 76, 119, 0.2),
-											0 0 0 2px #274C77,
+											0 12px 32px rgba(178, 50, 140, 0.18),
+											0 0 0 1px #B2328C,
 											inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 									}
 
 										.quillforms-integrations-page__integration-module-footer button,
 										.quillforms-integrations-page__integration-module-footer button {
-											background: linear-gradient(135deg, #274C77 0%, #458DC7 100%) !important;
-											border: none !important;
-											box-shadow: 0 4px 12px rgba(39, 76, 119, 0.3) !important;
-											color: white !important;
+											background: #fff !important;
+											border: 1px solid #B2328C !important;
+											box-shadow: none !important;
+											color: #B2328C !important;
 
 											&:hover {
-												background: linear-gradient(135deg, #1a3a5c 0%, #3a7ab0 100%) !important;
-												box-shadow: 0 6px 16px rgba(39, 76, 119, 0.4) !important;
-												color: white !important;
+												background: #FFEEFB !important;
+												color: #B2328C !important;
+												border-color: #B2328C !important;
 											}
 										}
 									` : ''}`}
@@ -229,15 +226,16 @@ const IntegrationsPage = ({ params }) => {
 											top: -10px;
 											left: 50%;
 											transform: translateX(-50%);
-											background: linear-gradient(135deg, #274C77 0%, #4F9EF9 100%);
-											color: white;
+											background: #fff;
+											color: #B2328C;
+											border: 1px solid #B2328C;
 											font-size: 10px;
 											font-weight: 700;
 											padding: 4px 12px;
 											border-radius: 12px;
 											text-transform: uppercase;
 											letter-spacing: 0.5px;
-											box-shadow: 0 2px 8px rgba(39, 76, 119, 0.3);
+											box-shadow: 0 2px 8px rgba(178, 50, 140, 0.12);
 											white-space: nowrap;
 											z-index: 100;
 											line-height: 1.4;
@@ -262,18 +260,12 @@ const IntegrationsPage = ({ params }) => {
 																<div
 																	className={`quillforms-integrations-page__integration-module-icon ${isQuillCRM
 																		? css`
-												background: linear-gradient(145deg, #e8f4fc 0%, #d0e8f7 100%) !important;
+												// background: linear-gradient(145deg, #e8f4fc 0%, #d0e8f7 100%) !important;
 												border-radius: 16px !important;
 												padding: 10px !important;
 												box-shadow:
 													0 4px 12px rgba(39, 76, 119, 0.15),
 													inset 0 -2px 4px rgba(39, 76, 119, 0.05) !important;
-
-												svg {
-													width: 36px !important;
-													height: 36px !important;
-													filter: drop-shadow(0 2px 4px rgba(39, 76, 119, 0.2));
-												}
 											`
 																		: ''
 																		}`}
@@ -293,12 +285,10 @@ const IntegrationsPage = ({ params }) => {
 																<div
 																	className={`quillforms-integrations-page__integration-module-title ${isQuillCRM
 																		? css`
-												background: linear-gradient(135deg, #274C77 0%, #4F9EF9 100%);
-												-webkit-background-clip: text;
-												-webkit-text-fill-color: transparent;
-												background-clip: text;
-												font-weight: 700 !important;
+												color: #334155 !important;
+												font-weight: 600 !important;
 												font-size: 18px !important;
+												line-height: 28px !important;
 											`
 																		: ''
 																		}`}
@@ -329,9 +319,7 @@ const IntegrationsPage = ({ params }) => {
 																		setModalIntegrationConnected(connected);
 																	}}
 																	className={
-																		isQuillCRM
-																			? ''
-																			: '!py-2 !px-4 !text-sm !rounded-[8px]'
+																		'!py-2 !px-4 !text-sm !rounded-[8px]'
 																	}
 																/>
 															</div>

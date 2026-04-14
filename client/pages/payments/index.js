@@ -266,7 +266,7 @@ const PaymentsPage = ({ params }) => {
 				}}
 			>
 				<div
-					className="quillforms-payments-page p-5 bg-white rounded-2xl m-4 "
+					className="quillforms-payments-page p-5 bg-white rounded-2xl mt-0 mx-4 mb-4 "
 					style={{ boxShadow: '0 4px 40px 0 rgba(87, 3, 3, 0.06)' }}
 				>
 					<div className="quillforms-payments-page-header">
