@@ -19,9 +19,11 @@ const AdvancedDropdown = ({ var0, var1, onChange }) => {
         return {
             ...variable, label: <div className={css`display: flex;align-items: center; 
             .admin-components-block-icon-box {
-                width: 28px;
+                width: auto;
+                min-width: 0;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
+                gap: 4px;
             }`}><BlockIconBox icon={variable?.iconBox?.icon} color={variable?.iconBox?.color} /> <span className={css`margin: 0 8px`}>{variable?.label} </span></div>
         };
     });

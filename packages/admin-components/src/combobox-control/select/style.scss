@@ -20,9 +20,11 @@
 	align-items: center;
 
 	.admin-components-block-icon-box {
-		width: 28px;
+		width: auto;
+		min-width: 0;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
+		gap: 4px;
 	}
 }
 .combobox-control-select-option-label {
