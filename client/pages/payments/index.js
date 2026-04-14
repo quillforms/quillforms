@@ -286,26 +286,22 @@ const PaymentsPage = ({ params }) => {
 					<div className="quillforms-payments-page-settings flex flex-col gap-5">
 						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
 							<General />
-							<div className=' border-b border-border-color my-6'></div>
-							<Labels />
-
 						</div>
-						<div className='grid grid-cols-2 gap-5 min-h-[500px]'>
-							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+							<Labels />
+						</div>
+						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
 								<Products />
-							</div>
-							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						</div>
+						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
 								<Coupons />
 							</div>
-						</div>
-						<div className='grid grid-cols-2 gap-5 min-h-[500px]'>
-							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
 								<Models />
 							</div>
-							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
 								<Methods />
 							</div>
-						</div>
 						<GatewaysOptions />
 
 						<Button

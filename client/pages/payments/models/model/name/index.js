@@ -23,7 +23,7 @@ const Name = ({ id, index }) => {
 	const model = models[id];
 
 	return (
-		<BaseControl>
+		<div className='my-4'>
 			<ControlWrapper orientation="vertical">
 				<ControlLabel label="Model Name" />
 				<div className="payment-model-name">
@@ -38,7 +38,7 @@ const Name = ({ id, index }) => {
 					/>
 				</div>
 			</ControlWrapper>
-		</BaseControl>
+		</div>
 	);
 };
 

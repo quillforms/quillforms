@@ -14,7 +14,7 @@ const Labels = () => {
 	return (
 		<div className="quillforms-payments-page-settings__labels">
 			<div className=" grid grid-cols-2 gap-5">
-				<div className="flex-col gap-2.5">
+				<div className="flex flex-col gap-2.5">
 					<h3 className='!m-0 !text-[#334155] !text-2xl !font-medium'>{__('Labels', 'quillforms')}</h3>
 					<p className=' text-lg text-[#777] leading-7'>
 						{__(

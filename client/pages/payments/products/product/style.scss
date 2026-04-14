@@ -163,6 +163,41 @@
 	}
 }
 
+.quillforms-payments-page-settings-product-variable {
+	background: #F2F4FC;
+	border-radius: 16px;
+	border: 1px solid #D9D9D9;
+	padding: 12px;
+
+	.product-variable-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.product-variable-title {
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 24px;
+		color: #334155;
+	}
+
+	.product-variable-body {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 8px;
+	}
+
+	.product-source-selector,
+	.product-name {
+		width: 100%;
+	}
+
+	.components-text-control__input {
+		width: 100% !important;
+	}
+}
+
 .quillforms-payments-page-settings-product-unspecified {
 	display: flex;
 	align-items: center;
@@ -212,7 +247,7 @@
 		justify-content: space-between;
 		padding-bottom: 16px;
 		margin-bottom: 16px;
-		border-bottom: 1px solid #E5E7EB;
+		border-bottom: 1px solid #D9D9D9;
 	}
 
 	.product-choices-title {

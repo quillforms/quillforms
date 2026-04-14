@@ -9,6 +9,9 @@
 
 .quillforms-payments-page-heading {
 	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 .quillforms-payments-page-heading p:nth-child(1) {
@@ -231,9 +234,15 @@
 }
 
 .quillforms-payments-page-settings__methods {
+	.quillforms-payments-page-settings__methods-content {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+	}
+
 	.payment-method {
 		background-color: #fff;
-		margin-bottom: 20px;
+		margin-bottom: 0;
 		border-radius: 16px;
 		padding: 16px;
 		display: flex;
@@ -497,7 +506,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	// margin-bottom: 16px;
+	margin-bottom: 20px;
 }
 
 .qf-payments-coupons-add {
@@ -577,7 +586,7 @@
 	border-radius: 16px;
 	border: 1px solid #e2e8f0;
 	overflow: hidden;
-	margin-bottom: 8px;
+	margin-bottom: 20px;
 }
 
 .qf-payments-coupon-header {
