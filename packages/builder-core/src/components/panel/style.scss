@@ -282,6 +282,27 @@
 	}
 }
 
+/* Settings: content area flexes so Document tab can pin actions to bottom-right */
+.builder-core-panel.builder-core-settings-panel {
+	min-height: 0;
+
+	.builder-core-panel__content-wrapper {
+		flex: 1 1 auto;
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.builder-core-settings-document-subpanel {
+		flex: 1 1 auto;
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+		align-self: stretch;
+		width: 100%;
+	}
+}
+
 .builder-core-jump-logic-panel .builder-core-panel__content-wrapper {
 	position: relative;
 }

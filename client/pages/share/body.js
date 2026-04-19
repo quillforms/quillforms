@@ -10,7 +10,6 @@ import { css } from "emotion";
 import QRCode from "react-qr-code";
 import QRCodeIcon from "./qrcode-icon";
 import { __ } from "@wordpress/i18n";
-import apiFetch from "@wordpress/api-fetch";
 
 import configApi from "@quillforms/config";
 import { size } from "lodash";
@@ -346,7 +345,7 @@ const ShareBody = ({ payload }) => {
 	const [routingType, setRoutingType] = useState('query');
 
 	const generateURL = () => {
-		const baseURL = getLinkWithSlug().replace(/\/+$/, '');
+		const baseURL = (payload?.link || '').replace(/\/+$/, '');
 		const filledFields = Object.entries(fieldValues)
 			.filter(([_, value]) => value)
 			.map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
@@ -437,46 +436,6 @@ const ShareBody = ({ payload }) => {
 		}
 	}, [isCopied]);
 
-	const extractSlug = (link) => {
-		const url = (link || '').replace(/\/+$/, '');
-		return url.split('/').pop() || '';
-	};
-
-	const currentSlug = extractSlug(payload?.link);
-	const [slug, setSlug] = useState('');
-	const [savedSlug, setSavedSlug] = useState(currentSlug);
-	const [isSavingSlug, setIsSavingSlug] = useState(false);
-	const [slugSaveStatus, setSlugSaveStatus] = useState(null); // 'saved' | 'error' | null
-
-	const saveSlug = async () => {
-		const trimmed = (slug || currentSlug).trim();
-		if (!trimmed || trimmed === savedSlug) return;
-		setIsSavingSlug(true);
-		setSlugSaveStatus(null);
-		try {
-			await apiFetch({
-				path: `/wp/v2/quill_forms/${payload.id}`,
-				method: 'POST',
-				data: { slug: trimmed },
-			});
-			setSavedSlug(trimmed);
-			setSlugSaveStatus('saved');
-		} catch (err) {
-			console.error('Failed to save slug:', err);
-			setSlugSaveStatus('error');
-		} finally {
-			setIsSavingSlug(false);
-			setTimeout(() => setSlugSaveStatus(null), 3000);
-		}
-	};
-
-	const getLinkWithSlug = () => {
-		const link = (payload?.link || '').replace(/\/+$/, '');
-		const parts = link.split('/');
-		parts[parts.length - 1] = savedSlug;
-		return parts.join('/') + '/';
-	};
-
 	const hiddenFields = payload.hidden_fields;
 	const [openSection, setOpenSection] = useState('link');
 	const [previewDevice, setPreviewDevice] = useState('desktop');
@@ -509,41 +468,7 @@ const ShareBody = ({ payload }) => {
 				{/* Accordion items */}
 				<div className="quillforms-share-accordion">
 
-				{/* Slug card */}
-					<div className="quillforms-share-accordion__item quillforms-share-accordion__item--open">
-						<div className="quillforms-share-accordion__toggle" style={{ cursor: 'default' }}>
-							<span className="quillforms-share-accordion__toggle-label">
-								{__('Slug', 'quillforms')}
-							</span>
-						</div>
-						<div className="quillforms-share-accordion__content">
-							<div className="quillforms-share-slug-row">
-								<input
-									type="text"
-									value={slug}
-									onChange={(e) => setSlug(e.target.value)}
-									onKeyDown={(e) => e.key === 'Enter' && saveSlug()}
-									placeholder={__('Slug', 'quillforms')}
-									className="quillforms-share-slug-field-input"
-								/>
-								<button
-									onClick={saveSlug}
-									disabled={isSavingSlug || !slug.trim() || slug.trim() === savedSlug || slug.trim() === currentSlug}
-									className="quillforms-share-slug-save-btn"
-								>
-									{isSavingSlug
-										? __('Saving…', 'quillforms')
-										: slugSaveStatus === 'saved'
-											? __('Saved!', 'quillforms')
-											: slugSaveStatus === 'error'
-												? __('Error', 'quillforms')
-												: __('Save', 'quillforms')}
-								</button>
-							</div>
-						</div>
-					</div>
-
-					{/* Direct Link */}
+				{/* Direct Link */}
 					<div className={`quillforms-share-accordion__item${openSection === 'link' ? ' quillforms-share-accordion__item--open' : ''}`}>
 						<button onClick={() => toggleSection('link')} className="quillforms-share-accordion__toggle">
 							<span className="quillforms-share-accordion__toggle-label">
@@ -558,7 +483,7 @@ const ShareBody = ({ payload }) => {
 										<img src={Share} alt="Link Icon" />
 									</div>
 									<p className="quillforms-share-info-banner__title">{__('Generate & Share a Direct Link', 'quillforms')}</p>
-									<p className="quillforms-share-info-banner__desc">{__('Copy the link, customize the slug, and share it wherever your audience is — fast, simple, and flexible.', 'quillforms')}</p>
+									<p className="quillforms-share-info-banner__desc">{__('Copy the link and share it wherever your audience is. You can change the form URL slug from Settings → Document in the builder.', 'quillforms')}</p>
 
 								</div>
 								<label className="quillforms-share-field-label">{__('Generated URL', 'quillforms')}</label>
