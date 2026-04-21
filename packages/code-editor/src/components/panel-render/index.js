@@ -34,10 +34,10 @@ const PanelRender = () => {
 			` }
 		>
 			<div className={css`
-				padding: 14px 16px;
+				padding: 10px 12px;
 				background: #daebfb;
 				color: #334155;
-				font-size: 14px;
+				font-size: 13px;
 				line-height: 1.5;
 				font-weight: 500;
 				border-radius: 12px;
@@ -95,15 +95,15 @@ const PanelRender = () => {
 					isDefault
 					className={css`
 						border: 1px solid #b2328c !important;
-						color: #b2328c !important;
-						background: #fff !important;
-						border-radius: 16px !important;
-						padding: 12px 24px !important;
-						font-size: 18px !important;
-						font-weight: 500 !important;
-						height: 48px !important;
-						min-height: 32px !important;
-						line-height: 28px !important;
+	color: #b2328c !important;
+	background: #fff !important;
+	border-radius: 10px !important;
+	padding: 8px 16px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
 					`}
 					onClick={() => setCurrentPanel('')}
 				>
@@ -113,15 +113,15 @@ const PanelRender = () => {
 					isPrimary
 					className={css`
 						border: 1px solid #b2328c !important;
-						color: #fff !important;
-						background: #b2328c !important;
-						border-radius: 16px !important;
-						padding: 12px 24px !important;
-						font-size: 18px !important;
-						font-weight: 500 !important;
-						height: 48px !important;
-						min-height: 48px !important;
-						line-height: 28px !important;
+	color: #fff !important;
+	background: #b2328c !important;
+	border-radius: 10px !important;
+	padding: 8px 16px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
 					`}
 					onClick={() => setCurrentPanel('')}
 				>

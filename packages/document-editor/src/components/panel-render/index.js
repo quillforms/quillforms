@@ -54,26 +54,26 @@ const cancelBtnStyle = css`
 	border: 1px solid #b2328c !important;
 	color: #b2328c !important;
 	background: #fff !important;
-	border-radius: 16px !important;
-	padding: 12px 24px !important;
-	font-size: 18px !important;
+	border-radius: 10px !important;
+	padding: 8px 16px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	font-size: 14px !important;
 	font-weight: 500 !important;
-	height: 48px !important;
-	min-height: 48px !important;
-	line-height: 28px !important;
+	line-height: 1.4 !important;
 `;
 
 const saveBtnStyle = css`
 	border: 1px solid #b2328c !important;
 	color: #fff !important;
 	background: #b2328c !important;
-	border-radius: 16px !important;
-	padding: 12px 24px !important;
-	font-size: 18px !important;
+	border-radius: 10px !important;
+	padding: 8px 16px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	font-size: 14px !important;
 	font-weight: 500 !important;
-	height: 48px !important;
-	min-height: 48px !important;
-	line-height: 28px !important;
+	line-height: 1.4 !important;
 `;
 
 const PanelRender = () => {
