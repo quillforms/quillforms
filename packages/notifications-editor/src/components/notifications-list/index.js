@@ -72,9 +72,9 @@ const NotificationsList = ({
 			<div className="notifications-editor-notifciations-list__header">
 				<h4
 					className={css`
-						font-size: 18px;
+						font-size: 14px;
 						font-weight: 500;
-						line-height: 28px;
+						line-height: 1.4;
 						color: #777;
 					` }
 				>
