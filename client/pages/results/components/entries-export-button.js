@@ -26,17 +26,17 @@ const EntriesExportButton = ({ selectedIds = [] }) => {
 				type="button"
 				onClick={() => setVisible(true)}
 				className={css`
-					display: inline-flex;
-					align-items: center;
+					display: inline-flex !important;
+					align-items: center !important;
 					gap: 6px;
-					padding: 0;
-					margin: 0;
+					padding: 0 !important;
+					margin: 0 !important;
 					background: transparent;
-					border: none;
-					color: #b2328c;
-					font-size: 13px;
-					font-weight: 600;
-					line-height: 1.35;
+					border: none !important;
+					color: #b2328c !important;
+					font-size: 13px !important;
+					font-weight: 600 !important;
+					line-height: 1.35 !important;
 					cursor: pointer;
 
 					&:hover {

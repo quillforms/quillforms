@@ -28,7 +28,7 @@
     border-bottom: 1px solid #D9D9D9;
 }
 .quillforms-share-left__title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: #334155;
     margin: 0;
@@ -134,14 +134,14 @@
 .quillforms-share-info-banner__title {
     margin: 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.4;
     color: #334155;
 }
 .quillforms-share-info-banner__desc {
     margin: 0;
-    font-size: 15px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 1.4;
     color: #334155;
     font-weight: 500;
 }
@@ -169,11 +169,12 @@
     align-items: center;
     gap: 0;
     margin-bottom: 16px;
+	min-height: 36px;
     border: 1px solid #D9D9D9;
-    border-radius: 16px;
+    border-radius: 8px;
     background: #fff;
     overflow: hidden;
-    padding:  16px;
+    padding:  8px 12px;
 }
 .quillforms-share-field-row-mono {
 	margin-bottom: 0 !important;
@@ -185,7 +186,9 @@
     padding: 0;
     border: none !important;
     border-radius: 0;
-    font-size: 16px;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
     color: #334155;
     background: transparent !important;
     min-width: 0;
@@ -291,7 +294,7 @@
     color: #B2328C;
     border: 1px solid #B2328C;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
 	line-height: 26px;
@@ -393,10 +396,11 @@
 }
 .quillforms-share-dimension-input {
     width: 100%;
-    padding:12px !important;
+    padding:8px 12px !important;
     border: 1px solid #D9D9D9 !important;
-    border-radius: 10px !important;
-    font-size: 16px;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+	min-height: 36px !important;
 	line-height: 1.5;
     color: #334155;
     background: #fff;
@@ -408,12 +412,13 @@
 }
 .quillforms-share-dimension-select {
     width: 100%;
-    padding: 12px !important;
+    padding:8px 12px !important;
     border: 1px solid #D9D9D9 !important;
-    border-radius: 10px !important;
-    font-size: 16px;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+	min-height: 36px !important;
+	line-height: 1.35 !important;
     color: #334155;
-	line-height: 1.5;
     background: #fff;
     box-sizing: border-box;
     outline: none;
@@ -448,8 +453,8 @@
 
 .quillforms-share-qr-warning {
     margin: 16px 0 24px;
-    padding: 16px;
-    border-radius: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
     border: 1px solid #CB5301;
     background: #FAEADF;
     display: flex;
@@ -457,8 +462,8 @@
     gap: 4px;
 }
 .quillforms-share-qr-warning__icon {
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 13px;
+    line-height: 1.4;
     color: #CB5301;
 	font-weight: 500;
 }
@@ -650,9 +655,9 @@
     justify-content: space-between;
 }
 .quillforms-share-popup-preview-card__label {
-    font-size: 16px;
-    font-weight: 600;
-	line-height: 26px;
+    font-size: 14px;
+    font-weight: 500;
+	line-height: 1.4;
     color: #334155;
 }
 .quillforms-share-popup-preview-card__external {
@@ -698,9 +703,10 @@
     justify-content: space-between;
 }
 .quillforms-share-popup-settings-bar__label {
-    font-size: 16px;
+    font-size: 14px;
     color: #334155;
-	line-height: 26px;
+	line-height: 1.4;
+	font-weight: 500;
 }
 .quillforms-share-popup-settings-bar__btn {
     padding: 8px 12px;
@@ -708,9 +714,9 @@
     border: 1px solid #B2328C;
     background: transparent;
     color: #B2328C;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
-	line-height: 26px;
+	line-height: 1.4;
     cursor: pointer;
     transition: background 0.15s, color 0.15s;
 }
@@ -727,23 +733,26 @@
 
 /* Popup shortcode description */
 .quillforms-share-popup-shortcode-desc {
-    font-size: 16px;
+    font-size: 14px;
     color: #334155;
-    line-height: 26px;
-    font-weight: 600;
+    line-height: 1.4;
+    font-weight: 500;
     margin-bottom: 8px;
 }
 
 .quillforms-share-popup-shortcode-card {
     background: #FFFFFF;
 	border:1px solid #D9D9D9;
-    border-radius: 16px;
-    padding: 16px;
+    border-radius: 8px;
+    padding: 8px 12px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 }
 .quillforms-share-popup-shortcode-card__textarea {
+	font-size: 13px !important;
+	font-weight: 400 !important;
+	line-height: 1.35 !important;
     margin: 0;
     white-space: pre-wrap;
     word-break: break-word;
