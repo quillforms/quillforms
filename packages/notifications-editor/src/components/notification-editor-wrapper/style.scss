@@ -243,15 +243,16 @@
 
 .notifications-editor-notification-editor-wrapper__to-card {
 	.notifications-editor-alert-message-wrapper.has-error {
-		margin-top: 16px;
-		padding: 12px 14px;
-		border: 1px dashed #CB5301;
-		border-radius: 12px;
-		background: #FAEADF;
-		color: #CB5301;
-		font-size: 16px;
-		font-weight: 500;
-		line-height: 1.45;
+		margin-top: 0;
+	padding: 10px 12px;
+	line-height: 1.4;
+	font-size: 13px;
+	background: #FAEADF;
+	font-weight: 500;
+	color: #CB5301;
+	border-radius: 12px;
+	margin-top: 16px;
+	border: 1px dashed #CB5301;
 	}
 }
 
