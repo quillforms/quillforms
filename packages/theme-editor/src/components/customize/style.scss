@@ -115,20 +115,26 @@
 		border-radius: 8px !important;
 		margin-bottom: 16px !important;
 		overflow: hidden;
-		padding: 12px 14px !important;
+		/* flow-root avoids margin collapse so top/bottom padding stay visually even */
+		display: flow-root;
+		padding: 8px 14px !important;
+		box-sizing: border-box;
 	}
 
 	.components-panel__body .components-panel__body-title {
 		background: transparent !important;
 		margin: 0 !important;
 		border-bottom: none !important;
-		padding-top: 0 !important;
+		padding: 0 !important;
 		margin-bottom: 0 !important;
+		display: flex !important;
+		align-items: center !important;
+		min-height: 0;
 	}
 
 	.components-panel__body.is-opened .components-panel__body-title {
 		border-bottom: 1px solid #d9d9d9 !important;
-		padding-bottom: 16px !important;
+		padding-bottom: 8px !important;
 		margin-bottom: 16px !important;
 	}
 
@@ -136,10 +142,11 @@
 		color: #334155 !important;
 		font-size: 13px !important;
 		font-weight: 500 !important;
-		min-height: 0 !important;
+		min-height: 32px !important;
 		width: 100%;
 		text-align: left;
 		justify-content: flex-start !important;
+		align-items: center !important;
 		border-radius: 0 !important;
 		outline: none !important;
 		box-shadow: none !important;
@@ -160,7 +167,7 @@
 
 	.components-panel__body .components-panel__body-content,
 	.components-panel__body.is-opened>.components-panel__body-content {
-		padding: 16px 16px 20px !important;
+		padding: 16px !important;
 		margin: 0 !important;
 		border: none !important;
 	}
