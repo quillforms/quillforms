@@ -117,15 +117,15 @@ const WidthControl = ({ value, onChange }) => {
                         gap: 8px;
                         padding: 12px 8px;
                         background: #fff;
-                        color: ${value === option.key ? 'var(--wp-admin-theme-color)' : '#1e1e1e'};
-                        border: 2px solid ${value === option.key ? 'var(--wp-admin-theme-color)' : '#e2e4e7'};
+                        color: ${value === option.key ? '#B2328C' : '#334155'};
+                        border: 1px solid ${value === option.key ? '#B2328C' : '#d9d9d9'};
                         border-radius: 6px;
                         cursor: pointer;
                         transition: all 0.2s ease;
 
                         &:hover {
-                            border-color: var(--wp-admin-theme-color);
-                            color: var(--wp-admin-theme-color);
+                            border-color: #B2328C;
+                            color: #B2328C;
                         }
 
                         svg {
