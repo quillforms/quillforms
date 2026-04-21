@@ -155,7 +155,7 @@ const Emails = () => {
 
 						{ /* Header Image card */}
 						<div className="bg-white border border-[#E2E8F0] rounded-2xl p-5 flex flex-col gap-4">
-							<h3 className="text-lg font-semibold text-[#334155] leading-7 m-0">
+							<h3 className="text-base font-semibold text-[#334155] leading-7 m-0">
 								{__('Header Image', 'quillforms')}
 							</h3>
 
@@ -222,7 +222,7 @@ const Emails = () => {
 
 						{ /* Background Color card */}
 						<div className="bg-white border border-[#E2E8F0] rounded-2xl p-5 flex flex-col gap-4">
-							<h3 className="text-lg font-semibold text-[#334155] leading-7 m-0">
+							<h3 className="text-base font-semibold text-[#334155] leading-7 m-0">
 								{__('Background Color', 'quillforms')}
 							</h3>
 

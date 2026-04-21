@@ -298,7 +298,7 @@ const Addons = () => {
 												<h3 className="text-center mt-6 text-2xl font-bold text-[#334155]">
 													{__('Your addons list is still empty', 'quillforms')}
 												</h3>
-												<p className="text-center mt-3 text-lg font-medium leading-7 text-[#777]">
+												<p className="text-center mt-3 text-sm font-medium leading-5 text-[#777]">
 													{__('Your dashboard has no active addons. Connect tools to streamline communication, tracking, and automation.', 'quillforms')}
 												</p>
 											</div>

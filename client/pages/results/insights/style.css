@@ -18,7 +18,7 @@ top: 0;
 .form-insights-demo-overlay-content {
   background: white;
   padding: 32px;
-  border-radius: 16px;
+  border-radius: 12px;
   text-align: center;
   max-width: 400px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.2);
@@ -33,7 +33,7 @@ top: 0;
 .form-insights-demo-overlay-content h3 {
   margin: 0 0 16px;
   color: #202124;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .form-insights-demo-overlay-content p {
@@ -116,7 +116,7 @@ top: 0;
   margin: 0 auto;
   padding: 32px;
   background: white;
-  border-radius: 16px;
+  border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.1);
   text-align: center;
   position: relative;

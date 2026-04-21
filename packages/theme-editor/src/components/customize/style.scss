@@ -47,10 +47,12 @@
 
 	.theme-editor-customize__header-title {
 		margin: 0;
-		font-size: 18px;
-		font-weight: 500;
-		line-height: 1.3;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.4;
 		color: #334155;
+		text-transform: uppercase;
+		letter-spacing: 0.4px;
 	}
 
 	.theme-editor-customize__theme-title-section {
@@ -62,9 +64,9 @@
 	.theme-editor-customize__theme-title-label {
 		display: block;
 		margin: 0 0 8px;
-		font-size: 18px;
+		font-size: 13px;
 		font-weight: 500;
-		line-height: 1.3;
+		line-height: 1.35;
 		color: #334155;
 	}
 
@@ -81,18 +83,21 @@
 			width: 100% !important;
 			max-width: 100%;
 			box-sizing: border-box;
-			min-height: 52px;
-			padding: 14px 16px !important;
-			font-size: 15px !important;
-			line-height: 1.4 !important;
+			min-height: 36px !important;
+			height: 36px !important;
+			padding: 8px 12px !important;
+			font-size: 13px !important;
+			font-weight: 400 !important;
+			line-height: 1.35 !important;
 			color: #334155 !important;
 			background: #fff !important;
 			border: 1px solid #d9d9d9 !important;
-			border-radius: 16px !important;
+			border-radius: 8px !important;
 			box-shadow: none !important;
 
 			&::placeholder {
 				color: #94a3b8 !important;
+				font-size: 13px !important;
 				opacity: 1;
 			}
 
@@ -107,10 +112,10 @@
 	.components-panel__body {
 		background: #f7f8fa !important;
 		border: 1px solid #d9d9d9 !important;
-		border-radius: 16px !important;
+		border-radius: 8px !important;
 		margin-bottom: 16px !important;
 		overflow: hidden;
-		padding: 16px !important;
+		padding: 12px 14px !important;
 	}
 
 	.components-panel__body .components-panel__body-title {
@@ -129,7 +134,7 @@
 
 	.components-panel__body .components-panel__body-toggle {
 		color: #334155 !important;
-		font-size: 16px !important;
+		font-size: 13px !important;
 		font-weight: 500 !important;
 		min-height: 0 !important;
 		width: 100%;
@@ -172,15 +177,15 @@
 
 	/* Orange hint (background image) */
 	.theme-editor-customize__notice {
-		padding: 16px;
+		padding: 12px 14px;
 		margin: 0 0 16px;
 		background: #faeadf;
 		border: 1px solid #cb5301;
-		border-radius: 16px;
+		border-radius: 8px;
 		color: #cb5301;
-		font-size: 16px;
+		font-size: 13px;
 		font-weight: 500;
-		line-height: 1.5;
+		line-height: 1.45;
 
 		p {
 			margin: 0;
@@ -198,13 +203,14 @@
 	.theme-editor-customize__subsection-label {
 		display: block;
 		margin: 0 0 8px;
-		font-size: 16px;
-		font-weight: 600;
+		font-size: 13px;
+		font-weight: 500;
 		color: #334155;
-		line-height: 1.3;
+		line-height: 1.35;
 
 		&--small {
-			font-size: 14px;
+			font-size: 12px;
+			font-weight: 500;
 		}
 	}
 
@@ -297,7 +303,7 @@
 	}
 
 	.theme-editor-customize__dropzone-text {
-		font-size: 14px;
+		font-size: 13px;
 		font-weight: 500;
 		text-align: center;
 		line-height: 1.4;
@@ -332,10 +338,10 @@
 
 	.theme-editor-customize__bg-image-title {
 		margin: 0;
-		font-size: 16px;
-		font-weight: 600;
+		font-size: 13px;
+		font-weight: 500;
 		color: #334155;
-		line-height: 1.3;
+		line-height: 1.35;
 	}
 
 	.theme-editor-customize__bg-image-actions {
@@ -389,7 +395,7 @@
 		align-items: flex-start;
 		gap: 12px;
 		margin: 0;
-		font-size: 16px;
+		font-size: 13px;
 		font-weight: 500;
 		line-height: 1.45;
 		box-sizing: border-box;
@@ -455,15 +461,15 @@
 			border-radius: 0 !important;
 		}
 
-		/* Left / Top — match .theme-editor-customize__subsection-label */
+		/* Left / Top — match .theme-editor-customize__subsection-label (13px) */
 		.focal-point-picker__controls .components-input-control__label,
 		.components-focal-point-picker-control .focal-point-picker__controls .components-input-control__label,
 		.components-focal-point-picker-control .components-unit-control .components-input-control__label,
 		.focal-point-picker__controls-position-unit-control .components-input-control__label {
-			font-size: 16px !important;
-			font-weight: 600 !important;
+			font-size: 13px !important;
+			font-weight: 500 !important;
 			color: #334155 !important;
-			line-height: 1.3 !important;
+			line-height: 1.35 !important;
 			margin-bottom: 8px !important;
 			text-transform: none !important;
 			letter-spacing: normal !important;
@@ -490,19 +496,20 @@
 			width: 100% !important;
 			max-width: 100%;
 			box-sizing: border-box !important;
-			min-height: 52px !important;
-			height: auto !important;
-			padding: 14px 16px !important;
-			font-size: 15px !important;
-			line-height: 1.4 !important;
+			min-height: 36px !important;
+			height: 36px !important;
+			padding: 8px 12px !important;
+			font-size: 13px !important;
+			line-height: 1.35 !important;
 			color: #334155 !important;
 			background: #fff !important;
 			border: 1px solid #d9d9d9 !important;
-			border-radius: 16px !important;
+			border-radius: 8px !important;
 			box-shadow: none !important;
 
 			&::placeholder {
 				color: #94a3b8 !important;
+				font-size: 13px !important;
 				opacity: 1;
 			}
 
@@ -523,9 +530,9 @@
 		.components-unit-control .components-input-control__container,
 		.components-focal-point-picker .components-input-control__container {
 			border: 1px solid #d9d9d9 !important;
-			border-radius: 16px !important;
+			border-radius: 8px !important;
 			background: #fff !important;
-			min-height: 52px;
+			min-height: 36px;
 			box-sizing: border-box;
 		}
 
@@ -539,26 +546,26 @@
 		.components-focal-point-picker .components-input-control__input {
 			border: none !important;
 			background: transparent !important;
-			border-radius: 16px !important;
-			min-height: 48px !important;
-			padding: 12px 14px !important;
-			font-size: 15px !important;
+			border-radius: 8px !important;
+			min-height: 32px !important;
+			padding: 6px 10px !important;
+			font-size: 13px !important;
 			color: #334155 !important;
 			box-shadow: none !important;
 		}
 
 		.components-unit-control__select {
-			min-height: 52px !important;
+			min-height: 36px !important;
 			border-left: 1px solid #d9d9d9 !important;
-			border-radius: 0 15px 15px 0 !important;
+			border-radius: 0 7px 7px 0 !important;
 		}
 
 		.components-base-control__label:not(.components-input-control__label),
 		.components-text-control__label {
-			font-size: 16px;
-			font-weight: 600;
+			font-size: 13px;
+			font-weight: 500;
 			color: #334155;
-			line-height: 1.3;
+			line-height: 1.35;
 			margin-bottom: 8px;
 		}
 	}
@@ -729,7 +736,7 @@
 				height: auto !important;
 				padding: 8px 12px !important;
 				border-radius: 8px !important;
-				font-size: 16px !important;
+				font-size: 13px !important;
 				font-weight: 500 !important;
 				box-shadow: none !important;
 				background: #fff !important;
@@ -769,7 +776,7 @@
 		.theme-editor-customize__clear-link--overlay {
 			padding: 8px 18px;
 			border-radius: 8px;
-			font-size: 14px;
+			font-size: 13px;
 			font-weight: 500;
 			text-decoration: none;
 			border: 1px solid #777;
@@ -820,7 +827,7 @@
 			background: transparent !important;
 			background-image: none !important;
 			box-shadow: none !important;
-			font-size: 14px !important;
+			font-size: 13px !important;
 			font-weight: 600 !important;
 			color: #64748b !important;
 
@@ -879,8 +886,8 @@
 			width: 100%;
 			margin-top: 16px;
 			margin-bottom: 10px;
-			font-size: 15px;
-			font-weight: 600;
+			font-size: 13px;
+			font-weight: 500;
 			color: #334155;
 			line-height: 1.35;
 		}
@@ -891,14 +898,14 @@
 		}
 
 		.admin-components-font-picker .admin-components-font-picker__select {
-			min-height: 52px;
+			min-height: 36px;
 			box-sizing: border-box;
 			align-items: center;
-			padding: 16px;
+			padding: 8px 12px;
 			border-radius: 8px;
 			border: 1px solid #d9d9d9;
 			background: #fff;
-			font-size: 14px;
+			font-size: 13px;
 			color: #334155;
 		}
 
@@ -942,7 +949,7 @@
 
 			.components-checkbox-control__label {
 				margin: 0;
-				font-size: 16px;
+				font-size: 13px;
 				font-weight: 500;
 				color: #334155;
 				line-height: 1.4;
@@ -1087,7 +1094,7 @@
 			}
 
 			.components-base-control__label {
-				font-size: 18px !important;
+				font-size: 13px !important;
 				font-weight: 500 !important;
 				text-transform: capitalize !important;
 			}
@@ -1097,9 +1104,9 @@
 			}
 
 			.components-text-control__input {
-				min-height: 48px !important;
+				min-height: 36px !important;
 				border-radius: 8px !important;
-				font-size: 14px !important;
+				font-size: 13px !important;
 				color: #334155 !important;
 			}
 		}

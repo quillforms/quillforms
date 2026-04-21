@@ -1,35 +1,52 @@
 .block-editor-block-controls {
 	height: 100%;
 	overflow: auto;
-	padding: 0px 20px 20px;
+	padding: 0 12px 12px;
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 8px;
 }
 
-/* Per-block settings — match .block-editor-block-default-controls cards & labels */
 .block-editor-block-type-controls {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 8px;
 	width: 100%;
 	box-sizing: border-box;
 
 	.admin-components-base-control {
 		margin-bottom: 0;
 		box-sizing: border-box !important;
-		padding: 16px 20px !important;
-		background: #f7f8fa !important;
+		min-height: 0 !important;
+		padding: 8px 10px !important;
+		padding-top: 8px !important;
+		padding-bottom: 8px !important;
+		background: #f8fafc !important;
 		border-radius: 8px !important;
-		border: 1px solid #d9d9d9 !important;
-		gap: 16px;
+		border: 1px solid #e2e8f0 !important;
+		gap: 8px;
+	}
+
+	.admin-components-control-wrapper {
+		padding: 6px 0 !important;
 	}
 
 	.admin-components-control-label {
 		color: #334155;
-		font-size: 16px;
+		font-size: 13px;
 		font-weight: 500;
 		line-height: 1.35;
+	}
+
+	.admin-components-text-control input {
+		min-height: 36px !important;
+		height: 36px !important;
+		padding: 8px 40px 8px 12px !important;
+		border-radius: 8px !important;
+		border-color: #d9d9d9 !important;
+		font-size: 13px !important;
+		font-weight: 400 !important;
+		line-height: 1.35 !important;
 	}
 }
 

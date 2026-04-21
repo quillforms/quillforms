@@ -123,7 +123,7 @@ const Products = () => {
 
 	return (
 		<div className="quillforms-payments-page-settings__products">
-			<h3 className='!m-0 !text-[#334155] !text-2xl !font-medium !mb-4'> Products </h3>
+			<h3 className='!m-0 !text-[#334155] !text-base !font-semibold !mb-4'> Products </h3>
 			<div className="">
 				<BaseControl>
 					<ControlWrapper orientation="vertical">

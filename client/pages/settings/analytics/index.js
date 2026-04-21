@@ -138,7 +138,7 @@ const Analytics = () => {
 										<div className="w-12 h-12 flex-shrink-0 flex items-center justify-center [&_img]:w-10 [&_img]:h-10 [&_svg]:w-10 [&_svg]:h-10">
 											<img src={addon.assets?.icon} alt={addon.name} />
 										</div>
-										<span className="text-lg font-semibold leading-7 text-[#334155] truncate">
+										<span className="text-sm font-semibold leading-7 text-[#334155] truncate">
 											{addon.name}
 										</span>
 									</div>

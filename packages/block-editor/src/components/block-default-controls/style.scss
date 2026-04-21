@@ -9,24 +9,51 @@
 .block-editor-block-default-controls {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 8px;
 
 	>.admin-components-base-control {
 		margin-bottom: 0;
 		box-sizing: border-box !important;
-		padding: 16px 20px !important;
-		background: #f7f8fa !important;
+		min-height: 0 !important;
+		padding: 8px 10px !important;
+		padding-top: 8px !important;
+		padding-bottom: 8px !important;
+		background: #f8fafc !important;
 		border-radius: 8px !important;
-		border: 1px solid #d9d9d9 !important;
-		/* Space between toggle row and fields that open below when enabled */
-		gap: 16px;
+		border: 1px solid #e2e8f0 !important;
+		gap: 8px;
+	}
+
+	.admin-components-control-wrapper {
+		padding: 6px 0 !important;
+	}
+
+	/* Choices label + Bulk Answers */
+	.admin-components-control-wrapper.horizontal:has(.admin-components-choices-bulk-btn) {
+		margin-bottom: 2px !important;
+
+		.admin-components-control-label {
+			font-weight: 600 !important;
+		}
 	}
 
 	.admin-components-control-label {
 		color: #334155;
-		font-size: 16px;
+		font-size: 13px;
 		font-weight: 500;
 		line-height: 1.35;
+	}
+
+	/* Match selects: single-line text + merge-tag affordance */
+	.admin-components-text-control input {
+		min-height: 36px !important;
+		height: 36px !important;
+		padding: 8px 40px 8px 12px !important;
+		border-radius: 8px !important;
+		border-color: #d9d9d9 !important;
+		font-size: 13px !important;
+		font-weight: 400 !important;
+		line-height: 1.35 !important;
 	}
 }
 
@@ -56,7 +83,7 @@
 }
 
 .block-editor-default-attachment__heading {
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 500;
 	line-height: 1.35;
 	color: #334155;
@@ -271,9 +298,9 @@
 	align-items: center;
 	justify-content: center;
 	gap: 4px;
-	padding: 8px 12px;
+	padding: 8px 10px;
 	box-sizing: border-box;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 500;
 	line-height: 1.25;
 	color: #334155;
@@ -350,15 +377,15 @@
 }
 
 .block-editor-default-attachment__dropzone-line1 {
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 500;
 	color: #334155;
 	line-height: 1.4;
 }
 
 .block-editor-default-attachment__dropzone-line2 {
-	font-size: 14px;
-	font-weight: 500;
+	font-size: 13px;
+	font-weight: 600;
 	color: #b2328c;
 	line-height: 1.35;
 }

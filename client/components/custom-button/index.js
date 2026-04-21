@@ -1,5 +1,3 @@
-import { Button } from '@wordpress/components';
-
 const CustomButton = ({
 	text,
 	icon,
@@ -16,15 +14,15 @@ const CustomButton = ({
 		danger:
 			'bg-[#E13B3B] !text-white hover:bg-[#E13B3B] hover:!text-white focus:!text-white active:!text-white',
 		outline:
-			'bg-white p-3 border !border-border-color rounded-2xl hover:!border-border-color focus:!border-border-color active:!border-border-color focus:!outline-none !text-[#334155]',
+			'bg-white border !border-border-color hover:!border-border-color focus:!border-border-color active:!border-border-color focus:!outline-none !text-[#334155]',
 		outlineSecondary:
-			'bg-white border !border-[#B2328C] rounded-2xl hover:!border-[#B2328C] focus:!border-[#B2328C] active:!border-[#B2328C] focus:!outline-none !text-[#B2328C]',
+			'bg-white border !border-[#B2328C] hover:!border-[#B2328C] focus:!border-[#B2328C] active:!border-[#B2328C] focus:!outline-none !text-[#B2328C]',
 	};
 
-	const baseClasses =
-		variant === 'outline'
-			? `flex items-center  ${icon ? 'gap-1' : ''} ${variantClasses[variant]} ${className}`
-			: `flex items-center ${icon ? 'justify-between' : 'justify-center'} gap-1 text-lg font-medium leading-7 py-3 px-6 rounded-2xl ${variantClasses[variant]} ${className}`;
+	/* Admin default: 38px control height, rounded-xl — keep in sync with CustomSearch & view toggles */
+	const sharedLayout = `inline-flex items-center gap-2 box-border text-sm font-medium leading-5 min-h-[38px] py-2 px-4 rounded-xl ${className}`;
+
+	const baseClasses = `${sharedLayout} ${icon ? 'justify-between' : 'justify-center'} ${variantClasses[variant]}`;
 
 	return (
 		<button className={baseClasses} onClick={onClick} {...props}>

@@ -8,6 +8,20 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: 12px;
+
+		.admin-components-control-label {
+			font-size: 13px;
+			font-weight: 500;
+			line-height: 1.35;
+			color: #334155;
+		}
+
+		.admin-components-select-control,
+		.combobox-control {
+			flex: 1 1 0;
+			min-width: 0;
+		}
 	}
 
 	&.vertical {

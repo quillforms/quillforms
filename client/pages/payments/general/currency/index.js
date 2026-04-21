@@ -56,7 +56,7 @@ const Currency = () => {
 		<div className=" grid grid-cols-1 md:grid-cols-2 gap-4 ">
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
-					<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7'>{__('Currency', 'quillforms')}</span>} />
+					<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5'>{__('Currency', 'quillforms')}</span>} />
 					<SelectControl
 						className={css`
 							width: 100%;
@@ -66,15 +66,14 @@ const Currency = () => {
 							.components-base-control__field {
 								margin-bottom: 0 !important;
 							}
-							/* Style the visible select input */
 							.components-custom-select-control__button {
 								margin: 0 !important;
-								padding: 20px 16px !important;
-								border-radius: 12px !important;
+								padding: 10px 14px !important;
+								border-radius: 10px !important;
 								border: 1px solid #d9d9d9 !important;
-								font-size: 16px !important;
+								font-size: 14px !important;
 								color: #334155 !important;
-								line-height: 28px !important;
+								line-height: 1.5 !important;
 								background-color: #fff;
 							}
 						` }
@@ -102,7 +101,7 @@ const Currency = () => {
 			</BaseControl>
 			<BaseControl>
 				<ControlWrapper orientation="vertical">
-					<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7'>{__('Currency Format', 'quillforms')}</span>} />
+					<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5'>{__('Currency Format', 'quillforms')}</span>} />
 					<SelectControl
 						className={css`
 							width: 100%;
@@ -112,16 +111,14 @@ const Currency = () => {
 							.components-base-control__field {
 								margin-bottom: 0 !important;
 							}
-							/* Style the visible select input */
-							/* Style the visible select input */
 							.components-custom-select-control__button {
 								margin: 0 !important;
-								padding: 20px 16px !important;
-								border-radius: 12px !important;
+								padding: 10px 14px !important;
+								border-radius: 10px !important;
 								border: 1px solid #d9d9d9 !important;
-								font-size: 16px !important;
+								font-size: 14px !important;
 								color: #334155 !important;
-								line-height: 28px !important;
+								line-height: 1.5 !important;
 								background-color: #fff;
 							}
 						` }

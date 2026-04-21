@@ -6,34 +6,16 @@
 	right: 0;
 	left: 0;
 	width: 100%;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 	padding: 16px;
-	background: #FFF;
+	background: #fff;
 	box-shadow: 0 4px 40px 0 rgba(87, 3, 3, 0.06);
 
-	.qf-admin-header__right,
-	.qf-admin-header__left,
-	.qf-admin-header__dashboard-link {
+	.qf-admin-header__right {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 8px;
-	}
-
-	.qf-admin-header__dashboard-link {
-		text-decoration: none;
-		color: #B2328C;
-		font-weight: 500;
-		font-size: 18px;
-		line-height: 28px;
-
-		&:focus,
-        &:focus-visible,
-        &:active {
-          outline: none !important;
-          border: none !important;
-          box-shadow: none !important;
-        }
 	}
 }

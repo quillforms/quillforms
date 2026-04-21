@@ -313,7 +313,7 @@ const HomeContent = () => {
 		<div className="quillforms-home">
 			<div className="quillforms-home__header">
 				<div className="quillforms-home__header-left">
-					<h1 className="!text-2xl !font-bold !text-[#001D4F]">{__('Forms', 'quillforms')}</h1>
+					<h1 className="quillforms-home__page-title">{__('Forms', 'quillforms')}</h1>
 				</div>
 				<div className="quillforms-home__header-right">
 					<div className="view-mode-toggle">
@@ -347,7 +347,7 @@ const HomeContent = () => {
 						<div className="flex items-center gap-3">
 							<button
 								type="button"
-								className="flex items-center gap-1 text-lg font-medium leading-7 text-[#E13B3B] focus:outline-none bg-transparent border-none"
+								className="flex items-center gap-1 text-sm font-medium leading-5 text-[#E13B3B] focus:outline-none bg-transparent border-none"
 								onClick={() => {
 									setShowBulkTrashModal(true);
 								}}
@@ -401,7 +401,7 @@ const HomeContent = () => {
 							checked={selectAll}
 							onChange={handleSelectAll}
 						/>
-						<p className="m-0 text-base font-semibold leading-7 text-[#B2328C]">
+						<p className="m-0 text-sm font-medium leading-5 text-[#B2328C]">
 							{__('Select all', 'quillforms')}
 						</p>
 					</div>
@@ -409,17 +409,17 @@ const HomeContent = () => {
 						className="sort-dropdown"
 						position="bottom left"
 						renderToggle={({ isOpen, onToggle }) => (
-							<div className="flex items-center gap-3">
-								<p className="text-lg font-semibold leading-7 text-[#334155]">
+							<div className="sort-dropdown__toggle">
+								<span className="sort-dropdown__label">
 									{__('Sort by:', 'quillforms')}
-								</p>
+								</span>
 								<CustomButton
-									className='!py-1 !px-2 !capitalize'
+									className="sort-dropdown__button !capitalize"
 									variant="outline"
 									text={sortBy}
 									onClick={onToggle}
 									aria-expanded={isOpen}
-									icon={<ArrowButtonIcon />}
+									icon={<ArrowButtonIcon width={16} height={16} />}
 								/>
 							</div>
 						)}

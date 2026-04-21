@@ -34,7 +34,7 @@
   }
   
   .form-locker-subtitle {
-    font-size: 18px;
+    font-size: 14px;
     color: #777;
     text-align: center;
     margin: 0 0 48px;
@@ -156,7 +156,7 @@
   }
   
   .form-locker-password-input button {
-    padding: 12px 24px;
+    padding: 8px 16px;
     background: #B2328C;
     color: white;
     border: none;
@@ -303,7 +303,7 @@
   }
   
   .form-locker-alert-icon {
-    font-size: 24px;
+    font-size: 20px;
   }
   
   .form-locker-alert-content h4 {
@@ -382,7 +382,7 @@
   }
   
   .form-locker-upgrade-title {
-    font-size: 24px;
+    font-size: 18px;
     margin: 0 0 12px;
   }
   

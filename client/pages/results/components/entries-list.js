@@ -183,8 +183,8 @@ export const EntriesList = ({
 	const list = Array.isArray(entries) ? (
 		<>
 			<div className="qf_entry-list-responses-count">
-				<div className='flex justify-between items-center border-b border-[#D9D9D9] pb-5'>
-					<div className="qf_entry-list-actions flex items-center text-lg font-semibold leading-7 ">
+				<div className="qf-entry-list__toolbar">
+					<div className="qf-entry-list__toolbar-left">
 						<CheckboxControl
 							checkboxStatus={
 								size(selectedEntries) === size(entries)
@@ -203,10 +203,12 @@ export const EntriesList = ({
 								}
 							}}
 						/>
-						{__('Select all', 'quillforms')}
+						<span className="qf-entry-list__toolbar-label">
+							{__('Select all', 'quillforms')}
+						</span>
 					</div>
 
-					<div className="flex items-center gap-3">
+					<div className="qf-entry-list__toolbar-right">
 						{applyFilters(
 							'QuillForms.Entries.ExportButton.Render',
 							<EntriesExportButton
@@ -217,26 +219,25 @@ export const EntriesList = ({
 						)}
 
 						{selectedEntries.length > 0 && (
-							<div className="flex items-center gap-3 pl-3 border-l border-[#D9D9D9]">
+							<div className="qf-entry-list__toolbar-delete-wrap">
 								<button
 									type="button"
 									className={css`
 										background: transparent;
 										border: none;
-										color: #E13B3B;
-										font-size: 18px;
+										color: #e13b3b;
+										font-size: 13px;
 										font-weight: 500;
-										line-height: 28px;
+										line-height: 1.35;
 										display: inline-flex;
 										align-items: center;
 										gap: 6px;
 										cursor: pointer;
-
 									`}
 									onClick={() => setDeleteModalOpen(true)}
 								>
 									<span>{__('Delete all', 'quillforms')}</span>
-									<TrashIcon width={24} height={24} />
+									<TrashIcon width={18} height={18} />
 								</button>
 							</div>
 						)}
@@ -490,7 +491,7 @@ export const EntriesList = ({
 									</p>
 									<p className={css`
 									color: #777;
-									font-size: 18px;
+									font-size: 14px;
 									font-weight: 500;
 									line-height: 28px;
 									text-align: center;

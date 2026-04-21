@@ -40,16 +40,12 @@ import Coupons from './coupons';
 import VideoIcon from '../../components/icon/video-icon';
 
 const PaymentsPage = ({ params }) => {
-	const [showReleaseModal, setShowReleaseModal] = useState(false);
+	const [paymentsTutorialOpen, setPaymentsTutorialOpen] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => {
-			localStorage.setItem('qf_payments_modal_viewed', true);
-		}, 100);
-	}, [showReleaseModal]);
-
-	useEffect(() => {
-		setShowReleaseModal(true);
+		if (!localStorage.getItem('qf_payments_modal_viewed')) {
+			setPaymentsTutorialOpen(true);
+		}
 	}, []);
 	const formId = params.id;
 
@@ -266,42 +262,53 @@ const PaymentsPage = ({ params }) => {
 				}}
 			>
 				<div
-					className="quillforms-payments-page p-5 bg-white rounded-2xl mt-0 mx-4 mb-4 "
+					className="quillforms-payments-page bg-white rounded-2xl mt-0 mx-4 mb-4"
 					style={{ boxShadow: '0 4px 40px 0 rgba(87, 3, 3, 0.06)' }}
 				>
-					<div className="quillforms-payments-page-header">
-						<div className="quillforms-payments-page-heading">
-							<p>{__('Accept payments via your forms easily!', 'quillforms')}</p>
-							<p>
+					<div className="quillforms-payments-page-banner">
+						<div className="quillforms-payments-page-banner__icon">
+							<Icon />
+						</div>
+						<div className="quillforms-payments-page-banner__text">
+							<span className="quillforms-payments-page-banner__kicker">
+								{__('Payments', 'quillforms')}
+							</span>
+							<h2 className="quillforms-payments-page-banner__title">
+								{__('Accept payments via your forms easily!', 'quillforms')}
+							</h2>
+							<p className="quillforms-payments-page-banner__desc">
 								{__('Create orders, accept donations or get any type of payments with the most versatile form builder that integrates with your favorite payment gateways!', 'quillforms')}
 							</p>
 						</div>
-						<CustomButton
-							className=" !py-3 !px-6"
-							variant="outlineSecondary"
-							icon={<VideoIcon />}
-							text={__('Watch tutorial', 'quillforms')}
-						/>
+						<div className="quillforms-payments-page-banner__cta">
+							<CustomButton
+								className="!flex-shrink-0"
+								variant="outlineSecondary"
+								icon={<VideoIcon />}
+								text={__('Watch tutorial', 'quillforms')}
+								onClick={() => setPaymentsTutorialOpen(true)}
+							/>
+						</div>
 					</div>
-					<div className="quillforms-payments-page-settings flex flex-col gap-5">
-						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+					<div className="quillforms-payments-page-settings flex flex-col gap-4 p-5">
+						<div className='p-5 rounded-xl bg-[#F7F8FA] border border-border-color'>
 							<General />
 						</div>
-						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color'>
+						<div className='p-5 rounded-xl bg-[#F7F8FA] border border-border-color'>
 							<Labels />
 						</div>
-						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
-								<Products />
+						<div className='p-5 rounded-xl bg-[#F7F8FA] border border-border-color'>
+							<Products />
 						</div>
-						<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
-								<Coupons />
-							</div>
-							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
-								<Models />
-							</div>
-							<div className=' p-5 rounded-2xl bg-[#F7F8FA] border border-border-color min-h-[500px]'>
-								<Methods />
-							</div>
+						<div className='p-5 rounded-xl bg-[#F7F8FA] border border-border-color'>
+							<Coupons />
+						</div>
+						<div className='p-5 rounded-xl bg-[#F7F8FA] border border-border-color'>
+							<Models />
+						</div>
+						<div className='p-5 rounded-xl bg-[#F7F8FA] border border-border-color'>
+							<Methods />
+						</div>
 						<GatewaysOptions />
 
 						<Button
@@ -315,12 +322,11 @@ const PaymentsPage = ({ params }) => {
 					</div>
 				</div>
 			</PaymentsContextProvider>
-			{showReleaseModal &&
-				!localStorage.getItem('qf_payments_modal_viewed') && (
+			{paymentsTutorialOpen && (
 					<Modal
 						focusOnMount={true}
-						shouldCloseOnEsc={false}
-						shouldCloseOnClickOutside={false}
+						shouldCloseOnEsc={true}
+						shouldCloseOnClickOutside={true}
 						className={css`
 							border: none !important;
 							border-radius: 9px;
@@ -344,7 +350,8 @@ const PaymentsPage = ({ params }) => {
 						` }
 						title={__('How to accept payments with Quill Forms?', 'quillforms')}
 						onRequestClose={() => {
-							setShowReleaseModal(false);
+							setPaymentsTutorialOpen(false);
+							localStorage.setItem('qf_payments_modal_viewed', '1');
 						}}
 					>
 						<iframe

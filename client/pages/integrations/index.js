@@ -25,6 +25,7 @@ import IntegrationModal from './integration-modal';
 import CustomTabs from '../../components/custom-tabs';
 import CustomSearch from '../../components/custom-search';
 import CustomButton from '../../components/custom-button';
+import VideoIcon from '../../components/icon/video-icon';
 
 // ---------------------------------------------------------------------------
 // Category definitions (aligned with Settings → Integrations)
@@ -150,6 +151,37 @@ const IntegrationsPage = ({ params }) => {
 	return (
 		<div className="quillforms-integrations-page-outer pt-0 px-4 pb-4 box-border w-full">
 			<div className="quillforms-integrations-page bg-white rounded-2xl w-full" style={{ boxShadow: '0 4px 40px 0 rgba(87, 3, 3, 0.06)' }}>
+				<div className="quillforms-integrations-page-banner">
+					<div className="quillforms-integrations-page-banner__icon">
+						<Icon />
+					</div>
+					<div className="quillforms-integrations-page-banner__text">
+						<span className="quillforms-integrations-page-banner__kicker">
+							{__('Integrations', 'quillforms')}
+						</span>
+						<h2 className="quillforms-integrations-page-banner__title">
+							{__('Connect your form to your best-loved apps', 'quillforms')}
+						</h2>
+						<p className="quillforms-integrations-page-banner__desc">
+							{__('Establish workflows that work for you. Automate your marketing, sales, and service processes to make your form more efficient.', 'quillforms')}
+						</p>
+					</div>
+					<div className="quillforms-integrations-page-banner__cta">
+						<CustomButton
+							className="!flex-shrink-0"
+							variant="outlineSecondary"
+							icon={<VideoIcon />}
+							text={__('Watch tutorial', 'quillforms')}
+							onClick={() =>
+								window.open(
+									'https://www.youtube.com/@quillforms',
+									'_blank',
+									'noopener,noreferrer'
+								)
+							}
+						/>
+					</div>
+				</div>
 				<CustomTabs
 					className="quillforms-integrations-page__tabs"
 					tabs={tabs}
@@ -287,8 +319,8 @@ const IntegrationsPage = ({ params }) => {
 																		? css`
 												color: #334155 !important;
 												font-weight: 600 !important;
-												font-size: 18px !important;
-												line-height: 28px !important;
+												font-size: 14px !important;
+												line-height: 1.4 !important;
 											`
 																		: ''
 																		}`}

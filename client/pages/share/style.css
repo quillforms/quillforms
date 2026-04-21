@@ -32,7 +32,7 @@
     font-weight: 500;
     color: #334155;
     margin: 0;
-    line-height: 28px;
+    line-height: 1.4;
 }
 
 /* ── Accordion ── */
@@ -58,7 +58,7 @@
 }
 .quillforms-share-accordion__item {
     border: 1px solid #D9D9D9;
-    border-radius: 16px;
+    border-radius: 12px;
     background: #F7F8FA;
 }
 
@@ -91,7 +91,7 @@
     gap: 10px;
 }
 .quillforms-share-accordion__shortcode-bracket {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     color: #B2328C;
 }
@@ -133,9 +133,9 @@
 }
 .quillforms-share-info-banner__title {
     margin: 0;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 28px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
     color: #334155;
 }
 .quillforms-share-info-banner__desc {
@@ -149,9 +149,9 @@
 /* ── Form field controls inside accordion ── */
 .quillforms-share-field-label {
     display: block;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
-	line-height: 28px;
+	line-height: 1.4;
     color: #334155;
     margin-bottom: 8px;
 }
@@ -194,7 +194,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-right: 12px;
-	line-height: 28px;
+	line-height: 1.5;
 }
 .quillforms-share-field-textarea {
     width: 100%;
@@ -218,9 +218,9 @@
     width: 100%;
     padding: 16px !important;
     border: 1px solid #D9D9D9 !important;
-    border-radius: 16px !important;
+    border-radius: 10px !important;
     font-size: 16px;
-	line-height: 28px;
+	line-height: 1.5;
     color: #334155;
     background: #fff;
     box-sizing: border-box;
@@ -243,9 +243,9 @@
     flex: 1;
     padding: 16px !important;
     border: 1px solid #D9D9D9 !important;
-    border-radius: 16px !important;
-    font-size: 18px !important;
-    line-height: 28px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
     color: #334155;
     background: #fff !important;
     outline: none !important;
@@ -261,15 +261,15 @@
 .quillforms-share-slug-save-btn {
     display: inline-flex;
     align-items: center;
-    padding: 12px 24px;
+    padding: 8px 16px;
     background: #fff;
     color: #B2328C;
     border: 1px solid #B2328C;
-    border-radius: 16px;
-    font-size: 18px;
+    border-radius: 10px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    line-height: 28px;
+    line-height: 1.4;
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -395,9 +395,9 @@
     width: 100%;
     padding:12px !important;
     border: 1px solid #D9D9D9 !important;
-    border-radius: 16px !important;
+    border-radius: 10px !important;
     font-size: 16px;
-	line-height: 28px;
+	line-height: 1.5;
     color: #334155;
     background: #fff;
     box-sizing: border-box;
@@ -410,10 +410,10 @@
     width: 100%;
     padding: 12px !important;
     border: 1px solid #D9D9D9 !important;
-    border-radius: 16px !important;
+    border-radius: 10px !important;
     font-size: 16px;
     color: #334155;
-	line-height: 28px;
+	line-height: 1.5;
     background: #fff;
     box-sizing: border-box;
     outline: none;
@@ -483,14 +483,14 @@
 }
 
 .quillforms-share-qr-download-btn {
-    padding: 12px 24px;
-    border-radius: 16px;
+    padding: 8px 16px;
+    border-radius: 10px;
     border: none;
     background: linear-gradient(90deg, #B2328C 0%, #D23FB1 100%);
     color: #fff;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
-	line-height: 28px;
+	line-height: 1.4;
     cursor: pointer;
     white-space: nowrap;
 }
@@ -780,7 +780,7 @@
     height: 90vh !important;
     max-height: 90vh !important;
     margin: auto !important;
-    border-radius: 16px !important;
+    border-radius: 10px !important;
     border: none !important;
 	padding: 24px !important;
     box-shadow: 0 20px 60px rgba(0,0,0,0.18) !important;
@@ -815,8 +815,8 @@
 }
 .quillforms-share-popup-modal .components-modal__header h1,
 .quillforms-share-popup-modal .components-modal__header .components-modal__header-heading {
-    font-size: 24px !important;
-    font-weight: 700 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
     color: #334155 !important;
     margin: 0 !important;
 }
@@ -906,12 +906,12 @@
 .quillforms-share-popup-modal__field > label,
 .quillforms-share-popup-modal__label {
     display: block;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     color: #334155;
     margin: 0;
     padding: 0;
-    line-height: 28px;
+    line-height: 1.4;
 }
 .quillforms-share-popup-modal .components-circular-option-picker__option-wrapper {
     width: 26px !important;
@@ -994,7 +994,7 @@
     border: 1px solid #B2328C;
     background: #fff;
     color: #B2328C;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -1038,9 +1038,9 @@
 .quillforms-share-popup-modal__input {
     padding: 12px !important;
     border: 1px solid #D9D9D9 !important;
-    border-radius: 16px !important;
-    font-size: 18px !important;
-    line-height: 28px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
     color: #334155 !important;
     background: #fff !important;
     width: 100%;
@@ -1130,14 +1130,14 @@
     font-weight: 500;
 }
 .quillforms-share-popup-modal__cancel {
-    padding: 12px 24px;
-    border-radius: 16px;
+    padding: 8px 16px;
+    border-radius: 10px;
     border: 1px solid #B2328C;
     background: #fff;
     color: #B2328C;
-    font-size: 18px;
-    font-weight: 700;
-	line-height: 28px;
+    font-size: 14px;
+    font-weight: 600;
+	line-height: 1.4;
     cursor: pointer;
     transition: border-color 0.15s;
 }
@@ -1146,14 +1146,14 @@
     color: #B2328C;
 }
 .quillforms-share-popup-modal__save {
-    padding: 12px 24px;
-    border-radius: 16px;
+    padding: 8px 16px;
+    border-radius: 10px;
     border: none;
     background: #B2328C;
     color: #fff;
-    font-size: 18px;
-    font-weight: 700;
-	line-height: 28px;
+    font-size: 14px;
+    font-weight: 600;
+	line-height: 1.4;
     cursor: pointer;
     transition: opacity 0.15s;
 }

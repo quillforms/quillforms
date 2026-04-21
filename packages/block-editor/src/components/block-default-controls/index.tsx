@@ -628,7 +628,7 @@ const DefaultControls: React.FC<Props> = ({
 								.combobox-control-rich-text-back {
 									display: none;
 								}
-								padding-top: 10px !important;
+								padding-top: 4px !important;
 							` }
 						>
 							<ComboboxControl

@@ -1,3 +1,119 @@
+.quillforms-payments-page-banner {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 24px 28px;
+	padding: 32px 36px;
+	margin: 0;
+	isolation: isolate;
+	overflow: hidden;
+	background:
+		radial-gradient(120% 90% at 100% 0%, rgba(236, 72, 153, 0.14) 0%, transparent 55%),
+		radial-gradient(90% 70% at 0% 100%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+		linear-gradient(128deg, #ffffff 0%, #fef7ff 38%, #f0fdf4 72%, #eef3ff 100%);
+	border-bottom: 1px solid rgba(233, 213, 245, 0.85);
+	border-radius: 16px 16px 0 0;
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.95),
+		0 20px 56px -28px rgba(16, 185, 129, 0.14);
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image: repeating-linear-gradient(
+			-14deg,
+			transparent,
+			transparent 36px,
+			rgba(16, 185, 129, 0.04) 36px,
+			rgba(16, 185, 129, 0.04) 37px
+		);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		width: 200px;
+		height: 200px;
+		left: -48px;
+		bottom: -72px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(236, 72, 153, 0.16) 0%, transparent 70%);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	> * {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+.quillforms-payments-page-banner__icon {
+	flex-shrink: 0;
+	filter: drop-shadow(0 12px 28px rgba(16, 185, 129, 0.18));
+
+	svg {
+		width: 112px;
+		height: 112px;
+	}
+}
+
+.quillforms-payments-page-banner__text {
+	flex: 1 1 220px;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.quillforms-payments-page-banner__kicker {
+	display: inline-flex;
+	align-self: flex-start;
+	padding: 4px 12px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: #047857;
+	background: linear-gradient(135deg, rgba(236, 253, 245, 0.95), rgba(209, 250, 229, 0.85));
+	border: 1px solid rgba(110, 231, 183, 0.65);
+	border-radius: 999px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.quillforms-payments-page-banner__title {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: #1e293b;
+	line-height: 1.3;
+}
+
+.quillforms-payments-page-banner__desc {
+	margin: 0;
+	font-size: 14px;
+	color: #64748b;
+	line-height: 1.65;
+	max-width: 520px;
+}
+
+.quillforms-payments-page-banner__cta {
+	flex-shrink: 0;
+	margin-left: auto;
+}
+
+@media (max-width: 600px) {
+	.quillforms-payments-page-banner__cta {
+		width: 100%;
+		margin-left: 0;
+	}
+}
+
 .quillforms-payments-page-header {
 	display: flex;
 	flex-wrap: wrap;
@@ -20,7 +136,6 @@
 	font-size: 32px;
 	margin-bottom: 0;
 	color: #001D4F;
-	/* line-break: anywhere; */
 }
 
 .quillforms-payments-page-heading p:nth-child(2) {
@@ -68,9 +183,9 @@
 
 	.admin-components-control-label{
 		color: #334155 !important;
-		font-size: 16px !important;
+		font-size: 14px !important;
 		font-weight: 500 !important;
-		line-height: 28px !important;
+		line-height: 1.4 !important;
 	}
 
 	.payment-model {
@@ -129,12 +244,12 @@
 
 .quillforms-payments-page-settings__labels-fields .components-text-control__input {
 	margin: 0 !important;
-	padding: 20px 16px !important;
-	border-radius: 12px !important;
+	padding: 10px 14px !important;
+	border-radius: 10px !important;
 	border: 1px solid #d9d9d9 !important;
-	font-size: 16px !important;
+	font-size: 14px !important;
 	color: #334155 !important;
-	line-height: 28px !important;
+	line-height: 1.5 !important;
 }
 
 /* Remove divider line under "Enable Payments" row and control vertical gap */
@@ -182,8 +297,8 @@
 		}
 
 		&__title {
-			font-size: 24px;
-			font-weight: 500;
+			font-size: 16px;
+			font-weight: 600;
 			color: #334155;
 		}
 
@@ -191,10 +306,10 @@
 			border: none;
 			background: transparent;
 			color: #b2328c;
-			font-size: 18px;
+			font-size: 14px;
 			font-weight: 500;
 			cursor: pointer;
-			line-height: 28px;
+			line-height: 1.4;
 			padding: 0;
 			display: inline-flex;
 			align-items: center;
@@ -212,16 +327,14 @@
 
 		&__empty {
 			text-align: center;
-			font-size: 18px;
-			line-height: 28px;
-			color: #777;
+			font-size: 14px;
+			line-height: 1.5;
+			color: #64748b;
 			padding: 16px 0 8px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 12px;
-
-
+			gap: 10px;
 		}
 	}
 }
@@ -333,14 +446,13 @@
 		gap: 0 !important;
 
 		.payment-model-title {
-			font-size: 20px;
-			font-weight: 500;
-			line-height: 28px;
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 1.4;
 			color: #334155;
 			margin-bottom: 0 !important;
-			padding-bottom: 20px;
+			padding-bottom: 16px;
 			border-bottom: 1px solid #D9D9D9;
-
 		}
 
 		&.payment-model-multiple {
@@ -374,20 +486,20 @@
 			}
 
 			.admin-components-control-label {
-				margin-bottom: 8px !important;
-				font-size: 18px !important;
+				margin-bottom: 6px !important;
+				font-size: 14px !important;
 				font-weight: 500 !important;
 				color: #334155 !important;
 			}
 
 			input {
 				margin: 0 !important;
-				padding: 20px 16px !important;
-				border-radius: 12px !important;
+				padding: 10px 14px !important;
+				border-radius: 10px !important;
 				border: 1px solid #D9D9D9 !important;
-				font-size: 18px !important;
+				font-size: 14px !important;
 				color: #334155 !important;
-				line-height: 28px !important;
+				line-height: 1.5 !important;
 				background: #fff !important;
 				width: 100% !important;
 
@@ -409,8 +521,8 @@
 			.admin-components-control-wrapper[orientation="horizontal"] {
 				background: #F7F8FA;
 				border: 1px solid #D9D9D9;
-				border-radius: 16px;
-				padding: 16px 20px;
+				border-radius: 10px;
+				padding: 12px 16px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -418,7 +530,7 @@
 
 				.admin-components-control-label {
 					margin: 0 !important;
-					font-size: 16px !important;
+					font-size: 14px !important;
 					font-weight: 500 !important;
 					color: #334155 !important;
 				}
@@ -452,12 +564,12 @@
 
 					input {
 						margin: 0 !important;
-						padding: 20px 16px !important;
-						border-radius: 12px !important;
+						padding: 10px 14px !important;
+						border-radius: 10px !important;
 						border: 1px solid #D9D9D9 !important;
-						font-size: 16px !important;
+						font-size: 14px !important;
 						color: #334155 !important;
-						line-height: 28px !important;
+						line-height: 1.5 !important;
 						background: #fff !important;
 						width: 100% !important;
 
@@ -482,12 +594,12 @@
 
 					.components-custom-select-control__button {
 						margin: 0 !important;
-						padding: 20px 16px !important;
-						border-radius: 12px !important;
+						padding: 10px 14px !important;
+						border-radius: 10px !important;
 						border: 1px solid #D9D9D9 !important;
-						font-size: 16px !important;
+						font-size: 14px !important;
 						color: #334155 !important;
-						line-height: 28px !important;
+						line-height: 1.5 !important;
 						background-color: #fff;
 						width: 100% !important;
 						box-sizing: border-box !important;
@@ -516,9 +628,9 @@
 	align-items: center;
 	gap: 4px;
 	color: #b2328c;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 500;
-	line-height: 28px;
+	line-height: 1.4;
 	cursor: pointer;
 	padding: 0;
 }
@@ -533,12 +645,12 @@
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	gap: 12px;
+	gap: 10px;
 	font-weight: 500;
-	line-height: 28px;
-	font-size: 18px;
-	color: #777;
-	min-height: 500px;
+	line-height: 1.5;
+	font-size: 14px;
+	color: #64748b;
+	min-height: 200px;
 	margin: 0;
 }
 
@@ -558,22 +670,22 @@
 
 .qf-payments-coupon-grid .components-text-control__input {
 	margin: 0 !important;
-	padding: 20px 16px !important;
-	border-radius: 12px !important;
+	padding: 10px 14px !important;
+	border-radius: 10px !important;
 	border: 1px solid #d9d9d9 !important;
-	font-size: 16px !important;
+	font-size: 14px !important;
 	color: #334155 !important;
-	line-height: 28px !important;
+	line-height: 1.5 !important;
 }
 
 .qf-payments-coupon-grid .components-custom-select-control__button {
 	margin: 0 !important;
-	padding: 20px 16px !important;
-	border-radius: 12px !important;
+	padding: 10px 14px !important;
+	border-radius: 10px !important;
 	border: 1px solid #d9d9d9 !important;
-	font-size: 18px !important;
+	font-size: 14px !important;
 	color: #334155 !important;
-	line-height: 28px !important;
+	line-height: 1.5 !important;
 	background-color: #fff;
 
 	::placeholder {

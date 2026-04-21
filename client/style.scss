@@ -96,9 +96,10 @@ body.js.is-fullscreen-mode {
 	background: #fff;
 }
 
+/* Do not set a global h1 color — it overrode page titles (e.g. Forms) with purple (#6d78d8).
+   Page headings set their own color in their SCSS modules. */
 .quillforms-layout h1 {
-	color: #6d78d8;
-	border-color: #6d78d83d !important;
+	border-color: transparent !important;
 }
 
 // Keep page heading bottom spacing consistent across all pages.

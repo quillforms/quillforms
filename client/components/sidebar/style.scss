@@ -79,7 +79,8 @@ $sidebar-bg: #F7F8FA;
 		flex-direction: column;
 
 		gap: 2px;
-		flex: 1;
+		flex: 1 1 auto;
+		min-height: 0;
 		overflow-y: auto;
 		overflow-x: hidden;
 
@@ -91,11 +92,11 @@ $sidebar-bg: #F7F8FA;
 			text-decoration: none;
 			width: calc(100% - 32px);
 			margin: 0 auto;
-			padding: 12px;
-			font-size: 16px;
+			padding: 10px 12px;
+			font-size: 14px;
 			font-weight: 500;
-			line-height: 26px;
-			color: #777;
+			line-height: 1.35;
+			color: #64748b;
 			white-space: nowrap;
 			overflow: hidden;
 
@@ -145,6 +146,57 @@ $sidebar-bg: #F7F8FA;
 		text-align: left;
 	}
 
+	// ── Footer: back to WP admin (same pattern as QuillCRM sidebar) ───────
+	.qf-admin-sidebar-footer {
+		flex-shrink: 0;
+		margin-top: auto;
+		padding: 12px 16px 16px;
+		border-top: 1px solid #d9d9d9;
+		background: $sidebar-bg;
+	}
+
+	.qf-admin-sidebar__wp-link {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 8px;
+		width: 100%;
+		padding: 8px 10px;
+		border: none;
+		border-radius: 8px;
+		background: transparent;
+		color: #64748b;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 1.35;
+		cursor: pointer;
+		text-align: left;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+
+		&:hover {
+			background: rgba(178, 50, 140, 0.08);
+			color: #b2328c;
+		}
+
+		&:focus-visible {
+			outline: 2px solid #b2328c;
+			outline-offset: 2px;
+		}
+
+		svg {
+			flex-shrink: 0;
+			fill: currentColor;
+		}
+	}
+
+	.qf-admin-sidebar__wp-link-text {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
 	// ── Account summary (expanded only) ───────────────────────────────────
 	.qf-admin-account-summary {
 		margin: 0 12px 12px;
@@ -190,5 +242,14 @@ $sidebar-bg: #F7F8FA;
 		width: calc(100% - 12px);
 		padding: 10px 0;
 		gap: 0;
+	}
+
+	.qf-admin-sidebar-footer {
+		padding: 10px 8px 12px;
+	}
+
+	.qf-admin-sidebar__wp-link {
+		justify-content: center;
+		padding: 10px;
 	}
 }

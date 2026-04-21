@@ -143,26 +143,29 @@
 
   &__add-question-btn {
     width: 100%;
-    display: flex;
-    align-items: baseline;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    gap: 10px;
-    border-radius: 16px;
+    gap: 8px;
+    box-sizing: border-box;
+    min-height: 38px;
+    border-radius: 8px;
     border: 1px solid #B2328C;
     background: #ffffff;
     color: #B2328C;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
+    line-height: 1.35;
     cursor: pointer;
-    padding: 12px 14px;
+    padding: 8px 16px;
 
     &:hover {
-      background: rgba(178, 50, 140, 0.04);
+      background: rgba(178, 50, 140, 0.06);
     }
   }
 
   &__add-question-btn-plus {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1;
     font-weight: 700;
   }
@@ -262,11 +265,12 @@
       border-top: 1px solid #ffffff;
 
       .block-item.child-block {
-        margin-left: 0;
+        margin-left: 0 !important;
         background: transparent;
         border: none;
         box-shadow: none;
-        padding: 12px 6px;
+        /* Override base `.block-item { padding-left: 12px !important }` — align with group header */
+        padding: 10px 8px 10px 0 !important;
         min-height: unset !important;
 
         .block-content {
@@ -277,10 +281,10 @@
       }
     }
 
-    // Child block styling
+    // Child block styling (nested under a group only — no extra left gutter)
     &.child-block {
       background: #ffffff;
-      margin-left: 24px;
+      margin-left: 0 !important;
 
       &:hover {
         border-left-color: #94a3b8;

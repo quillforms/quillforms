@@ -4,11 +4,11 @@
 	flex-direction: column;
 
 	h1 {
-		color: #001D4F !important;
-		font-size: 24px !important;
-		font-weight: 700 !important;
+		color: #334155 !important;
+		font-size: 18px !important;
+		font-weight: 600 !important;
 		padding-top: 0 !important;
-		padding-bottom: 24px !important;
+		padding-bottom: 20px !important;
 		margin: 0 !important;
 	}
 }
@@ -47,9 +47,9 @@
 	.components-text-control__input,
 	input[type="text"].components-text-control__input,
 	.license-input-wrapper input {
-		padding: 16px !important;
-		font-size: 18px !important;
-		line-height: 28px !important;
+		padding: 10px 14px !important;
+		font-size: 14px !important;
+		line-height: 1.5 !important;
 		color: #334155 !important;
 		background: white !important;
 		border: 1px solid #D1D5DB !important;
@@ -69,9 +69,9 @@
 	}
 
 	.components-base-control__label {
-		font-size: 18px !important;
+		font-size: 14px !important;
 		font-weight: 500 !important;
-		line-height: 28px !important;
+		line-height: 1.4 !important;
 		color: #334155 !important;
 		// margin-bottom: 8px !important;
 	}
@@ -94,8 +94,19 @@
 
 	.license-input-wrapper-with-button {
 		display: flex;
-		gap: 20px;
-		align-items: center;
+		gap: 12px;
+		align-items: stretch;
+		flex-wrap: wrap;
+	}
+
+	.license-save-btn {
+		align-self: center;
+		height: 38px !important;
+		min-height: 38px !important;
+		padding: 8px 16px !important;
+		font-size: 14px !important;
+		line-height: 1.4 !important;
+		border-radius: 10px !important;
 	}
 
 	.license-input-wrapper {
@@ -104,19 +115,21 @@
 
 	.license-input-label {
 		display: block;
-		font-size: 18px;
+		font-size: 14px;
 		font-weight: 500;
-		line-height: 28px;
+		line-height: 1.4;
 		color: #334155;
-		margin-bottom: 8px;
+		margin-bottom: 6px;
 	}
 
 	input.license-input,
 	input[type="text"].license-input {
-		width: 400px !important;
-		padding: 16px !important;
-		font-size: 18px;
-		line-height: 28px;
+		width: min(400px, 100%) !important;
+		min-height: 38px !important;
+		box-sizing: border-box !important;
+		padding: 8px 12px !important;
+		font-size: 14px;
+		line-height: 1.45;
 		color: #334155;
 		background: #fff;
 		border: 1px solid #D1D5DB !important;

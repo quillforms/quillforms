@@ -20,7 +20,7 @@ const System = () => {
 
 	return (
 		<div className="quillforms-system-page">
-			<h1 className="quillforms-support-page__heading !text-2xl !text-[#001D4F] !font-bold">System</h1>
+			<h1 className="quillforms-support-page__heading !text-lg !text-[#334155] !font-semibold">System</h1>
 			<div className="quillforms-system-page__body">
 				<CustomTabs
 					className="quillforms-system-page__tabs"

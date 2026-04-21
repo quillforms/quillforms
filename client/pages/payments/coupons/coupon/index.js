@@ -69,34 +69,34 @@ const Coupon = ({ id, initialOpen = false }) => {
 						<div className="qf-payments-coupon-grid">
 							<div className="qf-payments-coupon-grid__field">
 								<ControlLabel
-									label={<span className="!m-0 !text-[#334155] !text-lg !font-medium">{__('Coupon Name', 'quillforms')}</span>}
+									label={<span className="!m-0 !text-[#334155] !text-sm !font-medium">{__('Coupon Name', 'quillforms')}</span>}
 									showAsterisk={true}
 								/>
 								<TextControl
 									value={coupon.name}
 									onChange={(name) => updateCoupon(id, { name })}
 									placeholder={__('10% off', 'quillforms')}
-									help={<span className="!m-0 !text-[#777] !text-base leading-[26px] !font-normal">{__('Enter a name for the coupon here. This is for internal reference only.', 'quillforms')}</span>}
+									help={<span className="!m-0 !text-[#64748b] !text-xs leading-4 !font-normal">{__('Enter a name for the coupon here. This is for internal reference only.', 'quillforms')}</span>}
 									className="coupon__field__required"
 								/>
 							</div>
 							<div className="qf-payments-coupon-grid__field">
 								<ControlLabel
-									label={<span className="!m-0 !text-[#334155] !text-lg !font-medium">{__('Coupon Code', 'quillforms')}</span>}
+									label={<span className="!m-0 !text-[#334155] !text-sm !font-medium">{__('Coupon Code', 'quillforms')}</span>}
 									showAsterisk={true}
 								/>
 								<TextControl
 									value={coupon.code}
 									onChange={(code) => updateCoupon(id, { code })}
 									placeholder={__('10OFF', 'quillforms')}
-									help={<span className="!m-0 !text-[#777] !text-base leading-[26px] !font-normal">{__('Enter the code customers will enter to apply the coupon.', 'quillforms')}</span>}
+									help={<span className="!m-0 !text-[#64748b] !text-xs leading-4 !font-normal">{__('Enter the code customers will enter to apply the coupon.', 'quillforms')}</span>}
 									className="coupon__field__required"
 								/>
 							</div>
 							<div className="qf-payments-coupon-grid__field qf-payments-coupon-grid__field--full">
 								<div className="coupon__discount">
 									<ControlLabel
-										label={<span className="!m-0 !text-[#334155] !text-lg !font-medium">{__('Discount', 'quillforms')}</span>}
+										label={<span className="!m-0 !text-[#334155] !text-sm !font-medium">{__('Discount', 'quillforms')}</span>}
 										showAsterisk={true}
 									/>
 									<div className="coupon__discount__fields">
@@ -125,7 +125,7 @@ const Coupon = ({ id, initialOpen = false }) => {
 							</div>
 							<div className="qf-payments-coupon-grid__field">
 								<TextControl
-									label={<span className="!m-0 !text-[#334155] !text-lg !font-medium">{__('Start Date', 'quillforms')}</span>}
+									label={<span className="!m-0 !text-[#334155] !text-sm !font-medium">{__('Start Date', 'quillforms')}</span>}
 									value={coupon.start_date}
 									onChange={(start_date) => updateCoupon(id, { start_date })}
 									type="date"
@@ -133,7 +133,7 @@ const Coupon = ({ id, initialOpen = false }) => {
 							</div>
 							<div className="qf-payments-coupon-grid__field">
 								<TextControl
-									label={<span className="!m-0 !text-[#334155] !text-lg !font-medium">{__('End Date', 'quillforms')}</span>}
+									label={<span className="!m-0 !text-[#334155] !text-sm !font-medium">{__('End Date', 'quillforms')}</span>}
 									value={coupon.end_date}
 									onChange={(end_date) => updateCoupon(id, { end_date })}
 									type="date"
@@ -141,7 +141,7 @@ const Coupon = ({ id, initialOpen = false }) => {
 							</div>
 							<div className="qf-payments-coupon-grid__field qf-payments-coupon-grid__field--full">
 								<TextControl
-									label={<span className="!m-0 !text-[#334155] !text-lg !font-medium">{__('Usage Limit', 'quillforms')}</span>}
+									label={<span className="!m-0 !text-[#334155] !text-sm !font-medium">{__('Usage Limit', 'quillforms')}</span>}
 									value={coupon.usage_limit}
 									onChange={(usage_limit) => updateCoupon(id, { usage_limit })}
 									type="number"

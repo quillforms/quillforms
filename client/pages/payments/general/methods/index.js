@@ -97,9 +97,9 @@ const Methods = () => {
 	return (
 		<div className="quillforms-payments-page-settings__methods">
 			<div className=" flex flex-col gap-2.5">
-				<h3 className='!m-0 !text-[#334155] !text-2xl !font-medium'>{__('Methods', 'quillforms')}</h3>
+				<h3 className='!m-0 !text-[#334155] !text-base !font-semibold'>{__('Methods', 'quillforms')}</h3>
 
-				<p className="quillforms-payments-page-settings__methods- text-lg text-[#777] leading-7 font-medium ">
+				<p className="quillforms-payments-page-settings__methods- text-sm text-[#64748b] leading-5 font-medium ">
 
 					{__('The default payment gateway is the first enabled payment gateway', 'quillforms')}
 				</p>

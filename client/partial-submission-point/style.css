@@ -60,7 +60,7 @@
 
 .partial-submission-subtitle {
     color: #4B5563;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 1.6;
     font-weight: 400;
 }
@@ -88,7 +88,7 @@
 }
 
 .partial-submission-stat-text {
-    font-size: 20px;
+    font-size: 15px;
     color: #1E293B;
     margin-left: 12px;
     font-weight: 500;
@@ -246,7 +246,7 @@
     }
     
     .partial-submission-stat-text {
-        font-size: 18px;
+        font-size: 14px;
     }
 
     .partial-submission-value-proposition {

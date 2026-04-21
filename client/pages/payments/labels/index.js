@@ -15,8 +15,8 @@ const Labels = () => {
 		<div className="quillforms-payments-page-settings__labels">
 			<div className=" grid grid-cols-2 gap-5">
 				<div className="flex flex-col gap-2.5">
-					<h3 className='!m-0 !text-[#334155] !text-2xl !font-medium'>{__('Labels', 'quillforms')}</h3>
-					<p className=' text-lg text-[#777] leading-7'>
+					<h3 className='!m-0 !text-[#334155] !text-base !font-semibold'>{__('Labels', 'quillforms')}</h3>
+					<p className='text-sm text-[#64748b] leading-5 m-0'>
 						{__(
 							'This is where you shape the words your customers see during checkout—whether it’s the order details, the discount field, or the pay button—so every step feels clear, simple, and aligned with your brand’s voice.',
 							'quillforms'
@@ -26,7 +26,7 @@ const Labels = () => {
 				<div className="quillforms-payments-page-settings__labels-fields grid grid-cols-2 gap-5">
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7 whitespace-nowrap'>{__('Order details heading', 'quillforms')}</span>} />
+							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5 whitespace-nowrap'>{__('Order details heading', 'quillforms')}</span>} />
 							<TextControl
 								value={labels.order_details_heading}
 								onChange={(value) => {
@@ -37,7 +37,7 @@ const Labels = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7 whitespace-nowrap'>{__('Payment method selection', 'quillforms')}</span>} />
+							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5 whitespace-nowrap'>{__('Payment method selection', 'quillforms')}</span>} />
 							<TextControl
 								value={labels.select_payment_method}
 								onChange={(value) => {
@@ -48,7 +48,7 @@ const Labels = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7 whitespace-nowrap'>{__('Order total', 'quillforms')}</span>} />
+							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5 whitespace-nowrap'>{__('Order total', 'quillforms')}</span>} />
 							<TextControl
 								value={labels.order_total}
 								onChange={(value) => {
@@ -59,7 +59,7 @@ const Labels = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7 whitespace-nowrap'>{__('Pay button label', 'quillforms')}</span>} />
+							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5 whitespace-nowrap'>{__('Pay button label', 'quillforms')}</span>} />
 							<TextControl
 								value={labels.pay}
 								onChange={(value) => {
@@ -70,7 +70,7 @@ const Labels = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7 whitespace-nowrap'>{__('Discount question', 'quillforms')}</span>} />
+							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5 whitespace-nowrap'>{__('Discount question', 'quillforms')}</span>} />
 							<TextControl
 								value={labels.discountQuestion}
 								onChange={(value) => {
@@ -81,7 +81,7 @@ const Labels = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7 whitespace-nowrap'>{__('Discount Placeholder', 'quillforms')}</span>} />
+							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5 whitespace-nowrap'>{__('Discount Placeholder', 'quillforms')}</span>} />
 							<TextControl
 								value={labels.discountPlaceholder}
 								onChange={(value) => {
@@ -92,7 +92,7 @@ const Labels = () => {
 					</BaseControl>
 					<BaseControl>
 						<ControlWrapper orientation="vertical">
-							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-xl leading-7 whitespace-nowrap'>{__('Apply Discount', 'quillforms')}</span>} />
+							<ControlLabel label={<span className='!m-0 !text-[#334155] !text-sm leading-5 whitespace-nowrap'>{__('Apply Discount', 'quillforms')}</span>} />
 							<TextControl
 								value={labels.applyDiscount}
 								onChange={(value) => {

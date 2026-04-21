@@ -2,7 +2,7 @@
 .calculator-feature-container {
     width: 100%;
     background: white;
-    border-radius: 16px;
+    border-radius: 12px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@
   }
   
   .calculator-feature-section-title {
-    font-size: 24px;
+    font-size: 18px;
     color: #202124;
     margin: 0 0 16px;
   }
@@ -168,7 +168,7 @@
     display: block;
     width: 200px;
     margin: 40px auto 0;
-    padding: 12px 24px;
+    padding: 8px 16px;
     background: #1a73e8;
     color: white;
     border: none;

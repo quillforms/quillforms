@@ -12,9 +12,9 @@
 
 	&__title {
 		margin: 0;
-		font-size: 24px;
-		font-weight: 500;
-		line-height: 1.3;
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 1.4;
 		color: #334155;
 	}
 
@@ -28,24 +28,24 @@
 	}
 
 	&__type-label {
-		font-size: 16px;
+		font-size: 13px;
 		font-weight: 500;
 		line-height: 1.35;
-		color: #334155;
+		color: #64748b;
 	}
 
 	&__static-type-row {
 		width: 100%;
 		min-width: 0;
-		min-height: 52px;
+		min-height: 36px;
 		box-sizing: border-box;
 		display: flex;
 		align-items: center;
-		padding: 0 16px;
+		padding: 0 12px;
 		border: 1px solid #d9d9d9;
-		border-radius: 14px;
+		border-radius: 8px;
 		background: #fff;
-		font-size: 16px;
+		font-size: 13px;
 	}
 
 	.admin-components-select-control {
@@ -59,12 +59,19 @@
 
 		.components-button,
 		.components-custom-select-control__button {
-			height: 52px;
+			height: 36px !important;
+			min-height: 36px !important;
+			max-height: 36px !important;
 			min-width: 0;
 			max-width: 100%;
 			box-sizing: border-box;
 			overflow: hidden;
 			align-items: center;
+			border-radius: 8px !important;
+			padding: 0 10px 0 12px !important;
+			font-size: 13px !important;
+			font-weight: 500 !important;
+			line-height: 1.35 !important;
 		}
 
 		.components-custom-select-control__button {
@@ -81,14 +88,15 @@
 	.block-controls-blocktype-select {
 		display: flex;
 		align-items: center;
-		font-size: 16px;
+		font-size: 13px;
+		font-weight: 500;
 		color: #334155;
 		gap: 8px;
 		min-width: 0;
 		flex: 1 1 auto;
 		overflow: hidden;
 
-		> span {
+		>span {
 			min-width: 0;
 			overflow: hidden;
 			text-overflow: ellipsis;

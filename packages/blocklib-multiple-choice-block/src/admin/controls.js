@@ -183,7 +183,7 @@ const multipleChoiceControls = (props) => {
 								setAttributes({ choices: val });
 							}}
 							withAttachment={false}
-							rowItemSize={60}
+							rowItemSize={40}
 						/>
 					</div>
 				</ControlWrapper>

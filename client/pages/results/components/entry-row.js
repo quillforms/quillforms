@@ -86,15 +86,15 @@ const EntryRow = ({ entry }) => {
 							setDeleteModalOpen(true);
 						}}
 					>
-						<TrashIcon width={32} height={32} />
+						<TrashIcon width={18} height={18} />
 					</button>
 				</div>
 
 				{/* Meta row: date + status */}
 				<div className="qf-entry-card__meta">
 					<div className="qf-entry-card__date">
-						<CalenderIcon width={32} height={32} color="#777777" />
-						<span className='text-lg font-medium leading-7 text-[#777]'>{formattedDate}</span>
+						<CalenderIcon width={16} height={16} color="#64748b" />
+						<span className="qf-entry-card__date-text">{formattedDate}</span>
 					</div>
 					<div className={classNames('qf-entry-card__status', {
 						'completed': entry.status === 'completed',

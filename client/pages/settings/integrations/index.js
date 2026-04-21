@@ -192,7 +192,7 @@ const Integrations = () => {
 											</div>
 
 											{ /* Title */}
-											<span className="flex-1 min-w-0 text-lg font-semibold leading-7 text-[#334155] truncate">
+											<span className="flex-1 min-w-0 text-sm font-semibold leading-5 text-[#334155] truncate">
 												{integration.title}
 											</span>
 

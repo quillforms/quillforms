@@ -39,20 +39,24 @@ const panelStyle = css`
 		align-items: center !important;
 		justify-content: space-between !important;
 		flex-wrap: wrap !important;
-		gap: 16px !important;
-		background: #F7F8FA !important;
-		border: 1px solid #D9D9D9 !important;
-		border-radius: 16px !important;
-		padding: 16px 24px !important;
+		gap: 12px !important;
+		background: #f7f8fa !important;
+		border: 1px solid #d9d9d9 !important;
+		border-radius: 10px !important;
+		padding: 12px 14px !important;
 	}
 
-	.admin-components-control-label {
-		margin: 0 !important;
-		color: #334155 !important;
-		font-size: 18px !important;
-		font-weight: 500 !important;
-		line-height: 28px !important;
+	/* Match label scale: compact selects next to 13px labels */
+	.admin-components-select-control .components-custom-select-control__button,
+	.combobox-control .components-custom-select-control__button {
+		min-height: 36px !important;
+		padding: 8px 12px !important;
+		font-size: 13px !important;
+		line-height: 1.35 !important;
+		border-radius: 8px !important;
 	}
+
+	/* Do not set .admin-components-control-label here — labelStyle on ControlLabel must win */
 `;
 
 const stickyFooterStyle = css`
@@ -73,26 +77,26 @@ const cancelBtnStyle = css`
 	border: 1px solid #b2328c !important;
 	color: #b2328c !important;
 	background: #fff !important;
-	border-radius: 16px !important;
-	padding: 12px 24px !important;
-	height: 48px !important;
-	min-height: 48px !important;
-	font-size: 18px !important;
+	border-radius: 10px !important;
+	padding: 8px 16px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	font-size: 14px !important;
 	font-weight: 500 !important;
-	line-height: 28px !important;
+	line-height: 1.4 !important;
 `;
 
 const saveBtnStyle = css`
 	border: 1px solid #b2328c !important;
 	color: #fff !important;
 	background: #b2328c !important;
-	border-radius: 16px !important;
-	padding: 12px 24px !important;
-	height: 48px !important;
-	min-height: 48px !important;
-	font-size: 18px !important;
+	border-radius: 10px !important;
+	padding: 8px 16px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	font-size: 14px !important;
 	font-weight: 500 !important;
-	line-height: 28px !important;
+	line-height: 1.4 !important;
 `;
 
 const baseControlStyle = css`
@@ -106,19 +110,20 @@ const cardStyle = css`
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	gap: 14px;
+	gap: 12px;
 	background: #fff;
 	border: 1px solid #e2e8f0;
-	border-radius: 14px;
-	padding: 14px 16px;
+	border-radius: 10px;
+	padding: 12px 14px;
 `;
 
 const labelStyle = css`
 	margin: 0 !important;
-	color: #1e293b !important;
-	font-size: 14px !important;
+	color: #334155 !important;
+	font-size: 13px !important;
 	font-weight: 500 !important;
 	line-height: 1.35 !important;
+	max-width: min(420px, 72%) !important;
 `;
 
 const selectStyle = css`
@@ -127,19 +132,20 @@ const selectStyle = css`
 
 const infoBoxStyle = css`
 	width: 100%;
-	margin-top: 4px;
-	padding: 16px;
-	border-radius: 16px;
-	background: #DAE5F0;
+	flex-basis: 100%;
+	margin-top: 0;
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: #dae5f0;
 	color: #334155;
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 26px;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.45;
 
 	a {
-		color: #B2328C;
-		font-size: 18px;
-		line-height: 28px;
+		color: #b2328c;
+		font-size: inherit;
+		line-height: inherit;
 		font-weight: 500;
 		text-decoration: underline;
 	}

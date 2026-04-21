@@ -8,6 +8,9 @@ import { Logo } from '@quillforms/admin-components';
  * WordPress Dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+import { Icon } from '@wordpress/components';
+import { external } from '@wordpress/icons';
 
 /**
  * External Dependencies
@@ -78,6 +81,19 @@ const Sidebar = () => {
 		document.body.setAttribute( 'data-sidebar-collapsed', String( isCollapsed ) );
 		return () => document.body.removeAttribute( 'data-sidebar-collapsed' );
 	}, [] );
+
+	const goToWpDashboard = () => {
+		if ( typeof qfAdmin !== 'undefined' && qfAdmin.adminUrl ) {
+			window.location.href = qfAdmin.adminUrl;
+			return;
+		}
+		const ajaxUrl = window.ajaxurl || '';
+		if ( ajaxUrl.includes( 'admin-ajax.php' ) ) {
+			window.location.href = ajaxUrl.replace( 'admin-ajax.php', 'index.php' );
+			return;
+		}
+		window.location.href = `${ window.location.origin }/wp-admin/`;
+	};
 
 	const getIcon = ( pageSlug ) => {
 		if ( pageSlug === 'quillforms' ) return <AllFormIcon />;
@@ -187,6 +203,26 @@ const Sidebar = () => {
 					</NavLink>
 				</div>
 			) }
+
+			<div className="qf-admin-sidebar-footer">
+				<button
+					type="button"
+					className="qf-admin-sidebar__wp-link"
+					onClick={ goToWpDashboard }
+					title={
+						isCollapsed
+							? __( 'Go to WordPress dashboard', 'quillforms' )
+							: undefined
+					}
+				>
+					<Icon icon={ external } size={ 16 } />
+					{ ! isCollapsed && (
+						<span className="qf-admin-sidebar__wp-link-text">
+							{ __( 'Go to WordPress dashboard', 'quillforms' ) }
+						</span>
+					) }
+				</button>
+			</div>
 		</div>
 	);
 };

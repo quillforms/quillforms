@@ -103,87 +103,92 @@ const ImportFormModal = ({ isOpen, onClose }) => {
 		<Modal
 			title={__('Import Form', 'quillforms')}
 			onRequestClose={handleClose}
-			className="quillforms-import-modal text-[#334155] text-2xl font-medium p-6 "
-
+			className="quillforms-import-modal"
 		>
-			<div className=" rounded-2xl min-w-[800px]  flex flex-col gap-4 ">
-				<div className="bg-[#F7F8FA]  py-4 px-6 rounded-2xl border border-border-color text-center flex flex-col justify-center items-center gap-3">
-					<DragDrogIcon color={file ? '#777' : '#B2328C'} />
-					<div className='flex justify-center items-center'>
-						<p className="text-xl font-bold leading-7 text-[#334155] ">
-							{__('Drag & drop your file or ', 'quillforms')}
-							{' '}
-						</p>
-						<FormFileUpload
-							accept="application/json"
-							onChange={(event) => {
-								const selectedFile = event.target.files[0];
-								if (selectedFile) {
-									setFile(selectedFile);
-								}
-							}}
-							render={({ openFileDialog }) => (
-								<Button
-									variant="secondary"
-									onClick={openFileDialog}
-									className={`w-full !ml-0.5 text-xl font-medium leading-7 ${file ? 'text-[#777]' : ' text-[#B2328C]'}`}
-								>
-									{__(' choose a file', 'quillforms')}
-								</Button>
-							)}
+			<div className="min-w-[min(100%,560px)] max-w-[800px]">
+				<div className="quillforms-import-modal__body">
+					<div className="quillforms-import-modal__dropzone">
+						<DragDrogIcon
+							color={file ? '#64748b' : '#B2328C'}
+							width={56}
+							height={56}
 						/>
+						<div className="quillforms-import-modal__primary-row">
+							<span>
+								{__('Drag & drop your file or', 'quillforms')}
+							</span>
+							<FormFileUpload
+								accept="application/json"
+								onChange={(event) => {
+									const selectedFile = event.target.files[0];
+									if (selectedFile) {
+										setFile(selectedFile);
+									}
+								}}
+								render={({ openFileDialog }) => (
+									<Button
+										variant="secondary"
+										onClick={openFileDialog}
+										className={
+											`quillforms-import-modal__choose-file ${file ? 'has-file' : ''}`
+										}
+									>
+										{__('choose a file', 'quillforms')}
+									</Button>
+								)}
+							/>
+						</div>
 
+						<p className="quillforms-import-modal__hint">
+							{__('Supported formats: .JSON - Max 50 MB', 'quillforms')}
+						</p>
 					</div>
 
-					<p className="text-lg leading-7 text-center text-[#777]">
-						{__('Supported formats: .JSON - Max 50 MB', 'quillforms')}
-					</p>
-				</div>
-
-				{file && (
-					<div className="bg-[#F7F8FA] py-4 px-6 rounded-2xl flex flex-col gap-4 border border-border-color">
-						<div className="flex items-center justify-between">
-							<div className="flex items-center gap-1">
-							    <JsonIcon />
-								<span className="text-lg font-medium leading-7 text-[#334155]">{file.name}</span>
-							</div>
-							<button
-								onClick={() => setFile(null)}
-								className="text-[#EF4444] hover:text-[#DC2626] transition-colors"
-								disabled={isLoading}
-							>
-								<TrashIcon/>
-							</button>
-						</div>
-						<div className="relative">
-							<div className="w-full h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
-								<div className="h-full bg-[#16A34A] rounded-full transition-all duration-300" style={{ width: '100%' }}></div>
-							</div>
-							<div className="flex items-center justify-between mt-2">
+					{file && (
+						<div className="bg-[#F7F8FA] py-3 px-4 rounded-xl flex flex-col gap-3 border border-[#e2e8f0]">
+							<div className="flex items-center justify-between">
 								<div className="flex items-center gap-1">
-									<CompleteIcon/>
-									<span className="text-lg font-medium leading-7 text-[#16A34A]">{__('Completed', 'quillforms')}</span>
+									<JsonIcon />
+									<span className="text-[13px] font-medium leading-snug text-[#334155]">{file.name}</span>
 								</div>
-								<span className="text-lg font-medium leading-7 text-[#16A34A]">100%</span>
+								<button
+									onClick={() => setFile(null)}
+									className="text-[#EF4444] hover:text-[#DC2626] transition-colors"
+									disabled={isLoading}
+								>
+									<TrashIcon />
+								</button>
+							</div>
+							<div className="relative">
+								<div className="w-full h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
+									<div className="h-full bg-[#16A34A] rounded-full transition-all duration-300" style={{ width: '100%' }}></div>
+								</div>
+								<div className="flex items-center justify-between mt-2">
+									<div className="flex items-center gap-1">
+										<CompleteIcon />
+										<span className="text-[13px] font-medium leading-snug text-[#16A34A]">{__('Completed', 'quillforms')}</span>
+									</div>
+									<span className="text-[13px] font-medium leading-snug text-[#16A34A]">100%</span>
+								</div>
 							</div>
 						</div>
-					</div>
-				)}
+					)}
 
-				<div className="flex gap-3 justify-end">
-					<CustomButton
-						variant="outlineSecondary"
-						text={__('Cancel', 'quillforms')}
-						onClick={handleClose}
-						disabled={isLoading}
-					/>
-					<CustomButton
-						variant="primary"
-						className='!bg-[#B2328C]'
-						text={isLoading ? __('Importing...', 'quillforms') : __('Import Form', 'quillforms')}
-						onClick={uploadHandler}
-						disabled={isLoading || !file}
-					/>
+					<div className="quillforms-import-modal__actions">
+						<CustomButton
+							variant="outlineSecondary"
+							text={__('Cancel', 'quillforms')}
+							onClick={handleClose}
+							disabled={isLoading}
+						/>
+						<CustomButton
+							variant="primary"
+							className="!bg-[#B2328C]"
+							text={isLoading ? __('Importing...', 'quillforms') : __('Import Form', 'quillforms')}
+							onClick={uploadHandler}
+							disabled={isLoading || !file}
+						/>
+					</div>
 				</div>
 			</div>
 		</Modal>

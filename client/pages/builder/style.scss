@@ -1,18 +1,22 @@
 .qf-builder-save-button {
-	border-radius: 8px !important;
+	box-sizing: border-box !important;
+	min-height: 38px !important;
+	border-radius: 12px !important;
 	background: #B2328C !important;
-	padding: 8px 12px !important;
-	font-size: 16px !important;
+	padding: 8px 16px !important;
+	font-size: 13px !important;
+	font-weight: 600 !important;
+	line-height: 1.35 !important;
 	height: auto !important;
-	color: white;
+	color: #fff !important;
 }
 
 .qf-builder-full-preview-button {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid #B2328C;
-	border-radius: 8px;
+	border: 1px solid #b2328c;
+	border-radius: 12px;
 	background: white;
 	padding: 8px;
 	cursor: pointer;

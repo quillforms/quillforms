@@ -165,7 +165,7 @@ export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
 							/>
 							<p
 								className={css`
-								font-size: 18px;
+								font-size: 14px;
 								line-height: 28px;
 								color: #777;
 								font-weight: 500;
@@ -185,7 +185,7 @@ export const EntryDetails = ({ recordsInfo, entry, formId, deleteEntry }) => {
 									window.open('https://quillforms.com/pricing', '_blank');
 								}}
 								className={css`
-								font-size: 18px !important;
+								font-size: 14px !important;
 								padding: 12px 96px !important;
 								border-radius: 16px !important;
 

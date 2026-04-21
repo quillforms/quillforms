@@ -444,15 +444,15 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 				>
 					<div className="flex flex-col gap-6">
 						<div className="flex flex-col gap-2">
-							<label className="text-lg font-medium leading-7 text-[#374151]">
-								{__('Form Name', 'quillforms')} <span className="text-[#EF4444]">*</span>
-							</label>
-							<input
-								type="text"
-								className="w-full px-4 py-4 text-lg leading-7 text-[#334155] bg-white border !border-border-color rounded-2xl focus:bg-white focus:!border-[#B2328C] focus:!outline-none focus:!ring-0 "
-								value={formTitle}
-								placeholder="Enter form name"
-								style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+<label className="text-sm font-medium leading-5 text-[#374151]">
+							{__('Form Name', 'quillforms')} <span className="text-[#EF4444]">*</span>
+						</label>
+						<input
+							type="text"
+							className="w-full px-4 py-4 text-sm leading-5 text-[#334155] bg-white border !border-border-color rounded-2xl focus:bg-white focus:!border-[#B2328C] focus:!outline-none focus:!ring-0 "
+							value={formTitle}
+							placeholder="Enter form name"
+							style={{ padding: '10px 14px', borderRadius: '10px', outline: 'none', boxShadow: 'none' }}
 								onChange={(e) => {
 									const val = e.target.value;
 									if (!val) {
@@ -602,10 +602,10 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 							</label>
 							<input
 								type="text"
-								className="w-full px-4 py-4 text-lg leading-7 text-[#334155] bg-white border !border-border-color rounded-2xl focus:bg-white focus:!border-[#B2328C] focus:!outline-none focus:!ring-0 "
-								value={formSlug}
-								placeholder="Enter form slug"
-								style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+className="w-full px-4 py-4 text-sm leading-5 text-[#334155] bg-white border !border-border-color rounded-2xl focus:bg-white focus:!border-[#B2328C] focus:!outline-none focus:!ring-0 "
+							value={formSlug}
+							placeholder="Enter form slug"
+							style={{ padding: '10px 14px', borderRadius: '10px', outline: 'none', boxShadow: 'none' }}
 								onChange={(e) => {
 									const val = e.target.value;
 									if (!val) {
@@ -733,19 +733,19 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 				isOpen={showRenameForm}
 				onClose={() => setShowRenameForm(false)}
 				title={__('Rename Form', 'quillforms')}
-				className='!min-w-[500px] !text-[#334155] text-2xl font-medium'
+				className='!min-w-[500px] !text-[#334155] text-base font-medium'
 			>
 				<div className="flex flex-col gap-6">
 					<div className="flex flex-col gap-2">
-						<label className="text-lg leading-7 font-medium text-[#334155]">
-							{__('Form Name', 'quillforms')} <span className="text-[#EF4444]">*</span>
-						</label>
-						<input
-							type="text"
-							className="w-full px-4 py-4 text-lg leading-7 text-[#1F2937] bg-white border border-[#D1D5DB] rounded-2xl focus:bg-white focus:border-[#B2328C] focus:outline-none focus:ring-0 focus:shadow-none transition-all"
-							value={formTitle}
-							placeholder="Enter form name"
-							style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+<label className="text-sm leading-5 font-medium text-[#334155]">
+						{__('Form Name', 'quillforms')} <span className="text-[#EF4444]">*</span>
+					</label>
+					<input
+						type="text"
+						className="w-full px-4 py-4 text-sm leading-5 text-[#1F2937] bg-white border border-[#D1D5DB] rounded-2xl focus:bg-white focus:border-[#B2328C] focus:outline-none focus:ring-0 focus:shadow-none transition-all"
+						value={formTitle}
+						placeholder="Enter form name"
+						style={{ padding: '10px 14px', borderRadius: '10px', outline: 'none', boxShadow: 'none' }}
 							onChange={(e) => {
 								const val = e.target.value;
 								if (!val) {
@@ -895,10 +895,10 @@ export const FormCard = ({ form, viewMode, isTrash, isSelected, onSelect }) => {
 						</label>
 						<input
 							type="text"
-							className="w-full px-4 py-4 text-lg leading-7 text-[#1F2937] bg-white border border-[#D1D5DB] rounded-2xl focus:bg-white focus:border-[#B2328C] focus:outline-none focus:ring-0 focus:shadow-none transition-all"
-							value={formSlug}
-							placeholder="Enter form slug"
-							style={{ padding: '16px', borderRadius: '16px', outline: 'none', boxShadow: 'none' }}
+className="w-full px-4 py-4 text-sm leading-5 text-[#1F2937] bg-white border border-[#D1D5DB] rounded-2xl focus:bg-white focus:border-[#B2328C] focus:outline-none focus:ring-0 focus:shadow-none transition-all"
+						value={formSlug}
+						placeholder="Enter form slug"
+						style={{ padding: '10px 14px', borderRadius: '10px', outline: 'none', boxShadow: 'none' }}
 							onChange={(e) => {
 								const val = e.target.value;
 								if (!val) {
@@ -984,7 +984,7 @@ export const EmptyState = ({ status, onCreateNew }) => {
 				className="max-w-full h-auto"
 			/>
 			<h2 className="text-2xl font-bold text-[#334155]">{currentMessage.title}</h2>
-			<p className=' text-[#777] text-lg font-semibold leading-7'>{currentMessage.description}</p>
+			<p className=' text-[#777] text-sm font-semibold leading-5'>{currentMessage.description}</p>
 			{currentMessage.action && (
 				<CustomButton
 					className=' !py-3 !px-24'

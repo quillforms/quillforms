@@ -28,15 +28,15 @@ const EntriesExportButton = ({ selectedIds = [] }) => {
 				className={css`
 					display: inline-flex;
 					align-items: center;
-					gap: 8px;
+					gap: 6px;
 					padding: 0;
 					margin: 0;
 					background: transparent;
 					border: none;
 					color: #b2328c;
-					font-size: 18px;
+					font-size: 13px;
 					font-weight: 600;
-					line-height: 28px;
+					line-height: 1.35;
 					cursor: pointer;
 
 					&:hover {
@@ -45,7 +45,7 @@ const EntriesExportButton = ({ selectedIds = [] }) => {
 				`}
 			>
 				<span>{__('Download all', 'quillforms')}</span>
-				<DownloadIcon />
+				<DownloadIcon width={18} height={18} />
 			</button>
 
 			<CustomModal

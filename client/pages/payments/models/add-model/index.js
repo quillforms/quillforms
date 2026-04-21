@@ -16,7 +16,7 @@ const AddButton = () => {
 
 	return (
 		<div
-			className="add-payment-model text-[#B2328C] text-lg font-medium leading-7 cursor-pointer flex items-center gap-.5"
+			className="add-payment-model text-[#B2328C] text-sm font-medium leading-5 cursor-pointer flex items-center gap-.5"
 			onClick={ () =>
 				addModel(
 					randomId(),

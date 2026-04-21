@@ -1,7 +1,7 @@
  === Quill Forms | Conversational Multi Step Forms, Surveys & quizzes ===
 Contributors: mdmag
 Tested up to: 6.9
-Stable tag: 5.6.0
+Stable tag: 5.6.1
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform, conversational, forms, survey, quiz
 License: GPLv2 or later

@@ -14,17 +14,20 @@
 		}
 
 		.components-custom-select-control__button,
-		.components-custom-select-control__button.components-custom-select-control__button {
+		.components-custom-select-control__button.components-custom-select-control__button,
+		button.components-button.components-custom-select-control__button {
 			box-sizing: border-box;
 			width: 100%;
-			min-height: 52px;
-			padding: 14px 16px !important;
-			font-size: 15px !important;
-			line-height: 1.4 !important;
+			min-height: 36px !important;
+			max-height: 36px !important;
+			padding: 0 10px 0 12px !important;
+			font-size: 13px !important;
+			font-weight: 400 !important;
+			line-height: 1.35 !important;
 			color: #334155 !important;
 			background: #fff !important;
 			border: 1px solid #d9d9d9 !important;
-			border-radius: 16px !important;
+			border-radius: 8px !important;
 			box-shadow: none !important;
 			justify-content: space-between;
 			align-items: center;
@@ -49,16 +52,16 @@
 		.components-custom-select-control__menu[aria-hidden='false'] {
 			margin-top: 8px;
 			padding: 8px;
-			border-radius: 16px;
+			border-radius: 10px;
 			border: 1px solid #d9d9d9;
 			box-shadow: 0 4px 14px rgb(0 0 0 / 8%);
 			background: #fff;
 		}
 
 		.components-custom-select-control__item {
-			border-radius: 8px;
-			padding: 10px 12px;
-			font-size: 15px;
+			border-radius: 6px;
+			padding: 6px 10px;
+			font-size: 13px;
 			line-height: 1.4;
 			color: #334155;
 		}

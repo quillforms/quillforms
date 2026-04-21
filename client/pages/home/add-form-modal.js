@@ -498,7 +498,7 @@ const AddFormModal = ({ closeModal }) => {
 						justify-content: center;
 						width: 49%;
 						padding: 20px 10px;
-						font-size: 18px;
+						font-size: 14px;
 					}
 				`
 			)}
@@ -534,14 +534,14 @@ const AddFormModal = ({ closeModal }) => {
 				{/* Navigation Buttons */}
 				<div className="footer-buttons">
 					<button
-						className=" border border-[#B2328C] text-[#B2328C] font-medium leading-7 text-lg rounded-2xl py-2 px-6 flex items-center justify-center gap-1"
+						className=" border border-[#B2328C] text-[#B2328C] font-medium leading-5 text-sm rounded-xl py-2 px-4 flex items-center justify-center gap-1"
 						onClick={handleBackClick}
 					>
 						<ArrowLeftIcon color='#B2328C' /> {__('Back', 'quillforms')}
 					</button>
 
 					<button
-						className={`bg-[#B2328C] text-white font-medium leading-7 text-lg rounded-2xl py-3 px-6 flex items-center justify-center gap-1 ${childState.isLoading ? 'loading' : ''} ${isNextButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+						className={`bg-[#B2328C] text-white font-medium leading-5 text-sm rounded-xl py-2 px-4 flex items-center justify-center gap-1 ${childState.isLoading ? 'loading' : ''} ${isNextButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
 						onClick={handleNextClick}
 						disabled={isNextButtonDisabled}
 					>

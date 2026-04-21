@@ -38,7 +38,7 @@ const Coupons = () => {
 	return (
 		<div className="quillforms-payments-page-settings__coupons">
 				<div className="qf-payments-coupons-header">
-					<h3 className="!m-0 !text-[#334155] !text-2xl !font-medium">
+					<h3 className="!m-0 !text-[#334155] !text-base !font-semibold">
 						{__('Discount Coupons', 'quillforms')}
 					</h3>
 					<button

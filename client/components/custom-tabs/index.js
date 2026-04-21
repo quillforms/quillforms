@@ -30,7 +30,7 @@ const CustomTabs = ({
 	return (
 		<div className={className} style={{ width: '100%', overflow: 'hidden' }}>
 			{/* Tab Navigation */}
-			<div className="bg-[#F7F8FA] border !border-border-color rounded-[20px] p-5 flex gap-5 relative" style={{ overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', width: '100%', minWidth: 0 }}>
+			<div className="qf-tabs-strip bg-[#F7F8FA] border !border-border-color rounded-[12px] px-3 py-2.5 flex gap-2 relative" style={{ overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', width: '100%', minWidth: 0 }}>
 				{tabs.map((tab) => {
 					const isActive = tab.name === selectedTab;
 					return (
@@ -39,7 +39,7 @@ const CustomTabs = ({
 							ref={(el) => (buttonRefs.current[tab.name] = el)}
 							onClick={() => handleTabClick(tab.name)}
 							className={`
-								relative px-3 py-2 !rounded-[8px] text-base font-medium transition-all whitespace-nowrap flex-shrink-0
+								relative px-3 py-1.5 !rounded-[8px] text-[13px] font-medium leading-snug transition-all whitespace-nowrap flex-shrink-0
 								${isActive
 									? 'bg-[#FFEEFB] text-[#B2328C]'
 									: 'bg-white text-[#334155] hover:bg-gray-50'
@@ -67,7 +67,7 @@ const CustomTabs = ({
 
 			{/* Tab Content */}
 			{selectedTabData && children && (
-				<div className="mt-4" role="tabpanel">
+				<div className="mt-3" role="tabpanel">
 					{children(selectedTabData)}
 				</div>
 			)}

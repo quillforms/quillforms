@@ -17,8 +17,8 @@ const Models = () => {
 		<div className="quillforms-payments-page-settings__models">
 			<div className=' flex justify-between items-center '>
 				<div className=' flex flex-col gap-3'>
-					<h3 className='!m-0 !text-[#334155] !text-2xl !font-medium'> Payment Model(s) </h3>
-					<p className=" text-lg text-[#777] leading-7 font-medium">
+					<h3 className='!m-0 !text-[#334155] !text-base !font-semibold'> Payment Model(s) </h3>
+					<p className=" text-sm text-[#64748b] leading-5 font-medium">
 						The price of the model is the total price of products
 					</p>
 				</div>

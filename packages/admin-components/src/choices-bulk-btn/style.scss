@@ -1,16 +1,16 @@
-/* Bulk modal — Done matches purple primary */
+/* Bulk modal — Done matches primary */
 .admin-components-choices-bulk-modal__done.admin-components-button.is-primary {
 	margin-top: 0;
-	padding: 8px 12px;
+	padding: 6px 12px;
 	height: auto;
 	min-height: 0;
-	line-height: 1.25;
+	line-height: 1.35;
 	background: #b2328c !important;
 	color: #fff !important;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 500;
 	border: none !important;
-	border-radius: 6px;
+	border-radius: 8px;
 	box-shadow: none;
 
 	&:hover {
@@ -25,20 +25,20 @@
 	}
 }
 
-/* Align with other sidebar primary actions (e.g. block theme “Select a theme”) */
+/* Sidebar-scale primary (matches CustomButton / field density) */
 .admin-components-choices-bulk-btn {
 	.admin-components-button.admin-components-choices-bulk-btn__trigger.is-primary {
 		margin-top: 0;
-		padding: 8px 12px;
+		padding: 6px 10px;
 		height: auto;
-		min-height: 0;
-		line-height: 1.25;
+		min-height: 32px;
+		line-height: 1.35;
 		background: #b2328c;
 		color: #fff;
-		font-size: 16px;
+		font-size: 13px;
 		font-weight: 500;
 		border: none;
-		border-radius: 6px;
+		border-radius: 8px;
 		box-shadow: none;
 
 		&:hover {

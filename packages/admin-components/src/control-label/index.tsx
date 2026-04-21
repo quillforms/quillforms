@@ -15,7 +15,7 @@ const ControlLabel: React.FC< Props > = ( { label, showAsterisk, isNew } ) => {
 				<span
 					className={ css`
 						color: #d94343;
-						font-size: 16px;
+						font-size: 13px;
 						margin-left: 1px;
 					` }
 				>

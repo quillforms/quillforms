@@ -7,16 +7,16 @@
 }
 
 .admin-components-button.block-editor-block-theme__select-theme-btn.is-primary {
-	padding: 8px 12px;
+	padding: 6px 12px;
 	height: auto;
-	min-height: 0;
+	min-height: 32px;
 	line-height: 1.25;
 	background: #b2328c;
 	color: #fff;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 500;
 	border: none;
-	border-radius: 6px;
+	border-radius: 8px;
 
 	&:hover {
 		opacity: 0.92;

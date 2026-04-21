@@ -1,22 +1,22 @@
 .messages-editor-panel-render {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
-	margin-bottom: 16px;
+	gap: 12px;
+	margin-bottom: 12px;
 }
 
 .messages-editor-panel-render__group {
 	border: 1px solid #D9D9D9;
-	border-radius: 16px;
+	border-radius: 12px;
 	overflow: hidden;
 	background: #F7F8FA;
-	padding: 16px 24px ;
+	padding: 14px 20px;
 }
 
 .messages-editor-panel-render__group-header {
 	width: 100%;
 	border: 0;
-
+	background: transparent;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -24,18 +24,18 @@
 }
 
 .messages-editor-panel-render__group-title {
-	font-size: 18px;
-	font-weight: 500;
-	line-height: 28px;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.4;
 	color: #334155;
 	text-align: left;
 }
 
 .messages-editor-panel-render__group-arrow {
-	font-size: 18px;
+	font-size: 14px;
 	color: #334155;
 	font-weight: 500;
-	line-height: 28px;
+	line-height: 1.4;
 	transition: transform 0.2s ease;
 }
 
@@ -44,29 +44,27 @@
 }
 
 .messages-editor-panel-render__group-content {
-
-	border-top: 1px solid #D9D9D9;
-	margin-top: 16px;
+	border-top: 1px solid #e2e8f0;
+	margin-top: 12px;
 }
-
-
 
 .messages-editor-panel-render__group-actions {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-
+	justify-content: flex-end;
+	gap: 10px;
+	padding-top: 12px;
 }
 
 .messages-editor-panel-render__restore-all-btn {
 	border: 1px solid #B2328C !important;
 	background: #fff !important;
 	color: #B2328C !important;
-	border-radius: 16px !important;
-	padding: 12px 24px !important;
-	font-size: 18px !important;
+	border-radius: 8px !important;
+	padding: 8px 16px !important;
+	font-size: 13px !important;
 	font-weight: 500 !important;
-	line-height: 28px !important;
+	line-height: 1.4 !important;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -74,12 +72,12 @@
 }
 
 .messages-editor-panel-render__apply-btn {
-	border-radius: 16px !important;
-	padding: 12px 24px !important;
+	border-radius: 8px !important;
+	padding: 8px 16px !important;
 	background: #B2328C !important;
 	color: #fff !important;
 	border: 0 !important;
-	font-size: 18px !important;
+	font-size: 13px !important;
 	font-weight: 500 !important;
-	line-height: 28px !important;
+	line-height: 1.4 !important;
 }

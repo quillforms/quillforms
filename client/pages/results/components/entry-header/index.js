@@ -106,16 +106,16 @@ const EntriesHeader = ({
 							>
 								<div className="date-picker__range">
 									<div className="date-picker__field">
-										<CalenderIcon />
+										<CalenderIcon width={16} height={16} color="#64748b" />
 										<span className="date-picker__value">
 											{formatDate(from) || __('Start date', 'quillforms')}
 										</span>
 									</div>
 
-									<RightIcon />
+									<RightIcon width={16} height={16} />
 
 									<div className="date-picker__field">
-										<CalenderIcon />
+										<CalenderIcon width={16} height={16} color="#64748b" />
 										<span className="date-picker__value">
 											{formatDate(to) || __('End date', 'quillforms')}
 										</span>

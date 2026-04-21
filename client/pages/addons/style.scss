@@ -1,8 +1,8 @@
 .quillforms-addons-page__heading {
-	padding-block: 24px !important;
-	font-size: 24px !important;
-	font-weight: 700 !important;
-	color: #001D4F !important;
+	padding-block: 16px !important;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: #001d4f !important;
 }
 
 .quillforms-addons-page__tabs {
@@ -56,8 +56,8 @@
 .quillforms-addons-page__filter-tab {
 	border-radius: 999px;
 	border: 1px solid #e5e7eb;
-	padding: 6px 14px;
-	font-size: 12px;
+	padding: 5px 12px;
+	font-size: 13px;
 	font-weight: 500;
 	color: #4b5563;
 	background: #ffffff;
@@ -138,9 +138,9 @@
 }
 
 .quillforms-addons-page_addon__title {
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 600;
-	line-height: 28px;
+	line-height: 1.35;
 	color: #334155;
 }
 
@@ -151,9 +151,9 @@
 	margin-top: 0;
 
 	p {
-		font-size: 16px;
-		line-height: 26px;
-		color: #777;
+		font-size: 13px;
+		line-height: 1.5;
+		color: #64748b;
 		// margin: 0 0 20px 0;
 		flex: 1;
 	}
@@ -174,10 +174,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 8px 20px;
+	padding: 6px 14px;
 	color: #10b981;
 	font-weight: 600;
-	font-size: 14px;
+	font-size: 13px;
 }
 
 .quillforms-addons-page_addon--highlighted {

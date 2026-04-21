@@ -26,14 +26,14 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: flex-start;
-		min-height: 52px;
+		min-height: 36px;
 		margin-top: 0;
 		margin-bottom: 0;
 		border: 1px solid #d9d9d9;
-		border-radius: 16px;
+		border-radius: 8px;
 		background: #fff;
 		box-shadow: none;
-		padding: 14px 40px 14px 16px;
+		padding: 6px 40px 6px 12px;
 		box-sizing: border-box;
 
 		&:focus-within {
@@ -43,20 +43,21 @@
 
 		p {
 			margin: 0;
-			font-size: 15px;
-			line-height: 1.4;
+			font-size: 13px;
+			line-height: 1.35;
 			color: #334155;
 		}
 
 		[data-slate-placeholder] {
 			color: #94a3b8 !important;
 			opacity: 1 !important;
+			font-size: 13px !important;
 		}
 
 		[contenteditable] {
 			min-height: 22px;
-			font-size: 15px;
-			line-height: 1.4;
+			font-size: 13px;
+			line-height: 1.35;
 			color: #334155;
 		}
 	}
@@ -64,9 +65,9 @@
 	.rich-text-control__add-merge-tags {
 		position: absolute;
 		right: 8px !important;
-		top: 24px !important;
-		transform: translateY(-50%);
+		top: 10px;
 		cursor: pointer;
+		line-height: 0;
 
 		svg {
 			fill: #58b9b0;

@@ -43,7 +43,7 @@ body[data-sidebar-collapsed="true"] .qf-admin-header {
 .qf-page-component-wrapper.has-sidebar {
 	margin-top: var(--qf-header-height);
 	height: calc(100vh - var(--qf-header-height));
-	padding: 24px 16px 24px;
+	padding: 16px 14px 20px;
 	margin-left: var(--qf-sidebar-width-expanded);
 	transition: margin-left 0.2s ease;
 }

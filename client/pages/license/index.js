@@ -214,7 +214,7 @@ const License = () => {
 									<div className="license-input-button-wrapper">
 									<CustomButton
 									variant="primary"
-									className=' !py-4 !px-6'
+									className="license-save-btn"
 									text={__('Save Changes', 'quillforms')}
 									onClick={activate}
 									disabled={!licenseKey || licenseKey.trim() === ''}

@@ -1,40 +1,95 @@
+/* Default choice list (slider, etc.) — match builder sidebar scale + brand */
 .admin-components-choices-inserter__choices-wrapper {
-	padding: 12px 0;
-	border: 1px solid #d6d6d6;
-	border-radius: 5px;
+	padding: 6px 0;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	background: #f8fafc;
 }
 
 .admin-components-choices-inserter__choice-row {
 	display: flex;
 	align-items: center;
-	padding: 0 12px;
+	padding: 10px 4px;
+	gap: 2px;
 	z-index: 11;
 
-	.admin-components-choices-inserter__choice-actions {
-		display: flex;
-		flex-direction: column;
-		margin-left: 5px;
 
-		> div {
-			width: 15px;
-			height: 15px;
-			display: inline-flex;
+
+	.admin-components-choices-inserter__choice-actions {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center;
+		flex-shrink: 0;
+		gap: 3px;
+		margin-left: 0;
+
+		>div {
+			box-sizing: border-box;
+			width: 16px !important;
+			height: 16px !important;
+			min-width: 16px !important;
+			min-height: 16px !important;
+			padding: 0 !important;
+			margin-bottom: 0 !important;
+			border-radius: 4px;
+			display: inline-flex !important;
 			align-items: center;
 			justify-content: center;
-			border-radius: 50%;
-			color: #fff;
 			cursor: pointer;
-			svg {
-				width: 15px;
-				height: 15px;
-			}
+			transition:
+				background 0.15s ease,
+				border-color 0.15s ease,
+				opacity 0.15s ease;
 		}
+
 		.admin-components-choices-inserter__choice-add {
-			background: #5fd995;
-			margin-bottom: 3px;
+			border: 1px solid #b2328c !important;
+			background: #b2328c !important;
 		}
+
 		.admin-components-choices-inserter__choice-remove {
-			background: #b65454;
+			border: 1px solid #fecaca !important;
+			background: #fff !important;
+		}
+
+		.admin-components-choices-inserter__choice-add:hover {
+			background: #9d2a7a !important;
+			border-color: #9d2a7a !important;
+		}
+
+		.admin-components-choices-inserter__choice-remove:hover {
+			background: #fef2f2 !important;
+			border-color: #fca5a5 !important;
+		}
+
+		svg {
+			width: 11px !important;
+			height: 11px !important;
+		}
+
+		.admin-components-choices-inserter__choice-add svg {
+			fill: #fff !important;
+		}
+
+		.admin-components-choices-inserter__choice-remove svg {
+			fill: #dc2626 !important;
 		}
 	}
+
+	.admin-components-choices-inserter__choice-row>div:first-child {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 18px;
+		margin-left: 0;
+		color: #64748b;
+		cursor: grab;
+
+		svg {
+			width: 14px !important;
+			height: 14px !important;
+		}
+	}
+
 }

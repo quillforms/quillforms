@@ -1,3 +1,4 @@
+/* Legacy wrapper (unused in current markup; keep for safety) */
 .block-editor-block-layouts {
 	display: flex;
 	flex-wrap: wrap;
@@ -5,40 +6,51 @@
 	> div {
 		margin-right: 10px;
 		margin-bottom: 10px;
+
 		&:last-child {
 			margin-right: 0;
 		}
 	}
 }
 
-/* Layout picker: icon above label (match design in Figma). Finish styling here. */
+/* 2 columns; 5th option centered so the last row does not leave a dead corner */
 .block-editor-block-layout {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 8px;
 	width: 100%;
 	box-sizing: border-box;
 }
 
-.block-editor-block-layout__option {
-	--block-editor-block-layout-option-radius: 8px;
+.block-editor-block-layout__option:last-child:nth-child(odd) {
+	grid-column: 1 / -1;
+	max-width: calc(50% - 4px);
+	justify-self: center;
+}
 
+.block-editor-block-layout__option {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
 	margin: 0;
 	padding: 8px 6px;
-	border: none;
-	border-radius: 0;
-	background: transparent;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	background: #fff;
 	cursor: pointer;
 	font: inherit;
-	color: #334155;
+	color: #64748b;
 	text-align: center;
-	transition: color 0.15s ease, background 0.15s ease;
+	transition:
+		color 0.15s ease,
+		background 0.15s ease,
+		border-color 0.15s ease;
 
 	&:hover {
 		color: #b2328c;
+		border-color: #f9d0ec;
+		background: #fffafb;
 	}
 
 	&:focus-visible {
@@ -47,42 +59,30 @@
 	}
 }
 
-/* One rounded corner per cell so the grid reads as a single grouped control. */
-.block-editor-block-layout__option--stack {
-	border-top-left-radius: var(--block-editor-block-layout-option-radius);
-}
-
-.block-editor-block-layout__option--float-left {
-	border-top-right-radius: var(--block-editor-block-layout-option-radius);
-}
-
-.block-editor-block-layout__option--split-right {
-	border-bottom-left-radius: var(--block-editor-block-layout-option-radius);
-}
-
 .block-editor-block-layout__option--selected {
 	color: #b2328c;
 	background: #ffeefb;
+	border-color: #f9d0ec;
 }
 
 .block-editor-block-layout__icon {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: 6px;
+	margin-bottom: 4px;
 	color: currentColor;
 
 	svg {
 		display: block;
-		width: 24px;
-		height: 24px;
+		width: 22px;
+		height: 22px;
 	}
 }
 
 .block-editor-block-layout__label {
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.2;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.25;
 	color: currentColor;
 	white-space: nowrap;
 }

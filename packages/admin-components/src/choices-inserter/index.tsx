@@ -31,7 +31,7 @@ const ChoicesInserter: React.FC< Props > = ( {
 	choices,
 	setChoices,
 	withAttachment,
-	rowItemSize = 54,
+	rowItemSize = 40,
 } ) => {
 	const labelChangeHandler = ( val: string, index: number ) => {
 		const $choices = cloneDeep( choices );
@@ -139,7 +139,7 @@ const ChoicesInserter: React.FC< Props > = ( {
 								<List
 									className="admin-components-choices-inserter__choices-wrapper"
 									outerRef={ provided.innerRef }
-									height={ 250 }
+									height={ 220 }
 									width={ '100%' }
 									itemCount={ itemCount }
 									itemSize={ rowItemSize }

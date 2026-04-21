@@ -5,13 +5,14 @@
 .messages-editor-message-preview {
 	width: 100%;
 	font-weight: 400;
-	padding: 12px !important;
-	padding-right: 44px;
+	font-size: 13px !important;
+	padding: 8px 12px !important;
+	padding-right: 36px;
 	border: 1px solid #D9D9D9 !important;
-	border-radius: 16px !important;
+	border-radius: 8px !important;
 	background: #fff;
 	color: #334155 !important;
-	line-height: 28px !important;
+	line-height: 1.5 !important;
 	outline: none;
 
 	&:focus {

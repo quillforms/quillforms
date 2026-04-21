@@ -21,18 +21,22 @@ const CustomSearch = ({
 	};
 
 	const wrapperStyle = {
-		borderRadius: '16px',
+		borderRadius: '12px',
 		backgroundColor: '#FFFFFF',
 		border: isFocused ? '1px solid #B2328C' : '1px solid #D9D9D9',
 		boxShadow: isFocused
 			? '0 0 0 1px rgba(178, 50, 140, 0.25)'
 			: 'none',
+		minHeight: '38px',
+		height: '38px',
+		maxHeight: '38px',
+		boxSizing: 'border-box',
 	};
 
 	return (
 		<div
 			style={wrapperStyle}
-			className={`flex w-full min-w-[300px] max-w-full !py-2 !px-4 justify-between items-center gap-1 transition-all ${className}`}
+			className={`qf-admin-search flex w-full min-w-[220px] max-w-full !py-0 !px-3 justify-between items-center gap-2 transition-all ${className}`}
 		>
 			<style>{`
 				input[type="search"]::-webkit-search-cancel-button {
@@ -43,14 +47,14 @@ const CustomSearch = ({
 				}
 				.custom-search-input {
 					border: none !important;
-					border-radius: 16px !important;
+					border-radius: 12px !important;
 					outline: none !important;
 					box-shadow: none !important;
 					background-color: transparent !important;
 				}
 			`}</style>
-			<div className="flex items-center pointer-events-none">
-				<SearchIcon />
+			<div className="flex shrink-0 items-center pointer-events-none">
+				<SearchIcon width={18} height={18} />
 			</div>
 			<input
 				ref={inputRef}
@@ -60,7 +64,7 @@ const CustomSearch = ({
 				onFocus={() => setIsFocused(true)}
 				onBlur={() => setIsFocused(false)}
 				placeholder={placeholder}
-				className="custom-search-input !py-0 !px-0 flex-1 text-base text-gray-600 placeholder-gray-400 min-w-0"
+				className="custom-search-input !py-0 !px-0 flex-1 text-[13px] leading-snug text-gray-600 placeholder-gray-400 min-w-0"
 				autoComplete="off"
 				{...props}
 			/>
