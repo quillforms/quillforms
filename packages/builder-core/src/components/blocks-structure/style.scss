@@ -239,7 +239,9 @@
 
     .group-header {
       // Padding for the header highlight should come from the selected state only.
-      padding: 0;
+      padding: 12px;
+      border: 1px solid transparent;
+      border-radius: 8px;
     }
 
     &.active .group-header {
@@ -267,10 +269,8 @@
       .block-item.child-block {
         margin-left: 0 !important;
         background: transparent;
-        border: none;
+        border: 1px solid transparent;
         box-shadow: none;
-        /* Override base `.block-item { padding-left: 12px !important }` — align with group header */
-        padding: 10px 8px 10px 0 !important;
         min-height: unset !important;
 
         .block-content {

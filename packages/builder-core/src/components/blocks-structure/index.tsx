@@ -960,7 +960,7 @@ const PureTree: React.FC = withErrorBoundary(() => {
 								: null;
 						const childItem = (
 							<SortableTreeItem key={child.id} id={child.id} disabled={!isDragEnabled(child)}>
-								<div style={{ paddingLeft: `${depth * 16}px` }}>
+								<div>
 									{renderItem({
 										item: child,
 										depth,
