@@ -67,16 +67,17 @@
 
 	/* Match solid palette swatch style (square + white selected ring/check). */
 	.components-circular-option-picker {
-		max-width: none;
+		// max-width: none;
 		--theme-editor-color-swatch-size: 32px;
 		--theme-editor-color-swatch-icon: calc(var(--theme-editor-color-swatch-size) * 2 / 3);
 	}
 
 	.components-circular-option-picker__swatches {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-		justify-content: flex-start;
+		max-width: 148px !important;
+		display: flex !important;
+		flex-wrap: wrap !important;
+		gap: 22px !important;
+		justify-content: flex-start !important;
 	}
 
 	.components-circular-option-picker__option-wrapper {
@@ -99,7 +100,7 @@
 		min-width: 0 !important;
 		min-height: 0 !important;
 		padding: 0 !important;
-		border: 2px solid transparent !important;
+		//border: 2px solid transparent !important;
 		border-radius: 8px !important;
 		box-shadow: none !important;
 		overflow: hidden;

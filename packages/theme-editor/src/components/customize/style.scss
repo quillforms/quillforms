@@ -731,7 +731,7 @@
 		.admin-components-combo-color-picker__switcher-wrapper {
 			display: flex;
 			flex-direction: row;
-			gap: 16px;
+			gap: 8px;
 			margin: 0 0 16px !important;
 			border-bottom: none !important;
 
@@ -770,13 +770,13 @@
 		/* One size drives wrapper, swatch button, inset ring, check, and + control */
 		.admin-components-color-picker {
 			box-sizing: border-box;
-			--theme-editor-color-swatch-size: 32px;
+			--theme-editor-color-swatch-size: 28px;
 		}
 
 		.components-circular-option-picker__swatches {
 			display: flex;
 			flex-wrap: wrap;
-			gap: 16px;
+			gap: 12px;
 			justify-content: flex-start;
 		}
 
