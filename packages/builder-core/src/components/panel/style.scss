@@ -157,9 +157,10 @@
 
 		h4 {
 			margin: 0;
-			font-size: 13px !important;
+			font-size: 14px !important;
 			font-weight: 600 !important;
 			color: #334155 !important;
+			line-height: 1.35;
 		}
 
 			.builder-core-panel__header-close-icon {
@@ -276,7 +277,7 @@
 
 /* Form Locker modal: inset, larger title */
 .builder-core-form-locker-panel {
-	padding: 24px;
+	padding: 20px 20px 16px 20px;
 	box-sizing: border-box;
 
 	.builder-core-panel__header-wrapper {
@@ -303,7 +304,9 @@
 	}
 
 	.builder-core-panel__header-wrapper .builder-core-panel__header h4 {
-		font-size: 13px !important;
+		font-size: 14px !important;
+		font-weight: 600 !important;
+		line-height: 1.35;
 	}
 }
 

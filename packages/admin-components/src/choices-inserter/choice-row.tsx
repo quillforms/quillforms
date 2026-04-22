@@ -113,22 +113,24 @@ const ChoiceRow: React.FC< Props > = ( { choices, index, provided } ) => {
 			/>
 
 			<div className="admin-components-choices-inserter__choice-actions">
-				<div className="admin-components-choices-inserter__choice-add">
-					<Icon
-						icon={ plus }
-						onClick={ () => addChoice( index + 1 ) }
-					/>
+				<div
+					className="admin-components-choices-inserter__choice-add"
+					onClick={ () => addChoice( index + 1 ) }
+				>
+					<Icon icon={ plus } />
 				</div>
 				{ choices.length > 1 && (
-					<div className="admin-components-choices-inserter__choice-remove">
+					<div
+						className="admin-components-choices-inserter__choice-remove"
+						onClick={ () => {
+							deleteChoice( item.value );
+						} }
+					>
 						<Icon
 							className={ css`
 								fill: #fff;
 							` }
 							icon={ closeSmall }
-							onClick={ () => {
-								deleteChoice( item.value );
-							} }
 						/>
 					</div>
 				) }
