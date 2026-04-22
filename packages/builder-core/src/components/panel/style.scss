@@ -40,6 +40,23 @@
 			border-radius: 10px;
 		}
 	}
+	.builder-core-calculator-panel,
+	.builder-core-calculator-points-panel,
+	.builder-core-calculator-variables-panel {
+		min-height: 0 !important;
+		height: auto !important;
+		max-height: 80vh !important;
+	}
+
+	.builder-core-calculator-panel .builder-core-panel__content-wrapper,
+	.builder-core-calculator-points-panel .builder-core-panel__content-wrapper,
+	.builder-core-calculator-variables-panel .builder-core-panel__content-wrapper {
+		height: auto !important;
+		min-height: 0 !important;
+		flex: 0 1 auto !important;
+		overflow-x: hidden;
+		overflow-y: visible;
+	}
 }
 
 .builder-core-full-screen-panel {
