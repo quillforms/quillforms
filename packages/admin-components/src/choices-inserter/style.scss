@@ -9,7 +9,7 @@
 .admin-components-choices-inserter__choice-row {
 	display: flex;
 	align-items: center;
-	padding: 10px 4px;
+	padding: 10px 10px 10px 4px;
 	gap: 2px;
 	z-index: 11;
 
@@ -83,7 +83,7 @@
 		flex-shrink: 0;
 		width: 18px;
 		margin-left: 0;
-		color: #64748b;
+		color: #334155;
 		cursor: grab;
 
 		svg {
