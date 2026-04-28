@@ -22,6 +22,7 @@ import {
 	FocalPointPicker,
 	CheckboxControl,
 	Tooltip,
+	Modal,
 } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/media-utils';
 import { __ } from '@wordpress/i18n';
@@ -192,9 +193,15 @@ function ThemeSolidColorCard({ color, schemaDefault, onClear, children }) {
 }
 
 const CustomizeThemePanel = () => {
-	const { setCurrentThemeProperties, setCurrentThemeTitle, setCurrentTab } =
+	const {
+		setCurrentThemeProperties,
+		setCurrentThemeTitle,
+		setCurrentTab,
+		addNewTheme,
+		updateTheme,
+	} =
 		useDispatch('quillForms/theme-editor');
-	const { theme, shouldBeSaved, currentThemeId, customFontsList } = useSelect(
+	const { theme, shouldBeSaved, currentThemeId, customFontsList, isSaving } = useSelect(
 		(select) => {
 			return {
 				shouldBeSaved: select(
@@ -206,6 +213,7 @@ const CustomizeThemePanel = () => {
 				theme: select('quillForms/theme-editor').getCurrentTheme(),
 				customFontsList:
 					select('quillForms/custom-fonts')?.getFontsList() ?? [],
+				isSaving: select('quillForms/theme-editor').isSaving(),
 			};
 		}
 	);
@@ -251,6 +259,20 @@ const CustomizeThemePanel = () => {
 	const paddingBk = buttonsPaddingViewport === 'lg' ? 'lg' : 'sm';
 	const [formFooterViewport, setFormFooterViewport] = useState('lg');
 	const formFooterBk = formFooterViewport === 'lg' ? 'lg' : 'sm';
+	const [showLeaveWarning, setShowLeaveWarning] = useState(false);
+
+	const saveThemeAndBack = () => {
+		if (isSaving) {
+			return;
+		}
+		if (currentThemeId) {
+			updateTheme(currentThemeId, title, theme.properties);
+		} else {
+			addNewTheme(title, theme.properties);
+		}
+		setCurrentTab('themes-list');
+		setShowLeaveWarning(false);
+	};
 
 	return (
 		<div className="theme-editor-customize">
@@ -259,6 +281,10 @@ const CustomizeThemePanel = () => {
 					type="button"
 					className="theme-editor-customize__back"
 					onClick={() => {
+						if (shouldBeSaved) {
+							setShowLeaveWarning(true);
+							return;
+						}
 						setCurrentTab('themes-list');
 					}}
 					aria-label={__('Back to My Themes', 'quillforms')}
@@ -1322,6 +1348,84 @@ const CustomizeThemePanel = () => {
 				themeId={currentThemeId}
 				canSave={shouldBeSaved}
 			/>
+			{showLeaveWarning && (
+				<Modal
+					title={__('Unsaved Changes', 'quillforms')}
+					onRequestClose={() => setShowLeaveWarning(false)}
+					className={css`
+						border: none !important;
+						border-radius: 16px;
+						min-width: 440px !important;
+
+						.components-modal__header-heading {
+							color: #c5152b;
+						}
+					`}
+				>
+					<div>
+						{__(
+							'You have unsaved changes. Do you want to change page without saving?',
+							'quillforms'
+						)}
+					</div>
+					<div
+						className={css`
+							display: flex;
+							justify-content: flex-end;
+							gap: 12px;
+							margin-top: 24px;
+						`}
+					>
+						<Button
+							className={css`
+								background: #d9d9d9 !important;
+								border: 1px solid #d9d9d9 !important;
+								color: #4b5563 !important;
+								border-radius: 10px !important;
+								padding: 8px 16px !important;
+								min-height: 38px !important;
+								font-size: 14px !important;
+								font-weight: 500 !important;
+								line-height: 1.2 !important;
+								box-shadow: none !important;
+
+								&:hover {
+									background: #cfcfcf !important;
+									border-color: #cfcfcf !important;
+								}
+							`}
+							onClick={() => setShowLeaveWarning(false)}
+						>
+							{__('Cancel', 'quillforms')}
+						</Button>
+						<Button
+							className={css`
+								background: #b2328c !important;
+								border: 1px solid #b2328c !important;
+								color: #fff !important;
+								border-radius: 10px !important;
+								padding: 8px 16px !important;
+								min-height: 38px !important;
+								font-size: 14px !important;
+								font-weight: 600 !important;
+								line-height: 1.2 !important;
+								box-shadow: none !important;
+
+								&:hover {
+									background: #982a78 !important;
+									border-color: #982a78 !important;
+								}
+							`}
+							disabled={isSaving}
+							onClick={saveThemeAndBack}
+						>
+							{isSaving
+								? __('Saving…', 'quillforms')
+								: __('Save Theme', 'quillforms')}
+						</Button>
+					</div>
+				</Modal>
+			)}
 		</div>
 	);
 };

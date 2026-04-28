@@ -2,13 +2,17 @@
  * WordPress Dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { Icon, Tooltip } from '@wordpress/components';
+import { Icon, Tooltip, Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
+import { Button } from '@quillforms/admin-components';
 
 /**
   External Dependencies
  */
 import { sortBy } from 'lodash';
 import classnames from 'classnames';
+import { css } from 'emotion';
 
 /**
  * Internal Dependencies
@@ -25,12 +29,31 @@ const ThemePanelIcon = () => (
 
 const BuilderPanelsBar = () => {
 	const { setCurrentPanel } = useDispatch('quillForms/builder-panels');
-	const { currentPanelName, panels } = useSelect((select) => {
+	const { addNewTheme, updateTheme } = useDispatch('quillForms/theme-editor');
+	const [showLeaveWarning, setShowLeaveWarning] = useState(false);
+	const {
+		currentPanelName,
+		panels,
+		shouldWarnThemeUnsavedChanges,
+		currentTheme,
+		currentThemeId,
+		isThemeSaving,
+	} = useSelect((select) => {
+		const themeEditor = select('quillForms/theme-editor');
+		const builderPanels = select('quillForms/builder-panels');
+		const currentThemeTab = themeEditor?.getCurrentTab?.();
+		const shouldThemeBeSaved = themeEditor?.shouldThemeBeSaved?.();
+		const currentPanel = builderPanels.getCurrentPanelName();
 		return {
-			currentPanelName: select(
-				'quillForms/builder-panels'
-			).getCurrentPanelName(),
-			panels: select('quillForms/builder-panels').getVisiblePanels(),
+			currentPanelName: currentPanel,
+			panels: builderPanels.getVisiblePanels(),
+			currentTheme: themeEditor?.getCurrentTheme?.() ?? {},
+			currentThemeId: themeEditor?.getCurrentThemeId?.(),
+			isThemeSaving: !!themeEditor?.isSaving?.(),
+			shouldWarnThemeUnsavedChanges:
+				currentPanel === 'theme' &&
+				currentThemeTab === 'customize' &&
+				!!shouldThemeBeSaved,
 		};
 	});
 
@@ -45,6 +68,10 @@ const BuilderPanelsBar = () => {
 					<div
 						role="presentation"
 						onClick={() => {
+							if (shouldWarnThemeUnsavedChanges) {
+								setShowLeaveWarning(true);
+								return;
+							}
 							setCurrentPanel('');
 						}}
 						className="builder-core-builder-panel-nav-item__icon"
@@ -53,6 +80,99 @@ const BuilderPanelsBar = () => {
 					</div>
 				</Tooltip>
 			</div>
+			{showLeaveWarning && (
+				<Modal
+					title={__('Unsaved Changes', 'quillforms')}
+					onRequestClose={() => setShowLeaveWarning(false)}
+					className={css`
+						border: none !important;
+						border-radius: 16px;
+						min-width: 440px !important;
+
+						.components-modal__header-heading {
+							color: #c5152b;
+						}
+					`}
+				>
+					<p>
+						{__(
+							'You have unsaved changes. Do you want to change page without saving?',
+							'quillforms'
+						)}
+					</p>
+					<div
+						className={css`
+							display: flex;
+							justify-content: flex-end;
+							gap: 12px;
+							margin-top: 24px;
+						`}
+					>
+						<Button
+							className={css`
+								background: #d9d9d9 !important;
+								border: 1px solid #d9d9d9 !important;
+								color: #4b5563 !important;
+								border-radius: 10px !important;
+								padding: 8px 16px !important;
+								min-height: 38px !important;
+								font-size: 14px !important;
+								font-weight: 500 !important;
+								line-height: 1.2 !important;
+								box-shadow: none !important;
+
+								&:hover {
+									background: #cfcfcf !important;
+									border-color: #cfcfcf !important;
+								}
+							`}
+							onClick={() => setShowLeaveWarning(false)}
+						>
+							{__('Cancel', 'quillforms')}
+						</Button>
+						<Button
+							className={css`
+								background: #b2328c !important;
+								border: 1px solid #b2328c !important;
+								color: #fff !important;
+								border-radius: 10px !important;
+								padding: 8px 16px !important;
+								min-height: 38px !important;
+								font-size: 14px !important;
+								font-weight: 600 !important;
+								line-height: 1.2 !important;
+								box-shadow: none !important;
+
+								&:hover {
+									background: #982a78 !important;
+									border-color: #982a78 !important;
+								}
+							`}
+							disabled={isThemeSaving}
+							onClick={() => {
+								if (currentThemeId) {
+									updateTheme(
+										currentThemeId,
+										currentTheme?.title ?? '',
+										currentTheme?.properties ?? {}
+									);
+								} else {
+									addNewTheme(
+										currentTheme?.title ?? '',
+										currentTheme?.properties ?? {}
+									);
+								}
+								setCurrentPanel('');
+								setShowLeaveWarning(false);
+							}}
+						>
+							{isThemeSaving
+								? __('Saving…', 'quillforms')
+								: __('Save Changes', 'quillforms')}
+						</Button>
+					</div>
+				</Modal>
+			)}
 			<div
 				className={classnames('builder-core-builder-panel-nav-item', {
 					active: currentPanelName === 'theme',
