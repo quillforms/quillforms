@@ -125,21 +125,24 @@ class Core {
 		);
 
 		$args = array(
-			'labels'             => $labels,
-			'hierarchical'       => false,
-			'supports'           => $supports,
-			'public'             => true,
-			'show_in_menu'       => false,
-			'show_ui'            => true,
-			'publicly_queryable' => true,
-			'query_var'          => true,
-			'capability_type'    => 'quillform',
-			'rewrite'            => array(
+			'labels'              => $labels,
+			'hierarchical'        => false,
+			'supports'            => $supports,
+			'public'              => true,
+			'show_in_menu'        => false,
+			'show_ui'             => true,
+			'publicly_queryable'  => true,
+			'query_var'           => true,
+			'capability_type'     => 'quillform',
+			'rewrite'             => array(
 				'slug' => 'quillforms',
 			),
-			'has_archive'        => true,
-			'menu_position'      => 30,
-			'show_in_rest'       => true,
+			// Archive is disabled so the base slug doesn't expose a public
+			// list of every form on the site.
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'menu_position'       => 30,
+			'show_in_rest'        => true,
 		);
 
 		if ( Settings::get( 'override_quillforms_slug' ) === true ) {
