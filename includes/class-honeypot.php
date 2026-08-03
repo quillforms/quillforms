@@ -116,10 +116,16 @@ class Honeypot {
 	/**
 	 * Whether a valid nonce is required for submissions.
 	 *
+	 * Disabled by default. The nonce gate is the only layer that stops a bot
+	 * posting straight to admin-ajax.php without ever loading the form page, so
+	 * enable it if spam continues:
+	 *
+	 *     add_filter( 'quillforms_nonce_required', '__return_true' );
+	 *
 	 * @return bool
 	 */
 	public function is_nonce_required() {
-		return (bool) apply_filters( 'quillforms_nonce_required', true );
+		return (bool) apply_filters( 'quillforms_nonce_required', false );
 	}
 
 	/**
