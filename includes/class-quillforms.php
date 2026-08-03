@@ -151,6 +151,7 @@ final class QuillForms {
 		Entry_Record_Types::instance();
 		Form_Renderer::instance();
 		Form_Submission::instance();
+		Honeypot::instance();
 		Discount_Coupons::instance();
 		Admin::instance();
 		REST_API::instance();
