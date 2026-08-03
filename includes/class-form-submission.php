@@ -899,6 +899,9 @@ class Form_Submission {
 				array(
 					'status'          => 'completed',
 					'thankyouscreens' => $this->format_thankyou_screens(),
+					// Fresh nonce so a long lived page does not drift out of the
+					// validity window, and so a cached page can recover.
+					'nonce'           => wp_create_nonce( 'quillforms-renderer' ),
 				),
 				200
 			);

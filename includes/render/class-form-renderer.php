@@ -408,11 +408,16 @@ class Form_Renderer {
 			$form_id     = $post->ID;
 			$form_object = $this->prepare_form_object();
 
+			// Version by file modification time so browsers pick up changes to
+			// render.js without waiting for a plugin version bump.
+			$render_js_path = QUILLFORMS_PLUGIN_DIR . 'includes/render/render.js';
+			$render_js_ver  = file_exists( $render_js_path ) ? filemtime( $render_js_path ) : QUILLFORMS_VERSION;
+
 			wp_enqueue_script(
 				'quillforms-react-renderer-script',
 				QUILLFORMS_PLUGIN_URL . 'includes/render/render.js',
 				array( 'quillforms-renderer-core' ),
-				QUILLFORMS_VERSION,
+				$render_js_ver,
 				true
 			);
 

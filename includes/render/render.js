@@ -50,6 +50,11 @@
 								return response.json();
 							})
 							.then(function (res) {
+								// Store any refreshed nonce so a long lived page keeps
+								// submitting successfully.
+								if (res && res.data && res.data.nonce) {
+									qfRender._nonce = res.data.nonce;
+								}
 								if (res && res.success) {
 									// In case of successful submission, complete the form.
 									if (res.data.status === 'completed') {
@@ -92,6 +97,23 @@
 										throw 'Server error; unkown status!';
 									}
 								} else if (res && res.data) {
+									if (res.data.form) {
+										// Form level error from the server, e.g. a
+										// rejected submission. Surface the message,
+										// otherwise the form stays stuck with no
+										// feedback.
+										//
+										// setSubmissionErr also clears the submitting
+										// state, and it is ignored unless the form is
+										// still submitting, so it must not be preceded
+										// by setIsSubmitting(false).
+										wp.data
+											.dispatch(
+												'quillForms/renderer-core'
+											)
+											.setSubmissionErr(res.data.form);
+										return;
+									}
 									if (res.data.fields) {
 										// In case of fields error from server side, set their valid flag with false and set their validation error.
 
