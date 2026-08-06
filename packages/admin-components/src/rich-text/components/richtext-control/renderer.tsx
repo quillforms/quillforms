@@ -113,7 +113,18 @@ const RichTextControlRenderer: React.FC< Props > = ( {
 
 	useEffect( () => {
 		setIsReady( false );
-		setJsonVal( deserialize( autop( value ) ) );
+		try {
+			setJsonVal( deserialize( autop( value ) ) );
+		} catch ( error ) {
+			// eslint-disable-next-line no-console
+			console.warn( 'Rich text value could not be loaded, using empty content.', error );
+			setJsonVal( [
+				{
+					type: 'paragraph',
+					children: [ { text: '' } ],
+				},
+			] );
+		}
 		setIsReady( true );
 	}, [ mergeTags?.length ] );
 

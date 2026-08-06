@@ -11,35 +11,46 @@ import { autop } from '@wordpress/autop';
 import createEditor from './create-editor';
 import { MergeTag } from './types';
 
+const EMPTY_DOCUMENT: SlateNode[] = [
+	{
+		type: 'paragraph',
+		children: [{ text: '' }],
+	},
+];
+
 const deserializeHTML = (htmlString: string): SlateNode[] => {
-	//console.log('Initial HTML string:', JSON.stringify(htmlString));
+	try {
+		if (!htmlString || typeof htmlString !== 'string') {
+			return EMPTY_DOCUMENT;
+		}
 
-	// Convert <br /> tags to specific markers before processing
-	let processedHtml = htmlString.replace(/<br\s*\/?>/gi, '[[BR]]');
-	processedHtml = processedHtml.trim();
-	//console.log('After trim:', JSON.stringify(processedHtml));
+		// Convert <br /> tags to specific markers before processing
+		let processedHtml = htmlString.replace(/<br\s*\/?>/gi, '[[BR]]');
+		processedHtml = processedHtml.trim();
 
-	if (!processedHtml.startsWith('<p>')) {
-		processedHtml = `<p>${processedHtml}</p>`;
+		if (!processedHtml) {
+			return EMPTY_DOCUMENT;
+		}
+
+		if (!processedHtml.startsWith('<p>')) {
+			processedHtml = `<p>${processedHtml}</p>`;
+		}
+
+		const parsed = new DOMParser().parseFromString(
+			formatBeforeDeserializing(processedHtml),
+			'text/html'
+		).body;
+
+		const deserialized = deserialize(parsed);
+		const validNodes = ensureValidNodes(deserialized);
+		const normalized = normalize(validNodes) as SlateNode[];
+
+		return normalized.length ? normalized : EMPTY_DOCUMENT;
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.warn('Rich text deserialization failed, using fallback.', error);
+		return EMPTY_DOCUMENT;
 	}
-	//console.log('After p wrap:', JSON.stringify(processedHtml));
-
-	const parsed = new DOMParser().parseFromString(
-		formatBeforeDeserializing(processedHtml),
-		'text/html'
-	).body;
-	//console.log('After parsing:', parsed.innerHTML);
-
-	const deserialized = deserialize(parsed);
-	//console.log('After deserialize:', JSON.stringify(deserialized));
-
-	const validNodes = ensureValidNodes(deserialized);
-	//console.log('After ensure valid:', JSON.stringify(validNodes));
-
-	const normalized = normalize(validNodes) as SlateNode[];
-	//console.log('Final result:', JSON.stringify(normalized));
-
-	return normalized;
 };
 
 // Helper function to ensure valid Slate nodes
@@ -84,13 +95,17 @@ const formatBeforeDeserializing = (value: string): string => {
 // Normalize to fix invalid JSON that may result from deserializing
 // This custom normalizer should be called one time only after the component mounting
 const normalize = (val: SlateNode[]): SlateNode[] => {
-	// Create temp editor for normalizing
 	const editor = createEditor();
 	editor.children = val;
-	////console.log('before normalizing')
-	Editor.normalize(editor, { force: true });
-	////console.log('after normalizing')
-	return editor.children;
+
+	try {
+		Editor.normalize(editor, { force: true });
+		return editor.children;
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.warn('Rich text normalization failed, using fallback.', error);
+		return EMPTY_DOCUMENT;
+	}
 };
 
 const deserialize = (el: HTMLElement | ChildNode) => {
@@ -98,6 +113,13 @@ const deserialize = (el: HTMLElement | ChildNode) => {
 		EM: () => ({ italic: true }),
 		I: () => ({ italic: true }),
 		STRONG: () => ({ bold: true }),
+		B: () => ({ bold: true }),
+		SPAN: () => {
+			const style = (el as HTMLElement).getAttribute('style');
+			const colorMatch = style?.match(/color:\s*([^;]+);?/);
+			const textColor = colorMatch ? colorMatch[1].trim() : undefined;
+			return textColor ? { textColor } : {};
+		},
 	};
 	const ELEMENT_TAGS = {
 		P: () => ({ type: 'paragraph' }),
@@ -109,12 +131,6 @@ const deserialize = (el: HTMLElement | ChildNode) => {
 			},
 			children: [{ text: '', bold: false, italic: false, underline: false }],
 		}),
-		SPAN: () => {
-			const style = (el as HTMLElement).getAttribute('style');
-			const colorMatch = style?.match(/color:\s*([^;]+);?/);
-			const textColor = colorMatch ? colorMatch[1] : undefined;
-			return textColor ? { textColor } : {};
-		},
 		A: () => ({
 			type: 'link',
 			url: (el as HTMLElement).getAttribute('href'),
@@ -171,14 +187,20 @@ const deserialize = (el: HTMLElement | ChildNode) => {
 
 	if (TEXT_TAGS[nodeName]) {
 		const attrs = TEXT_TAGS[nodeName](el);
-		return children.map((child: Descendant): void | Text => {
-			if (child?.type !== 'mergeTag') {
+		const formattedChildren = children
+			.map((child: Descendant): Descendant | Descendant[] | undefined => {
+				if (child?.type === 'mergeTag' || child?.type === 'link') {
+					return child;
+				}
 				if (typeof child === 'string') {
 					return jsx('text', attrs, child);
 				}
 				return { ...child, ...attrs };
-			}
-		});
+			})
+			.flat()
+			.filter(Boolean);
+
+		return formattedChildren.length ? formattedChildren : undefined;
 	}
 
 	return children;

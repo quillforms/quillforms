@@ -1,7 +1,7 @@
  === Quill Forms | Conversational Multi Step Forms, Surveys & quizzes ===
 Contributors: mdmag
-Tested up to: 6.9
-Stable tag: 5.6.0
+Tested up to: 7.0.1
+Stable tag: 5.7.0
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform, conversational, forms, survey, quiz
 License: GPLv2 or later
@@ -145,6 +145,13 @@ Yes, Quill Forms works with all major WordPress page builders through iframe emb
 
 == Changelog ==
 
+
+= 5.7.0 = 13 July 2026
+Feature: Introducing DoubleScale integration (our partner CRM) to automatically create or update contacts when a form is submitted.
+Improvement: Tested and made compatible with WordPress 7.0.1.
+
+= 5.6.1 = 15 Feb 2026
+Fix: Remove the deprecated updater class and adjust license handling for the WordPress.org hosted version.
 
 = 5.6.0 = 14 Feb 2026
 Fix the quillbooking plugin issue.

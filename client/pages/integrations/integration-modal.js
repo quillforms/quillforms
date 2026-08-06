@@ -1,7 +1,13 @@
 /**
+ * QuillForms Dependencies
+ */
+import { ErrorBoundary } from '@quillforms/admin-components';
+
+/**
  * WordPress Dependencies
  */
 import { Modal, Icon as IconComponent } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External Dependencies
@@ -10,6 +16,7 @@ import { css } from 'emotion';
 
 const IntegrationModal = ({ slug, integration, onClose }) => {
 	const icon = integration.icon;
+	const IntegrationRender = integration.render;
 	const title = (
 		<div
 			className={css`
@@ -79,7 +86,19 @@ const IntegrationModal = ({ slug, integration, onClose }) => {
 			shouldCloseOnEsc={false}
 			shouldCloseOnClickOutside={false}
 		>
-			<integration.render slug={slug} onClose={onClose} />
+			<ErrorBoundary
+				errorConfig={{
+					title: __('Unable to load this integration', 'quillforms'),
+					message: __(
+						'Something went wrong while loading the integration settings. Please try again or contact support if the problem persists.',
+						'quillforms'
+					),
+					actionLabel: __('Close', 'quillforms'),
+				}}
+				onReset={onClose}
+			>
+				<IntegrationRender slug={slug} onClose={onClose} />
+			</ErrorBoundary>
 		</Modal>
 	);
 };

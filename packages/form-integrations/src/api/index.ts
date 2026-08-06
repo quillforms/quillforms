@@ -29,14 +29,14 @@ let integrationModules = {};
  *
  */
 // Free integrations that should not be overridden by Pro filters
-const FREE_INTEGRATIONS = ['quillcrm'];
+const FREE_INTEGRATIONS = ['doublescale'];
 
 export const registerIntegrationModule = (
 	slug: string,
 	settings: IntegrationModuleSettings
 ) => {
 	const isWPEnv = ConfigAPI.isWPEnv();
-	// Skip filter for free integrations (like QuillCRM) to keep them working in free version
+	// Skip filter for free integrations (like DoubleScale) to keep them working in free version
 	const isFreeIntegration = FREE_INTEGRATIONS.includes(slug);
 	if (!isFreeIntegration && (isWPEnv || (!isWPEnv && window?.quillformsSaasManagerAdmin?.plan?.plan !== 'free'))) {
 		settings = applyFilters(

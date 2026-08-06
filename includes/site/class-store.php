@@ -446,14 +446,14 @@ class Store {
 						'banner' => QUILLFORMS_PLUGIN_URL . 'assets/addons/entries/banner.png',
 					),
 				),
-				'quillcrm'            => array(
-					'name'           => esc_html__( 'Quill CRM', 'quillforms' ),
-					'description'    => esc_html__( 'Quill CRM integration allows you to automatically create or update contacts in Quill CRM when a form is submitted.', 'quillforms' ),
-					'plugin_file'    => 'quillforms/quillforms.php',
+				'doublescale'         => array(
+					'name'           => esc_html__( 'DoubleScale', 'quillforms' ),
+					'description'    => esc_html__( 'DoubleScale, our partner CRM, lets you automatically create or update contacts in DoubleScale when a form is submitted.', 'quillforms' ),
+					'plugin_file'    => 'doublescale/doublescale.php',
 					'plan'           => 'basic',
 					'is_integration' => true,
 					'assets'         => array(
-						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/quillcrm/icon.svg',
+						'icon' => QUILLFORMS_PLUGIN_URL . 'assets/addons/doublescale/icon.svg',
 					),
 				),
 				'pdf'                 => array(

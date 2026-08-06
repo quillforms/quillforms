@@ -97,48 +97,94 @@ class Admin_Loader {
 
 		$plugins_dir = trailingslashit( dirname( dirname( QUILLFORMS_PLUGIN_FILE ) ) );
 
-		$full_smtp_plugin_file = $plugins_dir . 'quill-smtp/quillsmtp.php';
-		$smtp_plugin_exists    = file_exists( $full_smtp_plugin_file );
+		// DoubleScale is our partner CRM/mailer. Its free version ships an SMTP
+		// module that Quill Forms relies on to deliver email notifications.
+		// Free version: https://wordpress.org/plugins/doublescale/
+		$doublescale_plugin_file = $plugins_dir . 'doublescale/doublescale.php';
+		$doublescale_installed   = file_exists( $doublescale_plugin_file );
+		$doublescale_active      = defined( 'DOUBLESCALE_VERSION' ) || is_plugin_active( 'doublescale/doublescale.php' );
+
+		$doublescale_smtp = self::get_doublescale_smtp_status( $doublescale_active );
 
 		wp_localize_script(
 			'quillforms-client',
 			'qfAdmin',
 			array(
-				'adminUrl'                => admin_url(),
-				'assetsBuildUrl'          => QUILLFORMS_PLUGIN_URL,
-				'submenuPages'            => $submenu['quillforms'] ?? array(),
-				'site_store_nonce'        => wp_create_nonce( 'quillforms_site_store' ),
-				'license_nonce'           => wp_create_nonce( 'quillforms_license' ),
-				'duplicate_nonce'         => wp_create_nonce( 'quillforms_duplicate' ),
-				'current_user_name'       => $user->display_name,
-				'current_user_avatar_url' => esc_url(
+				'adminUrl'                            => admin_url(),
+				'assetsBuildUrl'                      => QUILLFORMS_PLUGIN_URL,
+				'submenuPages'                        => $submenu['quillforms'] ?? array(),
+				'site_store_nonce'                    => wp_create_nonce( 'quillforms_site_store' ),
+				'license_nonce'                       => wp_create_nonce( 'quillforms_license' ),
+				'duplicate_nonce'                     => wp_create_nonce( 'quillforms_duplicate' ),
+				'current_user_name'                   => $user->display_name,
+				'current_user_avatar_url'             => esc_url(
 					get_avatar_url( $user->ID )
 				),
-				// check if Quill SMTP plugin with slug quill-smtp is installed
-				'is_quill_smtp_installed' => $smtp_plugin_exists,
-				// check if Quill SMTP plugin with slug quill-smtp is active
-				'is_quill_smtp_active'    => is_plugin_active( 'quill-smtp/quillsmtp.php' ),
-				'settings'                => Settings::get_all(),
+				// DoubleScale (our partner) provides email delivery via its SMTP module.
+				'is_doublescale_installed'            => $doublescale_installed,
+				'is_doublescale_active'               => $doublescale_active,
+				'is_doublescale_smtp_module_active'   => $doublescale_smtp['module_active'],
+				'doublescale_smtp_has_connections'    => $doublescale_smtp['has_connections'],
+				'doublescale_smtp_settings_url'       => $doublescale_smtp['settings_url'],
+				'doublescale_wporg_url'               => 'https://wordpress.org/plugins/doublescale/',
+				'settings'                            => Settings::get_all(),
 			)
 		);
 
-		// QuillCRM Integration - check installation and activation status
-		$plugins_dir          = trailingslashit( dirname( dirname( QUILLFORMS_PLUGIN_FILE ) ) );
-		$quillcrm_plugin_file = $plugins_dir . 'QuillCRM/quillcrm.php';
-		$quillcrm_installed   = file_exists( $quillcrm_plugin_file );
-		$quillcrm_active      = defined( 'QUILLCRM_PLUGIN_FILE' );
-
+		// DoubleScale integration - check installation and activation status.
 		wp_localize_script(
 			'quillforms-client',
-			'quillformsQuillCRMIntegration',
+			'quillformsDoubleScaleIntegration',
 			array(
-				'isInstalled'   => $quillcrm_installed,
-				'isActive'      => $quillcrm_active,
-				'installNonce'  => wp_create_nonce( 'quillforms_install_quillcrm' ),
-				'activateNonce' => wp_create_nonce( 'quillforms_activate_quillcrm' ),
+				'isInstalled'   => $doublescale_installed,
+				'isActive'      => $doublescale_active,
+				'installNonce'  => wp_create_nonce( 'quillforms_install_doublescale' ),
+				'activateNonce' => wp_create_nonce( 'quillforms_activate_doublescale' ),
 				'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 			)
 		);
+	}
+
+	/**
+	 * Resolve DoubleScale SMTP module status for the admin client.
+	 *
+	 * Reports whether the bundled SMTP module is active and whether it has at
+	 * least one connection configured, so the notifications editor can warn the
+	 * user before their email notifications silently fail to deliver.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param bool $doublescale_active Whether the DoubleScale plugin is active.
+	 * @return array{module_active:bool,has_connections:bool,settings_url:string}
+	 */
+	private static function get_doublescale_smtp_status( $doublescale_active ) {
+		$status = array(
+			'module_active'   => false,
+			'has_connections' => false,
+			'settings_url'    => '',
+		);
+
+		if ( ! $doublescale_active ) {
+			return $status;
+		}
+
+		// Module toggle state (SMTP module lives in the free DoubleScale plugin).
+		if ( function_exists( 'doublescale_is_module_active' ) ) {
+			$status['module_active'] = (bool) doublescale_is_module_active( 'smtp' );
+		}
+
+		// Connections are stored in the SMTP module settings option.
+		$settings    = get_option( 'doublescale_smtp_settings', array() );
+		$connections = ( is_array( $settings ) && ! empty( $settings['connections'] ) && is_array( $settings['connections'] ) )
+			? $settings['connections']
+			: array();
+		$status['has_connections'] = ! empty( $connections );
+
+		// Deep link to the SMTP settings screen inside DoubleScale.
+		$slug                    = apply_filters( 'doublescale_admin_menu_slug', 'doublescale' );
+		$status['settings_url'] = admin_url( 'admin.php?page=' . rawurlencode( $slug ) . '&path=smtp%2Fsettings' );
+
+		return $status;
 	}
 
 	/**

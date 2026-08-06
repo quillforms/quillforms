@@ -16,7 +16,7 @@ import Render from './render';
 import SettingsRender from './settings-render';
 
 // Free integrations that are handled separately (not as store addons)
-const FREE_INTEGRATIONS = ['quillcrm'];
+const FREE_INTEGRATIONS = ['doublescale'];
 
 addAction(
 	'QuillForms.Admin.PluginsLoaded',

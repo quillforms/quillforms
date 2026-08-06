@@ -66,8 +66,8 @@ class Admin {
 	public function admin_hooks() {
 		add_action( 'admin_menu', array( $this, 'create_admin_menu_pages' ) );
 		add_action( 'wp_ajax_quillforms_duplicate_form', array( $this, 'duplicate_form' ) );
-		add_action( 'wp_ajax_quillforms_install_quillcrm', array( $this, 'install_quillcrm' ) );
-		add_action( 'wp_ajax_quillforms_activate_quillcrm', array( $this, 'activate_quillcrm' ) );
+		add_action( 'wp_ajax_quillforms_install_doublescale', array( $this, 'install_doublescale' ) );
+		add_action( 'wp_ajax_quillforms_activate_doublescale', array( $this, 'activate_doublescale' ) );
 		add_action( 'pre_get_posts', array( $this, 'include_quill_forms_post_type_in_query' ), 11 );
 		add_filter( 'post_type_link', array( $this, 'remove_cpt_slug' ), 10, 3 );
 		add_filter('rewrite_rules_array', array($this, 'rewrite_quillforms_rules') );
@@ -120,13 +120,13 @@ class Admin {
 	}
 
 	/**
-	 * Install QuillCRM plugin from WordPress.org
+	 * Install DoubleScale plugin (our partner CRM/mailer) from WordPress.org
 	 *
 	 * @since 3.5.0
 	 */
-	public function install_quillcrm() {
+	public function install_doublescale() {
 		// Check nonce.
-		if ( ! check_ajax_referer( 'quillforms_install_quillcrm', '_nonce', false ) ) {
+		if ( ! check_ajax_referer( 'quillforms_install_doublescale', '_nonce', false ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'quillforms' ), 403 );
 			exit;
 		}
@@ -147,7 +147,7 @@ class Admin {
 		$api = plugins_api(
 			'plugin_information',
 			array(
-				'slug'   => 'quill-crm',
+				'slug'   => 'doublescale',
 				'fields' => array(
 					'short_description' => false,
 					'sections'          => false,
@@ -195,17 +195,17 @@ class Admin {
 			exit;
 		}
 
-		wp_send_json_success( esc_html__( 'QuillCRM installed successfully.', 'quillforms' ) );
+		wp_send_json_success( esc_html__( 'DoubleScale installed successfully.', 'quillforms' ) );
 	}
 
 	/**
-	 * Activate QuillCRM plugin
+	 * Activate DoubleScale plugin (our partner CRM/mailer)
 	 *
 	 * @since 3.5.0
 	 */
-	public function activate_quillcrm() {
+	public function activate_doublescale() {
 		// Check nonce.
-		if ( ! check_ajax_referer( 'quillforms_activate_quillcrm', '_nonce', false ) ) {
+		if ( ! check_ajax_referer( 'quillforms_activate_doublescale', '_nonce', false ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'quillforms' ), 403 );
 			exit;
 		}
@@ -216,11 +216,11 @@ class Admin {
 			exit;
 		}
 
-		$plugin_file = 'quill-crm/quillcrm.php';
+		$plugin_file = 'doublescale/doublescale.php';
 
 		// Check if plugin exists.
 		if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) ) {
-			wp_send_json_error( esc_html__( 'QuillCRM plugin not found.', 'quillforms' ) );
+			wp_send_json_error( esc_html__( 'DoubleScale plugin not found.', 'quillforms' ) );
 			exit;
 		}
 
@@ -232,7 +232,7 @@ class Admin {
 			exit;
 		}
 
-		wp_send_json_success( esc_html__( 'QuillCRM activated successfully.', 'quillforms' ) );
+		wp_send_json_success( esc_html__( 'DoubleScale activated successfully.', 'quillforms' ) );
 	}
 
 	/**

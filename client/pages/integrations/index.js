@@ -84,11 +84,11 @@ const IntegrationsPage = ({ params }) => {
 								false,
 								slug
 							);
-							const isQuillCRM = slug === 'quillcrm';
+							const isDoubleScale = slug === 'doublescale';
 							return (
 								<div
 									key={slug}
-									className={`quillforms-integrations-page__integration-list-item ${isQuillCRM ? css`
+									className={`quillforms-integrations-page__integration-list-item ${isDoubleScale ? css`
 										position: relative;
 										background: linear-gradient(145deg, #ffffff 0%, #f0f7ff 100%) !important;
 										border: 2px solid transparent !important;
@@ -122,7 +122,7 @@ const IntegrationsPage = ({ params }) => {
 										}
 									` : ''}`}
 								>
-									{isQuillCRM && (
+									{isDoubleScale && (
 										<div className={css`
 											position: absolute;
 											top: -12px;
@@ -140,11 +140,11 @@ const IntegrationsPage = ({ params }) => {
 											white-space: nowrap;
 											z-index: 10;
 										`}>
-											✨ {__('Built by Quill Forms', 'quillforms')}
+											✨ {__('Partner Integration', 'quillforms')}
 										</div>
 									)}
-									<div className="quillforms-integrations-page__integration-module-header" style={isQuillCRM ? { marginTop: '8px' } : {}}>
-										<div className={`quillforms-integrations-page__integration-module-icon ${isQuillCRM ? css`
+									<div className="quillforms-integrations-page__integration-module-header" style={isDoubleScale ? { marginTop: '8px' } : {}}>
+										<div className={`quillforms-integrations-page__integration-module-icon ${isDoubleScale ? css`
 											background: linear-gradient(145deg, #e8f4fc 0%, #d0e8f7 100%) !important;
 											border-radius: 16px !important;
 											padding: 10px !important;
@@ -168,7 +168,7 @@ const IntegrationsPage = ({ params }) => {
 												/>
 											)}
 										</div>
-										<div className={`quillforms-integrations-page__integration-module-title ${isQuillCRM ? css`
+										<div className={`quillforms-integrations-page__integration-module-title ${isDoubleScale ? css`
 											background: linear-gradient(135deg, #274C77 0%, #4F9EF9 100%);
 											-webkit-background-clip: text;
 											-webkit-text-fill-color: transparent;

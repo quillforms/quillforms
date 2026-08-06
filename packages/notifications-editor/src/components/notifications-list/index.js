@@ -51,18 +51,23 @@ const NotificationsList = ({
 				'is-animating': isAnimating,
 			})}
 		>
-			{isWPEnv && (!qfAdmin.is_quill_smtp_installed || !qfAdmin.is_quill_smtp_active) && (
+			{isWPEnv && (!qfAdmin.is_doublescale_installed || !qfAdmin.is_doublescale_active) && (
 				<AlertMessageWrapper type={"info"}>
-					{!qfAdmin.is_quill_smtp_installed &&
+					{!qfAdmin.is_doublescale_installed &&
 						<>
-							{__('Email Notifications requires Quill SMTP plugin to be installed and activated. Please install and activate', 'quillforms')} <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">{__('Quill SMTP', 'quillforms')}</a> {__('plugin to make sure that your email notifications are delivered successfully.', 'quillforms')}
+							{__('Email Notifications require our partner plugin DoubleScale to be installed and activated to deliver your emails reliably. Please install and activate', 'quillforms')} <a href={qfAdmin.doublescale_wporg_url || 'https://wordpress.org/plugins/doublescale/'} target="_blank" rel="noopener noreferrer">{__('DoubleScale', 'quillforms')}</a> {__('to make sure that your email notifications are delivered successfully.', 'quillforms')}
 						</>
 					}
-					{qfAdmin.is_quill_smtp_installed && !qfAdmin.is_quill_smtp_active &&
+					{qfAdmin.is_doublescale_installed && !qfAdmin.is_doublescale_active &&
 						<>
-							{__('Email Notifications requires Quill SMTP plugin to be activated. Please activate', 'quillforms')} <a href={`${qfAdmin.adminUrl}plugin-install.php?s=quillsmtp&tab=search&type=term`} target="_blank">{__('Quill SMTP', 'quillforms')}</a> {__('plugin to make sure that your email notifications are delivered successfully.', 'quillforms')}
+							{__('Email Notifications require our partner plugin DoubleScale to be activated to deliver your emails reliably. Please activate', 'quillforms')} <a href={`${qfAdmin.adminUrl}plugins.php`} target="_blank" rel="noopener noreferrer">{__('DoubleScale', 'quillforms')}</a> {__('to make sure that your email notifications are delivered successfully.', 'quillforms')}
 						</>
 					}
+				</AlertMessageWrapper>
+			)}
+			{isWPEnv && qfAdmin.is_doublescale_active && qfAdmin.is_doublescale_smtp_module_active && !qfAdmin.doublescale_smtp_has_connections && (
+				<AlertMessageWrapper type={"error"}>
+					{__('The DoubleScale SMTP module is enabled but no email connection has been configured yet. Your email notifications will not be delivered until you add at least one SMTP connection in', 'quillforms')} <a href={qfAdmin.doublescale_smtp_settings_url || '#'} target="_blank" rel="noopener noreferrer">{__('DoubleScale SMTP settings', 'quillforms')}</a>{__('.', 'quillforms')}
 				</AlertMessageWrapper>
 			)}
 			<div className="notifications-editor-notifciations-list__header">
