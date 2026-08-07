@@ -214,7 +214,7 @@
 		"jsdom": "16.7.0",
 		"lerna": "^8.2.2",
 		"lint-staged": "10.0.1",
-		"lodash": "4.17.21",
+		"lodash": "4.17.23",
 		"make-dir": "^4.0.0",
 		"mini-css-extract-plugin": "^2.6.1",
 		"mkdirp": "^3.0.1",
