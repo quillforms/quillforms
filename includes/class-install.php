@@ -39,7 +39,6 @@ class Install {
 	public static function check_version() {
 		self::deactivate_old_entries_addon();
 		self::deactivate_old_thankyou_screen_addon();
-		self::deactivate_funnelkit_addon();
 		if ( version_compare( get_option( 'quillforms_version' ), QUILLFORMS_VERSION, '<' ) ) {
 			self::install();
 			do_action( 'quillforms_updated' );
