@@ -18,6 +18,19 @@ use QuillForms\Abstracts\Block_Type;
 final class Blocks_Manager
 {
     /**
+     * Block names that the server injects into form data without registering a
+     * block type for them.
+     *
+     * These are not real block types, so create() returns false for them instead
+     * of reporting a caller mistake.
+     *
+     * @since 5.7.3
+     *
+     * @var string[]
+     */
+    const VIRTUAL_BLOCKS = array( 'partial-submission-point', 'honeypot' );
+
+    /**
      * Registered block types, as `$name => $instance` pairs.
      *
      * @since 1.0.0
@@ -118,7 +131,13 @@ final class Blocks_Manager
 
         $block_name = isset($properties['name']) ? $properties['name'] : '';
 
-        if($block_name === 'partial-submission-point') return false;
+        // Virtual blocks are injected into form data by the server and never have
+        // a registered block type, so they are not a caller mistake. The honeypot
+        // is appended to every form's blocks, which made this log a notice on
+        // every request that walked a form's blocks.
+        if (in_array($block_name, self::VIRTUAL_BLOCKS, true) ) {
+            return false;
+        }
 
         if (empty($block_name) || ! isset($this->registered_block_types[ $block_name ]) ) {
             /* translators: %s for block type */

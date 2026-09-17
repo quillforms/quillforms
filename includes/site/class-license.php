@@ -55,7 +55,11 @@ class License {
 	 * @since 1.6.0
 	 */
 	private function __construct() {
-		$this->define_plans();
+		// define_plans() is deliberately not called here. This class is
+		// instantiated during plugins_loaded, and the plan labels are translated;
+		// building them this early loaded the textdomain before init, which
+		// WordPress 6.7+ reports via _load_textdomain_just_in_time on every
+		// request. The plans are built on first use instead.
 
 		add_action( 'quillforms_loaded', array( $this, 'license_update_task' ), 100 );
 
@@ -73,6 +77,10 @@ class License {
 	 * @return void
 	 */
 	private function define_plans() {
+		if ( null !== $this->plans ) {
+			return;
+		}
+
 		$this->plans = array(
 			'basic'      => array(
 				'label' => esc_html__( 'Basic', 'quillforms' ),
@@ -103,6 +111,7 @@ class License {
 	 * @return array
 	 */
 	public function get_plans() {
+		$this->define_plans();
 		return $this->plans;
 	}
 
@@ -115,6 +124,7 @@ class License {
 	 * @return string|null
 	 */
 	public function get_plan_label( $plan ) {
+		$this->define_plans();
 		if ( isset( $this->plans[ $plan ] ) ) {
 			return $this->plans[ $plan ]['label'];
 		} else {
@@ -163,6 +173,7 @@ class License {
 	 * @return boolean
 	 */
 	public function is_plan_accessible( $user_plan, $feature_plan ) {
+		$this->define_plans();
 		$plans_keys = array_keys( $this->plans );
 
 		$user_plan_level    = array_search( $user_plan, $plans_keys, true );

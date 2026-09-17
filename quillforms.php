@@ -62,11 +62,12 @@ require_once QUILLFORMS_PLUGIN_DIR . 'includes/autoload.php';
 // Do version checks early
 quillforms_pre_init();
 
-// Suppress the WordPress 6.7+ notice and load textdomain immediately
-add_filter( 'doing_it_wrong_trigger_error', 'quillforms_suppress_translation_notice', 10, 2 );
-
-// Load textdomain immediately before QuillForms initializes
-quillforms_load_textdomain_early();
+// Load the textdomain on init, which is the earliest point WordPress allows.
+//
+// This must NOT run at file-load time: WordPress 6.7+ reports any translation
+// loaded before init via _load_textdomain_just_in_time, which logged a notice on
+// every request.
+add_action( 'init', 'quillforms_load_textdomain', 0 );
 
 // Initialize QuillForms early on plugins_loaded so that the quillforms_loaded
 // action fires before addons run their own default-priority callbacks.
@@ -100,23 +101,16 @@ function quillforms_pre_init() {
 }
 
 /**
- * Suppress WordPress 6.7+ translation timing notice
- */
-function quillforms_suppress_translation_notice( $trigger, $function ) {
-	if ( '_load_textdomain_just_in_time' === $function ) {
-		return false;
-	}
-	return $trigger;
-}
-
-/**
- * Load textdomain early (before QuillForms initializes)
+ * Load the plugin textdomain.
+ *
+ * Runs on init at priority 0. Loading earlier than init triggers the
+ * _load_textdomain_just_in_time notice on WordPress 6.7+.
  *
  * Note: For plugins hosted on WordPress.org, translations are loaded automatically
  * since WordPress 4.6. This function is kept for backwards compatibility and
  * for self-hosted installations.
  */
-function quillforms_load_textdomain_early() {
+function quillforms_load_textdomain() {
 	// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Kept for backwards compatibility with self-hosted installations.
 	load_plugin_textdomain(
 		'quillforms',

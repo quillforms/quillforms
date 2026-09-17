@@ -56,7 +56,11 @@ class Store {
 	 * @since 1.6.0
 	 */
 	private function __construct() {
-		$this->define_addons();
+		// define_addons() is deliberately not called here. This class is
+		// instantiated during plugins_loaded, and the addon names/descriptions are
+		// translated; building them this early loaded the textdomain before init,
+		// which WordPress 6.7+ reports via _load_textdomain_just_in_time on every
+		// request. The addons are built on first use instead.
 
 		add_action( 'wp_ajax_quillforms_addon_install', array( $this, 'ajax_install' ) );
 		add_action( 'wp_ajax_quillforms_addon_activate', array( $this, 'ajax_activate' ) );
@@ -70,6 +74,7 @@ class Store {
 	 * @return array
 	 */
 	public function get_all_addons( $include_plugin_file = false ) {
+		$this->define_addons();
 		if ( $include_plugin_file ) {
 			$exclude = array();
 		} else {
@@ -98,6 +103,7 @@ class Store {
 	 * @return array|null
 	 */
 	public function get_addon( $slug ) {
+		$this->define_addons();
 		return $this->addons[ $slug ] ?? null;
 	}
 
@@ -108,6 +114,7 @@ class Store {
 	 * @return array
 	 */
 	public function install( $addon_slug ) {
+		$this->define_addons();
 		// check addon.
 		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
 			return array(
@@ -273,6 +280,7 @@ class Store {
 	 * @return array
 	 */
 	public function activate( $addon_slug, $redirect = '' ) {
+		$this->define_addons();
 		// check addon.
 		if ( ! isset( $this->addons[ $addon_slug ] ) ) {
 			return array(
@@ -412,6 +420,7 @@ class Store {
 	 * @return void
 	 */
 	public function ajax_ensure_activation() {
+		$this->define_addons();
 		if ( empty( $_GET['success'] ) ) {
 			wp_send_json_error( esc_html__( 'Fatal error occurred on activating the addon plugin', 'quillforms' ), 500 );
 			exit;
@@ -432,6 +441,10 @@ class Store {
 	 * @return void
 	 */
 	private function define_addons() {
+		if ( null !== $this->addons ) {
+			return;
+		}
+
 		$addons = apply_filters(
 			'quillforms_store_addons',
 			array(

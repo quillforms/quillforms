@@ -20,18 +20,68 @@ abstract class Form_Template extends stdClass {
 
 
     /**
-     * Constructor
+     * Map of lazily resolved properties to the method that provides each one.
+     *
+     * @since 5.7.3
+     *
+     * @var array<string, string>
+     */
+    private static $lazy_properties = array(
+        'name'              => 'get_name',
+        'title'             => 'get_title',
+        'link'              => 'get_template_link',
+        'screenshot'        => 'get_template_screenshot',
+        'data'              => 'get_template_data',
+        'required_addons'   => 'get_required_addons',
+        'notes'             => 'get_notes',
+        'short_description' => 'get_short_description',
+        'long_description'  => 'get_long_description',
+    );
+
+    /**
+     * Constructor.
+     *
+     * Deliberately does not resolve the properties below. Templates are
+     * instantiated at include time during plugins_loaded, and these getters
+     * return translated strings; calling them here loaded the textdomain before
+     * init, which WordPress 6.7+ reports via _load_textdomain_just_in_time on
+     * every request. They are resolved on first access instead, by which point
+     * init has run.
      */
     public function __construct() {
-        $this->name  = $this->get_name();
-        $this->title = $this->get_title();
-        $this->link  = $this->get_template_link();
-        $this->screenshot = $this->get_template_screenshot();
-        $this->data  = $this->get_template_data();
-        $this->required_addons = $this->get_required_addons();
-        $this->notes = $this->get_notes();
-        $this->short_description = $this->get_short_description();
-        $this->long_description = $this->get_long_description();
+    }
+
+    /**
+     * Resolve a template property on first access.
+     *
+     * @since 5.7.3
+     *
+     * @param string $name Property name.
+     * @return mixed
+     */
+    public function __get( $name ) {
+        if ( isset( self::$lazy_properties[ $name ] ) ) {
+            // Assigning here means this runs once per property; later reads hit
+            // the real property and never reach __get().
+            $this->$name = $this->{ self::$lazy_properties[ $name ] }();
+            return $this->$name;
+        }
+
+        return null;
+    }
+
+    /**
+     * Whether a template property is available.
+     *
+     * Keeps isset()/empty() working for the lazily resolved properties.
+     *
+     * @since 5.7.3
+     *
+     * @param string $name Property name.
+     * @return bool
+     */
+    public function __isset( $name ) {
+        return isset( self::$lazy_properties[ $name ] );
     }
 
 	/**
