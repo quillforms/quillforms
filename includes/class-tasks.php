@@ -92,6 +92,10 @@ class Tasks {
 		// add action.
 		$action_id = as_enqueue_async_action( "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
 		if ( ! $action_id ) {
+			// Until scheduling succeeds no action owns this row, and the
+			// action_scheduler_deleted_action cleanup is keyed on action id, so
+			// leaving it here would orphan it permanently.
+			self::delete_meta( array( 'ID' => $meta_id ) );
 			return false;
 		}
 
@@ -121,6 +125,10 @@ class Tasks {
 		// add action.
 		$action_id = as_schedule_single_action( $timestamp, "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
 		if ( ! $action_id ) {
+			// Until scheduling succeeds no action owns this row, and the
+			// action_scheduler_deleted_action cleanup is keyed on action id, so
+			// leaving it here would orphan it permanently.
+			self::delete_meta( array( 'ID' => $meta_id ) );
 			return false;
 		}
 
@@ -142,14 +150,69 @@ class Tasks {
 	 * @return integer|false
 	 */
 	public function schedule_recurring( $timestamp, $interval, $hook, ...$args ) {
-		// add args meta.
-		$meta_id = $this->add_meta( "{$this->group}_$hook", $args );
+		$full_hook = "{$this->group}_$hook";
+
+		// A recurring action keeps running against the same meta row, and its
+		// action id changes on every run, so the row cannot be cleaned up via
+		// action_scheduler_deleted_action the way single/async tasks are.
+		// Reuse the existing row for this hook instead of inserting a new one:
+		// inserting per call leaked a permanently orphaned row every time
+		// scheduling was attempted while the action was not currently scheduled.
+		$meta_id     = $this->get_recurring_meta_id( $full_hook, $args );
+		$reused_meta = (bool) $meta_id;
+
 		if ( ! $meta_id ) {
+			$meta_id = $this->add_meta( $full_hook, $args );
+			if ( ! $meta_id ) {
+				return false;
+			}
+		}
+
+		$action_id = as_schedule_recurring_action( $timestamp, $interval, $full_hook, compact( 'meta_id' ), $this->group );
+
+		if ( ! $action_id ) {
+			// A row we just inserted is not owned by any action, so drop it
+			// again. A reused row is left alone: its action is still scheduled.
+			if ( ! $reused_meta ) {
+				self::delete_meta( array( 'ID' => $meta_id ) );
+			}
 			return false;
 		}
 
-		// the action id isn't single, so we won't assign it to the meta.
-		return as_schedule_recurring_action( $timestamp, $interval, "{$this->group}_$hook", compact( 'meta_id' ), $this->group );
+		return $action_id;
+	}
+
+	/**
+	 * Find the meta row already in use by a recurring hook.
+	 *
+	 * Recurring tasks reuse a single meta row, keyed by hook, group and args
+	 * rather than by action id.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param string $full_hook Hook name including the group prefix.
+	 * @param array  $args Args passed to the hook.
+	 * @return integer|null
+	 */
+	private function get_recurring_meta_id( $full_hook, $args ) {
+		global $wpdb;
+
+		$meta_id = $wpdb->get_var(
+			$wpdb->prepare(
+				"
+					SELECT ID
+					FROM {$wpdb->prefix}quillforms_task_meta
+					WHERE hook = %s AND group_slug = %s AND value = %s
+					ORDER BY ID ASC
+					LIMIT 1
+				",
+				$full_hook,
+				$this->group,
+				maybe_serialize( $args )
+			)
+		);
+
+		return $meta_id ? (int) $meta_id : null;
 	}
 
 	/**
