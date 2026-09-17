@@ -212,7 +212,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 	quillforms_override_script(
 		$scripts,
 		'emotion',
-		QUILLFORMS_PLUGIN_URL . '/lib/vendor/emotion.min.js',
+		QUILLFORMS_PLUGIN_URL . 'lib/vendor/emotion.min.js',
 		array( 'react', 'wp-element' ),
 		'1.8.6',
 		true
@@ -230,7 +230,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 	quillforms_override_script(
 		$scripts,
 		'quillforms-iframe-resizer',
-		QUILLFORMS_PLUGIN_URL . '/includes/render/iframe-resizer-min.js',
+		QUILLFORMS_PLUGIN_URL . 'includes/render/iframe-resizer-min.js',
 		array( 'jquery' ),
 		QUILLFORMS_VERSION,
 		true
@@ -239,7 +239,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 	quillforms_override_script(
 		$scripts,
 		'quillforms-iframe-resizer-implementer',
-		QUILLFORMS_PLUGIN_URL . '/includes/render/iframe-resizer-implementer.js',
+		QUILLFORMS_PLUGIN_URL . 'includes/render/iframe-resizer-implementer.js',
 		array( 'jquery', 'quillforms-iframe-resizer' ),
 		QUILLFORMS_VERSION,
 		true
@@ -257,7 +257,7 @@ function quillforms_register_packages_scripts( $scripts ) {
 	quillforms_override_script(
 		$scripts,
 		'tinycolor',
-		QUILLFORMS_PLUGIN_URL . '/lib/vendor/tinycolor.min.js',
+		QUILLFORMS_PLUGIN_URL . 'lib/vendor/tinycolor.min.js',
 		array(),
 		QUILLFORMS_VERSION,
 		true

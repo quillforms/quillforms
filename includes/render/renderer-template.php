@@ -18,7 +18,7 @@ $disable_indexing = Settings::get( 'disable_indexing' );
 ?>
 <!DOCTYPE html>
 <html style="margin-top: 0 !important;" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>" 
-	lang="<?php echo esc_attr( get_locale() ); ?>" >
+	lang="<?php echo esc_attr( get_bloginfo( 'language' ) ); ?>" >
 	<head>
 		<link rel="shortcut icon" href="<?php echo esc_url( apply_filters( 'quillforms_favicon', get_site_icon_url() ) ); ?>" />
 		<style>
