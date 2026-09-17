@@ -13,6 +13,20 @@ const BlockAttachment: React.FC = () => {
 	const isSplit = isSmallDevice ? false : layout === 'split-left' || layout === 'split-right';
 	const isFloat = isSmallDevice ? layout === 'float-left' || layout === 'float-right' : false;
 
+	// The attachment sits in a block level wrapper, so the text-align inherited
+	// from the question header never moves it: it stays flush against the start
+	// edge while the heading above it is centred, which reads as a broken layout.
+	//
+	// Deliberately not folded into isFloat: that flag is hard coded to false on
+	// desktop, so anything gated behind it cannot reach the layout fixed here.
+	const align = (attributes?.align as string) ?? 'left';
+	const alignmentCss =
+		isSplit || isFloat || 'left' === align
+			? ''
+			: 'center' === align
+				? 'margin-inline: auto;'
+				: 'margin-inline-start: auto;';
+
 	if (isVideo && attachment.url) {
 		// Extract YouTube video ID
 		const match = attachment.url.match(/(?:youtu.be\/|youtube.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
@@ -126,6 +140,10 @@ const BlockAttachment: React.FC = () => {
 							${isFloat && `
 								margin: 0 auto;
 								max-width: 100%;
+							`}
+							${alignmentCss && `
+								display: block;
+								${alignmentCss}
 							`}
 						`
 					)}

@@ -137,10 +137,23 @@ const QuestionHeader: React.FC = memo(() => {
 						}
 					`}
 					
-					/* Ensure attachment respects alignment in stack layout */
+					/* Ensure attachment respects alignment in stack layout.
+					 *
+					 * The class is renderer-core-, not renderer-components-: that is
+					 * what BlockAttachment actually renders, so the old selector
+					 * matched nothing. */
 					${layout === 'stack' && `
-						.renderer-components-field-attachment {
+						.renderer-core-block-attachment {
 							align-self: ${alignmentStyles.alignItems};
+						}
+					`}
+
+					/* Take the counter out of the flow when centring: its wrapper is
+					 * zero width but still occupies a flex slot, which pushes the
+					 * heading a few pixels off centre. */
+					${align === 'center' && `
+						.renderer-components-block-label__counter {
+							position: absolute;
 						}
 					`}
 				`
