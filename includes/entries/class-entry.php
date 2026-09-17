@@ -191,35 +191,191 @@ class Entry extends Abstract_Entry {
 					'value' => maybe_unserialize( $result['meta_value'] ),
 				);
 				if('user_id' === $result['meta_key'] && $result['meta_value']) {
-					$user_id = $result['meta_value'];
-					$user_data = get_userdata( $user_id );
-					if ( ! $user_data ) {
-						return;
-					}
-					$this->meta['user_email'] = array(
-						'value' => $user_data->user_email,
-					);
-					$this->meta['user_name'] = array(
-						'value' => $user_data->display_name,
-					);
-					$this->meta['user_login'] = array(
-						'value' => $user_data->user_login,
-					);
-					$this->meta['user_first_name'] = array(
-						'value' => $user_data->first_name,
-					);
-					$this->meta['user_last_name'] = array(
-						'value' => $user_data->last_name,
-					);
-					$this->meta['user_nicename'] = array(
-						'value' => $user_data->user_nicename,
-					);
-					$this->meta['edit_user_url'] = array(
-						'value' => admin_url('user-edit.php?user_id=' . $user_id)
+					$this->add_user_meta( $result['meta_value'] );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Bulk load records for a set of entries.
+	 *
+	 * Fetches the records of every given entry in a single query instead of one
+	 * query per entry, then assigns them to the matching instances. Callers that
+	 * loop over many entries should use this instead of calling load_records()
+	 * per entry.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param self[] $entries Entry instances to populate.
+	 * @return void
+	 */
+	public static function bulk_load_records( $entries ) {
+		global $wpdb;
+
+		$entry_ids = array();
+		foreach ( $entries as $entry ) {
+			$entry->records = array();
+			$entry_ids[]    = (int) $entry->ID;
+		}
+
+		if ( empty( $entry_ids ) ) {
+			return;
+		}
+
+		$ids_placeholder = implode( ',', array_fill( 0, count( $entry_ids ), '%d' ) );
+
+		$results = $wpdb->get_results(
+			// @codingStandardsIgnoreStart
+			$wpdb->prepare(
+				"
+					SELECT entry_id, record_type, record_id, record_value
+					FROM {$wpdb->prefix}quillforms_entry_records
+					WHERE entry_id IN ($ids_placeholder)
+				",
+				$entry_ids
+			),
+			// @codingStandardsIgnoreEnd
+			ARRAY_A
+		);
+
+		if ( ! $results ) {
+			return;
+		}
+
+		$grouped = array();
+		foreach ( $results as $index => $result ) {
+			$grouped[ (int) $result['entry_id'] ][] = $result;
+			unset( $results[ $index ] );
+		}
+		unset( $results );
+
+		foreach ( $entries as $entry ) {
+			foreach ( $grouped[ $entry->ID ] ?? array() as $result ) {
+				$record_type = Entry_Record_Types::instance()->get( $result['record_type'] );
+				if ( $record_type ) {
+					$entry->records[ $record_type['section'] ][ $result['record_id'] ] = array(
+						'value' => maybe_unserialize( $result['record_value'] ),
 					);
 				}
 			}
 		}
+	}
+
+	/**
+	 * Bulk load meta for a set of entries.
+	 *
+	 * Fetches the meta of every given entry in a single query instead of one
+	 * query per entry, then assigns it to the matching instances. Callers that
+	 * loop over many entries should use this instead of calling load_meta()
+	 * per entry.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param self[] $entries Entry instances to populate.
+	 * @return void
+	 */
+	public static function bulk_load_meta( $entries ) {
+		global $wpdb;
+
+		$entry_ids = array();
+		foreach ( $entries as $entry ) {
+			$entry->meta = array();
+			$entry_ids[] = (int) $entry->ID;
+		}
+
+		if ( empty( $entry_ids ) ) {
+			return;
+		}
+
+		$ids_placeholder = implode( ',', array_fill( 0, count( $entry_ids ), '%d' ) );
+
+		$results = $wpdb->get_results(
+			// @codingStandardsIgnoreStart
+			$wpdb->prepare(
+				"
+					SELECT entry_id, meta_key, meta_value
+					FROM {$wpdb->prefix}quillforms_entry_meta
+					WHERE entry_id IN ($ids_placeholder)
+				",
+				$entry_ids
+			),
+			// @codingStandardsIgnoreEnd
+			ARRAY_A
+		);
+
+		if ( ! $results ) {
+			return;
+		}
+
+		$grouped = array();
+		foreach ( $results as $index => $result ) {
+			$grouped[ (int) $result['entry_id'] ][] = $result;
+			unset( $results[ $index ] );
+		}
+		unset( $results );
+
+		// Prime the user cache so the user meta expansion below doesn't issue
+		// one user query per entry.
+		$user_ids = array();
+		foreach ( $grouped as $entry_results ) {
+			foreach ( $entry_results as $result ) {
+				if ( 'user_id' === $result['meta_key'] && $result['meta_value'] ) {
+					$user_ids[] = (int) $result['meta_value'];
+				}
+			}
+		}
+		if ( ! empty( $user_ids ) ) {
+			cache_users( array_unique( $user_ids ) );
+		}
+
+		foreach ( $entries as $entry ) {
+			foreach ( $grouped[ $entry->ID ] ?? array() as $result ) {
+				$entry->meta[ $result['meta_key'] ] = array(
+					'value' => maybe_unserialize( $result['meta_value'] ),
+				);
+				if ( 'user_id' === $result['meta_key'] && $result['meta_value'] ) {
+					$entry->add_user_meta( $result['meta_value'] );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Expand a user_id meta value into the readable user meta keys.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param int $user_id User id.
+	 * @return void
+	 */
+	private function add_user_meta( $user_id ) {
+		$user_data = get_userdata( $user_id );
+		if ( ! $user_data ) {
+			return;
+		}
+
+		$this->meta['user_email'] = array(
+			'value' => $user_data->user_email,
+		);
+		$this->meta['user_name'] = array(
+			'value' => $user_data->display_name,
+		);
+		$this->meta['user_login'] = array(
+			'value' => $user_data->user_login,
+		);
+		$this->meta['user_first_name'] = array(
+			'value' => $user_data->first_name,
+		);
+		$this->meta['user_last_name'] = array(
+			'value' => $user_data->last_name,
+		);
+		$this->meta['user_nicename'] = array(
+			'value' => $user_data->user_nicename,
+		);
+		$this->meta['edit_user_url'] = array(
+			'value' => admin_url( 'user-edit.php?user_id=' . $user_id ),
+		);
 	}
 
 	/**

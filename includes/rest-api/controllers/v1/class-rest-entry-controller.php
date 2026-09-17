@@ -173,6 +173,15 @@ class REST_Entry_Controller extends REST_Controller {
 		$records = ( $request->get_param( 'records' ) ?? 'true' ) === 'true';
 		$meta    = ( $request->get_param( 'meta' ) ?? 'true' ) === 'true';
 
+		// Load records/meta for the whole page in one query each rather than
+		// two queries per entry.
+		if ( $records ) {
+			Entry::bulk_load_records( $entries );
+		}
+		if ( $meta ) {
+			Entry::bulk_load_meta( $entries );
+		}
+
 		$data = array(
 			'items'        => array_map(
 				function( $entry ) use ( $form_data, $records, $meta ) {
@@ -187,12 +196,10 @@ class REST_Entry_Controller extends REST_Controller {
 					);
 
 					if ( $records ) {
-						$entry->load_records();
 						$result['records'] = $entry->get_readable_records( $form_data, 'html' );
 					}
 
 					if ( $meta ) {
-						$entry->load_meta();
 						$result['meta'] = $entry->meta;
 					}
 
