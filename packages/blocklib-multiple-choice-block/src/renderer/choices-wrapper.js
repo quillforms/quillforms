@@ -106,6 +106,7 @@ const ChoicesWrapper =
 						);
 					}
 					setVal($val);
+					checkfieldValidation($val);
 				}
 			} else {
 				if (multiple) {
