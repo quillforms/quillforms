@@ -224,7 +224,8 @@ class Core {
 		$all_blocks = array();
 		if ( ! empty( $blocks ) ) {
 			foreach ( $blocks as $block ) {
-				$block_type   = Blocks_Manager::instance()->create( $block );
+				// Only supported features are needed here, which the registered block type already has.
+				$block_type   = Blocks_Manager::instance()->get_registered( $block['name'] ?? '' );
 				$all_blocks[] = $block;
 				if ( $block_type && isset( $block_type->supported_features['innerBlocks'] ) ) {
 					if ( ! empty( $block['innerBlocks'] ) ) {

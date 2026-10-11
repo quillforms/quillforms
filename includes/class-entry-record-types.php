@@ -36,6 +36,24 @@ class Entry_Record_Types {
 	private static $instance = null;
 
 	/**
+	 * Blocks of the form that $form_blocks_map was built for.
+	 *
+	 * @since 5.7.4
+	 *
+	 * @var array|null
+	 */
+	private $form_blocks = null;
+
+	/**
+	 * Block data, and block type once created, keyed by block id.
+	 *
+	 * @since 5.7.4
+	 *
+	 * @var array
+	 */
+	private $form_blocks_map = array();
+
+	/**
 	 * Get class instance
 	 *
 	 * @since 1.10.0
@@ -157,14 +175,13 @@ class Entry_Record_Types {
 			return null;
 		}
 
-		// get block data.
-		$block_data = quillforms_arrays_find( Core::get_blocks_recursively( $form_data['blocks'] ), 'id', $field_id );
-		if ( ! $block_data ) {
+		// get block data and block type.
+		$block = $this->get_form_block( $form_data, $field_id );
+		if ( ! $block ) {
 			return null;
 		}
-
-		// get block type.
-		$block_type = Blocks_Manager::instance()->create( $block_data );
+		$block_data = $block['data'];
+		$block_type = $block['type'];
 		if ( ! $block_type ) {
 			return null;
 		}
@@ -200,20 +217,53 @@ class Entry_Record_Types {
 	 * @return boolean
 	 */
 	public function is_field_condition_fulfilled( $field_id, $condition, $entry, $form_data ) {
-		// get block data.
-		$block_data = quillforms_arrays_find( Core::get_blocks_recursively( $form_data['blocks'] ), 'id', $field_id );
-		if ( ! $block_data ) {
-			return false;
-		}
-
 		// get block type.
-		$block_type = Blocks_Manager::instance()->create( $block_data );
-		if ( ! $block_type ) {
+		$block = $this->get_form_block( $form_data, $field_id );
+		if ( ! $block || ! $block['type'] ) {
 			return false;
 		}
 
 		$value = $entry->get_record_value( 'field', $field_id ) ?? '';
-		return $block_type->is_condition_fulfilled( $value, $condition );
+		return $block['type']->is_condition_fulfilled( $value, $condition );
+	}
+
+	/**
+	 * Get a block's data and block type from form data
+	 *
+	 * Exports, analytics and filters read every field of thousands of entries.
+	 * Walking the form's blocks and creating a new block type for each field
+	 * of each entry made that cost grow with the square of the form size, so
+	 * the blocks are indexed once per form and each block type is created once.
+	 *
+	 * @since 5.7.4
+	 *
+	 * @param array  $form_data Form data.
+	 * @param string $block_id  Block id.
+	 * @return array|null Array with 'data' and 'type' (Block_Type or false), null if not found.
+	 */
+	private function get_form_block( $form_data, $block_id ) {
+		$blocks = $form_data['blocks'] ?? array();
+
+		// Comparing the very same array is instant; any other form rebuilds the index.
+		if ( null === $this->form_blocks || $blocks !== $this->form_blocks ) {
+			$this->form_blocks     = $blocks;
+			$this->form_blocks_map = array();
+			foreach ( Core::get_blocks_recursively( $blocks ) as $block_data ) {
+				if ( isset( $block_data['id'] ) && ! isset( $this->form_blocks_map[ $block_data['id'] ] ) ) {
+					$this->form_blocks_map[ $block_data['id'] ] = array( 'data' => $block_data );
+				}
+			}
+		}
+
+		if ( ! isset( $this->form_blocks_map[ $block_id ] ) ) {
+			return null;
+		}
+
+		if ( ! array_key_exists( 'type', $this->form_blocks_map[ $block_id ] ) ) {
+			$this->form_blocks_map[ $block_id ]['type'] = Blocks_Manager::instance()->create( $this->form_blocks_map[ $block_id ]['data'] );
+		}
+
+		return $this->form_blocks_map[ $block_id ];
 	}
 
 }
