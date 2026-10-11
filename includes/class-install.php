@@ -315,8 +315,11 @@ class Install {
 	 */
 	private static function create_cron_jobs() {
 		wp_clear_scheduled_hook( 'quillforms_cleanup_logs' );
+		wp_clear_scheduled_hook( 'quillforms_cleanup_tasks' );
 
 		wp_schedule_event( time() + ( 3 * HOUR_IN_SECONDS ), 'daily', 'quillforms_cleanup_logs' );
+		// Starts soon after an update so tasks piled up by older versions are cleared.
+		wp_schedule_event( time() + ( 15 * MINUTE_IN_SECONDS ), 'daily', 'quillforms_cleanup_tasks' );
 	}
 
 	/**

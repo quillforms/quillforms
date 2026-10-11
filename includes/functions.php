@@ -9,6 +9,7 @@
 use QuillForms\Interfaces\Logger_Interface;
 use QuillForms\Logger;
 use QuillForms\Settings;
+use QuillForms\Tasks;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -234,6 +235,22 @@ function quillforms_cleanup_logs() {
 	}
 }
 add_action( 'quillforms_cleanup_logs', 'quillforms_cleanup_logs' );
+
+/**
+ * Delete finished background tasks of QuillForms and its addons.
+ *
+ * A large backlog is deleted over several runs a few minutes apart, rather
+ * than in one long request.
+ *
+ * @since 5.7.4
+ */
+function quillforms_cleanup_tasks() {
+	if ( Tasks::cleanup() && ! wp_next_scheduled( 'quillforms_cleanup_tasks_continue' ) ) {
+		wp_schedule_single_event( time() + 5 * MINUTE_IN_SECONDS, 'quillforms_cleanup_tasks_continue' );
+	}
+}
+add_action( 'quillforms_cleanup_tasks', 'quillforms_cleanup_tasks' );
+add_action( 'quillforms_cleanup_tasks_continue', 'quillforms_cleanup_tasks' );
 
 /**
  * Get client ip address

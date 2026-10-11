@@ -16,6 +16,13 @@ use Throwable;
 class Tasks {
 
 	/**
+	 * Rows handled per cleanup query.
+	 *
+	 * @since 5.7.4
+	 */
+	const CLEANUP_BATCH_SIZE = 500;
+
+	/**
 	 * Group
 	 *
 	 * @since 1.5.0
@@ -258,9 +265,161 @@ class Tasks {
 						)
 					);
 				}
+
+				// The meta of a one-off task holds a full copy of the entry and form
+				// and is never read again. Recurring tasks reuse theirs on every run,
+				// and only their meta has no action id.
+				self::delete_finished_task_meta( $meta_id );
 			}
 		);
 	}
+
+	// phpcs:disable WordPress.DB.PreparedSQL -- Table names come from $wpdb->prefix and id lists are cast to integers.
+
+	/**
+	 * Delete finished QuillForms tasks
+	 *
+	 * Action Scheduler deletes completed and canceled actions a few at a time and
+	 * keeps failed ones forever, with their logs and task meta. This deletes the
+	 * actions of QuillForms and its addons that finished before the retention period,
+	 * with their logs and meta, and task meta no action uses. Actions of other
+	 * plugins are never touched.
+	 *
+	 * @since 5.7.4
+	 *
+	 * @param integer $time_budget Seconds to spend before stopping.
+	 * @return boolean Whether rows are left to delete.
+	 */
+	public static function cleanup( $time_budget = 20 ) {
+		global $wpdb;
+
+		$actions_table = "{$wpdb->prefix}actionscheduler_actions";
+		$logs_table    = "{$wpdb->prefix}actionscheduler_logs";
+		$meta_table    = "{$wpdb->prefix}quillforms_task_meta";
+		$deadline      = microtime( true ) + $time_budget;
+
+		// Sites still on Action Scheduler's posts store have no actions table.
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $actions_table ) ) !== $actions_table ) {
+			return false;
+		}
+
+		// The plugin uses the group "quillforms", addons "quillforms_{slug}" and entry exports "quillforms-export".
+		$group_ids = array_map(
+			'intval',
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT group_id FROM {$wpdb->prefix}actionscheduler_groups WHERE slug = %s OR slug LIKE %s OR slug LIKE %s",
+					'quillforms',
+					$wpdb->esc_like( 'quillforms_' ) . '%',
+					$wpdb->esc_like( 'quillforms-' ) . '%'
+				)
+			)
+		);
+
+		// Same retention Action Scheduler uses for completed actions.
+		$cutoff = gmdate( 'Y-m-d H:i:s', time() - (int) apply_filters( 'action_scheduler_retention_period', MONTH_IN_SECONDS ) );
+
+		while ( $group_ids ) {
+			$action_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					'SELECT action_id FROM ' . $actions_table . '
+					WHERE group_id IN (' . implode( ',', $group_ids ) . ')
+						AND status IN (%s, %s, %s)
+						AND scheduled_date_gmt < %s AND last_attempt_gmt < %s
+					LIMIT %d',
+					'complete',
+					'failed',
+					'canceled',
+					$cutoff,
+					$cutoff,
+					self::CLEANUP_BATCH_SIZE
+				)
+			);
+			if ( ! $action_ids ) {
+				break;
+			}
+
+			$in = implode( ',', array_map( 'intval', $action_ids ) );
+			$wpdb->query( "DELETE FROM {$logs_table} WHERE action_id IN ({$in})" );
+			$wpdb->query( "DELETE FROM {$meta_table} WHERE action_id IN ({$in})" );
+			$wpdb->query( "DELETE FROM {$actions_table} WHERE action_id IN ({$in})" );
+
+			if ( microtime( true ) >= $deadline ) {
+				return true;
+			}
+		}
+
+		return self::cleanup_unused_meta( $actions_table, $meta_table, $deadline );
+	}
+
+	/**
+	 * Delete task meta no action uses
+	 *
+	 * That is meta whose action is gone, and meta without an action id, which
+	 * recurring tasks use and older versions left behind on every scheduling
+	 * attempt, unless an action still passes it to its callback. Meta added in the
+	 * last day is skipped, as its action may be being scheduled right now.
+	 *
+	 * @since 5.7.4
+	 *
+	 * @param string $actions_table Actions table.
+	 * @param string $meta_table    Task meta table.
+	 * @param float  $deadline      Time to stop at.
+	 * @return boolean Whether rows are left to delete.
+	 */
+	private static function cleanup_unused_meta( $actions_table, $meta_table, $deadline ) {
+		global $wpdb;
+
+		$unused = $wpdb->prepare(
+			"FROM {$meta_table} AS meta
+			LEFT JOIN {$actions_table} AS actions ON actions.action_id = meta.action_id
+			WHERE actions.action_id IS NULL AND meta.date_created < %s",
+			gmdate( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS )
+		);
+
+		// Meta ids still passed to callbacks, by actions of the hooks that have unused meta.
+		$hooks = $wpdb->get_col( "SELECT DISTINCT meta.hook {$unused}" );
+		if ( ! $hooks ) {
+			return false;
+		}
+		$in_use = array();
+		$args   = $wpdb->get_col(
+			$wpdb->prepare(
+				'SELECT COALESCE(extended_args, args) FROM ' . $actions_table . ' WHERE hook IN (' . implode( ',', array_fill( 0, count( $hooks ), '%s' ) ) . ')',
+				$hooks
+			)
+		);
+		foreach ( $args as $json ) {
+			$decoded = json_decode( $json, true );
+			if ( isset( $decoded['meta_id'] ) ) {
+				$in_use[ (int) $decoded['meta_id'] ] = true;
+			}
+		}
+		unset( $args );
+
+		$last_id = 0;
+		do {
+			$ids = array_map( 'intval', $wpdb->get_col( $wpdb->prepare( "SELECT meta.ID {$unused} AND meta.ID > %d ORDER BY meta.ID LIMIT %d", $last_id, self::CLEANUP_BATCH_SIZE ) ) );
+			if ( ! $ids ) {
+				return false;
+			}
+			$last_id = end( $ids );
+
+			$delete = array_filter(
+				$ids,
+				function( $id ) use ( $in_use ) {
+					return ! isset( $in_use[ $id ] );
+				}
+			);
+			if ( $delete ) {
+				$wpdb->query( "DELETE FROM {$meta_table} WHERE ID IN (" . implode( ',', $delete ) . ')' );
+			}
+		} while ( microtime( true ) < $deadline );
+
+		return true;
+	}
+
+	// phpcs:enable WordPress.DB.PreparedSQL
 
 	/**
 	 * Add meta
@@ -351,6 +510,25 @@ class Tasks {
 		return (bool) $wpdb->delete(
 			"{$wpdb->prefix}quillforms_task_meta",
 			$where
+		);
+	}
+
+	/**
+	 * Delete the meta of a one-off task after it ran
+	 *
+	 * @since 5.7.4
+	 *
+	 * @param integer $meta_id Meta id.
+	 * @return void
+	 */
+	private static function delete_finished_task_meta( $meta_id ) {
+		global $wpdb;
+
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->prefix}quillforms_task_meta WHERE ID = %d AND action_id IS NOT NULL",
+				$meta_id
+			)
 		);
 	}
 
