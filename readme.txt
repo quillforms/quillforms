@@ -1,7 +1,7 @@
  === Quill Forms | Conversational Multi Step Forms, Surveys & quizzes ===
 Contributors: mdmag
-Tested up to: 7.0.1
-Stable tag: 5.7.3
+Tested up to: 7.1.1
+Stable tag: 5.7.5
 Donate link: https://www.paypal.com/paypalme/mohamedmagdymohamed
 Tags: quill, typeform, conversational, forms, survey, quiz
 License: GPLv2 or later
@@ -145,6 +145,17 @@ Yes, Quill Forms works with all major WordPress page builders through iframe emb
 
 == Changelog ==
 
+
+= 5.7.5 = 22 September 2026
+Improvement: Tested up to WordPress 7.1.1.
+
+= 5.7.4 = 22 September 2026
+Fix: Load plugin textdomain on init to prevent translation notices on WordPress 6.7 and later.
+Fix: Correct frontend script registration paths and renderer HTML language attribute.
+Fix: Validate multiple-choice selections when a choice is picked.
+Fix: Improve block attachment alignment in the form renderer.
+Improvement: Bulk-load entry records and meta in the entries REST API to reduce database queries.
+Improvement: Reuse Action Scheduler meta rows when rescheduling recurring tasks.
 
 = 5.7.3 = 24 August 2026
 Feature: Add dedicated MCP page in the admin sidebar with its own icon and settings interface.
